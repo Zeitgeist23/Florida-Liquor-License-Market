@@ -1,0 +1,7 @@
+const navToggle=document.querySelector('.nav-toggle');const primaryNav=document.querySelector('.primary-nav');
+navToggle.addEventListener('click',()=>{const open=primaryNav.classList.toggle('open');navToggle.setAttribute('aria-expanded',String(open));});
+document.querySelectorAll('.primary-nav a').forEach(link=>link.addEventListener('click',()=>{primaryNav.classList.remove('open');navToggle.setAttribute('aria-expanded','false');}));
+const form=document.getElementById('license-search');const cards=[...document.querySelectorAll('.listing-card')];const noResults=document.getElementById('no-results');
+form.addEventListener('submit',event=>{event.preventDefault();const county=document.getElementById('county').value;const type=document.getElementById('license-type').value;const range=document.getElementById('price-range').value;let shown=0;
+cards.forEach(card=>{const matchesCounty=!county||card.dataset.county===county;const matchesType=!type||card.dataset.type===type;let matchesPrice=true;if(range){const[min,max]=range.split('-').map(Number);const price=Number(card.dataset.price);matchesPrice=price>=min&&price<=max;}const visible=matchesCounty&&matchesType&&matchesPrice;card.hidden=!visible;if(visible)shown++;});
+noResults.hidden=shown!==0;document.getElementById('featured').scrollIntoView({behavior:'smooth'});});

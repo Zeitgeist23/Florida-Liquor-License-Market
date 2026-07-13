@@ -3,34 +3,165 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Buy, sell, finance and invest in Florida liquor licenses.">
   <title>Florida Liquor License Market</title>
-  <meta name="description" content="Florida's marketplace for buying, selling, financing and investing in liquor licenses.">
-  <style>
-    * { box-sizing: border-box; }
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #06111d;
-      min-height: 100%;
-    }
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
-    img {
-      display: block;
-      width: 100%;
-      max-width: 1600px;
-      height: auto;
-      margin: 0 auto;
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <img
-    src="homepage.png"
-    alt="Florida Liquor License Market homepage"
-  >
+<header class="site-header">
+  <a class="brand" href="#" aria-label="Florida Liquor License Market home">
+    <img src="assets/logo.png" alt="Florida Liquor License Market">
+  </a>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
+    <span></span><span></span><span></span><span class="sr-only">Open navigation</span>
+  </button>
+  <nav id="primary-nav" class="primary-nav">
+    <a href="#featured">Buy</a><a href="#sell">Sell</a><a href="#financing">Finance</a>
+    <a href="#invest">Invest</a><a href="#market-data">Market Data</a><a href="#resources">Resources</a>
+    <a class="nav-cta" href="#sell">List Your License</a>
+    <a class="nav-contact" href="#contact">☎ Contact Us</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <p class="eyebrow">Florida's dedicated liquor license marketplace</p>
+    <h1>Buy &amp; Sell<br><span>Florida Liquor Licenses</span></h1>
+    <div class="confidential">🛡 Confidential Inquiries</div>
+
+    <div class="audience-row">
+      <span>👥 Buyers</span><span>👤 Sellers</span><span>📊 Investors</span>
+      <span>🏛 Financing Solutions</span><span>🗺 Across Florida</span>
+    </div>
+
+    <p class="trust-line">Trusted by Florida restaurant owners, hospitality groups, investors and brokers.
+      Serving buyers and sellers in all 67 Florida counties.</p>
+
+    <form class="search-panel" id="license-search">
+      <div class="search-title">⌕ Find a Florida Liquor License</div>
+      <div class="search-grid">
+        <label><span class="sr-only">County</span>
+          <select id="county">
+            <option value="">Select County</option>
+            <option>Miami-Dade County</option><option>Palm Beach County</option>
+            <option>Sarasota County</option><option>Lee County</option><option>Broward County</option>
+          </select>
+        </label>
+        <label><span class="sr-only">License type</span>
+          <select id="license-type">
+            <option value="">Select License Type</option>
+            <option>4COP Quota</option><option>3PS License</option><option>2COP License</option>
+          </select>
+        </label>
+        <label><span class="sr-only">Price range</span>
+          <select id="price-range">
+            <option value="">Price Range</option>
+            <option value="0-350000">Under $350,000</option>
+            <option value="350001-500000">$350,001–$500,000</option>
+            <option value="500001-9999999">Over $500,000</option>
+          </select>
+        </label>
+        <button type="submit">Search Listings →</button>
+      </div>
+      <div class="search-benefits">
+        <span>🛡 Confidential Listings</span><span>👤 Professional Representation</span>
+        <span>🗺 Statewide Coverage</span><span>🔒 Discrete. Secure. Trusted.</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="action-grid container">
+  <a class="action-card dark" href="#featured"><span class="action-icon">⌕</span>
+    <strong>Browse <em>Featured</em> Licenses</strong><p>Search featured listings by county, license type, and price.</p><b>›</b></a>
+  <a class="action-card gold" id="sell" href="#contact"><span class="action-icon">◇</span>
+    <strong>Sell Your License</strong><p>List your license with confidential marketing and expert representation.</p><b>›</b></a>
+  <a class="action-card dark" id="financing" href="#contact"><span class="action-icon">🏛</span>
+    <strong>Explore Financing</strong><p>Connect with financing sources and capital partners.</p><b>›</b></a>
+  <a class="action-card light" id="invest" href="#contact"><span class="action-icon">📈</span>
+    <strong>Investment Opportunities</strong><p>Discover opportunities in Florida's hospitality market.</p><b>›</b></a>
+</section>
+
+<section class="stats container">
+  <div><strong>248+</strong><span>Active Listings</span><small>Across Florida</small></div>
+  <div><strong>1,250+</strong><span>Registered Buyers</span><small>Ready to Buy</small></div>
+  <div><strong>75+</strong><span>Financing Partners</span><small>Lenders &amp; Capital Sources</small></div>
+  <div><strong>420+</strong><span>Registered Investors</span><small>Seeking Opportunities</small></div>
+  <div><strong>67</strong><span>Florida Counties</span><small>Statewide Coverage</small></div>
+</section>
+
+<section class="featured container" id="featured">
+  <div class="section-heading"><h2>Featured Florida Liquor Licenses</h2><a href="#">View All Listings →</a></div>
+  <div class="listing-grid" id="listing-grid">
+    <article class="listing-card" data-county="Miami-Dade County" data-type="4COP Quota" data-price="495000">
+      <div class="listing-photo"><img src="assets/listing-miami.jpg" alt="Restaurant and bar interior"><span>4COP Quota</span></div>
+      <div class="listing-body"><small>📍 Miami-Dade County</small><strong>$495,000</strong><p>⭐ Restaurant / Bar &nbsp; ⇄ Transferable</p></div>
+    </article>
+    <article class="listing-card" data-county="Palm Beach County" data-type="4COP Quota" data-price="575000">
+      <div class="listing-photo"><img src="assets/listing-palm-beach.jpg" alt="Upscale bar interior"><span>4COP Quota</span></div>
+      <div class="listing-body"><small>📍 Palm Beach County</small><strong>$575,000</strong><p>⭐ Restaurant / Bar &nbsp; ⇄ Transferable</p></div>
+    </article>
+    <article class="listing-card" data-county="Sarasota County" data-type="3PS License" data-price="340000">
+      <div class="listing-photo"><img src="assets/listing-sarasota.jpg" alt="Outdoor restaurant patio"><span>3PS License</span></div>
+      <div class="listing-body"><small>📍 Sarasota County</small><strong>$340,000</strong><p>⭐ Restaurant / Bar &nbsp; ⇄ Transferable</p></div>
+    </article>
+    <article class="listing-card" data-county="Lee County" data-type="4COP Quota" data-price="425000">
+      <div class="listing-photo"><img src="assets/listing-lee.jpg" alt="Waterfront restaurant interior"><span>4COP Quota</span></div>
+      <div class="listing-body"><small>📍 Lee County</small><strong>$425,000</strong><p>⭐ Restaurant / Bar &nbsp; ⇄ Transferable</p></div>
+    </article>
+  </div>
+  <p class="no-results" id="no-results" hidden>No listings match those filters.</p>
+</section>
+
+<section class="insights container" id="market-data">
+  <article>
+    <div class="mini-heading"><h3>Recent Florida Transactions</h3><a href="#">View All →</a></div>
+    <table><thead><tr><th>County</th><th>License</th><th>Sale Price</th></tr></thead>
+      <tbody><tr><td>Palm Beach</td><td>4COP Quota</td><td>$965,000</td></tr>
+      <tr><td>Brevard</td><td>2COP Quota</td><td>$585,000</td></tr>
+      <tr><td>Broward</td><td>3PS License</td><td>$615,000</td></tr>
+      <tr><td>Hillsborough</td><td>4COP Quota</td><td>$495,000</td></tr></tbody>
+    </table>
+  </article>
+  <article>
+    <div class="mini-heading"><h3>Florida Market Insights</h3><a href="#">View All →</a></div>
+    <div class="market-map"><div class="map-shape">FL</div><ul>
+      <li><span class="swatch s1"></span>$600K+</li><li><span class="swatch s2"></span>$450K–$600K</li>
+      <li><span class="swatch s3"></span>$300K–$450K</li><li><span class="swatch s4"></span>$200K–$300K</li>
+    </ul></div>
+  </article>
+  <article>
+    <div class="mini-heading"><h3>Financing Spotlight</h3><a href="#">View All →</a></div>
+    <ul class="finance-list"><li><b>Acquisition Financing</b><span>Finance your next liquor license purchase.</span></li>
+      <li><b>Refinance Existing Debt</b><span>Explore lower rates and flexible terms.</span></li>
+      <li><b>Private Capital Introductions</b><span>Connect with private lenders and investors.</span></li></ul>
+  </article>
+</section>
+
+<section class="cta container" id="contact">
+  <div><strong>Ready to Buy, Sell, Finance, or Invest in a Liquor License?</strong>
+    <span>Join Florida's most trusted marketplace for liquor license transactions.</span></div>
+  <a href="mailto:info@floridaliquorlicensemarket.com">Get Started Today →</a>
+</section>
+</main>
+
+<footer class="site-footer" id="resources">
+  <div class="container footer-grid">
+    <div class="footer-brand"><img src="assets/logo.png" alt="Florida Liquor License Market">
+      <p>Florida's Marketplace for Buying, Selling &amp; Financing Liquor Licenses.</p><b>Buy · Sell · Finance · Invest</b></div>
+    <div><h4>Marketplace</h4><a href="#featured">Browse Licenses</a><a href="#sell">Sell Your License</a>
+      <a href="#financing">Financing Solutions</a><a href="#invest">Investment Opportunities</a></div>
+    <div><h4>Company</h4><a href="#">About Us</a><a href="#">Our Process</a><a href="#">Testimonials</a><a href="#contact">Contact Us</a></div>
+    <div><h4>Resources</h4><a href="#market-data">Market Data</a><a href="#">Blog</a><a href="#">FAQ</a><a href="#">Documents</a></div>
+    <div><h4>Stay Connected</h4><div class="socials"><a href="#">in</a><a href="#">f</a><a href="#">◎</a><a href="#">▶</a></div>
+      <small>Privacy Policy &nbsp;|&nbsp; Terms of Use</small></div>
+  </div>
+</footer>
+<script src="script.js"></script>
 </body>
 </html>
