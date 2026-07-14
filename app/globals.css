@@ -1,1 +1,30 @@
-:root{color-scheme:dark}*{box-sizing:border-box}html{scroll-behavior:smooth;background:#06111c}body{margin:0;min-width:320px;background:#06111c}.exactVisualPage{width:100%;min-height:100vh;background:#06111c}.visualCanvas{position:relative;width:min(100vw);margin:0 auto;aspect-ratio:2/3;overflow:hidden}.approvedVisual{display:block;width:100%;height:auto;user-select:none;pointer-events:none}.hotspot,.anchor{position:absolute}.hotspot{z-index:5;display:block;background:transparent;border:0;overflow:hidden;text-indent:-9999px}.hotspot:focus-visible{outline:3px solid #ffd15c;outline-offset:2px}.buyNav{left:23.3%;top:2.2%;width:5.5%;height:3.1%}.sellNav{left:29.5%;top:2.2%;width:5.5%;height:3.1%}.financeNav{left:36.2%;top:2.2%;width:8%;height:3.1%}.investNav{left:45.1%;top:2.2%;width:7%;height:3.1%}.marketNav{left:54.2%;top:2.2%;width:10.8%;height:3.1%}.resourcesNav{left:65.5%;top:2.2%;width:10.5%;height:3.1%}.listLicenseNav{left:75%;top:2%;width:11.8%;height:3.4%}.contactNav{left:87.5%;top:2%;width:10.2%;height:3.4%}.browseCard{left:1.9%;top:38.5%;width:21.8%;height:13.2%}.sellCard{left:24.8%;top:38.5%;width:23.4%;height:13.2%}.financeCard{left:49.2%;top:38.5%;width:22.7%;height:13.2%}.investCard{left:73%;top:38.5%;width:25%;height:13.2%}.anchor{left:0;width:1px;height:1px}.featuredAnchor{top:60%}.marketAnchor{top:77%}.resourcesAnchor{top:93.5%}@media(max-width:700px){.visualCanvas{width:100vw}}
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:#06111c}
+body{margin:0;min-width:320px;background:#06111c}
+.exactVisualPage{width:100%;min-height:100vh;background:#06111c}
+.visualCanvas{position:relative;width:100%;margin:0;aspect-ratio:2/3;overflow:hidden}
+.approvedVisual{display:block;width:100%;height:auto;user-select:none;pointer-events:none}
+.hotspot,.anchor{position:absolute}
+.hotspot{z-index:5;display:block;background:transparent;border:0;overflow:hidden;text-indent:-9999px}
+.hotspot:focus-visible{outline:3px solid #ffd15c;outline-offset:2px}
+.buyNav{left:23.3%;top:2.2%;width:5.5%;height:3.1%}
+.sellNav{left:29.5%;top:2.2%;width:5.5%;height:3.1%}
+.financeNav{left:36.2%;top:2.2%;width:8%;height:3.1%}
+.investNav{left:45.1%;top:2.2%;width:7%;height:3.1%}
+.marketNav{left:54.2%;top:2.2%;width:10.8%;height:3.1%}
+.resourcesNav{left:65.5%;top:2.2%;width:10.5%;height:3.1%}
+.listLicenseNav{left:75%;top:2%;width:11.8%;height:3.4%}
+.contactNav{left:87.5%;top:2%;width:10.2%;height:3.4%}
+.browseCard{left:1.9%;top:38.5%;width:21.8%;height:13.2%}
+.sellCard{left:24.8%;top:38.5%;width:23.4%;height:13.2%}
+.financeCard{left:49.2%;top:38.5%;width:22.7%;height:13.2%}
+.investCard{left:73%;top:38.5%;width:25%;height:13.2%}
+.anchor{left:0;width:1px;height:1px}
+.featuredAnchor{top:60%}
+.marketAnchor{top:77%}
+.resourcesAnchor{top:93.5%}
+
+@media(max-width:700px){
+  .visualCanvas{width:100%}
+}
