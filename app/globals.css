@@ -3,7 +3,7 @@
 html{scroll-behavior:smooth;background:#06111c}
 body{margin:0;min-width:320px;background:#06111c}
 .exactVisualPage{width:100%;min-height:100vh;background:#06111c}
-.visualCanvas{position:relative;width:100%;margin:0;aspect-ratio:2/3;overflow:hidden}
+.visualCanvas{position:relative;width:100vw;margin:0;aspect-ratio:2/3;overflow:hidden}
 .approvedVisual{display:block;width:100%;height:auto;user-select:none;pointer-events:none}
 .hotspot,.anchor{position:absolute}
 .hotspot{z-index:5;display:block;background:transparent;border:0;overflow:hidden;text-indent:-9999px}
@@ -26,5 +26,5 @@ body{margin:0;min-width:320px;background:#06111c}
 .resourcesAnchor{top:93.5%}
 
 @media(max-width:700px){
-  .visualCanvas{width:100%}
+  .visualCanvas{width:100vw}
 }
