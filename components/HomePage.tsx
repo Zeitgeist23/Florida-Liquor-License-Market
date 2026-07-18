@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function HomePage() {
   return (
     <main className="exactVisualPage">
@@ -9,6 +11,8 @@ export default function HomePage() {
           alt="Florida Liquor License Market"
           className="approvedVisual"
         />
+        <Link href="/listings" className="hotspot buyNav">Browse liquor licenses</Link>
+        <Link href="/listings" className="hotspot browseCard">Search available licenses</Link>
       </div>
     </main>
   );
