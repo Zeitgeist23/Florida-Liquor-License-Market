@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { listings } from "@/data/listings";
+import { listings, type ListingSourceType } from "@/data/listings";
 import styles from "@/app/listings/listings.module.css";
 
 type SortOption = "featured" | "price-asc" | "price-desc" | "county";
@@ -13,10 +13,18 @@ const money = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
+const date = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
 export default function ListingsExplorer() {
   const [query, setQuery] = useState("");
   const [county, setCounty] = useState("All counties");
   const [licenseType, setLicenseType] = useState("All license types");
+  const [sourceType, setSourceType] = useState<"All listing sources" | ListingSourceType>("All listing sources");
   const [maxPrice, setMaxPrice] = useState("Any price");
   const [availableOnly, setAvailableOnly] = useState(false);
   const [transferableOnly, setTransferableOnly] = useState(false);
@@ -37,11 +45,12 @@ export default function ListingsExplorer() {
 
     return listings
       .filter((listing) => {
-        const searchable = `${listing.county} ${listing.type} ${listing.use}`.toLowerCase();
+        const searchable = `${listing.county} ${listing.type} ${listing.use} ${listing.sourceName}`.toLowerCase();
         return (
           (!normalizedQuery || searchable.includes(normalizedQuery)) &&
           (county === "All counties" || listing.county === county) &&
           (licenseType === "All license types" || listing.type === licenseType) &&
+          (sourceType === "All listing sources" || listing.sourceType === sourceType) &&
           listing.price <= ceiling &&
           (!availableOnly || listing.status === "Available") &&
           (!transferableOnly || listing.transferable)
@@ -53,12 +62,13 @@ export default function ListingsExplorer() {
         if (sort === "county") return a.county.localeCompare(b.county);
         return Number(Boolean(b.featured)) - Number(Boolean(a.featured));
       });
-  }, [availableOnly, county, licenseType, maxPrice, query, sort, transferableOnly]);
+  }, [availableOnly, county, licenseType, maxPrice, query, sort, sourceType, transferableOnly]);
 
   function clearFilters() {
     setQuery("");
     setCounty("All counties");
     setLicenseType("All license types");
+    setSourceType("All listing sources");
     setMaxPrice("Any price");
     setAvailableOnly(false);
     setTransferableOnly(false);
@@ -81,7 +91,11 @@ export default function ListingsExplorer() {
       <section className={styles.hero}>
         <p className={styles.eyebrow}>FLORIDA LICENSE INVENTORY</p>
         <h1>Find the right liquor license.</h1>
-        <p>Search active marketplace inventory by county, license class, price, and availability.</p>
+        <p>Search direct, partner, and independently sourced market inventory by county, license class, price, and availability.</p>
+      </section>
+
+      <section className={styles.inventoryNotice}>
+        <strong>Inventory transparency:</strong> Verified listings are submitted directly to FLLM. Partner listings are supplied by participating brokers. Market listings summarize public factual information and link to the original source when available.
       </section>
 
       <section className={styles.workspace}>
@@ -93,7 +107,7 @@ export default function ListingsExplorer() {
 
           <label>
             Search
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="County, license type, or use" />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="County, license type, or source" />
           </label>
 
           <label>
@@ -109,6 +123,16 @@ export default function ListingsExplorer() {
             <select value={licenseType} onChange={(event) => setLicenseType(event.target.value)}>
               <option>All license types</option>
               {licenseTypes.map((item) => <option key={item}>{item}</option>)}
+            </select>
+          </label>
+
+          <label>
+            Listing source
+            <select value={sourceType} onChange={(event) => setSourceType(event.target.value as typeof sourceType)}>
+              <option>All listing sources</option>
+              <option value="Verified">Verified listings</option>
+              <option value="Partner">Partner listings</option>
+              <option value="Market">Market listings</option>
             </select>
           </label>
 
@@ -156,6 +180,7 @@ export default function ListingsExplorer() {
                   <div className={styles.imageWrap}>
                     <img src={listing.image} alt={`${listing.type} in ${listing.county}`} />
                     <span className={styles.status}>{listing.status}</span>
+                    <span className={`${styles.sourceBadge} ${styles[`source${listing.sourceType}`]}`}>{listing.sourceType} Listing</span>
                   </div>
                   <div className={styles.cardBody}>
                     <div className={styles.tags}>
@@ -164,9 +189,22 @@ export default function ListingsExplorer() {
                     </div>
                     <h2>{listing.county}</h2>
                     <p>{listing.use}</p>
+                    <dl className={styles.sourceDetails}>
+                      <div><dt>Source</dt><dd>{listing.sourceName}</dd></div>
+                      <div><dt>Last verified</dt><dd>{date.format(new Date(`${listing.lastVerified}T00:00:00Z`))}</dd></div>
+                    </dl>
                     <div className={styles.cardFooter}>
                       <strong>{money.format(listing.price)}</strong>
-                      <button type="button">VIEW DETAILS</button>
+                      <div className={styles.cardActions}>
+                        {listing.sourceType === "Market" && listing.sourceUrl && listing.sourceUrl !== "#" ? (
+                          <a href={listing.sourceUrl} target="_blank" rel="noreferrer">VIEW ORIGINAL</a>
+                        ) : (
+                          <button type="button">VIEW DETAILS</button>
+                        )}
+                        {listing.sourceType === "Market" && (
+                          <Link href={`/claim-listing?listing=${listing.externalId ?? listing.id}`}>CLAIM LISTING</Link>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </article>
