@@ -166,6 +166,17 @@ export default function Home() {
         </div>
       </section>
 
+      <aside className="video-invite" aria-label="Marketplace overview video">
+        <div className="page-shell video-invite-inner">
+          <span className="video-invite-kicker">New to the marketplace?</span>
+          <a className="video-invite-action" href="#market-report">
+            <span className="play-button" aria-hidden="true">▶</span>
+            <span><strong>Watch How It Works</strong><small>3 Minutes</small></span>
+            <i aria-hidden="true">›</i>
+          </a>
+        </div>
+      </aside>
+
       <section className="services page-shell" aria-label="Marketplace services">
         {serviceCards.map((card) => (
           <a className={`service-card ${card.tone}`} href={card.href} key={card.copy}>
@@ -219,6 +230,30 @@ export default function Home() {
             </div>
             <button className="carousel-arrow next" type="button" aria-label="Next listings" onClick={() => setCarouselOffset((value) => value + 1)}>›</button>
           </div>
+
+          <section className="market-report" id="market-report" aria-labelledby="market-report-title">
+            <div className="report-copy">
+              <span className="report-eyebrow">Video Briefing · Episode 1</span>
+              <h2 id="market-report-title">Florida Liquor License<br /><em>Market Report</em></h2>
+              <p>Watch our three-minute introduction to learn how buyers, sellers, financing partners, and investors connect through Florida&apos;s dedicated liquor license marketplace.</p>
+              <a className="report-episodes-link" href="#resources">View All Episodes <span aria-hidden="true">›</span></a>
+            </div>
+            <div className="report-video" role="img" aria-label="Video coming soon: Florida Liquor License Market Report">
+              <div className="report-screen">
+                <span className="report-live-label">Market Report</span>
+                <div className="report-desk" aria-hidden="true">
+                  <span className="report-presenter presenter-one" />
+                  <span className="report-presenter presenter-two" />
+                  <i />
+                </div>
+                <div className="report-video-message">
+                  <span className="report-play" aria-hidden="true">▶</span>
+                  <strong>Episode 1 Coming Soon</strong>
+                  <small>The video will play here—never automatically.</small>
+                </div>
+              </div>
+            </div>
+          </section>
 
           <section className="insight-grid" id="market-data">
             <article className="info-panel transactions-panel">
