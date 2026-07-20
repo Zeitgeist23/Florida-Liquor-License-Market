@@ -1,0 +1,41 @@
+name: Inspect live deployment assets
+
+on:
+  push:
+    branches:
+      - agent/inspect-live-assets
+    paths:
+      - .github/workflows/inspect-live-assets.yml
+
+permissions:
+  contents: write
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Capture and inspect deployed bundles
+        run: |
+          set -euo pipefail
+          base="https://www.floridaliquorlicensemarket.com"
+          mkdir -p .inspection/assets
+          curl -L --fail --silent --show-error "$base/" -o .inspection/live-homepage.html
+          grep -oE '(src|href)="/[^"]+\.(js|css)"' .inspection/live-homepage.html \
+            | sed -E 's/^(src|href)="([^"]+)"$/\2/' \
+            | sort -u > .inspection/bundle-paths.txt
+          while IFS= read -r path; do
+            [ -n "$path" ] || continue
+            curl -L --fail --silent --show-error "$base$path" -o ".inspection/assets/$(basename "$path")"
+          done < .inspection/bundle-paths.txt
+          grep -RInE '2COP Beer|Specialty / Qualified|2COP Quota|3COP License|Recent Florida Transactions|Focused License-Only Marketplace' \
+            .inspection/assets > .inspection/classification-matches.txt || true
+          grep -RInE 'chatgpt|vinext|cloudflare|jwigg023|stripe|floridaliquorlicensemarket' \
+            .inspection/assets > .inspection/hosting-matches.txt || true
+      - name: Commit inspection results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .inspection
+          git commit -m "Capture live deployment bundles" || exit 0
+          git push
