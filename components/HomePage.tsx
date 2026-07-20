@@ -13,16 +13,16 @@ type Listing = {
 const listings: Listing[] = [
   { county: "Miami-Dade County", type: "4COP Quota", price: 495000, priceLabel: "$495,000", image: "/assets/listing-miami.png" },
   { county: "Palm Beach County", type: "4COP Quota", price: 575000, priceLabel: "$575,000", image: "/assets/listing-palm-beach.png" },
-  { county: "Sarasota County", type: "3PS License", price: 340000, priceLabel: "$340,000", image: "/assets/listing-sarasota.png" },
+  { county: "Sarasota County", type: "3PS Quota / Package Store", price: 340000, priceLabel: "$340,000", image: "/assets/listing-sarasota.png" },
   { county: "Lee County", type: "4COP Quota", price: 425000, priceLabel: "$425,000", image: "/assets/listing-lee.png" },
 ];
 
 const transactions = [
   ["Palm Beach County", "4COP Quota", "$965,000"],
-  ["Brevard County", "2COP Quota", "$585,000"],
-  ["Broward County", "3PS License", "$615,000"],
+  ["Brevard County", "4COP Quota", "$585,000"],
+  ["Broward County", "3PS Quota / Package Store", "$615,000"],
   ["Hillsborough County", "4COP Quota", "$495,000"],
-  ["Collier County", "3COP License", "$330,000"],
+  ["Collier County", "3PS Quota / Package Store", "$330,000"],
 ];
 
 const serviceCards = [
@@ -140,8 +140,7 @@ export default function Home() {
                 <select value={licenseType} onChange={(event) => setLicenseType(event.target.value)}>
                   <option value="all">Select License Type</option>
                   <option value="4COP Quota">4COP Quota</option>
-                  <option value="3PS License">3PS License</option>
-                  <option value="2COP License">2COP License</option>
+                  <option value="3PS Quota / Package Store">3PS Quota / Package Store</option>
                 </select>
               </label>
               <label>
