@@ -46,12 +46,8 @@ jobs:
           asset_pat = re.compile(r'''(?:https://www\.floridaliquorlicensemarket\.com)?(/(?:assets|favicon)[^"'<>\s)]+)''')
           rel_import_pat = re.compile(r'''(?:from\s*|import\s*\()?['"](\./[^'"]+)['"]''')
 
-          def clean_path(path):
-              path = path.split('#',1)[0].split('?',1)[0]
-              return path.rstrip('\\')
-
           def enqueue(path):
-              path = clean_path(path)
+              path = path.split('#',1)[0].split('?',1)[0].rstrip('\\')
               if path.startswith('/') and path not in seen:
                   seen.add(path); queue.append(path)
 
@@ -60,8 +56,7 @@ jobs:
               out = root / ('index.html' if route == '/' else route.strip('/') + '/index.html')
               out.parent.mkdir(parents=True, exist_ok=True)
               out.write_bytes(data)
-              text = data.decode('utf-8', 'ignore')
-              for m in asset_pat.finditer(text): enqueue(m.group(1))
+              for m in asset_pat.finditer(data.decode('utf-8', 'ignore')): enqueue(m.group(1))
 
           while queue:
               path = queue.pop(0)
@@ -81,20 +76,20 @@ jobs:
                       for m in rel_import_pat.finditer(text):
                           enqueue(urlparse(urljoin(BASE + base_dir, m.group(1))).path)
 
-          replacements = {
-              '2COP Quota': '4COP Quota',
-              '3COP License': '3PS Quota / Package Store',
-          }
           for p in root.rglob('*'):
               if p.is_file() and p.suffix in {'.html','.js','.css','.json'}:
                   text = p.read_text('utf-8', errors='ignore')
-                  for old,new in replacements.items(): text = text.replace(old,new)
-                  text = re.sub(r'<option value="2COP Beer &amp; Wine">2COP Beer &amp; Wine</option>', '', text)
-                  text = re.sub(r'<option value="Specialty / Qualified Business License">Specialty / Qualified Business License</option>', '', text)
-                  text = text.replace('(0,a.jsx)(`option`,{value:`2COP Beer & Wine`,children:`2COP Beer & Wine`}),', '')
-                  text = text.replace('(0,a.jsx)(`option`,{value:`Specialty / Qualified Business License`,children:`Specialty / Qualified Business License`})', '')
-                  text = text.replace(',]', ']')
+                  text = text.replace('2COP Quota', '4COP Quota')
+                  text = text.replace('3COP License', '3PS Quota / Package Store')
+                  text = text.replace('2COP Beer &amp; Wine', '')
+                  text = text.replace('2COP Beer & Wine', '')
+                  text = text.replace('Specialty / Qualified Business License', '')
+                  text = text.replace('<option value=""></option>', '')
                   p.write_text(text, encoding='utf-8')
+
+          css = root / 'assets/index-DsiZO1T9.css'
+          if css.exists():
+              css.write_text(css.read_text('utf-8') + '\nselect option[value=""]{display:none!important}\n', encoding='utf-8')
 
           (root / '.nojekyll').write_text('')
           print('Mirrored', len(list(root.rglob('*'))), 'paths')
@@ -125,7 +120,7 @@ jobs:
             if (!existsSync(path)) throw new Error(`Missing mirrored path: ${path}`);
           }
           const combined = readFileSync('public/index.html', 'utf8') + readFileSync('public/listings/index.html', 'utf8');
-          for (const invalid of ['2COP Quota', '3COP License', '2COP Beer & Wine', 'Specialty / Qualified Business License']) {
+          for (const invalid of ['2COP Quota', '3COP License', '2COP Beer &amp; Wine', 'Specialty / Qualified Business License']) {
             if (combined.includes(invalid)) throw new Error(`Invalid classification remains: ${invalid}`);
           }
           console.log('Static live-site mirror and classification corrections verified.');
