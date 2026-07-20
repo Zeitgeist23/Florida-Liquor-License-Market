@@ -1,0 +1,8 @@
+HTTP/2 200 
+date: Mon, 20 Jul 2026 14:10:59 GMT
+content-type: text/html; charset=utf-8
+vary: RSC, Accept, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch, Next-Url, X-Vinext-Interception-Context, X-Vinext-Mounted-Slots, X-Vinext-Rsc-Render-Mode
+set-cookie: __cf_bm=lJKLdipv.arTztvcLajgIdmaszfpi0iET_LOSKXkXlk-1784556658.2448506-1.0.1.1-rw55mbn5OkW5E8W78Ye2KkVlSg7NMSb8qwdOAe1cidcvVHE3uFnJ9d.pqzugRJ3tAxiEI7w2uMqZoO6yQ08TtPObU8JFrjcsidfxOaZBxAf3oOlZnkroe.2W.KoUAntf; HttpOnly; SameSite=None; Secure; Path=/; Domain=www.floridaliquorlicensemarket.com; Expires=Mon, 20 Jul 2026 14:40:59 GMT
+server: cloudflare
+cf-ray: a1e28d6a0c03e9df-LAX
+
