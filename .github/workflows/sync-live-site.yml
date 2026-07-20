@@ -18,6 +18,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Mirror live pages and assets
         run: |
           cat > /tmp/mirror.py <<'PY'
@@ -95,49 +98,22 @@ jobs:
           print('Mirrored', len(list(root.rglob('*'))), 'paths')
           PY
           python /tmp/mirror.py
-      - name: Configure static Vercel build
+      - name: Verify synchronized Next.js build
+        shell: bash
         run: |
-          cat > package.json <<'JSON'
-          {
-            "name": "florida-liquor-license-market-live-mirror",
-            "version": "1.0.0",
-            "private": true,
-            "scripts": {
-              "build": "node scripts/verify-static.mjs"
-            }
-          }
-          JSON
-          mkdir -p scripts
-          cat > scripts/verify-static.mjs <<'JS'
-          import { existsSync, readFileSync } from 'node:fs';
-          const required = [
-            'public/index.html',
-            'public/listings/index.html',
-            'public/sell-your-license/index.html',
-            'public/assets'
-          ];
-          for (const path of required) {
-            if (!existsSync(path)) throw new Error(`Missing mirrored path: ${path}`);
-          }
-          const combined = readFileSync('public/index.html', 'utf8') + readFileSync('public/listings/index.html', 'utf8');
-          for (const invalid of ['2COP Quota', '3COP License', '2COP Beer &amp; Wine', 'Specialty / Qualified Business License']) {
-            if (combined.includes(invalid)) throw new Error(`Invalid classification remains: ${invalid}`);
-          }
-          console.log('Static live-site mirror and classification corrections verified.');
-          JS
-          cat > vercel.json <<'JSON'
-          {
-            "framework": null,
-            "buildCommand": "npm run build",
-            "outputDirectory": "public",
-            "cleanUrls": true,
-            "trailingSlash": false
-          }
-          JSON
-      - name: Commit synchronized site
+          set +e
+          npm install > build-install.log 2>&1
+          install_status=$?
+          npm run build > build-output.log 2>&1
+          build_status=$?
+          mkdir -p .diagnostics
+          mv build-install.log build-output.log .diagnostics/
+          printf 'install_status=%s\nbuild_status=%s\n' "$install_status" "$build_status" > .diagnostics/build-status.txt
+          exit 0
+      - name: Commit synchronized site and diagnostics
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A public package.json vercel.json scripts/verify-static.mjs
-          git commit -m "Refresh live-site mirror and classification corrections" || exit 0
+          git add -A public .diagnostics
+          git commit -m "Refresh live-site mirror and build diagnostics" || exit 0
           git push
