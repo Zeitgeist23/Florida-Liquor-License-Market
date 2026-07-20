@@ -1,0 +1,40 @@
+name: Diagnose Vercel build
+
+on:
+  push:
+    branches:
+      - agent/sync-live-site
+    paths:
+      - .github/workflows/diagnose-build.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install and build
+        shell: bash
+        run: |
+          set +e
+          npm install > build-install.log 2>&1
+          install_status=$?
+          npm run build > build-output.log 2>&1
+          build_status=$?
+          printf 'install_status=%s\nbuild_status=%s\n' "$install_status" "$build_status" > build-status.txt
+          exit 0
+      - name: Commit diagnostic logs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p .diagnostics
+          mv build-install.log build-output.log build-status.txt .diagnostics/
+          git add .diagnostics
+          git commit -m "Capture Next.js build diagnostics" || exit 0
+          git push
