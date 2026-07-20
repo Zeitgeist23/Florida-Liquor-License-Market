@@ -1,0 +1,139 @@
+name: Sync live FLLM site
+
+on:
+  push:
+    branches:
+      - agent/sync-live-site
+    paths:
+      - .github/workflows/sync-live-site.yml
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Mirror live pages and assets
+        run: |
+          cat > /tmp/mirror.py <<'PY'
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import re, urllib.request
+
+          BASE = 'https://www.floridaliquorlicensemarket.com'
+          ROUTES = [
+              '/', '/listings', '/sell-your-license', '/financing',
+              '/investment-opportunities', '/contact',
+              '/financing-disclosure', '/private-lending-disclosure',
+              '/privacy-policy', '/terms-of-use'
+          ]
+          root = Path('public')
+          if root.exists():
+              import shutil; shutil.rmtree(root)
+          root.mkdir()
+
+          headers = {'User-Agent': 'Mozilla/5.0 FLLM repository sync'}
+          def get(url):
+              req = urllib.request.Request(url, headers=headers)
+              with urllib.request.urlopen(req, timeout=45) as r:
+                  return r.read(), r.headers.get_content_type()
+
+          queue, seen = [], set()
+          asset_pat = re.compile(r'''(?:https://www\.floridaliquorlicensemarket\.com)?(/(?:assets|favicon)[^"'<>\s)]+)''')
+          rel_import_pat = re.compile(r'''(?:from\s*|import\s*\()?['"](\./[^'"]+)['"]''')
+
+          def enqueue(path):
+              path = path.split('#',1)[0].split('?',1)[0]
+              if path.startswith('/') and path not in seen:
+                  seen.add(path); queue.append(path)
+
+          for route in ROUTES:
+              data, _ = get(BASE + route)
+              out = root / ('index.html' if route == '/' else route.strip('/') + '/index.html')
+              out.parent.mkdir(parents=True, exist_ok=True)
+              out.write_bytes(data)
+              text = data.decode('utf-8', 'ignore')
+              for m in asset_pat.finditer(text): enqueue(m.group(1))
+
+          while queue:
+              path = queue.pop(0)
+              try:
+                  data, ctype = get(BASE + path)
+              except Exception as exc:
+                  print('WARN', path, exc)
+                  continue
+              out = root / path.lstrip('/')
+              out.parent.mkdir(parents=True, exist_ok=True)
+              out.write_bytes(data)
+              if ctype.startswith('text/') or path.endswith(('.js','.css','.json','.svg','.html')):
+                  text = data.decode('utf-8', 'ignore')
+                  for m in asset_pat.finditer(text): enqueue(m.group(1))
+                  if path.startswith('/assets/') and path.endswith('.js'):
+                      base_dir = path.rsplit('/',1)[0] + '/'
+                      for m in rel_import_pat.finditer(text):
+                          enqueue(urlparse(urljoin(BASE + base_dir, m.group(1))).path)
+
+          # Preserve exact live bundle, but patch the known classification errors.
+          replacements = {
+              '2COP Quota': '4COP Quota',
+              '3COP License': '3PS Quota / Package Store',
+          }
+          for p in root.rglob('*'):
+              if p.is_file() and p.suffix in {'.html','.js','.css','.json'}:
+                  text = p.read_text('utf-8', errors='ignore')
+                  for old,new in replacements.items(): text = text.replace(old,new)
+                  text = text.replace('2COP Beer & Wine', '')
+                  text = text.replace('Specialty / Qualified Business License', '')
+                  p.write_text(text, encoding='utf-8')
+
+          (root / '.nojekyll').write_text('')
+          print('Mirrored', len(list(root.rglob('*'))), 'paths')
+          PY
+          python /tmp/mirror.py
+      - name: Configure static Vercel build
+        run: |
+          cat > package.json <<'JSON'
+          {
+            "name": "florida-liquor-license-market-live-mirror",
+            "version": "1.0.0",
+            "private": true,
+            "scripts": {
+              "build": "node scripts/verify-static.mjs"
+            }
+          }
+          JSON
+          mkdir -p scripts
+          cat > scripts/verify-static.mjs <<'JS'
+          import { existsSync } from 'node:fs';
+          const required = [
+            'public/index.html',
+            'public/listings/index.html',
+            'public/sell-your-license/index.html',
+            'public/assets'
+          ];
+          for (const path of required) {
+            if (!existsSync(path)) throw new Error(`Missing mirrored path: ${path}`);
+          }
+          console.log('Static live-site mirror verified.');
+          JS
+          cat > vercel.json <<'JSON'
+          {
+            "framework": null,
+            "buildCommand": "npm run build",
+            "outputDirectory": "public",
+            "cleanUrls": true,
+            "trailingSlash": false
+          }
+          JSON
+      - name: Commit synchronized site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public package.json vercel.json scripts/verify-static.mjs
+          git commit -m "Sync repository to live FLLM site" || exit 0
+          git push
