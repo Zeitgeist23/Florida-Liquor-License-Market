@@ -1,0 +1,30 @@
+name: Capture live deployment metadata
+
+on:
+  push:
+    branches:
+      - agent/inspect-live-deployment
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Capture public HTML and headers
+        run: |
+          mkdir -p .inspection
+          curl -L --fail --silent --show-error -D .inspection/headers.txt \
+            https://www.floridaliquorlicensemarket.com/ \
+            -o .inspection/live-homepage.html
+          grep -oE '(src|href)="[^"]+"' .inspection/live-homepage.html \
+            > .inspection/page-resources.txt || true
+      - name: Commit captured files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .inspection
+          git commit -m "Capture live deployment source" || exit 0
+          git push
