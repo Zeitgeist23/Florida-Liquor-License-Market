@@ -331,3 +331,8 @@ nextjs-portal { display: none !important; }
     .results-grid { grid-template-columns: 1fr; }
     .results-header { flex-direction: column; height: auto; gap: 12px; padding: 16px 0; }
 }
+
+/* Florida county map + type badge for listing photo area */
+.result-photo { position: relative; }
+.florida-county-map { display: block; width: 100%; height: 100%; }
+.result-type-badge { position: absolute; top: 8px; left: 9px; padding: 5px 9px; border-radius: 5px; color: var(--gold); background: #06121e; text-transform: uppercase; font-size: 9px; font-weight: 900; }
