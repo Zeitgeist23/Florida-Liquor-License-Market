@@ -16,7 +16,6 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
-        { source: "/assets/hero-bar-full.png", destination: "/assets/listings-header-bar.svg" },
         { source: "/", destination: "/index.html" },
         ...mirroredRoutes.map((route) => ({
           source: `/${route}`,
