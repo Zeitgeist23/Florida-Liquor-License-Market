@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ListingsPage from "@/components/ListingsPage";
+import "./listings-premium.css";
 
 export const metadata: Metadata = {
   title: "Florida Liquor Licenses for Sale | Florida Liquor License Market",
