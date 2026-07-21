@@ -29,10 +29,21 @@
   padding: 27px 0 25px !important;
   border-top: 0 !important;
   border-bottom: 0 !important;
+  text-align: center !important;
+}
+
+.results-page .results-intro .page-shell {
+  text-align: center !important;
 }
 
 .results-page .results-intro h1 {
   font-size: clamp(27px, 3.12vw, 41.1px) !important;
+}
+
+.results-page .results-intro span,
+.results-page .results-intro h1,
+.results-page .results-intro p {
+  text-align: center !important;
 }
 
 @media (max-width: 1050px) {
