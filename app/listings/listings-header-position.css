@@ -6,11 +6,24 @@
 .results-page > .results-header::before {
   grid-column: 2;
   grid-row: 1;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  background-color: #020405 !important;
+  background-image: url('/assets/listings-header-bar.svg') !important;
+  background-position: center center !important;
+  background-size: 84% auto !important;
+  background-repeat: no-repeat !important;
 }
 
 .results-page > .results-header nav {
   grid-column: 3;
   grid-row: 1;
+}
+
+@media (max-width: 1050px) {
+  .results-page > .results-header::before {
+    background-size: 88% auto !important;
+  }
 }
 
 @media (max-width: 720px) {
