@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const mirroredRoutes = [
-  "listings",
   "sell-your-license",
   "financing",
   "investment-opportunities",
