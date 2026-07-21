@@ -20,6 +20,10 @@
   grid-row: 1;
 }
 
+.results-page .results-intro h1 {
+  font-size: clamp(33.5px, 3.87vw, 51px) !important;
+}
+
 @media (max-width: 1050px) {
   .results-page > .results-header::before {
     background-size: 88% auto !important;
