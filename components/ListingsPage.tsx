@@ -60,7 +60,13 @@ const listings: Listing[] = [
   { county: "Broward County", type: "4COP Quota", price: 215000, priceLabel: "$215,000", sourceRef: "FLLM-034", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/broward-county-4cop-3ps-quota-liquor-license-for-sale/2268168/", image: "/assets/listing-palm-beach.png" },
   { county: "Escambia County", type: "4COP Quota", price: 395000, priceLabel: "$395,000", sourceRef: "FLLM-035", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/escambia-county-quota-liquor-license-now-available/2474361/", image: "/assets/listing-sarasota.png" },
   { county: "Lake County", type: "4COP Quota", price: 200000, priceLabel: "$200,000", sourceRef: "FLLM-036", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/price-reduced-lake-county-4cop-quota-liquor-license-200-000-cash-price/2421414/", image: "/assets/listing-palm-beach.png" },
-  { county: "Pinellas County", type: "4COP Quota", price: 505000, priceLabel: "$505,000", sourceRef: "FLLM-037", sourceName: "BizBuySell — Four-License Portfolio", sourceUrl: "https://www.bizbuysell.com/business-asset/4cop-quota-licenses-for-sale-throughout-florida/2356535/", note: "Four-license portfolio; primary availability in Pinellas, Hillsborough, and Sarasota counties. Price and availability subject to confirmation.", image: "/assets/listing-miami.png" }
+  { county: "Pinellas County", type: "4COP Quota", price: 505000, priceLabel: "$505,000", sourceRef: "FLLM-037", sourceName: "BizBuySell — Four-License Portfolio", sourceUrl: "https://www.bizbuysell.com/business-asset/4cop-quota-licenses-for-sale-throughout-florida/2356535/", note: "Four-license portfolio; primary availability in Pinellas, Hillsborough, and Sarasota counties. Price and availability subject to confirmation.", image: "/assets/listing-miami.png" },
+  { county: "Polk County", type: "4COP Quota", price: 200000, priceLabel: "$200,000", sourceRef: "FLLM-038", sourceName: "Liquor License Auctioneers", sourceUrl: "https://liquorlicenseauctioneers.com/liquor-license/4cop3ps-polk-a8006", image: "/assets/listing-lee.png" },
+  { county: "Polk County", type: "4COP Quota", price: 245000, priceLabel: "$245,000", sourceRef: "FLLM-039", sourceName: "Liquor License Auctioneers", sourceUrl: "https://liquorlicenseauctioneers.com/liquor-license/4cop3ps-polk-a3701", image: "/assets/listing-palm-beach.png" },
+  { county: "Polk County", type: "4COP Quota", price: 209000, priceLabel: "$209,000", sourceRef: "FLLM-040", sourceName: "Liquor License Auctioneers", sourceUrl: "https://liquorlicenseauctioneers.com/liquor-license/4cop3ps-polk-a7926", image: "/assets/listing-miami.png" },
+  { county: "Manatee County", type: "4COP Quota", price: 525000, priceLabel: "$525,000", sourceRef: "FLLM-041", sourceName: "Liquor License Auctioneers", sourceUrl: "https://liquorlicenseauctioneers.com/liquor-license/4cop3ps-manatee-a8031", image: "/assets/listing-sarasota.png" },
+  { county: "Marion County", type: "4COP Quota", price: 290000, priceLabel: "$290,000", sourceRef: "FLLM-042", sourceName: "Liquor License Auctioneers", sourceUrl: "https://liquorlicenseauctioneers.com/liquor-license/4cop3ps-marion-a7914", image: "/assets/listing-lee.png" },
+  { county: "Brevard County", type: "4COP Quota", price: null, priceLabel: "Price Undisclosed", sourceRef: "FLLM-043", sourceName: "Florida Liquor License Sales", sourceUrl: "https://www.floridaliquorlicensesales.com/florida/brevard", image: "/assets/listing-palm-beach.png" }
 ];
 
 const countyDescriptions: Record<string, string> = {
@@ -88,7 +94,11 @@ const countyDescriptions: Record<string, string> = {
   "Escambia County": "Escambia County is the westernmost Panhandle county, home to Pensacola, known for naval aviation history and Gulf beaches.",
   "Osceola County": "Osceola County is a fast-growing Central Florida market south of Orlando, anchored by Kissimmee and the tourism corridor.",
   "Santa Rosa County": "Santa Rosa County in Northwest Florida includes Gulf Breeze, Navarre, and rapidly growing communities near Pensacola.",
-  "Duval County": "Duval County is anchored by Jacksonville, Florida's largest city by land area and a major port, finance, and logistics market."
+  "Duval County": "Duval County is anchored by Jacksonville, Florida's largest city by land area and a major port, finance, and logistics market.",
+    "Polk County": "Polk County in Central Florida sits between Tampa and Orlando, anchored by Lakeland and known for its citrus industry and chain of lakes.",
+    "Manatee County": "Manatee County on Florida's Gulf Coast is home to Bradenton, known for its beaches, boating culture, and growing suburban communities.",
+    "Marion County": "Marion County in North Central Florida is anchored by Ocala, known as the horse capital of the world for its thoroughbred farms.",
+    "Brevard County": "Brevard County on Florida's Space Coast is home to Kennedy Space Center, known for its aerospace industry and Atlantic beaches."
 };
 
 function priceMatches(price: number | null, range: string) {
