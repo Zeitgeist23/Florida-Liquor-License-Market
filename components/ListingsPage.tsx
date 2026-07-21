@@ -135,7 +135,6 @@ export default function ListingsPage() {
     <main className="results-page">
       <header className="results-header page-shell">
         <Link className="seller-brand" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /></Link>
-        <img className="results-header-bar" src="/assets/hero-bar-full.png" alt="Upscale Florida bar interior" />
         <nav aria-label="Listings navigation"><Link href="/">Home</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact Us</Link></nav>
       </header>
       <section className="results-intro"><div className="page-shell"><span>Florida Marketplace Inventory</span><h1>Search Florida Liquor Licenses</h1><p>Filter marketplace inventory by availability, county, license type, and asking price.</p></div></section>
@@ -155,25 +154,6 @@ export default function ListingsPage() {
           {listing.sourceRef ? <><small>{listing.note ?? countyDescriptions[listing.county] ?? "Price and availability subject to confirmation."}</small><div className="result-actions"><Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link><Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link></div></> : <div className="result-actions"><span className="sold-status">SOLD</span></div>}
           </div></article>)}</div> : <div className="no-results"><strong>No listings match all filters.</strong><p>Try broadening the county, price range, license type, or status.</p><button className="btn btn-gold" type="button" onClick={clearFilters}>View All Listings</button></div>}
       </div></section>
-      <style jsx>{`
-        .results-header-bar {
-          width: clamp(250px, 45vw, 510px);
-          height: 76px;
-          flex: 0 1 auto;
-          min-width: 0;
-          display: block;
-          object-fit: cover;
-          object-position: center 58%;
-          border-left: 1px solid rgba(246, 167, 0, .35);
-          border-right: 1px solid rgba(246, 167, 0, .35);
-        }
-        @media (max-width: 820px) {
-          .results-header-bar { width: clamp(180px, 34vw, 300px); }
-        }
-        @media (max-width: 560px) {
-          .results-header-bar { width: 100%; max-width: 420px; height: 96px; }
-        }
-      `}</style>
     </main>
   );
 }
