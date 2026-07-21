@@ -1,5 +1,5 @@
 .results-page > .results-header {
-  height: 111px !important;
+  height: 117px !important;
   border-bottom: 0 !important;
 }
 
@@ -26,12 +26,13 @@
 }
 
 .results-page .results-intro {
+  padding: 27px 0 25px !important;
   border-top: 0 !important;
   border-bottom: 0 !important;
 }
 
 .results-page .results-intro h1 {
-  font-size: clamp(28.5px, 3.28vw, 43.25px) !important;
+  font-size: clamp(27px, 3.12vw, 41.1px) !important;
 }
 
 @media (max-width: 1050px) {
@@ -51,5 +52,9 @@
 
   .results-page > .results-header nav {
     grid-column: 2;
+  }
+
+  .results-page .results-intro {
+    padding: 22px 0 !important;
   }
 }
