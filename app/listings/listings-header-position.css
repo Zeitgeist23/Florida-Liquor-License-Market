@@ -1,3 +1,7 @@
+.results-page > .results-header {
+  height: 111px !important;
+}
+
 .results-page > .results-header .seller-brand {
   grid-column: 1;
   grid-row: 1;
@@ -21,7 +25,7 @@
 }
 
 .results-page .results-intro h1 {
-  font-size: clamp(33.5px, 3.87vw, 51px) !important;
+  font-size: clamp(31px, 3.56vw, 47px) !important;
 }
 
 @media (max-width: 1050px) {
@@ -31,6 +35,10 @@
 }
 
 @media (max-width: 720px) {
+  .results-page > .results-header {
+    height: auto !important;
+  }
+
   .results-page > .results-header .seller-brand {
     grid-column: 1;
   }
