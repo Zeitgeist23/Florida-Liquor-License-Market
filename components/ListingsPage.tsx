@@ -48,6 +48,32 @@ const listings: Listing[] = [
   { county: "St. Lucie County", type: "4COP Quota", price: 275000, priceLabel: "$275,000", sourceRef: "FLLM-023", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/st-lucie-county-4cop-3ps-quota-liquor-license-for-sale/2464222/", image: "/assets/listing-lee.png" }
 ];
 
+const countyDescriptions: Record<string, string> = {
+  "Broward County": "Broward County anchors South Florida around Fort Lauderdale, known for its beaches, boating canals, and lively dining and nightlife scene.",
+  "Sarasota County": "Sarasota County is a Gulf Coast destination known for white-sand beaches, a strong arts and cultural scene, and highly rated schools.",
+  "Miami-Dade County": "Miami-Dade County is Florida's most populous county, anchored by Miami, a major hub for international finance, tourism, and culture.",
+  "Pinellas County": "Pinellas County sits on the Tampa Bay peninsula and includes St. Petersburg and Clearwater, known for its Gulf beaches and dense population.",
+  "Collier County": "Collier County in Southwest Florida is home to Naples, known for upscale communities, golf courses, and access to the Everglades.",
+  "Palm Beach County": "Palm Beach County stretches along the southeast coast around West Palm Beach, known for affluent communities and winter tourism.",
+  "Orange County": "Orange County in Central Florida is anchored by Orlando, home to major theme parks and a booming tourism-driven economy.",
+  "Monroe County": "Monroe County is Florida's southernmost county, encompassing the Florida Keys and a major destination for boating, diving, and tourism.",
+  "Hillsborough County": "Hillsborough County in the Tampa Bay area is anchored by Tampa, a growing hub for business, healthcare, and tourism.",
+  "DeSoto County": "DeSoto County is a rural south-central Florida county known for agriculture, cattle ranching, and citrus groves.",
+  "Seminole County": "Seminole County is a Central Florida suburban county north of Orlando, known for strong schools and lakeside communities.",
+  "Charlotte County": "Charlotte County on the southwest Gulf Coast is home to Punta Gorda, known for boating, fishing, and a growing retiree population.",
+  "Lee County": "Lee County in Southwest Florida includes Fort Myers and Cape Coral, known for its beaches and rapid population growth.",
+  "St. Lucie County": "St. Lucie County on the Treasure Coast is home to Port St. Lucie, known for spring training baseball and coastal living.",
+  "Leon County": "Leon County in North Florida is home to Tallahassee, the state capital, anchored by state government and two major universities.",
+  "Bay County": "Bay County in the Panhandle is home to Panama City, known for its Gulf beaches and tourism-driven economy.",
+  "St. Johns County": "St. Johns County in northeast Florida is home to historic St. Augustine, known for top-ranked schools and coastal tourism.",
+  "Pasco County": "Pasco County in the Tampa Bay area is known for rapid suburban growth, natural springs, and family-friendly communities.",
+  "Volusia County": "Volusia County in east-central Florida is home to Daytona Beach, known for motorsports and beach tourism.",
+  "Martin County": "Martin County on the Treasure Coast is known for low-density development, a strong boating culture, and a protected coastline.",
+  "Lake County": "Lake County in Central Florida, northwest of Orlando, is known for its chain of lakes and fast-growing suburban communities.",
+  "Escambia County": "Escambia County is the westernmost Panhandle county, home to Pensacola, known for naval aviation history and Gulf beaches.",
+};
+
+
 function priceMatches(price: number, range: string) {
   return range === "all" ||
     (range === "under150" && price < 150000) ||
@@ -97,7 +123,7 @@ export default function ListingsPage() {
         {filtered.length ? <div className="results-grid">{filtered.map((listing) => <article className="result-card" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
                             <div className="result-photo"><FloridaCountyMap county={listing.county} /><span className="result-type-badge">{listing.type}</span></div>
           <div className="result-body"><p>● {listing.county}</p><h2>{listing.priceLabel}</h2><div className="result-facts"><span>{listing.type}</span><span>Transferable</span></div>
-          {listing.sourceRef ? <><small>Price and availability subject to confirmation.</small>{listing.sourceName && listing.sourceUrl ? <small>External listing: <a href={listing.sourceUrl} target="_blank" rel="noreferrer">{listing.sourceName}</a></small> : null}<div className="result-actions"><Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link><Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link></div></> : <div className="result-actions"><span className="sold-status">SOLD</span></div>}
+          {listing.sourceRef ? <><small>{countyDescriptions[listing.county] ?? "Price and availability subject to confirmation."}</small>{listing.sourceName && listing.sourceUrl ? <small>External listing: <a href={listing.sourceUrl} target="_blank" rel="noreferrer">{listing.sourceName}</a></small> : null}<div className="result-actions"><Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link><Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link></div></> : <div className="result-actions"><span className="sold-status">SOLD</span></div>}
           </div></article>)}</div> : <div className="no-results"><strong>No listings match all filters.</strong><p>Try broadening the county, price range, license type, or status.</p><button className="btn btn-gold" type="button" onClick={clearFilters}>View All Listings</button></div>}
       </div></section>
     </main>
