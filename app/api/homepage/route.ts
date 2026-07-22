@@ -14,6 +14,7 @@ export async function GET(request: Request) {
     const scriptTags = [
       '<script defer src="/assets/market-map-modal.js"></script>',
       '<script defer src="/assets/recent-transactions.js"></script>',
+      '<script defer src="/assets/completed-sales-logo-size.js"></script>',
     ];
 
     const tagsToAdd = scriptTags.filter((tag) => !html.includes(tag)).join("");
