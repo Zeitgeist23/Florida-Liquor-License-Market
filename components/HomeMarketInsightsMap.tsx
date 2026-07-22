@@ -87,7 +87,7 @@ function money(value: number) {
 function countyTitle(county: string, prices?: CountyPrices) {
   if (!prices) return `${county} County — no published inventory price`;
 
-  const details = [`Combined average ${money(combinedAverage(prices))}`];
+  const details = [`combined average ${money(combinedAverage(prices))}`];
   if (prices.asking.length) details.push(`asking average ${money(average(prices.asking))}`);
   if (prices.sold.length) details.push(`sold average ${money(average(prices.sold))}`);
   return `${county} County — ${details.join("; ")}`;
@@ -96,9 +96,14 @@ function countyTitle(county: string, prices?: CountyPrices) {
 function styleCounty(path: SVGPathElement, county: string) {
   const prices = inventoryPrices[county];
   const price = prices ? combinedAverage(prices) : undefined;
+  const hasSoldPrice = Boolean(prices?.sold.length);
+
+  path.querySelector("title")?.remove();
   path.setAttribute("fill", priceColor(price));
-  path.setAttribute("stroke", prices ? "#ffffff" : "#aeb8bf");
-  path.setAttribute("stroke-width", prices ? "0.95" : "0.55");
+  path.setAttribute("stroke", hasSoldPrice ? "#071a2b" : prices ? "#ffffff" : "#aeb8bf");
+  path.setAttribute("stroke-width", hasSoldPrice ? "1.7" : prices ? "0.95" : "0.55");
+  if (hasSoldPrice) path.setAttribute("stroke-dasharray", "2.4 1.3");
+  else path.removeAttribute("stroke-dasharray");
   path.setAttribute("data-market-county", county);
 
   const title = document.createElementNS(SVG_NS, "title");
@@ -107,21 +112,16 @@ function styleCounty(path: SVGPathElement, county: string) {
 }
 
 export default function HomeMarketInsightsMap() {
-  const templateRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const template = templateRef.current?.querySelector<SVGSVGElement>("svg.florida-county-map");
-    const mapTarget = document.querySelector<HTMLElement>(".map-panel .florida-map-art");
-    const heading = document.querySelector<HTMLElement>(".map-panel .map-content h3");
-    const legend = document.querySelector<HTMLElement>(".map-panel .map-content > div:first-child");
+    const map = mapRef.current?.querySelector<SVGSVGElement>("svg.florida-county-map");
+    if (!map) return;
 
-    if (!template || !mapTarget) return;
-
-    const map = template.cloneNode(true) as SVGSVGElement;
     map.classList.add("market-insights-svg");
     map.setAttribute("viewBox", "135 10 295 275");
     map.setAttribute("role", "img");
-    map.setAttribute("aria-label", "Florida county map colored by average published asking and sold inventory prices");
+    map.setAttribute("aria-label", "Florida county map colored by published asking and sold inventory prices");
 
     const paths = Array.from(map.querySelectorAll<SVGPathElement>("g > path"));
     paths.forEach((path, index) => {
@@ -130,27 +130,16 @@ export default function HomeMarketInsightsMap() {
     });
 
     const countyGroup = map.querySelector("g");
-    if (countyGroup) {
+    if (countyGroup && !countyGroup.querySelector('[data-market-county="Monroe"]')) {
       const monroe = document.createElementNS(SVG_NS, "path");
       monroe.setAttribute("d", monroePath);
       styleCounty(monroe, "Monroe");
       countyGroup.appendChild(monroe);
     }
-
-    mapTarget.replaceChildren(map);
-
-    if (heading) heading.innerHTML = "Published Asking &amp; Sold<br />Price by County";
-
-    if (legend && !legend.querySelector(".market-map-note")) {
-      const note = document.createElement("small");
-      note.className = "market-map-note";
-      note.textContent = "County color reflects the average of published asking and sold inventory prices. Gray indicates no disclosed price.";
-      legend.appendChild(note);
-    }
   }, []);
 
   return (
-    <div ref={templateRef} className="market-map-template" aria-hidden="true">
+    <div ref={mapRef} className="home-market-insights-map">
       <FloridaCountyMap county="No county selected" />
     </div>
   );
