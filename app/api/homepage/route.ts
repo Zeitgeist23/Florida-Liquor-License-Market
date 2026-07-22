@@ -18,6 +18,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/market-insights-popup-size.js"></script>',
       '<script defer src="/assets/homepage-listing-search.js"></script>',
       '<script defer src="/assets/market-data-dropdown.js"></script>',
+      '<script defer src="/assets/resources-dropdown.js"></script>',
     ];
 
     const tagsToAdd = scriptTags.filter((tag) => !html.includes(tag)).join("");
