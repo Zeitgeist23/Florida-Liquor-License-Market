@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = "available-inventory-v1";
+  const VERSION = "daily-ten-county-maps-v2";
   const STYLE_ID = "homepage-available-carousel-client-styles";
   let startIndex = 0;
   let observer = null;
@@ -8,7 +8,9 @@
 
   function getListings() {
     return Array.isArray(window.__FLLM_AVAILABLE_LISTINGS__)
-      ? window.__FLLM_AVAILABLE_LISTINGS__.filter((listing) => listing && listing.sourceRef)
+      ? window.__FLLM_AVAILABLE_LISTINGS__
+          .filter((listing) => listing && listing.sourceRef && listing.mapUrl)
+          .slice(0, 10)
       : [];
   }
 
@@ -36,6 +38,8 @@
       .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
       .homepage-carousel-card-link:focus-visible{outline:3px solid #f6a700;outline-offset:-3px}
       .listing-card[data-homepage-available-card="true"]{height:100%}
+      .homepage-county-map-panel{background:#061728}
+      .homepage-county-map-panel .homepage-county-map{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
     `;
     document.head.appendChild(style);
   }
@@ -51,11 +55,12 @@
     link.setAttribute("aria-label", `View ${listing.county} ${listing.type} listing`);
 
     const photo = document.createElement("div");
-    photo.className = "listing-photo";
+    photo.className = "listing-photo homepage-county-map-panel";
 
     const image = document.createElement("img");
-    image.src = listing.image;
-    image.alt = `${listing.county} ${listing.type}`;
+    image.className = "homepage-county-map";
+    image.src = listing.mapUrl;
+    image.alt = `Florida map with ${listing.county} highlighted`;
     image.loading = "lazy";
 
     const badge = document.createElement("span");
@@ -100,9 +105,9 @@
     arrow.hidden = listings.length <= visibleCount();
     arrow.setAttribute("aria-hidden", arrow.hidden ? "true" : "false");
     arrow.tabIndex = arrow.hidden ? -1 : 0;
-    if (arrow.dataset.availableCarouselBound === "true") return;
+    if (arrow.dataset.availableCarouselBound === VERSION) return;
 
-    arrow.dataset.availableCarouselBound = "true";
+    arrow.dataset.availableCarouselBound = VERSION;
     arrow.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopImmediatePropagation();
@@ -120,7 +125,8 @@
       const expectedCount = Math.min(visibleCount(), getListings().length);
       const valid = grid instanceof HTMLElement &&
         grid.dataset.availableCarouselVersion === VERSION &&
-        grid.querySelectorAll('[data-homepage-available-card="true"]').length === expectedCount;
+        grid.querySelectorAll('[data-homepage-available-card="true"]').length === expectedCount &&
+        grid.querySelectorAll(".homepage-county-map").length === expectedCount;
       if (valid) return;
 
       scheduled = true;
@@ -143,7 +149,8 @@
     const expectedCount = Math.min(count, listings.length);
     const alreadyCurrent = grid.dataset.availableCarouselVersion === VERSION &&
       grid.dataset.availableCarouselStart === String(startIndex) &&
-      grid.querySelectorAll('[data-homepage-available-card="true"]').length === expectedCount;
+      grid.querySelectorAll('[data-homepage-available-card="true"]').length === expectedCount &&
+      grid.querySelectorAll(".homepage-county-map").length === expectedCount;
     if (!force && alreadyCurrent) return true;
 
     observer?.disconnect();
