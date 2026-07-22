@@ -17,10 +17,10 @@
       body.${BODY_CLASS}{overflow:hidden!important}
       .${BACKDROP_CLASS}{position:fixed;inset:0;z-index:9998;background:rgba(0,7,13,.84);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);animation:marketMapFade .18s ease-out}
       .${MODAL_CLASS}{position:fixed;top:50%;left:50%;z-index:9999;width:65vw;height:65vh;max-width:1280px;max-height:820px;min-width:720px;min-height:470px;transform:translate(-50%,-50%);overflow:hidden;border:2px solid #f6a700;border-radius:10px;background:#f7f7f5;color:#111820;box-shadow:0 35px 110px rgba(0,0,0,.72),0 0 0 1px rgba(246,167,0,.28);animation:marketMapPop .2s ease-out;font-family:Arial,Helvetica,sans-serif}
-      .market-map-popup-title{height:64px;display:flex;align-items:center;padding:0 84px 0 24px;border-bottom:1px solid #d8dde1;font-size:21px;font-weight:900;letter-spacing:.015em;text-transform:uppercase}
+      .market-map-popup-title{height:64px;display:flex;align-items:center;padding:0 84px 0 24px;border-bottom:1px solid #d8dde1;font-size:15px;font-weight:900;letter-spacing:.015em;text-transform:uppercase}
       .market-map-popup-content{height:calc(100% - 64px);display:grid;grid-template-columns:minmax(250px,34%) minmax(0,66%);gap:18px;padding:22px 24px 24px}
       .market-map-popup-sidebar{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;min-width:0;padding:4px 8px 0 2px}
-      .market-map-popup-logo{display:block;width:100%;max-width:360px;height:auto;max-height:150px;object-fit:contain;object-position:left center;margin-bottom:24px}
+      .market-map-popup-logo{display:block;width:65%;max-width:234px;height:auto;max-height:98px;object-fit:contain;object-position:left center;margin-bottom:24px}
       .market-map-popup-key h3{margin:0 0 14px;font-size:19px;line-height:1.02;text-transform:uppercase}
       .market-map-popup-key ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:14px}
       .market-map-popup-key li{display:flex;align-items:center;gap:11px}
@@ -37,15 +37,15 @@
         .${MODAL_CLASS}{width:94vw;height:88vh;min-width:0;min-height:0;max-width:none;max-height:none}
         .market-map-popup-content{grid-template-columns:1fr;grid-template-rows:auto minmax(320px,1fr);gap:12px;padding:16px}
         .market-map-popup-sidebar{display:grid;grid-template-columns:minmax(180px,1fr) minmax(180px,1fr);gap:18px;align-items:start;padding:0}
-        .market-map-popup-logo{max-width:300px;max-height:105px;margin:0}
+        .market-map-popup-logo{width:65%;max-width:195px;max-height:68px;margin:0}
         .market-map-popup-key h3{font-size:15px}.market-map-popup-key ul{font-size:12px;gap:6px}.market-map-popup-key i{width:14px;height:14px;flex-basis:14px}
         .market-map-popup-note{display:none}
       }
       @media(max-width:560px){
-        .market-map-popup-title{height:56px;padding-left:16px;font-size:16px}
+        .market-map-popup-title{height:56px;padding-left:16px;font-size:11px}
         .market-map-popup-content{height:calc(100% - 56px);grid-template-rows:auto minmax(280px,1fr)}
         .market-map-popup-sidebar{grid-template-columns:1fr;gap:10px}
-        .market-map-popup-logo{max-width:245px;max-height:78px}
+        .market-map-popup-logo{width:65%;max-width:159px;max-height:51px}
         .market-map-popup-key h3{margin-bottom:8px;font-size:13px}.market-map-popup-key ul{grid-template-columns:repeat(2,minmax(0,1fr));font-size:10px}
         .market-map-modal-close{top:7px;right:9px;width:40px;height:40px;font-size:25px}
       }
