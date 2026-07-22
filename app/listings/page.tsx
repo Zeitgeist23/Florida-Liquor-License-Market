@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import InventoryCardExpansion from "@/components/InventoryCardExpansion";
+import ListingsHeatMapEnhancement from "@/components/ListingsHeatMapEnhancement";
 import ListingsPage from "@/components/ListingsPage";
 import MonroeMapCompletion from "@/components/MonroeMapCompletion";
 import "./listings-premium.css";
@@ -19,6 +20,7 @@ export default function Page() {
       <ListingsPage />
       <InventoryCardExpansion />
       <MonroeMapCompletion />
+      <ListingsHeatMapEnhancement />
     </>
   );
 }
