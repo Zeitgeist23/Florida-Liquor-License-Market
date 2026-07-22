@@ -25,16 +25,67 @@ body.inventory-card-open {
   position: fixed !important;
   top: 50%;
   left: 50%;
-  width: min(52vw, 960px) !important;
-  max-width: calc(100vw - 48px);
-  max-height: 82vh;
+  width: min(74vw, 1280px) !important;
+  max-width: calc(100vw - 64px);
+  min-height: min(64vh, 620px);
+  max-height: 88vh;
   margin: 0 !important;
   overflow: auto;
   z-index: 1000;
   cursor: zoom-out;
   transform: translate(-50%, -50%) !important;
+  grid-template-columns: minmax(360px, .95fr) minmax(440px, 1.05fr) !important;
+  grid-template-rows: auto auto auto 1fr auto !important;
+  align-content: stretch !important;
   border-color: #f1a600 !important;
   box-shadow: 0 30px 90px rgba(0, 0, 0, .82), 0 0 0 2px rgba(241, 166, 0, .28) !important;
+}
+
+.results-page .result-card.is-expanded .result-photo {
+  grid-column: 2 !important;
+  grid-row: 1 / span 4 !important;
+  width: 100% !important;
+  height: 370px !important;
+  padding: 14px 16px 8px 8px !important;
+  justify-self: stretch !important;
+  align-self: start !important;
+  overflow: hidden !important;
+}
+
+.results-page .result-card.is-expanded .result-photo .florida-county-map {
+  width: 100% !important;
+  height: 100% !important;
+  transform: scale(1.04) !important;
+  transform-origin: center center !important;
+}
+
+.results-page .result-card.is-expanded .result-actions {
+  grid-column: 1 / -1 !important;
+  grid-row: 5 !important;
+  margin: 22px 20px 18px !important;
+}
+
+.results-page .result-card.is-expanded .result-body > p {
+  font-size: 24px !important;
+}
+
+.results-page .result-card.is-expanded .result-body > h2 {
+  font-size: 34px !important;
+}
+
+.results-page .result-card.is-expanded .result-facts {
+  font-size: 14px !important;
+}
+
+.results-page .result-card.is-expanded .result-body > small {
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+}
+
+.results-page .result-card.is-expanded .result-actions .btn,
+.results-page .result-card.is-expanded .sold-status {
+  min-height: 48px !important;
+  font-size: 12px !important;
 }
 
 .results-page .result-card:focus-visible {
@@ -45,16 +96,47 @@ body.inventory-card-open {
 @media (max-width: 1050px) {
   .results-page .result-card.is-expanded,
   .results-page .result-card.is-expanded:hover {
-    width: min(72vw, 860px) !important;
+    width: min(88vw, 1040px) !important;
+    min-height: min(68vh, 580px);
+    grid-template-columns: minmax(300px, .95fr) minmax(360px, 1.05fr) !important;
+  }
+
+  .results-page .result-card.is-expanded .result-photo {
+    height: 330px !important;
   }
 }
 
 @media (max-width: 720px) {
   .results-page .result-card.is-expanded,
   .results-page .result-card.is-expanded:hover {
-    width: calc(100vw - 28px) !important;
+    width: calc(100vw - 24px) !important;
     max-width: none;
-    max-height: 88vh;
+    min-height: 0;
+    max-height: 90vh;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+  }
+
+  .results-page .result-card.is-expanded .result-photo {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    width: 100% !important;
+    height: 240px !important;
+    padding: 10px !important;
+  }
+
+  .results-page .result-card.is-expanded .result-actions {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    margin: 14px 12px 12px !important;
+  }
+
+  .results-page .result-card.is-expanded .result-body > p {
+    font-size: 20px !important;
+  }
+
+  .results-page .result-card.is-expanded .result-body > h2 {
+    font-size: 28px !important;
   }
 }
 
