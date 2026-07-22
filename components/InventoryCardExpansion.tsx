@@ -11,6 +11,11 @@ export default function InventoryCardExpansion() {
 
     const getCards = () => Array.from(root.querySelectorAll<HTMLElement>(".result-card"));
 
+    const setOpenState = (isOpen: boolean) => {
+      root.classList.toggle("has-expanded-card", isOpen);
+      document.body.classList.toggle("inventory-card-open", isOpen);
+    };
+
     const prepareCards = () => {
       getCards().forEach((card) => {
         card.tabIndex = 0;
@@ -23,6 +28,7 @@ export default function InventoryCardExpansion() {
         card.classList.remove("is-expanded");
         card.setAttribute("aria-expanded", "false");
       });
+      setOpenState(false);
     };
 
     const toggleCard = (card: HTMLElement) => {
@@ -31,6 +37,7 @@ export default function InventoryCardExpansion() {
       if (shouldExpand) {
         card.classList.add("is-expanded");
         card.setAttribute("aria-expanded", "true");
+        setOpenState(true);
       }
     };
 
@@ -78,6 +85,8 @@ export default function InventoryCardExpansion() {
       observer.disconnect();
       root.removeEventListener("click", handleClick);
       root.removeEventListener("keydown", handleKeyDown);
+      root.classList.remove("has-expanded-card");
+      document.body.classList.remove("inventory-card-open");
     };
   }, []);
 
