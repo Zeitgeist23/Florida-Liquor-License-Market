@@ -2,7 +2,7 @@
   const STYLE_ID = "market-insights-video-popup-styles-v3";
   const BACKDROP_ID = "market-insights-video-popup-backdrop";
   const MODAL_ID = "market-insights-video-popup";
-  const IMAGE_SRC = "/assets/market-report-popup-reference-v1.svg";
+  const IMAGE_SRC = "/assets/market-report-popup-reference-v1.webp";
   const MOVED_AUDIO_CLASS = "market-report-popup-audio";
   const MOVED_CAPTION_CLASS = "market-report-popup-caption";
 
