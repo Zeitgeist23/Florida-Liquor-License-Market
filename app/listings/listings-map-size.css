@@ -1,7 +1,6 @@
 .results-page .result-photo {
   height: 238px !important;
   padding: 8px 4px 0 0 !important;
-  background: linear-gradient(135deg, #061728 0%, #0d2942 100%) !important;
 }
 
 .results-page .result-photo .florida-county-map {
@@ -13,7 +12,6 @@
   .results-page .result-photo {
     height: 206px !important;
     padding: 8px 4px 0 0 !important;
-    background: linear-gradient(135deg, #061728 0%, #0d2942 100%) !important;
   }
 
   .results-page .result-photo .florida-county-map {
