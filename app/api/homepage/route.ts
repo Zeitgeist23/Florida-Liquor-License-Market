@@ -2,13 +2,59 @@ import { availableListings, type Listing } from "@/data/listings";
 
 export const dynamic = "force-dynamic";
 
-const carouselListings = availableListings.map(({ county, type, priceLabel, sourceRef, image }) => ({
-  county,
-  type,
-  priceLabel,
-  sourceRef,
-  image,
-}));
+type CarouselListing = Pick<Listing, "county" | "type" | "priceLabel" | "sourceRef"> & {
+  mapUrl: string;
+};
+
+function floridaDateKey(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+  const value = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((part) => part.type === type)?.value ?? "00";
+
+  return `${value("year")}-${value("month")}-${value("day")}`;
+}
+
+function seedFromString(value: string) {
+  let seed = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    seed ^= value.charCodeAt(index);
+    seed = Math.imul(seed, 16777619);
+  }
+  return seed >>> 0;
+}
+
+function seededRandom(seed: number) {
+  return () => {
+    seed += 0x6d2b79f5;
+    let result = seed;
+    result = Math.imul(result ^ (result >>> 15), result | 1);
+    result ^= result + Math.imul(result ^ (result >>> 7), result | 61);
+    return ((result ^ (result >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function selectDailyCarouselListings(dateKey: string) {
+  const shuffled = availableListings.map((listing) => ({
+    county: listing.county,
+    type: listing.type,
+    priceLabel: listing.priceLabel,
+    sourceRef: listing.sourceRef,
+    mapUrl: `/api/county-map?county=${encodeURIComponent(listing.county)}`,
+  }));
+  const random = seededRandom(seedFromString(`fllm-home-carousel-${dateKey}`));
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+
+  return shuffled.slice(0, Math.min(10, shuffled.length));
+}
 
 function replaceSection(
   html: string,
@@ -61,17 +107,17 @@ function listingHref(listing: Pick<Listing, "county" | "type" | "sourceRef">) {
   return `/contact?listing=${description}&ref=${reference}`;
 }
 
-function renderListingCard(listing: (typeof carouselListings)[number]) {
+function renderListingCard(listing: CarouselListing) {
   const county = escapeHtml(listing.county);
   const type = escapeHtml(listing.type);
   const price = escapeHtml(listing.priceLabel);
-  const image = escapeHtml(listing.image);
+  const mapUrl = escapeHtml(listing.mapUrl);
   const href = escapeHtml(listingHref(listing));
 
   return `<article class="listing-card" data-homepage-available-card="true">
     <a class="homepage-carousel-card-link" href="${href}" aria-label="View ${county} ${type} listing">
-      <div class="listing-photo">
-        <img src="${image}" alt="${county} ${type}" loading="lazy"/>
+      <div class="listing-photo homepage-county-map-panel">
+        <img class="homepage-county-map" src="${mapUrl}" alt="Florida map with ${county} highlighted" loading="lazy"/>
         <span>${type}</span>
       </div>
       <div class="listing-body">
@@ -107,7 +153,7 @@ function replaceDivContentsByClass(html: string, className: string, contents: st
   return html;
 }
 
-function renderServerRenderedAvailableListings(html: string) {
+function renderServerRenderedAvailableListings(html: string, carouselListings: CarouselListing[]) {
   return replaceSection(html, "Featured Florida Liquor Licenses", "Video Briefing", (section) =>
     replaceDivContentsByClass(
       section,
@@ -119,6 +165,8 @@ function renderServerRenderedAvailableListings(html: string) {
 
 export async function GET(request: Request) {
   try {
+    const dailyKey = floridaDateKey();
+    const carouselListings = selectDailyCarouselListings(dailyKey);
     const sourceUrl = new URL("/index.html", request.url);
     sourceUrl.searchParams.set("source", "1");
 
@@ -130,18 +178,21 @@ export async function GET(request: Request) {
     const sourceHtml = await sourceResponse.text();
     let enhancedHtml = renderServerRenderedAvailableListings(
       updateServerRenderedTransactions(sourceHtml),
+      carouselListings,
     );
 
     const carouselStyle = `<style id="homepage-available-carousel-styles">
       .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
       .homepage-carousel-card-link:focus-visible{outline:3px solid #f6a700;outline-offset:-3px}
+      .homepage-county-map-panel{background:#061728}
+      .homepage-county-map-panel .homepage-county-map{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
     </style>`;
     if (!enhancedHtml.includes('id="homepage-available-carousel-styles"')) {
       enhancedHtml = enhancedHtml.replace("</head>", `${carouselStyle}</head>`);
     }
 
     const inventoryData = JSON.stringify(carouselListings).replaceAll("<", "\\u003c");
-    const inventoryScript = `<script id="homepage-available-listings-data">window.__FLLM_AVAILABLE_LISTINGS__=${inventoryData};</script>`;
+    const inventoryScript = `<script id="homepage-available-listings-data">window.__FLLM_AVAILABLE_LISTINGS__=${inventoryData};window.__FLLM_AVAILABLE_LISTINGS_DATE__=${JSON.stringify(dailyKey)};</script>`;
     if (!enhancedHtml.includes('id="homepage-available-listings-data"')) {
       enhancedHtml = enhancedHtml.replace("</body>", `${inventoryScript}</body>`);
     }
