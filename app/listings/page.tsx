@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import InventoryCardExpansion from "@/components/InventoryCardExpansion";
 import ListingsPage from "@/components/ListingsPage";
 import "./listings-premium.css";
 import "./listings-header-position.css";
 import "./listings-map-size.css";
+import "./listings-card-expand.css";
 
 export const metadata: Metadata = {
   title: "Florida Liquor Licenses for Sale | Florida Liquor License Market",
@@ -11,5 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ListingsPage />;
+  return (
+    <>
+      <ListingsPage />
+      <InventoryCardExpansion />
+    </>
+  );
 }
