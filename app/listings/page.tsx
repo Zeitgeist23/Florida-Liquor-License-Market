@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import InventoryCardExpansion from "@/components/InventoryCardExpansion";
 import ListingsHeatMapEnhancement from "@/components/ListingsHeatMapEnhancement";
 import ListingsPage from "@/components/ListingsPage";
+import ListingsQueryFilterEnhancement from "@/components/ListingsQueryFilterEnhancement";
 import MonroeMapCompletion from "@/components/MonroeMapCompletion";
 import "./listings-premium.css";
 import "./listings-header-position.css";
@@ -18,6 +19,7 @@ export default function Page() {
   return (
     <>
       <ListingsPage />
+      <ListingsQueryFilterEnhancement />
       <InventoryCardExpansion />
       <MonroeMapCompletion />
       <ListingsHeatMapEnhancement />
