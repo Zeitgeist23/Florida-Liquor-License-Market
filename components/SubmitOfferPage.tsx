@@ -10,8 +10,14 @@ type ListingContext = {
   reference: string;
 };
 
+function formatOfferAmount(value: string) {
+  const digits = value.replace(/\D/g, "");
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 export default function SubmitOfferPage() {
   const [status, setStatus] = useState<SubmitState>("idle");
+  const [offerAmount, setOfferAmount] = useState("");
   const [listingContext, setListingContext] = useState<ListingContext>({
     listing: "Selected Florida liquor license",
     reference: "Marketplace listing",
@@ -33,6 +39,7 @@ export default function SubmitOfferPage() {
     if (formData.get("_honey")) {
       setStatus("sent");
       form.reset();
+      setOfferAmount("");
       return;
     }
 
@@ -59,6 +66,7 @@ export default function SubmitOfferPage() {
 
       setStatus("sent");
       form.reset();
+      setOfferAmount("");
     } catch {
       setStatus("error");
     }
@@ -148,7 +156,16 @@ export default function SubmitOfferPage() {
                 <span>Offer Amount *</span>
                 <div className="offer-money-input">
                   <b>$</b>
-                  <input name="offer_amount" type="number" min="1" step="1000" inputMode="numeric" placeholder="500,000" required />
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="off"
+                    placeholder="500,000"
+                    value={offerAmount}
+                    onChange={(event) => setOfferAmount(formatOfferAmount(event.target.value))}
+                    required
+                  />
+                  <input type="hidden" name="offer_amount" value={offerAmount.replace(/,/g, "")} />
                 </div>
               </label>
               <label>
