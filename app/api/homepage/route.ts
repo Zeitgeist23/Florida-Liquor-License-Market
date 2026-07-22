@@ -11,10 +11,13 @@ export async function GET(request: Request) {
     }
 
     const html = await sourceResponse.text();
-    const scriptTag = '<script defer src="/assets/market-map-modal.js"></script>';
-    const enhancedHtml = html.includes(scriptTag)
-      ? html
-      : html.replace("</body>", `${scriptTag}</body>`);
+    const scriptTags = [
+      '<script defer src="/assets/market-map-modal.js"></script>',
+      '<script defer src="/assets/recent-transactions.js"></script>',
+    ];
+
+    const tagsToAdd = scriptTags.filter((tag) => !html.includes(tag)).join("");
+    const enhancedHtml = tagsToAdd ? html.replace("</body>", `${tagsToAdd}</body>`) : html;
 
     return new Response(enhancedHtml, {
       headers: {
