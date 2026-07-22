@@ -208,7 +208,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/resources-dropdown.js"></script>',
       '<script defer src="/assets/header-menu-coordinator.js"></script>',
       '<script defer src="/assets/featured-sold-status.js"></script>',
-      '<script defer src="/assets/newscast-screen-logo-v8.js"></script>',
+      '<script defer src="/assets/newscast-screen-logo-v9.js"></script>',
     ];
 
     const tagsToAdd = scriptTags.filter((tag) => !enhancedHtml.includes(tag)).join("");
