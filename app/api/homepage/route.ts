@@ -1,12 +1,12 @@
 export const dynamic = "force-dynamic";
 
-const soldFeaturedCounties = [
-  "Miami-Dade County",
-  "Palm Beach County",
-  "Sarasota County",
-  "Lee County",
-  "St. Johns County",
-];
+const soldFeaturedListings = [
+  ["Miami-Dade County", "$495,000"],
+  ["Palm Beach County", "$575,000"],
+  ["Sarasota County", "$340,000"],
+  ["Lee County", "$425,000"],
+  ["St. Johns County", "$425,000"],
+] as const;
 
 function replaceSection(
   html: string,
@@ -44,39 +44,23 @@ function updateServerRenderedTransactions(html: string) {
   });
 }
 
-function updateServerRenderedFeaturedListings(html: string) {
-  let updated = replaceSection(html, "Featured Florida Liquor Licenses", "Video Briefing", (section) => {
-    let featured = section;
+function removeServerRenderedSoldFeaturedListings(html: string) {
+  return replaceSection(html, "Featured Florida Liquor Licenses", "Video Briefing", (section) => {
+    const listingCardPattern = /<article\b[^>]*class="[^"]*\blisting-card\b[^"]*"[^>]*>[\s\S]*?<\/article>/g;
+    const carouselArrowPattern = /<button\b[^>]*class="[^"]*\bcarousel-arrow\b[^"]*"[^>]*>[\s\S]*?<\/button>/g;
 
-    soldFeaturedCounties.forEach((county) => {
-      const countyIndex = featured.indexOf(county);
-      if (countyIndex < 0) return;
-
-      const badge = '<span class="featured-sold-badge" aria-label="Sold listing">SOLD</span> ';
-      const preceding = featured.slice(Math.max(0, countyIndex - 140), countyIndex);
-      if (!preceding.includes("featured-sold-badge")) {
-        featured = `${featured.slice(0, countyIndex)}${badge}${featured.slice(countyIndex)}`;
-      }
-
-      const refreshedCountyIndex = featured.indexOf(county);
-      const transferableIndex = featured.indexOf("Transferable", refreshedCountyIndex);
-      if (transferableIndex >= 0 && transferableIndex - refreshedCountyIndex < 1400) {
-        featured = `${featured.slice(0, transferableIndex)}SOLD${featured.slice(transferableIndex + "Transferable".length)}`;
-      }
+    const availableOnly = section.replace(listingCardPattern, (card) => {
+      const isSold = soldFeaturedListings.some(
+        ([county, price]) => card.includes(county) && card.includes(price),
+      );
+      return isSold ? "" : card;
     });
 
-    return featured;
+    const remainingCards = availableOnly.match(/\blisting-card\b/g)?.length ?? 0;
+    return remainingCards <= 4
+      ? availableOnly.replace(carouselArrowPattern, "")
+      : availableOnly;
   });
-
-  const styleTag = `<style id="server-featured-sold-styles">
-    .featured-sold-badge{display:inline-flex;align-items:center;justify-content:center;margin:0 8px 4px 0;padding:4px 9px;border:1px solid #ffbf2f;border-radius:4px;background:#9f1111;color:#fff;font:900 11px/1 Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 4px 12px rgba(0,0,0,.24)}
-  </style>`;
-
-  if (!updated.includes('id="server-featured-sold-styles"')) {
-    updated = updated.replace("</head>", `${styleTag}</head>`);
-  }
-
-  return updated;
 }
 
 export async function GET(request: Request) {
@@ -90,7 +74,7 @@ export async function GET(request: Request) {
     }
 
     const sourceHtml = await sourceResponse.text();
-    const correctedHtml = updateServerRenderedFeaturedListings(
+    const correctedHtml = removeServerRenderedSoldFeaturedListings(
       updateServerRenderedTransactions(sourceHtml),
     );
 
