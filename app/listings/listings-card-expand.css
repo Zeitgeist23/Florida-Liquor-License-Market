@@ -1,0 +1,41 @@
+.results-page .result-card {
+  position: relative;
+  z-index: 1;
+  cursor: zoom-in;
+  transform-origin: center center;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.results-page .result-card.is-expanded,
+.results-page .result-card.is-expanded:hover {
+  z-index: 30;
+  cursor: zoom-out;
+  transform: scale(1.08) !important;
+  border-color: #f1a600 !important;
+  box-shadow: 0 24px 58px rgba(0, 0, 0, .68), 0 0 0 2px rgba(241, 166, 0, .2) !important;
+}
+
+.results-page .result-card:focus-visible {
+  outline: 2px solid #f1a600;
+  outline-offset: 3px;
+}
+
+@media (max-width: 1050px) {
+  .results-page .result-card.is-expanded,
+  .results-page .result-card.is-expanded:hover {
+    transform: scale(1.05) !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .results-page .result-card.is-expanded,
+  .results-page .result-card.is-expanded:hover {
+    transform: scale(1.025) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .results-page .result-card {
+    transition: none;
+  }
+}
