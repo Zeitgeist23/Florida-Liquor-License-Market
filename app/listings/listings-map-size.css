@@ -1,0 +1,9 @@
+.results-page .result-photo {
+  height: 212px !important;
+}
+
+@media (max-width: 430px) {
+  .results-page .result-photo {
+    height: 188px !important;
+  }
+}
