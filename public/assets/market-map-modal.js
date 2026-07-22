@@ -27,8 +27,13 @@
       .market-map-popup-key i{display:block;width:18px;height:18px;flex:0 0 18px}
       .market-map-popup-key .range-1{background:#ec341f}.market-map-popup-key .range-2{background:#ff7b00}.market-map-popup-key .range-3{background:#f4aa00}.market-map-popup-key .range-4{background:#7faf2d}.market-map-popup-key .range-5{background:#3b8b35}
       .market-map-popup-note{margin-top:16px;color:#5f6972;font-size:11px;line-height:1.45;max-width:280px}
-      .market-map-popup-art{min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;overflow:visible}
-      .market-map-popup-art img{display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain}
+      .market-map-popup-art{position:relative;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;overflow:visible}
+      .market-map-popup-art img,.market-map-popup-art svg{display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain}
+      .market-map-popup-art svg path{cursor:help;transition:filter .14s ease,opacity .14s ease,stroke-width .14s ease}
+      .market-map-popup-art svg path:hover,.market-map-popup-art svg path:focus{filter:brightness(1.12) drop-shadow(0 1px 2px rgba(0,0,0,.35));outline:none;stroke-width:2.2!important}
+      .market-map-popup-loading{color:#68737c;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+      .market-map-county-tooltip{position:absolute;z-index:3;display:none;pointer-events:none;white-space:nowrap;padding:7px 10px;border:1px solid #f6a700;border-radius:5px;background:#061728;color:#fff;font-size:12px;font-weight:800;letter-spacing:.01em;box-shadow:0 8px 22px rgba(0,0,0,.35);transform:translate(0,0)}
+      .market-map-county-tooltip.is-visible{display:block}
       .market-map-modal-close{position:absolute;top:10px;right:14px;z-index:2;width:44px;height:44px;display:grid;place-items:center;border:2px solid #f6a700;border-radius:50%;background:#061728;color:#f6a700;cursor:pointer;font:700 28px/1 Arial,sans-serif;box-shadow:0 7px 22px rgba(0,0,0,.3)}
       .market-map-modal-close:hover,.market-map-modal-close:focus-visible{background:#f6a700;color:#061728;outline:none}
       @keyframes marketMapFade{from{opacity:0}to{opacity:1}}
@@ -84,6 +89,81 @@
     return legend;
   }
 
+  function positionTooltip(event, art, tooltip) {
+    const artRect = art.getBoundingClientRect();
+    const tooltipWidth = tooltip.offsetWidth || 120;
+    const tooltipHeight = tooltip.offsetHeight || 32;
+    const desiredLeft = event.clientX - artRect.left + 14;
+    const desiredTop = event.clientY - artRect.top + 14;
+    const maxLeft = Math.max(8, artRect.width - tooltipWidth - 8);
+    const maxTop = Math.max(8, artRect.height - tooltipHeight - 8);
+
+    tooltip.style.left = `${Math.max(8, Math.min(desiredLeft, maxLeft))}px`;
+    tooltip.style.top = `${Math.max(8, Math.min(desiredTop, maxTop))}px`;
+  }
+
+  function attachCountyHover(svg, art) {
+    const tooltip = document.createElement("div");
+    tooltip.className = "market-map-county-tooltip";
+    tooltip.setAttribute("role", "status");
+    tooltip.setAttribute("aria-live", "polite");
+    art.appendChild(tooltip);
+
+    svg.querySelectorAll("path").forEach((path) => {
+      const titleText = path.querySelector("title")?.textContent?.trim() || "Florida County";
+      const countyName = titleText.split(" — ")[0];
+      path.dataset.countyName = countyName;
+      path.setAttribute("tabindex", "0");
+      path.setAttribute("aria-label", countyName);
+
+      const show = (event) => {
+        tooltip.textContent = countyName;
+        tooltip.classList.add("is-visible");
+        if (event instanceof MouseEvent) positionTooltip(event, art, tooltip);
+      };
+
+      path.addEventListener("mouseenter", show);
+      path.addEventListener("mousemove", (event) => positionTooltip(event, art, tooltip));
+      path.addEventListener("mouseleave", () => tooltip.classList.remove("is-visible"));
+      path.addEventListener("focus", () => {
+        const pathRect = path.getBoundingClientRect();
+        const artRect = art.getBoundingClientRect();
+        tooltip.textContent = countyName;
+        tooltip.classList.add("is-visible");
+        tooltip.style.left = `${Math.max(8, pathRect.left - artRect.left + pathRect.width / 2)}px`;
+        tooltip.style.top = `${Math.max(8, pathRect.top - artRect.top + pathRect.height / 2)}px`;
+      });
+      path.addEventListener("blur", () => tooltip.classList.remove("is-visible"));
+    });
+  }
+
+  async function loadInteractiveMap(art) {
+    try {
+      const response = await fetch("/api/market-map", { cache: "no-store" });
+      if (!response.ok) throw new Error(`Map returned ${response.status}`);
+
+      const svgText = await response.text();
+      const parsed = new DOMParser().parseFromString(svgText, "image/svg+xml");
+      const parsedSvg = parsed.documentElement;
+      if (parsedSvg.nodeName.toLowerCase() !== "svg" || parsed.querySelector("parsererror")) {
+        throw new Error("Map SVG could not be parsed");
+      }
+
+      const svg = document.importNode(parsedSvg, true);
+      svg.removeAttribute("width");
+      svg.removeAttribute("height");
+      svg.setAttribute("aria-label", "Florida counties colored by current liquor license asking and sold prices");
+      art.replaceChildren(svg);
+      attachCountyHover(svg, art);
+    } catch (error) {
+      console.error("Interactive market map failed", error);
+      const fallback = document.createElement("img");
+      fallback.src = "/assets/florida-map-clean.png";
+      fallback.alt = "Florida counties colored by current liquor license asking and sold prices";
+      art.replaceChildren(fallback);
+    }
+  }
+
   function openModal(trigger) {
     if (modal) return;
 
@@ -120,10 +200,10 @@
     const art = document.createElement("div");
     art.className = "market-map-popup-art";
 
-    const map = document.createElement("img");
-    map.src = "/assets/florida-map-clean.png";
-    map.alt = "Florida counties colored by current liquor license asking and sold prices";
-    art.appendChild(map);
+    const loading = document.createElement("span");
+    loading.className = "market-map-popup-loading";
+    loading.textContent = "Loading county map…";
+    art.appendChild(loading);
 
     const closeButton = document.createElement("button");
     closeButton.type = "button";
@@ -137,6 +217,7 @@
     document.body.append(backdrop, modal);
     document.body.classList.add(BODY_CLASS);
     closeButton.focus();
+    loadInteractiveMap(art);
   }
 
   function bindMarketMapLink() {
