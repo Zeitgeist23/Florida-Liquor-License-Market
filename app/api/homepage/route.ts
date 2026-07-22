@@ -29,7 +29,6 @@ function updateServerRenderedTransactions(html: string) {
       ["$965,000", "$575,000"],
       ["Brevard County", "Miami-Dade County"],
       ["2COP Quota", "4COP Quota"],
-      ["$585,000", "$495,000"],
       ["Broward County", "Lee County"],
       ["3PS License", "4COP Quota"],
       ["$615,000", "$425,000"],
@@ -38,6 +37,7 @@ function updateServerRenderedTransactions(html: string) {
       ["Collier County", "Sarasota County"],
       ["3COP License", "3PS Quota / Package Store"],
       ["$330,000", "$340,000"],
+      ["$585,000", "$495,000"],
     ];
 
     return replacements.reduce((updated, [from, to]) => updated.replace(from, to), section);
