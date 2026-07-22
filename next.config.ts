@@ -16,11 +16,6 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
-        {
-          source: "/assets/page-B81INvpQ.js",
-          missing: [{ type: "query", key: "original" }],
-          destination: "/assets/page-B81INvpQ-custom.js",
-        },
         { source: "/", destination: "/index.html" },
         ...mirroredRoutes.map((route) => ({
           source: `/${route}`,
