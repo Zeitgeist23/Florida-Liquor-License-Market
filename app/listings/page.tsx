@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import InventoryCardExpansion from "@/components/InventoryCardExpansion";
 import ListingsPage from "@/components/ListingsPage";
+import MonroeMapCompletion from "@/components/MonroeMapCompletion";
 import "./listings-premium.css";
 import "./listings-header-position.css";
 import "./listings-map-size.css";
@@ -17,6 +18,7 @@ export default function Page() {
     <>
       <ListingsPage />
       <InventoryCardExpansion />
+      <MonroeMapCompletion />
     </>
   );
 }
