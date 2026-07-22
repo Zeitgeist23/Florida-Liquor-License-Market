@@ -1,12 +1,14 @@
+import { availableListings, type Listing } from "@/data/listings";
+
 export const dynamic = "force-dynamic";
 
-const soldFeaturedListings = [
-  ["Miami-Dade County", "$495,000"],
-  ["Palm Beach County", "$575,000"],
-  ["Sarasota County", "$340,000"],
-  ["Lee County", "$425,000"],
-  ["St. Johns County", "$425,000"],
-] as const;
+const carouselListings = availableListings.map(({ county, type, priceLabel, sourceRef, image }) => ({
+  county,
+  type,
+  priceLabel,
+  sourceRef,
+  image,
+}));
 
 function replaceSection(
   html: string,
@@ -44,23 +46,75 @@ function updateServerRenderedTransactions(html: string) {
   });
 }
 
-function removeServerRenderedSoldFeaturedListings(html: string) {
-  return replaceSection(html, "Featured Florida Liquor Licenses", "Video Briefing", (section) => {
-    const listingCardPattern = /<article\b[^>]*class="[^"]*\blisting-card\b[^"]*"[^>]*>[\s\S]*?<\/article>/g;
-    const carouselArrowPattern = /<button\b[^>]*class="[^"]*\bcarousel-arrow\b[^"]*"[^>]*>[\s\S]*?<\/button>/g;
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
 
-    const availableOnly = section.replace(listingCardPattern, (card) => {
-      const isSold = soldFeaturedListings.some(
-        ([county, price]) => card.includes(county) && card.includes(price),
-      );
-      return isSold ? "" : card;
-    });
+function listingHref(listing: Pick<Listing, "county" | "type" | "sourceRef">) {
+  const description = encodeURIComponent(`${listing.county} ${listing.type}`);
+  const reference = encodeURIComponent(listing.sourceRef ?? "");
+  return `/contact?listing=${description}&ref=${reference}`;
+}
 
-    const remainingCards = availableOnly.match(/\blisting-card\b/g)?.length ?? 0;
-    return remainingCards <= 4
-      ? availableOnly.replace(carouselArrowPattern, "")
-      : availableOnly;
-  });
+function renderListingCard(listing: (typeof carouselListings)[number]) {
+  const county = escapeHtml(listing.county);
+  const type = escapeHtml(listing.type);
+  const price = escapeHtml(listing.priceLabel);
+  const image = escapeHtml(listing.image);
+  const href = escapeHtml(listingHref(listing));
+
+  return `<article class="listing-card" data-homepage-available-card="true">
+    <a class="homepage-carousel-card-link" href="${href}" aria-label="View ${county} ${type} listing">
+      <div class="listing-photo">
+        <img src="${image}" alt="${county} ${type}" loading="lazy"/>
+        <span>${type}</span>
+      </div>
+      <div class="listing-body">
+        <p>● ${county}</p>
+        <h3>${price}</h3>
+        <div class="listing-facts"><span>${type}</span><span>Available</span></div>
+      </div>
+    </a>
+  </article>`;
+}
+
+function replaceDivContentsByClass(html: string, className: string, contents: string) {
+  const escapedClass = className.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const openingPattern = new RegExp(`<div\\b[^>]*class="[^"]*\\b${escapedClass}\\b[^"]*"[^>]*>`, "i");
+  const openingMatch = openingPattern.exec(html);
+  if (!openingMatch) return html;
+
+  const contentStart = openingMatch.index + openingMatch[0].length;
+  const divPattern = /<div\b[^>]*>|<\/div\s*>/gi;
+  divPattern.lastIndex = contentStart;
+  let depth = 1;
+  let token: RegExpExecArray | null;
+
+  while ((token = divPattern.exec(html))) {
+    if (/^<\/div/i.test(token[0])) depth -= 1;
+    else depth += 1;
+
+    if (depth === 0) {
+      return `${html.slice(0, contentStart)}${contents}${html.slice(token.index)}`;
+    }
+  }
+
+  return html;
+}
+
+function renderServerRenderedAvailableListings(html: string) {
+  return replaceSection(html, "Featured Florida Liquor Licenses", "Video Briefing", (section) =>
+    replaceDivContentsByClass(
+      section,
+      "listing-grid",
+      carouselListings.map(renderListingCard).join(""),
+    ),
+  );
 }
 
 export async function GET(request: Request) {
@@ -74,9 +128,23 @@ export async function GET(request: Request) {
     }
 
     const sourceHtml = await sourceResponse.text();
-    const correctedHtml = removeServerRenderedSoldFeaturedListings(
+    let enhancedHtml = renderServerRenderedAvailableListings(
       updateServerRenderedTransactions(sourceHtml),
     );
+
+    const carouselStyle = `<style id="homepage-available-carousel-styles">
+      .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
+      .homepage-carousel-card-link:focus-visible{outline:3px solid #f6a700;outline-offset:-3px}
+    </style>`;
+    if (!enhancedHtml.includes('id="homepage-available-carousel-styles"')) {
+      enhancedHtml = enhancedHtml.replace("</head>", `${carouselStyle}</head>`);
+    }
+
+    const inventoryData = JSON.stringify(carouselListings).replaceAll("<", "\\u003c");
+    const inventoryScript = `<script id="homepage-available-listings-data">window.__FLLM_AVAILABLE_LISTINGS__=${inventoryData};</script>`;
+    if (!enhancedHtml.includes('id="homepage-available-listings-data"')) {
+      enhancedHtml = enhancedHtml.replace("</body>", `${inventoryScript}</body>`);
+    }
 
     const scriptTags = [
       '<script defer src="/assets/market-map-modal.js"></script>',
@@ -90,10 +158,8 @@ export async function GET(request: Request) {
       '<script defer src="/assets/featured-sold-status.js"></script>',
     ];
 
-    const tagsToAdd = scriptTags.filter((tag) => !correctedHtml.includes(tag)).join("");
-    const enhancedHtml = tagsToAdd
-      ? correctedHtml.replace("</body>", `${tagsToAdd}</body>`)
-      : correctedHtml;
+    const tagsToAdd = scriptTags.filter((tag) => !enhancedHtml.includes(tag)).join("");
+    if (tagsToAdd) enhancedHtml = enhancedHtml.replace("</body>", `${tagsToAdd}</body>`);
 
     return new Response(enhancedHtml, {
       headers: {
