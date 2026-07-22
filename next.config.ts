@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
     return {
       beforeFiles: [
         { source: "/", destination: "/index.html" },
+        { source: "/submit-offer", destination: "/contact/index.html" },
         ...mirroredRoutes.map((route) => ({
           source: `/${route}`,
           destination: `/${route}/index.html`,
