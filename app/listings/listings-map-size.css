@@ -8,6 +8,10 @@
   transform-origin: center center;
 }
 
+.results-page .result-actions {
+  margin-top: -28px !important;
+}
+
 @media (max-width: 430px) {
   .results-page .result-photo {
     height: 227px !important;
@@ -16,5 +20,9 @@
 
   .results-page .result-photo .florida-county-map {
     transform: scale(1.21);
+  }
+
+  .results-page .result-actions {
+    margin-top: -12px !important;
   }
 }
