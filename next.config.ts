@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
+        { source: "/assets/florida-map-clean.png", destination: "/api/market-map" },
         { source: "/", destination: "/index.html" },
         ...mirroredRoutes.map((route) => ({
           source: `/${route}`,
