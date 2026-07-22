@@ -89,7 +89,7 @@ function attachCountyHover(svg: SVGSVGElement, art: HTMLElement) {
     };
 
     path.addEventListener("mouseenter", show);
-    path.addEventListener("mousemove", (event) => positionTooltip(event, art, tooltip));
+    path.addEventListener("mousemove", (event: MouseEvent) => positionTooltip(event, art, tooltip));
     path.addEventListener("mouseleave", () => tooltip.classList.remove("is-visible"));
     path.addEventListener("focus", () => {
       const pathRect = path.getBoundingClientRect();
@@ -115,7 +115,7 @@ async function loadInteractiveMap(art: HTMLElement) {
       throw new Error("Map SVG could not be parsed");
     }
 
-    const svg = document.importNode(parsedSvg, true) as SVGSVGElement;
+    const svg = document.importNode(parsedSvg, true) as unknown as SVGSVGElement;
     svg.removeAttribute("width");
     svg.removeAttribute("height");
     svg.setAttribute("aria-label", "Florida counties colored by current liquor license asking and sold prices");
@@ -173,16 +173,16 @@ export default function ListingsHeatMapEnhancement() {
     const openModal = () => {
       if (modal) return;
 
-      backdrop = document.createElement("div");
-      backdrop.className = "listings-heat-map-backdrop";
-      backdrop.setAttribute("aria-hidden", "true");
-      backdrop.addEventListener("click", closeModal);
+      const nextBackdrop = document.createElement("div");
+      nextBackdrop.className = "listings-heat-map-backdrop";
+      nextBackdrop.setAttribute("aria-hidden", "true");
+      nextBackdrop.addEventListener("click", closeModal);
 
-      modal = document.createElement("section");
-      modal.className = "listings-heat-map-modal";
-      modal.setAttribute("role", "dialog");
-      modal.setAttribute("aria-modal", "true");
-      modal.setAttribute("aria-label", "Florida liquor license heat map");
+      const nextModal = document.createElement("section");
+      nextModal.className = "listings-heat-map-modal";
+      nextModal.setAttribute("role", "dialog");
+      nextModal.setAttribute("aria-modal", "true");
+      nextModal.setAttribute("aria-label", "Florida liquor license heat map");
 
       const title = document.createElement("div");
       title.className = "listings-heat-map-title";
@@ -215,8 +215,10 @@ export default function ListingsHeatMapEnhancement() {
       closeButton.addEventListener("click", closeModal);
 
       content.append(sidebar, art);
-      modal.append(title, content, closeButton);
-      document.body.append(backdrop, modal);
+      nextModal.append(title, content, closeButton);
+      document.body.append(nextBackdrop, nextModal);
+      backdrop = nextBackdrop;
+      modal = nextModal;
       document.body.classList.add(BODY_CLASS);
       closeButton.focus();
       void loadInteractiveMap(art);
