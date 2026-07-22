@@ -1,14 +1,16 @@
 (() => {
-  const soldListings = [
-    ["Miami-Dade County", "$495,000"],
-    ["Palm Beach County", "$575,000"],
-    ["Sarasota County", "$340,000"],
-    ["Lee County", "$425,000"],
-    ["St. Johns County", "$425,000"],
-  ];
-
+  const VERSION = "available-inventory-v1";
+  const STYLE_ID = "homepage-available-carousel-client-styles";
+  let startIndex = 0;
   let observer = null;
   let scheduled = false;
+  let lastVisibleCount = 0;
+
+  function getListings() {
+    return Array.isArray(window.__FLLM_AVAILABLE_LISTINGS__)
+      ? window.__FLLM_AVAILABLE_LISTINGS__.filter((listing) => listing && listing.sourceRef)
+      : [];
+  }
 
   function normalizedText(element) {
     return (element?.textContent || "").replace(/\s+/g, " ").trim();
@@ -20,44 +22,158 @@
     return heading?.closest("section") || heading?.parentElement || null;
   }
 
-  function removeSoldCards() {
-    scheduled = false;
-    const section = findFeaturedSection();
-    if (!section) return false;
+  function visibleCount() {
+    if (window.innerWidth <= 640) return 1;
+    if (window.innerWidth <= 900) return 2;
+    return 4;
+  }
 
-    Array.from(section.querySelectorAll(".listing-card")).forEach((card) => {
-      const text = normalizedText(card);
-      const isSold = soldListings.some(([county, price]) => text.includes(county) && text.includes(price));
-      if (isSold) card.remove();
-    });
+  function installStyles() {
+    if (document.getElementById(STYLE_ID)) return;
+    const style = document.createElement("style");
+    style.id = STYLE_ID;
+    style.textContent = `
+      .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
+      .homepage-carousel-card-link:focus-visible{outline:3px solid #f6a700;outline-offset:-3px}
+      .listing-card[data-homepage-available-card="true"]{height:100%}
+    `;
+    document.head.appendChild(style);
+  }
 
-    const remainingCards = section.querySelectorAll(".listing-card").length;
-    section.querySelectorAll(".carousel-arrow").forEach((arrow) => {
-      const shouldHide = remainingCards <= 4;
-      arrow.hidden = shouldHide;
-      arrow.setAttribute("aria-hidden", shouldHide ? "true" : "false");
-      if (arrow instanceof HTMLButtonElement) arrow.tabIndex = shouldHide ? -1 : 0;
-    });
+  function createCard(listing) {
+    const article = document.createElement("article");
+    article.className = "listing-card";
+    article.dataset.homepageAvailableCard = "true";
 
-    if (!observer) {
-      observer = new MutationObserver(() => {
-        if (scheduled) return;
-        scheduled = true;
-        window.requestAnimationFrame(removeSoldCards);
+    const link = document.createElement("a");
+    link.className = "homepage-carousel-card-link";
+    link.href = `/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${encodeURIComponent(listing.sourceRef)}`;
+    link.setAttribute("aria-label", `View ${listing.county} ${listing.type} listing`);
+
+    const photo = document.createElement("div");
+    photo.className = "listing-photo";
+
+    const image = document.createElement("img");
+    image.src = listing.image;
+    image.alt = `${listing.county} ${listing.type}`;
+    image.loading = "lazy";
+
+    const badge = document.createElement("span");
+    badge.textContent = listing.type;
+    photo.append(image, badge);
+
+    const body = document.createElement("div");
+    body.className = "listing-body";
+
+    const county = document.createElement("p");
+    county.textContent = `● ${listing.county}`;
+
+    const price = document.createElement("h3");
+    price.textContent = listing.priceLabel;
+
+    const facts = document.createElement("div");
+    facts.className = "listing-facts";
+    const type = document.createElement("span");
+    type.textContent = listing.type;
+    const status = document.createElement("span");
+    status.textContent = "Available";
+    facts.append(type, status);
+
+    body.append(county, price, facts);
+    link.append(photo, body);
+    article.appendChild(link);
+    return article;
+  }
+
+  function currentPage(listings, count) {
+    if (!listings.length) return [];
+    const normalizedStart = ((startIndex % listings.length) + listings.length) % listings.length;
+    return Array.from({ length: Math.min(count, listings.length) }, (_, offset) =>
+      listings[(normalizedStart + offset) % listings.length],
+    );
+  }
+
+  function bindArrow(section, selector, direction, listings) {
+    const arrow = section.querySelector(selector);
+    if (!(arrow instanceof HTMLButtonElement)) return;
+
+    arrow.hidden = listings.length <= visibleCount();
+    arrow.setAttribute("aria-hidden", arrow.hidden ? "true" : "false");
+    arrow.tabIndex = arrow.hidden ? -1 : 0;
+    if (arrow.dataset.availableCarouselBound === "true") return;
+
+    arrow.dataset.availableCarouselBound = "true";
+    arrow.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      const step = visibleCount();
+      startIndex = (startIndex + direction * step + listings.length) % listings.length;
+      renderCarousel(true);
+    }, true);
+  }
+
+  function observeSection(section) {
+    observer?.disconnect();
+    observer = new MutationObserver(() => {
+      if (scheduled) return;
+      const grid = section.querySelector(".listing-grid");
+      const expectedCount = Math.min(visibleCount(), getListings().length);
+      const valid = grid instanceof HTMLElement &&
+        grid.dataset.availableCarouselVersion === VERSION &&
+        grid.querySelectorAll('[data-homepage-available-card="true"]').length === expectedCount;
+      if (valid) return;
+
+      scheduled = true;
+      window.requestAnimationFrame(() => {
+        scheduled = false;
+        renderCarousel(true);
       });
-      observer.observe(section, { childList: true, subtree: true });
-    }
+    });
+    observer.observe(section, { childList: true, subtree: true });
+  }
 
+  function renderCarousel(force = false) {
+    const listings = getListings();
+    const section = findFeaturedSection();
+    const grid = section?.querySelector(".listing-grid");
+    if (!listings.length || !(section instanceof HTMLElement) || !(grid instanceof HTMLElement)) return false;
+
+    installStyles();
+    const count = visibleCount();
+    const expectedCount = Math.min(count, listings.length);
+    const alreadyCurrent = grid.dataset.availableCarouselVersion === VERSION &&
+      grid.dataset.availableCarouselStart === String(startIndex) &&
+      grid.querySelectorAll('[data-homepage-available-card="true"]').length === expectedCount;
+    if (!force && alreadyCurrent) return true;
+
+    observer?.disconnect();
+    const fragment = document.createDocumentFragment();
+    currentPage(listings, count).forEach((listing) => fragment.appendChild(createCard(listing)));
+    grid.replaceChildren(fragment);
+    grid.dataset.availableCarouselVersion = VERSION;
+    grid.dataset.availableCarouselStart = String(startIndex);
+    lastVisibleCount = count;
+
+    bindArrow(section, ".carousel-arrow.previous", -1, listings);
+    bindArrow(section, ".carousel-arrow.next", 1, listings);
+    observeSection(section);
     return true;
   }
 
   function initialize() {
-    removeSoldCards();
-    window.setTimeout(removeSoldCards, 300);
-    window.setTimeout(removeSoldCards, 1000);
-    window.setTimeout(removeSoldCards, 2200);
-    window.setTimeout(removeSoldCards, 5000);
+    renderCarousel(true);
+    window.setTimeout(() => renderCarousel(true), 300);
+    window.setTimeout(() => renderCarousel(true), 1000);
+    window.setTimeout(() => renderCarousel(true), 2200);
+    window.setTimeout(() => renderCarousel(true), 5000);
   }
+
+  window.addEventListener("resize", () => {
+    const nextCount = visibleCount();
+    if (nextCount === lastVisibleCount) return;
+    window.clearTimeout(window.__fllmCarouselResizeTimer);
+    window.__fllmCarouselResizeTimer = window.setTimeout(() => renderCarousel(true), 120);
+  });
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initialize, { once: true });
