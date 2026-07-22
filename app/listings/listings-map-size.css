@@ -1,5 +1,5 @@
 .results-page .result-photo {
-  height: 212px !important;
+  height: 238px !important;
   padding: 8px 4px 0 0 !important;
 }
 
@@ -10,7 +10,7 @@
 
 @media (max-width: 430px) {
   .results-page .result-photo {
-    height: 188px !important;
+    height: 206px !important;
     padding: 8px 4px 0 0 !important;
   }
 
