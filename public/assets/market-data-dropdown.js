@@ -92,18 +92,7 @@
   }
 
   function goToRecentTransactions() {
-    const heading = findHeading("Recent Florida Transactions");
-    if (!heading) {
-      window.location.hash = "market-data";
-      return;
-    }
-
-    let target = heading.parentElement;
-    while (target && target !== document.body) {
-      if (target.querySelector("table") || /view all transactions/i.test(normalizedText(target))) break;
-      target = target.parentElement;
-    }
-    scrollToElement(target || heading);
+    window.location.assign("/listings?status=sold");
   }
 
   function goToMarketInsights() {
