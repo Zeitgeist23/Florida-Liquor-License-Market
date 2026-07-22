@@ -46,15 +46,22 @@ export default function SubmitOfferPage() {
     setStatus("submitting");
 
     try {
-      let response = await fetch("/api/inquiry", {
-        method: "POST",
-        body: formData,
-      });
+      let response: Response | null = null;
 
-      if (response.status === 429) {
+      try {
+        response = await fetch("/api/inquiry", {
+          method: "POST",
+          body: formData,
+        });
+      } catch {
+        response = null;
+      }
+
+      if (!response?.ok) {
         formData.set("_subject", `Florida Liquor License Market — Offer for ${listingContext.listing}`);
         formData.set("_template", "table");
         formData.set("_captcha", "false");
+
         response = await fetch("https://formsubmit.co/ajax/JWigg023@gmail.com", {
           method: "POST",
           headers: { Accept: "application/json" },
