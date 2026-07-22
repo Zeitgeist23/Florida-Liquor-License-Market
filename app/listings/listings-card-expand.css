@@ -93,6 +93,10 @@ body.inventory-card-open {
   outline-offset: 3px;
 }
 
+.results-page .result-card:has(.sold-status) .result-facts span:last-child {
+  display: none !important;
+}
+
 @media (max-width: 1050px) {
   .results-page .result-card.is-expanded,
   .results-page .result-card.is-expanded:hover {
