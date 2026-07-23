@@ -4,6 +4,8 @@
   const BUTTON_ID = "market-report-narration-button-v1";
   const AUDIO_CLASS = "homepage-market-report-narration";
   const PATCH_FLAG = "singlePlayerControlsFixed";
+  const LOGO_ID = "homepage-market-report-brand-logo-inline";
+  const LOGO_STYLE_ID = "homepage-market-report-brand-logo-inline-styles-v1";
   const PART_URLS = Array.from({ length: 7 }, (_, index) =>
     `/assets/market-report-audio-part-${String(index + 1).padStart(2, "0")}-v1.txt`,
   );
@@ -39,6 +41,52 @@
     return loadingPromise;
   }
 
+  function installLogo(player) {
+    if (!(player instanceof HTMLElement)) return;
+
+    if (!document.getElementById(LOGO_STYLE_ID)) {
+      const style = document.createElement("style");
+      style.id = LOGO_STYLE_ID;
+      style.textContent = `
+        #${PLAYER_ID}{position:relative!important}
+        #${LOGO_ID}{
+          position:absolute!important;
+          left:2.45%!important;
+          top:19.5%!important;
+          width:min(22%,170px)!important;
+          height:auto!important;
+          display:block!important;
+          z-index:9999!important;
+          padding:5px 7px!important;
+          box-sizing:border-box!important;
+          background:#020405!important;
+          border:1px solid rgba(246,167,0,.95)!important;
+          object-fit:contain!important;
+          pointer-events:none!important;
+          user-select:none!important;
+          filter:drop-shadow(0 3px 8px rgba(0,0,0,.78))!important;
+        }
+        @media(max-width:640px){
+          #${LOGO_ID}{left:2.2%!important;top:19%!important;width:min(27%,126px)!important;padding:3px 4px!important}
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    let logo = document.getElementById(LOGO_ID);
+    if (!(logo instanceof HTMLImageElement)) {
+      logo?.remove();
+      logo = document.createElement("img");
+      logo.id = LOGO_ID;
+      logo.src = "/assets/brand-sharp.svg?v=4";
+      logo.alt = "";
+      logo.setAttribute("aria-hidden", "true");
+      player.appendChild(logo);
+    } else if (logo.parentElement !== player) {
+      player.appendChild(logo);
+    }
+  }
+
   function applyFix() {
     const video = document.getElementById(VIDEO_ID);
     if (!(video instanceof HTMLVideoElement)) return false;
@@ -46,6 +94,8 @@
     const player = video.closest(`#${PLAYER_ID}`);
     const button = player?.querySelector(`#${BUTTON_ID}`);
     const audio = player?.querySelector("audio") || document.querySelector(`audio.${AUDIO_CLASS}`);
+
+    installLogo(player);
 
     if (button instanceof HTMLButtonElement) {
       button.remove();
