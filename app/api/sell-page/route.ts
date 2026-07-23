@@ -1,9 +1,9 @@
 export const dynamic = "force-dynamic";
 
-const SELL_PAGE_STYLES = `<style id="sell-license-header-layout">
+const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v2">
   .seller-page > .seller-header {
-    justify-content: flex-end !important;
-    gap: 12px !important;
+    justify-content: flex-start !important;
+    column-gap: 10px !important;
   }
 
   .seller-page > .seller-header > .seller-brand {
@@ -11,31 +11,40 @@ const SELL_PAGE_STYLES = `<style id="sell-license-header-layout">
     align-items: center !important;
     flex: 0 0 auto !important;
     width: auto !important;
+    height: 100% !important;
+    margin-left: auto !important;
   }
 
   .seller-page > .seller-header > .seller-brand img {
+    display: block !important;
     width: 141px !important;
-    height: 57px !important;
-    object-fit: cover !important;
-    object-position: left center !important;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center !important;
   }
 
   .seller-page > .seller-header > nav {
+    display: flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    margin-left: 0 !important;
+  }
+
+  .seller-page > .seller-header > nav > a:first-child {
     margin-left: 0 !important;
   }
 
   @media (max-width: 560px) {
     .seller-page > .seller-header {
-      gap: 8px !important;
+      column-gap: 7px !important;
     }
 
     .seller-page > .seller-header > .seller-brand img {
       width: 123px !important;
-      height: 51px !important;
     }
 
     .seller-page > .seller-header > nav {
-      gap: 12px !important;
+      gap: 10px !important;
     }
   }
 </style>`;
@@ -51,14 +60,14 @@ export async function GET(request: Request) {
     }
 
     let html = await sourceResponse.text();
-    if (!html.includes('id="sell-license-header-layout"')) {
+    if (!html.includes('id="sell-license-header-layout-v2"')) {
       html = html.replace("</head>", `${SELL_PAGE_STYLES}</head>`);
     }
 
     return new Response(html, {
       headers: {
         "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "public, max-age=0, s-maxage=300, stale-while-revalidate=3600",
+        "Cache-Control": "no-store, max-age=0",
         "X-Content-Type-Options": "nosniff",
       },
     });
