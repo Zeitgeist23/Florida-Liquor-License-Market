@@ -1,10 +1,11 @@
 (() => {
-  const STYLE_ID = "homepage-synced-caption-styles-v1";
-  const CAPTION_ID = "market-report-synced-caption";
+  const STYLE_ID = "homepage-synced-caption-styles-v2";
+  const LEGACY_STYLE_ID = "homepage-synced-caption-styles-v1";
+  const CAPTION_HOST_CLASS = "market-report-synced-caption-host";
   const PLAYER_ID = "market-report-narration-player-v1";
   const VIDEO_ID = "homepage-market-report-real-video";
-  const CAPTIONS_URL = "/assets/market-report-captions-v1.json?v=1";
-  const LEGACY_CLASS = "market-report-legacy-caption-hidden";
+  const CAPTIONS_URL = "/assets/market-report-captions-v1.json?v=2";
+  const LEGACY_HIDDEN_CLASS = "market-report-legacy-caption-hidden";
 
   let captionsPromise = null;
   let captions = [];
@@ -24,81 +25,142 @@
     return label?.closest("section") || null;
   }
 
+  function removeOldHidingRules(section) {
+    document.getElementById(LEGACY_STYLE_ID)?.remove();
+    section.querySelectorAll(`.${LEGACY_HIDDEN_CLASS}`).forEach((element) => {
+      if (!(element instanceof HTMLElement)) return;
+      element.classList.remove(LEGACY_HIDDEN_CLASS);
+      element.removeAttribute("aria-hidden");
+      element.style.removeProperty("display");
+    });
+  }
+
   function installStyles() {
     if (document.getElementById(STYLE_ID)) return;
 
     const style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
-      .${LEGACY_CLASS}{display:none!important}
-      #${CAPTION_ID}{
-        position:absolute;z-index:8;left:3.5%;right:3.5%;bottom:18.5%;
-        min-height:13%;display:flex;align-items:center;justify-content:center;
-        padding:5px 14px;border-left:4px solid #f6a700;
-        background:rgba(0,7,13,.9);color:#fff;text-align:center;
-        font:700 clamp(11px,1.05vw,16px)/1.22 Arial,Helvetica,sans-serif;
-        box-sizing:border-box;pointer-events:none;opacity:0;
-        transition:opacity .12s ease;overflow:hidden;text-shadow:0 1px 2px #000
+      .${CAPTION_HOST_CLASS}{
+        display:flex!important;align-items:center!important;justify-content:center!important;
+        gap:10px!important;visibility:visible!important;opacity:1!important;
+        color:#fff!important;text-align:center!important;
+        font:700 clamp(11px,1.05vw,16px)/1.2 Arial,Helvetica,sans-serif!important;
+        box-sizing:border-box!important
       }
-      #${CAPTION_ID}.is-visible{opacity:1}
+      .${CAPTION_HOST_CLASS} .market-report-synced-speaker{
+        flex:0 0 auto;color:#f6a700!important;font-weight:900!important;
+        text-transform:uppercase!important;letter-spacing:.02em!important
+      }
+      .${CAPTION_HOST_CLASS} .market-report-synced-text{
+        color:#fff!important;font:inherit!important;text-align:center!important
+      }
       @media(max-width:640px){
-        #${CAPTION_ID}{left:2.5%;right:2.5%;bottom:20%;min-height:14%;padding:4px 8px;border-left-width:3px;font-size:10px}
+        .${CAPTION_HOST_CLASS}{gap:6px!important;font-size:10px!important;line-height:1.18!important}
       }
     `;
     document.head.appendChild(style);
   }
 
-  function hideLegacyCaptions(section) {
-    const candidates = Array.from(section.querySelectorAll("div,p,span,strong,small"));
-    candidates.forEach((element) => {
-      if (!(element instanceof HTMLElement) || element.id === CAPTION_ID) return;
-      if (element.closest(`#${CAPTION_ID}`) || element.querySelector("audio,video")) return;
+  function findOriginalCaption(section) {
+    const candidates = Array.from(section.querySelectorAll("div,p,span,strong"))
+      .filter((element) => {
+        if (!(element instanceof HTMLElement)) return false;
+        if (element.querySelector("audio,video")) return false;
+        const text = normalizedText(element);
+        return text.length > 40 &&
+          (/Welcome to the Florida Liquor License Market Report/i.test(text) ||
+           (/^MICHAEL\b/i.test(text) && /marketplace/i.test(text)));
+      })
+      .map((element) => ({ element, rect: element.getBoundingClientRect() }))
+      .filter(({ rect }) => rect.width > 180 && rect.height > 10)
+      .sort((a, b) => (a.rect.width * a.rect.height) - (b.rect.width * b.rect.height));
 
-      const text = normalizedText(element);
-      if (text.length < 35 || text.length > 420) return;
+    const candidate = candidates[0]?.element;
+    if (!(candidate instanceof HTMLElement)) return null;
 
-      const isOldCaption =
-        /Welcome to the Florida Liquor License Market Report/i.test(text) ||
-        (/^MICHAEL\b/i.test(text) && /Sarah/i.test(text) && /marketplace/i.test(text)) ||
-        (/^SARAH\b/i.test(text) && /liquor license/i.test(text));
+    let current = candidate;
+    let depth = 0;
+    while (current.parentElement && section.contains(current.parentElement) && depth < 4) {
+      const parent = current.parentElement;
+      if (parent.querySelector("audio,video")) break;
 
-      if (isOldCaption) {
-        element.classList.add(LEGACY_CLASS);
-        element.setAttribute("aria-hidden", "true");
+      const rect = parent.getBoundingClientRect();
+      const style = window.getComputedStyle(parent);
+      const borderWidth = Number.parseFloat(style.borderLeftWidth || "0");
+      const background = style.backgroundColor;
+      const hasCaptionTreatment =
+        borderWidth >= 1 ||
+        (background && background !== "rgba(0, 0, 0, 0)" && rect.height > 20 && rect.height < 130);
+
+      if (hasCaptionTreatment) {
+        current = parent;
+        break;
       }
-    });
-  }
 
-  function findPlayer(section) {
-    const exact = document.getElementById(PLAYER_ID);
-    if (exact instanceof HTMLElement && section.contains(exact)) return exact;
-
-    const video = section.querySelector(`#${VIDEO_ID},video`);
-    if (video instanceof HTMLVideoElement && video.parentElement instanceof HTMLElement) {
-      return video.parentElement;
+      current = parent;
+      depth += 1;
     }
 
-    return null;
+    return current;
+  }
+
+  function fallbackCaptionHost(section) {
+    const video = section.querySelector(`#${VIDEO_ID},video`);
+    const player = document.getElementById(PLAYER_ID);
+    const container =
+      video instanceof HTMLVideoElement && video.parentElement instanceof HTMLElement
+        ? video.parentElement
+        : player instanceof HTMLElement
+          ? player
+          : null;
+
+    if (!(container instanceof HTMLElement)) return null;
+    if (window.getComputedStyle(container).position === "static") container.style.position = "relative";
+
+    const host = document.createElement("div");
+    host.style.position = "absolute";
+    host.style.zIndex = "20";
+    host.style.left = "3.5%";
+    host.style.right = "3.5%";
+    host.style.bottom = "18.5%";
+    host.style.minHeight = "13%";
+    host.style.padding = "5px 14px";
+    host.style.borderLeft = "4px solid #f6a700";
+    host.style.background = "rgba(0,7,13,.9)";
+    container.appendChild(host);
+    return host;
   }
 
   function ensureCaptionHost(section) {
+    removeOldHidingRules(section);
     installStyles();
-    hideLegacyCaptions(section);
 
-    const player = findPlayer(section);
-    if (!(player instanceof HTMLElement)) return null;
-    if (window.getComputedStyle(player).position === "static") player.style.position = "relative";
-
-    let host = document.getElementById(CAPTION_ID);
+    let host = section.querySelector(`.${CAPTION_HOST_CLASS}`);
     if (!(host instanceof HTMLElement)) {
-      host = document.createElement("div");
-      host.id = CAPTION_ID;
-      host.setAttribute("role", "status");
-      host.setAttribute("aria-live", "off");
-      host.setAttribute("aria-label", "Synchronized market report subtitles");
-      player.appendChild(host);
-    } else if (host.parentElement !== player) {
-      player.appendChild(host);
+      host = findOriginalCaption(section) || fallbackCaptionHost(section);
+    }
+    if (!(host instanceof HTMLElement)) return null;
+
+    host.classList.remove(LEGACY_HIDDEN_CLASS);
+    host.classList.add(CAPTION_HOST_CLASS);
+    host.removeAttribute("aria-hidden");
+    host.setAttribute("role", "status");
+    host.setAttribute("aria-live", "off");
+    host.setAttribute("aria-label", "Synchronized market report subtitles");
+    host.style.removeProperty("display");
+
+    if (!host.querySelector(".market-report-synced-text")) {
+      host.replaceChildren();
+
+      const speaker = document.createElement("strong");
+      speaker.className = "market-report-synced-speaker";
+      speaker.textContent = "MICHAEL";
+
+      const text = document.createElement("span");
+      text.className = "market-report-synced-text";
+
+      host.append(speaker, text);
     }
 
     return host;
@@ -160,18 +222,19 @@
   }
 
   function renderCaption(host, time) {
+    const textNode = host.querySelector(".market-report-synced-text");
+    if (!(textNode instanceof HTMLElement)) return;
+
     const nextIndex = cueIndexAt(time);
     if (nextIndex === activeCueIndex) return;
     activeCueIndex = nextIndex;
 
     if (nextIndex < 0) {
-      host.textContent = "";
-      host.classList.remove("is-visible");
+      textNode.textContent = captions[0]?.text || "";
       return;
     }
 
-    host.textContent = captions[nextIndex].text;
-    host.classList.add("is-visible");
+    textNode.textContent = captions[nextIndex].text;
   }
 
   function stopLoop() {
@@ -194,15 +257,27 @@
   function bindMedia(section, host) {
     const { audio, video } = mediaFor(section);
     [audio, video].forEach((media) => {
-      if (!media || media.dataset.syncedCaptionsBound === "true") return;
-      media.dataset.syncedCaptionsBound = "true";
+      if (!media || media.dataset.syncedCaptionsBoundV2 === "true") return;
+      media.dataset.syncedCaptionsBoundV2 = "true";
       media.addEventListener("play", () => startLoop(section, host));
-      media.addEventListener("timeupdate", () => renderCaption(host, currentMediaTime(audio, video)));
-      media.addEventListener("seeking", () => renderCaption(host, currentMediaTime(audio, video)));
-      media.addEventListener("seeked", () => renderCaption(host, currentMediaTime(audio, video)));
+      media.addEventListener("timeupdate", () => {
+        const current = mediaFor(section);
+        renderCaption(host, currentMediaTime(current.audio, current.video));
+      });
+      media.addEventListener("seeking", () => {
+        const current = mediaFor(section);
+        renderCaption(host, currentMediaTime(current.audio, current.video));
+      });
+      media.addEventListener("seeked", () => {
+        const current = mediaFor(section);
+        renderCaption(host, currentMediaTime(current.audio, current.video));
+      });
       media.addEventListener("ended", () => {
         stopLoop();
-        renderCaption(host, Number.POSITIVE_INFINITY);
+        const textNode = host.querySelector(".market-report-synced-text");
+        if (textNode instanceof HTMLElement && captions.length) {
+          textNode.textContent = captions[captions.length - 1].text;
+        }
       });
     });
   }
@@ -215,7 +290,6 @@
     if (!(host instanceof HTMLElement)) return false;
 
     await loadCaptions();
-    hideLegacyCaptions(section);
     bindMedia(section, host);
 
     const { audio, video } = mediaFor(section);
@@ -225,10 +299,10 @@
 
   function initialize() {
     install();
-    [150, 400, 800, 1400, 2600, 4500].forEach((delay) => window.setTimeout(install, delay));
+    [100, 250, 500, 900, 1500, 2600, 4500].forEach((delay) => window.setTimeout(install, delay));
     const observer = new MutationObserver(() => install());
     observer.observe(document.documentElement, { childList: true, subtree: true });
-    window.setTimeout(() => observer.disconnect(), 15000);
+    window.setTimeout(() => observer.disconnect(), 18000);
   }
 
   if (document.readyState === "loading") {
