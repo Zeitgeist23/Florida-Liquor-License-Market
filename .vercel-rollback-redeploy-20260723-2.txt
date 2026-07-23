@@ -1,0 +1,1 @@
+Trigger Vercel redeployment of the restored homepage rollback. No application code changed.
