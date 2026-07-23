@@ -181,7 +181,7 @@ export async function GET(request: Request) {
       carouselListings,
     );
 
-    const carouselStyle = `<style id="homepage-available-carousel-styles-v4">
+    const carouselStyle = `<style id="homepage-available-carousel-styles-v5">
       .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
       .homepage-carousel-card-link:focus-visible{outline:3px solid #f6a700;outline-offset:-3px}
       .homepage-county-map-panel{background:#061728}
@@ -189,9 +189,11 @@ export async function GET(request: Request) {
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status,
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status:first-letter,
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status::first-letter{color:#58c94f!important}
+      .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts span:first-child:first-letter,
+      .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts span:first-child::first-letter{color:#000!important}
       #market-report-narration-button-v1{display:none!important}
     </style>`;
-    if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v4"')) {
+    if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v5"')) {
       enhancedHtml = enhancedHtml.replace("</head>", `${carouselStyle}</head>`);
     }
 
@@ -211,7 +213,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/market-insights-video-popup-v4.js"></script>',
       '<script defer src="/assets/resources-dropdown.js"></script>',
       '<script defer src="/assets/header-menu-coordinator.js"></script>',
-      '<script defer src="/assets/featured-sold-status.js?v=3"></script>',
+      '<script defer src="/assets/featured-sold-status.js?v=4"></script>',
       '<script defer src="/assets/newscast-screen-logo-v10.js?v=1"></script>',
       '<script defer src="/assets/homepage-video-controls-fix-v1.js?v=3"></script>',
       '<script defer src="/assets/homepage-synced-captions-v1.js?v=4"></script>',
