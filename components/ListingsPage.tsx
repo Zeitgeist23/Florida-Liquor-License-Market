@@ -2,25 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { listings } from "@/data/listings";
-import { additionalListings } from "@/data/additional-listings";
-import { latestListings } from "@/data/latest-listings";
+import type { Listing } from "@/data/listings";
 import FloridaCountyMap from "./FloridaCountyMap";
-
-const normalizedListings = [...listings, ...additionalListings, ...latestListings].map((listing) =>
-  listing.sourceRef === "FLLM-030"
-    ? { ...listing, price: 200000, priceLabel: "$200,000" }
-    : listing
-);
-
-const marketplaceListings = Array.from(
-  new Map(
-    normalizedListings.map((listing) => [
-      `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`,
-      listing,
-    ])
-  ).values()
-);
 
 const counties = `Alachua County,Baker County,Bay County,Bradford County,Brevard County,Broward County,Calhoun County,Charlotte County,Citrus County,Clay County,Collier County,Columbia County,DeSoto County,Dixie County,Duval County,Escambia County,Flagler County,Franklin County,Gadsden County,Gilchrist County,Glades County,Gulf County,Hamilton County,Hardee County,Hendry County,Hernando County,Highlands County,Hillsborough County,Holmes County,Indian River County,Jackson County,Jefferson County,Lafayette County,Lake County,Lee County,Leon County,Levy County,Liberty County,Madison County,Manatee County,Marion County,Martin County,Miami-Dade County,Monroe County,Nassau County,Okaloosa County,Okeechobee County,Orange County,Osceola County,Palm Beach County,Pasco County,Pinellas County,Polk County,Putnam County,Santa Rosa County,Sarasota County,Seminole County,St. Johns County,St. Lucie County,Sumter County,Suwannee County,Taylor County,Union County,Volusia County,Wakulla County,Walton County,Washington County`.split(",");
 
@@ -76,18 +59,25 @@ function priceMatches(price: number | null, range: string) {
     (range === "over1m" && price > 1000000);
 }
 
-export default function ListingsPage() {
+export default function ListingsPage({ initialListings }: { initialListings: Listing[] }) {
   const [county, setCounty] = useState("all");
   const [type, setType] = useState("all");
   const [price, setPrice] = useState("all");
   const [status, setStatus] = useState("all");
+
+  const marketplaceListings = useMemo(() => Array.from(
+    new Map(initialListings.map((listing) => [
+      `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`,
+      listing,
+    ])).values()
+  ), [initialListings]);
 
   const filtered = useMemo(() => marketplaceListings.filter((listing) =>
     (county === "all" || listing.county === county) &&
     (type === "all" || listing.type === type) &&
     priceMatches(listing.price, price) &&
     (status === "all" || (status === "available" ? Boolean(listing.sourceRef) : !listing.sourceRef))
-  ), [county, type, price, status]);
+  ), [county, type, price, status, marketplaceListings]);
 
   function clearFilters() {
     setCounty("all");
