@@ -40,6 +40,7 @@
       .listing-card[data-homepage-available-card="true"]{height:100%}
       .homepage-county-map-panel{background:#061728}
       .homepage-county-map-panel .homepage-county-map{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+      .listing-card[data-homepage-available-card="true"] .listing-facts span:last-child{color:#58c94f!important}
     `;
     document.head.appendChild(style);
   }
