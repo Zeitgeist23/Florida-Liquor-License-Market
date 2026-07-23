@@ -4,6 +4,7 @@ import ListingsHeatMapEnhancement from "@/components/ListingsHeatMapEnhancement"
 import ListingsPage from "@/components/ListingsPage";
 import ListingsQueryFilterEnhancement from "@/components/ListingsQueryFilterEnhancement";
 import MonroeMapCompletion from "@/components/MonroeMapCompletion";
+import { getMarketplaceListings } from "@/lib/listing-store";
 import "./listings-premium.css";
 import "./listings-header-position.css";
 import "./listings-map-size.css";
@@ -15,10 +16,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.floridaliquorlicensemarket.com/listings" },
 };
 
-export default function Page() {
+export const dynamic = "force-dynamic";
+
+export default async function Page() {
+  const marketplaceListings = await getMarketplaceListings();
+
   return (
     <>
-      <ListingsPage />
+      <ListingsPage initialListings={marketplaceListings} />
       <ListingsQueryFilterEnhancement />
       <InventoryCardExpansion />
       <MonroeMapCompletion />
