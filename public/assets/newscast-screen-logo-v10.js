@@ -1,7 +1,7 @@
 (() => {
   const OVERLAY_ID = "homepage-market-report-brand-logo";
-  const STYLE_ID = "homepage-market-report-brand-logo-styles-v12";
-  const LOGO_SRC = "/assets/brand-sharp.svg";
+  const STYLE_ID = "homepage-market-report-brand-logo-styles-v13";
+  const LOGO_SRC = "/assets/brand-sharp.svg?v=3";
   const VIDEO_ID = "homepage-market-report-real-video";
   let resizeTimer = 0;
   let resizeObserver = null;
