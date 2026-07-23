@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v3">
+const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v4">
   .seller-page > .seller-header {
     justify-content: space-between !important;
     column-gap: 22px !important;
@@ -19,7 +19,7 @@ const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v3">
 
   .seller-page > .seller-header > .seller-brand img {
     display: block !important;
-    width: 141px !important;
+    width: 162px !important;
     height: auto !important;
     object-fit: contain !important;
     object-position: left center !important;
@@ -38,7 +38,7 @@ const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v3">
     }
 
     .seller-page > .seller-header > .seller-brand img {
-      width: 123px !important;
+      width: 141px !important;
     }
 
     .seller-page > .seller-header > nav {
@@ -58,7 +58,7 @@ export async function GET(request: Request) {
     }
 
     let html = await sourceResponse.text();
-    if (!html.includes('id="sell-license-header-layout-v3"')) {
+    if (!html.includes('id="sell-license-header-layout-v4"')) {
       html = html.replace("</head>", `${SELL_PAGE_STYLES}</head>`);
     }
 
