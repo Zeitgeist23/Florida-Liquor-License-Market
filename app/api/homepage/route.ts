@@ -181,7 +181,7 @@ export async function GET(request: Request) {
       carouselListings,
     );
 
-    const carouselStyle = `<style id="homepage-available-carousel-styles-v3">
+    const carouselStyle = `<style id="homepage-available-carousel-styles-v4">
       .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
       .homepage-carousel-card-link:focus-visible{outline:3px solid #f6a700;outline-offset:-3px}
       .homepage-county-map-panel{background:#061728}
@@ -189,8 +189,9 @@ export async function GET(request: Request) {
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status,
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status:first-letter,
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status::first-letter{color:#58c94f!important}
+      #market-report-narration-button-v1{display:none!important}
     </style>`;
-    if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v3"')) {
+    if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v4"')) {
       enhancedHtml = enhancedHtml.replace("</head>", `${carouselStyle}</head>`);
     }
 
@@ -211,8 +212,8 @@ export async function GET(request: Request) {
       '<script defer src="/assets/resources-dropdown.js"></script>',
       '<script defer src="/assets/header-menu-coordinator.js"></script>',
       '<script defer src="/assets/featured-sold-status.js?v=3"></script>',
-      '<script defer src="/assets/newscast-screen-logo-v9.js"></script>',
-      '<script defer src="/assets/homepage-video-controls-fix-v1.js?v=2"></script>',
+      '<script defer src="/assets/newscast-screen-logo-v10.js?v=1"></script>',
+      '<script defer src="/assets/homepage-video-controls-fix-v1.js?v=3"></script>',
     ];
 
     const tagsToAdd = scriptTags.filter((tag) => !enhancedHtml.includes(tag)).join("");
@@ -221,7 +222,8 @@ export async function GET(request: Request) {
     return new Response(enhancedHtml, {
       headers: {
         "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "public, max-age=0, s-maxage=300, stale-while-revalidate=3600",
+        "Cache-Control": "no-store, max-age=0",
+        Pragma: "no-cache",
         "X-Content-Type-Options": "nosniff",
       },
     });
