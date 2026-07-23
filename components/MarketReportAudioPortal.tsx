@@ -39,12 +39,11 @@ export default function MarketReportAudioPortal() {
     <>
       <MarketReportAudio />
       <style jsx global>{`
-        #market-report .report-video.market-audio-mounted > .report-screen,
-        #market-report .report-video.market-audio-mounted > [role="img"] {
-          display: none !important;
-        }
         #market-report .report-video.market-audio-mounted {
           display: block !important;
+        }
+        #market-report .report-video.market-audio-mounted > :not(.market-audio-player):not(style) {
+          display: none !important;
         }
       `}</style>
     </>,
