@@ -123,7 +123,7 @@ function renderListingCard(listing: CarouselListing) {
       <div class="listing-body">
         <p>● ${county}</p>
         <h3>${price}</h3>
-        <div class="listing-facts"><span>${type}</span><span>Available</span></div>
+        <div class="listing-facts"><span>${type}</span><span class="homepage-available-status">Available</span></div>
       </div>
     </a>
   </article>`;
@@ -181,13 +181,16 @@ export async function GET(request: Request) {
       carouselListings,
     );
 
-    const carouselStyle = `<style id="homepage-available-carousel-styles">
+    const carouselStyle = `<style id="homepage-available-carousel-styles-v3">
       .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
       .homepage-carousel-card-link:focus-visible{outline:3px solid #f6a700;outline-offset:-3px}
       .homepage-county-map-panel{background:#061728}
       .homepage-county-map-panel .homepage-county-map{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+      .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status,
+      .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status:first-letter,
+      .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status::first-letter{color:#58c94f!important}
     </style>`;
-    if (!enhancedHtml.includes('id="homepage-available-carousel-styles"')) {
+    if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v3"')) {
       enhancedHtml = enhancedHtml.replace("</head>", `${carouselStyle}</head>`);
     }
 
@@ -207,7 +210,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/market-insights-video-popup-v4.js"></script>',
       '<script defer src="/assets/resources-dropdown.js"></script>',
       '<script defer src="/assets/header-menu-coordinator.js"></script>',
-      '<script defer src="/assets/featured-sold-status.js"></script>',
+      '<script defer src="/assets/featured-sold-status.js?v=3"></script>',
       '<script defer src="/assets/newscast-screen-logo-v9.js"></script>',
     ];
 
