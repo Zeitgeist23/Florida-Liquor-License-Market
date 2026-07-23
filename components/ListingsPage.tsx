@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { listings } from "@/data/listings";
 import { additionalListings } from "@/data/additional-listings";
+import { latestListings } from "@/data/latest-listings";
 import FloridaCountyMap from "./FloridaCountyMap";
 
-const normalizedListings = [...listings, ...additionalListings].map((listing) =>
+const normalizedListings = [...listings, ...additionalListings, ...latestListings].map((listing) =>
   listing.sourceRef === "FLLM-030"
     ? { ...listing, price: 200000, priceLabel: "$200,000" }
     : listing
