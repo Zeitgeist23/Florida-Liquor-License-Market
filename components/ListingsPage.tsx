@@ -24,36 +24,46 @@ const marketplaceListings = Array.from(
 const counties = `Alachua County,Baker County,Bay County,Bradford County,Brevard County,Broward County,Calhoun County,Charlotte County,Citrus County,Clay County,Collier County,Columbia County,DeSoto County,Dixie County,Duval County,Escambia County,Flagler County,Franklin County,Gadsden County,Gilchrist County,Glades County,Gulf County,Hamilton County,Hardee County,Hendry County,Hernando County,Highlands County,Hillsborough County,Holmes County,Indian River County,Jackson County,Jefferson County,Lafayette County,Lake County,Lee County,Leon County,Levy County,Liberty County,Madison County,Manatee County,Marion County,Martin County,Miami-Dade County,Monroe County,Nassau County,Okaloosa County,Okeechobee County,Orange County,Osceola County,Palm Beach County,Pasco County,Pinellas County,Polk County,Putnam County,Santa Rosa County,Sarasota County,Seminole County,St. Johns County,St. Lucie County,Sumter County,Suwannee County,Taylor County,Union County,Volusia County,Wakulla County,Walton County,Washington County`.split(",");
 
 const countyDescriptions: Record<string, string> = {
-  "Broward County": "Broward County anchors South Florida around Fort Lauderdale, known for its beaches, boating canals, and lively dining and nightlife scene.",
-  "Sarasota County": "Sarasota County is a Gulf Coast destination known for white-sand beaches, a strong arts and cultural scene, and highly rated schools.",
-  "Miami-Dade County": "Miami-Dade County is Florida's most populous county, anchored by Miami, a major hub for international finance, tourism, and culture.",
-  "Pinellas County": "Pinellas County sits on the Tampa Bay peninsula and includes St. Petersburg and Clearwater, known for its Gulf beaches and dense population.",
-  "Collier County": "Collier County in Southwest Florida is home to Naples, known for upscale communities, golf courses, and access to the Everglades.",
-  "Palm Beach County": "Palm Beach County stretches along the southeast coast around West Palm Beach, known for affluent communities and winter tourism.",
-  "Orange County": "Orange County in Central Florida is anchored by Orlando, home to major theme parks and a booming tourism-driven economy.",
-  "Monroe County": "Monroe County is Florida's southernmost county, encompassing the Florida Keys and a major destination for boating, diving, and tourism.",
-  "Hillsborough County": "Hillsborough County in the Tampa Bay area is anchored by Tampa, a growing hub for business, healthcare, and tourism.",
-  "DeSoto County": "DeSoto County is a rural south-central Florida county known for agriculture, cattle ranching, and citrus groves.",
-  "Seminole County": "Seminole County is a Central Florida suburban county north of Orlando, known for strong schools and lakeside communities.",
-  "Charlotte County": "Charlotte County on the southwest Gulf Coast is home to Punta Gorda, known for boating, fishing, and a growing retiree population.",
-  "Lee County": "Lee County in Southwest Florida includes Fort Myers and Cape Coral, known for its beaches and rapid population growth.",
-  "St. Lucie County": "St. Lucie County on the Treasure Coast is home to Port St. Lucie, known for spring training baseball and coastal living.",
-  "Leon County": "Leon County in North Florida is home to Tallahassee, the state capital, anchored by state government and two major universities.",
-  "Bay County": "Bay County in the Panhandle is home to Panama City, known for its Gulf beaches and tourism-driven economy.",
-  "St. Johns County": "St. Johns County in northeast Florida is home to historic St. Augustine, known for top-ranked schools and coastal tourism.",
-  "Pasco County": "Pasco County in the Tampa Bay area is known for rapid suburban growth, natural springs, and family-friendly communities.",
-  "Volusia County": "Volusia County in east-central Florida is home to Daytona Beach, known for motorsports and beach tourism.",
-  "Martin County": "Martin County on the Treasure Coast is known for low-density development, a strong boating culture, and a protected coastline.",
-  "Lake County": "Lake County in Central Florida, northwest of Orlando, is known for its chain of lakes and fast-growing suburban communities.",
-  "Escambia County": "Escambia County is the westernmost Panhandle county, home to Pensacola, known for naval aviation history and Gulf beaches.",
-  "Osceola County": "Osceola County is a fast-growing Central Florida market south of Orlando, anchored by Kissimmee and the tourism corridor.",
-  "Santa Rosa County": "Santa Rosa County in Northwest Florida includes Gulf Breeze, Navarre, and rapidly growing communities near Pensacola.",
-  "Duval County": "Duval County is anchored by Jacksonville, Florida's largest city by land area and a major port, finance, and logistics market.",
-  "Polk County": "Polk County in Central Florida sits between Tampa and Orlando, anchored by Lakeland and known for its citrus industry and chain of lakes.",
-  "Manatee County": "Manatee County on Florida's Gulf Coast is home to Bradenton, known for its beaches, boating culture, and growing suburban communities.",
-  "Marion County": "Marion County in North Central Florida is anchored by Ocala, known as the horse capital of the world for its thoroughbred farms.",
-  "Brevard County": "Brevard County on Florida's Space Coast is home to Kennedy Space Center, known for its aerospace industry and Atlantic beaches.",
+  "Alachua County": "Alachua County is anchored by Gainesville and the University of Florida, with a diverse economy supported by education, healthcare, research, and hospitality.",
+  "Bay County": "Bay County in the Panhandle is home to Panama City and Panama City Beach, with a strong tourism, dining, and hospitality market.",
+  "Brevard County": "Brevard County on Florida's Space Coast is home to Kennedy Space Center, aerospace employers, growing communities, and Atlantic beaches.",
+  "Broward County": "Broward County anchors South Florida around Fort Lauderdale, known for its beaches, boating canals, dense population, dining, and nightlife.",
+  "Charlotte County": "Charlotte County on the southwest Gulf Coast is home to Punta Gorda, with a growing population and strong boating, fishing, and hospitality activity.",
+  "Citrus County": "Citrus County on Florida's Nature Coast is known for Crystal River, natural springs, waterfront recreation, and growing residential communities.",
+  "Clay County": "Clay County lies southwest of Jacksonville and includes fast-growing suburban communities supported by military, retail, dining, and residential development.",
+  "Collier County": "Collier County in Southwest Florida is home to Naples, known for affluent communities, golf, luxury tourism, dining, and access to the Everglades.",
+  "DeSoto County": "DeSoto County is a rural south-central Florida market centered on Arcadia, with agriculture, cattle ranching, local commerce, and regional travel activity.",
+  "Duval County": "Duval County is anchored by Jacksonville, a major port, finance, logistics, healthcare, sports, dining, and entertainment market.",
+  "Escambia County": "Escambia County is the westernmost Panhandle county and home to Pensacola, with military, tourism, education, dining, and Gulf Coast activity.",
+  "Hernando County": "Hernando County is a growing Nature Coast market north of Tampa, known for suburban development, springs, recreation, and expanding retail and dining demand.",
+  "Hillsborough County": "Hillsborough County is anchored by Tampa, one of Florida's largest business, tourism, healthcare, sports, dining, and entertainment markets.",
+  "Indian River County": "Indian River County on the Treasure Coast is centered on Vero Beach, with affluent coastal communities, tourism, boating, retail, and hospitality activity.",
+  "Lake County": "Lake County in Central Florida, northwest of Orlando, is known for its chain of lakes, fast-growing communities, tourism, recreation, and suburban development.",
+  "Lee County": "Lee County in Southwest Florida includes Fort Myers and Cape Coral, with rapid population growth, beaches, boating, tourism, and a large hospitality market.",
+  "Leon County": "Leon County is home to Tallahassee, the state capital, with an economy supported by government, universities, healthcare, dining, and regional commerce.",
+  "Manatee County": "Manatee County on Florida's Gulf Coast is home to Bradenton, with beaches, boating, tourism, residential growth, and expanding dining demand.",
+  "Marion County": "Marion County is anchored by Ocala, known for horse farms, logistics, healthcare, residential growth, tourism, and regional commerce.",
+  "Martin County": "Martin County on the Treasure Coast is known for boating, affluent coastal communities, protected shorelines, tourism, and a strong local dining market.",
+  "Miami-Dade County": "Miami-Dade County is Florida's most populous county and a major international center for tourism, finance, trade, culture, dining, and nightlife.",
+  "Monroe County": "Monroe County encompasses the Florida Keys, one of the state's strongest tourism, boating, fishing, dining, and hospitality markets.",
+  "Okaloosa County": "Okaloosa County includes Destin and Fort Walton Beach, with major military installations, Gulf tourism, boating, dining, and hospitality activity.",
+  "Orange County": "Orange County is anchored by Orlando, one of the world's leading tourism destinations and a major market for hotels, restaurants, entertainment, and conventions.",
+  "Osceola County": "Osceola County is a fast-growing Central Florida market south of Orlando, anchored by Kissimmee and the region's tourism and hospitality corridor.",
+  "Palm Beach County": "Palm Beach County stretches along Florida's southeast coast and features affluent communities, tourism, boating, dining, retail, and year-round population growth.",
+  "Pasco County": "Pasco County is a rapidly growing Tampa Bay market with expanding suburban communities, retail centers, recreation, restaurants, and hospitality demand.",
+  "Pinellas County": "Pinellas County includes St. Petersburg and Clearwater, with dense coastal communities, Gulf beaches, tourism, arts, dining, and nightlife.",
+  "Polk County": "Polk County sits between Tampa and Orlando and is anchored by Lakeland, with logistics, manufacturing, tourism, residential growth, and regional commerce.",
+  "Santa Rosa County": "Santa Rosa County includes Gulf Breeze, Navarre, and growing communities near Pensacola, supported by military, tourism, beaches, and residential development.",
+  "Sarasota County": "Sarasota County is a Gulf Coast destination known for white-sand beaches, arts, culture, affluent communities, tourism, and a strong dining market.",
+  "Seminole County": "Seminole County is a prosperous suburban market north of Orlando, known for strong schools, lakeside communities, retail, dining, and population growth.",
+  "St. Johns County": "St. Johns County is home to historic St. Augustine and fast-growing coastal communities, with strong tourism, hospitality, schools, and residential development.",
+  "St. Lucie County": "St. Lucie County on the Treasure Coast is home to Port St. Lucie, with rapid residential growth, coastal recreation, healthcare, retail, and hospitality activity.",
+  "Volusia County": "Volusia County is home to Daytona Beach, with motorsports, Atlantic beaches, tourism, universities, dining, and growing residential communities.",
 };
+
+function countyDescription(county: string) {
+  return countyDescriptions[county] ?? `${county} offers a mix of local commerce, residential communities, tourism, dining, and hospitality activity within Florida.`;
+}
 
 function priceMatches(price: number | null, range: string) {
   if (range === "all") return true;
@@ -105,7 +115,7 @@ export default function ListingsPage() {
         {filtered.length ? <div className="results-grid">{filtered.map((listing) => <article className="result-card" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
           <div className="result-photo"><FloridaCountyMap county={listing.county} /><span className="result-type-badge">{listing.type}</span></div>
           <div className="result-body"><p>● {listing.county}</p><h2>{listing.priceLabel}</h2><div className="result-facts"><span>{listing.type}</span><span>Transferable</span></div>
-          {listing.sourceRef ? <><small>{listing.note ?? countyDescriptions[listing.county] ?? "Price and availability subject to confirmation."}</small><div className="result-actions"><Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link><Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link></div></> : <div className="result-actions"><span className="sold-status">SOLD</span></div>}
+          {listing.sourceRef ? <><small>{countyDescription(listing.county)}</small><div className="result-actions"><Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link><Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link></div></> : <div className="result-actions"><span className="sold-status">SOLD</span></div>}
           </div></article>)}</div> : <div className="no-results"><strong>No listings match all filters.</strong><p>Try broadening the county, price range, license type, or status.</p><button className="btn btn-gold" type="button" onClick={clearFilters}>View All Listings</button></div>}
       </div></section>
     </main>
