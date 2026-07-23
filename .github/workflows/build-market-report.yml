@@ -1,0 +1,63 @@
+name: Build market report video
+
+on:
+  push:
+    paths:
+      - .github/workflows/build-market-report.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Reconstruct narration audio
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat public/assets/market-report-audio-part-{01..07}-v1.txt > /tmp/market-report-audio.b64
+          base64 --decode /tmp/market-report-audio.b64 > public/assets/florida-liquor-license-market-report-v1.mp3
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 public/assets/florida-liquor-license-market-report-v1.mp3
+
+      - name: Build website MP4
+        shell: bash
+        run: |
+          set -euo pipefail
+          ffmpeg -y \
+            -loop 1 -framerate 30 -i public/assets/market-report-studio.png \
+            -i public/assets/florida-liquor-license-market-report-v1.mp3 \
+            -vf "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2" \
+            -c:v libx264 -preset medium -crf 23 -tune stillimage \
+            -c:a aac -b:a 192k -ar 48000 \
+            -pix_fmt yuv420p -shortest -movflags +faststart \
+            public/assets/florida-liquor-license-market-report-v1.mp4
+          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 public/assets/florida-liquor-license-market-report-v1.mp4
+
+      - name: Remove temporary encoded chunks
+        run: rm -f public/assets/market-report-audio-part-*-v1.txt
+
+      - name: Commit finished media
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/assets/florida-liquor-license-market-report-v1.mp3 \
+                  public/assets/florida-liquor-license-market-report-v1.mp4 \
+                  public/assets/market-report-audio-part-*-v1.txt
+          if git diff --cached --quiet; then
+            echo "No media changes to commit."
+            exit 0
+          fi
+          git commit -m "Build narrated market report video [skip ci]"
+          git push
