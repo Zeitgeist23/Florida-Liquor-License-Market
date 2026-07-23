@@ -1,11 +1,19 @@
 .results-page > .results-header {
+  --contact-logo-left: max(18px, calc((100vw - 1024px) / 2));
   height: 117px !important;
+  padding-left: 0 !important;
+  grid-template-columns: calc(var(--contact-logo-left) + 235px) minmax(280px, 1fr) 345px !important;
   border-bottom: 0 !important;
 }
 
 .results-page > .results-header .seller-brand {
   grid-column: 1;
   grid-row: 1;
+  height: 100% !important;
+  padding-left: var(--contact-logo-left) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
 }
 
 .results-page > .results-header::before {
@@ -47,6 +55,11 @@
 }
 
 @media (max-width: 1050px) {
+  .results-page > .results-header {
+    --contact-logo-left: 18px;
+    grid-template-columns: 228px minmax(180px, 1fr) 300px !important;
+  }
+
   .results-page > .results-header::before {
     background-size: 88% auto !important;
   }
@@ -54,11 +67,14 @@
 
 @media (max-width: 720px) {
   .results-page > .results-header {
+    --contact-logo-left: 0px;
     height: auto !important;
+    padding-left: 10px !important;
   }
 
   .results-page > .results-header .seller-brand {
     grid-column: 1;
+    padding-left: 0 !important;
   }
 
   .results-page > .results-header nav {
