@@ -1,6 +1,6 @@
 (() => {
-  const VERSION = "daily-ten-county-maps-v2";
-  const STYLE_ID = "homepage-available-carousel-client-styles";
+  const VERSION = "daily-ten-county-maps-v3";
+  const STYLE_ID = "homepage-available-carousel-client-styles-v3";
   let startIndex = 0;
   let observer = null;
   let scheduled = false;
@@ -40,7 +40,9 @@
       .listing-card[data-homepage-available-card="true"]{height:100%}
       .homepage-county-map-panel{background:#061728}
       .homepage-county-map-panel .homepage-county-map{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
-      .listing-card[data-homepage-available-card="true"] .listing-facts span:last-child{color:#58c94f!important}
+      .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status,
+      .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status:first-letter,
+      .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status::first-letter{color:#58c94f!important}
     `;
     document.head.appendChild(style);
   }
@@ -82,7 +84,9 @@
     const type = document.createElement("span");
     type.textContent = listing.type;
     const status = document.createElement("span");
+    status.className = "homepage-available-status";
     status.textContent = "Available";
+    status.style.setProperty("color", "#58c94f", "important");
     facts.append(type, status);
 
     body.append(county, price, facts);
