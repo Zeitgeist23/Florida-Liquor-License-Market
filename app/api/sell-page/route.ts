@@ -1,18 +1,20 @@
 export const dynamic = "force-dynamic";
 
-const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v2">
+const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v3">
   .seller-page > .seller-header {
-    justify-content: flex-start !important;
-    column-gap: 10px !important;
+    justify-content: space-between !important;
+    column-gap: 22px !important;
   }
 
   .seller-page > .seller-header > .seller-brand {
     display: flex !important;
     align-items: center !important;
+    justify-content: flex-start !important;
     flex: 0 0 auto !important;
     width: auto !important;
     height: 100% !important;
-    margin-left: auto !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
   }
 
   .seller-page > .seller-header > .seller-brand img {
@@ -20,23 +22,19 @@ const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v2">
     width: 141px !important;
     height: auto !important;
     object-fit: contain !important;
-    object-position: center !important;
+    object-position: left center !important;
   }
 
   .seller-page > .seller-header > nav {
     display: flex !important;
     align-items: center !important;
     flex: 0 0 auto !important;
-    margin-left: 0 !important;
-  }
-
-  .seller-page > .seller-header > nav > a:first-child {
-    margin-left: 0 !important;
+    margin-left: auto !important;
   }
 
   @media (max-width: 560px) {
     .seller-page > .seller-header {
-      column-gap: 7px !important;
+      column-gap: 12px !important;
     }
 
     .seller-page > .seller-header > .seller-brand img {
@@ -60,7 +58,7 @@ export async function GET(request: Request) {
     }
 
     let html = await sourceResponse.text();
-    if (!html.includes('id="sell-license-header-layout-v2"')) {
+    if (!html.includes('id="sell-license-header-layout-v3"')) {
       html = html.replace("</head>", `${SELL_PAGE_STYLES}</head>`);
     }
 
