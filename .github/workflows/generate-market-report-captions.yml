@@ -1,0 +1,145 @@
+name: Generate market report captions
+
+on:
+  push:
+    paths:
+      - .github/workflows/generate-market-report-captions.yml
+      - public/assets/market-report-episode-1.wav
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  transcribe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install transcription tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install faster-whisper
+
+      - name: Transcribe the current narration
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+          from faster_whisper import WhisperModel
+
+          audio_path = Path("public/assets/market-report-episode-1.wav")
+          json_path = Path("public/assets/market-report-captions-v1.json")
+          vtt_path = Path("public/assets/market-report-captions-v1.vtt")
+
+          if not audio_path.exists():
+              raise SystemExit(f"Missing narration file: {audio_path}")
+
+          model = WhisperModel("base.en", device="cpu", compute_type="int8")
+          segments, info = model.transcribe(
+              str(audio_path),
+              language="en",
+              beam_size=5,
+              vad_filter=True,
+              word_timestamps=True,
+              initial_prompt=(
+                  "Florida Liquor License Market. FloridaLiquorLicenseMarket.com. "
+                  "Liquor license buyers, sellers, brokers, financing partners, and investors."
+              ),
+          )
+
+          words = []
+          for segment in segments:
+              for word in segment.words or []:
+                  text = word.word.strip()
+                  if text:
+                      words.append({"start": float(word.start), "end": float(word.end), "text": text})
+
+          if not words:
+              raise SystemExit("Whisper returned no timed words.")
+
+          cues = []
+          current = []
+          cue_start = None
+
+          def flush():
+              nonlocal current, cue_start
+              if not current:
+                  return
+              text = " ".join(item["text"] for item in current)
+              text = re.sub(r"\s+([,.;:!?])", r"\1", text).strip()
+              cues.append({
+                  "start": round(float(cue_start), 3),
+                  "end": round(float(current[-1]["end"] + 0.16), 3),
+                  "text": text,
+              })
+              current = []
+              cue_start = None
+
+          for item in words:
+              if cue_start is None:
+                  cue_start = item["start"]
+              current.append(item)
+              text = " ".join(part["text"] for part in current)
+              duration = item["end"] - cue_start
+              sentence_end = bool(re.search(r"[.!?]$", item["text"]))
+              clause_end = bool(re.search(r"[,;:]$", item["text"]))
+              if (
+                  (sentence_end and len(current) >= 4)
+                  or (clause_end and len(current) >= 7)
+                  or len(text) >= 72
+                  or duration >= 4.6
+              ):
+                  flush()
+          flush()
+
+          payload = {
+              "language": info.language,
+              "duration": round(float(info.duration), 3),
+              "source": audio_path.name,
+              "cues": cues,
+          }
+          json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          def stamp(seconds):
+              milliseconds = int(round(seconds * 1000))
+              hours, remainder = divmod(milliseconds, 3_600_000)
+              minutes, remainder = divmod(remainder, 60_000)
+              secs, millis = divmod(remainder, 1000)
+              return f"{hours:02d}:{minutes:02d}:{secs:02d}.{millis:03d}"
+
+          vtt_lines = ["WEBVTT", ""]
+          for index, cue in enumerate(cues, 1):
+              vtt_lines.extend([
+                  str(index),
+                  f"{stamp(cue['start'])} --> {stamp(cue['end'])}",
+                  cue["text"],
+                  "",
+              ])
+          vtt_path.write_text("\n".join(vtt_lines), encoding="utf-8")
+
+          print(f"Generated {len(cues)} synchronized caption cues for {info.duration:.2f} seconds.")
+          PY
+
+      - name: Commit generated caption files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/assets/market-report-captions-v1.json public/assets/market-report-captions-v1.vtt
+          if git diff --cached --quiet; then
+            echo "Caption files are already current."
+            exit 0
+          fi
+          git commit -m "Generate synchronized market report captions"
+          git push
