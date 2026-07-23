@@ -108,13 +108,14 @@ export async function getMarketplaceListings(): Promise<Listing[]> {
 
     if (!response.ok) throw new Error(`Listing database read failed: ${response.status}`);
     const rows = (await response.json()) as ListingRow[];
+    const databaseListings = rows.map(rowToListing);
+    const mergedListings = dedupeListings([...databaseListings, ...fallback]);
 
-    if (rows.length === 0) {
-      await upsertRows(fallback);
-      return fallback;
-    }
+    // Keep Supabase synchronized with the complete built-in inventory while
+    // preserving any valid database-only listings imported from authorized feeds.
+    await upsertRows(mergedListings);
 
-    return dedupeListings(rows.map(rowToListing));
+    return mergedListings;
   } catch (error) {
     console.error(error);
     return fallback;
