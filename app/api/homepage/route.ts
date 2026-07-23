@@ -214,7 +214,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/featured-sold-status.js?v=3"></script>',
       '<script defer src="/assets/newscast-screen-logo-v10.js?v=1"></script>',
       '<script defer src="/assets/homepage-video-controls-fix-v1.js?v=3"></script>',
-      '<script defer src="/assets/homepage-synced-captions-v1.js?v=3"></script>',
+      '<script defer src="/assets/homepage-synced-captions-v1.js?v=4"></script>',
     ];
 
     const tagsToAdd = scriptTags.filter((tag) => !enhancedHtml.includes(tag)).join("");
