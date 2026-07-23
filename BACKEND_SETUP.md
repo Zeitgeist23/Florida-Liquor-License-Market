@@ -46,3 +46,5 @@ Each authorized URL may return either a JSON array or an object with a `listings
 - No verification or source-status text is added to the visible listing cards.
 
 Only add feeds or APIs that authorize automated retrieval and republication. Restricted third-party listing websites should not be scraped without permission.
+
+Deployment retriggered after backend verification on July 22, 2026.
