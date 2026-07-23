@@ -10,14 +10,24 @@ export async function GET(request: Request) {
     }
 
     let html = await response.text();
-    const style = `<style id="investment-logo-size-v1">
+    const style = `<style id="investment-logo-size-v2">
+      .investment-page .seller-header {
+        align-items: center !important;
+      }
+      .investment-page .seller-header .seller-brand {
+        align-self: stretch !important;
+        display: flex !important;
+        align-items: center !important;
+      }
       .investment-page .seller-header .seller-brand img {
+        display: block !important;
         width: 75% !important;
         height: auto !important;
+        margin-block: auto !important;
       }
     </style>`;
 
-    if (!html.includes('id="investment-logo-size-v1"')) {
+    if (!html.includes('id="investment-logo-size-v2"')) {
       html = html.replace("</head>", `${style}</head>`);
     }
 
