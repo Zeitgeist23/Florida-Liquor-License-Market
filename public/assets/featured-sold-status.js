@@ -1,6 +1,6 @@
 (() => {
-  const VERSION = "daily-ten-county-maps-v3";
-  const STYLE_ID = "homepage-available-carousel-client-styles-v3";
+  const VERSION = "daily-ten-county-maps-v4";
+  const STYLE_ID = "homepage-available-carousel-client-styles-v4";
   let startIndex = 0;
   let observer = null;
   let scheduled = false;
@@ -43,6 +43,8 @@
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status,
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status:first-letter,
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status::first-letter{color:#58c94f!important}
+      .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts span:first-child:first-letter,
+      .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts span:first-child::first-letter{color:#000!important}
     `;
     document.head.appendChild(style);
   }
