@@ -10,24 +10,47 @@ export async function GET(request: Request) {
     }
 
     let html = await response.text();
-    const style = `<style id="investment-logo-size-v2">
+    const style = `<style id="investment-logo-size-v3">
       .investment-page .seller-header {
+        height: 112px !important;
+        min-height: 112px !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
         align-items: center !important;
+        box-sizing: border-box !important;
       }
       .investment-page .seller-header .seller-brand {
-        align-self: stretch !important;
+        height: 100% !important;
         display: flex !important;
         align-items: center !important;
+        justify-content: flex-start !important;
+        align-self: center !important;
+        margin: 0 !important;
       }
       .investment-page .seller-header .seller-brand img {
         display: block !important;
         width: 75% !important;
         height: auto !important;
-        margin-block: auto !important;
+        max-height: 78px !important;
+        margin: 0 !important;
+        object-fit: contain !important;
+        object-position: left center !important;
+      }
+      .investment-page .seller-header nav {
+        align-self: center !important;
+      }
+      @media (max-width: 640px) {
+        .investment-page .seller-header {
+          height: 96px !important;
+          min-height: 96px !important;
+        }
+        .investment-page .seller-header .seller-brand img {
+          max-height: 66px !important;
+        }
       }
     </style>`;
 
-    if (!html.includes('id="investment-logo-size-v2"')) {
+    if (!html.includes('id="investment-logo-size-v3"')) {
       html = html.replace("</head>", `${style}</head>`);
     }
 
