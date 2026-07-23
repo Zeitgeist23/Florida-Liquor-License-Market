@@ -72,12 +72,6 @@ export default function MarketReportAudio() {
         src="/assets/market-report-studio.png"
         alt="Two professional presenters at a Florida business-news desk"
       />
-      <img
-        className="market-report-brand-logo"
-        src="/assets/brand-sharp.svg?v=2"
-        alt=""
-        aria-hidden="true"
-      />
       <div className="market-audio-overlay">
         <strong>Episode 1 is available now</strong>
         <button type="button" onClick={loadAndPlay} disabled={status === "loading"}>
@@ -105,26 +99,8 @@ export default function MarketReportAudio() {
           min-height: 300px;
           object-fit: cover;
         }
-        .market-report-brand-logo {
-          position: absolute;
-          z-index: 3;
-          top: 12%;
-          left: 2.4%;
-          display: block;
-          width: min(20%, 165px);
-          height: auto;
-          box-sizing: border-box;
-          padding: 4px 6px;
-          border: 1px solid rgba(246, 167, 0, 0.92);
-          background: #020405;
-          object-fit: contain;
-          pointer-events: none;
-          user-select: none;
-          filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.8));
-        }
         .market-audio-overlay {
           position: absolute;
-          z-index: 2;
           inset: 0;
           display: flex;
           flex-direction: column;
@@ -181,12 +157,6 @@ export default function MarketReportAudio() {
           .market-audio-player,
           .market-audio-image {
             min-height: 240px;
-          }
-          .market-report-brand-logo {
-            top: 11%;
-            left: 2.4%;
-            width: min(25%, 122px);
-            padding: 3px 4px;
           }
           .market-audio-overlay {
             padding: 16px;
