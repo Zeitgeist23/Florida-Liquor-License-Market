@@ -163,6 +163,10 @@ function renderServerRenderedAvailableListings(html: string, carouselListings: C
   );
 }
 
+function removeSecondHeroTrustIcon(html: string) {
+  return html.replace(/<img\b[^>]*class="[^"]*\btrust-icon\b[^"]*"[^>]*>/i, "");
+}
+
 export async function GET(request: Request) {
   try {
     const dailyKey = floridaDateKey();
@@ -176,9 +180,11 @@ export async function GET(request: Request) {
     }
 
     const sourceHtml = await sourceResponse.text();
-    let enhancedHtml = renderServerRenderedAvailableListings(
-      updateServerRenderedTransactions(sourceHtml),
-      carouselListings,
+    let enhancedHtml = removeSecondHeroTrustIcon(
+      renderServerRenderedAvailableListings(
+        updateServerRenderedTransactions(sourceHtml),
+        carouselListings,
+      ),
     );
 
     const carouselStyle = `<style id="homepage-available-carousel-styles-v5">
