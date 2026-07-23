@@ -15,7 +15,6 @@ const nextConfig: NextConfig = {
     return {
       beforeFiles: [
         { source: "/assets/florida-map-clean.png", destination: "/api/market-map" },
-        { source: "/", destination: "/api/homepage" },
         { source: "/sell-your-license", destination: "/api/sell-page" },
         { source: "/contact", destination: "/api/contact-page" },
         ...mirroredRoutes.map((route) => ({
