@@ -1,0 +1,42 @@
+name: Notify IndexNow
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  notify-indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for the production deployment
+        run: sleep 90
+
+      - name: Verify the public IndexNow key
+        env:
+          INDEXNOW_KEY: 842b528b30fc1c856d3e77c1b5de44a0
+          KEY_URL: https://www.floridaliquorlicensemarket.com/842b528b30fc1c856d3e77c1b5de44a0.txt
+        run: |
+          for attempt in {1..12}; do
+            published_key="$(curl --silent --show-error --fail "$KEY_URL" || true)"
+            if [ "$published_key" = "$INDEXNOW_KEY" ]; then
+              echo "IndexNow key verified."
+              exit 0
+            fi
+            echo "Waiting for the production key route (attempt $attempt of 12)..."
+            sleep 15
+          done
+          echo "The IndexNow key could not be verified."
+          exit 1
+
+      - name: Submit updated public URLs to IndexNow
+        run: |
+          curl \
+            --silent \
+            --show-error \
+            --fail-with-body \
+            "https://www.floridaliquorlicensemarket.com/842b528b30fc1c856d3e77c1b5de44a0.txt?submit=1"
+          echo
