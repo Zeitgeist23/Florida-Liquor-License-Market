@@ -74,7 +74,7 @@ export default function MarketReportAudio() {
       />
       <img
         className="market-report-brand-logo"
-        src="/assets/brand-sharp.svg"
+        src="/assets/brand-sharp.svg?v=2"
         alt=""
         aria-hidden="true"
       />
