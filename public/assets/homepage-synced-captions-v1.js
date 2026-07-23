@@ -1,14 +1,38 @@
 (() => {
-  const STYLE_ID = "homepage-synced-caption-styles-v2";
-  const LEGACY_STYLE_ID = "homepage-synced-caption-styles-v1";
+  const STYLE_ID = "homepage-synced-caption-styles-v3";
+  const OLD_STYLE_IDS = [
+    "homepage-synced-caption-styles-v1",
+    "homepage-synced-caption-styles-v2",
+  ];
   const CAPTION_HOST_CLASS = "market-report-synced-caption-host";
+  const LEGACY_HIDDEN_CLASS = "market-report-legacy-caption-hidden";
   const PLAYER_ID = "market-report-narration-player-v1";
   const VIDEO_ID = "homepage-market-report-real-video";
-  const CAPTIONS_URL = "/assets/market-report-captions-v1.json?v=2";
-  const LEGACY_HIDDEN_CLASS = "market-report-legacy-caption-hidden";
 
-  let captionsPromise = null;
-  let captions = [];
+  const CAPTIONS = [
+    { start: 0.08, end: 3.16, text: "Welcome to the Florida Liquor License Market Report." },
+    { start: 3.24, end: 7.42, text: "In the next three minutes, Sarah and I will show you how the marketplace helps" },
+    { start: 7.42, end: 11.78, text: "buyers, sellers, financing sources, and investors connect." },
+    { start: 11.94, end: 15.77, text: "Florida liquor license transactions can involve valuable assets," },
+    { start: 15.82, end: 19.9, text: "county-specific markets, and important regulatory requirements." },
+    { start: 20.11, end: 24.9, text: "Buyers can browse available licenses and compare the county, license type," },
+    { start: 25.37, end: 28.39, text: "asking price, and transferability information." },
+    { start: 28.55, end: 35.01, text: "When a listing is of interest, a buyer can submit an inquiry or offer to begin a confidential conversation." },
+    { start: 35.37, end: 41.09, text: "Sellers can present a license to a statewide audience while keeping sensitive discussions private." },
+    { start: 41.26, end: 48.13, text: "Pricing, availability, transfer eligibility, and regulatory requirements should always be confirmed." },
+    { start: 48.31, end: 54.84, text: "Qualified buyers may explore acquisition financing, refinancing, or private capital introductions." },
+    { start: 55.02, end: 60.96, text: "Investors and private lenders should complete their own due diligence and consult appropriate professionals." },
+    { start: 61.14, end: 65.6, text: "Featured listings, transaction examples, county insights," },
+    { start: 65.61, end: 69.46, text: "and educational resources help visitors become informed." },
+    { start: 69.65, end: 72.96, text: "Start by searching the listings, review the details," },
+    { start: 73.1, end: 76.92, text: "and use the appropriate form to explain what you are looking for." },
+    { start: 77.1, end: 81.77, text: "Every inquiry is the beginning of a conversation, not a completed transaction." },
+    { start: 81.92, end: 86.36, text: "Florida Liquor License Market is designed to help you take the next informed step." },
+    { start: 86.6, end: 92.15, text: "Visit FloridaLiquorLicenseMarket.com to browse listings and market information." },
+    { start: 92.34, end: 96.16, text: "Contact the marketplace when you're ready for a private conversation." },
+    { start: 96.25, end: 97.45, text: "Thank you for watching." },
+  ];
+
   let animationFrame = 0;
   let activeCueIndex = -1;
 
@@ -25,8 +49,8 @@
     return label?.closest("section") || null;
   }
 
-  function removeOldHidingRules(section) {
-    document.getElementById(LEGACY_STYLE_ID)?.remove();
+  function removeOldRules(section) {
+    OLD_STYLE_IDS.forEach((id) => document.getElementById(id)?.remove());
     section.querySelectorAll(`.${LEGACY_HIDDEN_CLASS}`).forEach((element) => {
       if (!(element instanceof HTMLElement)) return;
       element.classList.remove(LEGACY_HIDDEN_CLASS);
@@ -43,20 +67,13 @@
     style.textContent = `
       .${CAPTION_HOST_CLASS}{
         display:flex!important;align-items:center!important;justify-content:center!important;
-        gap:10px!important;visibility:visible!important;opacity:1!important;
-        color:#fff!important;text-align:center!important;
+        visibility:visible!important;opacity:1!important;color:#fff!important;
+        text-align:center!important;white-space:normal!important;
         font:700 clamp(11px,1.05vw,16px)/1.2 Arial,Helvetica,sans-serif!important;
-        box-sizing:border-box!important
-      }
-      .${CAPTION_HOST_CLASS} .market-report-synced-speaker{
-        flex:0 0 auto;color:#f6a700!important;font-weight:900!important;
-        text-transform:uppercase!important;letter-spacing:.02em!important
-      }
-      .${CAPTION_HOST_CLASS} .market-report-synced-text{
-        color:#fff!important;font:inherit!important;text-align:center!important
+        box-sizing:border-box!important;overflow:visible!important
       }
       @media(max-width:640px){
-        .${CAPTION_HOST_CLASS}{gap:6px!important;font-size:10px!important;line-height:1.18!important}
+        .${CAPTION_HOST_CLASS}{font-size:10px!important;line-height:1.18!important}
       }
     `;
     document.head.appendChild(style);
@@ -65,12 +82,13 @@
   function findOriginalCaption(section) {
     const candidates = Array.from(section.querySelectorAll("div,p,span,strong"))
       .filter((element) => {
-        if (!(element instanceof HTMLElement)) return false;
-        if (element.querySelector("audio,video")) return false;
+        if (!(element instanceof HTMLElement) || element.querySelector("audio,video")) return false;
         const text = normalizedText(element);
-        return text.length > 40 &&
-          (/Welcome to the Florida Liquor License Market Report/i.test(text) ||
-           (/^MICHAEL\b/i.test(text) && /marketplace/i.test(text)));
+        return text.length > 5 && (
+          /Welcome to the Florida Liquor License Market Report/i.test(text) ||
+          /^MICHAEL\b/i.test(text) ||
+          element.classList.contains(CAPTION_HOST_CLASS)
+        );
       })
       .map((element) => ({ element, rect: element.getBoundingClientRect() }))
       .filter(({ rect }) => rect.width > 180 && rect.height > 10)
@@ -97,7 +115,6 @@
         current = parent;
         break;
       }
-
       current = parent;
       depth += 1;
     }
@@ -133,13 +150,11 @@
   }
 
   function ensureCaptionHost(section) {
-    removeOldHidingRules(section);
+    removeOldRules(section);
     installStyles();
 
     let host = section.querySelector(`.${CAPTION_HOST_CLASS}`);
-    if (!(host instanceof HTMLElement)) {
-      host = findOriginalCaption(section) || fallbackCaptionHost(section);
-    }
+    if (!(host instanceof HTMLElement)) host = findOriginalCaption(section) || fallbackCaptionHost(section);
     if (!(host instanceof HTMLElement)) return null;
 
     host.classList.remove(LEGACY_HIDDEN_CLASS);
@@ -148,48 +163,13 @@
     host.setAttribute("role", "status");
     host.setAttribute("aria-live", "off");
     host.setAttribute("aria-label", "Synchronized market report subtitles");
-    host.style.removeProperty("display");
-
-    if (!host.querySelector(".market-report-synced-text")) {
-      host.replaceChildren();
-
-      const speaker = document.createElement("strong");
-      speaker.className = "market-report-synced-speaker";
-      speaker.textContent = "MICHAEL";
-
-      const text = document.createElement("span");
-      text.className = "market-report-synced-text";
-
-      host.append(speaker, text);
-    }
+    host.style.setProperty("display", "flex", "important");
+    host.style.setProperty("visibility", "visible", "important");
+    host.style.setProperty("opacity", "1", "important");
+    host.style.setProperty("color", "#fff", "important");
+    host.style.setProperty("white-space", "normal", "important");
 
     return host;
-  }
-
-  async function loadCaptions() {
-    if (captions.length) return captions;
-    if (captionsPromise) return captionsPromise;
-
-    captionsPromise = fetch(CAPTIONS_URL, { cache: "no-store" })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Caption file returned ${response.status}`);
-        return response.json();
-      })
-      .then((payload) => {
-        captions = Array.isArray(payload?.cues)
-          ? payload.cues.filter((cue) =>
-              Number.isFinite(cue?.start) && Number.isFinite(cue?.end) && typeof cue?.text === "string"
-            )
-          : [];
-        return captions;
-      })
-      .catch((error) => {
-        console.error("Unable to load synchronized market report captions", error);
-        captionsPromise = null;
-        return [];
-      });
-
-    return captionsPromise;
   }
 
   function mediaFor(section) {
@@ -202,18 +182,18 @@
   }
 
   function currentMediaTime(audio, video) {
-    if (audio && (audio.currentSrc || audio.getAttribute("src")) && Number.isFinite(audio.currentTime)) {
-      return audio.currentTime;
-    }
-    return video && Number.isFinite(video.currentTime) ? video.currentTime : 0;
+    if (audio && !audio.paused && Number.isFinite(audio.currentTime)) return audio.currentTime;
+    if (video && Number.isFinite(video.currentTime)) return video.currentTime;
+    if (audio && Number.isFinite(audio.currentTime)) return audio.currentTime;
+    return 0;
   }
 
   function cueIndexAt(time) {
     let low = 0;
-    let high = captions.length - 1;
+    let high = CAPTIONS.length - 1;
     while (low <= high) {
       const middle = Math.floor((low + high) / 2);
-      const cue = captions[middle];
+      const cue = CAPTIONS[middle];
       if (time < cue.start) high = middle - 1;
       else if (time > cue.end) low = middle + 1;
       else return middle;
@@ -222,19 +202,11 @@
   }
 
   function renderCaption(host, time) {
-    const textNode = host.querySelector(".market-report-synced-text");
-    if (!(textNode instanceof HTMLElement)) return;
-
     const nextIndex = cueIndexAt(time);
-    if (nextIndex === activeCueIndex) return;
+    const text = nextIndex >= 0 ? CAPTIONS[nextIndex].text : CAPTIONS[0].text;
+    if (nextIndex === activeCueIndex && normalizedText(host) === text) return;
     activeCueIndex = nextIndex;
-
-    if (nextIndex < 0) {
-      textNode.textContent = captions[0]?.text || "";
-      return;
-    }
-
-    textNode.textContent = captions[nextIndex].text;
+    host.textContent = text;
   }
 
   function stopLoop() {
@@ -257,8 +229,8 @@
   function bindMedia(section, host) {
     const { audio, video } = mediaFor(section);
     [audio, video].forEach((media) => {
-      if (!media || media.dataset.syncedCaptionsBoundV2 === "true") return;
-      media.dataset.syncedCaptionsBoundV2 = "true";
+      if (!media || media.dataset.syncedCaptionsBoundV3 === "true") return;
+      media.dataset.syncedCaptionsBoundV3 = "true";
       media.addEventListener("play", () => startLoop(section, host));
       media.addEventListener("timeupdate", () => {
         const current = mediaFor(section);
@@ -274,24 +246,19 @@
       });
       media.addEventListener("ended", () => {
         stopLoop();
-        const textNode = host.querySelector(".market-report-synced-text");
-        if (textNode instanceof HTMLElement && captions.length) {
-          textNode.textContent = captions[captions.length - 1].text;
-        }
+        host.textContent = CAPTIONS[CAPTIONS.length - 1].text;
       });
     });
   }
 
-  async function install() {
+  function install() {
     const section = findBriefingSection();
     if (!(section instanceof HTMLElement)) return false;
 
     const host = ensureCaptionHost(section);
     if (!(host instanceof HTMLElement)) return false;
 
-    await loadCaptions();
     bindMedia(section, host);
-
     const { audio, video } = mediaFor(section);
     renderCaption(host, currentMediaTime(audio, video));
     return true;
