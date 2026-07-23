@@ -187,7 +187,7 @@ export async function GET(request: Request) {
       ),
     );
 
-    const carouselStyle = `<style id="homepage-available-carousel-styles-v5">
+    const carouselStyle = `<style id="homepage-available-carousel-styles-v6">
       .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
       .homepage-carousel-card-link:focus-visible{outline:3px solid #f6a700;outline-offset:-3px}
       .homepage-county-map-panel{background:#061728}
@@ -197,9 +197,10 @@ export async function GET(request: Request) {
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status::first-letter{color:#58c94f!important}
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts span:first-child:first-letter,
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts span:first-child::first-letter{color:#000!important}
+      .hero .trust-line img{display:none!important}
       #market-report-narration-button-v1{display:none!important}
     </style>`;
-    if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v5"')) {
+    if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v6"')) {
       enhancedHtml = enhancedHtml.replace("</head>", `${carouselStyle}</head>`);
     }
 
