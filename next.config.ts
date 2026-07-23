@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const mirroredRoutes = [
   "financing",
-  "investment-opportunities",
   "financing-disclosure",
   "private-lending-disclosure",
   "privacy-policy",
@@ -18,6 +17,7 @@ const nextConfig: NextConfig = {
         { source: "/", destination: "/api/homepage" },
         { source: "/sell-your-license", destination: "/api/sell-page" },
         { source: "/contact", destination: "/api/contact-page" },
+        { source: "/investment-opportunities", destination: "/api/investment-page" },
         ...mirroredRoutes.map((route) => ({
           source: `/${route}`,
           destination: `/${route}/index.html`,
