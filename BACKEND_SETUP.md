@@ -48,3 +48,4 @@ Each authorized URL may return either a JSON array or an object with a `listings
 Only add feeds or APIs that authorize automated retrieval and republication. Restricted third-party listing websites should not be scraped without permission.
 
 Deployment retriggered after backend verification on July 22, 2026.
+Deployment retriggered again on July 23, 2026 to test the current Vercel build status.
