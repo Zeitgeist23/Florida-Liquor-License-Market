@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -136,10 +138,11 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add public/assets/market-report-captions-v1.json public/assets/market-report-captions-v1.vtt
           if git diff --cached --quiet; then
             echo "Caption files are already current."
             exit 0
           fi
           git commit -m "Generate synchronized market report captions"
-          git push
+          git push origin HEAD:main
