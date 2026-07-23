@@ -212,6 +212,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/header-menu-coordinator.js"></script>',
       '<script defer src="/assets/featured-sold-status.js?v=3"></script>',
       '<script defer src="/assets/newscast-screen-logo-v9.js"></script>',
+      '<script defer src="/assets/homepage-video-controls-fix-v1.js"></script>',
     ];
 
     const tagsToAdd = scriptTags.filter((tag) => !enhancedHtml.includes(tag)).join("");
