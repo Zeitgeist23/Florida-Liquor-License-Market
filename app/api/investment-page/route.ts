@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
-const INVESTMENT_PAGE_STYLES = `<style id="investment-logo-match-contact-v1">
-  .investment-page > .seller-header > .seller-brand img {
+const INVESTMENT_PAGE_STYLES = `<style id="investment-logo-match-contact-v2">
+  .contact-page.investment-page > .seller-header > .seller-brand img {
     width: 71.25% !important;
     height: auto !important;
   }
@@ -18,7 +18,12 @@ export async function GET(request: Request) {
     }
 
     let html = await sourceResponse.text();
-    if (!html.includes('id="investment-logo-match-contact-v1"')) {
+    html = html.replace(
+      '<main class="seller-page investment-page">',
+      '<main class="seller-page contact-page investment-page">',
+    );
+
+    if (!html.includes('id="investment-logo-match-contact-v2"')) {
       html = html.replace("</head>", `${INVESTMENT_PAGE_STYLES}</head>`);
     }
 
