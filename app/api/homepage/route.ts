@@ -210,14 +210,17 @@ export async function GET(request: Request) {
       enhancedHtml = enhancedHtml.replace("</body>", `${inventoryScript}</body>`);
     }
 
+    enhancedHtml = enhancedHtml
+      .replace(/<script[^>]+market-insights-video-popup-v4\.js[^>]*><\/script>/gi, "")
+      .replace(/<script[^>]+market-map-modal\.js[^>]*><\/script>/gi, "");
+
     const scriptTags = [
-      '<script defer src="/assets/market-map-modal.js"></script>',
+      '<script defer src="/assets/market-map-modal.js?v=4"></script>',
       '<script defer src="/assets/recent-transactions.js"></script>',
       '<script defer src="/assets/completed-sales-logo-size.js"></script>',
       '<script defer src="/assets/market-insights-popup-size.js"></script>',
       '<script defer src="/assets/homepage-listing-search.js"></script>',
       '<script defer src="/assets/market-data-dropdown.js"></script>',
-      '<script defer src="/assets/market-insights-video-popup-v4.js"></script>',
       '<script defer src="/assets/resources-dropdown.js"></script>',
       '<script defer src="/assets/header-menu-coordinator.js"></script>',
       '<script defer src="/assets/featured-sold-status.js?v=4"></script>',
