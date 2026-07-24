@@ -1,0 +1,75 @@
+{
+  "provider": "tavily",
+  "minimumScore": 0.35,
+  "maxResultsPerSource": 20,
+  "queryRotation": [
+    "Florida 4COP 3PS quota liquor license for sale available asking price county",
+    "Florida quota liquor license available 4COP 3PS price county",
+    "Florida liquor license asset sale 4COP 3PS quota county"
+  ],
+  "sources": [
+    {
+      "sourceId": "bizbuysell",
+      "name": "BizBuySell",
+      "domain": "bizbuysell.com",
+      "autoPublish": true,
+      "individualListingPathPatterns": ["^/business-asset/"]
+    },
+    {
+      "sourceId": "bizquest",
+      "name": "BizQuest",
+      "domain": "bizquest.com",
+      "autoPublish": true,
+      "individualListingPathPatterns": ["^/asset-sales/"]
+    },
+    {
+      "sourceId": "liquorlicense-com",
+      "name": "LiquorLicense.com",
+      "domain": "liquorlicense.com",
+      "autoPublish": false,
+      "individualListingPathPatterns": ["/listing/", "/license/"]
+    },
+    {
+      "sourceId": "liquor-license-marketplace",
+      "name": "Liquor License Marketplace",
+      "domain": "liquorlicensemarketplace.com",
+      "autoPublish": false,
+      "individualListingPathPatterns": ["/listing/", "/license/"]
+    },
+    {
+      "sourceId": "liquor-license-auctioneers",
+      "name": "Liquor License Auctioneers",
+      "domain": "liquorlicenseauctioneers.com",
+      "autoPublish": true,
+      "individualListingPathPatterns": ["^/liquor-license/"]
+    },
+    {
+      "sourceId": "florida-liquor-license-sales",
+      "name": "Florida Liquor License Sales",
+      "domain": "floridaliquorlicensesales.com",
+      "autoPublish": false,
+      "individualListingPathPatterns": ["/listing/", "/license/"]
+    },
+    {
+      "sourceId": "businesses-for-sale",
+      "name": "BusinessesForSale.com",
+      "domain": "businessesforsale.com",
+      "autoPublish": true,
+      "individualListingPathPatterns": ["-for-sale\\.aspx$", "/for-sale/"]
+    },
+    {
+      "sourceId": "florida-liquor-licenses-dot-com",
+      "name": "FloridaLiquorLicenses.com / Florida Business Investments",
+      "domain": "floridaliquorlicenses.com",
+      "autoPublish": false,
+      "individualListingPathPatterns": ["/listing/", "/license/"]
+    },
+    {
+      "sourceId": "liquor-license-fl",
+      "name": "Liquor License FL",
+      "domain": "liquorlicensefl.com",
+      "autoPublish": false,
+      "individualListingPathPatterns": ["/listing/", "/license/"]
+    }
+  ]
+}
