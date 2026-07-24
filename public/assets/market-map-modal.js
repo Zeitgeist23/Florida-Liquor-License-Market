@@ -1,5 +1,5 @@
 (() => {
-  const STYLE_ID = "market-list-modal-styles-v2";
+  const STYLE_ID = "market-list-modal-styles-v3";
   const BACKDROP_CLASS = "market-list-modal-backdrop";
   const MODAL_CLASS = "market-map-popup market-list-popup";
   const BODY_CLASS = "market-list-modal-open";
@@ -7,6 +7,10 @@
   let previousFocus = null;
   let backdrop = null;
   let modal = null;
+
+  function normalizedText(element) {
+    return (element?.textContent || "").replace(/\s+/g, " ").trim();
+  }
 
   function escapeHtml(value) {
     return String(value ?? "")
@@ -19,12 +23,14 @@
 
   function installStyles() {
     if (document.getElementById(STYLE_ID)) return;
+    document.querySelectorAll('[id^="market-list-modal-styles"]').forEach((style) => style.remove());
+
     const style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
       body.${BODY_CLASS}{overflow:hidden!important}
-      .${BACKDROP_CLASS}{position:fixed;inset:0;z-index:9998;background:rgba(0,7,13,.84);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
-      .market-list-popup{position:fixed;top:50%;left:50%;z-index:9999;width:min(92vw,1100px);height:min(86vh,900px);transform:translate(-50%,-50%);display:flex;flex-direction:column;overflow:hidden;border:2px solid #f6a700;border-radius:12px;background:#f7f7f5;color:#111820;box-shadow:0 35px 110px rgba(0,0,0,.72);font-family:Arial,Helvetica,sans-serif}
+      .${BACKDROP_CLASS}{position:fixed;inset:0;z-index:12998;background:rgba(0,7,13,.84);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+      .market-list-popup{position:fixed;top:50%;left:50%;z-index:12999;width:min(92vw,1100px)!important;height:min(86vh,900px)!important;min-width:0!important;min-height:0!important;max-width:1100px!important;max-height:900px!important;transform:translate(-50%,-50%);display:flex;flex-direction:column;overflow:hidden;border:2px solid #f6a700;border-radius:12px;background:#f7f7f5;color:#111820;box-shadow:0 35px 110px rgba(0,0,0,.72);font-family:Arial,Helvetica,sans-serif}
       .market-list-popup-header{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:22px 24px 18px;border-bottom:1px solid #d8dde1;background:#061728;color:#fff}
       .market-list-popup-kicker{display:block;margin-bottom:5px;color:#f6a700;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
       .market-list-popup-header h2{margin:0 0 5px;font-size:26px;line-height:1.05}
@@ -48,7 +54,7 @@
       .market-list-loading,.market-list-error{display:grid;place-items:center;min-height:260px;padding:30px;text-align:center;color:#66727b;font-weight:700}
       .map-panel[data-market-list-bound="true"]{cursor:pointer}
       @media(max-width:720px){
-        .market-list-popup{width:96vw;height:90vh}
+        .market-list-popup{width:96vw!important;height:90vh!important}
         .market-list-popup-header{padding:18px 16px 14px}.market-list-popup-header h2{font-size:21px}.market-list-popup-header p{font-size:11px}
         .market-list-column-headings{display:none}
         .market-list-row{grid-template-columns:42px minmax(0,1fr) auto;padding:11px 14px;gap:10px}
@@ -58,6 +64,16 @@
       }
     `;
     document.head.appendChild(style);
+  }
+
+  function closeMarketDataMenu() {
+    const menu = document.getElementById("market-data-header-menu");
+    menu?.classList.remove("is-open");
+    menu?.setAttribute("aria-hidden", "true");
+
+    const trigger = Array.from(document.querySelectorAll(".primary-nav a"))
+      .find((link) => /^market data$/i.test(normalizedText(link)));
+    trigger?.setAttribute("aria-expanded", "false");
   }
 
   function closeModal() {
@@ -109,6 +125,7 @@
   function openModal(trigger) {
     if (modal) return;
     installStyles();
+    closeMarketDataMenu();
     previousFocus = trigger;
 
     backdrop = document.createElement("div");
@@ -153,7 +170,7 @@
     loadListings(scroll, summary);
   }
 
-  function bindMarketInsights() {
+  function bindMarketInsightsPanel() {
     const panel = document.querySelector(".map-panel");
     if (!(panel instanceof HTMLElement)) return false;
     if (panel.dataset.marketListBound === "true") return true;
@@ -167,12 +184,14 @@
     panel.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
+      event.stopImmediatePropagation();
       openModal(panel);
     }, true);
 
     panel.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
+        event.stopPropagation();
         openModal(panel);
       }
     });
@@ -180,11 +199,24 @@
   }
 
   function initialize() {
-    bindMarketInsights();
-    setTimeout(bindMarketInsights, 300);
-    setTimeout(bindMarketInsights, 1000);
-    setTimeout(bindMarketInsights, 2200);
+    bindMarketInsightsPanel();
+    setTimeout(bindMarketInsightsPanel, 300);
+    setTimeout(bindMarketInsightsPanel, 1000);
+    setTimeout(bindMarketInsightsPanel, 2200);
   }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const option = target.closest("#market-data-header-menu button");
+    if (!(option instanceof HTMLButtonElement)) return;
+    if (!/^florida market insights$/i.test(normalizedText(option))) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    openModal(option);
+  }, true);
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeModal();
