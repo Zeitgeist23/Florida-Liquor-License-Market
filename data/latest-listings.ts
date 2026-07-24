@@ -1,5 +1,7 @@
 import type { Listing } from "./listings";
 
+const brokerNote = "External broker listing. Availability and price subject to confirmation.";
+
 export const latestListings: Listing[] = [
   { county: "Escambia County", type: "4COP Quota", price: 575000, priceLabel: "$575,000", sourceRef: "FLLM-095", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/florida/escambia-county/liquor-stores-for-sale/", image: "/assets/listing-sarasota.png" },
   { county: "Leon County", type: "4COP Quota", price: 850000, priceLabel: "$850,000", sourceRef: "FLLM-096", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/florida/leon-county/liquor-stores-for-sale/", image: "/assets/listing-sarasota.png" },
@@ -28,4 +30,12 @@ export const latestListings: Listing[] = [
   { county: "Orange County", type: "4COP Quota", price: 538999, priceLabel: "$538,999", sourceRef: "FLLM-119", sourceName: "BizQuest", sourceUrl: "https://www.bizquest.com/asset-sales/orange-county-florida-quota-4cop-3ps-liquor-license/BW2477119/", image: "/assets/listing-miami.png" },
   { county: "Orange County", type: "4COP Quota", price: 560000, priceLabel: "$560,000", sourceRef: "FLLM-120", sourceName: "BizQuest", sourceUrl: "https://www.bizquest.com/asset-sales/orange-county-fl-4cop-3ps-quota-liquor-license/BW2428094/", image: "/assets/listing-miami.png" },
   { county: "Osceola County", type: "4COP Quota", price: 445000, priceLabel: "$445,000", sourceRef: "FLLM-121", sourceName: "BizQuest", sourceUrl: "https://www.bizquest.com/asset-sales/osceola-county-4cop-liquor-license/BW2274046/", image: "/assets/listing-lee.png" },
+  { county: "Sumter County", type: "4COP Quota", price: 349000, priceLabel: "$349,000", sourceRef: "FLLM-122", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/rare-sumter-county-quota-liquor-license-now-available/2474368/", note: brokerNote, image: "/assets/listing-sarasota.png" },
+  { county: "Manatee County", type: "4COP Quota", price: 600000, priceLabel: "$600,000", sourceRef: "FLLM-123", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/4cop-3ps-liquor-license-manatee-county-fl/2515905/", note: brokerNote, image: "/assets/listing-sarasota.png" },
+  { county: "Alachua County", type: "4COP Quota", price: 279000, priceLabel: "$279,000", sourceRef: "FLLM-124", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/alachua-county-liquor-license-now-available/2461279/", note: brokerNote, image: "/assets/listing-lee.png" },
+  { county: "Orange County", type: "4COP Quota", price: null, priceLabel: "Price Undisclosed", sourceRef: "FLLM-125", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/liquor-license-4cop-3ps-orange-county-best-price/2171918/", note: brokerNote, image: "/assets/listing-miami.png" },
+  { county: "Lee County", type: "4COP Quota", price: null, priceLabel: "Price Undisclosed", sourceRef: "FLLM-126", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/lee-county-price-reduced-4-quick-sale-4cop-3ps-quota-liquor-license/2171894/", note: brokerNote, image: "/assets/listing-lee.png" },
+  { county: "Seminole County", type: "4COP Quota", price: 274900, priceLabel: "$274,900", sourceRef: "FLLM-127", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/seminole-county-quota-liquor-license-3ps-4cop/2461292/", note: brokerNote, image: "/assets/listing-miami.png" },
+  { county: "Miami-Dade County", type: "4COP Quota", price: null, priceLabel: "Price Undisclosed", sourceRef: "FLLM-128", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/must-sell-miami-dade-county-quota-liquor-license-4cop/2516750/", note: brokerNote, image: "/assets/listing-miami.png" },
+  { county: "Sarasota County", type: "4COP Quota", price: null, priceLabel: "Price Undisclosed", sourceRef: "FLLM-129", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/price-reduction-sarasota-4cop-3ps-liquor-license/2167188/", note: brokerNote, image: "/assets/listing-sarasota.png" },
 ];
