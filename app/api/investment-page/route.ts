@@ -1,9 +1,21 @@
 export const dynamic = "force-dynamic";
 
-const INVESTMENT_PAGE_STYLES = `<style id="investment-logo-match-contact-v3">
+const INVESTMENT_PAGE_STYLES = `<style id="investment-logo-match-contact-v4">
+  .contact-page.investment-page > .seller-header {
+    align-items: center !important;
+  }
+  .contact-page.investment-page > .seller-header > .seller-brand {
+    align-self: stretch !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
   .contact-page.investment-page > .seller-header > .seller-brand img {
+    display: block !important;
     width: 71.25% !important;
     height: auto !important;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
   }
   .investment-page .seller-trust {
     display: flex !important;
@@ -32,7 +44,7 @@ export async function GET(request: Request) {
       '<main class="seller-page contact-page investment-page">',
     );
 
-    if (!html.includes('id="investment-logo-match-contact-v3"')) {
+    if (!html.includes('id="investment-logo-match-contact-v4"')) {
       html = html.replace("</head>", `${INVESTMENT_PAGE_STYLES}</head>`);
     }
 
