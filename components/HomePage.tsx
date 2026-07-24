@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { Listing as MarketplaceListing } from "@/data/listings";
 import HomeMarketInsightsMap from "./HomeMarketInsightsMap";
 
-type Listing = {
+type FeaturedListing = {
   county: string;
   type: string;
   price: number;
@@ -13,7 +14,7 @@ type Listing = {
   sourceUrl?: string;
 };
 
-const listings: Listing[] = [
+const listings: FeaturedListing[] = [
   { county: "Miami-Dade County", type: "4COP Quota", price: 495000, priceLabel: "$495,000", image: "/assets/listing-miami.png" },
   { county: "Palm Beach County", type: "4COP Quota", price: 575000, priceLabel: "$575,000", image: "/assets/listing-palm-beach.png" },
   { county: "Sarasota County", type: "3PS Quota / Package Store", price: 340000, priceLabel: "$340,000", image: "/assets/listing-sarasota.png" },
@@ -48,7 +49,7 @@ const stats = [
   ["/assets/stat-florida-counties.png", "67", "Florida Counties", "Statewide Coverage"],
 ];
 
-export default function Home() {
+export default function Home({ marketListings }: { marketListings: MarketplaceListing[] }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [county, setCounty] = useState("all");
   const [licenseType, setLicenseType] = useState("all");
@@ -56,6 +57,7 @@ export default function Home() {
   const [searchActive, setSearchActive] = useState(false);
   const [saved, setSaved] = useState<Set<string>>(new Set());
   const [carouselOffset, setCarouselOffset] = useState(0);
+  const [marketInsightsOpen, setMarketInsightsOpen] = useState(false);
 
   const filteredListings = useMemo(() => {
     if (!searchActive) return listings;
@@ -73,6 +75,29 @@ export default function Home() {
     return [...filteredListings.slice(offset), ...filteredListings.slice(0, offset)];
   }, [carouselOffset, filteredListings]);
 
+  const pricedMarketListings = useMemo(() => marketListings
+    .filter((listing) => Boolean(listing.sourceRef))
+    .sort((left, right) => {
+      if (left.price === null && right.price === null) return left.county.localeCompare(right.county);
+      if (left.price === null) return 1;
+      if (right.price === null) return -1;
+      return right.price - left.price || left.county.localeCompare(right.county);
+    }), [marketListings]);
+
+  useEffect(() => {
+    if (!marketInsightsOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMarketInsightsOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [marketInsightsOpen]);
+
   function submitSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault(); setSearchActive(true); setCarouselOffset(0);
     document.querySelector("#featured")?.scrollIntoView({ behavior: "smooth" });
@@ -80,6 +105,10 @@ export default function Home() {
 
   function toggleSaved(name: string) {
     setSaved((current) => { const next = new Set(current); if (next.has(name)) next.delete(name); else next.add(name); return next; });
+  }
+
+  function openMarketInsights() {
+    setMarketInsightsOpen(true);
   }
 
   return (
@@ -123,12 +152,13 @@ export default function Home() {
         <section className="market-report" id="market-report" aria-labelledby="market-report-title"><div className="report-copy"><span className="report-eyebrow">Video Briefing · Episode 1</span><h2 id="market-report-title">Florida Liquor License<br /><em>Market Report</em></h2><p>Watch our three-minute introduction to learn how buyers, sellers, financing partners, and investors connect through Florida&apos;s dedicated liquor license marketplace.</p><a className="report-episodes-link" href="#resources">View All Episodes <span aria-hidden="true">›</span></a></div><div className="report-video" role="img" aria-label="Video coming soon: Florida Liquor License Market Report"><div className="report-screen"><span className="report-live-label">Market Report</span><img className="report-brand-mark" src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /><div className="report-desk" aria-hidden="true"><span className="report-presenter presenter-one" /><span className="report-presenter presenter-two" /><i /></div><div className="report-video-message"><span className="report-play" aria-hidden="true">▶</span><strong>Episode 1 Coming Soon</strong><small>The video will play here—never automatically.</small></div></div></div></section>
         <section className="insight-grid" id="market-data">
           <article className="info-panel transactions-panel"><div className="panel-title"><h2>Recent Florida Transactions</h2><a href="#featured">View All ›</a></div><table><thead><tr><th>County</th><th>License Type</th><th>Sale Price</th></tr></thead><tbody>{transactions.map(([transactionCounty, type, price]) => <tr key={transactionCounty}><td>{transactionCounty}</td><td>{type}</td><td>{price}</td></tr>)}</tbody></table><a className="panel-link" href="#featured">View All Transactions ›</a></article>
-          <article className="info-panel map-panel"><div className="panel-title"><h2>Florida Market Insights</h2><a href="#market-data">View All ›</a></div><div className="map-content"><div><h3>Published Asking &amp; Sold<br />Price by County</h3><ul><li><i className="range-1" />$600K+</li><li><i className="range-2" />$450K – $600K</li><li><i className="range-3" />$300K – $450K</li><li><i className="range-4" />$200K – $300K</li><li><i className="range-5" />Under $200K</li></ul><small className="market-map-note">County fill reflects the average published inventory price. A dashed dark outline means a sold price is included; gray means no disclosed price.</small></div><div className="florida-map-art"><HomeMarketInsightsMap /></div></div><a className="panel-link" href="#market-data">Explore Market Data ›</a></article>
+          <article className="info-panel map-panel market-insights-trigger" role="button" tabIndex={0} aria-haspopup="dialog" aria-label="Open all available Florida liquor licenses sorted by asking price" onClick={openMarketInsights} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openMarketInsights(); } }}><div className="panel-title"><h2>Florida Market Insights</h2><span className="panel-action-label">View All ›</span></div><div className="map-content"><div><h3>Published Asking &amp; Sold<br />Price by County</h3><ul><li><i className="range-1" />$600K+</li><li><i className="range-2" />$450K – $600K</li><li><i className="range-3" />$300K – $450K</li><li><i className="range-4" />$200K – $300K</li><li><i className="range-5" />Under $200K</li></ul><small className="market-map-note">County fill reflects the average published inventory price. A dashed dark outline means a sold price is included; gray means no disclosed price.</small></div><div className="florida-map-art"><HomeMarketInsightsMap /></div></div><span className="panel-link">Explore Market Data ›</span></article>
           <article className="info-panel financing-panel" id="financing"><div className="panel-title"><h2>Financing Spotlight</h2><a href="#financing">View All ›</a></div><div className="finance-item"><b>▥</b><span><strong>Acquisition Financing</strong><small>Finance the purchase of your next liquor license with competitive terms and flexible loans.</small></span></div><div className="finance-item"><b>$</b><span><strong>Refinance Existing Debt</strong><small>Lower rates &amp; flexible terms from our lending partners.</small></span></div><div className="finance-item"><b>♧</b><span><strong>Private Capital Introductions</strong><small>Connect with private lenders and investors for your business goals.</small></span></div><a className="panel-link" href="mailto:info@floridaliquorlicensemarket.com?subject=Financing%20options">Explore Financing Options ›</a></article>
         </section>
         <section className="cta" id="sell"><img className="cta-icon" src="/assets/cta-shield.png" alt="" aria-hidden="true" /><span><strong>Ready to Buy, Sell, Finance, or Invest in a Liquor License?</strong><small>Join Florida&apos;s most trusted marketplace for liquor license transactions.</small></span><a className="btn btn-gold" href="mailto:info@floridaliquorlicensemarket.com?subject=Florida%20liquor%20license%20inquiry">Get Started Today ›</a></section>
       </div></section>
       <footer id="resources"><div className="page-shell footer-grid"><div className="footer-brand"><img src="/assets/brand-footer.svg" alt="Florida Liquor License Market" /><p>Florida&apos;s marketplace for buying, selling &amp; financing liquor licenses.</p><b>Buy · Sell · Finance · Invest</b></div><div><strong>Marketplace</strong><a href="#featured">Browse Licenses</a><a href="#sell">Sell Your License</a><a href="#financing">Financing Solutions</a><a href="#market-data">Investment Opportunities</a></div><div><strong>Company</strong><a href="#top">About Us</a><a href="#top">Our Process</a><a href="#top">Testimonials</a><a href="mailto:info@floridaliquorlicensemarket.com">Contact Us</a></div><div><strong>Resources</strong><a href="#market-data">Market Data</a><a href="#market-data">Blog</a><a href="#resources">FAQ</a><a href="#resources">Documents</a></div><div className="social"><strong>Stay Connected</strong><div><a href="#resources" aria-label="LinkedIn">in</a><a href="#resources" aria-label="Facebook">f</a><a href="#resources" aria-label="Instagram">◎</a><a href="#resources" aria-label="YouTube">▶</a><a href="mailto:info@floridaliquorlicensemarket.com" aria-label="Email">✉</a></div><small><a href="/privacy-policy">Privacy Policy</a> &nbsp;|&nbsp; <a href="/terms-of-use">Terms of Use</a>.</small></div></div><div className="page-shell copyright">© 2026 Florida Liquor License Market. All rights reserved.</div></footer>
+      {marketInsightsOpen && <div className="market-list-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setMarketInsightsOpen(false); }}><section className="market-list-modal" role="dialog" aria-modal="true" aria-labelledby="market-list-modal-title"><header><div><span>Florida Market Insights</span><h2 id="market-list-modal-title">Current Available Licenses</h2><p>{pricedMarketListings.length} available listing{pricedMarketListings.length === 1 ? "" : "s"}, ordered from highest to lowest asking price.</p></div><button type="button" aria-label="Close current available licenses" onClick={() => setMarketInsightsOpen(false)}>×</button></header><div className="market-list-column-headings" aria-hidden="true"><span>Rank</span><span>County &amp; License Type</span><span>Asking Price</span><span>Action</span></div><div className="market-list-scroll">{pricedMarketListings.map((listing, index) => <article className="market-list-row" key={listing.sourceRef ?? `${listing.county}-${listing.type}-${listing.priceLabel}-${index}`}><span className="market-list-rank">{index + 1}</span><div><strong>{listing.county}</strong><small>{listing.type}</small></div><strong className="market-list-price">{listing.priceLabel}</strong><a href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${encodeURIComponent(listing.sourceRef ?? "market-insights")}`}>Inquire</a></article>)}</div><footer><span>Prices and availability are subject to confirmation.</span><a href="/listings">Open Full Listings Page ›</a></footer></section></div>}
     </main>
   );
 }
