@@ -1,0 +1,172 @@
+{
+  "lastVerified": "2026-07-24",
+  "purpose": "Registry of public sources used to discover, compare, and verify Florida liquor licenses offered for sale.",
+  "rules": {
+    "manualReviewRequired": true,
+    "doNotScrapeRestrictedSitesWithoutPermission": true,
+    "dedupeBy": [
+      "source listing ID or canonical URL",
+      "county",
+      "license type",
+      "seller or broker",
+      "license number when available"
+    ],
+    "notes": "Price alone is not a reliable unique identifier because the same license may be repriced or syndicated across multiple sites."
+  },
+  "sources": [
+    {
+      "id": "bizbuysell",
+      "name": "BizBuySell",
+      "category": "business-asset marketplace",
+      "baseUrl": "https://www.bizbuysell.com/",
+      "searchUrl": "https://www.bizbuysell.com/florida/liquor-store-business-assets-for-sale/",
+      "status": "active listing source",
+      "priority": 1,
+      "automation": "manual review only unless written permission or an authorized feed is obtained",
+      "duplicateRisk": "high; listings may also appear on BizQuest or a broker's own site"
+    },
+    {
+      "id": "bizquest",
+      "name": "BizQuest",
+      "category": "business-asset marketplace",
+      "baseUrl": "https://www.bizquest.com/",
+      "searchUrl": "https://www.bizquest.com/liquor-stores-asset-sales-in-florida/",
+      "status": "active listing source",
+      "priority": 1,
+      "automation": "manual review only unless written permission or an authorized feed is obtained",
+      "duplicateRisk": "high; often syndicates the same broker inventory shown elsewhere"
+    },
+    {
+      "id": "liquorlicense-com",
+      "name": "LiquorLicense.com",
+      "category": "specialty liquor-license broker marketplace",
+      "baseUrl": "https://www.liquorlicense.com/",
+      "searchUrl": "https://www.liquorlicense.com/florida/types/4cop-3ps",
+      "status": "active listing source",
+      "priority": 1,
+      "automation": "manual review only unless written permission or an authorized feed is obtained",
+      "duplicateRisk": "high; the same inventory may appear on LiquorLicenseMarketplace.com, BizBuySell, or BizQuest"
+    },
+    {
+      "id": "liquor-license-marketplace",
+      "name": "Liquor License Marketplace",
+      "category": "specialty liquor-license marketplace",
+      "baseUrl": "https://liquorlicensemarketplace.com/",
+      "searchUrl": "https://liquorlicensemarketplace.com/florida/types/4cop-3ps/",
+      "status": "secondary discovery source",
+      "priority": 2,
+      "automation": "manual review only unless written permission or an authorized feed is obtained",
+      "duplicateRisk": "very high; appears related to or overlapping with LiquorLicense.com inventory"
+    },
+    {
+      "id": "liquor-license-auctioneers",
+      "name": "Liquor License Auctioneers",
+      "category": "specialty auction marketplace",
+      "baseUrl": "https://liquorlicenseauctioneers.com/",
+      "searchUrl": "https://liquorlicenseauctioneers.com/florida/types/4cop-3ps",
+      "status": "active listing source",
+      "priority": 1,
+      "automation": "manual review only unless written permission or an authorized feed is obtained",
+      "duplicateRisk": "medium to high; advertised prices may include auction fees and may overlap broker inventory"
+    },
+    {
+      "id": "florida-liquor-license-sales",
+      "name": "Florida Liquor License Sales",
+      "category": "specialty Florida broker site",
+      "baseUrl": "https://www.floridaliquorlicensesales.com/",
+      "searchUrl": "https://www.floridaliquorlicensesales.com/florida",
+      "status": "active listing source",
+      "priority": 2,
+      "automation": "manual review only unless written permission or an authorized feed is obtained",
+      "duplicateRisk": "medium"
+    },
+    {
+      "id": "businesses-for-sale",
+      "name": "BusinessesForSale.com",
+      "category": "business marketplace",
+      "baseUrl": "https://us.businessesforsale.com/",
+      "searchUrl": "https://us.businessesforsale.com/us/search/liquor-licenses-for-sale-in-florida",
+      "status": "active listing source",
+      "priority": 2,
+      "automation": "manual review only unless written permission or an authorized feed is obtained",
+      "duplicateRisk": "high; may syndicate broker inventory"
+    },
+    {
+      "id": "florida-liquor-licenses-dot-com",
+      "name": "FloridaLiquorLicenses.com / Florida Business Investments",
+      "category": "Florida liquor-license broker and inquiry site",
+      "baseUrl": "https://floridaliquorlicenses.com/",
+      "searchUrl": "https://floridaliquorlicenses.com/",
+      "status": "supplemental broker source",
+      "priority": 2,
+      "automation": "manual review and direct inquiry",
+      "duplicateRisk": "unknown; inventory may not be publicly itemized"
+    },
+    {
+      "id": "liquor-license-fl",
+      "name": "Liquor License FL",
+      "category": "Florida liquor-license broker and availability monitor",
+      "baseUrl": "https://www.liquorlicensefl.com/",
+      "searchUrl": "https://www.liquorlicensefl.com/buy.php",
+      "status": "supplemental broker source",
+      "priority": 2,
+      "automation": "manual review and direct inquiry",
+      "duplicateRisk": "high; broker listings may also be syndicated to BizBuySell and BizQuest"
+    },
+    {
+      "id": "dbpr-abt-research",
+      "name": "Florida DBPR Division of Alcoholic Beverages and Tobacco - Research License Data",
+      "category": "official government verification source",
+      "baseUrl": "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
+      "searchUrl": "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/research-license-data/",
+      "status": "verification source; not a sale marketplace",
+      "priority": 1,
+      "automation": "official public data may be used subject to DBPR terms and file disclaimers",
+      "duplicateRisk": "none for license records; use to verify holder, status, series, county, and expiration"
+    },
+    {
+      "id": "dbpr-abt-public-records",
+      "name": "Florida DBPR Division of Alcoholic Beverages and Tobacco - Public Records Downloads",
+      "category": "official government data source",
+      "baseUrl": "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/public-records/",
+      "searchUrl": "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/public-records/",
+      "status": "verification and market-research source; not a sale marketplace",
+      "priority": 1,
+      "automation": "official downloadable data may be used subject to DBPR terms and file disclaimers",
+      "duplicateRisk": "none for license records"
+    },
+    {
+      "id": "google-search",
+      "name": "Google Search",
+      "category": "general discovery channel",
+      "baseUrl": "https://www.google.com/",
+      "searchUrl": "https://www.google.com/search?q=Florida+4COP+3PS+liquor+license+for+sale",
+      "status": "discovery source",
+      "priority": 2,
+      "automation": "manual search or compliant search API only",
+      "duplicateRisk": "very high; results often point to the same syndicated listing"
+    },
+    {
+      "id": "bing-search",
+      "name": "Bing Search",
+      "category": "general discovery channel",
+      "baseUrl": "https://www.bing.com/",
+      "searchUrl": "https://www.bing.com/search?q=Florida+4COP+3PS+liquor+license+for+sale",
+      "status": "discovery source",
+      "priority": 2,
+      "automation": "manual search or compliant search API only",
+      "duplicateRisk": "very high; results often point to the same syndicated listing"
+    },
+    {
+      "id": "fllm-seller-submissions",
+      "name": "FloridaLiquorLicenseMarket.com Seller Submissions",
+      "category": "first-party marketplace submissions",
+      "baseUrl": "https://www.floridaliquorlicensemarket.com/",
+      "searchUrl": "https://www.floridaliquorlicensemarket.com/list-your-license",
+      "status": "first-party source",
+      "priority": 1,
+      "automation": "internal workflow",
+      "duplicateRisk": "medium; seller may also advertise through brokers or other marketplaces"
+    }
+  ]
+}
