@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { Listing } from "@/data/listings";
+import { publishDiscoveredListings } from "@/lib/discovered-listing-store";
+import { discoverPublicListings } from "@/lib/listing-discovery";
 import { upsertMarketplaceListings } from "@/lib/listing-store";
 
 export const dynamic = "force-dynamic";
@@ -36,7 +38,7 @@ function normalizeListing(item: FeedListing, feedUrl: string): Listing | null {
     sourceName: item.sourceName?.trim() || new URL(feedUrl).hostname,
     sourceUrl: item.sourceUrl?.trim() || feedUrl,
     note: item.note?.trim() || "External listing. Price and availability subject to confirmation.",
-    image: item.image?.trim() || "/assets/listing-miami.png",
+    image: item.image?.trim() || "/assets/listing-miami.png"
   };
 }
 
@@ -44,7 +46,7 @@ async function readFeed(feedUrl: string): Promise<Listing[]> {
   const response = await fetch(feedUrl, {
     headers: { Accept: "application/json", "User-Agent": "FloridaLiquorLicenseMarket/1.0" },
     cache: "no-store",
-    signal: AbortSignal.timeout(15000),
+    signal: AbortSignal.timeout(15000)
   });
 
   if (!response.ok) throw new Error(`${feedUrl} returned ${response.status}`);
@@ -66,17 +68,61 @@ export async function GET(request: NextRequest) {
     .map((value) => value.trim())
     .filter(Boolean);
 
-  if (feedUrls.length === 0) {
-    return NextResponse.json({ updated: 0, feeds: 0, message: "No authorized listing feeds configured." });
+  const feedResults = await Promise.allSettled(feedUrls.map(readFeed));
+  const feedListings = feedResults.flatMap((result) => result.status === "fulfilled" ? result.value : []);
+  await upsertMarketplaceListings(feedListings);
+
+  const tavilyApiKey = process.env.TAVILY_API_KEY?.trim();
+  const autoDiscoveryEnabled = Boolean(tavilyApiKey) && process.env.AUTO_DISCOVERY_ENABLED !== "false";
+
+  let discovery: Record<string, unknown> = {
+    enabled: autoDiscoveryEnabled,
+    checkedSources: 0,
+    searchResults: 0,
+    qualified: 0,
+    inserted: 0,
+    skippedExisting: 0,
+    skippedDuplicateCandidate: 0,
+    manualReviewCandidates: 0,
+    rejectedResults: 0
+  };
+
+  if (autoDiscoveryEnabled && tavilyApiKey) {
+    try {
+      const run = await discoverPublicListings(tavilyApiKey);
+      const publish = await publishDiscoveredListings(run.qualifiedListings);
+      discovery = {
+        enabled: true,
+        checkedSources: run.checkedSources,
+        searchResults: run.searchResults,
+        qualified: run.qualifiedListings.length,
+        inserted: publish.inserted,
+        skippedExisting: publish.skippedExisting,
+        skippedDuplicateCandidate: publish.skippedDuplicateCandidate,
+        manualReviewCandidates: run.manualReviewCandidates,
+        rejectedResults: run.rejectedResults,
+        databaseConfigured: publish.databaseConfigured,
+        sources: run.sourceResults
+      };
+    } catch (error) {
+      discovery = {
+        ...discovery,
+        enabled: true,
+        error: error instanceof Error ? error.message : String(error)
+      };
+    }
+  } else if (!tavilyApiKey) {
+    discovery.message = "TAVILY_API_KEY is not configured; authorized JSON feeds were still checked.";
+  } else {
+    discovery.message = "Automatic public-web discovery is disabled by AUTO_DISCOVERY_ENABLED=false.";
   }
 
-  const results = await Promise.allSettled(feedUrls.map(readFeed));
-  const listings = results.flatMap((result) => result.status === "fulfilled" ? result.value : []);
-  await upsertMarketplaceListings(listings);
-
   return NextResponse.json({
-    updated: listings.length,
-    feeds: feedUrls.length,
-    failedFeeds: results.filter((result) => result.status === "rejected").length,
+    feeds: {
+      configured: feedUrls.length,
+      updated: feedListings.length,
+      failed: feedResults.filter((result) => result.status === "rejected").length
+    },
+    discovery
   });
 }
