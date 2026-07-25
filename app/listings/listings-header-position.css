@@ -16,6 +16,12 @@
   justify-content: flex-start !important;
 }
 
+.results-page > .results-header .seller-brand img {
+  width: 216.2px !important;
+  height: 84.6px !important;
+  transform: translateX(-10px);
+}
+
 .results-page > .results-header::before {
   grid-column: 2;
   grid-row: 1;
