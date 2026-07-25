@@ -1,5 +1,5 @@
 (() => {
-  const STYLE_ID = "market-list-modal-styles-v4";
+  const STYLE_ID = "market-list-modal-styles-v5";
   const BACKDROP_CLASS = "market-list-modal-backdrop";
   const MODAL_CLASS = "market-map-popup market-list-popup";
   const BODY_CLASS = "market-list-modal-open";
@@ -32,7 +32,10 @@
       .${BACKDROP_CLASS}{position:fixed;inset:0;z-index:12998;background:radial-gradient(circle at 50% 20%,rgba(16,38,58,.54) 0%,rgba(3,18,31,.9) 45%,rgba(0,3,5,.96) 100%);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
       .market-list-popup{position:fixed;top:50%;left:50%;z-index:12999;width:min(92vw,1100px)!important;height:min(86vh,900px)!important;min-width:0!important;min-height:0!important;max-width:1100px!important;max-height:900px!important;transform:translate(-50%,-50%);display:flex;flex-direction:column;overflow:hidden;isolation:isolate;border:1px solid #b77b00;border-radius:4px;background:radial-gradient(circle at 50% 0%,#0b0d0e 0%,#050607 44%,#020303 100%);color:#f6f6f3;box-shadow:0 35px 110px rgba(0,0,0,.8),0 0 0 1px rgba(241,166,0,.12);font-family:Arial,Helvetica,sans-serif}
       .market-list-popup::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(rgba(241,166,0,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(241,166,0,.02) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.65),transparent 72%)}
-      .market-list-popup-header{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:23px 24px 19px;border-bottom:1px solid #b77b00;background:radial-gradient(circle at 57% 30%,#10263a 0%,#071a2b 44%,#03121f 100%);color:#fff}
+      .market-list-popup-header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 24px 15px;border-bottom:1px solid #b77b00;background:radial-gradient(circle at 57% 30%,#10263a 0%,#071a2b 44%,#03121f 100%);color:#fff}
+      .market-list-header-brand{display:flex;align-items:center;gap:20px;min-width:0}
+      .market-list-popup-logo{display:block;flex:0 0 auto;width:190px;height:76px;object-fit:contain;object-position:left center;filter:drop-shadow(0 5px 14px rgba(0,0,0,.48))}
+      .market-list-header-copy{min-width:0}
       .market-list-popup-kicker{display:block;margin-bottom:6px;color:#f1a600;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
       .market-list-popup-header h2{margin:0 0 6px;color:#f7f5ef;font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1;text-shadow:0 3px 22px rgba(0,0,0,.55)}
       .market-list-popup-header p{margin:0;color:#e1e6e9;font-size:13px}
@@ -58,13 +61,22 @@
       .map-panel[data-market-list-bound="true"]{cursor:pointer}
       @media(max-width:720px){
         .market-list-popup{width:96vw!important;height:90vh!important}
-        .market-list-popup-header{padding:18px 16px 14px}.market-list-popup-header h2{font-size:23px}.market-list-popup-header p{font-size:11px}
+        .market-list-popup-header{align-items:flex-start;padding:13px 14px 12px;gap:10px}
+        .market-list-header-brand{gap:11px}
+        .market-list-popup-logo{width:118px;height:54px}
+        .market-list-popup-header h2{font-size:21px}.market-list-popup-header p{font-size:10px}.market-list-popup-kicker{font-size:9px;margin-bottom:4px}
+        .market-list-popup-close{width:36px;height:36px;flex-basis:36px;font-size:23px}
         .market-list-column-headings{display:none}
         .market-list-scroll{padding:10px}
         .market-list-row{grid-template-columns:42px minmax(0,1fr) auto;padding:11px 12px;gap:10px}
         .market-list-price{grid-column:2;font-size:17px}
         .market-list-inquire{grid-column:3;grid-row:1 / span 2;min-width:74px;padding:0 10px}
         .market-list-popup-footer{align-items:flex-start;flex-direction:column}
+      }
+      @media(max-width:470px){
+        .market-list-popup-logo{width:92px;height:46px}
+        .market-list-popup-header h2{font-size:18px}
+        .market-list-popup-header p{display:none}
       }
     `;
     document.head.appendChild(style);
@@ -144,7 +156,14 @@
 
     const header = document.createElement("header");
     header.className = "market-list-popup-header";
-    header.innerHTML = `<div><span class="market-list-popup-kicker">Florida Market Insights</span><h2 id="market-list-popup-title">Current Available Licenses</h2><p>Loading current marketplace inventory…</p></div>`;
+    header.innerHTML = `<div class="market-list-header-brand">
+      <img class="market-list-popup-logo" src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
+      <div class="market-list-header-copy">
+        <span class="market-list-popup-kicker">Florida Market Insights</span>
+        <h2 id="market-list-popup-title">Current Available Licenses</h2>
+        <p>Loading current marketplace inventory…</p>
+      </div>
+    </div>`;
     const summary = header.querySelector("p");
 
     const closeButton = document.createElement("button");
