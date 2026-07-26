@@ -1,5 +1,5 @@
 (() => {
-  const STYLE_ID = "fllm-market-heat-map-styles-v2";
+  const STYLE_ID = "fllm-market-heat-map-styles-v3";
   const BACKDROP_CLASS = "fllm-heat-map-backdrop";
   const MODAL_CLASS = "fllm-heat-map-modal";
   const BODY_CLASS = "fllm-heat-map-open";
@@ -44,12 +44,12 @@
       .fllm-heat-map-legend h3{margin:0 0 6px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:18px}.fllm-heat-map-legend p{margin:0 0 16px;color:#bfc7cb;font-size:11px;line-height:1.45}
       .fllm-heat-map-legend ul{display:grid;gap:9px;margin:0;padding:0;list-style:none}.fllm-heat-map-legend li{display:flex;align-items:center;gap:10px;color:#ecece8;font-size:11px;font-weight:800}.fllm-heat-map-legend i{width:25px;height:14px;flex:0 0 25px;border:1px solid rgba(255,255,255,.42);border-radius:2px}
       .fllm-heat-map-note{display:block;margin-top:17px;padding-top:14px;border-top:1px solid #3b4145;color:#929da3;font-size:10px;line-height:1.45}
-      .fllm-heat-map-canvas{position:relative;min-width:0;min-height:0;display:grid;place-items:center;overflow:hidden;border:1px solid #775d23;border-radius:6px;background:radial-gradient(circle at 52% 45%,#18364d 0%,#0a1b29 50%,#03101a 100%)}
+      .fllm-heat-map-canvas{position:relative;min-width:0;min-height:0;display:grid;place-items:center;overflow:hidden;padding:12px;box-sizing:border-box;border:1px solid #775d23;border-radius:6px;background:radial-gradient(circle at 52% 45%,#18364d 0%,#0a1b29 50%,#03101a 100%)}
       .fllm-heat-map-loading{display:grid;place-items:center;min-height:300px;padding:30px;color:#d7dde0;font-weight:800;text-align:center}
-      .fllm-heat-map-svg{display:block;width:100%;height:100%;max-height:650px;overflow:visible;padding:14px}.fllm-heat-map-svg>rect{fill:transparent!important}.fllm-heat-map-svg path{cursor:default;transition:filter .14s ease,opacity .14s ease,stroke-width .14s ease}.fllm-heat-map-svg path:hover,.fllm-heat-map-svg path:focus{filter:brightness(1.15) drop-shadow(0 2px 3px rgba(0,0,0,.55));stroke:#fff!important;stroke-width:1.7!important;outline:none}
+      .fllm-heat-map-svg{display:block;width:auto;height:auto;max-width:92%;max-height:92%;box-sizing:border-box;overflow:visible}.fllm-heat-map-svg>rect{fill:transparent!important}.fllm-heat-map-svg path{cursor:default;transition:filter .14s ease,opacity .14s ease,stroke-width .14s ease}.fllm-heat-map-svg path:hover,.fllm-heat-map-svg path:focus{filter:brightness(1.15) drop-shadow(0 2px 3px rgba(0,0,0,.55));stroke:#fff!important;stroke-width:1.7!important;outline:none}
       .fllm-heat-map-tooltip{position:fixed;z-index:14001;min-width:190px;max-width:260px;pointer-events:none;padding:11px 13px;border:1px solid #d29200;border-radius:4px;background:rgba(4,9,12,.97);color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.55);transform:translate(14px,14px);font-size:12px;line-height:1.4}.fllm-heat-map-tooltip[hidden]{display:none}.fllm-heat-map-tooltip strong{display:block;margin-bottom:4px;color:#f1a600;font-family:Georgia,'Times New Roman',serif;font-size:16px}.fllm-heat-map-tooltip span{display:block;color:#eef1f2}.fllm-heat-map-tooltip small{display:block;margin-top:3px;color:#aeb8bd;font-size:10px}
       .fllm-heat-map-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px 20px;border-top:1px solid #a97513;background:#020405;color:#bfc7cb;font-size:11px}.fllm-heat-map-footer a{color:#f1a600;font-weight:900;text-decoration:none}.fllm-heat-map-footer a:hover{color:#fff}
-      @media(max-width:760px){.${MODAL_CLASS}{width:97vw;height:94vh}.fllm-heat-map-header{padding:13px}.fllm-heat-map-brand{gap:10px}.fllm-heat-map-brand img{width:105px;height:50px}.fllm-heat-map-header h2{font-size:21px}.fllm-heat-map-header p{font-size:10px}.fllm-heat-map-content{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);padding:10px;gap:10px}.fllm-heat-map-legend{padding:12px}.fllm-heat-map-legend p,.fllm-heat-map-note{display:none}.fllm-heat-map-legend ul{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.fllm-heat-map-legend li{font-size:9px;gap:5px}.fllm-heat-map-legend i{width:18px;height:11px;flex-basis:18px}.fllm-heat-map-footer{align-items:flex-start;flex-direction:column;padding:10px 14px}}
+      @media(max-width:760px){.${MODAL_CLASS}{width:97vw;height:94vh}.fllm-heat-map-header{padding:13px}.fllm-heat-map-brand{gap:10px}.fllm-heat-map-brand img{width:105px;height:50px}.fllm-heat-map-header h2{font-size:21px}.fllm-heat-map-header p{font-size:10px}.fllm-heat-map-content{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);padding:10px;gap:10px}.fllm-heat-map-legend{padding:12px}.fllm-heat-map-legend p,.fllm-heat-map-note{display:none}.fllm-heat-map-legend ul{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.fllm-heat-map-legend li{font-size:9px;gap:5px}.fllm-heat-map-legend i{width:18px;height:11px;flex-basis:18px}.fllm-heat-map-svg{max-width:88%;max-height:88%}.fllm-heat-map-footer{align-items:flex-start;flex-direction:column;padding:10px 14px}}
     `;
     document.head.appendChild(style);
   }
@@ -155,6 +155,7 @@
     svg.removeAttribute("width");
     svg.removeAttribute("height");
     svg.setAttribute("viewBox", "135 10 295 275");
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
     svg.setAttribute("role", "img");
     svg.setAttribute("aria-label", "Florida counties colored by the highest current liquor license asking price");
     svg.classList.add("fllm-heat-map-svg");
