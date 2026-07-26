@@ -1,5 +1,5 @@
 (() => {
-  const STYLE_ID = "fllm-market-heat-map-styles-v1";
+  const STYLE_ID = "fllm-market-heat-map-styles-v2";
   const BACKDROP_CLASS = "fllm-heat-map-backdrop";
   const MODAL_CLASS = "fllm-heat-map-modal";
   const BODY_CLASS = "fllm-heat-map-open";
@@ -13,19 +13,8 @@
     "Seminole", "Volusia", "St. Johns", "Osceola", "Sarasota", "Gilchrist", "Hendry", "Highlands",
     "Indian River", "Manatee", "Union", "Duval", "Wakulla", "Jackson", "Leon", "Escambia", "Miami-Dade",
     "Bradford", "Taylor", "Broward", "Polk", "Brevard", "Hamilton", "Collier", "Baker", "Liberty", "Holmes",
-    "Putnam", "Marion", "Hillsborough",
+    "Putnam", "Marion", "Hillsborough", "Monroe",
   ];
-
-  const monroePath = [
-    "M365.128,230.762L386.572,230.693L386.572,248.312L383.988,250.604L380.242,250.741L376.754,248.894L372.491,247.833L369.133,245.369L366.549,242.184L364.999,238.276L363.449,234.436L365.128,230.762Z",
-    "M386.572,248.312L390.059,250.878L389.155,253.612L385.538,252.964L382.955,250.741Z",
-    "M382.18,253.373L379.338,255.458L376.367,256.585L374.946,255.115L378.175,252.759Z",
-    "M373.654,257.408L369.778,259.638L366.678,260.978L364.87,259.492L368.616,257.226Z",
-    "M362.932,262.018L359.315,264.229L355.827,265.417L354.277,263.745L358.153,261.482Z",
-    "M352.21,266.403L348.206,268.256L344.718,269.147L343.297,267.39L347.56,265.602Z",
-    "M341.101,270.074L336.967,272.027L333.35,272.849L332.058,271.061L336.451,269.147Z",
-    "M329.733,273.633L325.858,275.527L321.983,276.201L320.95,274.339L325.083,272.544Z",
-  ].join("");
 
   let backdrop = null;
   let modal = null;
@@ -110,8 +99,8 @@
     const padding = 18;
     const width = tooltip.offsetWidth || 220;
     const height = tooltip.offsetHeight || 80;
-    let left = event.clientX;
-    let top = event.clientY;
+    let left = Number.isFinite(event.clientX) ? event.clientX : padding;
+    let top = Number.isFinite(event.clientY) ? event.clientY : padding;
     if (left + width + 28 > window.innerWidth) left = Math.max(padding, left - width - 28);
     if (top + height + 28 > window.innerHeight) top = Math.max(padding, top - height - 28);
     tooltip.style.left = `${left}px`;
@@ -138,7 +127,7 @@
     path.setAttribute("stroke-width", data.count ? "0.9" : "0.55");
     path.setAttribute("data-heat-map-county", county);
     path.setAttribute("tabindex", "0");
-    const title = document.createElementNS(SVG_NS, "title");
+    const title = path.ownerDocument.createElementNS(SVG_NS, "title");
     const copy = tooltipCopy(county, data);
     title.textContent = `${copy.title} — ${copy.count}; ${copy.price}`;
     path.prepend(title);
@@ -152,9 +141,17 @@
     path.addEventListener("blur", hideTooltip);
   }
 
+  function countyNameFromPath(path, index) {
+    const dataName = path.getAttribute("data-market-county") || path.getAttribute("data-heat-map-county");
+    if (dataName) return countyKey(dataName);
+    const titleText = path.querySelector("title")?.textContent || "";
+    const titleMatch = titleText.match(/^(.+?)\s+County(?:\s|—|-|$)/i);
+    return countyKey(titleMatch?.[1] || countyOrder[index] || "");
+  }
+
   function prepareMap(source, countyData) {
     const svg = source.cloneNode(true);
-    if (!(svg instanceof SVGSVGElement)) return null;
+    if (!(svg instanceof Element) || svg.localName.toLowerCase() !== "svg") return null;
     svg.removeAttribute("width");
     svg.removeAttribute("height");
     svg.setAttribute("viewBox", "135 10 295 275");
@@ -162,22 +159,25 @@
     svg.setAttribute("aria-label", "Florida counties colored by the highest current liquor license asking price");
     svg.classList.add("fllm-heat-map-svg");
     const paths = Array.from(svg.querySelectorAll("g > path"));
-    paths.slice(0, countyOrder.length).forEach((path, index) => stylePath(path, countyOrder[index], countyData));
-    const countyGroup = svg.querySelector("g");
-    if (countyGroup) {
-      let monroe = countyGroup.querySelector('[data-market-county="Monroe"], [data-heat-map-county="Monroe"]');
-      if (!(monroe instanceof SVGPathElement)) {
-        monroe = document.createElementNS(SVG_NS, "path");
-        monroe.setAttribute("d", monroePath);
-        countyGroup.appendChild(monroe);
-      }
-      stylePath(monroe, "Monroe", countyData);
-    }
+    paths.forEach((path, index) => {
+      const county = countyNameFromPath(path, index);
+      if (county) stylePath(path, county, countyData);
+    });
     return svg;
   }
 
-  function findSourceMap() {
-    return document.querySelector(".florida-map-art svg.florida-county-map, svg.florida-county-map");
+  async function loadSourceMap() {
+    const inline = document.querySelector(".florida-map-art svg.florida-county-map, svg.florida-county-map");
+    if (inline instanceof SVGSVGElement) return inline;
+
+    const response = await fetch("/api/market-map?heat-map=1", { cache: "no-store" });
+    if (!response.ok) throw new Error(`County map returned ${response.status}`);
+    const sourceText = await response.text();
+    const parsed = new DOMParser().parseFromString(sourceText, "image/svg+xml");
+    if (parsed.querySelector("parsererror")) throw new Error("County map SVG could not be parsed");
+    const svg = parsed.documentElement;
+    if (!svg || svg.localName.toLowerCase() !== "svg") throw new Error("County map response did not contain an SVG");
+    return svg;
   }
 
   function closeMarketDataMenu() {
@@ -233,12 +233,13 @@
     const canvas = modal?.querySelector(".fllm-heat-map-canvas");
     if (!canvas) return;
     try {
-      const response = await fetch("/api/market-insights-listings", { cache: "no-store" });
-      if (!response.ok) throw new Error(`Listings returned ${response.status}`);
-      const payload = await response.json();
+      const [listingResponse, source] = await Promise.all([
+        fetch("/api/market-insights-listings", { cache: "no-store" }),
+        loadSourceMap(),
+      ]);
+      if (!listingResponse.ok) throw new Error(`Listings returned ${listingResponse.status}`);
+      const payload = await listingResponse.json();
       const listings = Array.isArray(payload.listings) ? payload.listings : [];
-      const source = findSourceMap();
-      if (!(source instanceof SVGSVGElement)) throw new Error("Florida county map was not found");
       const map = prepareMap(source, aggregateListings(listings));
       if (!map) throw new Error("Florida county map could not be prepared");
       canvas.replaceChildren(map);
