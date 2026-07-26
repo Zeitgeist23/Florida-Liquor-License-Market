@@ -65,6 +65,20 @@ function ensureScript(id: string, src: string) {
   });
 }
 
+function openDedicatedHeatMap(heatMap: HeatMapApi, button: HTMLButtonElement) {
+  const listingCardMaps = Array.from(
+    document.querySelectorAll<SVGSVGElement>("svg.florida-county-map"),
+  ).filter((map) => !map.closest(".florida-map-art"));
+
+  listingCardMaps.forEach((map) => map.classList.remove("florida-county-map"));
+
+  try {
+    heatMap.open(button);
+  } finally {
+    listingCardMaps.forEach((map) => map.classList.add("florida-county-map"));
+  }
+}
+
 export default function ListingsHeatMapEnhancement() {
   useEffect(() => {
     const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>(".results-filters button"));
@@ -89,7 +103,7 @@ export default function ListingsHeatMapEnhancement() {
         await Promise.all(SCRIPT_ASSETS.map((asset) => ensureScript(asset.id, asset.src)));
         const heatMap = getHeatMapApi();
         if (!heatMap) throw new Error("Shared heat map API was not initialized");
-        heatMap.open(button);
+        openDedicatedHeatMap(heatMap, button);
       } catch (error) {
         console.error("Listings heat map could not open", error);
       } finally {
