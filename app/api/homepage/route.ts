@@ -212,7 +212,9 @@ export async function GET(request: Request) {
 
     enhancedHtml = enhancedHtml
       .replace(/<script[^>]+market-insights-video-popup-v4\.js[^>]*><\/script>/gi, "")
-      .replace(/<script[^>]+market-map-modal\.js[^>]*><\/script>/gi, "");
+      .replace(/<script[^>]+market-map-modal\.js[^>]*><\/script>/gi, "")
+      .replace(/<script[^>]+market-data-dropdown\.js[^>]*><\/script>/gi, "")
+      .replace(/<script[^>]+market-heat-map-fit-v4\.js[^>]*><\/script>/gi, "");
 
     const scriptTags = [
       '<script defer src="/assets/market-map-modal.js?v=4"></script>',
@@ -220,8 +222,8 @@ export async function GET(request: Request) {
       '<script defer src="/assets/completed-sales-logo-size.js"></script>',
       '<script defer src="/assets/market-insights-popup-size.js"></script>',
       '<script defer src="/assets/homepage-listing-search.js"></script>',
-      '<script defer src="/assets/market-data-dropdown.js"></script>',
-      '<script defer src="/assets/market-heat-map-fit-v4.js?v=1"></script>',
+      '<script defer src="/assets/market-data-dropdown.js?v=5"></script>',
+      '<script defer src="/assets/market-heat-map-fit-v4.js?v=5"></script>',
       '<script defer src="/assets/resources-dropdown.js"></script>',
       '<script defer src="/assets/header-menu-coordinator.js"></script>',
       '<script defer src="/assets/featured-sold-status.js?v=4"></script>',
