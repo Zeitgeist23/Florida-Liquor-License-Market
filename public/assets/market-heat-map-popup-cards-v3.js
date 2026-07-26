@@ -1,5 +1,5 @@
 (() => {
-  const STYLE_ID = "fllm-heat-map-popup-cards-v3-styles";
+  const STYLE_ID = "fllm-heat-map-popup-cards-v4-styles";
   const CARD_SELECTOR = ".fllm-county-listing-card";
   const SVG_NS = "http://www.w3.org/2000/svg";
   const STATUS_TEXT = "Transferable/Available";
@@ -15,8 +15,9 @@
         min-height:0!important;
         overflow-y:auto!important;
         overflow-x:hidden!important;
-        grid-template-columns:repeat(auto-fit,minmax(290px,1fr))!important;
+        grid-template-columns:repeat(auto-fill,minmax(290px,400px))!important;
         grid-auto-rows:max-content!important;
+        justify-content:start!important;
         align-content:start!important;
         align-items:start!important;
         overscroll-behavior:contain!important;
@@ -26,6 +27,7 @@
         flex-direction:column!important;
         align-self:start!important;
         width:100%!important;
+        max-width:400px!important;
         height:auto!important;
         min-height:0!important;
         max-height:none!important;
@@ -104,7 +106,8 @@
       .fllm-county-listing-actions{display:grid!important;margin-top:auto!important;padding-top:14px!important}
       @media(max-width:760px){
         .fllm-county-listings-dialog{height:92vh!important;max-height:92vh!important}
-        .fllm-county-listings-grid{grid-template-columns:minmax(0,1fr)!important}
+        .fllm-county-listings-grid{grid-template-columns:minmax(0,1fr)!important;justify-content:stretch!important}
+        .fllm-county-listing-card{max-width:none!important}
         .fllm-county-listing-map{height:175px!important;min-height:175px!important;max-height:175px!important;flex-basis:175px!important}
       }
     `;
