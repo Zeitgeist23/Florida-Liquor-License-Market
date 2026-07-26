@@ -17,8 +17,8 @@ const SCRIPT_ASSETS = [
     src: "/assets/market-heat-map-fit-v4.js?v=7",
   },
   {
-    id: "fllm-listings-heat-map-popup-cards-v2-script",
-    src: "/assets/market-heat-map-popup-cards-v2.js?v=1",
+    id: "fllm-listings-heat-map-popup-cards-v3-script",
+    src: "/assets/market-heat-map-popup-cards-v3.js?v=2",
   },
   {
     id: "fllm-listings-heat-map-script",
