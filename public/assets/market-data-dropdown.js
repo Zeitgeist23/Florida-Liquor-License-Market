@@ -108,17 +108,30 @@
   }
 
   function openHeatMap() {
-    const panel = document.querySelector(".map-panel");
-    const heatMapTrigger = panel
-      ? Array.from(panel.querySelectorAll("a,button")).find((element) => /explore market data/i.test(normalizedText(element)))
-      : null;
+    const open = () => {
+      if (window.FLLMHeatMap?.open) {
+        window.FLLMHeatMap.open(activeTrigger || document.activeElement);
+        return;
+      }
+      goToMarketInsights();
+    };
 
-    if (heatMapTrigger instanceof HTMLElement) {
-      heatMapTrigger.click();
+    if (window.FLLMHeatMap?.open) {
+      open();
       return;
     }
 
-    goToMarketInsights();
+    let script = document.querySelector('script[data-fllm-heat-map="true"]');
+    if (!(script instanceof HTMLScriptElement)) {
+      script = document.createElement("script");
+      script.src = "/assets/market-heat-map.js?v=1";
+      script.defer = true;
+      script.dataset.fllmHeatMap = "true";
+      document.head.appendChild(script);
+    }
+
+    script.addEventListener("load", open, { once: true });
+    script.addEventListener("error", goToMarketInsights, { once: true });
   }
 
   function closeMenu({ restoreFocus = false } = {}) {
