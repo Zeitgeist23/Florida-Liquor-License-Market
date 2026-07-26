@@ -124,7 +124,7 @@
     let script = document.querySelector('script[data-fllm-heat-map="true"]');
     if (!(script instanceof HTMLScriptElement)) {
       script = document.createElement("script");
-      script.src = "/assets/market-heat-map.js?v=1";
+      script.src = "/assets/market-heat-map.js?v=2";
       script.defer = true;
       script.dataset.fllmHeatMap = "true";
       document.head.appendChild(script);
