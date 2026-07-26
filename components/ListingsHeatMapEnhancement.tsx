@@ -22,7 +22,7 @@ const SCRIPT_ASSETS = [
   },
   {
     id: "fllm-listings-heat-map-script",
-    src: "/assets/market-heat-map.js?v=3",
+    src: "/assets/market-heat-map.js?v=4",
   },
 ] as const;
 
