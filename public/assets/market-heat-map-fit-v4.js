@@ -1,45 +1,86 @@
 (() => {
-  const STYLE_ID = "fllm-market-heat-map-fit-v4";
-  if (document.getElementById(STYLE_ID)) return;
+  const STYLE_ID = "fllm-market-heat-map-fit-v5";
+  const MAP_SELECTOR = ".fllm-heat-map-canvas .fllm-heat-map-svg";
 
-  const style = document.createElement("style");
-  style.id = STYLE_ID;
-  style.textContent = `
-    .fllm-heat-map-canvas{
-      padding:24px 24px 38px!important;
-      overflow:hidden!important;
-      box-sizing:border-box!important;
-    }
-    .fllm-heat-map-canvas .fllm-heat-map-svg{
-      display:block!important;
-      width:68%!important;
-      height:68%!important;
-      max-width:560px!important;
-      max-height:500px!important;
-      min-width:0!important;
-      min-height:0!important;
-      margin:auto!important;
-      padding:0!important;
-      overflow:visible!important;
-    }
-    @media(max-width:760px){
+  function installStyles() {
+    if (document.getElementById(STYLE_ID)) return;
+    const style = document.createElement("style");
+    style.id = STYLE_ID;
+    style.textContent = `
       .fllm-heat-map-canvas{
-        padding:14px 14px 28px!important;
+        padding:18px 24px 30px!important;
+        overflow:hidden!important;
+        box-sizing:border-box!important;
       }
-      .fllm-heat-map-canvas .fllm-heat-map-svg{
-        width:76%!important;
-        height:76%!important;
-        max-width:420px!important;
-        max-height:calc(100% - 24px)!important;
+      ${MAP_SELECTOR}{
+        display:block!important;
+        width:min(72%,560px)!important;
+        height:auto!important;
+        max-width:72%!important;
+        max-height:calc(100% - 30px)!important;
+        margin:auto!important;
+        padding:0!important;
+        box-sizing:border-box!important;
+        overflow:visible!important;
+      }
+      @media(max-width:760px){
+        .fllm-heat-map-canvas{padding:12px 12px 24px!important}
+        ${MAP_SELECTOR}{
+          width:min(78%,420px)!important;
+          max-width:78%!important;
+          max-height:calc(100% - 24px)!important;
+        }
+      }
+      @media(max-height:760px){
+        ${MAP_SELECTOR}{
+          width:min(64%,500px)!important;
+          max-width:64%!important;
+          max-height:calc(100% - 34px)!important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function fitMap(svg) {
+    if (!(svg instanceof SVGSVGElement)) return;
+    svg.setAttribute("viewBox", "118 -2 335 310");
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    svg.removeAttribute("width");
+    svg.removeAttribute("height");
+  }
+
+  function fitVisibleMaps(root = document) {
+    root.querySelectorAll?.(MAP_SELECTOR).forEach(fitMap);
+  }
+
+  installStyles();
+  fitVisibleMaps();
+
+  const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      for (const node of mutation.addedNodes) {
+        if (!(node instanceof Element)) continue;
+        if (node.matches?.(MAP_SELECTOR)) fitMap(node);
+        fitVisibleMaps(node);
       }
     }
-    @media(max-height:760px){
-      .fllm-heat-map-canvas .fllm-heat-map-svg{
-        width:62%!important;
-        height:62%!important;
-        max-height:400px!important;
-      }
-    }
-  `;
-  document.head.appendChild(style);
+  });
+
+  const observe = () => {
+    if (!document.body) return;
+    observer.observe(document.body, { childList: true, subtree: true });
+    fitVisibleMaps();
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", observe, { once: true });
+  } else {
+    observe();
+  }
+
+  window.addEventListener("fllm:open-heat-map", () => {
+    window.setTimeout(() => fitVisibleMaps(), 0);
+    window.setTimeout(() => fitVisibleMaps(), 150);
+  });
 })();
