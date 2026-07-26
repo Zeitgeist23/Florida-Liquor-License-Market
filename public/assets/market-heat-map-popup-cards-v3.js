@@ -9,22 +9,27 @@
     style.id = STYLE_ID;
     style.textContent = `
       .fllm-heat-map-modal{width:90vw!important;height:90vh!important;max-width:none!important;max-height:none!important}
+      .fllm-county-listings-dialog{height:min(88vh,900px)!important;max-height:88vh!important}
       .fllm-county-listings-grid{
-        grid-template-columns:repeat(auto-fit,minmax(290px,1fr))!important;
-        grid-auto-rows:max-content!important;
-        align-items:start!important;
-        align-content:start!important;
+        flex:1 1 auto!important;
+        min-height:0!important;
         overflow-y:auto!important;
         overflow-x:hidden!important;
+        grid-template-columns:repeat(auto-fit,minmax(290px,1fr))!important;
+        grid-auto-rows:max-content!important;
+        align-content:start!important;
+        align-items:start!important;
+        overscroll-behavior:contain!important;
       }
       .fllm-county-listing-card{
         display:flex!important;
         flex-direction:column!important;
+        align-self:start!important;
         width:100%!important;
         height:auto!important;
         min-height:0!important;
+        max-height:none!important;
         min-width:0!important;
-        align-self:start!important;
         overflow:hidden!important;
         box-sizing:border-box!important;
       }
@@ -58,7 +63,9 @@
         flex:0 0 auto!important;
         flex-direction:column!important;
         min-width:0!important;
-        min-height:0!important;
+        min-height:230px!important;
+        height:auto!important;
+        max-height:none!important;
         overflow:visible!important;
         box-sizing:border-box!important;
       }
@@ -67,7 +74,9 @@
       .fllm-county-listing-facts,
       .fllm-county-listing-reference,
       .fllm-county-listing-actions{
-        flex:0 0 auto!important;
+        flex-shrink:0!important;
+        visibility:visible!important;
+        opacity:1!important;
       }
       .fllm-county-listing-facts{
         display:grid!important;
@@ -91,9 +100,10 @@
       }
       .fllm-county-listing-type{color:#35424c!important;font-size:12px!important;font-weight:800!important}
       .fllm-county-listing-status{color:#58c94f!important;font-size:11px!important;font-weight:800!important}
-      .fllm-county-listing-reference{min-height:26px!important}
-      .fllm-county-listing-actions{margin-top:14px!important;padding-top:0!important}
+      .fllm-county-listing-reference{display:block!important;min-height:26px!important}
+      .fllm-county-listing-actions{display:grid!important;margin-top:auto!important;padding-top:14px!important}
       @media(max-width:760px){
+        .fllm-county-listings-dialog{height:92vh!important;max-height:92vh!important}
         .fllm-county-listings-grid{grid-template-columns:minmax(0,1fr)!important}
         .fllm-county-listing-map{height:175px!important;min-height:175px!important;max-height:175px!important;flex-basis:175px!important}
       }
