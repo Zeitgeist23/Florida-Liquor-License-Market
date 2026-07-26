@@ -1,5 +1,5 @@
 (() => {
-  const STYLE_ID = "fllm-market-heat-map-fit-v5";
+  const STYLE_ID = "fllm-market-heat-map-fit-v6";
   const MAP_SELECTOR = ".fllm-heat-map-canvas .fllm-heat-map-svg";
 
   function installStyles() {
@@ -14,9 +14,9 @@
       }
       ${MAP_SELECTOR}{
         display:block!important;
-        width:min(72%,560px)!important;
+        width:min(75.6%,588px)!important;
         height:auto!important;
-        max-width:72%!important;
+        max-width:75.6%!important;
         max-height:calc(100% - 30px)!important;
         margin:auto!important;
         padding:0!important;
@@ -26,15 +26,15 @@
       @media(max-width:760px){
         .fllm-heat-map-canvas{padding:12px 12px 24px!important}
         ${MAP_SELECTOR}{
-          width:min(78%,420px)!important;
-          max-width:78%!important;
+          width:min(81.9%,441px)!important;
+          max-width:81.9%!important;
           max-height:calc(100% - 24px)!important;
         }
       }
       @media(max-height:760px){
         ${MAP_SELECTOR}{
-          width:min(64%,500px)!important;
-          max-width:64%!important;
+          width:min(67.2%,525px)!important;
+          max-width:67.2%!important;
           max-height:calc(100% - 34px)!important;
         }
       }
