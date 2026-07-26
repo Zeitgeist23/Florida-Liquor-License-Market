@@ -221,6 +221,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/market-insights-popup-size.js"></script>',
       '<script defer src="/assets/homepage-listing-search.js"></script>',
       '<script defer src="/assets/market-data-dropdown.js"></script>',
+      '<script defer src="/assets/market-heat-map-fit-v4.js?v=1"></script>',
       '<script defer src="/assets/resources-dropdown.js"></script>',
       '<script defer src="/assets/header-menu-coordinator.js"></script>',
       '<script defer src="/assets/featured-sold-status.js?v=4"></script>',
