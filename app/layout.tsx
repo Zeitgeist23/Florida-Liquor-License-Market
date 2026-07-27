@@ -3,10 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.floridaliquorlicensemarket.com"),
-  title: {
-    default: "Florida Liquor License Market",
-    template: "%s | Florida Liquor License Market",
-  },
+  title: "Florida Liquor License Market",
   description:
     "Florida's marketplace for buying, selling, financing, and investing in liquor licenses.",
   applicationName: "Florida Liquor License Market",
