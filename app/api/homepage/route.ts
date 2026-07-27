@@ -1,3 +1,4 @@
+import { featuredCounties, countySlug } from "@/data/florida-counties";
 import { availableListings, type Listing } from "@/data/listings";
 
 export const dynamic = "force-dynamic";
@@ -101,10 +102,8 @@ function escapeHtml(value: string) {
     .replaceAll("'", "&#39;");
 }
 
-function listingHref(listing: Pick<Listing, "county" | "type" | "sourceRef">) {
-  const description = encodeURIComponent(`${listing.county} ${listing.type}`);
-  const reference = encodeURIComponent(listing.sourceRef ?? "");
-  return `/contact?listing=${description}&ref=${reference}`;
+function countyHref(listing: Pick<Listing, "county">) {
+  return `/counties/${countySlug(listing.county)}`;
 }
 
 function renderListingCard(listing: CarouselListing) {
@@ -112,10 +111,10 @@ function renderListingCard(listing: CarouselListing) {
   const type = escapeHtml(listing.type);
   const price = escapeHtml(listing.priceLabel);
   const mapUrl = escapeHtml(listing.mapUrl);
-  const href = escapeHtml(listingHref(listing));
+  const href = escapeHtml(countyHref(listing));
 
   return `<article class="listing-card" data-homepage-available-card="true">
-    <a class="homepage-carousel-card-link" href="${href}" aria-label="View ${county} ${type} listing">
+    <a class="homepage-carousel-card-link" href="${href}" aria-label="View the ${county} liquor license market page">
       <div class="listing-photo homepage-county-map-panel">
         <img class="homepage-county-map" src="${mapUrl}" alt="Florida map with ${county} highlighted" loading="lazy"/>
         <span>${type}</span>
@@ -124,9 +123,28 @@ function renderListingCard(listing: CarouselListing) {
         <p>● ${county}</p>
         <h3>${price}</h3>
         <div class="listing-facts"><span>${type}</span><span class="homepage-available-status">Available</span></div>
+        <small class="homepage-county-market-label">View County Market ›</small>
       </div>
     </a>
   </article>`;
+}
+
+function renderCountyDirectorySection() {
+  const countyLinks = featuredCounties.map((county) => `
+    <a href="/counties/${county.slug}">
+      <span><strong>${escapeHtml(county.name)}</strong><small>${escapeHtml(county.primaryCities.join(" · "))}</small></span>
+      <i>View Market ›</i>
+    </a>`).join("");
+
+  return `<section class="homepage-county-directory" id="county-directory" aria-labelledby="homepage-county-directory-title">
+    <div class="page-shell">
+      <div class="homepage-county-directory-heading">
+        <div><span>Permanent County Market Pages</span><h2 id="homepage-county-directory-title">Browse Florida Liquor Licenses by County</h2><p>Explore current listings, disclosed asking-price ranges, financing links, and county-specific market guidance.</p></div>
+        <a class="homepage-county-directory-all" href="/counties">Browse All 67 Counties ›</a>
+      </div>
+      <div class="homepage-county-directory-grid">${countyLinks}</div>
+    </div>
+  </section>`;
 }
 
 function replaceDivContentsByClass(html: string, className: string, contents: string) {
@@ -187,7 +205,11 @@ export async function GET(request: Request) {
       ),
     );
 
-    const carouselStyle = `<style id="homepage-available-carousel-styles-v6">
+    if (!enhancedHtml.includes('id="homepage-county-directory"')) {
+      enhancedHtml = enhancedHtml.replace("</main>", `${renderCountyDirectorySection()}</main>`);
+    }
+
+    const carouselStyle = `<style id="homepage-available-carousel-styles-v7">
       .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
       .homepage-carousel-card-link:focus-visible{outline:3px solid #f6a700;outline-offset:-3px}
       .homepage-county-map-panel{background:#061728}
@@ -197,10 +219,24 @@ export async function GET(request: Request) {
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status::first-letter{color:#58c94f!important}
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts span:first-child:first-letter,
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts span:first-child::first-letter{color:#000!important}
+      .homepage-county-market-label{display:block;margin-top:8px;color:#a96f00;font-size:10px;font-weight:900;text-transform:uppercase}
+      .homepage-county-directory{padding:72px 0;border-top:1px solid #806322;border-bottom:1px solid #806322;background:radial-gradient(circle at 50% 0%,#111719,#050708 70%);color:#f5f4ef}
+      .homepage-county-directory-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:24px}
+      .homepage-county-directory-heading>div>span{display:block;color:#f1a600;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+      .homepage-county-directory-heading h2{margin:8px 0 8px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:clamp(31px,3.6vw,46px);line-height:1.05}
+      .homepage-county-directory-heading p{max-width:760px;margin:0;color:#bcc6cb;font-size:13px;line-height:1.6}
+      .homepage-county-directory-all{flex:0 0 auto;color:#f1a600;font-size:12px;font-weight:900;text-decoration:none}
+      .homepage-county-directory-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+      .homepage-county-directory-grid>a{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:78px;padding:18px;border:1px solid #775d23;border-radius:4px;background:linear-gradient(145deg,#111516,#080a0b);text-decoration:none}
+      .homepage-county-directory-grid>a:hover{border-color:#d29200;transform:translateY(-1px)}
+      .homepage-county-directory-grid strong{display:block;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:19px}
+      .homepage-county-directory-grid small{display:block;margin-top:4px;color:#9da8ae;font-size:10px}
+      .homepage-county-directory-grid i{flex:0 0 auto;color:#f1a600;font-size:10px;font-style:normal;font-weight:900;text-transform:uppercase}
       .hero .trust-line img{display:none!important}
       #market-report-narration-button-v1{display:none!important}
+      @media(max-width:720px){.homepage-county-directory{padding:50px 0}.homepage-county-directory-heading{display:block}.homepage-county-directory-all{display:inline-block;margin-top:14px}.homepage-county-directory-grid{grid-template-columns:1fr}.homepage-county-directory-grid>a{align-items:flex-start}}
     </style>`;
-    if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v6"')) {
+    if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v7"')) {
       enhancedHtml = enhancedHtml.replace("</head>", `${carouselStyle}</head>`);
     }
 
@@ -217,7 +253,8 @@ export async function GET(request: Request) {
       .replace(/<script[^>]+market-heat-map\.js[^>]*><\/script>/gi, "")
       .replace(/<script[^>]+market-heat-map-fit-v4\.js[^>]*><\/script>/gi, "")
       .replace(/<script[^>]+market-heat-map-modal-size-v1\.js[^>]*><\/script>/gi, "")
-      .replace(/<script[^>]+market-heat-map-popup-cards-v[123]\.js[^>]*><\/script>/gi, "");
+      .replace(/<script[^>]+market-heat-map-popup-cards-v[123]\.js[^>]*><\/script>/gi, "")
+      .replace(/<script[^>]+market-heat-map-county-links-v1\.js[^>]*><\/script>/gi, "");
 
     const scriptTags = [
       '<script defer src="/assets/market-map-modal.js?v=4"></script>',
@@ -229,6 +266,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/market-heat-map-fit-v4.js?v=7"></script>',
       '<script defer src="/assets/market-heat-map.js?v=4"></script>',
       '<script defer src="/assets/market-heat-map-popup-cards-v3.js?v=2"></script>',
+      '<script defer src="/assets/market-heat-map-county-links-v1.js?v=1"></script>',
       '<script defer src="/assets/resources-dropdown.js"></script>',
       '<script defer src="/assets/header-menu-coordinator.js"></script>',
       '<script defer src="/assets/featured-sold-status.js?v=4"></script>',
