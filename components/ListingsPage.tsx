@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { countySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
 import FloridaCountyMap from "./FloridaCountyMap";
 
@@ -90,7 +91,7 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
     <main className="results-page">
       <header className="results-header page-shell">
         <Link className="seller-brand" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /></Link>
-        <nav aria-label="Listings navigation"><Link href="/">Home</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact Us</Link></nav>
+        <nav aria-label="Listings navigation"><Link href="/">Home</Link><Link href="/counties">Browse Counties</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact Us</Link></nav>
       </header>
       <section className="results-intro"><div className="page-shell"><span>Florida Marketplace Inventory</span><h1>Search Florida Liquor Licenses</h1><p>Filter marketplace inventory by availability, county, license type, and asking price.</p></div></section>
       <section className="results-content"><div className="page-shell">
@@ -105,7 +106,7 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
         <div className="results-summary"><strong>{filtered.length}</strong> matching listing{filtered.length === 1 ? "" : "s"}<button type="button" onClick={clearFilters}>Clear all filters</button></div>
         {filtered.length ? <div className="results-grid">{filtered.map((listing) => <article className="result-card" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
           <div className="result-photo"><FloridaCountyMap county={listing.county} /><span className="result-type-badge">{listing.type}</span></div>
-          <div className="result-body"><p>● {listing.county}</p><h2>{listing.priceLabel}</h2><div className="result-facts"><span>{listing.type}</span><span>Transferable</span></div>
+          <div className="result-body"><p>● <Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p><h2>{listing.priceLabel}</h2><div className="result-facts"><span>{listing.type}</span><span>Transferable</span></div>
           {listing.sourceRef ? <><small>{countyDescription(listing.county)}</small><div className="result-actions"><Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link><Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link></div></> : <div className="result-actions"><span className="sold-status">SOLD</span></div>}
           </div></article>)}</div> : <div className="no-results"><strong>No listings match all filters.</strong><p>Try broadening the county, price range, license type, or status.</p><button className="btn btn-gold" type="button" onClick={clearFilters}>View All Listings</button></div>}
       </div></section>
