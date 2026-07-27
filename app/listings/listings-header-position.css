@@ -19,7 +19,7 @@
 .results-page > .results-header .seller-brand img {
   width: 211.9px !important;
   height: 82.9px !important;
-  transform: translateX(-15px);
+  transform: translateX(-23px);
 }
 
 .results-page > .results-header::before {
