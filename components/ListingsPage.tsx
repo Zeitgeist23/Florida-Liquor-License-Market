@@ -91,7 +91,7 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
     <main className="results-page">
       <header className="results-header page-shell">
         <Link className="seller-brand" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /></Link>
-        <nav aria-label="Listings navigation"><Link href="/">Home</Link><Link href="/counties">Browse Counties</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact Us</Link></nav>
+        <nav aria-label="Listings navigation"><Link href="/">Home</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact Us</Link></nav>
       </header>
       <section className="results-intro"><div className="page-shell"><span>Florida Marketplace Inventory</span><h1>Search Florida Liquor Licenses</h1><p>Filter marketplace inventory by availability, county, license type, and asking price.</p></div></section>
       <section className="results-content"><div className="page-shell">
