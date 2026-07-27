@@ -136,7 +136,7 @@ function renderCountyDirectorySection() {
       <i>View Market ›</i>
     </a>`).join("");
 
-  return `<section class="homepage-county-directory" id="county-directory" aria-labelledby="homepage-county-directory-title">
+  return `<section class="homepage-county-directory" id="homepage-county-directory" aria-labelledby="homepage-county-directory-title">
     <div class="page-shell">
       <div class="homepage-county-directory-heading">
         <div><span>Permanent County Market Pages</span><h2 id="homepage-county-directory-title">Browse Florida Liquor Licenses by County</h2><p>Explore current listings, disclosed asking-price ranges, financing links, and county-specific market guidance.</p></div>
@@ -185,6 +185,14 @@ function removeSecondHeroTrustIcon(html: string) {
   return html.replace(/<img\b[^>]*class="[^"]*\btrust-icon\b[^"]*"[^>]*>/i, "");
 }
 
+function insertCountyDirectory(html: string) {
+  if (html.includes('id="homepage-county-directory"')) return html;
+  const section = renderCountyDirectorySection();
+  const footerIndex = html.search(/<footer\b/i);
+  if (footerIndex >= 0) return `${html.slice(0, footerIndex)}${section}${html.slice(footerIndex)}`;
+  return html.replace("</body>", `${section}</body>`);
+}
+
 export async function GET(request: Request) {
   try {
     const dailyKey = floridaDateKey();
@@ -198,16 +206,12 @@ export async function GET(request: Request) {
     }
 
     const sourceHtml = await sourceResponse.text();
-    let enhancedHtml = removeSecondHeroTrustIcon(
+    let enhancedHtml = insertCountyDirectory(removeSecondHeroTrustIcon(
       renderServerRenderedAvailableListings(
         updateServerRenderedTransactions(sourceHtml),
         carouselListings,
       ),
-    );
-
-    if (!enhancedHtml.includes('id="homepage-county-directory"')) {
-      enhancedHtml = enhancedHtml.replace("</main>", `${renderCountyDirectorySection()}</main>`);
-    }
+    ));
 
     const carouselStyle = `<style id="homepage-available-carousel-styles-v7">
       .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
