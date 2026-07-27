@@ -52,6 +52,7 @@
 
 .results-page .results-intro h1 {
   font-size: clamp(27px, 3.12vw, 41.1px) !important;
+  margin-bottom: 8px !important;
 }
 
 .results-page .results-intro span,
