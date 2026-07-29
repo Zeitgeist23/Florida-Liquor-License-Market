@@ -213,7 +213,8 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
       }
 
       const completedBytes = await pdfDocument.save();
-      const nextUrl = URL.createObjectURL(new Blob([completedBytes], { type: "application/pdf" }));
+      const completedBuffer = Uint8Array.from(completedBytes).buffer;
+      const nextUrl = URL.createObjectURL(new Blob([completedBuffer], { type: "application/pdf" }));
       setPreviewUrl((current) => {
         if (current) URL.revokeObjectURL(current);
         return nextUrl;
