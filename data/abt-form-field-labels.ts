@@ -6,8 +6,12 @@ function normalizeLabel(label: string) {
     .trim();
 }
 
-function removeTrailingPdfSequenceNumber(label: string) {
-  return label.replace(/\s+\d+\s*$/, "").trim();
+function removeAbt6002PdfInternalMarkers(label: string) {
+  return label
+    .replace(/\brow\s*\d*\b/gi, " ")
+    .replace(/\s+\d+\s*$/, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 const ABT_6002_LABELS: Record<string, string> = {
@@ -63,10 +67,10 @@ export function getFriendlyAbtFieldLabel(formId: string, label: string) {
 
   if (mappedLabel) return mappedLabel;
 
-  // The official ABT-6002 PDF uses trailing numbers only as internal field
-  // identifiers. They are kept in the hidden PDF field names, but should not
-  // appear in the customer-facing guided form.
-  if (formId === "abt-6002") return removeTrailingPdfSequenceNumber(label);
+  // The official ABT-6002 PDF uses trailing numbers and Row/Row1-style text
+  // only as internal field identifiers. They remain in the hidden PDF field
+  // names but are removed from every customer-facing guided-form label.
+  if (formId === "abt-6002") return removeAbt6002PdfInternalMarkers(label);
 
   return label;
 }
