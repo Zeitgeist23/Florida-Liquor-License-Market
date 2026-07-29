@@ -1,0 +1,27 @@
+/* Use the approved mockup artwork as the actual seller-page background. */
+section[class*="hero"] {
+  background-image: url('/assets/fllm-seller-tech-bg.webp') !important;
+  background-repeat: no-repeat !important;
+  background-position: center top !important;
+  background-size: cover !important;
+  background-color: #020d17 !important;
+}
+
+section[class*="hero"]::before,
+section[class*="hero"]::after {
+  content: none !important;
+  display: none !important;
+}
+
+@media (min-width: 1500px) {
+  section[class*="hero"] {
+    background-size: 100% auto !important;
+  }
+}
+
+@media (max-width: 900px) {
+  section[class*="hero"] {
+    background-position: 28% top !important;
+    background-size: auto 100% !important;
+  }
+}
