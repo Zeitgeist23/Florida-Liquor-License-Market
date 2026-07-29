@@ -5,6 +5,7 @@ import "./legend-fix.css";
 import "./technical-theme.css";
 import "./exact-background.css";
 import "./layout-repair.css";
+import "./mockup-lock.css";
 
 export const metadata: Metadata = {
   title: "List Your Florida Liquor License | Florida Liquor License Market",
