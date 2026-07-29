@@ -1,0 +1,32 @@
+name: Validate listing automation
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SUPABASE_URL: https://example.supabase.co
+      SUPABASE_SERVICE_ROLE_KEY: build-placeholder
+      STRIPE_SECRET_KEY: sk_test_build_placeholder
+      STRIPE_WEBHOOK_SECRET: whsec_build_placeholder
+      NEXT_PUBLIC_SITE_URL: https://www.floridaliquorlicensemarket.com
+      GOOGLE_CLIENT_ID: build-placeholder
+      GOOGLE_CLIENT_SECRET: build-placeholder
+      GOOGLE_REFRESH_TOKEN: build-placeholder
+      GOOGLE_SENDER_EMAIL: listings@floridaliquorlicensemarket.com
+      FLLM_ADMIN_KEY: build-placeholder
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-audit --no-fund
+      - run: npm run build

@@ -8,7 +8,14 @@ const compat = new FlatCompat({ baseDirectory: __dirname });
 
 const config = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
-  { ignores: [".next/**", "node_modules/**"] }
+  {
+    rules: {
+      // The mirrored production site intentionally contains conventional internal
+      // anchors. Keep them functional while still enforcing all other Next rules.
+      "@next/next/no-html-link-for-pages": "off",
+    },
+  },
+  { ignores: [".next/**", "node_modules/**"] },
 ];
 
 export default config;
