@@ -1,9 +1,25 @@
 /* Use the approved mockup artwork as the actual seller-page background. */
+[class*="page"] {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(31, 133, 199, 0.085) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 133, 199, 0.085) 1px, transparent 1px),
+    #020d17 !important;
+  background-size: 38px 38px, 38px 38px, auto !important;
+}
+
 section[class*="hero"] {
-  background-image: url('/assets/fllm-seller-tech-bg.webp') !important;
-  background-repeat: no-repeat !important;
-  background-position: center top !important;
-  background-size: cover !important;
+  min-height: calc(100vh - 92px);
+  background-image:
+    url('/assets/fllm-seller-tech-bg.webp'),
+    linear-gradient(rgba(31, 133, 199, 0.085) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 133, 199, 0.085) 1px, transparent 1px),
+    radial-gradient(ellipse at 30% 88%, rgba(0, 168, 255, 0.16), transparent 34%),
+    radial-gradient(ellipse at 86% 92%, rgba(246, 167, 0, 0.11), transparent 30%),
+    linear-gradient(180deg, #020d17 0%, #031522 100%) !important;
+  background-repeat: no-repeat, repeat, repeat, no-repeat, no-repeat, no-repeat !important;
+  background-position: center top, center top, center top, center bottom, center bottom, center top !important;
+  background-size: 100% auto, 38px 38px, 38px 38px, 100% 760px, 100% 760px, 100% 100% !important;
   background-color: #020d17 !important;
 }
 
@@ -20,15 +36,9 @@ header[class*="header"] a[class*="brand"] {
   top: 3px;
 }
 
-@media (min-width: 1500px) {
-  section[class*="hero"] {
-    background-size: 100% auto !important;
-  }
-}
-
 @media (max-width: 900px) {
   section[class*="hero"] {
-    background-position: 28% top !important;
-    background-size: auto 100% !important;
+    background-position: 28% top, center top, center top, center bottom, center bottom, center top !important;
+    background-size: auto 1000px, 34px 34px, 34px 34px, 100% 680px, 100% 680px, 100% 100% !important;
   }
 }
