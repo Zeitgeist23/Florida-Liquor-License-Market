@@ -36,6 +36,11 @@ function priceLabel(price: number | null) {
   }).format(price);
 }
 
+function countyLabel(county: string) {
+  const cleaned = county.trim();
+  return / County$/i.test(cleaned) ? cleaned : `${cleaned} County`;
+}
+
 export async function POST(
   request: Request,
   context: { params: Promise<{ id: string }> }
@@ -71,14 +76,15 @@ export async function POST(
       return NextResponse.json({ error: "Enter a valid asking price." }, { status: 400 });
     }
 
-    const title = (body.title || `${licenseType} License – ${submission.county}`).trim();
+    const defaultTitle = `${countyLabel(submission.county)} ${licenseType} Liquor License (${submission.submissionRef})`;
+    const title = (body.title || defaultTitle).trim();
     if (!title) return NextResponse.json({ error: "A listing title is required." }, { status: 400 });
 
     const liveListingUrl = `${siteOrigin(request.url)}/listings/${submission.submissionRef.toLowerCase()}`;
 
     await upsertMarketplaceListings([
       {
-        county: submission.county,
+        county: countyLabel(submission.county),
         type: licenseType,
         price: askingPrice,
         priceLabel: priceLabel(askingPrice),
