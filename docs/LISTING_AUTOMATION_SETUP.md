@@ -4,6 +4,8 @@ This implementation replaces the old FormSubmit + fixed Stripe Payment Link hand
 
 Production deployment was retriggered after merge to verify the Vercel build against the current `main` branch.
 
+A new production deployment retry was triggered on July 28, 2026 after the Florida ABT Forms feature was merged.
+
 ## Workflow
 
 1. The seller form saves a private submission in Supabase.
