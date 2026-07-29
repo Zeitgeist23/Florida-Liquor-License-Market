@@ -118,6 +118,21 @@ function ensureCurrentOption(select: HTMLSelectElement, value: string) {
   addOption(select, value, `${value} — Current saved value`);
 }
 
+function cleanOfficialYesNoOptionLabel(label: string) {
+  const compact = label.trim().replace(/[_\s-]+/g, "");
+  if (/^yes\d*$/i.test(compact)) return "Yes";
+  if (/^no\d*$/i.test(compact)) return "No";
+  return label;
+}
+
+function cleanOfficialDropdownOptionLabels() {
+  document.querySelectorAll<HTMLOptionElement>(".abt-workspace select option").forEach((option) => {
+    const currentLabel = option.textContent || "";
+    const cleanedLabel = cleanOfficialYesNoOptionLabel(currentLabel);
+    if (cleanedLabel !== currentLabel) option.textContent = cleanedLabel;
+  });
+}
+
 export default function AbtIncreaseInSeriesSelect() {
   useEffect(() => {
     const enhancedCheckboxes = new Map<HTMLInputElement, EnhancedCheckboxField>();
@@ -285,6 +300,7 @@ export default function AbtIncreaseInSeriesSelect() {
       enhanceCheckboxFields();
       enhanceTextFields();
       syncChildLicenseDependency();
+      cleanOfficialDropdownOptionLabels();
     }
 
     enhanceFields();
