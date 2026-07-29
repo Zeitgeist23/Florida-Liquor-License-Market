@@ -16,7 +16,6 @@ const nextConfig: NextConfig = {
         { source: "/assets/florida-map-clean.png", destination: "/api/market-map" },
         { source: "/assets/fllm-email-logo.png", destination: "/api/email-logo" },
         { source: "/", destination: "/api/homepage" },
-        { source: "/sell-your-license", destination: "/api/sell-page" },
         { source: "/contact", destination: "/api/contact-page" },
         { source: "/investment-opportunities", destination: "/api/investment-page" },
         ...mirroredRoutes.map((route) => ({
