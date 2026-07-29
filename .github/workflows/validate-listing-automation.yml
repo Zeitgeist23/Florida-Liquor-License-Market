@@ -6,12 +6,12 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
     env:
       SUPABASE_URL: https://example.supabase.co
       SUPABASE_SERVICE_ROLE_KEY: build-placeholder
@@ -25,39 +25,6 @@ jobs:
       FLLM_ADMIN_KEY: build-placeholder
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref_name }}
-      - name: Download verified official Florida ABT PDFs
-        run: |
-          set -euo pipefail
-          mkdir -p public/abt-forms
-          user_agent='Mozilla/5.0 (compatible; FloridaLiquorLicenseMarket/1.0; +https://www.floridaliquorlicensemarket.com/resources/forms)'
-          download_pdf() {
-            url="$1"
-            output="$2"
-            temp="${output}.tmp"
-            curl -fL --retry 3 --retry-all-errors --connect-timeout 30 --max-time 180 -A "$user_agent" "$url" -o "$temp"
-            test "$(head -c 4 "$temp")" = '%PDF'
-            test "$(wc -c < "$temp")" -gt 10000
-            mv "$temp" "$output"
-          }
-          download_pdf 'https://www2.myfloridalicense.com/abt/forms/documents/abt-6002formonly.pdf' 'public/abt-forms/abt-6002.pdf'
-          download_pdf 'https://www2.myfloridalicense.com/abt/forms/documents/abt6022.pdf' 'public/abt-forms/abt-6022.pdf'
-          download_pdf 'https://www2.myfloridalicense.com/abt/forms/licensing/ABT-6027.pdf' 'public/abt-forms/abt-6027.pdf'
-          download_pdf 'https://www2.myfloridalicense.com/abt/forms/documents/abt-6014.pdf' 'public/abt-forms/abt-6014.pdf'
-          download_pdf 'https://www2.myfloridalicense.com/abt/forms/documents/AppPackforChangeofOfficer-Stockholder.pdf' 'public/abt-forms/abt-6004.pdf'
-          download_pdf 'https://www2.myfloridalicense.com/abt/forms/documents/abt-6009.pdf' 'public/abt-forms/abt-6009.pdf'
-          download_pdf 'https://www2.myfloridalicense.com/abt/forms/documents/abt-6001formonly.pdf' 'public/abt-forms/abt-6001.pdf'
-      - name: Commit official PDF copies
-        if: github.event_name == 'pull_request'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/abt-forms
-          if ! git diff --cached --quiet; then
-            git commit -m "Add verified official Florida ABT PDF copies"
-            git push origin HEAD:${{ github.head_ref }}
-          fi
       - uses: actions/setup-node@v4
         with:
           node-version: 22
