@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import AbtDemographicSelects from "@/components/AbtDemographicSelects";
 import AbtIncreaseInSeriesSelect from "@/components/AbtIncreaseInSeriesSelect";
 
 import "./globals.css";
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AbtIncreaseInSeriesSelect />
+        <AbtDemographicSelects />
         {children}
       </body>
     </html>
