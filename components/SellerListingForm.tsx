@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, ReactNode, useEffect, useState } from "react";
 
 import styles from "@/app/sell-your-license/seller.module.css";
 
@@ -16,10 +16,36 @@ const COUNTIES = [
   "Wakulla", "Walton", "Washington",
 ];
 
-type SaleMethod = "" | "Self-Directed Listing" | "Broker-Assisted Listing";
+type SaleMethod = "Self-Directed Listing" | "Broker-Assisted Listing";
+
+type DisplaySelectProps = {
+  className: string;
+  name: string;
+  value: string;
+  initialText: string;
+  required?: boolean;
+  children: ReactNode;
+  onChange: (value: string) => void;
+};
+
+function DisplaySelect({ className, name, value, initialText, required, children, onChange }: DisplaySelectProps) {
+  const changed = value !== "" && value !== initialText;
+  return (
+    <label className={`${styles.selectWrap} ${className} ${changed ? styles.changed : ""}`}>
+      <span className={styles.selectDisplay}>{value || initialText}</span>
+      <select name={name} value={value} required={required} onChange={(event) => onChange(event.target.value)}>
+        {children}
+      </select>
+    </label>
+  );
+}
 
 export default function SellerListingForm() {
   const [saleMethod, setSaleMethod] = useState<SaleMethod>("Broker-Assisted Listing");
+  const [represented, setRepresented] = useState("");
+  const [arrangement, setArrangement] = useState("No preference / need guidance");
+  const [contactMethod, setContactMethod] = useState("");
+  const [desiredNet, setDesiredNet] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState("");
   const [isError, setIsError] = useState(false);
@@ -28,9 +54,7 @@ export default function SellerListingForm() {
     const params = new URLSearchParams(window.location.search);
     if (params.get("payment") === "cancelled") {
       setIsError(true);
-      setStatus(
-        "Payment was canceled. Your listing has not been submitted for review. You may complete the form again when ready."
-      );
+      setStatus("Payment was canceled. Your listing has not been submitted for review. You may complete the form again when ready.");
     }
   }, []);
 
@@ -38,36 +62,20 @@ export default function SellerListingForm() {
     event.preventDefault();
     if (submitting) return;
 
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    const selectedMethod = String(data.get("sale_method") || "") as SaleMethod;
-
-    if (!selectedMethod) {
-      setIsError(true);
-      setStatus("Please choose Self-Directed Listing or Broker-Assisted Listing.");
-      return;
-    }
-
+    const data = new FormData(event.currentTarget);
     setSubmitting(true);
     setIsError(false);
     setStatus("Saving your listing and opening secure Stripe checkout…");
 
     try {
-      const assistanceSummary = [`Sale method: ${selectedMethod}`];
-
-      if (selectedMethod === "Broker-Assisted Listing") {
+      const assistanceSummary = [`Sale method: ${saleMethod}`];
+      if (saleMethod === "Broker-Assisted Listing") {
         assistanceSummary.push(
-          `Currently represented by another broker: ${String(
-            data.get("broker_currently_represented") || "Not provided"
-          )}`,
-          `Preferred broker arrangement: ${String(
-            data.get("broker_arrangement") || "No preference / need guidance"
-          )}`,
+          `Currently represented by another broker: ${String(data.get("broker_currently_represented") || "Not provided")}`,
+          `Preferred broker arrangement: ${String(data.get("broker_arrangement") || "No preference / need guidance")}`,
           `Desired net amount: ${String(data.get("desired_net_amount") || "Not provided")}`,
           `Preferred contact method: ${String(data.get("broker_contact_method") || "Not provided")}`,
-          `ABT application preparation and transaction coordination: ${
-            data.get("abt_transaction_coordination") ? "Requested" : "Not requested"
-          }`
+          `ABT application preparation and transaction coordination: ${data.get("abt_transaction_coordination") ? "Requested" : "Not requested"}`
         );
       }
 
@@ -77,10 +85,7 @@ export default function SellerListingForm() {
 
       const response = await fetch("/api/listing-submissions", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           name: String(data.get("name") || ""),
           email: String(data.get("email") || ""),
@@ -98,10 +103,7 @@ export default function SellerListingForm() {
       });
 
       const result = (await response.json()) as { checkoutUrl?: string; error?: string };
-      if (!response.ok || !result.checkoutUrl) {
-        throw new Error(result.error || "Unable to create secure checkout.");
-      }
-
+      if (!response.ok || !result.checkoutUrl) throw new Error(result.error || "Unable to create secure checkout.");
       window.location.assign(result.checkoutUrl);
     } catch (cause) {
       setSubmitting(false);
@@ -112,239 +114,75 @@ export default function SellerListingForm() {
 
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <a className={styles.brand} href="/" aria-label="Florida Liquor License Market home">
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-        </a>
-        <nav aria-label="Seller page navigation">
-          <a href="/">Return Home</a>
-          <a href="/contact">Contact Us</a>
-        </nav>
-      </header>
+      <form className={styles.form} onSubmit={submitListing}>
+        <section className={styles.referenceHero} aria-label="List Your Florida Liquor License">
+          <a className={`${styles.hit} ${styles.logoHit}`} href="/" aria-label="Florida Liquor License Market home">Home</a>
+          <a className={`${styles.hit} ${styles.homeHit}`} href="/">Return Home</a>
+          <a className={`${styles.hit} ${styles.contactHit}`} href="/contact">Contact Us</a>
 
-      <section className={styles.hero}>
-        <div className={styles.layout}>
-          <aside className="seller-market-rail" aria-label="Florida liquor license market indicators">
-            <section className="seller-market-card seller-market-activity">
-              <h3>Market Activity</h3>
-              <svg viewBox="0 0 190 78" role="img" aria-label="Market activity chart">
-                <line x1="8" y1="67" x2="184" y2="67" />
-                <line x1="8" y1="38" x2="184" y2="38" />
-                <polyline points="8,50 24,58 40,41 56,57 72,45 88,53 104,38 120,46 136,27 152,43 168,20 184,34" />
-                <polyline className="buyer-line" points="8,56 24,49 40,55 56,45 72,52 88,46 104,48 120,34 136,39 152,31 168,35 184,25" />
-              </svg>
-              <div className="seller-market-legend"><span>Listings</span><span>Buyers</span></div>
-            </section>
-
-            <section className="seller-market-card seller-heat-card">
-              <h3>License Heat Map</h3>
-              <svg className="seller-florida-mini" viewBox="0 0 230 180" role="img" aria-label="Florida license heat map">
-                <path d="M20 34 L109 32 L129 38 L145 49 L150 61 L169 70 L176 88 L178 105 L191 121 L202 138 L204 154 L197 166 L186 158 L180 142 L172 130 L167 116 L158 105 L153 91 L142 82 L132 69 L116 62 L96 59 L77 54 L59 50 L42 47 L25 49 Z" />
-                <circle cx="55" cy="48" r="3" /><circle cx="99" cy="59" r="3" /><circle cx="143" cy="81" r="4" />
-                <circle cx="159" cy="108" r="5" /><circle cx="180" cy="140" r="5" /><circle cx="193" cy="157" r="4" />
-              </svg>
-              <div className="seller-heat-scale"><span>Low</span><i /><span>High</span></div>
-            </section>
-
-            <section className="seller-market-card seller-insight-card">
-              <h3>Market Insights</h3>
-              <div className="seller-demand-ring"><strong>72%</strong></div>
-              <p>Active Buyer Demand</p>
-              <b>High</b>
-            </section>
-          </aside>
-
-          <aside className={styles.intro}>
-            <span className={styles.kicker}>Confidential Seller Representation</span>
+          <div className={styles.mobileContent}>
+            <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
+            <span>Confidential Seller Representation</span>
             <h1>List Your Florida Liquor License</h1>
-            <p>
-              Publish a self-directed listing or request broker-assisted marketing and transaction support.
-            </p>
-            <ul>
-              <li>One-time $14.95 submission fee</li>
-              <li>Confidential marketplace review</li>
-              <li>Statewide buyer visibility</li>
-              <li>Seller-selected service level</li>
-            </ul>
-            <div className={styles.trust}>
-              <img src="/assets/hero-trusted-shield.png" alt="" aria-hidden="true" />
-              <span>
-                <strong>Discreet. Secure. Trusted.</strong>
-                <small>Your information is used only to evaluate and respond to your submission.</small>
-              </span>
-            </div>
-          </aside>
+            <p>Publish a self-directed listing or request broker-assisted marketing and transaction support.</p>
+          </div>
 
-          <form className={styles.form} onSubmit={submitListing}>
-            <div className={styles.formHeading}>
-              <h2>Submit Your License</h2>
-              <p>Choose how you would like to sell, then complete the listing information.</p>
-            </div>
+          <label className={`${styles.method} ${styles.selfMethod} ${saleMethod === "Self-Directed Listing" ? styles.active : ""}`}>
+            <input type="radio" name="sale_method" value="Self-Directed Listing" checked={saleMethod === "Self-Directed Listing"} onChange={() => setSaleMethod("Self-Directed Listing")} />
+            <span className={styles.mobileCardText}><strong>Self-Directed Listing</strong><small>I will communicate directly with buyers and manage negotiations, documentation, and the license-transfer process.</small></span>
+          </label>
 
-            <label className={styles.honeypot} aria-hidden="true">
-              Leave blank
-              <input type="text" tabIndex={-1} autoComplete="off" name="_honey" />
-            </label>
+          <label className={`${styles.method} ${styles.brokerMethod} ${saleMethod === "Broker-Assisted Listing" ? styles.active : ""}`}>
+            <input type="radio" name="sale_method" value="Broker-Assisted Listing" checked={saleMethod === "Broker-Assisted Listing"} onChange={() => setSaleMethod("Broker-Assisted Listing")} />
+            <span className={styles.mobileCardText}><strong>Broker-Assisted Listing</strong><small>I would like an FLLM-affiliated broker to contact me about marketing, buyer communications, offer negotiations, and transaction coordination.</small></span>
+          </label>
 
-            <fieldset className={styles.methodFieldset}>
-              <legend>How would you like to sell your license? *</legend>
-              <p>Choose the level of assistance you would like. You may change your selection later.</p>
-              <div className={styles.methodOptions}>
-                <label className={saleMethod === "Self-Directed Listing" ? styles.methodSelected : styles.methodOption}>
-                  <input
-                    type="radio"
-                    name="sale_method"
-                    value="Self-Directed Listing"
-                    required
-                    checked={saleMethod === "Self-Directed Listing"}
-                    onChange={() => setSaleMethod("Self-Directed Listing")}
-                  />
-                  <span>
-                    <strong>Self-Directed Listing</strong>
-                    <small>
-                      I will communicate directly with buyers and manage negotiations, documentation, and the
-                      license-transfer process. FLLM will publish my listing and forward inquiries to me.
-                    </small>
-                  </span>
-                </label>
+          {saleMethod === "Broker-Assisted Listing" && (
+            <>
+              <DisplaySelect className={styles.represented} name="broker_currently_represented" value={represented} initialText="Select one" required onChange={setRepresented}>
+                <option value="">Select one</option><option>No</option><option>Yes</option><option>Not sure</option>
+              </DisplaySelect>
+              <DisplaySelect className={styles.arrangement} name="broker_arrangement" value={arrangement} initialText="No preference / need guidance" onChange={setArrangement}>
+                <option>No preference / need guidance</option><option>Non-exclusive arrangement</option><option>Exclusive arrangement</option>
+              </DisplaySelect>
+              <input className={`${styles.amount} ${desiredNet ? styles.filled : ""}`} type="text" inputMode="decimal" name="desired_net_amount" placeholder="$" value={desiredNet} onChange={(event) => setDesiredNet(event.target.value)} />
+              <DisplaySelect className={styles.contactMethod} name="broker_contact_method" value={contactMethod} initialText="Select one" required onChange={setContactMethod}>
+                <option value="">Select one</option><option>Phone</option><option>Email</option><option>Either phone or email</option>
+              </DisplaySelect>
+            </>
+          )}
+        </section>
 
-                <label className={saleMethod === "Broker-Assisted Listing" ? styles.methodSelected : styles.methodOption}>
-                  <input
-                    type="radio"
-                    name="sale_method"
-                    value="Broker-Assisted Listing"
-                    required
-                    checked={saleMethod === "Broker-Assisted Listing"}
-                    onChange={() => setSaleMethod("Broker-Assisted Listing")}
-                  />
-                  <span>
-                    <strong>Broker-Assisted Listing</strong>
-                    <small>
-                      I would like an FLLM-affiliated broker to contact me about marketing, buyer communications,
-                      offer negotiations, and transaction and ABT-transfer coordination.
-                    </small>
-                  </span>
-                </label>
-              </div>
-              <p className={styles.disclosure}>
-                Selecting Broker-Assisted Listing does not create a brokerage relationship or require a commission.
-                An FLLM representative will discuss broker availability, services, commission terms, and the required
-                written agreement.
-              </p>
-
-              {saleMethod === "Broker-Assisted Listing" && (
-                <div className={styles.brokerDetails}>
-                  <p>Tell us how you would like a broker to assist.</p>
-                  <label>
-                    <span>Are you currently represented by another broker? *</span>
-                    <select name="broker_currently_represented" required defaultValue="">
-                      <option value="" disabled>Select one</option>
-                      <option>No</option>
-                      <option>Yes</option>
-                      <option>Not sure</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span>Preferred arrangement</span>
-                    <select name="broker_arrangement" defaultValue="">
-                      <option value="">No preference / need guidance</option>
-                      <option>Non-exclusive arrangement</option>
-                      <option>Exclusive arrangement</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span>Desired net amount</span>
-                    <input type="text" inputMode="decimal" name="desired_net_amount" placeholder="$" />
-                  </label>
-                  <label>
-                    <span>Preferred contact method *</span>
-                    <select name="broker_contact_method" required defaultValue="">
-                      <option value="" disabled>Select one</option>
-                      <option>Phone</option>
-                      <option>Email</option>
-                      <option>Either phone or email</option>
-                    </select>
-                  </label>
-                  <label className={styles.abtChoice}>
-                    <input type="checkbox" name="abt_transaction_coordination" value="Requested" />
-                    <span>I would also like information about ABT application preparation and transaction coordination.</span>
-                  </label>
-                </div>
-              )}
-            </fieldset>
+        <section className={styles.detailsSection} aria-labelledby="details-heading">
+          <div className={styles.detailsPanel}>
+            <h2 id="details-heading">Complete Listing Details</h2>
+            <label className={styles.honeypot} aria-hidden="true">Leave blank<input type="text" tabIndex={-1} autoComplete="off" name="_honey" /></label>
 
             <div className={styles.fields}>
               <label><span>Full Name *</span><input type="text" autoComplete="name" required name="name" /></label>
               <label><span>Email *</span><input type="email" autoComplete="email" required name="email" /></label>
               <label><span>Phone *</span><input type="tel" autoComplete="tel" required name="phone" /></label>
-              <label>
-                <span>County *</span>
-                <select name="county" required defaultValue="">
-                  <option value="" disabled>Select county</option>
-                  {COUNTIES.map((county) => <option key={county}>{county} County</option>)}
-                </select>
-              </label>
-              <label>
-                <span>License Type *</span>
-                <select name="license_type" required defaultValue="">
-                  <option value="" disabled>Select license type</option>
-                  <option>4COP Quota</option>
-                  <option>3PS Quota / Package Store</option>
-                  <option>2COP Beer &amp; Wine</option>
-                  <option>Specialty / Qualified Business License</option>
-                  <option>Not Sure</option>
-                </select>
-              </label>
+              <label><span>County *</span><select name="county" required defaultValue=""><option value="" disabled>Select county</option>{COUNTIES.map((county) => <option key={county}>{county} County</option>)}</select></label>
+              <label><span>License Type *</span><select name="license_type" required defaultValue=""><option value="" disabled>Select license type</option><option>4COP Quota</option><option>3PS Quota / Package Store</option><option>2COP Beer &amp; Wine</option><option>Specialty / Qualified Business License</option><option>Not Sure</option></select></label>
               <label><span>Asking Price</span><input type="text" inputMode="decimal" placeholder="$" name="asking_price" /></label>
-              <label>
-                <span>License Status *</span>
-                <select name="license_status" required defaultValue="">
-                  <option value="" disabled>Select status</option>
-                  <option>Active at a location</option>
-                  <option>Inactive / in escrow</option>
-                  <option>Part of a business sale</option>
-                  <option>Not sure</option>
-                </select>
-              </label>
-              <label>
-                <span>Preferred Timing</span>
-                <select name="preferred_timing" defaultValue="">
-                  <option value="">Select timing</option>
-                  <option>As soon as possible</option>
-                  <option>Within 30 days</option>
-                  <option>Within 60–90 days</option>
-                  <option>Exploring options</option>
-                </select>
-              </label>
-              <label className={styles.notes}>
-                <span>Additional Details</span>
-                <textarea name="message" rows={5} placeholder="Share relevant details about the license, location, or transaction." />
-              </label>
+              <label><span>License Status *</span><select name="license_status" required defaultValue=""><option value="" disabled>Select status</option><option>Active at a location</option><option>Inactive / in escrow</option><option>Part of a business sale</option><option>Not sure</option></select></label>
+              <label><span>Preferred Timing</span><select name="preferred_timing" defaultValue=""><option value="">Select timing</option><option>As soon as possible</option><option>Within 30 days</option><option>Within 60–90 days</option><option>Exploring options</option></select></label>
+              {saleMethod === "Broker-Assisted Listing" && <label className={styles.abtChoice}><input type="checkbox" name="abt_transaction_coordination" value="Requested" /><span>I would also like information about ABT application preparation and transaction coordination.</span></label>}
+              <label className={styles.notes}><span>Additional Details</span><textarea name="message" rows={5} placeholder="Share relevant details about the license, location, or transaction." /></label>
             </div>
 
             <div className={styles.agreements}>
-              <label>
-                <input type="checkbox" required name="seller_certification" value="Certified" />
-                <span>I certify that I own the license or am authorized to advertise it, and that the submitted information is accurate.</span>
-              </label>
-              <label>
-                <input type="checkbox" required name="fee_agreement" value="Accepted" />
-                <span>I understand that $14.95 is a one-time listing-submission fee, payment does not guarantee publication, and rejected submissions are eligible for a refund.</span>
-              </label>
+              <label><input type="checkbox" required name="seller_certification" value="Certified" /><span>I certify that I own the license or am authorized to advertise it, and that the submitted information is accurate.</span></label>
+              <label><input type="checkbox" required name="fee_agreement" value="Accepted" /><span>I understand that $14.95 is a one-time listing-submission fee, payment does not guarantee publication, and rejected submissions are eligible for a refund.</span></label>
             </div>
 
             <div className={styles.paymentSummary}><span>Listing Submission Fee</span><strong>$14.95</strong></div>
-            <button className={styles.submit} type="submit" disabled={submitting}>
-              {submitting ? "Creating Secure Checkout…" : "Continue to Secure Payment — $14.95"}
-            </button>
-            <p className={styles.paymentNote}>
-              Your information is saved first. Stripe securely processes the payment. We publish only after matching
-              the payer email and reviewing the listing.
-            </p>
+            <button className={styles.submit} type="submit" disabled={submitting}>{submitting ? "Creating Secure Checkout…" : "Continue to Secure Payment — $14.95"}</button>
+            <p className={styles.paymentNote}>Your information is saved first. Stripe securely processes the payment. We publish only after matching the payer email and reviewing the listing.</p>
             <p className={isError ? styles.errorStatus : styles.status} role="status" aria-live="polite">{status}</p>
-          </form>
-        </div>
-      </section>
+          </div>
+        </section>
+      </form>
     </main>
   );
 }
