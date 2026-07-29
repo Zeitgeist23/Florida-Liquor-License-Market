@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v5">
+const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v6">
   .seller-page > .seller-header {
     justify-content: space-between !important;
     column-gap: 22px !important;
@@ -33,6 +33,7 @@ const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v5">
   }
 
   .seller-sale-method {
+    min-width: 0;
     margin: 4px 0 26px;
     padding: 22px;
     border: 1px solid rgba(157, 113, 28, 0.28);
@@ -80,10 +81,7 @@ const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v5">
     margin-top: 4px;
   }
 
-  .seller-sale-option-copy {
-    display: block;
-  }
-
+  .seller-sale-option-copy,
   .seller-sale-option-copy strong,
   .seller-sale-option-copy small {
     display: block;
@@ -189,13 +187,82 @@ const SELL_PAGE_STYLES = `<style id="sell-license-header-layout-v5">
   }
 </style>`;
 
-const LISTING_AUTOMATION_SCRIPT = `<script id="fllm-listing-automation-v2">
-(function () {
-  function start() {
-    var form = document.querySelector('.seller-form');
-    if (!(form instanceof HTMLFormElement) || form.dataset.fllmAutomation === 'active') return;
-    form.dataset.fllmAutomation = 'active';
+const SALE_METHOD_SECTION = `<fieldset class="seller-sale-method" id="fllm-sale-method">
+  <legend>How would you like to sell your license? *</legend>
+  <p class="seller-sale-method-intro">Choose the level of assistance you would like. You may change your selection later.</p>
+  <div class="seller-sale-options">
+    <label class="seller-sale-option">
+      <input type="radio" name="sale_method" value="Self-Directed Listing" required>
+      <span class="seller-sale-option-copy"><strong>Self-Directed Listing</strong><small>I will communicate directly with prospective buyers and manage the negotiation, documentation, and license-transfer process. FLLM will publish my listing and forward buyer inquiries to me.</small></span>
+    </label>
+    <label class="seller-sale-option">
+      <input type="radio" name="sale_method" value="Broker-Assisted Listing" required>
+      <span class="seller-sale-option-copy"><strong>Broker-Assisted Listing</strong><small>I would like an FLLM-affiliated broker to contact me about marketing my license, communicating with prospective buyers, negotiating offers, and coordinating the transaction and ABT transfer process.</small></span>
+    </label>
+  </div>
+  <p class="seller-broker-disclosure">Selecting Broker-Assisted Listing does not create a brokerage relationship or require you to pay a commission. An FLLM representative will contact you to discuss broker availability, services, commission terms, and the required written agreement.</p>
+  <div class="seller-broker-details" hidden>
+    <p>Tell us how you would like a broker to assist.</p>
+    <label class="seller-broker-field"><span>Are you currently represented by another broker? *</span><select name="broker_currently_represented"><option value="">Select one</option><option>No</option><option>Yes</option><option>Not sure</option></select></label>
+    <label class="seller-broker-field"><span>Preferred arrangement</span><select name="broker_arrangement"><option value="">No preference / need guidance</option><option>Non-exclusive arrangement</option><option>Exclusive arrangement</option></select></label>
+    <label class="seller-broker-field"><span>Desired net amount</span><input type="text" inputmode="decimal" name="desired_net_amount" placeholder="$"></label>
+    <label class="seller-broker-field"><span>Preferred contact method *</span><select name="broker_contact_method"><option value="">Select one</option><option>Phone</option><option>Email</option><option>Either phone or email</option></select></label>
+    <label class="seller-broker-checkbox"><input type="checkbox" name="abt_transaction_coordination" value="Requested"><span>I would also like information about ABT application preparation and transaction coordination.</span></label>
+  </div>
+</fieldset>`;
 
+const LISTING_AUTOMATION_SCRIPT = `<script id="fllm-listing-automation-v3">
+(function () {
+  var SECTION_HTML = ${JSON.stringify(SALE_METHOD_SECTION)};
+  var currentForm = null;
+  var currentSubmitHandler = null;
+  var currentChangeHandler = null;
+
+  function createSection() {
+    var template = document.createElement('template');
+    template.innerHTML = SECTION_HTML.trim();
+    return template.content.firstElementChild;
+  }
+
+  function ensureSection(form) {
+    var section = form.querySelector('#fllm-sale-method');
+    if (!section) {
+      section = createSection();
+      var fields = form.querySelector('.seller-fields');
+      if (section && fields) form.insertBefore(section, fields);
+    }
+    return section;
+  }
+
+  function toggleBrokerDetails(form) {
+    var section = form.querySelector('#fllm-sale-method');
+    if (!section) return;
+
+    var selected = section.querySelector('input[name="sale_method"]:checked');
+    var assisted = Boolean(selected && selected.value === 'Broker-Assisted Listing');
+    var details = section.querySelector('.seller-broker-details');
+    var represented = section.querySelector('select[name="broker_currently_represented"]');
+    var contact = section.querySelector('select[name="broker_contact_method"]');
+
+    if (details) {
+      details.hidden = !assisted;
+      Array.from(details.querySelectorAll('input, select')).forEach(function (field) {
+        field.disabled = !assisted;
+      });
+    }
+    if (represented) represented.required = assisted;
+    if (contact) contact.required = assisted;
+  }
+
+  function setCancelledMessage(form) {
+    if (new URLSearchParams(window.location.search).get('payment') !== 'cancelled') return;
+    var status = form.querySelector('.seller-status');
+    if (!status) return;
+    status.className = 'seller-status error';
+    status.textContent = 'Payment was canceled. Your listing has not been submitted for review. You may complete the form again when ready.';
+  }
+
+  function normalizeExistingFields(form) {
     var nameInput = form.querySelector('input[name="name"]');
     var nameLabel = nameInput && nameInput.closest('label');
     var nameCaption = nameLabel && nameLabel.querySelector('span');
@@ -207,73 +274,51 @@ const LISTING_AUTOMATION_SCRIPT = `<script id="fllm-listing-automation-v2">
         if (!option.textContent.trim()) option.remove();
       });
     }
+  }
 
-    var sellerFields = form.querySelector('.seller-fields');
-    var saleMethodSection = document.createElement('fieldset');
-    saleMethodSection.className = 'seller-sale-method';
-    saleMethodSection.innerHTML =
-      '<legend>How would you like to sell your license? *</legend>' +
-      '<p class="seller-sale-method-intro">Choose the level of assistance you would like. You may change your selection later.</p>' +
-      '<div class="seller-sale-options">' +
-        '<label class="seller-sale-option">' +
-          '<input type="radio" name="sale_method" value="Self-Directed Listing" required>' +
-          '<span class="seller-sale-option-copy"><strong>Self-Directed Listing</strong><small>I will communicate directly with prospective buyers and manage the negotiation, documentation, and license-transfer process. FLLM will publish my listing and forward buyer inquiries to me.</small></span>' +
-        '</label>' +
-        '<label class="seller-sale-option">' +
-          '<input type="radio" name="sale_method" value="Broker-Assisted Listing" required>' +
-          '<span class="seller-sale-option-copy"><strong>Broker-Assisted Listing</strong><small>I would like an FLLM-affiliated broker to contact me about marketing my license, communicating with prospective buyers, negotiating offers, and coordinating the transaction and ABT transfer process.</small></span>' +
-        '</label>' +
-      '</div>' +
-      '<p class="seller-broker-disclosure">Selecting Broker-Assisted Listing does not create a brokerage relationship or require you to pay a commission. An FLLM representative will contact you to discuss broker availability, services, commission terms, and the required written agreement.</p>' +
-      '<div class="seller-broker-details" hidden>' +
-        '<p>Tell us how you would like a broker to assist.</p>' +
-        '<label class="seller-broker-field"><span>Are you currently represented by another broker? *</span><select name="broker_currently_represented"><option value="">Select one</option><option>No</option><option>Yes</option><option>Not sure</option></select></label>' +
-        '<label class="seller-broker-field"><span>Preferred arrangement</span><select name="broker_arrangement"><option value="">No preference / need guidance</option><option>Non-exclusive arrangement</option><option>Exclusive arrangement</option></select></label>' +
-        '<label class="seller-broker-field"><span>Desired net amount</span><input type="text" inputmode="decimal" name="desired_net_amount" placeholder="$"></label>' +
-        '<label class="seller-broker-field"><span>Preferred contact method *</span><select name="broker_contact_method"><option value="">Select one</option><option>Phone</option><option>Email</option><option>Either phone or email</option></select></label>' +
-        '<label class="seller-broker-checkbox"><input type="checkbox" name="abt_transaction_coordination" value="Requested"><span>I would also like information about ABT application preparation and transaction coordination.</span></label>' +
-      '</div>';
+  function detachCurrentForm() {
+    if (!currentForm) return;
+    if (currentSubmitHandler) currentForm.removeEventListener('submit', currentSubmitHandler, true);
+    if (currentChangeHandler) currentForm.removeEventListener('change', currentChangeHandler);
+    currentForm = null;
+    currentSubmitHandler = null;
+    currentChangeHandler = null;
+  }
 
-    if (sellerFields) form.insertBefore(saleMethodSection, sellerFields);
+  function installOnForm(form) {
+    if (!(form instanceof HTMLFormElement)) return;
 
-    var brokerDetails = saleMethodSection.querySelector('.seller-broker-details');
-    var saleMethodInputs = saleMethodSection.querySelectorAll('input[name="sale_method"]');
-    var brokerRepresented = saleMethodSection.querySelector('select[name="broker_currently_represented"]');
-    var brokerContactMethod = saleMethodSection.querySelector('select[name="broker_contact_method"]');
+    ensureSection(form);
+    normalizeExistingFields(form);
+    toggleBrokerDetails(form);
+    setCancelledMessage(form);
 
-    function toggleBrokerDetails() {
-      var selected = saleMethodSection.querySelector('input[name="sale_method"]:checked');
-      var showBrokerDetails = selected && selected.value === 'Broker-Assisted Listing';
-      if (brokerDetails) brokerDetails.hidden = !showBrokerDetails;
-      if (brokerDetails) {
-        Array.from(brokerDetails.querySelectorAll('input, select')).forEach(function (field) {
-          field.disabled = !showBrokerDetails;
-        });
-      }
-      if (brokerRepresented) brokerRepresented.required = Boolean(showBrokerDetails);
-      if (brokerContactMethod) brokerContactMethod.required = Boolean(showBrokerDetails);
-    }
+    if (currentForm === form) return;
+    detachCurrentForm();
+    currentForm = form;
 
-    Array.from(saleMethodInputs).forEach(function (input) {
-      input.addEventListener('change', toggleBrokerDetails);
-    });
-    toggleBrokerDetails();
+    currentChangeHandler = function (event) {
+      var target = event.target;
+      if (target && target.name === 'sale_method') toggleBrokerDetails(form);
+    };
 
-    var status = form.querySelector('.seller-status');
-    var button = form.querySelector('.seller-submit');
-    var params = new URLSearchParams(window.location.search);
-    if (params.get('payment') === 'cancelled' && status) {
-      status.className = 'seller-status error';
-      status.textContent = 'Payment was canceled. Your listing has not been submitted for review. You may complete the form again when ready.';
-    }
-
-    document.addEventListener('submit', async function (event) {
-      if (event.target !== form) return;
+    currentSubmitHandler = async function (event) {
       event.preventDefault();
       event.stopPropagation();
       event.stopImmediatePropagation();
       if (form.dataset.fllmSubmitting === 'true') return;
+
+      var data = new FormData(form);
+      var saleMethod = String(data.get('sale_method') || '');
+      if (!saleMethod) {
+        var firstChoice = form.querySelector('input[name="sale_method"]');
+        if (firstChoice) firstChoice.focus();
+        return;
+      }
+
       form.dataset.fllmSubmitting = 'true';
+      var status = form.querySelector('.seller-status');
+      var button = form.querySelector('.seller-submit');
 
       if (button instanceof HTMLButtonElement) {
         button.disabled = true;
@@ -285,10 +330,6 @@ const LISTING_AUTOMATION_SCRIPT = `<script id="fllm-listing-automation-v2">
       }
 
       try {
-        var data = new FormData(form);
-        var saleMethod = String(data.get('sale_method') || '');
-        if (!saleMethod) throw new Error('Please choose Self-Directed Listing or Broker-Assisted Listing.');
-
         var assistanceSummary = ['Sale method: ' + saleMethod];
         if (saleMethod === 'Broker-Assisted Listing') {
           assistanceSummary.push('Currently represented by another broker: ' + String(data.get('broker_currently_represented') || 'Not provided'));
@@ -299,8 +340,8 @@ const LISTING_AUTOMATION_SCRIPT = `<script id="fllm-listing-automation-v2">
         }
 
         var sellerMessage = String(data.get('message') || '').trim();
-        var combinedMessage = assistanceSummary.join('\n');
-        if (sellerMessage) combinedMessage += '\n\nAdditional seller details:\n' + sellerMessage;
+        var combinedMessage = assistanceSummary.join('\\n');
+        if (sellerMessage) combinedMessage += '\\n\\nAdditional seller details:\\n' + sellerMessage;
 
         var payload = {
           name: String(data.get('name') || ''),
@@ -338,27 +379,34 @@ const LISTING_AUTOMATION_SCRIPT = `<script id="fllm-listing-automation-v2">
           status.textContent = error && error.message ? error.message : 'We could not save your listing. Please try again or use the Contact page.';
         }
       }
-    }, true);
+    };
+
+    form.addEventListener('change', currentChangeHandler);
+    form.addEventListener('submit', currentSubmitHandler, true);
+  }
+
+  function install() {
+    var form = document.querySelector('.seller-form');
+    if (form) installOnForm(form);
+  }
+
+  function start() {
+    install();
+    var observer = new MutationObserver(install);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    var attempts = 0;
+    var timer = window.setInterval(function () {
+      install();
+      attempts += 1;
+      if (attempts >= 30) window.clearInterval(timer);
+    }, 500);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
-  window.setTimeout(start, 750);
 })();
 </script>`;
-
-function listingAutomationConfigured() {
-  return Boolean(
-    process.env.SUPABASE_URL &&
-      process.env.SUPABASE_SERVICE_ROLE_KEY &&
-      process.env.STRIPE_SECRET_KEY &&
-      process.env.STRIPE_WEBHOOK_SECRET &&
-      process.env.GOOGLE_CLIENT_ID &&
-      process.env.GOOGLE_CLIENT_SECRET &&
-      process.env.GOOGLE_REFRESH_TOKEN &&
-      process.env.FLLM_ADMIN_KEY
-  );
-}
 
 export async function GET(request: Request) {
   try {
@@ -371,13 +419,19 @@ export async function GET(request: Request) {
     }
 
     let html = await sourceResponse.text();
-    if (!html.includes('id="sell-license-header-layout-v5"')) {
+
+    if (!html.includes('id="sell-license-header-layout-v6"')) {
       html = html.replace("</head>", `${SELL_PAGE_STYLES}</head>`);
     }
-    if (
-      listingAutomationConfigured() &&
-      !html.includes('id="fllm-listing-automation-v2"')
-    ) {
+
+    if (!html.includes('id="fllm-sale-method"')) {
+      html = html.replace(
+        '<div class="seller-fields">',
+        `${SALE_METHOD_SECTION}<div class="seller-fields">`
+      );
+    }
+
+    if (!html.includes('id="fllm-listing-automation-v3"')) {
       html = html.replace("</body>", `${LISTING_AUTOMATION_SCRIPT}</body>`);
     }
 
