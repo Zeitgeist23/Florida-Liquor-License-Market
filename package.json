@@ -6,7 +6,9 @@
     "node": "22.x"
   },
   "scripts": {
+    "predev": "node scripts/build-seller-approved-asset.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/build-seller-approved-asset.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint ."
