@@ -6,6 +6,8 @@ Production deployment was retriggered after merge to verify the Vercel build aga
 
 A new production deployment retry was triggered on July 28, 2026 after the Florida ABT Forms feature was merged.
 
+Another Vercel preview retry was triggered on July 28, 2026 after the Next.js security upgrade and successful GitHub build.
+
 ## Workflow
 
 1. The seller form saves a private submission in Supabase.
