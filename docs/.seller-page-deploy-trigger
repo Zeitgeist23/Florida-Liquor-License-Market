@@ -1,5 +1,6 @@
-Deploy the verified approved sell-your-license artwork after the Vercel Hobby build-rate window reset.
+Deploy the verified approved sell-your-license artwork on the active Vercel Pro plan.
 
 Verified merge commit: 31f8ac7d3605c9a5a52070c339bd087d647e0f67
 Artwork SHA-256: dc61c3e6a6cffd35c26269fa41e07d088a1f4913687f238ef6bbfea53d50a239
-Retry sequence: 1
+Pro-plan retry requested: 2026-07-29 18:13 America/Chicago
+Retry sequence: 2
