@@ -11,6 +11,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { AbtFormDefinition } from "@/data/abt-forms";
+import { getFriendlyAbtFieldLabel } from "@/data/abt-form-field-labels";
 
 type FieldKind = "text" | "checkbox" | "dropdown" | "radio" | "option-list";
 
@@ -124,7 +125,7 @@ function inputType(field: FormFieldDefinition) {
   return "text";
 }
 
-function extractFields(pdfDocument: PDFDocument) {
+function extractFields(pdfDocument: PDFDocument, formId: string) {
   const pdfForm = pdfDocument.getForm();
   const initialValues: DraftValues = {};
   const definitions: FormFieldDefinition[] = [];
@@ -132,7 +133,8 @@ function extractFields(pdfDocument: PDFDocument) {
 
   pdfForm.getFields().forEach((field, index) => {
     const name = field.getName();
-    const label = resolveFieldLabel(field, name);
+    const resolvedLabel = resolveFieldLabel(field, name);
+    const label = resolvedLabel ? getFriendlyAbtFieldLabel(formId, resolvedLabel) : null;
 
     if (!label) {
       skippedFieldCount += 1;
@@ -202,7 +204,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
 
         const bytes = new Uint8Array(await response.arrayBuffer());
         const pdfDocument = await PDFDocument.load(bytes, { ignoreEncryption: true });
-        const extracted = extractFields(pdfDocument);
+        const extracted = extractFields(pdfDocument, form.id);
         if (cancelled) return;
 
         templateBytes.current = bytes;
@@ -233,7 +235,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     return () => {
       cancelled = true;
     };
-  }, [draftKey, officialPdfPath]);
+  }, [draftKey, form.id, officialPdfPath]);
 
   useEffect(() => {
     if (!rememberDraft || fields.length === 0) return;
