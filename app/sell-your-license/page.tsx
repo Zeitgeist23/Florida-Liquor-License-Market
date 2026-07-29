@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import SellerListingForm from "@/components/SellerListingForm";
 import "./legend-fix.css";
+import "./technical-theme.css";
 
 export const metadata: Metadata = {
   title: "List Your Florida Liquor License | Florida Liquor License Market",
