@@ -23,6 +23,11 @@
       label: "License Fees",
       href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/license-information/",
     },
+    {
+      label: "Florida ABT Forms",
+      href: "/resources/forms",
+      internal: true,
+    },
   ];
 
   function normalizedText(element) {
@@ -121,11 +126,13 @@
     menu.setAttribute("role", "menu");
     menu.setAttribute("aria-hidden", "true");
 
-    resources.forEach(({ label, href }) => {
+    resources.forEach(({ label, href, internal }) => {
       const link = document.createElement("a");
       link.href = href;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
+      if (!internal) {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      }
       link.setAttribute("role", "menuitem");
       link.textContent = label;
       link.addEventListener("click", () => closeMenu());
