@@ -10,10 +10,15 @@ import {
 } from "pdf-lib";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import type { AbtFormDefinition } from "@/data/abt-forms";
 import { getFriendlyAbtFieldLabel } from "@/data/abt-form-field-labels";
+import {
+  ABT_LICENSE_SERIES_OPTIONS,
+  getAbtLicenseSeriesOption,
+  getDefaultAbtLicenseSeriesKey,
+} from "@/data/abt-license-series-options";
+import type { AbtFormDefinition } from "@/data/abt-forms";
 
-type FieldKind = "text" | "checkbox" | "dropdown" | "radio" | "option-list";
+type FieldKind = "text" | "checkbox" | "dropdown" | "radio" | "option-list" | "license-series";
 
 type FormFieldDefinition = {
   name: string;
@@ -118,6 +123,18 @@ function resolveFieldLabel(field: unknown, name: string) {
   return null;
 }
 
+function normalizedLabel(label: string) {
+  return label.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+function isLicenseSeriesField(label: string) {
+  return normalizedLabel(label) === "license series requested";
+}
+
+function isTypeClassField(label: string) {
+  return normalizedLabel(label) === "type class requested";
+}
+
 function inputType(field: FormFieldDefinition) {
   const value = `${field.name} ${field.label}`.toLowerCase();
   if (value.includes("email")) return "email";
@@ -142,8 +159,19 @@ function extractFields(pdfDocument: PDFDocument, formId: string) {
     }
 
     if (field instanceof PDFTextField) {
-      definitions.push({ name, label, kind: "text", options: [], originalIndex: index });
-      initialValues[name] = field.getText() || "";
+      if (isLicenseSeriesField(label)) {
+        definitions.push({
+          name,
+          label,
+          kind: "license-series",
+          options: ABT_LICENSE_SERIES_OPTIONS.map((option) => option.key),
+          originalIndex: index,
+        });
+        initialValues[name] = getDefaultAbtLicenseSeriesKey(field.getText() || "");
+      } else {
+        definitions.push({ name, label, kind: "text", options: [], originalIndex: index });
+        initialValues[name] = field.getText() || "";
+      }
       return;
     }
 
@@ -171,7 +199,35 @@ function extractFields(pdfDocument: PDFDocument, formId: string) {
     }
   });
 
+  const licenseSeriesField = definitions.find((field) => field.kind === "license-series");
+  const typeClassField = definitions.find((field) => isTypeClassField(field.label));
+
+  if (licenseSeriesField && typeClassField) {
+    const seriesKey = initialValues[licenseSeriesField.name];
+    const currentOption = typeof seriesKey === "string" ? getAbtLicenseSeriesOption(seriesKey) : null;
+    const typeClassValue = initialValues[typeClassField.name];
+
+    if (currentOption && (typeof typeClassValue !== "string" || !typeClassValue.trim())) {
+      initialValues[typeClassField.name] = currentOption.classCode;
+    }
+  }
+
   return { definitions, initialValues, skippedFieldCount };
+}
+
+function licenseSeriesGroups() {
+  return ABT_LICENSE_SERIES_OPTIONS.reduce<Array<{ name: string; options: typeof ABT_LICENSE_SERIES_OPTIONS }>>(
+    (groups, option) => {
+      const existing = groups.find((group) => group.name === option.group);
+      if (existing) {
+        existing.options.push(option);
+      } else {
+        groups.push({ name: option.group, options: [option] });
+      }
+      return groups;
+    },
+    []
+  );
 }
 
 export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition }) {
@@ -251,10 +307,22 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     () => fields.slice(step * FIELDS_PER_STEP, (step + 1) * FIELDS_PER_STEP),
     [fields, step]
   );
+  const groupedLicenseSeries = useMemo(() => licenseSeriesGroups(), []);
   const completion = fields.length ? Math.round(((step + 1) / totalSteps) * 100) : 0;
 
   function updateValue(name: string, value: string | boolean) {
     setValues((current) => ({ ...current, [name]: value }));
+  }
+
+  function updateLicenseSeries(name: string, key: string) {
+    const selected = getAbtLicenseSeriesOption(key);
+    const typeClassField = fields.find((field) => isTypeClassField(field.label));
+
+    setValues((current) => {
+      const next: DraftValues = { ...current, [name]: key };
+      if (selected && typeClassField) next[typeClassField.name] = selected.classCode;
+      return next;
+    });
   }
 
   function clearSavedDraft() {
@@ -275,7 +343,10 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
         const value = values[definition.name];
         try {
           const field = pdfForm.getField(definition.name);
-          if (definition.kind === "text" && field instanceof PDFTextField) {
+          if (definition.kind === "license-series" && field instanceof PDFTextField) {
+            const selected = typeof value === "string" ? getAbtLicenseSeriesOption(value) : null;
+            field.setText(selected?.series || "");
+          } else if (definition.kind === "text" && field instanceof PDFTextField) {
             field.setText(typeof value === "string" ? value : "");
           } else if (definition.kind === "checkbox" && field instanceof PDFCheckBox) {
             if (value === true) field.check();
@@ -391,7 +462,21 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
                     ) : (
                       <>
                         <span><strong>{field.label}</strong></span>
-                        {field.kind === "text" ? (
+                        {field.kind === "license-series" ? (
+                          <select
+                            value={typeof values[field.name] === "string" ? values[field.name] as string : ""}
+                            onChange={(event) => updateLicenseSeries(field.name, event.target.value)}
+                          >
+                            <option value="">Select a Florida alcoholic-beverage license type</option>
+                            {groupedLicenseSeries.map((group) => (
+                              <optgroup label={group.name} key={group.name}>
+                                {group.options.map((option) => (
+                                  <option value={option.key} key={option.key}>{option.label}</option>
+                                ))}
+                              </optgroup>
+                            ))}
+                          </select>
+                        ) : field.kind === "text" ? (
                           <input
                             type={inputType(field)}
                             value={typeof values[field.name] === "string" ? values[field.name] as string : ""}
