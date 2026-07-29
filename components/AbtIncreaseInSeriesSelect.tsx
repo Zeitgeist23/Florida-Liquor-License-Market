@@ -2,6 +2,13 @@
 
 import { useEffect } from "react";
 
+type DropdownConfig = {
+  matches: string[];
+  title: string;
+  yesLabel: string;
+  ariaLabel: string;
+};
+
 type EnhancedField = {
   label: HTMLLabelElement;
   wrapper: HTMLDivElement;
@@ -10,8 +17,32 @@ type EnhancedField = {
   sync: () => void;
 };
 
+const DROPDOWN_CONFIGS: DropdownConfig[] = [
+  {
+    matches: ["increase in series"],
+    title: "Increase in Series",
+    yesLabel: "Yes — Increase the license series",
+    ariaLabel: "Increase in Series",
+  },
+  {
+    matches: [
+      "change of officer stockholder amended corporate name",
+      "change of officer stockholder member amended corporate name",
+      "change officer stockholder amended corporate name",
+    ],
+    title: "Change of Officer, Stockholder, Member, or Corporate Name",
+    yesLabel: "Yes — Change officer, stockholder, member, or corporate name",
+    ariaLabel: "Change of Officer, Stockholder, Member, or Corporate Name",
+  },
+];
+
 function normalizedText(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+function getDropdownConfig(labelText: string) {
+  const normalized = normalizedText(labelText);
+  return DROPDOWN_CONFIGS.find((config) => config.matches.includes(normalized)) || null;
 }
 
 export default function AbtIncreaseInSeriesSelect() {
@@ -31,7 +62,8 @@ export default function AbtIncreaseInSeriesSelect() {
 
       document.querySelectorAll<HTMLLabelElement>("label.abt-checkbox-field").forEach((label) => {
         const strong = label.querySelector("strong");
-        if (normalizedText(strong?.textContent || "") !== "increase in series") return;
+        const config = getDropdownConfig(strong?.textContent || "");
+        if (!config) return;
 
         const checkbox = label.querySelector<HTMLInputElement>('input[type="checkbox"]');
         if (!checkbox) return;
@@ -43,20 +75,26 @@ export default function AbtIncreaseInSeriesSelect() {
         }
 
         const wrapper = document.createElement("div");
-        wrapper.className = "abt-field abt-increase-series-select";
-        wrapper.dataset.abtIncreaseSeriesSelect = "true";
+        wrapper.className = "abt-field abt-checkbox-select";
+        wrapper.dataset.abtCheckboxSelect = "true";
 
         const heading = document.createElement("span");
         const title = document.createElement("strong");
-        title.textContent = "Increase in Series";
+        title.textContent = config.title;
         heading.appendChild(title);
 
         const select = document.createElement("select");
-        select.setAttribute("aria-label", "Increase in Series");
-        select.innerHTML = [
-          '<option value="no">No</option>',
-          '<option value="yes">Yes — Increase the license series</option>',
-        ].join("");
+        select.setAttribute("aria-label", config.ariaLabel);
+
+        const noOption = document.createElement("option");
+        noOption.value = "no";
+        noOption.textContent = "No";
+
+        const yesOption = document.createElement("option");
+        yesOption.value = "yes";
+        yesOption.textContent = config.yesLabel;
+
+        select.append(noOption, yesOption);
 
         const sync = () => {
           select.value = checkbox.checked ? "yes" : "no";
