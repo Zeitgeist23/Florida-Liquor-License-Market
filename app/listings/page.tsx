@@ -4,6 +4,7 @@ import ListingsHeatMapEnhancement from "@/components/ListingsHeatMapEnhancement"
 import ListingsPage from "@/components/ListingsPage";
 import ListingsQueryFilterEnhancement from "@/components/ListingsQueryFilterEnhancement";
 import MonroeMapCompletion from "@/components/MonroeMapCompletion";
+import PaidListingLinkEnhancement from "@/components/PaidListingLinkEnhancement";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import "./listings-premium.css";
 import "./listings-header-position.css";
@@ -29,6 +30,7 @@ export default async function Page() {
       <InventoryCardExpansion />
       <MonroeMapCompletion />
       <ListingsHeatMapEnhancement />
+      <PaidListingLinkEnhancement />
     </>
   );
 }
