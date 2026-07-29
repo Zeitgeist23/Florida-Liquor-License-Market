@@ -13,6 +13,12 @@ section[class*="hero"]::after {
   display: none !important;
 }
 
+/* Align the FLLM header logo with the approved composition. */
+header[class*="header"] a[class*="brand"] {
+  position: relative;
+  left: -8px;
+}
+
 @media (min-width: 1500px) {
   section[class*="hero"] {
     background-size: 100% auto !important;
