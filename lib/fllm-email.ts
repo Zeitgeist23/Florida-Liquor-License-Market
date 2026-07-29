@@ -32,6 +32,18 @@ function formatMoney(value: number | null) {
   }).format(value);
 }
 
+function countyLabel(county: string) {
+  const cleaned = county.trim();
+  return / County$/i.test(cleaned) ? cleaned : `${cleaned} County`;
+}
+
+function approvedEmailTitle(submission: ListingSubmission) {
+  if (!submission.listingTitle || !submission.approvedLicenseType) {
+    throw new Error("The approved listing is missing its title or license type.");
+  }
+  return submission.listingTitle;
+}
+
 function corporateSignatureHtml() {
   const origin = siteUrl();
   const sender = senderEmail();
@@ -59,8 +71,8 @@ function corporateSignatureHtml() {
 }
 
 function emailShell(content: string) {
-  return `<!doctype html><html><body style="margin:0;padding:24px;background:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#202124;">
-    <div style="max-width:720px;">${content}${corporateSignatureHtml()}</div>
+  return `<!doctype html><html><body style="margin:0;padding:24px;background:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#111111;">
+    <div style="max-width:760px;">${content}${corporateSignatureHtml()}</div>
   </body></html>`;
 }
 
@@ -159,16 +171,16 @@ export async function sendFllmEmail(input: {
 export async function sendPaymentReceivedEmail(submission: ListingSubmission) {
   const firstName = escapeHtml(submission.firstName || "there");
   const details = `
-    <p>Hello ${firstName},</p>
-    <p>Thank you for submitting your Florida liquor license listing and completing the $14.95 listing-submission payment.</p>
-    <p>Your submission has been received and is now under review. Payment does not guarantee publication. We will send another email after the listing has been reviewed and, if approved, published on the Florida Liquor License Market website.</p>
-    <p><strong>County:</strong> ${escapeHtml(submission.county)}<br>
+    <p style="margin:0 0 18px;">Hello ${firstName},</p>
+    <p style="margin:0 0 18px;">Thank you for submitting your Florida liquor license listing and completing the $14.95 listing-submission payment.</p>
+    <p style="margin:0 0 18px;">Your submission has been received and is now under review. Payment does not guarantee publication. We will send another email after the listing has been reviewed and, if approved, published on the Florida Liquor License Market website.</p>
+    <p style="margin:0 0 18px;"><strong>County:</strong> ${escapeHtml(countyLabel(submission.county))}<br>
     <strong>License Type:</strong> ${escapeHtml(submission.licenseType)}<br>
     <strong>Asking Price:</strong> ${escapeHtml(formatMoney(submission.askingPrice))}<br>
     <strong>Submission Reference:</strong> ${escapeHtml(submission.submissionRef)}</p>
-    <p>No further action is required at this time.</p>`;
+    <p style="margin:0;">No further action is required at this time.</p>`;
 
-  const text = `Hello ${submission.firstName || "there"},\n\nThank you for submitting your Florida liquor license listing and completing the $14.95 listing-submission payment.\n\nYour submission has been received and is now under review. Payment does not guarantee publication. We will send another email after the listing has been reviewed and, if approved, published on the Florida Liquor License Market website.\n\nCounty: ${submission.county}\nLicense Type: ${submission.licenseType}\nAsking Price: ${formatMoney(submission.askingPrice)}\nSubmission Reference: ${submission.submissionRef}\n\nNo further action is required at this time.\n\nFlorida Liquor License Market\n${senderEmail()}\n${siteUrl()}`;
+  const text = `Hello ${submission.firstName || "there"},\n\nThank you for submitting your Florida liquor license listing and completing the $14.95 listing-submission payment.\n\nYour submission has been received and is now under review. Payment does not guarantee publication. We will send another email after the listing has been reviewed and, if approved, published on the Florida Liquor License Market website.\n\nCounty: ${countyLabel(submission.county)}\nLicense Type: ${submission.licenseType}\nAsking Price: ${formatMoney(submission.askingPrice)}\nSubmission Reference: ${submission.submissionRef}\n\nNo further action is required at this time.\n\nFlorida Liquor License Market\n${senderEmail()}\n${siteUrl()}`;
 
   return sendFllmEmail({
     to: submission.email,
@@ -184,22 +196,30 @@ export async function sendListingApprovedEmail(submission: ListingSubmission) {
   }
 
   const firstName = escapeHtml(submission.firstName || "there");
-  const details = `
-    <p>Hello ${firstName},</p>
-    <p>Thank you for submitting your paid listing request to Florida Liquor License Market.</p>
-    <p>We have completed our review and are pleased to confirm that your listing has been <strong>approved and is now live</strong> on the Florida Liquor License Market website.</p>
-    <p><strong>Listing:</strong> ${escapeHtml(submission.listingTitle)}<br>
-    <strong>County:</strong> ${escapeHtml(submission.county)}<br>
-    <strong>License Type:</strong> ${escapeHtml(submission.approvedLicenseType)}<br>
-    <strong>View your listing:</strong> <a href="${escapeHtml(submission.liveListingUrl)}" style="color:#071a3a;font-weight:bold;">View Live Listing</a></p>
-    <p>Please review the live listing and reply to this email if any information needs to be corrected or updated.</p>
-    <p>Thank you for choosing Florida Liquor License Market.</p>`;
+  const county = countyLabel(submission.county);
+  const listingTitle = approvedEmailTitle(submission);
+  const liveUrl = escapeHtml(submission.liveListingUrl);
+  const cardImageUrl = `${siteUrl()}/api/listing-email-card/${encodeURIComponent(submission.submissionRef)}`;
 
-  const text = `Hello ${submission.firstName || "there"},\n\nThank you for submitting your paid listing request to Florida Liquor License Market.\n\nWe have completed our review and are pleased to confirm that your listing has been approved and is now live on the Florida Liquor License Market website.\n\nListing: ${submission.listingTitle}\nCounty: ${submission.county}\nLicense Type: ${submission.approvedLicenseType}\nView your listing: ${submission.liveListingUrl}\n\nPlease review the live listing and reply to this email if any information needs to be corrected or updated.\n\nThank you for choosing Florida Liquor License Market.\n\nFlorida Liquor License Market\n${senderEmail()}\n${siteUrl()}`;
+  const details = `
+    <p style="margin:0 0 18px;">Hello ${firstName},</p>
+    <p style="margin:0 0 18px;">Thank you for submitting your paid listing request to Florida Liquor License Market.</p>
+    <p style="margin:0 0 18px;">We have completed our review and are pleased to confirm that your listing has been <strong>approved and is now live</strong> on the Florida Liquor License Market website.</p>
+    <p style="margin:0 0 6px;"><strong>Listing:</strong>&nbsp;&nbsp; ${escapeHtml(listingTitle)}<br>
+    <strong>County:</strong> ${escapeHtml(county)}<br>
+    <strong>License Type:</strong> ${escapeHtml(submission.approvedLicenseType)}</p>
+    <p style="margin:0 0 22px;"><a href="${liveUrl}" style="color:#0645ad;font-weight:bold;text-decoration:underline;">View live listing</a></p>
+    <p style="margin:0 0 18px;">Please review the live listing and reply to this email if any information needs to be corrected or updated.</p>
+    <p style="margin:0 0 18px;">Thank you for choosing Florida Liquor License Market.</p>
+    <a href="${liveUrl}" style="display:block;text-decoration:none;">
+      <img src="${cardImageUrl}" width="680" alt="${escapeHtml(county)} ${escapeHtml(submission.approvedLicenseType)} listing" style="display:block;width:100%;max-width:680px;height:auto;border:0;">
+    </a>`;
+
+  const text = `Hello ${submission.firstName || "there"},\n\nThank you for submitting your paid listing request to Florida Liquor License Market.\n\nWe have completed our review and are pleased to confirm that your listing has been approved and is now live on the Florida Liquor License Market website.\n\nListing: ${listingTitle}\nCounty: ${county}\nLicense Type: ${submission.approvedLicenseType}\nView live listing: ${submission.liveListingUrl}\n\nPlease review the live listing and reply to this email if any information needs to be corrected or updated.\n\nThank you for choosing Florida Liquor License Market.\n\nFlorida Liquor License Market\n${senderEmail()}\n${siteUrl()}`;
 
   return sendFllmEmail({
     to: submission.email,
-    subject: "Your Florida Liquor License Listing Is Now Live",
+    subject: `Your ${county} ${submission.approvedLicenseType} Listing Is Now Live`,
     text,
     html: emailShell(details),
   });
