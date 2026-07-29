@@ -19,7 +19,7 @@ const COUNTIES = [
 type SaleMethod = "" | "Self-Directed Listing" | "Broker-Assisted Listing";
 
 export default function SellerListingForm() {
-  const [saleMethod, setSaleMethod] = useState<SaleMethod>("");
+  const [saleMethod, setSaleMethod] = useState<SaleMethod>("Broker-Assisted Listing");
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState("");
   const [isError, setIsError] = useState(false);
@@ -124,6 +124,36 @@ export default function SellerListingForm() {
 
       <section className={styles.hero}>
         <div className={styles.layout}>
+          <aside className="seller-market-rail" aria-label="Florida liquor license market indicators">
+            <section className="seller-market-card seller-market-activity">
+              <h3>Market Activity</h3>
+              <svg viewBox="0 0 190 78" role="img" aria-label="Market activity chart">
+                <line x1="8" y1="67" x2="184" y2="67" />
+                <line x1="8" y1="38" x2="184" y2="38" />
+                <polyline points="8,50 24,58 40,41 56,57 72,45 88,53 104,38 120,46 136,27 152,43 168,20 184,34" />
+                <polyline className="buyer-line" points="8,56 24,49 40,55 56,45 72,52 88,46 104,48 120,34 136,39 152,31 168,35 184,25" />
+              </svg>
+              <div className="seller-market-legend"><span>Listings</span><span>Buyers</span></div>
+            </section>
+
+            <section className="seller-market-card seller-heat-card">
+              <h3>License Heat Map</h3>
+              <svg className="seller-florida-mini" viewBox="0 0 230 180" role="img" aria-label="Florida license heat map">
+                <path d="M20 34 L109 32 L129 38 L145 49 L150 61 L169 70 L176 88 L178 105 L191 121 L202 138 L204 154 L197 166 L186 158 L180 142 L172 130 L167 116 L158 105 L153 91 L142 82 L132 69 L116 62 L96 59 L77 54 L59 50 L42 47 L25 49 Z" />
+                <circle cx="55" cy="48" r="3" /><circle cx="99" cy="59" r="3" /><circle cx="143" cy="81" r="4" />
+                <circle cx="159" cy="108" r="5" /><circle cx="180" cy="140" r="5" /><circle cx="193" cy="157" r="4" />
+              </svg>
+              <div className="seller-heat-scale"><span>Low</span><i /><span>High</span></div>
+            </section>
+
+            <section className="seller-market-card seller-insight-card">
+              <h3>Market Insights</h3>
+              <div className="seller-demand-ring"><strong>72%</strong></div>
+              <p>Active Buyer Demand</p>
+              <b>High</b>
+            </section>
+          </aside>
+
           <aside className={styles.intro}>
             <span className={styles.kicker}>Confidential Seller Representation</span>
             <h1>List Your Florida Liquor License</h1>
