@@ -2,6 +2,8 @@
 
 This implementation replaces the old FormSubmit + fixed Stripe Payment Link handoff with a complete submission, payment, review, publishing, and email workflow.
 
+Production deployment was retriggered after merge to verify the Vercel build against the current `main` branch.
+
 ## Workflow
 
 1. The seller form saves a private submission in Supabase.
