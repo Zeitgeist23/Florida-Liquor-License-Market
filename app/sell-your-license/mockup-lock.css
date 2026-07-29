@@ -1,5 +1,6 @@
-/* Desktop-only visual lock against the approved 1507 × 816 mockup.
-   Mobile and tablet continue to use the existing responsive form styles. */
+/* Exact first-viewport lock against the approved 1507 × 816 mockup.
+   The live controls remain positioned over the pictured controls. Additional
+   required fields continue in a visible technical panel below the mockup. */
 @media (min-width: 1200px) {
   [class*="page"] {
     min-height: 100vh !important;
@@ -55,6 +56,7 @@
     pointer-events: none !important;
   }
 
+  /* Measured control overlay for the pictured glass panel. */
   form[class*="form"] {
     position: absolute !important;
     z-index: 3 !important;
@@ -73,77 +75,30 @@
     backdrop-filter: none !important;
   }
 
-  form[class*="form"]::before {
-    content: "" !important;
-    position: absolute !important;
-    z-index: -2 !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: 662px !important;
-    border: 1px solid rgba(128, 214, 255, .92) !important;
-    border-radius: 18px !important;
-    background:
-      linear-gradient(rgba(75, 169, 224, .030) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(75, 169, 224, .030) 1px, transparent 1px),
-      linear-gradient(155deg, rgba(5, 31, 50, .985), rgba(1, 14, 25, .995)) !important;
-    background-size: 22px 22px, 22px 22px, auto !important;
-    box-shadow:
-      0 0 0 1px rgba(0, 169, 255, .22),
-      0 0 24px rgba(0, 176, 255, .20),
-      0 24px 58px rgba(0, 0, 0, .56),
-      inset 0 1px rgba(255, 255, 255, .09),
-      inset 0 0 36px rgba(0, 134, 211, .06) !important;
+  form[class*="form"]::before,
+  form[class*="form"]::after {
+    content: none !important;
+    display: none !important;
   }
 
-  form[class*="form"]::after {
-    content: "" !important;
-    position: absolute !important;
-    z-index: -1 !important;
-    top: 9px !important;
-    left: 10px !important;
-    right: 10px !important;
-    height: 642px !important;
-    border: 1px solid rgba(86, 181, 239, .22) !important;
-    border-radius: 13px !important;
-    background: transparent !important;
-    box-shadow: inset 0 0 25px rgba(0, 151, 255, .045) !important;
+  /* The approved artwork supplies the exact visible top panel. These controls
+     remain present, focusable and clickable over their pictured locations. */
+  form[class*="form"] > div[class*="formHeading"],
+  fieldset[class*="methodFieldset"] {
+    opacity: 0 !important;
   }
 
   form[class*="form"] > div[class*="formHeading"] {
-    margin: 0 0 18px !important;
-    padding: 0 0 20px 55px !important;
-  }
-
-  form[class*="form"] > div[class*="formHeading"]::before {
-    width: 40px !important;
-    height: 40px !important;
-    font-size: 22px !important;
-  }
-
-  form[class*="form"] > div[class*="formHeading"] h2 {
-    font-size: 28px !important;
-    line-height: 1.08 !important;
-  }
-
-  form[class*="form"] > div[class*="formHeading"] p {
-    margin-top: 5px !important;
-    font-size: 12px !important;
+    height: 88px !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   fieldset[class*="methodFieldset"] {
+    height: 548px !important;
     margin: 0 !important;
     padding: 17px 15px 14px !important;
-    border-radius: 12px !important;
-  }
-
-  fieldset[class*="methodFieldset"] > legend {
-    font-size: 15px !important;
-  }
-
-  fieldset[class*="methodFieldset"] > p {
-    margin-bottom: 12px !important;
-    font-size: 11px !important;
+    pointer-events: auto !important;
   }
 
   div[class*="methodOptions"] {
@@ -154,24 +109,6 @@
   label[class*="methodSelected"] {
     min-height: 166px !important;
     padding: 14px 15px !important;
-    border-radius: 10px !important;
-  }
-
-  label[class*="methodOption"] strong,
-  label[class*="methodSelected"] strong {
-    font-size: 14px !important;
-  }
-
-  label[class*="methodOption"] small,
-  label[class*="methodSelected"] small {
-    font-size: 10px !important;
-    line-height: 1.48 !important;
-  }
-
-  p[class*="disclosure"] {
-    margin: 11px 0 0 !important;
-    font-size: 10px !important;
-    line-height: 1.45 !important;
   }
 
   div[class*="brokerDetails"] {
@@ -180,34 +117,27 @@
     padding-top: 12px !important;
   }
 
-  div[class*="brokerDetails"] > p {
-    font-size: 14px !important;
-  }
-
-  div[class*="brokerDetails"] label > span {
-    font-size: 10px !important;
-  }
-
   div[class*="brokerDetails"] input,
   div[class*="brokerDetails"] select {
     height: 38px !important;
-    font-size: 12px !important;
   }
 
   [class*="abtChoice"] {
     display: none !important;
   }
 
+  /* The rest of the working form begins below the locked 816px composition. */
   div[class*="fields"] {
     position: relative !important;
-    margin: 88px -1px 0 !important;
+    opacity: 1 !important;
+    margin: 58px -1px 0 !important;
     padding: 24px !important;
     border: 1px solid rgba(99, 189, 239, .72) !important;
     border-radius: 16px !important;
     background:
       linear-gradient(rgba(75, 169, 224, .028) 1px, transparent 1px),
       linear-gradient(90deg, rgba(75, 169, 224, .028) 1px, transparent 1px),
-      linear-gradient(155deg, rgba(5, 31, 50, .97), rgba(1, 14, 25, .99)) !important;
+      linear-gradient(155deg, rgba(5, 31, 50, .98), rgba(1, 14, 25, .995)) !important;
     background-size: 22px 22px, 22px 22px, auto !important;
     box-shadow: 0 20px 50px rgba(0,0,0,.45), inset 0 1px rgba(255,255,255,.06) !important;
   }
