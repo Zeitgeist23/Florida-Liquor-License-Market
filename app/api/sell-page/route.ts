@@ -138,6 +138,19 @@ const LISTING_AUTOMATION_SCRIPT = `<script id="fllm-listing-automation-v1">
 })();
 </script>`;
 
+function listingAutomationConfigured() {
+  return Boolean(
+    process.env.SUPABASE_URL &&
+      process.env.SUPABASE_SERVICE_ROLE_KEY &&
+      process.env.STRIPE_SECRET_KEY &&
+      process.env.STRIPE_WEBHOOK_SECRET &&
+      process.env.GOOGLE_CLIENT_ID &&
+      process.env.GOOGLE_CLIENT_SECRET &&
+      process.env.GOOGLE_REFRESH_TOKEN &&
+      process.env.FLLM_ADMIN_KEY
+  );
+}
+
 export async function GET(request: Request) {
   try {
     const sourceUrl = new URL("/sell-your-license/index.html", request.url);
@@ -152,7 +165,10 @@ export async function GET(request: Request) {
     if (!html.includes('id="sell-license-header-layout-v4"')) {
       html = html.replace("</head>", `${SELL_PAGE_STYLES}</head>`);
     }
-    if (!html.includes('id="fllm-listing-automation-v1"')) {
+    if (
+      listingAutomationConfigured() &&
+      !html.includes('id="fllm-listing-automation-v1"')
+    ) {
       html = html.replace("</body>", `${LISTING_AUTOMATION_SCRIPT}</body>`);
     }
 
