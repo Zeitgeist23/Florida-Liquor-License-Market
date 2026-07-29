@@ -13,12 +13,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { getFriendlyAbtFieldLabel } from "@/data/abt-form-field-labels";
 import {
   ABT_LICENSE_SERIES_OPTIONS,
+  getAbtLicenseClassOptions,
   getAbtLicenseSeriesOption,
+  getAbtLicenseSeriesOptionBySeriesAndClass,
   getDefaultAbtLicenseSeriesKey,
 } from "@/data/abt-license-series-options";
 import type { AbtFormDefinition } from "@/data/abt-forms";
 
-type FieldKind = "text" | "checkbox" | "dropdown" | "radio" | "option-list" | "license-series";
+type FieldKind = "text" | "checkbox" | "dropdown" | "radio" | "option-list" | "license-series" | "license-class";
 
 type FormFieldDefinition = {
   name: string;
@@ -168,6 +170,9 @@ function extractFields(pdfDocument: PDFDocument, formId: string) {
           originalIndex: index,
         });
         initialValues[name] = getDefaultAbtLicenseSeriesKey(field.getText() || "");
+      } else if (isTypeClassField(label)) {
+        definitions.push({ name, label, kind: "license-class", options: [], originalIndex: index });
+        initialValues[name] = field.getText() || "";
       } else {
         definitions.push({ name, label, kind: "text", options: [], originalIndex: index });
         initialValues[name] = field.getText() || "";
@@ -308,6 +313,14 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     [fields, step]
   );
   const groupedLicenseSeries = useMemo(() => licenseSeriesGroups(), []);
+  const licenseSeriesField = fields.find((field) => field.kind === "license-series");
+  const selectedSeriesKey = licenseSeriesField && typeof values[licenseSeriesField.name] === "string"
+    ? values[licenseSeriesField.name] as string
+    : "";
+  const typeClassOptions = useMemo(
+    () => getAbtLicenseClassOptions(selectedSeriesKey),
+    [selectedSeriesKey]
+  );
   const completion = fields.length ? Math.round(((step + 1) / totalSteps) * 100) : 0;
 
   function updateValue(name: string, value: string | boolean) {
@@ -321,6 +334,21 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     setValues((current) => {
       const next: DraftValues = { ...current, [name]: key };
       if (selected && typeClassField) next[typeClassField.name] = selected.classCode;
+      return next;
+    });
+  }
+
+  function updateLicenseClass(name: string, classCode: string) {
+    const seriesField = fields.find((field) => field.kind === "license-series");
+
+    setValues((current) => {
+      const next: DraftValues = { ...current, [name]: classCode };
+      if (!seriesField) return next;
+
+      const currentKey = typeof current[seriesField.name] === "string" ? current[seriesField.name] as string : "";
+      const currentSeries = getAbtLicenseSeriesOption(currentKey)?.series || "";
+      const matchingSeries = getAbtLicenseSeriesOptionBySeriesAndClass(currentSeries, classCode);
+      if (matchingSeries) next[seriesField.name] = matchingSeries.key;
       return next;
     });
   }
@@ -346,7 +374,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
           if (definition.kind === "license-series" && field instanceof PDFTextField) {
             const selected = typeof value === "string" ? getAbtLicenseSeriesOption(value) : null;
             field.setText(selected?.series || "");
-          } else if (definition.kind === "text" && field instanceof PDFTextField) {
+          } else if ((definition.kind === "text" || definition.kind === "license-class") && field instanceof PDFTextField) {
             field.setText(typeof value === "string" ? value : "");
           } else if (definition.kind === "checkbox" && field instanceof PDFCheckBox) {
             if (value === true) field.check();
@@ -474,6 +502,19 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
                                   <option value={option.key} key={option.key}>{option.label}</option>
                                 ))}
                               </optgroup>
+                            ))}
+                          </select>
+                        ) : field.kind === "license-class" ? (
+                          <select
+                            value={typeof values[field.name] === "string" ? values[field.name] as string : ""}
+                            onChange={(event) => updateLicenseClass(field.name, event.target.value)}
+                            disabled={!selectedSeriesKey}
+                          >
+                            <option value="">
+                              {selectedSeriesKey ? "Select a valid type/class" : "Select a license series first"}
+                            </option>
+                            {typeClassOptions.map((option) => (
+                              <option value={option.classCode} key={option.classCode}>{option.label}</option>
                             ))}
                           </select>
                         ) : field.kind === "text" ? (
