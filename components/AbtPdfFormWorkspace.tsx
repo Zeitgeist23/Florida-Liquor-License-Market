@@ -24,22 +24,97 @@ type FormFieldDefinition = {
 
 type DraftValues = Record<string, string | boolean>;
 
+type PdfStringLike = {
+  decodeText?: () => string;
+};
+
+type InternalAcroField = {
+  getAlternateName?: () => PdfStringLike | string | undefined;
+  getMappingName?: () => PdfStringLike | string | undefined;
+  getPartialName?: () => PdfStringLike | string | undefined;
+  getOnValue?: () => PdfStringLike | string | undefined;
+};
+
 const FIELDS_PER_STEP = 10;
 
-function humanizeFieldName(name: string, index: number) {
-  const finalPart = name.split(/[.>]/).filter(Boolean).at(-1) || name;
-  const cleaned = finalPart
+function decodePdfLabel(value: unknown) {
+  if (typeof value === "string") return value.trim();
+  if (!value || typeof value !== "object") return "";
+
+  const decoder = (value as PdfStringLike).decodeText;
+  if (typeof decoder !== "function") return "";
+
+  try {
+    return decoder.call(value).trim();
+  } catch {
+    return "";
+  }
+}
+
+function internalLabelCandidates(field: unknown) {
+  const acroField = (field as { acroField?: InternalAcroField }).acroField;
+  if (!acroField) return [];
+
+  const candidates: string[] = [];
+  const methods: Array<keyof InternalAcroField> = [
+    "getAlternateName",
+    "getMappingName",
+    "getPartialName",
+    "getOnValue",
+  ];
+
+  methods.forEach((methodName) => {
+    const method = acroField[methodName];
+    if (typeof method !== "function") return;
+
+    try {
+      const decoded = decodePdfLabel(method.call(acroField));
+      if (decoded) candidates.push(decoded);
+    } catch {
+      // Some official PDFs expose incomplete internal metadata.
+    }
+  });
+
+  return candidates;
+}
+
+function isUnhelpfulFieldLabel(value: string) {
+  const normalized = value
+    .replace(/\[[0-9]+\]/g, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!normalized) return true;
+
+  return /^(undefined|untitled|unknown|null|none|n\/a|yes|on|off|text|field|checkbox|check|radio|dropdown|choice)(?:\s*\d+)?$/i.test(
+    normalized
+  );
+}
+
+function humanizeFieldLabel(value: string) {
+  const finalPart = value.split(/[.>]/).filter(Boolean).at(-1) || value;
+  return finalPart
     .replace(/\[[0-9]+\]/g, "")
     .replace(/[_-]+/g, " ")
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .replace(/\s+/g, " ")
-    .trim();
+    .trim()
+    .replace(/\b\w/g, (character) => character.toUpperCase());
+}
 
-  if (!cleaned || /^(text|field|checkbox|check|radio|dropdown)\s*\d*$/i.test(cleaned)) {
-    return `Official form field ${index + 1}`;
+function resolveFieldLabel(field: unknown, name: string) {
+  const candidates = [...internalLabelCandidates(field), name];
+
+  for (const candidate of candidates) {
+    const decoded = decodePdfLabel(candidate);
+    if (!decoded || isUnhelpfulFieldLabel(decoded)) continue;
+
+    const humanized = humanizeFieldLabel(decoded);
+    if (humanized && !isUnhelpfulFieldLabel(humanized)) return humanized;
   }
 
-  return cleaned.replace(/\b\w/g, (character) => character.toUpperCase());
+  return null;
 }
 
 function inputType(field: FormFieldDefinition) {
@@ -53,10 +128,16 @@ function extractFields(pdfDocument: PDFDocument) {
   const pdfForm = pdfDocument.getForm();
   const initialValues: DraftValues = {};
   const definitions: FormFieldDefinition[] = [];
+  let skippedFieldCount = 0;
 
   pdfForm.getFields().forEach((field, index) => {
     const name = field.getName();
-    const label = humanizeFieldName(name, index);
+    const label = resolveFieldLabel(field, name);
+
+    if (!label) {
+      skippedFieldCount += 1;
+      return;
+    }
 
     if (field instanceof PDFTextField) {
       definitions.push({ name, label, kind: "text", options: [], originalIndex: index });
@@ -88,7 +169,7 @@ function extractFields(pdfDocument: PDFDocument) {
     }
   });
 
-  return { definitions, initialValues };
+  return { definitions, initialValues, skippedFieldCount };
 }
 
 export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition }) {
@@ -99,6 +180,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [fields, setFields] = useState<FormFieldDefinition[]>([]);
+  const [skippedFieldCount, setSkippedFieldCount] = useState(0);
   const [values, setValues] = useState<DraftValues>({});
   const [step, setStep] = useState(0);
   const [rememberDraft, setRememberDraft] = useState(false);
@@ -135,7 +217,9 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
           }
         }
 
+        setStep(0);
         setFields(extracted.definitions);
+        setSkippedFieldCount(extracted.skippedFieldCount);
         setValues(nextValues);
         if (extracted.definitions.length === 0) setMode("viewer");
       } catch (cause) {
@@ -269,8 +353,8 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
             <div className="abt-loading"><span /> Reading the current official PDF and preparing its fields…</div>
           ) : fields.length === 0 ? (
             <div className="abt-no-fields">
-              <h2>This official PDF does not expose fillable fields to the guided tool.</h2>
-              <p>Use the Official PDF Viewer tab to complete any available PDF fields and print or download the form without leaving FLLM.</p>
+              <h2>This official PDF does not expose clearly labeled fillable fields to the guided tool.</h2>
+              <p>Use the Official PDF Viewer tab to complete available PDF fields and print or download the form without leaving FLLM.</p>
               <button className="btn btn-gold" type="button" onClick={() => setMode("viewer")}>Open Official PDF Viewer</button>
             </div>
           ) : (
@@ -278,11 +362,17 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
               <div className="abt-progress-heading">
                 <div>
                   <span>Step {step + 1} of {totalSteps}</span>
-                  <h2>Complete the official form fields</h2>
+                  <h2>Complete the clearly labeled official form fields</h2>
                 </div>
                 <strong>{completion}%</strong>
               </div>
               <div className="abt-progress-track"><i style={{ width: `${completion}%` }} /></div>
+
+              {skippedFieldCount > 0 && (
+                <p className="abt-viewer-help">
+                  Unlabeled internal PDF controls are intentionally hidden rather than shown as “Undefined.” Review the generated PDF and use the Official PDF Viewer for any remaining selections before filing.
+                </p>
+              )}
 
               <div className="abt-field-grid">
                 {visibleFields.map((field) => (
@@ -294,11 +384,11 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
                           checked={values[field.name] === true}
                           onChange={(event) => updateValue(field.name, event.target.checked)}
                         />
-                        <span><strong>{field.label}</strong><small>{field.name}</small></span>
+                        <span><strong>{field.label}</strong></span>
                       </>
                     ) : (
                       <>
-                        <span><strong>{field.label}</strong><small>{field.name}</small></span>
+                        <span><strong>{field.label}</strong></span>
                         {field.kind === "text" ? (
                           <input
                             type={inputType(field)}
