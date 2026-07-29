@@ -1,1 +1,4 @@
-Deploy native self-directed and broker-assisted seller listing page after the Vercel build-rate window reset.
+Retrigger the validated seller-page layout repair after the Vercel Hobby build-rate window reset.
+
+Repair commit: d8d55fdf57b3c717febaa3e5a31bf72a75c503a2
+Retry requested: 2026-07-29 17:07 America/Chicago
