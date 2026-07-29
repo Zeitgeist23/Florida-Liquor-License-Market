@@ -77,7 +77,9 @@ export async function POST(
     }
 
     const defaultTitle = `${countyLabel(submission.county)} ${licenseType} Liquor License (${submission.submissionRef})`;
-    const title = (body.title || defaultTitle).trim();
+    const legacyDefaultTitle = `${licenseType} License – ${submission.county}`;
+    const requestedTitle = (body.title || "").trim();
+    const title = !requestedTitle || requestedTitle === legacyDefaultTitle ? defaultTitle : requestedTitle;
     if (!title) return NextResponse.json({ error: "A listing title is required." }, { status: 400 });
 
     const liveListingUrl = `${siteOrigin(request.url)}/listings/${submission.submissionRef.toLowerCase()}`;
