@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import type { Listing } from "@/data/listings";
 import { publishDiscoveredListings } from "@/lib/discovered-listing-store";
 import { discoverPublicListings } from "@/lib/listing-discovery";
+import { discoverQuotaPhraseListings } from "@/lib/quota-listing-discovery";
 import { upsertMarketplaceListings } from "@/lib/listing-store";
 
 export const dynamic = "force-dynamic";
@@ -40,6 +41,17 @@ function normalizeListing(item: FeedListing, feedUrl: string): Listing | null {
     note: item.note?.trim() || "External listing. Price and availability subject to confirmation.",
     image: item.image?.trim() || "/assets/listing-miami.png"
   };
+}
+
+function discoveryKey(listing: Listing): string {
+  return listing.sourceUrl?.trim().toLowerCase()
+    || listing.sourceRef?.trim().toLowerCase()
+    || `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
+}
+
+function errorMessage(result: PromiseRejectedResult | undefined): string | undefined {
+  if (!result) return undefined;
+  return result.reason instanceof Error ? result.reason.message : String(result.reason);
 }
 
 async function readFeed(feedUrl: string): Promise<Listing[]> {
@@ -89,20 +101,43 @@ export async function GET(request: NextRequest) {
 
   if (autoDiscoveryEnabled && tavilyApiKey) {
     try {
-      const run = await discoverPublicListings(tavilyApiKey);
-      const publish = await publishDiscoveredListings(run.qualifiedListings);
+      const [primaryResult, supplementalResult] = await Promise.allSettled([
+        discoverPublicListings(tavilyApiKey),
+        discoverQuotaPhraseListings(tavilyApiKey)
+      ]);
+
+      const primary = primaryResult.status === "fulfilled" ? primaryResult.value : undefined;
+      const supplemental = supplementalResult.status === "fulfilled" ? supplementalResult.value : undefined;
+      const qualifiedListings = Array.from(
+        new Map(
+          [...(primary?.qualifiedListings ?? []), ...(supplemental?.qualifiedListings ?? [])]
+            .map((listing) => [discoveryKey(listing), listing])
+        ).values()
+      );
+      const publish = await publishDiscoveredListings(qualifiedListings);
+
       discovery = {
         enabled: true,
-        checkedSources: run.checkedSources,
-        searchResults: run.searchResults,
-        qualified: run.qualifiedListings.length,
+        checkedSources: Math.max(primary?.checkedSources ?? 0, supplemental?.checkedSources ?? 0),
+        searchResults: (primary?.searchResults ?? 0) + (supplemental?.searchResults ?? 0),
+        qualified: qualifiedListings.length,
         inserted: publish.inserted,
         skippedExisting: publish.skippedExisting,
         skippedDuplicateCandidate: publish.skippedDuplicateCandidate,
-        manualReviewCandidates: run.manualReviewCandidates,
-        rejectedResults: run.rejectedResults,
+        manualReviewCandidates: primary?.manualReviewCandidates ?? 0,
+        rejectedResults: (primary?.rejectedResults ?? 0) + (supplemental?.rejectedResults ?? 0),
         databaseConfigured: publish.databaseConfigured,
-        sources: run.sourceResults
+        sources: primary?.sourceResults ?? [],
+        primaryError: primaryResult.status === "rejected" ? errorMessage(primaryResult) : undefined,
+        supplemental: {
+          checkedSources: supplemental?.checkedSources ?? 0,
+          searchResults: supplemental?.searchResults ?? 0,
+          qualified: supplemental?.qualifiedListings.length ?? 0,
+          rejectedResults: supplemental?.rejectedResults ?? 0,
+          countyBatch: supplemental?.countyBatch ?? [],
+          sources: supplemental?.sourceResults ?? [],
+          error: supplementalResult.status === "rejected" ? errorMessage(supplementalResult) : undefined
+        }
       };
     } catch (error) {
       discovery = {
