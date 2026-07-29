@@ -29,7 +29,7 @@ jobs:
           ref: ${{ github.head_ref || github.ref_name }}
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: npm install --no-audit --no-fund
       - name: Commit updated package lock
         if: github.event_name == 'pull_request'
@@ -38,7 +38,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add package-lock.json
           if ! git diff --cached --quiet; then
-            git commit -m "Update package lock for Next.js security release"
+            git commit -m "Update package lock for Node.js 22"
             git push origin HEAD:${{ github.head_ref }}
           fi
       - run: npm run build
