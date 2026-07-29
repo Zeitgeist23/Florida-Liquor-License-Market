@@ -34,8 +34,16 @@ const expectedSha256 = "dc61c3e6a6cffd35c26269fa41e07d088a1f4913687f238ef6bbfea5
 
 const encodedParts = await Promise.all(
   orderedParts.map(async (filename) => {
-    const value = await readFile(path.join(chunksDir, filename), "utf8");
-    return value.trim();
+    let value = (await readFile(path.join(chunksDir, filename), "utf8")).trim();
+
+    // chunk-01 was committed one character short. Repair only that exact
+    // known truncation; the complete artwork must still pass the byte-length
+    // and SHA-256 checks below before the build can continue.
+    if (filename === "chunk-01.txt" && value.length === 19999) {
+      value += "G";
+    }
+
+    return value;
   })
 );
 
