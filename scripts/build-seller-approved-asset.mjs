@@ -10,8 +10,16 @@ const outputPath = path.join(outputDir, "fllm-seller-approved.webp");
 
 const orderedParts = [
   "chunk-00.txt",
-  "chunk-01a.txt",
-  "chunk-01b.txt",
+  "chunk-01-00.txt",
+  "chunk-01-01.txt",
+  "chunk-01-02.txt",
+  "chunk-01-03.txt",
+  "chunk-01-04.txt",
+  "chunk-01-05.txt",
+  "chunk-01-06.txt",
+  "chunk-01-07.txt",
+  "chunk-01-08.txt",
+  "chunk-01-09.txt",
   "chunk-01c.txt",
   "chunk-01d.txt",
   "tail-00.txt",
