@@ -10,14 +10,13 @@ const staticListings = [...listings, ...additionalListings, ...latestListings].m
     : listing
 );
 
+function listingKey(listing: Listing) {
+  return listing.sourceRef || `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
+}
+
 export function dedupeListings(input: Listing[]): Listing[] {
   return Array.from(
-    new Map(
-      input.map((listing) => [
-        `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`,
-        listing,
-      ])
-    ).values()
+    new Map(input.map((listing) => [listingKey(listing), listing])).values()
   );
 }
 
@@ -63,7 +62,7 @@ function rowToListing(row: ListingRow): Listing {
 
 function listingToRow(listing: Listing) {
   return {
-    dedupe_key: `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`,
+    dedupe_key: listingKey(listing),
     county: listing.county,
     license_type: listing.type,
     price: listing.price,
@@ -114,7 +113,6 @@ export async function getMarketplaceListings(): Promise<Listing[]> {
     // Keep Supabase synchronized with the complete built-in inventory while
     // preserving any valid database-only listings imported from authorized feeds.
     await upsertRows(mergedListings);
-
     return mergedListings;
   } catch (error) {
     console.error(error);
