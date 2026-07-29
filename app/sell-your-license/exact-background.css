@@ -1,316 +1,346 @@
-/* Pixel-aligned desktop composition based on the approved 1502 × 807 reference. */
+/* Stable production layout for the List Your License page. */
 [class*="page"] {
-  position: relative;
   min-height: 100vh;
   overflow-x: hidden;
   color: #eef7ff !important;
-  background: #020b13 !important;
+  background: #020d17 !important;
 }
 
 header[class*="header"] {
-  min-height: 69px !important;
-  height: 69px !important;
-  padding: 4px 9.45vw 4px 13.7vw !important;
-  background: linear-gradient(180deg, #020b13 0%, #020a11 100%) !important;
-  border-bottom: 1px solid rgba(241, 169, 27, .72) !important;
+  min-height: 72px !important;
+  padding: 5px max(20px, calc((100% - 1180px) / 2)) !important;
+  background: #020b12 !important;
+  border-bottom: 1px solid rgba(241, 169, 27, .62) !important;
 }
 
 header[class*="header"] a[class*="brand"] {
   position: relative;
-  left: 0 !important;
-  top: 0 !important;
+  left: -11px;
+  top: 3px;
 }
 
 header[class*="header"] a[class*="brand"] img {
-  width: clamp(142px, 9.65vw, 181px) !important;
+  width: 150px !important;
 }
 
-header[class*="header"] nav { gap: clamp(24px, 2vw, 38px) !important; }
+header[class*="header"] nav {
+  gap: 30px !important;
+}
+
 header[class*="header"] nav a {
-  font-size: clamp(10px, .72vw, 13px) !important;
-  letter-spacing: .01em;
+  color: #fff !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
 }
 
 section[class*="hero"] {
   position: relative;
-  isolation: isolate;
-  min-height: calc(100vh - 69px);
-  padding: 0 0 100px !important;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 7% 13%, rgba(0, 177, 255, .72) 0 1px, transparent 2px),
-    radial-gradient(circle at 17% 34%, rgba(0, 177, 255, .54) 0 1px, transparent 2px),
-    radial-gradient(circle at 39% 12%, rgba(241, 169, 27, .60) 0 1px, transparent 2px),
-    radial-gradient(circle at 71% 26%, rgba(0, 177, 255, .65) 0 1px, transparent 2px),
-    radial-gradient(circle at 91% 20%, rgba(241, 169, 27, .56) 0 1px, transparent 2px),
-    linear-gradient(28deg, transparent 49.55%, rgba(0, 135, 213, .13) 50%, transparent 50.45%),
-    linear-gradient(152deg, transparent 49.55%, rgba(0, 135, 213, .11) 50%, transparent 50.45%),
-    radial-gradient(ellipse at 36% 72%, rgba(0, 168, 255, .20), transparent 31%),
-    radial-gradient(ellipse at 91% 77%, rgba(241, 169, 27, .16), transparent 26%),
-    linear-gradient(180deg, #020d18 0%, #031523 56%, #020c16 100%) !important;
-  background-size: 116px 116px, 151px 151px, 184px 184px, 139px 139px, 202px 202px, 88px 88px, 103px 103px, auto, auto, auto !important;
-}
-
-/* One crisp Florida network map, placed exactly behind the seller message. */
-section[class*="hero"]::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 17.4vw;
-  top: 5px;
-  width: 31vw;
-  height: 37vw;
-  max-width: 582px;
-  max-height: 695px;
-  pointer-events: none;
-  opacity: .82;
-  filter: drop-shadow(0 0 13px rgba(241, 169, 27, .24));
-  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http://www.w3.org/2000/svg'%20viewBox%3D'0%200%20230%20180'%3E%3Cdefs%3E%3Cfilter%20id%3D'g'%3E%3CfeGaussianBlur%20stdDeviation%3D'2'%20result%3D'b'/%3E%3CfeMerge%3E%3CfeMergeNode%20in%3D'b'/%3E%3CfeMergeNode%20in%3D'SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cpath%20d%3D'M20%2034%20L109%2032%20L129%2038%20L145%2049%20L150%2061%20L169%2070%20L176%2088%20L178%20105%20L191%20121%20L202%20138%20L204%20154%20L197%20166%20L186%20158%20L180%20142%20L172%20130%20L167%20116%20L158%20105%20L153%2091%20L142%2082%20L132%2069%20L116%2062%20L96%2059%20L77%2054%20L59%2050%20L42%2047%20L25%2049%20Z'%20fill%3D'rgba(2,18,31,.18)'%20stroke%3D'%23f0a51a'%20stroke-width%3D'1.3'/%3E%3Cg%20stroke%3D'%23d99216'%20stroke-width%3D'.45'%20opacity%3D'.62'%3E%3Cpath%20d%3D'M25%2049L96%2059L142%2082L172%20130L197%20166'/%3E%3Cpath%20d%3D'M59%2050L132%2069L158%20105L186%20158'/%3E%3Cpath%20d%3D'M109%2032L145%2049L176%2088L180%20142'/%3E%3Cpath%20d%3D'M42%2047L116%2062L153%2091L191%20121'/%3E%3C/g%3E%3Cg%20fill%3D'%23ffb020'%20filter%3D'url(%23g)'%3E%3Ccircle%20cx%3D'55'%20cy%3D'48'%20r%3D'2.2'/%3E%3Ccircle%20cx%3D'99'%20cy%3D'59'%20r%3D'2.3'/%3E%3Ccircle%20cx%3D'143'%20cy%3D'81'%20r%3D'3.2'/%3E%3Ccircle%20cx%3D'159'%20cy%3D'108'%20r%3D'3.5'/%3E%3Ccircle%20cx%3D'180'%20cy%3D'140'%20r%3D'3.7'/%3E%3Ccircle%20cx%3D'193'%20cy%3D'157'%20r%3D'3.2'/%3E%3Ccircle%20cx%3D'129'%20cy%3D'69'%20r%3D'2.2'/%3E%3Ccircle%20cx%3D'171'%20cy%3D'124'%20r%3D'2.2'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
-}
-
-/* Perspective floor and right-side market bars continue to the bottom. */
-section[class*="hero"]::after {
-  content: "";
-  position: absolute;
-  z-index: -2;
-  inset: 0;
-  pointer-events: none;
+  min-height: calc(100vh - 72px);
+  padding: 28px 20px 90px !important;
+  background-color: #020d17 !important;
   background-image:
-    url("data:image/svg+xml,%3Csvg%20xmlns%3D'http://www.w3.org/2000/svg'%20viewBox%3D'0%200%20230%20170'%3E%3Cg%20fill%3D'%230b65a0'%20opacity%3D'.36'%3E%3Crect%20x%3D'20'%20y%3D'116'%20width%3D'10'%20height%3D'34'/%3E%3Crect%20x%3D'40'%20y%3D'104'%20width%3D'10'%20height%3D'46'/%3E%3Crect%20x%3D'60'%20y%3D'91'%20width%3D'10'%20height%3D'59'/%3E%3Crect%20x%3D'80'%20y%3D'80'%20width%3D'10'%20height%3D'70'/%3E%3Crect%20x%3D'100'%20y%3D'65'%20width%3D'10'%20height%3D'85'/%3E%3Crect%20x%3D'120'%20y%3D'50'%20width%3D'10'%20height%3D'100'/%3E%3Crect%20x%3D'140'%20y%3D'39'%20width%3D'10'%20height%3D'111'/%3E%3Crect%20x%3D'160'%20y%3D'27'%20width%3D'10'%20height%3D'123'/%3E%3Crect%20x%3D'180'%20y%3D'16'%20width%3D'10'%20height%3D'134'/%3E%3Crect%20x%3D'200'%20y%3D'5'%20width%3D'10'%20height%3D'145'/%3E%3C/g%3E%3Cline%20x1%3D'15'%20y1%3D'151'%20x2%3D'218'%20y2%3D'151'%20stroke%3D'%230877b8'%20stroke-width%3D'1'%20opacity%3D'.5'/%3E%3C/svg%3E"),
-    repeating-linear-gradient(90deg, rgba(0, 165, 247, .18) 0 1px, transparent 1px 34px),
-    repeating-linear-gradient(0deg, rgba(0, 165, 247, .14) 0 1px, transparent 1px 34px),
-    radial-gradient(ellipse at 31% 72%, rgba(0, 181, 255, .32), transparent 37%),
-    radial-gradient(ellipse at 91% 77%, rgba(241, 169, 27, .25), transparent 29%);
-  background-repeat: no-repeat, repeat, repeat, no-repeat, no-repeat;
-  background-position: right 0 top 45px, center bottom, center bottom, center bottom, center bottom;
-  background-size: 15.5vw 12vw, 34px 34px, 34px 34px, 100% 43%, 100% 43%;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  mask-image: linear-gradient(to bottom, transparent 0 45%, #000 67% 100%);
+    url('/assets/fllm-seller-tech-bg.webp'),
+    linear-gradient(rgba(31, 133, 199, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 133, 199, .055) 1px, transparent 1px),
+    radial-gradient(ellipse at 32% 22%, rgba(0, 151, 232, .13), transparent 33%),
+    radial-gradient(ellipse at 90% 74%, rgba(241, 169, 27, .12), transparent 27%),
+    linear-gradient(180deg, #02101c, #020d17) !important;
+  background-repeat: no-repeat, repeat, repeat, no-repeat, no-repeat, no-repeat !important;
+  background-position: center top, center top, center top, center top, center top, center top !important;
+  background-size: 100% auto, 34px 34px, 34px 34px, auto, auto, auto !important;
+}
+
+section[class*="hero"]::before,
+section[class*="hero"]::after {
+  content: none !important;
+  display: none !important;
 }
 
 section[class*="hero"] > div[class*="layout"] {
-  position: relative !important;
-  width: 100% !important;
-  min-height: 1750px;
-  margin: 0 !important;
-  display: block !important;
+  width: min(1440px, 100%) !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  grid-template-columns: 220px minmax(330px, 380px) minmax(620px, 700px) !important;
+  gap: 24px !important;
+  align-items: start !important;
 }
 
-/* Market panels: measured from the approved reference. */
+/* Left market panels */
 .seller-market-rail {
-  position: absolute;
-  z-index: 2;
-  left: 2.46vw;
-  top: 30px;
-  width: 14.78vw;
-  max-width: 277px;
-  min-width: 220px;
   display: grid;
-  gap: .76vw;
+  gap: 11px;
+  padding-top: 16px;
   color: #dcecf7;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, .62);
 }
 
 .seller-market-card {
   position: relative;
   overflow: hidden;
-  padding: clamp(12px, .95vw, 18px) clamp(12px, .88vw, 17px);
-  border: 1px solid rgba(48, 173, 237, .68);
-  border-radius: clamp(8px, .72vw, 13px);
-  background: linear-gradient(150deg, rgba(2, 20, 34, .93), rgba(1, 12, 22, .96));
-  box-shadow: inset 0 0 27px rgba(0, 139, 224, .06), 0 10px 28px rgba(0, 0, 0, .32);
-}
-
-.seller-market-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(rgba(35, 139, 201, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(35, 139, 201, .035) 1px, transparent 1px);
-  background-size: 18px 18px;
+  padding: 14px 13px;
+  border: 1px solid rgba(44, 165, 226, .58);
+  border-radius: 9px;
+  background:
+    linear-gradient(rgba(50, 157, 216, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(50, 157, 216, .025) 1px, transparent 1px),
+    linear-gradient(150deg, rgba(2, 22, 37, .94), rgba(1, 13, 23, .97));
+  background-size: 18px 18px, 18px 18px, auto;
+  box-shadow: inset 0 0 24px rgba(0, 139, 224, .05), 0 10px 26px rgba(0, 0, 0, .28);
 }
 
 .seller-market-card h3 {
-  position: relative;
-  z-index: 1;
-  margin: 0 0 clamp(9px, .7vw, 13px);
+  margin: 0 0 10px;
   color: #e9f3f9;
-  font-size: clamp(12px, 1.05vw, 18px);
+  font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
 }
 
-.seller-market-activity { height: 9.95vw; max-height: 187px; min-height: 149px; }
-.seller-market-activity svg { position: relative; z-index: 1; width: 100%; height: 5.1vw; max-height: 96px; min-height: 70px; overflow: visible; }
+.seller-market-activity { height: 146px; }
+.seller-market-activity svg { width: 100%; height: 72px; overflow: visible; }
 .seller-market-activity svg line { stroke: rgba(65, 119, 154, .42); stroke-width: 1; }
 .seller-market-activity svg polyline { fill: none; stroke: #f2a21a; stroke-width: 1.5; }
 .seller-market-activity svg .buyer-line { stroke: #1fa4e8; }
-.seller-market-legend { position: relative; z-index: 1; display: flex; justify-content: center; gap: 2vw; font-size: clamp(9px, .68vw, 12px); }
+.seller-market-legend { display: flex; justify-content: center; gap: 28px; font-size: 10px; }
 .seller-market-legend span::before { content: ""; display: inline-block; width: 7px; height: 5px; margin-right: 6px; background: #f2a21a; }
 .seller-market-legend span + span::before { background: #1fa4e8; }
 
-.seller-heat-card { height: 16.45vw; max-height: 309px; min-height: 247px; }
-.seller-florida-mini { position: relative; z-index: 1; display: block; width: 100%; height: 11.8vw; max-height: 220px; min-height: 170px; filter: drop-shadow(0 0 9px rgba(241, 169, 27, .25)); }
-.seller-florida-mini path { fill: rgba(2, 24, 39, .72); stroke: #e39a17; stroke-width: 1.25; }
+.seller-heat-card { height: 238px; }
+.seller-florida-mini { display: block; width: 100%; height: 158px; filter: drop-shadow(0 0 8px rgba(241, 169, 27, .22)); }
+.seller-florida-mini path { fill: rgba(2, 24, 39, .70); stroke: #d89519; stroke-width: 1.3; }
 .seller-florida-mini circle { fill: #ffaf22; filter: drop-shadow(0 0 4px #ffad1a); }
-.seller-heat-scale { position: relative; z-index: 1; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; margin-top: -10px; font-size: clamp(9px, .62vw, 11px); }
+.seller-heat-scale { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; margin-top: -7px; font-size: 9px; }
 .seller-heat-scale i { height: 7px; background: linear-gradient(90deg, #007fc2, #17a9ed, #ffae1a, #ffd95a); }
 
-.seller-insight-card { height: 14vw; max-height: 263px; min-height: 210px; }
-.seller-demand-ring { position: relative; z-index: 1; width: clamp(88px, 6.9vw, 130px); height: clamp(88px, 6.9vw, 130px); margin: 8px auto 7px; display: grid; place-items: center; border-radius: 50%; background: conic-gradient(#168bd1 0 72%, rgba(9, 51, 79, .92) 72% 100%); }
-.seller-demand-ring::after { content: ""; position: absolute; inset: 19%; border-radius: 50%; background: #031421; }
-.seller-demand-ring strong { position: relative; z-index: 1; color: #f3f7fa; font-size: clamp(18px, 1.55vw, 28px); }
-.seller-insight-card p, .seller-insight-card b { position: relative; z-index: 1; display: block; margin: 0; font-size: clamp(11px, .78vw, 14px); }
+.seller-insight-card { height: 200px; }
+.seller-demand-ring { position: relative; width: 88px; height: 88px; margin: 8px auto 5px; display: grid; place-items: center; border-radius: 50%; background: conic-gradient(#168bd1 0 72%, rgba(9, 51, 79, .92) 72% 100%); }
+.seller-demand-ring::after { content: ""; position: absolute; inset: 17px; border-radius: 50%; background: #031421; }
+.seller-demand-ring strong { position: relative; z-index: 1; color: #f3f7fa; font-size: 18px; }
+.seller-insight-card p,
+.seller-insight-card b { display: block; margin: 0; font-size: 11px; }
 .seller-insight-card b { margin-top: 3px; color: #00aef3; font-weight: 500; }
 
+/* Seller copy */
 aside[class*="intro"] {
-  position: absolute !important;
-  z-index: 3;
-  left: 19.95vw;
-  top: 96px;
-  width: 24.25vw;
-  max-width: 455px;
-  min-width: 350px;
-  padding: 0 !important;
-  text-shadow: 0 3px 20px rgba(0, 0, 0, .78);
+  padding: 74px 0 30px !important;
+  color: #fff !important;
+  text-shadow: 0 3px 20px rgba(0, 0, 0, .72);
 }
 
-aside[class*="intro"] [class*="kicker"] { font-size: clamp(11px, .86vw, 15px) !important; letter-spacing: .09em !important; }
+aside[class*="intro"] [class*="kicker"] {
+  color: #f6a700 !important;
+  font-size: 11px !important;
+  letter-spacing: .09em !important;
+}
+
 aside[class*="intro"] h1 {
-  max-width: 100%;
-  margin: 13px 0 17px !important;
-  font-size: clamp(51px, 3.55vw, 67px) !important;
+  max-width: 360px;
+  margin: 13px 0 18px !important;
+  font-size: clamp(50px, 3.65vw, 61px) !important;
   line-height: .99 !important;
 }
-aside[class*="intro"] > p { max-width: 95%; font-size: clamp(13px, .94vw, 17px) !important; line-height: 1.55 !important; }
-aside[class*="intro"] ul { margin: 20px 0 22px !important; }
-aside[class*="intro"] li { margin: 11px 0 !important; font-size: clamp(12px, .83vw, 15px) !important; }
-aside[class*="intro"] [class*="trust"] { margin-top: 20px !important; padding-top: 17px !important; }
-aside[class*="intro"] [class*="trust"] img { width: clamp(37px, 2.65vw, 50px) !important; height: clamp(37px, 2.65vw, 50px) !important; }
-aside[class*="intro"] [class*="trust"] strong { font-size: clamp(13px, .9vw, 16px) !important; }
-aside[class*="intro"] [class*="trust"] small { font-size: clamp(10px, .72vw, 13px) !important; }
 
-/* The real form overlays a fixed-height glass panel matching the mockup. */
+aside[class*="intro"] > p {
+  max-width: 350px;
+  font-size: 13px !important;
+  line-height: 1.58 !important;
+}
+
+aside[class*="intro"] ul { margin: 21px 0 23px !important; }
+aside[class*="intro"] li { margin: 11px 0 !important; font-size: 12px !important; }
+aside[class*="intro"] [class*="trust"] { margin-top: 20px !important; padding-top: 17px !important; }
+aside[class*="intro"] [class*="trust"] img { width: 37px !important; height: 37px !important; }
+aside[class*="intro"] [class*="trust"] strong { font-size: 13px !important; }
+aside[class*="intro"] [class*="trust"] small { font-size: 10px !important; }
+
+/* Keep the anti-spam field permanently invisible. */
+form[class*="form"] [class*="honeypot"],
+form[class*="form"] label[aria-hidden="true"] {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
+/* One continuous, naturally flowing glass form. */
 form[class*="form"] {
   position: relative !important;
-  z-index: 4;
-  top: 19px;
-  margin-left: 46.14vw !important;
-  width: 41.88vw !important;
-  max-width: 786px;
-  min-width: 620px;
-  padding: clamp(20px, 1.85vw, 35px) clamp(19px, 1.7vw, 32px) 30px !important;
-  border: 0 !important;
-  border-radius: 0 !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 22px 22px 30px !important;
+  border: 1px solid rgba(111, 207, 255, .86) !important;
+  border-radius: 18px !important;
   color: #eef7ff !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  overflow: visible !important;
+  background:
+    linear-gradient(rgba(80, 183, 239, .033) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(80, 183, 239, .033) 1px, transparent 1px),
+    linear-gradient(155deg, rgba(6, 34, 54, .965), rgba(1, 16, 28, .985)) !important;
+  background-size: 22px 22px, 22px 22px, auto !important;
+  box-shadow:
+    0 0 0 1px rgba(0, 164, 255, .20),
+    0 0 34px rgba(0, 176, 255, .15),
+    0 28px 74px rgba(0, 0, 0, .60),
+    inset 0 1px 0 rgba(255, 255, 255, .10),
+    inset 0 0 42px rgba(0, 131, 207, .06) !important;
+  backdrop-filter: blur(9px) saturate(120%);
 }
 
 form[class*="form"]::before {
   content: "";
   position: absolute;
-  z-index: 0;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: clamp(663px, 44.15vw, 829px);
-  border: 1px solid rgba(116, 211, 255, .90);
-  border-radius: clamp(15px, 1.12vw, 21px);
-  background:
-    linear-gradient(rgba(80, 183, 239, .036) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(80, 183, 239, .036) 1px, transparent 1px),
-    linear-gradient(155deg, rgba(6, 34, 54, .965), rgba(1, 16, 28, .987));
-  background-size: 22px 22px, 22px 22px, auto;
-  box-shadow: 0 0 0 1px rgba(0, 164, 255, .22), 0 0 35px rgba(0, 176, 255, .18), 0 28px 74px rgba(0, 0, 0, .64), inset 0 1px rgba(255,255,255,.10), inset 0 0 46px rgba(0,131,207,.07);
-  backdrop-filter: blur(9px) saturate(122%);
+  top: -1px;
+  left: 12%;
+  width: 40%;
+  height: 3px;
+  z-index: 3;
+  background: linear-gradient(90deg, transparent, #00b9ff 37%, #94f2ff 51%, #00b9ff 64%, transparent);
+  box-shadow: 0 0 12px #00b9ff, 0 0 28px rgba(0, 185, 255, .75);
 }
 
 form[class*="form"]::after {
   content: "";
   position: absolute;
-  z-index: 0;
-  left: 10px;
-  top: 10px;
-  width: calc(100% - 20px);
-  height: calc(clamp(663px, 44.15vw, 829px) - 20px);
+  inset: 9px;
   pointer-events: none;
-  border: 1px solid rgba(90, 186, 242, .25);
-  border-radius: clamp(11px, .9vw, 17px);
-  box-shadow: inset 0 0 28px rgba(0,151,255,.055);
+  border: 1px solid rgba(90, 186, 242, .22);
+  border-radius: 13px;
+  box-shadow: inset 0 0 26px rgba(0, 151, 255, .05);
 }
 
 form[class*="form"] > * { position: relative; z-index: 1; }
-form[class*="form"] > div[class*="formHeading"] { margin: 0 0 clamp(14px, 1.22vw, 23px) !important; padding: 0 0 clamp(17px, 1.35vw, 25px) clamp(52px, 3.5vw, 66px) !important; }
-form[class*="form"] > div[class*="formHeading"]::before { width: clamp(40px, 3.15vw, 59px) !important; height: clamp(40px, 3.15vw, 59px) !important; font-size: clamp(22px, 1.75vw, 33px) !important; }
-form[class*="form"] > div[class*="formHeading"] h2 { font-size: clamp(25px, 1.85vw, 35px) !important; }
-form[class*="form"] > div[class*="formHeading"] p { margin-top: 5px !important; font-size: clamp(12px, .85vw, 16px) !important; }
-form[class*="form"] > div[class*="formHeading"]::after { height: 2px !important; background: linear-gradient(90deg,#087db8 0%,#00c8ff 48%,#7deaff 53%,#087db8 100%) !important; box-shadow: 0 0 14px rgba(0,194,255,.86) !important; }
+
+form[class*="form"] > div[class*="formHeading"] {
+  margin: 0 0 15px !important;
+  padding: 0 0 18px 54px !important;
+}
+
+form[class*="form"] > div[class*="formHeading"]::before {
+  width: 40px !important;
+  height: 40px !important;
+  font-size: 22px !important;
+}
+
+form[class*="form"] > div[class*="formHeading"] h2 { font-size: 27px !important; }
+form[class*="form"] > div[class*="formHeading"] p { margin-top: 5px !important; font-size: 12px !important; }
+form[class*="form"] > div[class*="formHeading"]::after {
+  height: 2px !important;
+  background: linear-gradient(90deg, #087db8 0%, #00c8ff 48%, #7deaff 53%, #087db8 100%) !important;
+  box-shadow: 0 0 14px rgba(0, 194, 255, .84) !important;
+}
 
 fieldset[class*="methodFieldset"] {
-  margin: 0 !important;
-  padding: clamp(17px, 1.38vw, 26px) clamp(15px, 1.28vw, 24px) clamp(14px, 1.15vw, 22px) !important;
-  border: 1px solid rgba(65,170,229,.74) !important;
-  border-radius: clamp(12px, .92vw, 17px) !important;
-  background: linear-gradient(155deg, rgba(2,23,39,.91), rgba(1,15,27,.89)) !important;
-  box-shadow: inset 0 0 32px rgba(0,146,230,.06), 0 0 19px rgba(0,121,194,.06) !important;
+  margin: 0 0 24px !important;
+  padding: 18px 16px 17px !important;
+  border: 1px solid rgba(65, 170, 229, .70) !important;
+  border-radius: 12px !important;
+  background: linear-gradient(155deg, rgba(2, 23, 39, .89), rgba(1, 15, 27, .86)) !important;
+  box-shadow: inset 0 0 30px rgba(0, 146, 230, .055), 0 0 18px rgba(0, 121, 194, .055) !important;
 }
-fieldset[class*="methodFieldset"] > legend { font-size: clamp(15px, 1.12vw, 21px) !important; }
-fieldset[class*="methodFieldset"] > p { margin-bottom: clamp(12px, .95vw, 18px) !important; font-size: clamp(11px, .82vw, 15px) !important; }
-div[class*="methodOptions"] { gap: clamp(12px, .92vw, 17px) !important; }
-label[class*="methodOption"], label[class*="methodSelected"] {
-  min-height: clamp(164px, 10.9vw, 205px) !important;
-  padding: clamp(14px, 1.12vw, 21px) !important;
-  border: 1px solid rgba(94,155,190,.84) !important;
-  border-radius: clamp(10px, .75vw, 14px) !important;
-  background: linear-gradient(150deg, rgba(9,37,57,.985), rgba(2,19,33,.995)) !important;
-  box-shadow: inset 0 1px rgba(255,255,255,.045), inset 0 0 20px rgba(0,111,180,.04) !important;
+
+fieldset[class*="methodFieldset"] > legend { font-size: 16px !important; }
+fieldset[class*="methodFieldset"] > p { margin-bottom: 13px !important; font-size: 12px !important; }
+div[class*="methodOptions"] { gap: 12px !important; }
+
+label[class*="methodOption"],
+label[class*="methodSelected"] {
+  min-height: 154px !important;
+  padding: 15px 16px !important;
+  border: 1px solid rgba(94, 155, 190, .82) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(150deg, rgba(9, 37, 57, .98), rgba(2, 19, 33, .99)) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, .045), inset 0 0 20px rgba(0, 111, 180, .04) !important;
 }
-label[class*="methodSelected"] { border-color: #f1a91b !important; box-shadow: 0 0 0 1px rgba(241,169,27,.25), 0 0 27px rgba(241,169,27,.21), inset 0 1px rgba(255,255,255,.05) !important; }
-label[class*="methodOption"] strong, label[class*="methodSelected"] strong { font-size: clamp(14px, 1.02vw, 19px) !important; }
-label[class*="methodOption"] small, label[class*="methodSelected"] small { font-size: clamp(10px, .76vw, 14px) !important; line-height: 1.5 !important; }
-p[class*="disclosure"] { margin-top: clamp(12px, .9vw, 17px) !important; font-size: clamp(10px, .72vw, 13px) !important; }
 
-div[class*="brokerDetails"] { gap: clamp(10px, .82vw, 15px) !important; margin-top: clamp(13px, 1.02vw, 19px) !important; padding-top: clamp(13px, 1vw, 19px) !important; border-top-color: rgba(76,156,207,.42) !important; }
-div[class*="brokerDetails"] > p { font-size: clamp(14px, 1.05vw, 20px) !important; }
-div[class*="brokerDetails"] label > span, div[class*="fields"] label > span { font-size: clamp(10px, .72vw, 13px) !important; }
-div[class*="brokerDetails"] input, div[class*="brokerDetails"] select, div[class*="fields"] input, div[class*="fields"] select, div[class*="fields"] textarea { background: rgba(1,16,28,.97) !important; border-color: rgba(91,155,192,.86) !important; color:#eef7ff !important; box-shadow: inset 0 1px rgba(255,255,255,.04), inset 0 0 18px rgba(0,103,166,.03) !important; }
-div[class*="brokerDetails"] input, div[class*="brokerDetails"] select, div[class*="fields"] input, div[class*="fields"] select { height: clamp(42px, 2.85vw, 54px) !important; font-size: clamp(12px, .82vw, 15px) !important; }
+label[class*="methodSelected"] {
+  border-color: #f1a91b !important;
+  box-shadow: 0 0 0 1px rgba(241, 169, 27, .24), 0 0 25px rgba(241, 169, 27, .20), inset 0 1px rgba(255, 255, 255, .05) !important;
+}
 
-/* The reference does not show this optional checkbox in its first panel. */
-[class*="abtChoice"] { display: none !important; }
+label[class*="methodOption"] strong,
+label[class*="methodSelected"] strong { font-size: 14px !important; }
+label[class*="methodOption"] small,
+label[class*="methodSelected"] small { font-size: 10px !important; line-height: 1.5 !important; }
+p[class*="disclosure"] { margin-top: 12px !important; font-size: 10px !important; }
 
-/* Required listing details continue below the reference panel in their own matching glass card. */
+div[class*="brokerDetails"] {
+  gap: 11px !important;
+  margin-top: 14px !important;
+  padding-top: 14px !important;
+  border-top-color: rgba(76, 156, 207, .40) !important;
+}
+
+div[class*="brokerDetails"] > p { font-size: 14px !important; }
+div[class*="brokerDetails"] label > span,
+div[class*="fields"] label > span { color: #eef6fc !important; font-size: 10px !important; }
+
+div[class*="brokerDetails"] input,
+div[class*="brokerDetails"] select,
+div[class*="fields"] input,
+div[class*="fields"] select,
+div[class*="fields"] textarea {
+  background: rgba(1, 16, 28, .96) !important;
+  border-color: rgba(91, 155, 192, .84) !important;
+  color: #eef7ff !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, .04), inset 0 0 18px rgba(0, 103, 166, .03) !important;
+}
+
+div[class*="brokerDetails"] input,
+div[class*="brokerDetails"] select,
+div[class*="fields"] input,
+div[class*="fields"] select {
+  height: 41px !important;
+  font-size: 12px !important;
+}
+
 div[class*="fields"] {
-  margin-top: clamp(86px, 6.1vw, 115px) !important;
-  padding: clamp(22px, 1.75vw, 33px) !important;
+  margin-top: 0 !important;
   gap: 14px !important;
-  border: 1px solid rgba(103,198,248,.62);
-  border-radius: 16px;
-  background: linear-gradient(rgba(80,183,239,.03) 1px,transparent 1px), linear-gradient(90deg,rgba(80,183,239,.03) 1px,transparent 1px), linear-gradient(155deg,rgba(6,34,54,.95),rgba(1,16,28,.98));
-  background-size: 22px 22px,22px 22px,auto;
-  box-shadow: 0 22px 60px rgba(0,0,0,.52), inset 0 1px rgba(255,255,255,.07);
 }
-[class*="agreements"], [class*="paymentSummary"] { border: 1px solid rgba(70,134,173,.46) !important; background: linear-gradient(145deg,rgba(4,28,45,.90),rgba(2,20,34,.92)) !important; color:#dce9f3 !important; }
-[class*="paymentSummary"] strong { color:#ffb21a !important; }
-button[class*="submit"] { color:#06111b !important; background:linear-gradient(145deg,#ffc443,#ee9500) !important; box-shadow:0 10px 28px rgba(246,167,0,.24),inset 0 1px rgba(255,255,255,.45) !important; }
 
-@media (max-width: 1180px) {
+[class*="abtChoice"],
+[class*="agreements"],
+[class*="paymentSummary"] {
+  border: 1px solid rgba(70, 134, 173, .44) !important;
+  background: linear-gradient(145deg, rgba(4, 28, 45, .88), rgba(2, 20, 34, .90)) !important;
+  color: #dce9f3 !important;
+}
+
+[class*="paymentSummary"] strong { color: #ffb21a !important; }
+button[class*="submit"] {
+  color: #06111b !important;
+  background: linear-gradient(145deg, #ffc443, #ee9500) !important;
+  box-shadow: 0 10px 28px rgba(246, 167, 0, .24), inset 0 1px rgba(255, 255, 255, .45) !important;
+}
+
+@media (max-width: 1300px) {
+  section[class*="hero"] > div[class*="layout"] {
+    grid-template-columns: 190px 330px minmax(560px, 620px) !important;
+    gap: 16px !important;
+  }
+  .seller-market-rail { transform: scale(.93); transform-origin: top left; width: 204px; }
+  aside[class*="intro"] h1 { font-size: 51px !important; }
+}
+
+@media (max-width: 1080px) {
   .seller-market-rail { display: none; }
-  aside[class*="intro"] { left: 6vw; width: 35vw; min-width: 330px; }
-  form[class*="form"] { margin-left: 43vw !important; width: 53vw !important; min-width: 560px; }
+  section[class*="hero"] > div[class*="layout"] {
+    width: min(980px, 100%) !important;
+    grid-template-columns: minmax(300px, .78fr) minmax(560px, 1.35fr) !important;
+    gap: 28px !important;
+  }
+  aside[class*="intro"] { padding-top: 55px !important; }
 }
 
 @media (max-width: 900px) {
-  header[class*="header"] { min-height:84px !important; height:84px !important; padding:6px 14px !important; }
-  section[class*="hero"] { padding:30px 10px 55px !important; }
-  section[class*="hero"]::before { display:none; }
-  section[class*="hero"] > div[class*="layout"] { min-height: 0; }
-  .seller-market-rail { display:none; }
-  aside[class*="intro"] { position:relative !important; left:auto; top:auto; width:auto; min-width:0; padding:18px 8px 0 !important; }
-  form[class*="form"] { top:auto; margin:28px auto 0 !important; width:min(680px,100%) !important; min-width:0; padding:22px 16px !important; }
-  form[class*="form"]::before, form[class*="form"]::after { height:100%; }
-  div[class*="fields"] { margin-top:24px !important; }
-  [class*="abtChoice"] { display:flex !important; }
+  header[class*="header"] { min-height: 84px !important; padding-inline: 14px !important; }
+  section[class*="hero"] { padding: 30px 10px 55px !important; background-size: auto 1000px, 34px 34px, 34px 34px, auto, auto, auto !important; background-position: 28% top, center, center, center, center, center !important; }
+  section[class*="hero"] > div[class*="layout"] { grid-template-columns: 1fr !important; width: min(680px, 100%) !important; }
+  aside[class*="intro"] { padding: 18px 8px 0 !important; }
+  form[class*="form"] { padding: 22px 16px !important; }
 }
