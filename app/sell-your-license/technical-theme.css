@@ -1,0 +1,194 @@
+/* Technical dashboard treatment for the List Your License page. */
+[class*="page"] {
+  background:
+    radial-gradient(circle at 22% 34%, rgba(0, 168, 255, 0.11), transparent 26%),
+    radial-gradient(circle at 82% 74%, rgba(246, 167, 0, 0.09), transparent 24%),
+    #03111d;
+}
+
+[class*="hero"] {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(rgba(31, 133, 199, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 133, 199, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 27% 37%, rgba(0, 174, 255, 0.17), transparent 22%),
+    radial-gradient(circle at 83% 75%, rgba(246, 167, 0, 0.12), transparent 24%),
+    linear-gradient(120deg, #03111d 0%, #061a2b 47%, #061421 100%) !important;
+  background-size: 42px 42px, 42px 42px, auto, auto, auto !important;
+  overflow: hidden;
+}
+
+[class*="hero"]::before,
+[class*="hero"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+[class*="hero"]::before {
+  background:
+    linear-gradient(100deg, transparent 0 34%, rgba(0, 170, 255, 0.12) 34.2%, transparent 34.5%),
+    linear-gradient(78deg, transparent 0 72%, rgba(246, 167, 0, 0.08) 72.2%, transparent 72.5%);
+  opacity: 0.8;
+}
+
+[class*="hero"]::after {
+  background-image:
+    radial-gradient(circle, rgba(0, 179, 255, 0.8) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgba(246, 167, 0, 0.8) 0 1px, transparent 1.8px);
+  background-position: 12% 18%, 84% 72%;
+  background-size: 120px 120px, 160px 160px;
+  opacity: 0.26;
+}
+
+[class*="intro"] {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+
+[class*="form"] {
+  position: relative;
+  border: 1px solid rgba(64, 177, 255, 0.48) !important;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(160deg, rgba(10, 35, 55, 0.98), rgba(3, 20, 33, 0.985)) !important;
+  background-size: 24px 24px, 24px 24px, auto !important;
+  color: #eef7ff !important;
+  box-shadow:
+    0 0 0 1px rgba(0, 151, 255, 0.08),
+    0 22px 60px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+[class*="form"]::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 10%;
+  width: 28%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00a8ff, transparent);
+  box-shadow: 0 0 16px rgba(0, 168, 255, 0.9);
+}
+
+[class*="formHeading"] h2,
+[class*="formHeading"] p,
+[class*="methodFieldset"] legend,
+[class*="methodFieldset"] > p,
+[class*="disclosure"],
+[class*="brokerDetails"] > p,
+[class*="brokerDetails"] label > span,
+[class*="fields"] label > span,
+[class*="agreements"],
+[class*="paymentNote"] {
+  color: #eef7ff !important;
+}
+
+[class*="formHeading"] h2 {
+  font-family: Inter, Arial, sans-serif !important;
+  font-size: 28px !important;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+[class*="formHeading"] p,
+[class*="methodFieldset"] > p,
+[class*="disclosure"],
+[class*="paymentNote"] {
+  color: #b9c8d6 !important;
+}
+
+[class*="methodFieldset"] {
+  border: 1px solid rgba(44, 159, 232, 0.52) !important;
+  background: rgba(3, 22, 36, 0.72) !important;
+  box-shadow: inset 0 0 28px rgba(0, 138, 224, 0.045);
+}
+
+[class*="methodOption"],
+[class*="methodSelected"] {
+  border: 1px solid rgba(89, 137, 167, 0.62) !important;
+  background: linear-gradient(155deg, rgba(12, 37, 56, 0.95), rgba(5, 23, 37, 0.96)) !important;
+  color: #f2f8fd !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+[class*="methodSelected"] {
+  border-color: #e3a223 !important;
+  box-shadow:
+    0 0 0 1px rgba(227, 162, 35, 0.18),
+    0 0 24px rgba(227, 162, 35, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+[class*="methodOption"] strong,
+[class*="methodSelected"] strong,
+[class*="methodOption"] small,
+[class*="methodSelected"] small {
+  color: #eef7ff !important;
+}
+
+[class*="methodOption"] small,
+[class*="methodSelected"] small {
+  color: #b8c7d4 !important;
+}
+
+[class*="brokerDetails"] {
+  border-top-color: rgba(84, 160, 207, 0.32) !important;
+}
+
+[class*="brokerDetails"] input,
+[class*="brokerDetails"] select,
+[class*="fields"] input,
+[class*="fields"] select,
+[class*="fields"] textarea {
+  border: 1px solid rgba(92, 139, 169, 0.68) !important;
+  background: rgba(3, 19, 31, 0.92) !important;
+  color: #eef7ff !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+[class*="brokerDetails"] input::placeholder,
+[class*="fields"] input::placeholder,
+[class*="fields"] textarea::placeholder {
+  color: #7f94a5 !important;
+}
+
+[class*="brokerDetails"] input:focus,
+[class*="brokerDetails"] select:focus,
+[class*="fields"] input:focus,
+[class*="fields"] select:focus,
+[class*="fields"] textarea:focus {
+  border-color: #00a8ff !important;
+  box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.14), 0 0 18px rgba(0, 168, 255, 0.12) !important;
+}
+
+[class*="abtChoice"],
+[class*="agreements"],
+[class*="paymentSummary"] {
+  border: 1px solid rgba(70, 134, 173, 0.38) !important;
+  background: rgba(5, 27, 43, 0.72) !important;
+  color: #dce9f3 !important;
+}
+
+[class*="paymentSummary"] strong {
+  color: #ffb21a !important;
+}
+
+[class*="submit"] {
+  color: #06111b !important;
+  background: linear-gradient(145deg, #ffc443, #ee9500) !important;
+  box-shadow: 0 10px 28px rgba(246, 167, 0, 0.24), inset 0 1px rgba(255, 255, 255, 0.45) !important;
+}
+
+@media (max-width: 900px) {
+  [class*="hero"] {
+    background:
+      linear-gradient(rgba(31, 133, 199, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31, 133, 199, 0.07) 1px, transparent 1px),
+      linear-gradient(180deg, #03111d 0%, #061a2b 35%, #061421 100%) !important;
+    background-size: 36px 36px, 36px 36px, auto !important;
+  }
+}
