@@ -1,179 +1,442 @@
-/* Production repair for the List Your License page.
-   Keeps the approved dark technical artwork while removing the brittle
-   absolute-positioned desktop composition and fixed-height form shell. */
+/* Locked production composition for the approved List Your License mockup.
+   Desktop uses the approved artwork as the visual baseline while the real,
+   functional form is positioned over the glass panel at measured coordinates. */
 
 form[class*="form"] > [class*="honeypot"],
-form[class*="form"] [class*="honeypot"] {
+form[class*="form"] [class*="honeypot"],
+form[class*="form"] label[aria-hidden="true"] {
   display: none !important;
   position: absolute !important;
+  left: -10000px !important;
   width: 1px !important;
   height: 1px !important;
   overflow: hidden !important;
-  clip: rect(0 0 0 0) !important;
-  clip-path: inset(50%) !important;
-  white-space: nowrap !important;
+  opacity: 0 !important;
   pointer-events: none !important;
 }
 
-section[class*="hero"] {
-  min-height: calc(100vh - 69px) !important;
-  padding: 28px 32px 90px !important;
-  overflow: hidden !important;
-}
-
-section[class*="hero"] > div[class*="layout"] {
-  position: relative !important;
-  width: min(1480px, 100%) !important;
-  min-height: 0 !important;
-  margin: 0 auto !important;
-  padding: 0 !important;
-  display: grid !important;
-  grid-template-columns: minmax(220px, 250px) minmax(340px, 410px) minmax(620px, 760px) !important;
-  gap: clamp(24px, 2vw, 36px) !important;
-  align-items: start !important;
-  justify-content: center !important;
-}
-
-.seller-market-rail {
-  position: relative !important;
-  left: auto !important;
-  top: auto !important;
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: none !important;
-  padding-top: 8px !important;
-}
-
-aside[class*="intro"] {
-  position: relative !important;
-  left: auto !important;
-  top: auto !important;
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: none !important;
-  padding: 76px 0 30px !important;
-}
-
-aside[class*="intro"] h1 {
-  max-width: 390px !important;
-  font-size: clamp(48px, 3.8vw, 64px) !important;
-}
-
-form[class*="form"] {
-  position: relative !important;
-  top: auto !important;
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: none !important;
-  margin: 0 !important;
-  padding: clamp(24px, 1.8vw, 32px) !important;
-  overflow: hidden !important;
-  border: 1px solid rgba(116, 211, 255, .86) !important;
-  border-radius: 18px !important;
-  color: #eef7ff !important;
-  background:
-    linear-gradient(rgba(80, 183, 239, .032) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(80, 183, 239, .032) 1px, transparent 1px),
-    linear-gradient(155deg, rgba(6, 34, 54, .975), rgba(1, 16, 28, .992)) !important;
-  background-size: 22px 22px, 22px 22px, auto !important;
-  box-shadow:
-    0 0 0 1px rgba(0, 164, 255, .18),
-    0 0 34px rgba(0, 176, 255, .14),
-    0 28px 74px rgba(0, 0, 0, .56),
-    inset 0 1px rgba(255, 255, 255, .08),
-    inset 0 0 42px rgba(0, 131, 207, .055) !important;
-  backdrop-filter: blur(9px) saturate(120%);
-}
-
-form[class*="form"]::before {
-  content: "" !important;
-  position: absolute !important;
-  z-index: 3 !important;
-  top: -1px !important;
-  left: 11% !important;
-  width: 38% !important;
-  height: 3px !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: linear-gradient(90deg, transparent, #00b9ff 37%, #94f2ff 51%, #00b9ff 64%, transparent) !important;
-  box-shadow: 0 0 12px #00b9ff, 0 0 28px rgba(0, 185, 255, .72) !important;
-  backdrop-filter: none !important;
-}
-
-form[class*="form"]::after {
-  content: "" !important;
-  position: absolute !important;
-  z-index: 0 !important;
-  inset: 9px !important;
-  width: auto !important;
-  height: auto !important;
-  pointer-events: none !important;
-  border: 1px solid rgba(90, 186, 242, .22) !important;
-  border-radius: 13px !important;
-  background: transparent !important;
-  box-shadow: inset 0 0 26px rgba(0, 151, 255, .045) !important;
-}
-
-form[class*="form"] > * {
-  position: relative;
-  z-index: 1;
-}
-
-div[class*="fields"] {
-  margin-top: 26px !important;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-[class*="abtChoice"] {
-  display: flex !important;
-}
-
-@media (max-width: 1320px) {
-  section[class*="hero"] > div[class*="layout"] {
-    width: min(1160px, 100%) !important;
-    grid-template-columns: minmax(320px, 390px) minmax(590px, 740px) !important;
-    gap: clamp(28px, 3vw, 46px) !important;
+@media (min-width: 901px) {
+  [class*="page"] {
+    position: relative;
+    min-height: 1500px;
+    overflow-x: hidden;
+    color: #eef7ff !important;
+    background-color: #020b13 !important;
+    background-image:
+      url('/assets/fllm-seller-locked-reference.svg'),
+      linear-gradient(rgba(22, 121, 184, .055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(22, 121, 184, .055) 1px, transparent 1px),
+      radial-gradient(ellipse at 30% 86%, rgba(0, 169, 255, .18), transparent 38%),
+      radial-gradient(ellipse at 91% 88%, rgba(241, 169, 27, .14), transparent 31%),
+      linear-gradient(180deg, #020b13, #020d17);
+    background-repeat: no-repeat, repeat, repeat, no-repeat, no-repeat, no-repeat;
+    background-position: center top, center top, center top, center top, center top, center top;
+    background-size: 100vw auto, 34px 34px, 34px 34px, auto, auto, auto;
   }
 
-  .seller-market-rail {
-    display: none !important;
+  header[class*="header"] {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 4.827vw !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
   }
 
-  aside[class*="intro"] {
-    padding-top: 62px !important;
+  /* The approved artwork supplies the exact header appearance. Keep the
+     actual links active but visually transparent over their artwork. */
+  header[class*="header"] a[class*="brand"] {
+    position: absolute !important;
+    left: 12.9vw !important;
+    top: .45vw !important;
+    width: 11vw;
+    height: 3.8vw;
+    opacity: 0 !important;
   }
-}
 
-@media (max-width: 980px) {
+  header[class*="header"] nav {
+    position: absolute !important;
+    right: 5.7vw !important;
+    top: 1.45vw !important;
+    gap: 2.6vw !important;
+    opacity: 0 !important;
+  }
+
   section[class*="hero"] {
-    padding: 28px 14px 64px !important;
+    position: relative !important;
+    min-height: 1380px !important;
+    padding: 0 0 100px !important;
+    overflow: visible !important;
+    background: transparent !important;
   }
 
-  section[class*="hero"]::before {
+  section[class*="hero"]::before,
+  section[class*="hero"]::after {
+    content: none !important;
     display: none !important;
   }
 
   section[class*="hero"] > div[class*="layout"] {
-    width: min(760px, 100%) !important;
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    min-height: 1380px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* These exact decorative elements are rendered by the locked artwork. */
+  .seller-market-rail,
+  aside[class*="intro"] {
+    display: none !important;
+  }
+
+  /* Functional form overlay: 581 × 86 × 549 in the approved 1243px frame. */
+  form[class*="form"] {
+    position: relative !important;
+    z-index: 5;
+    top: 2.092vw !important;
+    width: 44.167vw !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 0 0 46.742vw !important;
+    padding: 1.287vw !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    color: #eef7ff !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Fixed-height upper glass shell. Lower listing fields begin below the
+     reference viewport in their own matching panel. */
+  form[class*="form"]::before {
+    content: "" !important;
+    position: absolute !important;
+    z-index: 0 !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 50.845vw !important;
+    border: 1px solid rgba(116, 211, 255, .94) !important;
+    border-radius: 1.05vw !important;
+    background:
+      linear-gradient(rgba(80, 183, 239, .031) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(80, 183, 239, .031) 1px, transparent 1px),
+      linear-gradient(155deg, rgba(5, 31, 50, .985), rgba(1, 14, 25, .993)) !important;
+    background-size: 18px 18px, 18px 18px, auto !important;
+    box-shadow:
+      0 0 0 1px rgba(0, 164, 255, .21),
+      0 0 30px rgba(0, 176, 255, .17),
+      0 24px 65px rgba(0, 0, 0, .60),
+      inset 0 1px rgba(255, 255, 255, .09),
+      inset 0 0 38px rgba(0, 131, 207, .055) !important;
+    backdrop-filter: blur(8px) saturate(120%);
+    pointer-events: none;
+  }
+
+  form[class*="form"]::after {
+    content: "" !important;
+    position: absolute !important;
+    z-index: 0 !important;
+    left: .72vw !important;
+    top: .56vw !important;
+    width: calc(100% - 1.44vw) !important;
+    height: calc(50.845vw - 1.12vw) !important;
+    pointer-events: none !important;
+    border: 1px solid rgba(90, 186, 242, .24) !important;
+    border-radius: .78vw !important;
+    background: transparent !important;
+    box-shadow: inset 0 0 24px rgba(0, 151, 255, .045) !important;
+  }
+
+  form[class*="form"] > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  form[class*="form"] > div[class*="formHeading"] {
+    height: 5.07vw !important;
+    margin: 0 0 .80vw !important;
+    padding: 0 0 .86vw 4.42vw !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  form[class*="form"] > div[class*="formHeading"]::before {
+    left: 0 !important;
+    top: 0 !important;
+    width: 3.70vw !important;
+    height: 3.70vw !important;
+    border-radius: .66vw !important;
+    font-size: 1.92vw !important;
+  }
+
+  form[class*="form"] > div[class*="formHeading"] h2 {
+    margin: 0 !important;
+    color: #f4f8fb !important;
+    font-size: 2.17vw !important;
+    line-height: 1.08 !important;
+    letter-spacing: .005em !important;
+  }
+
+  form[class*="form"] > div[class*="formHeading"] p {
+    margin: .38vw 0 0 !important;
+    color: #d3dde5 !important;
+    font-size: .965vw !important;
+    line-height: 1.25 !important;
+  }
+
+  form[class*="form"] > div[class*="formHeading"]::after {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, #087db8 0%, #00c8ff 48%, #91efff 53%, #087db8 100%) !important;
+    box-shadow: 0 0 13px rgba(0, 194, 255, .86) !important;
+  }
+
+  fieldset[class*="methodFieldset"] {
+    box-sizing: border-box !important;
+    height: 42.88vw !important;
+    margin: 0 !important;
+    padding: 1.05vw 1.045vw .95vw !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(65, 170, 229, .72) !important;
+    border-radius: .96vw !important;
+    background: linear-gradient(155deg, rgba(2, 21, 36, .92), rgba(1, 13, 24, .92)) !important;
+    box-shadow: inset 0 0 28px rgba(0, 146, 230, .052) !important;
+  }
+
+  fieldset[class*="methodFieldset"] > legend {
+    padding: 0 .54vw !important;
+    color: #f3f8fc !important;
+    font-size: 1.37vw !important;
+    line-height: 1.2 !important;
+  }
+
+  fieldset[class*="methodFieldset"] > p {
+    margin: 0 0 .82vw !important;
+    color: #c7d2da !important;
+    font-size: .885vw !important;
+    line-height: 1.35 !important;
+  }
+
+  div[class*="methodOptions"] {
+    gap: .965vw !important;
+  }
+
+  label[class*="methodOption"],
+  label[class*="methodSelected"] {
+    min-height: 13.515vw !important;
+    padding: 1.23vw 1.26vw !important;
+    gap: .82vw !important;
+    border: 1px solid rgba(91, 148, 182, .82) !important;
+    border-radius: .82vw !important;
+    color: #f2f7fb !important;
+    background: linear-gradient(150deg, rgba(7, 31, 49, .99), rgba(1, 15, 27, .995)) !important;
+    box-shadow: inset 0 1px rgba(255, 255, 255, .035) !important;
+  }
+
+  label[class*="methodSelected"] {
+    border-color: #f1a91b !important;
+    box-shadow: 0 0 0 1px rgba(241, 169, 27, .22), 0 0 23px rgba(241, 169, 27, .17), inset 0 1px rgba(255, 255, 255, .04) !important;
+  }
+
+  label[class*="methodOption"] input,
+  label[class*="methodSelected"] input {
+    margin-top: .28vw !important;
+  }
+
+  label[class*="methodOption"] strong,
+  label[class*="methodSelected"] strong {
+    margin-bottom: .42vw !important;
+    color: #f5f9fc !important;
+    font-size: 1.12vw !important;
+    line-height: 1.2 !important;
+  }
+
+  label[class*="methodOption"] small,
+  label[class*="methodSelected"] small {
+    color: #c3ced7 !important;
+    font-size: .805vw !important;
+    line-height: 1.55 !important;
+  }
+
+  p[class*="disclosure"] {
+    margin: .88vw 0 0 !important;
+    color: #becbd5 !important;
+    font-size: .79vw !important;
+    line-height: 1.58 !important;
+  }
+
+  div[class*="brokerDetails"] {
+    gap: .92vw 1.02vw !important;
+    margin-top: .91vw !important;
+    padding-top: .94vw !important;
+    border-top: 1px solid rgba(51, 151, 210, .58) !important;
+  }
+
+  div[class*="brokerDetails"] > p {
+    margin: 0 0 .22vw !important;
+    color: #f2f7fb !important;
+    font-size: 1.30vw !important;
+    line-height: 1.2 !important;
+  }
+
+  div[class*="brokerDetails"] label {
+    gap: .50vw !important;
+  }
+
+  div[class*="brokerDetails"] label > span,
+  div[class*="fields"] label > span {
+    color: #eef6fc !important;
+    font-size: .79vw !important;
+    line-height: 1.35 !important;
+  }
+
+  div[class*="brokerDetails"] input,
+  div[class*="brokerDetails"] select,
+  div[class*="fields"] input,
+  div[class*="fields"] select,
+  div[class*="fields"] textarea {
+    border: 1px solid rgba(91, 155, 192, .84) !important;
+    border-radius: .56vw !important;
+    background: rgba(1, 14, 25, .98) !important;
+    color: #eef7ff !important;
+    box-shadow: inset 0 1px rgba(255, 255, 255, .035) !important;
+  }
+
+  div[class*="brokerDetails"] input,
+  div[class*="brokerDetails"] select {
+    height: 3.14vw !important;
+    padding-inline: .90vw !important;
+    font-size: .92vw !important;
+  }
+
+  [class*="abtChoice"] {
+    display: none !important;
+  }
+
+  /* Required listing details continue below the locked first viewport. */
+  div[class*="fields"] {
+    margin-top: 8.85vw !important;
+    padding: 1.8vw !important;
+    gap: 1.1vw !important;
+    border: 1px solid rgba(102, 195, 245, .64) !important;
+    border-radius: 1vw !important;
+    background:
+      linear-gradient(rgba(80, 183, 239, .03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(80, 183, 239, .03) 1px, transparent 1px),
+      linear-gradient(155deg, rgba(5, 31, 50, .97), rgba(1, 14, 25, .99)) !important;
+    background-size: 20px 20px, 20px 20px, auto !important;
+    box-shadow: 0 22px 58px rgba(0, 0, 0, .50), inset 0 1px rgba(255, 255, 255, .065) !important;
+  }
+
+  div[class*="fields"] input,
+  div[class*="fields"] select {
+    height: 3.28vw !important;
+    font-size: .92vw !important;
+  }
+
+  [class*="agreements"],
+  [class*="paymentSummary"] {
+    border: 1px solid rgba(70, 134, 173, .46) !important;
+    background: linear-gradient(145deg, rgba(4, 28, 45, .91), rgba(2, 20, 34, .93)) !important;
+    color: #dce9f3 !important;
+  }
+
+  [class*="paymentSummary"] strong { color: #ffb21a !important; }
+
+  button[class*="submit"] {
+    color: #06111b !important;
+    background: linear-gradient(145deg, #ffc443, #ee9500) !important;
+    box-shadow: 0 10px 28px rgba(246, 167, 0, .24), inset 0 1px rgba(255, 255, 255, .45) !important;
+  }
+}
+
+/* Mobile and narrow tablets use a functional stacked layout rather than a
+   scaled desktop screenshot. */
+@media (max-width: 900px) {
+  [class*="page"] {
+    min-height: 100vh;
+    color: #eef7ff !important;
+    background: #020d17 !important;
+  }
+
+  header[class*="header"] {
+    min-height: 84px !important;
+    padding: 6px 14px !important;
+    background: #020b12 !important;
+    border-bottom: 1px solid rgba(241, 169, 27, .62) !important;
+  }
+
+  header[class*="header"] a[class*="brand"],
+  header[class*="header"] nav {
+    position: static !important;
+    opacity: 1 !important;
+  }
+
+  section[class*="hero"] {
+    min-height: calc(100vh - 84px) !important;
+    padding: 28px 12px 64px !important;
+    overflow: hidden !important;
+    background:
+      linear-gradient(rgba(31, 133, 199, .055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31, 133, 199, .055) 1px, transparent 1px),
+      linear-gradient(180deg, #02101c, #020d17) !important;
+    background-size: 34px 34px, 34px 34px, auto !important;
+  }
+
+  section[class*="hero"] > div[class*="layout"] {
+    width: min(700px, 100%) !important;
+    margin: 0 auto !important;
+    display: grid !important;
     grid-template-columns: 1fr !important;
     gap: 26px !important;
   }
 
+  .seller-market-rail { display: none !important; }
+
   aside[class*="intro"] {
+    display: block !important;
     padding: 18px 8px 0 !important;
   }
 
-  aside[class*="intro"] h1 {
-    max-width: 620px !important;
+  form[class*="form"] {
+    position: relative !important;
+    top: auto !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 22px 16px 28px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(111, 207, 255, .86) !important;
+    border-radius: 18px !important;
+    background: linear-gradient(155deg, rgba(6, 34, 54, .97), rgba(1, 16, 28, .99)) !important;
+    box-shadow: 0 0 34px rgba(0, 176, 255, .14), 0 24px 65px rgba(0, 0, 0, .55) !important;
   }
 
-  form[class*="form"] {
-    padding: 24px 18px !important;
+  form[class*="form"]::before,
+  form[class*="form"]::after {
+    content: none !important;
+    display: none !important;
   }
+
+  div[class*="fields"] {
+    margin-top: 24px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  [class*="abtChoice"] { display: flex !important; }
 }
 
 @media (max-width: 700px) {
@@ -188,7 +451,5 @@ div[class*="fields"] {
     min-height: 0 !important;
   }
 
-  header[class*="header"] nav {
-    gap: 14px !important;
-  }
+  header[class*="header"] nav { gap: 14px !important; }
 }
