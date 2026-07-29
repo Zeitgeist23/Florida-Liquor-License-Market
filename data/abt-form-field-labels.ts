@@ -6,6 +6,23 @@ function normalizeLabel(label: string) {
     .trim();
 }
 
+function removeTrailingPdfSequenceNumber(label: string) {
+  return label.replace(/\s+\d+\s*$/, "").trim();
+}
+
+const ABT_6002_LABELS: Record<string, string> = {
+  "state fl": "State",
+  "mailing address street or po box": "Mailing Address (Street or P.O. Box)",
+  "city 2": "Mailing Address City",
+  "state 2": "Mailing Address State",
+  "zip code 2": "Mailing Address ZIP Code",
+  "email address optional 2": "Contact Email Address (Optional)",
+  "mailing address street or po box 2": "Contact Mailing Address (Street or P.O. Box)",
+  "city 3": "Contact Mailing Address City",
+  "state 3": "Contact Mailing Address State",
+  "zip code 3": "Contact Mailing Address ZIP Code",
+};
+
 const ABT_6022_LABELS: Record<string, string> = {
   "full name of debtor": "Primary Debtor Full Name",
   "mailing address": "Primary Debtor Mailing Address",
@@ -36,12 +53,20 @@ const ABT_6022_LABELS: Record<string, string> = {
 };
 
 const LABELS_BY_FORM: Record<string, Record<string, string>> = {
+  "abt-6002": ABT_6002_LABELS,
   "abt-6022": ABT_6022_LABELS,
 };
 
 export function getFriendlyAbtFieldLabel(formId: string, label: string) {
   const formLabels = LABELS_BY_FORM[formId];
-  if (!formLabels) return label;
+  const mappedLabel = formLabels?.[normalizeLabel(label)];
 
-  return formLabels[normalizeLabel(label)] || label;
+  if (mappedLabel) return mappedLabel;
+
+  // The official ABT-6002 PDF uses trailing numbers only as internal field
+  // identifiers. They are kept in the hidden PDF field names, but should not
+  // appear in the customer-facing guided form.
+  if (formId === "abt-6002") return removeTrailingPdfSequenceNumber(label);
+
+  return label;
 }
