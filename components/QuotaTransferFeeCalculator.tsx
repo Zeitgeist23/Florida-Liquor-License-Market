@@ -140,6 +140,14 @@ export default function QuotaTransferFeeCalculator() {
 
         <div className="transfer-table-wrap">
           <table className="transfer-sales-table">
+            <colgroup>
+              <col className="transfer-month-column" />
+              <col className="transfer-sales-column" />
+              <col className="transfer-month-column" />
+              <col className="transfer-sales-column" />
+              <col className="transfer-month-column" />
+              <col className="transfer-sales-column" />
+            </colgroup>
             <thead>
               <tr>
                 {years.map((year, index) => (
