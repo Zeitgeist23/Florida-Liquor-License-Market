@@ -46,6 +46,7 @@
   width: 5.95%;
   height: 80.15%;
   background-position: left top;
+  background-size: 21vw auto;
   -webkit-mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, .15) 18%, rgba(0, 0, 0, .6) 32%, #000 41%, #000);
   mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, .15) 18%, rgba(0, 0, 0, .6) 32%, #000 41%, #000);
 }
