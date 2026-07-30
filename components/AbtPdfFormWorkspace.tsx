@@ -32,6 +32,17 @@ type FormFieldDefinition = {
 
 type DraftValues = Record<string, string | boolean>;
 
+type InitialsConsent = {
+  initials: string;
+  acceptedAt: string;
+  disclosureVersion: 1;
+};
+
+type PendingInitialsAction = "viewer" | "field" | null;
+
+const INITIALS_CONSENT_KEY = "fllm-abt-electronic-initials-consent-v1";
+const INITIALS_FORM_IDS = new Set(["abt-6001", "abt-6002", "abt-6027"]);
+
 type PdfStringLike = {
   decodeText?: () => string;
 };
@@ -135,6 +146,33 @@ function isLicenseSeriesField(label: string) {
 
 function isTypeClassField(label: string) {
   return normalizedLabel(label) === "type class requested";
+}
+
+function isApplicantInitialsField(field: FormFieldDefinition) {
+  const value = normalizedLabel(`${field.name} ${field.label}`);
+  return value.includes("applicant initials") || value.includes("applicants initials");
+}
+
+function normalizeInitials(value: string) {
+  return value.replace(/[^a-z.-]/gi, "").toUpperCase().slice(0, 10);
+}
+
+function readInitialsConsent(): InitialsConsent | null {
+  try {
+    const stored = window.sessionStorage.getItem(INITIALS_CONSENT_KEY);
+    if (!stored) return null;
+    const parsed = JSON.parse(stored) as Partial<InitialsConsent>;
+    const initials = typeof parsed.initials === "string" ? normalizeInitials(parsed.initials) : "";
+    if (!initials || !/[A-Z]/.test(initials) || parsed.disclosureVersion !== 1) return null;
+    return {
+      initials,
+      acceptedAt: typeof parsed.acceptedAt === "string" ? parsed.acceptedAt : "",
+      disclosureVersion: 1,
+    };
+  } catch {
+    window.sessionStorage.removeItem(INITIALS_CONSENT_KEY);
+    return null;
+  }
 }
 
 function inputType(field: FormFieldDefinition) {
@@ -251,6 +289,7 @@ function licenseSeriesGroups() {
 export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition }) {
   const officialPdfPath = `/api/abt-forms/${form.id}/pdf`;
   const draftKey = `fllm-abt-form-draft:${form.id}`;
+  const requiresInitialsConsent = INITIALS_FORM_IDS.has(form.id);
   const templateBytes = useRef<Uint8Array | null>(null);
   const [mode, setMode] = useState<"guided" | "viewer">("guided");
   const [loading, setLoading] = useState(true);
@@ -262,6 +301,11 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
   const [rememberDraft, setRememberDraft] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [previewUrl, setPreviewUrl] = useState("");
+  const [initialsConsent, setInitialsConsent] = useState<InitialsConsent | null>(null);
+  const [initialsModalOpen, setInitialsModalOpen] = useState(false);
+  const [initialsDraft, setInitialsDraft] = useState("");
+  const [initialsAgreement, setInitialsAgreement] = useState(false);
+  const [pendingInitialsAction, setPendingInitialsAction] = useState<PendingInitialsAction>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -293,6 +337,14 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
           }
         }
 
+        if (requiresInitialsConsent) {
+          const storedConsent = readInitialsConsent();
+          setInitialsConsent(storedConsent);
+          extracted.definitions.filter(isApplicantInitialsField).forEach((field) => {
+            nextValues[field.name] = storedConsent?.initials || "";
+          });
+        }
+
         setStep(0);
         setFields(extracted.definitions);
         setSkippedFieldCount(extracted.skippedFieldCount);
@@ -309,7 +361,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     return () => {
       cancelled = true;
     };
-  }, [draftKey, form.id, officialPdfPath]);
+  }, [draftKey, form.id, officialPdfPath, requiresInitialsConsent]);
 
   useEffect(() => {
     if (!rememberDraft || fields.length === 0) return;
@@ -338,6 +390,56 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
 
   function updateValue(name: string, value: string | boolean) {
     setValues((current) => ({ ...current, [name]: value }));
+  }
+
+  function applyInitialsToFields(initials: string) {
+    setValues((current) => {
+      const next = { ...current };
+      fields.filter(isApplicantInitialsField).forEach((field) => {
+        next[field.name] = initials;
+      });
+      return next;
+    });
+  }
+
+  function openInitialsDisclosure(action: PendingInitialsAction) {
+    setPendingInitialsAction(action);
+    setInitialsDraft(initialsConsent?.initials || "");
+    setInitialsAgreement(false);
+    setInitialsModalOpen(true);
+  }
+
+  function requestViewer() {
+    if (requiresInitialsConsent && !initialsConsent) {
+      openInitialsDisclosure("viewer");
+      return;
+    }
+    setMode("viewer");
+  }
+
+  function closeInitialsDisclosure() {
+    setInitialsModalOpen(false);
+    setPendingInitialsAction(null);
+    setInitialsAgreement(false);
+  }
+
+  function acceptInitialsDisclosure() {
+    const initials = normalizeInitials(initialsDraft);
+    if (!initials || !/[A-Z]/.test(initials) || !initialsAgreement) return;
+
+    const consent: InitialsConsent = {
+      initials,
+      acceptedAt: new Date().toISOString(),
+      disclosureVersion: 1,
+    };
+    window.sessionStorage.setItem(INITIALS_CONSENT_KEY, JSON.stringify(consent));
+    setInitialsConsent(consent);
+    applyInitialsToFields(initials);
+    setInitialsModalOpen(false);
+    setInitialsAgreement(false);
+
+    if (pendingInitialsAction === "viewer") setMode("viewer");
+    setPendingInitialsAction(null);
   }
 
   function updateLicenseSeries(name: string, key: string) {
@@ -449,14 +551,20 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
         <button
           type="button"
           className={mode === "viewer" ? "is-active" : ""}
-          onClick={() => setMode("viewer")}
+          onClick={requestViewer}
         >
           Official PDF Viewer
         </button>
       </div>
 
       <div className="abt-privacy-note">
-        <strong>Private by design.</strong> Information entered in the guided form stays in this browser and is used locally to create the completed PDF. FLLM does not receive or store your answers.
+        <span><strong>Private by design.</strong> Information entered in the guided form stays in this browser and is used locally to create the completed PDF. FLLM does not receive or store your answers.</span>
+        {requiresInitialsConsent && initialsConsent && (
+          <span className="abt-initials-status">
+            Electronic initials: <strong>{initialsConsent.initials}</strong>
+            <button type="button" onClick={() => openInitialsDisclosure("field")}>Change initials</button>
+          </span>
+        )}
       </div>
 
       {error && <div className="abt-form-error" role="alert">{error}</div>}
@@ -469,7 +577,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
             <div className="abt-no-fields">
               <h2>This official PDF does not expose clearly labeled fillable fields to the guided tool.</h2>
               <p>Use the Official PDF Viewer tab to complete available PDF fields and print or download the form without leaving FLLM.</p>
-              <button className="btn btn-gold" type="button" onClick={() => setMode("viewer")}>Open Official PDF Viewer</button>
+              <button className="btn btn-gold" type="button" onClick={requestViewer}>Open Official PDF Viewer</button>
             </div>
           ) : (
             <>
@@ -534,7 +642,19 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
                           <input
                             type={inputType(field)}
                             value={typeof values[field.name] === "string" ? values[field.name] as string : ""}
-                            onChange={(event) => updateValue(field.name, event.target.value)}
+                            onFocus={() => {
+                              if (isApplicantInitialsField(field) && !initialsConsent) {
+                                openInitialsDisclosure("field");
+                              }
+                            }}
+                            onChange={(event) => {
+                              if (isApplicantInitialsField(field) && !initialsConsent) return;
+                              updateValue(field.name, isApplicantInitialsField(field)
+                                ? normalizeInitials(event.target.value)
+                                : event.target.value);
+                            }}
+                            readOnly={isApplicantInitialsField(field) && !initialsConsent}
+                            maxLength={isApplicantInitialsField(field) ? 10 : undefined}
                             autoComplete="off"
                           />
                         ) : (
@@ -605,6 +725,72 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
           </div>
           <iframe src={`${previewUrl}#toolbar=1`} title={`Completed ${form.formNumber} preview`} />
           <p>Before filing, review every page, add all required signatures and notarizations, and attach any fees or supporting documents required by DBPR/ABT.</p>
+        </div>
+      )}
+
+      {initialsModalOpen && (
+        <div className="abt-initials-modal-backdrop" onMouseDown={closeInitialsDisclosure}>
+          <section
+            className="abt-initials-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="abt-initials-modal-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <span className="abt-initials-kicker">Electronic initials disclosure</span>
+            <h2 id="abt-initials-modal-title">Consent to use electronic initials</h2>
+            <p>
+              Before entering initials on this form, confirm that you are adopting them as your own electronic initials.
+            </p>
+            <ul>
+              <li>I am the applicant or an authorized signer and will not initial for another person.</li>
+              <li>I adopt the initials shown below as my electronic initials and intend them to have the same force and effect as handwritten initials to the extent permitted by applicable law.</li>
+              <li>I consent to complete this portion of the form electronically.</li>
+              <li>I can review, save, and print the completed PDF before filing.</li>
+              <li>I understand that signatures, notarizations, supporting documents, and DBPR/ABT filing requirements remain separate, and DBPR/ABT determines whether a submission is accepted.</li>
+            </ul>
+
+            <label className="abt-initials-entry">
+              <span>Your initials</span>
+              <input
+                type="text"
+                value={initialsDraft}
+                onChange={(event) => setInitialsDraft(normalizeInitials(event.target.value))}
+                placeholder="Example: JW or J.W."
+                maxLength={10}
+                autoFocus
+                autoComplete="off"
+              />
+            </label>
+
+            <label className="abt-initials-agreement">
+              <input
+                type="checkbox"
+                checked={initialsAgreement}
+                onChange={(event) => setInitialsAgreement(event.target.checked)}
+              />
+              <span>I have read and agree to the electronic-initials disclosure.</span>
+            </label>
+
+            <p className="abt-initials-legal-note">
+              Florida law generally recognizes electronic signatures, but specific filing requirements may still apply. Review{" "}
+              <a href="https://leg.state.fl.us/statutes/index.cfm/statutes/index.cfm?App_mode=Display_Statute&URL=0600-0699%2F0668%2FSections%2F0668.004.html" target="_blank" rel="noreferrer">Florida Statute 668.004</a>
+              {" "}and{" "}
+              <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0600-0699%2F0668%2FSections%2F0668.50.html" target="_blank" rel="noreferrer">Florida Statute 668.50</a>.
+            </p>
+
+            <div className="abt-initials-modal-actions">
+              <button className="btn btn-outline" type="button" onClick={closeInitialsDisclosure}>Cancel</button>
+              <button
+                className="btn btn-gold"
+                type="button"
+                onClick={acceptInitialsDisclosure}
+                disabled={!initialsAgreement || !/[A-Z]/.test(normalizeInitials(initialsDraft))}
+              >
+                I agree and use these initials
+              </button>
+            </div>
+          </section>
         </div>
       )}
     </section>
