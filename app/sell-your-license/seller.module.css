@@ -273,8 +273,8 @@
   left: 47.75%;
   top: 60.15%;
   width: 41.55%;
-  height: 28.25%;
-  background: linear-gradient(180deg, rgba(1, 12, 21, .99), rgba(2, 16, 27, .99));
+  height: 30.9%;
+  background: linear-gradient(180deg, #010c15, #02101b);
   box-shadow: inset 0 1px rgba(35, 174, 229, .45);
   pointer-events: none;
 }
@@ -318,8 +318,8 @@
 
 .representedField { left: 48.95%; top: 72.21%; width: 18.85%; height: 4.9%; }
 .arrangementField { left: 69.55%; top: 70.58%; width: 19.25%; height: 4.9%; }
-.netField { left: 48.95%; top: 82.17%; width: 18.85%; height: 5.05%; }
-.contactMethodField { left: 69.55%; top: 82.17%; width: 19.25%; height: 5.05%; }
+.netField { left: 48.95%; top: 79.15%; width: 18.85%; height: 5.05%; }
+.contactMethodField { left: 69.55%; top: 79.15%; width: 19.25%; height: 5.05%; }
 
 .brokerFields input,
 .brokerFields select {
@@ -355,21 +355,21 @@
   position: absolute;
   z-index: 6;
   left: 69.55%;
-  top: 88.25%;
+  top: 85.7%;
   width: 19.25%;
-  height: 3.65%;
+  height: 3.05%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 clamp(10px, 1vw, 16px);
-  border: 1px solid #ffd05a;
+  border: 1px solid rgba(242, 169, 0, .95);
   border-radius: clamp(4px, .45vw, 7px);
-  color: #07111a;
-  background: linear-gradient(180deg, #ffd15e, #f2a900);
-  box-shadow: 0 0 16px rgba(242, 169, 0, .24), inset 0 1px rgba(255, 255, 255, .42);
-  font-size: clamp(9px, .78vw, 13px);
-  font-weight: 900;
-  letter-spacing: .035em;
+  color: #f5bd37;
+  background: linear-gradient(180deg, rgba(8, 35, 53, .99), rgba(3, 19, 31, .99));
+  box-shadow: 0 0 11px rgba(242, 169, 0, .13), inset 0 1px rgba(255, 255, 255, .08);
+  font-size: clamp(8px, .7vw, 12px);
+  font-weight: 800;
+  letter-spacing: .055em;
   text-transform: uppercase;
   cursor: pointer;
   pointer-events: auto;
@@ -377,8 +377,8 @@
 }
 
 .continueHotspot:hover {
-  filter: brightness(1.08);
-  box-shadow: 0 0 22px rgba(242, 169, 0, .38), inset 0 1px rgba(255, 255, 255, .5);
+  filter: brightness(1.1);
+  box-shadow: 0 0 16px rgba(242, 169, 0, .22), inset 0 1px rgba(255, 255, 255, .12);
 }
 
 .continueHotspot:active {
@@ -705,10 +705,11 @@
     width: 100%;
     height: 51px;
     margin-top: 20px;
-    border: 1px solid #ffc12f;
+    border: 1px solid #f2a900;
     border-radius: 6px;
-    color: #07110e;
-    background: #ffb72b;
+    color: #f5bd37;
+    background: linear-gradient(180deg, #082c43, #041724);
+    box-shadow: 0 0 13px rgba(242, 169, 0, .14);
     font-weight: 900;
     text-transform: uppercase;
   }
