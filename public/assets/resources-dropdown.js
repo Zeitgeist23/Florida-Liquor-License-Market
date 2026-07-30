@@ -8,6 +8,10 @@
 
   const resources = [
     {
+      label: "Florida Liquor License Lookup",
+      href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
+    },
+    {
       label: "Liquor License Attorneys",
       href: "https://www.floridabar.org/public/lrs/",
     },
