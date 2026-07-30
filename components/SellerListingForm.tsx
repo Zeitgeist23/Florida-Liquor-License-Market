@@ -52,14 +52,12 @@ export default function SellerListingForm() {
 
     try {
       const notes = [`Sale method: ${saleMethod}`];
-      if (saleMethod === "Broker-Assisted Listing") {
-        notes.push(
-          `Currently represented by another broker: ${String(data.get("broker_currently_represented") || "Not provided")}`,
-          `Preferred arrangement: ${String(data.get("broker_arrangement") || "No preference / need guidance")}`,
-          `Desired net amount: ${String(data.get("desired_net_amount") || "Not provided")}`,
-          `Preferred contact method: ${String(data.get("broker_contact_method") || "Not provided")}`,
-        );
-      }
+      notes.push(
+        `Currently represented by another broker: ${String(data.get("broker_currently_represented") || "Not provided")}`,
+        `Preferred arrangement: ${String(data.get("broker_arrangement") || "No preference / need guidance")}`,
+        `Desired net amount: ${String(data.get("desired_net_amount") || "Not provided")}`,
+        `Preferred contact method: ${String(data.get("broker_contact_method") || "Not provided")}`,
+      );
       const sellerMessage = String(data.get("message") || "").trim();
       if (sellerMessage) notes.push(`Additional seller details: ${sellerMessage}`);
 
@@ -152,10 +150,7 @@ export default function SellerListingForm() {
                   name="sale_method"
                   value="Self-Directed Listing"
                   checked={!brokerAssisted}
-                  onChange={() => {
-                    setSaleMethod("Self-Directed Listing");
-                    setReviewOpen(true);
-                  }}
+                  onChange={() => setSaleMethod("Self-Directed Listing")}
                 />
                 <span className={styles.choiceMarker} aria-hidden="true" />
                 <span className={styles.mobileChoiceCopy}>
@@ -180,10 +175,10 @@ export default function SellerListingForm() {
               </label>
             </fieldset>
 
-            <div className={`${styles.brokerFields} ${!brokerAssisted ? styles.brokerFieldsHidden : ""}`}>
+            <div className={styles.brokerFields}>
               <label className={styles.representedField}>
                 <span>Are you currently represented by another broker?</span>
-                <select name="broker_currently_represented" required={brokerAssisted} disabled={!brokerAssisted} defaultValue="">
+                <select name="broker_currently_represented" required={brokerAssisted} defaultValue="">
                   <option value="" disabled>Select one</option>
                   <option>No</option>
                   <option>Yes</option>
@@ -193,7 +188,7 @@ export default function SellerListingForm() {
 
               <label className={styles.arrangementField}>
                 <span>Preferred arrangement</span>
-                <select name="broker_arrangement" disabled={!brokerAssisted} defaultValue="No preference / need guidance">
+                <select name="broker_arrangement" defaultValue="No preference / need guidance">
                   <option>No preference / need guidance</option>
                   <option>Non-exclusive arrangement</option>
                   <option>Exclusive arrangement</option>
@@ -202,12 +197,12 @@ export default function SellerListingForm() {
 
               <label className={styles.netField}>
                 <span>Desired net amount</span>
-                <input type="text" inputMode="decimal" name="desired_net_amount" placeholder="$" disabled={!brokerAssisted} />
+                <input type="text" inputMode="decimal" name="desired_net_amount" placeholder="$" />
               </label>
 
               <label className={styles.contactMethodField}>
                 <span>Preferred contact method</span>
-                <select name="broker_contact_method" required={brokerAssisted} disabled={!brokerAssisted} defaultValue="">
+                <select name="broker_contact_method" required={brokerAssisted} defaultValue="">
                   <option value="" disabled>Select one</option>
                   <option>Phone</option>
                   <option>Email</option>
