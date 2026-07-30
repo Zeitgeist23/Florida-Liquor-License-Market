@@ -8,39 +8,14 @@
   <link rel="canonical" href="https://www.floridaliquorlicensemarket.com/sell-your-license" />
   <style>
     html, body { margin: 0; min-height: 100%; background: #010a12; }
-    #approved-artwork { display: none; width: 100%; height: auto; margin: 0; }
-    #loading { min-height: 100vh; display: grid; place-items: center; color: #9fb4c2; font: 16px Arial, sans-serif; }
+    #approved-artwork { display: block; width: 100%; height: auto; margin: 0; }
   </style>
 </head>
 <body>
-  <div id="loading">Loading…</div>
-  <img id="approved-artwork" alt="Florida Liquor License Market List Your License page" />
-  <script>
-    const parts = [
-      "chunk-00.txt", "chunk-01.txt", "chunk-02.txt", "chunk-03.txt",
-      "chunk-04.txt", "chunk-05.txt", "chunk-06-07.txt", "chunk-08-09.txt",
-      "chunk-10-11.txt", "chunk-12-13.txt", "chunk-14-15.txt", "chunk-16-17.txt"
-    ];
-    const directory = "/assets/fllm-list-your-license-approved";
-    Promise.all(parts.map((part) => fetch(`${directory}/${part}`, { cache: "force-cache" }).then((response) => {
-      if (!response.ok) throw new Error(`Missing artwork file: ${part}`);
-      return response.text();
-    })))
-      .then((chunks) => chunks.join("").replace(/\s+/g, ""))
-      .then((encoded) => {
-        if (encoded.length !== 136448) throw new Error("Artwork data is incomplete.");
-        const image = document.getElementById("approved-artwork");
-        image.onload = () => {
-          document.getElementById("loading").remove();
-          image.style.display = "block";
-        };
-        image.src = `data:image/webp;base64,${encoded}`;
-      })
-      .catch((error) => {
-        const loading = document.getElementById("loading");
-        loading.textContent = "Unable to load the approved page image.";
-        console.error(error);
-      });
-  </script>
+  <img
+    id="approved-artwork"
+    src="/api/fllm-list-your-license-image"
+    alt="Florida Liquor License Market List Your License page"
+  />
 </body>
 </html>
