@@ -24,9 +24,17 @@ function formatCurrency(value: string) {
   return `${digits.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 }
 
-function CurrencyInput({ name, onComplete }: { name: string; onComplete?: () => void }) {
-  const [value, setValue] = useState("");
-
+function CurrencyInput({
+  name,
+  value,
+  onChange,
+  onComplete,
+}: {
+  name: string;
+  value: string;
+  onChange: (value: string) => void;
+  onComplete?: () => void;
+}) {
   return (
     <input
       type="text"
@@ -35,7 +43,7 @@ function CurrencyInput({ name, onComplete }: { name: string; onComplete?: () => 
       name={name}
       placeholder="$"
       value={value}
-      onChange={(event) => setValue(formatCurrency(event.target.value))}
+      onChange={(event) => onChange(formatCurrency(event.target.value))}
       onBlur={onComplete}
     />
   );
@@ -47,6 +55,7 @@ export default function SellerListingForm() {
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState("");
   const [isError, setIsError] = useState(false);
+  const [askingPrice, setAskingPrice] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -286,7 +295,12 @@ export default function SellerListingForm() {
 
                   <label className={styles.netField}>
                     <span>Asking price</span>
-                    <CurrencyInput name="self_asking_price" onComplete={advanceIfComplete} />
+                    <CurrencyInput
+                      name="self_asking_price"
+                      value={askingPrice}
+                      onChange={setAskingPrice}
+                      onComplete={advanceIfComplete}
+                    />
                   </label>
 
                   <label className={styles.contactMethodField}>
@@ -320,7 +334,10 @@ export default function SellerListingForm() {
                   <label><span>Phone *</span><input type="tel" autoComplete="tel" required name="phone" /></label>
                   <label><span>County *</span><select name="county" required defaultValue=""><option value="" disabled>Select county</option>{COUNTIES.map((county) => <option key={county}>{county} County</option>)}</select></label>
                   <label><span>License Type *</span><select name="license_type" required defaultValue=""><option value="" disabled>Select license type</option><option>4COP Quota</option><option>3PS Quota / Package Store</option><option>2COP Beer &amp; Wine</option><option>Specialty / Qualified Business License</option><option>Not Sure</option></select></label>
-                  <label><span>Asking Price</span><CurrencyInput name="asking_price" /></label>
+                  <label>
+                    <span>Asking Price</span>
+                    <CurrencyInput name="asking_price" value={askingPrice} onChange={setAskingPrice} />
+                  </label>
                   <label className={styles.notes}><span>Additional Details</span><textarea name="message" rows={3} /></label>
                 </div>
 
