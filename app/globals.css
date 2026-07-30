@@ -39,11 +39,6 @@ a { color: inherit; text-decoration: none; }
 .primary-nav a > span { white-space: nowrap; }
 .nav-chevron { flex: 0 0 auto; width: 9px; height: 7px; object-fit: contain; }
 .primary-nav a:hover { color: var(--gold); }
-.nav-dropdown { position: relative; display: flex; align-items: center; }
-.nav-submenu { min-width: 238px; position: absolute; z-index: 10; top: calc(100% + 16px); right: 0; padding: 8px; border: 1px solid #425364; border-top: 2px solid var(--gold); border-radius: 0 0 6px 6px; background: #06131f; box-shadow: 0 14px 30px rgba(0,0,0,.36); opacity: 0; visibility: hidden; transform: translateY(-5px); transition: opacity .18s, transform .18s, visibility .18s; }
-.nav-dropdown:hover .nav-submenu, .nav-dropdown:focus-within .nav-submenu { opacity: 1; visibility: visible; transform: translateY(0); }
-.nav-submenu a { width: 100%; padding: 11px 12px; border-radius: 4px; color: white; font-size: 10px; line-height: 1.3; }
-.nav-submenu a:hover, .nav-submenu a:focus { color: #07111a; background: var(--gold); outline: none; }
 .header-actions { display: flex; align-items: center; gap: 10px; flex: 0 0 auto; }
 .header-actions .btn { min-height: 36px; height: 36px; padding-inline: 8px; border-radius: 5px; font-size: 9px; font-weight: 700; letter-spacing: 0; white-space: nowrap; flex: 0 0 auto; }
 .header-actions .btn-gold { min-width: 100px; }
@@ -223,10 +218,6 @@ nextjs-portal { display: none !important; }
   .primary-nav { display: none; position: absolute; top: 80px; left: 0; right: 0; flex-direction: column; gap: 0; padding: 10px; border: 1px solid #34495b; background: #06131f; }
   .primary-nav.is-open { display: flex; }
   .primary-nav a { width: 100%; padding: 12px; text-align: center; }
-  .nav-dropdown { width: 100%; flex-direction: column; }
-  .nav-dropdown > a { justify-content: center; }
-  .nav-submenu { width: 100%; min-width: 0; position: static; display: block; padding: 0 10px 8px; border: 0; background: transparent; box-shadow: none; opacity: 1; visibility: visible; transform: none; }
-  .nav-submenu a { justify-content: center; border: 1px solid rgba(246,167,0,.45); color: var(--gold); background: rgba(246,167,0,.06); }
   .hero-content { padding-top: 45px; }
   .hero-photo-left { width: 32.23%; }
   .hero-photo-right { width: 33.6%; }
