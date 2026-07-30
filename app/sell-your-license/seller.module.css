@@ -56,6 +56,8 @@
   width: 44.6%;
   bottom: 0;
   background-position: center top;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 42%, rgba(0, 0, 0, .6) 50%, transparent 62%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 42%, rgba(0, 0, 0, .6) 50%, transparent 62%);
 }
 
 .screenRightMask {
