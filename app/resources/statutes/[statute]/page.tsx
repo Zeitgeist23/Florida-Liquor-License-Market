@@ -13,6 +13,15 @@ type StatuteDefinition = {
 };
 
 const STATUTES: Record<string, StatuteDefinition> = {
+  "561-32": {
+    slug: "561-32",
+    citation: "Florida Statute 561.32",
+    title: "Transfer of licenses; change of officers or directors; transfer of interest",
+    description:
+      "Florida’s alcoholic-beverage license transfer statute, including the quota-license sales assessment, $5,000 maximum, newly issued quota-license charge, and specified operation-of-law waivers.",
+    officialUrl:
+      "https://leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&Search_String=&URL=0500-0599%2F0561%2FSections%2F0561.32.html",
+  },
   "668-004": {
     slug: "668-004",
     citation: "Florida Statute 668.004",
