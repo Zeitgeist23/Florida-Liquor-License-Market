@@ -33,13 +33,13 @@
 }
 
 .screenLeftMask {
-  left: 45.55%;
+  left: 44.2%;
   top: 10.5%;
-  width: 4.58%;
+  width: 5.95%;
   height: 80.15%;
-  background: linear-gradient(90deg, #010810, #02111d 38%, #031827 72%, #020b13);
-  -webkit-mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, .4) 12%, #000 24%, #000);
-  mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, .4) 12%, #000 24%, #000);
+  background: linear-gradient(90deg, #000d16, #000f19 45%, #00111c 75%, #000c14);
+  -webkit-mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, .15) 18%, rgba(0, 0, 0, .6) 32%, #000 41%, #000);
+  mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, .15) 18%, rgba(0, 0, 0, .6) 32%, #000 41%, #000);
 }
 
 .screenBottomMask {
