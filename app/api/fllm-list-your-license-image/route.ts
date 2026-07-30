@@ -9,17 +9,17 @@ const PARTS = [
   "chunk-03.txt",
   "chunk-04.txt",
   "chunk-05.txt",
-  "chunk-06-07.txt",
-  "chunk-08-09.txt",
-  "chunk-10-11.txt",
-  "chunk-12-13.txt",
-  "chunk-14-15.txt",
-  "chunk-16-17.txt",
+  "chunk-06.txt",
+  "chunk-07.txt",
+  "chunk-08.txt",
+  "chunk-09.txt",
+  "chunk-10.txt",
+  "chunk-11.txt",
 ] as const;
 
-const EXPECTED_BASE64_LENGTH = 136448;
+const EXPECTED_BASE64_LENGTH = 2386832;
 const EXPECTED_SHA256 =
-  "ae4dbeafaa44214d01649dcacf5ca4fd1173200842b280cf3cedcac52d0dd711";
+  "2512f458a2004ca7dce1d35fd06a3d343221450f771d1f1b5e42d1ef03e1578a";
 
 export const dynamic = "force-static";
 
@@ -28,7 +28,7 @@ export async function GET() {
     process.cwd(),
     "public",
     "assets",
-    "fllm-list-your-license-approved",
+    "fllm-list-your-license-final",
   );
 
   const encoded = (
@@ -54,7 +54,7 @@ export async function GET() {
 
   return new Response(image, {
     headers: {
-      "Content-Type": "image/webp",
+      "Content-Type": "image/png",
       "Cache-Control": "public, max-age=31536000, immutable",
       "Content-Length": String(image.byteLength),
     },
