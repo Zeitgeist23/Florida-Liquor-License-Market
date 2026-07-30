@@ -342,6 +342,15 @@
   box-shadow: 0 0 0 2px rgba(50, 176, 240, .22), inset 0 0 14px rgba(8, 42, 65, .35);
 }
 
+.brokerFields select option {
+  color: #f4f7fa;
+  background: #061522;
+}
+
+.brokerFields select option:disabled {
+  color: #9eacb8;
+}
+
 .continueHotspot {
   position: absolute;
   z-index: 6;
