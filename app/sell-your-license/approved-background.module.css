@@ -1,6 +1,14 @@
 .wrapper {
-  position: relative;
   min-height: 100vh;
+  margin: 0;
   overflow-x: hidden;
   background: #010a12;
+}
+
+.approvedArtwork {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  user-select: none;
 }
