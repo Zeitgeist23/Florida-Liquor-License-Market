@@ -16,12 +16,59 @@
 
 .approvedArtwork {
   position: absolute;
+  z-index: 0;
   inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: fill;
   user-select: none;
+}
+
+.screenCleanup span {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+}
+
+.screenLeftMask {
+  left: 46.45%;
+  top: 10.5%;
+  width: 1.55%;
+  height: 80.15%;
+  background: linear-gradient(90deg, rgba(1, 7, 13, .08), #010912 36%, #020b14);
+}
+
+.screenBottomMask {
+  left: 46.45%;
+  top: 87.75%;
+  width: 44.6%;
+  height: 2.9%;
+  background: linear-gradient(180deg, #020b14, #01070d 82%);
+}
+
+.screenRightMask {
+  left: 90.65%;
+  top: 10.5%;
+  width: .55%;
+  height: 80.15%;
+  background: #010912;
+}
+
+.approvedScreenArtwork {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  clip-path: inset(10.45% 8.85% 9.4% 46.45%);
+  transform: translateX(1.15%) scale(.97);
+  transform-origin: 46.6% 10.75%;
+  user-select: none;
+  pointer-events: none;
 }
 
 .homeLink,
@@ -47,6 +94,14 @@
   z-index: 4;
   inset: 0;
   margin: 0;
+  pointer-events: none;
+}
+
+.screenControls {
+  position: absolute;
+  inset: 0;
+  transform: translateX(1.15%) scale(.97);
+  transform-origin: 46.6% 10.75%;
   pointer-events: none;
 }
 
@@ -397,6 +452,8 @@
   }
 
   .approvedArtwork,
+  .approvedScreenArtwork,
+  .screenCleanup,
   .homeLink,
   .contactLink {
     display: none;
@@ -428,6 +485,13 @@
     border-radius: 15px;
     background: rgba(3, 22, 36, .93);
     box-shadow: 0 0 26px rgba(54, 190, 255, .17);
+    pointer-events: auto;
+  }
+
+  .screenControls {
+    position: relative;
+    inset: auto;
+    transform: none;
     pointer-events: auto;
   }
 
