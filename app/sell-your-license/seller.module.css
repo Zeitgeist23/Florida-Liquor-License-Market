@@ -35,9 +35,12 @@
 .screenLeftMask {
   left: 46.45%;
   top: 10.5%;
-  width: 1.55%;
+  width: .85%;
   height: 80.15%;
-  background: linear-gradient(90deg, rgba(1, 7, 13, .08), #010912 36%, #020b14);
+  background-image: url("/api/list-your-license-approved");
+  background-repeat: no-repeat;
+  background-size: 23529.4% 124.77%;
+  background-position: 46.4% 52.7%;
 }
 
 .screenBottomMask {
@@ -45,7 +48,10 @@
   top: 87.75%;
   width: 44.6%;
   height: 2.9%;
-  background: linear-gradient(180deg, #020b14, #01070d 82%);
+  background-image: url("/api/list-your-license-approved");
+  background-repeat: no-repeat;
+  background-size: 224.22% 3448.28%;
+  background-position: 83.9% 93.25%;
 }
 
 .screenRightMask {
@@ -53,7 +59,10 @@
   top: 10.5%;
   width: .55%;
   height: 80.15%;
-  background: #010912;
+  background-image: url("/api/list-your-license-approved");
+  background-repeat: no-repeat;
+  background-size: 18181.82% 124.77%;
+  background-position: 91.44% 52.7%;
 }
 
 .approvedScreenArtwork {
@@ -65,7 +74,7 @@
   height: 100%;
   object-fit: fill;
   clip-path: inset(10.45% 8.85% 9.4% 46.45%);
-  transform: translateX(1.15%) scale(.97);
+  transform: translateX(.55%) scale(.97);
   transform-origin: 46.6% 10.75%;
   user-select: none;
   pointer-events: none;
@@ -100,7 +109,7 @@
 .screenControls {
   position: absolute;
   inset: 0;
-  transform: translateX(1.15%) scale(.97);
+  transform: translateX(.55%) scale(.97);
   transform-origin: 46.6% 10.75%;
   pointer-events: none;
 }
