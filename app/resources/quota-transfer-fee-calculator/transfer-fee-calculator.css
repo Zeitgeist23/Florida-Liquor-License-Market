@@ -305,6 +305,49 @@
   font-size: 8px;
 }
 
+.transfer-print-total {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px 22px;
+  padding: 16px 20px;
+  border-top: 3px double #111820;
+  color: #fff;
+  background: #102638;
+}
+
+.transfer-print-total span,
+.transfer-print-total small {
+  display: block;
+}
+
+.transfer-print-total span {
+  color: #f6a700;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .05em;
+}
+
+.transfer-print-total small {
+  margin-top: 4px;
+  color: #c4d0d7;
+  font-size: 9px;
+}
+
+.transfer-print-total > strong {
+  color: #f6a700;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+}
+
+.transfer-print-total em {
+  grid-column: 1 / -1;
+  color: #ffe29c;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 800;
+}
+
 .transfer-special-circumstances {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -550,7 +593,16 @@
   }
 }
 
+@page {
+  size: letter portrait;
+  margin: .35in;
+}
+
 @media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
   body {
     background: #fff !important;
   }
@@ -567,9 +619,111 @@
     padding: 0;
   }
   .transfer-calculator {
-    gap: 10px;
+    gap: 8px;
   }
-  .transfer-form-sheet,
+  .transfer-form-sheet {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none;
+  }
+  .transfer-form-heading {
+    padding: 8px 12px 6px;
+  }
+  .transfer-form-heading span {
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  .transfer-form-heading strong {
+    font-size: 9px;
+  }
+  .transfer-form-heading p {
+    margin-top: 4px;
+    font-size: 7px;
+  }
+  .transfer-section-title {
+    padding: 3px 8px;
+    font-size: 8px;
+  }
+  .transfer-identity-grid label {
+    min-height: 42px;
+    padding: 4px 7px;
+  }
+  .transfer-identity-grid .transfer-obtained-date {
+    min-height: 38px;
+  }
+  .transfer-identity-grid span,
+  .transfer-sales-table th label span {
+    margin-bottom: 2px;
+    font-size: 7px;
+  }
+  .transfer-identity-grid input,
+  .transfer-sales-table th input {
+    height: 22px;
+    font-size: 8px;
+  }
+  .transfer-sales-table {
+    min-width: 0;
+  }
+  .transfer-sales-table thead > tr:first-child th {
+    padding: 3px 5px;
+  }
+  .transfer-sales-table thead > tr:nth-child(2) th {
+    padding: 2px;
+    font-size: 6px;
+  }
+  .transfer-sales-table tbody td {
+    height: 21px;
+    padding: 1px 4px;
+    font-size: 7px;
+  }
+  .transfer-sales-table tbody input {
+    height: 17px;
+    font-size: 7px;
+  }
+  .transfer-sales-table tfoot td {
+    padding: 4px 6px;
+  }
+  .transfer-sales-table tfoot span {
+    font-size: 6px;
+  }
+  .transfer-sales-table tfoot strong {
+    margin-top: 2px;
+    font-size: 11px;
+  }
+  .transfer-calculation-grid {
+    padding: 5px;
+  }
+  .transfer-calculation-grid > div {
+    min-height: 45px;
+    padding: 4px 7px;
+  }
+  .transfer-calculation-grid span {
+    font-size: 6px;
+  }
+  .transfer-calculation-grid strong {
+    margin-top: 2px;
+    font-size: 12px;
+  }
+  .transfer-primary-result strong {
+    font-size: 16px;
+  }
+  .transfer-primary-result small {
+    font-size: 6px;
+  }
+  .transfer-print-total {
+    gap: 3px 14px;
+    padding: 7px 11px;
+  }
+  .transfer-print-total span {
+    font-size: 8px;
+  }
+  .transfer-print-total small,
+  .transfer-print-total em {
+    font-size: 6px;
+  }
+  .transfer-print-total > strong {
+    font-size: 19px;
+  }
   .transfer-special-circumstances,
   .transfer-additional-result,
   .transfer-waiver-alert,
@@ -577,7 +731,7 @@
     break-inside: avoid;
     box-shadow: none;
   }
-  .transfer-sales-table {
-    min-width: 0;
+  .transfer-disclosures {
+    page-break-before: always;
   }
 }
