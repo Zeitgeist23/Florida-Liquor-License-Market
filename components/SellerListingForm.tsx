@@ -108,6 +108,18 @@ export default function SellerListingForm() {
           alt=""
           aria-hidden="true"
         />
+        <div className={styles.screenCleanup} aria-hidden="true">
+          <span className={styles.screenLeftMask} />
+          <span className={styles.screenBottomMask} />
+          <span className={styles.screenRightMask} />
+        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className={styles.approvedScreenArtwork}
+          src="/api/list-your-license-approved"
+          alt=""
+          aria-hidden="true"
+        />
 
         <a className={styles.homeLink} href="/" aria-label="Return home" />
         <a className={styles.contactLink} href="/contact" aria-label="Contact us" />
@@ -129,81 +141,83 @@ export default function SellerListingForm() {
             <p>Choose how you would like to sell, then complete the listing information.</p>
           </div>
 
-          <fieldset className={styles.methodFieldset}>
-            <legend>How would you like to sell your license?</legend>
-            <p>Choose the level of assistance you would like. You may change your selection later.</p>
+          <div className={styles.screenControls}>
+            <fieldset className={styles.methodFieldset}>
+              <legend>How would you like to sell your license?</legend>
+              <p>Choose the level of assistance you would like. You may change your selection later.</p>
 
-            <label className={`${styles.methodChoice} ${styles.selfChoice}`}>
-              <input
-                type="radio"
-                name="sale_method"
-                value="Self-Directed Listing"
-                checked={!brokerAssisted}
-                onChange={() => setSaleMethod("Self-Directed Listing")}
-              />
-              <span className={styles.choiceMarker} aria-hidden="true" />
-              <span className={styles.mobileChoiceCopy}>
-                <strong>Self-Directed Listing</strong>
-                <small>I will communicate directly with buyers and manage negotiations, documentation, and the license-transfer process.</small>
-              </span>
-            </label>
+              <label className={`${styles.methodChoice} ${styles.selfChoice}`}>
+                <input
+                  type="radio"
+                  name="sale_method"
+                  value="Self-Directed Listing"
+                  checked={!brokerAssisted}
+                  onChange={() => setSaleMethod("Self-Directed Listing")}
+                />
+                <span className={styles.choiceMarker} aria-hidden="true" />
+                <span className={styles.mobileChoiceCopy}>
+                  <strong>Self-Directed Listing</strong>
+                  <small>I will communicate directly with buyers and manage negotiations, documentation, and the license-transfer process.</small>
+                </span>
+              </label>
 
-            <label className={`${styles.methodChoice} ${styles.brokerChoice}`}>
-              <input
-                type="radio"
-                name="sale_method"
-                value="Broker-Assisted Listing"
-                checked={brokerAssisted}
-                onChange={() => setSaleMethod("Broker-Assisted Listing")}
-              />
-              <span className={styles.choiceMarker} aria-hidden="true" />
-              <span className={styles.mobileChoiceCopy}>
-                <strong>Broker-Assisted Listing</strong>
-                <small>I would like an FLLM-affiliated broker to contact me about marketing, buyer communications, negotiations, and transaction coordination.</small>
-              </span>
-            </label>
-          </fieldset>
+              <label className={`${styles.methodChoice} ${styles.brokerChoice}`}>
+                <input
+                  type="radio"
+                  name="sale_method"
+                  value="Broker-Assisted Listing"
+                  checked={brokerAssisted}
+                  onChange={() => setSaleMethod("Broker-Assisted Listing")}
+                />
+                <span className={styles.choiceMarker} aria-hidden="true" />
+                <span className={styles.mobileChoiceCopy}>
+                  <strong>Broker-Assisted Listing</strong>
+                  <small>I would like an FLLM-affiliated broker to contact me about marketing, buyer communications, negotiations, and transaction coordination.</small>
+                </span>
+              </label>
+            </fieldset>
 
-          <div className={`${styles.brokerFields} ${!brokerAssisted ? styles.brokerFieldsHidden : ""}`}>
-            <label className={styles.representedField}>
-              <span>Are you currently represented by another broker?</span>
-              <select name="broker_currently_represented" required={brokerAssisted} disabled={!brokerAssisted} defaultValue="">
-                <option value="" disabled>Select one</option>
-                <option>No</option>
-                <option>Yes</option>
-                <option>Not sure</option>
-              </select>
-            </label>
+            <div className={`${styles.brokerFields} ${!brokerAssisted ? styles.brokerFieldsHidden : ""}`}>
+              <label className={styles.representedField}>
+                <span>Are you currently represented by another broker?</span>
+                <select name="broker_currently_represented" required={brokerAssisted} disabled={!brokerAssisted} defaultValue="">
+                  <option value="" disabled>Select one</option>
+                  <option>No</option>
+                  <option>Yes</option>
+                  <option>Not sure</option>
+                </select>
+              </label>
 
-            <label className={styles.arrangementField}>
-              <span>Preferred arrangement</span>
-              <select name="broker_arrangement" disabled={!brokerAssisted} defaultValue="No preference / need guidance">
-                <option>No preference / need guidance</option>
-                <option>Non-exclusive arrangement</option>
-                <option>Exclusive arrangement</option>
-              </select>
-            </label>
+              <label className={styles.arrangementField}>
+                <span>Preferred arrangement</span>
+                <select name="broker_arrangement" disabled={!brokerAssisted} defaultValue="No preference / need guidance">
+                  <option>No preference / need guidance</option>
+                  <option>Non-exclusive arrangement</option>
+                  <option>Exclusive arrangement</option>
+                </select>
+              </label>
 
-            <label className={styles.netField}>
-              <span>Desired net amount</span>
-              <input type="text" inputMode="decimal" name="desired_net_amount" placeholder="$" disabled={!brokerAssisted} />
-            </label>
+              <label className={styles.netField}>
+                <span>Desired net amount</span>
+                <input type="text" inputMode="decimal" name="desired_net_amount" placeholder="$" disabled={!brokerAssisted} />
+              </label>
 
-            <label className={styles.contactMethodField}>
-              <span>Preferred contact method</span>
-              <select name="broker_contact_method" required={brokerAssisted} disabled={!brokerAssisted} defaultValue="">
-                <option value="" disabled>Select one</option>
-                <option>Phone</option>
-                <option>Email</option>
-                <option>Either phone or email</option>
-              </select>
-            </label>
+              <label className={styles.contactMethodField}>
+                <span>Preferred contact method</span>
+                <select name="broker_contact_method" required={brokerAssisted} disabled={!brokerAssisted} defaultValue="">
+                  <option value="" disabled>Select one</option>
+                  <option>Phone</option>
+                  <option>Email</option>
+                  <option>Either phone or email</option>
+                </select>
+              </label>
+            </div>
+
+            <button className={styles.continueHotspot} type="submit" title="Continue to the confidential listing details">
+              <span className={styles.desktopButtonLabel}>Submit Your License</span>
+              <span className={styles.mobileButtonLabel}>Continue to Listing</span>
+            </button>
           </div>
-
-          <button className={styles.continueHotspot} type="submit" title="Continue to the confidential listing details">
-            <span className={styles.desktopButtonLabel}>Submit Your License</span>
-            <span className={styles.mobileButtonLabel}>Continue to Listing</span>
-          </button>
 
           {reviewOpen && (
             <div className={styles.modalBackdrop} role="presentation" onMouseDown={(event) => {
