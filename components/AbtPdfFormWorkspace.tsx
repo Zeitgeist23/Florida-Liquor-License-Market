@@ -323,6 +323,8 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
   const [rememberDraft, setRememberDraft] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [previewUrl, setPreviewUrl] = useState("");
+  const [previewKind, setPreviewKind] = useState<"completed" | "transfer-draft">("completed");
+  const [transferPreviewRequested, setTransferPreviewRequested] = useState(false);
   const [initialsConsent, setInitialsConsent] = useState<InitialsConsent | null>(null);
   const [initialsModalOpen, setInitialsModalOpen] = useState(false);
   const [initialsDraft, setInitialsDraft] = useState("");
@@ -330,6 +332,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
   const [pendingInitialsAction, setPendingInitialsAction] = useState<PendingInitialsAction>(null);
   const [transferImportStatus, setTransferImportStatus] = useState("");
   const transferImportAttempted = useRef(false);
+  const transferPreviewGenerationInFlight = useRef(false);
 
   const applySerializedTransferFeeFigures = useCallback((raw: string | null) => {
     const payload = parseAbt6002TransferFeePayload(raw);
@@ -338,7 +341,8 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     const fieldValues = getAbt6002TransferFeeFieldValues(payload);
     setValues((current) => ({ ...current, ...fieldValues }));
     const monthlyFigureCount = payload.sales.flat().filter((amount) => amount > 0).length;
-    setTransferImportStatus(`Imported ${monthlyFigureCount} monthly sales figure${monthlyFigureCount === 1 ? "" : "s"}, all annual totals, the three-year average, and the Section 12 transfer fee.`);
+    setTransferImportStatus(`Imported ${monthlyFigureCount} monthly sales figure${monthlyFigureCount === 1 ? "" : "s"}, all annual totals, the three-year average, and the Section 12 transfer fee. Creating the draft PDF…`);
+    setTransferPreviewRequested(true);
     window.sessionStorage.removeItem(ABT_6002_TRANSFER_FEE_SESSION_KEY);
     window.localStorage.removeItem(ABT_6002_TRANSFER_FEE_LOCAL_KEY);
     return true;
@@ -455,10 +459,23 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     }
   }
 
+  function scrollToGuidedForm(nextStep: number) {
+    setMode("guided");
+    setStep(nextStep);
+    window.setTimeout(() => document.getElementById("abt-guided-form")?.scrollIntoView({ behavior: "smooth" }), 50);
+  }
+
+  function continueCompletingAbt6002() {
+    scrollToGuidedForm(0);
+  }
+
   function reviewImportedSection12() {
     if (section12Step < 0) return;
-    setMode("guided");
-    setStep(section12Step);
+    scrollToGuidedForm(section12Step);
+  }
+
+  function showTransferDraftPdf() {
+    document.getElementById("transfer-draft-preview")?.scrollIntoView({ behavior: "smooth" });
   }
 
   function updateValue(name: string, value: string | boolean) {
@@ -546,7 +563,9 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     setRememberDraft(false);
   }
 
-  async function generateCompletedPdf() {
+  async function generateCompletedPdf(options: { kind?: "completed" | "transfer-draft"; sourceValues?: DraftValues } = {}) {
+    const nextPreviewKind = options.kind || "completed";
+    const valuesToUse = options.sourceValues || values;
     if (!templateBytes.current) return;
     setGenerating(true);
     setError("");
@@ -556,7 +575,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
       const pdfForm = pdfDocument.getForm();
 
       fields.forEach((definition) => {
-        const value = values[definition.name];
+        const value = valuesToUse[definition.name];
         try {
           const field = pdfForm.getField(definition.name);
           if (definition.kind === "license-series" && field instanceof PDFTextField) {
@@ -588,11 +607,16 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
       const completedBytes = await pdfDocument.save();
       const completedBuffer = Uint8Array.from(completedBytes).buffer;
       const nextUrl = URL.createObjectURL(new Blob([completedBuffer], { type: "application/pdf" }));
+      setPreviewKind(nextPreviewKind);
       setPreviewUrl((current) => {
         if (current) URL.revokeObjectURL(current);
         return nextUrl;
       });
-      window.setTimeout(() => document.getElementById("completed-form-preview")?.scrollIntoView({ behavior: "smooth" }), 50);
+      if (nextPreviewKind === "transfer-draft") {
+        setTransferImportStatus("Imported figures are now visible in the Section 12 draft PDF below.");
+      }
+      const previewElementId = nextPreviewKind === "transfer-draft" ? "transfer-draft-preview" : "completed-form-preview";
+      window.setTimeout(() => document.getElementById(previewElementId)?.scrollIntoView({ behavior: "smooth" }), 50);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "The completed PDF could not be generated.");
     } finally {
@@ -604,11 +628,23 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     if (!previewUrl) return;
     const link = document.createElement("a");
     link.href = previewUrl;
-    link.download = `${form.id.toUpperCase()}-completed.pdf`;
+    link.download = previewKind === "transfer-draft"
+      ? `${form.id.toUpperCase()}-section-12-draft.pdf`
+      : `${form.id.toUpperCase()}-completed.pdf`;
     document.body.appendChild(link);
     link.click();
     link.remove();
   }
+
+  useEffect(() => {
+    if (!transferPreviewRequested || loading || fields.length === 0 || !templateBytes.current || transferPreviewGenerationInFlight.current) return;
+
+    transferPreviewGenerationInFlight.current = true;
+    setTransferPreviewRequested(false);
+    void generateCompletedPdf({ kind: "transfer-draft" }).finally(() => {
+      transferPreviewGenerationInFlight.current = false;
+    });
+  }, [fields.length, loading, transferPreviewRequested, values]);
 
   return (
     <section className="abt-workspace" aria-label={`${form.formNumber} form preparation workspace`}>
@@ -654,8 +690,15 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
           {transferImportStatus && (
             <div className="abt-transfer-import-status" role="status">
               <span>{transferImportStatus}</span>
-              {section12Step >= 0 && transferImportStatus.startsWith("Imported") && (
-                <button type="button" onClick={reviewImportedSection12}>Review imported Section 12</button>
+              {transferImportStatus.startsWith("Imported") && (
+                <div className="abt-transfer-import-actions">
+                  {previewUrl && previewKind === "transfer-draft" && (
+                    <button type="button" onClick={showTransferDraftPdf}>View imported PDF</button>
+                  )}
+                  {section12Step >= 0 && (
+                    <button type="button" onClick={reviewImportedSection12}>Review imported fields</button>
+                  )}
+                </div>
               )}
             </div>
           )}
@@ -665,7 +708,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
       {error && <div className="abt-form-error" role="alert">{error}</div>}
 
       {mode === "guided" ? (
-        <div className="abt-guided-panel">
+        <div className="abt-guided-panel" id="abt-guided-form">
           {loading ? (
             <div className="abt-loading"><span /> Reading the current official PDF and preparing its fields…</div>
           ) : fields.length === 0 ? (
@@ -810,16 +853,42 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
       )}
 
       {previewUrl && (
-        <div className="abt-completed-panel" id="completed-form-preview">
+        <div
+          className={previewKind === "transfer-draft" ? "abt-completed-panel abt-transfer-draft-panel" : "abt-completed-panel"}
+          id={previewKind === "transfer-draft" ? "transfer-draft-preview" : "completed-form-preview"}
+        >
+          {previewKind === "transfer-draft" && (
+            <div className="abt-transfer-draft-warning" role="note">
+              <strong>DRAFT - NOT READY FOR FILING</strong>
+              <span>Only the imported Section 12 transfer-fee information has been prepared. Complete and review the remaining ABT-6002 requirements before filing.</span>
+            </div>
+          )}
           <div className="abt-completed-heading">
-            <div><span>Completed document</span><h2>Review, download, and print your official PDF</h2></div>
             <div>
-              <button className="btn btn-outline" type="button" onClick={downloadCompletedPdf}>Download Completed PDF</button>
-              <button className="btn btn-gold" type="button" onClick={() => window.open(previewUrl, "_blank", "noopener,noreferrer")}>Open &amp; Print</button>
+              <span>{previewKind === "transfer-draft" ? "Imported Section 12 draft" : "Completed document"}</span>
+              <h2>{previewKind === "transfer-draft" ? "Your figures are now visible in the official ABT-6002 PDF" : "Review, download, and print your official PDF"}</h2>
+            </div>
+            <div>
+              {previewKind === "transfer-draft" && (
+                <button className="btn btn-outline" type="button" onClick={continueCompletingAbt6002}>Continue Completing ABT-6002</button>
+              )}
+              <button className="btn btn-outline" type="button" onClick={downloadCompletedPdf}>
+                {previewKind === "transfer-draft" ? "Download Draft PDF" : "Download Completed PDF"}
+              </button>
+              <button className="btn btn-gold" type="button" onClick={() => window.open(previewUrl, "_blank", "noopener,noreferrer")}>
+                {previewKind === "transfer-draft" ? "Open & Print Draft PDF" : "Open & Print"}
+              </button>
             </div>
           </div>
-          <iframe src={`${previewUrl}#toolbar=1`} title={`Completed ${form.formNumber} preview`} />
-          <p>Before filing, review every page, add all required signatures and notarizations, and attach any fees or supporting documents required by DBPR/ABT.</p>
+          <iframe
+            src={`${previewUrl}#${previewKind === "transfer-draft" ? "page=17&toolbar=1&navpanes=0" : "toolbar=1"}`}
+            title={previewKind === "transfer-draft" ? `ABT-6002 Section 12 draft preview` : `Completed ${form.formNumber} preview`}
+          />
+          <p>
+            {previewKind === "transfer-draft"
+              ? "The preview opens at Section 12. Confirm every imported figure, then continue completing the remaining official form fields, signatures, notarizations, attachments, and fees."
+              : "Before filing, review every page, add all required signatures and notarizations, and attach any fees or supporting documents required by DBPR/ABT."}
+          </p>
         </div>
       )}
 
