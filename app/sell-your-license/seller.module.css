@@ -54,8 +54,8 @@
   left: 46.45%;
   top: 84.8%;
   width: 44.6%;
-  height: 5.85%;
-  background-position: center bottom;
+  bottom: 0;
+  background-position: center top;
 }
 
 .screenRightMask {
