@@ -112,17 +112,17 @@
 .florida {
   position: absolute;
   z-index: 1;
-  top: 67px;
-  right: 4px;
-  width: 350px;
-  height: 565px;
+  top: 76px;
+  right: 16px;
+  width: 205px;
+  height: 500px;
   overflow: visible;
-  filter: drop-shadow(0 0 13px rgba(242,169,0,.45));
+  filter: drop-shadow(0 0 9px rgba(242,169,0,.38));
 }
 
-.florida line { stroke: rgba(18, 127, 183, .88); stroke-width: .7; }
-.florida circle { fill: var(--gold); filter: drop-shadow(0 0 5px #ffb000); }
-.floridaOutline { fill: rgba(1, 22, 36, .52); stroke: var(--gold); stroke-width: 1.55; }
+.florida line { stroke: rgba(18, 127, 183, .78); stroke-width: .55; }
+.florida circle { fill: var(--gold); filter: drop-shadow(0 0 4px #ffb000); }
+.floridaOutline { fill: rgba(1, 22, 36, .25); stroke: var(--gold); stroke-width: 1.2; }
 
 .marketGrid {
   position: absolute;
@@ -345,7 +345,7 @@
 @media (max-width: 1280px) {
   .content { grid-template-columns: 38% 1fr; gap: 28px; }
   .intro { padding-left: 0; }
-  .florida { width: 290px; right: -50px; opacity: .75; }
+  .florida { top: 82px; right: 8px; width: 185px; height: 470px; opacity: .95; }
   .marketGrid { width: 100%; }
   .formHeading h2 { font-size: 40px; }
 }
