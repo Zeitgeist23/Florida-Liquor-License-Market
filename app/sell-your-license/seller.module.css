@@ -262,6 +262,54 @@
   display: none;
 }
 
+.selfDirectedFields {
+  isolation: isolate;
+}
+
+.selfDirectedFields::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 47.75%;
+  top: 60.15%;
+  width: 41.55%;
+  height: 28.25%;
+  background: linear-gradient(180deg, rgba(1, 12, 21, .99), rgba(2, 16, 27, .99));
+  box-shadow: inset 0 1px rgba(35, 174, 229, .45);
+  pointer-events: none;
+}
+
+.selfDirectedFields::before {
+  content: "Tell us about your self-directed listing.";
+  position: absolute;
+  z-index: 1;
+  left: 48.95%;
+  top: 62.45%;
+  color: #f4f7fa;
+  font-size: clamp(12px, 1.22vw, 20px);
+  font-weight: 800;
+  pointer-events: none;
+}
+
+.selfDirectedFields label {
+  z-index: 2;
+}
+
+.selfDirectedFields label > span {
+  position: absolute;
+  bottom: calc(100% + clamp(5px, .55vw, 9px));
+  left: 0;
+  display: block;
+  color: #eef3f6;
+  font-size: clamp(9px, .82vw, 13px);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.selfDirectedFields .representedField {
+  top: 70.58%;
+}
+
 .brokerFields label {
   position: absolute;
   display: block;
@@ -642,6 +690,10 @@
   .brokerFieldsHidden { display: none; }
   .brokerFields label { position: relative; inset: auto; width: auto; height: auto; display: grid; gap: 7px; }
   .brokerFields label > span { display: block; color: #e8eff3; font-size: 12px; font-weight: 700; }
+  .selfDirectedFields::before,
+  .selfDirectedFields::after { display: none; }
+  .selfDirectedFields .representedField { top: auto; }
+  .selfDirectedFields label > span { position: static; white-space: normal; }
   .brokerFields input,
   .brokerFields select { height: 45px; font-size: 13px; }
 
