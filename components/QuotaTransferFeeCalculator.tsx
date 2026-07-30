@@ -51,6 +51,7 @@ export default function QuotaTransferFeeCalculator() {
     : 0;
   const combinedEstimate = baseTransferFee + earlyTransferFee;
   const hasAnySales = threeYearTotal > 0;
+  const printReady = hasAnySales && (!issuedWithinThreeYears || numberFromCurrencyInput(annualLicenseFee) > 0);
 
   function updateSale(yearIndex: number, monthIndex: number, value: string) {
     const cleaned = value.replace(/[^0-9.,]/g, "");
@@ -175,6 +176,22 @@ export default function QuotaTransferFeeCalculator() {
             <small>{fourMillAssessment > 5000 ? "The statutory $5,000 maximum has been applied." : "Subject to DBPR/ABT review."}</small>
           </div>
         </div>
+
+        <div className="transfer-print-total" aria-live="polite">
+          <div>
+            <span>TOTAL ESTIMATED TRANSFER FEE</span>
+            <small>
+              {issuedWithinThreeYears
+                ? "Section 12 fee plus the possible additional 15× annual-license-fee charge."
+                : "Section 12 quota-license transfer fee estimate."}
+            </small>
+          </div>
+          <strong>{currency.format(combinedEstimate)}</strong>
+          {possibleWaiver && <em>Before any operation-of-law waiver approved by DBPR/ABT.</em>}
+          {issuedWithinThreeYears && !annualLicenseFee && (
+            <em>Enter the annual license fee before printing so the possible additional charge is included.</em>
+          )}
+        </div>
       </div>
 
       <section className="transfer-special-circumstances" aria-label="Possible additional fee and waiver circumstances">
@@ -224,7 +241,7 @@ export default function QuotaTransferFeeCalculator() {
 
       <div className="transfer-actions">
         <button className="btn btn-outline" type="button" onClick={resetCalculator}>Clear worksheet</button>
-        <button className="btn btn-gold" type="button" onClick={() => window.print()} disabled={!hasAnySales}>Print calculation</button>
+        <button className="btn btn-gold" type="button" onClick={() => window.print()} disabled={!printReady}>Print calculation with total fee</button>
       </div>
 
       <section className="transfer-disclosures" aria-label="Calculator disclosures">
