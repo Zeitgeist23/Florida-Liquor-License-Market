@@ -43,6 +43,8 @@ const ABT_6002_LABELS: Record<string, string> = {
   "undefined 23": "Quota Transfer Fee - Second Year Sales Total",
   "undefined 24": "Quota Transfer Fee - Third Year Sales Total",
   "undefined 25": "Quota Transfer Fee - Three-Year Sales Total",
+  "divided by 3": "Quota Transfer Fee - Three-Year Average",
+  "x004": "Quota Transfer Fee - Transfer Fee (Average × 0.004)",
   "state fl": "State",
   "mailing address street or po box": "Mailing Address (Street or P.O. Box)",
   "city 2": "Mailing Address City",
@@ -89,6 +91,25 @@ const LABELS_BY_FORM: Record<string, Record<string, string>> = {
   "abt-6022": ABT_6022_LABELS,
 };
 
+function getAbt6002Section12FieldLabel(label: string) {
+  const compact = label.replace(/[\\s_-]+/g, "").toLowerCase();
+  const patterns: Array<[RegExp, string]> = [
+    [/^firstyearrow(\\d+)$/, "First Year Period"],
+    [/^amountofsalesrow(\\d+)$/, "First Year Sales"],
+    [/^secondyearrow(\\d+)$/, "Second Year Period"],
+    [/^amountofsalesrow(\\d+)2$/, "Second Year Sales"],
+    [/^thirdyearrow(\\d+)$/, "Third Year Period"],
+    [/^amountofsalesrow(\\d+)3$/, "Third Year Sales"],
+  ];
+
+  for (const [pattern, description] of patterns) {
+    const match = compact.match(pattern);
+    if (match) return `Quota Transfer Fee - ${description} ${match[1]}`;
+  }
+
+  return "";
+}
+
 export function getFriendlyAbtFieldLabel(formId: string, label: string) {
   const formLabels = LABELS_BY_FORM[formId];
   const mappedLabel = formLabels?.[normalizeLabel(label)];
@@ -98,7 +119,10 @@ export function getFriendlyAbtFieldLabel(formId: string, label: string) {
   // The official ABT-6002 PDF uses trailing numbers and Row/Row1-style text
   // only as internal field identifiers. They remain in the hidden PDF field
   // names but are removed from every customer-facing guided-form label.
-  if (formId === "abt-6002") return removeAbt6002PdfInternalMarkers(label);
+  if (formId === "abt-6002") {
+    const section12Label = getAbt6002Section12FieldLabel(label);
+    return section12Label || removeAbt6002PdfInternalMarkers(label);
+  }
 
   return label;
 }
