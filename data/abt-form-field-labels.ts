@@ -110,9 +110,9 @@ function getAbt6002Section12FieldLabel(label: string) {
   return "";
 }
 
-export function getFriendlyAbtFieldLabel(formId: string, label: string) {
+export function getFriendlyAbtFieldLabel(formId: string, label: string, fieldName = label) {
   const formLabels = LABELS_BY_FORM[formId];
-  const mappedLabel = formLabels?.[normalizeLabel(label)];
+  const mappedLabel = formLabels?.[normalizeLabel(label)] || formLabels?.[normalizeLabel(fieldName)];
 
   if (mappedLabel) return mappedLabel;
 
@@ -120,7 +120,7 @@ export function getFriendlyAbtFieldLabel(formId: string, label: string) {
   // only as internal field identifiers. They remain in the hidden PDF field
   // names but are removed from every customer-facing guided-form label.
   if (formId === "abt-6002") {
-    const section12Label = getAbt6002Section12FieldLabel(label);
+    const section12Label = getAbt6002Section12FieldLabel(fieldName);
     return section12Label || removeAbt6002PdfInternalMarkers(label);
   }
 
