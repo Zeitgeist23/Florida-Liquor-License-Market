@@ -103,9 +103,18 @@ function isStandaloneNo(labelText: string) {
   return normalizedText(labelText) === "no";
 }
 
+function isExplicitYesNoChoice(labelText: string) {
+  const normalized = normalizedText(labelText);
+  return (
+    /^premises question \d+ (yes|no)\b/.test(normalized) ||
+    /^personal relationship to transferor (yes|no)\b/.test(normalized)
+  );
+}
+
 function isLikelyYesNoQuestion(labelText: string) {
   const normalized = normalizedText(labelText);
   if (!normalized || normalized === "yes" || normalized === "no") return false;
+  if (isExplicitYesNoChoice(labelText)) return false;
   if (getCheckboxDropdownConfig(labelText)) return false;
 
   const questionSignals = [
