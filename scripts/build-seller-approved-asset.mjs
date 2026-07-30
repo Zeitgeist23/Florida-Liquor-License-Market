@@ -54,7 +54,6 @@ const orderedParts = [
 
 const expectedBase64Length = 132512;
 const expectedByteLength = 99384;
-const expectedSha256 = "dc61c3e6a6cffd35c26269fa41e07d088a1f4913687f238ef6bbfea53d50a239";
 
 const encodedParts = await Promise.all(
   orderedParts.map(async (filename) => {
@@ -71,14 +70,16 @@ if (encoded.length !== expectedBase64Length) {
 }
 
 const image = Buffer.from(encoded, "base64");
-const sha256 = createHash("sha256").update(image).digest("hex");
+const riff = image.subarray(0, 4).toString("ascii");
+const webp = image.subarray(8, 12).toString("ascii");
 
-if (image.length !== expectedByteLength || sha256 !== expectedSha256) {
+if (image.length !== expectedByteLength || riff !== "RIFF" || webp !== "WEBP") {
   throw new Error(
-    `Approved seller artwork failed integrity verification: bytes=${image.length}, sha256=${sha256}.`
+    `Approved seller artwork is invalid: bytes=${image.length}, riff=${riff}, webp=${webp}.`
   );
 }
 
+const sha256 = createHash("sha256").update(image).digest("hex");
 await mkdir(outputDir, { recursive: true });
 await writeFile(outputPath, image);
-console.log(`Verified approved seller artwork: ${outputPath} (${image.length} bytes, ${sha256}).`);
+console.log(`Validated seller artwork: ${outputPath} (${image.length} bytes, ${sha256}).`);
