@@ -1,0 +1,583 @@
+.transfer-calculator-page {
+  min-height: 100vh;
+  color: #111820;
+  background: #f3f4f2;
+}
+
+.transfer-title-band .abt-title-grid {
+  align-items: stretch;
+}
+
+.transfer-title-band .abt-title-grid > div h1 {
+  max-width: 860px;
+  font-size: clamp(34px, 5.4vw, 58px);
+}
+
+.transfer-page-content {
+  padding-top: 26px;
+  padding-bottom: 54px;
+}
+
+.transfer-calculator {
+  display: grid;
+  gap: 18px;
+}
+
+.transfer-privacy-note {
+  padding: 13px 16px;
+  border-left: 4px solid #f6a700;
+  color: #dce5ea;
+  background: #071a29;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.transfer-privacy-note strong {
+  color: #f6a700;
+}
+
+.transfer-form-sheet {
+  overflow: hidden;
+  border: 2px solid #101820;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 16px 38px rgba(8, 22, 34, .13);
+}
+
+.transfer-form-heading {
+  display: grid;
+  justify-items: center;
+  padding: 27px 18px 22px;
+  text-align: center;
+}
+
+.transfer-form-heading span {
+  margin-bottom: 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.transfer-form-heading strong {
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.transfer-form-heading p {
+  margin: 11px 0 0;
+  color: #68737c;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.transfer-section-title {
+  padding: 7px 12px;
+  border-block: 2px solid #101820;
+  text-align: center;
+  background: #d8dadd;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.transfer-identity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.transfer-identity-grid label {
+  min-height: 77px;
+  display: grid;
+  align-content: start;
+  padding: 10px 12px;
+  border-right: 1px solid #111820;
+  border-bottom: 1px solid #111820;
+}
+
+.transfer-identity-grid label:nth-child(2) {
+  border-right: 0;
+}
+
+.transfer-identity-grid .transfer-obtained-date {
+  grid-column: 1 / -1;
+  min-height: 68px;
+  border-right: 0;
+}
+
+.transfer-identity-grid span,
+.transfer-sales-table th label span,
+.transfer-annual-fee > span {
+  display: block;
+  margin-bottom: 6px;
+  color: #111820;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.transfer-identity-grid input,
+.transfer-sales-table th input,
+.transfer-annual-fee input {
+  width: 100%;
+  height: 36px;
+  border: 1px solid #aeb8c0;
+  border-radius: 3px;
+  outline: 0;
+  padding: 0 9px;
+  color: #111820;
+  background: #fff;
+  font-size: 12px;
+}
+
+.transfer-identity-grid input:focus,
+.transfer-sales-table input:focus,
+.transfer-annual-fee input:focus {
+  border-color: #e89800;
+  box-shadow: 0 0 0 3px rgba(246, 167, 0, .18);
+}
+
+.transfer-obtained-date input {
+  max-width: 240px;
+}
+
+.transfer-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.transfer-sales-table {
+  width: 100%;
+  min-width: 840px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.transfer-sales-table th,
+.transfer-sales-table td {
+  border-right: 1px solid #111820;
+  border-bottom: 1px solid #111820;
+}
+
+.transfer-sales-table tr > *:last-child {
+  border-right: 0;
+}
+
+.transfer-sales-table thead > tr:first-child th {
+  padding: 9px;
+  background: #d8dadd;
+}
+
+.transfer-sales-table thead > tr:nth-child(2) th {
+  padding: 6px;
+  color: #111820;
+  background: #eef1f8;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.transfer-sales-table thead th:nth-child(2n + 1),
+.transfer-sales-table tbody td:nth-child(2n + 1) {
+  width: 9%;
+}
+
+.transfer-sales-table thead th:nth-child(2n),
+.transfer-sales-table tbody td:nth-child(2n) {
+  width: 24.33%;
+}
+
+.transfer-sales-table tbody td {
+  height: 42px;
+  padding: 5px 7px;
+  background: #f2f4fb;
+  font-size: 10px;
+}
+
+.transfer-sales-table tbody td:nth-child(2n + 1) {
+  color: #45515b;
+  background: #e7eaf2;
+  font-weight: 800;
+}
+
+.transfer-sales-table tbody label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.transfer-sales-table tbody b {
+  color: #5c6872;
+  font-size: 11px;
+}
+
+.transfer-sales-table tbody input {
+  min-width: 0;
+  width: 100%;
+  height: 30px;
+  border: 0;
+  border-bottom: 1px solid #8c99a3;
+  outline: 0;
+  padding: 0 5px;
+  color: #111820;
+  background: transparent;
+  text-align: right;
+  font-size: 11px;
+}
+
+.transfer-sales-table tfoot td {
+  padding: 11px;
+  color: #111820;
+  background: #fff;
+}
+
+.transfer-sales-table tfoot span,
+.transfer-sales-table tfoot strong {
+  display: block;
+}
+
+.transfer-sales-table tfoot span {
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.transfer-sales-table tfoot strong {
+  margin-top: 5px;
+  color: #a85d00;
+  font-size: 18px;
+}
+
+.transfer-calculation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 1.2fr;
+  padding: 16px;
+  background: #fff;
+}
+
+.transfer-calculation-grid > div {
+  min-height: 86px;
+  display: grid;
+  align-content: center;
+  padding: 10px 15px;
+  border-right: 1px solid #cbd1d6;
+}
+
+.transfer-calculation-grid > div:last-child {
+  border-right: 0;
+}
+
+.transfer-calculation-grid span,
+.transfer-calculation-grid strong,
+.transfer-calculation-grid small {
+  display: block;
+}
+
+.transfer-calculation-grid span {
+  color: #56636d;
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.transfer-calculation-grid strong {
+  margin-top: 7px;
+  color: #111820;
+  font-size: 20px;
+}
+
+.transfer-calculation-grid .transfer-primary-result {
+  padding-left: 22px;
+  color: #fff;
+  background: #071a29;
+}
+
+.transfer-primary-result span,
+.transfer-primary-result strong {
+  color: #fff;
+}
+
+.transfer-primary-result strong {
+  color: #f6a700;
+  font-size: 27px;
+}
+
+.transfer-primary-result small {
+  margin-top: 5px;
+  color: #aebbc4;
+  font-size: 8px;
+}
+
+.transfer-special-circumstances {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.transfer-special-circumstances > div,
+.transfer-special-circumstances > label {
+  padding: 16px;
+  border: 1px solid #cbd1d6;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.transfer-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  cursor: pointer;
+}
+
+.transfer-check input {
+  flex: 0 0 19px;
+  width: 19px;
+  height: 19px;
+  margin: 1px 0 0;
+  accent-color: #f6a700;
+}
+
+.transfer-check span strong,
+.transfer-check span small {
+  display: block;
+}
+
+.transfer-check span strong {
+  color: #101820;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.transfer-check span small {
+  margin-top: 5px;
+  color: #65727c;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.transfer-annual-fee {
+  display: grid;
+  gap: 5px;
+  margin-top: 15px;
+}
+
+.transfer-annual-fee > div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.transfer-annual-fee input {
+  max-width: 230px;
+}
+
+.transfer-additional-result {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid #2a4559;
+  border-radius: 6px;
+  color: #fff;
+  background: #2a4559;
+}
+
+.transfer-additional-result > div {
+  padding: 16px;
+  background: #0a1e2d;
+}
+
+.transfer-additional-result span,
+.transfer-additional-result strong {
+  display: block;
+}
+
+.transfer-additional-result span {
+  color: #9fb0bb;
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.transfer-additional-result strong {
+  margin-top: 6px;
+  color: #f6a700;
+  font-size: 22px;
+}
+
+.transfer-additional-result p {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 10px 14px;
+  color: #fff2d2;
+  background: #6d4a00;
+  font-size: 10px;
+}
+
+.transfer-waiver-alert {
+  padding: 15px 17px;
+  border: 1px solid #d89600;
+  border-left-width: 5px;
+  color: #4a3400;
+  background: #fff5d8;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.transfer-waiver-alert strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.transfer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.transfer-actions .btn {
+  min-height: 44px;
+}
+
+.transfer-actions .btn:disabled {
+  cursor: not-allowed;
+  opacity: .45;
+}
+
+.transfer-disclosures {
+  padding: 24px;
+  border: 1px solid #30495d;
+  border-radius: 7px;
+  color: #cbd5dc;
+  background: #071a29;
+}
+
+.transfer-disclosure-kicker {
+  color: #f6a700;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.transfer-disclosures h2 {
+  margin: 6px 0 15px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
+}
+
+.transfer-disclosures ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.transfer-disclosures li {
+  padding-left: 3px;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.transfer-disclosures li strong {
+  color: #fff;
+}
+
+.transfer-source-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #2f4658;
+}
+
+.transfer-source-links a {
+  color: #f6a700;
+  font-size: 10px;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+@media (max-width: 920px) {
+  .transfer-calculation-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .transfer-calculation-grid > div:nth-child(2) {
+    border-right: 0;
+  }
+  .transfer-primary-result {
+    grid-column: 1 / -1;
+  }
+  .transfer-special-circumstances {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .transfer-identity-grid {
+    grid-template-columns: 1fr;
+  }
+  .transfer-identity-grid label {
+    border-right: 0;
+  }
+  .transfer-identity-grid .transfer-obtained-date {
+    grid-column: auto;
+  }
+  .transfer-calculation-grid,
+  .transfer-additional-result {
+    grid-template-columns: 1fr;
+  }
+  .transfer-calculation-grid > div {
+    border-right: 0;
+    border-bottom: 1px solid #cbd1d6;
+  }
+  .transfer-calculation-grid > div:last-child {
+    border-bottom: 0;
+  }
+  .transfer-primary-result {
+    grid-column: auto;
+  }
+  .transfer-additional-result p {
+    grid-column: auto;
+  }
+  .transfer-actions {
+    flex-direction: column-reverse;
+  }
+  .transfer-actions .btn {
+    width: 100%;
+  }
+  .transfer-disclosures {
+    padding: 20px 17px;
+  }
+}
+
+@media print {
+  body {
+    background: #fff !important;
+  }
+  .abt-header-wrap,
+  .transfer-title-band,
+  .transfer-privacy-note,
+  .transfer-actions,
+  .abt-forms-footer {
+    display: none !important;
+  }
+  .transfer-page-content {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+  .transfer-calculator {
+    gap: 10px;
+  }
+  .transfer-form-sheet,
+  .transfer-special-circumstances,
+  .transfer-additional-result,
+  .transfer-waiver-alert,
+  .transfer-disclosures {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+  .transfer-sales-table {
+    min-width: 0;
+  }
+}
