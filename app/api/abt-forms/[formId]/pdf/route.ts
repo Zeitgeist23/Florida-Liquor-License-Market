@@ -2,12 +2,21 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { NextResponse } from "next/server";
-import { PDFDocument, rgb } from "pdf-lib";
+import { PDFDocument, rgb, TextAlignment } from "pdf-lib";
 
 import { getAbtForm } from "@/data/abt-forms";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+
+type TextPlacement = {
+  name: string;
+  pageIndex: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
 
 type CheckboxPlacement = {
   name: string;
@@ -112,21 +121,34 @@ const ABT_6004_FIELDS: CheckboxPlacement[] = [
   originalDrawnCheckbox(9, "ABT6004 Entity felony conviction - No", 85.82, 685.06),
 ];
 
+const ABT_6027_INITIALS_FIELDS: TextPlacement[] = [
+  { name: "Applicant Initials - License requirement on or before September 30 1988", pageIndex: 1, x: 180.84, y: 314.04, width: 36, height: 12 },
+  { name: "Applicant Initials - License requirement after September 30 1988", pageIndex: 1, x: 180.84, y: 243.60, width: 36, height: 12 },
+  { name: "Applicant Initials - Inactive status request", pageIndex: 2, x: 180.84, y: 613.20, width: 36, height: 12 },
+  { name: "Applicant Initials - Automatic waiver request", pageIndex: 2, x: 180.84, y: 429.36, width: 36, height: 12 },
+  { name: "Applicant Initials - Conditional waiver request", pageIndex: 3, x: 180.84, y: 636.84, width: 36, height: 12 },
+];
+
 const CHECKBOX_FIELDS_BY_FORM: Partial<Record<string, CheckboxPlacement[]>> = {
   "abt-6002": ABT_6002_CHECKLIST_FIELDS,
   "abt-6004": ABT_6004_FIELDS,
 };
 
-async function addInteractiveCheckboxes(
+const TEXT_FIELDS_BY_FORM: Partial<Record<string, TextPlacement[]>> = {
+  "abt-6027": ABT_6027_INITIALS_FIELDS,
+};
+
+async function addInteractiveFields(
   sourceBytes: Uint8Array,
-  fields: CheckboxPlacement[]
+  checkboxFields: CheckboxPlacement[],
+  textFields: TextPlacement[]
 ) {
   const pdfDocument = await PDFDocument.load(sourceBytes);
   const pdfForm = pdfDocument.getForm();
   const pages = pdfDocument.getPages();
   const existingFieldNames = new Set(pdfForm.getFields().map((field) => field.getName()));
 
-  for (const field of fields) {
+  for (const field of checkboxFields) {
     if (existingFieldNames.has(field.name)) continue;
 
     const page = pages[field.pageIndex];
@@ -142,6 +164,26 @@ async function addInteractiveCheckboxes(
       borderColor: rgb(0, 0, 0),
       backgroundColor: rgb(1, 1, 1),
     });
+  }
+
+  for (const field of textFields) {
+    if (existingFieldNames.has(field.name)) continue;
+
+    const page = pages[field.pageIndex];
+    if (!page) continue;
+
+    const textField = pdfForm.createTextField(field.name);
+    textField.setMaxLength(10);
+    textField.setAlignment(TextAlignment.Center);
+    textField.addToPage(page, {
+      x: field.x,
+      y: field.y,
+      width: field.width,
+      height: field.height,
+      borderWidth: 0,
+      textColor: rgb(0, 0, 0),
+    });
+    textField.setFontSize(10);
   }
 
   return pdfDocument.save({ useObjectStreams: false });
@@ -161,9 +203,11 @@ export async function GET(
   try {
     const localPdfPath = path.join(process.cwd(), "public", "abt-forms", `${form.id}.pdf`);
     const sourcePdfBytes = await readFile(localPdfPath);
-    const checkboxFields = CHECKBOX_FIELDS_BY_FORM[form.id];
-    const pdfBytes = checkboxFields
-      ? await addInteractiveCheckboxes(sourcePdfBytes, checkboxFields)
+    const checkboxFields = CHECKBOX_FIELDS_BY_FORM[form.id] || [];
+    const textFields = TEXT_FIELDS_BY_FORM[form.id] || [];
+    const hasEnhancements = checkboxFields.length > 0 || textFields.length > 0;
+    const pdfBytes = hasEnhancements
+      ? await addInteractiveFields(sourcePdfBytes, checkboxFields, textFields)
       : sourcePdfBytes;
     const body = pdfBytes.buffer.slice(
       pdfBytes.byteOffset,
@@ -177,7 +221,7 @@ export async function GET(
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `${download ? "attachment" : "inline"}; filename="${filename}"`,
-        "Cache-Control": checkboxFields
+        "Cache-Control": hasEnhancements
           ? "no-store, max-age=0"
           : "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
         "X-Content-Type-Options": "nosniff",
