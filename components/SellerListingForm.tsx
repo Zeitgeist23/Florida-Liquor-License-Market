@@ -41,6 +41,7 @@ const MAP_EDGES = [
 
 export default function SellerListingForm() {
   const [saleMethod, setSaleMethod] = useState<SaleMethod>("Broker-Assisted Listing");
+  const [isCompact, setIsCompact] = useState(false);
   const [reviewOpen, setReviewOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState("");
@@ -48,11 +49,18 @@ export default function SellerListingForm() {
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
+    const compactQuery = window.matchMedia("(max-width: 980px)");
+    const updateCompactLayout = () => setIsCompact(compactQuery.matches);
+    updateCompactLayout();
+    compactQuery.addEventListener("change", updateCompactLayout);
+
     const params = new URLSearchParams(window.location.search);
     if (params.get("payment") === "cancelled") {
       setIsError(true);
       setStatus("Payment was canceled. Your listing has not been submitted. You may continue when ready.");
     }
+
+    return () => compactQuery.removeEventListener("change", updateCompactLayout);
   }, []);
 
   function openReview(event: FormEvent<HTMLFormElement>) {
@@ -132,7 +140,7 @@ export default function SellerListingForm() {
 
       <section className={styles.hero}>
         <div className={styles.content}>
-          <section className={styles.intro} aria-labelledby="seller-page-title">
+          {!isCompact && <section className={styles.intro} aria-labelledby="seller-page-title">
             <span className={styles.kicker}>Confidential Seller Representation</span>
             <h1 id="seller-page-title">List Your<br />Florida Liquor<br />License</h1>
             <p>Choose how you want to sell, then<br />complete your confidential listing.</p>
@@ -181,7 +189,7 @@ export default function SellerListingForm() {
                 </ul>
               </article>
             </div>
-          </section>
+          </section>}
 
           <form ref={formRef} className={styles.form} onSubmit={openReview}>
             <label className={styles.honeypot} aria-hidden="true">
