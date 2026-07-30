@@ -104,8 +104,8 @@
   justify-content: start;
 }
 
-:global(.seller-market-rail) { display: grid; gap: 12px; padding-top: 0; }
-:global(.seller-market-card) {
+.hero :global(.seller-market-rail) { display: grid; gap: 12px; padding-top: 0; }
+.hero :global(.seller-market-card) {
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(20, 171, 238, .73);
@@ -117,32 +117,32 @@
   background-size: 18px 18px, 18px 18px, auto;
   box-shadow: inset 0 0 28px rgba(0, 140, 224, .055), 0 12px 28px rgba(0, 0, 0, .34);
 }
-:global(.seller-market-card)::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,.025), transparent 35%); }
-:global(.seller-market-card h3) { margin: 0; color: #edf6fb; font-size: 13px; font-weight: 700; text-transform: uppercase; }
-:global(.seller-market-activity) { height: 174px; padding: 20px 18px 16px; }
-:global(.seller-market-activity svg) { position: absolute; left: 39px; top: 55px; width: 190px; height: 78px; overflow: visible; }
-:global(.seller-market-activity svg line) { stroke: rgba(64, 121, 158, .35); stroke-width: 1; }
-:global(.seller-market-activity svg polyline) { fill: none; stroke: var(--gold); stroke-width: 1.7; filter: drop-shadow(0 0 3px rgba(244,168,20,.4)); }
-:global(.seller-market-activity svg .buyer-line) { stroke: #18aaf0; }
-:global(.seller-chart-y) { position: absolute; left: 16px; top: 53px; height: 80px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; font-size: 10px; }
-:global(.seller-market-legend) { position: absolute; left: 52px; bottom: 15px; display: flex; gap: 35px; font-size: 10px; }
-:global(.seller-market-legend span::before) { content: ""; display: inline-block; width: 8px; height: 7px; margin-right: 7px; background: var(--gold); }
-:global(.seller-market-legend span + span::before) { background: #1daaf0; }
+.hero :global(.seller-market-card)::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,.025), transparent 35%); }
+.hero :global(.seller-market-card h3) { margin: 0; color: #edf6fb; font-size: 13px; font-weight: 700; text-transform: uppercase; }
+.hero :global(.seller-market-activity) { height: 174px; padding: 20px 18px 16px; }
+.hero :global(.seller-market-activity svg) { position: absolute; left: 39px; top: 55px; width: 190px; height: 78px; overflow: visible; }
+.hero :global(.seller-market-activity svg line) { stroke: rgba(64, 121, 158, .35); stroke-width: 1; }
+.hero :global(.seller-market-activity svg polyline) { fill: none; stroke: var(--gold); stroke-width: 1.7; filter: drop-shadow(0 0 3px rgba(244,168,20,.4)); }
+.hero :global(.seller-market-activity svg .buyer-line) { stroke: #18aaf0; }
+.hero :global(.seller-chart-y) { position: absolute; left: 16px; top: 53px; height: 80px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; font-size: 10px; }
+.hero :global(.seller-market-legend) { position: absolute; left: 52px; bottom: 15px; display: flex; gap: 35px; font-size: 10px; }
+.hero :global(.seller-market-legend span::before) { content: ""; display: inline-block; width: 8px; height: 7px; margin-right: 7px; background: var(--gold); }
+.hero :global(.seller-market-legend span + span::before) { background: #1daaf0; }
 
-:global(.seller-heat-card) { height: 280px; padding: 18px 18px 14px; }
-:global(.seller-florida-mini) { display: block; width: 210px; height: 188px; margin: 10px auto 0; overflow: visible; filter: drop-shadow(0 0 9px rgba(244,168,20,.26)); }
-:global(.seller-florida-mini path) { fill: rgba(2, 24, 39, .55); stroke: var(--gold); stroke-width: 1.2; }
-:global(.seller-florida-mini polyline) { fill: none; stroke: rgba(20, 145, 211, .64); stroke-width: .8; }
-:global(.seller-florida-mini circle) { fill: #ffad19; filter: drop-shadow(0 0 4px #ffad19); }
-:global(.seller-heat-scale) { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; margin-top: -2px; color: #fff; font-size: 10px; }
-:global(.seller-heat-scale i) { height: 8px; background: linear-gradient(90deg, #007fc2, #13b9ff 42%, #ffae1a 74%, #ffdc58); }
+.hero :global(.seller-heat-card) { height: 280px; padding: 18px 18px 14px; }
+.hero :global(.seller-florida-mini) { display: block; width: 210px; height: 188px; margin: 10px auto 0; overflow: visible; filter: drop-shadow(0 0 9px rgba(244,168,20,.26)); }
+.hero :global(.seller-florida-mini path) { fill: rgba(2, 24, 39, .55); stroke: var(--gold); stroke-width: 1.2; }
+.hero :global(.seller-florida-mini polyline) { fill: none; stroke: rgba(20, 145, 211, .64); stroke-width: .8; }
+.hero :global(.seller-florida-mini circle) { fill: #ffad19; filter: drop-shadow(0 0 4px #ffad19); }
+.hero :global(.seller-heat-scale) { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; margin-top: -2px; color: #fff; font-size: 10px; }
+.hero :global(.seller-heat-scale i) { height: 8px; background: linear-gradient(90deg, #007fc2, #13b9ff 42%, #ffae1a 74%, #ffdc58); }
 
-:global(.seller-insight-card) { height: 250px; padding: 20px 18px; }
-:global(.seller-demand-ring) { position: relative; width: 110px; height: 110px; margin: 18px auto 10px; display: grid; place-items: center; border-radius: 50%; background: conic-gradient(#159be6 0 72%, #06426a 72% 100%); box-shadow: 0 0 22px rgba(0,174,255,.14); }
-:global(.seller-demand-ring)::after { content: ""; position: absolute; inset: 22px; border-radius: 50%; background: #031421; }
-:global(.seller-demand-ring strong) { position: relative; z-index: 1; color: #f4f8fb; font-size: 22px; }
-:global(.seller-insight-card p), :global(.seller-insight-card b) { display: block; margin: 0; font-size: 12px; }
-:global(.seller-insight-card b) { margin-top: 5px; color: #00b8ff; font-weight: 500; }
+.hero :global(.seller-insight-card) { height: 250px; padding: 20px 18px; }
+.hero :global(.seller-demand-ring) { position: relative; width: 110px; height: 110px; margin: 18px auto 10px; display: grid; place-items: center; border-radius: 50%; background: conic-gradient(#159be6 0 72%, #06426a 72% 100%); box-shadow: 0 0 22px rgba(0,174,255,.14); }
+.hero :global(.seller-demand-ring)::after { content: ""; position: absolute; inset: 22px; border-radius: 50%; background: #031421; }
+.hero :global(.seller-demand-ring strong) { position: relative; z-index: 1; color: #f4f8fb; font-size: 22px; }
+.hero :global(.seller-insight-card p), .hero :global(.seller-insight-card b) { display: block; margin: 0; font-size: 12px; }
+.hero :global(.seller-insight-card b) { margin-top: 5px; color: #00b8ff; font-weight: 500; }
 
 .intro { position: relative; z-index: 2; padding: 73px 0 30px; text-shadow: 0 3px 20px rgba(0,0,0,.72); }
 .kicker { display: block; color: var(--gold); font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
@@ -235,7 +235,7 @@
 @media (max-width: 1240px) {
   .hero { min-height: auto; }
   .layout { width: min(1040px, 100%); margin: 0 auto; grid-template-columns: 350px minmax(590px, 650px); gap: 36px; }
-  :global(.seller-market-rail), .rightBars, .miniBars { display: none; }
+  .hero :global(.seller-market-rail), .rightBars, .miniBars { display: none; }
   .floridaConstellation { left: calc(50% - 280px); opacity: .45; }
   .heroFooter { position: static; margin-top: 58px; }
 }
