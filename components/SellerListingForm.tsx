@@ -146,7 +146,7 @@ export default function SellerListingForm() {
               <legend>How would you like to sell your license?</legend>
               <p>Choose the level of assistance you would like. You may change your selection later.</p>
 
-              <label className={`${styles.methodChoice} ${styles.selfChoice}`}>
+              <label className={`${styles.methodChoice} ${styles.selfChoice} ${!brokerAssisted ? styles.methodSelected : styles.methodUnselected}`}>
                 <input
                   type="radio"
                   name="sale_method"
@@ -161,7 +161,7 @@ export default function SellerListingForm() {
                 </span>
               </label>
 
-              <label className={`${styles.methodChoice} ${styles.brokerChoice}`}>
+              <label className={`${styles.methodChoice} ${styles.brokerChoice} ${brokerAssisted ? styles.methodSelected : styles.methodUnselected}`}>
                 <input
                   type="radio"
                   name="sale_method"
