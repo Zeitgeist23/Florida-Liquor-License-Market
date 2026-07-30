@@ -35,12 +35,16 @@
 .screenLeftMask {
   left: 46.45%;
   top: 10.5%;
-  width: 1.55%;
+  width: 2.83%;
   height: 80.15%;
-  background-image: url("/api/list-your-license-approved");
-  background-repeat: no-repeat;
-  background-size: 25806.45% 124.77%;
-  background-position: 46.4% 52.7%;
+  background-color: #020b13;
+  background-image:
+    radial-gradient(circle at 12px 14px, rgba(0, 178, 239, .62) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 36px 42px, rgba(0, 116, 171, .5) 0 1px, transparent 1.6px),
+    linear-gradient(128deg, transparent 0 47%, rgba(0, 115, 170, .28) 48%, transparent 49%),
+    linear-gradient(52deg, transparent 0 48%, rgba(0, 90, 135, .22) 49%, transparent 50%),
+    linear-gradient(90deg, #010810, #031725 52%, #010a12);
+  background-size: 48px 56px, 48px 56px, 48px 56px, 48px 56px, auto;
 }
 
 .screenBottomMask {
@@ -74,7 +78,7 @@
   height: 100%;
   object-fit: fill;
   clip-path: inset(10.45% 8.85% 9.4% 46.45%);
-  transform: translateX(1.15%) scale(.97);
+  transform: translateX(2.43%) scale(.97);
   transform-origin: 46.6% 10.75%;
   user-select: none;
   pointer-events: none;
@@ -109,7 +113,7 @@
 .screenControls {
   position: absolute;
   inset: 0;
-  transform: translateX(1.15%) scale(.97);
+  transform: translateX(2.43%) scale(.97);
   transform-origin: 46.6% 10.75%;
   pointer-events: none;
 }
