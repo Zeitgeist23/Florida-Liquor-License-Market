@@ -15,7 +15,6 @@
       label: "Quota License Transfer Fee Calculator",
       href: "/resources/quota-transfer-fee-calculator",
       internal: true,
-      newWindow: true,
     },
     {
       label: "Liquor License Attorneys",
