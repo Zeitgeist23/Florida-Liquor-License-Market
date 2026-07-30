@@ -154,8 +154,24 @@ export default function SellerListingForm() {
           ))}
           {MAP_NODES.map(([cx, cy], index) => <circle key={`node-${index}`} cx={cx} cy={cy} r={index % 9 === 0 ? 4 : 2.1} />)}
         </svg>
-        <div className={styles.rightBars} aria-hidden="true">{Array.from({ length: 9 }).map((_, index) => <span key={index} />)}</div>
-        <div className={styles.miniBars} aria-hidden="true">{Array.from({ length: 7 }).map((_, index) => <span key={index} />)}</div>
+        <div className={styles.rightBars} aria-hidden="true">
+          {[{ v: 25, h: 40 }, { v: 75, h: 90 }, { v: 75, h: 90 }, { v: 50, h: 65 }, { v: 125, h: 140 }, { v: 150, h: 165 }, { v: 125, h: 140 }, { v: 175, h: 200 }].map((bar, index) => (
+            <div key={index} className={styles.barCol}>
+              <b>{bar.v}</b>
+              <span style={{ height: bar.h }} />
+              <em>{[10, 20, 30, 40, 60, 80, 90, 100][index]}</em>
+            </div>
+          ))}
+        </div>
+        <div className={styles.miniBars} aria-hidden="true">
+          {[{ v: 10, h: 20 }, { v: 20, h: 35 }, { v: 30, h: 50 }, { v: 70, h: 85 }, { v: 70, h: 85 }, { v: 130, h: 120 }, { v: 130, h: 120 }, { v: 175, h: 150 }].map((bar, index) => (
+            <div key={index} className={styles.barCol}>
+              <b>{bar.v}</b>
+              <span style={{ height: bar.h }} />
+              <em>{[10, 20, 30, 40, 60, 80, 90, 100][index]}</em>
+            </div>
+          ))}
+        </div>
 
         <div className={styles.layout}>
           <aside className="seller-market-rail" aria-label="Florida liquor license market indicators">
@@ -285,7 +301,7 @@ export default function SellerListingForm() {
         </div>
 
         <footer className={styles.heroFooter}>
-          <span>Confidential Listings</span><i /> <span>Secure Submission</span><i /> <span>Statewide Reach</span>
+          <span>Confidential Listing</span><i /> <span>Secure Distribution</span><i /> <span>Syndicated Reach</span>
           <small>© 2025 Florida Liquor License Market. All rights reserved.</small>
         </footer>
       </section>
