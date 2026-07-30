@@ -8,7 +8,7 @@ import {
   PDFRadioGroup,
   PDFTextField,
 } from "pdf-lib";
-import { type MouseEvent, useEffect, useMemo, useRef, useState } from "react";
+import { type MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { getFriendlyAbtFieldLabel } from "@/data/abt-form-field-labels";
 import {
@@ -19,6 +19,12 @@ import {
   getDefaultAbtLicenseSeriesKey,
 } from "@/data/abt-license-series-options";
 import type { AbtFormDefinition } from "@/data/abt-forms";
+import {
+  ABT_6002_TRANSFER_FEE_LOCAL_KEY,
+  ABT_6002_TRANSFER_FEE_SESSION_KEY,
+  getAbt6002TransferFeeFieldValues,
+  parseAbt6002TransferFeePayload,
+} from "@/lib/abt-6002-transfer-fee";
 
 type FieldKind = "text" | "checkbox" | "dropdown" | "radio" | "option-list" | "license-series" | "license-class";
 
@@ -322,6 +328,21 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
   const [initialsDraft, setInitialsDraft] = useState("");
   const [initialsAgreement, setInitialsAgreement] = useState(false);
   const [pendingInitialsAction, setPendingInitialsAction] = useState<PendingInitialsAction>(null);
+  const [transferImportStatus, setTransferImportStatus] = useState("");
+  const transferImportAttempted = useRef(false);
+
+  const applySerializedTransferFeeFigures = useCallback((raw: string | null) => {
+    const payload = parseAbt6002TransferFeePayload(raw);
+    if (!payload) return false;
+
+    const fieldValues = getAbt6002TransferFeeFieldValues(payload);
+    setValues((current) => ({ ...current, ...fieldValues }));
+    const monthlyFigureCount = payload.sales.flat().filter((amount) => amount > 0).length;
+    setTransferImportStatus(`Imported ${monthlyFigureCount} monthly sales figure${monthlyFigureCount === 1 ? "" : "s"}, all annual totals, the three-year average, and the Section 12 transfer fee.`);
+    window.sessionStorage.removeItem(ABT_6002_TRANSFER_FEE_SESSION_KEY);
+    window.localStorage.removeItem(ABT_6002_TRANSFER_FEE_LOCAL_KEY);
+    return true;
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -380,6 +401,26 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
   }, [draftKey, form.id, officialPdfPath, requiresInitialsConsent]);
 
   useEffect(() => {
+    if (form.id !== "abt-6002" || loading || fields.length === 0) return;
+
+    if (!transferImportAttempted.current) {
+      transferImportAttempted.current = true;
+      const savedFigures = window.sessionStorage.getItem(ABT_6002_TRANSFER_FEE_SESSION_KEY)
+        || window.localStorage.getItem(ABT_6002_TRANSFER_FEE_LOCAL_KEY);
+      if (savedFigures) applySerializedTransferFeeFigures(savedFigures);
+    }
+
+    function receiveTransferFeeFigures(event: StorageEvent) {
+      if (event.key === ABT_6002_TRANSFER_FEE_LOCAL_KEY && event.newValue) {
+        applySerializedTransferFeeFigures(event.newValue);
+      }
+    }
+
+    window.addEventListener("storage", receiveTransferFeeFigures);
+    return () => window.removeEventListener("storage", receiveTransferFeeFigures);
+  }, [applySerializedTransferFeeFigures, fields.length, form.id, loading]);
+
+  useEffect(() => {
     if (!rememberDraft || fields.length === 0) return;
     window.localStorage.setItem(draftKey, JSON.stringify(values));
   }, [draftKey, fields.length, rememberDraft, values]);
@@ -403,6 +444,22 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     [selectedSeriesKey]
   );
   const completion = fields.length ? Math.round(((step + 1) / totalSteps) * 100) : 0;
+  const section12FieldIndex = fields.findIndex((field) => field.name === "Business Name DBA_13");
+  const section12Step = section12FieldIndex >= 0 ? Math.floor(section12FieldIndex / FIELDS_PER_STEP) : -1;
+
+  function importStoredTransferFeeFigures() {
+    const savedFigures = window.sessionStorage.getItem(ABT_6002_TRANSFER_FEE_SESSION_KEY)
+      || window.localStorage.getItem(ABT_6002_TRANSFER_FEE_LOCAL_KEY);
+    if (!applySerializedTransferFeeFigures(savedFigures)) {
+      setTransferImportStatus("No recent calculator figures were found on this device. Open the calculator, enter the sales figures, and choose Apply figures to ABT-6002.");
+    }
+  }
+
+  function reviewImportedSection12() {
+    if (section12Step < 0) return;
+    setMode("guided");
+    setStep(section12Step);
+  }
 
   function updateValue(name: string, value: string | boolean) {
     setValues((current) => ({ ...current, [name]: value }));
@@ -582,6 +639,28 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
           </span>
         )}
       </div>
+
+      {form.id === "abt-6002" && (
+        <section className="abt-transfer-fee-integration" aria-label="ABT-6002 transfer fee calculator connection">
+          <div>
+            <span>Section 12 quota transfer fee</span>
+            <h2>Calculate once, then import every figure</h2>
+            <p>Open the FLLM calculator in a new tab so this form stays in place. When you apply the calculation, the business details, 36 monthly sales entries, annual totals, three-year average, and Section 12 transfer fee are filled into the official ABT-6002 fields automatically.</p>
+          </div>
+          <div className="abt-transfer-fee-actions">
+            <a className="btn btn-gold" href="/resources/quota-transfer-fee-calculator" target="_blank" rel="noreferrer">Open Transfer Fee Calculator</a>
+            <button className="btn btn-outline" type="button" onClick={importStoredTransferFeeFigures}>Import saved calculator figures</button>
+          </div>
+          {transferImportStatus && (
+            <div className="abt-transfer-import-status" role="status">
+              <span>{transferImportStatus}</span>
+              {section12Step >= 0 && transferImportStatus.startsWith("Imported") && (
+                <button type="button" onClick={reviewImportedSection12}>Review imported Section 12</button>
+              )}
+            </div>
+          )}
+        </section>
+      )}
 
       {error && <div className="abt-form-error" role="alert">{error}</div>}
 
