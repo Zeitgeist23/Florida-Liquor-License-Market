@@ -52,12 +52,21 @@ export default function SellerListingForm() {
 
     try {
       const notes = [`Sale method: ${saleMethod}`];
-      notes.push(
-        `Currently represented by another broker: ${String(data.get("broker_currently_represented") || "Not provided")}`,
-        `Preferred arrangement: ${String(data.get("broker_arrangement") || "No preference / need guidance")}`,
-        `Desired net amount: ${String(data.get("desired_net_amount") || "Not provided")}`,
-        `Preferred contact method: ${String(data.get("broker_contact_method") || "Not provided")}`,
-      );
+      if (saleMethod === "Broker-Assisted Listing") {
+        notes.push(
+          `Currently represented by another broker: ${String(data.get("broker_currently_represented") || "Not provided")}`,
+          `Preferred arrangement: ${String(data.get("broker_arrangement") || "No preference / need guidance")}`,
+          `Desired net amount: ${String(data.get("desired_net_amount") || "Not provided")}`,
+          `Preferred contact method: ${String(data.get("broker_contact_method") || "Not provided")}`,
+        );
+      } else {
+        notes.push(
+          `License status: ${String(data.get("self_license_status") || "Not provided")}`,
+          `Preferred sale timing: ${String(data.get("self_preferred_timing") || "Not provided")}`,
+          `Asking price: ${String(data.get("self_asking_price") || "Not provided")}`,
+          `Preferred contact method: ${String(data.get("self_contact_method") || "Not provided")}`,
+        );
+      }
       const sellerMessage = String(data.get("message") || "").trim();
       if (sellerMessage) notes.push(`Additional seller details: ${sellerMessage}`);
 
@@ -70,9 +79,9 @@ export default function SellerListingForm() {
           phone: String(data.get("phone") || ""),
           county: String(data.get("county") || ""),
           license_type: String(data.get("license_type") || ""),
-          asking_price: String(data.get("asking_price") || ""),
-          license_status: "Initial confidential listing submission",
-          preferred_timing: "",
+          asking_price: String(data.get("asking_price") || data.get("self_asking_price") || ""),
+          license_status: String(data.get("self_license_status") || "Initial confidential listing submission"),
+          preferred_timing: String(data.get("self_preferred_timing") || ""),
           message: notes.join("\n\n"),
           seller_certification: Boolean(data.get("seller_certification")),
           fee_agreement: Boolean(data.get("fee_agreement")),
@@ -175,40 +184,84 @@ export default function SellerListingForm() {
               </label>
             </fieldset>
 
-            <div className={styles.brokerFields}>
-              <label className={styles.representedField}>
-                <span>Are you currently represented by another broker?</span>
-                <select name="broker_currently_represented" required={brokerAssisted} defaultValue="">
-                  <option value="" disabled>Select one</option>
-                  <option>No</option>
-                  <option>Yes</option>
-                  <option>Not sure</option>
-                </select>
-              </label>
+            <div className={`${styles.brokerFields} ${!brokerAssisted ? styles.selfDirectedFields : ""}`}>
+              {brokerAssisted ? (
+                <>
+                  <label className={styles.representedField}>
+                    <span>Are you currently represented by another broker?</span>
+                    <select name="broker_currently_represented" required defaultValue="">
+                      <option value="" disabled>Select one</option>
+                      <option>No</option>
+                      <option>Yes</option>
+                      <option>Not sure</option>
+                    </select>
+                  </label>
 
-              <label className={styles.arrangementField}>
-                <span>Preferred arrangement</span>
-                <select name="broker_arrangement" defaultValue="No preference / need guidance">
-                  <option>No preference / need guidance</option>
-                  <option>Non-exclusive arrangement</option>
-                  <option>Exclusive arrangement</option>
-                </select>
-              </label>
+                  <label className={styles.arrangementField}>
+                    <span>Preferred arrangement</span>
+                    <select name="broker_arrangement" defaultValue="No preference / need guidance">
+                      <option>No preference / need guidance</option>
+                      <option>Non-exclusive arrangement</option>
+                      <option>Exclusive arrangement</option>
+                    </select>
+                  </label>
 
-              <label className={styles.netField}>
-                <span>Desired net amount</span>
-                <input type="text" inputMode="decimal" name="desired_net_amount" placeholder="$" />
-              </label>
+                  <label className={styles.netField}>
+                    <span>Desired net amount</span>
+                    <input type="text" inputMode="decimal" name="desired_net_amount" placeholder="$" />
+                  </label>
 
-              <label className={styles.contactMethodField}>
-                <span>Preferred contact method</span>
-                <select name="broker_contact_method" required={brokerAssisted} defaultValue="">
-                  <option value="" disabled>Select one</option>
-                  <option>Phone</option>
-                  <option>Email</option>
-                  <option>Either phone or email</option>
-                </select>
-              </label>
+                  <label className={styles.contactMethodField}>
+                    <span>Preferred contact method</span>
+                    <select name="broker_contact_method" required defaultValue="">
+                      <option value="" disabled>Select one</option>
+                      <option>Phone</option>
+                      <option>Email</option>
+                      <option>Either phone or email</option>
+                    </select>
+                  </label>
+                </>
+              ) : (
+                <>
+                  <label className={styles.representedField}>
+                    <span>License status</span>
+                    <select name="self_license_status" required defaultValue="">
+                      <option value="" disabled>Select one</option>
+                      <option>Active and current</option>
+                      <option>Inactive</option>
+                      <option>Transfer pending</option>
+                      <option>Not sure</option>
+                    </select>
+                  </label>
+
+                  <label className={styles.arrangementField}>
+                    <span>Preferred sale timing</span>
+                    <select name="self_preferred_timing" required defaultValue="">
+                      <option value="" disabled>Select one</option>
+                      <option>Immediately</option>
+                      <option>Within 30 days</option>
+                      <option>Within 31–60 days</option>
+                      <option>Within 61–90 days</option>
+                      <option>Flexible</option>
+                    </select>
+                  </label>
+
+                  <label className={styles.netField}>
+                    <span>Asking price</span>
+                    <input type="text" inputMode="decimal" name="self_asking_price" placeholder="$" />
+                  </label>
+
+                  <label className={styles.contactMethodField}>
+                    <span>Preferred contact method</span>
+                    <select name="self_contact_method" required defaultValue="">
+                      <option value="" disabled>Select one</option>
+                      <option>Phone</option>
+                      <option>Email</option>
+                      <option>Either phone or email</option>
+                    </select>
+                  </label>
+                </>
+              )}
             </div>
 
             <button className={styles.continueHotspot} type="submit" title="Continue to the confidential listing details">
