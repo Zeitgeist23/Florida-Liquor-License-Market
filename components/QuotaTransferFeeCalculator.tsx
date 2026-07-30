@@ -2,6 +2,12 @@
 
 import { useMemo, useState } from "react";
 
+import {
+  ABT_6002_TRANSFER_FEE_LOCAL_KEY,
+  ABT_6002_TRANSFER_FEE_SESSION_KEY,
+  createAbt6002TransferFeePayload,
+} from "@/lib/abt-6002-transfer-fee";
+
 const MONTHS = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
@@ -37,6 +43,7 @@ export default function QuotaTransferFeeCalculator() {
   const [issuedWithinThreeYears, setIssuedWithinThreeYears] = useState(false);
   const [annualLicenseFee, setAnnualLicenseFee] = useState("");
   const [possibleWaiver, setPossibleWaiver] = useState(false);
+  const [applyStatus, setApplyStatus] = useState("");
 
   const yearTotals = useMemo(
     () => sales.map((year) => year.reduce((sum, value) => sum + numberFromCurrencyInput(value), 0)),
@@ -73,12 +80,35 @@ export default function QuotaTransferFeeCalculator() {
     setIssuedWithinThreeYears(false);
     setAnnualLicenseFee("");
     setPossibleWaiver(false);
+    setApplyStatus("");
+  }
+
+  function applyToAbt6002() {
+    if (!hasAnySales) return;
+
+    const payload = createAbt6002TransferFeePayload({
+      businessName,
+      licenseNumber,
+      obtainedDate,
+      years,
+      sales,
+      yearTotals,
+      threeYearTotal,
+      threeYearAverage,
+      transferFee: baseTransferFee,
+    });
+    const serializedPayload = JSON.stringify(payload);
+
+    window.sessionStorage.setItem(ABT_6002_TRANSFER_FEE_SESSION_KEY, serializedPayload);
+    window.localStorage.setItem(ABT_6002_TRANSFER_FEE_LOCAL_KEY, serializedPayload);
+    setApplyStatus("Figures saved on this device. Opening ABT-6002…");
+    window.location.assign("/resources/forms/abt-6002?transferFee=imported");
   }
 
   return (
     <section className="transfer-calculator" aria-label="Quota license transfer fee calculator">
       <div className="transfer-privacy-note">
-        <strong>Private by design.</strong> Figures entered here stay in this browser. FLLM does not receive or store them.
+        <strong>Private by design.</strong> Figures entered here stay in this browser. When you apply them to ABT-6002, a temporary copy is kept on this device only and deleted immediately after import. FLLM does not receive or store them.
       </div>
 
       <div className="transfer-form-sheet" id="quota-transfer-fee-worksheet">
@@ -241,8 +271,10 @@ export default function QuotaTransferFeeCalculator() {
 
       <div className="transfer-actions">
         <button className="btn btn-outline" type="button" onClick={resetCalculator}>Clear worksheet</button>
+        <button className="btn btn-outline transfer-apply-button" type="button" onClick={applyToAbt6002} disabled={!hasAnySales}>Apply figures to ABT-6002</button>
         <button className="btn btn-gold" type="button" onClick={() => window.print()} disabled={!printReady}>Print calculation with total fee</button>
       </div>
+      {applyStatus && <p className="transfer-apply-status" role="status">{applyStatus}</p>}
 
       <section className="transfer-disclosures" aria-label="Calculator disclosures">
         <span className="transfer-disclosure-kicker">Important disclosures</span>
