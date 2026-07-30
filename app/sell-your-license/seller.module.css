@@ -51,42 +51,24 @@
   mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, .15) 18%, rgba(0, 0, 0, .6) 32%, #000 41%, #000);
 }
 
-.screenLeftMask::after {
-  content: "";
-  position: absolute;
-  inset: 53.4% 0 auto;
-  height: 9.4%;
-  background: url("data:image/webp;base64,UklGRhACAABXRUJQVlA4IAQCAABQDQCdASpiAEsAPpE+mkilpqKiKvgLINASCWVtolwjgJlZ2j/dYjfunZwbMUaH30jZuyxDFGyrHW7L3cKl+7AQiP90aOqWFiRYu3aEOb2Qv0ysimaIR7jV9Sul3JqVcW9Q45P9kgz1oVeYbbQYBufbKsA8AP76DaJUAA4do1KxiPpypY+5J8FS3ZPtq8EokgFXy8QGeJECagqOkAlQQL9uwUMA/yAQHFlWut68QipxwbzQXSXAn57gy2LFL0Z+/YzH1TrPOsovCaMW/QYAS827sMaLigjCY/0AQyl1H+1v7HKaj0kgdWpfSCkVMRu187vhwZGqOEQut+wsMMmPT/7wmOTCBnBmXFj3T5i+0AImba/OMsh6+STy1SErr5iNv7c11l8TAFlYQlxft9opWk8Gyy3BOVyiYXod0umqMnfOqd1yR7cWwznyopDv4ABtLVE+0smI0zyKwWR/57wATA+Ur2qiASWjTJXtaS3uZTBNyJF2edikfXdLbdaWP6/GMXq7P3LaXpjTbhB37UjVHuMZl+DWYINFqONENqY0wK1aV/erH8s1Jh90J8aRYPBWScKlR3zAQKxC+W5yDt8jajP5knGZxFooLX7c2BOgMlmwesbNjjnBT5mk3j1rY9xG6+lSYYE2f0wHgQqKHUBQLloXiWsOg81qyJvd2Zc8mwYKq9TPgAA=") center / 100% 100% no-repeat;
-  mix-blend-mode: screen;
-}
-
 .screenBottomMask {
   left: 46.45%;
   top: 84.8%;
-  width: 44.6%;
+  width: 47.5%;
   bottom: 0;
   background-position: center top;
   -webkit-mask-image:
     linear-gradient(180deg, #000 0%, #000 42%, rgba(0, 0, 0, .6) 50%, transparent 62%),
-    linear-gradient(90deg, #000 0%, #000 97.5%, transparent 100%);
+    linear-gradient(90deg, #000 0%, #000 95%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image:
     linear-gradient(180deg, #000 0%, #000 42%, rgba(0, 0, 0, .6) 50%, transparent 62%),
-    linear-gradient(90deg, #000 0%, #000 97.5%, transparent 100%);
+    linear-gradient(90deg, #000 0%, #000 95%, transparent 100%);
   mask-composite: intersect;
 }
 
 .screenRightMask {
-  left: 90.65%;
-  top: 10.5%;
-  width: .55%;
-  height: 74.55%;
-  background-image: url("/api/list-your-license-approved");
-  background-repeat: no-repeat;
-  background-size: 18181.82% 124.77%;
-  background-position: 91.44% 52.7%;
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 98%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 0%, #000 98%, transparent 100%);
+  display: none !important;
 }
 
 .approvedScreenArtwork {
