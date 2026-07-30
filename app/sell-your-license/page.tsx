@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import SellerListingForm from "@/components/SellerListingForm";
+import styles from "./approved-background.module.css";
 
 export const metadata: Metadata = {
   title: "List Your Florida Liquor License | Florida Liquor License Market",
@@ -19,5 +20,17 @@ export const metadata: Metadata = {
 };
 
 export default function SellYourLicensePage() {
-  return <SellerListingForm />;
+  return (
+    <div className={styles.wrapper}>
+      {/* This is intentionally a real HTML image rather than a generated CSS background. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        className={styles.approvedArtwork}
+        src="/api/fllm-list-your-license-image"
+        alt=""
+        aria-hidden="true"
+      />
+      <SellerListingForm />
+    </div>
+  );
 }
