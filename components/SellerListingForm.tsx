@@ -152,7 +152,10 @@ export default function SellerListingForm() {
                   name="sale_method"
                   value="Self-Directed Listing"
                   checked={!brokerAssisted}
-                  onChange={() => setSaleMethod("Self-Directed Listing")}
+                  onChange={() => {
+                    setSaleMethod("Self-Directed Listing");
+                    setReviewOpen(true);
+                  }}
                 />
                 <span className={styles.choiceMarker} aria-hidden="true" />
                 <span className={styles.mobileChoiceCopy}>
