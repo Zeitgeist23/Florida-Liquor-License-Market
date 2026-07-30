@@ -33,18 +33,20 @@
 }
 
 .screenLeftMask {
-  left: 46.45%;
+  left: 45.55%;
   top: 10.5%;
-  width: 2.83%;
+  width: 3.73%;
   height: 80.15%;
   background-color: #020b13;
   background-image:
-    radial-gradient(circle at 12px 14px, rgba(0, 178, 239, .62) 0 1px, transparent 1.7px),
-    radial-gradient(circle at 36px 42px, rgba(0, 116, 171, .5) 0 1px, transparent 1.6px),
-    linear-gradient(128deg, transparent 0 47%, rgba(0, 115, 170, .28) 48%, transparent 49%),
-    linear-gradient(52deg, transparent 0 48%, rgba(0, 90, 135, .22) 49%, transparent 50%),
+    radial-gradient(circle at 12px 14px, rgba(0, 178, 239, .52) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 36px 42px, rgba(0, 116, 171, .4) 0 1px, transparent 1.6px),
+    linear-gradient(128deg, transparent 0 47%, rgba(0, 115, 170, .2) 48%, transparent 49%),
+    linear-gradient(52deg, transparent 0 48%, rgba(0, 90, 135, .17) 49%, transparent 50%),
     linear-gradient(90deg, #010810, #031725 52%, #010a12);
   background-size: 48px 56px, 48px 56px, 48px 56px, 48px 56px, auto;
+  -webkit-mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, .35) 14%, #000 28%, #000);
+  mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, .35) 14%, #000 28%, #000);
 }
 
 .screenBottomMask {
