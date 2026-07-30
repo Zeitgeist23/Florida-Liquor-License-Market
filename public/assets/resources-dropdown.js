@@ -12,6 +12,12 @@
       href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
     },
     {
+      label: "Quota License Transfer Fee Calculator",
+      href: "/resources/quota-transfer-fee-calculator",
+      internal: true,
+      newWindow: true,
+    },
+    {
       label: "Liquor License Attorneys",
       href: "https://www.floridabar.org/public/lrs/",
     },
@@ -130,12 +136,25 @@
     menu.setAttribute("role", "menu");
     menu.setAttribute("aria-hidden", "true");
 
-    resources.forEach(({ label, href, internal }) => {
+    resources.forEach(({ label, href, internal, newWindow }) => {
       const link = document.createElement("a");
       link.href = href;
-      if (!internal) {
+      if (newWindow || !internal) {
         link.target = "_blank";
         link.rel = "noopener noreferrer";
+      }
+      if (newWindow) {
+        link.addEventListener("click", (event) => {
+          const popup = window.open(
+            href,
+            "fllm-quota-transfer-fee-calculator",
+            "popup=yes,width=1180,height=860,resizable=yes,scrollbars=yes"
+          );
+          if (popup) {
+            event.preventDefault();
+            popup.focus();
+          }
+        });
       }
       link.setAttribute("role", "menuitem");
       link.textContent = label;
