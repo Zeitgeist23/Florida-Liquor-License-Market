@@ -8,7 +8,7 @@ import {
   PDFRadioGroup,
   PDFTextField,
 } from "pdf-lib";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { type MouseEvent, useEffect, useMemo, useRef, useState } from "react";
 
 import { getFriendlyAbtFieldLabel } from "@/data/abt-form-field-labels";
 import {
@@ -172,6 +172,22 @@ function readInitialsConsent(): InitialsConsent | null {
   } catch {
     window.sessionStorage.removeItem(INITIALS_CONSENT_KEY);
     return null;
+  }
+}
+
+function openFllmStatuteWindow(
+  event: MouseEvent<HTMLAnchorElement>,
+  path: string,
+  windowName: string
+) {
+  const popup = window.open(
+    path,
+    windowName,
+    "popup=yes,width=1040,height=820,resizable=yes,scrollbars=yes"
+  );
+  if (popup) {
+    event.preventDefault();
+    popup.focus();
   }
 }
 
@@ -774,9 +790,23 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
 
             <p className="abt-initials-legal-note">
               Florida law generally recognizes electronic signatures, but specific filing requirements may still apply. Review{" "}
-              <a href="https://leg.state.fl.us/statutes/index.cfm/statutes/index.cfm?App_mode=Display_Statute&URL=0600-0699%2F0668%2FSections%2F0668.004.html" target="_blank" rel="noreferrer">Florida Statute 668.004</a>
+              <a
+                href="/resources/statutes/668-004"
+                target="_blank"
+                rel="noreferrer"
+                onClick={(event) => openFllmStatuteWindow(event, "/resources/statutes/668-004", "fllm-statute-668-004")}
+              >
+                Florida Statute 668.004
+              </a>
               {" "}and{" "}
-              <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0600-0699%2F0668%2FSections%2F0668.50.html" target="_blank" rel="noreferrer">Florida Statute 668.50</a>.
+              <a
+                href="/resources/statutes/668-50"
+                target="_blank"
+                rel="noreferrer"
+                onClick={(event) => openFllmStatuteWindow(event, "/resources/statutes/668-50", "fllm-statute-668-50")}
+              >
+                Florida Statute 668.50
+              </a>.
             </p>
 
             <div className="abt-initials-modal-actions">
