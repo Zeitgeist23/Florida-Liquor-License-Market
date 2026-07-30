@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import SellerListingForm from "@/components/SellerListingForm";
-import ApprovedArtworkImage from "./ApprovedArtworkImage";
 import styles from "./approved-background.module.css";
 
 export const metadata: Metadata = {
@@ -23,7 +22,6 @@ export const metadata: Metadata = {
 export default function SellYourLicensePage() {
   return (
     <div className={styles.wrapper}>
-      <ApprovedArtworkImage />
       <SellerListingForm />
     </div>
   );
