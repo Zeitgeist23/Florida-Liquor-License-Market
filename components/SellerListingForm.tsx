@@ -287,7 +287,7 @@ export default function SellerListingForm() {
             </div>
 
             <button className={styles.continueHotspot} type="submit" title="Continue to the confidential listing details">
-              <span className={styles.desktopButtonLabel}>Continue to Listing Details</span>
+              <span className={styles.desktopButtonLabel}>Continue ›</span>
               <span className={styles.mobileButtonLabel}>Continue to Listing</span>
             </button>
           </div>
