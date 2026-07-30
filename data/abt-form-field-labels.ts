@@ -92,14 +92,14 @@ const LABELS_BY_FORM: Record<string, Record<string, string>> = {
 };
 
 function getAbt6002Section12FieldLabel(label: string) {
-  const compact = label.replace(/[\\s_-]+/g, "").toLowerCase();
+  const compact = label.replace(/[\s_-]+/g, "").toLowerCase();
   const patterns: Array<[RegExp, string]> = [
-    [/^firstyearrow(\\d+)$/, "First Year Period"],
-    [/^amountofsalesrow(\\d+)$/, "First Year Sales"],
-    [/^secondyearrow(\\d+)$/, "Second Year Period"],
-    [/^amountofsalesrow(\\d+)2$/, "Second Year Sales"],
-    [/^thirdyearrow(\\d+)$/, "Third Year Period"],
-    [/^amountofsalesrow(\\d+)3$/, "Third Year Sales"],
+    [/^firstyearrow(\d+)$/, "First Year Period"],
+    [/^amountofsalesrow(\d+)$/, "First Year Sales"],
+    [/^secondyearrow(\d+)$/, "Second Year Period"],
+    [/^amountofsalesrow(\d+)2$/, "Second Year Sales"],
+    [/^thirdyearrow(\d+)$/, "Third Year Period"],
+    [/^amountofsalesrow(\d+)3$/, "Third Year Sales"],
   ];
 
   for (const [pattern, description] of patterns) {
