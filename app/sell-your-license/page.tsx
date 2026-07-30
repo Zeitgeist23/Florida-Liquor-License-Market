@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import SellerListingForm from "@/components/SellerListingForm";
+import ApprovedArtworkImage from "./ApprovedArtworkImage";
 import styles from "./approved-background.module.css";
 
 export const metadata: Metadata = {
@@ -22,13 +23,7 @@ export const metadata: Metadata = {
 export default function SellYourLicensePage() {
   return (
     <div className={styles.wrapper}>
-      {/* This is intentionally a real HTML image rather than a generated CSS background. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        className={styles.approvedArtwork}
-        src="/api/fllm-list-your-license-image"
-        alt="Approved Florida Liquor License Market List Your License page artwork"
-      />
+      <ApprovedArtworkImage />
       <SellerListingForm />
     </div>
   );
