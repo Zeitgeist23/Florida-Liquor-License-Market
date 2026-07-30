@@ -144,6 +144,19 @@ function inputType(field: FormFieldDefinition) {
   return "text";
 }
 
+function friendlyOptionLabel(option: string) {
+  const cleaned = option
+    .replace(/^\//, "")
+    .replace(/[_-]\d+$/, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (/^yes$/i.test(cleaned)) return "Yes";
+  if (/^no$/i.test(cleaned)) return "No";
+  return humanizeFieldLabel(cleaned || option);
+}
+
 function extractFields(pdfDocument: PDFDocument, formId: string) {
   const pdfForm = pdfDocument.getForm();
   const initialValues: DraftValues = {};
@@ -153,9 +166,9 @@ function extractFields(pdfDocument: PDFDocument, formId: string) {
   pdfForm.getFields().forEach((field, index) => {
     const name = field.getName();
     const resolvedLabel = resolveFieldLabel(field, name);
-    const label = resolvedLabel ? getFriendlyAbtFieldLabel(formId, resolvedLabel) : null;
+    const label = getFriendlyAbtFieldLabel(formId, resolvedLabel || name);
 
-    if (!label) {
+    if (!label || (!resolvedLabel && isUnhelpfulFieldLabel(label))) {
       skippedFieldCount += 1;
       return;
     }
@@ -463,7 +476,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
               <div className="abt-progress-heading">
                 <div>
                   <span>Step {step + 1} of {totalSteps}</span>
-                  <h2>Complete the clearly labeled official form fields</h2>
+                  <h2>Complete every available official form field</h2>
                 </div>
                 <strong>{completion}%</strong>
               </div>
@@ -530,7 +543,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
                             onChange={(event) => updateValue(field.name, event.target.value)}
                           >
                             <option value="">Select an option</option>
-                            {field.options.map((option) => <option value={option} key={option}>{option}</option>)}
+                            {field.options.map((option) => <option value={option} key={option}>{friendlyOptionLabel(option)}</option>)}
                           </select>
                         )}
                       </>
