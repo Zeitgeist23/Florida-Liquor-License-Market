@@ -735,3 +735,35 @@
     page-break-before: always;
   }
 }
+
+
+.transfer-apply-button {
+  border-color: #a66f00;
+  color: #111820;
+  background: #fff7df;
+}
+
+.transfer-apply-button:hover:not(:disabled) {
+  border-color: #f6a700;
+  background: #ffedbd;
+}
+
+.transfer-apply-status {
+  margin: -4px 0 0;
+  color: #744e00;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: right;
+}
+
+@media (max-width: 650px) {
+  .transfer-apply-status {
+    text-align: left;
+  }
+}
+
+@media print {
+  .transfer-apply-status {
+    display: none !important;
+  }
+}
