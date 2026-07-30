@@ -185,6 +185,33 @@
   pointer-events: auto;
 }
 
+.methodChoice::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -1px;
+  border-radius: clamp(8px, .8vw, 13px);
+  pointer-events: none;
+  transition: border-color .16s ease, background-color .16s ease, box-shadow .16s ease;
+}
+
+.methodUnselected::before {
+  border: max(1px, .1vw) solid rgba(83, 109, 128, .82);
+  background: rgba(1, 10, 17, .3);
+  box-shadow:
+    0 0 0 max(2px, .18vw) rgba(1, 8, 14, .94),
+    inset 0 0 clamp(14px, 1.5vw, 24px) rgba(0, 5, 9, .48);
+}
+
+.methodSelected::before {
+  border: max(1px, .12vw) solid #32c9ff;
+  background: rgba(0, 126, 174, .08);
+  box-shadow:
+    0 0 0 max(2px, .18vw) rgba(1, 9, 15, .9),
+    0 0 clamp(12px, 1.2vw, 20px) rgba(38, 197, 255, .52),
+    inset 0 0 clamp(12px, 1.2vw, 20px) rgba(31, 177, 232, .12);
+}
+
 .selfChoice { left: 48.9%; width: 19.8%; }
 .brokerChoice { left: 69.4%; width: 19.4%; }
 
@@ -220,8 +247,7 @@
 }
 
 .methodChoice:focus-within {
-  outline: 2px solid rgba(67, 196, 255, .9);
-  outline-offset: -2px;
+  outline: none;
   border-radius: 12px;
 }
 
@@ -580,9 +606,12 @@
   }
 
   .methodChoice:has(input:checked) {
-    border-color: #f2a900;
-    box-shadow: 0 0 18px rgba(242, 169, 0, .13);
+    border-color: #32c9ff;
+    background: rgba(0, 118, 162, .1);
+    box-shadow: 0 0 18px rgba(38, 197, 255, .24);
   }
+
+  .methodChoice::before { display: none; }
 
   .choiceMarker {
     top: 20px;
