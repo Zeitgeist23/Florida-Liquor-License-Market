@@ -174,11 +174,6 @@
     trigger.setAttribute("data-resources-dropdown-bound", "true");
     trigger.setAttribute("aria-haspopup", "menu");
     trigger.setAttribute("aria-expanded", "false");
-    trigger.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      toggleMenu(trigger);
-    }, true);
     trigger.addEventListener("keydown", (event) => {
       if (event.key === "ArrowDown") {
         event.preventDefault();
@@ -190,11 +185,23 @@
   }
 
   document.addEventListener("click", (event) => {
-    if (!menu?.classList.contains("is-open")) return;
     const target = event.target;
+    const trigger = target instanceof Element ? target.closest(".primary-nav a") : null;
+
+    if (
+      trigger instanceof HTMLAnchorElement &&
+      /^resources$/i.test(normalizedText(trigger))
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleMenu(trigger);
+      return;
+    }
+
+    if (!menu?.classList.contains("is-open")) return;
     if (target instanceof Node && (menu.contains(target) || activeTrigger?.contains(target))) return;
     closeMenu();
-  });
+  }, true);
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && menu?.classList.contains("is-open")) {
