@@ -101,7 +101,7 @@ export default function QuotaTransferFeeCalculator() {
 
     window.sessionStorage.setItem(ABT_6002_TRANSFER_FEE_SESSION_KEY, serializedPayload);
     window.localStorage.setItem(ABT_6002_TRANSFER_FEE_LOCAL_KEY, serializedPayload);
-    setApplyStatus("Figures saved on this device. Opening ABT-6002…");
+    setApplyStatus("Figures saved on this device. Opening the ABT-6002 draft PDF…");
     window.location.assign("/resources/forms/abt-6002?transferFee=imported");
   }
 
@@ -279,7 +279,7 @@ export default function QuotaTransferFeeCalculator() {
 
       <div className="transfer-actions">
         <button className="btn btn-outline" type="button" onClick={resetCalculator}>Clear worksheet</button>
-        <button className="btn btn-outline transfer-apply-button" type="button" onClick={applyToAbt6002} disabled={!hasAnySales}>Apply figures to ABT-6002</button>
+        <button className="btn btn-outline transfer-apply-button" type="button" onClick={applyToAbt6002} disabled={!hasAnySales}>Import into ABT-6002 &amp; View PDF</button>
         <button className="btn btn-gold" type="button" onClick={() => window.print()} disabled={!printReady}>Print calculation with total fee</button>
       </div>
       {applyStatus && <p className="transfer-apply-status" role="status">{applyStatus}</p>}
