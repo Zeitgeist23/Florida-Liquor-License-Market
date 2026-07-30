@@ -226,7 +226,7 @@ function extractFields(pdfDocument: PDFDocument, formId: string) {
   pdfForm.getFields().forEach((field, index) => {
     const name = field.getName();
     const resolvedLabel = resolveFieldLabel(field, name);
-    const label = getFriendlyAbtFieldLabel(formId, resolvedLabel || name);
+    const label = getFriendlyAbtFieldLabel(formId, resolvedLabel || name, name);
 
     if (!label || (!resolvedLabel && isUnhelpfulFieldLabel(label))) {
       skippedFieldCount += 1;
