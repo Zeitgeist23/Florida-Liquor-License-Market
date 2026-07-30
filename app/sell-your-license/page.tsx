@@ -27,8 +27,7 @@ export default function SellYourLicensePage() {
       <img
         className={styles.approvedArtwork}
         src="/api/fllm-list-your-license-image"
-        alt=""
-        aria-hidden="true"
+        alt="Approved Florida Liquor License Market List Your License page artwork"
       />
       <SellerListingForm />
     </div>
