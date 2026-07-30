@@ -1293,3 +1293,58 @@
     text-align: center;
   }
 }
+
+
+.abt-transfer-import-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.abt-transfer-draft-panel {
+  border-top: 2px solid #f6a700;
+  background: linear-gradient(180deg, #0d2435 0%, #081722 100%);
+  scroll-margin-top: 18px;
+}
+
+.abt-transfer-draft-warning {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 18px;
+  padding: 13px 16px;
+  border: 1px solid #f6a700;
+  border-radius: 5px;
+  color: #fff4d0;
+  background: #3a2700;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.abt-transfer-draft-warning strong {
+  flex: 0 0 auto;
+  color: #ffbd28;
+  font-size: 12px;
+  letter-spacing: .08em;
+}
+
+#abt-guided-form {
+  scroll-margin-top: 18px;
+}
+
+@media (max-width: 760px) {
+  .abt-transfer-import-actions,
+  .abt-transfer-draft-warning {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .abt-transfer-import-actions {
+    width: 100%;
+  }
+  .abt-transfer-draft-warning {
+    gap: 5px;
+  }
+}
