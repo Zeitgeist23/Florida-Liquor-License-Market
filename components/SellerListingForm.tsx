@@ -18,6 +18,28 @@ const COUNTIES = [
 
 type SaleMethod = "Self-Directed Listing" | "Broker-Assisted Listing";
 
+function formatCurrency(value: string) {
+  const digits = value.replace(/\D/g, "").replace(/^0+(?=\d)/, "");
+  if (!digits) return "";
+  return `${digits.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+}
+
+function CurrencyInput({ name }: { name: string }) {
+  const [value, setValue] = useState("");
+
+  return (
+    <input
+      type="text"
+      inputMode="numeric"
+      autoComplete="off"
+      name={name}
+      placeholder="$"
+      value={value}
+      onChange={(event) => setValue(formatCurrency(event.target.value))}
+    />
+  );
+}
+
 export default function SellerListingForm() {
   const [saleMethod, setSaleMethod] = useState<SaleMethod>("Broker-Assisted Listing");
   const [reviewOpen, setReviewOpen] = useState(false);
@@ -248,7 +270,7 @@ export default function SellerListingForm() {
 
                   <label className={styles.netField}>
                     <span>Asking price</span>
-                    <input type="text" inputMode="decimal" name="self_asking_price" placeholder="$" />
+                    <CurrencyInput name="self_asking_price" />
                   </label>
 
                   <label className={styles.contactMethodField}>
@@ -286,7 +308,7 @@ export default function SellerListingForm() {
                   <label><span>Phone *</span><input type="tel" autoComplete="tel" required name="phone" /></label>
                   <label><span>County *</span><select name="county" required defaultValue=""><option value="" disabled>Select county</option>{COUNTIES.map((county) => <option key={county}>{county} County</option>)}</select></label>
                   <label><span>License Type *</span><select name="license_type" required defaultValue=""><option value="" disabled>Select license type</option><option>4COP Quota</option><option>3PS Quota / Package Store</option><option>2COP Beer &amp; Wine</option><option>Specialty / Qualified Business License</option><option>Not Sure</option></select></label>
-                  <label><span>Asking Price</span><input type="text" inputMode="decimal" placeholder="$" name="asking_price" /></label>
+                  <label><span>Asking Price</span><CurrencyInput name="asking_price" /></label>
                   <label className={styles.notes}><span>Additional Details</span><textarea name="message" rows={3} /></label>
                 </div>
 
