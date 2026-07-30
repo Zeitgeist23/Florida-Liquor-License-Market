@@ -174,14 +174,12 @@
   text-transform: uppercase;
 }
 
-.transfer-sales-table thead th:nth-child(2n + 1),
-.transfer-sales-table tbody td:nth-child(2n + 1) {
+.transfer-sales-table col.transfer-month-column {
   width: 9%;
 }
 
-.transfer-sales-table thead th:nth-child(2n),
-.transfer-sales-table tbody td:nth-child(2n) {
-  width: 24.33%;
+.transfer-sales-table col.transfer-sales-column {
+  width: 24.333333%;
 }
 
 .transfer-sales-table tbody td {
