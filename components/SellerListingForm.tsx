@@ -24,7 +24,7 @@ function formatCurrency(value: string) {
   return `${digits.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 }
 
-function CurrencyInput({ name }: { name: string }) {
+function CurrencyInput({ name, onComplete }: { name: string; onComplete?: () => void }) {
   const [value, setValue] = useState("");
 
   return (
@@ -36,6 +36,7 @@ function CurrencyInput({ name }: { name: string }) {
       placeholder="$"
       value={value}
       onChange={(event) => setValue(formatCurrency(event.target.value))}
+      onBlur={onComplete}
     />
   );
 }
@@ -58,6 +59,21 @@ export default function SellerListingForm() {
 
   function openReview(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    advanceIfComplete();
+  }
+
+  function advanceIfComplete() {
+    const form = formRef.current;
+    if (!form) return;
+
+    const data = new FormData(form);
+    const requiredFields = saleMethod === "Broker-Assisted Listing"
+      ? ["broker_currently_represented", "broker_arrangement", "desired_net_amount", "broker_contact_method"]
+      : ["self_license_status", "self_preferred_timing", "self_asking_price", "self_contact_method"];
+
+    const complete = requiredFields.every((field) => String(data.get(field) || "").trim());
+    if (!complete) return;
+
     setIsError(false);
     setStatus("");
     setReviewOpen(true);
@@ -211,7 +227,7 @@ export default function SellerListingForm() {
                 <>
                   <label className={styles.representedField}>
                     <span>Are you currently represented by another broker?</span>
-                    <select name="broker_currently_represented" required defaultValue="">
+                    <select name="broker_currently_represented" required defaultValue="" onChange={advanceIfComplete}>
                       <option value="" disabled>Select one</option>
                       <option>No</option>
                       <option>Yes</option>
@@ -221,7 +237,7 @@ export default function SellerListingForm() {
 
                   <label className={styles.arrangementField}>
                     <span>Preferred arrangement</span>
-                    <select name="broker_arrangement" defaultValue="No preference / need guidance">
+                    <select name="broker_arrangement" defaultValue="No preference / need guidance" onChange={advanceIfComplete}>
                       <option>No preference / need guidance</option>
                       <option>Non-exclusive arrangement</option>
                       <option>Exclusive arrangement</option>
@@ -230,12 +246,12 @@ export default function SellerListingForm() {
 
                   <label className={styles.netField}>
                     <span>Desired net amount</span>
-                    <input type="text" inputMode="decimal" name="desired_net_amount" placeholder="$" />
+                    <input type="text" inputMode="decimal" name="desired_net_amount" placeholder="$" onBlur={advanceIfComplete} />
                   </label>
 
                   <label className={styles.contactMethodField}>
                     <span>Preferred contact method</span>
-                    <select name="broker_contact_method" required defaultValue="">
+                    <select name="broker_contact_method" required defaultValue="" onChange={advanceIfComplete}>
                       <option value="" disabled>Select one</option>
                       <option>Phone</option>
                       <option>Email</option>
@@ -247,7 +263,7 @@ export default function SellerListingForm() {
                 <>
                   <label className={styles.representedField}>
                     <span>License status</span>
-                    <select name="self_license_status" required defaultValue="">
+                    <select name="self_license_status" required defaultValue="" onChange={advanceIfComplete}>
                       <option value="" disabled>Select one</option>
                       <option>Active and current</option>
                       <option>Inactive</option>
@@ -258,7 +274,7 @@ export default function SellerListingForm() {
 
                   <label className={styles.arrangementField}>
                     <span>Preferred sale timing</span>
-                    <select name="self_preferred_timing" required defaultValue="">
+                    <select name="self_preferred_timing" required defaultValue="" onChange={advanceIfComplete}>
                       <option value="" disabled>Select one</option>
                       <option>Immediately</option>
                       <option>Within 30 days</option>
@@ -270,12 +286,12 @@ export default function SellerListingForm() {
 
                   <label className={styles.netField}>
                     <span>Asking price</span>
-                    <CurrencyInput name="self_asking_price" />
+                    <CurrencyInput name="self_asking_price" onComplete={advanceIfComplete} />
                   </label>
 
                   <label className={styles.contactMethodField}>
                     <span>Preferred contact method</span>
-                    <select name="self_contact_method" required defaultValue="">
+                    <select name="self_contact_method" required defaultValue="" onChange={advanceIfComplete}>
                       <option value="" disabled>Select one</option>
                       <option>Phone</option>
                       <option>Email</option>
@@ -286,10 +302,6 @@ export default function SellerListingForm() {
               )}
             </div>
 
-            <button className={styles.continueHotspot} type="submit" title="Continue to the confidential listing details">
-              <span className={styles.desktopButtonLabel}>Continue to Listing Details</span>
-              <span className={styles.mobileButtonLabel}>Continue to Listing</span>
-            </button>
           </div>
 
           {reviewOpen && (
