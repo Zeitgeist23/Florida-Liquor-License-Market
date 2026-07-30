@@ -18,27 +18,6 @@ const COUNTIES = [
 
 type SaleMethod = "Self-Directed Listing" | "Broker-Assisted Listing";
 
-const MAP_NODES = [
-  [31, 46], [57, 42], [85, 49], [112, 62], [139, 78], [154, 103], [166, 132], [173, 161],
-  [186, 188], [192, 220], [205, 251], [214, 285], [211, 319], [198, 350], [184, 379],
-  [170, 405], [154, 430], [138, 448], [124, 423], [128, 393], [131, 363], [120, 334],
-  [108, 308], [98, 281], [88, 251], [77, 224], [68, 198], [59, 174], [49, 151], [42, 126],
-  [35, 100], [26, 76], [71, 81], [101, 96], [129, 116], [145, 145], [151, 180], [164, 214],
-  [175, 247], [184, 281], [183, 316], [171, 349], [155, 382], [145, 414], [111, 389],
-  [108, 352], [96, 319], [83, 290], [72, 258], [61, 226], [52, 194], [44, 163], [38, 134],
-];
-
-const MAP_EDGES = [
-  [0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,12],
-  [12,13],[13,14],[14,15],[15,16],[16,17],[17,18],[18,19],[19,20],[20,21],[21,22],[22,23],
-  [23,24],[24,25],[25,26],[26,27],[27,28],[28,29],[29,30],[30,31],[31,0],[1,32],[32,33],
-  [33,34],[34,35],[35,36],[36,37],[37,38],[38,39],[39,40],[40,41],[41,42],[42,43],[43,18],
-  [32,4],[33,6],[34,8],[35,10],[36,11],[37,12],[38,13],[39,14],[40,15],[41,16],[42,17],
-  [44,19],[44,20],[44,45],[45,21],[45,46],[46,22],[46,47],[47,23],[47,48],[48,24],[48,49],
-  [49,25],[49,50],[50,26],[50,51],[51,27],[51,52],[52,28],[52,29],[52,30],[32,52],
-  [33,51],[34,50],[35,49],[36,48],[37,47],[38,46],[39,45],[40,44],
-];
-
 export default function SellerListingForm() {
   const [saleMethod, setSaleMethod] = useState<SaleMethod>("Broker-Assisted Listing");
   const [isCompact, setIsCompact] = useState(false);
@@ -145,15 +124,9 @@ export default function SellerListingForm() {
             <h1 id="seller-page-title">List Your<br />Florida Liquor<br />License</h1>
             <p>Choose how you want to sell, then<br />complete your confidential listing.</p>
 
-            <svg className={styles.florida} viewBox="0 0 240 500" aria-hidden="true">
-              <path className={styles.floridaOutline} d="M22 42 L82 38 L116 46 L139 61 L154 84 L161 111 L171 137 L176 165 L188 191 L192 221 L205 250 L215 283 L213 319 L202 350 L187 379 L171 407 L154 434 L137 451 L123 428 L127 395 L130 364 L119 335 L107 307 L97 280 L86 251 L76 224 L67 198 L58 174 L49 150 L42 126 L34 101 L27 77 Z" />
-              {MAP_EDGES.map(([from, to], index) => (
-                <line key={index} x1={MAP_NODES[from][0]} y1={MAP_NODES[from][1]} x2={MAP_NODES[to][0]} y2={MAP_NODES[to][1]} />
-              ))}
-              {MAP_NODES.map(([cx, cy], index) => (
-                <circle key={index} cx={cx} cy={cy} r={index % 9 === 0 ? 4 : 2.1} />
-              ))}
-            </svg>
+            {/* Exact Florida artwork extracted from the approved production mockup. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className={styles.florida} src="/assets/florida-network-approved.png" alt="" aria-hidden="true" />
 
             <div className={styles.marketGrid} aria-label="Florida liquor license market indicators">
               <article className={styles.marketCard}>
