@@ -35,11 +35,11 @@
 .screenLeftMask {
   left: 46.45%;
   top: 10.5%;
-  width: .85%;
+  width: 1.55%;
   height: 80.15%;
   background-image: url("/api/list-your-license-approved");
   background-repeat: no-repeat;
-  background-size: 23529.4% 124.77%;
+  background-size: 25806.45% 124.77%;
   background-position: 46.4% 52.7%;
 }
 
@@ -74,7 +74,7 @@
   height: 100%;
   object-fit: fill;
   clip-path: inset(10.45% 8.85% 9.4% 46.45%);
-  transform: translateX(.55%) scale(.97);
+  transform: translateX(1.15%) scale(.97);
   transform-origin: 46.6% 10.75%;
   user-select: none;
   pointer-events: none;
@@ -109,7 +109,7 @@
 .screenControls {
   position: absolute;
   inset: 0;
-  transform: translateX(.55%) scale(.97);
+  transform: translateX(1.15%) scale(.97);
   transform-origin: 46.6% 10.75%;
   pointer-events: none;
 }
