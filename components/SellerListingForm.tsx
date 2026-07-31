@@ -56,6 +56,15 @@ export default function SellerListingForm() {
   const [status, setStatus] = useState("");
   const [isError, setIsError] = useState(false);
   const [askingPrice, setAskingPrice] = useState("");
+  const [county, setCounty] = useState("");
+  const [licenseType, setLicenseType] = useState("");
+  const [selfLicenseStatus, setSelfLicenseStatus] = useState("");
+  const [selfPreferredTiming, setSelfPreferredTiming] = useState("");
+  const [selfContactMethod, setSelfContactMethod] = useState("");
+  const [brokerCurrentlyRepresented, setBrokerCurrentlyRepresented] = useState("");
+  const [brokerArrangement, setBrokerArrangement] = useState("No preference / need guidance");
+  const [desiredNetAmount, setDesiredNetAmount] = useState("");
+  const [brokerContactMethod, setBrokerContactMethod] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -65,6 +74,16 @@ export default function SellerListingForm() {
     } else if (params.get("method") === "broker") {
       setSaleMethod("Broker-Assisted Listing");
     }
+    setCounty(params.get("county") || "");
+    setLicenseType(params.get("license_type") || "");
+    setAskingPrice(formatCurrency(params.get("self_asking_price") || ""));
+    setSelfLicenseStatus(params.get("self_license_status") || "");
+    setSelfPreferredTiming(params.get("self_preferred_timing") || "");
+    setSelfContactMethod(params.get("self_contact_method") || "");
+    setBrokerCurrentlyRepresented(params.get("broker_currently_represented") || "");
+    setBrokerArrangement(params.get("broker_arrangement") || "No preference / need guidance");
+    setDesiredNetAmount(params.get("desired_net_amount") || "");
+    setBrokerContactMethod(params.get("broker_contact_method") || "");
     if (params.get("payment") === "cancelled") {
       setIsError(true);
       setStatus("Payment was canceled. Your listing has not been submitted. You may continue when ready.");
@@ -241,7 +260,15 @@ export default function SellerListingForm() {
                 <>
                   <label className={styles.representedField}>
                     <span>Are you currently represented by another broker?</span>
-                    <select name="broker_currently_represented" required defaultValue="" onChange={advanceIfComplete}>
+                    <select
+                      name="broker_currently_represented"
+                      required
+                      value={brokerCurrentlyRepresented}
+                      onChange={(event) => {
+                        setBrokerCurrentlyRepresented(event.target.value);
+                        advanceIfComplete();
+                      }}
+                    >
                       <option value="" disabled>Select one</option>
                       <option>No</option>
                       <option>Yes</option>
@@ -251,7 +278,14 @@ export default function SellerListingForm() {
 
                   <label className={styles.arrangementField}>
                     <span>Preferred arrangement</span>
-                    <select name="broker_arrangement" defaultValue="No preference / need guidance" onChange={advanceIfComplete}>
+                    <select
+                      name="broker_arrangement"
+                      value={brokerArrangement}
+                      onChange={(event) => {
+                        setBrokerArrangement(event.target.value);
+                        advanceIfComplete();
+                      }}
+                    >
                       <option>No preference / need guidance</option>
                       <option>Non-exclusive arrangement</option>
                       <option>Exclusive arrangement</option>
@@ -260,12 +294,28 @@ export default function SellerListingForm() {
 
                   <label className={styles.netField}>
                     <span>Desired net amount</span>
-                    <input type="text" inputMode="decimal" name="desired_net_amount" placeholder="$" onBlur={advanceIfComplete} />
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      name="desired_net_amount"
+                      placeholder="$"
+                      value={desiredNetAmount}
+                      onChange={(event) => setDesiredNetAmount(event.target.value)}
+                      onBlur={advanceIfComplete}
+                    />
                   </label>
 
                   <label className={styles.contactMethodField}>
                     <span>Preferred contact method</span>
-                    <select name="broker_contact_method" required defaultValue="" onChange={advanceIfComplete}>
+                    <select
+                      name="broker_contact_method"
+                      required
+                      value={brokerContactMethod}
+                      onChange={(event) => {
+                        setBrokerContactMethod(event.target.value);
+                        advanceIfComplete();
+                      }}
+                    >
                       <option value="" disabled>Select one</option>
                       <option>Phone</option>
                       <option>Email</option>
@@ -277,7 +327,15 @@ export default function SellerListingForm() {
                 <>
                   <label className={styles.representedField}>
                     <span>License status</span>
-                    <select name="self_license_status" required defaultValue="" onChange={advanceIfComplete}>
+                    <select
+                      name="self_license_status"
+                      required
+                      value={selfLicenseStatus}
+                      onChange={(event) => {
+                        setSelfLicenseStatus(event.target.value);
+                        advanceIfComplete();
+                      }}
+                    >
                       <option value="" disabled>Select one</option>
                       <option>Active and current</option>
                       <option>Inactive</option>
@@ -288,7 +346,15 @@ export default function SellerListingForm() {
 
                   <label className={styles.arrangementField}>
                     <span>Preferred sale timing</span>
-                    <select name="self_preferred_timing" required defaultValue="" onChange={advanceIfComplete}>
+                    <select
+                      name="self_preferred_timing"
+                      required
+                      value={selfPreferredTiming}
+                      onChange={(event) => {
+                        setSelfPreferredTiming(event.target.value);
+                        advanceIfComplete();
+                      }}
+                    >
                       <option value="" disabled>Select one</option>
                       <option>Immediately</option>
                       <option>Within 30 days</option>
@@ -310,7 +376,15 @@ export default function SellerListingForm() {
 
                   <label className={styles.contactMethodField}>
                     <span>Preferred contact method</span>
-                    <select name="self_contact_method" required defaultValue="" onChange={advanceIfComplete}>
+                    <select
+                      name="self_contact_method"
+                      required
+                      value={selfContactMethod}
+                      onChange={(event) => {
+                        setSelfContactMethod(event.target.value);
+                        advanceIfComplete();
+                      }}
+                    >
                       <option value="" disabled>Select one</option>
                       <option>Phone</option>
                       <option>Email</option>
@@ -337,8 +411,8 @@ export default function SellerListingForm() {
                   <label><span>Full Name *</span><input type="text" autoComplete="name" required name="name" /></label>
                   <label><span>Email *</span><input type="email" autoComplete="email" required name="email" /></label>
                   <label><span>Phone *</span><input type="tel" autoComplete="tel" required name="phone" /></label>
-                  <label><span>County *</span><select name="county" required defaultValue=""><option value="" disabled>Select county</option>{COUNTIES.map((county) => <option key={county}>{county} County</option>)}</select></label>
-                  <label><span>License Type *</span><select name="license_type" required defaultValue=""><option value="" disabled>Select license type</option><option>4COP Quota</option><option>3PS Quota / Package Store</option><option>2COP Beer &amp; Wine</option><option>Specialty / Qualified Business License</option><option>Not Sure</option></select></label>
+                  <label><span>County *</span><select name="county" required value={county} onChange={(event) => setCounty(event.target.value)}><option value="" disabled>Select county</option>{COUNTIES.map((countyName) => <option key={countyName}>{countyName} County</option>)}</select></label>
+                  <label><span>License Type *</span><select name="license_type" required value={licenseType} onChange={(event) => setLicenseType(event.target.value)}><option value="" disabled>Select license type</option><option>4COP Quota</option><option>3PS Quota / Package Store</option><option>2COP Beer &amp; Wine</option><option>Specialty / Qualified Business License</option><option>Other / Not sure</option><option>Not Sure</option></select></label>
                   <label>
                     <span>Asking Price</span>
                     <CurrencyInput name="asking_price" value={askingPrice} onChange={setAskingPrice} />
