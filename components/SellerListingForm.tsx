@@ -6,18 +6,6 @@ import styles from "@/app/sell-your-license/seller.module.css";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 
-const COUNTIES = [
-  "Alachua", "Baker", "Bay", "Bradford", "Brevard", "Broward", "Calhoun", "Charlotte",
-  "Citrus", "Clay", "Collier", "Columbia", "DeSoto", "Dixie", "Duval", "Escambia",
-  "Flagler", "Franklin", "Gadsden", "Gilchrist", "Glades", "Gulf", "Hamilton", "Hardee",
-  "Hendry", "Hernando", "Highlands", "Hillsborough", "Holmes", "Indian River", "Jackson",
-  "Jefferson", "Lafayette", "Lake", "Lee", "Leon", "Levy", "Liberty", "Madison", "Manatee",
-  "Marion", "Martin", "Miami-Dade", "Monroe", "Nassau", "Okaloosa", "Okeechobee", "Orange",
-  "Osceola", "Palm Beach", "Pasco", "Pinellas", "Polk", "Putnam", "Santa Rosa", "Sarasota",
-  "Seminole", "St. Johns", "St. Lucie", "Sumter", "Suwannee", "Taylor", "Union", "Volusia",
-  "Wakulla", "Walton", "Washington",
-];
-
 type SaleMethod = "Self-Directed Listing" | "Broker-Assisted Listing";
 
 function formatCurrency(value: string) {
@@ -453,12 +441,21 @@ export default function SellerListingForm() {
                   <label><span>Full Name *</span><input type="text" autoComplete="name" required name="name" /></label>
                   <label><span>Email *</span><input type="email" autoComplete="email" required name="email" /></label>
                   <label><span>Phone *</span><input type="tel" autoComplete="tel" required name="phone" /></label>
-                  <label><span>County *</span><select name="county" required value={county} onChange={(event) => setCounty(event.target.value)}><option value="" disabled>Select county</option>{COUNTIES.map((countyName) => <option key={countyName}>{countyName} County</option>)}</select></label>
-                  <label><span>License Type *</span><select name="license_type" required value={licenseType} onChange={(event) => setLicenseType(event.target.value)}><option value="" disabled>Select license type</option><option>4COP Quota</option><option>3PS Quota / Package Store</option><option>2COP Beer &amp; Wine</option><option>Specialty / Qualified Business License</option><option>Other / Not sure</option><option>Not Sure</option></select></label>
-                  <label>
+                  <div className={styles.lockedField}>
+                    <span>County *</span>
+                    <strong>{county || "Not selected"}</strong>
+                    <input type="hidden" name="county" value={county} />
+                  </div>
+                  <div className={styles.lockedField}>
+                    <span>License Type *</span>
+                    <strong>{licenseType || "Not selected"}</strong>
+                    <input type="hidden" name="license_type" value={licenseType} />
+                  </div>
+                  <div className={styles.lockedField}>
                     <span>Asking Price</span>
-                    <CurrencyInput name="asking_price" value={askingPrice} onChange={setAskingPrice} />
-                  </label>
+                    <strong>{askingPrice ? `$${askingPrice}` : "Not provided"}</strong>
+                    <input type="hidden" name="asking_price" value={askingPrice} />
+                  </div>
                   <label className={styles.notes}><span>Additional Details</span><textarea name="message" rows={3} /></label>
                 </div>
 
