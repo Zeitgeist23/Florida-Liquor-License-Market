@@ -31,7 +31,8 @@
     },
     {
       label: "License Fees",
-      href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/license-information/",
+      href: "/resources/license-fees",
+      internal: true,
     },
     {
       label: "Florida ABT Forms",
