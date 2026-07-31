@@ -210,7 +210,7 @@ export default function TransactionPortalClient() {
   }
 
   if (loading) {
-    return <section className="portal-loading page-shell">Opening the secure transaction portalâ€¦</section>;
+    return <section className="portal-loading page-shell">Opening the secure transaction portal...</section>;
   }
 
   if (!user) {
@@ -243,7 +243,7 @@ export default function TransactionPortalClient() {
             {authMode === "register" && <small>Use at least 12 characters. Email verification and multifactor authentication are planned for the production-security phase.</small>}
             {error && <p className="portal-error" role="alert">{error}</p>}
             <button className="portal-primary-button" type="submit" disabled={busy}>
-              {busy ? "Please waitâ€¦" : authMode === "register" ? "Create Secure Account" : "Sign In to Portal"}
+              {busy ? "Please wait..." : authMode === "register" ? "Create Secure Account" : "Sign In to Portal"}
             </button>
           </form>
         </div>
@@ -271,7 +271,7 @@ export default function TransactionPortalClient() {
         <form className="portal-new-transaction" onSubmit={createTransaction}>
           <div className="portal-form-heading">
             <div><span>New workspace</span><h3>Tell us about the transaction</h3></div>
-            <button type="button" onClick={() => setShowNew(false)} aria-label="Close new transaction form">Ã—</button>
+            <button type="button" onClick={() => setShowNew(false)} aria-label="Close new transaction form">X</button>
           </div>
           <div className="portal-form-grid">
             <label>Workspace name<input name="transactionName" placeholder="Example: Broward 4COP purchase" required /></label>
@@ -285,7 +285,7 @@ export default function TransactionPortalClient() {
             <label><input type="checkbox" name="representativeAssistance" /><span><strong>Tax representative involved</strong>An attorney, CPA, or other qualified representative may request confidential FDOR information.</span></label>
           </div>
           <div className="portal-form-actions">
-            <button className="portal-primary-button" type="submit" disabled={busy}>{busy ? "Creatingâ€¦" : "Create Guided Workspace"}</button>
+            <button className="portal-primary-button" type="submit" disabled={busy}>{busy ? "Creating..." : "Create Guided Workspace"}</button>
           </div>
         </form>
       )}
@@ -305,7 +305,7 @@ export default function TransactionPortalClient() {
             {transactions.map((transaction) => (
               <button key={transaction.id} className={transaction.id === selected.id ? "is-active" : ""} type="button" onClick={() => setSelectedId(transaction.id)}>
                 <strong>{transaction.transactionName}</strong>
-                <span>{transaction.county} Â· {transaction.licenseType}</span>
+                <span>{transaction.county} | {transaction.licenseType}</span>
                 <small>{transaction.reference}</small>
               </button>
             ))}
@@ -330,13 +330,13 @@ export default function TransactionPortalClient() {
                 <article key={document.title}>
                   <span className="portal-document-number">{String(index + 1).padStart(2, "0")}</span>
                   <div><h4>{document.title}</h4><p>{document.description}</p><div className="portal-document-tags">{document.conditional && <span>Conditional</span>}{document.professional && <span>Professional review</span>}</div></div>
-                  {document.href && <a href={document.href}>{document.label} <span aria-hidden="true">â†’</span></a>}
+                  {document.href && <a href={document.href}>{document.label} <span aria-hidden="true">&gt;</span></a>}
                 </article>
               ))}
             </div>
             <div className="portal-notice">
               <strong>Checklist notice</strong>
-              <p>This is a guided starting checklistâ€”not a determination that the listed items are the only documents required. DBPR/ABT, FDOR, a lender, or your professional advisers may require additional information.</p>
+              <p>This is a guided starting checklist, not a determination that the listed items are the only documents required. DBPR/ABT, FDOR, a lender, or your professional advisers may require additional information.</p>
             </div>
           </div>
         </div>
@@ -344,5 +344,4 @@ export default function TransactionPortalClient() {
     </section>
   );
 }
-
 
