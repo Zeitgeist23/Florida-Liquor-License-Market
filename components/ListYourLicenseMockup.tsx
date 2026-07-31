@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 
@@ -109,6 +109,21 @@ export default function ListYourLicenseMockup() {
   const intakeRef = useRef<HTMLElement>(null);
   const selected = listingPath ? pathDetails[listingPath] : null;
 
+  useEffect(() => {
+    if (!listingPath) return;
+
+    const animationFrame = window.requestAnimationFrame(() => {
+      intakeRef.current?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+        block: "start",
+      });
+    });
+
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [listingPath, intakeRevision]);
+
   function updateQuickValue(name: string, value: string) {
     setQuickValues((current) => ({ ...current, [name]: value }));
   }
@@ -134,17 +149,6 @@ export default function ListYourLicenseMockup() {
   function chooseListingPath(path: ListingPath) {
     setListingPath(path);
     setIntakeRevision((revision) => revision + 1);
-
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        intakeRef.current?.scrollIntoView({
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-            ? "auto"
-            : "smooth",
-          block: "start",
-        });
-      });
-    });
   }
 
   return (
