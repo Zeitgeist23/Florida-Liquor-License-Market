@@ -101,19 +101,21 @@ function formatQuickCurrency(value: string) {
 }
 
 export default function ListYourLicenseMockup() {
-  const [listingPath, setListingPath] = useState<ListingPath>("self");
+  const [listingPath, setListingPath] = useState<ListingPath | null>(null);
   const [intakeRevision, setIntakeRevision] = useState(0);
   const [county, setCounty] = useState("");
   const [licenseType, setLicenseType] = useState("");
   const [quickValues, setQuickValues] = useState<Record<string, string>>({});
   const intakeRef = useRef<HTMLElement>(null);
-  const selected = pathDetails[listingPath];
+  const selected = listingPath ? pathDetails[listingPath] : null;
 
   function updateQuickValue(name: string, value: string) {
     setQuickValues((current) => ({ ...current, [name]: value }));
   }
 
   function listingFormHref() {
+    if (!listingPath) return "/sell-your-license#listing-options";
+
     const params = new URLSearchParams({ method: listingPath });
     if (county) params.set("county", county);
     if (licenseType) params.set("license_type", licenseType);
@@ -134,11 +136,13 @@ export default function ListYourLicenseMockup() {
     setIntakeRevision((revision) => revision + 1);
 
     window.requestAnimationFrame(() => {
-      intakeRef.current?.scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "auto"
-          : "smooth",
-        block: "start",
+      window.requestAnimationFrame(() => {
+        intakeRef.current?.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto"
+            : "smooth",
+          block: "start",
+        });
       });
     });
   }
@@ -251,12 +255,13 @@ export default function ListYourLicenseMockup() {
           </button>
         </div>
 
-        <section
-          className="seller-preview-intake"
-          key={`${listingPath}-${intakeRevision}`}
-          ref={intakeRef}
-          aria-live="polite"
-        >
+        {listingPath && selected && (
+          <section
+            className="seller-preview-intake"
+            key={`${listingPath}-${intakeRevision}`}
+            ref={intakeRef}
+            aria-live="polite"
+          >
           <div className="seller-preview-intake-copy">
             <span>{selected.eyebrow}</span>
             <h2>{selected.title}</h2>
@@ -427,7 +432,8 @@ export default function ListYourLicenseMockup() {
             </a>
             <small>{selected.note}</small>
           </div>
-        </section>
+          </section>
+        )}
 
         <section className="seller-preview-comparison" aria-labelledby="seller-comparison-heading">
           <div className="seller-preview-comparison-heading">
