@@ -421,7 +421,7 @@ export default function SellerListingForm() {
               )}
             </div>
 
-            <div className={styles.modernFormActions}>
+            <div className={`${styles.modernFormActions} ${!brokerAssisted ? styles.selfFormActions : ""}`}>
               <a href="/sell-your-license#listing-options">← Change listing option</a>
               <button type="submit">Continue to Contact Details</button>
             </div>
