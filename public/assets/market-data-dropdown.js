@@ -107,7 +107,19 @@
     else window.location.assign("/#market-data");
   }
 
+  function ensureHeatMapFitScript() {
+    if (document.querySelector('script[data-fllm-heat-map-fit="true"]')) return;
+
+    const fitScript = document.createElement("script");
+    fitScript.src = "/assets/market-heat-map-fit-v4.js?v=8";
+    fitScript.defer = true;
+    fitScript.dataset.fllmHeatMapFit = "true";
+    document.head.appendChild(fitScript);
+  }
+
   function openHeatMap() {
+    ensureHeatMapFitScript();
+
     const open = () => {
       if (window.FLLMHeatMap?.open) {
         window.FLLMHeatMap.open(activeTrigger || document.activeElement);
