@@ -286,7 +286,6 @@ export default function ListYourLicenseMockup() {
                   <option value="" disabled>Select license type</option>
                   <option>4COP Quota</option>
                   <option>3PS Quota / Package Store</option>
-                  <option>2COP Beer &amp; Wine</option>
                   <option>Other / Not sure</option>
                 </select>
               </label>
