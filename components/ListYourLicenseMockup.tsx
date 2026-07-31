@@ -258,7 +258,11 @@ export default function ListYourLicenseMockup() {
             <div className="seller-preview-license-row">
               <label>
                 <span>County</span>
-                <select value={county} onChange={(event) => setCounty(event.target.value)}>
+                <select
+                  className={county ? "has-value" : ""}
+                  value={county}
+                  onChange={(event) => setCounty(event.target.value)}
+                >
                   <option value="" disabled>Select county</option>
                   {FLORIDA_COUNTIES.map((county) => (
                     <option key={county}>{county}</option>
@@ -267,7 +271,11 @@ export default function ListYourLicenseMockup() {
               </label>
               <label>
                 <span>License type</span>
-                <select value={licenseType} onChange={(event) => setLicenseType(event.target.value)}>
+                <select
+                  className={licenseType ? "has-value" : ""}
+                  value={licenseType}
+                  onChange={(event) => setLicenseType(event.target.value)}
+                >
                   <option value="" disabled>Select license type</option>
                   <option>4COP Quota</option>
                   <option>3PS Quota / Package Store</option>
@@ -283,7 +291,11 @@ export default function ListYourLicenseMockup() {
               <>
                 <label>
                   <span>Asking price</span>
-                  <span className="seller-preview-currency-input">
+                  <span
+                    className={`seller-preview-currency-input ${
+                      quickValues.self_asking_price ? "has-value" : ""
+                    }`}
+                  >
                     <span aria-hidden="true">$</span>
                     <input
                       type="text"
@@ -300,6 +312,7 @@ export default function ListYourLicenseMockup() {
                 <label>
                   <span>License status</span>
                   <select
+                    className={quickValues.self_license_status ? "has-value" : ""}
                     value={quickValues.self_license_status ?? ""}
                     onChange={(event) => updateQuickValue("self_license_status", event.target.value)}
                   >
@@ -313,6 +326,7 @@ export default function ListYourLicenseMockup() {
                 <label>
                   <span>Preferred timing</span>
                   <select
+                    className={quickValues.self_preferred_timing ? "has-value" : ""}
                     value={quickValues.self_preferred_timing ?? ""}
                     onChange={(event) => updateQuickValue("self_preferred_timing", event.target.value)}
                   >
@@ -327,6 +341,7 @@ export default function ListYourLicenseMockup() {
                 <label>
                   <span>Buyer contact</span>
                   <select
+                    className={quickValues.self_contact_method ? "has-value" : ""}
                     value={quickValues.self_contact_method ?? ""}
                     onChange={(event) => updateQuickValue("self_contact_method", event.target.value)}
                   >
@@ -341,17 +356,28 @@ export default function ListYourLicenseMockup() {
               <>
                 <label>
                   <span>Desired net amount</span>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    placeholder="Enter desired net proceeds"
-                    value={quickValues.desired_net_amount ?? ""}
-                    onChange={(event) => updateQuickValue("desired_net_amount", event.target.value)}
-                  />
+                  <span
+                    className={`seller-preview-currency-input ${
+                      quickValues.desired_net_amount ? "has-value" : ""
+                    }`}
+                  >
+                    <span aria-hidden="true">$</span>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="off"
+                      placeholder="Enter desired net proceeds"
+                      value={quickValues.desired_net_amount ?? ""}
+                      onChange={(event) =>
+                        updateQuickValue("desired_net_amount", formatQuickCurrency(event.target.value))
+                      }
+                    />
+                  </span>
                 </label>
                 <label>
                   <span>Current representation</span>
                   <select
+                    className={quickValues.broker_currently_represented ? "has-value" : ""}
                     value={quickValues.broker_currently_represented ?? ""}
                     onChange={(event) => updateQuickValue("broker_currently_represented", event.target.value)}
                   >
@@ -364,6 +390,7 @@ export default function ListYourLicenseMockup() {
                 <label>
                   <span>Preferred arrangement</span>
                   <select
+                    className={quickValues.broker_arrangement ? "has-value" : ""}
                     value={quickValues.broker_arrangement ?? ""}
                     onChange={(event) => updateQuickValue("broker_arrangement", event.target.value)}
                   >
@@ -376,6 +403,7 @@ export default function ListYourLicenseMockup() {
                 <label>
                   <span>Contact preference</span>
                   <select
+                    className={quickValues.broker_contact_method ? "has-value" : ""}
                     value={quickValues.broker_contact_method ?? ""}
                     onChange={(event) => updateQuickValue("broker_contact_method", event.target.value)}
                   >
