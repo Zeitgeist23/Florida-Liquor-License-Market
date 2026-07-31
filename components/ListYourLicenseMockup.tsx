@@ -38,7 +38,7 @@ const pathDetails = {
 } as const;
 
 export default function ListYourLicenseMockup() {
-  const [listingPath, setListingPath] = useState<ListingPath>("broker");
+  const [listingPath, setListingPath] = useState<ListingPath>("self");
   const selected = pathDetails[listingPath];
 
   return (
