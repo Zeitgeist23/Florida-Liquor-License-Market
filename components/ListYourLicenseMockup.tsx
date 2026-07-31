@@ -146,7 +146,10 @@ export default function ListYourLicenseMockup() {
   return (
     <main className="seller-preview-page">
       <div className="abt-header-wrap">
-        <FormsSiteHeader />
+        <FormsSiteHeader
+          primaryActionHref="#listing-options"
+          primaryActionLabel="Start Your Listing"
+        />
       </div>
 
       <section className="seller-preview-hero">
