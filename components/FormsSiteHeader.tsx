@@ -19,7 +19,7 @@ export default function FormsSiteHeader() {
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((value) => !value)}
         >
-          ☰
+          â˜°
         </button>
         <nav className={menuOpen ? "primary-nav is-open" : "primary-nav"} aria-label="Primary navigation">
           <a href="/#featured"><span>Buy</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
@@ -32,11 +32,12 @@ export default function FormsSiteHeader() {
         <div className="header-actions">
           <a className="btn btn-gold" href="/#sell">List Your License</a>
           <a className="btn btn-outline" href="mailto:listings@floridaliquorlicensemarket.com">
-            <span className="contact-phone" aria-hidden="true">☎</span>Contact Us
+            <span className="contact-phone" aria-hidden="true">â˜Ž</span>Contact Us
           </a>
         </div>
       </header>
-      <Script src="/assets/resources-dropdown.js?v=6" strategy="afterInteractive" />
+      <Script src="/assets/resources-dropdown.js?v=7" strategy="afterInteractive" />
     </>
   );
 }
+
