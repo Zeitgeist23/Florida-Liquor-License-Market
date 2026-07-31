@@ -71,18 +71,18 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
             representative to act before FDOR or receive confidential Florida tax information.
           </p>
           <ul>
-            <li>Taxpayer and representative information</li>
-            <li>Covered taxes, periods, and authorized acts</li>
-            <li>Taxpayer and representative signatures</li>
+            <li>Browser-compatible text fields and checkboxes</li>
+            <li>66 interactive fields across the official four-page form</li>
+            <li>Can be completed, saved, downloaded, and printed</li>
           </ul>
           <div className="fdor-card-actions">
             <a
               className="btn btn-gold"
-              href="https://www.floridarevenue.com/Forms_library/current/dr835_fillable.pdf"
+              href="/api/fdor/dr835/pdf"
               target="_blank"
               rel="noreferrer"
             >
-              Open Fillable DR-835 ↗
+              Open FLLM Fillable DR-835 ↗
             </a>
             <a
               className="fdor-text-link"
@@ -90,8 +90,12 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
               target="_blank"
               rel="noreferrer"
             >
-              View standard form and instructions ↗
+              View the official FDOR form and instructions ↗
             </a>
+            <small className="fdor-browser-note">
+              FLLM added standard PDF fields to the official FDOR artwork because the state’s
+              Adobe-only fillable file does not display in most browser PDF viewers.
+            </small>
           </div>
         </article>
 
