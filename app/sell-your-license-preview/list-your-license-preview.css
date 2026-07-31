@@ -111,7 +111,7 @@
 
 .seller-preview-hero-note {
   position: relative;
-  top: -15px;
+  top: 15px;
   left: 10px;
   display: grid;
   gap: 10px;
@@ -131,7 +131,7 @@
   text-transform: uppercase;
 }
 
-.seller-preview-hero-note strong {
+.seller-preview-hero-note > strong {
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 23px;
@@ -154,6 +154,12 @@
   font-size: 12px;
   font-weight: 400;
   line-height: 1.65;
+}
+
+.seller-preview-hero-fee strong {
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
 }
 
 .seller-preview-hero-note a {
