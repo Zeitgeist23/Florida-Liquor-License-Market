@@ -95,6 +95,11 @@ const pathDetails = {
   },
 } as const;
 
+function formatQuickCurrency(value: string) {
+  const digits = value.replace(/\D/g, "").replace(/^0+(?=\d)/, "");
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 export default function ListYourLicenseMockup() {
   const [listingPath, setListingPath] = useState<ListingPath>("self");
   const [intakeRevision, setIntakeRevision] = useState(0);
@@ -278,13 +283,19 @@ export default function ListYourLicenseMockup() {
               <>
                 <label>
                   <span>Asking price</span>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    placeholder="Enter asking price"
-                    value={quickValues.self_asking_price ?? ""}
-                    onChange={(event) => updateQuickValue("self_asking_price", event.target.value)}
-                  />
+                  <span className="seller-preview-currency-input">
+                    <span aria-hidden="true">$</span>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="off"
+                      placeholder="Enter asking price"
+                      value={quickValues.self_asking_price ?? ""}
+                      onChange={(event) =>
+                        updateQuickValue("self_asking_price", formatQuickCurrency(event.target.value))
+                      }
+                    />
+                  </span>
                 </label>
                 <label>
                   <span>License status</span>
