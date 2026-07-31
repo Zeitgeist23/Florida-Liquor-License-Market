@@ -232,40 +232,16 @@ export default function SellerListingForm() {
           </div>
 
           <div className={styles.screenControls}>
-            <fieldset className={styles.methodFieldset}>
-              <legend>How would you like to sell your license?</legend>
-              <p>Choose the level of assistance you would like. You may change your selection later.</p>
-
-              <label className={`${styles.methodChoice} ${styles.selfChoice} ${!brokerAssisted ? styles.methodSelected : styles.methodUnselected}`}>
-                <input
-                  type="radio"
-                  name="sale_method"
-                  value="Self-Directed Listing"
-                  checked={!brokerAssisted}
-                  onChange={() => setSaleMethod("Self-Directed Listing")}
-                />
-                <span className={styles.choiceMarker} aria-hidden="true" />
-                <span className={styles.mobileChoiceCopy}>
-                  <strong>Self-Directed Listing</strong>
-                  <small>I will communicate directly with buyers and manage negotiations, documentation, and the license-transfer process.</small>
-                </span>
-              </label>
-
-              <label className={`${styles.methodChoice} ${styles.brokerChoice} ${brokerAssisted ? styles.methodSelected : styles.methodUnselected}`}>
-                <input
-                  type="radio"
-                  name="sale_method"
-                  value="Broker-Assisted Listing"
-                  checked={brokerAssisted}
-                  onChange={() => setSaleMethod("Broker-Assisted Listing")}
-                />
-                <span className={styles.choiceMarker} aria-hidden="true" />
-                <span className={styles.mobileChoiceCopy}>
-                  <strong>Broker-Assisted Listing</strong>
-                  <small>I would like an FLLM-affiliated broker to contact me about marketing, buyer communications, negotiations, and transaction coordination.</small>
-                </span>
-              </label>
-            </fieldset>
+            <div className={styles.methodSummary}>
+              <input type="hidden" name="sale_method" value={saleMethod} />
+              <span>Selected listing option</span>
+              <strong>{saleMethod}</strong>
+              <small>
+                {brokerAssisted
+                  ? "An FLLM-affiliated broker will contact you about marketing and transaction support."
+                  : "You will communicate directly with buyers and manage the transaction with your chosen advisors."}
+              </small>
+            </div>
 
             <div className={`${styles.brokerFields} ${!brokerAssisted ? styles.selfDirectedFields : ""}`}>
               {brokerAssisted ? (
