@@ -78,7 +78,7 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
           <div className="fdor-card-actions">
             <a
               className="btn btn-gold"
-              href="/api/fdor/dr835/pdf"
+                  href="/api/fdor/dr835/pdf?v=complete-2"
               target="_blank"
               rel="noreferrer"
             >
