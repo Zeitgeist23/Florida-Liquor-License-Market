@@ -518,7 +518,7 @@ export default function SellerListingForm() {
                   </div>
                   <div className={styles.lockedField}>
                     <span>Asking Price</span>
-                    <strong>{askingPrice ? `${askingPrice}` : "Not provided"}</strong>
+                    <strong>{askingPrice ? `$${askingPrice}` : "Not provided"}</strong>
                     <input type="hidden" name="asking_price" value={askingPrice} />
                   </div>
                   <div className={styles.lockedField}>
