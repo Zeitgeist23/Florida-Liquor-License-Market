@@ -231,6 +231,14 @@ export default function ListYourLicenseMockup() {
               <li>You manage negotiations and professional advisors</li>
               <li>No broker represents you through this option</li>
             </ul>
+            <span className="seller-path-resources">
+              <b>Free Resources for Your Transaction</b>
+              <small>
+                Access Florida license-sale and transfer forms, calculators, and professional
+                directories through the Resources menu to help prepare paperwork and navigate the
+                sale and transfer process.
+              </small>
+            </span>
             <span className="seller-path-select">
               {listingPath === "self" ? "Selected" : "Choose Self-Directed"}
             </span>
@@ -253,6 +261,14 @@ export default function ListYourLicenseMockup() {
               <li>Negotiation and transaction coordination support</li>
               <li>Services begin only after a written agreement</li>
             </ul>
+            <span className="seller-path-resources">
+              <b>Free Resources for Your Transaction</b>
+              <small>
+                Access Florida license-sale and transfer forms, calculators, and professional
+                directories through the Resources menu to help prepare paperwork and navigate the
+                sale and transfer process.
+              </small>
+            </span>
             <span className="seller-path-select">
               {listingPath === "broker" ? "Selected" : "Choose Broker-Assisted"}
             </span>
