@@ -15,11 +15,8 @@ export type StripeCheckoutSession = {
   customer_details?: { email?: string | null } | null;
 };
 
-function requireStripeSecret() {
-  const secret = process.env.STRIPE_SECRET_KEY;
-  if (!secret) throw new Error("STRIPE_SECRET_KEY is not configured.");
-  return secret;
-}
+const ACTIVE_LISTING_PAYMENT_LINK =
+  "https://buy.stripe.com/5kQ7sD8vb8nHcWVdTvebu00";
 
 function siteUrl(requestUrl?: string) {
   const configured = process.env.NEXT_PUBLIC_SITE_URL || process.env.FLLM_SITE_URL;
@@ -32,6 +29,20 @@ export async function createListingCheckoutSession(
   submission: ListingSubmission,
   requestUrl?: string
 ) {
+  const stripeSecret = process.env.STRIPE_SECRET_KEY;
+  if (!stripeSecret) {
+    const paymentLink = new URL(
+      process.env.STRIPE_LISTING_PAYMENT_LINK || ACTIVE_LISTING_PAYMENT_LINK
+    );
+    paymentLink.searchParams.set("client_reference_id", submission.submissionRef);
+
+    return {
+      id: `payment_link_${submission.submissionRef}`,
+      url: paymentLink.toString(),
+      client_reference_id: submission.submissionRef,
+    } satisfies StripeCheckoutSession;
+  }
+
   const origin = siteUrl(requestUrl);
   const params = new URLSearchParams();
   params.set("mode", "payment");
@@ -71,7 +82,7 @@ export async function createListingCheckoutSession(
   const response = await fetch("https://api.stripe.com/v1/checkout/sessions", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${requireStripeSecret()}`,
+      Authorization: `Bearer ${stripeSecret}`,
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: params,
