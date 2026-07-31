@@ -1,10 +1,80 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 
 type ListingPath = "self" | "broker";
+
+const FLORIDA_COUNTIES = [
+  "Alachua County",
+  "Baker County",
+  "Bay County",
+  "Bradford County",
+  "Brevard County",
+  "Broward County",
+  "Calhoun County",
+  "Charlotte County",
+  "Citrus County",
+  "Clay County",
+  "Collier County",
+  "Columbia County",
+  "DeSoto County",
+  "Dixie County",
+  "Duval County",
+  "Escambia County",
+  "Flagler County",
+  "Franklin County",
+  "Gadsden County",
+  "Gilchrist County",
+  "Glades County",
+  "Gulf County",
+  "Hamilton County",
+  "Hardee County",
+  "Hendry County",
+  "Hernando County",
+  "Highlands County",
+  "Hillsborough County",
+  "Holmes County",
+  "Indian River County",
+  "Jackson County",
+  "Jefferson County",
+  "Lafayette County",
+  "Lake County",
+  "Lee County",
+  "Leon County",
+  "Levy County",
+  "Liberty County",
+  "Madison County",
+  "Manatee County",
+  "Marion County",
+  "Martin County",
+  "Miami-Dade County",
+  "Monroe County",
+  "Nassau County",
+  "Okaloosa County",
+  "Okeechobee County",
+  "Orange County",
+  "Osceola County",
+  "Palm Beach County",
+  "Pasco County",
+  "Pinellas County",
+  "Polk County",
+  "Putnam County",
+  "Santa Rosa County",
+  "Sarasota County",
+  "Seminole County",
+  "St. Johns County",
+  "St. Lucie County",
+  "Sumter County",
+  "Suwannee County",
+  "Taylor County",
+  "Union County",
+  "Volusia County",
+  "Wakulla County",
+  "Walton County",
+  "Washington County",
+] as const;
 
 const pathDetails = {
   self: {
@@ -39,7 +109,23 @@ const pathDetails = {
 
 export default function ListYourLicenseMockup() {
   const [listingPath, setListingPath] = useState<ListingPath>("self");
+  const [intakeRevision, setIntakeRevision] = useState(0);
+  const intakeRef = useRef<HTMLElement>(null);
   const selected = pathDetails[listingPath];
+
+  function chooseListingPath(path: ListingPath) {
+    setListingPath(path);
+    setIntakeRevision((revision) => revision + 1);
+
+    window.requestAnimationFrame(() => {
+      intakeRef.current?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+        block: "start",
+      });
+    });
+  }
 
   return (
     <main className="seller-preview-page">
@@ -51,7 +137,7 @@ export default function ListYourLicenseMockup() {
         <div className="page-shell">
           <nav className="seller-preview-breadcrumbs" aria-label="Breadcrumb">
             <a href="/">Home</a>
-            <span>›</span>
+            <span>â€º</span>
             <b>List Your License</b>
           </nav>
 
@@ -78,7 +164,7 @@ export default function ListYourLicenseMockup() {
                 broker-assisted listing begins with a consultation and requires a separate written
                 brokerage agreement before representation starts.
               </p>
-              <a href="#listing-options">Compare Listing Options ↓</a>
+              <a href="#listing-options">Compare Listing Options â†“</a>
             </aside>
           </div>
         </div>
@@ -87,7 +173,7 @@ export default function ListYourLicenseMockup() {
       <section className="seller-preview-content page-shell" id="listing-options">
         <div className="seller-preview-section-heading">
           <div>
-            <span>Step 1 · Select a listing path</span>
+            <span>Step 1 Â· Select a listing path</span>
             <h2>How would you like to market your license?</h2>
           </div>
           <p>
@@ -102,7 +188,7 @@ export default function ListYourLicenseMockup() {
             type="button"
             role="radio"
             aria-checked={listingPath === "self"}
-            onClick={() => setListingPath("self")}
+            onClick={() => chooseListingPath("self")}
           >
             <span className="seller-path-number">01</span>
             <span className="seller-path-badge">Marketplace listing</span>
@@ -124,7 +210,7 @@ export default function ListYourLicenseMockup() {
             type="button"
             role="radio"
             aria-checked={listingPath === "broker"}
-            onClick={() => setListingPath("broker")}
+            onClick={() => chooseListingPath("broker")}
           >
             <span className="seller-path-number">02</span>
             <span className="seller-path-badge">Consultation requested</span>
@@ -142,7 +228,12 @@ export default function ListYourLicenseMockup() {
           </button>
         </div>
 
-        <section className="seller-preview-intake" aria-live="polite">
+        <section
+          className="seller-preview-intake"
+          key={`${listingPath}-${intakeRevision}`}
+          ref={intakeRef}
+          aria-live="polite"
+        >
           <div className="seller-preview-intake-copy">
             <span>{selected.eyebrow}</span>
             <h2>{selected.title}</h2>
@@ -153,10 +244,9 @@ export default function ListYourLicenseMockup() {
                 <span>County</span>
                 <select defaultValue="">
                   <option value="" disabled>Select county</option>
-                  <option>Broward County</option>
-                  <option>Miami-Dade County</option>
-                  <option>Palm Beach County</option>
-                  <option>All other Florida counties</option>
+                  {FLORIDA_COUNTIES.map((county) => (
+                    <option key={county}>{county}</option>
+                  ))}
                 </select>
               </label>
               <label>
@@ -178,7 +268,7 @@ export default function ListYourLicenseMockup() {
                 <span>{label}</span>
                 <div>
                   <span>{placeholder}</span>
-                  <b>⌄</b>
+                  <b>âŒ„</b>
                 </div>
               </label>
             ))}
@@ -205,7 +295,7 @@ export default function ListYourLicenseMockup() {
               ["Seller controls asking price", "Yes", "With broker guidance"],
               ["Buyer communications", "Seller", "Broker may manage"],
               ["Negotiation support", "Not included", "Available by agreement"],
-              ["Transfer and closing coordination", "Seller’s advisors", "Available by agreement"],
+              ["Transfer and closing coordination", "Sellerâ€™s advisors", "Available by agreement"],
               ["Brokerage compensation", "None", "Disclosed in written agreement"],
             ].map(([service, self, broker]) => (
               <div className="seller-comparison-row" key={service}>
@@ -233,7 +323,7 @@ export default function ListYourLicenseMockup() {
       <footer className="abt-forms-footer">
         <div className="page-shell">
           <img src="/assets/brand-footer.svg" alt="Florida Liquor License Market" />
-          <span>Florida’s marketplace for buying, selling and financing liquor licenses.</span>
+          <span>Floridaâ€™s marketplace for buying, selling and financing liquor licenses.</span>
           <a href="/">Return to Florida Liquor License Market</a>
         </div>
       </footer>
