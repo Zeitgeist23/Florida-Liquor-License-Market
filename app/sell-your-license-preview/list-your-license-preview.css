@@ -385,11 +385,19 @@
   padding: 0 12px;
   border: 1px solid #536b7d;
   border-radius: 5px;
-  color: #eaf0f3;
+  color: #91a6b3;
   background: #051522;
   outline: none;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 400;
   text-transform: none;
+  transition: color .16s ease, font-size .16s ease, font-weight .16s ease;
+}
+
+.seller-preview-license-row select.has-value {
+  color: #eaf0f3;
+  font-size: 15px;
+  font-weight: 800;
 }
 
 .seller-preview-license-row select:focus {
@@ -421,6 +429,7 @@
   text-transform: none;
   outline: none;
   color-scheme: dark;
+  transition: color .16s ease, font-size .16s ease, font-weight .16s ease;
 }
 
 .seller-preview-fields input::placeholder {
@@ -443,13 +452,35 @@
   font-weight: 700;
   line-height: 1;
   transform: translateY(-50%);
+  opacity: 0;
   pointer-events: none;
+  transition: opacity .16s ease;
 }
 
 .seller-preview-fields .seller-preview-currency-input input {
+  padding-left: 12px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.seller-preview-currency-input.has-value > span {
+  opacity: 1;
+}
+
+.seller-preview-fields .seller-preview-currency-input.has-value input {
   padding-left: 27px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.seller-preview-fields select {
+  color: #91a6b3;
+}
+
+.seller-preview-fields select.has-value {
+  color: #eaf0f3;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .seller-preview-fields input:focus,
@@ -468,8 +499,8 @@
 
 .seller-preview-fields > small {
   grid-column: 1 / -1;
-  color: #788b97;
-  font-size: 10px;
+  color: #9bb0bd;
+  font-size: 12px;
   line-height: 1.5;
   text-align: center;
 }
