@@ -146,17 +146,14 @@
 }
 
 .seller-preview-hero-note .seller-preview-hero-fee {
-  margin: 8px 0 10px;
-  padding: 10px 12px;
-  border-left: 3px solid #f6a700;
-  color: #dbe5ea;
-  background: rgba(246, 167, 0, .08);
+  margin: 10px 0 8px;
+  padding: 0;
+  border: 0;
+  color: #9dadb7;
+  background: transparent;
   font-size: 12px;
-  line-height: 1.5;
-}
-
-.seller-preview-hero-fee strong {
-  color: #f6a700;
+  font-weight: 400;
+  line-height: 1.65;
 }
 
 .seller-preview-hero-note a {
