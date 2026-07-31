@@ -14,7 +14,7 @@ const attorneys = [
   {
     name: "Hannah Becker",
     firm: "Spencer Fane LLP",
-    location: "Tampa Â· Statewide matters",
+    location: "Tampa · Statewide matters",
     phone: "813-424-3544",
     phoneHref: "tel:+18134243544",
     profile: "https://www.spencerfane.com/professionals/hannah-becker/",
@@ -27,7 +27,7 @@ const attorneys = [
   {
     name: "Deborah A. Carman",
     firm: "Carman Law Firm, P.A.",
-    location: "Boca Raton Â· Statewide representation",
+    location: "Boca Raton · Statewide representation",
     phone: "561-392-7031",
     phoneHref: "tel:+15613927031",
     profile: "https://carmanlegal.com/attorneys/",
@@ -40,7 +40,7 @@ const attorneys = [
   {
     name: "Ryan Malkin",
     firm: "Malkin Law, P.A.",
-    location: "Miami Beach Â· Florida and nationwide beverage matters",
+    location: "Miami Beach · Florida and nationwide beverage matters",
     phone: "305-763-8539",
     phoneHref: "tel:+13057638539",
     profile: "https://www.malkinlawfirm.com/",
@@ -53,7 +53,7 @@ const attorneys = [
   {
     name: "Alexis Mason",
     firm: "Spencer Fane LLP",
-    location: "Tampa Â· Statewide matters",
+    location: "Tampa · Statewide matters",
     phone: "813-424-3543",
     phoneHref: "tel:+18134243543",
     profile: "https://www.spencerfane.com/professionals/alexis-mason/",
@@ -66,7 +66,7 @@ const attorneys = [
   {
     name: "Samuel A. Rubert",
     firm: "Rubert Law",
-    location: "Weston and Miami Â· Statewide representation",
+    location: "Weston and Miami · Statewide representation",
     phone: "954-546-7951",
     phoneHref: "tel:+19545467951",
     secondaryPhone: "Miami: 305-809-7669",
@@ -81,7 +81,7 @@ const attorneys = [
   {
     name: "Marc R. Tiller",
     firm: "The Tiller Law Group",
-    location: "Tampa Â· Statewide representation",
+    location: "Tampa · Statewide representation",
     phone: "813-972-2223",
     phoneHref: "tel:+18139722223",
     profile: "https://floridaliquorlicenselaw.com/about-us/",
@@ -103,9 +103,9 @@ export default function FloridaLiquorLicenseAttorneysPage() {
       <section className="attorney-hero">
         <div className="page-shell">
           <nav className="attorney-breadcrumbs" aria-label="Breadcrumb">
-            <a href="/">Home</a><span>â€º</span><b>Florida Liquor License Attorneys</b>
+            <a href="/">Home</a><span>›</span><b>Florida Liquor License Attorneys</b>
           </nav>
-          <span className="attorney-eyebrow">Resources Â· Independent legal directory</span>
+          <span className="attorney-eyebrow">Resources · Independent legal directory</span>
           <h1>Florida Liquor License Attorneys</h1>
           <p>
             Public contact information for Florida attorneys whose published practices include alcoholic-beverage licensing, regulated transactions, liquor-license purchases and sales, or related closings.
@@ -163,7 +163,7 @@ export default function FloridaLiquorLicenseAttorneysPage() {
             </div>
 
             <a className="attorney-profile-link" href={attorney.profile} target="_blank" rel="noreferrer">
-              View attorney or firm profile <span aria-hidden="true">â†—</span>
+              View attorney or firm profile <span aria-hidden="true">↗</span>
             </a>
           </article>
         ))}
@@ -174,7 +174,7 @@ export default function FloridaLiquorLicenseAttorneysPage() {
           <span>Independent verification</span>
           <h2 id="official-resources-heading">Check an attorney before hiring</h2>
           <p>
-            Confirm current Florida Bar eligibility, disciplinary history, relevant experience, scope of work, and fees directly. You may also use The Florida Barâ€™s lawyer-referral service if you want another option.
+            Confirm current Florida Bar eligibility, disciplinary history, relevant experience, scope of work, and fees directly. You may also use The Florida Bar’s lawyer-referral service if you want another option.
           </p>
         </div>
         <div className="attorney-official-links">
@@ -200,7 +200,7 @@ export default function FloridaLiquorLicenseAttorneysPage() {
       <footer className="abt-forms-footer">
         <div className="page-shell">
           <img src="/assets/brand-footer.svg" alt="Florida Liquor License Market" />
-          <span>Floridaâ€™s marketplace for buying, selling and financing liquor licenses.</span>
+          <span>Florida’s marketplace for buying, selling and financing liquor licenses.</span>
           <a href="/">Return to Florida Liquor License Market</a>
         </div>
       </footer>
