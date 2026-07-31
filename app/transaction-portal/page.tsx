@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import TransactionPortalClient from "@/components/TransactionPortalClient";
 import "./transaction-portal.css";
+import "./transaction-portal-ascii.css";
 
 export const metadata: Metadata = {
   title: "FLLM Transaction Portal | Florida Liquor License Market",
