@@ -127,6 +127,7 @@
 }
 
 .fdor-resource-card {
+  position: relative;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -136,6 +137,20 @@
   border-radius: 8px;
   background: linear-gradient(145deg, #0b2132, #06131e);
   box-shadow: 0 16px 42px rgba(0, 0, 0, .2);
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease;
+}
+
+.fdor-resource-card:hover,
+.fdor-resource-card:focus-within {
+  z-index: 2;
+  transform: translateY(-9px) scale(1.012);
+  border-color: #f6a700;
+  box-shadow:
+    0 28px 62px rgba(0, 0, 0, .42),
+    0 0 0 1px rgba(246, 167, 0, .17);
 }
 
 .fdor-card-featured {
@@ -421,6 +436,17 @@
   .fdor-card-label {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fdor-resource-card {
+    transition: none;
+  }
+
+  .fdor-resource-card:hover,
+  .fdor-resource-card:focus-within {
+    transform: none;
   }
 }
 
