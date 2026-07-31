@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import AttorneyDirectory from "@/components/AttorneyDirectory";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import "../forms/abt-forms.css";
 import "./liquor-license-attorneys.css";
@@ -9,76 +10,6 @@ export const metadata: Metadata = {
   description:
     "Find Florida attorneys whose practices include alcoholic-beverage licensing, liquor-license purchases and sales, transfers, and transaction closings.",
 };
-
-const attorneys = [
-  {
-    name: "Hannah Becker",
-    firm: "Spencer Fane LLP",
-    location: "Tampa · Statewide matters",
-    phone: "813-424-3544",
-    phoneHref: "tel:+18134243544",
-    profile: "https://www.spencerfane.com/professionals/hannah-becker/",
-    services: [
-      "Alcohol-beverage regulatory and transactional matters",
-      "Licensing and permitting",
-      "Hospitality mergers and acquisitions",
-    ],
-  },
-  {
-    name: "Deborah A. Carman",
-    firm: "Carman Law Firm, P.A.",
-    location: "Boca Raton · Statewide representation",
-    phone: "561-392-7031",
-    phoneHref: "tel:+15613927031",
-    profile: "https://carmanlegal.com/attorneys/",
-    services: [
-      "Business purchases and sales",
-      "Mergers, acquisitions, and transaction closings",
-      "Liquor-, beer-, and wine-license transfers through the firm",
-    ],
-  },
-  {
-    name: "Ryan Malkin",
-    firm: "Malkin Law, P.A.",
-    location: "Miami Beach · Florida and nationwide beverage matters",
-    phone: "305-763-8539",
-    phoneHref: "tel:+13057638539",
-    profile: "https://www.malkinlawfirm.com/",
-    services: [
-      "Alcohol-beverage licensing and regulatory guidance",
-      "Retailer, wholesaler, and supplier matters",
-      "Business and commercial guidance for beverage-industry clients",
-    ],
-  },
-  {
-    name: "Alexis Mason",
-    firm: "Spencer Fane LLP",
-    location: "Tampa · Statewide matters",
-    phone: "813-424-3543",
-    phoneHref: "tel:+18134243543",
-    profile: "https://www.spencerfane.com/professionals/alexis-mason/",
-    services: [
-      "Alcohol-beverage transactions and regulatory matters",
-      "Purchase agreements, due diligence, and licensing approvals",
-      "Corporate structuring and mergers and acquisitions",
-    ],
-  },
-  {
-    name: "Samuel A. Rubert",
-    firm: "Rubert Law",
-    location: "Weston and Miami · Statewide representation",
-    phone: "954-546-7951",
-    phoneHref: "tel:+19545467951",
-    secondaryPhone: "Miami: 305-809-7669",
-    secondaryPhoneHref: "tel:+13058097669",
-    profile: "https://www.rubertlaw.com/about/",
-    services: [
-      "Alcoholic-beverage transactions",
-      "Liquor-license purchasing, selling, and permitting",
-      "Purchase-agreement, lease, and operational review",
-    ],
-  },
-] as const;
 
 export default function FloridaLiquorLicenseAttorneysPage() {
   return (
@@ -121,40 +52,7 @@ export default function FloridaLiquorLicenseAttorneysPage() {
         </p>
       </section>
 
-      <section className="attorney-grid page-shell" id="attorney-directory" aria-label="Attorney directory">
-        {attorneys.map((attorney) => (
-          <article className="attorney-card" key={attorney.name}>
-            <div className="attorney-card-heading">
-              <span aria-hidden="true">{attorney.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}</span>
-              <div>
-                <h2>{attorney.name}</h2>
-                <strong>{attorney.firm}</strong>
-                <small>{attorney.location}</small>
-              </div>
-            </div>
-
-            <ul>
-              {attorney.services.map((service) => <li key={service}>{service}</li>)}
-            </ul>
-
-            <div className="attorney-contact">
-              <a className="attorney-phone" href={attorney.phoneHref}>
-                <span>Call</span>
-                <strong>{attorney.phone}</strong>
-              </a>
-              {"secondaryPhone" in attorney && (
-                <a className="attorney-secondary-phone" href={attorney.secondaryPhoneHref}>
-                  {attorney.secondaryPhone}
-                </a>
-              )}
-            </div>
-
-            <a className="attorney-profile-link" href={attorney.profile} target="_blank" rel="noreferrer">
-              View attorney or firm profile <span aria-hidden="true">↗</span>
-            </a>
-          </article>
-        ))}
-      </section>
+      <AttorneyDirectory />
 
       <section className="attorney-official-resources page-shell" aria-labelledby="official-resources-heading">
         <div>
