@@ -545,9 +545,7 @@ export default function SellerListingForm() {
                       onChange={(event) => {
                         const value = event.target.value;
                         setContactName(value);
-                        if (completedContactFields.name) {
-                          setCompletedContactFields((current) => ({ ...current, name: isCompleteName(value) }));
-                        }
+                        setCompletedContactFields((current) => ({ ...current, name: isCompleteName(value) }));
                       }}
                       onBlur={() => setCompletedContactFields((current) => ({ ...current, name: isCompleteName(contactName) }))}
                     />
@@ -563,9 +561,7 @@ export default function SellerListingForm() {
                       onChange={(event) => {
                         const value = event.target.value;
                         setContactEmail(value);
-                        if (completedContactFields.email) {
-                          setCompletedContactFields((current) => ({ ...current, email: isCompleteEmail(value) }));
-                        }
+                        setCompletedContactFields((current) => ({ ...current, email: isCompleteEmail(value) }));
                       }}
                       onBlur={() => setCompletedContactFields((current) => ({ ...current, email: isCompleteEmail(contactEmail) }))}
                     />
@@ -584,9 +580,7 @@ export default function SellerListingForm() {
                       onChange={(event) => {
                         const value = formatPhoneNumber(event.target.value);
                         setContactPhone(value);
-                        if (completedContactFields.phone) {
-                          setCompletedContactFields((current) => ({ ...current, phone: isCompletePhone(value) }));
-                        }
+                        setCompletedContactFields((current) => ({ ...current, phone: isCompletePhone(value) }));
                       }}
                       onBlur={() => setCompletedContactFields((current) => ({ ...current, phone: isCompletePhone(contactPhone) }))}
                     />
