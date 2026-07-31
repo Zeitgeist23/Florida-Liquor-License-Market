@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 
 import styles from "@/app/sell-your-license/seller.module.css";
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 
 const COUNTIES = [
   "Alachua", "Baker", "Bay", "Bradford", "Brevard", "Broward", "Calhoun", "Charlotte",
@@ -175,7 +176,13 @@ export default function SellerListingForm() {
   const brokerAssisted = saleMethod === "Broker-Assisted Listing";
 
   return (
-    <main className={styles.page}>
+    <main className={`${styles.page} ${styles.modernPage}`}>
+      <div className="abt-header-wrap">
+        <FormsSiteHeader
+          primaryActionHref="/sell-your-license#listing-options"
+          primaryActionLabel="Back to Listing Options"
+        />
+      </div>
       <section className={styles.stage} aria-labelledby="seller-page-title">
         {/* The approved 1567 × 1004 artwork is the literal visual reference layer.
             The controls below are real HTML elements aligned to it by percentage. */}
@@ -214,9 +221,14 @@ export default function SellerListingForm() {
           </label>
 
           <div className={styles.mobileIntro}>
-            <span>Confidential Seller Representation</span>
-            <h1 id="seller-page-title">Submit Your License</h1>
-            <p>Choose how you would like to sell, then complete the listing information.</p>
+            <span>Confidential seller intake · Step 2</span>
+            <h1 id="seller-page-title">
+              Complete Your {brokerAssisted ? "Broker-Assisted" : "Self-Directed"} Listing
+            </h1>
+            <p>
+              Your selections from the first screen have been carried forward. Confirm them below,
+              then continue to your contact and license details.
+            </p>
           </div>
 
           <div className={styles.screenControls}>
@@ -395,6 +407,10 @@ export default function SellerListingForm() {
               )}
             </div>
 
+            <div className={styles.modernFormActions}>
+              <a href="/sell-your-license#listing-options">← Change listing option</a>
+              <button type="submit">Continue to Contact Details</button>
+            </div>
           </div>
 
           {reviewOpen && (
