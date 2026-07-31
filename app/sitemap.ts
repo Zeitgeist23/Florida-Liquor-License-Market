@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/resources/liquor-license-attorneys`, lastModified, changeFrequency: "monthly", priority: 0.65 },
     { url: `${siteUrl}/resources/liquor-license-attorneys/apply`, lastModified, changeFrequency: "monthly", priority: 0.45 },
     { url: `${siteUrl}/resources/florida-department-of-revenue`, lastModified, changeFrequency: "monthly", priority: 0.65 },
+    { url: `${siteUrl}/resources/license-fees`, lastModified, changeFrequency: "monthly", priority: 0.65 },
     { url: `${siteUrl}/contact`, lastModified, changeFrequency: "monthly", priority: 0.6 },
   ];
 
