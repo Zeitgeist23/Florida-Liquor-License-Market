@@ -513,13 +513,13 @@ export default function SellerListingForm() {
                     <input type="hidden" name="license_type" value={licenseType} />
                   </div>
                   <div className={styles.lockedField}>
+                    <span>License Status</span>
+                    <strong>{selfLicenseStatus || "Not selected"}</strong>
+                  </div>
+                  <div className={styles.lockedField}>
                     <span>Asking Price</span>
                     <strong>{askingPrice ? `${askingPrice}` : "Not provided"}</strong>
                     <input type="hidden" name="asking_price" value={askingPrice} />
-                  </div>
-                  <div className={styles.lockedField}>
-                    <span>License Status</span>
-                    <strong>{selfLicenseStatus || "Not selected"}</strong>
                   </div>
                   <div className={styles.lockedField}>
                     <span>Listing Service</span>
