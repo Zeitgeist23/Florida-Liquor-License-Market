@@ -196,6 +196,7 @@
 
     trigger.dataset[BOUND_KEY] = "true";
     trigger.setAttribute("data-resources-dropdown-bound", "true");
+    trigger.setAttribute("href", "#resources-menu");
     trigger.setAttribute("aria-haspopup", "menu");
     trigger.setAttribute("aria-expanded", "false");
     trigger.addEventListener("keydown", (event) => {
