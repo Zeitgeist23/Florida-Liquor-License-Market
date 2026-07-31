@@ -507,11 +507,11 @@
 
 .seller-preview-comparison {
   display: grid;
-  grid-template-columns: minmax(240px, .68fr) minmax(0, 1.32fr);
-  gap: 36px;
+  grid-template-columns: minmax(220px, .58fr) minmax(0, 1.42fr);
+  gap: 30px;
   align-items: start;
   margin-top: 30px;
-  padding: 30px;
+  padding: 32px;
   border: 1px solid #3e5668;
   border-radius: 9px;
   background: #071823;
@@ -535,11 +535,11 @@
 
 .seller-comparison-row > * {
   min-width: 0;
-  padding: 11px 13px;
+  padding: 14px 15px;
   border-left: 1px solid #314958;
   color: #aebdc5;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .seller-comparison-row > *:first-child {
@@ -553,7 +553,7 @@
 
 .seller-comparison-header > * {
   color: #f6a700;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
 }
 
