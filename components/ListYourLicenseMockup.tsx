@@ -82,12 +82,6 @@ const pathDetails = {
     title: "Create and manage your marketplace listing",
     copy:
       "Provide the license details, set your asking price, and receive buyer inquiries directly. You remain responsible for negotiations, professional advice, transfer documents, and closing coordination.",
-    fields: [
-      ["Asking price", "Enter asking price"],
-      ["License status", "Select current status"],
-      ["Preferred timing", "Select sale timing"],
-      ["Buyer contact", "Phone, email, or both"],
-    ],
     button: "Continue with Self-Directed Listing",
     note: "$14.95 one-time listing-submission fee. No brokerage representation is included.",
   },
@@ -96,12 +90,6 @@ const pathDetails = {
     title: "Request professional marketing and transaction guidance",
     copy:
       "Tell us your goals and an FLLM-affiliated broker can contact you about marketing strategy, buyer communications, negotiations, documentation, and transaction coordination.",
-    fields: [
-      ["Desired net amount", "Enter desired net proceeds"],
-      ["Current representation", "Select broker status"],
-      ["Preferred arrangement", "Exclusive, non-exclusive, or guidance"],
-      ["Contact preference", "Phone, email, or both"],
-    ],
     button: "Request a Broker Consultation",
     note: "Brokerage services and compensation require a separate written agreement.",
   },
@@ -110,8 +98,31 @@ const pathDetails = {
 export default function ListYourLicenseMockup() {
   const [listingPath, setListingPath] = useState<ListingPath>("self");
   const [intakeRevision, setIntakeRevision] = useState(0);
+  const [county, setCounty] = useState("");
+  const [licenseType, setLicenseType] = useState("");
+  const [quickValues, setQuickValues] = useState<Record<string, string>>({});
   const intakeRef = useRef<HTMLElement>(null);
   const selected = pathDetails[listingPath];
+
+  function updateQuickValue(name: string, value: string) {
+    setQuickValues((current) => ({ ...current, [name]: value }));
+  }
+
+  function listingFormHref() {
+    const params = new URLSearchParams({ method: listingPath });
+    if (county) params.set("county", county);
+    if (licenseType) params.set("license_type", licenseType);
+
+    const fields = listingPath === "self"
+      ? ["self_asking_price", "self_license_status", "self_preferred_timing", "self_contact_method"]
+      : ["desired_net_amount", "broker_currently_represented", "broker_arrangement", "broker_contact_method"];
+
+    fields.forEach((field) => {
+      if (quickValues[field]) params.set(field, quickValues[field]);
+    });
+
+    return `/sell-your-license/form?${params.toString()}`;
+  }
 
   function chooseListingPath(path: ListingPath) {
     setListingPath(path);
@@ -137,7 +148,7 @@ export default function ListYourLicenseMockup() {
         <div className="page-shell">
           <nav className="seller-preview-breadcrumbs" aria-label="Breadcrumb">
             <a href="/">Home</a>
-            <span>â€º</span>
+            <span>›</span>
             <b>List Your License</b>
           </nav>
 
@@ -164,7 +175,7 @@ export default function ListYourLicenseMockup() {
                 broker-assisted listing begins with a consultation and requires a separate written
                 brokerage agreement before representation starts.
               </p>
-              <a href="#listing-options">Compare Listing Options â†“</a>
+              <a href="#listing-options">Compare Listing Options ↓</a>
             </aside>
           </div>
         </div>
@@ -173,7 +184,7 @@ export default function ListYourLicenseMockup() {
       <section className="seller-preview-content page-shell" id="listing-options">
         <div className="seller-preview-section-heading">
           <div>
-            <span>Step 1 Â· Select a listing path</span>
+            <span>Step 1 · Select a listing path</span>
             <h2>How would you like to market your license?</h2>
           </div>
           <p>
@@ -242,7 +253,7 @@ export default function ListYourLicenseMockup() {
             <div className="seller-preview-license-row">
               <label>
                 <span>County</span>
-                <select defaultValue="">
+                <select value={county} onChange={(event) => setCounty(event.target.value)}>
                   <option value="" disabled>Select county</option>
                   {FLORIDA_COUNTIES.map((county) => (
                     <option key={county}>{county}</option>
@@ -251,7 +262,7 @@ export default function ListYourLicenseMockup() {
               </label>
               <label>
                 <span>License type</span>
-                <select defaultValue="">
+                <select value={licenseType} onChange={(event) => setLicenseType(event.target.value)}>
                   <option value="" disabled>Select license type</option>
                   <option>4COP Quota</option>
                   <option>3PS Quota / Package Store</option>
@@ -263,16 +274,109 @@ export default function ListYourLicenseMockup() {
           </div>
 
           <div className="seller-preview-fields">
-            {selected.fields.map(([label, placeholder]) => (
-              <label key={label}>
-                <span>{label}</span>
-                <div>
-                  <span>{placeholder}</span>
-                  <b>âŒ„</b>
-                </div>
-              </label>
-            ))}
-            <a className="btn btn-gold" href={`/sell-your-license/form?method=${listingPath}`}>
+            {listingPath === "self" ? (
+              <>
+                <label>
+                  <span>Asking price</span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="Enter asking price"
+                    value={quickValues.self_asking_price ?? ""}
+                    onChange={(event) => updateQuickValue("self_asking_price", event.target.value)}
+                  />
+                </label>
+                <label>
+                  <span>License status</span>
+                  <select
+                    value={quickValues.self_license_status ?? ""}
+                    onChange={(event) => updateQuickValue("self_license_status", event.target.value)}
+                  >
+                    <option value="" disabled>Select current status</option>
+                    <option>Active and current</option>
+                    <option>Inactive</option>
+                    <option>Transfer pending</option>
+                    <option>Not sure</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Preferred timing</span>
+                  <select
+                    value={quickValues.self_preferred_timing ?? ""}
+                    onChange={(event) => updateQuickValue("self_preferred_timing", event.target.value)}
+                  >
+                    <option value="" disabled>Select sale timing</option>
+                    <option>Immediately</option>
+                    <option>Within 30 days</option>
+                    <option>Within 31-60 days</option>
+                    <option>Within 61-90 days</option>
+                    <option>Flexible</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Buyer contact</span>
+                  <select
+                    value={quickValues.self_contact_method ?? ""}
+                    onChange={(event) => updateQuickValue("self_contact_method", event.target.value)}
+                  >
+                    <option value="" disabled>Phone, email, or both</option>
+                    <option>Phone</option>
+                    <option>Email</option>
+                    <option>Either phone or email</option>
+                  </select>
+                </label>
+              </>
+            ) : (
+              <>
+                <label>
+                  <span>Desired net amount</span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="Enter desired net proceeds"
+                    value={quickValues.desired_net_amount ?? ""}
+                    onChange={(event) => updateQuickValue("desired_net_amount", event.target.value)}
+                  />
+                </label>
+                <label>
+                  <span>Current representation</span>
+                  <select
+                    value={quickValues.broker_currently_represented ?? ""}
+                    onChange={(event) => updateQuickValue("broker_currently_represented", event.target.value)}
+                  >
+                    <option value="" disabled>Select broker status</option>
+                    <option>No</option>
+                    <option>Yes</option>
+                    <option>Not sure</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Preferred arrangement</span>
+                  <select
+                    value={quickValues.broker_arrangement ?? ""}
+                    onChange={(event) => updateQuickValue("broker_arrangement", event.target.value)}
+                  >
+                    <option value="" disabled>Select an arrangement</option>
+                    <option>No preference / need guidance</option>
+                    <option>Non-exclusive arrangement</option>
+                    <option>Exclusive arrangement</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Contact preference</span>
+                  <select
+                    value={quickValues.broker_contact_method ?? ""}
+                    onChange={(event) => updateQuickValue("broker_contact_method", event.target.value)}
+                  >
+                    <option value="" disabled>Phone, email, or both</option>
+                    <option>Phone</option>
+                    <option>Email</option>
+                    <option>Either phone or email</option>
+                  </select>
+                </label>
+              </>
+            )}
+            <a className="btn btn-gold" href={listingFormHref()}>
               {selected.button}
             </a>
             <small>{selected.note}</small>
@@ -295,7 +399,7 @@ export default function ListYourLicenseMockup() {
               ["Seller controls asking price", "Yes", "With broker guidance"],
               ["Buyer communications", "Seller", "Broker may manage"],
               ["Negotiation support", "Not included", "Available by agreement"],
-              ["Transfer and closing coordination", "Sellerâ€™s advisors", "Available by agreement"],
+              ["Transfer and closing coordination", "Seller’s advisors", "Available by agreement"],
               ["Brokerage compensation", "None", "Disclosed in written agreement"],
             ].map(([service, self, broker]) => (
               <div className="seller-comparison-row" key={service}>
@@ -323,7 +427,7 @@ export default function ListYourLicenseMockup() {
       <footer className="abt-forms-footer">
         <div className="page-shell">
           <img src="/assets/brand-footer.svg" alt="Florida Liquor License Market" />
-          <span>Floridaâ€™s marketplace for buying, selling and financing liquor licenses.</span>
+          <span>Florida’s marketplace for buying, selling and financing liquor licenses.</span>
           <a href="/">Return to Florida Liquor License Market</a>
         </div>
       </footer>
