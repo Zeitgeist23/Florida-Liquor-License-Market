@@ -18,7 +18,8 @@
     },
     {
       label: "Liquor License Attorneys",
-      href: "https://www.floridabar.org/public/lrs/",
+      href: "/resources/liquor-license-attorneys",
+      internal: true,
     },
     {
       label: "Florida Division of Alcoholic Beverages",
@@ -247,3 +248,4 @@
     initialize();
   }
 })();
+
