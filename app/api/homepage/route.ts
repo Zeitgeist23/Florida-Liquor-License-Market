@@ -120,10 +120,10 @@ function renderListingCard(listing: CarouselListing) {
         <span>${type}</span>
       </div>
       <div class="listing-body">
-        <p>â— ${county}</p>
+        <p>● ${county}</p>
         <h3>${price}</h3>
         <div class="listing-facts"><span>${type}</span><span class="homepage-available-status">Available</span></div>
-        <small class="homepage-county-market-label">View County Market â€º</small>
+        <small class="homepage-county-market-label">View County Market ›</small>
       </div>
     </a>
   </article>`;
@@ -132,15 +132,15 @@ function renderListingCard(listing: CarouselListing) {
 function renderCountyDirectorySection() {
   const countyLinks = featuredCounties.map((county) => `
     <a href="/counties/${county.slug}">
-      <span><strong>${escapeHtml(county.name)}</strong><small>${escapeHtml(county.primaryCities.join(" Â· "))}</small></span>
-      <i>View Market â€º</i>
+      <span><strong>${escapeHtml(county.name)}</strong><small>${escapeHtml(county.primaryCities.join(" · "))}</small></span>
+      <i>View Market ›</i>
     </a>`).join("");
 
   return `<section class="homepage-county-directory" id="homepage-county-directory" aria-labelledby="homepage-county-directory-title">
     <div class="page-shell">
       <div class="homepage-county-directory-heading">
         <div><span>Permanent County Market Pages</span><h2 id="homepage-county-directory-title">Browse Florida Liquor Licenses by County</h2><p>Explore current listings, disclosed asking-price ranges, financing links, and county-specific market guidance.</p></div>
-        <a class="homepage-county-directory-all" href="/counties">Browse All 67 Counties â€º</a>
+        <a class="homepage-county-directory-all" href="/counties">Browse All 67 Counties ›</a>
       </div>
       <div class="homepage-county-directory-grid">${countyLinks}</div>
     </div>
