@@ -14,11 +14,15 @@
       }
       ${MAP_SELECTOR}{
         display:block!important;
+        position:absolute!important;
+        top:50%!important;
+        left:50%!important;
+        transform:translate(-50%,-50%)!important;
         width:auto!important;
         height:min(calc(100% - 64px),560px)!important;
         max-width:calc(100% - 48px)!important;
         max-height:calc(100% - 64px)!important;
-        margin:auto!important;
+        margin:0!important;
         padding:0!important;
         box-sizing:border-box!important;
         overflow:visible!important;
