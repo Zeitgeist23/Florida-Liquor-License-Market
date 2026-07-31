@@ -105,6 +105,285 @@
   padding-bottom: 27px;
 }
 
+.fee-finder {
+  margin-top: 38px;
+  margin-bottom: 8px;
+  padding: 29px;
+  border: 1px solid #3d5c71;
+  border-top: 3px solid #f6a700;
+  border-radius: 9px;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(34, 186, 239, .1), transparent 30%),
+    linear-gradient(145deg, #0b2437, #06131e);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, .28);
+}
+
+.fee-finder-copy {
+  display: grid;
+  grid-template-columns: minmax(320px, .9fr) minmax(0, 1.1fr);
+  gap: 42px;
+  align-items: end;
+  margin-bottom: 23px;
+}
+
+.fee-finder-copy > span,
+.fee-reminder-form > div:first-child > span,
+.fee-result-heading > div > span {
+  display: block;
+  color: #f6a700;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.fee-finder-copy h2 {
+  margin: 6px 0 0;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(26px, 3.2vw, 36px);
+  line-height: 1.12;
+}
+
+.fee-finder-copy p {
+  margin: 0;
+  color: #afbdc6;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.fee-finder-form {
+  padding: 18px;
+  border: 1px solid #345267;
+  border-radius: 6px;
+  background: rgba(3, 15, 24, .72);
+}
+
+.fee-finder-form > label,
+.fee-reminder-form label > span:first-child {
+  display: block;
+  margin-bottom: 8px;
+  color: #eef3f6;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.fee-finder-form > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.fee-finder-form input,
+.fee-reminder-form input[type="email"] {
+  width: 100%;
+  min-height: 47px;
+  border: 1px solid #60788a;
+  border-radius: 4px;
+  outline: 0;
+  padding: 0 14px;
+  color: #fff;
+  background: #071824;
+  font-size: 13px;
+}
+
+.fee-finder-form input:focus,
+.fee-reminder-form input[type="email"]:focus {
+  border-color: #22b9ef;
+  box-shadow: 0 0 0 3px rgba(34, 185, 239, .15);
+}
+
+.fee-finder-form .btn {
+  min-width: 215px;
+  min-height: 47px;
+  font-size: 10px;
+}
+
+.fee-finder-form small {
+  display: block;
+  margin-top: 9px;
+  color: #78909f;
+  font-size: 9px;
+}
+
+.fee-finder-message {
+  margin-top: 15px;
+  padding: 12px 14px;
+  border: 1px solid #3d9e69;
+  border-radius: 4px;
+  color: #d9ffea;
+  background: #0c3423;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.fee-finder-message.is-error {
+  border-color: #b95e54;
+  color: #ffd8d3;
+  background: #361817;
+}
+
+.fee-lookup-result {
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid #27b8ed;
+  border-radius: 7px;
+  background: linear-gradient(145deg, rgba(11, 39, 58, .96), rgba(4, 16, 26, .98));
+  box-shadow: inset 0 0 28px rgba(34, 185, 239, .06);
+}
+
+.fee-result-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.fee-result-heading h3 {
+  margin: 5px 0 4px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+}
+
+.fee-result-heading p {
+  margin: 0;
+  color: #aebcc5;
+  font-size: 10px;
+}
+
+.fee-result-heading > b {
+  flex: 0 0 auto;
+  padding: 8px 11px;
+  border: 1px solid rgba(34, 185, 239, .6);
+  border-radius: 999px;
+  color: #9de3ff;
+  background: rgba(34, 185, 239, .06);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.fee-result-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+  margin: 20px 0 14px;
+}
+
+.fee-result-grid > div {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #334f62;
+  border-radius: 5px;
+  background: #06131e;
+}
+
+.fee-result-grid span,
+.fee-result-grid strong {
+  display: block;
+}
+
+.fee-result-grid span {
+  color: #8497a4;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.fee-result-grid strong {
+  margin-top: 6px;
+  color: #f6a700;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.fee-result-note {
+  margin: 0;
+  color: #95a7b2;
+  font-size: 9px;
+  line-height: 1.6;
+}
+
+.fee-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.fee-result-actions .btn {
+  min-height: 44px;
+  font-size: 9px;
+}
+
+.fee-reminder-button {
+  border: 1px solid #27b8ed;
+  color: #d9f6ff;
+  background: #092338;
+}
+
+.fee-reminder-button:hover {
+  color: #06131e;
+  background: #27b8ed;
+}
+
+.fee-reminder-form {
+  display: grid;
+  grid-template-columns: minmax(250px, .85fr) minmax(260px, 1fr) auto;
+  gap: 16px;
+  align-items: end;
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid #80662f;
+  border-radius: 6px;
+  background: #0b1b26;
+}
+
+.fee-reminder-form h4 {
+  margin: 4px 0 5px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+}
+
+.fee-reminder-form p {
+  margin: 0;
+  color: #91a3ae;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.fee-reminder-form .fee-reminder-consent {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #b6c3cb;
+  font-size: 9px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.fee-reminder-consent input {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #f6a700;
+}
+
+.fee-reminder-form > .btn {
+  min-height: 47px;
+  font-size: 9px;
+}
+
+.fee-reminder-form .fee-finder-message {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
 .license-fees-intro h2,
 .other-fees h2,
 .license-fees-notes h2 {
@@ -371,9 +650,27 @@
   .other-fees-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .fee-result-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fee-reminder-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .fee-reminder-form > div:first-child,
+  .fee-reminder-form .fee-reminder-consent {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 760px) {
+  .fee-finder-copy {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
   .license-fees-intro,
   .license-fees-notes {
     grid-template-columns: 1fr;
@@ -408,5 +705,26 @@
 
   .other-fees-grid {
     grid-template-columns: 1fr;
+  }
+
+  .fee-finder {
+    padding: 20px 16px;
+  }
+
+  .fee-finder-form > div,
+  .fee-result-grid,
+  .fee-reminder-form {
+    grid-template-columns: 1fr;
+  }
+
+  .fee-finder-form .btn,
+  .fee-result-actions,
+  .fee-result-actions .btn,
+  .fee-reminder-form > .btn {
+    width: 100%;
+  }
+
+  .fee-result-heading {
+    flex-direction: column;
   }
 }
