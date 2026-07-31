@@ -502,25 +502,6 @@
   accent-color: #f2a900;
 }
 
-.feeRow {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding: 14px 16px;
-  border: 1px solid #f2a900;
-  border-radius: 7px;
-  background: #041522;
-}
-
-.feeRow > span {
-  color: #fff;
-}
-
-.feeRow strong {
-  color: #ffc13c;
-  font-size: 20px;
-}
-
 .paymentButton {
   width: 100%;
   min-height: 53px;
