@@ -1192,6 +1192,10 @@
   padding-top: 2px;
 }
 
+.modernPage .selfFormActions {
+  width: calc(100% - 410px);
+}
+
 .modernPage .modernFormActions a {
   color: #f6a700;
   font-size: 12px;
@@ -1214,6 +1218,12 @@
   letter-spacing: .03em;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.modernPage .selfFormActions button {
+  width: 330px;
+  min-width: 0;
+  padding-inline: 18px;
 }
 
 .modernPage .modernFormActions button:hover,
@@ -1276,6 +1286,10 @@
   .modernPage .modernFormActions {
     align-items: stretch;
     flex-direction: column-reverse;
+  }
+
+  .modernPage .selfFormActions {
+    width: 100%;
   }
 
   .modernPage .modernFormActions button {
