@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 
 import styles from "@/app/sell-your-license/seller.module.css";
+import FloridaCountyMap from "@/components/FloridaCountyMap";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 
 const COUNTIES = [
@@ -404,22 +405,28 @@ export default function SellerListingForm() {
                 <aside className={styles.listingPreview} aria-label="Marketplace listing preview">
                   <div className={styles.previewHeading}>
                     <span>Listing preview</span>
-                    <small>Updates as you complete the form</small>
+                    <small>Matches the live marketplace card</small>
                   </div>
                   <article className={styles.previewCard}>
-                    <div className={styles.previewImage}>
-                      <img src="/assets/hero-bar-clean.png" alt="" />
+                    <div className={styles.previewMap}>
+                      <FloridaCountyMap county={county || "No county selected"} />
                       <span>{licenseType || "Florida liquor license"}</span>
                     </div>
                     <div className={styles.previewBody}>
                       <p><i aria-hidden="true" /> {county || "Florida county"}</p>
                       <h2>{askingPrice ? `$${askingPrice}` : "Asking price"}</h2>
-                      <div>
-                        <span>{previewCategory}</span>
-                        <span>{selfLicenseStatus || "License status"}</span>
-                        <span>{selfPreferredTiming || "Sale timing"}</span>
+                      <div className={styles.previewFacts}>
+                        <span>{licenseType || previewCategory}</span>
+                        <span>Transferable / Available</span>
                       </div>
-                      <small>Price and availability subject to confirmation.</small>
+                      <small>
+                        {selfLicenseStatus || "License status"} · {selfPreferredTiming || "Sale timing"}.
+                        Additional listing details will appear here after review.
+                      </small>
+                      <div className={styles.previewActions} aria-hidden="true">
+                        <span>Inquire</span>
+                        <span>Submit an Offer</span>
+                      </div>
                     </div>
                   </article>
                 </aside>
