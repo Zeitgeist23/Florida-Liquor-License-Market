@@ -22,21 +22,21 @@ export default function FormsSiteHeader() {
           ☰
         </button>
         <nav className={menuOpen ? "primary-nav is-open" : "primary-nav"} aria-label="Primary navigation">
-          <a href="/#featured"><span>Buy</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
-          <a href="/#sell"><span>Sell</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
-          <a href="/#financing"><span>Finance</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
-          <a href="/#market-data"><span>Invest</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
+          <a href="/listings"><span>Buy</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
+          <a href="/sell-your-license"><span>Sell</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
+          <a href="/financing"><span>Finance</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
+          <a href="/investment-opportunities"><span>Invest</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
           <a href="/#market-data"><span>Market Data</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
           <a href="/resources/forms"><span>Resources</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
         </nav>
         <div className="header-actions">
-          <a className="btn btn-gold" href="/#sell">List Your License</a>
-          <a className="btn btn-outline" href="mailto:listings@floridaliquorlicensemarket.com">
+          <a className="btn btn-gold" href="/sell-your-license">List Your License</a>
+          <a className="btn btn-outline" href="/contact">
             <span className="contact-phone" aria-hidden="true">☎</span>Contact Us
           </a>
         </div>
       </header>
-      <Script src="/assets/resources-dropdown.js?v=9" strategy="afterInteractive" />
+      <Script src="/assets/resources-dropdown.js?v=8" strategy="afterInteractive" />
     </>
   );
 }
