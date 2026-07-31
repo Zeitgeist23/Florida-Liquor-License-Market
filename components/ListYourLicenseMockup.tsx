@@ -325,6 +325,7 @@ export default function ListYourLicenseMockup() {
                     <option value="" disabled>Select current status</option>
                     <option>Active and current</option>
                     <option>Inactive</option>
+                    <option>In escrow (DBPR/ABT)</option>
                     <option>Transfer pending</option>
                     <option>Not sure</option>
                   </select>
