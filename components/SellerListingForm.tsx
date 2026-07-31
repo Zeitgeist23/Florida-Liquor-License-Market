@@ -473,7 +473,14 @@ export default function SellerListingForm() {
                   </div>
                 </article>
 
-                <button className={styles.previewContinueButton} type="submit" onClick={() => setPreviewOpen(false)}>
+                <button
+                  className={styles.previewContinueButton}
+                  type="button"
+                  onClick={() => {
+                    setPreviewOpen(false);
+                    advanceIfComplete();
+                  }}
+                >
                   Continue to Contact Details
                 </button>
               </section>
