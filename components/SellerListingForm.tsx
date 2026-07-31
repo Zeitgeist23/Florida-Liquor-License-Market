@@ -26,19 +26,16 @@ function CurrencyInput({
   onComplete?: () => void;
 }) {
   return (
-    <div className={styles.currencyInput}>
-      <span aria-hidden="true">$</span>
-      <input
-        type="text"
-        inputMode="numeric"
-        autoComplete="off"
-        name={name}
-        placeholder="0"
-        value={value}
-        onChange={(event) => onChange(formatCurrency(event.target.value))}
-        onBlur={onComplete}
-      />
-    </div>
+    <input
+      type="text"
+      inputMode="numeric"
+      autoComplete="off"
+      name={name}
+      placeholder="$0"
+      value={value ? `$${value}` : ""}
+      onChange={(event) => onChange(formatCurrency(event.target.value))}
+      onBlur={onComplete}
+    />
   );
 }
 
