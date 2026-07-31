@@ -427,6 +427,35 @@
   font-size: 12px;
 }
 
+.reviewFields .lockedField {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  color: #e6edf1;
+  font-size: 12px;
+}
+
+.reviewFields .lockedField > strong {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(90, 255, 128, .64);
+  border-radius: 5px;
+  color: #69ff8f;
+  background: rgba(20, 98, 48, .16);
+  box-shadow: inset 0 0 16px rgba(69, 255, 116, .04);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.reviewFields .lockedField > strong::before {
+  content: "✓";
+  margin-right: 8px;
+  color: #69ff8f;
+  font-size: 12px;
+}
+
 .reviewFields input,
 .reviewFields select,
 .reviewFields textarea {
