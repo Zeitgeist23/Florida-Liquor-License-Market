@@ -151,12 +151,12 @@
 }
 
 .fdor-card-label span {
-  padding: 6px 9px;
+  padding: 9px 13px;
   border: 1px solid rgba(246, 167, 0, .7);
   border-radius: 4px;
   color: #f6a700;
   background: rgba(246, 167, 0, .06);
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -164,7 +164,7 @@
 
 .fdor-card-label small {
   color: #7f919d;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: .06em;
   text-transform: uppercase;
@@ -220,15 +220,18 @@
 
 .fdor-resource-card .btn {
   align-self: flex-start;
-  min-height: 42px;
+  min-height: 49px;
+  padding: 13px 19px;
   margin-top: auto;
-  font-size: 9px;
+  font-size: 12px;
+  line-height: 1.25;
 }
 
 .fdor-text-link {
   color: #f6a700;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 900;
+  line-height: 1.45;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
