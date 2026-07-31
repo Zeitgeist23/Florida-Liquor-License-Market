@@ -494,7 +494,7 @@ export default function SellerListingForm() {
             }}>
               <section className={styles.reviewModal} role="dialog" aria-modal="true" aria-labelledby="review-heading">
                 <button className={styles.closeButton} type="button" aria-label="Close review" disabled={submitting} onClick={() => setReviewOpen(false)}>×</button>
-                <span className={styles.reviewKicker}>Confidential Listing</span>
+                <span className={styles.reviewKicker}>Confidential Listing · Step 3 of 3</span>
                 <h2 id="review-heading">Complete Your License Details</h2>
                 <p>Your service selection has been saved. Complete the license and contact information below before secure checkout.</p>
 
@@ -514,8 +514,12 @@ export default function SellerListingForm() {
                   </div>
                   <div className={styles.lockedField}>
                     <span>Asking Price</span>
-                    <strong>{askingPrice ? `$${askingPrice}` : "Not provided"}</strong>
+                    <strong>{askingPrice ? `${askingPrice}` : "Not provided"}</strong>
                     <input type="hidden" name="asking_price" value={askingPrice} />
+                  </div>
+                  <div className={styles.lockedField}>
+                    <span>License Status</span>
+                    <strong>{selfLicenseStatus || "Not selected"}</strong>
                   </div>
                   <label className={styles.notes}><span>Additional Details</span><textarea name="message" rows={3} /></label>
                 </div>
