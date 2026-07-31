@@ -31,6 +31,12 @@ export default function FloridaLiquorLicenseAttorneysPage() {
           <div className="attorney-hero-actions">
             <a className="btn btn-gold" href="#attorney-directory">Browse Attorneys</a>
             <a
+              className="btn btn-outline attorney-join-button"
+              href="/resources/liquor-license-attorneys/apply"
+            >
+              Join the Attorney Directory
+            </a>
+            <a
               className="btn btn-outline"
               href="https://www.floridabar.org/directories/find-mbr/"
               target="_blank"
