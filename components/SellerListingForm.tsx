@@ -521,6 +521,10 @@ export default function SellerListingForm() {
                     <span>License Status</span>
                     <strong>{selfLicenseStatus || "Not selected"}</strong>
                   </div>
+                  <div className={styles.lockedField}>
+                    <span>Listing Service</span>
+                    <strong>{brokerAssisted ? "Broker-Assisted Listing" : "Self-Directed Listing"}</strong>
+                  </div>
                   <label className={styles.notes}><span>Additional Details</span><textarea name="message" rows={3} /></label>
                 </div>
 
