@@ -1,0 +1,5 @@
+.portal-hero aside span::before,
+.portal-auth-copy li::before {
+  content: "\2713";
+}
+
