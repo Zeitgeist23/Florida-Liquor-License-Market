@@ -104,7 +104,7 @@
 
     const heading = findHeading("Florida Market Insights");
     if (heading) scrollToElement(heading.closest("section") || heading);
-    else window.location.hash = "market-data";
+    else window.location.assign("/#market-data");
   }
 
   function openHeatMap() {
@@ -259,3 +259,4 @@
     initialize();
   }
 })();
+
