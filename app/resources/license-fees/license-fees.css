@@ -1,0 +1,412 @@
+.license-fees-page {
+  min-height: 100vh;
+  color: #eef3f6;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(246, 167, 0, .07), transparent 27%),
+    #07131e;
+}
+
+.license-fees-page .abt-header-wrap {
+  border-bottom: 1px solid rgba(246, 167, 0, .55);
+  background: #020b12;
+}
+
+.license-fees-hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(246, 167, 0, .38);
+  background:
+    linear-gradient(105deg, rgba(2, 11, 18, .99), rgba(7, 31, 48, .93)),
+    url("/assets/hero-bar-clean.png") right center / 44% auto no-repeat;
+}
+
+.license-fees-hero::after {
+  content: "$";
+  position: absolute;
+  right: 5vw;
+  bottom: -75px;
+  color: rgba(255, 255, 255, .025);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 270px;
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.license-fees-hero .page-shell {
+  position: relative;
+  z-index: 1;
+  padding-top: 34px;
+  padding-bottom: 55px;
+}
+
+.license-fees-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 33px;
+  color: #91a2af;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.license-fees-breadcrumbs a:hover,
+.license-fees-breadcrumbs b {
+  color: #f6a700;
+}
+
+.license-fees-eyebrow,
+.license-fees-intro span,
+.other-fees-heading > span,
+.license-fees-notes > div > span {
+  display: block;
+  color: #f6a700;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.license-fees-hero h1 {
+  max-width: 950px;
+  margin: 8px 0 13px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(39px, 5vw, 60px);
+  line-height: 1.04;
+}
+
+.license-fees-hero p {
+  max-width: 790px;
+  margin: 0;
+  color: #c2ced6;
+  font-size: 14px;
+  line-height: 1.72;
+}
+
+.license-fees-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.license-fees-hero-actions .btn {
+  min-height: 43px;
+  font-size: 10px;
+}
+
+.license-fees-intro {
+  display: grid;
+  grid-template-columns: minmax(300px, .95fr) minmax(0, 1.05fr);
+  gap: 50px;
+  align-items: end;
+  padding-top: 40px;
+  padding-bottom: 27px;
+}
+
+.license-fees-intro h2,
+.other-fees h2,
+.license-fees-notes h2 {
+  margin: 6px 0 0;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 3.2vw, 35px);
+  line-height: 1.14;
+}
+
+.license-fees-intro p,
+.other-fees-heading p {
+  margin: 0;
+  color: #aebbc4;
+  font-size: 12px;
+  line-height: 1.72;
+}
+
+.license-fees-tables {
+  display: grid;
+  gap: 18px;
+  padding-bottom: 38px;
+}
+
+.license-fee-card {
+  overflow: hidden;
+  border: 1px solid #344f62;
+  border-top: 3px solid #f6a700;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #0b2132, #06131e);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, .2);
+}
+
+.license-fee-card-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  padding: 22px 24px 18px;
+}
+
+.license-fee-card-heading span {
+  color: #f6a700;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.license-fee-card-heading h2 {
+  margin: 4px 0 0;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+}
+
+.license-fee-card-heading > b {
+  flex: 0 0 auto;
+  padding: 7px 10px;
+  border: 1px solid #526879;
+  border-radius: 999px;
+  color: #b9c7cf;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.license-fee-table-wrap {
+  overflow-x: auto;
+  border-top: 1px solid #2d4557;
+  border-bottom: 1px solid #2d4557;
+}
+
+.license-fee-card table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.license-fee-card th,
+.license-fee-card td {
+  padding: 13px 24px;
+  border-bottom: 1px solid rgba(74, 100, 119, .45);
+}
+
+.license-fee-card thead th {
+  color: #879aa7;
+  background: #06131e;
+  font-size: 9px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.license-fee-card tbody th {
+  color: #fff;
+  font-size: 12px;
+}
+
+.license-fee-card tbody td {
+  color: #f6a700;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.license-fee-card tbody tr:last-child th,
+.license-fee-card tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.license-fee-card tbody tr:hover {
+  background: rgba(27, 168, 224, .06);
+}
+
+.license-fee-counties {
+  padding: 17px 24px 21px;
+}
+
+.license-fee-counties strong {
+  color: #fff;
+  font-size: 9px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.license-fee-counties p {
+  margin: 8px 0 0;
+  color: #9fadb6;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.other-fees {
+  margin-bottom: 24px;
+  padding: 27px;
+  border: 1px solid #415b6d;
+  border-radius: 8px;
+  background: #0a1d2c;
+}
+
+.other-fees-heading {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 22px;
+}
+
+.other-fees-heading p {
+  margin-top: 8px;
+}
+
+.other-fees-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.other-fees-grid > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #344f62;
+  border-radius: 5px;
+  background: #06131e;
+}
+
+.other-fees-grid strong {
+  color: #fff;
+  font-size: 10px;
+}
+
+.other-fees-grid span {
+  color: #f6a700;
+  font-size: 10px;
+  font-weight: 900;
+  text-align: right;
+}
+
+.common-carriers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin-top: 14px;
+  padding: 16px;
+  border-left: 3px solid #f6a700;
+  background: #071823;
+}
+
+.common-carriers > strong {
+  color: #f6a700;
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.common-carriers span {
+  color: #b9c5cd;
+  font-size: 10px;
+}
+
+.common-carriers b {
+  color: #fff;
+}
+
+.license-fees-notes {
+  display: grid;
+  grid-template-columns: minmax(280px, .75fr) minmax(0, 1.25fr);
+  gap: 35px;
+  margin-bottom: 24px;
+  padding: 27px;
+  border: 1px solid #415b6d;
+  border-radius: 8px;
+  background: #091925;
+}
+
+.license-fees-notes ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.license-fees-notes li {
+  padding-left: 15px;
+  border-left: 2px solid #f6a700;
+  color: #aebbc4;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.license-fees-notes li strong {
+  color: #fff;
+}
+
+.license-fees-disclosure {
+  margin-bottom: 42px;
+  padding: 19px 21px;
+  border: 1px solid #665326;
+  border-left: 4px solid #f6a700;
+  border-radius: 5px;
+  color: #aebbc4;
+  background: #0c1217;
+}
+
+.license-fees-disclosure > strong {
+  display: block;
+  color: #f6a700;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.license-fees-disclosure p {
+  margin: 8px 0;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.license-fees-disclosure small {
+  color: #7f909b;
+  font-size: 9px;
+}
+
+@media (max-width: 900px) {
+  .other-fees-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .license-fees-intro,
+  .license-fees-notes {
+    grid-template-columns: 1fr;
+    gap: 23px;
+  }
+
+  .license-fee-card th,
+  .license-fee-card td {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .license-fees-hero .page-shell {
+    padding-top: 25px;
+    padding-bottom: 42px;
+  }
+
+  .license-fees-hero-actions,
+  .license-fees-hero-actions .btn {
+    width: 100%;
+  }
+
+  .license-fee-card-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .other-fees {
+    padding: 20px 17px;
+  }
+
+  .other-fees-grid {
+    grid-template-columns: 1fr;
+  }
+}
