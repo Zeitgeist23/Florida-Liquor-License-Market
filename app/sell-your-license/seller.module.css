@@ -1343,8 +1343,9 @@
 }
 
 .modernPage .selfFormActions button {
-  width: 330px;
+  width: 304px;
   min-width: 0;
+  min-height: 50px;
   padding-inline: 18px;
 }
 
@@ -1417,6 +1418,7 @@
   .modernPage .modernFormActions button {
     width: 100%;
     min-width: 0;
+    min-height: 54px;
   }
 
   .modernPage .modernFormActions a {
