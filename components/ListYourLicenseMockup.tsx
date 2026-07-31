@@ -1,0 +1,243 @@
+"use client";
+
+import { useState } from "react";
+
+import FormsSiteHeader from "@/components/FormsSiteHeader";
+
+type ListingPath = "self" | "broker";
+
+const pathDetails = {
+  self: {
+    eyebrow: "Self-Directed Listing",
+    title: "Create and manage your marketplace listing",
+    copy:
+      "Provide the license details, set your asking price, and receive buyer inquiries directly. You remain responsible for negotiations, professional advice, transfer documents, and closing coordination.",
+    fields: [
+      ["Asking price", "Enter asking price"],
+      ["License status", "Select current status"],
+      ["Preferred timing", "Select sale timing"],
+      ["Buyer contact", "Phone, email, or both"],
+    ],
+    button: "Continue with Self-Directed Listing",
+    note: "$14.95 one-time listing-submission fee. No brokerage representation is included.",
+  },
+  broker: {
+    eyebrow: "Broker-Assisted Listing",
+    title: "Request professional marketing and transaction guidance",
+    copy:
+      "Tell us your goals and an FLLM-affiliated broker can contact you about marketing strategy, buyer communications, negotiations, documentation, and transaction coordination.",
+    fields: [
+      ["Desired net amount", "Enter desired net proceeds"],
+      ["Current representation", "Select broker status"],
+      ["Preferred arrangement", "Exclusive, non-exclusive, or guidance"],
+      ["Contact preference", "Phone, email, or both"],
+    ],
+    button: "Request a Broker Consultation",
+    note: "Brokerage services and compensation require a separate written agreement.",
+  },
+} as const;
+
+export default function ListYourLicenseMockup() {
+  const [listingPath, setListingPath] = useState<ListingPath>("broker");
+  const selected = pathDetails[listingPath];
+
+  return (
+    <main className="seller-preview-page">
+      <div className="abt-header-wrap">
+        <FormsSiteHeader />
+      </div>
+
+      <section className="seller-preview-hero">
+        <div className="page-shell">
+          <nav className="seller-preview-breadcrumbs" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span>›</span>
+            <b>List Your License</b>
+          </nav>
+
+          <div className="seller-preview-hero-grid">
+            <div>
+              <span className="seller-preview-eyebrow">Confidential seller intake</span>
+              <h1>Choose how you want to list your Florida liquor license</h1>
+              <p>
+                Start with a marketplace listing you manage yourself or request broker-assisted
+                marketing and transaction support. Your selection can be changed before submission.
+              </p>
+              <div className="seller-preview-assurances" aria-label="Seller assurances">
+                <span>Confidential intake</span>
+                <span>All 67 Florida counties</span>
+                <span>Review before publication</span>
+              </div>
+            </div>
+
+            <aside className="seller-preview-hero-note">
+              <span>Not sure which path fits?</span>
+              <strong>Compare the responsibilities before you begin.</strong>
+              <p>
+                Self-directed sellers manage buyer communications and the transaction. A
+                broker-assisted listing begins with a consultation and requires a separate written
+                brokerage agreement before representation starts.
+              </p>
+              <a href="#listing-options">Compare Listing Options ↓</a>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section className="seller-preview-content page-shell" id="listing-options">
+        <div className="seller-preview-section-heading">
+          <div>
+            <span>Step 1 · Select a listing path</span>
+            <h2>How would you like to market your license?</h2>
+          </div>
+          <p>
+            Both options begin with a confidential intake. Public listing information is reviewed
+            before it appears on Florida Liquor License Market.
+          </p>
+        </div>
+
+        <div className="seller-path-grid" role="radiogroup" aria-label="Listing service">
+          <button
+            className={`seller-path-card ${listingPath === "self" ? "is-selected" : ""}`}
+            type="button"
+            role="radio"
+            aria-checked={listingPath === "self"}
+            onClick={() => setListingPath("self")}
+          >
+            <span className="seller-path-number">01</span>
+            <span className="seller-path-badge">Marketplace listing</span>
+            <strong>Self-Directed</strong>
+            <small>Best for experienced sellers who want direct control.</small>
+            <ul>
+              <li>You set the asking price and listing details</li>
+              <li>Buyer inquiries are directed to you</li>
+              <li>You manage negotiations and professional advisors</li>
+              <li>No broker represents you through this option</li>
+            </ul>
+            <span className="seller-path-select">
+              {listingPath === "self" ? "Selected" : "Choose Self-Directed"}
+            </span>
+          </button>
+
+          <button
+            className={`seller-path-card seller-path-card-featured ${listingPath === "broker" ? "is-selected" : ""}`}
+            type="button"
+            role="radio"
+            aria-checked={listingPath === "broker"}
+            onClick={() => setListingPath("broker")}
+          >
+            <span className="seller-path-number">02</span>
+            <span className="seller-path-badge">Consultation requested</span>
+            <strong>Broker-Assisted</strong>
+            <small>Best for sellers who want professional transaction support.</small>
+            <ul>
+              <li>Discuss pricing and marketing strategy</li>
+              <li>Broker can screen and communicate with buyers</li>
+              <li>Negotiation and transaction coordination support</li>
+              <li>Services begin only after a written agreement</li>
+            </ul>
+            <span className="seller-path-select">
+              {listingPath === "broker" ? "Selected" : "Choose Broker-Assisted"}
+            </span>
+          </button>
+        </div>
+
+        <section className="seller-preview-intake" aria-live="polite">
+          <div className="seller-preview-intake-copy">
+            <span>{selected.eyebrow}</span>
+            <h2>{selected.title}</h2>
+            <p>{selected.copy}</p>
+
+            <div className="seller-preview-license-row">
+              <label>
+                <span>County</span>
+                <select defaultValue="">
+                  <option value="" disabled>Select county</option>
+                  <option>Broward County</option>
+                  <option>Miami-Dade County</option>
+                  <option>Palm Beach County</option>
+                  <option>All other Florida counties</option>
+                </select>
+              </label>
+              <label>
+                <span>License type</span>
+                <select defaultValue="">
+                  <option value="" disabled>Select license type</option>
+                  <option>4COP Quota</option>
+                  <option>3PS Quota / Package Store</option>
+                  <option>2COP Beer &amp; Wine</option>
+                  <option>Other / Not sure</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div className="seller-preview-fields">
+            {selected.fields.map(([label, placeholder]) => (
+              <label key={label}>
+                <span>{label}</span>
+                <div>
+                  <span>{placeholder}</span>
+                  <b>⌄</b>
+                </div>
+              </label>
+            ))}
+            <a className="btn btn-gold" href={`/sell-your-license/form?method=${listingPath}`}>
+              {selected.button}
+            </a>
+            <small>{selected.note}</small>
+          </div>
+        </section>
+
+        <section className="seller-preview-comparison" aria-labelledby="seller-comparison-heading">
+          <div className="seller-preview-comparison-heading">
+            <span>Responsibilities at a glance</span>
+            <h2 id="seller-comparison-heading">Know what each option includes</h2>
+          </div>
+          <div className="seller-comparison-table">
+            <div className="seller-comparison-row seller-comparison-header">
+              <b>Service or responsibility</b>
+              <b>Self-Directed</b>
+              <b>Broker-Assisted</b>
+            </div>
+            {[
+              ["Public marketplace exposure", "Included", "Included"],
+              ["Seller controls asking price", "Yes", "With broker guidance"],
+              ["Buyer communications", "Seller", "Broker may manage"],
+              ["Negotiation support", "Not included", "Available by agreement"],
+              ["Transfer and closing coordination", "Seller’s advisors", "Available by agreement"],
+              ["Brokerage compensation", "None", "Disclosed in written agreement"],
+            ].map(([service, self, broker]) => (
+              <div className="seller-comparison-row" key={service}>
+                <strong>{service}</strong>
+                <span>{self}</span>
+                <span>{broker}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="seller-preview-disclosure" aria-label="Listing service disclosure">
+          <strong>Important listing and brokerage disclosure</strong>
+          <p>
+            Selecting the broker-assisted option is a request for contact and does not itself create
+            a brokerage relationship. Brokerage representation, scope of services, exclusivity, and
+            compensation must be stated in a separate written agreement accepted by the parties.
+            Self-directed listings do not include representation, valuation, negotiation, legal,
+            tax, licensing, or closing services. FLLM may review submitted information before
+            publication and does not guarantee a buyer, sale, transfer approval, or closing.
+          </p>
+        </section>
+      </section>
+
+      <footer className="abt-forms-footer">
+        <div className="page-shell">
+          <img src="/assets/brand-footer.svg" alt="Florida Liquor License Market" />
+          <span>Florida’s marketplace for buying, selling and financing liquor licenses.</span>
+          <a href="/">Return to Florida Liquor License Market</a>
+        </div>
+      </footer>
+    </main>
+  );
+}
+
