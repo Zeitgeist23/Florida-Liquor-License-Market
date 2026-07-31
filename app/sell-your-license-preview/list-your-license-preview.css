@@ -428,6 +428,30 @@
   opacity: 1;
 }
 
+.seller-preview-currency-input {
+  position: relative;
+  display: block;
+}
+
+.seller-preview-currency-input > span {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  z-index: 1;
+  color: #eaf0f3;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.seller-preview-fields .seller-preview-currency-input input {
+  padding-left: 27px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
 .seller-preview-fields input:focus,
 .seller-preview-fields select:focus {
   border-color: #f6a700;
