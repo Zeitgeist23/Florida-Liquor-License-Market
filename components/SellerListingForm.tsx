@@ -28,6 +28,19 @@ function formatPhoneNumber(value: string) {
   return `${prefix}(${nationalNumber.slice(0, 3)}) ${nationalNumber.slice(3, 6)}-${nationalNumber.slice(6, 10)}`;
 }
 
+function isCompleteName(value: string) {
+  return value.trim().split(/\s+/).filter(Boolean).length >= 2;
+}
+
+function isCompleteEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
+function isCompletePhone(value: string) {
+  const digits = value.replace(/\D/g, "");
+  return digits.length === 10 || (digits.length === 11 && digits.startsWith("1"));
+}
+
 function CurrencyInput({
   name,
   value,
@@ -66,7 +79,14 @@ export default function SellerListingForm() {
   const [selfLicenseStatus, setSelfLicenseStatus] = useState("");
   const [selfPreferredTiming, setSelfPreferredTiming] = useState("");
   const [selfContactMethod, setSelfContactMethod] = useState("");
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+  const [completedContactFields, setCompletedContactFields] = useState({
+    name: false,
+    email: false,
+    phone: false,
+  });
   const [brokerCurrentlyRepresented, setBrokerCurrentlyRepresented] = useState("");
   const [brokerArrangement, setBrokerArrangement] = useState("No preference / need guidance");
   const [desiredNetAmount, setDesiredNetAmount] = useState("");
@@ -514,9 +534,43 @@ export default function SellerListingForm() {
                 <p>Review the confirmed listing details below, complete your contact information, and proceed to secure checkout.</p>
 
                 <div className={styles.reviewFields}>
-                  <label><span>Full Name *</span><input type="text" autoComplete="name" required name="name" /></label>
-                  <label><span>Email *</span><input type="email" autoComplete="email" required name="email" /></label>
-                  <label>
+                  <label className={completedContactFields.name ? styles.contactFieldComplete : styles.contactField}>
+                    <span>Full Name *</span>
+                    <input
+                      type="text"
+                      autoComplete="name"
+                      required
+                      name="name"
+                      value={contactName}
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        setContactName(value);
+                        if (completedContactFields.name) {
+                          setCompletedContactFields((current) => ({ ...current, name: isCompleteName(value) }));
+                        }
+                      }}
+                      onBlur={() => setCompletedContactFields((current) => ({ ...current, name: isCompleteName(contactName) }))}
+                    />
+                  </label>
+                  <label className={completedContactFields.email ? styles.contactFieldComplete : styles.contactField}>
+                    <span>Email *</span>
+                    <input
+                      type="email"
+                      autoComplete="email"
+                      required
+                      name="email"
+                      value={contactEmail}
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        setContactEmail(value);
+                        if (completedContactFields.email) {
+                          setCompletedContactFields((current) => ({ ...current, email: isCompleteEmail(value) }));
+                        }
+                      }}
+                      onBlur={() => setCompletedContactFields((current) => ({ ...current, email: isCompleteEmail(contactEmail) }))}
+                    />
+                  </label>
+                  <label className={completedContactFields.phone ? styles.contactFieldComplete : styles.contactField}>
                     <span>Phone *</span>
                     <input
                       type="tel"
@@ -527,7 +581,14 @@ export default function SellerListingForm() {
                       placeholder="(555) 555-5555"
                       maxLength={17}
                       value={contactPhone}
-                      onChange={(event) => setContactPhone(formatPhoneNumber(event.target.value))}
+                      onChange={(event) => {
+                        const value = formatPhoneNumber(event.target.value);
+                        setContactPhone(value);
+                        if (completedContactFields.phone) {
+                          setCompletedContactFields((current) => ({ ...current, phone: isCompletePhone(value) }));
+                        }
+                      }}
+                      onBlur={() => setCompletedContactFields((current) => ({ ...current, phone: isCompletePhone(contactPhone) }))}
                     />
                   </label>
                   <div className={styles.lockedField}>
