@@ -524,7 +524,6 @@ export default function SellerListingForm() {
                   <label><input type="checkbox" required name="fee_agreement" value="Accepted" /><span>I understand that $14.95 is a one-time listing-submission fee. Payment does not guarantee publication, and rejected submissions are eligible for a refund.</span></label>
                 </div>
 
-                <div className={styles.feeRow}><span>Listing Submission Fee</span><strong>$14.95</strong></div>
                 <button className={styles.paymentButton} type="button" disabled={submitting} onClick={submitListing}>
                   {submitting ? "Creating Secure Checkout…" : "Proceed to Secure Payment — $14.95"}
                 </button>
