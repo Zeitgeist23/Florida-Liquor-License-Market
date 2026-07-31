@@ -334,6 +334,7 @@ export default function SellerListingForm() {
                       <option value="" disabled>Select one</option>
                       <option>Active and current</option>
                       <option>Inactive</option>
+                      <option>In escrow (DBPR/ABT)</option>
                       <option>Transfer pending</option>
                       <option>Not sure</option>
                     </select>
