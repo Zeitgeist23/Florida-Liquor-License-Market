@@ -60,6 +60,11 @@ export default function SellerListingForm() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    if (params.get("method") === "self") {
+      setSaleMethod("Self-Directed Listing");
+    } else if (params.get("method") === "broker") {
+      setSaleMethod("Broker-Assisted Listing");
+    }
     if (params.get("payment") === "cancelled") {
       setIsError(true);
       setStatus("Payment was canceled. Your listing has not been submitted. You may continue when ready.");
@@ -359,3 +364,4 @@ export default function SellerListingForm() {
     </main>
   );
 }
+
