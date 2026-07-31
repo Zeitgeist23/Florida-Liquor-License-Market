@@ -406,26 +406,32 @@
   background: #06131e;
 }
 
-.seller-preview-fields label > div {
+.seller-preview-fields input,
+.seller-preview-fields select {
+  width: 100%;
   min-height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
   padding: 0 12px;
   border: 1px solid #4a6274;
   border-radius: 5px;
-  color: #7f919d;
+  color: #eaf0f3;
   background: #0a1b28;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
+  outline: none;
+  color-scheme: dark;
 }
 
-.seller-preview-fields label > div b {
-  color: #f6a700;
-  font-size: 13px;
+.seller-preview-fields input::placeholder {
+  color: #91a6b3;
+  opacity: 1;
+}
+
+.seller-preview-fields input:focus,
+.seller-preview-fields select:focus {
+  border-color: #f6a700;
+  box-shadow: 0 0 0 2px rgba(246, 167, 0, .12);
 }
 
 .seller-preview-fields .btn {
