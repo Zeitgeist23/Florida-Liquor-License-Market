@@ -180,6 +180,10 @@ export default function ListYourLicenseMockup() {
                 broker-assisted listing begins with a consultation and requires a separate written
                 brokerage agreement before representation starts.
               </p>
+              <p className="seller-preview-hero-fee">
+                <strong>Self-Directed Listing:</strong> $14.95 one-time listing-submission fee. No
+                brokerage representation is included.
+              </p>
               <a href="#listing-options">Compare Listing Options ↓</a>
             </aside>
           </div>
