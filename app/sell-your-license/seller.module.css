@@ -564,7 +564,29 @@
 }
 
 .paymentButton:hover { background: #ffc13c; }
-.paymentButton:disabled { opacity: .68; cursor: progress; }
+.paymentButton:disabled {
+  opacity: 1;
+  border-color: #ffd064;
+  background: #ffb72b;
+  box-shadow: 0 9px 24px rgba(242, 169, 0, .22), inset 0 1px rgba(255, 255, 255, .4);
+  cursor: progress;
+}
+
+.paymentSpinner {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  border: 2px solid rgba(7, 17, 14, .32);
+  border-top-color: #07110e;
+  border-radius: 50%;
+  vertical-align: -2px;
+  animation: paymentSpinner 700ms linear infinite;
+}
+
+@keyframes paymentSpinner {
+  to { transform: rotate(360deg); }
+}
 .status,
 .errorStatus {
   min-height: 18px;
