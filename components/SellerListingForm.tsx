@@ -495,8 +495,8 @@ export default function SellerListingForm() {
               <section className={styles.reviewModal} role="dialog" aria-modal="true" aria-labelledby="review-heading">
                 <button className={styles.closeButton} type="button" aria-label="Close review" disabled={submitting} onClick={() => setReviewOpen(false)}>×</button>
                 <span className={styles.reviewKicker}>Confidential Listing · Step 3 of 3</span>
-                <h2 id="review-heading">Complete Your License Details</h2>
-                <p>Your service selection has been saved. Complete the license and contact information below before secure checkout.</p>
+                <h2 id="review-heading">Verify Your License Details &amp; Complete Your Contact Information</h2>
+                <p>Review the confirmed listing details below, complete your contact information, and proceed to secure checkout.</p>
 
                 <div className={styles.reviewFields}>
                   <label><span>Full Name *</span><input type="text" autoComplete="name" required name="name" /></label>
