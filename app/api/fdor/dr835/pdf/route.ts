@@ -11,7 +11,7 @@ export async function GET() {
       "Content-Type": "application/pdf",
       "Content-Disposition": 'inline; filename="FLLM-Fillable-DR-835.pdf"',
       "Content-Length": String(pdf.byteLength),
-      "Cache-Control": "public, max-age=86400, s-maxage=31536000, immutable",
+      "Cache-Control": "no-store, max-age=0",
       "X-Content-Type-Options": "nosniff",
     },
   });
