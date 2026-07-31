@@ -744,6 +744,37 @@
   pointer-events: auto;
 }
 
+.modernPage .methodSummary {
+  display: grid;
+  gap: 7px;
+  padding: 22px 24px;
+  border: 1px solid #3c586b;
+  border-left: 4px solid #f6a700;
+  border-radius: 8px;
+  background: linear-gradient(145deg, rgba(246, 167, 0, .1), #071b2a 52%);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .2);
+}
+
+.modernPage .methodSummary > span {
+  color: #f6a700;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.modernPage .methodSummary > strong {
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+}
+
+.modernPage .methodSummary > small {
+  color: #c7d3db;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
 .modernPage .methodFieldset {
   position: relative;
   inset: auto;
