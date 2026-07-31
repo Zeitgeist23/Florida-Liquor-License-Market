@@ -254,6 +254,7 @@ export async function GET(request: Request) {
       .replace(/<script[^>]+market-insights-video-popup-v4\.js[^>]*><\/script>/gi, "")
       .replace(/<script[^>]+market-map-modal\.js[^>]*><\/script>/gi, "")
       .replace(/<script[^>]+market-data-dropdown\.js[^>]*><\/script>/gi, "")
+      .replace(/<script[^>]+resources-dropdown\.js[^>]*><\/script>/gi, "")
       .replace(/<script[^>]+market-heat-map\.js[^>]*><\/script>/gi, "")
       .replace(/<script[^>]+market-heat-map-fit-v4\.js[^>]*><\/script>/gi, "")
       .replace(/<script[^>]+market-heat-map-modal-size-v1\.js[^>]*><\/script>/gi, "")
@@ -279,6 +280,11 @@ export async function GET(request: Request) {
       '<script defer src="/assets/homepage-synced-captions-v1.js?v=4"></script>',
       '<script defer src="/assets/homepage-video-scroll-fix-v1.js?v=3"></script>',
     ];
+
+    enhancedHtml = enhancedHtml.replace(
+      /<a\s+href="#resources"([^>]*)>(\s*<span>\s*Resources\s*<\/span>)/i,
+      '<a href="#resources-menu"$1 onclick="return false;">$2',
+    );
 
     const tagsToAdd = scriptTags.filter((tag) => !enhancedHtml.includes(tag)).join("");
     if (tagsToAdd) enhancedHtml = enhancedHtml.replace("</body>", `${tagsToAdd}</body>`);
