@@ -255,6 +255,17 @@
   color: #ffc33b;
 }
 
+.fdor-browser-note {
+  display: block;
+  max-width: 500px;
+  padding: 11px 12px;
+  border-left: 3px solid #f6a700;
+  color: #8fa1ad;
+  background: rgba(246, 167, 0, .05);
+  font-size: 9px;
+  line-height: 1.55;
+}
+
 .fdor-use-note {
   display: grid;
   gap: 4px;
