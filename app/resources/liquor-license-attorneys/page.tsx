@@ -78,19 +78,6 @@ const attorneys = [
       "Purchase-agreement, lease, and operational review",
     ],
   },
-  {
-    name: "Marc R. Tiller",
-    firm: "The Tiller Law Group",
-    location: "Tampa · Statewide representation",
-    phone: "813-972-2223",
-    phoneHref: "tel:+18139722223",
-    profile: "https://floridaliquorlicenselaw.com/about-us/",
-    services: [
-      "Alcoholic-beverage transactions",
-      "Quota-license purchases, sales, financing, and closings",
-      "License applications, transfers, and regulatory coordination",
-    ],
-  },
 ] as const;
 
 export default function FloridaLiquorLicenseAttorneysPage() {
