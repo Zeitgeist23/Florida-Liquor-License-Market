@@ -1,0 +1,423 @@
+.fdor-page {
+  min-height: 100vh;
+  color: #eef3f6;
+  background:
+    radial-gradient(circle at 83% 16%, rgba(246, 167, 0, .08), transparent 27%),
+    #07131e;
+}
+
+.fdor-page .abt-header-wrap {
+  border-bottom: 1px solid rgba(246, 167, 0, .55);
+  background: #020b12;
+}
+
+.fdor-hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(246, 167, 0, .38);
+  background:
+    linear-gradient(105deg, rgba(2, 11, 18, .99), rgba(7, 31, 48, .94)),
+    url("/assets/hero-bar-clean.png") right center / 44% auto no-repeat;
+}
+
+.fdor-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 63%, rgba(246, 167, 0, .08));
+}
+
+.fdor-hero .page-shell {
+  position: relative;
+  z-index: 1;
+  padding-top: 34px;
+  padding-bottom: 55px;
+}
+
+.fdor-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 33px;
+  color: #91a2af;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.fdor-breadcrumbs a:hover,
+.fdor-breadcrumbs b {
+  color: #f6a700;
+}
+
+.fdor-eyebrow,
+.fdor-intro span,
+.fdor-process-copy > span,
+.fdor-hardcopy > div:first-child > span {
+  display: block;
+  color: #f6a700;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.fdor-hero h1 {
+  max-width: 950px;
+  margin: 8px 0 13px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(37px, 5vw, 58px);
+  line-height: 1.04;
+}
+
+.fdor-hero p {
+  max-width: 790px;
+  margin: 0;
+  color: #c2ced6;
+  font-size: 14px;
+  line-height: 1.72;
+}
+
+.fdor-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.fdor-hero-actions .btn {
+  min-height: 43px;
+  font-size: 10px;
+}
+
+.fdor-intro {
+  display: grid;
+  grid-template-columns: minmax(300px, .95fr) minmax(0, 1.05fr);
+  gap: 50px;
+  align-items: end;
+  padding-top: 40px;
+  padding-bottom: 24px;
+}
+
+.fdor-intro h2,
+.fdor-process h2,
+.fdor-hardcopy h2 {
+  margin: 6px 0 0;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 3.2vw, 35px);
+  line-height: 1.14;
+}
+
+.fdor-intro p,
+.fdor-process p,
+.fdor-hardcopy p {
+  margin: 0;
+  color: #aebbc4;
+  font-size: 12px;
+  line-height: 1.72;
+}
+
+.fdor-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding-bottom: 34px;
+}
+
+.fdor-resource-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  border: 1px solid #344f62;
+  border-top: 3px solid #f6a700;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #0b2132, #06131e);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, .2);
+}
+
+.fdor-card-featured {
+  grid-row: span 2;
+}
+
+.fdor-card-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.fdor-card-label span {
+  padding: 6px 9px;
+  border: 1px solid rgba(246, 167, 0, .7);
+  border-radius: 4px;
+  color: #f6a700;
+  background: rgba(246, 167, 0, .06);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.fdor-card-label small {
+  color: #7f919d;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.fdor-resource-card h2 {
+  margin: 0;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  line-height: 1.12;
+}
+
+.fdor-resource-card > p {
+  margin: 12px 0 18px;
+  color: #b7c4cc;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.fdor-resource-card ul {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+  color: #d5dee4;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.fdor-resource-card li {
+  position: relative;
+  padding-left: 16px;
+}
+
+.fdor-resource-card li::before {
+  content: "";
+  position: absolute;
+  top: .55em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f6a700;
+}
+
+.fdor-card-actions {
+  display: grid;
+  gap: 13px;
+  margin-top: auto;
+}
+
+.fdor-resource-card .btn {
+  align-self: flex-start;
+  min-height: 42px;
+  margin-top: auto;
+  font-size: 9px;
+}
+
+.fdor-text-link {
+  color: #f6a700;
+  font-size: 9px;
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fdor-text-link:hover {
+  color: #ffc33b;
+}
+
+.fdor-use-note {
+  display: grid;
+  gap: 4px;
+  margin: auto 0 18px;
+  padding: 13px 14px;
+  border-left: 3px solid #f6a700;
+  background: #071823;
+}
+
+.fdor-use-note strong {
+  color: #fff;
+  font-size: 9px;
+}
+
+.fdor-use-note span {
+  color: #94a5b0;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.fdor-process,
+.fdor-hardcopy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(330px, .8fr);
+  gap: 44px;
+  align-items: center;
+  margin-bottom: 22px;
+  padding: 29px;
+  border: 1px solid #415b6d;
+  border-radius: 8px;
+  background: #0a1d2c;
+}
+
+.fdor-process p,
+.fdor-hardcopy p {
+  margin-top: 12px;
+}
+
+.fdor-process-copy .btn {
+  min-height: 42px;
+  margin-top: 19px;
+  font-size: 9px;
+}
+
+.fdor-process-steps {
+  display: grid;
+  gap: 9px;
+}
+
+.fdor-process-steps > div {
+  display: grid;
+  grid-template-columns: 35px 1fr;
+  gap: 11px;
+  align-items: center;
+  padding: 13px;
+  border: 1px solid #42596a;
+  border-radius: 5px;
+  background: #06131e;
+}
+
+.fdor-process-steps b {
+  width: 35px;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #f6a700;
+  border-radius: 50%;
+  color: #f6a700;
+  font-size: 12px;
+}
+
+.fdor-process-steps span {
+  color: #d0dbe1;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.fdor-mailing-card {
+  display: grid;
+  gap: 5px;
+  padding: 20px;
+  border: 1px solid #526879;
+  border-top: 3px solid #f6a700;
+  border-radius: 6px;
+  background: #06131e;
+}
+
+.fdor-mailing-card strong {
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+}
+
+.fdor-mailing-card span,
+.fdor-mailing-card small {
+  color: #b8c5cc;
+  font-size: 10px;
+}
+
+.fdor-mailing-card small {
+  margin-top: 7px;
+  color: #8b9da8;
+}
+
+.fdor-mailing-card a {
+  margin-top: 8px;
+  color: #f6a700;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.fdor-disclosure {
+  margin-bottom: 42px;
+  padding: 19px 21px;
+  border: 1px solid #665326;
+  border-left: 4px solid #f6a700;
+  border-radius: 5px;
+  color: #aebbc4;
+  background: #0c1217;
+}
+
+.fdor-disclosure > strong {
+  display: block;
+  color: #f6a700;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.fdor-disclosure p {
+  margin: 8px 0;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.fdor-disclosure small {
+  color: #7f909b;
+  font-size: 9px;
+}
+
+@media (max-width: 850px) {
+  .fdor-intro,
+  .fdor-resource-grid,
+  .fdor-process,
+  .fdor-hardcopy {
+    grid-template-columns: 1fr;
+  }
+
+  .fdor-intro,
+  .fdor-process,
+  .fdor-hardcopy {
+    gap: 23px;
+  }
+
+  .fdor-card-featured {
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .fdor-hero .page-shell {
+    padding-top: 25px;
+    padding-bottom: 42px;
+  }
+
+  .fdor-hero-actions,
+  .fdor-hero-actions .btn,
+  .fdor-resource-card .btn,
+  .fdor-process-copy .btn {
+    width: 100%;
+  }
+
+  .fdor-resource-card,
+  .fdor-process,
+  .fdor-hardcopy {
+    padding: 20px 17px;
+  }
+
+  .fdor-card-label {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
