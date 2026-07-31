@@ -394,7 +394,7 @@ export default function SellerListingForm() {
                 <aside className={styles.listingPreview} aria-label="Marketplace listing preview">
                   <div className={styles.previewHeading}>
                     <span>Listing preview</span>
-                    <small>Matches the live marketplace card</small>
+                    <small>Click to enlarge</small>
                   </div>
                   <article
                     className={`${styles.previewCard} ${styles.previewCardInteractive}`}
