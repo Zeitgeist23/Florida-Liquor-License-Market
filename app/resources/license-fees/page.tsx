@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import LicenseFeeFinder from "@/components/LicenseFeeFinder";
 import "../forms/abt-forms.css";
 import "./license-fees.css";
 
@@ -135,6 +136,8 @@ export default function LicenseFeesPage() {
           </div>
         </div>
       </section>
+
+      <LicenseFeeFinder />
 
       <section className="license-fees-intro page-shell">
         <div>
