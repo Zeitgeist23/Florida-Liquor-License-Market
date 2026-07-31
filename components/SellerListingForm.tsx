@@ -174,6 +174,11 @@ export default function SellerListingForm() {
   }
 
   const brokerAssisted = saleMethod === "Broker-Assisted Listing";
+  const previewCategory = licenseType.startsWith("3PS")
+    ? "Package Store"
+    : licenseType.startsWith("2COP")
+      ? "Beer & Wine"
+      : "Restaurant / Bar";
 
   return (
     <main className={`${styles.page} ${styles.modernPage}`}>
@@ -243,7 +248,19 @@ export default function SellerListingForm() {
               </small>
             </div>
 
-            <div className={`${styles.brokerFields} ${!brokerAssisted ? styles.selfDirectedFields : ""}`}>
+            <div className={styles.selectedLicenseDetails} aria-label="Selected license details">
+              <div className={county ? styles.selectionConfirmed : styles.selectionPending}>
+                <span>County</span>
+                <strong>{county || "County not selected"}</strong>
+              </div>
+              <div className={licenseType ? styles.selectionConfirmed : styles.selectionPending}>
+                <span>License type</span>
+                <strong>{licenseType || "License type not selected"}</strong>
+              </div>
+            </div>
+
+            <div className={!brokerAssisted ? styles.selfStepLayout : undefined}>
+              <div className={`${styles.brokerFields} ${!brokerAssisted ? styles.selfDirectedFields : ""}`}>
               {brokerAssisted ? (
                 <>
                   <label className={styles.representedField}>
@@ -380,6 +397,32 @@ export default function SellerListingForm() {
                     </select>
                   </label>
                 </>
+              )}
+              </div>
+
+              {!brokerAssisted && (
+                <aside className={styles.listingPreview} aria-label="Marketplace listing preview">
+                  <div className={styles.previewHeading}>
+                    <span>Listing preview</span>
+                    <small>Updates as you complete the form</small>
+                  </div>
+                  <article className={styles.previewCard}>
+                    <div className={styles.previewImage}>
+                      <img src="/assets/hero-bar-clean.png" alt="" />
+                      <span>{licenseType || "Florida liquor license"}</span>
+                    </div>
+                    <div className={styles.previewBody}>
+                      <p><i aria-hidden="true" /> {county || "Florida county"}</p>
+                      <h2>{askingPrice ? `$${askingPrice}` : "Asking price"}</h2>
+                      <div>
+                        <span>{previewCategory}</span>
+                        <span>{selfLicenseStatus || "License status"}</span>
+                        <span>{selfPreferredTiming || "Sale timing"}</span>
+                      </div>
+                      <small>Price and availability subject to confirmation.</small>
+                    </div>
+                  </article>
+                </aside>
               )}
             </div>
 
