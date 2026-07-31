@@ -3,7 +3,15 @@
 import Script from "next/script";
 import { useState } from "react";
 
-export default function FormsSiteHeader() {
+type FormsSiteHeaderProps = {
+  primaryActionHref?: string;
+  primaryActionLabel?: string;
+};
+
+export default function FormsSiteHeader({
+  primaryActionHref = "/sell-your-license",
+  primaryActionLabel = "List Your License",
+}: FormsSiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -30,7 +38,7 @@ export default function FormsSiteHeader() {
           <a href="/resources/forms"><span>Resources</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
         </nav>
         <div className="header-actions">
-          <a className="btn btn-gold" href="/sell-your-license">List Your License</a>
+          <a className="btn btn-gold" href={primaryActionHref}>{primaryActionLabel}</a>
           <a className="btn btn-outline" href="/contact">
             <span className="contact-phone" aria-hidden="true">☎</span>Contact Us
           </a>
