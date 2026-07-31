@@ -14,6 +14,20 @@ function formatCurrency(value: string) {
   return `${digits.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 }
 
+function formatPhoneNumber(value: string) {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  const hasCountryCode = digits.startsWith("1");
+  const nationalNumber = hasCountryCode ? digits.slice(1) : digits.slice(0, 10);
+  const prefix = hasCountryCode ? "+1 " : "";
+
+  if (!nationalNumber) return prefix;
+  if (nationalNumber.length < 4) return `${prefix}(${nationalNumber}`;
+  if (nationalNumber.length < 7) {
+    return `${prefix}(${nationalNumber.slice(0, 3)}) ${nationalNumber.slice(3)}`;
+  }
+  return `${prefix}(${nationalNumber.slice(0, 3)}) ${nationalNumber.slice(3, 6)}-${nationalNumber.slice(6, 10)}`;
+}
+
 function CurrencyInput({
   name,
   value,
@@ -52,6 +66,7 @@ export default function SellerListingForm() {
   const [selfLicenseStatus, setSelfLicenseStatus] = useState("");
   const [selfPreferredTiming, setSelfPreferredTiming] = useState("");
   const [selfContactMethod, setSelfContactMethod] = useState("");
+  const [contactPhone, setContactPhone] = useState("");
   const [brokerCurrentlyRepresented, setBrokerCurrentlyRepresented] = useState("");
   const [brokerArrangement, setBrokerArrangement] = useState("No preference / need guidance");
   const [desiredNetAmount, setDesiredNetAmount] = useState("");
@@ -501,7 +516,20 @@ export default function SellerListingForm() {
                 <div className={styles.reviewFields}>
                   <label><span>Full Name *</span><input type="text" autoComplete="name" required name="name" /></label>
                   <label><span>Email *</span><input type="email" autoComplete="email" required name="email" /></label>
-                  <label><span>Phone *</span><input type="tel" autoComplete="tel" required name="phone" /></label>
+                  <label>
+                    <span>Phone *</span>
+                    <input
+                      type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
+                      required
+                      name="phone"
+                      placeholder="(555) 555-5555"
+                      maxLength={17}
+                      value={contactPhone}
+                      onChange={(event) => setContactPhone(formatPhoneNumber(event.target.value))}
+                    />
+                  </label>
                   <div className={styles.lockedField}>
                     <span>County *</span>
                     <strong>{county || "Not selected"}</strong>
