@@ -1286,26 +1286,6 @@
   font-size: 15px;
 }
 
-.modernPage .currencyInput {
-  position: relative;
-}
-
-.modernPage .currencyInput > span {
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 15px;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.modernPage .currencyInput input {
-  padding-left: 34px;
-}
-
 .modernPage .modernFormActions {
   display: flex;
   align-items: center;
