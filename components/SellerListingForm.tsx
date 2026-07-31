@@ -26,22 +26,26 @@ function CurrencyInput({
   onComplete?: () => void;
 }) {
   return (
-    <input
-      type="text"
-      inputMode="numeric"
-      autoComplete="off"
-      name={name}
-      placeholder="$"
-      value={value}
-      onChange={(event) => onChange(formatCurrency(event.target.value))}
-      onBlur={onComplete}
-    />
+    <div className={styles.currencyInput}>
+      <span aria-hidden="true">$</span>
+      <input
+        type="text"
+        inputMode="numeric"
+        autoComplete="off"
+        name={name}
+        placeholder="0"
+        value={value}
+        onChange={(event) => onChange(formatCurrency(event.target.value))}
+        onBlur={onComplete}
+      />
+    </div>
   );
 }
 
 export default function SellerListingForm() {
   const [saleMethod, setSaleMethod] = useState<SaleMethod>("Self-Directed Listing");
   const [reviewOpen, setReviewOpen] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState("");
   const [isError, setIsError] = useState(false);
@@ -395,7 +399,19 @@ export default function SellerListingForm() {
                     <span>Listing preview</span>
                     <small>Matches the live marketplace card</small>
                   </div>
-                  <article className={styles.previewCard}>
+                  <article
+                    className={`${styles.previewCard} ${styles.previewCardInteractive}`}
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Open a larger marketplace listing preview"
+                    onClick={() => setPreviewOpen(true)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        setPreviewOpen(true);
+                      }
+                    }}
+                  >
                     <div className={styles.previewMap}>
                       <FloridaCountyMap county={county || "No county selected"} />
                       <span>{licenseType || "Florida liquor license"}</span>
@@ -426,6 +442,46 @@ export default function SellerListingForm() {
               <button type="submit">Continue to Contact Details</button>
             </div>
           </div>
+
+          {previewOpen && !brokerAssisted && (
+            <div className={styles.modalBackdrop} role="presentation" onMouseDown={(event) => {
+              if (event.target === event.currentTarget) setPreviewOpen(false);
+            }}>
+              <section className={styles.previewModal} role="dialog" aria-modal="true" aria-labelledby="preview-modal-heading">
+                <button className={styles.closeButton} type="button" aria-label="Close listing preview" onClick={() => setPreviewOpen(false)}>×</button>
+                <span className={styles.reviewKicker}>Marketplace Listing Preview</span>
+                <h2 id="preview-modal-heading">Review Your Listing</h2>
+                <p>This enlarged preview shows how your advertisement will appear in the live marketplace.</p>
+
+                <article className={`${styles.previewCard} ${styles.expandedPreviewCard}`}>
+                  <div className={styles.previewMap}>
+                    <FloridaCountyMap county={county || "No county selected"} />
+                    <span>{licenseType || "Florida liquor license"}</span>
+                  </div>
+                  <div className={styles.previewBody}>
+                    <p><i aria-hidden="true" /> {county || "Florida county"}</p>
+                    <h2>{askingPrice ? `$${askingPrice}` : "Asking price"}</h2>
+                    <div className={styles.previewFacts}>
+                      <span>{licenseType || previewCategory}</span>
+                      <span>Transferable / Available</span>
+                    </div>
+                    <small>
+                      {selfLicenseStatus || "License status"} · {selfPreferredTiming || "Sale timing"}.
+                      Additional listing details will appear here after review.
+                    </small>
+                    <div className={styles.previewActions} aria-hidden="true">
+                      <span>Inquire</span>
+                      <span>Submit an Offer</span>
+                    </div>
+                  </div>
+                </article>
+
+                <button className={styles.previewContinueButton} type="submit" onClick={() => setPreviewOpen(false)}>
+                  Continue to Contact Details
+                </button>
+              </section>
+            </div>
+          )}
 
           {reviewOpen && (
             <div className={styles.modalBackdrop} role="presentation" onMouseDown={(event) => {
