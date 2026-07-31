@@ -120,10 +120,10 @@ function renderListingCard(listing: CarouselListing) {
         <span>${type}</span>
       </div>
       <div class="listing-body">
-        <p>● ${county}</p>
+        <p>â— ${county}</p>
         <h3>${price}</h3>
         <div class="listing-facts"><span>${type}</span><span class="homepage-available-status">Available</span></div>
-        <small class="homepage-county-market-label">View County Market ›</small>
+        <small class="homepage-county-market-label">View County Market â€º</small>
       </div>
     </a>
   </article>`;
@@ -132,15 +132,15 @@ function renderListingCard(listing: CarouselListing) {
 function renderCountyDirectorySection() {
   const countyLinks = featuredCounties.map((county) => `
     <a href="/counties/${county.slug}">
-      <span><strong>${escapeHtml(county.name)}</strong><small>${escapeHtml(county.primaryCities.join(" · "))}</small></span>
-      <i>View Market ›</i>
+      <span><strong>${escapeHtml(county.name)}</strong><small>${escapeHtml(county.primaryCities.join(" Â· "))}</small></span>
+      <i>View Market â€º</i>
     </a>`).join("");
 
   return `<section class="homepage-county-directory" id="homepage-county-directory" aria-labelledby="homepage-county-directory-title">
     <div class="page-shell">
       <div class="homepage-county-directory-heading">
         <div><span>Permanent County Market Pages</span><h2 id="homepage-county-directory-title">Browse Florida Liquor Licenses by County</h2><p>Explore current listings, disclosed asking-price ranges, financing links, and county-specific market guidance.</p></div>
-        <a class="homepage-county-directory-all" href="/counties">Browse All 67 Counties ›</a>
+        <a class="homepage-county-directory-all" href="/counties">Browse All 67 Counties â€º</a>
       </div>
       <div class="homepage-county-directory-grid">${countyLinks}</div>
     </div>
@@ -271,7 +271,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/market-heat-map.js?v=4"></script>',
       '<script defer src="/assets/market-heat-map-popup-cards-v3.js?v=2"></script>',
       '<script defer src="/assets/market-heat-map-county-links-v1.js?v=1"></script>',
-      '<script defer src="/assets/resources-dropdown.js?v=6"></script>',
+      '<script defer src="/assets/resources-dropdown.js?v=7"></script>',
       '<script defer src="/assets/header-menu-coordinator.js"></script>',
       '<script defer src="/assets/featured-sold-status.js?v=4"></script>',
       '<script defer src="/assets/newscast-screen-logo-v10.js?v=3"></script>',
@@ -296,3 +296,4 @@ export async function GET(request: Request) {
     return Response.redirect(new URL("/index.html", request.url), 307);
   }
 }
+
