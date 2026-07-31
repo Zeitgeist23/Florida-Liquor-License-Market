@@ -110,6 +110,9 @@
 }
 
 .seller-preview-hero-note {
+  position: relative;
+  top: -15px;
+  left: 10px;
   display: grid;
   gap: 10px;
   padding: 28px;
@@ -526,6 +529,8 @@
 
   .seller-preview-hero-note {
     max-width: 520px;
+    top: 0;
+    left: 0;
   }
 
   .seller-path-card {
