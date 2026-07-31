@@ -335,6 +335,33 @@
   border-radius: 50%;
 }
 
+.seller-path-resources {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 5px;
+  margin: 0 0 18px;
+  padding: 12px 13px;
+  border-left: 2px solid #f6a700;
+  color: #cbd8df;
+  background: rgba(246, 167, 0, .055);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.seller-path-resources b {
+  color: #f6a700;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .025em;
+}
+
+.seller-path-resources small {
+  color: #bdcbd3;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
 .seller-path-select {
   position: relative;
   z-index: 1;
