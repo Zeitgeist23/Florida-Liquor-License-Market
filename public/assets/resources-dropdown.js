@@ -38,6 +38,11 @@
       href: "/resources/forms",
       internal: true,
     },
+    {
+      label: "Florida Department of Revenue (FDOR)",
+      href: "/resources/florida-department-of-revenue",
+      internal: true,
+    },
   ];
 
   function normalizedText(element) {
