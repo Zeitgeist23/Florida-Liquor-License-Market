@@ -503,9 +503,10 @@
 }
 
 .paymentButton {
-  width: 100%;
+  display: block;
+  width: min(560px, 100%);
   min-height: 53px;
-  margin-top: 28px;
+  margin: 28px auto 0;
   border: 1px solid #ffc12f;
   border-radius: 6px;
   color: #07110e;
