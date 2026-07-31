@@ -50,7 +50,7 @@ function CurrencyInput({
 }
 
 export default function SellerListingForm() {
-  const [saleMethod, setSaleMethod] = useState<SaleMethod>("Broker-Assisted Listing");
+  const [saleMethod, setSaleMethod] = useState<SaleMethod>("Self-Directed Listing");
   const [reviewOpen, setReviewOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState("");
