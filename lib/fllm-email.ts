@@ -168,6 +168,129 @@ export async function sendFllmEmail(input: {
   return response.json() as Promise<{ id: string; threadId: string }>;
 }
 
+export type AttorneyDirectoryApplicationEmail = {
+  reference: string;
+  fullName: string;
+  firm: string;
+  barNumber: string;
+  email: string;
+  phone: string;
+  city: string;
+  counties: string;
+  website: string;
+  portraitUrl: string;
+  biography: string;
+  services: string[];
+  additionalInformation: string;
+  submittedAt: string;
+};
+
+function applicationReviewEmail() {
+  return process.env.ATTORNEY_DIRECTORY_REVIEW_EMAIL || senderEmail();
+}
+
+export async function notifyFllmOfAttorneyApplication(
+  application: AttorneyDirectoryApplicationEmail
+) {
+  const servicesHtml = application.services
+    .map((service) => `<li>${escapeHtml(service)}</li>`)
+    .join("");
+  const servicesText = application.services.map((service) => `- ${service}`).join("\n");
+  const portraitHtml = application.portraitUrl
+    ? `<br><strong>Portrait URL:</strong> <a href="${escapeHtml(application.portraitUrl)}">${escapeHtml(application.portraitUrl)}</a>`
+    : "";
+
+  const details = `
+    <p style="margin:0 0 18px;"><strong>A new attorney has applied to the FLLM attorney directory.</strong></p>
+    <p style="margin:0 0 18px;">
+      <strong>Reference:</strong> ${escapeHtml(application.reference)}<br>
+      <strong>Attorney:</strong> ${escapeHtml(application.fullName)}<br>
+      <strong>Firm:</strong> ${escapeHtml(application.firm)}<br>
+      <strong>Florida Bar number:</strong> ${escapeHtml(application.barNumber)}<br>
+      <strong>Email:</strong> <a href="mailto:${escapeHtml(application.email)}">${escapeHtml(application.email)}</a><br>
+      <strong>Phone:</strong> ${escapeHtml(application.phone)}<br>
+      <strong>Primary city:</strong> ${escapeHtml(application.city)}<br>
+      <strong>Service area:</strong> ${escapeHtml(application.counties)}<br>
+      <strong>Profile URL:</strong> <a href="${escapeHtml(application.website)}">${escapeHtml(application.website)}</a>
+      ${portraitHtml}
+    </p>
+    <p style="margin:0 0 5px;"><strong>Services:</strong></p>
+    <ul style="margin-top:0;">${servicesHtml}</ul>
+    <p style="margin:0 0 18px;"><strong>Biography:</strong><br>${escapeHtml(application.biography).replaceAll("\n", "<br>")}</p>
+    <p style="margin:0 0 18px;"><strong>Additional information:</strong><br>${escapeHtml(application.additionalInformation || "None provided").replaceAll("\n", "<br>")}</p>
+    <p style="margin:0;">The applicant accepted the identity/authority certification, publication consent, and moderated-review agreement.</p>`;
+
+  const text = `A new attorney has applied to the FLLM attorney directory.
+
+Reference: ${application.reference}
+Attorney: ${application.fullName}
+Firm: ${application.firm}
+Florida Bar number: ${application.barNumber}
+Email: ${application.email}
+Phone: ${application.phone}
+Primary city: ${application.city}
+Service area: ${application.counties}
+Profile URL: ${application.website}
+Portrait URL: ${application.portraitUrl || "None provided"}
+
+Services:
+${servicesText}
+
+Biography:
+${application.biography}
+
+Additional information:
+${application.additionalInformation || "None provided"}
+
+The applicant accepted the identity/authority certification, publication consent, and moderated-review agreement.
+
+Submitted: ${application.submittedAt}`;
+
+  return sendFllmEmail({
+    to: applicationReviewEmail(),
+    subject: `Attorney Directory Application — ${application.fullName} — ${application.reference}`,
+    text,
+    html: emailShell(details),
+  });
+}
+
+export async function sendAttorneyApplicationAcknowledgement(
+  application: AttorneyDirectoryApplicationEmail
+) {
+  const firstName = escapeHtml(application.fullName.split(/\s+/)[0] || application.fullName);
+  const details = `
+    <p style="margin:0 0 18px;">Hello ${firstName},</p>
+    <p style="margin:0 0 18px;">Thank you for applying to the Florida Liquor License Market attorney directory.</p>
+    <p style="margin:0 0 18px;">Your application has been received for independent review. FLLM may verify your Florida Bar record, firm profile, and submitted practice information or contact you for clarification. Submission does not guarantee publication.</p>
+    <p style="margin:0 0 18px;"><strong>Application reference:</strong> ${escapeHtml(application.reference)}<br>
+    <strong>Attorney:</strong> ${escapeHtml(application.fullName)}<br>
+    <strong>Firm:</strong> ${escapeHtml(application.firm)}</p>
+    <p style="margin:0;">No payment was required and no public profile has been created at this stage.</p>`;
+
+  const text = `Hello ${application.fullName.split(/\s+/)[0] || application.fullName},
+
+Thank you for applying to the Florida Liquor License Market attorney directory.
+
+Your application has been received for independent review. FLLM may verify your Florida Bar record, firm profile, and submitted practice information or contact you for clarification. Submission does not guarantee publication.
+
+Application reference: ${application.reference}
+Attorney: ${application.fullName}
+Firm: ${application.firm}
+
+No payment was required and no public profile has been created at this stage.
+
+Florida Liquor License Market
+${senderEmail()}
+${siteUrl()}`;
+
+  return sendFllmEmail({
+    to: application.email,
+    subject: `We Received Your Attorney Directory Application — ${application.reference}`,
+    text,
+    html: emailShell(details),
+  });
+}
+
 export async function sendPaymentReceivedEmail(submission: ListingSubmission) {
   const firstName = escapeHtml(submission.firstName || "there");
   const details = `
@@ -224,3 +347,4 @@ export async function sendListingApprovedEmail(submission: ListingSubmission) {
     html: emailShell(details),
   });
 }
+
