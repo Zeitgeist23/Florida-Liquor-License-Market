@@ -198,9 +198,28 @@
 
 .license-types-table {
   width: 100%;
-  min-width: 1280px;
+  min-width: 0;
   border-collapse: collapse;
+  table-layout: fixed;
 }
+
+.license-types-table th:nth-child(1),
+.license-types-table td:nth-child(1) { width: 12%; }
+
+.license-types-table th:nth-child(2),
+.license-types-table td:nth-child(2) { width: 13%; }
+
+.license-types-table th:nth-child(3),
+.license-types-table td:nth-child(3) { width: 10%; }
+
+.license-types-table th:nth-child(4),
+.license-types-table td:nth-child(4) { width: 20%; }
+
+.license-types-table th:nth-child(5),
+.license-types-table td:nth-child(5) { width: 26%; }
+
+.license-types-table th:nth-child(6),
+.license-types-table td:nth-child(6) { width: 19%; }
 
 .license-types-table th,
 .license-types-table td {
@@ -210,6 +229,7 @@
   color: #b8c6ce;
   font-size: 14px;
   line-height: 1.5;
+  overflow-wrap: break-word;
   text-align: left;
   vertical-align: top;
 }
@@ -433,6 +453,10 @@
   .license-types-key,
   .specialty-license-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .license-types-table {
+    min-width: 1050px;
   }
 }
 
