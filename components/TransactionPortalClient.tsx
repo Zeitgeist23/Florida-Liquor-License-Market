@@ -159,8 +159,11 @@ export default function TransactionPortalClient() {
         }),
       });
       setUser(data.user as PortalUser);
-      setTransactions([]);
-      setShowNew(true);
+      const transactionsData = await requestJson("/api/portal/transactions");
+      const next = (transactionsData.transactions ?? []) as PortalTransaction[];
+      setTransactions(next);
+      setSelectedId(next[0]?.id ?? null);
+      setShowNew(next.length === 0);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "The account request failed.");
     } finally {
