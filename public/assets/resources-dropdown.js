@@ -26,8 +26,9 @@
       href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
     },
     {
-      label: "What is a Quota License",
-      href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/faqs/",
+      label: "Types of Florida Liquor Licenses",
+      href: "/resources/florida-liquor-license-types",
+      internal: true,
     },
     {
       label: "License Fees",
