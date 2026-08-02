@@ -14,6 +14,7 @@ export const PORTAL_DOCUMENT_STATUSES = [
   "In progress",
   "Awaiting signatures",
   "Completed",
+  "Submitted",
 ] as const;
 
 export type PortalDocumentStatus = (typeof PORTAL_DOCUMENT_STATUSES)[number];
@@ -34,6 +35,17 @@ export type PortalDocumentVersion = {
   uploadedBy: string;
 };
 
+export type PortalSubmissionRecord = {
+  agency: "FDOR" | "DBPR/ABT";
+  method: "email" | "mail" | "hand delivery" | "appointment" | "courier";
+  recipient: string;
+  submittedAt: string;
+  submittedBy: string;
+  confirmationId: string | null;
+  details: Record<string, string>;
+  authorization: string;
+};
+
 export type PortalDocumentRecord = {
   transactionId: string;
   documentKey: string;
@@ -52,11 +64,13 @@ export type PortalDocumentRecord = {
   updatedAt: string;
   completedAt: string | null;
   completedBy: string | null;
+  submission: PortalSubmissionRecord | null;
 };
 
 export function documentDefinitions(transaction: PortalTransaction): PortalDocumentDefinition[] {
   const definitions: PortalDocumentDefinition[] = [
     { key: "abt-6002", title: "DBPR/ABT-6002", requiresSignature: true },
+    { key: "dbpr-submission", title: "DBPR Submission Package and Delivery", requiresSignature: false },
     { key: "transfer-fee", title: "Quota License Transfer Fee", requiresSignature: false },
     { key: "fdor-clearance", title: "FDOR Clearance or Compliance Request", requiresSignature: false },
   ];
@@ -143,6 +157,7 @@ function blankRecord(
     updatedAt: now,
     completedAt: null,
     completedBy: null,
+    submission: null,
   };
 }
 
@@ -158,7 +173,8 @@ async function readRecord(
   });
   if (response.status === 404) return blankRecord(transactionId, definition);
   if (!response.ok) throw new Error("The project document record could not be read.");
-  return (await response.json()) as PortalDocumentRecord;
+  const record = (await response.json()) as PortalDocumentRecord;
+  return { ...record, submission: record.submission ?? null };
 }
 
 async function writeRecord(userId: string, record: PortalDocumentRecord) {
@@ -188,15 +204,36 @@ export async function listPortalDocuments(userId: string, transaction: PortalTra
   );
 }
 
+export async function getPortalDocumentRecord(
+  userId: string,
+  transaction: PortalTransaction,
+  documentKey: string
+) {
+  const definition = definitionFor(transaction, documentKey);
+  if (!definition) return null;
+  return readRecord(userId, transaction.id, definition);
+}
+
 async function refreshTransactionStatus(userId: string, transaction: PortalTransaction) {
   const documents = await listPortalDocuments(userId, transaction);
-  const allComplete = documents.every((document) => document.status === "Completed");
+  const allComplete = documents.every((document) =>
+    document.status === "Completed" || document.status === "Submitted"
+  );
+  const agencyDocuments = documents.filter((document) =>
+    document.documentKey === "fdor-clearance" || document.documentKey === "dbpr-submission"
+  );
+  const allAgencySubmitted = agencyDocuments.every((document) => document.status === "Submitted");
+  const hasSubmitted = agencyDocuments.some((document) => document.status === "Submitted");
   const hasAwaiting = documents.some((document) => document.status === "Awaiting signatures");
   const hasActivity = documents.some((document) =>
     document.status !== "Not started" || document.versions.length > 0 || document.draftData
   );
-  const status = allComplete
-    ? "Ready for review/submission"
+  const status = allComplete && allAgencySubmitted
+    ? "Submitted"
+    : hasSubmitted
+      ? "Submission in progress"
+      : allComplete
+        ? "Ready for review/submission"
     : hasAwaiting
       ? "Awaiting signatures"
       : hasActivity
@@ -215,6 +252,12 @@ export async function updatePortalDocument(
   const definition = definitionFor(transaction, documentKey);
   if (!definition) throw new Error("This document does not belong to the project checklist.");
   const current = await readRecord(userId, transaction.id, definition);
+  if (input.status === "Submitted") {
+    throw new Error("Submitted status is recorded only after verified agency transmission or delivery.");
+  }
+  if (current.status === "Submitted") {
+    throw new Error("A submitted agency record is locked. Contact FLLM if a correction is required.");
+  }
   const status = PORTAL_DOCUMENT_STATUSES.includes(input.status as PortalDocumentStatus)
     ? input.status as PortalDocumentStatus
     : current.status;
@@ -252,6 +295,35 @@ export async function updatePortalDocument(
   return { document: next, transaction: transactionResult };
 }
 
+export async function recordPortalSubmission(
+  userId: string,
+  userEmail: string,
+  transaction: PortalTransaction,
+  documentKey: "fdor-clearance" | "dbpr-submission",
+  submission: Omit<PortalSubmissionRecord, "submittedBy">
+) {
+  const definition = definitionFor(transaction, documentKey);
+  if (!definition) throw new Error("The agency submission record is not part of this project.");
+  const current = await readRecord(userId, transaction.id, definition);
+  if (current.status === "Submitted") throw new Error("This agency submission is already recorded.");
+  const now = new Date().toISOString();
+  const next: PortalDocumentRecord = {
+    ...current,
+    status: "Submitted",
+    submission: { ...submission, submittedBy: userEmail },
+    completedAt: current.completedAt || now,
+    completedBy: current.completedBy || userEmail,
+    updatedAt: now,
+    history: [
+      ...current.history,
+      { action: "submission", status: "Submitted" as const, at: now, by: userEmail },
+    ].slice(-100),
+  };
+  await writeRecord(userId, next);
+  const transactionResult = await refreshTransactionStatus(userId, transaction);
+  return { document: next, transaction: transactionResult };
+}
+
 export async function uploadPortalDocument(
   userId: string,
   userEmail: string,
@@ -273,6 +345,9 @@ export async function uploadPortalDocument(
   }
 
   const current = await readRecord(userId, transaction.id, definition);
+  if (current.status === "Submitted") {
+    throw new Error("A submitted agency record is locked. Create a new project or contact FLLM if a correction is required.");
+  }
   const now = new Date().toISOString();
   const version: PortalDocumentVersion = {
     id: randomUUID(),
