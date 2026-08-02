@@ -3,6 +3,10 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 
 type PortalUser = { id: string; email: string; fullName: string };
+import ProjectFileCompletionAnimation, {
+  type ProjectFileCompletion,
+} from "@/components/ProjectFileCompletionAnimation";
+
 type PortalTransaction = {
   id: string;
   reference: string;
@@ -176,11 +180,30 @@ export default function TransactionPortalClient() {
   const [documentNotice, setDocumentNotice] = useState("");
   const [agencyAction, setAgencyAction] = useState<"fdor" | "dbpr-package" | "dbpr-delivery" | null>(null);
   const [agencyBusy, setAgencyBusy] = useState(false);
+  const [fileCompletion, setFileCompletion] = useState<ProjectFileCompletion | null>(null);
 
   const selected = useMemo(
     () => transactions.find((transaction) => transaction.id === selectedId) ?? transactions[0] ?? null,
     [selectedId, transactions]
   );
+
+  function showFileCompletion(document: ProjectDocument, transaction: PortalTransaction) {
+    const checklist = documentsFor(transaction);
+    const completedCount = checklist.reduce((count, item) => {
+      const itemStatus = item.key === document.documentKey
+        ? document.status
+        : projectDocuments[item.key]?.status;
+      return count + (["Completed", "Submitted"].includes(itemStatus ?? "") ? 1 : 0);
+    }, 0);
+    setFileCompletion({
+      id: Date.now(),
+      documentTitle: document.title,
+      fileName: document.versions.at(-1)?.fileName || "Completed project record",
+      projectReference: transaction.reference,
+      completedCount,
+      totalCount: checklist.length,
+    });
+  }
 
   async function loadTransactions() {
     const data = await requestJson("/api/portal/transactions");
@@ -224,6 +247,7 @@ export default function TransactionPortalClient() {
 
   async function updateDocumentStatus(documentKey: string, status: DocumentStatus) {
     if (!selected || !user) return;
+    const previousStatus = projectDocuments[documentKey]?.status;
     setDocumentBusy(documentKey);
     setDocumentNotice("");
     setError("");
@@ -239,6 +263,9 @@ export default function TransactionPortalClient() {
         setTransactions((current) => current.map((item) => item.id === transaction.id ? transaction : item));
       }
       setDocumentNotice(`${documentKey} is now marked ${document.status.toLowerCase()}.`);
+      if (document.status === "Completed" && previousStatus !== "Completed") {
+        showFileCompletion(document, transaction || selected);
+      }
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "The document status could not be updated.");
     } finally {
@@ -310,13 +337,17 @@ export default function TransactionPortalClient() {
     setError("");
     setDocumentNotice("");
     try {
-      await requestJson(`/api/portal/transactions/${selected.id}/submissions/dbpr/package`, {
+      const data = await requestJson(`/api/portal/transactions/${selected.id}/submissions/dbpr/package`, {
         method: "POST",
         body: JSON.stringify({ documentKeys: form.getAll("documentKeys") }),
       });
       setAgencyAction(null);
       setDocumentNotice("The DBPR package was assembled and saved for review. It has not been filed or delivered.");
       await loadProjectDocuments(selected.id);
+      const completedPackage = data.document as ProjectDocument | undefined;
+      if (completedPackage?.status === "Completed") {
+        showFileCompletion(completedPackage, (data.transaction as PortalTransaction | undefined) || selected);
+      }
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "The DBPR package could not be prepared.");
     } finally {
@@ -803,6 +834,13 @@ export default function TransactionPortalClient() {
             </form>
           </section>
         </div>
+      )}
+      {fileCompletion && (
+        <ProjectFileCompletionAnimation
+          key={fileCompletion.id}
+          completion={fileCompletion}
+          onDismiss={() => setFileCompletion(null)}
+        />
       )}
     </section>
   );
