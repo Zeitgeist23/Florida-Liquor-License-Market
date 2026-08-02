@@ -17,7 +17,7 @@ type PortalTransaction = {
   updatedAt: string;
 };
 
-type DocumentStatus = "Not started" | "In progress" | "Awaiting signatures" | "Completed";
+type DocumentStatus = "Not started" | "In progress" | "Awaiting signatures" | "Completed" | "Submitted";
 type DocumentVersion = {
   id: string;
   fileName: string;
@@ -27,11 +27,22 @@ type DocumentVersion = {
 };
 type ProjectDocument = {
   documentKey: string;
+  title: string;
   status: DocumentStatus;
+  draftData: Record<string, unknown> | null;
   versions: DocumentVersion[];
   updatedAt: string;
   completedAt: string | null;
   completedBy: string | null;
+  submission: {
+    agency: "FDOR" | "DBPR/ABT";
+    method: string;
+    recipient: string;
+    submittedAt: string;
+    submittedBy: string;
+    confirmationId: string | null;
+    details: Record<string, string>;
+  } | null;
 };
 
 type DocumentItem = {
@@ -45,7 +56,7 @@ type DocumentItem = {
   requiresSignature?: boolean;
 };
 
-const documentStatuses: DocumentStatus[] = [
+const documentStatuses: Exclude<DocumentStatus, "Submitted">[] = [
   "Not started",
   "In progress",
   "Awaiting signatures",
@@ -130,6 +141,13 @@ function documentsFor(transaction: PortalTransaction): DocumentItem[] {
     requiresSignature: true,
   });
 
+  documents.push({
+    key: "dbpr-submission",
+    title: "DBPR Submission Package and Delivery",
+    description: "Assemble the signed application and supporting PDFs for the correct ABT district office, then record the actual delivery evidence.",
+    label: "Prepare DBPR package",
+  });
+
   return documents;
 }
 
@@ -156,6 +174,8 @@ export default function TransactionPortalClient() {
   const [documentsLoading, setDocumentsLoading] = useState(false);
   const [documentBusy, setDocumentBusy] = useState("");
   const [documentNotice, setDocumentNotice] = useState("");
+  const [agencyAction, setAgencyAction] = useState<"fdor" | "dbpr-package" | "dbpr-delivery" | null>(null);
+  const [agencyBusy, setAgencyBusy] = useState(false);
 
   const selected = useMemo(
     () => transactions.find((transaction) => transaction.id === selectedId) ?? transactions[0] ?? null,
@@ -203,7 +223,7 @@ export default function TransactionPortalClient() {
   }, [selected?.id]);
 
   async function updateDocumentStatus(documentKey: string, status: DocumentStatus) {
-    if (!selected) return;
+    if (!selected || !user) return;
     setDocumentBusy(documentKey);
     setDocumentNotice("");
     setError("");
@@ -251,6 +271,83 @@ export default function TransactionPortalClient() {
       setError(caught instanceof Error ? caught.message : "The PDF could not be uploaded.");
     } finally {
       setDocumentBusy("");
+    }
+  }
+
+  async function submitFdor(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!selected || !user) return;
+    const form = new FormData(event.currentTarget);
+    setAgencyBusy(true);
+    setError("");
+    setDocumentNotice("");
+    try {
+      await requestJson(`/api/portal/transactions/${selected.id}/submissions/fdor`, {
+        method: "POST",
+        body: JSON.stringify({
+          businessPartnerNumber: form.get("businessPartnerNumber"),
+          salesTaxCertificateNumber: form.get("salesTaxCertificateNumber"),
+          authorizationAccepted: form.get("authorizationAccepted") === "on",
+          emailMethodAccepted: form.get("emailMethodAccepted") === "on",
+          authorityAccepted: form.get("authorityAccepted") === "on",
+        }),
+      });
+      setAgencyAction(null);
+      setDocumentNotice(`The signed ABT-6002 was transmitted to FDOR and ${user.email} was copied. The transmission record is saved below.`);
+      await loadProjectDocuments(selected.id);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "The FDOR transmission could not be completed.");
+    } finally {
+      setAgencyBusy(false);
+    }
+  }
+
+  async function prepareDbprPackage(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!selected) return;
+    const form = new FormData(event.currentTarget);
+    setAgencyBusy(true);
+    setError("");
+    setDocumentNotice("");
+    try {
+      await requestJson(`/api/portal/transactions/${selected.id}/submissions/dbpr/package`, {
+        method: "POST",
+        body: JSON.stringify({ documentKeys: form.getAll("documentKeys") }),
+      });
+      setAgencyAction(null);
+      setDocumentNotice("The DBPR package was assembled and saved for review. It has not been filed or delivered.");
+      await loadProjectDocuments(selected.id);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "The DBPR package could not be prepared.");
+    } finally {
+      setAgencyBusy(false);
+    }
+  }
+
+  async function recordDbprDelivery(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!selected) return;
+    const form = new FormData(event.currentTarget);
+    setAgencyBusy(true);
+    setError("");
+    setDocumentNotice("");
+    try {
+      await requestJson(`/api/portal/transactions/${selected.id}/submissions/dbpr/delivery`, {
+        method: "POST",
+        body: JSON.stringify({
+          method: form.get("method"),
+          deliveryDate: form.get("deliveryDate"),
+          confirmation: form.get("confirmation"),
+          authorizationAccepted: form.get("authorizationAccepted") === "on",
+        }),
+      });
+      setAgencyAction(null);
+      setDocumentNotice("The actual DBPR delivery evidence was recorded. The project now preserves the submission audit record.");
+      await loadProjectDocuments(selected.id);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "The DBPR delivery could not be recorded.");
+    } finally {
+      setAgencyBusy(false);
     }
   }
 
@@ -346,8 +443,15 @@ export default function TransactionPortalClient() {
 
   const selectedChecklist = selected ? documentsFor(selected) : [];
   const completedDocumentCount = selectedChecklist.filter(
-    (document) => projectDocuments[document.key]?.status === "Completed"
+    (document) => ["Completed", "Submitted"].includes(projectDocuments[document.key]?.status)
   ).length;
+  const abtRecord = projectDocuments["abt-6002"];
+  const dbprPackageRecord = projectDocuments["dbpr-submission"];
+  const abtReady = Boolean(abtRecord?.versions.length && ["Completed", "Submitted"].includes(abtRecord.status));
+  const availablePackageDocuments = selectedChecklist.filter((document) =>
+    !["abt-6002", "dbpr-submission", "fdor-clearance", "transfer-fee"].includes(document.key)
+      && Boolean(projectDocuments[document.key]?.versions.length)
+  );
 
   if (loading) {
     return <section className="portal-loading page-shell">Opening the secure transaction portal...</section>;
@@ -513,39 +617,98 @@ export default function TransactionPortalClient() {
                         )}
                       </>
                     )}
+                    {record?.submission && (
+                      <div className="portal-submission-record">
+                        <strong>{record.submission.agency} transmission record</strong>
+                        <span>{new Date(record.submission.submittedAt).toLocaleString()} by {record.submission.submittedBy}</span>
+                        <span>Method: {record.submission.method} · Recipient: {record.submission.recipient}</span>
+                        {record.submission.confirmationId && <span>Confirmation: {record.submission.confirmationId}</span>}
+                        {record.submission.details.copiedApplicant && <span>Applicant copied: {record.submission.details.copiedApplicant}</span>}
+                      </div>
+                    )}
                   </div>
                   <div className="portal-document-actions">
                     {document.href && <a href={projectHref(document, selected.id)}>{document.label} <span aria-hidden="true">&gt;</span></a>}
-                    <label className="portal-upload-button" htmlFor={uploadId}>
-                      {documentBusy === document.key ? "Saving…" : latestVersion ? "Upload newer PDF" : "Upload PDF"}
-                    </label>
-                    <input
-                      id={uploadId}
-                      type="file"
-                      accept="application/pdf,.pdf"
-                      disabled={documentBusy === document.key}
-                      onChange={(event) => {
-                        void uploadDocument(document.key, event.target.files?.[0] ?? null);
-                        event.target.value = "";
-                      }}
-                    />
+                    {document.key === "fdor-clearance" && status !== "Submitted" && (
+                      <button
+                        className="portal-agency-button"
+                        type="button"
+                        disabled={!abtReady || agencyBusy}
+                        title={abtReady ? "Review and authorize the exact FDOR email transmission" : "Complete and upload the signed ABT-6002 first"}
+                        onClick={() => { setError(""); setAgencyAction("fdor"); }}
+                      >
+                        Review &amp; Send to FDOR
+                      </button>
+                    )}
+                    {document.key === "dbpr-submission" && status !== "Submitted" && status !== "Completed" && (
+                      <button
+                        className="portal-agency-button"
+                        type="button"
+                        disabled={!abtReady || agencyBusy}
+                        title={abtReady ? "Assemble a review copy of the DBPR package" : "Complete and upload the signed ABT-6002 first"}
+                        onClick={() => { setError(""); setAgencyAction("dbpr-package"); }}
+                      >
+                        Prepare DBPR Package
+                      </button>
+                    )}
+                    {document.key === "dbpr-submission" && status === "Completed" && (
+                      <>
+                        <button
+                          className="portal-agency-button"
+                          type="button"
+                          disabled={agencyBusy}
+                          onClick={() => { setError(""); setAgencyAction("dbpr-delivery"); }}
+                        >
+                          Record Actual Delivery
+                        </button>
+                        <button
+                          className="portal-rebuild-button"
+                          type="button"
+                          disabled={!abtReady || agencyBusy}
+                          onClick={() => { setError(""); setAgencyAction("dbpr-package"); }}
+                        >
+                          Rebuild Review Package
+                        </button>
+                      </>
+                    )}
+                    {status !== "Submitted" && (
+                      <>
+                        <label className="portal-upload-button" htmlFor={uploadId}>
+                          {documentBusy === document.key ? "Saving…" : latestVersion ? "Upload newer PDF" : "Upload PDF"}
+                        </label>
+                        <input
+                          id={uploadId}
+                          type="file"
+                          accept="application/pdf,.pdf"
+                          disabled={documentBusy === document.key}
+                          onChange={(event) => {
+                            void uploadDocument(document.key, event.target.files?.[0] ?? null);
+                            event.target.value = "";
+                          }}
+                        />
+                      </>
+                    )}
                     {latestVersion && (
                       <a className="portal-download-link" href={`/api/portal/transactions/${selected.id}/documents/${document.key}/download`}>
                         Download stored PDF
                       </a>
                     )}
-                    <label className="portal-status-control">
-                      <span>Project status</span>
-                      <select
-                        value={status}
-                        disabled={documentBusy === document.key}
-                        onChange={(event) => void updateDocumentStatus(document.key, event.target.value as DocumentStatus)}
-                      >
-                        {documentStatuses
-                          .filter((option) => option !== "Awaiting signatures" || document.requiresSignature)
-                          .map((option) => <option key={option}>{option}</option>)}
-                      </select>
-                    </label>
+                    {status === "Submitted" ? (
+                      <p className="portal-submitted-lock">Submitted is locked to the verified transmission or delivery record.</p>
+                    ) : (
+                      <label className="portal-status-control">
+                        <span>Project status</span>
+                        <select
+                          value={status}
+                          disabled={documentBusy === document.key}
+                          onChange={(event) => void updateDocumentStatus(document.key, event.target.value as DocumentStatus)}
+                        >
+                          {documentStatuses
+                            .filter((option) => option !== "Awaiting signatures" || document.requiresSignature)
+                            .map((option) => <option key={option}>{option}</option>)}
+                        </select>
+                      </label>
+                    )}
                   </div>
                 </article>
                 );
@@ -553,9 +716,92 @@ export default function TransactionPortalClient() {
             </div>
             <div className="portal-notice">
               <strong>Project completion</strong>
-              <p>Drafts, uploaded PDFs, status changes, and prior PDF versions remain tied to this transaction. When every listed item is marked Completed, the project automatically changes to Ready for review/submission. FLLM does not file documents with DBPR/ABT or FDOR.</p>
+              <p>Drafts, uploaded PDFs, status changes, prior PDF versions, applicant authorizations, and transmission evidence remain tied to this transaction. FLLM can email the signed application to FDOR only after your express authorization. DBPR currently requires district-office delivery; FLLM prepares the package and records Submitted only after actual delivery evidence is entered.</p>
             </div>
           </div>
+        </div>
+      )}
+
+      {agencyAction === "fdor" && selected && (
+        <div className="portal-modal-backdrop" role="presentation">
+          <section className="portal-agency-modal" role="dialog" aria-modal="true" aria-labelledby="fdor-submit-title">
+            <div className="portal-modal-heading">
+              <div><span className="portal-section-label">Applicant-authorized transmission</span><h3 id="fdor-submit-title">Review &amp; Send to FDOR</h3></div>
+              <button type="button" disabled={agencyBusy} onClick={() => setAgencyAction(null)} aria-label="Close FDOR transmission review">X</button>
+            </div>
+            <div className="portal-agency-summary">
+              <p><strong>To</strong><span>GTA_Beverage_License_Approval@floridarevenue.com</span></p>
+              <p><strong>Applicant copied</strong><span>{user.email}</span></p>
+              <p><strong>Attachment</strong><span>{abtRecord?.versions.at(-1)?.fileName}</span></p>
+            </div>
+            <p className="portal-agency-warning">This action sends the exact latest stored signed ABT-6002. It records successful email transmission, not agency approval or acceptance. Review the <a href="https://floridarevenue.com/taxes/compliance/Pages/ablicenseapproval.aspx" target="_blank" rel="noreferrer">current FDOR instructions</a>.</p>
+            <form onSubmit={submitFdor}>
+              <div className="portal-modal-grid">
+                <label>FDOR business partner number<input name="businessPartnerNumber" required maxLength={40} /></label>
+                <label>Sales and use tax certificate number<input name="salesTaxCertificateNumber" required maxLength={40} /></label>
+              </div>
+              <label className="portal-authorization-check"><input type="checkbox" name="authorityAccepted" required /><span>I confirm that I am the applicant or am authorized by the applicant to direct this transmission.</span></label>
+              <label className="portal-authorization-check"><input type="checkbox" name="emailMethodAccepted" required /><span>I understand FDOR currently instructs registered applicants to submit the completed signed application by email and direct FLLM to use that method.</span></label>
+              <label className="portal-authorization-check"><input type="checkbox" name="authorizationAccepted" required /><span>I authorize FLLM to transmit this exact stored PDF to FDOR, copy me, and retain the transmission record in this project.</span></label>
+              <div className="portal-modal-actions">
+                <button className="portal-text-button" type="button" disabled={agencyBusy} onClick={() => setAgencyAction(null)}>Cancel</button>
+                <button className="portal-primary-button" type="submit" disabled={agencyBusy}>{agencyBusy ? "Sending…" : "Authorize and Send to FDOR"}</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      )}
+
+      {agencyAction === "dbpr-package" && selected && (
+        <div className="portal-modal-backdrop" role="presentation">
+          <section className="portal-agency-modal" role="dialog" aria-modal="true" aria-labelledby="dbpr-package-title">
+            <div className="portal-modal-heading">
+              <div><span className="portal-section-label">Preparation only</span><h3 id="dbpr-package-title">Assemble DBPR Package</h3></div>
+              <button type="button" disabled={agencyBusy} onClick={() => setAgencyAction(null)} aria-label="Close DBPR package builder">X</button>
+            </div>
+            <p className="portal-agency-warning">This creates a review PDF with the county district office cover page. It does not file or deliver anything. Verify current office details, fees, original-signature requirements, and every supporting item in the <a href="https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/contact/" target="_blank" rel="noreferrer">official DBPR/ABT directory</a> before delivery.</p>
+            <form onSubmit={prepareDbprPackage}>
+              <div className="portal-package-options">
+                <label><input type="checkbox" checked readOnly /><span><strong>DBPR/ABT-6002</strong>Required latest completed PDF</span></label>
+                {availablePackageDocuments.map((document) => (
+                  <label key={document.key}><input type="checkbox" name="documentKeys" value={document.key} defaultChecked /><span><strong>{document.title}</strong>{projectDocuments[document.key].versions.at(-1)?.fileName}</span></label>
+                ))}
+                {availablePackageDocuments.length === 0 && <p>No additional stored supporting PDFs are available. You can assemble the ABT-6002 package now or cancel and upload supporting documents first.</p>}
+              </div>
+              <div className="portal-modal-actions">
+                <button className="portal-text-button" type="button" disabled={agencyBusy} onClick={() => setAgencyAction(null)}>Cancel</button>
+                <button className="portal-primary-button" type="submit" disabled={agencyBusy}>{agencyBusy ? "Assembling…" : "Generate Review Package"}</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      )}
+
+      {agencyAction === "dbpr-delivery" && selected && (
+        <div className="portal-modal-backdrop" role="presentation">
+          <section className="portal-agency-modal" role="dialog" aria-modal="true" aria-labelledby="dbpr-delivery-title">
+            <div className="portal-modal-heading">
+              <div><span className="portal-section-label">Actual delivery evidence</span><h3 id="dbpr-delivery-title">Record DBPR Submission</h3></div>
+              <button type="button" disabled={agencyBusy} onClick={() => setAgencyAction(null)} aria-label="Close DBPR delivery record">X</button>
+            </div>
+            <div className="portal-agency-summary">
+              <p><strong>Package</strong><span>{dbprPackageRecord?.versions.at(-1)?.fileName}</span></p>
+              <p><strong>Destination</strong><span>{String((dbprPackageRecord?.draftData?.office as { name?: string } | undefined)?.name ?? "The ABT licensing district office assigned to this county")}</span></p>
+            </div>
+            <p className="portal-agency-warning">Use this only after the package was actually mailed, couriered, hand-delivered, or delivered at an appointment. This record does not claim DBPR approval.</p>
+            <form onSubmit={recordDbprDelivery}>
+              <div className="portal-modal-grid">
+                <label>Delivery method<select name="method" defaultValue="" required><option value="" disabled>Select method</option><option value="mail">Mail</option><option value="courier">Courier</option><option value="hand delivery">Hand delivery</option><option value="appointment">Appointment</option></select></label>
+                <label>Actual mailing or delivery date<input type="date" name="deliveryDate" max={new Date().toISOString().slice(0, 10)} required /></label>
+              </div>
+              <label>Tracking, stamped-receipt, appointment, or delivery reference<textarea name="confirmation" rows={3} maxLength={180} required /></label>
+              <label className="portal-authorization-check"><input type="checkbox" name="authorizationAccepted" required /><span>I confirm this package was actually sent or delivered to the listed DBPR/ABT licensing office and authorize FLLM to save these details as the project submission record.</span></label>
+              <div className="portal-modal-actions">
+                <button className="portal-text-button" type="button" disabled={agencyBusy} onClick={() => setAgencyAction(null)}>Cancel</button>
+                <button className="portal-primary-button" type="submit" disabled={agencyBusy}>{agencyBusy ? "Recording…" : "Record as Submitted"}</button>
+              </div>
+            </form>
+          </section>
         </div>
       )}
     </section>

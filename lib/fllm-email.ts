@@ -118,35 +118,70 @@ function base64Url(value: string) {
     .replace(/=+$/g, "");
 }
 
+function attachmentBase64(value: Uint8Array) {
+  return Buffer.from(value)
+    .toString("base64")
+    .match(/.{1,76}/g)
+    ?.join("\r\n") || "";
+}
+
 export async function sendFllmEmail(input: {
   to: string;
+  cc?: string;
+  replyTo?: string;
   subject: string;
   text: string;
   html: string;
+  attachments?: Array<{
+    fileName: string;
+    contentType: string;
+    content: Uint8Array;
+  }>;
 }) {
   const sender = senderEmail();
-  const boundary = `fllm-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-  const mime = [
+  const alternativeBoundary = `fllm-alt-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const mixedBoundary = `fllm-mixed-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const headers = [
     `From: Florida Liquor License Market <${sender}>`,
     `To: ${input.to}`,
+    ...(input.cc ? [`Cc: ${input.cc}`] : []),
+    ...(input.replyTo ? [`Reply-To: ${input.replyTo}`] : []),
     `Subject: ${encodeSubject(input.subject)}`,
     "MIME-Version: 1.0",
-    `Content-Type: multipart/alternative; boundary="${boundary}"`,
+    `Content-Type: multipart/mixed; boundary="${mixedBoundary}"`,
     "",
-    `--${boundary}`,
+  ];
+  const alternative = [
+    `--${mixedBoundary}`,
+    `Content-Type: multipart/alternative; boundary="${alternativeBoundary}"`,
+    "",
+    `--${alternativeBoundary}`,
     'Content-Type: text/plain; charset="UTF-8"',
     "Content-Transfer-Encoding: 8bit",
     "",
     input.text,
     "",
-    `--${boundary}`,
+    `--${alternativeBoundary}`,
     'Content-Type: text/html; charset="UTF-8"',
     "Content-Transfer-Encoding: 8bit",
     "",
     input.html,
     "",
-    `--${boundary}--`,
-  ].join("\r\n");
+    `--${alternativeBoundary}--`,
+  ];
+  const attachments = (input.attachments ?? []).flatMap((attachment) => {
+    const fileName = attachment.fileName.replace(/["\r\n]/g, "_");
+    return [
+      `--${mixedBoundary}`,
+      `Content-Type: ${attachment.contentType}; name="${fileName}"`,
+      "Content-Transfer-Encoding: base64",
+      `Content-Disposition: attachment; filename="${fileName}"`,
+      "",
+      attachmentBase64(attachment.content),
+      "",
+    ];
+  });
+  const mime = [...headers, ...alternative, ...attachments, `--${mixedBoundary}--`].join("\r\n");
 
   const token = await accessToken();
   const response = await fetch(
