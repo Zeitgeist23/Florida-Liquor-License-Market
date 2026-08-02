@@ -4,11 +4,12 @@ import {
   PDFCheckBox,
   PDFDocument,
   PDFDropdown,
+  PDFField,
   PDFOptionList,
   PDFRadioGroup,
   PDFTextField,
 } from "pdf-lib";
-import { type MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { type KeyboardEvent as ReactKeyboardEvent, type MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { getFriendlyAbtFieldLabel } from "@/data/abt-form-field-labels";
 import {
@@ -34,6 +35,9 @@ type FormFieldDefinition = {
   kind: FieldKind;
   options: string[];
   originalIndex: number;
+  pageIndex: number;
+  x: number;
+  y: number;
 };
 
 type DraftValues = Record<string, string | boolean>;
@@ -217,8 +221,44 @@ function friendlyOptionLabel(option: string) {
   return humanizeFieldLabel(cleaned || option);
 }
 
+function fieldPlacement(
+  field: PDFField,
+  pageIndices: Map<string, number>
+) {
+  const placements = field.acroField.getWidgets().flatMap((widget) => {
+    const pageRef = widget.P();
+    const pageIndex = pageRef ? pageIndices.get(pageRef.toString()) : undefined;
+    if (pageIndex === undefined) return [];
+
+    const rectangle = widget.getRectangle();
+    return [{
+      pageIndex,
+      x: rectangle.x,
+      y: rectangle.y + rectangle.height / 2,
+    }];
+  });
+
+  return placements.sort((left, right) =>
+    left.pageIndex - right.pageIndex
+      || right.y - left.y
+      || left.x - right.x
+  )[0] ?? { pageIndex: Number.MAX_SAFE_INTEGER, x: 0, y: 0 };
+}
+
+function compareFieldReadingOrder(left: FormFieldDefinition, right: FormFieldDefinition) {
+  if (left.pageIndex !== right.pageIndex) return left.pageIndex - right.pageIndex;
+
+  // Controls printed on the same visual row can have slightly different
+  // heights. Treat their centers as one row before sorting left to right.
+  if (Math.abs(left.y - right.y) > 6) return right.y - left.y;
+  return left.x - right.x || left.originalIndex - right.originalIndex;
+}
+
 function extractFields(pdfDocument: PDFDocument, formId: string) {
   const pdfForm = pdfDocument.getForm();
+  const pageIndices = new Map(
+    pdfDocument.getPages().map((page, index) => [page.ref.toString(), index])
+  );
   const initialValues: DraftValues = {};
   const definitions: FormFieldDefinition[] = [];
   let skippedFieldCount = 0;
@@ -233,46 +273,47 @@ function extractFields(pdfDocument: PDFDocument, formId: string) {
       return;
     }
 
+    const placement = fieldPlacement(field, pageIndices);
+    const definition = { name, label, originalIndex: index, ...placement };
+
     if (field instanceof PDFTextField) {
       if (isLicenseSeriesField(label)) {
         definitions.push({
-          name,
-          label,
+          ...definition,
           kind: "license-series",
           options: ABT_LICENSE_SERIES_OPTIONS.map((option) => option.key),
-          originalIndex: index,
         });
         initialValues[name] = getDefaultAbtLicenseSeriesKey(field.getText() || "");
       } else if (isTypeClassField(label)) {
-        definitions.push({ name, label, kind: "license-class", options: [], originalIndex: index });
+        definitions.push({ ...definition, kind: "license-class", options: [] });
         initialValues[name] = field.getText() || "";
       } else {
-        definitions.push({ name, label, kind: "text", options: [], originalIndex: index });
+        definitions.push({ ...definition, kind: "text", options: [] });
         initialValues[name] = field.getText() || "";
       }
       return;
     }
 
     if (field instanceof PDFCheckBox) {
-      definitions.push({ name, label, kind: "checkbox", options: [], originalIndex: index });
+      definitions.push({ ...definition, kind: "checkbox", options: [] });
       initialValues[name] = field.isChecked();
       return;
     }
 
     if (field instanceof PDFDropdown) {
-      definitions.push({ name, label, kind: "dropdown", options: field.getOptions(), originalIndex: index });
+      definitions.push({ ...definition, kind: "dropdown", options: field.getOptions() });
       initialValues[name] = field.getSelected()[0] || "";
       return;
     }
 
     if (field instanceof PDFRadioGroup) {
-      definitions.push({ name, label, kind: "radio", options: field.getOptions(), originalIndex: index });
+      definitions.push({ ...definition, kind: "radio", options: field.getOptions() });
       initialValues[name] = field.getSelected() || "";
       return;
     }
 
     if (field instanceof PDFOptionList) {
-      definitions.push({ name, label, kind: "option-list", options: field.getOptions(), originalIndex: index });
+      definitions.push({ ...definition, kind: "option-list", options: field.getOptions() });
       initialValues[name] = field.getSelected()[0] || "";
     }
   });
@@ -289,6 +330,8 @@ function extractFields(pdfDocument: PDFDocument, formId: string) {
       initialValues[typeClassField.name] = currentOption.classCode;
     }
   }
+
+  if (formId === "abt-6002") definitions.sort(compareFieldReadingOrder);
 
   return { definitions, initialValues, skippedFieldCount };
 }
@@ -333,6 +376,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
   const [transferImportStatus, setTransferImportStatus] = useState("");
   const transferImportAttempted = useRef(false);
   const transferPreviewGenerationInFlight = useRef(false);
+  const pendingFieldFocus = useRef<number | null>(null);
 
   const applySerializedTransferFeeFigures = useCallback((raw: string | null) => {
     const payload = parseAbt6002TransferFeePayload(raw);
@@ -451,6 +495,22 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
   const section12FieldIndex = fields.findIndex((field) => field.name === "Business Name DBA_13");
   const section12Step = section12FieldIndex >= 0 ? Math.floor(section12FieldIndex / FIELDS_PER_STEP) : -1;
 
+  useEffect(() => {
+    if (pendingFieldFocus.current === null) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      const index = pendingFieldFocus.current;
+      if (index === null) return;
+
+      const target = document.querySelector<HTMLElement>(`[data-abt-field-index="${index}"]`);
+      if (!target || target.matches(":disabled")) return;
+      target.focus();
+      pendingFieldFocus.current = null;
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [step, visibleFields]);
+
   function importStoredTransferFeeFigures() {
     const savedFigures = window.sessionStorage.getItem(ABT_6002_TRANSFER_FEE_SESSION_KEY)
       || window.localStorage.getItem(ABT_6002_TRANSFER_FEE_LOCAL_KEY);
@@ -480,6 +540,39 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
 
   function updateValue(name: string, value: string | boolean) {
     setValues((current) => ({ ...current, [name]: value }));
+  }
+
+  function handleFieldTab(event: ReactKeyboardEvent<HTMLElement>, fieldIndex: number) {
+    if (event.key !== "Tab") return;
+
+    const direction = event.shiftKey ? -1 : 1;
+    let nextIndex = fieldIndex + direction;
+    while (
+      nextIndex >= 0
+      && nextIndex < fields.length
+      && fields[nextIndex].kind === "license-class"
+      && !selectedSeriesKey
+    ) {
+      nextIndex += direction;
+    }
+
+    // Preserve normal browser navigation before the first and after the last
+    // official field. Every in-form Tab press is kept within field sequence.
+    if (nextIndex < 0 || nextIndex >= fields.length) return;
+
+    event.preventDefault();
+    pendingFieldFocus.current = nextIndex;
+    const nextStep = Math.floor(nextIndex / FIELDS_PER_STEP);
+    if (nextStep === step) {
+      const target = document.querySelector<HTMLElement>(`[data-abt-field-index="${nextIndex}"]`);
+      if (target && !target.matches(":disabled")) {
+        target.focus();
+        pendingFieldFocus.current = null;
+      }
+      return;
+    }
+
+    setStep(nextStep);
   }
 
   function applyInitialsToFields(initials: string) {
@@ -735,13 +828,17 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
               )}
 
               <div className="abt-field-grid">
-                {visibleFields.map((field) => (
+                {visibleFields.map((field, visibleIndex) => {
+                  const fieldIndex = step * FIELDS_PER_STEP + visibleIndex;
+                  return (
                   <label className={field.kind === "checkbox" ? "abt-field abt-checkbox-field" : "abt-field"} key={field.name}>
                     {field.kind === "checkbox" ? (
                       <>
                         <input
                           type="checkbox"
+                          data-abt-field-index={fieldIndex}
                           checked={values[field.name] === true}
+                          onKeyDown={(event) => handleFieldTab(event, fieldIndex)}
                           onChange={(event) => updateValue(field.name, event.target.checked)}
                         />
                         <span><strong>{field.label}</strong></span>
@@ -751,7 +848,9 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
                         <span><strong>{field.label}</strong></span>
                         {field.kind === "license-series" ? (
                           <select
+                            data-abt-field-index={fieldIndex}
                             value={typeof values[field.name] === "string" ? values[field.name] as string : ""}
+                            onKeyDown={(event) => handleFieldTab(event, fieldIndex)}
                             onChange={(event) => updateLicenseSeries(field.name, event.target.value)}
                           >
                             <option value="">Select a Florida alcoholic-beverage license type</option>
@@ -765,7 +864,9 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
                           </select>
                         ) : field.kind === "license-class" ? (
                           <select
+                            data-abt-field-index={fieldIndex}
                             value={typeof values[field.name] === "string" ? values[field.name] as string : ""}
+                            onKeyDown={(event) => handleFieldTab(event, fieldIndex)}
                             onChange={(event) => updateLicenseClass(field.name, event.target.value)}
                             disabled={!selectedSeriesKey}
                           >
@@ -778,8 +879,10 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
                           </select>
                         ) : field.kind === "text" ? (
                           <input
+                            data-abt-field-index={fieldIndex}
                             type={inputType(field)}
                             value={typeof values[field.name] === "string" ? values[field.name] as string : ""}
+                            onKeyDown={(event) => handleFieldTab(event, fieldIndex)}
                             onFocus={() => {
                               if (isApplicantInitialsField(field) && !initialsConsent) {
                                 openInitialsDisclosure("field");
@@ -797,7 +900,9 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
                           />
                         ) : (
                           <select
+                            data-abt-field-index={fieldIndex}
                             value={typeof values[field.name] === "string" ? values[field.name] as string : ""}
+                            onKeyDown={(event) => handleFieldTab(event, fieldIndex)}
                             onChange={(event) => updateValue(field.name, event.target.value)}
                           >
                             <option value="">Select an option</option>
@@ -807,7 +912,8 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
                       </>
                     )}
                   </label>
-                ))}
+                  );
+                })}
               </div>
 
               <div className="abt-draft-control">
