@@ -17,14 +17,40 @@ type PortalTransaction = {
   updatedAt: string;
 };
 
+type DocumentStatus = "Not started" | "In progress" | "Awaiting signatures" | "Completed";
+type DocumentVersion = {
+  id: string;
+  fileName: string;
+  size: number;
+  uploadedAt: string;
+  uploadedBy: string;
+};
+type ProjectDocument = {
+  documentKey: string;
+  status: DocumentStatus;
+  versions: DocumentVersion[];
+  updatedAt: string;
+  completedAt: string | null;
+  completedBy: string | null;
+};
+
 type DocumentItem = {
+  key: string;
   title: string;
   description: string;
   label: string;
   href?: string;
   conditional?: boolean;
   professional?: boolean;
+  requiresSignature?: boolean;
 };
+
+const documentStatuses: DocumentStatus[] = [
+  "Not started",
+  "In progress",
+  "Awaiting signatures",
+  "Completed",
+];
 
 const counties = [
   "Alachua County", "Baker County", "Bay County", "Bradford County", "Brevard County",
@@ -46,18 +72,22 @@ const counties = [
 function documentsFor(transaction: PortalTransaction): DocumentItem[] {
   const documents: DocumentItem[] = [
     {
+      key: "abt-6002",
       title: "DBPR/ABT-6002",
       description: "Application for transfer of ownership of an alcoholic-beverage license.",
       label: "Complete ABT-6002",
       href: "/resources/forms/abt-6002",
+      requiresSignature: true,
     },
     {
+      key: "transfer-fee",
       title: "Quota License Transfer Fee",
       description: "Enter the applicable three-year sales figures and calculate the estimated transfer fee.",
       label: "Open transfer-fee calculator",
       href: "/resources/quota-transfer-fee-calculator",
     },
     {
+      key: "fdor-clearance",
       title: "FDOR Clearance or Compliance Request",
       description: "Review whether the transaction calls for a Certificate of Compliance or Tax Clearance Letter.",
       label: "Open FDOR workspace",
@@ -67,31 +97,37 @@ function documentsFor(transaction: PortalTransaction): DocumentItem[] {
 
   if (transaction.representativeAssistance) {
     documents.push({
+      key: "dr-835",
       title: "FDOR Form DR-835",
       description: "Power of Attorney for a qualified representative handling specified Florida tax matters.",
       label: "Complete FLLM fillable DR-835",
       href: "/api/fdor/dr835/pdf",
       conditional: true,
+      requiresSignature: true,
     });
   }
 
   if (transaction.financedPurchase) {
     documents.push({
+      key: "financing",
       title: "Financing and License-Lien Documents",
       description: "Security agreement, lien notice or authorization, and any related filing documents selected for the financed purchase.",
       label: "Find professional assistance",
       href: "/resources/liquor-license-attorneys",
       conditional: true,
       professional: true,
+      requiresSignature: true,
     });
   }
 
   documents.push({
+    key: "closing",
     title: "Transaction and Closing Documents",
     description: "Purchase, escrow, closing, occupancy, entity, fingerprint, and supporting documents may apply based on the transaction.",
     label: "Review with your advisers",
     href: "/resources/liquor-license-attorneys",
     professional: true,
+    requiresSignature: true,
   });
 
   return documents;
@@ -116,6 +152,10 @@ export default function TransactionPortalClient() {
   const [authMode, setAuthMode] = useState<"login" | "register">("register");
   const [showNew, setShowNew] = useState(false);
   const [error, setError] = useState("");
+  const [projectDocuments, setProjectDocuments] = useState<Record<string, ProjectDocument>>({});
+  const [documentsLoading, setDocumentsLoading] = useState(false);
+  const [documentBusy, setDocumentBusy] = useState("");
+  const [documentNotice, setDocumentNotice] = useState("");
 
   const selected = useMemo(
     () => transactions.find((transaction) => transaction.id === selectedId) ?? transactions[0] ?? null,
@@ -126,7 +166,98 @@ export default function TransactionPortalClient() {
     const data = await requestJson("/api/portal/transactions");
     const next = (data.transactions ?? []) as PortalTransaction[];
     setTransactions(next);
-    if (next[0]) setSelectedId((current) => current ?? next[0].id);
+    if (next[0]) {
+      const requestedId = new URLSearchParams(window.location.search).get("transactionId");
+      const requested = next.find((transaction) => transaction.id === requestedId);
+      setSelectedId((current) => current ?? requested?.id ?? next[0].id);
+    }
+  }
+
+  async function loadProjectDocuments(transactionId: string) {
+    setDocumentsLoading(true);
+    setProjectDocuments({});
+    try {
+      const data = await requestJson(`/api/portal/transactions/${transactionId}/documents`);
+      const records = (data.documents ?? []) as ProjectDocument[];
+      setProjectDocuments(Object.fromEntries(records.map((record) => [record.documentKey, record])));
+      const updatedTransaction = data.transaction as PortalTransaction | undefined;
+      if (updatedTransaction) {
+        setTransactions((current) => current.map((transaction) =>
+          transaction.id === updatedTransaction.id ? updatedTransaction : transaction
+        ));
+      }
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "The project documents could not be loaded.");
+    } finally {
+      setDocumentsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    if (!selected?.id) {
+      setProjectDocuments({});
+      return;
+    }
+    setDocumentNotice("");
+    void loadProjectDocuments(selected.id);
+  }, [selected?.id]);
+
+  async function updateDocumentStatus(documentKey: string, status: DocumentStatus) {
+    if (!selected) return;
+    setDocumentBusy(documentKey);
+    setDocumentNotice("");
+    setError("");
+    try {
+      const data = await requestJson(
+        `/api/portal/transactions/${selected.id}/documents/${documentKey}`,
+        { method: "PATCH", body: JSON.stringify({ status }) }
+      );
+      const document = data.document as ProjectDocument;
+      const transaction = data.transaction as PortalTransaction;
+      setProjectDocuments((current) => ({ ...current, [documentKey]: document }));
+      if (transaction) {
+        setTransactions((current) => current.map((item) => item.id === transaction.id ? transaction : item));
+      }
+      setDocumentNotice(`${documentKey} is now marked ${document.status.toLowerCase()}.`);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "The document status could not be updated.");
+    } finally {
+      setDocumentBusy("");
+    }
+  }
+
+  async function uploadDocument(documentKey: string, file: File | null) {
+    if (!selected || !file) return;
+    setDocumentBusy(documentKey);
+    setDocumentNotice("");
+    setError("");
+    try {
+      const body = new FormData();
+      body.set("file", file);
+      const response = await fetch(
+        `/api/portal/transactions/${selected.id}/documents/${documentKey}`,
+        { method: "POST", body }
+      );
+      const data = (await response.json()) as Record<string, unknown>;
+      if (!response.ok) throw new Error(String(data.error ?? "The PDF could not be uploaded."));
+      const document = data.document as ProjectDocument;
+      const transaction = data.transaction as PortalTransaction;
+      setProjectDocuments((current) => ({ ...current, [documentKey]: document }));
+      if (transaction) {
+        setTransactions((current) => current.map((item) => item.id === transaction.id ? transaction : item));
+      }
+      setDocumentNotice(`${file.name} was saved securely to this project.`);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "The PDF could not be uploaded.");
+    } finally {
+      setDocumentBusy("");
+    }
+  }
+
+  function projectHref(document: DocumentItem, transactionId: string) {
+    if (!document.href) return "";
+    const separator = document.href.includes("?") ? "&" : "?";
+    return `${document.href}${separator}transactionId=${encodeURIComponent(transactionId)}`;
   }
 
   useEffect(() => {
@@ -162,7 +293,8 @@ export default function TransactionPortalClient() {
       const transactionsData = await requestJson("/api/portal/transactions");
       const next = (transactionsData.transactions ?? []) as PortalTransaction[];
       setTransactions(next);
-      setSelectedId(next[0]?.id ?? null);
+      const requestedId = new URLSearchParams(window.location.search).get("transactionId");
+      setSelectedId(next.find((transaction) => transaction.id === requestedId)?.id ?? next[0]?.id ?? null);
       setShowNew(next.length === 0);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "The account request failed.");
@@ -211,6 +343,11 @@ export default function TransactionPortalClient() {
       setBusy(false);
     }
   }
+
+  const selectedChecklist = selected ? documentsFor(selected) : [];
+  const completedDocumentCount = selectedChecklist.filter(
+    (document) => projectDocuments[document.key]?.status === "Completed"
+  ).length;
 
   if (loading) {
     return <section className="portal-loading page-shell">Opening the secure transaction portal...</section>;
@@ -325,21 +462,98 @@ export default function TransactionPortalClient() {
               <div><span>License number</span><strong>{selected.licenseNumber || "Not provided"}</strong></div>
             </div>
             <div className="portal-checklist-heading">
-              <div><span className="portal-section-label">Preliminary checklist</span><h3>Documents and transaction steps</h3></div>
-              <small>Based on the information provided</small>
+              <div><span className="portal-section-label">Project document checklist</span><h3>Documents and transaction steps</h3></div>
+              <small>{documentsLoading ? "Loading project records…" : `${completedDocumentCount} of ${selectedChecklist.length} completed`}</small>
             </div>
+            {documentNotice && <p className="portal-document-notice" role="status">{documentNotice}</p>}
             <div className="portal-document-list">
-              {documentsFor(selected).map((document, index) => (
-                <article key={document.title}>
+              {selectedChecklist.map((document, index) => {
+                const record = projectDocuments[document.key];
+                const status = record?.status ?? "Not started";
+                const latestVersion = record?.versions.at(-1);
+                const uploadId = `portal-upload-${selected.id}-${document.key}`;
+                return (
+                <article className={`portal-document-card is-${status.toLowerCase().replaceAll(" ", "-")}`} key={document.key}>
                   <span className="portal-document-number">{String(index + 1).padStart(2, "0")}</span>
-                  <div><h4>{document.title}</h4><p>{document.description}</p><div className="portal-document-tags">{document.conditional && <span>Conditional</span>}{document.professional && <span>Professional review</span>}</div></div>
-                  {document.href && <a href={document.href}>{document.label} <span aria-hidden="true">&gt;</span></a>}
+                  <div className="portal-document-copy">
+                    <div className="portal-document-title-line">
+                      <h4>{document.title}</h4>
+                      <span className="portal-document-state">{status}</span>
+                    </div>
+                    <p>{document.description}</p>
+                    <div className="portal-document-tags">
+                      {document.conditional && <span>Conditional</span>}
+                      {document.professional && <span>Professional review</span>}
+                      {document.requiresSignature && <span>Signature required</span>}
+                    </div>
+                    {latestVersion && (
+                      <>
+                        <p className="portal-stored-file">
+                          <strong>Stored:</strong> {latestVersion.fileName} · Version {record.versions.length} · {new Date(latestVersion.uploadedAt).toLocaleDateString()}
+                        </p>
+                        {record.completedAt && (
+                          <p className="portal-stored-file">
+                            <strong>Completed:</strong> {new Date(record.completedAt).toLocaleString()} by {record.completedBy}
+                          </p>
+                        )}
+                        {record.versions.length > 1 && (
+                          <details className="portal-version-history">
+                            <summary>View {record.versions.length} stored versions</summary>
+                            <div>
+                              {[...record.versions].reverse().map((version, versionIndex) => (
+                                <a
+                                  key={version.id}
+                                  href={`/api/portal/transactions/${selected.id}/documents/${document.key}/download?version=${encodeURIComponent(version.id)}`}
+                                >
+                                  Version {record.versions.length - versionIndex}: {version.fileName} · {new Date(version.uploadedAt).toLocaleDateString()}
+                                </a>
+                              ))}
+                            </div>
+                          </details>
+                        )}
+                      </>
+                    )}
+                  </div>
+                  <div className="portal-document-actions">
+                    {document.href && <a href={projectHref(document, selected.id)}>{document.label} <span aria-hidden="true">&gt;</span></a>}
+                    <label className="portal-upload-button" htmlFor={uploadId}>
+                      {documentBusy === document.key ? "Saving…" : latestVersion ? "Upload newer PDF" : "Upload PDF"}
+                    </label>
+                    <input
+                      id={uploadId}
+                      type="file"
+                      accept="application/pdf,.pdf"
+                      disabled={documentBusy === document.key}
+                      onChange={(event) => {
+                        void uploadDocument(document.key, event.target.files?.[0] ?? null);
+                        event.target.value = "";
+                      }}
+                    />
+                    {latestVersion && (
+                      <a className="portal-download-link" href={`/api/portal/transactions/${selected.id}/documents/${document.key}/download`}>
+                        Download stored PDF
+                      </a>
+                    )}
+                    <label className="portal-status-control">
+                      <span>Project status</span>
+                      <select
+                        value={status}
+                        disabled={documentBusy === document.key}
+                        onChange={(event) => void updateDocumentStatus(document.key, event.target.value as DocumentStatus)}
+                      >
+                        {documentStatuses
+                          .filter((option) => option !== "Awaiting signatures" || document.requiresSignature)
+                          .map((option) => <option key={option}>{option}</option>)}
+                      </select>
+                    </label>
+                  </div>
                 </article>
-              ))}
+                );
+              })}
             </div>
             <div className="portal-notice">
-              <strong>Checklist notice</strong>
-              <p>This is a guided starting checklist, not a determination that the listed items are the only documents required. DBPR/ABT, FDOR, a lender, or your professional advisers may require additional information.</p>
+              <strong>Project completion</strong>
+              <p>Drafts, uploaded PDFs, status changes, and prior PDF versions remain tied to this transaction. When every listed item is marked Completed, the project automatically changes to Ready for review/submission. FLLM does not file documents with DBPR/ABT or FDOR.</p>
             </div>
           </div>
         </div>

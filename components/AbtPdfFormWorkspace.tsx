@@ -351,9 +351,15 @@ function licenseSeriesGroups() {
   );
 }
 
-export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition }) {
+export default function AbtPdfFormWorkspace({
+  form,
+  projectTransactionId,
+}: {
+  form: AbtFormDefinition;
+  projectTransactionId: string | null;
+}) {
   const officialPdfPath = `/api/abt-forms/${form.id}/pdf`;
-  const draftKey = `fllm-abt-form-draft:${form.id}`;
+  const draftKey = `fllm-abt-form-draft:${projectTransactionId || "device"}:${form.id}`;
   const requiresInitialsConsent = INITIALS_FORM_IDS.has(form.id);
   const templateBytes = useRef<Uint8Array | null>(null);
   const [mode, setMode] = useState<"guided" | "viewer">("guided");
@@ -374,6 +380,9 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
   const [initialsAgreement, setInitialsAgreement] = useState(false);
   const [pendingInitialsAction, setPendingInitialsAction] = useState<PendingInitialsAction>(null);
   const [transferImportStatus, setTransferImportStatus] = useState("");
+  const [projectRecordLoaded, setProjectRecordLoaded] = useState(false);
+  const [projectDirty, setProjectDirty] = useState(false);
+  const [projectSaveStatus, setProjectSaveStatus] = useState("");
   const transferImportAttempted = useRef(false);
   const transferPreviewGenerationInFlight = useRef(false);
   const pendingFieldFocus = useRef<number | null>(null);
@@ -384,6 +393,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
 
     const fieldValues = getAbt6002TransferFeeFieldValues(payload);
     setValues((current) => ({ ...current, ...fieldValues }));
+    setProjectDirty(true);
     const monthlyFigureCount = payload.sales.flat().filter((amount) => amount > 0).length;
     setTransferImportStatus(`Imported ${monthlyFigureCount} monthly sales figure${monthlyFigureCount === 1 ? "" : "s"}, all annual totals, the three-year average, and the Section 12 transfer fee. Creating the draft PDF…`);
     setTransferPreviewRequested(true);
@@ -412,13 +422,31 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
 
         templateBytes.current = bytes;
         let nextValues = extracted.initialValues;
-        const savedDraft = window.localStorage.getItem(draftKey);
-        if (savedDraft) {
-          try {
-            nextValues = { ...nextValues, ...(JSON.parse(savedDraft) as DraftValues) };
-            setRememberDraft(true);
-          } catch {
-            window.localStorage.removeItem(draftKey);
+        if (projectTransactionId) {
+          const projectResponse = await fetch(
+            `/api/portal/transactions/${projectTransactionId}/documents/${form.id}`,
+            { cache: "no-store" }
+          );
+          if (!projectResponse.ok) {
+            const payload = (await projectResponse.json().catch(() => null)) as { error?: string } | null;
+            throw new Error(payload?.error || "This form could not be connected to the selected project.");
+          }
+          const payload = (await projectResponse.json()) as {
+            document?: { draftData?: DraftValues | null };
+          };
+          if (payload.document?.draftData) {
+            nextValues = { ...nextValues, ...payload.document.draftData };
+            setProjectSaveStatus("Project draft restored.");
+          }
+        } else {
+          const savedDraft = window.localStorage.getItem(draftKey);
+          if (savedDraft) {
+            try {
+              nextValues = { ...nextValues, ...(JSON.parse(savedDraft) as DraftValues) };
+              setRememberDraft(true);
+            } catch {
+              window.localStorage.removeItem(draftKey);
+            }
           }
         }
 
@@ -434,6 +462,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
         setFields(extracted.definitions);
         setSkippedFieldCount(extracted.skippedFieldCount);
         setValues(nextValues);
+        setProjectRecordLoaded(true);
         if (extracted.definitions.length === 0) setMode("viewer");
       } catch (cause) {
         setError(cause instanceof Error ? cause.message : "The official form could not be loaded.");
@@ -446,7 +475,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     return () => {
       cancelled = true;
     };
-  }, [draftKey, form.id, officialPdfPath, requiresInitialsConsent]);
+  }, [draftKey, form.id, officialPdfPath, projectTransactionId, requiresInitialsConsent]);
 
   useEffect(() => {
     if (form.id !== "abt-6002" || loading || fields.length === 0) return;
@@ -472,6 +501,28 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
     if (!rememberDraft || fields.length === 0) return;
     window.localStorage.setItem(draftKey, JSON.stringify(values));
   }, [draftKey, fields.length, rememberDraft, values]);
+
+  useEffect(() => {
+    if (!projectTransactionId || !projectRecordLoaded || !projectDirty || fields.length === 0) return;
+    const timer = window.setTimeout(() => {
+      setProjectSaveStatus("Saving project draft…");
+      void fetch(`/api/portal/transactions/${projectTransactionId}/documents/${form.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "In progress", draftData: values }),
+      }).then(async (response) => {
+        if (!response.ok) {
+          const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+          throw new Error(payload?.error || "The project draft could not be saved.");
+        }
+        setProjectDirty(false);
+        setProjectSaveStatus("Draft saved securely to this project.");
+      }).catch((cause) => {
+        setProjectSaveStatus(cause instanceof Error ? cause.message : "The project draft could not be saved.");
+      });
+    }, 800);
+    return () => window.clearTimeout(timer);
+  }, [fields.length, form.id, projectDirty, projectRecordLoaded, projectTransactionId, values]);
 
   useEffect(() => () => {
     if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -540,6 +591,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
 
   function updateValue(name: string, value: string | boolean) {
     setValues((current) => ({ ...current, [name]: value }));
+    setProjectDirty(true);
   }
 
   function handleFieldTab(event: ReactKeyboardEvent<HTMLElement>, fieldIndex: number) {
@@ -583,6 +635,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
       });
       return next;
     });
+    setProjectDirty(true);
   }
 
   function openInitialsDisclosure(action: PendingInitialsAction) {
@@ -634,6 +687,7 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
       if (selected && typeClassField) next[typeClassField.name] = selected.classCode;
       return next;
     });
+    setProjectDirty(true);
   }
 
   function updateLicenseClass(name: string, classCode: string) {
@@ -649,11 +703,44 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
       if (matchingSeries) next[seriesField.name] = matchingSeries.key;
       return next;
     });
+    setProjectDirty(true);
   }
 
   function clearSavedDraft() {
     window.localStorage.removeItem(draftKey);
     setRememberDraft(false);
+  }
+
+  async function saveCompletedPdfToProject(bytes: Uint8Array, sourceValues: DraftValues) {
+    if (!projectTransactionId) return;
+    setProjectSaveStatus("Saving completed PDF to the project…");
+    const upload = new FormData();
+    upload.set(
+      "file",
+      new File([Uint8Array.from(bytes)], `${form.id.toUpperCase()}-prepared.pdf`, { type: "application/pdf" })
+    );
+    const uploadResponse = await fetch(
+      `/api/portal/transactions/${projectTransactionId}/documents/${form.id}`,
+      { method: "POST", body: upload }
+    );
+    if (!uploadResponse.ok) {
+      const payload = (await uploadResponse.json().catch(() => null)) as { error?: string } | null;
+      throw new Error(payload?.error || "The completed PDF could not be saved to the project.");
+    }
+    const statusResponse = await fetch(
+      `/api/portal/transactions/${projectTransactionId}/documents/${form.id}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "Awaiting signatures", draftData: sourceValues }),
+      }
+    );
+    if (!statusResponse.ok) {
+      const payload = (await statusResponse.json().catch(() => null)) as { error?: string } | null;
+      throw new Error(payload?.error || "The PDF was stored, but its project status could not be updated.");
+    }
+    setProjectDirty(false);
+    setProjectSaveStatus("Prepared PDF saved to this project — awaiting signatures.");
   }
 
   async function generateCompletedPdf(options: { kind?: "completed" | "transfer-draft"; sourceValues?: DraftValues } = {}) {
@@ -707,6 +794,8 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
       });
       if (nextPreviewKind === "transfer-draft") {
         setTransferImportStatus("Imported figures are now visible in the Section 12 draft PDF below.");
+      } else if (projectTransactionId) {
+        await saveCompletedPdfToProject(completedBytes, valuesToUse);
       }
       const previewElementId = nextPreviewKind === "transfer-draft" ? "transfer-draft-preview" : "completed-form-preview";
       window.setTimeout(() => document.getElementById(previewElementId)?.scrollIntoView({ behavior: "smooth" }), 50);
@@ -760,7 +849,12 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
       </div>
 
       <div className="abt-privacy-note">
-        <span><strong>Private by design.</strong> Information entered in the guided form stays in this browser and is used locally to create the completed PDF. FLLM does not receive or store your answers.</span>
+        <span>
+          <strong>{projectTransactionId ? "Private project document." : "Private by design."}</strong>{" "}
+          {projectTransactionId
+            ? "Answers and generated PDFs are saved to the selected private transaction workspace and require an authenticated portal session."
+            : "Information entered in the guided form stays in this browser and is used locally to create the completed PDF. FLLM does not receive or store your answers."}
+        </span>
         {requiresInitialsConsent && initialsConsent && (
           <span className="abt-initials-status">
             Electronic initials: <strong>{initialsConsent.initials}</strong>
@@ -777,7 +871,12 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
             <p>Open the FLLM calculator in a new tab so this form stays in place. When you apply the calculation, the business details, 36 monthly sales entries, annual totals, three-year average, and Section 12 transfer fee are filled into the official ABT-6002 fields automatically.</p>
           </div>
           <div className="abt-transfer-fee-actions">
-            <a className="btn btn-gold" href="/resources/quota-transfer-fee-calculator" target="_blank" rel="noreferrer">Open Transfer Fee Calculator</a>
+            <a
+              className="btn btn-gold"
+              href={`/resources/quota-transfer-fee-calculator${projectTransactionId ? `?transactionId=${encodeURIComponent(projectTransactionId)}` : ""}`}
+              target="_blank"
+              rel="noreferrer"
+            >Open Transfer Fee Calculator</a>
             <button className="btn btn-outline" type="button" onClick={importStoredTransferFeeFigures}>Import saved calculator figures</button>
           </div>
           {transferImportStatus && (
@@ -917,18 +1016,27 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
               </div>
 
               <div className="abt-draft-control">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={rememberDraft}
-                    onChange={(event) => {
-                      setRememberDraft(event.target.checked);
-                      if (!event.target.checked) window.localStorage.removeItem(draftKey);
-                    }}
-                  />
-                  Save this draft on this device so I can continue later
-                </label>
-                {rememberDraft && <button type="button" onClick={clearSavedDraft}>Delete saved draft</button>}
+                {projectTransactionId ? (
+                  <>
+                    <span><strong>Project autosave:</strong> {projectSaveStatus || "Ready to save changes to this transaction."}</span>
+                    <a href={`/transaction-portal?transactionId=${encodeURIComponent(projectTransactionId)}`}>Return to project workspace</a>
+                  </>
+                ) : (
+                  <>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={rememberDraft}
+                        onChange={(event) => {
+                          setRememberDraft(event.target.checked);
+                          if (!event.target.checked) window.localStorage.removeItem(draftKey);
+                        }}
+                      />
+                      Save this draft on this device so I can continue later
+                    </label>
+                    {rememberDraft && <button type="button" onClick={clearSavedDraft}>Delete saved draft</button>}
+                  </>
+                )}
               </div>
 
               <div className="abt-step-actions">
@@ -937,7 +1045,9 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
                   <button className="btn btn-gold" type="button" onClick={() => setStep((current) => Math.min(totalSteps - 1, current + 1))}>Continue</button>
                 ) : (
                   <button className="btn btn-gold" type="button" onClick={() => void generateCompletedPdf()} disabled={generating}>
-                    {generating ? "Generating…" : "Generate Completed Official PDF"}
+                    {generating
+                      ? projectTransactionId ? "Generating and saving…" : "Generating…"
+                      : projectTransactionId ? "Generate & Save Prepared PDF" : "Generate Completed Official PDF"}
                   </button>
                 )}
               </div>
@@ -984,8 +1094,14 @@ export default function AbtPdfFormWorkspace({ form }: { form: AbtFormDefinition 
               <button className="btn btn-gold" type="button" onClick={() => window.open(previewUrl, "_blank", "noopener,noreferrer")}>
                 {previewKind === "transfer-draft" ? "Open & Print Draft PDF" : "Open & Print"}
               </button>
+              {projectTransactionId && previewKind === "completed" && (
+                <a className="btn btn-outline" href={`/transaction-portal?transactionId=${encodeURIComponent(projectTransactionId)}`}>Return to Project</a>
+              )}
             </div>
           </div>
+          {projectTransactionId && previewKind === "completed" && projectSaveStatus && (
+            <p className="abt-viewer-help" role="status">{projectSaveStatus}</p>
+          )}
           <iframe
             src={`${previewUrl}#${previewKind === "transfer-draft" ? "page=17&toolbar=1&navpanes=0" : "toolbar=1"}`}
             title={previewKind === "transfer-draft" ? `ABT-6002 Section 12 draft preview` : `Completed ${form.formNumber} preview`}
