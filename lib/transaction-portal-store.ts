@@ -246,6 +246,35 @@ export async function listPortalTransactions(userId: string) {
   return rows.map(toTransaction);
 }
 
+export async function getPortalTransaction(userId: string, transactionId: string) {
+  const rows = await readRows<PortalTransactionRow>(
+    `portal_transactions?id=eq.${encodeURIComponent(transactionId)}&user_id=eq.${encodeURIComponent(userId)}&select=*&limit=1`
+  );
+  return rows[0] ? toTransaction(rows[0]) : null;
+}
+
+export async function updatePortalTransactionStatus(
+  userId: string,
+  transactionId: string,
+  status: string
+) {
+  requireDatabase();
+  const response = await fetch(
+    endpoint(
+      `portal_transactions?id=eq.${encodeURIComponent(transactionId)}&user_id=eq.${encodeURIComponent(userId)}&select=*`
+    ),
+    {
+      method: "PATCH",
+      headers: headers({ Prefer: "return=representation" }),
+      body: JSON.stringify({ status: clean(status, 80), updated_at: new Date().toISOString() }),
+      cache: "no-store",
+    }
+  );
+  if (!response.ok) throw new Error(`Could not update the transaction status (${response.status}).`);
+  const rows = (await response.json()) as PortalTransactionRow[];
+  return rows[0] ? toTransaction(rows[0]) : null;
+}
+
 export async function createPortalTransaction(userId: string, input: CreatePortalTransactionInput) {
   requireDatabase();
   const transactionName = clean(input.transactionName, 160);

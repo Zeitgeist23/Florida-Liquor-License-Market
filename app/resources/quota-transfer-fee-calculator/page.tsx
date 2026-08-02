@@ -11,7 +11,12 @@ export const metadata: Metadata = {
     "Estimate the Florida quota liquor license transfer fee using the three-year gross alcoholic-beverage sales calculation from DBPR ABT-6002.",
 };
 
-export default function QuotaTransferFeeCalculatorPage() {
+export default async function QuotaTransferFeeCalculatorPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ transactionId?: string }>;
+}) {
+  const { transactionId } = await searchParams;
   return (
     <main className="abt-forms-page transfer-calculator-page">
       <div className="abt-header-wrap">
@@ -40,7 +45,7 @@ export default function QuotaTransferFeeCalculatorPage() {
       </section>
 
       <section className="transfer-page-content page-shell">
-        <QuotaTransferFeeCalculator />
+        <QuotaTransferFeeCalculator projectTransactionId={transactionId || null} />
       </section>
 
       <footer className="abt-forms-footer">

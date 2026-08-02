@@ -6,6 +6,8 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { ABT_FORMS, ABT_FORMS_DISCLAIMER, getAbtForm } from "@/data/abt-forms";
 import "../abt-forms.css";
 
+export const dynamic = "force-dynamic";
+
 export function generateStaticParams() {
   return ABT_FORMS.map((form) => ({ formId: form.id }));
 }
@@ -24,9 +26,13 @@ export async function generateMetadata(
 }
 
 export default async function FloridaAbtFormWorkspacePage(
-  context: { params: Promise<{ formId: string }> }
+  context: {
+    params: Promise<{ formId: string }>;
+    searchParams: Promise<{ transactionId?: string }>;
+  }
 ) {
   const { formId } = await context.params;
+  const { transactionId } = await context.searchParams;
   const form = getAbtForm(formId.toLowerCase());
   if (!form) notFound();
 
@@ -66,7 +72,7 @@ export default async function FloridaAbtFormWorkspacePage(
           <ul>{form.useCases.map((useCase) => <li key={useCase}>{useCase}</li>)}</ul>
         </div>
 
-        <AbtPdfFormWorkspace form={form} />
+        <AbtPdfFormWorkspace form={form} projectTransactionId={transactionId || null} />
       </section>
 
       <section className="abt-disclaimer page-shell" aria-label="Legal disclaimer">

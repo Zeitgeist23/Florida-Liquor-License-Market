@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   ABT_6002_TRANSFER_FEE_LOCAL_KEY,
@@ -34,7 +34,22 @@ function numberFromCurrencyInput(value: string) {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
 }
 
-export default function QuotaTransferFeeCalculator() {
+type TransferFeeDraft = {
+  businessName: string;
+  licenseNumber: string;
+  obtainedDate: string;
+  years: string[];
+  sales: string[][];
+  issuedWithinThreeYears: boolean;
+  annualLicenseFee: string;
+  possibleWaiver: boolean;
+};
+
+export default function QuotaTransferFeeCalculator({
+  projectTransactionId,
+}: {
+  projectTransactionId: string | null;
+}) {
   const [businessName, setBusinessName] = useState("");
   const [licenseNumber, setLicenseNumber] = useState("");
   const [obtainedDate, setObtainedDate] = useState("");
@@ -44,6 +59,8 @@ export default function QuotaTransferFeeCalculator() {
   const [annualLicenseFee, setAnnualLicenseFee] = useState("");
   const [possibleWaiver, setPossibleWaiver] = useState(false);
   const [applyStatus, setApplyStatus] = useState("");
+  const [projectRecordLoaded, setProjectRecordLoaded] = useState(false);
+  const [projectDirty, setProjectDirty] = useState(false);
 
   const yearTotals = useMemo(
     () => sales.map((year) => year.reduce((sum, value) => sum + numberFromCurrencyInput(value), 0)),
@@ -60,6 +77,69 @@ export default function QuotaTransferFeeCalculator() {
   const hasAnySales = threeYearTotal > 0;
   const printReady = hasAnySales && (!issuedWithinThreeYears || numberFromCurrencyInput(annualLicenseFee) > 0);
 
+  const projectDraft = useMemo<TransferFeeDraft>(() => ({
+    businessName,
+    licenseNumber,
+    obtainedDate,
+    years,
+    sales,
+    issuedWithinThreeYears,
+    annualLicenseFee,
+    possibleWaiver,
+  }), [annualLicenseFee, businessName, issuedWithinThreeYears, licenseNumber, obtainedDate, possibleWaiver, sales, years]);
+
+  useEffect(() => {
+    if (!projectTransactionId) return;
+    let cancelled = false;
+    void fetch(`/api/portal/transactions/${projectTransactionId}/documents/transfer-fee`, { cache: "no-store" })
+      .then(async (response) => {
+        const payload = (await response.json()) as {
+          error?: string;
+          document?: { draftData?: Partial<TransferFeeDraft> | null };
+        };
+        if (!response.ok) throw new Error(payload.error || "The project calculation could not be loaded.");
+        if (cancelled) return;
+        const draft = payload.document?.draftData;
+        if (draft) {
+          setBusinessName(typeof draft.businessName === "string" ? draft.businessName : "");
+          setLicenseNumber(typeof draft.licenseNumber === "string" ? draft.licenseNumber : "");
+          setObtainedDate(typeof draft.obtainedDate === "string" ? draft.obtainedDate : "");
+          if (Array.isArray(draft.years) && draft.years.length === 3) setYears(draft.years.map(String));
+          if (Array.isArray(draft.sales) && draft.sales.length === 3) {
+            setSales(draft.sales.map((year) => {
+              const values = Array.isArray(year) ? year.map(String).slice(0, 12) : [];
+              return [...values, ...Array(12 - values.length).fill("")];
+            }));
+          }
+          setIssuedWithinThreeYears(draft.issuedWithinThreeYears === true);
+          setAnnualLicenseFee(typeof draft.annualLicenseFee === "string" ? draft.annualLicenseFee : "");
+          setPossibleWaiver(draft.possibleWaiver === true);
+          setApplyStatus("Project calculation restored.");
+        }
+        setProjectRecordLoaded(true);
+      })
+      .catch((cause) => setApplyStatus(cause instanceof Error ? cause.message : "The project calculation could not be loaded."));
+    return () => { cancelled = true; };
+  }, [projectTransactionId]);
+
+  useEffect(() => {
+    if (!projectTransactionId || !projectRecordLoaded || !projectDirty) return;
+    const timer = window.setTimeout(() => {
+      setApplyStatus("Saving calculation to project…");
+      void fetch(`/api/portal/transactions/${projectTransactionId}/documents/transfer-fee`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "In progress", draftData: projectDraft }),
+      }).then(async (response) => {
+        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+        if (!response.ok) throw new Error(payload?.error || "The project calculation could not be saved.");
+        setProjectDirty(false);
+        setApplyStatus("Calculation saved securely to this project.");
+      }).catch((cause) => setApplyStatus(cause instanceof Error ? cause.message : "The project calculation could not be saved."));
+    }, 800);
+    return () => window.clearTimeout(timer);
+  }, [projectDirty, projectDraft, projectRecordLoaded, projectTransactionId]);
+
   function updateSale(yearIndex: number, monthIndex: number, value: string) {
     const cleaned = value.replace(/[^0-9.,]/g, "");
     setSales((current) =>
@@ -69,6 +149,7 @@ export default function QuotaTransferFeeCalculator() {
           : year
       )
     );
+    setProjectDirty(true);
   }
 
   function resetCalculator() {
@@ -81,9 +162,22 @@ export default function QuotaTransferFeeCalculator() {
     setAnnualLicenseFee("");
     setPossibleWaiver(false);
     setApplyStatus("");
+    setProjectDirty(true);
   }
 
-  function applyToAbt6002() {
+  async function markProjectCalculationCompleted() {
+    if (!projectTransactionId) return;
+    const response = await fetch(`/api/portal/transactions/${projectTransactionId}/documents/transfer-fee`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: "Completed", draftData: projectDraft }),
+    });
+    const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+    if (!response.ok) throw new Error(payload?.error || "The completed calculation could not be saved to the project.");
+    setProjectDirty(false);
+  }
+
+  async function applyToAbt6002() {
     if (!hasAnySales) return;
 
     const payload = createAbt6002TransferFeePayload({
@@ -101,14 +195,35 @@ export default function QuotaTransferFeeCalculator() {
 
     window.sessionStorage.setItem(ABT_6002_TRANSFER_FEE_SESSION_KEY, serializedPayload);
     window.localStorage.setItem(ABT_6002_TRANSFER_FEE_LOCAL_KEY, serializedPayload);
-    setApplyStatus("Figures saved on this device. Opening the ABT-6002 draft PDF…");
-    window.location.assign("/resources/forms/abt-6002?transferFee=imported");
+    try {
+      if (projectTransactionId) await markProjectCalculationCompleted();
+      setApplyStatus(projectTransactionId
+        ? "Calculation completed and saved to the project. Opening ABT-6002…"
+        : "Figures saved on this device. Opening the ABT-6002 draft PDF…");
+      const projectQuery = projectTransactionId ? `&transactionId=${encodeURIComponent(projectTransactionId)}` : "";
+      window.location.assign(`/resources/forms/abt-6002?transferFee=imported${projectQuery}`);
+    } catch (cause) {
+      setApplyStatus(cause instanceof Error ? cause.message : "The calculation could not be saved to the project.");
+    }
+  }
+
+  async function printCalculation() {
+    try {
+      if (projectTransactionId) await markProjectCalculationCompleted();
+      setApplyStatus(projectTransactionId ? "Calculation completed and saved to the project." : "");
+      window.print();
+    } catch (cause) {
+      setApplyStatus(cause instanceof Error ? cause.message : "The calculation could not be saved to the project.");
+    }
   }
 
   return (
     <section className="transfer-calculator" aria-label="Quota license transfer fee calculator">
       <div className="transfer-privacy-note">
-        <strong>Private by design.</strong> Figures entered here stay in this browser. When you apply them to ABT-6002, a temporary copy is kept on this device only and deleted immediately after import. FLLM does not receive or store them.
+        <strong>{projectTransactionId ? "Private project calculation." : "Private by design."}</strong>{" "}
+        {projectTransactionId
+          ? "Figures are autosaved to the selected transaction and can be restored when you return to the project."
+          : "Figures entered here stay in this browser. When you apply them to ABT-6002, a temporary copy is kept on this device only and deleted immediately after import. FLLM does not receive or store them."}
       </div>
 
       <div className="transfer-form-sheet" id="quota-transfer-fee-worksheet">
@@ -126,15 +241,15 @@ export default function QuotaTransferFeeCalculator() {
         <div className="transfer-identity-grid">
           <label>
             <span>Business Name (D/B/A)</span>
-            <input value={businessName} onChange={(event) => setBusinessName(event.target.value)} autoComplete="organization" />
+            <input value={businessName} onChange={(event) => { setBusinessName(event.target.value); setProjectDirty(true); }} autoComplete="organization" />
           </label>
           <label>
             <span>License Number</span>
-            <input value={licenseNumber} onChange={(event) => setLicenseNumber(event.target.value)} autoComplete="off" />
+            <input value={licenseNumber} onChange={(event) => { setLicenseNumber(event.target.value); setProjectDirty(true); }} autoComplete="off" />
           </label>
           <label className="transfer-obtained-date">
             <span>Date Seller Obtained License</span>
-            <input type="date" value={obtainedDate} onChange={(event) => setObtainedDate(event.target.value)} />
+            <input type="date" value={obtainedDate} onChange={(event) => { setObtainedDate(event.target.value); setProjectDirty(true); }} />
           </label>
         </div>
 
@@ -159,11 +274,12 @@ export default function QuotaTransferFeeCalculator() {
                         value={year}
                         inputMode="numeric"
                         maxLength={9}
-                        onChange={(event) =>
+                        onChange={(event) => {
                           setYears((current) => current.map((item, itemIndex) =>
                             itemIndex === index ? event.target.value.replace(/[^0-9/-]/g, "") : item
-                          ))
-                        }
+                          ));
+                          setProjectDirty(true);
+                        }}
                       />
                     </label>
                   </th>
@@ -238,7 +354,7 @@ export default function QuotaTransferFeeCalculator() {
             <input
               type="checkbox"
               checked={issuedWithinThreeYears}
-              onChange={(event) => setIssuedWithinThreeYears(event.target.checked)}
+              onChange={(event) => { setIssuedWithinThreeYears(event.target.checked); setProjectDirty(true); }}
             />
             <span>
               <strong>This quota license may be transferred within three years after its initial issuance.</strong>
@@ -248,13 +364,13 @@ export default function QuotaTransferFeeCalculator() {
           {issuedWithinThreeYears && (
             <label className="transfer-annual-fee">
               <span>Applicable annual license fee</span>
-              <div><b>$</b><input inputMode="decimal" value={annualLicenseFee} onChange={(event) => setAnnualLicenseFee(event.target.value.replace(/[^0-9.,]/g, ""))} placeholder="0.00" /></div>
+              <div><b>$</b><input inputMode="decimal" value={annualLicenseFee} onChange={(event) => { setAnnualLicenseFee(event.target.value.replace(/[^0-9.,]/g, "")); setProjectDirty(true); }} placeholder="0.00" /></div>
             </label>
           )}
         </div>
 
         <label className="transfer-check">
-          <input type="checkbox" checked={possibleWaiver} onChange={(event) => setPossibleWaiver(event.target.checked)} />
+          <input type="checkbox" checked={possibleWaiver} onChange={(event) => { setPossibleWaiver(event.target.checked); setProjectDirty(true); }} />
           <span>
             <strong>The transfer may occur by operation of law.</strong>
             <small>Examples include death, qualifying judicial proceedings, court appointment of a fiduciary, foreclosure or forced judicial sale, bankruptcy, or government seizure.</small>
@@ -279,8 +395,9 @@ export default function QuotaTransferFeeCalculator() {
 
       <div className="transfer-actions">
         <button className="btn btn-outline" type="button" onClick={resetCalculator}>Clear worksheet</button>
-        <button className="btn btn-outline transfer-apply-button" type="button" onClick={applyToAbt6002} disabled={!hasAnySales}>Import into ABT-6002 &amp; View PDF</button>
-        <button className="btn btn-gold" type="button" onClick={() => window.print()} disabled={!printReady}>Print calculation with total fee</button>
+        <button className="btn btn-outline transfer-apply-button" type="button" onClick={() => void applyToAbt6002()} disabled={!hasAnySales}>Import into ABT-6002 &amp; View PDF</button>
+        <button className="btn btn-gold" type="button" onClick={() => void printCalculation()} disabled={!printReady}>Print calculation with total fee</button>
+        {projectTransactionId && <a className="btn btn-outline" href={`/transaction-portal?transactionId=${encodeURIComponent(projectTransactionId)}`}>Return to Project</a>}
       </div>
       {applyStatus && <p className="transfer-apply-status" role="status">{applyStatus}</p>}
 
