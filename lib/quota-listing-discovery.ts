@@ -52,6 +52,7 @@ export type SupplementalDiscoveryRun = {
 
 const discoveryConfig = discoveryConfigJson as DiscoveryConfig;
 const COUNTY_COVERAGE_DAYS = 7;
+const COUNTIES_PER_QUERY = 2;
 
 const COUNTIES = [
   "Alachua County", "Baker County", "Bay County", "Bradford County", "Brevard County", "Broward County",
@@ -211,7 +212,15 @@ function countiesForDay(dayNumber: number): string[] {
 
 function buildQuery(counties: string[]): string {
   const countyClause = counties.map((county) => `"${county}"`).join(" OR ");
-  return `Florida (${countyClause}) ("full quota liquor license" OR "quota liquor license" OR "full liquor license" OR "full alcohol license" OR "quota license") ("for sale" OR available OR "asset sale" OR "asking price")`;
+  return `Florida (${countyClause}) ("4COP" OR "3PS" OR "full quota liquor license" OR "quota liquor license" OR "full liquor license" OR "full alcohol license" OR "quota license") ("for sale" OR available OR "asset sale" OR "asking price")`;
+}
+
+function countyQueryBatches(counties: string[]): string[][] {
+  const batches: string[][] = [];
+  for (let index = 0; index < counties.length; index += COUNTIES_PER_QUERY) {
+    batches.push(counties.slice(index, index + COUNTIES_PER_QUERY));
+  }
+  return batches;
 }
 
 async function searchSource(apiKey: string, source: DiscoverySource, query: string): Promise<TavilyResult[]> {
@@ -246,40 +255,41 @@ async function searchSource(apiKey: string, source: DiscoverySource, query: stri
 export async function discoverQuotaPhraseListings(apiKey: string): Promise<SupplementalDiscoveryRun> {
   const dayNumber = Math.floor(Date.now() / 86400000);
   const countyBatch = countiesForDay(dayNumber);
-  const query = buildQuery(countyBatch);
   const sources = discoveryConfig.sources.filter((source) => source.autoPublish);
-  const settled = await Promise.allSettled(sources.map((source) => searchSource(apiKey, source, query)));
+  const tasks = sources.flatMap((source) => countyQueryBatches(countyBatch).map((counties) => ({
+    source,
+    query: buildQuery(counties)
+  })));
+  const settled = await Promise.allSettled(tasks.map((task) => searchSource(apiKey, task.source, task.query)));
 
   const qualifiedByUrl = new Map<string, Listing>();
   const sourceResults: SupplementalSourceResult[] = [];
   let searchResults = 0;
   let rejectedResults = 0;
 
-  settled.forEach((result, index) => {
-    const source = sources[index];
-    if (result.status === "rejected") {
-      sourceResults.push({
-        sourceId: source.sourceId,
-        sourceName: source.name,
-        checked: false,
-        results: 0,
-        qualified: 0,
-        rejected: 0,
-        error: result.reason instanceof Error ? result.reason.message : String(result.reason)
-      });
-      return;
-    }
-
+  for (const source of sources) {
     const uniqueResults = new Map<string, TavilyResult>();
-    for (const item of result.value) {
-      const rawUrl = item.url?.trim();
-      if (!rawUrl) continue;
-      try {
-        uniqueResults.set(canonicalizeSourceUrl(rawUrl), item);
-      } catch {
-        uniqueResults.set(rawUrl, item);
+    const errors: string[] = [];
+    let successfulQueries = 0;
+
+    settled.forEach((result, index) => {
+      if (tasks[index].source.sourceId !== source.sourceId) return;
+      if (result.status === "rejected") {
+        errors.push(result.reason instanceof Error ? result.reason.message : String(result.reason));
+        return;
       }
-    }
+
+      successfulQueries += 1;
+      for (const item of result.value) {
+        const rawUrl = item.url?.trim();
+        if (!rawUrl) continue;
+        try {
+          uniqueResults.set(canonicalizeSourceUrl(rawUrl), item);
+        } catch {
+          uniqueResults.set(rawUrl, item);
+        }
+      }
+    });
 
     let qualified = 0;
     let rejected = 0;
@@ -298,12 +308,13 @@ export async function discoverQuotaPhraseListings(apiKey: string): Promise<Suppl
     sourceResults.push({
       sourceId: source.sourceId,
       sourceName: source.name,
-      checked: true,
+      checked: successfulQueries > 0,
       results: uniqueResults.size,
       qualified,
-      rejected
+      rejected,
+      error: errors.length > 0 ? `${errors.length} county search${errors.length === 1 ? "" : "es"} failed: ${errors[0]}` : undefined
     });
-  });
+  }
 
   return {
     checkedSources: sourceResults.filter((source) => source.checked).length,

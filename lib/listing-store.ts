@@ -44,6 +44,7 @@ type ListingRow = {
   source_url: string | null;
   note: string | null;
   image: string;
+  status: "available" | "sold";
 };
 
 function rowToListing(row: ListingRow): Listing {
@@ -52,12 +53,30 @@ function rowToListing(row: ListingRow): Listing {
     type: row.license_type,
     price: row.price,
     priceLabel: row.price_label,
-    sourceRef: row.source_ref ?? undefined,
+    sourceRef: row.status === "available" ? row.source_ref ?? undefined : undefined,
     sourceName: row.source_name ?? undefined,
     sourceUrl: row.source_url ?? undefined,
     note: row.note ?? undefined,
     image: row.image,
   };
+}
+
+function identityKeys(listing: Pick<Listing, "county" | "type" | "price" | "priceLabel" | "sourceRef" | "sourceUrl">): string[] {
+  const keys = [`signature:${listing.county.trim().toLowerCase()}|${listing.type}|${listing.price ?? listing.priceLabel}`];
+  if (listing.sourceRef) keys.push(`ref:${listing.sourceRef.trim().toLowerCase()}`);
+  if (listing.sourceUrl) keys.push(`url:${listing.sourceUrl.trim().toLowerCase().replace(/\/+$/, "")}`);
+  return keys;
+}
+
+function rowIdentityKeys(row: ListingRow): string[] {
+  return identityKeys({
+    county: row.county,
+    type: row.license_type,
+    price: row.price,
+    priceLabel: row.price_label,
+    sourceRef: row.source_ref ?? undefined,
+    sourceUrl: row.source_url ?? undefined
+  });
 }
 
 function listingToRow(listing: Listing) {
@@ -101,18 +120,22 @@ export async function getMarketplaceListings(): Promise<Listing[]> {
 
   try {
     const response = await fetch(
-      `${process.env.SUPABASE_URL}/rest/v1/listings?select=county,license_type,price,price_label,source_ref,source_name,source_url,note,image&order=created_at.asc`,
+      `${process.env.SUPABASE_URL}/rest/v1/listings?select=county,license_type,price,price_label,source_ref,source_name,source_url,note,image,status&order=created_at.asc`,
       { headers: headers(), cache: "no-store" }
     );
 
     if (!response.ok) throw new Error(`Listing database read failed: ${response.status}`);
     const rows = (await response.json()) as ListingRow[];
+    const databaseIdentities = new Set(rows.flatMap(rowIdentityKeys));
+    const missingStaticListings = fallback.filter((listing) =>
+      identityKeys(listing).every((key) => !databaseIdentities.has(key))
+    );
     const databaseListings = rows.map(rowToListing);
-    const mergedListings = dedupeListings([...databaseListings, ...fallback]);
+    const mergedListings = dedupeListings([...missingStaticListings, ...databaseListings]);
 
-    // Keep Supabase synchronized with the complete built-in inventory while
-    // preserving any valid database-only listings imported from authorized feeds.
-    await upsertRows(mergedListings);
+    // Seed only built-in records that do not already exist. Existing database
+    // rows remain authoritative for refreshed prices and availability status.
+    await upsertRows(missingStaticListings);
     return mergedListings;
   } catch (error) {
     console.error(error);

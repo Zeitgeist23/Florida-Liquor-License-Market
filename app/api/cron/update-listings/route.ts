@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import type { Listing } from "@/data/listings";
 import { publishDiscoveredListings } from "@/lib/discovered-listing-store";
 import { discoverPublicListings } from "@/lib/listing-discovery";
+import { refreshKnownListings } from "@/lib/listing-refresh";
 import { discoverQuotaPhraseListings } from "@/lib/quota-listing-discovery";
 import { upsertMarketplaceListings } from "@/lib/listing-store";
 
@@ -93,6 +94,9 @@ export async function GET(request: NextRequest) {
     searchResults: 0,
     qualified: 0,
     inserted: 0,
+    refreshedExisting: 0,
+    priceUpdated: 0,
+    statusUpdated: 0,
     skippedExisting: 0,
     skippedDuplicateCandidate: 0,
     manualReviewCandidates: 0,
@@ -101,13 +105,15 @@ export async function GET(request: NextRequest) {
 
   if (autoDiscoveryEnabled && tavilyApiKey) {
     try {
-      const [primaryResult, supplementalResult] = await Promise.allSettled([
+      const [primaryResult, supplementalResult, refreshResult] = await Promise.allSettled([
         discoverPublicListings(tavilyApiKey),
-        discoverQuotaPhraseListings(tavilyApiKey)
+        discoverQuotaPhraseListings(tavilyApiKey),
+        refreshKnownListings(tavilyApiKey)
       ]);
 
       const primary = primaryResult.status === "fulfilled" ? primaryResult.value : undefined;
       const supplemental = supplementalResult.status === "fulfilled" ? supplementalResult.value : undefined;
+      const refresh = refreshResult.status === "fulfilled" ? refreshResult.value : undefined;
       const qualifiedListings = Array.from(
         new Map(
           [...(primary?.qualifiedListings ?? []), ...(supplemental?.qualifiedListings ?? [])]
@@ -122,6 +128,9 @@ export async function GET(request: NextRequest) {
         searchResults: (primary?.searchResults ?? 0) + (supplemental?.searchResults ?? 0),
         qualified: qualifiedListings.length,
         inserted: publish.inserted,
+        refreshedExisting: publish.refreshedExisting,
+        priceUpdated: publish.priceUpdated,
+        statusUpdated: publish.statusUpdated,
         skippedExisting: publish.skippedExisting,
         skippedDuplicateCandidate: publish.skippedDuplicateCandidate,
         manualReviewCandidates: primary?.manualReviewCandidates ?? 0,
@@ -129,6 +138,15 @@ export async function GET(request: NextRequest) {
         databaseConfigured: publish.databaseConfigured,
         sources: primary?.sourceResults ?? [],
         primaryError: primaryResult.status === "rejected" ? errorMessage(primaryResult) : undefined,
+        knownListingRefresh: {
+          checked: refresh?.checked ?? 0,
+          refreshed: refresh?.refreshed ?? 0,
+          priceUpdated: refresh?.priceUpdated ?? 0,
+          statusUpdated: refresh?.statusUpdated ?? 0,
+          failed: refresh?.failed ?? 0,
+          databaseConfigured: refresh?.databaseConfigured ?? false,
+          error: refreshResult.status === "rejected" ? errorMessage(refreshResult) : undefined
+        },
         supplemental: {
           checkedSources: supplemental?.checkedSources ?? 0,
           searchResults: supplemental?.searchResults ?? 0,
