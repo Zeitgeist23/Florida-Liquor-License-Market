@@ -289,6 +289,9 @@
 
 .license-types-quota > div:first-child > p {
   margin-top: 13px;
+  color: #c6d1d8;
+  font-size: 15px;
+  line-height: 1.65;
 }
 
 .license-types-quota-cards {
