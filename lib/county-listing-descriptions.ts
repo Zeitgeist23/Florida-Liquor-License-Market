@@ -36,6 +36,76 @@ const countyDescriptions: Record<string, string> = {
   "Volusia County": "Volusia County is home to Daytona Beach, with motorsports, Atlantic beaches, tourism, universities, dining, and growing residential communities.",
 };
 
+const countyPrincipalPlaces: Record<string, string[]> = {
+  "Alachua County": ["Gainesville", "Alachua", "Newberry", "High Springs", "Hawthorne"],
+  "Baker County": ["Macclenny", "Glen St. Mary"],
+  "Bay County": ["Panama City", "Panama City Beach", "Lynn Haven", "Callaway", "Mexico Beach"],
+  "Bradford County": ["Starke", "Lawtey", "Hampton", "Brooker"],
+  "Brevard County": ["Palm Bay", "Melbourne", "Titusville", "Cocoa", "Rockledge", "Cocoa Beach"],
+  "Broward County": ["Fort Lauderdale", "Hollywood", "Pembroke Pines", "Pompano Beach", "Coral Springs", "Miramar"],
+  "Calhoun County": ["Blountstown", "Altha"],
+  "Charlotte County": ["Punta Gorda", "Port Charlotte", "Englewood", "Rotonda West"],
+  "Citrus County": ["Inverness", "Crystal River", "Homosassa", "Lecanto"],
+  "Clay County": ["Orange Park", "Green Cove Springs", "Keystone Heights", "Penney Farms"],
+  "Collier County": ["Naples", "Marco Island", "Everglades City", "Immokalee"],
+  "Columbia County": ["Lake City", "Fort White"],
+  "DeSoto County": ["Arcadia"],
+  "Dixie County": ["Cross City", "Horseshoe Beach"],
+  "Duval County": ["Jacksonville", "Jacksonville Beach", "Atlantic Beach", "Neptune Beach", "Baldwin"],
+  "Escambia County": ["Pensacola", "Century", "Pensacola Beach", "Ferry Pass"],
+  "Flagler County": ["Palm Coast", "Flagler Beach", "Bunnell", "Beverly Beach"],
+  "Franklin County": ["Apalachicola", "Carrabelle"],
+  "Gadsden County": ["Quincy", "Chattahoochee", "Havana", "Midway", "Gretna"],
+  "Gilchrist County": ["Trenton", "Bell", "Fanning Springs"],
+  "Glades County": ["Moore Haven", "Buckhead Ridge", "Lakeport"],
+  "Gulf County": ["Port St. Joe", "Wewahitchka"],
+  "Hamilton County": ["Jasper", "Jennings", "White Springs"],
+  "Hardee County": ["Wauchula", "Bowling Green", "Zolfo Springs"],
+  "Hendry County": ["Clewiston", "LaBelle"],
+  "Hernando County": ["Brooksville", "Weeki Wachee", "Spring Hill"],
+  "Highlands County": ["Sebring", "Avon Park", "Lake Placid"],
+  "Hillsborough County": ["Tampa", "Plant City", "Temple Terrace", "Sun City Center"],
+  "Holmes County": ["Bonifay", "Ponce de Leon", "Westville", "Esto", "Noma"],
+  "Indian River County": ["Vero Beach", "Sebastian", "Fellsmere", "Indian River Shores", "Orchid"],
+  "Jackson County": ["Marianna", "Graceville", "Sneads", "Cottondale", "Grand Ridge"],
+  "Jefferson County": ["Monticello"],
+  "Lafayette County": ["Mayo"],
+  "Lake County": ["Clermont", "Leesburg", "Mount Dora", "Eustis", "Tavares", "Groveland"],
+  "Lee County": ["Cape Coral", "Fort Myers", "Bonita Springs", "Sanibel", "Fort Myers Beach"],
+  "Leon County": ["Tallahassee"],
+  "Levy County": ["Williston", "Chiefland", "Cedar Key", "Bronson", "Inglis"],
+  "Liberty County": ["Bristol"],
+  "Madison County": ["Madison", "Lee", "Greenville"],
+  "Manatee County": ["Bradenton", "Palmetto", "Anna Maria", "Holmes Beach", "Bradenton Beach"],
+  "Marion County": ["Ocala", "Belleview", "Dunnellon", "McIntosh", "Reddick"],
+  "Martin County": ["Stuart", "Indiantown", "Jupiter Island", "Sewall's Point"],
+  "Miami-Dade County": ["Miami", "Miami Beach", "Hialeah", "Homestead", "Doral", "Coral Gables"],
+  "Monroe County": ["Key West", "Marathon", "Islamorada", "Key Colony Beach", "Layton"],
+  "Nassau County": ["Fernandina Beach", "Callahan", "Hilliard"],
+  "Okaloosa County": ["Fort Walton Beach", "Destin", "Crestview", "Niceville", "Mary Esther"],
+  "Okeechobee County": ["Okeechobee"],
+  "Orange County": ["Orlando", "Apopka", "Winter Garden", "Ocoee", "Winter Park", "Maitland"],
+  "Osceola County": ["Kissimmee", "St. Cloud"],
+  "Palm Beach County": ["West Palm Beach", "Boca Raton", "Boynton Beach", "Delray Beach", "Jupiter", "Wellington"],
+  "Pasco County": ["New Port Richey", "Dade City", "Zephyrhills", "Port Richey", "San Antonio"],
+  "Pinellas County": ["St. Petersburg", "Clearwater", "Largo", "Dunedin", "Pinellas Park", "Tarpon Springs"],
+  "Polk County": ["Lakeland", "Winter Haven", "Bartow", "Haines City", "Auburndale", "Lake Wales"],
+  "Putnam County": ["Palatka", "Crescent City", "Interlachen", "Welaka", "Pomona Park"],
+  "Santa Rosa County": ["Milton", "Gulf Breeze", "Navarre", "Jay"],
+  "Sarasota County": ["Sarasota", "North Port", "Venice", "Longboat Key"],
+  "Seminole County": ["Sanford", "Altamonte Springs", "Oviedo", "Winter Springs", "Lake Mary", "Casselberry"],
+  "St. Johns County": ["St. Augustine", "St. Augustine Beach", "Ponte Vedra Beach", "Hastings"],
+  "St. Lucie County": ["Port St. Lucie", "Fort Pierce", "St. Lucie Village"],
+  "Sumter County": ["Wildwood", "Bushnell", "The Villages", "Coleman", "Webster"],
+  "Suwannee County": ["Live Oak", "Branford"],
+  "Taylor County": ["Perry", "Steinhatchee"],
+  "Union County": ["Lake Butler", "Raiford", "Worthington Springs"],
+  "Volusia County": ["Deltona", "Daytona Beach", "DeLand", "Ormond Beach", "New Smyrna Beach", "Port Orange"],
+  "Wakulla County": ["Crawfordville", "Sopchoppy", "St. Marks"],
+  "Walton County": ["DeFuniak Springs", "Freeport", "Paxton", "Miramar Beach", "Santa Rosa Beach"],
+  "Washington County": ["Chipley", "Vernon", "Caryville", "Wausau", "Ebro"],
+};
+
 // U.S. Census Bureau Vintage 2024 county population estimates.
 const countyPopulations2024: Record<string, number> = {
   "Alachua County": 291782,
@@ -132,11 +202,15 @@ export function countyListingDescription(county: string) {
   return countyDescriptions[county] ?? `${county || "This Florida county"} offers a mix of local commerce, residential communities, tourism, dining, and hospitality activity within Florida.`;
 }
 
+export function countyPrincipalPlacesLine(county: string) {
+  const places = countyPrincipalPlaces[county];
+  if (!places?.length) return "";
+  return `Principal cities and communities: ${places.join(", ")}.`;
+}
+
 export function marketplaceListingDescriptionParts({
   county,
   licenseType,
-  licenseStatus,
-  preferredTiming,
 }: MarketplaceDescriptionInput) {
   const population = countyPopulations2024[county];
   const countyDescription = countyListingDescription(county);
@@ -146,20 +220,18 @@ export function marketplaceListingDescriptionParts({
         `${county} (estimated 2024 population ${population.toLocaleString("en-US")})`
       )
     : countyDescription;
-  const sellerDetails = licenseStatus?.trim()
-    ? `Seller-reported status: ${licenseStatus.trim()}${preferredTiming?.trim() ? `; preferred sale timing: ${preferredTiming.trim()}` : ""}.`
-    : "";
+  const cities = countyPrincipalPlacesLine(county);
 
   return {
     license: licenseUseDescription(licenseType),
     county: populatedCountyDescription,
-    sellerDetails,
+    cities,
   };
 }
 
 export function marketplaceListingDescription(input: MarketplaceDescriptionInput) {
   const description = marketplaceListingDescriptionParts(input);
-  return [description.license, description.county, description.sellerDetails]
+  return [description.license, description.county, description.cities]
     .filter(Boolean)
     .join(" ");
 }
