@@ -56,7 +56,7 @@ export default function AdminCodeLogin({ title, onAuthenticated }: { title: stri
   return (
     <section className={styles.panel}>
       <div className={styles.brand} aria-label="Florida Liquor License Market">
-        <div className={styles.mark} aria-hidden="true">FL</div>
+        <img className={styles.mark} src="/api/email-logo" alt="Florida Liquor License Market seal" />
         <div className={styles.brandName}>
           <strong>Florida Liquor License</strong>
           <span>Market</span>

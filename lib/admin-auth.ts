@@ -10,7 +10,16 @@ function adminKey() {
 }
 
 function adminSecret() {
-  return adminKey() || process.env.GOOGLE_REFRESH_TOKEN || process.env.GOOGLE_CLIENT_SECRET || "";
+  return (
+    adminKey() ||
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.STRIPE_SECRET_KEY ||
+    process.env.STRIPE_WEBHOOK_SECRET ||
+    process.env.CRON_SECRET ||
+    process.env.GOOGLE_REFRESH_TOKEN ||
+    process.env.GOOGLE_CLIENT_SECRET ||
+    ""
+  );
 }
 
 function tokenFor(key: string) {
