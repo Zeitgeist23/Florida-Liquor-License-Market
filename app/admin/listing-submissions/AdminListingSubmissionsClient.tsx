@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
+import AdminCodeLogin from "@/components/AdminCodeLogin";
+
 type Submission = {
   id: string;
   submissionRef: string;
@@ -150,7 +152,6 @@ function SubmissionCard({ submission, reload }: { submission: Submission; reload
 export default function AdminListingSubmissionsClient() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
-  const [key, setKey] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -179,27 +180,6 @@ export default function AdminListingSubmissionsClient() {
     void load();
   }, [load]);
 
-  async function login(event: React.FormEvent) {
-    event.preventDefault();
-    setLoading(true);
-    setError("");
-    try {
-      const response = await fetch("/api/admin/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key }),
-      });
-      const payload = (await response.json()) as { error?: string };
-      if (!response.ok) throw new Error(payload.error || "Login failed.");
-      setKey("");
-      await load();
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Login failed.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   async function logout() {
     await fetch("/api/admin/session", { method: "DELETE" });
     setAuthenticated(false);
@@ -209,16 +189,7 @@ export default function AdminListingSubmissionsClient() {
   if (authenticated === false) {
     return (
       <main className="admin-review-page">
-        <section className="admin-login-panel">
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-          <h1>Listing Review</h1>
-          <p>Enter the private FLLM admin key.</p>
-          <form onSubmit={login}>
-            <input type="password" value={key} onChange={(event) => setKey(event.target.value)} autoFocus required />
-            <button disabled={loading}>{loading ? "Signing in…" : "Sign In"}</button>
-          </form>
-          {error && <p className="admin-error">{error}</p>}
-        </section>
+        <AdminCodeLogin title="Listing Review" onAuthenticated={load} />
       </main>
     );
   }

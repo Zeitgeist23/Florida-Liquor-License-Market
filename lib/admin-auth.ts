@@ -9,13 +9,17 @@ function adminKey() {
   return process.env.FLLM_ADMIN_KEY ?? "";
 }
 
+function adminSecret() {
+  return adminKey() || process.env.GOOGLE_REFRESH_TOKEN || process.env.GOOGLE_CLIENT_SECRET || "";
+}
+
 function tokenFor(key: string) {
   return createHash("sha256").update(`fllm-admin:${key}`, "utf8").digest("hex");
 }
 
 export function configuredAdminToken() {
-  const key = adminKey();
-  return key ? tokenFor(key) : "";
+  const secret = adminSecret();
+  return secret ? tokenFor(secret) : "";
 }
 
 export function validAdminKey(candidate: string) {
