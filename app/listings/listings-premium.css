@@ -216,7 +216,7 @@
 .results-page .result-card {
   min-width: 0;
   display: grid !important;
-  grid-template-columns: minmax(0, 1.08fr) minmax(145px, .92fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(145px, .8fr);
   grid-auto-rows: auto;
   align-content: start;
   overflow: hidden;
@@ -237,7 +237,7 @@
   grid-column: 2;
   grid-row: 1 / span 5;
   width: 100%;
-  height: 190px !important;
+  height: 171px !important;
   padding: 14px 12px 4px 0;
   overflow: hidden;
   border: 0 !important;
@@ -354,7 +354,9 @@
 }
 
 .results-page .result-description .result-cities {
-  color: #e2e7e9 !important;
+  color: #aeb9bf !important;
+  font-size: 10px !important;
+  line-height: 1.42 !important;
 }
 
 .results-page .result-actions {

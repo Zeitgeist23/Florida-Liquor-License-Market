@@ -60,7 +60,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <div className="paid-listing-description">
             <p>{description.license}</p>
             <p>{description.county}</p>
-            {description.cities && <p>{description.cities}</p>}
+            {description.cities && <p className="paid-listing-cities">{description.cities}</p>}
           </div>
           {listing.message && <p className="paid-listing-description"><strong>Seller notes:</strong> {listing.message}</p>}
           <p className="paid-listing-reference">Listing reference: {listing.submissionRef}</p>
