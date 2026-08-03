@@ -316,7 +316,7 @@
 }
 
 .results-page .result-facts span:last-child::after {
-  content: " / Available";
+  content: none;
 }
 
 .results-page .result-body > small {
