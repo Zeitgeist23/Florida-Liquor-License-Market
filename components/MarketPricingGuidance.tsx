@@ -10,8 +10,6 @@ type ComparableListing = {
   licenseType: string;
   status: string;
   askingPrice: number;
-  sourceName: string;
-  sourceUrl: string;
 };
 
 type PricingGuidance = {
@@ -153,7 +151,6 @@ export default function MarketPricingGuidance({
                           <th>License type</th>
                           <th>Status</th>
                           <th>Asking price</th>
-                          <th>Source</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -163,11 +160,6 @@ export default function MarketPricingGuidance({
                             <td>{listing.licenseType}</td>
                             <td><span className={styles.status}>{listing.status}</span></td>
                             <td className={styles.tablePrice}>{currency(listing.askingPrice)}</td>
-                            <td>
-                              <a href={listing.sourceUrl} target={listing.sourceUrl.startsWith("http") ? "_blank" : undefined} rel={listing.sourceUrl.startsWith("http") ? "noreferrer" : undefined}>
-                                {listing.sourceName}
-                              </a>
-                            </td>
                           </tr>
                         ))}
                       </tbody>

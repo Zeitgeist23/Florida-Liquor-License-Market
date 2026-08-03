@@ -45,10 +45,6 @@ export async function GET(request: Request) {
       licenseType: listing.type,
       status: listing.licenseStatus || "Available",
       askingPrice: listing.price as number,
-      sourceName: listing.sourceName || "Florida Liquor License Market",
-      sourceUrl:
-        listing.sourceUrl ||
-        `/listings?county=${encodeURIComponent(listing.county)}&type=${encodeURIComponent(listing.type)}`,
     }));
 
   const prices = comparables.map((listing) => listing.askingPrice);
