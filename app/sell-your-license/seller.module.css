@@ -1001,6 +1001,11 @@
   height: auto;
   min-height: 310px;
   margin-bottom: 73px;
+  background: linear-gradient(145deg, #061728, #0d2942);
+}
+
+.modernPage .expandedPreviewCard .previewMap svg > rect {
+  fill: transparent;
 }
 
 .modernPage .expandedPreviewCard,
@@ -1050,6 +1055,7 @@
 }
 
 .modernPage .previewContinueButton {
+  display: block;
   width: 60%;
   min-height: 56px;
   margin: 20px auto 0;
