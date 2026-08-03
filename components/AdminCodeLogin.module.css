@@ -34,18 +34,16 @@
 .brandName span { margin-top: 5px; color: #f1a600; font-size: 11px; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; }
 .eyebrow { margin: 0 0 8px; color: #f1a600; font-size: 10px; font-weight: 900; letter-spacing: 0.13em; text-transform: uppercase; }
 .panel h1 { margin: 0 0 10px; color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: 34px; line-height: 1.05; }
-.description, .notice, .error { margin: 0; font-size: 14px; line-height: 1.55; }
+.description, .error { margin: 0; font-size: 14px; line-height: 1.55; }
 .description { color: #b9c5cc; }
 .form { display: grid; gap: 10px; margin-top: 20px; }
 .form label { color: #d9e2e7; font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; }
-.form input { width: 100%; box-sizing: border-box; padding: 13px 14px; border: 1px solid #597286; border-radius: 4px; outline: none; background: #04121d; color: #fff; font: 700 21px/1 Arial, Helvetica, sans-serif; letter-spacing: 0.22em; text-align: center; }
+.form input { width: 100%; box-sizing: border-box; padding: 13px 14px; border: 1px solid #597286; border-radius: 4px; outline: none; background: #04121d; color: #fff; font: 700 16px/1 Arial, Helvetica, sans-serif; letter-spacing: 0.06em; }
 .form input:focus { border-color: #f1a600; box-shadow: 0 0 0 3px rgba(241, 166, 0, 0.16); }
-.primary, .secondary { min-height: 44px; border-radius: 4px; font-size: 12px; font-weight: 900; cursor: pointer; }
+.primary { min-height: 44px; border-radius: 4px; font-size: 12px; font-weight: 900; cursor: pointer; }
 .primary { border: 1px solid #f5b722; background: #f1a600; color: #07101a; }
-.secondary { border: 0; background: transparent; color: #9dd8fa; text-decoration: underline; }
-.primary:disabled, .secondary:disabled { opacity: 0.55; cursor: wait; }
-.notice, .error { margin-top: 14px; padding: 10px 12px; border-radius: 4px; }
-.notice { border: 1px solid #397358; background: rgba(35, 119, 77, 0.18); color: #bfe9d1; }
+.primary:disabled { opacity: 0.55; cursor: wait; }
+.error { margin-top: 14px; padding: 10px 12px; border-radius: 4px; }
 .error { border: 1px solid #8f3330; background: rgba(91, 15, 15, 0.28); color: #ffb7b2; }
 
 @media (max-width: 520px) {
