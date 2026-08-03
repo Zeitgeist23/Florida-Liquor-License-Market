@@ -71,6 +71,7 @@ export default function SellerListingForm() {
   const [reviewOpen, setReviewOpen] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [consultationSubmitted, setConsultationSubmitted] = useState(false);
   const [status, setStatus] = useState("");
   const [isError, setIsError] = useState(false);
   const [askingPrice, setAskingPrice] = useState("");
@@ -145,7 +146,11 @@ export default function SellerListingForm() {
     const data = new FormData(form);
     setSubmitting(true);
     setIsError(false);
-    setStatus("Saving your listing and opening secure Stripe checkout…");
+    setStatus(
+      saleMethod === "Broker-Assisted Listing"
+        ? "Sending your broker-assisted consultation request…"
+        : "Saving your listing and opening secure Stripe checkout…"
+    );
 
     try {
       const notes = [`Sale method: ${saleMethod}`];
@@ -180,14 +185,31 @@ export default function SellerListingForm() {
           license_status: String(data.get("self_license_status") || "Initial confidential listing submission"),
           preferred_timing: String(data.get("self_preferred_timing") || ""),
           message: notes.join("\n\n"),
+          sale_method: saleMethod,
           seller_certification: Boolean(data.get("seller_certification")),
           fee_agreement: Boolean(data.get("fee_agreement")),
           honey: String(data.get("_honey") || ""),
         }),
       });
 
-      const result = (await response.json()) as { checkoutUrl?: string; error?: string };
-      if (!response.ok || !result.checkoutUrl) {
+      const result = (await response.json()) as {
+        checkoutUrl?: string;
+        consultationRequested?: boolean;
+        submissionRef?: string;
+        error?: string;
+      };
+      if (!response.ok) {
+        throw new Error(result.error || "Unable to submit your request.");
+      }
+      if (brokerAssisted && result.consultationRequested) {
+        setSubmitting(false);
+        setConsultationSubmitted(true);
+        setStatus(
+          `Your consultation request has been received${result.submissionRef ? ` (${result.submissionRef})` : ""}. No payment was charged. An FLLM representative will contact you.`
+        );
+        return;
+      }
+      if (!result.checkoutUrl) {
         throw new Error(result.error || "Unable to create secure checkout.");
       }
       window.location.assign(result.checkoutUrl);
@@ -529,9 +551,19 @@ export default function SellerListingForm() {
             }}>
               <section className={styles.reviewModal} role="dialog" aria-modal="true" aria-labelledby="review-heading">
                 <button className={styles.closeButton} type="button" aria-label="Close review" disabled={submitting} onClick={() => setReviewOpen(false)}>×</button>
-                <span className={styles.reviewKicker}>Confidential Listing · Step 3 of 3</span>
-                <h2 id="review-heading">Verify Your License Details &amp; Complete Your Contact Information</h2>
-                <p>Review the confirmed listing details below, complete your contact information, and proceed to secure checkout.</p>
+                <span className={styles.reviewKicker}>
+                  {brokerAssisted ? "Confidential Consultation Request · Final Step" : "Confidential Listing · Step 3 of 3"}
+                </span>
+                <h2 id="review-heading">
+                  {brokerAssisted
+                    ? "Complete Your Contact Information"
+                    : "Verify Your License Details & Complete Your Contact Information"}
+                </h2>
+                <p>
+                  {brokerAssisted
+                    ? "Review the details below and submit your request. No payment is required for a broker-assisted consultation."
+                    : "Review the confirmed listing details below, complete your contact information, and proceed to secure checkout."}
+                </p>
 
                 <div className={styles.reviewFields}>
                   <label className={completedContactFields.name ? styles.contactFieldComplete : styles.contactField}>
@@ -613,18 +645,30 @@ export default function SellerListingForm() {
 
                 <div className={styles.agreements}>
                   <label><input type="checkbox" required name="seller_certification" value="Certified" /><span>I certify that I own the license or am authorized to advertise it, and that the submitted information is accurate.</span></label>
-                  <label><input type="checkbox" required name="fee_agreement" value="Accepted" /><span>I understand that $14.95 is a one-time listing-submission fee. Payment does not guarantee publication, and rejected submissions are eligible for a refund.</span></label>
+                  {brokerAssisted ? (
+                    <p>No payment is required or charged for this consultation request. Representation begins only under a separate written agreement accepted by the parties.</p>
+                  ) : (
+                    <label><input type="checkbox" required name="fee_agreement" value="Accepted" /><span>I understand that $14.95 is a one-time listing-submission fee. Payment does not guarantee publication, and rejected submissions are eligible for a refund.</span></label>
+                  )}
                 </div>
 
                 <button
                   className={styles.paymentButton}
                   type="button"
-                  disabled={submitting}
+                  disabled={submitting || consultationSubmitted}
                   aria-busy={submitting}
                   onClick={submitListing}
                 >
                   {submitting && <span className={styles.paymentSpinner} aria-hidden="true" />}
-                  {submitting ? "Creating Secure Checkout…" : "Proceed to Secure Payment — $14.95"}
+                  {brokerAssisted
+                    ? consultationSubmitted
+                      ? "Consultation Request Submitted"
+                      : submitting
+                        ? "Sending Consultation Request…"
+                        : "Submit Consultation Request — No Charge"
+                    : submitting
+                      ? "Creating Secure Checkout…"
+                      : "Proceed to Secure Payment — $14.95"}
                 </button>
                 <p className={isError ? styles.errorStatus : styles.status} role="status" aria-live="polite">{status}</p>
               </section>
@@ -635,4 +679,3 @@ export default function SellerListingForm() {
     </main>
   );
 }
-
