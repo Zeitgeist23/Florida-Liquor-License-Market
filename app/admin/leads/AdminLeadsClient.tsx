@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+import AdminCodeLogin from "@/components/AdminCodeLogin";
+
 type Lead = {
   id: string;
   submissionRef: string;
@@ -121,7 +123,6 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
 export default function AdminLeadsClient() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
-  const [key, setKey] = useState("");
   const [filter, setFilter] = useState<"all" | "buyers" | "sellers">("all");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
@@ -172,27 +173,6 @@ export default function AdminLeadsClient() {
     });
   }, [filter, leads, search]);
 
-  async function login(event: React.FormEvent) {
-    event.preventDefault();
-    setLoading(true);
-    setError("");
-    try {
-      const response = await fetch("/api/admin/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key }),
-      });
-      const payload = (await response.json()) as { error?: string };
-      if (!response.ok) throw new Error(payload.error || "Login failed.");
-      setKey("");
-      await load();
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Login failed.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   async function logout() {
     await fetch("/api/admin/session", { method: "DELETE" });
     setAuthenticated(false);
@@ -202,17 +182,7 @@ export default function AdminLeadsClient() {
   if (authenticated === false) {
     return (
       <main className="leads-page">
-        <section className="leads-login">
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-          <span>Private administration</span>
-          <h1>Lead Database</h1>
-          <p>Enter your private FLLM administrator key.</p>
-          <form onSubmit={login}>
-            <input type="password" value={key} onChange={(event) => setKey(event.target.value)} autoFocus required />
-            <button disabled={loading}>{loading ? "Signing in…" : "Sign In"}</button>
-          </form>
-          {error && <p className="leads-error">{error}</p>}
-        </section>
+        <AdminCodeLogin title="Lead Database" onAuthenticated={load} />
       </main>
     );
   }
