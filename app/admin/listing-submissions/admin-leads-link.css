@@ -1,0 +1,16 @@
+.admin-leads-link {
+  display: inline-grid;
+  place-items: center;
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 4px;
+  background: #071a3a;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.admin-review-header button:nth-of-type(1) {
+  background: #c88908;
+  color: #071a3a;
+}

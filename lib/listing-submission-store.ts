@@ -92,6 +92,21 @@ export type CreateSubmissionInput = {
   requiresPayment?: boolean;
 };
 
+export type CreateBuyerLeadInput = {
+  fullName: string;
+  email: string;
+  phone: string;
+  listingReference: string;
+  listingRequested: string;
+  offerAmountText: string;
+  purchaseMethod: string;
+  targetClosing: string;
+  proofOfFunds?: string | null;
+  offerExpiration?: string | null;
+  contingencies?: string | null;
+  message?: string | null;
+};
+
 function databaseConfigured() {
   return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
 }
@@ -170,6 +185,94 @@ function makeSubmissionRef(requiresPayment: boolean) {
   const token = randomBytes(4).toString("hex").toUpperCase();
   const prefix = requiresPayment ? "FLLM-PAID" : "FLLM-CONSULT";
   return `${prefix}-${date}-${token}`;
+}
+
+function makeBuyerLeadRef() {
+  const date = new Date().toISOString().slice(0, 10).replaceAll("-", "");
+  const token = randomBytes(4).toString("hex").toUpperCase();
+  return `FLLM-BUYER-${date}-${token}`;
+}
+
+function buyerListingParts(listingRequested: string) {
+  const requested = cleanText(listingRequested, 180);
+  const licenseType = /3PS/i.test(requested)
+    ? "3PS Quota / Package Store"
+    : "4COP Quota";
+  const county = requested
+    .replace(/\s+(?:4COP|3PS).*$/i, "")
+    .trim() || "Florida";
+  return { requested, county, licenseType };
+}
+
+export async function createBuyerLead(input: CreateBuyerLeadInput) {
+  requireDatabase();
+
+  const fullName = cleanText(input.fullName, 160);
+  const email = cleanText(input.email, 254).toLowerCase();
+  const phone = cleanText(input.phone, 60);
+  const listingReference = cleanText(input.listingReference, 100);
+  const { requested, county, licenseType } = buyerListingParts(input.listingRequested);
+  const offerAmountText = cleanText(input.offerAmountText, 60);
+  const offerAmount = parseAskingPrice(offerAmountText);
+  const purchaseMethod = cleanText(input.purchaseMethod, 160);
+  const targetClosing = cleanText(input.targetClosing, 120);
+
+  if (!fullName || !email || !phone || !listingReference || !requested || offerAmount === null || !purchaseMethod || !targetClosing) {
+    throw new Error("Please complete all required offer fields.");
+  }
+  if (!/^\S+@\S+\.\S+$/.test(email)) {
+    throw new Error("Please enter a valid email address.");
+  }
+
+  const details = {
+    purchaseMethod,
+    targetClosing,
+    proofOfFunds: cleanText(input.proofOfFunds, 160) || null,
+    offerExpiration: cleanText(input.offerExpiration, 40) || null,
+    contingencies: cleanText(input.contingencies, 5000) || null,
+    notes: cleanText(input.message, 5000) || null,
+  };
+  const now = new Date().toISOString();
+  const row = {
+    submission_ref: makeBuyerLeadRef(),
+    full_name: fullName,
+    first_name: fullName.split(/\s+/)[0] || "there",
+    email,
+    phone,
+    county,
+    license_type: licenseType,
+    asking_price: offerAmount,
+    asking_price_text: offerAmountText,
+    license_status: "Buyer offer",
+    preferred_timing: targetClosing,
+    message: JSON.stringify(details),
+    status: "pending_payment" satisfies SubmissionStatus,
+    payment_email_status: "pending" satisfies EmailDeliveryStatus,
+    approval_email_status: "pending" satisfies EmailDeliveryStatus,
+    listing_title: requested,
+    approved_license_type: licenseType,
+    approved_asking_price: offerAmount,
+    live_listing_ref: listingReference,
+    created_at: now,
+    updated_at: now,
+  };
+
+  const response = await fetch(endpoint("listing_submissions"), {
+    method: "POST",
+    headers: supabaseHeaders({ Prefer: "return=representation" }),
+    body: JSON.stringify(row),
+    cache: "no-store",
+  });
+  if (!response.ok) {
+    throw new Error(`Could not save the buyer lead: ${response.status} ${await response.text()}`);
+  }
+  const rows = (await response.json()) as SubmissionRow[];
+  if (!rows[0]) throw new Error("The buyer lead was not returned by the database.");
+  return toSubmission(rows[0]);
+}
+
+export function isBuyerLead(submission: Pick<ListingSubmission, "submissionRef">) {
+  return submission.submissionRef.startsWith("FLLM-BUYER-");
 }
 
 export async function createListingSubmission(input: CreateSubmissionInput) {
@@ -377,9 +480,13 @@ export async function approveListingSubmission(input: {
 }
 
 export async function listListingSubmissions() {
+  return (await listLeadSubmissions()).filter((submission) => !isBuyerLead(submission));
+}
+
+export async function listLeadSubmissions() {
   requireDatabase();
   const response = await fetch(
-    endpoint("listing_submissions?select=*&order=created_at.desc&limit=250"),
+    endpoint("listing_submissions?select=*&order=created_at.desc&limit=500"),
     { headers: supabaseHeaders(), cache: "no-store" }
   );
   if (!response.ok) throw new Error(`Could not list submissions: ${response.status}`);

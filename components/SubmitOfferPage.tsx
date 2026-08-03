@@ -62,7 +62,7 @@ export default function SubmitOfferPage() {
         formData.set("_template", "table");
         formData.set("_captcha", "false");
 
-        response = await fetch("https://formsubmit.co/ajax/JWigg023@gmail.com", {
+        response = await fetch("https://formsubmit.co/ajax/listings@floridaliquorlicensemarket.com", {
           method: "POST",
           headers: { Accept: "application/json" },
           body: formData,
