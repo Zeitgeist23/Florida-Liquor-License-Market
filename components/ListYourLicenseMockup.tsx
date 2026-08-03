@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import MarketPricingGuidance from "@/components/MarketPricingGuidance";
 
 type ListingPath = "self" | "broker";
 
@@ -383,6 +384,14 @@ export default function ListYourLicenseMockup() {
                     <option>Either phone or email</option>
                   </select>
                 </label>
+                <MarketPricingGuidance
+                  county={county}
+                  licenseType={licenseType}
+                  currentPrice={quickValues.self_asking_price}
+                  onUsePrice={(price) =>
+                    updateQuickValue("self_asking_price", formatQuickCurrency(String(price)))
+                  }
+                />
               </>
             ) : (
               <>
@@ -506,4 +515,3 @@ export default function ListYourLicenseMockup() {
     </main>
   );
 }
-

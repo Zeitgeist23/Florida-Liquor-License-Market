@@ -5,6 +5,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import styles from "@/app/sell-your-license/seller.module.css";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import MarketPricingGuidance from "@/components/MarketPricingGuidance";
 import {
   marketplaceListingDescriptionParts,
   sellerReportedStatusLabel,
@@ -384,6 +385,7 @@ export default function SellerListingForm() {
                       <option>Either phone or email</option>
                     </select>
                   </label>
+
                 </>
               ) : (
                 <>
@@ -454,6 +456,13 @@ export default function SellerListingForm() {
                       <option>Either phone or email</option>
                     </select>
                   </label>
+
+                  <MarketPricingGuidance
+                    county={county}
+                    licenseType={licenseType}
+                    currentPrice={askingPrice}
+                    onUsePrice={(price) => setAskingPrice(formatCurrency(String(price)))}
+                  />
                 </>
               )}
               </div>
