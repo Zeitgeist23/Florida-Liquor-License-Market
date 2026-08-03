@@ -20,19 +20,12 @@
 }
 
 .mark {
-  width: 52px;
-  height: 52px;
-  flex: 0 0 52px;
-  display: grid;
-  place-items: center;
-  border: 2px solid #f1a600;
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  display: block;
   border-radius: 50%;
-  color: #f1a600;
-  background: #030d14;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 17px;
-  font-weight: 800;
-  letter-spacing: -0.04em;
+  object-fit: contain;
 }
 
 .brandName { min-width: 0; line-height: 1.04; }
