@@ -1019,9 +1019,14 @@
   font-size: 14px;
 }
 
-.modernPage .expandedPreviewCard .previewBody > small {
+.modernPage .expandedPreviewCard .previewDescription {
   min-height: 44px;
-  font-size: 13px;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.modernPage .expandedPreviewCard .previewDescription p {
+  margin-bottom: 13px;
 }
 
 .modernPage .expandedPreviewCard .previewActions span {
@@ -1142,14 +1147,26 @@
   font-size: 11px;
 }
 
-.modernPage .previewBody > small {
+.modernPage .previewDescription {
   grid-column: 1;
   display: block;
   min-height: 34px;
   margin: 7px 8px 0 16px;
   color: #bfc3c5;
-  font-size: 10px;
-  line-height: 1.42;
+  font-size: 11px;
+  line-height: 1.48;
+}
+
+.modernPage .previewDescription p {
+  margin: 0 0 8px;
+}
+
+.modernPage .previewDescription p:last-child {
+  margin-bottom: 0;
+}
+
+.modernPage .previewDescription .previewSellerDetails {
+  color: #d6dde1;
 }
 
 .modernPage .previewActions {
@@ -1454,4 +1471,3 @@
     text-align: center;
   }
 }
-
