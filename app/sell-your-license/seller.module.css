@@ -1171,7 +1171,7 @@
 .modernPage .previewDescription {
   grid-column: 1;
   display: block;
-  min-height: 34px;
+  min-height: 130px;
   margin: 12px 12px 0 20px;
   color: #d7dde0;
   font-size: 13px;
