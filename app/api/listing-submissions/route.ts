@@ -7,6 +7,10 @@ import {
   getSubmissionByCheckoutSession,
 } from "@/lib/listing-submission-store";
 import { createListingCheckoutSession } from "@/lib/stripe-listing-checkout";
+import {
+  notifyFllmOfBrokerConsultation,
+  sendBrokerConsultationAcknowledgement,
+} from "@/lib/fllm-email";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -23,6 +27,7 @@ type RequestBody = {
   message?: string;
   seller_certification?: boolean | string;
   fee_agreement?: boolean | string;
+  sale_method?: string;
   honey?: string;
 };
 
@@ -38,9 +43,14 @@ export async function POST(request: Request) {
     if (body.honey) {
       return NextResponse.json({ ok: true, checkoutUrl: "/" });
     }
-    if (!accepted(body.seller_certification) || !accepted(body.fee_agreement)) {
+    const brokerAssisted = body.sale_method === "Broker-Assisted Listing";
+    if (!accepted(body.seller_certification) || (!brokerAssisted && !accepted(body.fee_agreement))) {
       return NextResponse.json(
-        { error: "Please accept both seller certifications before continuing." },
+        {
+          error: brokerAssisted
+            ? "Please accept the seller certification before requesting a consultation."
+            : "Please accept both seller certifications before continuing.",
+        },
         { status: 400 }
       );
     }
@@ -55,8 +65,28 @@ export async function POST(request: Request) {
       licenseStatus: body.license_status ?? "",
       preferredTiming: body.preferred_timing,
       message: body.message,
+      requiresPayment: !brokerAssisted,
     });
     submissionId = submission.id;
+
+    if (brokerAssisted) {
+      try {
+        await notifyFllmOfBrokerConsultation(submission);
+      } catch (notificationError) {
+        console.error("Broker consultation notification failed", notificationError);
+      }
+      try {
+        await sendBrokerConsultationAcknowledgement(submission);
+      } catch (acknowledgementError) {
+        console.error("Broker consultation acknowledgement failed", acknowledgementError);
+      }
+
+      return NextResponse.json({
+        ok: true,
+        submissionRef: submission.submissionRef,
+        consultationRequested: true,
+      });
+    }
 
     const checkout = await createListingCheckoutSession(submission, request.url);
     await attachCheckoutSession(submission.id, checkout.id);

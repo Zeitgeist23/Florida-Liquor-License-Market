@@ -348,6 +348,77 @@ export async function sendPaymentReceivedEmail(submission: ListingSubmission) {
   });
 }
 
+export async function notifyFllmOfBrokerConsultation(submission: ListingSubmission) {
+  const reviewEmail = process.env.BROKER_CONSULTATION_REVIEW_EMAIL || senderEmail();
+  const details = `
+    <p style="margin:0 0 18px;"><strong>A seller has requested a broker-assisted consultation.</strong></p>
+    <p style="margin:0 0 18px;">
+      <strong>Reference:</strong> ${escapeHtml(submission.submissionRef)}<br>
+      <strong>Name:</strong> ${escapeHtml(submission.fullName)}<br>
+      <strong>Email:</strong> <a href="mailto:${escapeHtml(submission.email)}">${escapeHtml(submission.email)}</a><br>
+      <strong>Phone:</strong> ${escapeHtml(submission.phone)}<br>
+      <strong>County:</strong> ${escapeHtml(countyLabel(submission.county))}<br>
+      <strong>License Type:</strong> ${escapeHtml(submission.licenseType)}
+    </p>
+    <p style="margin:0 0 18px;"><strong>Consultation details:</strong><br>${escapeHtml(submission.message || "None provided").replaceAll("\n", "<br>")}</p>
+    <p style="margin:0;">No listing fee was charged. Contact the seller to discuss services and any separate written agreement.</p>`;
+
+  const text = `A seller has requested a broker-assisted consultation.
+
+Reference: ${submission.submissionRef}
+Name: ${submission.fullName}
+Email: ${submission.email}
+Phone: ${submission.phone}
+County: ${countyLabel(submission.county)}
+License Type: ${submission.licenseType}
+
+Consultation details:
+${submission.message || "None provided"}
+
+No listing fee was charged. Contact the seller to discuss services and any separate written agreement.`;
+
+  return sendFllmEmail({
+    to: reviewEmail,
+    replyTo: submission.email,
+    subject: `Broker-Assisted Consultation Request — ${submission.fullName} — ${submission.submissionRef}`,
+    text,
+    html: emailShell(details),
+  });
+}
+
+export async function sendBrokerConsultationAcknowledgement(submission: ListingSubmission) {
+  const firstName = escapeHtml(submission.firstName || "there");
+  const details = `
+    <p style="margin:0 0 18px;">Hello ${firstName},</p>
+    <p style="margin:0 0 18px;">We received your request for a broker-assisted consultation regarding your Florida liquor license.</p>
+    <p style="margin:0 0 18px;">An FLLM representative will review the information and contact you using your preferred contact method.</p>
+    <p style="margin:0 0 18px;"><strong>County:</strong> ${escapeHtml(countyLabel(submission.county))}<br>
+    <strong>License Type:</strong> ${escapeHtml(submission.licenseType)}<br>
+    <strong>Reference:</strong> ${escapeHtml(submission.submissionRef)}</p>
+    <p style="margin:0;"><strong>No payment was required or charged.</strong> This request does not create a brokerage relationship. Any services, exclusivity, or compensation must be stated in a separate written agreement accepted by the parties.</p>`;
+
+  const text = `Hello ${submission.firstName || "there"},
+
+We received your request for a broker-assisted consultation regarding your Florida liquor license. An FLLM representative will review the information and contact you using your preferred contact method.
+
+County: ${countyLabel(submission.county)}
+License Type: ${submission.licenseType}
+Reference: ${submission.submissionRef}
+
+No payment was required or charged. This request does not create a brokerage relationship. Any services, exclusivity, or compensation must be stated in a separate written agreement accepted by the parties.
+
+Florida Liquor License Market
+${senderEmail()}
+${siteUrl()}`;
+
+  return sendFllmEmail({
+    to: submission.email,
+    subject: `We Received Your Broker-Assisted Consultation Request — ${submission.submissionRef}`,
+    text,
+    html: emailShell(details),
+  });
+}
+
 export async function sendListingApprovedEmail(submission: ListingSubmission) {
   if (!submission.liveListingUrl || !submission.listingTitle || !submission.approvedLicenseType) {
     throw new Error("The approved listing is missing its title, license type, or live URL.");

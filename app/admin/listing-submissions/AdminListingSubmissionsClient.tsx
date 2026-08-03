@@ -40,6 +40,7 @@ function money(value: number | null) {
 }
 
 function SubmissionCard({ submission, reload }: { submission: Submission; reload: () => Promise<void> }) {
+  const consultationRequested = submission.submissionRef.startsWith("FLLM-CONSULT-");
   const initialType =
     submission.approvedLicenseType ||
     (submission.licenseType === "3PS Quota / Package Store"
@@ -86,7 +87,9 @@ function SubmissionCard({ submission, reload }: { submission: Submission; reload
     <article className="admin-submission-card">
       <div className="admin-card-heading">
         <div>
-          <span className={`admin-status status-${submission.status}`}>{submission.status.replaceAll("_", " ")}</span>
+          <span className={`admin-status ${consultationRequested ? "status-consultation_requested" : `status-${submission.status}`}`}>
+            {consultationRequested ? "consultation requested" : submission.status.replaceAll("_", " ")}
+          </span>
           <h2>{submission.fullName}</h2>
           <p>{submission.submissionRef}</p>
         </div>
@@ -99,8 +102,8 @@ function SubmissionCard({ submission, reload }: { submission: Submission; reload
         <div><strong>County</strong><span>{submission.county}</span></div>
         <div><strong>Submitted Type</strong><span>{submission.licenseType}</span></div>
         <div><strong>Submitted Price</strong><span>{money(submission.askingPrice)}</span></div>
-        <div><strong>Payment</strong><span>{submission.paidAt ? `Paid ${new Date(submission.paidAt).toLocaleString()}` : "Not confirmed"}</span></div>
-        <div><strong>Payment Email</strong><span>{submission.paymentEmailStatus}</span></div>
+        <div><strong>Payment</strong><span>{consultationRequested ? "No charge" : submission.paidAt ? `Paid ${new Date(submission.paidAt).toLocaleString()}` : "Not confirmed"}</span></div>
+        <div><strong>Payment Email</strong><span>{consultationRequested ? "Not applicable" : submission.paymentEmailStatus}</span></div>
         <div><strong>Approval Email</strong><span>{submission.approvalEmailStatus}</span></div>
       </div>
 
@@ -130,7 +133,13 @@ function SubmissionCard({ submission, reload }: { submission: Submission; reload
         </button>
         {submission.liveListingUrl && <a href={submission.liveListingUrl} target="_blank" rel="noreferrer">Open Live Listing</a>}
       </div>
-      {!canApprove && <p className="admin-warning">Stripe payment must be confirmed before approval.</p>}
+      {!canApprove && (
+        <p className="admin-warning">
+          {consultationRequested
+            ? "Contact this seller about the requested broker-assisted consultation. No listing fee was charged."
+            : "Stripe payment must be confirmed before approval."}
+        </p>
+      )}
       {submission.lastError && <p className="admin-error">Last error: {submission.lastError}</p>}
       {error && <p className="admin-error">{error}</p>}
     </article>
@@ -216,7 +225,7 @@ export default function AdminListingSubmissionsClient() {
   return (
     <main className="admin-review-page">
       <header className="admin-review-header">
-        <div><span>Florida Liquor License Market</span><h1>Paid Listing Review</h1></div>
+        <div><span>Florida Liquor License Market</span><h1>Listing &amp; Consultation Review</h1></div>
         <div><button type="button" onClick={() => void load()} disabled={loading}>Refresh</button><button type="button" onClick={logout}>Sign Out</button></div>
       </header>
       {error && <p className="admin-error">{error}</p>}

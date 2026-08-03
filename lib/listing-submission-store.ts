@@ -89,6 +89,7 @@ export type CreateSubmissionInput = {
   licenseStatus: string;
   preferredTiming?: string | null;
   message?: string | null;
+  requiresPayment?: boolean;
 };
 
 function databaseConfigured() {
@@ -164,14 +165,17 @@ function parseAskingPrice(value: string | null | undefined): number | null {
   return Math.round(amount);
 }
 
-function makeSubmissionRef() {
+function makeSubmissionRef(requiresPayment: boolean) {
   const date = new Date().toISOString().slice(0, 10).replaceAll("-", "");
   const token = randomBytes(4).toString("hex").toUpperCase();
-  return `FLLM-PAID-${date}-${token}`;
+  const prefix = requiresPayment ? "FLLM-PAID" : "FLLM-CONSULT";
+  return `${prefix}-${date}-${token}`;
 }
 
 export async function createListingSubmission(input: CreateSubmissionInput) {
   requireDatabase();
+
+  const requiresPayment = input.requiresPayment !== false;
 
   const fullName = cleanText(input.fullName, 160);
   const email = cleanText(input.email, 254).toLowerCase();
@@ -192,7 +196,7 @@ export async function createListingSubmission(input: CreateSubmissionInput) {
   const askingPriceText = cleanText(input.askingPriceText, 60) || null;
   const now = new Date().toISOString();
   const row = {
-    submission_ref: makeSubmissionRef(),
+    submission_ref: makeSubmissionRef(requiresPayment),
     full_name: fullName,
     first_name: firstName,
     email,
