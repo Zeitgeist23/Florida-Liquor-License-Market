@@ -6,7 +6,7 @@ import styles from "@/app/sell-your-license/seller.module.css";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import {
-  marketplaceListingDescription,
+  marketplaceListingDescriptionParts,
   sellerReportedStatusLabel,
 } from "@/lib/county-listing-descriptions";
 
@@ -230,6 +230,12 @@ export default function SellerListingForm() {
     : licenseType.startsWith("2COP")
       ? "Beer & Wine"
       : "Restaurant / Bar";
+  const previewDescription = marketplaceListingDescriptionParts({
+    county,
+    licenseType,
+    licenseStatus: selfLicenseStatus,
+    preferredTiming: selfPreferredTiming,
+  });
 
   return (
     <main className={`${styles.page} ${styles.modernPage}`}>
@@ -482,12 +488,11 @@ export default function SellerListingForm() {
                         <span>{licenseType || previewCategory}</span>
                         <span>{sellerReportedStatusLabel(selfLicenseStatus)} / Available</span>
                       </div>
-                      <small>{marketplaceListingDescription({
-                        county,
-                        licenseType,
-                        licenseStatus: selfLicenseStatus,
-                        preferredTiming: selfPreferredTiming,
-                      })}</small>
+                      <div className={styles.previewDescription}>
+                        <p>{previewDescription.license}</p>
+                        <p>{previewDescription.county}</p>
+                        {previewDescription.sellerDetails && <p className={styles.previewSellerDetails}>{previewDescription.sellerDetails}</p>}
+                      </div>
                       <div className={styles.previewActions} aria-hidden="true">
                         <span>Inquire</span>
                         <span>Submit an Offer</span>
@@ -526,12 +531,11 @@ export default function SellerListingForm() {
                       <span>{licenseType || previewCategory}</span>
                       <span>{sellerReportedStatusLabel(selfLicenseStatus)} / Available</span>
                     </div>
-                    <small>{marketplaceListingDescription({
-                      county,
-                      licenseType,
-                      licenseStatus: selfLicenseStatus,
-                      preferredTiming: selfPreferredTiming,
-                    })}</small>
+                    <div className={styles.previewDescription}>
+                      <p>{previewDescription.license}</p>
+                      <p>{previewDescription.county}</p>
+                      {previewDescription.sellerDetails && <p className={styles.previewSellerDetails}>{previewDescription.sellerDetails}</p>}
+                    </div>
                     <div className={styles.previewActions} aria-hidden="true">
                       <span>Inquire</span>
                       <span>Submit an Offer</span>
