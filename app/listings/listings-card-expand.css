@@ -77,9 +77,13 @@ body.inventory-card-open {
   font-size: 14px !important;
 }
 
-.results-page .result-card.is-expanded .result-body > small {
-  font-size: 13px !important;
-  line-height: 1.5 !important;
+.results-page .result-card.is-expanded .result-description {
+  font-size: 15px !important;
+  line-height: 1.55 !important;
+}
+
+.results-page .result-card.is-expanded .result-description p {
+  margin-bottom: 13px;
 }
 
 .results-page .result-card.is-expanded .result-actions .btn,
