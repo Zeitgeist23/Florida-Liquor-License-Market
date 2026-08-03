@@ -27,7 +27,7 @@ body.inventory-card-open {
   left: 50%;
   width: min(74vw, 1280px) !important;
   max-width: calc(100vw - 64px);
-  min-height: min(56vh, 540px);
+  min-height: 0;
   max-height: 88vh;
   margin: 0 !important;
   overflow: auto;
@@ -35,8 +35,8 @@ body.inventory-card-open {
   cursor: zoom-out;
   transform: translate(-50%, -50%) !important;
   grid-template-columns: minmax(420px, 1.2fr) minmax(400px, .8fr) !important;
-  grid-template-rows: auto auto auto 1fr auto !important;
-  align-content: stretch !important;
+  grid-template-rows: auto auto auto auto auto !important;
+  align-content: start !important;
   border-color: #f1a600 !important;
   box-shadow: 0 30px 90px rgba(0, 0, 0, .82), 0 0 0 2px rgba(241, 166, 0, .28) !important;
 }
@@ -62,7 +62,7 @@ body.inventory-card-open {
 .results-page .result-card.is-expanded .result-actions {
   grid-column: 1 / -1 !important;
   grid-row: 5 !important;
-  margin: 22px 20px 18px !important;
+  margin: 26px 20px 18px !important;
 }
 
 .results-page .result-card.is-expanded .result-body > p {
@@ -78,16 +78,16 @@ body.inventory-card-open {
 }
 
 .results-page .result-card.is-expanded .result-description {
-  color: #e2e7e9 !important;
-  font-size: 15px !important;
-  line-height: 1.55 !important;
+  color: #cfd6da !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
 }
 
 .results-page .result-card.is-expanded .result-description p {
   display: block;
   overflow: visible;
   margin-bottom: 13px;
-  color: #e2e7e9 !important;
+  color: #cfd6da !important;
   -webkit-line-clamp: unset;
 }
 
@@ -116,7 +116,7 @@ body.inventory-card-open {
   .results-page .result-card.is-expanded,
   .results-page .result-card.is-expanded:hover {
     width: min(88vw, 1040px) !important;
-    min-height: min(58vh, 520px);
+    min-height: 0;
     grid-template-columns: minmax(360px, 1.15fr) minmax(320px, .85fr) !important;
   }
 
