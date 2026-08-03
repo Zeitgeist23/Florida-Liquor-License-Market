@@ -20,6 +20,47 @@ function adminEmail() {
   return process.env.FLLM_ADMIN_EMAIL || process.env.GOOGLE_SENDER_EMAIL || "listings@floridaliquorlicensemarket.com";
 }
 
+async function sendAdminCode(code: string) {
+  const subject = "Your FLLM Administrator Sign-In Code";
+  const text = `Your Florida Liquor License Market sign-in code is ${code}.\n\nThis code expires in 10 minutes. If you did not request it, you can ignore this email.`;
+
+  try {
+    await sendFllmEmail({
+      to: adminEmail(),
+      subject,
+      text,
+      html: `<p>Your Florida Liquor License Market sign-in code is:</p><p style="margin:20px 0;font-size:32px;font-weight:800;letter-spacing:6px;color:#071a3a;">${code}</p><p>This code expires in 10 minutes. If you did not request it, you can ignore this email.</p>`,
+    });
+    return;
+  } catch (gmailCause) {
+    console.warn("FLLM Gmail code delivery unavailable; using corporate form delivery", gmailCause);
+  }
+
+  const form = new URLSearchParams({
+    name: "FLLM Secure Owner Access",
+    email: "listings@floridaliquorlicensemarket.com",
+    message: text,
+    _subject: subject,
+    _template: "table",
+    _captcha: "false",
+  });
+  const response = await fetch(
+    "https://formsubmit.co/ajax/listings@floridaliquorlicensemarket.com",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: form,
+      cache: "no-store",
+    }
+  );
+  if (!response.ok) {
+    throw new Error(`Corporate form delivery failed with status ${response.status}.`);
+  }
+}
+
 function codeDigest(code: string, issuedAt: number, expiresAt: number, secret: string) {
   return createHmac("sha256", secret).update(`${issuedAt}:${expiresAt}:${code}`, "utf8").digest("hex");
 }
@@ -66,12 +107,7 @@ export async function POST(request: Request) {
     const digest = codeDigest(code, issued, expires, secret);
 
     try {
-      await sendFllmEmail({
-        to: adminEmail(),
-        subject: "Your FLLM Administrator Sign-In Code",
-        text: `Your Florida Liquor License Market sign-in code is ${code}.\n\nThis code expires in 10 minutes. If you did not request it, you can ignore this email.`,
-        html: `<p>Your Florida Liquor License Market sign-in code is:</p><p style="margin:20px 0;font-size:32px;font-weight:800;letter-spacing:6px;color:#071a3a;">${code}</p><p>This code expires in 10 minutes. If you did not request it, you can ignore this email.</p>`,
-      });
+      await sendAdminCode(code);
     } catch (cause) {
       console.error("FLLM admin code email failed", cause);
       return NextResponse.json({ error: "The sign-in email could not be sent. Please try again shortly." }, { status: 502 });
