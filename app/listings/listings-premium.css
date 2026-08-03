@@ -322,14 +322,31 @@
 .results-page .result-description {
   min-height: 34px !important;
   margin-top: 7px !important;
-  color: #bfc3c5 !important;
+  color: #d7dde0 !important;
   font-size: 11px !important;
   line-height: 1.48 !important;
-  text-transform: none;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
 }
 
 .results-page .result-description p {
   margin: 0 0 8px;
+  overflow: hidden;
+  color: #d7dde0 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: inherit !important;
+  font-weight: 400 !important;
+  line-height: inherit !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.results-page .result-description p::first-letter {
+  color: inherit !important;
 }
 
 .results-page .result-description p:last-child {
@@ -337,7 +354,7 @@
 }
 
 .results-page .result-description .result-seller-details {
-  color: #d6dde1;
+  color: #e2e7e9 !important;
 }
 
 .results-page .result-actions {

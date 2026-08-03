@@ -78,12 +78,17 @@ body.inventory-card-open {
 }
 
 .results-page .result-card.is-expanded .result-description {
+  color: #e2e7e9 !important;
   font-size: 15px !important;
   line-height: 1.55 !important;
 }
 
 .results-page .result-card.is-expanded .result-description p {
+  display: block;
+  overflow: visible;
   margin-bottom: 13px;
+  color: #e2e7e9 !important;
+  -webkit-line-clamp: unset;
 }
 
 .results-page .result-card.is-expanded .result-actions .btn,
