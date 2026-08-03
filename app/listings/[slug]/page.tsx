@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import FloridaCountyMap from "@/components/FloridaCountyMap";
+import { marketplaceListingDescription } from "@/lib/county-listing-descriptions";
 import { getApprovedSubmissionByPublicRef } from "@/lib/listing-submission-store";
 import "./listing-detail.css";
 
@@ -49,8 +50,14 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <span className="paid-listing-kicker">Verified Marketplace Listing</span>
           <h1>{listing.listingTitle}</h1>
           <p className="paid-listing-price">{price(listing.approvedAskingPrice)}</p>
-          <div className="paid-listing-facts"><span>{listing.county}</span><span>{listing.approvedLicenseType}</span><span>Transferable license interest</span></div>
-          {listing.message && <p className="paid-listing-description">{listing.message}</p>}
+          <div className="paid-listing-facts"><span>{listing.county}</span><span>{listing.approvedLicenseType}</span><span>{listing.licenseStatus} / Available</span></div>
+          <p className="paid-listing-description">{marketplaceListingDescription({
+            county: listing.county,
+            licenseType: listing.approvedLicenseType,
+            licenseStatus: listing.licenseStatus,
+            preferredTiming: listing.preferredTiming,
+          })}</p>
+          {listing.message && <p className="paid-listing-description"><strong>Seller notes:</strong> {listing.message}</p>}
           <p className="paid-listing-reference">Listing reference: {listing.submissionRef}</p>
           <div className="paid-listing-actions">
             <Link className="paid-listing-primary" href={`/contact?listing=${encodeURIComponent(listing.listingTitle)}&ref=${encodeURIComponent(listing.submissionRef)}`}>Inquire About This Listing</Link>
