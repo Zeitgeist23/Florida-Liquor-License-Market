@@ -75,13 +75,13 @@ function normalizeCounty(name: string) {
     return name.replace(/ County$/i, "").replace(/[^a-z]/gi, "").toLowerCase();
 }
 
-export default function FloridaCountyMap({ county }: { county: string }) {
+export default function FloridaCountyMap({ county, enlarged = false }: { county: string; enlarged?: boolean }) {
     const target = normalizeCounty(county);
     return h(
           "svg",
       {
               className: "florida-county-map",
-              viewBox: "0 0 560 300",
+              viewBox: enlarged ? "90 -10 380 300" : "0 0 560 300",
               role: "img",
               "aria-label": "Florida map with " + county + " highlighted in gold",
       },

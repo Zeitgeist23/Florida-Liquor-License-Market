@@ -530,7 +530,7 @@ export default function SellerListingForm() {
 
                 <article className={`${styles.previewCard} ${styles.expandedPreviewCard}`}>
                   <div className={styles.previewMap}>
-                    <FloridaCountyMap county={county || "No county selected"} />
+                    <FloridaCountyMap county={county || "No county selected"} enlarged />
                     <span>{licenseType || "Florida liquor license"}</span>
                   </div>
                   <div className={styles.previewBody}>
