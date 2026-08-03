@@ -5,6 +5,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import styles from "@/app/sell-your-license/seller.module.css";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import { countyListingDescription } from "@/lib/county-listing-descriptions";
 
 type SaleMethod = "Self-Directed Listing" | "Broker-Assisted Listing";
 
@@ -478,10 +479,7 @@ export default function SellerListingForm() {
                         <span>{licenseType || previewCategory}</span>
                         <span>Transferable / Available</span>
                       </div>
-                      <small>
-                        {selfLicenseStatus || "License status"} · {selfPreferredTiming || "Sale timing"}.
-                        Additional listing details will appear here after review.
-                      </small>
+                      <small>{countyListingDescription(county)}</small>
                       <div className={styles.previewActions} aria-hidden="true">
                         <span>Inquire</span>
                         <span>Submit an Offer</span>
@@ -520,10 +518,7 @@ export default function SellerListingForm() {
                       <span>{licenseType || previewCategory}</span>
                       <span>Transferable / Available</span>
                     </div>
-                    <small>
-                      {selfLicenseStatus || "License status"} · {selfPreferredTiming || "Sale timing"}.
-                      Additional listing details will appear here after review.
-                    </small>
+                    <small>{countyListingDescription(county)}</small>
                     <div className={styles.previewActions} aria-hidden="true">
                       <span>Inquire</span>
                       <span>Submit an Offer</span>
