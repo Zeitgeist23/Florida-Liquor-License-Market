@@ -34,7 +34,7 @@ function ListingDescription({ listing }: { listing: Listing }) {
     <div className="result-description">
       <p>{description.license}</p>
       <p>{description.county}</p>
-      {description.sellerDetails && <p className="result-seller-details">{description.sellerDetails}</p>}
+      {description.cities && <p className="result-cities">{description.cities}</p>}
     </div>
   );
 }

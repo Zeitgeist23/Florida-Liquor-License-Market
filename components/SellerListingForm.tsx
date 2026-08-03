@@ -491,7 +491,7 @@ export default function SellerListingForm() {
                       <div className={styles.previewDescription}>
                         <p>{previewDescription.license}</p>
                         <p>{previewDescription.county}</p>
-                        {previewDescription.sellerDetails && <p className={styles.previewSellerDetails}>{previewDescription.sellerDetails}</p>}
+                        {previewDescription.cities && <p className={styles.previewCities}>{previewDescription.cities}</p>}
                       </div>
                       <div className={styles.previewActions} aria-hidden="true">
                         <span>Inquire</span>
@@ -534,7 +534,7 @@ export default function SellerListingForm() {
                     <div className={styles.previewDescription}>
                       <p>{previewDescription.license}</p>
                       <p>{previewDescription.county}</p>
-                      {previewDescription.sellerDetails && <p className={styles.previewSellerDetails}>{previewDescription.sellerDetails}</p>}
+                      {previewDescription.cities && <p className={styles.previewCities}>{previewDescription.cities}</p>}
                     </div>
                     <div className={styles.previewActions} aria-hidden="true">
                       <span>Inquire</span>
