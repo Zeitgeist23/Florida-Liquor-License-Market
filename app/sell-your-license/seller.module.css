@@ -904,15 +904,16 @@
 
 .modernPage .selfStepLayout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 390px;
-  gap: 20px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
 }
 
 .modernPage .listingPreview {
   display: grid;
   align-content: start;
   gap: 10px;
+  width: 100%;
   padding: 18px;
   border: 1px solid #3c586b;
   border-radius: 9px;
@@ -962,7 +963,7 @@
   border-color: #f1a600;
   box-shadow: 0 18px 38px rgba(0, 0, 0, .46), 0 0 0 1px rgba(241, 166, 0, .18);
   outline: none;
-  transform: translateY(-7px) scale(1.015);
+  transform: translateY(-3px) scale(1.003);
 }
 
 .modernPage .previewModal {
@@ -1064,7 +1065,7 @@
   grid-column: 2;
   grid-row: 1;
   width: 100%;
-  height: 190px;
+  height: 260px;
   padding: 14px 8px 4px 0;
   overflow: hidden;
   background: transparent;
@@ -1153,8 +1154,8 @@
   min-height: 34px;
   margin: 7px 8px 0 16px;
   color: #d7dde0;
-  font-size: 11px;
-  line-height: 1.48;
+  font-size: 13px;
+  line-height: 1.55;
   font-weight: 400;
   letter-spacing: normal;
   text-transform: none;
@@ -1458,6 +1459,15 @@
 
   .modernPage .listingPreview {
     padding: 14px;
+  }
+
+  .modernPage .previewMap {
+    height: 190px;
+  }
+
+  .modernPage .previewDescription {
+    font-size: 11px;
+    line-height: 1.48;
   }
 
   .modernPage .methodChoice,
