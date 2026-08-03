@@ -52,7 +52,7 @@ function corporateSignatureHtml() {
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;color:#071a3a;border-collapse:collapse;">
       <tr>
         <td style="padding-right:16px;vertical-align:middle;">
-          <img src="${origin}/assets/fllm-email-logo.png" width="108" height="108" alt="Florida Liquor License Market" style="display:block;border:0;width:108px;height:108px;">
+          <img src="${origin}/api/email-logo" width="108" height="108" alt="Florida Liquor License Market" style="display:block;border:0;width:108px;height:108px;">
         </td>
         <td style="border-left:2px solid #c88908;padding-left:16px;vertical-align:middle;">
           <div style="font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:22px;font-weight:bold;color:#071a3a;white-space:nowrap;">Florida Liquor License Market</div>
