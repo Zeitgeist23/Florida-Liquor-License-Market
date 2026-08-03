@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 type Submission = {
@@ -226,7 +227,7 @@ export default function AdminListingSubmissionsClient() {
     <main className="admin-review-page">
       <header className="admin-review-header">
         <div><span>Florida Liquor License Market</span><h1>Listing &amp; Consultation Review</h1></div>
-        <div><button type="button" onClick={() => void load()} disabled={loading}>Refresh</button><button type="button" onClick={logout}>Sign Out</button></div>
+        <div><Link className="admin-leads-link" href="/admin/leads">Lead Database</Link><button type="button" onClick={() => void load()} disabled={loading}>Refresh</button><button type="button" onClick={logout}>Sign Out</button></div>
       </header>
       {error && <p className="admin-error">{error}</p>}
       {loading && submissions.length === 0 ? <p>Loading submissions…</p> : null}

@@ -386,6 +386,71 @@ No listing fee was charged. Contact the seller to discuss services and any separ
   });
 }
 
+export async function notifyFllmOfBuyerOffer(submission: ListingSubmission) {
+  const reviewEmail = process.env.BUYER_LEAD_REVIEW_EMAIL || senderEmail();
+  let details: {
+    purchaseMethod?: string | null;
+    targetClosing?: string | null;
+    proofOfFunds?: string | null;
+    offerExpiration?: string | null;
+    contingencies?: string | null;
+    notes?: string | null;
+  } = {};
+  try {
+    details = JSON.parse(submission.message || "{}") as typeof details;
+  } catch {
+    details.notes = submission.message;
+  }
+
+  const content = `
+    <p style="margin:0 0 18px;"><strong>A buyer submitted an offer through FLLM.</strong></p>
+    <p style="margin:0 0 18px;">
+      <strong>Lead Reference:</strong> ${escapeHtml(submission.submissionRef)}<br>
+      <strong>Listing:</strong> ${escapeHtml(submission.listingTitle || submission.county)}<br>
+      <strong>Listing Reference:</strong> ${escapeHtml(submission.liveListingRef || "Not provided")}<br>
+      <strong>Offer Amount:</strong> ${escapeHtml(formatMoney(submission.askingPrice))}<br>
+      <strong>Buyer:</strong> ${escapeHtml(submission.fullName)}<br>
+      <strong>Email:</strong> <a href="mailto:${escapeHtml(submission.email)}">${escapeHtml(submission.email)}</a><br>
+      <strong>Phone:</strong> ${escapeHtml(submission.phone)}
+    </p>
+    <p style="margin:0 0 18px;">
+      <strong>Purchase Method:</strong> ${escapeHtml(details.purchaseMethod || "Not provided")}<br>
+      <strong>Target Closing:</strong> ${escapeHtml(details.targetClosing || submission.preferredTiming || "Not provided")}<br>
+      <strong>Proof of Funds:</strong> ${escapeHtml(details.proofOfFunds || "Not provided")}<br>
+      <strong>Offer Expiration:</strong> ${escapeHtml(details.offerExpiration || "Not provided")}
+    </p>
+    <p style="margin:0 0 18px;"><strong>Contingencies:</strong><br>${escapeHtml(details.contingencies || "None provided")}</p>
+    <p style="margin:0;"><strong>Additional Notes:</strong><br>${escapeHtml(details.notes || "None provided")}</p>`;
+
+  const text = `A buyer submitted an offer through FLLM.
+
+Lead Reference: ${submission.submissionRef}
+Listing: ${submission.listingTitle || submission.county}
+Listing Reference: ${submission.liveListingRef || "Not provided"}
+Offer Amount: ${formatMoney(submission.askingPrice)}
+Buyer: ${submission.fullName}
+Email: ${submission.email}
+Phone: ${submission.phone}
+Purchase Method: ${details.purchaseMethod || "Not provided"}
+Target Closing: ${details.targetClosing || submission.preferredTiming || "Not provided"}
+Proof of Funds: ${details.proofOfFunds || "Not provided"}
+Offer Expiration: ${details.offerExpiration || "Not provided"}
+
+Contingencies:
+${details.contingencies || "None provided"}
+
+Additional Notes:
+${details.notes || "None provided"}`;
+
+  return sendFllmEmail({
+    to: reviewEmail,
+    replyTo: submission.email,
+    subject: `New Buyer Offer — ${submission.liveListingRef || submission.county} — ${formatMoney(submission.askingPrice)}`,
+    text,
+    html: emailShell(content),
+  });
+}
+
 export async function sendBrokerConsultationAcknowledgement(submission: ListingSubmission) {
   const firstName = escapeHtml(submission.firstName || "there");
   const details = `
