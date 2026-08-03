@@ -968,10 +968,10 @@
 
 .modernPage .previewModal {
   position: relative;
-  width: min(520px, calc(100% - 32px));
-  max-height: calc(100vh - 40px);
+  width: min(940px, calc(100% - 32px));
+  max-height: calc(100vh - 28px);
   overflow: auto;
-  padding: 28px;
+  padding: 26px;
   border: 1px solid #42c8ff;
   border-radius: 17px;
   background:
@@ -997,7 +997,12 @@
 }
 
 .modernPage .expandedPreviewCard .previewMap {
-  height: 247px;
+  height: 310px;
+}
+
+.modernPage .expandedPreviewCard,
+.modernPage .expandedPreviewCard .previewBody {
+  grid-template-columns: minmax(0, 1.12fr) minmax(300px, .88fr);
 }
 
 .modernPage .expandedPreviewCard .previewMap > span {
@@ -1467,6 +1472,47 @@
 
   .modernPage .listingPreview {
     padding: 14px;
+  }
+
+  .modernPage .previewModal {
+    width: calc(100% - 20px);
+    max-height: calc(100vh - 20px);
+    padding: 20px 14px 16px;
+  }
+
+  .modernPage .previewModal > h2 {
+    padding-right: 28px;
+    font-size: 30px;
+  }
+
+  .modernPage .expandedPreviewCard {
+    grid-template-columns: 1fr;
+  }
+
+  .modernPage .expandedPreviewCard .previewMap {
+    grid-column: 1;
+    grid-row: 1;
+    height: 210px;
+    padding: 12px;
+  }
+
+  .modernPage .expandedPreviewCard .previewBody {
+    grid-column: 1;
+    grid-row: 2;
+    grid-template-columns: 1fr;
+  }
+
+  .modernPage .expandedPreviewCard .previewBody > p,
+  .modernPage .expandedPreviewCard .previewBody h2,
+  .modernPage .expandedPreviewCard .previewFacts,
+  .modernPage .expandedPreviewCard .previewDescription {
+    grid-column: 1;
+  }
+
+  .modernPage .previewContinueButton {
+    position: sticky;
+    z-index: 2;
+    bottom: 0;
   }
 
   .modernPage .previewMap {
