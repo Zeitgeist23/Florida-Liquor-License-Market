@@ -132,7 +132,7 @@ export function countyListingDescription(county: string) {
   return countyDescriptions[county] ?? `${county || "This Florida county"} offers a mix of local commerce, residential communities, tourism, dining, and hospitality activity within Florida.`;
 }
 
-export function marketplaceListingDescription({
+export function marketplaceListingDescriptionParts({
   county,
   licenseType,
   licenseStatus,
@@ -150,9 +150,16 @@ export function marketplaceListingDescription({
     ? `Seller-reported status: ${licenseStatus.trim()}${preferredTiming?.trim() ? `; preferred sale timing: ${preferredTiming.trim()}` : ""}.`
     : "";
 
-  return [
-    licenseUseDescription(licenseType),
-    populatedCountyDescription,
+  return {
+    license: licenseUseDescription(licenseType),
+    county: populatedCountyDescription,
     sellerDetails,
-  ].filter(Boolean).join(" ");
+  };
+}
+
+export function marketplaceListingDescription(input: MarketplaceDescriptionInput) {
+  const description = marketplaceListingDescriptionParts(input);
+  return [description.license, description.county, description.sellerDetails]
+    .filter(Boolean)
+    .join(" ");
 }
