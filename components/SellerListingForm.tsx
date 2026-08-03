@@ -5,7 +5,10 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import styles from "@/app/sell-your-license/seller.module.css";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
-import { countyListingDescription } from "@/lib/county-listing-descriptions";
+import {
+  marketplaceListingDescription,
+  sellerReportedStatusLabel,
+} from "@/lib/county-listing-descriptions";
 
 type SaleMethod = "Self-Directed Listing" | "Broker-Assisted Listing";
 
@@ -477,9 +480,14 @@ export default function SellerListingForm() {
                       <h2>{askingPrice ? `$${askingPrice}` : "Asking price"}</h2>
                       <div className={styles.previewFacts}>
                         <span>{licenseType || previewCategory}</span>
-                        <span>Transferable / Available</span>
+                        <span>{sellerReportedStatusLabel(selfLicenseStatus)} / Available</span>
                       </div>
-                      <small>{countyListingDescription(county)}</small>
+                      <small>{marketplaceListingDescription({
+                        county,
+                        licenseType,
+                        licenseStatus: selfLicenseStatus,
+                        preferredTiming: selfPreferredTiming,
+                      })}</small>
                       <div className={styles.previewActions} aria-hidden="true">
                         <span>Inquire</span>
                         <span>Submit an Offer</span>
@@ -516,9 +524,14 @@ export default function SellerListingForm() {
                     <h2>{askingPrice ? `$${askingPrice}` : "Asking price"}</h2>
                     <div className={styles.previewFacts}>
                       <span>{licenseType || previewCategory}</span>
-                      <span>Transferable / Available</span>
+                      <span>{sellerReportedStatusLabel(selfLicenseStatus)} / Available</span>
                     </div>
-                    <small>{countyListingDescription(county)}</small>
+                    <small>{marketplaceListingDescription({
+                      county,
+                      licenseType,
+                      licenseStatus: selfLicenseStatus,
+                      preferredTiming: selfPreferredTiming,
+                    })}</small>
                     <div className={styles.previewActions} aria-hidden="true">
                       <span>Inquire</span>
                       <span>Submit an Offer</span>
