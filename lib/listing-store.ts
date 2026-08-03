@@ -61,6 +61,25 @@ function rowToListing(row: ListingRow): Listing {
   };
 }
 
+type ApprovedListingDetailsRow = {
+  submission_ref: string;
+  license_status: string | null;
+  preferred_timing: string | null;
+};
+
+async function getApprovedListingDetails() {
+  const response = await fetch(
+    `${process.env.SUPABASE_URL}/rest/v1/listing_submissions?status=eq.approved&select=submission_ref,license_status,preferred_timing`,
+    { headers: headers(), cache: "no-store" }
+  );
+  if (!response.ok) {
+    console.error(`Approved listing details read failed: ${response.status}`);
+    return new Map<string, ApprovedListingDetailsRow>();
+  }
+  const rows = (await response.json()) as ApprovedListingDetailsRow[];
+  return new Map(rows.map((row) => [row.submission_ref, row]));
+}
+
 function identityKeys(listing: Pick<Listing, "county" | "type" | "price" | "priceLabel" | "sourceRef" | "sourceUrl">): string[] {
   const keys = [`signature:${listing.county.trim().toLowerCase()}|${listing.type}|${listing.price ?? listing.priceLabel}`];
   if (listing.sourceRef) keys.push(`ref:${listing.sourceRef.trim().toLowerCase()}`);
@@ -130,7 +149,16 @@ export async function getMarketplaceListings(): Promise<Listing[]> {
     const missingStaticListings = fallback.filter((listing) =>
       identityKeys(listing).every((key) => !databaseIdentities.has(key))
     );
-    const databaseListings = rows.map(rowToListing);
+    const approvedDetails = await getApprovedListingDetails();
+    const databaseListings = rows.map((row) => {
+      const listing = rowToListing(row);
+      const details = row.source_ref ? approvedDetails.get(row.source_ref) : undefined;
+      return {
+        ...listing,
+        licenseStatus: details?.license_status ?? undefined,
+        preferredTiming: details?.preferred_timing ?? undefined,
+      };
+    });
     const mergedListings = dedupeListings([...missingStaticListings, ...databaseListings]);
 
     // Seed only built-in records that do not already exist. Existing database
