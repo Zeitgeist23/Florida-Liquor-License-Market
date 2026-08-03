@@ -997,7 +997,10 @@
 }
 
 .modernPage .expandedPreviewCard .previewMap {
-  height: 310px;
+  align-self: stretch;
+  height: auto;
+  min-height: 310px;
+  margin-bottom: 73px;
 }
 
 .modernPage .expandedPreviewCard,
@@ -1047,9 +1050,9 @@
 }
 
 .modernPage .previewContinueButton {
-  width: 100%;
+  width: 60%;
   min-height: 56px;
-  margin-top: 20px;
+  margin: 20px auto 0;
   padding: 0 24px;
   border: 1px solid #ffc32a;
   border-radius: 6px;
@@ -1493,6 +1496,8 @@
     grid-column: 1;
     grid-row: 1;
     height: 210px;
+    min-height: 0;
+    margin-bottom: 0;
     padding: 12px;
   }
 
@@ -1513,6 +1518,8 @@
     position: sticky;
     z-index: 2;
     bottom: 0;
+    width: 100%;
+    margin: 16px 0 0;
   }
 
   .modernPage .previewMap {
