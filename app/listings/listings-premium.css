@@ -269,7 +269,7 @@
 .results-page .result-body > p,
 .results-page .result-body > h2,
 .results-page .result-body > .result-facts,
-.results-page .result-body > small {
+.results-page .result-body > .result-description {
   grid-column: 1;
   margin-left: 16px !important;
   margin-right: 8px !important;
@@ -319,13 +319,25 @@
   content: none;
 }
 
-.results-page .result-body > small {
+.results-page .result-description {
   min-height: 34px !important;
   margin-top: 7px !important;
   color: #bfc3c5 !important;
-  font-size: 10px !important;
-  line-height: 1.42 !important;
+  font-size: 11px !important;
+  line-height: 1.48 !important;
   text-transform: none;
+}
+
+.results-page .result-description p {
+  margin: 0 0 8px;
+}
+
+.results-page .result-description p:last-child {
+  margin-bottom: 0;
+}
+
+.results-page .result-description .result-seller-details {
+  color: #d6dde1;
 }
 
 .results-page .result-actions {

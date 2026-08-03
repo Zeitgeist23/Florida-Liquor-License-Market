@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import FloridaCountyMap from "@/components/FloridaCountyMap";
-import { marketplaceListingDescription } from "@/lib/county-listing-descriptions";
+import { marketplaceListingDescriptionParts } from "@/lib/county-listing-descriptions";
 import { getApprovedSubmissionByPublicRef } from "@/lib/listing-submission-store";
 import "./listing-detail.css";
 
@@ -37,6 +37,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params;
   const listing = await getApprovedSubmissionByPublicRef(referenceFromSlug(slug));
   if (!listing || !listing.listingTitle || !listing.approvedLicenseType) notFound();
+  const description = marketplaceListingDescriptionParts({
+    county: listing.county,
+    licenseType: listing.approvedLicenseType,
+    licenseStatus: listing.licenseStatus,
+    preferredTiming: listing.preferredTiming,
+  });
 
   return (
     <main className="paid-listing-page">
@@ -51,12 +57,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <h1>{listing.listingTitle}</h1>
           <p className="paid-listing-price">{price(listing.approvedAskingPrice)}</p>
           <div className="paid-listing-facts"><span>{listing.county}</span><span>{listing.approvedLicenseType}</span><span>{listing.licenseStatus} / Available</span></div>
-          <p className="paid-listing-description">{marketplaceListingDescription({
-            county: listing.county,
-            licenseType: listing.approvedLicenseType,
-            licenseStatus: listing.licenseStatus,
-            preferredTiming: listing.preferredTiming,
-          })}</p>
+          <div className="paid-listing-description">
+            <p>{description.license}</p>
+            <p>{description.county}</p>
+            {description.sellerDetails && <p>{description.sellerDetails}</p>}
+          </div>
           {listing.message && <p className="paid-listing-description"><strong>Seller notes:</strong> {listing.message}</p>}
           <p className="paid-listing-reference">Listing reference: {listing.submissionRef}</p>
           <div className="paid-listing-actions">

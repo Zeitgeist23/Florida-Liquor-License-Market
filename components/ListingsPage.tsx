@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { countySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
 import {
-  marketplaceListingDescription,
+  marketplaceListingDescriptionParts,
   sellerReportedStatusLabel,
 } from "@/lib/county-listing-descriptions";
 import FloridaCountyMap from "./FloridaCountyMap";
@@ -20,6 +20,23 @@ function priceMatches(price: number | null, range: string) {
     (range === "350to500" && price >= 350000 && price <= 500000) ||
     (range === "500to1m" && price > 500000 && price <= 1000000) ||
     (range === "over1m" && price > 1000000);
+}
+
+function ListingDescription({ listing }: { listing: Listing }) {
+  const description = marketplaceListingDescriptionParts({
+    county: listing.county,
+    licenseType: listing.type,
+    licenseStatus: listing.licenseStatus,
+    preferredTiming: listing.preferredTiming,
+  });
+
+  return (
+    <div className="result-description">
+      <p>{description.license}</p>
+      <p>{description.county}</p>
+      {description.sellerDetails && <p className="result-seller-details">{description.sellerDetails}</p>}
+    </div>
+  );
 }
 
 export default function ListingsPage({ initialListings }: { initialListings: Listing[] }) {
@@ -69,7 +86,7 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
         {filtered.length ? <div className="results-grid">{filtered.map((listing) => <article className="result-card" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
           <div className="result-photo"><FloridaCountyMap county={listing.county} /><span className="result-type-badge">{listing.type}</span></div>
           <div className="result-body"><p>● <Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p><h2>{listing.priceLabel}</h2><div className="result-facts"><span>{listing.type}</span><span>{listing.licenseStatus ? `${sellerReportedStatusLabel(listing.licenseStatus)} / Available` : "Available / Status to confirm"}</span></div>
-          {listing.sourceRef ? <><small>{marketplaceListingDescription({ county: listing.county, licenseType: listing.type, licenseStatus: listing.licenseStatus, preferredTiming: listing.preferredTiming })}</small><div className="result-actions"><Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link><Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link></div></> : <div className="result-actions"><span className="sold-status">SOLD</span></div>}
+          {listing.sourceRef ? <><ListingDescription listing={listing} /><div className="result-actions"><Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link><Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link></div></> : <div className="result-actions"><span className="sold-status">SOLD</span></div>}
           </div></article>)}</div> : <div className="no-results"><strong>No listings match all filters.</strong><p>Try broadening the county, price range, license type, or status.</p><button className="btn btn-gold" type="button" onClick={clearFilters}>View All Listings</button></div>}
       </div></section>
     </main>
