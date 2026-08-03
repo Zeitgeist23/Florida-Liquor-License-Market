@@ -161,6 +161,30 @@ function blankRecord(
   };
 }
 
+function isMissingStorageObject(status: number, body: string) {
+  if (status === 404) return true;
+  if (status !== 400) return false;
+
+  try {
+    const error = JSON.parse(body) as {
+      code?: unknown;
+      error?: unknown;
+      message?: unknown;
+      statusCode?: unknown;
+      httpStatusCode?: unknown;
+    };
+    const code = String(error.code ?? error.error ?? "").toLowerCase();
+    const message = String(error.message ?? "").toLowerCase();
+    const reportedStatus = Number(error.statusCode ?? error.httpStatusCode);
+    return code === "not_found"
+      || code === "nosuchkey"
+      || message.includes("object not found")
+      || reportedStatus === 404;
+  } catch {
+    return /object\s+not\s+found|\bnot_found\b|\bnosuchkey\b/i.test(body);
+  }
+}
+
 async function readRecord(
   userId: string,
   transactionId: string,
@@ -171,8 +195,13 @@ async function readRecord(
     headers: authHeaders(),
     cache: "no-store",
   });
-  if (response.status === 404) return blankRecord(transactionId, definition);
-  if (!response.ok) throw new Error("The project document record could not be read.");
+  if (!response.ok) {
+    const errorBody = await response.text();
+    if (isMissingStorageObject(response.status, errorBody)) {
+      return blankRecord(transactionId, definition);
+    }
+    throw new Error("The project document record could not be read.");
+  }
   const record = (await response.json()) as PortalDocumentRecord;
   return { ...record, submission: record.submission ?? null };
 }
