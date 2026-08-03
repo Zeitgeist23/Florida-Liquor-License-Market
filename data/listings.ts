@@ -7,6 +7,8 @@ export type Listing = {
   sourceName?: string;
   sourceUrl?: string;
   note?: string;
+  licenseStatus?: string;
+  preferredTiming?: string;
   image: string;
 };
 
