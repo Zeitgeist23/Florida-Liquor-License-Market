@@ -1,9 +1,9 @@
 import "server-only";
 
-const DBPR_RETAIL_LICENSE_CSV =
+export const DBPR_RETAIL_LICENSE_CSV =
   "https://www2.myfloridalicense.com/sto/file_download/extracts/bd4006lic.csv";
 
-const countyNames: Record<string, string> = {
+export const dbprCountyNames: Record<string, string> = {
   "11": "Alachua", "12": "Baker", "13": "Bay", "14": "Bradford", "15": "Brevard",
   "16": "Broward", "17": "Calhoun", "18": "Charlotte", "19": "Citrus", "20": "Clay",
   "21": "Collier", "22": "Columbia", "23": "Miami-Dade", "24": "DeSoto", "25": "Dixie",
@@ -114,7 +114,7 @@ function normalizeLicenseNumber(value: string) {
   return value.toUpperCase().replace(/[^A-Z0-9]/g, "");
 }
 
-function parseCsvRow(line: string) {
+export function parseDbprCsvRow(line: string) {
   const cells: string[] = [];
   let cell = "";
   let quoted = false;
@@ -196,7 +196,7 @@ export async function lookupFloridaRetailLicense(rawLicenseNumber: string) {
     .find((line) => line.includes(`"${licenseNumber}"`));
   if (!matchingLine) return null;
 
-  const row = parseCsvRow(matchingLine);
+  const row = parseDbprCsvRow(matchingLine);
   const series = row[3]?.trim() || "";
   const modifier = row[4]?.trim() || "";
   const countyCode = row[19]?.trim() || row[11]?.trim() || "";
@@ -209,7 +209,7 @@ export async function lookupFloridaRetailLicense(rawLicenseNumber: string) {
     series,
     modifier,
     countyCode,
-    county: countyNames[countyCode] || `County code ${countyCode}`,
+    county: dbprCountyNames[countyCode] || `County code ${countyCode}`,
     city: row[16]?.trim() || "",
     primaryStatus: primaryStatuses[row[21]?.trim()] || row[21]?.trim() || "Not listed",
     secondaryStatus: secondaryStatuses[row[22]?.trim()] || row[22]?.trim() || "Not listed",

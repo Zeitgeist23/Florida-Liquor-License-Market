@@ -4,6 +4,7 @@ import { publishDiscoveredListings } from "@/lib/discovered-listing-store";
 import { discoverPublicListings } from "@/lib/listing-discovery";
 import { refreshKnownListings } from "@/lib/listing-refresh";
 import { discoverQuotaPhraseListings } from "@/lib/quota-listing-discovery";
+import { getFloridaQuotaInventory } from "@/lib/quota-license-inventory";
 import { upsertMarketplaceListings } from "@/lib/listing-store";
 
 export const dynamic = "force-dynamic";
@@ -75,6 +76,18 @@ export async function GET(request: NextRequest) {
   if (!secret || authorization !== `Bearer ${secret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  const quotaInventoryPromise = getFloridaQuotaInventory()
+    .then((inventory) => ({
+      updated: true,
+      counties: inventory.counties.length,
+      dbprDataUpdatedAt: inventory.dbprDataUpdatedAt,
+      calculatedAt: inventory.calculatedAt,
+    }))
+    .catch((error) => ({
+      updated: false,
+      error: error instanceof Error ? error.message : String(error),
+    }));
 
   const feedUrls = (process.env.AUTHORIZED_LISTING_FEEDS ?? "")
     .split(",")
@@ -176,6 +189,7 @@ export async function GET(request: NextRequest) {
       updated: feedListings.length,
       failed: feedResults.filter((result) => result.status === "rejected").length
     },
-    discovery
+    discovery,
+    quotaInventory: await quotaInventoryPromise,
   });
 }

@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
-import { getCountyBySlug, getCountyByName } from "@/data/florida-counties";
+import { getCountyBySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
 import { getMarketplaceListings } from "@/lib/listing-store";
+import { getCountyQuotaInventory } from "@/lib/quota-license-inventory";
 import "./county-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -26,6 +27,15 @@ function median(values: number[]) {
   const sorted = [...values].sort((a, b) => a - b);
   const middle = Math.floor(sorted.length / 2);
   return sorted.length % 2 ? sorted[middle] : Math.round((sorted[middle - 1] + sorted[middle]) / 2);
+}
+
+function sourceDate(value: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "America/New_York",
+  }).format(new Date(value));
 }
 
 function listingKey(listing: Listing) {
@@ -78,7 +88,10 @@ export default async function CountyPage({ params }: PageProps) {
   const county = getCountyBySlug(slug);
   if (!county) notFound();
 
-  const marketplaceListings = await getMarketplaceListings();
+  const [marketplaceListings, quotaInventory] = await Promise.all([
+    getMarketplaceListings(),
+    getCountyQuotaInventory(county.name).catch(() => null),
+  ]);
   const countyListings = marketplaceListings.filter((listing) => listing.county === county.name);
   const available = countyListings.filter((listing) => Boolean(listing.sourceRef));
   const sold = countyListings.filter((listing) => !listing.sourceRef);
@@ -193,6 +206,41 @@ export default async function CountyPage({ params }: PageProps) {
         <div><span>Lowest Disclosed Ask</span><strong>{lowest === null ? "Undisclosed" : money(lowest)}</strong></div>
         <div><span>Median Disclosed Ask</span><strong>{medianPrice === null ? "Undisclosed" : money(medianPrice)}</strong></div>
         <div><span>Highest Disclosed Ask</span><strong>{highest === null ? "Undisclosed" : money(highest)}</strong></div>
+      </section>
+
+      <section className="county-supply county-shell" aria-label={`${county.name} official quota license inventory`}>
+        <div className="county-supply-heading">
+          <div>
+            <span>Official DBPR County Supply</span>
+            <h2>{county.name} Quota License Inventory</h2>
+          </div>
+          <Link href="/resources/florida-liquor-license-types">How quota licenses work ›</Link>
+        </div>
+
+        {quotaInventory ? (
+          <>
+            <div className="county-supply-grid">
+              <div><span>Active or Temporary</span><strong>{quotaInventory.activeOrTemporary.toLocaleString("en-US")}</strong><small>Active DBPR quota records</small></div>
+              <div><span>4COP Quota Records</span><strong>{quotaInventory.fourCopQuotaRecords.toLocaleString("en-US")}</strong><small>Exact 4COP series count</small></div>
+              <div><span>Escrow or Restricted</span><strong>{(quotaInventory.escrow + quotaInventory.delinquent + quotaInventory.restrictedOrPending).toLocaleString("en-US")}</strong><small>Not counted as active supply</small></div>
+              <div className="county-supply-total"><span>Total Existing Inventory</span><strong>{quotaInventory.totalIssued.toLocaleString("en-US")}</strong><small>Distinct current DBPR records</small></div>
+            </div>
+            <div className="county-supply-source">
+              <p>
+                Calculated from DBPR&apos;s daily retail alcoholic-beverage license extract. Specialty 4COP classifications are excluded.
+                The total includes full-liquor population-quota series 4COP through 8COP and excludes null-and-void, revoked, and transferred records.
+              </p>
+              <div>
+                <span>Official series: {quotaInventory.series.length ? Object.entries(quotaInventory.seriesBreakdown).map(([series, count]) => `${series} (${count})`).join(" · ") : "No current quota records"}</span>
+                <span>DBPR data updated {sourceDate(quotaInventory.dbprDataUpdatedAt)}</span>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="county-supply-unavailable">
+            DBPR&apos;s daily quota inventory feed is temporarily unavailable. Marketplace listings remain available below.
+          </div>
+        )}
       </section>
 
       <section className="county-inventory">
