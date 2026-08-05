@@ -2,8 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import type { Listing } from "@/data/listings";
 import { publishDiscoveredListings } from "@/lib/discovered-listing-store";
 import { discoverPublicListings } from "@/lib/listing-discovery";
-import { refreshKnownListings } from "@/lib/listing-refresh";
-import { discoverQuotaPhraseListings } from "@/lib/quota-listing-discovery";
+import {
+  beginDiscoveryRun,
+  finishDiscoveryRun,
+  recordDiscoveryCandidates
+} from "@/lib/listing-discovery-log";
 import { upsertMarketplaceListings } from "@/lib/listing-store";
 
 export const dynamic = "force-dynamic";
@@ -44,17 +47,6 @@ function normalizeListing(item: FeedListing, feedUrl: string): Listing | null {
   };
 }
 
-function discoveryKey(listing: Listing): string {
-  return listing.sourceUrl?.trim().toLowerCase()
-    || listing.sourceRef?.trim().toLowerCase()
-    || `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
-}
-
-function errorMessage(result: PromiseRejectedResult | undefined): string | undefined {
-  if (!result) return undefined;
-  return result.reason instanceof Error ? result.reason.message : String(result.reason);
-}
-
 async function readFeed(feedUrl: string): Promise<Listing[]> {
   const response = await fetch(feedUrl, {
     headers: { Accept: "application/json", "User-Agent": "FloridaLiquorLicenseMarket/1.0" },
@@ -68,114 +60,86 @@ async function readFeed(feedUrl: string): Promise<Listing[]> {
   return items.map((item) => normalizeListing(item, feedUrl)).filter((item): item is Listing => Boolean(item));
 }
 
-export async function GET(request: NextRequest) {
+function authorized(request: NextRequest): boolean {
   const secret = process.env.CRON_SECRET;
-  const authorization = request.headers.get("authorization");
+  return Boolean(secret && request.headers.get("authorization") === `Bearer ${secret}`);
+}
 
-  if (!secret || authorization !== `Bearer ${secret}`) {
+export async function GET(request: NextRequest) {
+  if (!authorized(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const feedUrls = (process.env.AUTHORIZED_LISTING_FEEDS ?? "")
-    .split(",")
-    .map((value) => value.trim())
-    .filter(Boolean);
+  const runId = await beginDiscoveryRun("primary-listing-discovery");
+  try {
+    const feedUrls = (process.env.AUTHORIZED_LISTING_FEEDS ?? "")
+      .split(",")
+      .map((value) => value.trim())
+      .filter(Boolean);
 
-  const feedResults = await Promise.allSettled(feedUrls.map(readFeed));
-  const feedListings = feedResults.flatMap((result) => result.status === "fulfilled" ? result.value : []);
-  await upsertMarketplaceListings(feedListings);
+    const feedResults = await Promise.allSettled(feedUrls.map(readFeed));
+    const feedListings = feedResults.flatMap((result) => result.status === "fulfilled" ? result.value : []);
+    await upsertMarketplaceListings(feedListings);
 
-  const tavilyApiKey = process.env.TAVILY_API_KEY?.trim();
-  const autoDiscoveryEnabled = Boolean(tavilyApiKey) && process.env.AUTO_DISCOVERY_ENABLED !== "false";
+    const tavilyApiKey = process.env.TAVILY_API_KEY?.trim();
+    const autoDiscoveryEnabled = Boolean(tavilyApiKey) && process.env.AUTO_DISCOVERY_ENABLED !== "false";
 
-  let discovery: Record<string, unknown> = {
-    enabled: autoDiscoveryEnabled,
-    checkedSources: 0,
-    searchResults: 0,
-    qualified: 0,
-    inserted: 0,
-    refreshedExisting: 0,
-    priceUpdated: 0,
-    statusUpdated: 0,
-    skippedExisting: 0,
-    skippedDuplicateCandidate: 0,
-    manualReviewCandidates: 0,
-    rejectedResults: 0
-  };
+    let discovery: Record<string, unknown> = {
+      enabled: autoDiscoveryEnabled,
+      checkedSources: 0,
+      searchResults: 0,
+      qualified: 0,
+      inserted: 0,
+      refreshedExisting: 0,
+      priceUpdated: 0,
+      statusUpdated: 0,
+      skippedExisting: 0,
+      skippedDuplicateCandidate: 0,
+      manualReviewCandidates: 0,
+      rejectedResults: 0
+    };
 
-  if (autoDiscoveryEnabled && tavilyApiKey) {
-    try {
-      const [primaryResult, supplementalResult, refreshResult] = await Promise.allSettled([
-        discoverPublicListings(tavilyApiKey),
-        discoverQuotaPhraseListings(tavilyApiKey),
-        refreshKnownListings(tavilyApiKey)
-      ]);
-
-      const primary = primaryResult.status === "fulfilled" ? primaryResult.value : undefined;
-      const supplemental = supplementalResult.status === "fulfilled" ? supplementalResult.value : undefined;
-      const refresh = refreshResult.status === "fulfilled" ? refreshResult.value : undefined;
-      const qualifiedListings = Array.from(
-        new Map(
-          [...(primary?.qualifiedListings ?? []), ...(supplemental?.qualifiedListings ?? [])]
-            .map((listing) => [discoveryKey(listing), listing])
-        ).values()
-      );
-      const publish = await publishDiscoveredListings(qualifiedListings);
+    if (autoDiscoveryEnabled && tavilyApiKey) {
+      const result = await discoverPublicListings(tavilyApiKey);
+      const publish = await publishDiscoveredListings(result.qualifiedListings);
+      await recordDiscoveryCandidates(runId, result.reviewCandidates);
 
       discovery = {
         enabled: true,
-        checkedSources: Math.max(primary?.checkedSources ?? 0, supplemental?.checkedSources ?? 0),
-        searchResults: (primary?.searchResults ?? 0) + (supplemental?.searchResults ?? 0),
-        qualified: qualifiedListings.length,
+        checkedSources: result.checkedSources,
+        searchResults: result.searchResults,
+        qualified: result.qualifiedListings.length,
         inserted: publish.inserted,
         refreshedExisting: publish.refreshedExisting,
         priceUpdated: publish.priceUpdated,
         statusUpdated: publish.statusUpdated,
         skippedExisting: publish.skippedExisting,
         skippedDuplicateCandidate: publish.skippedDuplicateCandidate,
-        manualReviewCandidates: primary?.manualReviewCandidates ?? 0,
-        rejectedResults: (primary?.rejectedResults ?? 0) + (supplemental?.rejectedResults ?? 0),
+        manualReviewCandidates: result.manualReviewCandidates,
+        rejectedResults: result.rejectedResults,
         databaseConfigured: publish.databaseConfigured,
-        sources: primary?.sourceResults ?? [],
-        primaryError: primaryResult.status === "rejected" ? errorMessage(primaryResult) : undefined,
-        knownListingRefresh: {
-          checked: refresh?.checked ?? 0,
-          refreshed: refresh?.refreshed ?? 0,
-          priceUpdated: refresh?.priceUpdated ?? 0,
-          statusUpdated: refresh?.statusUpdated ?? 0,
-          failed: refresh?.failed ?? 0,
-          databaseConfigured: refresh?.databaseConfigured ?? false,
-          error: refreshResult.status === "rejected" ? errorMessage(refreshResult) : undefined
-        },
-        supplemental: {
-          checkedSources: supplemental?.checkedSources ?? 0,
-          searchResults: supplemental?.searchResults ?? 0,
-          qualified: supplemental?.qualifiedListings.length ?? 0,
-          rejectedResults: supplemental?.rejectedResults ?? 0,
-          countyBatch: supplemental?.countyBatch ?? [],
-          sources: supplemental?.sourceResults ?? [],
-          error: supplementalResult.status === "rejected" ? errorMessage(supplementalResult) : undefined
-        }
+        sources: result.sourceResults
       };
-    } catch (error) {
-      discovery = {
-        ...discovery,
-        enabled: true,
-        error: error instanceof Error ? error.message : String(error)
-      };
+    } else if (!tavilyApiKey) {
+      discovery.message = "TAVILY_API_KEY is not configured; authorized JSON feeds were still checked.";
+    } else {
+      discovery.message = "Automatic public-web discovery is disabled by AUTO_DISCOVERY_ENABLED=false.";
     }
-  } else if (!tavilyApiKey) {
-    discovery.message = "TAVILY_API_KEY is not configured; authorized JSON feeds were still checked.";
-  } else {
-    discovery.message = "Automatic public-web discovery is disabled by AUTO_DISCOVERY_ENABLED=false.";
-  }
 
-  return NextResponse.json({
-    feeds: {
-      configured: feedUrls.length,
-      updated: feedListings.length,
-      failed: feedResults.filter((result) => result.status === "rejected").length
-    },
-    discovery
-  });
+    const response = {
+      feeds: {
+        configured: feedUrls.length,
+        updated: feedListings.length,
+        failed: feedResults.filter((result) => result.status === "rejected").length
+      },
+      discovery
+    };
+
+    await finishDiscoveryRun(runId, "succeeded", response);
+    return NextResponse.json(response);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    await finishDiscoveryRun(runId, "failed", {}, message);
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
