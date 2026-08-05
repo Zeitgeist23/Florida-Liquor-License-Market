@@ -1,6 +1,7 @@
 import "server-only";
 
 import { canonicalizeSourceUrl } from "@/lib/listing-discovery";
+import { extractLicensePrice } from "@/lib/florida-license-parser";
 
 type RefreshListingRow = {
   id: number;
@@ -59,43 +60,21 @@ function batchSize(): number {
   return Math.max(1, Math.min(MAX_BATCH_SIZE, Math.floor(configured)));
 }
 
-function priceValue(value: string): number | null {
-  const parsed = Number(value.replace(/[$,\s]/g, ""));
-  return Number.isFinite(parsed) && parsed >= 50000 && parsed <= 2500000 ? Math.round(parsed) : null;
-}
-
 export function extractAskingPrice(content: string): number | null {
-  const labeledPatterns = [
-    /(?:asking|list(?:ing)?|sale)\s+price[^$0-9]{0,50}(\$?\s*[0-9]{2,3}(?:,[0-9]{3})+|\$?\s*[0-9]{5,7})(?:\.\d{2})?/gi,
-    /(?:price|asking)[^$0-9]{0,20}(\$\s*[0-9]{2,3}(?:,[0-9]{3})+|\$\s*[0-9]{5,7})(?:\.\d{2})?/gi
-  ];
-
-  for (const pattern of labeledPatterns) {
-    for (const match of content.matchAll(pattern)) {
-      const price = priceValue(match[1]);
-      if (price !== null) return price;
-    }
-  }
-
-  // Extract returns the most relevant chunks for the supplied query. A dollar
-  // amount near the start is a safe fallback when no explicit label survives.
-  for (const match of content.slice(0, 2500).matchAll(/\$\s*([0-9]{2,3}(?:,[0-9]{3})+|[0-9]{5,7})(?:\.\d{2})?/g)) {
-    const price = priceValue(match[1]);
-    if (price !== null) return price;
-  }
-
-  return null;
+  return extractLicensePrice(content);
 }
 
 export function isConfidentlyUnavailable(content: string): boolean {
   const normalized = content
-    .slice(0, 6000)
+    .slice(0, 9000)
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-  const state = "sold|in escrow|under contract|sale pending|off market|no longer available|expired";
+  const state = "sold|under contract|sale pending|pending sale|off market|no longer available|expired|withdrawn";
 
+  // A Florida license may be "held in escrow" while actively offered for
+  // sale. Escrow status by itself is therefore not an unavailable signal.
   return new RegExp(`\\b(?:listing|license|asset) (?:is |has been |now )?(?:${state})\\b`, "i").test(normalized)
     || new RegExp(`\\bstatus (?:is )?(?:${state})\\b`, "i").test(normalized);
 }
