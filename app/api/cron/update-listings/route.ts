@@ -7,7 +7,10 @@ import {
   finishDiscoveryRun,
   recordDiscoveryCandidates
 } from "@/lib/listing-discovery-log";
+import { refreshKnownListings } from "@/lib/listing-refresh";
 import { upsertMarketplaceListings } from "@/lib/listing-store";
+import { runDueLicenseReminders } from "@/lib/license-renewal-reminders";
+import { discoverQuotaPhraseListings } from "@/lib/quota-listing-discovery";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -65,66 +68,70 @@ function authorized(request: NextRequest): boolean {
   return Boolean(secret && request.headers.get("authorization") === `Bearer ${secret}`);
 }
 
+function resultError(result: PromiseSettledResult<unknown>): string | undefined {
+  if (result.status === "fulfilled") return undefined;
+  return result.reason instanceof Error ? result.reason.message : String(result.reason);
+}
+
+function listingIdentity(listing: Listing): string {
+  const sourceRef = listing.sourceRef?.trim().toLowerCase();
+  if (sourceRef) return `ref:${sourceRef}`;
+
+  const sourceUrl = listing.sourceUrl?.trim().toLowerCase().replace(/\/+$/, "");
+  if (sourceUrl) return `url:${sourceUrl}`;
+
+  return `fallback:${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
+}
+
 export async function GET(request: NextRequest) {
   if (!authorized(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const runId = await beginDiscoveryRun("primary-listing-discovery");
+  const runId = await beginDiscoveryRun("daily-marketplace-maintenance");
   try {
     const feedUrls = (process.env.AUTHORIZED_LISTING_FEEDS ?? "")
       .split(",")
       .map((value) => value.trim())
       .filter(Boolean);
 
-    const feedResults = await Promise.allSettled(feedUrls.map(readFeed));
-    const feedListings = feedResults.flatMap((result) => result.status === "fulfilled" ? result.value : []);
-    await upsertMarketplaceListings(feedListings);
-
     const tavilyApiKey = process.env.TAVILY_API_KEY?.trim();
     const autoDiscoveryEnabled = Boolean(tavilyApiKey) && process.env.AUTO_DISCOVERY_ENABLED !== "false";
 
-    let discovery: Record<string, unknown> = {
-      enabled: autoDiscoveryEnabled,
-      checkedSources: 0,
-      searchResults: 0,
-      qualified: 0,
-      inserted: 0,
-      refreshedExisting: 0,
-      priceUpdated: 0,
-      statusUpdated: 0,
-      skippedExisting: 0,
-      skippedDuplicateCandidate: 0,
-      manualReviewCandidates: 0,
-      rejectedResults: 0
-    };
+    const feedPromise = Promise.allSettled(feedUrls.map(readFeed));
+    const maintenancePromise = Promise.allSettled([
+      autoDiscoveryEnabled && tavilyApiKey ? discoverPublicListings(tavilyApiKey) : Promise.resolve(null),
+      autoDiscoveryEnabled && tavilyApiKey ? discoverQuotaPhraseListings(tavilyApiKey) : Promise.resolve(null),
+      tavilyApiKey ? refreshKnownListings(tavilyApiKey) : Promise.resolve(null),
+      runDueLicenseReminders()
+    ] as const);
 
-    if (autoDiscoveryEnabled && tavilyApiKey) {
-      const result = await discoverPublicListings(tavilyApiKey);
-      const publish = await publishDiscoveredListings(result.qualifiedListings);
-      await recordDiscoveryCandidates(runId, result.reviewCandidates);
+    const [feedResults, [primaryResult, supplementalResult, refreshResult, reminderResult]] = await Promise.all([
+      feedPromise,
+      maintenancePromise
+    ]);
 
-      discovery = {
-        enabled: true,
-        checkedSources: result.checkedSources,
-        searchResults: result.searchResults,
-        qualified: result.qualifiedListings.length,
-        inserted: publish.inserted,
-        refreshedExisting: publish.refreshedExisting,
-        priceUpdated: publish.priceUpdated,
-        statusUpdated: publish.statusUpdated,
-        skippedExisting: publish.skippedExisting,
-        skippedDuplicateCandidate: publish.skippedDuplicateCandidate,
-        manualReviewCandidates: result.manualReviewCandidates,
-        rejectedResults: result.rejectedResults,
-        databaseConfigured: publish.databaseConfigured,
-        sources: result.sourceResults
-      };
-    } else if (!tavilyApiKey) {
-      discovery.message = "TAVILY_API_KEY is not configured; authorized JSON feeds were still checked.";
-    } else {
-      discovery.message = "Automatic public-web discovery is disabled by AUTO_DISCOVERY_ENABLED=false.";
+    const feedListings = feedResults.flatMap((result) => result.status === "fulfilled" ? result.value : []);
+    await upsertMarketplaceListings(feedListings);
+
+    const primary = primaryResult.status === "fulfilled" ? primaryResult.value : null;
+    const supplemental = supplementalResult.status === "fulfilled" ? supplementalResult.value : null;
+    const refresh = refreshResult.status === "fulfilled" ? refreshResult.value : null;
+    const reminders = reminderResult.status === "fulfilled" ? reminderResult.value : null;
+
+    const discoveredByIdentity = new Map<string, Listing>();
+    for (const listing of [
+      ...(primary?.qualifiedListings ?? []),
+      ...(supplemental?.qualifiedListings ?? [])
+    ]) {
+      discoveredByIdentity.set(listingIdentity(listing), listing);
     }
+
+    const publish = await publishDiscoveredListings(Array.from(discoveredByIdentity.values()));
+    await recordDiscoveryCandidates(runId, [
+      ...(primary?.reviewCandidates ?? []),
+      ...(supplemental?.reviewCandidates ?? [])
+    ]);
 
     const response = {
       feeds: {
@@ -132,7 +139,48 @@ export async function GET(request: NextRequest) {
         updated: feedListings.length,
         failed: feedResults.filter((result) => result.status === "rejected").length
       },
-      discovery
+      discovery: {
+        enabled: autoDiscoveryEnabled,
+        qualified: discoveredByIdentity.size,
+        inserted: publish.inserted,
+        refreshedExisting: publish.refreshedExisting,
+        priceUpdated: publish.priceUpdated,
+        statusUpdated: publish.statusUpdated,
+        skippedExisting: publish.skippedExisting,
+        skippedDuplicateCandidate: publish.skippedDuplicateCandidate,
+        databaseConfigured: publish.databaseConfigured,
+        primary: primary ? {
+          checkedSources: primary.checkedSources,
+          searchResults: primary.searchResults,
+          qualified: primary.qualifiedListings.length,
+          manualReviewCandidates: primary.manualReviewCandidates,
+          rejectedResults: primary.rejectedResults,
+          sources: primary.sourceResults
+        } : {
+          error: resultError(primaryResult),
+          message: autoDiscoveryEnabled ? undefined : "Automatic discovery is disabled or TAVILY_API_KEY is missing."
+        },
+        supplemental: supplemental ? {
+          checkedSources: supplemental.checkedSources,
+          searchResults: supplemental.searchResults,
+          qualified: supplemental.qualifiedListings.length,
+          manualReviewCandidates: supplemental.manualReviewCandidates,
+          rejectedResults: supplemental.rejectedResults,
+          countyBatch: supplemental.countyBatch,
+          sources: supplemental.sourceResults
+        } : {
+          error: resultError(supplementalResult),
+          message: autoDiscoveryEnabled ? undefined : "Supplemental discovery is disabled or TAVILY_API_KEY is missing."
+        }
+      },
+      refresh: refresh ?? {
+        enabled: false,
+        error: resultError(refreshResult),
+        message: tavilyApiKey ? undefined : "TAVILY_API_KEY is missing."
+      },
+      renewalReminders: reminders ?? {
+        error: resultError(reminderResult)
+      }
     };
 
     await finishDiscoveryRun(runId, "succeeded", response);
