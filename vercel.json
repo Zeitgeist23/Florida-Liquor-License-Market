@@ -6,15 +6,15 @@
     },
     {
       "path": "/api/cron/update-listings-supplemental",
-      "schedule": "15 11 * * *"
+      "schedule": "0 12 * * *"
     },
     {
       "path": "/api/cron/refresh-listings",
-      "schedule": "30 11 * * *"
+      "schedule": "0 13 * * *"
     },
     {
       "path": "/api/cron/license-renewal-reminders",
-      "schedule": "45 11 * * *"
+      "schedule": "0 14 * * *"
     }
   ]
 }
