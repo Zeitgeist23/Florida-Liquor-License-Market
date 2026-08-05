@@ -3,7 +3,13 @@ import "server-only";
 import { createHash } from "node:crypto";
 import discoveryConfigJson from "@/data/florida-liquor-license-auto-discovery.json";
 import type { Listing } from "@/data/listings";
+import type { DiscoveryCandidate } from "@/lib/listing-discovery";
 import { canonicalizeSourceUrl } from "@/lib/listing-discovery";
+import {
+  isUnavailableListing,
+  listingImageForCounty,
+  parseLicenseCandidate
+} from "@/lib/florida-license-parser";
 
 type DiscoverySource = {
   sourceId: string;
@@ -37,6 +43,7 @@ export type SupplementalSourceResult = {
   checked: boolean;
   results: number;
   qualified: number;
+  manualReview: number;
   rejected: number;
   error?: string;
 };
@@ -45,14 +52,15 @@ export type SupplementalDiscoveryRun = {
   checkedSources: number;
   searchResults: number;
   qualifiedListings: Listing[];
+  manualReviewCandidates: number;
   rejectedResults: number;
   countyBatch: string[];
   sourceResults: SupplementalSourceResult[];
+  reviewCandidates: DiscoveryCandidate[];
 };
 
 const discoveryConfig = discoveryConfigJson as DiscoveryConfig;
-const COUNTY_COVERAGE_DAYS = 7;
-const COUNTIES_PER_QUERY = 2;
+const COUNTY_COVERAGE_DAYS = 10;
 
 const COUNTIES = [
   "Alachua County", "Baker County", "Bay County", "Bradford County", "Brevard County", "Broward County",
@@ -68,141 +76,106 @@ const COUNTIES = [
   "Taylor County", "Union County", "Volusia County", "Wakulla County", "Walton County", "Washington County"
 ] as const;
 
-const COUNTY_EXTRA_ALIASES: Record<string, string[]> = {
-  "Miami-Dade County": ["dade county"],
-  "DeSoto County": ["de soto county"],
-  "St. Johns County": ["saint johns county"],
-  "St. Lucie County": ["saint lucie county"]
-};
-
-const UNAVAILABLE_TERMS = [
-  "sold",
-  "in escrow",
-  "under contract",
-  "sale pending",
-  "no longer available",
-  "off market",
-  "listing expired"
-];
-
-function normalizeForMatch(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/&amp;/g, " and ")
-    .replace(/[^a-z0-9]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function extractCounty(text: string): string | null {
-  const normalized = ` ${normalizeForMatch(text)} `;
-  for (const county of COUNTIES) {
-    const aliases = [normalizeForMatch(county), ...(COUNTY_EXTRA_ALIASES[county] ?? [])];
-    if (aliases.some((alias) => normalized.includes(` ${alias} `))) return county;
+function sourceHostMatches(source: DiscoverySource, value: string): boolean {
+  try {
+    const host = new URL(value).hostname.toLowerCase().replace(/^www\./, "");
+    return host === source.domain || host.endsWith(`.${source.domain}`);
+  } catch {
+    return false;
   }
-  return null;
-}
-
-function extractLicenseType(text: string): Listing["type"] | null {
-  const normalized = normalizeForMatch(text);
-  const compact = normalized.replace(/\s+/g, "");
-
-  if (compact.includes("4cop")) return "4COP Quota";
-  if (compact.includes("3ps")) return "3PS Quota / Package Store";
-
-  const packageStoreTerms = [
-    "package store license",
-    "package liquor license",
-    "off premises liquor license",
-    "off premise liquor license"
-  ];
-  if (packageStoreTerms.some((term) => normalized.includes(term))) return "3PS Quota / Package Store";
-
-  const fullQuotaTerms = [
-    "full quota liquor license",
-    "quota liquor license",
-    "full liquor license",
-    "full alcohol license",
-    "quota license"
-  ];
-  if (fullQuotaTerms.some((term) => normalized.includes(term))) return "4COP Quota";
-
-  return null;
-}
-
-function extractPrice(text: string): number | null {
-  const matches = text.matchAll(/\$\s*([0-9]{2,3}(?:,[0-9]{3})+|[0-9]{5,7})(?:\.\d{2})?/g);
-  for (const match of matches) {
-    const value = Number(match[1].replace(/,/g, ""));
-    if (Number.isFinite(value) && value >= 50000 && value <= 2500000) return Math.round(value);
-  }
-  return null;
 }
 
 function pathMatchesSource(source: DiscoverySource, value: string): boolean {
-  const url = new URL(value);
-  const host = url.hostname.toLowerCase().replace(/^www\./, "");
-  if (host !== source.domain && !host.endsWith(`.${source.domain}`)) return false;
-  return source.individualListingPathPatterns.some((pattern) => new RegExp(pattern, "i").test(url.pathname));
+  if (!sourceHostMatches(source, value)) return false;
+  const pathname = new URL(value).pathname;
+  return source.individualListingPathPatterns.some((pattern) => new RegExp(pattern, "i").test(pathname));
 }
 
 function stableSourceRef(source: DiscoverySource, canonicalUrl: string): string {
   const path = new URL(canonicalUrl).pathname;
 
   if (source.sourceId === "bizbuysell") {
-    const match = path.match(/\/(\d+)\/?$/);
-    if (match) return `BBS-${match[1]}`;
+    const ids = Array.from(path.matchAll(/\/(\d{6,})(?:\/|$)/g));
+    const id = ids.at(-1)?.[1];
+    if (id) return `BBS-${id}`;
   }
 
   if (source.sourceId === "bizquest") {
-    const match = path.match(/\/(BW\d+)\/?$/i);
+    const match = path.match(/\/(BW\d+)(?:\/|$)/i);
     if (match) return `BQ-${match[1].toUpperCase()}`;
   }
 
   if (source.sourceId === "liquor-license-auctioneers") {
-    const match = path.match(/-(A\d+)\/?$/i);
+    const match = path.match(/-(A\d+)(?:\/|$)/i);
     if (match) return `LLA-${match[1].toUpperCase()}`;
   }
 
   return `${source.sourceId.toUpperCase()}-${createHash("sha256").update(canonicalUrl).digest("hex").slice(0, 12)}`;
 }
 
-function imageForCounty(county: string): string {
-  if (["Miami-Dade County", "Broward County", "Monroe County"].includes(county)) return "/assets/listing-miami.png";
-  if (["Palm Beach County", "Brevard County", "Indian River County", "St. Lucie County"].includes(county)) return "/assets/listing-palm-beach.png";
-  if (["Sarasota County", "Manatee County", "Charlotte County", "Pinellas County", "Hillsborough County"].includes(county)) return "/assets/listing-sarasota.png";
-  return "/assets/listing-lee.png";
+function combinedResultText(result: TavilyResult): string {
+  return [result.title, result.content, result.raw_content, result.url]
+    .filter((value): value is string => Boolean(value?.trim()))
+    .join("\n");
 }
 
-function resultToListing(source: DiscoverySource, result: TavilyResult): Listing | null {
-  const title = result.title?.trim() ?? "";
-  const content = result.content?.trim() ?? result.raw_content?.trim() ?? "";
-  const rawUrl = result.url?.trim();
-  if (!rawUrl || !title || !pathMatchesSource(source, rawUrl)) return null;
-  if ((result.score ?? 0) < discoveryConfig.minimumScore) return null;
+function candidateFor(
+  source: DiscoverySource,
+  result: TavilyResult,
+  sourceUrl: string,
+  reason: DiscoveryCandidate["reason"],
+  parsed: ReturnType<typeof parseLicenseCandidate>
+): DiscoveryCandidate {
+  return {
+    sourceId: source.sourceId,
+    sourceName: source.name,
+    sourceUrl,
+    title: result.title?.trim() || sourceUrl,
+    reason,
+    score: typeof result.score === "number" ? result.score : null,
+    county: parsed.county,
+    licenseType: parsed.type,
+    price: parsed.price
+  };
+}
 
-  const normalized = normalizeForMatch(`${title} ${content}`);
-  const hasSaleIntent = normalized.includes("for sale") || normalized.includes("available") || normalized.includes("asset sale") || normalized.includes("asking price");
-  if (!hasSaleIntent || UNAVAILABLE_TERMS.some((term) => normalized.includes(term))) return null;
+function analyzeResult(source: DiscoverySource, result: TavilyResult): { listing?: Listing; candidate?: DiscoveryCandidate } {
+  const rawUrl = result.url?.trim();
+  const title = result.title?.trim();
+  if (!rawUrl || !title || !sourceHostMatches(source, rawUrl)) return {};
+  if ((result.score ?? 0) < discoveryConfig.minimumScore) return {};
+
+  const parsed = parseLicenseCandidate(combinedResultText(result));
+  const statusText = [result.title, result.content].filter(Boolean).join("\n");
+  if (!parsed.hasLicenseLanguage || !parsed.hasSaleIntent || isUnavailableListing(statusText)) return {};
 
   const canonicalUrl = canonicalizeSourceUrl(rawUrl);
-  const searchableText = `${title} ${content} ${canonicalUrl}`;
-  const county = extractCounty(searchableText);
-  const type = extractLicenseType(searchableText);
-  if (!county || !type) return null;
+  if (!pathMatchesSource(source, rawUrl)) {
+    return { candidate: candidateFor(source, result, canonicalUrl, "unrecognized_listing_url", parsed) };
+  }
+  if (!parsed.county) {
+    return { candidate: candidateFor(source, result, canonicalUrl, "county_not_identified", parsed) };
+  }
+  if (!parsed.type) {
+    return { candidate: candidateFor(source, result, canonicalUrl, "license_type_not_identified", parsed) };
+  }
 
-  const price = extractPrice(title) ?? extractPrice(content);
-  return {
-    county,
-    type,
-    price,
-    priceLabel: price === null ? "Price Undisclosed" : `$${price.toLocaleString("en-US")}`,
+  const listing: Listing = {
+    county: parsed.county,
+    type: parsed.type,
+    price: parsed.price,
+    priceLabel: parsed.price === null ? "Price Undisclosed" : `$${parsed.price.toLocaleString("en-US")}`,
     sourceRef: stableSourceRef(source, canonicalUrl),
     sourceName: source.name,
     sourceUrl: canonicalUrl,
-    note: `Automatically discovered from ${source.name} using quota-license terminology. Price and availability subject to confirmation.`,
-    image: imageForCounty(county)
+    note: `Automatically discovered from ${source.name} using county and quota-license searches. Price and availability subject to confirmation.`,
+    image: listingImageForCounty(parsed.county)
   };
+
+  if (!source.autoPublish) {
+    return { candidate: candidateFor(source, result, canonicalUrl, "source_requires_review", parsed) };
+  }
+  return { listing };
 }
 
 function countiesForDay(dayNumber: number): string[] {
@@ -212,15 +185,7 @@ function countiesForDay(dayNumber: number): string[] {
 
 function buildQuery(counties: string[]): string {
   const countyClause = counties.map((county) => `"${county}"`).join(" OR ");
-  return `Florida (${countyClause}) ("4COP" OR "3PS" OR "full quota liquor license" OR "quota liquor license" OR "full liquor license" OR "full alcohol license" OR "quota license") ("for sale" OR available OR "asset sale" OR "asking price")`;
-}
-
-function countyQueryBatches(counties: string[]): string[][] {
-  const batches: string[][] = [];
-  for (let index = 0; index < counties.length; index += COUNTIES_PER_QUERY) {
-    batches.push(counties.slice(index, index + COUNTIES_PER_QUERY));
-  }
-  return batches;
+  return `Florida (${countyClause}) (4COP OR 3PS OR "quota liquor license" OR "full liquor license" OR "package store license") ("for sale" OR available OR "asking price")`;
 }
 
 async function searchSource(apiKey: string, source: DiscoverySource, query: string): Promise<TavilyResult[]> {
@@ -236,7 +201,7 @@ async function searchSource(apiKey: string, source: DiscoverySource, query: stri
       max_results: discoveryConfig.maxResultsPerSource,
       topic: "general",
       include_answer: false,
-      include_raw_content: false,
+      include_raw_content: "text",
       include_images: false,
       include_domains: [source.domain],
       country: "united states",
@@ -255,52 +220,58 @@ async function searchSource(apiKey: string, source: DiscoverySource, query: stri
 export async function discoverQuotaPhraseListings(apiKey: string): Promise<SupplementalDiscoveryRun> {
   const dayNumber = Math.floor(Date.now() / 86400000);
   const countyBatch = countiesForDay(dayNumber);
-  const sources = discoveryConfig.sources.filter((source) => source.autoPublish);
-  const tasks = sources.flatMap((source) => countyQueryBatches(countyBatch).map((counties) => ({
-    source,
-    query: buildQuery(counties)
-  })));
-  const settled = await Promise.allSettled(tasks.map((task) => searchSource(apiKey, task.source, task.query)));
+  const sources = discoveryConfig.sources;
+  const query = buildQuery(countyBatch);
+  const settled = await Promise.allSettled(sources.map((source) => searchSource(apiKey, source, query)));
 
   const qualifiedByUrl = new Map<string, Listing>();
+  const reviewByUrl = new Map<string, DiscoveryCandidate>();
   const sourceResults: SupplementalSourceResult[] = [];
   let searchResults = 0;
   let rejectedResults = 0;
 
-  for (const source of sources) {
+  settled.forEach((result, index) => {
+    const source = sources[index];
+    if (result.status === "rejected") {
+      sourceResults.push({
+        sourceId: source.sourceId,
+        sourceName: source.name,
+        checked: false,
+        results: 0,
+        qualified: 0,
+        manualReview: 0,
+        rejected: 0,
+        error: result.reason instanceof Error ? result.reason.message : String(result.reason)
+      });
+      return;
+    }
+
     const uniqueResults = new Map<string, TavilyResult>();
-    const errors: string[] = [];
-    let successfulQueries = 0;
-
-    settled.forEach((result, index) => {
-      if (tasks[index].source.sourceId !== source.sourceId) return;
-      if (result.status === "rejected") {
-        errors.push(result.reason instanceof Error ? result.reason.message : String(result.reason));
-        return;
+    for (const item of result.value) {
+      const rawUrl = item.url?.trim();
+      if (!rawUrl) continue;
+      try {
+        uniqueResults.set(canonicalizeSourceUrl(rawUrl), item);
+      } catch {
+        uniqueResults.set(rawUrl, item);
       }
-
-      successfulQueries += 1;
-      for (const item of result.value) {
-        const rawUrl = item.url?.trim();
-        if (!rawUrl) continue;
-        try {
-          uniqueResults.set(canonicalizeSourceUrl(rawUrl), item);
-        } catch {
-          uniqueResults.set(rawUrl, item);
-        }
-      }
-    });
+    }
 
     let qualified = 0;
+    let manualReview = 0;
     let rejected = 0;
     for (const item of uniqueResults.values()) {
-      const listing = resultToListing(source, item);
-      if (!listing) {
+      const analysis = analyzeResult(source, item);
+      if (analysis.listing) {
+        const key = analysis.listing.sourceUrl ?? analysis.listing.sourceRef ?? `${analysis.listing.county}|${analysis.listing.priceLabel}`;
+        qualifiedByUrl.set(key, analysis.listing);
+        qualified += 1;
+      } else if (analysis.candidate) {
+        reviewByUrl.set(analysis.candidate.sourceUrl, analysis.candidate);
+        manualReview += 1;
+      } else {
         rejected += 1;
-        continue;
       }
-      qualifiedByUrl.set(listing.sourceUrl ?? listing.sourceRef ?? `${listing.county}|${listing.priceLabel}`, listing);
-      qualified += 1;
     }
 
     searchResults += uniqueResults.size;
@@ -308,20 +279,22 @@ export async function discoverQuotaPhraseListings(apiKey: string): Promise<Suppl
     sourceResults.push({
       sourceId: source.sourceId,
       sourceName: source.name,
-      checked: successfulQueries > 0,
+      checked: true,
       results: uniqueResults.size,
       qualified,
-      rejected,
-      error: errors.length > 0 ? `${errors.length} county search${errors.length === 1 ? "" : "es"} failed: ${errors[0]}` : undefined
+      manualReview,
+      rejected
     });
-  }
+  });
 
   return {
     checkedSources: sourceResults.filter((source) => source.checked).length,
     searchResults,
     qualifiedListings: Array.from(qualifiedByUrl.values()),
+    manualReviewCandidates: reviewByUrl.size,
     rejectedResults,
     countyBatch,
-    sourceResults
+    sourceResults,
+    reviewCandidates: Array.from(reviewByUrl.values())
   };
 }
