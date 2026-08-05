@@ -160,7 +160,7 @@ export async function publishDiscoveredListings(input: Listing[]): Promise<Disco
   let refreshedExisting = 0;
   let priceUpdated = 0;
   let statusUpdated = 0;
-  let skippedExisting = 0;
+  const skippedExisting = 0;
   let skippedDuplicateCandidate = 0;
 
   for (const listing of input) {
