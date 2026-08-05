@@ -52,11 +52,6 @@ function sourceRefKey(value: string | null | undefined): string | null {
   return value?.trim().toLowerCase() || null;
 }
 
-function marketSignature(county: string, type: Listing["type"], price: number | null): string | null {
-  if (price === null) return null;
-  return `${county.trim().toLowerCase()}|${type}|${price}`;
-}
-
 function discoveryDedupeKey(listing: Listing): string {
   const ref = sourceRefKey(listing.sourceRef);
   if (ref) return `source-ref:${ref}`;
@@ -159,11 +154,6 @@ export async function publishDiscoveredListings(input: Listing[]): Promise<Disco
     if (url) existingUrls.set(url, row);
     if (ref) existingRefs.set(ref, row);
   }
-  const existingSignatures = new Set(
-    existingRows
-      .map((row) => marketSignature(row.county, row.license_type, row.price))
-      .filter((value): value is string => Boolean(value))
-  );
 
   const accepted = new Map<string, Listing>();
   const refreshes = new Map<number, { row: ExistingListingRow; listing: Listing }>();
@@ -176,8 +166,7 @@ export async function publishDiscoveredListings(input: Listing[]): Promise<Disco
   for (const listing of input) {
     const url = sourceUrlKey(listing.sourceUrl);
     const ref = sourceRefKey(listing.sourceRef);
-    const signature = marketSignature(listing.county, listing.type, listing.price);
-    const existing = (url ? existingUrls.get(url) : undefined) ?? (ref ? existingRefs.get(ref) : undefined);
+    const existing = (ref ? existingRefs.get(ref) : undefined) ?? (url ? existingUrls.get(url) : undefined);
 
     if (existing) {
       if (!refreshes.has(existing.id)) {
@@ -193,19 +182,16 @@ export async function publishDiscoveredListings(input: Listing[]): Promise<Disco
       continue;
     }
 
-    if (signature && existingSignatures.has(signature)) {
-      skippedExisting += 1;
-      continue;
-    }
-
-    const key = url ? `url:${url}` : ref ? `ref:${ref}` : signature ? `signature:${signature}` : discoveryDedupeKey(listing);
+    // Distinct licenses can share the same county, license type, and price.
+    // Only stable external identity (source reference or canonical URL) is a
+    // safe automatic duplicate key.
+    const key = ref ? `ref:${ref}` : url ? `url:${url}` : discoveryDedupeKey(listing);
     if (accepted.has(key)) {
       skippedDuplicateCandidate += 1;
       continue;
     }
 
     accepted.set(key, listing);
-    if (signature) existingSignatures.add(signature);
   }
 
   await Promise.all(Array.from(refreshes.values()).map(({ row, listing }) => refreshExistingRow(row, listing)));
