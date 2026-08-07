@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
-import { getCountyBySlug, getCountyByName } from "@/data/florida-counties";
+import { getCountyBySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import "./county-page.css";
@@ -48,8 +48,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!county) return {};
 
   const canonical = `${siteUrl}/counties/${county.slug}`;
-  const title = `${county.name} Liquor Licenses for Sale | 4COP & 3PS`;
-  const description = `Browse transferable quota liquor-license interests in ${county.name}, including current 4COP and 3PS opportunities, asking prices, financing information, and confidential inquiry options.`;
+  const isDuval = county.slug === "duval";
+  const title = isDuval
+    ? "Duval County Liquor Licenses for Sale | Jacksonville 4COP & 3PS"
+    : `${county.name} Liquor Licenses for Sale | 4COP & 3PS`;
+  const description = isDuval
+    ? "Browse Duval County and Jacksonville liquor licenses for sale, including current 4COP and 3PS quota opportunities, asking prices, financing information, and confidential inquiry options."
+    : `Browse transferable quota liquor-license interests in ${county.name}, including current 4COP and 3PS opportunities, asking prices, financing information, and confidential inquiry options.`;
 
   return {
     title,
@@ -249,6 +254,27 @@ export default async function CountyPage({ params }: PageProps) {
           <Link href="/financing">Explore license financing ›</Link>
         </aside>
       </section>
+
+      {county.slug === "duval" && (
+        <section className="county-guide county-shell" aria-labelledby="duval-financing-title">
+          <article>
+            <span>Jacksonville Financing</span>
+            <h2 id="duval-financing-title">Duval County Liquor License Financing</h2>
+            <p>Buyers seeking a Jacksonville or Duval County 4COP or 3PS quota liquor license may be able to finance a portion of the acquisition through specialized private lenders. Financing availability depends on the license value, purchase price, down payment or equity, borrower qualifications, collateral, and transaction structure.</p>
+            <p>Current owners may also explore refinancing of an existing Duval County quota license. Florida Liquor License Market accepts confidential financing requests and can match qualified transactions with private lenders familiar with Florida quota-license collateral.</p>
+          </article>
+          <aside>
+            <h3>Financing a Jacksonville-area license</h3>
+            <ul>
+              <li>Identify the Duval County license and proposed purchase price.</li>
+              <li>Estimate available down payment or existing license equity.</li>
+              <li>Confirm whether the request is a purchase or refinance.</li>
+              <li>Submit the transaction for private-lender review.</li>
+            </ul>
+            <Link href="/financing">Explore Florida liquor license financing ›</Link>
+          </aside>
+        </section>
+      )}
 
       <section className="county-cta">
         <div className="county-shell county-cta-grid">
