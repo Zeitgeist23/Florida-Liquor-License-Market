@@ -193,6 +193,21 @@ export default async function FloridaLiquorLicensesForSalePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
+      <style>{`
+        .seo-market-listings-shell {
+          width: min(1480px, calc(100% - 60px));
+        }
+        .seo-market-preview-results {
+          min-height: 0 !important;
+          background: transparent !important;
+          color: inherit !important;
+        }
+        @media (max-width: 720px) {
+          .seo-market-listings-shell {
+            width: min(100% - 24px, 1480px);
+          }
+        }
+      `}</style>
 
       <header className="seo-market-header seo-market-shell">
         <Link className="seo-market-brand" href="/" aria-label="Florida Liquor License Market home">
@@ -261,7 +276,7 @@ export default async function FloridaLiquorLicensesForSalePage() {
       </section>
 
       <section className="seo-market-inventory">
-        <div className="seo-market-shell">
+        <div className="seo-market-shell seo-market-listings-shell">
           <div className="seo-market-section-heading">
             <div>
               <span className="seo-market-section-kicker">Current Opportunities</span>
