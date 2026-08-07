@@ -6,6 +6,7 @@ import ListingsQueryFilterEnhancement from "@/components/ListingsQueryFilterEnha
 import MonroeMapCompletion from "@/components/MonroeMapCompletion";
 import PaidListingLinkEnhancement from "@/components/PaidListingLinkEnhancement";
 import { getMarketplaceListings } from "@/lib/listing-store";
+import { listingPageHref } from "@/lib/listing-page-urls";
 import type { Listing } from "@/data/listings";
 import "./listings-premium.css";
 import "./listings-header-position.css";
@@ -13,7 +14,8 @@ import "./listings-map-size.css";
 import "./listings-card-expand.css";
 import "./listings-county-links.css";
 
-const listingsUrl = "https://www.floridaliquorlicensemarket.com/listings";
+const siteUrl = "https://www.floridaliquorlicensemarket.com";
+const listingsUrl = `${siteUrl}/listings`;
 
 export const metadata: Metadata = {
   title: "Florida Liquor Licenses for Sale | 4COP & 3PS Listings",
@@ -70,7 +72,7 @@ export default async function Page() {
       isPartOf: {
         "@type": "WebSite",
         name: "Florida Liquor License Market",
-        url: "https://www.floridaliquorlicensemarket.com",
+        url: siteUrl,
       },
     },
     {
@@ -83,7 +85,7 @@ export default async function Page() {
         "@type": "ListItem",
         position: index + 1,
         name: `${listing.type} in ${listing.county} — ${listing.priceLabel}`,
-        url: `${listingsUrl}?county=${encodeURIComponent(listing.county)}`,
+        url: `${siteUrl}${listingPageHref(listing)}`,
       })),
     },
   ];
