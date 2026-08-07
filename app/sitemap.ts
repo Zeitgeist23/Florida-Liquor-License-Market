@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
 import { indexableCounties } from "@/data/florida-counties";
+import { indexableListingPages, listingPageHref } from "@/lib/listing-page-urls";
+import { getMarketplaceListings } from "@/lib/listing-store";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
   const corePages: MetadataRoute.Sitemap = [
     { url: siteUrl, lastModified, changeFrequency: "daily", priority: 1 },
@@ -27,6 +29,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: county.featured ? 0.9 : 0.75,
   }));
 
-  return [...corePages, ...countyPages];
-}
+  const marketplaceListings = await getMarketplaceListings();
+  const listingPages: MetadataRoute.Sitemap = indexableListingPages(marketplaceListings).map(({ listing }) => ({
+    url: `${siteUrl}${listingPageHref(listing)}`,
+    changeFrequency: "daily",
+    priority: 0.85,
+  }));
 
+  return [...corePages, ...countyPages, ...listingPages];
+}
