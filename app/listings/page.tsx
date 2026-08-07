@@ -14,9 +14,16 @@ import "./listings-card-expand.css";
 import "./listings-county-links.css";
 
 export const metadata: Metadata = {
-  title: "Florida Liquor Licenses for Sale | Florida Liquor License Market",
-  description: "Search transferable Florida quota liquor license interests by county, license type, asking price, and availability.",
+  title: "Florida Liquor Licenses for Sale | 4COP & 3PS Listings",
+  description: "Browse Florida liquor licenses for sale, including transferable 4COP and 3PS quota-license listings. Search current inventory by county, asking price, license type, and availability.",
   alternates: { canonical: "https://www.floridaliquorlicensemarket.com/listings" },
+  openGraph: {
+    type: "website",
+    url: "https://www.floridaliquorlicensemarket.com/listings",
+    title: "Florida Liquor Licenses for Sale | 4COP & 3PS Listings",
+    description: "Search current Florida 4COP and 3PS quota liquor-license listings by county, asking price, and availability.",
+    siteName: "Florida Liquor License Market",
+  },
 };
 
 export const dynamic = "force-dynamic";
