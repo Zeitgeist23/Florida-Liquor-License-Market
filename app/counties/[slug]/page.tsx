@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import { getCountyBySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
+import { listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import "./county-page.css";
 
@@ -139,7 +140,7 @@ export default async function CountyPage({ params }: PageProps) {
         "@type": "ListItem",
         position: index + 1,
         name: `${listing.type} in ${county.name} — ${listing.priceLabel}`,
-        url: `${canonical}#${listing.sourceRef ?? `listing-${index + 1}`}`,
+        url: `${siteUrl}${listingPageHref(listing)}`,
       })),
     },
     {
@@ -216,7 +217,7 @@ export default async function CountyPage({ params }: PageProps) {
                   <div className="county-listing-map"><FloridaCountyMap county={listing.county} /><span>{listing.type}</span></div>
                   <div className="county-listing-body">
                     <p>● <Link href={`/counties/${county.slug}`}>{listing.county}</Link></p>
-                    <h3>{listing.priceLabel}</h3>
+                    <h3><Link href={listingPageHref(listing)} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h3>
                     <div className="county-listing-facts"><span>{listing.type}</span><span>Transferable/Available</span></div>
                     <small>Listing reference: {listing.sourceRef}</small>
                     <div className="county-listing-actions">
