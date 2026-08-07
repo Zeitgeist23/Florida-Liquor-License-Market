@@ -53,8 +53,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ? "Duval County Liquor Licenses for Sale | Jacksonville 4COP & 3PS"
     : `${county.name} Liquor Licenses for Sale | 4COP & 3PS`;
   const description = isDuval
-    ? "Browse Duval County and Jacksonville liquor licenses for sale, including current 4COP and 3PS quota opportunities, asking prices, financing information, and confidential inquiry options."
-    : `Browse transferable quota liquor-license interests in ${county.name}, including current 4COP and 3PS opportunities, asking prices, financing information, and confidential inquiry options.`;
+    ? "Browse Duval County and Jacksonville liquor licenses for sale, including current 4COP and 3PS quota opportunities, asking prices, marketplace inventory, and confidential inquiry options."
+    : `Browse transferable quota liquor-license interests in ${county.name}, including current 4COP and 3PS opportunities, asking prices, marketplace inventory, and confidential inquiry options.`;
 
   return {
     title,
@@ -94,6 +94,7 @@ export default async function CountyPage({ params }: PageProps) {
   const highest = disclosedPrices.length ? Math.max(...disclosedPrices) : null;
   const medianPrice = median(disclosedPrices);
   const canonical = `${siteUrl}/counties/${county.slug}`;
+  const filteredListingsHref = `/listings?county=${encodeURIComponent(county.name)}&status=available`;
   const cityText = county.primaryCities.length ? county.primaryCities.join(", ") : county.name.replace(" County", "");
   const nearby = county.nearbyCounties
     .map((nearbySlug) => getCountyBySlug(nearbySlug))
@@ -109,8 +110,8 @@ export default async function CountyPage({ params }: PageProps) {
       answer: `No. Asking prices and availability are subject to seller or broker confirmation and may change without notice. Buyers should independently verify the license, transaction structure, liens, transfer requirements, and all material terms.`,
     },
     {
-      question: `Can a buyer finance a quota liquor license in ${county.name}?`,
-      answer: `Financing may be available through private lenders depending on the license, purchase price, borrower qualifications, collateral, transaction structure, and underwriting. Submitting a request does not guarantee approval or any particular rate.`,
+      question: `Where can I browse current liquor licenses for sale in ${county.name}?`,
+      answer: `Current ${county.name} marketplace inventory is displayed on this county page and can also be viewed through the Florida Liquor License Market listings page, where buyers can filter by county, license type, asking price, and availability.`,
     },
     {
       question: `Does a license listing include a business or real estate?`,
@@ -164,7 +165,7 @@ export default async function CountyPage({ params }: PageProps) {
           <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
         </Link>
         <nav aria-label="County market navigation">
-          <Link href="/listings">All Listings</Link>
+          <Link href="/listings">Florida Listings</Link>
           <Link href="/counties">Browse Counties</Link>
           <Link href="/financing">Financing</Link>
           <Link className="county-nav-cta" href="/sell-your-license">List Your License</Link>
@@ -181,7 +182,7 @@ export default async function CountyPage({ params }: PageProps) {
             <h1>{county.name} Liquor Licenses for Sale</h1>
             <p>{county.introduction}</p>
             <div className="county-hero-actions">
-              <Link className="county-button county-button-gold" href={`/listings?county=${encodeURIComponent(county.name)}&status=available`}>View Current Inventory</Link>
+              <Link className="county-button county-button-gold" href={filteredListingsHref}>Browse {county.name} Listings</Link>
               <Link className="county-button county-button-dark" href="/sell-your-license">List a License</Link>
             </div>
           </div>
@@ -204,7 +205,7 @@ export default async function CountyPage({ params }: PageProps) {
         <div className="county-shell">
           <div className="county-section-heading">
             <div><span>Current Marketplace Inventory</span><h2>Available Licenses in {county.name}</h2></div>
-            <Link href={`/listings?county=${encodeURIComponent(county.name)}`}>Open filtered listings ›</Link>
+            <Link href={filteredListingsHref}>Browse all {county.name} listings ›</Link>
           </div>
           <p className="county-disclaimer">Listings are for liquor-license interests only unless expressly stated otherwise. Prices and availability remain subject to confirmation.</p>
 
@@ -241,44 +242,23 @@ export default async function CountyPage({ params }: PageProps) {
           <span>County Market Overview</span>
           <h2>Understanding the {county.name} License Market</h2>
           <p>{county.marketOverview}</p>
-          <p>A quota license is county-specific. A buyer should confirm that the license category fits the proposed use and should separately evaluate the intended premises, zoning, local approvals, liens, financing documents, and the state transfer process.</p>
+          <p>A quota license is county-specific. A buyer should confirm that the license category fits the proposed use and should separately evaluate the intended premises, zoning, local approvals, liens, purchase documents, and the state transfer process.</p>
         </article>
         <aside>
           <h3>Transaction checklist</h3>
           <ul>
             <li>Confirm the license number, category, county, and current status.</li>
-            <li>Review asking price, deposits, financing, liens, and closing conditions.</li>
+            <li>Review asking price, deposits, liens, transfer conditions, and closing terms.</li>
             <li>Verify the intended premises and applicable local approvals.</li>
             <li>Use independent legal, tax, and financial professionals.</li>
           </ul>
-          <Link href="/financing">Explore license financing ›</Link>
+          <Link href="/listings">Browse Florida liquor licenses for sale ›</Link>
         </aside>
       </section>
 
-      {county.slug === "duval" && (
-        <section className="county-guide county-shell" aria-labelledby="duval-financing-title">
-          <article>
-            <span>Jacksonville Financing</span>
-            <h2 id="duval-financing-title">Duval County Liquor License Financing</h2>
-            <p>Buyers seeking a Jacksonville or Duval County 4COP or 3PS quota liquor license may be able to finance a portion of the acquisition through specialized private lenders. Financing availability depends on the license value, purchase price, down payment or equity, borrower qualifications, collateral, and transaction structure.</p>
-            <p>Current owners may also explore refinancing of an existing Duval County quota license. Florida Liquor License Market accepts confidential financing requests and can match qualified transactions with private lenders familiar with Florida quota-license collateral.</p>
-          </article>
-          <aside>
-            <h3>Financing a Jacksonville-area license</h3>
-            <ul>
-              <li>Identify the Duval County license and proposed purchase price.</li>
-              <li>Estimate available down payment or existing license equity.</li>
-              <li>Confirm whether the request is a purchase or refinance.</li>
-              <li>Submit the transaction for private-lender review.</li>
-            </ul>
-            <Link href="/financing">Explore Florida liquor license financing ›</Link>
-          </aside>
-        </section>
-      )}
-
       <section className="county-cta">
         <div className="county-shell county-cta-grid">
-          <div><span>For Buyers</span><h2>Need a license in {county.name}?</h2><p>Submit a confidential inquiry or financing request tied to a current listing or acquisition target.</p><Link className="county-button county-button-gold" href="/contact">Contact the Marketplace</Link></div>
+          <div><span>For Buyers</span><h2>Need a license in {county.name}?</h2><p>Browse current marketplace inventory and compare available 4COP and 3PS opportunities in this county.</p><Link className="county-button county-button-gold" href={filteredListingsHref}>Browse {county.name} Listings</Link></div>
           <div><span>For Sellers and Brokers</span><h2>Have a license to market?</h2><p>Publish the opportunity statewide while keeping confidential information off the public listing card.</p><Link className="county-button county-button-gold" href="/sell-your-license">List Your License</Link></div>
         </div>
       </section>
