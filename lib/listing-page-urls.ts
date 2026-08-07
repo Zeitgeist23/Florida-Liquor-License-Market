@@ -25,8 +25,19 @@ function normalizedSourceUrl(sourceUrl?: string) {
   return sourceUrl?.trim().toLowerCase().replace(/\/+$/, "") ?? "";
 }
 
+function isPaidMarketplaceRef(sourceRef: string) {
+  return /^FLLM-PAID-/i.test(sourceRef.trim());
+}
+
 export function listingPageSlug(listing: Pick<Listing, "county" | "type" | "sourceRef">) {
   if (!listing.sourceRef) return null;
+
+  // Paid seller listings already use their public submission reference as the
+  // canonical route. Keep that URL stable rather than creating a second page.
+  if (isPaidMarketplaceRef(listing.sourceRef)) {
+    return listing.sourceRef.trim().toUpperCase();
+  }
+
   const reference = slugPart(listing.sourceRef).slice(0, 34) || "listing";
   return `${countySlug(listing.county)}-${listingTypeSlug(listing.type)}-${reference}-${shortHash(listing.sourceRef)}`;
 }
@@ -48,6 +59,8 @@ export function indexableListingPages(input: Listing[]): IndexableListingPage[] 
   for (const listing of input) {
     if (!listing.sourceRef) continue;
 
+    // First suppress exact source duplicates without collapsing two legitimate
+    // listings merely because they share county, type, and asking price.
     const sourceUrl = normalizedSourceUrl(listing.sourceUrl);
     const identity = sourceUrl
       ? `url:${sourceUrl}`
