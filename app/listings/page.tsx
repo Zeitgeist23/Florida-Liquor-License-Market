@@ -18,21 +18,21 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const listingsUrl = `${siteUrl}/listings`;
 
 export const metadata: Metadata = {
-  title: "Florida Liquor Licenses for Sale | 4COP & 3PS Listings",
-  description: "Browse current Florida liquor licenses for sale, including transferable 4COP quota and 3PS package-store listings. Search marketplace inventory by county, asking price, license type, and availability.",
+  title: "Florida Liquor License Listings | Search 4COP & 3PS",
+  description: "Search current Florida liquor-license marketplace inventory, including transferable 4COP quota and 3PS package-store listings. Filter by county, asking price, license type, and availability.",
   alternates: { canonical: listingsUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: listingsUrl,
-    title: "Florida Liquor Licenses for Sale | 4COP & 3PS Listings",
-    description: "Search current Florida 4COP and 3PS quota liquor-license listings by county, asking price, and availability.",
+    title: "Florida Liquor License Listings | Search 4COP & 3PS",
+    description: "Search current Florida 4COP and 3PS quota liquor-license marketplace inventory by county, asking price, and availability.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Florida Liquor Licenses for Sale | 4COP & 3PS Listings",
-    description: "Browse current Florida 4COP and 3PS quota liquor-license marketplace inventory.",
+    title: "Florida Liquor License Listings | Search 4COP & 3PS",
+    description: "Search current Florida 4COP and 3PS liquor-license marketplace inventory.",
   },
 };
 
@@ -66,9 +66,9 @@ export default async function Page() {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "Florida Liquor Licenses for Sale",
+      name: "Florida Liquor License Listings",
       url: listingsUrl,
-      description: "Current Florida marketplace inventory for transferable 4COP and 3PS quota liquor licenses.",
+      description: "Searchable Florida marketplace inventory for transferable 4COP and 3PS quota liquor-license opportunities.",
       isPartOf: {
         "@type": "WebSite",
         name: "Florida Liquor License Market",
@@ -78,7 +78,7 @@ export default async function Page() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Florida liquor licenses for sale",
+      name: "Florida liquor license marketplace listings",
       url: listingsUrl,
       numberOfItems: availableListings.length,
       itemListElement: availableListings.slice(0, 50).map((listing, index) => ({
