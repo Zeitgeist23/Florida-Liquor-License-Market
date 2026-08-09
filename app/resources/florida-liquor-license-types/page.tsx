@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import QuotaSiteRequirementCards from "@/components/QuotaSiteRequirementCards";
 import "../forms/abt-forms.css";
 import "./florida-liquor-license-types.css";
 
@@ -321,33 +322,7 @@ export default function FloridaLiquorLicenseTypesPage() {
             while a 3PS is the familiar Florida liquor-store or package-store license.
           </p>
         </div>
-        <div className="license-types-quota-cards">
-          <article>
-            <b>4COP quota</b>
-            <span>Bars · taverns · restaurants · nightclubs</span>
-            <p>Common business uses include:</p>
-            <ul>
-              <li>Bars and cocktail lounges</li>
-              <li>Taverns and pubs</li>
-              <li>Nightclubs and dance clubs</li>
-              <li>Full-liquor restaurants</li>
-              <li>Other approved hospitality or entertainment venues</li>
-            </ul>
-            <small>Permits beer, wine, and spirits by the drink and sealed-container sales within the approved license privileges.</small>
-          </article>
-          <article>
-            <b>3PS quota</b>
-            <span>Liquor store · package store</span>
-            <p>Common business uses include:</p>
-            <ul>
-              <li>Stand-alone liquor stores</li>
-              <li>Package stores</li>
-              <li>Dedicated liquor-store locations operated by qualifying retailers</li>
-              <li>Other approved full-liquor retail package outlets</li>
-            </ul>
-            <small>Permits sealed beer, wine, and spirits for off-premises consumption; it does not authorize on-premises drinking.</small>
-          </article>
-        </div>
+        <QuotaSiteRequirementCards />
       </section>
 
       <section className="license-types-section page-shell" id="specialty-license-chart" aria-labelledby="specialty-license-title">
