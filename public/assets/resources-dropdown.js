@@ -113,6 +113,23 @@
       .find((link) => /^resources$/i.test(normalizedText(link)));
   }
 
+  function ensureLicenseTypesLink() {
+    const trigger = findResourcesTrigger();
+    if (!(trigger instanceof HTMLAnchorElement)) return false;
+
+    const navigation = trigger.closest(".primary-nav");
+    if (!(navigation instanceof HTMLElement)) return false;
+    if (navigation.querySelector('a[href="/resources/florida-liquor-license-types"]')) return true;
+
+    const link = document.createElement("a");
+    link.href = "/resources/florida-liquor-license-types";
+    const label = document.createElement("span");
+    label.textContent = "License Types";
+    link.appendChild(label);
+    navigation.insertBefore(link, trigger);
+    return true;
+  }
+
   function closeMenu({ restoreFocus = false } = {}) {
     if (!menu) return;
     menu.classList.remove("is-open");
@@ -244,9 +261,13 @@
   }, { passive: true });
 
   function initialize() {
+    ensureLicenseTypesLink();
     bindTrigger();
+    window.setTimeout(ensureLicenseTypesLink, 300);
     window.setTimeout(bindTrigger, 300);
+    window.setTimeout(ensureLicenseTypesLink, 1000);
     window.setTimeout(bindTrigger, 1000);
+    window.setTimeout(ensureLicenseTypesLink, 2200);
     window.setTimeout(bindTrigger, 2200);
   }
 
