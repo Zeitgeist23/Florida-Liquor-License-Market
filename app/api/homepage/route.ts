@@ -238,6 +238,7 @@ export async function GET(request: Request) {
       .homepage-county-directory-grid i{flex:0 0 auto;color:#f1a600;font-size:10px;font-style:normal;font-weight:900;text-transform:uppercase}
       .hero .trust-line img{display:none!important}
       #market-report-narration-button-v1{display:none!important}
+      @media(min-width:821px){.site-header .primary-nav{gap:16px}}
       @media(max-width:720px){.homepage-county-directory{padding:50px 0}.homepage-county-directory-heading{display:block}.homepage-county-directory-all{display:inline-block;margin-top:14px}.homepage-county-directory-grid{grid-template-columns:1fr}.homepage-county-directory-grid>a{align-items:flex-start}}
     </style>`;
     if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v7"')) {

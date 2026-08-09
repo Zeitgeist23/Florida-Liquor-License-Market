@@ -34,7 +34,7 @@ a { color: inherit; text-decoration: none; }
 .site-header { height: 94px; display: flex; align-items: center; gap: 22px; position: relative; z-index: 4; }
 .brand-lockup { flex: 0 0 209px; display: flex; align-items: center; }
 .brand-lockup img { display: block; width: 188px; height: 76px; object-fit: cover; object-position: left center; }
-.primary-nav { flex: 1; display: flex; align-items: center; justify-content: center; gap: 24px; }
+.primary-nav { flex: 1; display: flex; align-items: center; justify-content: center; gap: 16px; }
 .primary-nav a { display: inline-flex; flex-wrap: nowrap; align-items: center; gap: 5px; color: #fff; font-size: 10px; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
 .primary-nav a > span { white-space: nowrap; }
 .nav-chevron { flex: 0 0 auto; width: 9px; height: 7px; object-fit: contain; }
@@ -336,4 +336,3 @@ nextjs-portal { display: none !important; }
 
 /* Full-width header background (overrides .page-shell's max-width) */
 .results-page > .results-header { width: 100%; max-width: none; padding-inline: max(18px, calc(50% - 512px)); margin-inline: 0; }
-
