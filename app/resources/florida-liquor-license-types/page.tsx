@@ -48,20 +48,20 @@ const commonLicenses = [
   },
   {
     series: "3PS family",
-    category: "Quota package store",
+    category: "Quota liquor store / package sales",
     products: "Beer, wine, and liquor",
     sales: "Package sales for off-premises consumption.",
     availability: "County-limited quota license; series may appear as 3DPS, 3CPS, 3BPS, 3APS, or 3PS based on county population.",
-    typicalUse: "Full-liquor package stores. Transfers require DBPR approval and must satisfy applicable law.",
+    typicalUse: "Liquor stores and package stores, including stand-alone shops and dedicated liquor-store locations operated by qualifying retailers.",
     emphasized: true,
   },
   {
     series: "4COP family",
-    category: "Quota consumption",
+    category: "Quota bar / restaurant / nightclub",
     products: "Beer, wine, and liquor",
     sales: "By the drink or sealed containers for consumption on or off premises.",
     availability: "County-limited quota license; series may appear as 8COP, 7COP, 6COP, 5COP, or 4COP based on county population.",
-    typicalUse: "Bars, restaurants, nightclubs, and other full-liquor venues. Transfers require DBPR approval and applicable compliance.",
+    typicalUse: "Bars, taverns, cocktail lounges, nightclubs, full-liquor restaurants, and other approved hospitality venues.",
     emphasized: true,
   },
 ];
@@ -127,7 +127,7 @@ const frequentlyAskedQuestions = [
   {
     question: "What is the difference between a 4COP quota license and a 3PS license?",
     answer:
-      "A 4COP quota license permits beer, wine, and liquor sales by the drink and in sealed containers within its approved privileges. A 3PS-family quota license is designed for sealed package sales for consumption away from the licensed premises.",
+      "A 4COP quota license is commonly used by bars, taverns, cocktail lounges, nightclubs, and full-liquor restaurants, and permits beer, wine, and liquor sales by the drink and in sealed containers within its approved privileges. A 3PS-family quota license is a liquor-store or package-store license for sealed sales consumed away from the licensed premises.",
   },
   {
     question: "Is a 2COP license a quota license?",
@@ -245,6 +245,33 @@ export default function FloridaLiquorLicenseTypesPage() {
         </article>
       </section>
 
+      <section className="license-types-population-rule page-shell" aria-labelledby="population-rule-title">
+        <div className="license-types-population-number" aria-label="One quota license for every 7,500 county residents">
+          <strong>1</strong>
+          <span>quota license for each</span>
+          <b>7,500</b>
+          <span>county residents</span>
+        </div>
+        <div>
+          <span className="license-types-rule-eyebrow">Florida’s statutory quota formula</span>
+          <h2 id="population-rule-title">Why 4COP and 3PS quota licenses are limited in number</h2>
+          <p>
+            Florida Statute §561.20(1) limits the number of quota alcoholic-beverage licenses within
+            each county to no more than <strong>one license for every 7,500 residents</strong>. New
+            quota-license availability is generally created when the county population increases by
+            another 7,500 residents, using the population estimates specified by Florida law.
+          </p>
+          <p>
+            Because the supply is restricted by county population, existing quota licenses can be
+            bought and sold in the private market, subject to DBPR approval and applicable transfer,
+            location, ownership, and compliance requirements.
+          </p>
+          <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&amp;Search_String=61.30&amp;SubMenu=1&amp;URL=0500-0599%2F0561%2FSections%2F0561.20.html&amp;mode=View+Statutes" target="_blank" rel="noreferrer">
+            Read Florida Statute §561.20 ↗
+          </a>
+        </div>
+      </section>
+
       <section className="license-types-section page-shell" id="common-license-chart" aria-labelledby="common-license-title">
         <div className="license-types-section-heading">
           <div>
@@ -287,24 +314,38 @@ export default function FloridaLiquorLicenseTypesPage() {
 
       <section className="license-types-quota page-shell" aria-labelledby="quota-explainer-title">
         <div>
-          <span>Why 3PS and 4COP receive special attention</span>
-          <h2 id="quota-explainer-title">Quota licenses can carry separate market value</h2>
+          <span>What businesses use these licenses?</span>
+          <h2 id="quota-explainer-title">4COP and 3PS serve different business models</h2>
           <p>
-            Florida limits quota beverage licenses by county. Because new availability is restricted,
-            existing quota licenses are commonly bought and sold in private transactions, subject to
-            DBPR approval, county limitations, statutory restrictions, and the condition of the license.
+            Both are full-liquor quota licenses, but a 4COP is commonly used for on-premises service,
+            while a 3PS is the familiar Florida liquor-store or package-store license.
           </p>
         </div>
         <div className="license-types-quota-cards">
           <article>
-            <b>3PS family</b>
-            <span>Full liquor · package sales</span>
-            <p>Designed for sealed-container sales for consumption away from the licensed premises.</p>
+            <b>4COP quota</b>
+            <span>Bars · taverns · restaurants · nightclubs</span>
+            <p>Common business uses include:</p>
+            <ul>
+              <li>Bars and cocktail lounges</li>
+              <li>Taverns and pubs</li>
+              <li>Nightclubs and dance clubs</li>
+              <li>Full-liquor restaurants</li>
+              <li>Other approved hospitality or entertainment venues</li>
+            </ul>
+            <small>Permits beer, wine, and spirits by the drink and sealed-container sales within the approved license privileges.</small>
           </article>
           <article>
-            <b>4COP family</b>
-            <span>Full liquor · on and off premises</span>
-            <p>Allows by-the-drink service and sealed-container sales within the license privileges.</p>
+            <b>3PS quota</b>
+            <span>Liquor store · package store</span>
+            <p>Common business uses include:</p>
+            <ul>
+              <li>Stand-alone liquor stores</li>
+              <li>Package stores</li>
+              <li>Dedicated liquor-store locations operated by qualifying retailers</li>
+              <li>Other approved full-liquor retail package outlets</li>
+            </ul>
+            <small>Permits sealed beer, wine, and spirits for off-premises consumption; it does not authorize on-premises drinking.</small>
           </article>
         </div>
       </section>
@@ -381,6 +422,9 @@ export default function FloridaLiquorLicenseTypesPage() {
           </a>
           <a href="https://www2.myfloridalicense.com/abt/rules_statutes/fee_chart.pdf" target="_blank" rel="noreferrer">
             Official DBPR Fee Chart ↗
+          </a>
+          <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&amp;Search_String=61.30&amp;SubMenu=1&amp;URL=0500-0599%2F0561%2FSections%2F0561.20.html&amp;mode=View+Statutes" target="_blank" rel="noreferrer">
+            Florida Statute §561.20 — Quota Limit ↗
           </a>
           <a href="/resources/forms">Florida ABT Forms →</a>
           <a href="/license-lookup">Florida Liquor License Lookup →</a>

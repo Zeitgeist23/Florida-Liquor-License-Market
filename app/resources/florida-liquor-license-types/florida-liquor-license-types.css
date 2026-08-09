@@ -139,6 +139,91 @@
   padding-bottom: 38px;
 }
 
+.license-types-population-rule {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr);
+  gap: 36px;
+  align-items: center;
+  margin-bottom: 42px;
+  padding: 30px;
+  border: 1px solid #806322;
+  border-top: 4px solid #f6a700;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0c2639, #07131e 72%);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .28);
+}
+
+.license-types-population-number {
+  display: grid;
+  justify-items: center;
+  padding: 22px;
+  border: 1px solid rgba(246, 167, 0, .65);
+  border-radius: 7px;
+  color: #fff;
+  background: #06131e;
+  text-align: center;
+}
+
+.license-types-population-number strong,
+.license-types-population-number b {
+  color: #f6a700;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: .95;
+}
+
+.license-types-population-number strong {
+  font-size: 65px;
+}
+
+.license-types-population-number b {
+  margin-top: 11px;
+  font-size: 43px;
+}
+
+.license-types-population-number span {
+  margin-top: 5px;
+  color: #c7d2d9;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.license-types-rule-eyebrow {
+  color: #f6a700;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.license-types-population-rule h2 {
+  margin: 8px 0 13px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(29px, 3.8vw, 42px);
+  line-height: 1.08;
+}
+
+.license-types-population-rule p {
+  margin: 0 0 11px;
+  color: #c6d1d8;
+  font-size: 14px;
+  line-height: 1.68;
+}
+
+.license-types-population-rule p strong {
+  color: #fff;
+}
+
+.license-types-population-rule a {
+  display: inline-block;
+  margin-top: 4px;
+  color: #f6a700;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .license-types-key article {
   display: grid;
   grid-template-columns: 78px 1fr;
@@ -327,6 +412,35 @@
   margin-top: 3px;
   color: #c6d1d8;
   font-size: 14px;
+  line-height: 1.55;
+}
+
+.license-types-quota-cards ul {
+  display: grid;
+  gap: 7px;
+  margin: 3px 0 4px;
+  padding: 0;
+  list-style: none;
+}
+
+.license-types-quota-cards li {
+  position: relative;
+  padding-left: 17px;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.license-types-quota-cards li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #f6a700;
+}
+
+.license-types-quota-cards small {
+  color: #9fb0ba;
+  font-size: 11px;
   line-height: 1.55;
 }
 
@@ -526,9 +640,14 @@
   .license-types-intro,
   .license-types-section-heading,
   .license-types-quota,
-  .license-types-sources {
+  .license-types-sources,
+  .license-types-population-rule {
     grid-template-columns: 1fr;
     gap: 23px;
+  }
+
+  .license-types-population-number {
+    width: min(100%, 340px);
   }
 
   .license-types-key,
@@ -566,7 +685,8 @@
   .license-types-key article,
   .license-types-quota,
   .license-types-sources,
-  .license-types-market-cta {
+  .license-types-market-cta,
+  .license-types-population-rule {
     padding: 20px 17px;
   }
 
