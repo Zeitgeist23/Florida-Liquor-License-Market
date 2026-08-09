@@ -422,8 +422,8 @@
 .license-types-quota-cards p {
   margin-top: 3px;
   color: #c6d1d8;
-  font-size: 14px;
-  line-height: 1.55;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 .license-types-quota-cards ul {
@@ -438,8 +438,8 @@
   position: relative;
   padding-left: 17px;
   color: #fff;
-  font-size: 13px;
-  line-height: 1.4;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .license-types-quota-cards li::before {
@@ -451,8 +451,8 @@
 
 .license-types-quota-cards small {
   color: #9fb0ba;
-  font-size: 11px;
-  line-height: 1.55;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .license-types-quota-cards .license-types-quota-card > strong {
@@ -460,7 +460,7 @@
   padding-top: 10px;
   border-top: 1px solid #263f50;
   color: #f6a700;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: .035em;
   text-transform: uppercase;
 }
@@ -503,7 +503,7 @@
 
 .license-types-requirement-modal > header span {
   color: #f6a700;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -543,8 +543,8 @@
 .license-types-modal-intro {
   margin: 19px 0;
   color: #d0dae0;
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 17px;
+  line-height: 1.7;
 }
 
 .license-types-requirement-grid {
@@ -573,8 +573,8 @@
 .license-types-modal-notice p {
   margin: 0;
   color: #bdcad2;
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: 1.68;
 }
 
 .license-types-modal-notice {
@@ -589,7 +589,7 @@
   display: block;
   margin-bottom: 5px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .license-types-requirement-modal > footer {
@@ -607,9 +607,9 @@
 
 .license-types-requirement-modal > footer a {
   color: #f6a700;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 800;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
 .license-types-requirement-modal > footer > button {
@@ -899,6 +899,20 @@
 
   .license-types-requirement-grid {
     grid-template-columns: 1fr;
+  }
+
+  .license-types-modal-intro {
+    font-size: 18px;
+  }
+
+  .license-types-requirement-grid p,
+  .license-types-modal-notice p {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .license-types-requirement-modal > footer a {
+    font-size: 14px;
   }
 
   .license-types-requirement-modal > footer {
