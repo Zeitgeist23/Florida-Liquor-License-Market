@@ -540,7 +540,7 @@
   outline: none;
 }
 
-.license-types-modal-intro {
+.license-types-requirement-modal .license-types-modal-intro {
   margin: 19px 0;
   color: #d0dae0;
   font-size: 17px;
@@ -901,7 +901,7 @@
     grid-template-columns: 1fr;
   }
 
-  .license-types-modal-intro {
+  .license-types-requirement-modal .license-types-modal-intro {
     font-size: 18px;
   }
 
