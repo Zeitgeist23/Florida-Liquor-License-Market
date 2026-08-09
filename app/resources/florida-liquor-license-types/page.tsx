@@ -6,11 +6,18 @@ import "../forms/abt-forms.css";
 import "./florida-liquor-license-types.css";
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Types: 4COP, 3PS & SRX | FLLM",
+  title: "What Is a Florida Liquor License? 4COP, 3PS & SRX Guide | FLLM",
   description:
-    "Compare Florida liquor license types including 4COP quota, 3PS package store, 2COP, 2APS and 4COP-SFS/SRX restaurant licenses.",
+    "What is a Florida liquor license? Learn what it authorizes and compare 4COP, 3PS, 2COP, 2APS and SRX license types, uses and requirements.",
   alternates: {
     canonical: "https://www.floridaliquorlicensemarket.com/resources/florida-liquor-license-types",
+  },
+  openGraph: {
+    title: "What Is a Florida Liquor License? Types, Uses and Requirements",
+    description:
+      "Learn what a Florida liquor license authorizes and compare common 4COP, 3PS, 2COP, 2APS and SRX license types.",
+    type: "article",
+    url: "https://www.floridaliquorlicensemarket.com/resources/florida-liquor-license-types",
   },
 };
 
@@ -126,6 +133,11 @@ const specialtyLicenses = [
 
 const frequentlyAskedQuestions = [
   {
+    question: "What is a Florida liquor license?",
+    answer:
+      "A Florida liquor license is an authorization administered by the Florida Department of Business and Professional Regulation's Division of Alcoholic Beverages and Tobacco. For an approved licensee and premises, it identifies which alcoholic beverages may be sold, whether they may be sold by the drink or in sealed containers, and whether consumption may occur on or away from the premises. The exact privileges depend on the license series and applicable state and local approvals.",
+  },
+  {
     question: "What is the difference between a 4COP quota license and a 3PS license?",
     answer:
       "A 4COP quota license is commonly used by bars, taverns, cocktail lounges, nightclubs, and full-liquor restaurants, and permits beer, wine, and liquor sales by the drink and in sealed containers within its approved privileges. A 3PS-family quota license is a liquor-store or package-store license for sealed sales consumed away from the licensed premises.",
@@ -151,10 +163,11 @@ export default function FloridaLiquorLicenseTypesPage() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: "Types of Florida Liquor Licenses",
+    headline: "What Is a Florida Liquor License? Types, Uses and Requirements",
     description:
-      "A practical FLLM comparison of common Florida alcoholic-beverage license types and specialty license categories.",
+      "A plain-English definition of a Florida liquor license and a practical comparison of common Florida alcoholic-beverage license types and specialty categories.",
     dateModified: "2026-08-09",
+    mainEntityOfPage: "https://www.floridaliquorlicensemarket.com/resources/florida-liquor-license-types",
     author: {
       "@type": "Organization",
       name: "Florida Liquor License Market",
@@ -172,6 +185,30 @@ export default function FloridaLiquorLicenseTypesPage() {
       },
     })),
   };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.floridaliquorlicensemarket.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Florida License Resources",
+        item: "https://www.floridaliquorlicensemarket.com/resources/forms",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "What Is a Florida Liquor License?",
+        item: "https://www.floridaliquorlicensemarket.com/resources/florida-liquor-license-types",
+      },
+    ],
+  };
 
   return (
     <main className="license-types-page">
@@ -182,6 +219,10 @@ export default function FloridaLiquorLicenseTypesPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
       />
       <div className="abt-header-wrap">
         <FormsSiteHeader />
@@ -194,19 +235,41 @@ export default function FloridaLiquorLicenseTypesPage() {
             <span>›</span>
             <a href="/resources/forms">Resources</a>
             <span>›</span>
-            <b>Types of Florida Liquor Licenses</b>
+            <b>What Is a Florida Liquor License?</b>
           </nav>
-          <span className="license-types-eyebrow">FLLM licensing reference</span>
-          <h1>Types of Florida Liquor Licenses</h1>
+          <span className="license-types-eyebrow">Florida licensing explained</span>
+          <h1>What Is a Florida Liquor License?</h1>
           <p>
-            Compare the products each license covers, whether sales may occur on or off premises,
-            and the important difference between quota licenses and qualification-based specialty
-            licenses.
+            A Florida liquor license authorizes an approved licensee at an approved premises to sell
+            specified alcoholic beverages in the ways permitted by that license series. The license
+            type determines whether beer, wine or spirits may be sold, whether sales may be by the
+            drink or in sealed containers, and whether consumption may occur on or off the premises.
           </p>
           <div className="license-types-hero-actions">
-            <a className="btn btn-gold" href="#common-license-chart">View License Chart</a>
+            <a className="btn btn-gold" href="#common-license-chart">Compare License Types</a>
             <a className="btn btn-outline" href="/listings">Browse Available Licenses</a>
           </div>
+        </div>
+      </section>
+
+      <section className="license-types-definition page-shell" aria-labelledby="license-definition-title">
+        <div className="license-types-definition-mark" aria-hidden="true">FL</div>
+        <div>
+          <span>Quick answer</span>
+          <h2 id="license-definition-title">A Florida liquor license defines what may be sold—and how</h2>
+          <p>
+            Florida’s Division of Alcoholic Beverages and Tobacco administers alcoholic-beverage
+            licenses for qualified people and businesses. Each license is connected to specific
+            privileges, an approved premises and ongoing compliance requirements; it is not a general
+            permission to sell every type of alcohol in every setting.
+          </p>
+          <p>
+            For example, a <strong>4COP quota license</strong> commonly supports full-liquor service
+            in bars, taverns, restaurants and nightclubs, while a <strong>3PS-family quota
+            license</strong> is used for sealed package sales by liquor stores. Beer-and-wine and
+            qualification-based restaurant licenses have different privileges and requirements.
+          </p>
+          <a href="#common-license-chart">See the Florida license chart ↓</a>
         </div>
       </section>
 

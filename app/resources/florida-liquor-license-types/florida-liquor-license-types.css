@@ -97,6 +97,70 @@
   font-size: 10px;
 }
 
+.license-types-definition {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 26px;
+  align-items: center;
+  margin-top: 38px;
+  padding: 28px 30px;
+  border: 1px solid #516879;
+  border-top: 4px solid #f6a700;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0d293d, #081a27 72%);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .24);
+}
+
+.license-types-definition-mark {
+  display: grid;
+  width: 96px;
+  height: 96px;
+  place-items: center;
+  border: 1px solid #f6a700;
+  border-radius: 50%;
+  color: #f6a700;
+  background: #06131e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 29px;
+  font-weight: 900;
+  box-shadow: inset 0 0 0 7px rgba(246, 167, 0, .045);
+}
+
+.license-types-definition span {
+  color: #f6a700;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.license-types-definition h2 {
+  margin: 7px 0 12px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(27px, 3.5vw, 39px);
+  line-height: 1.1;
+}
+
+.license-types-definition p {
+  margin: 0 0 10px;
+  color: #c6d1d8;
+  font-size: 14px;
+  line-height: 1.68;
+}
+
+.license-types-definition p strong {
+  color: #fff;
+}
+
+.license-types-definition a {
+  display: inline-block;
+  margin-top: 2px;
+  color: #f6a700;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .license-types-intro,
 .license-types-section-heading,
 .license-types-sources {
@@ -872,11 +936,28 @@
   }
 
   .license-types-key article,
+  .license-types-definition,
   .license-types-quota,
   .license-types-sources,
   .license-types-market-cta,
   .license-types-population-rule {
     padding: 20px 17px;
+  }
+
+  .license-types-definition {
+    grid-template-columns: 1fr;
+    gap: 17px;
+    margin-top: 24px;
+  }
+
+  .license-types-definition-mark {
+    width: 68px;
+    height: 68px;
+    font-size: 22px;
+  }
+
+  .license-types-definition p {
+    font-size: 15px;
   }
 
   .license-types-market-cta > div:last-child,
