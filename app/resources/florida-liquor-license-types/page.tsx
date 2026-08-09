@@ -5,9 +5,9 @@ import "../forms/abt-forms.css";
 import "./florida-liquor-license-types.css";
 
 export const metadata: Metadata = {
-  title: "Types of Florida Liquor Licenses | FLLM",
+  title: "Florida Liquor License Types: 4COP, 3PS & SRX | FLLM",
   description:
-    "Compare Florida alcoholic-beverage license types including 1APS, 2APS, 1COP, 2COP, 3PS package-store quota licenses, 4COP quota licenses, and specialty licenses.",
+    "Compare Florida liquor license types including 4COP quota, 3PS package store, 2COP, 2APS and 4COP-SFS/SRX restaurant licenses.",
   alternates: {
     canonical: "https://www.floridaliquorlicensemarket.com/resources/florida-liquor-license-types",
   },
@@ -68,10 +68,10 @@ const commonLicenses = [
 
 const specialtyLicenses = [
   {
-    series: "SFS",
-    name: "Special Food Service",
+    series: "4COP-SFS / SRX",
+    name: "Special Restaurant License",
     description:
-      "Full beer, wine, and liquor service for a qualifying restaurant. DBPR's current summary lists minimum service-area, seating, meal-service, and food/nonalcoholic-revenue requirements. It is tied to the qualifying restaurant and is not a general quota license.",
+      "Full beer, wine, and liquor service for a qualifying restaurant. DBPR's current guidance requires at least 51% of gross food-and-beverage revenue from food and nonalcoholic beverages, together with other restaurant qualifications. It is tied to the qualifying restaurant and is not a general quota license.",
   },
   {
     series: "13CT",
@@ -123,6 +123,29 @@ const specialtyLicenses = [
   },
 ];
 
+const frequentlyAskedQuestions = [
+  {
+    question: "What is the difference between a 4COP quota license and a 3PS license?",
+    answer:
+      "A 4COP quota license permits beer, wine, and liquor sales by the drink and in sealed containers within its approved privileges. A 3PS-family quota license is designed for sealed package sales for consumption away from the licensed premises.",
+  },
+  {
+    question: "Is a 2COP license a quota license?",
+    answer:
+      "No. A 2COP is a non-quota beer-and-wine license. It can permit sales by the drink and in sealed containers for consumption on or off premises, subject to DBPR approval and applicable local requirements.",
+  },
+  {
+    question: "What is an SRX or 4COP-SFS restaurant license?",
+    answer:
+      "It is a qualification-based full-liquor license for an eligible restaurant. It is an exception to the county quota system, but the restaurant must continuously satisfy DBPR's food-revenue and other operating requirements.",
+  },
+  {
+    question: "Can a Florida quota liquor license be moved to another county?",
+    answer:
+      "Florida quota licenses are county-specific. A proposed transfer, relocation, or change in ownership requires DBPR review, and buyers should confirm the exact license status and permitted transaction before closing.",
+  },
+];
+
 export default function FloridaLiquorLicenseTypesPage() {
   const schema = {
     "@context": "https://schema.org",
@@ -130,11 +153,23 @@ export default function FloridaLiquorLicenseTypesPage() {
     headline: "Types of Florida Liquor Licenses",
     description:
       "A practical FLLM comparison of common Florida alcoholic-beverage license types and specialty license categories.",
-    dateModified: "2026-08-01",
+    dateModified: "2026-08-09",
     author: {
       "@type": "Organization",
       name: "Florida Liquor License Market",
     },
+  };
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: frequentlyAskedQuestions.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: answer,
+      },
+    })),
   };
 
   return (
@@ -142,6 +177,10 @@ export default function FloridaLiquorLicenseTypesPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
       />
       <div className="abt-header-wrap">
         <FormsSiteHeader />
@@ -165,7 +204,7 @@ export default function FloridaLiquorLicenseTypesPage() {
           </p>
           <div className="license-types-hero-actions">
             <a className="btn btn-gold" href="#common-license-chart">View License Chart</a>
-            <a className="btn btn-outline" href="#specialty-license-chart">View Specialty Types</a>
+            <a className="btn btn-outline" href="/listings">Browse Available Licenses</a>
           </div>
         </div>
       </section>
@@ -293,6 +332,39 @@ export default function FloridaLiquorLicenseTypesPage() {
         </div>
       </section>
 
+      <section className="license-types-faq page-shell" aria-labelledby="license-types-faq-title">
+        <div className="license-types-section-heading">
+          <div>
+            <span>Buyer and operator questions</span>
+            <h2 id="license-types-faq-title">Florida liquor license FAQs</h2>
+          </div>
+          <p>
+            These answers explain the most common distinctions. The exact license, premises, county,
+            ownership, and proposed use must still be reviewed before a transaction or application.
+          </p>
+        </div>
+        <div className="license-types-faq-grid">
+          {frequentlyAskedQuestions.map(({ question, answer }) => (
+            <article key={question}>
+              <h3>{question}</h3>
+              <p>{answer}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="license-types-market-cta page-shell" aria-label="Florida liquor license marketplace">
+        <div>
+          <span>Ready to use the guide?</span>
+          <h2>Find the right Florida liquor license opportunity</h2>
+          <p>Browse current quota-license listings or submit a license for confidential marketplace exposure.</p>
+        </div>
+        <div>
+          <a className="btn btn-gold" href="/listings">Browse Licenses</a>
+          <a className="btn btn-outline" href="/sell-your-license">List Your License</a>
+        </div>
+      </section>
+
       <section className="license-types-sources page-shell" aria-labelledby="license-types-sources-title">
         <div>
           <span>Official reference</span>
@@ -325,7 +397,7 @@ export default function FloridaLiquorLicenseTypesPage() {
           the Florida Division of Alcoholic Beverages and Tobacco and qualified legal, licensing, tax, and
           transaction professionals before relying on a classification.
         </p>
-        <small>Official DBPR license materials reviewed August 1, 2026.</small>
+        <small>Official DBPR license materials reviewed August 9, 2026.</small>
       </section>
 
       <footer className="abt-forms-footer">

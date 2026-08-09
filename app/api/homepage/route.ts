@@ -286,6 +286,13 @@ export async function GET(request: Request) {
       '<a href="#resources-menu"$1 onclick="return false;">$2',
     );
 
+    if (!enhancedHtml.includes('href="/resources/florida-liquor-license-types"')) {
+      enhancedHtml = enhancedHtml.replace(
+        '<a href="#resources-menu"',
+        '<a href="/resources/florida-liquor-license-types"><span>License Types</span></a><a href="#resources-menu"',
+      );
+    }
+
     const tagsToAdd = scriptTags.filter((tag) => !enhancedHtml.includes(tag)).join("");
     if (tagsToAdd) enhancedHtml = enhancedHtml.replace("</body>", `${tagsToAdd}</body>`);
 

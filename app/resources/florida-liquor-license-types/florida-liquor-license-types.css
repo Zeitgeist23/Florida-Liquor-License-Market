@@ -381,6 +381,80 @@
   line-height: 1.55;
 }
 
+.license-types-faq {
+  padding-bottom: 42px;
+}
+
+.license-types-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.license-types-faq-grid article {
+  padding: 23px;
+  border: 1px solid #3e5668;
+  border-left: 3px solid #f6a700;
+  border-radius: 7px;
+  background: #0a1d2c;
+}
+
+.license-types-faq-grid h3 {
+  margin: 0 0 10px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 21px;
+  line-height: 1.2;
+}
+
+.license-types-faq-grid p {
+  margin: 0;
+  color: #c6d1d8;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.license-types-market-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: 42px;
+  padding: 28px 30px;
+  border: 1px solid #806322;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0b2132, #06131e);
+}
+
+.license-types-market-cta > div:first-child > span {
+  color: #f6a700;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.license-types-market-cta h2 {
+  margin: 7px 0 7px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(27px, 3vw, 36px);
+}
+
+.license-types-market-cta p {
+  max-width: 660px;
+  margin: 0;
+  color: #b9c6ce;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.license-types-market-cta > div:last-child {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+}
+
 .license-types-sources {
   align-items: center;
   margin-bottom: 22px;
@@ -458,8 +532,14 @@
   }
 
   .license-types-key,
-  .specialty-license-grid {
+  .specialty-license-grid,
+  .license-types-faq-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .license-types-market-cta {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .license-types-table {
@@ -477,6 +557,7 @@
   .license-types-hero-actions .btn,
   .license-types-key,
   .specialty-license-grid,
+  .license-types-faq-grid,
   .license-types-source-links {
     width: 100%;
     grid-template-columns: 1fr;
@@ -484,8 +565,18 @@
 
   .license-types-key article,
   .license-types-quota,
-  .license-types-sources {
+  .license-types-sources,
+  .license-types-market-cta {
     padding: 20px 17px;
+  }
+
+  .license-types-market-cta > div:last-child,
+  .license-types-market-cta .btn {
+    width: 100%;
+  }
+
+  .license-types-market-cta > div:last-child {
+    flex-direction: column;
   }
 }
 

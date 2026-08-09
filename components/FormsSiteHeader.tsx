@@ -35,6 +35,7 @@ export default function FormsSiteHeader({
           <a href="/financing"><span>Finance</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
           <a href="/investment-opportunities"><span>Invest</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
           <a href="/#market-data"><span>Market Data</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
+          <a href="/resources/florida-liquor-license-types"><span>License Types</span></a>
           <a href="/resources/forms"><span>Resources</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
         </nav>
         <div className="header-actions">
