@@ -1,15 +1,17 @@
 /* LOCKED Listings visuals: logo only.
    Keep the approved Listings-page design unchanged.
-   Preserve the current logo width and set the logo height to 74px so it sits with equal top/bottom space inside the 92px header.
+   Preserve the current logo width and height; move the logo down exactly 3px.
    Do not change any other layout, styling, content, or behavior. */
 .results-page > .results-header .seller-brand img {
   width: 221.16px !important;
   height: 74px !important;
+  transform: translateY(3px) !important;
 }
 
 @media (max-width: 1100px) {
   .results-page > .results-header .seller-brand img {
     width: 199.82px !important;
     height: 74px !important;
+    transform: translateY(3px) !important;
   }
 }
