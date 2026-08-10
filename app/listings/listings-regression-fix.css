@@ -1,0 +1,28 @@
+/* Regression fix only: remove the accidental hero streak and restore visible card hover lift. */
+.results-page .results-intro::after {
+  content: none !important;
+  display: none !important;
+}
+
+.results-page .result-card:not(.is-expanded) {
+  transform: translateY(0) !important;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease !important;
+}
+
+.results-page .result-card:not(.is-expanded):hover {
+  transform: translateY(-5px) !important;
+  border-color: rgba(244, 183, 69, 1) !important;
+  box-shadow:
+    0 0 0 1px rgba(137, 88, 11, .54),
+    4px 7px 0 rgba(0, 6, 12, .42),
+    0 22px 46px rgba(0, 0, 0, .40),
+    0 0 32px rgba(232, 168, 56, .20),
+    inset 0 1px 0 rgba(255, 232, 171, .32),
+    inset 0 0 0 1px rgba(138, 91, 16, .26) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .results-page .result-card:not(.is-expanded) {
+    transition: none !important;
+  }
+}
