@@ -17,6 +17,7 @@ import "./listings-navy-refresh.css";
 import "./listings-card-gold-borders.css";
 import "./listings-title-highlight.css";
 import "./listings-regression-fix.css";
+import "./listings-filter-depth.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const listingsUrl = `${siteUrl}/listings`;
