@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import InteractiveLawCards from "@/components/InteractiveLawCards";
 import "../forms/abt-forms.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -87,16 +88,27 @@ const styles = `
   .laws-heading p{margin:0;color:#aebfc9;font-size:13px;line-height:1.65}
   .laws-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
   .law-card{display:flex;flex-direction:column;min-height:245px;padding:22px;border:1px solid #38566a;border-top:3px solid #f6a700;border-radius:8px;background:linear-gradient(145deg,#0a2639,#04131f)}
+  .law-card-button{width:100%;appearance:none;text-align:left;color:inherit;font:inherit;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease}
+  .law-card-button:hover{transform:translateY(-4px);border-color:#f6a700;background:linear-gradient(145deg,#0c3048,#051923);box-shadow:0 16px 34px rgba(0,0,0,.34),0 0 0 1px rgba(246,167,0,.18)}
+  .law-card-button:focus-visible{outline:3px solid #f6a700;outline-offset:3px}
   .law-card b{color:#f6a700;font-size:12px;letter-spacing:.04em}
   .law-card h3{margin:12px 0 9px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.18}
   .law-card p{margin:0;color:#b9c9d2;font-size:13px;line-height:1.65}
-  .law-card a{margin-top:auto;padding-top:18px;color:#f6a700;font-size:11px;font-weight:900;text-transform:uppercase}
+  .law-card-action{margin-top:auto;padding-top:18px;color:#f6a700;font-size:11px;font-weight:900;text-transform:uppercase}
   .official-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
   .official-links a{display:grid;gap:6px;padding:18px;border:1px solid #36566a;border-radius:7px;background:#071a27}
   .official-links strong{color:#fff}.official-links span{color:#9fb2bd;font-size:11px;line-height:1.5}
   .laws-notice{margin:0 auto 64px;padding:22px 24px;border-left:4px solid #f6a700;background:rgba(246,167,0,.055)}
   .laws-notice strong{color:#f6a700;font-size:12px;text-transform:uppercase}.laws-notice p{margin:8px 0 0;color:#9fb0ba;font-size:12px;line-height:1.65}
-  @media(max-width:820px){.laws-heading,.laws-grid,.official-links{grid-template-columns:1fr}.laws-heading{gap:8px}}
+  .law-modal-backdrop{position:fixed;inset:0;z-index:10080;display:flex;align-items:center;justify-content:center;padding:22px;background:rgba(0,7,13,.84);backdrop-filter:blur(5px)}
+  .law-modal{display:flex;flex-direction:column;width:min(1180px,96vw);height:min(850px,92vh);overflow:hidden;border:1px solid #f6a700;border-radius:10px;background:#06131e;box-shadow:0 28px 90px rgba(0,0,0,.65)}
+  .law-modal-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 18px;border-bottom:1px solid rgba(246,167,0,.45);background:linear-gradient(180deg,#09243a,#04121e)}
+  .law-modal-brand{display:flex;align-items:center;gap:13px;min-width:0}.law-modal-brand img{width:auto;height:46px;display:block}.law-modal-brand span{display:block;color:#fff;font-weight:900}.law-modal-brand small{display:block;margin-top:3px;color:#f6a700;font-size:10px;font-weight:800;text-transform:uppercase}
+  .law-modal-close{flex:0 0 auto;width:40px;height:40px;border:1px solid #f6a700;border-radius:50%;background:#06131e;color:#fff;font-size:28px;line-height:1;cursor:pointer}.law-modal-close:hover,.law-modal-close:focus-visible{background:#f6a700;color:#06131e;outline:none}
+  .law-modal-titlebar{padding:16px 20px;border-bottom:1px solid #294657;background:#071b29}.law-modal-titlebar>span{color:#f6a700;font-size:11px;font-weight:900;text-transform:uppercase}.law-modal-titlebar h2{margin:5px 0 5px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:clamp(22px,3vw,32px);line-height:1.1}.law-modal-titlebar p{max-width:950px;margin:0;color:#aebfc9;font-size:12px;line-height:1.5}
+  .law-modal-frame-wrap{flex:1;min-height:0;background:#fff}.law-modal-frame{display:block;width:100%;height:100%;border:0;background:#fff}
+  .law-modal-footer{display:flex;justify-content:space-between;gap:18px;padding:10px 18px;border-top:1px solid rgba(246,167,0,.35);background:#030c13;color:#8fa4b0;font-size:10px}
+  @media(max-width:820px){.laws-heading,.laws-grid,.official-links{grid-template-columns:1fr}.laws-heading{gap:8px}.law-modal-backdrop{padding:8px}.law-modal{width:100%;height:94vh}.law-modal-brand img{height:36px}.law-modal-footer{display:block}.law-modal-footer span{display:block}.law-modal-footer span+span{margin-top:4px}}
 `;
 
 export default function FloridaLiquorLicenseLawsPage() {
@@ -120,16 +132,13 @@ export default function FloridaLiquorLicenseLawsPage() {
         <div className="page-shell">
           <div className="laws-heading">
             <div><span>Florida Statutes Cited by FLLM</span><h2>Quota liquor license statutes</h2></div>
-            <p>{"Each card links directly to the official Florida Legislature source. The official statute text controls over any FLLM summary."}</p>
+            <p>{"Hover over any statute card and click it to open the official statute inside an FLLM viewer without leaving the website."}</p>
           </div>
-          <div className="laws-grid">
-            {statutes.map((law) => (
-              <article className="law-card" key={law.citation}>
-                <b>{law.citation}</b><h3>{law.title}</h3><p>{law.summary}</p>
-                <a href={law.href} target="_blank" rel="noopener noreferrer">Read Official Statute ↗</a>
-              </article>
-            ))}
-          </div>
+          <InteractiveLawCards
+            items={statutes}
+            actionLabel="View Statute in FLLM"
+            sourceName="Official Florida Legislature statute"
+          />
         </div>
       </section>
 
@@ -137,16 +146,13 @@ export default function FloridaLiquorLicenseLawsPage() {
         <div className="page-shell">
           <div className="laws-heading">
             <div><span>Division of Alcoholic Beverages and Tobacco</span><h2>ABT administrative rules</h2></div>
-            <p>{"Florida alcoholic-beverage administrative rules are published in Division 61A of the Florida Administrative Code."}</p>
+            <p>{"Florida alcoholic-beverage administrative rules are published in Division 61A of the Florida Administrative Code. These cards open the official rule inside the same FLLM viewer."}</p>
           </div>
-          <div className="laws-grid">
-            {abtRules.map((rule) => (
-              <article className="law-card" key={rule.citation}>
-                <b>{rule.citation}</b><h3>{rule.title}</h3><p>{rule.summary}</p>
-                <a href={rule.href} target="_blank" rel="noopener noreferrer">Open Official Rule ↗</a>
-              </article>
-            ))}
-          </div>
+          <InteractiveLawCards
+            items={abtRules}
+            actionLabel="View Rule in FLLM"
+            sourceName="Official Florida Administrative Code rule"
+          />
           <div className="official-links">
             <a href="https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/statutes-and-rules/" target="_blank" rel="noopener noreferrer"><strong>DBPR / ABT Statutes & Rules</strong><span>Official Division statutes and rules index</span></a>
             <a href="https://flrules.org/gateway/organization.asp?divid=247" target="_blank" rel="noopener noreferrer"><strong>Florida Administrative Code — Division 61A</strong><span>Browse ABT administrative rule chapters</span></a>
