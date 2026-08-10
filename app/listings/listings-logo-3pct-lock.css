@@ -1,13 +1,15 @@
-/* LOCKED Listings visuals: logo size only.
-   Reduce the existing Listings-page logo by exactly 3% at each current responsive size.
+/* LOCKED Listings visuals: logo only.
+   Keep the approved Listings-page design unchanged.
+   Preserve the current logo width and set the logo height to 74px so it sits with equal top/bottom space inside the 92px header.
    Do not change any other layout, styling, content, or behavior. */
 .results-page > .results-header .seller-brand img {
-  width: 221.16px !important; /* 228px × 0.97 */
-  height: 75.66px !important; /* 78px × 0.97 */
+  width: 221.16px !important;
+  height: 74px !important;
 }
 
 @media (max-width: 1100px) {
   .results-page > .results-header .seller-brand img {
-    width: 199.82px !important; /* 206px × 0.97 */
+    width: 199.82px !important;
+    height: 74px !important;
   }
 }
