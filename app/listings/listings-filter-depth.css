@@ -33,6 +33,18 @@
   transition: border-color .16s ease, box-shadow .16s ease, background .16s ease !important;
 }
 
+/* Keep the native dropdown choices visible in Chrome/Windows while preserving the approved closed-select styling. */
+.results-page .results-filters select option,
+.results-page .results-filters select optgroup {
+  color: #f7f4ec !important;
+  background: #07182a !important;
+}
+
+.results-page .results-filters select option:checked {
+  color: #ffffff !important;
+  background: #0b2a45 !important;
+}
+
 .results-page .results-filters select:hover {
   border-color: rgba(239, 170, 34, .96) !important;
   box-shadow:
