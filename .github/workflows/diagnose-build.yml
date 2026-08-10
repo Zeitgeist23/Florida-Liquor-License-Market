@@ -37,3 +37,5 @@ jobs:
           git add .diagnostics
           git commit -m "Capture Next.js build diagnostics" || exit 0
           git push
+
+# Safe pre-production build check for Florida Liquor License Laws menu update.
