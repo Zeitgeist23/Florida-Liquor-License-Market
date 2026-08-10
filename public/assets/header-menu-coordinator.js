@@ -4,8 +4,44 @@
     { label: "Resources", selector: ".resources-header-menu" },
   ];
 
-  const lawsHref = "/resources/florida-liquor-license-laws";
-  const lawsLabel = "Florida Liquor License Laws";
+  const resourcesOrder = [
+    {
+      label: "Florida Liquor License Lookup",
+      href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
+    },
+    {
+      label: "Types of Florida Liquor Licenses",
+      href: "/resources/florida-liquor-license-types",
+    },
+    {
+      label: "Florida Liquor License Laws",
+      href: "/resources/florida-liquor-license-laws",
+    },
+    {
+      label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)",
+      href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
+    },
+    {
+      label: "Florida ABT Forms",
+      href: "/resources/forms",
+    },
+    {
+      label: "License Fees",
+      href: "/resources/license-fees",
+    },
+    {
+      label: "Quota License Transfer Fee Calculator",
+      href: "/resources/quota-transfer-fee-calculator",
+    },
+    {
+      label: "Florida Department of Revenue (FDOR)",
+      href: "/resources/florida-department-of-revenue",
+    },
+    {
+      label: "Liquor License Attorneys",
+      href: "/resources/liquor-license-attorneys",
+    },
+  ];
 
   function normalizedText(element) {
     return (element?.textContent || "").replace(/\s+/g, " ").trim();
@@ -16,21 +52,50 @@
       .find((link) => normalizedText(link).toLowerCase() === label.toLowerCase()) || null;
   }
 
-  function ensureLawsMenuItem() {
+  function hrefMatches(link, expectedHref) {
+    if (!(link instanceof HTMLAnchorElement)) return false;
+    const rawHref = link.getAttribute("href") || "";
+    if (rawHref === expectedHref || link.href === expectedHref) return true;
+
+    if (!expectedHref.startsWith("http")) {
+      try {
+        return new URL(link.href, window.location.origin).pathname === expectedHref;
+      } catch {
+        return false;
+      }
+    }
+
+    return false;
+  }
+
+  function normalizeResourcesMenu() {
     const menu = document.querySelector(".resources-header-menu");
     if (!(menu instanceof HTMLElement)) return false;
-    if (menu.querySelector(`a[href="${lawsHref}"]`)) return true;
 
-    const link = document.createElement("a");
-    link.href = lawsHref;
-    link.setAttribute("role", "menuitem");
-    link.textContent = lawsLabel;
+    const desiredNodes = resourcesOrder.map(({ label, href }) => {
+      let link = Array.from(menu.querySelectorAll("a"))
+        .find((item) => hrefMatches(item, href));
 
-    const licenseTypesLink = Array.from(menu.querySelectorAll("a"))
-      .find((item) => /^types of florida liquor licenses$/i.test(normalizedText(item)));
+      if (!(link instanceof HTMLAnchorElement)) {
+        link = document.createElement("a");
+        link.href = href;
+        link.setAttribute("role", "menuitem");
+        if (href.startsWith("http")) {
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+        }
+        menu.appendChild(link);
+      }
 
-    if (licenseTypesLink) menu.insertBefore(link, licenseTypesLink);
-    else menu.appendChild(link);
+      if (normalizedText(link) !== label) link.textContent = label;
+      return link;
+    });
+
+    const knownNodesInCurrentOrder = Array.from(menu.querySelectorAll(":scope > a"))
+      .filter((item) => desiredNodes.includes(item));
+    const orderDiffers = desiredNodes.some((node, index) => knownNodesInCurrentOrder[index] !== node);
+
+    if (orderDiffers) desiredNodes.forEach((node) => menu.appendChild(node));
     return true;
   }
 
@@ -54,12 +119,12 @@
       });
     }
 
-    window.setTimeout(ensureLawsMenuItem, 0);
+    window.setTimeout(normalizeResourcesMenu, 0);
   }, true);
 
-  const observer = new MutationObserver(() => ensureLawsMenuItem());
+  const observer = new MutationObserver(() => normalizeResourcesMenu());
   observer.observe(document.documentElement, { childList: true, subtree: true });
-  ensureLawsMenuItem();
-  window.setTimeout(ensureLawsMenuItem, 300);
-  window.setTimeout(ensureLawsMenuItem, 1000);
+  normalizeResourcesMenu();
+  window.setTimeout(normalizeResourcesMenu, 300);
+  window.setTimeout(normalizeResourcesMenu, 1000);
 })();
