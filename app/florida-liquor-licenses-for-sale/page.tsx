@@ -22,7 +22,7 @@ const canonicalUrl = `${siteUrl}/florida-liquor-licenses-for-sale`;
 export const metadata: Metadata = {
   title: "Florida Liquor Licenses for Sale | 4COP & 3PS Marketplace",
   description:
-    "Browse Florida liquor licenses for sale, including 4COP quota and 3PS package-store opportunities. Compare current asking prices, counties, license types, and marketplace inventory.",
+    "Browse Florida liquor licenses for sale, including current 4COP quota and 3PS package-store opportunities. Compare asking prices, counties, license types and live marketplace inventory.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Florida Liquor Licenses for Sale | 4COP & 3PS Marketplace",
     description:
-      "Search current Florida 4COP and 3PS liquor-license opportunities by county, license type, asking price, and availability.",
+      "Search current Florida 4COP and 3PS liquor-license opportunities by county, asking price and availability.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
@@ -112,32 +112,32 @@ export default async function FloridaLiquorLicensesForSalePage() {
     {
       question: "Where can I find Florida liquor licenses for sale?",
       answer:
-        "Florida Liquor License Market organizes current marketplace inventory by county, license type, asking price, and availability. Buyers can browse the complete listings page or open a county market page to compare local opportunities.",
+        "Florida Liquor License Market organizes current marketplace inventory by county, license type, asking price and availability. Buyers can browse statewide inventory, open a dedicated 4COP or 3PS page, or use a county market page to compare local opportunities.",
     },
     {
       question: "What is a Florida 4COP quota liquor license?",
       answer:
-        "A 4COP quota license is a county-based Florida alcoholic-beverage license category generally associated with quota availability. The permitted use and transfer requirements depend on the license, proposed premises, local approvals, and state approval.",
+        "A 4COP quota license is a county-limited full-liquor license used within its approved privileges for beer, wine and spirits. It is commonly associated with bars, taverns, cocktail lounges, nightclubs and full-liquor restaurant concepts, subject to state and local approvals.",
+    },
+    {
+      question: "What is a Florida 3PS liquor license?",
+      answer:
+        "A 3PS-family quota license is generally used for package-store sales of sealed beer, wine and spirits for consumption away from the licensed premises. The exact series designation may vary with county population.",
     },
     {
       question: "What does a Florida liquor license cost?",
       answer:
-        "There is no single statewide market price for transferable quota licenses. Asking prices vary by county, license category, supply, seller terms, transaction structure, and market conditions. The current listings on this page provide a live marketplace snapshot.",
+        "There is no single statewide market price for transferable quota licenses. Asking prices vary by county, license category, supply, seller terms, transaction structure and market conditions. Current listings provide a live marketplace snapshot.",
     },
     {
       question: "Can I search Florida liquor licenses by county?",
       answer:
-        "Yes. Florida Liquor License Market provides county pages and listing filters so buyers can focus on the county where the license will be used and compare current asking prices and available license types.",
-    },
-    {
-      question: "Are the listings guaranteed to remain available?",
-      answer:
-        "No. Asking prices and availability can change. Buyers should confirm current status and independently verify the license, transaction terms, liens, transfer requirements, and other material information before proceeding.",
+        "Yes. Florida Liquor License Market provides permanent county pages and listing filters so buyers can focus on the county where the license will be used and compare asking prices and available license types.",
     },
     {
       question: "Does a liquor-license listing include a restaurant or real estate?",
       answer:
-        "Not unless the individual listing expressly says so. Marketplace listings generally describe the liquor-license interest separately from any operating business, lease, equipment, inventory, or real estate.",
+        "Not unless an individual listing expressly says so. Marketplace listings generally describe the liquor-license interest separately from any operating business, lease, equipment, inventory or real estate.",
     },
   ];
 
@@ -194,19 +194,9 @@ export default async function FloridaLiquorLicensesForSalePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
       <style>{`
-        .seo-market-listings-shell {
-          width: min(1480px, calc(100% - 60px));
-        }
-        .seo-market-preview-results {
-          min-height: 0 !important;
-          background: transparent !important;
-          color: inherit !important;
-        }
-        @media (max-width: 720px) {
-          .seo-market-listings-shell {
-            width: min(100% - 24px, 1480px);
-          }
-        }
+        .seo-market-listings-shell { width: min(1480px, calc(100% - 60px)); }
+        .seo-market-preview-results { min-height: 0 !important; background: transparent !important; color: inherit !important; }
+        @media (max-width: 720px) { .seo-market-listings-shell { width: min(100% - 24px, 1480px); } }
       `}</style>
 
       <header className="seo-market-header seo-market-shell">
@@ -231,7 +221,7 @@ export default async function FloridaLiquorLicensesForSalePage() {
               <span className="seo-market-kicker">Florida Statewide Marketplace</span>
               <h1>Florida Liquor Licenses for Sale</h1>
               <p>
-                Search current Florida 4COP quota and 3PS liquor-license opportunities by county, license type, asking price, and availability. Compare the market, open individual listing details, or browse the full inventory without changing the main Listings page experience.
+                Search current Florida 4COP quota and 3PS package-store liquor-license opportunities by county, license type, asking price and availability. Compare the market, open individual listing details and contact the marketplace about a license you want to buy.
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/listings">Browse All Current Listings</Link>
@@ -257,10 +247,10 @@ export default async function FloridaLiquorLicensesForSalePage() {
             <span className="seo-market-section-kicker">Live Florida Market</span>
             <h2>Compare Florida liquor-license inventory before you buy</h2>
             <p>
-              Florida liquor-license asking prices can differ substantially from one county to another. This statewide page brings current marketplace inventory into one search-focused destination while preserving the existing FLLM Listings page exactly as the primary browsing experience.
+              Florida liquor-license asking prices can differ substantially from one county to another. This statewide marketplace page brings current inventory into one place so buyers can compare counties, license types, asking prices and availability before making an inquiry.
             </p>
             <p>
-              Buyers can compare current asking prices, identify counties with active inventory, review 4COP and 3PS opportunities, and move directly into the detailed listings and county market pages already maintained by Florida Liquor License Market.
+              Start with the license privilege you need, then the county where it will be used. Buyers shopping for full on-premises liquor privileges can review <Link href="/florida-4cop-liquor-license-for-sale">Florida 4COP liquor licenses for sale</Link>, while package-store buyers can review <Link href="/florida-3ps-liquor-license-for-sale">Florida 3PS liquor licenses for sale</Link>.
             </p>
           </article>
           <aside className="seo-market-callout">
@@ -272,6 +262,33 @@ export default async function FloridaLiquorLicensesForSalePage() {
               <li>Inventory updates as marketplace listings change.</li>
             </ul>
           </aside>
+        </div>
+      </section>
+
+      <section className="seo-market-guide">
+        <div className="seo-market-shell">
+          <span className="seo-market-section-kicker">Shop by License Type</span>
+          <h2>Find the Florida liquor license that fits the business</h2>
+          <div className="seo-market-guide-grid">
+            <article className="seo-market-guide-card">
+              <span>4COP</span>
+              <h3>Full-liquor bars, lounges, nightclubs and restaurants</h3>
+              <p>Compare county-specific 4COP quota opportunities, asking prices and current marketplace inventory.</p>
+              <Link href="/florida-4cop-liquor-license-for-sale">Browse Florida 4COP licenses for sale ›</Link>
+            </article>
+            <article className="seo-market-guide-card">
+              <span>3PS</span>
+              <h3>Liquor stores and package-store operations</h3>
+              <p>Compare 3PS-family package-store opportunities for sealed beer, wine and spirits sales.</p>
+              <Link href="/florida-3ps-liquor-license-for-sale">Browse Florida 3PS licenses for sale ›</Link>
+            </article>
+            <article className="seo-market-guide-card">
+              <span>Guide</span>
+              <h3>Not sure which Florida license you need?</h3>
+              <p>Compare 4COP, 3PS, 2COP, 2APS, SRX and other Florida alcoholic-beverage license categories.</p>
+              <Link href="/resources/florida-liquor-license-types">Compare Florida liquor-license types ›</Link>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -294,28 +311,16 @@ export default async function FloridaLiquorLicensesForSalePage() {
                   </div>
                   <div className="result-body">
                     <p>● <Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p>
-                    <h2>
-                      {listing.sourceRef ? (
-                        <Link href={listingPageHref(listing)} aria-label={`View ${listing.type} listing in ${listing.county}`} style={{ color: "inherit", textDecoration: "none" }}>
-                          {listing.priceLabel}
-                        </Link>
-                      ) : listing.priceLabel}
-                    </h2>
+                    <h2><Link href={listingPageHref(listing)} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
                     <div className="result-facts">
                       <span>{listing.type}</span>
                       <span>{listing.licenseStatus ? `${sellerReportedStatusLabel(listing.licenseStatus)} / Available` : "Available / Status to confirm"}</span>
                     </div>
-                    {listing.sourceRef ? (
-                      <>
-                        <ListingDescription listing={listing} />
-                        <div className="result-actions">
-                          <Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link>
-                          <Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="result-actions"><span className="sold-status">SOLD</span></div>
-                    )}
+                    <ListingDescription listing={listing} />
+                    <div className="result-actions">
+                      <Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link>
+                      <Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link>
+                    </div>
                   </div>
                 </article>
               ))}
@@ -349,20 +354,24 @@ export default async function FloridaLiquorLicensesForSalePage() {
       <section className="seo-market-guide">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">Buying Guide</span>
-          <h2>How to use the Florida liquor-license marketplace</h2>
+          <h2>How to buy a Florida liquor license</h2>
           <p>
-            FLLM is designed to make the first stage of the search easier: identify the county, compare current inventory, review asking prices, and then investigate the specific license and transaction before making a commitment.
+            Start by identifying the county and the license privileges the business needs. Then compare current marketplace inventory and asking prices before investigating the specific license and transfer.
           </p>
           <div className="seo-market-guide-grid">
             <article className="seo-market-guide-card">
-              <span>1</span><h3>Choose the county</h3><p>Start with the Florida county where the license is needed and review the county market page for current inventory.</p>
+              <span>1</span><h3>Choose the county</h3><p>Quota licenses are county-specific, so start with the Florida county where the license will be used.</p>
             </article>
             <article className="seo-market-guide-card">
-              <span>2</span><h3>Compare license opportunities</h3><p>Review license type, asking price, availability, and the individual listing details before contacting the marketplace.</p>
+              <span>2</span><h3>Compare license opportunities</h3><p>Review license type, asking price, availability and individual listing details before contacting the marketplace.</p>
             </article>
             <article className="seo-market-guide-card">
-              <span>3</span><h3>Verify before closing</h3><p>Confirm current status, transaction terms, liens, transfer requirements, proposed premises, and other material information with appropriate professionals.</p>
+              <span>3</span><h3>Verify before closing</h3><p>Confirm status, liens, ownership, transaction terms, proposed premises, zoning, transfer paperwork and other required approvals.</p>
             </article>
+          </div>
+          <div className="seo-market-actions" style={{ marginTop: 28 }}>
+            <Link className="seo-market-button seo-market-button-dark" href="/financing">Explore Liquor License Financing</Link>
+            <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Sell a Florida Liquor License</Link>
           </div>
         </div>
       </section>
@@ -386,7 +395,7 @@ export default async function FloridaLiquorLicensesForSalePage() {
         <div className="seo-market-shell">
           <div>
             <h2>Ready to search the Florida market?</h2>
-            <p>Open the existing FLLM Listings page and filter current inventory by county, license type, price, and availability.</p>
+            <p>Filter current inventory by county, license type, asking price and availability, then open a listing to inquire or submit an offer.</p>
           </div>
           <Link className="seo-market-button seo-market-button-dark" href="/listings">Browse Florida Liquor Licenses for Sale</Link>
         </div>
@@ -396,9 +405,9 @@ export default async function FloridaLiquorLicensesForSalePage() {
         <div className="seo-market-shell">
           <span>© Florida Liquor License Market</span>
           <nav>
-            <Link href="/listings">Listings</Link>
+            <Link href="/florida-4cop-liquor-license-for-sale">4COP Licenses</Link>
+            <Link href="/florida-3ps-liquor-license-for-sale">3PS Licenses</Link>
             <Link href="/counties">Counties</Link>
-            <Link href="/financing">Financing</Link>
             <Link href="/contact">Contact</Link>
           </nav>
         </div>
