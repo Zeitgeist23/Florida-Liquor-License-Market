@@ -11,6 +11,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: siteUrl, lastModified, changeFrequency: "daily", priority: 1 },
     { url: `${siteUrl}/listings`, lastModified, changeFrequency: "daily", priority: 0.95 },
     { url: `${siteUrl}/florida-liquor-licenses-for-sale`, lastModified, changeFrequency: "daily", priority: 0.95 },
+    { url: `${siteUrl}/florida-4cop-liquor-license-for-sale`, lastModified, changeFrequency: "daily", priority: 0.9 },
+    { url: `${siteUrl}/florida-3ps-liquor-license-for-sale`, lastModified, changeFrequency: "daily", priority: 0.85 },
     { url: `${siteUrl}/counties`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/sell-your-license`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/financing`, lastModified, changeFrequency: "monthly", priority: 0.75 },
