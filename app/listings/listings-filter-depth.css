@@ -1,0 +1,85 @@
+/* Listings filter depth refinement only.
+   No layout, content, data, navigation, or behavior changes. */
+
+/* 1. Give the overall filter container a little more depth without changing its size or position. */
+.results-page .results-filters {
+  border-color: rgba(219, 156, 31, .78) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 34, 56, .96) 0%,
+    rgba(6, 25, 43, .97) 54%,
+    rgba(5, 21, 37, .98) 100%
+  ) !important;
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, .22),
+    0 0 0 1px rgba(239, 172, 43, .05),
+    inset 0 1px 0 rgba(255, 221, 151, .07),
+    inset 0 -2px 7px rgba(0, 0, 0, .16) !important;
+}
+
+/* 2. Make each dropdown feel slightly raised and substantial, not beveled or glossy. */
+.results-page .results-filters select {
+  border-color: rgba(206, 146, 28, .82) !important;
+  background: linear-gradient(
+    180deg,
+    #0a2035 0%,
+    #071a2d 55%,
+    #061727 100%
+  ) !important;
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, .20),
+    inset 0 1px 0 rgba(255, 223, 158, .075),
+    inset 0 -1px 0 rgba(0, 0, 0, .24) !important;
+  transition: border-color .16s ease, box-shadow .16s ease, background .16s ease !important;
+}
+
+.results-page .results-filters select:hover {
+  border-color: rgba(239, 170, 34, .96) !important;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, .22),
+    0 0 0 1px rgba(243, 170, 23, .07),
+    inset 0 1px 0 rgba(255, 226, 165, .10) !important;
+}
+
+.results-page .results-filters select:focus {
+  border-color: #f3aa17 !important;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, .22),
+    0 0 0 2px rgba(243, 170, 23, .11),
+    inset 0 1px 0 rgba(255, 226, 165, .10) !important;
+}
+
+/* 3. Give the existing Heat Map button more visual weight while preserving its behavior. */
+.results-page .results-filters .btn {
+  border-color: rgba(232, 164, 27, .95) !important;
+  background: linear-gradient(
+    180deg,
+    #0a2035 0%,
+    #07192b 58%,
+    #061624 100%
+  ) !important;
+  box-shadow:
+    0 5px 12px rgba(0, 0, 0, .22),
+    0 0 12px rgba(232, 164, 27, .055),
+    inset 0 1px 0 rgba(255, 221, 145, .11),
+    inset 0 -1px 0 rgba(0, 0, 0, .28) !important;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease, background .16s ease !important;
+}
+
+.results-page .results-filters .btn:hover {
+  transform: translateY(-1px) !important;
+  border-color: #f2ad22 !important;
+  color: #07182a !important;
+  background: linear-gradient(180deg, #ffc64a 0%, #efa817 58%, #dc9108 100%) !important;
+  box-shadow:
+    0 7px 16px rgba(0, 0, 0, .25),
+    0 0 16px rgba(239, 168, 23, .15),
+    inset 0 1px 0 rgba(255, 242, 205, .38) !important;
+}
+
+.results-page .results-filters .btn:active {
+  transform: translateY(0) !important;
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, .22),
+    inset 0 1px 3px rgba(0, 0, 0, .16) !important;
+}
