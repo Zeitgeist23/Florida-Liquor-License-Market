@@ -71,9 +71,9 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
     <main className="results-page">
       <header className="results-header page-shell">
         <Link className="seller-brand" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /></Link>
-        <nav aria-label="Listings navigation"><Link href="/">Home</Link><Link href="/counties">Counties</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact Us</Link></nav>
+        <nav aria-label="Listings navigation"><Link href="/">Home</Link><Link href="/florida-liquor-licenses-for-sale">Licenses for Sale</Link><Link href="/counties">Counties</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact Us</Link></nav>
       </header>
-      <section className="results-intro"><div className="page-shell"><span>Florida Marketplace Inventory</span><h1>Florida Liquor Licenses for Sale</h1><p>Browse current transferable 4COP and 3PS quota liquor-license listings across Florida. Filter marketplace inventory by county, license type, asking price, and availability.</p><p><Link href="/counties">Explore liquor-license markets and listings across all 67 Florida counties.</Link></p></div></section>
+      <section className="results-intro"><div className="page-shell"><span>Florida Marketplace Inventory</span><h1>Florida Liquor License Marketplace Listings</h1><p>Browse current transferable 4COP and 3PS quota liquor-license inventory across Florida. Filter marketplace listings by county, license type, asking price and availability.</p><p><Link href="/florida-liquor-licenses-for-sale">Browse the Florida liquor licenses for sale buying guide and live market overview.</Link> <Link href="/counties">Explore liquor-license markets across all 67 Florida counties.</Link></p></div></section>
       <section className="results-content"><div className="page-shell">
         <form className="results-filters" onSubmit={(event) => event.preventDefault()}>
           <label><span>County</span><select value={county} onChange={(event) => setCounty(event.target.value)}><option value="all">All Florida Counties</option>{counties.map((name) => <option key={name} value={name}>{name}</option>)}</select></label>
@@ -82,7 +82,7 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
           <label><span>Status</span><select value={status} onChange={(event) => setStatus(event.target.value)}><option value="all">Available &amp; Sold</option><option value="available">Available</option><option value="sold">Sold</option></select></label>
           <button className="btn btn-gold" type="submit">Apply Filters</button>
         </form>
-        <div className="inventory-disclaimer">Listings are for liquor-license interests only unless expressly stated otherwise. Businesses and real estate are not included. <Link href="/counties">Browse all 67 Florida county liquor-license markets</Link>.</div>
+        <div className="inventory-disclaimer">Listings are for liquor-license interests only unless expressly stated otherwise. Businesses and real estate are not included. <Link href="/florida-4cop-liquor-license-for-sale">Florida 4COP licenses for sale</Link> · <Link href="/florida-3ps-liquor-license-for-sale">Florida 3PS licenses for sale</Link> · <Link href="/counties">All 67 county markets</Link>.</div>
         <div className="results-summary"><strong>{filtered.length}</strong> matching listing{filtered.length === 1 ? "" : "s"}<button type="button" onClick={clearFilters}>Clear all filters</button></div>
         {filtered.length ? <div className="results-grid">{filtered.map((listing) => <article className="result-card" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
           <div className="result-photo"><FloridaCountyMap county={listing.county} /><span className="result-type-badge">{listing.type}</span></div>
