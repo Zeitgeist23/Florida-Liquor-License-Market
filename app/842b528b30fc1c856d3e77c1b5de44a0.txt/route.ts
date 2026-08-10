@@ -3,10 +3,15 @@ const SITE_ORIGIN = "https://www.floridaliquorlicensemarket.com";
 
 const PUBLIC_URLS = [
   `${SITE_ORIGIN}/`,
+  `${SITE_ORIGIN}/florida-liquor-licenses-for-sale`,
+  `${SITE_ORIGIN}/florida-4cop-liquor-license-for-sale`,
+  `${SITE_ORIGIN}/florida-3ps-liquor-license-for-sale`,
   `${SITE_ORIGIN}/listings`,
+  `${SITE_ORIGIN}/counties`,
   `${SITE_ORIGIN}/sell-your-license`,
   `${SITE_ORIGIN}/financing`,
   `${SITE_ORIGIN}/investment-opportunities`,
+  `${SITE_ORIGIN}/resources/florida-liquor-license-types`,
   `${SITE_ORIGIN}/contact`,
   `${SITE_ORIGIN}/financing-disclosure`,
   `${SITE_ORIGIN}/private-lending-disclosure`,
