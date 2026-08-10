@@ -2,38 +2,72 @@
 .results-page .results-intro h1 {
   position: relative !important;
   display: inline-block !important;
-  padding-bottom: 16px !important;
+  padding-bottom: 18px !important;
 }
 
+/* Thin gold underline */
 .results-page .results-intro h1::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: 0;
-  width: 150px;
+  bottom: 1px;
+  width: 180px;
   height: 2px;
   transform: translateX(-50%);
   border-radius: 999px;
   background: linear-gradient(
     90deg,
     rgba(243, 170, 23, 0) 0%,
-    rgba(243, 170, 23, .42) 18%,
-    rgba(255, 210, 112, .96) 50%,
-    rgba(243, 170, 23, .42) 82%,
+    rgba(243, 170, 23, .32) 14%,
+    rgba(246, 181, 40, .72) 34%,
+    rgba(255, 216, 121, 1) 50%,
+    rgba(246, 181, 40, .72) 66%,
+    rgba(243, 170, 23, .32) 86%,
     rgba(243, 170, 23, 0) 100%
   );
   box-shadow:
-    0 0 7px rgba(243, 170, 23, .46),
-    0 0 15px rgba(243, 170, 23, .16);
+    0 0 7px rgba(247, 185, 54, .42),
+    0 0 15px rgba(243, 170, 23, .18);
+  pointer-events: none;
+}
+
+/* Moderate centered Florida-sun flare: brighter than the subtle version, restrained versus a full sunburst. */
+.results-page .results-intro h1::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 30px;
+  height: 12px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 252, 234, 1) 0%,
+    rgba(255, 226, 150, .98) 18%,
+    rgba(250, 190, 59, .78) 40%,
+    rgba(243, 170, 23, .32) 62%,
+    rgba(243, 170, 23, 0) 82%
+  );
+  box-shadow:
+    0 0 8px rgba(255, 213, 119, .62),
+    0 0 16px rgba(243, 170, 23, .34),
+    0 0 24px rgba(243, 170, 23, .12);
   pointer-events: none;
 }
 
 @media (max-width: 720px) {
   .results-page .results-intro h1 {
-    padding-bottom: 13px !important;
+    padding-bottom: 15px !important;
   }
 
   .results-page .results-intro h1::after {
-    width: 105px;
+    width: 122px;
+  }
+
+  .results-page .results-intro h1::before {
+    width: 24px;
+    height: 10px;
+    bottom: -2px;
   }
 }
