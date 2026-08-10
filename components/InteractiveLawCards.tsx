@@ -13,15 +13,18 @@ type InteractiveLawCardsProps = {
   items: InteractiveLawReference[];
   actionLabel: string;
   sourceName: string;
+  variant?: "standard" | "compact";
 };
 
 export default function InteractiveLawCards({
   items,
   actionLabel,
   sourceName,
+  variant = "standard",
 }: InteractiveLawCardsProps) {
   const [selected, setSelected] = useState<InteractiveLawReference | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const compact = variant === "compact";
 
   useEffect(() => {
     if (!selected) return;
@@ -43,19 +46,19 @@ export default function InteractiveLawCards({
 
   return (
     <>
-      <div className="laws-grid">
+      <div className={compact ? "official-source-grid" : "laws-grid"}>
         {items.map((law) => (
           <button
             type="button"
-            className="law-card law-card-button"
-            key={law.citation}
+            className={compact ? "official-source-card" : "law-card law-card-button"}
+            key={`${law.citation}-${law.title}`}
             onClick={() => setSelected(law)}
             aria-label={`View ${law.citation} ${law.title} inside Florida Liquor License Market`}
           >
             <b>{law.citation}</b>
             <h3>{law.title}</h3>
             <p>{law.summary}</p>
-            <span className="law-card-action">{actionLabel} →</span>
+            <span className={compact ? "official-source-action" : "law-card-action"}>{actionLabel} →</span>
           </button>
         ))}
       </div>
@@ -86,7 +89,7 @@ export default function InteractiveLawCards({
                 ref={closeRef}
                 type="button"
                 className="law-modal-close"
-                aria-label="Close statute viewer"
+                aria-label="Close FLLM law viewer"
                 onClick={() => setSelected(null)}
               >
                 ×
@@ -103,7 +106,7 @@ export default function InteractiveLawCards({
               <iframe
                 className="law-modal-frame"
                 src={selected.href}
-                title={`${selected.citation} official text`}
+                title={`${selected.citation} ${selected.title} official source`}
                 loading="eager"
                 referrerPolicy="no-referrer"
               />
