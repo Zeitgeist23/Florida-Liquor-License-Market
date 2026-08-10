@@ -71,6 +71,27 @@ const abtRules = [
   },
 ];
 
+const officialSources = [
+  {
+    citation: "Official Division Index",
+    title: "DBPR / ABT Statutes & Rules",
+    summary: "Official Division statutes and rules index.",
+    href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/statutes-and-rules/",
+  },
+  {
+    citation: "Florida Administrative Code",
+    title: "Division 61A",
+    summary: "Browse ABT administrative rule chapters.",
+    href: "https://flrules.org/gateway/organization.asp?divid=247",
+  },
+  {
+    citation: "Florida Statutes",
+    title: "Chapter 561 — Beverage Law: Administration",
+    summary: "Open the full official chapter.",
+    href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/0561.html",
+  },
+];
+
 const styles = `
   .laws-page{min-height:100vh;background:#06131e;color:#eef4f7}
   .laws-page .abt-header-wrap{background:#020b12;border-bottom-color:rgba(246,167,0,.58)}
@@ -95,9 +116,14 @@ const styles = `
   .law-card h3{margin:12px 0 9px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.18}
   .law-card p{margin:0;color:#b9c9d2;font-size:13px;line-height:1.65}
   .law-card-action{margin-top:auto;padding-top:18px;color:#f6a700;font-size:11px;font-weight:900;text-transform:uppercase}
-  .official-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
-  .official-links a{display:grid;gap:6px;padding:18px;border:1px solid #36566a;border-radius:7px;background:#071a27}
-  .official-links strong{color:#fff}.official-links span{color:#9fb2bd;font-size:11px;line-height:1.5}
+  .official-source-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+  .official-source-card{display:flex;flex-direction:column;min-height:142px;padding:18px;border:1px solid #36566a;border-radius:7px;background:#071a27;color:inherit;appearance:none;text-align:left;font:inherit;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease}
+  .official-source-card:hover{transform:translateY(-4px);border-color:#f6a700;background:linear-gradient(145deg,#0b2b40,#071a27);box-shadow:0 14px 30px rgba(0,0,0,.32),0 0 0 1px rgba(246,167,0,.16)}
+  .official-source-card:focus-visible{outline:3px solid #f6a700;outline-offset:3px}
+  .official-source-card b{color:#f6a700;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+  .official-source-card h3{margin:6px 0 7px;color:#fff;font-size:16px;line-height:1.18}
+  .official-source-card p{margin:0;color:#9fb2bd;font-size:11px;line-height:1.5}
+  .official-source-action{margin-top:auto;padding-top:12px;color:#f6a700;font-size:10px;font-weight:900;text-transform:uppercase}
   .laws-notice{margin:0 auto 64px;padding:22px 24px;border-left:4px solid #f6a700;background:rgba(246,167,0,.055)}
   .laws-notice strong{color:#f6a700;font-size:12px;text-transform:uppercase}.laws-notice p{margin:8px 0 0;color:#9fb0ba;font-size:12px;line-height:1.65}
   .law-modal-backdrop{position:fixed;inset:0;z-index:10080;display:flex;align-items:center;justify-content:center;padding:22px;background:rgba(0,7,13,.84);backdrop-filter:blur(5px)}
@@ -108,7 +134,7 @@ const styles = `
   .law-modal-titlebar{padding:16px 20px;border-bottom:1px solid #294657;background:#071b29}.law-modal-titlebar>span{color:#f6a700;font-size:11px;font-weight:900;text-transform:uppercase}.law-modal-titlebar h2{margin:5px 0 5px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:clamp(22px,3vw,32px);line-height:1.1}.law-modal-titlebar p{max-width:950px;margin:0;color:#aebfc9;font-size:12px;line-height:1.5}
   .law-modal-frame-wrap{flex:1;min-height:0;background:#fff}.law-modal-frame{display:block;width:100%;height:100%;border:0;background:#fff}
   .law-modal-footer{display:flex;justify-content:space-between;gap:18px;padding:10px 18px;border-top:1px solid rgba(246,167,0,.35);background:#030c13;color:#8fa4b0;font-size:10px}
-  @media(max-width:820px){.laws-heading,.laws-grid,.official-links{grid-template-columns:1fr}.laws-heading{gap:8px}.law-modal-backdrop{padding:8px}.law-modal{width:100%;height:94vh}.law-modal-brand img{height:36px}.law-modal-footer{display:block}.law-modal-footer span{display:block}.law-modal-footer span+span{margin-top:4px}}
+  @media(max-width:820px){.laws-heading,.laws-grid,.official-source-grid{grid-template-columns:1fr}.laws-heading{gap:8px}.law-modal-backdrop{padding:8px}.law-modal{width:100%;height:94vh}.law-modal-brand img{height:36px}.law-modal-footer{display:block}.law-modal-footer span{display:block}.law-modal-footer span+span{margin-top:4px}}
 `;
 
 export default function FloridaLiquorLicenseLawsPage() {
@@ -153,11 +179,12 @@ export default function FloridaLiquorLicenseLawsPage() {
             actionLabel="View Rule in FLLM"
             sourceName="Official Florida Administrative Code rule"
           />
-          <div className="official-links">
-            <a href="https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/statutes-and-rules/" target="_blank" rel="noopener noreferrer"><strong>DBPR / ABT Statutes & Rules</strong><span>Official Division statutes and rules index</span></a>
-            <a href="https://flrules.org/gateway/organization.asp?divid=247" target="_blank" rel="noopener noreferrer"><strong>Florida Administrative Code — Division 61A</strong><span>Browse ABT administrative rule chapters</span></a>
-            <a href="https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/0561.html" target="_blank" rel="noopener noreferrer"><strong>Chapter 561 — Beverage Law: Administration</strong><span>Open the full official chapter</span></a>
-          </div>
+          <InteractiveLawCards
+            items={officialSources}
+            actionLabel="Open in FLLM"
+            sourceName="Official Florida government source"
+            variant="compact"
+          />
         </div>
       </section>
 
