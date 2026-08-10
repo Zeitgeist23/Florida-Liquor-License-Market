@@ -9,35 +9,22 @@
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -1px;
-  width: 190px;
-  height: 8px;
+  bottom: 0;
+  width: 150px;
+  height: 2px;
   transform: translateX(-50%);
   border-radius: 999px;
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(255, 249, 224, 1) 0%,
-      rgba(255, 221, 137, .98) 8%,
-      rgba(249, 184, 47, .82) 20%,
-      rgba(243, 170, 23, .30) 38%,
-      rgba(243, 170, 23, 0) 62%
-    ) center / 72px 15px no-repeat,
-    linear-gradient(
-      90deg,
-      rgba(243, 170, 23, 0) 0%,
-      rgba(243, 170, 23, .34) 18%,
-      rgba(247, 181, 43, .82) 38%,
-      rgba(255, 215, 120, 1) 50%,
-      rgba(247, 181, 43, .82) 62%,
-      rgba(243, 170, 23, .34) 82%,
-      rgba(243, 170, 23, 0) 100%
-    ) center / 100% 2px no-repeat;
+  background: linear-gradient(
+    90deg,
+    rgba(243, 170, 23, 0) 0%,
+    rgba(243, 170, 23, .42) 18%,
+    rgba(255, 210, 112, .96) 50%,
+    rgba(243, 170, 23, .42) 82%,
+    rgba(243, 170, 23, 0) 100%
+  );
   box-shadow:
-    0 0 7px rgba(255, 199, 72, .58),
-    0 0 15px rgba(243, 170, 23, .32),
-    0 0 26px rgba(243, 170, 23, .14);
-  filter: drop-shadow(0 0 4px rgba(255, 224, 151, .34));
+    0 0 7px rgba(243, 170, 23, .46),
+    0 0 15px rgba(243, 170, 23, .16);
   pointer-events: none;
 }
 
@@ -47,25 +34,6 @@
   }
 
   .results-page .results-intro h1::after {
-    width: 125px;
-    background:
-      radial-gradient(
-        ellipse at center,
-        rgba(255, 249, 224, 1) 0%,
-        rgba(255, 221, 137, .98) 8%,
-        rgba(249, 184, 47, .82) 20%,
-        rgba(243, 170, 23, .30) 38%,
-        rgba(243, 170, 23, 0) 62%
-      ) center / 58px 13px no-repeat,
-      linear-gradient(
-        90deg,
-        rgba(243, 170, 23, 0) 0%,
-        rgba(243, 170, 23, .34) 18%,
-        rgba(247, 181, 43, .82) 38%,
-        rgba(255, 215, 120, 1) 50%,
-        rgba(247, 181, 43, .82) 62%,
-        rgba(243, 170, 23, .34) 82%,
-        rgba(243, 170, 23, 0) 100%
-      ) center / 100% 2px no-repeat;
+    width: 105px;
   }
 }
