@@ -1,58 +1,76 @@
-/* Approved Listings hero title highlight only. No layout or behavior changes. */
+/* Listings hero title highlight only. No layout or behavior changes. */
 .results-page .results-intro h1 {
   position: relative !important;
   display: inline-block !important;
   padding-bottom: 18px !important;
 }
 
-/* Thin gold underline */
+/* Long, very thin gold rule with a restrained center bloom. */
 .results-page .results-intro h1::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: 1px;
-  width: 180px;
-  height: 2px;
+  bottom: 3px;
+  width: 205px;
+  height: 1px;
   transform: translateX(-50%);
-  border-radius: 999px;
   background: linear-gradient(
     90deg,
-    rgba(243, 170, 23, 0) 0%,
-    rgba(243, 170, 23, .32) 14%,
-    rgba(246, 181, 40, .72) 34%,
-    rgba(255, 216, 121, 1) 50%,
-    rgba(246, 181, 40, .72) 66%,
-    rgba(243, 170, 23, .32) 86%,
-    rgba(243, 170, 23, 0) 100%
+    rgba(219, 143, 14, 0) 0%,
+    rgba(219, 143, 14, .18) 10%,
+    rgba(238, 165, 31, .62) 31%,
+    rgba(253, 193, 61, .90) 44%,
+    rgba(255, 226, 139, 1) 50%,
+    rgba(253, 193, 61, .90) 56%,
+    rgba(238, 165, 31, .62) 69%,
+    rgba(219, 143, 14, .18) 90%,
+    rgba(219, 143, 14, 0) 100%
   );
   box-shadow:
-    0 0 7px rgba(247, 185, 54, .42),
-    0 0 15px rgba(243, 170, 23, .18);
+    0 0 3px rgba(245, 176, 38, .42),
+    0 0 8px rgba(245, 176, 38, .14);
   pointer-events: none;
 }
 
-/* Moderate centered Florida-sun flare: brighter than the subtle version, restrained versus a full sunburst. */
+/* Small star-like Florida-sun glint — deliberately not a round/oval blob. */
 .results-page .results-intro h1::before {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -3px;
+  bottom: -1px;
   width: 30px;
-  height: 12px;
+  height: 10px;
   transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 252, 234, 1) 0%,
-    rgba(255, 226, 150, .98) 18%,
-    rgba(250, 190, 59, .78) 40%,
-    rgba(243, 170, 23, .32) 62%,
-    rgba(243, 170, 23, 0) 82%
-  );
-  box-shadow:
-    0 0 8px rgba(255, 213, 119, .62),
-    0 0 16px rgba(243, 170, 23, .34),
-    0 0 24px rgba(243, 170, 23, .12);
+  background:
+    radial-gradient(circle at center,
+      rgba(255, 255, 244, 1) 0 1px,
+      rgba(255, 229, 149, .96) 1.5px,
+      rgba(248, 185, 48, .62) 3px,
+      rgba(243, 170, 23, 0) 5px
+    ) center / 10px 10px no-repeat,
+    linear-gradient(
+      90deg,
+      rgba(243, 170, 23, 0) 0%,
+      rgba(247, 185, 52, .24) 24%,
+      rgba(255, 223, 131, .82) 46%,
+      rgba(255, 250, 226, 1) 50%,
+      rgba(255, 223, 131, .82) 54%,
+      rgba(247, 185, 52, .24) 76%,
+      rgba(243, 170, 23, 0) 100%
+    ) center / 100% 1px no-repeat,
+    linear-gradient(
+      180deg,
+      rgba(243, 170, 23, 0) 0%,
+      rgba(250, 194, 67, .18) 20%,
+      rgba(255, 235, 174, .72) 43%,
+      rgba(255, 252, 235, .96) 50%,
+      rgba(255, 235, 174, .72) 57%,
+      rgba(250, 194, 67, .18) 80%,
+      rgba(243, 170, 23, 0) 100%
+    ) center / 1px 100% no-repeat;
+  filter:
+    drop-shadow(0 0 3px rgba(255, 210, 105, .56))
+    drop-shadow(0 0 6px rgba(243, 170, 23, .24));
   pointer-events: none;
 }
 
@@ -62,12 +80,11 @@
   }
 
   .results-page .results-intro h1::after {
-    width: 122px;
+    width: 138px;
   }
 
   .results-page .results-intro h1::before {
     width: 24px;
-    height: 10px;
-    bottom: -2px;
+    height: 9px;
   }
 }
