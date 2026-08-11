@@ -116,7 +116,7 @@ export default function ListingsHeatMapEnhancement() {
       }
     };
 
-    button.textContent = "Market Heat Map";
+    button.textContent = "Heat Map";
     button.type = "button";
     button.setAttribute("aria-haspopup", "dialog");
     button.addEventListener("click", handleClick);
