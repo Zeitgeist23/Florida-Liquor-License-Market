@@ -1,11 +1,18 @@
 /* Keep listing text fully inside the left column and give the county-map pane enough vertical room.
-   Loaded after listings-conversion-cards.css. */
+   Loaded after listings-conversion-cards.css.
+   Preserve the approved card border and one continuous navy card surface. */
 
 @media (min-width: 761px) {
   .results-page .result-card {
     min-height: 330px !important;
     grid-template-columns: minmax(0, 1.18fr) minmax(150px, .82fr) !important;
     column-gap: 12px !important;
+    isolation: isolate !important;
+  }
+
+  .results-page .result-card::before {
+    z-index: 4 !important;
+    pointer-events: none !important;
   }
 
   .results-page .result-body {
@@ -13,6 +20,7 @@
     z-index: 2 !important;
     padding-right: 0 !important;
     overflow: hidden !important;
+    background: transparent !important;
   }
 
   .results-page .result-description {
@@ -40,7 +48,12 @@
     align-items: center !important;
     justify-content: center !important;
     padding: 42px 8px 34px 8px !important;
-    background: linear-gradient(145deg, #061728 0%, #0a2339 58%, #0d2942 100%) !important;
+    background: transparent !important;
+  }
+
+  /* Remove the separate dark rectangle behind the map so the entire card keeps one navy tone. */
+  .results-page .result-photo .florida-county-map > rect {
+    fill: transparent !important;
   }
 
   .results-page .result-photo .florida-county-map,
