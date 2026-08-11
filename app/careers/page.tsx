@@ -3,7 +3,7 @@ import Link from "next/link";
 import "./careers.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
-const applyHref = "mailto:info@floridaliquorlicensemarket.com?subject=FLLM%20Careers%20-%20Marketplace%20Representative";
+const applyHref = "/contact?careers=1";
 
 export const metadata: Metadata = {
   title: "Careers | Florida Liquor License Market",
@@ -71,7 +71,7 @@ export default function CareersPage() {
               FLLM is developing a statewide network of marketplace sales and business-development professionals who can identify new license opportunities, build buyer relationships, and expand coverage across Florida&apos;s 67 counties.
             </p>
             <div className="careers-actions">
-              <a className="careers-button careers-button-gold" href={applyHref}>Apply to Join FLLM</a>
+              <Link className="careers-button careers-button-gold" href={applyHref}>Apply to Join FLLM</Link>
               <Link className="careers-button careers-button-dark" href="/listings">Explore the Marketplace</Link>
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function CareersPage() {
               Send a short introduction with your sales or business-development background, the Florida counties or markets you know best, and the best way to reach you.
             </p>
           </div>
-          <a className="careers-button careers-button-gold" href={applyHref}>Apply to Join FLLM</a>
+          <Link className="careers-button careers-button-gold" href={applyHref}>Apply to Join FLLM</Link>
         </div>
       </section>
 
