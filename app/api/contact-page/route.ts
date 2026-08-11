@@ -5,7 +5,35 @@ const CONTACT_PAGE_STYLES = `<style id="contact-logo-size-v1">
     width: 71.25% !important;
     height: auto !important;
   }
+  .contact-careers-entry {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    margin-top: 12px;
+    color: #d7e2ea;
+    font-size: 14px;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+  .contact-careers-entry strong {
+    color: #f5a400;
+    font-weight: 800;
+  }
+  .contact-careers-entry:hover strong,
+  .contact-careers-entry:focus-visible strong {
+    text-decoration: underline;
+  }
 </style>`;
+
+const CAREERS_ENTRY = '<a class="contact-careers-entry" href="/careers"><span>Interested in joining FLLM?</span><strong>View Careers →</strong></a>';
+
+function addCareersEntryPoint(html: string) {
+  if (html.includes('class="contact-careers-entry"')) return html;
+
+  const marker = '<span class="contact-direct-link">Use the secure form to contact us directly.</span>';
+  return html.replace(marker, `${marker}${CAREERS_ENTRY}`);
+}
 
 function applyCareersMode(html: string) {
   return html
@@ -57,7 +85,7 @@ export async function GET(request: Request) {
     if (!html.includes('id="contact-logo-size-v1"')) {
       html = html.replace("</head>", `${CONTACT_PAGE_STYLES}</head>`);
     }
-    if (careersMode) html = applyCareersMode(html);
+    html = careersMode ? applyCareersMode(html) : addCareersEntryPoint(html);
 
     return new Response(html, {
       headers: {
