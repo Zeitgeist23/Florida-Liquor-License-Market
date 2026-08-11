@@ -68,7 +68,7 @@ export default function CareersPage() {
             <span className="careers-kicker">Join Florida Liquor License Market</span>
             <h1>Build the Florida liquor-license marketplace with us.</h1>
             <p>
-              FLLM is developing a statewide network of marketplace sales and business-development professionals who can identify new license opportunities, build buyer relationships, and expand coverage across Florida's 67 counties.
+              FLLM is developing a statewide network of marketplace sales and business-development professionals who can identify new license opportunities, build buyer relationships, and expand coverage across Florida&apos;s 67 counties.
             </p>
             <div className="careers-actions">
               <a className="careers-button careers-button-gold" href={applyHref}>Apply to Join FLLM</a>
@@ -128,8 +128,8 @@ export default function CareersPage() {
           <h2>Experience that can translate well</h2>
         </div>
         <div className="careers-qualification-grid">
-          <div><strong>Sales & Business Development</strong><p>Cold calling, relationship sales, account development, lead generation, recruiting sellers, or managing a pipeline.</p></div>
-          <div><strong>Hospitality & Small Business</strong><p>Restaurant, bar, liquor-store, hospitality, commercial lending, business ownership, or related market experience.</p></div>
+          <div><strong>Sales &amp; Business Development</strong><p>Cold calling, relationship sales, account development, lead generation, recruiting sellers, or managing a pipeline.</p></div>
+          <div><strong>Hospitality &amp; Small Business</strong><p>Restaurant, bar, liquor-store, hospitality, commercial lending, business ownership, or related market experience.</p></div>
           <div><strong>Florida Market Knowledge</strong><p>Knowledge of particular counties, local hospitality markets, quota licenses, or professional networks within Florida.</p></div>
           <div><strong>Professional Credentials</strong><p>Existing professional licenses or brokerage experience are welcome where relevant, but are not a general prerequisite for an FLLM marketplace role focused solely on standalone liquor-license listings.</p></div>
         </div>
