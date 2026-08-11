@@ -99,6 +99,23 @@
     return true;
   }
 
+  function ensureCareersFooterLink() {
+    const footer = document.querySelector("footer#resources");
+    if (!(footer instanceof HTMLElement)) return false;
+
+    const companyColumn = Array.from(footer.querySelectorAll(".footer-grid > div"))
+      .find((column) => normalizedText(column.querySelector(":scope > strong")).toLowerCase() === "company");
+
+    if (!(companyColumn instanceof HTMLElement)) return false;
+    if (companyColumn.querySelector('a[href="/careers"]')) return true;
+
+    const link = document.createElement("a");
+    link.href = "/careers";
+    link.textContent = "Careers";
+    companyColumn.appendChild(link);
+    return true;
+  }
+
   function closeMenu({ label, selector }) {
     document.querySelectorAll(selector).forEach((menu) => {
       menu.classList.remove("is-open");
@@ -120,11 +137,19 @@
     }
 
     window.setTimeout(normalizeResourcesMenu, 0);
+    window.setTimeout(ensureCareersFooterLink, 0);
   }, true);
 
-  const observer = new MutationObserver(() => normalizeResourcesMenu());
+  const observer = new MutationObserver(() => {
+    normalizeResourcesMenu();
+    ensureCareersFooterLink();
+  });
   observer.observe(document.documentElement, { childList: true, subtree: true });
   normalizeResourcesMenu();
+  ensureCareersFooterLink();
   window.setTimeout(normalizeResourcesMenu, 300);
   window.setTimeout(normalizeResourcesMenu, 1000);
+  window.setTimeout(ensureCareersFooterLink, 100);
+  window.setTimeout(ensureCareersFooterLink, 500);
+  window.setTimeout(ensureCareersFooterLink, 1500);
 })();
