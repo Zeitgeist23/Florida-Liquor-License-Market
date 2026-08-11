@@ -7,8 +7,44 @@ const CONTACT_PAGE_STYLES = `<style id="contact-logo-size-v1">
   }
 </style>`;
 
+function applyCareersMode(html: string) {
+  return html
+    .replace(
+      "<h1>Contact Florida Liquor License Market</h1>",
+      "<h1>Apply to Join Florida Liquor License Market</h1>",
+    )
+    .replace(
+      "Whether you are buying, selling, financing, investing, or simply exploring your options, tell us how we can help. A marketplace representative will follow up directly.",
+      "Tell us about your sales or business-development background, the Florida counties or markets you know best, and how you would like to contribute to the FLLM marketplace.",
+    )
+    .replace(
+      "Use the secure form to contact us directly.",
+      "Use the secure form to submit your FLLM application.",
+    )
+    .replace("<h2>How Can We Help?</h2>", "<h2>FLLM Careers Application</h2>")
+    .replace(
+      'name="_subject" value="Florida Liquor License Market — New Contact Inquiry"',
+      'name="_subject" value="FLLM Careers — Marketplace Representative Application"',
+    )
+    .replace(
+      '<option value="" disabled="" selected="">Select an option</option>',
+      '<option value="" disabled="">Select an option</option><option selected="">Careers / Join FLLM</option>',
+    )
+    .replace("<span>Preferred County</span>", "<span>Florida County / Market You Know Best</span>")
+    .replace(
+      "<span>How can we help? *</span>",
+      "<span>Tell us about your sales or business-development background *</span>",
+    )
+    .replace(
+      "Submit Confidential Inquiry",
+      "Submit FLLM Application",
+    );
+}
+
 export async function GET(request: Request) {
   try {
+    const requestUrl = new URL(request.url);
+    const careersMode = requestUrl.searchParams.get("careers") === "1";
     const sourceUrl = new URL("/contact/index.html", request.url);
     sourceUrl.searchParams.set("source", "1");
 
@@ -21,6 +57,7 @@ export async function GET(request: Request) {
     if (!html.includes('id="contact-logo-size-v1"')) {
       html = html.replace("</head>", `${CONTACT_PAGE_STYLES}</head>`);
     }
+    if (careersMode) html = applyCareersMode(html);
 
     return new Response(html, {
       headers: {
