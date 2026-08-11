@@ -1,12 +1,12 @@
 .results-page .result-photo {
   width: 95% !important;
-  height: 262px !important;
+  height: 300px !important;
   padding: 8px 4px 0 0 !important;
   justify-self: center;
 }
 
 .results-page .result-photo .florida-county-map {
-  transform: scale(1.265);
+  transform: scale(1.265, 1.34);
   transform-origin: center center;
 }
 
@@ -17,13 +17,13 @@
 @media (max-width: 430px) {
   .results-page .result-photo {
     width: 95% !important;
-    height: 227px !important;
+    height: 255px !important;
     padding: 8px 4px 0 0 !important;
     justify-self: center;
   }
 
   .results-page .result-photo .florida-county-map {
-    transform: scale(1.21);
+    transform: scale(1.21, 1.28);
   }
 
   .results-page .result-actions {
