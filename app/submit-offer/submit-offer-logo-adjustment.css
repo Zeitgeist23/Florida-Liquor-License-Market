@@ -1,5 +1,5 @@
 .offer-page .offer-brand {
-  width: 198px;
+  width: 188.1px;
   align-self: stretch;
   display: flex;
   align-items: center;
@@ -12,7 +12,7 @@
 
 @media (max-width: 620px) {
   .offer-page .offer-brand {
-    width: min(198px, 72vw);
+    width: min(188.1px, 72vw);
     align-self: center;
   }
 }
