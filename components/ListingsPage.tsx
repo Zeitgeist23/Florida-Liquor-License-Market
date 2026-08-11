@@ -79,7 +79,7 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
           const available = Boolean(listing.sourceRef);
           return <article className={`result-card ${available ? "result-card-available" : "result-card-sold"}`} key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
             <span className="result-type-badge">{listing.type}</span>
-            <div className="result-photo"><FloridaCountyMap county={listing.county} /></div>
+            <div className="result-photo"><FloridaCountyMap county={listing.county} enlarged /></div>
             <div className="result-body">
               <p className="result-county-row"><span className="result-pin" aria-hidden="true">●</span><Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p>
               <h2>{available ? <Link href={listingPageHref(listing)} aria-label={`View ${listing.type} listing in ${listing.county}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link> : listing.priceLabel}</h2>
