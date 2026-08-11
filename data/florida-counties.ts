@@ -70,7 +70,7 @@ const countyContent: Record<string, CountyContent> = {
   duval: {
     primaryCities: ["Jacksonville"],
     introduction: "Duval County is anchored by Jacksonville, one of Florida's largest metropolitan markets, with a major port, finance, logistics, healthcare, sports, beaches, dining, nightlife, and entertainment.",
-    marketOverview: "Duval County supports restaurant and beverage concepts ranging from neighborhood operators to large hospitality groups. A quota license may be used for qualifying on-premise consumption or package-store operations, subject to the license category, zoning, local approvals, and state transfer requirements.",
+    marketOverview: "Duval County supports restaurant and beverage concepts ranging from neighborhood operators to large hospitality groups. Buyers searching for Jacksonville and Duval County liquor licenses for sale can compare 4COP and 3PS quota opportunities, asking prices, availability, intended use, zoning, local approvals, and state transfer requirements.",
     nearbyCounties: ["clay", "st-johns", "nassau"],
     featured: true,
   },
@@ -94,8 +94,11 @@ const countyContent: Record<string, CountyContent> = {
     introduction: "Indian River County is centered on Vero Beach and Sebastian, with affluent coastal communities, tourism, boating, retail, restaurants, and hospitality activity along the Treasure Coast.",
   },
   lake: {
-    primaryCities: ["Clermont", "Leesburg", "Mount Dora"],
+    primaryCities: ["Clermont", "Leesburg", "Mount Dora", "Tavares"],
     introduction: "Lake County is a fast-growing Central Florida market northwest of Orlando, known for its chain of lakes, suburban development, tourism, recreation, restaurants, and expanding communities.",
+    marketOverview: "Lake County liquor-license demand spans Clermont, Leesburg, Mount Dora, Tavares, and surrounding communities. Buyers can compare current 4COP and 3PS quota opportunities by asking price and availability while separately confirming intended use, premises eligibility, zoning, and transfer requirements.",
+    nearbyCounties: ["orange", "seminole", "polk", "sumter"],
+    featured: true,
   },
   lee: {
     primaryCities: ["Fort Myers", "Cape Coral", "Bonita Springs"],
@@ -154,8 +157,11 @@ const countyContent: Record<string, CountyContent> = {
     featured: true,
   },
   pasco: {
-    primaryCities: ["New Port Richey", "Dade City", "Wesley Chapel"],
+    primaryCities: ["New Port Richey", "Wesley Chapel", "Land O' Lakes", "Dade City", "Zephyrhills"],
     introduction: "Pasco County is a rapidly growing Tampa Bay market with expanding suburban communities, retail centers, recreation, restaurants, and hospitality demand.",
+    marketOverview: "Pasco County liquor-license demand is spread across New Port Richey, Wesley Chapel, Land O' Lakes, Dade City, Zephyrhills, and other growing communities. Buyers searching for Pasco County liquor licenses for sale can compare current 4COP and 3PS quota opportunities, disclosed asking prices, availability, and county-specific transaction requirements.",
+    nearbyCounties: ["pinellas", "hillsborough", "hernando", "polk"],
+    featured: true,
   },
   pinellas: {
     primaryCities: ["St. Petersburg", "Clearwater", "Largo"],
@@ -183,8 +189,11 @@ const countyContent: Record<string, CountyContent> = {
     featured: true,
   },
   seminole: {
-    primaryCities: ["Sanford", "Altamonte Springs", "Lake Mary"],
+    primaryCities: ["Sanford", "Lake Mary", "Altamonte Springs", "Oviedo", "Winter Springs"],
     introduction: "Seminole County is a prosperous suburban market north of Orlando, known for strong communities, corporate employment, lakes, retail, restaurants, and population growth.",
+    marketOverview: "Seminole County liquor-license demand is supported by Sanford, Lake Mary, Altamonte Springs, Oviedo, Winter Springs, and the broader north-Orlando market. Buyers can compare current 4COP and 3PS quota licenses for sale by asking price and availability while confirming premises, zoning, local approvals, and state transfer requirements.",
+    nearbyCounties: ["orange", "lake", "volusia"],
+    featured: true,
   },
   "st-johns": {
     primaryCities: ["St. Augustine", "Ponte Vedra Beach"],
@@ -193,10 +202,16 @@ const countyContent: Record<string, CountyContent> = {
   "st-lucie": {
     primaryCities: ["Port St. Lucie", "Fort Pierce"],
     introduction: "St. Lucie County is home to Port St. Lucie and Fort Pierce, with rapid residential growth, coastal recreation, healthcare, retail, restaurants, and hospitality activity.",
+    marketOverview: "St. Lucie County liquor-license demand is centered on Port St. Lucie and Fort Pierce and is supported by residential growth, Treasure Coast tourism, restaurants, and retail activity. Buyers can compare current 4COP and 3PS licenses for sale, asking prices, and availability before evaluating premises and transfer requirements.",
+    nearbyCounties: ["martin", "indian-river", "okeechobee"],
+    featured: true,
   },
   volusia: {
-    primaryCities: ["Daytona Beach", "DeLand", "New Smyrna Beach"],
+    primaryCities: ["Daytona Beach", "New Smyrna Beach", "Ormond Beach", "Port Orange", "DeLand"],
     introduction: "Volusia County is home to Daytona Beach, with motorsports, Atlantic beaches, tourism, universities, restaurants, events, and growing residential communities.",
+    marketOverview: "Volusia County's liquor-license market spans Daytona Beach, New Smyrna Beach, Ormond Beach, Port Orange, DeLand, and surrounding communities. Current 4COP and 3PS quota opportunities can be compared by asking price and availability, with buyers separately confirming intended use, local approvals, and transfer timing.",
+    nearbyCounties: ["flagler", "seminole", "lake", "orange"],
+    featured: true,
   },
 };
 
