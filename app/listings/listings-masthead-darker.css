@@ -1,0 +1,8 @@
+/* Listings masthead only: slightly darker navy. No layout, card, filter, text, or behavior changes. */
+.results-page > .results-header {
+  background: linear-gradient(
+    180deg,
+    rgba(2, 14, 26, .99) 0%,
+    rgba(1, 9, 18, .99) 100%
+  ) !important;
+}
