@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { countySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
 import {
-  marketplaceListingDescriptionParts,
+  countyListingDescription,
   sellerReportedStatusLabel,
 } from "@/lib/county-listing-descriptions";
 import { listingPageHref } from "@/lib/listing-page-urls";
@@ -24,18 +24,9 @@ function priceMatches(price: number | null, range: string) {
 }
 
 function ListingDescription({ listing }: { listing: Listing }) {
-  const description = marketplaceListingDescriptionParts({
-    county: listing.county,
-    licenseType: listing.type,
-    licenseStatus: listing.licenseStatus,
-    preferredTiming: listing.preferredTiming,
-  });
-
   return (
     <div className="result-description">
-      <p>{description.license}</p>
-      <p>{description.county}</p>
-      {description.cities && <p className="result-cities">{description.cities}</p>}
+      <p>{countyListingDescription(listing.county)}</p>
     </div>
   );
 }
@@ -84,11 +75,24 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
         </form>
         <div className="inventory-disclaimer">Listings are for liquor-license interests only unless expressly stated otherwise. Businesses and real estate are not included. <Link href="/florida-4cop-liquor-license-for-sale">Florida 4COP licenses for sale</Link> · <Link href="/florida-3ps-liquor-license-for-sale">Florida 3PS licenses for sale</Link> · <Link href="/counties">All 67 county markets</Link>.</div>
         <div className="results-summary"><strong>{filtered.length}</strong> matching listing{filtered.length === 1 ? "" : "s"}<button type="button" onClick={clearFilters}>Clear all filters</button></div>
-        {filtered.length ? <div className="results-grid">{filtered.map((listing) => <article className="result-card" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
-          <div className="result-photo"><FloridaCountyMap county={listing.county} /><span className="result-type-badge">{listing.type}</span></div>
-          <div className="result-body"><p>● <Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p><h2>{listing.sourceRef ? <Link href={listingPageHref(listing)} aria-label={`View ${listing.type} listing in ${listing.county}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link> : listing.priceLabel}</h2><div className="result-facts"><span>{listing.type}</span><span>{listing.licenseStatus ? `${sellerReportedStatusLabel(listing.licenseStatus)} / Available` : "Available / Status to confirm"}</span></div>
-          {listing.sourceRef ? <><ListingDescription listing={listing} /><div className="result-actions"><Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link><Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link></div></> : <div className="result-actions"><span className="sold-status">SOLD</span></div>}
-          </div></article>)}</div> : <div className="no-results"><strong>No listings match all filters.</strong><p>Try broadening the county, price range, license type, or status.</p><button className="btn btn-gold" type="button" onClick={clearFilters}>View All Listings</button></div>}
+        {filtered.length ? <div className="results-grid">{filtered.map((listing) => {
+          const available = Boolean(listing.sourceRef);
+          return <article className={`result-card ${available ? "result-card-available" : "result-card-sold"}`} key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
+            <span className="result-type-badge">{listing.type}</span>
+            <div className="result-photo"><FloridaCountyMap county={listing.county} /></div>
+            <div className="result-body">
+              <p className="result-county-row"><span className="result-pin" aria-hidden="true">●</span><Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p>
+              <h2>{available ? <Link href={listingPageHref(listing)} aria-label={`View ${listing.type} listing in ${listing.county}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link> : listing.priceLabel}</h2>
+              <div className="result-facts">
+                {available ? <span className="availability-pill" title={listing.licenseStatus ? sellerReportedStatusLabel(listing.licenseStatus) : "Status to confirm"}><span className="availability-dot" aria-hidden="true" />Available</span> : <span className="sold-status-inline">Sold</span>}
+              </div>
+              <ListingDescription listing={listing} />
+              <div className="result-actions">
+                {available ? <Link className="btn btn-gold result-view-button" href={listingPageHref(listing)}>View License <span aria-hidden="true">›</span></Link> : <span className="sold-status">SOLD</span>}
+              </div>
+            </div>
+          </article>;
+        })}</div> : <div className="no-results"><strong>No listings match all filters.</strong><p>Try broadening the county, price range, license type, or status.</p><button className="btn btn-gold" type="button" onClick={clearFilters}>View All Listings</button></div>}
       </div></section>
     </main>
   );
