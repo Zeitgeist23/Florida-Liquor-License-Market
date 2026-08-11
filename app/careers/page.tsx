@@ -135,21 +135,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <section className="careers-background">
-        <div className="careers-shell careers-background-grid">
-          <div>
-            <span>Background Consideration</span>
-            <h2>Applicants are evaluated as individuals.</h2>
-          </div>
-          <div>
-            <p>
-              A prior felony conviction is not, by itself, an automatic bar to consideration for an FLLM marketplace sales or business-development role. FLLM evaluates applicants based on the responsibilities of the position, relevant experience, professionalism, conduct, and any applicable legal requirements.
-            </p>
-            <p className="careers-small">Role requirements and responsibilities may be modified when necessary to comply with applicable law or a particular transaction structure.</p>
-          </div>
-        </div>
-      </section>
-
       <section className="careers-apply">
         <div className="careers-shell careers-apply-card">
           <div>
