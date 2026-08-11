@@ -1,0 +1,60 @@
+/* Prevent desktop listing text from sitting underneath the county map.
+   Loaded after listings-conversion-cards.css. */
+
+@media (min-width: 761px) {
+  .results-page .result-card {
+    grid-template-columns: minmax(0, 1.18fr) minmax(150px, .82fr) !important;
+    column-gap: 12px !important;
+  }
+
+  .results-page .result-body {
+    position: relative !important;
+    z-index: 2 !important;
+    padding-right: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .results-page .result-description {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .results-page .result-description p {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .results-page .result-photo {
+    position: relative !important;
+    z-index: 1 !important;
+    overflow: hidden !important;
+    justify-content: flex-end !important;
+    padding-left: 12px !important;
+    padding-right: 8px !important;
+  }
+
+  .results-page .result-photo .florida-county-map,
+  .results-page .result-photo svg {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 185px !important;
+    max-height: 185px !important;
+    flex: 0 1 185px !important;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1120px) {
+  .results-page .result-card {
+    grid-template-columns: minmax(0, 1.2fr) minmax(145px, .8fr) !important;
+    column-gap: 10px !important;
+  }
+
+  .results-page .result-photo .florida-county-map,
+  .results-page .result-photo svg {
+    max-width: 172px !important;
+    max-height: 172px !important;
+  }
+}
