@@ -21,12 +21,12 @@ function listingTypeSlug(type: Listing["type"]) {
   return type === "4COP Quota" ? "4cop-quota" : "3ps-quota";
 }
 
-function normalizedSourceUrl(sourceUrl?: string) {
-  return sourceUrl?.trim().toLowerCase().replace(/\/+$/, "") ?? "";
-}
-
 function isPaidMarketplaceRef(sourceRef: string) {
   return /^FLLM-PAID-/i.test(sourceRef.trim());
+}
+
+function listingCardIdentity(listing: Pick<Listing, "county" | "type" | "price" | "priceLabel">) {
+  return `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
 }
 
 export function listingPageSlug(listing: Pick<Listing, "county" | "type" | "sourceRef">) {
@@ -53,23 +53,24 @@ export type IndexableListingPage = {
 };
 
 export function indexableListingPages(input: Listing[]): IndexableListingPage[] {
-  const seenIdentities = new Set<string>();
+  // Keep routing in lockstep with the Listings page. The visible card grid uses
+  // the same county/type/price identity with last-write-wins behavior. Building
+  // detail pages from that exact set guarantees that every displayed AVAILABLE
+  // card has a matching /listings/[slug] route instead of a possible 404.
+  const visibleListings = Array.from(
+    new Map(input.map((listing) => [listingCardIdentity(listing), listing])).values()
+  );
+
   const pages = new Map<string, IndexableListingPage>();
 
-  for (const listing of input) {
+  for (const listing of visibleListings) {
     if (!listing.sourceRef) continue;
 
-    // First suppress exact source duplicates without collapsing two legitimate
-    // listings merely because they share county, type, and asking price.
-    const sourceUrl = normalizedSourceUrl(listing.sourceUrl);
-    const identity = sourceUrl
-      ? `url:${sourceUrl}`
-      : `ref:${listing.sourceRef.trim().toLowerCase()}`;
-    if (seenIdentities.has(identity)) continue;
-    seenIdentities.add(identity);
-
     const slug = listingPageSlug(listing);
-    if (!slug || pages.has(slug)) continue;
+    if (!slug) continue;
+
+    // If one source reference appears more than once, keep the latest visible
+    // record so the detail page agrees with the card the visitor actually saw.
     pages.set(slug, { slug, listing });
   }
 
