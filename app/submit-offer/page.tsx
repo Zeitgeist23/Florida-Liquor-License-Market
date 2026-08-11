@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import SubmitOfferPage from "@/components/SubmitOfferPage";
 import "./submit-offer.css";
+import "./submit-offer-logo-adjustment.css";
 
 export const metadata: Metadata = {
   title: "Submit an Offer | Florida Liquor License Market",
