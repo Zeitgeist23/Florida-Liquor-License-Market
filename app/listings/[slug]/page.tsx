@@ -15,6 +15,7 @@ import { getApprovedSubmissionByPublicRef } from "@/lib/listing-submission-store
 import "./listing-detail.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
+const statewideForSaleHref = "/florida-liquor-licenses-for-sale";
 
 export const dynamic = "force-dynamic";
 
@@ -64,7 +65,7 @@ function marketplaceTitle(listing: Listing) {
 }
 
 function marketplaceDescription(listing: Listing) {
-  return `View a ${listing.type} liquor-license listing in ${listing.county} at ${listing.priceLabel}. Review marketplace details, county context, and confidential inquiry and offer options.`;
+  return `View a ${listing.county} ${shortLicenseType(listing.type)} for sale at ${listing.priceLabel}. Compare this opportunity with other ${listing.county} liquor licenses for sale and review confidential inquiry and offer options.`;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -75,7 +76,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const canonical = paidListing.liveListingUrl || `${siteUrl}/listings/${encodeURIComponent(paidListing.submissionRef)}`;
     return {
       title: `${paidListing.listingTitle} | Florida Liquor License Market`,
-      description: `${paidListing.approvedLicenseType} liquor license interest listed in ${paidListing.county}.`,
+      description: `${paidListing.approvedLicenseType} liquor license for sale in ${paidListing.county}. Review marketplace details, asking price, availability, and confidential inquiry options.`,
       alternates: { canonical },
       robots: { index: true, follow: true },
     };
@@ -191,9 +192,9 @@ export default async function Page({ params }: PageProps) {
       url: canonical,
       description,
       isPartOf: {
-        "@type": "WebSite",
-        name: "Florida Liquor License Market",
-        url: siteUrl,
+        "@type": "CollectionPage",
+        name: `${listing.county} Liquor Licenses for Sale`,
+        url: `${siteUrl}${countyHref}`,
       },
     },
     {
@@ -201,7 +202,7 @@ export default async function Page({ params }: PageProps) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Florida Liquor Licenses for Sale", item: `${siteUrl}/listings` },
+        { "@type": "ListItem", position: 2, name: "Florida Liquor Licenses for Sale", item: `${siteUrl}${statewideForSaleHref}` },
         { "@type": "ListItem", position: 3, name: listing.county, item: `${siteUrl}${countyHref}` },
         { "@type": "ListItem", position: 4, name: `${listing.type} — ${listing.priceLabel}`, item: canonical },
       ],
@@ -229,7 +230,7 @@ export default async function Page({ params }: PageProps) {
         <div className="marketplace-listing-shell marketplace-listing-hero-grid">
           <div className="marketplace-listing-copy">
             <div className="marketplace-listing-breadcrumbs">
-              <Link href="/listings">Florida Listings</Link><span>›</span>
+              <Link href={statewideForSaleHref}>Florida Liquor Licenses for Sale</Link><span>›</span>
               <Link href={countyHref}>{listing.county}</Link><span>›</span>
               <strong>{listing.type}</strong>
             </div>
@@ -283,7 +284,7 @@ export default async function Page({ params }: PageProps) {
                 <h2>{listing.county} Market Context</h2>
                 <p>{county?.marketOverview ?? descriptionParts.county}</p>
                 {descriptionParts.cities && <p>{descriptionParts.cities}</p>}
-                <p><Link href={countyHref}>View the complete {listing.county} liquor-license market page →</Link></p>
+                <p><Link href={countyHref}>View all {listing.county} liquor licenses for sale →</Link></p>
               </section>
             </article>
 
@@ -298,8 +299,9 @@ export default async function Page({ params }: PageProps) {
                   <li>Use independent legal, tax, and financial professionals before closing.</li>
                 </ol>
                 <Link className="marketplace-listing-primary" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${encodeURIComponent(listing.sourceRef ?? "")}`}>Request Confidential Details</Link>
-                <Link className="marketplace-listing-text-link" href={filteredListingsHref}>Compare other {listing.county} listings →</Link>
-                <Link className="marketplace-listing-text-link" href="/listings">Browse all Florida listings →</Link>
+                <Link className="marketplace-listing-text-link" href={countyHref}>Compare {listing.county} liquor licenses for sale →</Link>
+                <Link className="marketplace-listing-text-link" href={statewideForSaleHref}>Browse Florida liquor licenses for sale →</Link>
+                <Link className="marketplace-listing-text-link" href={filteredListingsHref}>Filter current {listing.county} inventory →</Link>
               </div>
               <div className="marketplace-listing-reference">
                 <span>Marketplace Reference</span>
@@ -313,7 +315,7 @@ export default async function Page({ params }: PageProps) {
             <section className="marketplace-listing-related">
               <div className="marketplace-listing-heading">
                 <span>More in This Market</span>
-                <h2>Other {listing.county} Liquor Licenses</h2>
+                <h2>Other {listing.county} Liquor Licenses for Sale</h2>
               </div>
               <div className="marketplace-listing-related-grid">
                 {related.map(({ slug: relatedSlug, listing: relatedListing }) => (
