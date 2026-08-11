@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
       beforeFiles: [
         { source: "/assets/florida-map-clean.png", destination: "/api/market-map" },
         { source: "/assets/fllm-email-logo.png", destination: "/api/email-logo" },
-        { source: "/", destination: "/api/homepage" },
+        { source: "/", destination: "/api/homepage-with-careers" },
         { source: "/contact", destination: "/api/contact-page" },
         { source: "/financing", destination: "/api/financing-page" },
         { source: "/investment-opportunities", destination: "/api/investment-page" },
