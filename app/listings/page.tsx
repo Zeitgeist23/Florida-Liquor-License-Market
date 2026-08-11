@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-import InventoryCardExpansion from "@/components/InventoryCardExpansion";
 import ListingsHeatMapEnhancement from "@/components/ListingsHeatMapEnhancement";
 import ListingsPage from "@/components/ListingsPage";
 import ListingsQueryFilterEnhancement from "@/components/ListingsQueryFilterEnhancement";
 import MonroeMapCompletion from "@/components/MonroeMapCompletion";
-import PaidListingLinkEnhancement from "@/components/PaidListingLinkEnhancement";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import type { Listing } from "@/data/listings";
 import "./listings-premium.css";
 import "./listings-header-position.css";
 import "./listings-map-size.css";
-import "./listings-card-expand.css";
 import "./listings-county-links.css";
 import "./listings-navy-refresh.css";
 import "./listings-card-gold-borders.css";
@@ -19,6 +16,7 @@ import "./listings-title-highlight.css";
 import "./listings-regression-fix.css";
 import "./listings-filter-depth.css";
 import "./listings-logo-3pct-lock.css";
+import "./listings-conversion-cards.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const listingsUrl = `${siteUrl}/listings`;
@@ -104,10 +102,8 @@ export default async function Page() {
       />
       <ListingsPage initialListings={marketplaceListings} />
       <ListingsQueryFilterEnhancement />
-      <InventoryCardExpansion />
       <MonroeMapCompletion />
       <ListingsHeatMapEnhancement />
-      <PaidListingLinkEnhancement />
     </>
   );
 }

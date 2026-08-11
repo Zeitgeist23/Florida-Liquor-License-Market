@@ -87,7 +87,7 @@ export default function ListingsHeatMapEnhancement() {
   useEffect(() => {
     const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>(".results-filters button"));
     const button =
-      filterButtons.find((candidate) => /^heat map$/i.test((candidate.textContent || "").trim())) ||
+      filterButtons.find((candidate) => /^(market )?heat map$/i.test((candidate.textContent || "").trim())) ||
       filterButtons.find((candidate) => /apply filters/i.test(candidate.textContent || ""));
 
     if (!button) return;
@@ -116,7 +116,7 @@ export default function ListingsHeatMapEnhancement() {
       }
     };
 
-    button.textContent = "Heat Map";
+    button.textContent = "Market Heat Map";
     button.type = "button";
     button.setAttribute("aria-haspopup", "dialog");
     button.addEventListener("click", handleClick);
