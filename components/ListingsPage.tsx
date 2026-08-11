@@ -23,10 +23,23 @@ function priceMatches(price: number | null, range: string) {
     (range === "over1m" && price > 1000000);
 }
 
+function compactCardDescription(description: string) {
+  const clean = description.trim();
+  const maxCharacters = 122;
+  if (clean.length <= maxCharacters) return clean;
+
+  const tentative = clean.slice(0, maxCharacters + 1);
+  const lastSpace = tentative.lastIndexOf(" ");
+  const cutoff = lastSpace >= 92 ? lastSpace : maxCharacters;
+  const clipped = clean.slice(0, cutoff).replace(/[,:;.!?\s]+$/g, "");
+  return `${clipped}…`;
+}
+
 function ListingDescription({ listing }: { listing: Listing }) {
+  const fullDescription = countyListingDescription(listing.county);
   return (
     <div className="result-description">
-      <p>{countyListingDescription(listing.county)}</p>
+      <p title={fullDescription}>{compactCardDescription(fullDescription)}</p>
     </div>
   );
 }
