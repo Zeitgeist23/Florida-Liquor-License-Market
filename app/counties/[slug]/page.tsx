@@ -53,9 +53,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = isDuval
     ? "Duval County Liquor Licenses for Sale | Jacksonville 4COP & 3PS"
     : `${county.name} Liquor Licenses for Sale | 4COP & 3PS`;
+  const cityPhrase = county.primaryCities.length
+    ? ` across ${county.primaryCities.slice(0, 3).join(", ")}`
+    : "";
   const description = isDuval
-    ? "Browse Duval County and Jacksonville liquor licenses for sale, including current 4COP and 3PS quota opportunities, asking prices, marketplace inventory, and confidential inquiry options."
-    : `Browse transferable quota liquor-license interests in ${county.name}, including current 4COP and 3PS opportunities, asking prices, marketplace inventory, and confidential inquiry options.`;
+    ? "Browse Duval County and Jacksonville liquor licenses for sale, including current 4COP and 3PS quota opportunities, asking prices, availability, and live marketplace inventory."
+    : `Browse ${county.name} liquor licenses for sale, including current 4COP and 3PS quota opportunities, asking prices, availability, and live marketplace inventory${cityPhrase}.`;
 
   return {
     title,
@@ -97,11 +100,22 @@ export default async function CountyPage({ params }: PageProps) {
   const canonical = `${siteUrl}/counties/${county.slug}`;
   const filteredListingsHref = `/listings?county=${encodeURIComponent(county.name)}&status=available`;
   const cityText = county.primaryCities.length ? county.primaryCities.join(", ") : county.name.replace(" County", "");
+  const countySearchSummary = `Compare current ${county.name} liquor licenses for sale, including 4COP and 3PS quota opportunities, asking prices, availability, and marketplace inventory for ${cityText}.`;
   const nearby = county.nearbyCounties
     .map((nearbySlug) => getCountyBySlug(nearbySlug))
     .filter((value): value is NonNullable<typeof value> => Boolean(value));
 
+  const pricingAnswer = lowest === null || highest === null
+    ? `There is no single fixed market price for a transferable quota liquor license in ${county.name}. Asking prices vary with license type, supply, seller terms, availability, and market conditions, so buyers should compare current inventory and confirm pricing before relying on it.`
+    : lowest === highest
+      ? `The current disclosed asking-price snapshot on Florida Liquor License Market includes a ${county.name} opportunity at ${money(lowest)}. Asking prices can change as listings are added, removed, repriced, or sold, so buyers should confirm current availability and terms.`
+      : `Current disclosed asking prices on Florida Liquor License Market range from ${money(lowest)} to ${money(highest)} in ${county.name}${medianPrice === null ? "" : `, with a median disclosed ask of ${money(medianPrice)}`}. Asking prices can change as inventory and seller terms change.`;
+
   const faqs = [
+    {
+      question: `How much does a liquor license cost in ${county.name}?`,
+      answer: pricingAnswer,
+    },
     {
       question: `What liquor-license types may appear in ${county.name}?`,
       answer: `Marketplace inventory may include 4COP quota interests and 3PS quota or package-store interests. The permitted use depends on the license category, the proposed premises, local approvals, and approval of the transfer by the Florida Division of Alcoholic Beverages and Tobacco.`,
@@ -121,6 +135,18 @@ export default async function CountyPage({ params }: PageProps) {
   ];
 
   const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: `${county.name} Liquor Licenses for Sale`,
+      url: canonical,
+      description: countySearchSummary,
+      isPartOf: {
+        "@type": "WebSite",
+        name: "Florida Liquor License Market",
+        url: siteUrl,
+      },
+    },
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -182,8 +208,9 @@ export default async function CountyPage({ params }: PageProps) {
             <span className="county-kicker">Florida Quota License Marketplace</span>
             <h1>{county.name} Liquor Licenses for Sale</h1>
             <p>{county.introduction}</p>
+            <p>{countySearchSummary}</p>
             <div className="county-hero-actions">
-              <Link className="county-button county-button-gold" href={filteredListingsHref}>Browse {county.name} Listings</Link>
+              <Link className="county-button county-button-gold" href={filteredListingsHref}>Browse {county.name} Licenses for Sale</Link>
               <Link className="county-button county-button-dark" href="/sell-your-license">List a License</Link>
             </div>
           </div>
@@ -206,7 +233,7 @@ export default async function CountyPage({ params }: PageProps) {
         <div className="county-shell">
           <div className="county-section-heading">
             <div><span>Current Marketplace Inventory</span><h2>Available Licenses in {county.name}</h2></div>
-            <Link href={filteredListingsHref}>Browse all {county.name} listings ›</Link>
+            <Link href={filteredListingsHref}>Browse all {county.name} liquor licenses for sale ›</Link>
           </div>
           <p className="county-disclaimer">Listings are for liquor-license interests only unless expressly stated otherwise. Prices and availability remain subject to confirmation.</p>
 
@@ -253,13 +280,13 @@ export default async function CountyPage({ params }: PageProps) {
             <li>Verify the intended premises and applicable local approvals.</li>
             <li>Use independent legal, tax, and financial professionals.</li>
           </ul>
-          <Link href="/listings">Browse Florida liquor licenses for sale ›</Link>
+          <Link href="/florida-liquor-licenses-for-sale">Browse Florida liquor licenses for sale ›</Link>
         </aside>
       </section>
 
       <section className="county-cta">
         <div className="county-shell county-cta-grid">
-          <div><span>For Buyers</span><h2>Need a license in {county.name}?</h2><p>Browse current marketplace inventory and compare available 4COP and 3PS opportunities in this county.</p><Link className="county-button county-button-gold" href={filteredListingsHref}>Browse {county.name} Listings</Link></div>
+          <div><span>For Buyers</span><h2>Need a license in {county.name}?</h2><p>Browse current marketplace inventory and compare available 4COP and 3PS opportunities in this county.</p><Link className="county-button county-button-gold" href={filteredListingsHref}>Browse {county.name} Licenses for Sale</Link></div>
           <div><span>For Sellers and Brokers</span><h2>Have a license to market?</h2><p>Publish the opportunity statewide while keeping confidential information off the public listing card.</p><Link className="county-button county-button-gold" href="/sell-your-license">List Your License</Link></div>
         </div>
       </section>
@@ -284,7 +311,7 @@ export default async function CountyPage({ params }: PageProps) {
         <section className="county-nearby county-shell">
           <div className="county-section-heading"><div><span>Nearby Markets</span><h2>Explore Other Florida Counties</h2></div></div>
           <div className="county-nearby-links">
-            {nearby.map((item) => <Link key={item.slug} href={`/counties/${item.slug}`}><strong>{item.name}</strong><span>View license market ›</span></Link>)}
+            {nearby.map((item) => <Link key={item.slug} href={`/counties/${item.slug}`}><strong>{item.name}</strong><span>View liquor licenses for sale ›</span></Link>)}
           </div>
         </section>
       )}
