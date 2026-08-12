@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const listings = (await getMarketplaceListings())
-    .filter((listing) => Boolean(listing.sourceRef))
+  const listings = getVisibleAvailableMarketplaceListings(await getMarketplaceListings())
     .sort((left, right) => {
       if (left.price === null && right.price === null) {
         return left.county.localeCompare(right.county) || left.type.localeCompare(right.type);
