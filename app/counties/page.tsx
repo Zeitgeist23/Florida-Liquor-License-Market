@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { floridaCounties, featuredCounties } from "@/data/florida-counties";
+import { countySlug, floridaCounties, featuredCounties, getCountyBySlug } from "@/data/florida-counties";
 import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import "./counties-page.css";
 
 export const metadata: Metadata = {
@@ -19,11 +20,17 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
+function canonicalCountyName(value: string) {
+  const normalized = value.replace(/^Saint\s+/i, "St. ");
+  return getCountyBySlug(countySlug(normalized))?.name ?? value;
+}
+
 export default async function CountiesPage() {
-  const listings = await getMarketplaceListings();
+  const listings = getVisibleAvailableMarketplaceListings(await getMarketplaceListings());
   const availableCounts = new Map<string, number>();
-  listings.filter((listing) => Boolean(listing.sourceRef)).forEach((listing) => {
-    availableCounts.set(listing.county, (availableCounts.get(listing.county) ?? 0) + 1);
+  listings.forEach((listing) => {
+    const countyName = canonicalCountyName(listing.county);
+    availableCounts.set(countyName, (availableCounts.get(countyName) ?? 0) + 1);
   });
 
   const alphabetical = [...floridaCounties].sort((a, b) => a.name.localeCompare(b.name));
