@@ -1,0 +1,162 @@
+.results-page .listings-seo-footer {
+  margin-top: 72px;
+  padding: 64px 0 max(116px, calc(72px + env(safe-area-inset-bottom)));
+  border-top: 1px solid rgba(226, 159, 25, .34);
+  background: linear-gradient(180deg, #061b2b 0%, #041421 100%);
+}
+
+.results-page .listings-seo-footer .page-shell {
+  width: min(1240px, calc(100% - 56px));
+}
+
+.results-page .listings-seo-guide {
+  max-width: 1040px;
+  padding: 30px 32px 32px;
+  border: 1px solid rgba(211, 151, 28, .46);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(13, 42, 61, .96), rgba(6, 27, 42, .96));
+  box-shadow: 0 16px 38px rgba(0, 0, 0, .24);
+}
+
+.results-page .listings-seo-guide > span,
+.results-page .listings-seo-faq > span {
+  display: block;
+  margin-bottom: 10px;
+  color: #efa917;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.results-page .listings-seo-guide h2,
+.results-page .listings-seo-faq h2 {
+  margin: 0;
+  color: #f7f0e3;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(25px, 2.2vw, 34px);
+  line-height: 1.12;
+}
+
+.results-page .listings-seo-guide p {
+  max-width: 960px;
+  margin: 16px 0 0;
+  color: #becbd4;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.results-page .listings-seo-guide p + p {
+  margin-top: 12px;
+}
+
+.results-page .listings-seo-guide a {
+  color: #f3ad19;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.results-page .listings-seo-guide a:hover {
+  color: #ffd36b;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.results-page .listings-seo-faq {
+  margin-top: 46px;
+}
+
+.results-page .listings-seo-faq-grid {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.results-page .listings-seo-faq-card {
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+  border: 1px solid rgba(184, 132, 26, .52);
+  border-radius: 8px;
+  color: inherit;
+  background: linear-gradient(145deg, #0b2a40 0%, #071d2e 100%);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .2);
+  text-decoration: none;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease, background .16s ease;
+}
+
+.results-page .listings-seo-faq-card:hover {
+  transform: translateY(-2px);
+  border-color: #e7a91c;
+  background: linear-gradient(145deg, #103650 0%, #09253a 100%);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .27);
+}
+
+.results-page .listings-seo-faq-copy {
+  min-width: 0;
+  display: block;
+}
+
+.results-page .listings-seo-faq-copy small {
+  display: block;
+  margin-bottom: 6px;
+  color: #e4a51d;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.results-page .listings-seo-faq-copy strong {
+  display: block;
+  color: #f5efe3;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.results-page .listings-seo-faq-arrow {
+  flex: 0 0 auto;
+  color: #f0a817;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 30px;
+  line-height: 1;
+  transition: transform .16s ease;
+}
+
+.results-page .listings-seo-faq-card:hover .listings-seo-faq-arrow {
+  transform: translateX(3px);
+}
+
+@media (max-width: 760px) {
+  .results-page .listings-seo-footer {
+    margin-top: 52px;
+    padding: 46px 0 max(110px, calc(68px + env(safe-area-inset-bottom)));
+  }
+
+  .results-page .listings-seo-footer .page-shell {
+    width: min(100% - 28px, 1240px);
+  }
+
+  .results-page .listings-seo-guide {
+    padding: 24px 20px 26px;
+  }
+
+  .results-page .listings-seo-guide p {
+    font-size: 14px;
+    line-height: 1.62;
+  }
+
+  .results-page .listings-seo-faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .results-page .listings-seo-faq-card {
+    min-height: 88px;
+    padding: 16px 17px;
+  }
+}
