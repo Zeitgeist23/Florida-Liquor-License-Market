@@ -74,6 +74,13 @@
   pointer-events: none;
 }
 
+/* Keep the supporting line visually subordinate to the headline. */
+.results-page .results-intro .listings-seo-intro {
+  font-size: 15px !important;
+  color: rgba(238, 243, 247, .78) !important;
+  font-weight: 400 !important;
+}
+
 @media (max-width: 720px) {
   .results-page .results-intro h1 {
     padding-bottom: 15px !important;
@@ -86,5 +93,9 @@
   .results-page .results-intro h1::before {
     width: 24px;
     height: 9px;
+  }
+
+  .results-page .results-intro .listings-seo-intro {
+    font-size: 14px !important;
   }
 }
