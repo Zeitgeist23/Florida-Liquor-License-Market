@@ -15,7 +15,7 @@ import { getApprovedSubmissionByPublicRef } from "@/lib/listing-submission-store
 import "./listing-detail.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
-const statewideForSaleHref = "/florida-liquor-licenses-for-sale";
+const statewideForSaleHref = "/listings";
 
 export const dynamic = "force-dynamic";
 
