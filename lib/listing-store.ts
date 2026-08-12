@@ -3,8 +3,9 @@ import "server-only";
 import { listings, type Listing } from "@/data/listings";
 import { additionalListings } from "@/data/additional-listings";
 import { latestListings } from "@/data/latest-listings";
+import { marketAdditions } from "@/data/market-additions";
 
-const staticListings = [...listings, ...additionalListings, ...latestListings].map((listing) =>
+const staticListings = [...listings, ...additionalListings, ...latestListings, ...marketAdditions].map((listing) =>
   listing.sourceRef === "FLLM-030"
     ? { ...listing, price: 200000, priceLabel: "$200,000" }
     : listing
