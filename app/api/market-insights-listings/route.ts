@@ -1,8 +1,14 @@
 import { NextResponse } from "next/server";
+import { countySlug, getCountyBySlug } from "@/data/florida-counties";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
 export const dynamic = "force-dynamic";
+
+function canonicalCountyName(value: string) {
+  const normalized = value.replace(/^Saint\s+/i, "St. ");
+  return getCountyBySlug(countySlug(normalized))?.name ?? value;
+}
 
 export async function GET() {
   const listings = getVisibleAvailableMarketplaceListings(await getMarketplaceListings())
@@ -15,7 +21,7 @@ export async function GET() {
       return right.price - left.price || left.county.localeCompare(right.county) || left.type.localeCompare(right.type);
     })
     .map((listing) => ({
-      county: listing.county,
+      county: canonicalCountyName(listing.county),
       type: listing.type,
       price: listing.price,
       priceLabel: listing.priceLabel,
