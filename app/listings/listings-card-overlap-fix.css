@@ -84,3 +84,34 @@
     flex-basis: 198px !important;
   }
 }
+
+
+/* Keep primary actions visible when browser history restores the listings viewport. */
+@media (min-width: 1121px) {
+  .results-page .result-card {
+    min-height: 312px !important;
+  }
+
+  .results-page .result-photo {
+    min-height: 312px !important;
+  }
+
+  .results-page .result-body {
+    padding-top: 16px !important;
+    padding-bottom: 14px !important;
+  }
+
+  .results-page .result-body > .result-county-row,
+  .results-page .result-body > p.result-county-row {
+    margin-top: 21px !important;
+  }
+
+  .results-page .result-description {
+    min-height: 53px !important;
+    margin-top: 10px !important;
+  }
+
+  .results-page .result-actions {
+    padding-top: 9px !important;
+  }
+}
