@@ -13,30 +13,36 @@ import FloridaCountyMap from "./FloridaCountyMap";
 
 const counties = `Alachua County,Baker County,Bay County,Bradford County,Brevard County,Broward County,Calhoun County,Charlotte County,Citrus County,Clay County,Collier County,Columbia County,DeSoto County,Dixie County,Duval County,Escambia County,Flagler County,Franklin County,Gadsden County,Gilchrist County,Glades County,Gulf County,Hamilton County,Hardee County,Hendry County,Hernando County,Highlands County,Hillsborough County,Holmes County,Indian River County,Jackson County,Jefferson County,Lafayette County,Lake County,Lee County,Leon County,Levy County,Liberty County,Madison County,Manatee County,Marion County,Martin County,Miami-Dade County,Monroe County,Nassau County,Okaloosa County,Okeechobee County,Orange County,Osceola County,Palm Beach County,Pasco County,Pinellas County,Polk County,Putnam County,Santa Rosa County,Sarasota County,Seminole County,St. Johns County,St. Lucie County,Sumter County,Suwannee County,Taylor County,Union County,Volusia County,Wakulla County,Walton County,Washington County`.split(",");
 
-const faqItems = [
+const faqLinks = [
   {
     question: "Where can I find Florida liquor licenses for sale?",
-    answer: "Florida Liquor License Market organizes current statewide marketplace inventory on this Listings page. Buyers can filter available 4COP quota and 3PS package-store opportunities by county, asking price, license type, and availability, then open individual listing pages for more detail.",
+    label: "Florida license guide",
+    href: "/resources/florida-liquor-license-types",
   },
   {
     question: "What is a Florida 4COP quota liquor license?",
-    answer: "A 4COP quota license is a county-limited full-liquor license used within its approved privileges for beer, wine, and spirits. It is commonly associated with bars, taverns, cocktail lounges, nightclubs, and full-liquor restaurant concepts, subject to state and local approvals.",
+    label: "4COP buyer guide",
+    href: "/florida-4cop-liquor-license-for-sale",
   },
   {
     question: "What is a Florida 3PS liquor license?",
-    answer: "A 3PS-family quota license is generally used for package-store sales of sealed beer, wine, and spirits for consumption away from the licensed premises. The exact series designation may vary with county population.",
+    label: "3PS buyer guide",
+    href: "/florida-3ps-liquor-license-for-sale",
   },
   {
     question: "What does a Florida liquor license cost?",
-    answer: "There is no single statewide market price for transferable quota licenses. Asking prices vary by county, license category, supply, seller terms, transaction structure, and market conditions. Current listings provide a live marketplace snapshot.",
+    label: "Pricing & value guide",
+    href: "/florida-liquor-license-value",
   },
   {
     question: "Can I search Florida liquor licenses by county?",
-    answer: "Yes. Florida Liquor License Market provides permanent county pages and listing filters so buyers can focus on the county where the license will be used and compare asking prices and available license types.",
+    label: "County market guide",
+    href: "/counties",
   },
   {
     question: "Does a liquor-license listing include a restaurant or real estate?",
-    answer: "Not unless an individual listing expressly says so. Marketplace listings generally describe the liquor-license interest separately from any operating business, leasehold, equipment, inventory, or real estate.",
+    label: "License types guide",
+    href: "/resources/florida-liquor-license-types",
   },
 ];
 
@@ -149,10 +155,18 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
             <p>Asking prices vary by county, supply, license category, seller terms, and market conditions. Use the <Link href="/counties">Florida county directory</Link> to compare local inventory, and confirm license status, liens, transfer requirements, zoning, premises eligibility, and transaction terms before closing.</p>
           </div>
           <div className="listings-seo-faq">
-            <span>Marketplace Questions</span>
-            <h2>Florida Liquor License FAQs</h2>
+            <span>FLLM Buyer Resources</span>
+            <h2>Florida Liquor License Guides</h2>
             <div className="listings-seo-faq-grid">
-              {faqItems.map((faq) => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}
+              {faqLinks.map((item) => (
+                <Link className="listings-seo-faq-card" href={item.href} key={item.question}>
+                  <span className="listings-seo-faq-copy">
+                    <small>{item.label}</small>
+                    <strong>{item.question}</strong>
+                  </span>
+                  <span className="listings-seo-faq-arrow" aria-hidden="true">›</span>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
