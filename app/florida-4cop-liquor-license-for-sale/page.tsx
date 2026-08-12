@@ -1,19 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
-import InventoryCardExpansion from "@/components/InventoryCardExpansion";
 import { countySlug, indexableCounties } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
 import {
-  marketplaceListingDescriptionParts,
+  countyListingDescription,
   sellerReportedStatusLabel,
 } from "@/lib/county-listing-descriptions";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import "../listings/listings-premium.css";
 import "../listings/listings-map-size.css";
-import "../listings/listings-card-expand.css";
 import "../listings/listings-county-links.css";
+import "../listings/listings-navy-refresh.css";
+import "../listings/listings-card-gold-borders.css";
+import "../listings/listings-regression-fix.css";
+import "../listings/listings-conversion-cards.css";
+import "../listings/listings-card-overlap-fix.css";
 import "../florida-liquor-licenses-for-sale/seo-market.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -60,19 +63,23 @@ function median(values: number[]) {
     : Math.round((sorted[middle - 1] + sorted[middle]) / 2);
 }
 
-function ListingDescription({ listing }: { listing: Listing }) {
-  const description = marketplaceListingDescriptionParts({
-    county: listing.county,
-    licenseType: listing.type,
-    licenseStatus: listing.licenseStatus,
-    preferredTiming: listing.preferredTiming,
-  });
+function compactCardDescription(description: string) {
+  const clean = description.trim();
+  const maxCharacters = 122;
+  if (clean.length <= maxCharacters) return clean;
 
+  const tentative = clean.slice(0, maxCharacters + 1);
+  const lastSpace = tentative.lastIndexOf(" ");
+  const cutoff = lastSpace >= 92 ? lastSpace : maxCharacters;
+  const clipped = clean.slice(0, cutoff).replace(/[,:;.!?\s]+$/g, "");
+  return `${clipped}…`;
+}
+
+function ListingDescription({ listing }: { listing: Listing }) {
+  const fullDescription = countyListingDescription(listing.county);
   return (
     <div className="result-description">
-      <p>{description.license}</p>
-      <p>{description.county}</p>
-      {description.cities && <p className="result-cities">{description.cities}</p>}
+      <p title={fullDescription}>{compactCardDescription(fullDescription)}</p>
     </div>
   );
 }
@@ -151,7 +158,7 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Florida Liquor Licenses for Sale", item: `${siteUrl}/florida-liquor-licenses-for-sale` },
+        { "@type": "ListItem", position: 2, name: "Florida Liquor Licenses for Sale", item: `${siteUrl}/listings` },
         { "@type": "ListItem", position: 3, name: "Florida 4COP Liquor Licenses for Sale", item: canonicalUrl },
       ],
     },
@@ -196,7 +203,7 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
           <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
         </Link>
         <nav aria-label="Marketplace navigation">
-          <Link href="/florida-liquor-licenses-for-sale">Licenses for Sale</Link>
+          <Link href="/listings">Licenses for Sale</Link>
           <Link href="/listings">Listings</Link>
           <Link href="/counties">Counties</Link>
           <Link className="seo-market-nav-cta" href="/sell-your-license">List Your License</Link>
@@ -206,7 +213,7 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
       <section className="seo-market-hero">
         <div className="seo-market-shell">
           <div className="seo-market-breadcrumbs">
-            <Link href="/">Home</Link><span>›</span><Link href="/florida-liquor-licenses-for-sale">Florida Liquor Licenses for Sale</Link><span>›</span><strong>4COP</strong>
+            <Link href="/">Home</Link><span>›</span><Link href="/listings">Florida Liquor Licenses for Sale</Link><span>›</span><strong>4COP</strong>
           </div>
           <div className="seo-market-hero-grid">
             <div>
@@ -266,22 +273,18 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
           <div className="results-page seo-market-preview-results">
             <div className="results-grid">
               {previewListings.map((listing) => (
-                <article className="result-card" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
-                  <div className="result-photo">
-                    <FloridaCountyMap county={listing.county} />
-                    <span className="result-type-badge">4COP Quota</span>
-                  </div>
+                <article className="result-card result-card-available" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
+                  <span className="result-type-badge">{listing.type}</span>
+                  <div className="result-photo"><FloridaCountyMap county={listing.county} enlarged /></div>
                   <div className="result-body">
-                    <p>● <Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p>
-                    <h2><Link href={listingPageHref(listing)} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
+                    <p className="result-county-row"><span className="result-pin" aria-hidden="true">●</span><Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p>
+                    <h2><Link href={listingPageHref(listing)} aria-label={`View ${listing.type} listing in ${listing.county}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
                     <div className="result-facts">
-                      <span>{listing.type}</span>
-                      <span>{listing.licenseStatus ? `${sellerReportedStatusLabel(listing.licenseStatus)} / Available` : "Available / Status to confirm"}</span>
+                      <span className="availability-pill" title={listing.licenseStatus ? sellerReportedStatusLabel(listing.licenseStatus) : "Status to confirm"}><span className="availability-dot" aria-hidden="true" />Available</span>
                     </div>
                     <ListingDescription listing={listing} />
                     <div className="result-actions">
-                      <Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link>
-                      <Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link>
+                      <Link className="btn btn-gold result-view-button" href={listingPageHref(listing)}>View License <span aria-hidden="true">›</span></Link>
                     </div>
                   </div>
                 </article>
@@ -343,14 +346,13 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
         <div className="seo-market-shell">
           <span>© Florida Liquor License Market</span>
           <nav>
-            <Link href="/florida-liquor-licenses-for-sale">Florida Licenses for Sale</Link>
+            <Link href="/listings">Florida Licenses for Sale</Link>
             <Link href="/florida-3ps-liquor-license-for-sale">3PS Licenses</Link>
             <Link href="/counties">Counties</Link>
             <Link href="/contact">Contact</Link>
           </nav>
         </div>
       </footer>
-      <InventoryCardExpansion />
     </main>
   );
 }
