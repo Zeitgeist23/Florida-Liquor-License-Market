@@ -5,3 +5,9 @@
 .county-inventory{padding-bottom:44px}
 .county-guide{padding-top:44px}
 @media(max-width:680px){.county-inventory{padding-bottom:32px}.county-guide{padding-top:32px}}
+
+/* Increase the county hero map and its bordered container by about 12% on desktop. */
+@media(min-width:981px){
+  .county-map-card{width:112%;min-height:392px;padding:29px;justify-self:end}
+  .county-map-card svg{max-width:470px;height:280px}
+}
