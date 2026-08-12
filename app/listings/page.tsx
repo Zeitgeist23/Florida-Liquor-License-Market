@@ -20,30 +20,71 @@ import "./listings-conversion-cards.css";
 import "./listings-card-overlap-fix.css";
 import "./listings-masthead-darker.css";
 import "./listings-mobile-header-fix.css";
+import "./listings-seo-consolidation.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const listingsUrl = `${siteUrl}/listings`;
 
-export const metadata: Metadata = {
-  title: "Florida Liquor License Listings | Search 4COP & 3PS",
-  description: "Search current Florida liquor-license marketplace inventory, including transferable 4COP quota and 3PS package-store listings. Filter by county, asking price, license type, and availability.",
-  alternates: { canonical: listingsUrl },
-  robots: { index: true, follow: true },
-  openGraph: {
-    type: "website",
-    url: listingsUrl,
-    title: "Florida Liquor License Listings | Search 4COP & 3PS",
-    description: "Search current Florida 4COP and 3PS quota liquor-license marketplace inventory by county, asking price, and availability.",
-    siteName: "Florida Liquor License Market",
+const faqs = [
+  {
+    question: "Where can I find Florida liquor licenses for sale?",
+    answer:
+      "Florida Liquor License Market organizes current statewide marketplace inventory on the Listings page. Buyers can filter available 4COP quota and 3PS package-store opportunities by county, asking price, license type, and availability, then open individual listing pages for more detail.",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Florida Liquor License Listings | Search 4COP & 3PS",
-    description: "Search current Florida 4COP and 3PS liquor-license marketplace inventory.",
+  {
+    question: "What is a Florida 4COP quota liquor license?",
+    answer:
+      "A 4COP quota license is a county-limited full-liquor license used within its approved privileges for beer, wine, and spirits. It is commonly associated with bars, taverns, cocktail lounges, nightclubs, and full-liquor restaurant concepts, subject to state and local approvals.",
   },
-};
+  {
+    question: "What is a Florida 3PS liquor license?",
+    answer:
+      "A 3PS-family quota license is generally used for package-store sales of sealed beer, wine, and spirits for consumption away from the licensed premises. The exact series designation may vary with county population.",
+  },
+  {
+    question: "What does a Florida liquor license cost?",
+    answer:
+      "There is no single statewide market price for transferable quota licenses. Asking prices vary by county, license category, supply, seller terms, transaction structure, and market conditions. Current listings provide a live marketplace snapshot.",
+  },
+  {
+    question: "Can I search Florida liquor licenses by county?",
+    answer:
+      "Yes. Florida Liquor License Market provides permanent county pages and listing filters so buyers can focus on the county where the license will be used and compare asking prices and available license types.",
+  },
+  {
+    question: "Does a liquor-license listing include a restaurant or real estate?",
+    answer:
+      "Not unless an individual listing expressly says so. Marketplace listings generally describe the liquor-license interest separately from any operating business, leasehold, equipment, inventory, or real estate.",
+  },
+];
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const marketplaceListings = await getMarketplaceListings();
+  const availableCount = marketplaceListings.filter((listing) => Boolean(listing.sourceRef)).length;
+  const title = `Florida Liquor Licenses for Sale | ${availableCount} Current Listings`;
+  const description = `Browse ${availableCount} current Florida liquor licenses for sale, including transferable 4COP quota and 3PS package-store opportunities. Filter by county, asking price, license type, and availability.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: listingsUrl },
+    robots: { index: true, follow: true },
+    openGraph: {
+      type: "website",
+      url: listingsUrl,
+      title,
+      description,
+      siteName: "Florida Liquor License Market",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
 
 function preservePaidListingIdentity(input: Listing[]): Listing[] {
   return input.map((listing, index) => {
@@ -72,10 +113,10 @@ export default async function Page() {
   const structuredData = [
     {
       "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Florida Liquor License Listings",
+      "@type": "CollectionPage",
+      name: "Florida Liquor Licenses for Sale",
       url: listingsUrl,
-      description: "Searchable Florida marketplace inventory for transferable 4COP and 3PS quota liquor-license opportunities.",
+      description: `Current Florida marketplace inventory with ${availableListings.length} available 4COP quota and 3PS liquor-license opportunities organized by county and asking price.`,
       isPartOf: {
         "@type": "WebSite",
         name: "Florida Liquor License Market",
@@ -84,15 +125,32 @@ export default async function Page() {
     },
     {
       "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+        { "@type": "ListItem", position: 2, name: "Florida Liquor Licenses for Sale", item: listingsUrl },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Florida liquor license marketplace listings",
+      name: "Florida liquor licenses for sale",
       url: listingsUrl,
       numberOfItems: availableListings.length,
-      itemListElement: availableListings.slice(0, 50).map((listing, index) => ({
+      itemListElement: availableListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: `${listing.type} in ${listing.county} — ${listing.priceLabel}`,
         url: `${siteUrl}${listingPageHref(listing)}`,
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
       })),
     },
   ];
