@@ -46,7 +46,7 @@ export default async function CountiesPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }} />
       <header className="directory-header directory-shell">
         <Link className="directory-brand" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /></Link>
-        <nav><Link href="/florida-liquor-licenses-for-sale">Licenses for Sale</Link><Link href="/listings">All Listings</Link><Link href="/financing">Financing</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact</Link></nav>
+        <nav><Link href="/listings">Florida Liquor Licenses for Sale</Link><Link href="/listings">All Listings</Link><Link href="/financing">Financing</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact</Link></nav>
       </header>
 
       <section className="directory-hero">
@@ -58,7 +58,7 @@ export default async function CountiesPage() {
       </section>
 
       <section className="directory-featured directory-shell">
-        <div className="directory-heading"><div><span>High-Interest Markets</span><h2>Featured Florida Counties</h2></div><Link href="/florida-liquor-licenses-for-sale">Florida licenses for sale ›</Link></div>
+        <div className="directory-heading"><div><span>High-Interest Markets</span><h2>Featured Florida Counties</h2></div><Link href="/listings">Florida liquor licenses for sale ›</Link></div>
         <div className="directory-featured-grid">
           {featuredCounties.map((county) => (
             <Link key={county.slug} href={`/counties/${county.slug}`}>
@@ -86,7 +86,7 @@ export default async function CountiesPage() {
 
       <section className="directory-cta">
         <div className="directory-shell directory-cta-grid">
-          <div><span>For Buyers</span><h2>Search current license opportunities</h2><p>Compare Florida liquor licenses for sale, then filter live inventory by county, license type, price and availability.</p><Link href="/florida-liquor-licenses-for-sale">Browse Florida Licenses for Sale</Link></div>
+          <div><span>For Buyers</span><h2>Search current license opportunities</h2><p>Compare Florida liquor licenses for sale, then filter live inventory by county, license type, price and availability.</p><Link href="/listings">Browse Florida Licenses for Sale</Link></div>
           <div><span>For Sellers and Brokers</span><h2>Add a county listing</h2><p>Publish a transferable license opportunity while keeping confidential details off the public card.</p><Link href="/sell-your-license">List Your License</Link></div>
         </div>
       </section>
