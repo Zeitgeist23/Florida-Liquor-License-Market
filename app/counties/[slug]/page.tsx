@@ -237,7 +237,7 @@ export default async function CountyPage({ params }: PageProps) {
             </div>
           </div>
           <div className="county-map-card" aria-label={`${county.name} map`}>
-            <FloridaCountyMap county={county.name} />
+            <FloridaCountyMap county={county.name} enlarged />
             <strong>{county.name}</strong>
             <span>{cityText}</span>
           </div>
