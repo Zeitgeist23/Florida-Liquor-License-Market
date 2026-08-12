@@ -75,7 +75,7 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
   const [county, setCounty] = useState("all");
   const [type, setType] = useState("all");
   const [price, setPrice] = useState("all");
-  const [status, setStatus] = useState("all");
+  const [status, setStatus] = useState("available");
 
   const marketplaceListings = useMemo(() => Array.from(
     new Map(initialListings.map((listing) => [
@@ -100,7 +100,7 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
     setCounty("all");
     setType("all");
     setPrice("all");
-    setStatus("all");
+    setStatus("available");
   }
 
   return (
