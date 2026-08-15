@@ -116,30 +116,6 @@
     return true;
   }
 
-  function ensureNationalMarketplaceFooterLink() {
-    const footer = document.querySelector("footer#resources");
-    if (!(footer instanceof HTMLElement)) return false;
-
-    const companyColumn = Array.from(footer.querySelectorAll(".footer-grid > div"))
-      .find((column) => normalizedText(column.querySelector(":scope > strong")).toLowerCase() === "company");
-
-    if (!(companyColumn instanceof HTMLElement)) return false;
-
-    let link = footer.querySelector("[data-national-marketplace-footer-link]");
-    if (!(link instanceof HTMLAnchorElement)) {
-      if (link instanceof HTMLElement) link.remove();
-      link = document.createElement("a");
-    }
-
-    link.href = "https://liquorlicensemarket.com/";
-    link.textContent = "National Marketplace";
-    link.dataset.nationalMarketplaceFooterLink = "true";
-    link.setAttribute("aria-label", "Visit Liquor License Market, the national marketplace");
-
-    if (companyColumn.lastElementChild !== link) companyColumn.appendChild(link);
-    return true;
-  }
-
   function closeMenu({ label, selector }) {
     document.querySelectorAll(selector).forEach((menu) => {
       menu.classList.remove("is-open");
@@ -162,24 +138,18 @@
 
     window.setTimeout(normalizeResourcesMenu, 0);
     window.setTimeout(ensureCareersFooterLink, 0);
-    window.setTimeout(ensureNationalMarketplaceFooterLink, 0);
   }, true);
 
   const observer = new MutationObserver(() => {
     normalizeResourcesMenu();
     ensureCareersFooterLink();
-    ensureNationalMarketplaceFooterLink();
   });
   observer.observe(document.documentElement, { childList: true, subtree: true });
   normalizeResourcesMenu();
   ensureCareersFooterLink();
-  ensureNationalMarketplaceFooterLink();
   window.setTimeout(normalizeResourcesMenu, 300);
   window.setTimeout(normalizeResourcesMenu, 1000);
   window.setTimeout(ensureCareersFooterLink, 100);
   window.setTimeout(ensureCareersFooterLink, 500);
   window.setTimeout(ensureCareersFooterLink, 1500);
-  window.setTimeout(ensureNationalMarketplaceFooterLink, 100);
-  window.setTimeout(ensureNationalMarketplaceFooterLink, 500);
-  window.setTimeout(ensureNationalMarketplaceFooterLink, 1500);
 })();
