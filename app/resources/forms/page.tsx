@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   title: "Florida ABT Forms | Florida Liquor License Market",
   description:
     "Complete, review, download, and print commonly used Florida DBPR Division of Alcoholic Beverages and Tobacco forms without leaving Florida Liquor License Market.",
+  alternates: { canonical: "https://www.floridaliquorlicensemarket.com/resources/forms" },
+  robots: { index: true, follow: true },
 };
 
 export default function FloridaAbtFormsPage() {
@@ -58,7 +60,9 @@ export default function FloridaAbtFormsPage() {
               </ul>
               <div className="abt-card-meta">Current official form · Last verified {form.lastVerified}</div>
               <div className="abt-card-actions">
-                <a className="btn btn-gold" href={`/resources/forms/${form.id}`}>Complete Form Online</a>
+                <a className="btn btn-gold" href={form.id === "abt-6002" ? "/dbpr-abt-6002" : `/resources/forms/${form.id}`}>
+                  {form.id === "abt-6002" ? "ABT-6002 Guide & Form" : "Complete Form Online"}
+                </a>
                 <a className="btn btn-outline" href={`/api/abt-forms/${form.id}/pdf`} target="_blank" rel="noreferrer">View Blank Form</a>
               </div>
             </article>
