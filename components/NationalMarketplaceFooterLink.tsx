@@ -3,28 +3,29 @@
 import { useEffect } from "react";
 
 const NATIONAL_MARKETPLACE_URL = "https://liquorlicensemarket.com/";
+const NATIONAL_MARKETPLACE_SELECTOR = "[data-national-marketplace-footer-link]";
 
 function installNationalMarketplaceFooterLink() {
   document.querySelectorAll<HTMLElement>("footer").forEach((footer) => {
-    if (footer.querySelector("[data-national-marketplace-footer-link]")) return;
+    const companyColumn = Array.from(footer.querySelectorAll<HTMLElement>(".footer-grid > div"))
+      .find((column) => column.querySelector(":scope > strong")?.textContent?.trim().toLowerCase() === "company");
+    if (!companyColumn) return;
 
-    const row = document.createElement("div");
-    row.className = "national-marketplace-footer-link";
-    row.dataset.nationalMarketplaceFooterLink = "true";
+    const existing = footer.querySelector<HTMLElement>(NATIONAL_MARKETPLACE_SELECTOR);
+    let link: HTMLAnchorElement;
+    if (existing instanceof HTMLAnchorElement) {
+      link = existing;
+    } else {
+      existing?.remove();
+      link = document.createElement("a");
+    }
 
-    const prompt = document.createElement("span");
-    prompt.textContent = "Looking for a liquor license outside Florida?";
-
-    const link = document.createElement("a");
+    link.dataset.nationalMarketplaceFooterLink = "true";
     link.href = NATIONAL_MARKETPLACE_URL;
-    link.textContent = "Visit Liquor License Market — The National Marketplace.";
+    link.textContent = "National Marketplace";
     link.setAttribute("aria-label", "Visit Liquor License Market, the national marketplace");
 
-    row.append(prompt, link);
-
-    const copyright = footer.querySelector(".copyright");
-    if (copyright) footer.insertBefore(row, copyright);
-    else footer.appendChild(row);
+    if (companyColumn.lastElementChild !== link) companyColumn.appendChild(link);
   });
 }
 
