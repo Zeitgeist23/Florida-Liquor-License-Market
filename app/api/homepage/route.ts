@@ -193,27 +193,27 @@ function insertCountyDirectory(html: string) {
   return html.replace("</body>", `${section}</body>`);
 }
 
-function addNationalMarketplaceFooterLink(html: string) {
-  const marker = "data-national-marketplace-footer-link";
-  if (html.includes(marker)) return html;
+function addNationalMarketplaceLinks(html: string) {
+  let updated = html;
 
-  const row = `<div class="page-shell national-marketplace-footer-link" data-national-marketplace-footer-link="true" style="width:min(1024px,calc(100% - 36px));margin:10px auto 0;padding:10px 0 2px;border-top:1px solid #1b2a36;color:#aeb8c0;font-size:9px;line-height:1.5;text-align:center">
-    <span>Looking for a liquor license outside Florida?</span>
-    <a href="https://liquorlicensemarket.com/" aria-label="Visit Liquor License Market, the national marketplace" style="margin-left:4px;color:#f6a700;font-weight:800">Visit Liquor License Market — The National Marketplace.</a>
-  </div>`;
-
-  const copyrightPattern = /<div\b[^>]*class="[^"]*\bcopyright\b[^"]*"[^>]*>/i;
-  const copyright = copyrightPattern.exec(html);
-  if (copyright) {
-    return `${html.slice(0, copyright.index)}${row}${html.slice(copyright.index)}`;
+  const companyMarker = "data-national-marketplace-company-link";
+  if (!updated.includes(companyMarker)) {
+    const companyLink = `<a href="https://www.liquorlicensemarket.com/" data-national-marketplace-company-link="true">National Liquor License Markets</a>`;
+    const companyColumnPattern = /(<div><strong>Company<\/strong>[\s\S]*?<a\b[^>]*href="\/listings"[^>]*>Browse Listings<\/a>)/i;
+    updated = updated.replace(companyColumnPattern, `$1${companyLink}`);
   }
 
-  const footerEnd = html.search(/<\/footer\s*>/i);
-  if (footerEnd >= 0) {
-    return `${html.slice(0, footerEnd)}${row}${html.slice(footerEnd)}`;
+  const promptMarker = "data-national-marketplace-prompt";
+  if (!updated.includes(promptMarker)) {
+    const prompt = `<aside data-national-marketplace-prompt="true" aria-label="National liquor license marketplace" style="display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0 0 12px;padding:13px 18px;border:1px solid #d9dde0;border-radius:7px;background:#fff;color:#071827">
+      <span><strong style="display:block;font-size:14px;line-height:1.25">Looking for a liquor license outside Florida?</strong><small style="display:block;margin-top:3px;font-size:11px;line-height:1.35;color:#4d5963">Explore liquor license markets across the United States.</small></span>
+      <a href="https://www.liquorlicensemarket.com/" style="flex:0 0 auto;color:#d86b00;font-size:11px;font-weight:900;text-decoration:none;text-transform:uppercase">Explore National Markets ›</a>
+    </aside>`;
+    const finalCtaPattern = /<section\b[^>]*class="[^"]*\bcta\b[^"]*"[^>]*id="sell"[^>]*>/i;
+    updated = updated.replace(finalCtaPattern, `${prompt}$&`);
   }
 
-  return html.replace("</body>", `${row}</body>`);
+  return updated;
 }
 
 export async function GET(request: Request) {
@@ -235,7 +235,7 @@ export async function GET(request: Request) {
         carouselListings,
       ),
     ));
-    enhancedHtml = addNationalMarketplaceFooterLink(enhancedHtml);
+    enhancedHtml = addNationalMarketplaceLinks(enhancedHtml);
 
     const carouselStyle = `<style id="homepage-available-carousel-styles-v7">
       .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
