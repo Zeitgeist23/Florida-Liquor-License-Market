@@ -116,6 +116,36 @@
     return true;
   }
 
+
+  function ensureNationalMarketplaceLinks() {
+    const footer = document.querySelector("footer#resources");
+    const companyColumn = footer instanceof HTMLElement
+      ? Array.from(footer.querySelectorAll(".footer-grid > div"))
+        .find((column) => normalizedText(column.querySelector(":scope > strong")).toLowerCase() === "company")
+      : null;
+
+    if (companyColumn instanceof HTMLElement && !companyColumn.querySelector('[data-national-marketplace-company-link="true"]')) {
+      const link = document.createElement("a");
+      link.href = "https://www.liquorlicensemarket.com/";
+      link.textContent = "National Liquor License Markets";
+      link.dataset.nationalMarketplaceCompanyLink = "true";
+      const careersLink = companyColumn.querySelector('a[href="/careers"]');
+      companyColumn.insertBefore(link, careersLink);
+    }
+
+    const cta = document.querySelector(".cta#sell");
+    if (cta instanceof HTMLElement && !document.querySelector('[data-national-marketplace-prompt="true"]')) {
+      const prompt = document.createElement("aside");
+      prompt.dataset.nationalMarketplacePrompt = "true";
+      prompt.setAttribute("aria-label", "National liquor license markets");
+      prompt.style.cssText = "display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:0 0 12px;padding:13px 18px;border:1px solid rgba(246,167,0,.46);border-radius:7px;background:#f7f2e7;color:#0b1725";
+      prompt.innerHTML = '<span><strong style="display:block;font-size:14px">Looking for a liquor license outside Florida?</strong><small style="display:block;margin-top:3px;color:#4a5864;font-size:10px;line-height:1.4">Explore active markets across the United States on Liquor License Market.</small></span><a href="https://www.liquorlicensemarket.com/" style="color:#8f5f00;font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase">Explore National Markets ›</a>';
+      cta.parentElement?.insertBefore(prompt, cta);
+    }
+
+    return Boolean(companyColumn && cta);
+  }
+
   function closeMenu({ label, selector }) {
     document.querySelectorAll(selector).forEach((menu) => {
       menu.classList.remove("is-open");
@@ -137,19 +167,17 @@
     }
 
     window.setTimeout(normalizeResourcesMenu, 0);
-    window.setTimeout(ensureCareersFooterLink, 0);
+    window.setTimeout(ensureCareersFooterLink, 0);\n    window.setTimeout(ensureNationalMarketplaceLinks, 0);
   }, true);
 
   const observer = new MutationObserver(() => {
     normalizeResourcesMenu();
-    ensureCareersFooterLink();
-  });
+    ensureCareersFooterLink();\n    ensureNationalMarketplaceLinks();\n  });
   observer.observe(document.documentElement, { childList: true, subtree: true });
   normalizeResourcesMenu();
-  ensureCareersFooterLink();
-  window.setTimeout(normalizeResourcesMenu, 300);
+  ensureCareersFooterLink();\n  ensureNationalMarketplaceLinks();\n  window.setTimeout(normalizeResourcesMenu, 300);
   window.setTimeout(normalizeResourcesMenu, 1000);
   window.setTimeout(ensureCareersFooterLink, 100);
   window.setTimeout(ensureCareersFooterLink, 500);
-  window.setTimeout(ensureCareersFooterLink, 1500);
+  window.setTimeout(ensureCareersFooterLink, 1500);\n  window.setTimeout(ensureNationalMarketplaceLinks, 100);\n  window.setTimeout(ensureNationalMarketplaceLinks, 500);\n  window.setTimeout(ensureNationalMarketplaceLinks, 1500);
 })();
