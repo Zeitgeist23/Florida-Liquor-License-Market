@@ -193,6 +193,29 @@ function insertCountyDirectory(html: string) {
   return html.replace("</body>", `${section}</body>`);
 }
 
+function addNationalMarketplaceFooterLink(html: string) {
+  const marker = "data-national-marketplace-footer-link";
+  if (html.includes(marker)) return html;
+
+  const row = `<div class="page-shell national-marketplace-footer-link" data-national-marketplace-footer-link="true" style="width:min(1024px,calc(100% - 36px));margin:10px auto 0;padding:10px 0 2px;border-top:1px solid #1b2a36;color:#aeb8c0;font-size:9px;line-height:1.5;text-align:center">
+    <span>Looking for a liquor license outside Florida?</span>
+    <a href="https://liquorlicensemarket.com/" aria-label="Visit Liquor License Market, the national marketplace" style="margin-left:4px;color:#f6a700;font-weight:800">Visit Liquor License Market — The National Marketplace.</a>
+  </div>`;
+
+  const copyrightPattern = /<div\b[^>]*class="[^"]*\bcopyright\b[^"]*"[^>]*>/i;
+  const copyright = copyrightPattern.exec(html);
+  if (copyright) {
+    return `${html.slice(0, copyright.index)}${row}${html.slice(copyright.index)}`;
+  }
+
+  const footerEnd = html.search(/<\/footer\s*>/i);
+  if (footerEnd >= 0) {
+    return `${html.slice(0, footerEnd)}${row}${html.slice(footerEnd)}`;
+  }
+
+  return html.replace("</body>", `${row}</body>`);
+}
+
 export async function GET(request: Request) {
   try {
     const dailyKey = floridaDateKey();
@@ -212,6 +235,7 @@ export async function GET(request: Request) {
         carouselListings,
       ),
     ));
+    enhancedHtml = addNationalMarketplaceFooterLink(enhancedHtml);
 
     const carouselStyle = `<style id="homepage-available-carousel-styles-v7">
       .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
