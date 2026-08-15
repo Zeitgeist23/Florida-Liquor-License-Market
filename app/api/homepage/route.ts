@@ -298,7 +298,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/market-heat-map-popup-cards-v3.js?v=2"></script>',
       '<script defer src="/assets/market-heat-map-county-links-v1.js?v=1"></script>',
       '<script defer src="/assets/resources-dropdown.js?v=10"></script>',
-      '<script defer src="/assets/header-menu-coordinator.js?v=2"></script>',
+      '<script defer src="/assets/header-menu-coordinator.js?v=2"></script>',\r\n      '<script defer src="/assets/national-marketplace-links.js?v=1"></script>',
       '<script defer src="/assets/featured-sold-status.js?v=4"></script>',
       '<script defer src="/assets/newscast-screen-logo-v10.js?v=3"></script>',
       '<script defer src="/assets/homepage-video-controls-fix-v1.js?v=4"></script>',
