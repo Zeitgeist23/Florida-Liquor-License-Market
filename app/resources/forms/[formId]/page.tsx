@@ -6,6 +6,8 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { ABT_FORMS, ABT_FORMS_DISCLAIMER, getAbtForm } from "@/data/abt-forms";
 import "../abt-forms.css";
 
+const siteUrl = "https://www.floridaliquorlicensemarket.com";
+
 export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
@@ -19,9 +21,22 @@ export async function generateMetadata(
   const form = getAbtForm(formId.toLowerCase());
   if (!form) return { title: "Florida ABT Form | Florida Liquor License Market" };
 
+  if (form.id === "abt-6002") {
+    return {
+      title: "Complete DBPR ABT-6002 | Florida Transfer Form Workspace",
+      description:
+        "Complete, review, download and print the official DBPR ABT-6002 Florida alcoholic beverage license transfer-of-ownership form through FLLM's guided workspace.",
+      alternates: { canonical: `${siteUrl}/dbpr-abt-6002` },
+      robots: { index: false, follow: true },
+    };
+  }
+
+  const canonicalUrl = `${siteUrl}/resources/forms/${form.id}`;
   return {
     title: `${form.formNumber}: ${form.shortTitle} | Florida Liquor License Market`,
     description: `${form.description} Complete, review, download, and print the official PDF through Florida Liquor License Market.`,
+    alternates: { canonical: canonicalUrl },
+    robots: { index: true, follow: true },
   };
 }
 
@@ -53,6 +68,11 @@ export default async function FloridaAbtFormWorkspacePage(
               <h1>{form.formNumber}</h1>
               <h2>{form.title}</h2>
               <p>{form.description}</p>
+              {form.id === "abt-6002" && (
+                <p>
+                  <a href="/dbpr-abt-6002"><strong>Read the DBPR ABT-6002 Florida liquor license transfer guide →</strong></a>
+                </p>
+              )}
             </div>
             <aside>
               <span>Last verified</span>
