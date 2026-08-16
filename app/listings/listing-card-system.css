@@ -1,0 +1,52 @@
+@import "./listings-premium.css";
+@import "./listings-header-position.css";
+@import "./listings-map-size.css";
+@import "./listings-county-links.css";
+@import "./listings-navy-refresh.css";
+@import "./listings-card-gold-borders.css";
+@import "./listings-title-highlight.css";
+@import "./listings-regression-fix.css";
+@import "./listings-filter-depth.css";
+@import "./listings-logo-3pct-lock.css";
+@import "./listings-conversion-cards.css";
+@import "./listings-card-overlap-fix.css";
+@import "./listings-masthead-darker.css";
+@import "./listings-mobile-header-fix.css";
+@import "./listings-seo-footer.css";
+
+/* One shared visual system for listings embedded outside the main inventory page. */
+.embedded-listing-results.results-page {
+  width: 100% !important;
+  min-height: 0 !important;
+  color: inherit !important;
+  background: transparent !important;
+}
+
+.embedded-listing-results.results-page .results-grid {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.embedded-listing-results.listing-cards-two .results-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.embedded-listing-results.listing-cards-one .results-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.embedded-listing-results .result-card {
+  margin: 0 !important;
+}
+
+@media (max-width: 1120px) {
+  .embedded-listing-results.listing-cards-two .results-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .embedded-listing-results .results-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
