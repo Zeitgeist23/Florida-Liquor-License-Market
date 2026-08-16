@@ -144,6 +144,14 @@ export default function Home({ marketListings }: { marketListings: MarketplaceLi
       </section>
       <aside className="video-invite" aria-label="Marketplace overview video"><div className="page-shell video-invite-inner"><span className="video-invite-kicker">New to the marketplace?</span><a className="video-invite-action" href="#market-report"><span className="play-button" aria-hidden="true">▶</span><span><strong>Watch How It Works</strong><small>3 Minutes</small></span><i aria-hidden="true">›</i></a></div></aside>
       <section className="services page-shell" aria-label="Marketplace services">{serviceCards.map((card) => <a className={`service-card ${card.tone}`} href={card.href} key={card.copy}><img className="service-icon" src={card.icon} alt="" aria-hidden="true" /><span><strong>{card.title}</strong><small>{card.copy}</small></span><i>›</i></a>)}</section>
+      <section className="valuation-home-cta page-shell" aria-labelledby="valuation-home-title">
+        <div>
+          <span>Free Florida Market Estimate</span>
+          <h2 id="valuation-home-title">How much is your Florida liquor license worth?</h2>
+          <p>Calculate a county-specific market range from current disclosed asking-price comparables.</p>
+        </div>
+        <a href="/florida-liquor-license-value">Calculate License Value <span aria-hidden="true">›</span></a>
+      </section>
       <section className="stats page-shell" aria-label="Marketplace statistics">{stats.map(([icon, value, label, detail]) => <article key={label}><img className="stat-icon" src={icon} alt="" aria-hidden="true" /><span><strong>{value}</strong><em>{label}</em><small>{detail}</small></span></article>)}</section>
       <section className="market-content" id="featured"><div className="page-shell">
         <div className="section-title"><h2>Featured Florida Liquor Licenses</h2><button type="button" onClick={() => { setSearchActive(false); setCounty("all"); setLicenseType("all"); setPriceRange("all"); }}>View All Listings ›</button></div>

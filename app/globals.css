@@ -100,6 +100,12 @@ a { color: inherit; text-decoration: none; }
 .gold small { color: white; }
 .light small { color: #252b31; }
 .service-card > i { position: absolute; right: 16px; bottom: 12px; font-style: normal; font-size: 34px; }
+.valuation-home-cta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 30px; align-items: center; margin-block: 4px 10px; padding: 22px 26px; border: 1px solid rgba(246, 167, 0, .68); border-radius: 7px; color: #fff; background: radial-gradient(circle at 88% 20%, rgba(246, 167, 0, .16), transparent 28%), linear-gradient(145deg, #0a263a, #03121e 72%); box-shadow: 0 12px 30px rgba(0, 0, 0, .22); }
+.valuation-home-cta > div > span { display: block; color: var(--gold); font-size: 10px; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+.valuation-home-cta h2 { margin: 5px 0; color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: clamp(23px, 2.7vw, 32px); line-height: 1.08; }
+.valuation-home-cta p { margin: 0; color: #c3d1d8; font-size: 12px; line-height: 1.55; }
+.valuation-home-cta > a { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 8px; padding: 0 20px; border: 1px solid #ffc12e; border-radius: 5px; color: #071019; background: linear-gradient(145deg, #ffc12e, #eb9300); font-size: 11px; font-weight: 900; letter-spacing: .04em; text-align: center; text-transform: uppercase; transition: filter .2s, transform .2s; }
+.valuation-home-cta > a:hover, .valuation-home-cta > a:focus-visible { filter: brightness(1.08); outline: none; transform: translateY(-2px); }
 
 .stats { margin-bottom: 12px; display: grid; grid-template-columns: repeat(5, 1fr); padding: 12px 6px; border: 1px solid #405267; border-radius: 7px; background: #05121e; }
 .stats article { min-height: 66px; display: flex; align-items: center; gap: 10px; padding: 0 12px; border-right: 1px solid #2b3b49; }
@@ -226,6 +232,8 @@ nextjs-portal { display: none !important; }
   .search-submit { grid-column: 1 / -1; }
   .search-assurances { flex-wrap: wrap; }
   .services { width: min(100% - 40px, 1024px); grid-template-columns: 1fr 1fr; }
+  .valuation-home-cta { width: min(100% - 40px, 1024px); grid-template-columns: 1fr; gap: 16px; }
+  .valuation-home-cta > a { width: 100%; }
   .stats { grid-template-columns: repeat(3, 1fr); }
   .stats article { border-right: 0; }
   .listing-grid { grid-template-columns: 1fr 1fr; }

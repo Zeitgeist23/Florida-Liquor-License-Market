@@ -95,6 +95,10 @@
     window.location.assign("/listings?status=sold");
   }
 
+  function goToLicenseValueEstimator() {
+    window.location.assign("/florida-liquor-license-value");
+  }
+
   function goToMarketInsights() {
     const panel = document.querySelector(".map-panel");
     if (panel) {
@@ -206,6 +210,7 @@
     menu.setAttribute("role", "menu");
     menu.setAttribute("aria-hidden", "true");
     menu.append(
+      makeOption("Florida Liquor License Value Estimator", goToLicenseValueEstimator),
       makeOption("Recent Florida Transactions", goToRecentTransactions),
       makeOption("Florida Market Insights", goToMarketInsights),
       makeOption("Heat Map", openHeatMap),
