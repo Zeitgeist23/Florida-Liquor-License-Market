@@ -43,6 +43,12 @@
     },
   ];
 
+  const OPEN_DELAY_MS = 150;
+  const CLOSE_DELAY_MS = 250;
+  const DESKTOP_HOVER_QUERY = "(hover: hover) and (pointer: fine) and (min-width: 900px)";
+  const openTimers = new Map();
+  const closeTimers = new Map();
+
   function normalizedText(element) {
     return (element?.textContent || "").replace(/\s+/g, " ").trim();
   }
@@ -116,7 +122,6 @@
     return true;
   }
 
-
   function ensureNationalMarketplaceLinks() {
     const footer = document.querySelector("footer#resources");
     const companyColumn = footer instanceof HTMLElement
@@ -156,6 +161,106 @@
     if (trigger) trigger.setAttribute("aria-expanded", "false");
   }
 
+  function closeOtherMenus(activeLabel) {
+    menus.forEach((menu) => {
+      if (menu.label !== activeLabel) closeMenu(menu);
+    });
+  }
+
+  function desktopHoverAvailable() {
+    return window.matchMedia(DESKTOP_HOVER_QUERY).matches;
+  }
+
+  function menuElement(menuDefinition) {
+    const menu = document.querySelector(menuDefinition.selector);
+    return menu instanceof HTMLElement ? menu : null;
+  }
+
+  function clearTimer(store, label) {
+    const timer = store.get(label);
+    if (timer) window.clearTimeout(timer);
+    store.delete(label);
+  }
+
+  function clearMenuTimers(label) {
+    clearTimer(openTimers, label);
+    clearTimer(closeTimers, label);
+  }
+
+  function menuIsOpen(menuDefinition, trigger) {
+    const menu = menuElement(menuDefinition);
+    return trigger?.getAttribute("aria-expanded") === "true" || Boolean(menu?.classList.contains("is-open"));
+  }
+
+  function pointerOrFocusInside(menuDefinition, trigger) {
+    const menu = menuElement(menuDefinition);
+    const activeElement = document.activeElement;
+    const pointerInside = Boolean(trigger?.matches(":hover")) || Boolean(menu?.matches(":hover"));
+    const focusInside = activeElement instanceof Node && (
+      Boolean(trigger?.contains(activeElement)) || Boolean(menu?.contains(activeElement))
+    );
+    return pointerInside || focusInside;
+  }
+
+  function openMenuFromHover(menuDefinition, attempt = 0) {
+    clearTimer(openTimers, menuDefinition.label);
+    clearTimer(closeTimers, menuDefinition.label);
+
+    if (!desktopHoverAvailable()) return;
+    const trigger = findTrigger(menuDefinition.label);
+    if (!(trigger instanceof HTMLAnchorElement) || !trigger.isConnected) return;
+
+    if (menuIsOpen(menuDefinition, trigger)) {
+      closeOtherMenus(menuDefinition.label);
+      return;
+    }
+
+    if (trigger.getAttribute("aria-haspopup") !== "menu") {
+      const stillEngaged = trigger.matches(":hover") || trigger.matches(":focus-within");
+      if (attempt < 8 && stillEngaged) {
+        const retry = window.setTimeout(() => openMenuFromHover(menuDefinition, attempt + 1), 100);
+        openTimers.set(menuDefinition.label, retry);
+      }
+      return;
+    }
+
+    closeOtherMenus(menuDefinition.label);
+    trigger.click();
+  }
+
+  function scheduleOpen(menuDefinition) {
+    if (!desktopHoverAvailable()) return;
+    clearTimer(closeTimers, menuDefinition.label);
+    clearTimer(openTimers, menuDefinition.label);
+    const timer = window.setTimeout(() => openMenuFromHover(menuDefinition), OPEN_DELAY_MS);
+    openTimers.set(menuDefinition.label, timer);
+  }
+
+  function scheduleClose(menuDefinition) {
+    if (!desktopHoverAvailable()) return;
+    clearTimer(openTimers, menuDefinition.label);
+    clearTimer(closeTimers, menuDefinition.label);
+    const timer = window.setTimeout(() => {
+      closeTimers.delete(menuDefinition.label);
+      const trigger = findTrigger(menuDefinition.label);
+      if (!pointerOrFocusInside(menuDefinition, trigger)) closeMenu(menuDefinition);
+    }, CLOSE_DELAY_MS);
+    closeTimers.set(menuDefinition.label, timer);
+  }
+
+  function definitionForTrigger(element) {
+    if (!(element instanceof Element)) return null;
+    const trigger = element.closest(".primary-nav a");
+    if (!(trigger instanceof HTMLAnchorElement)) return null;
+    const label = normalizedText(trigger).toLowerCase();
+    return menus.find((menu) => menu.label.toLowerCase() === label) || null;
+  }
+
+  function definitionForMenu(element) {
+    if (!(element instanceof Element)) return null;
+    return menus.find((menu) => Boolean(element.closest(menu.selector))) || null;
+  }
+
   document.addEventListener("click", (event) => {
     const target = event.target;
     const navLink = target instanceof Element ? target.closest(".primary-nav a") : null;
@@ -167,17 +272,112 @@
     }
 
     window.setTimeout(normalizeResourcesMenu, 0);
-    window.setTimeout(ensureCareersFooterLink, 0);\n    window.setTimeout(ensureNationalMarketplaceLinks, 0);
+    window.setTimeout(ensureCareersFooterLink, 0);
+    window.setTimeout(ensureNationalMarketplaceLinks, 0);
   }, true);
+
+  document.addEventListener("pointerover", (event) => {
+    if (!desktopHoverAvailable()) return;
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const triggerDefinition = definitionForTrigger(target);
+    if (triggerDefinition) {
+      const trigger = findTrigger(triggerDefinition.label);
+      if (!(event.relatedTarget instanceof Node && trigger?.contains(event.relatedTarget))) {
+        scheduleOpen(triggerDefinition);
+      }
+      return;
+    }
+
+    const menuDefinition = definitionForMenu(target);
+    if (menuDefinition) clearTimer(closeTimers, menuDefinition.label);
+  }, true);
+
+  document.addEventListener("pointerout", (event) => {
+    if (!desktopHoverAvailable()) return;
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const triggerDefinition = definitionForTrigger(target);
+    if (triggerDefinition) {
+      const trigger = findTrigger(triggerDefinition.label);
+      const menu = menuElement(triggerDefinition);
+      const next = event.relatedTarget;
+      if (next instanceof Node && (Boolean(trigger?.contains(next)) || Boolean(menu?.contains(next)))) return;
+      scheduleClose(triggerDefinition);
+      return;
+    }
+
+    const menuDefinition = definitionForMenu(target);
+    if (menuDefinition) {
+      const trigger = findTrigger(menuDefinition.label);
+      const menu = menuElement(menuDefinition);
+      const next = event.relatedTarget;
+      if (next instanceof Node && (Boolean(menu?.contains(next)) || Boolean(trigger?.contains(next)))) return;
+      scheduleClose(menuDefinition);
+    }
+  }, true);
+
+  document.addEventListener("focusin", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const triggerDefinition = definitionForTrigger(target);
+    if (triggerDefinition) {
+      scheduleOpen(triggerDefinition);
+      return;
+    }
+
+    const menuDefinition = definitionForMenu(target);
+    if (menuDefinition) clearTimer(closeTimers, menuDefinition.label);
+  }, true);
+
+  document.addEventListener("focusout", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const menuDefinition = definitionForMenu(target) || definitionForTrigger(target);
+    if (!menuDefinition) return;
+
+    const trigger = findTrigger(menuDefinition.label);
+    const menu = menuElement(menuDefinition);
+    const next = event.relatedTarget;
+    if (next instanceof Node && (Boolean(trigger?.contains(next)) || Boolean(menu?.contains(next)))) return;
+    scheduleClose(menuDefinition);
+  }, true);
+
+  window.addEventListener("blur", () => {
+    menus.forEach((menu) => closeMenu(menu));
+  });
+
+  const hoverMediaQuery = window.matchMedia(DESKTOP_HOVER_QUERY);
+  const handleCapabilityChange = (event) => {
+    if (event.matches) return;
+    menus.forEach((menu) => closeMenu(menu));
+  };
+
+  if (typeof hoverMediaQuery.addEventListener === "function") {
+    hoverMediaQuery.addEventListener("change", handleCapabilityChange);
+  } else if (typeof hoverMediaQuery.addListener === "function") {
+    hoverMediaQuery.addListener(handleCapabilityChange);
+  }
 
   const observer = new MutationObserver(() => {
     normalizeResourcesMenu();
-    ensureCareersFooterLink();\n    ensureNationalMarketplaceLinks();\n  });
+    ensureCareersFooterLink();
+    ensureNationalMarketplaceLinks();
+  });
+
   observer.observe(document.documentElement, { childList: true, subtree: true });
   normalizeResourcesMenu();
-  ensureCareersFooterLink();\n  ensureNationalMarketplaceLinks();\n  window.setTimeout(normalizeResourcesMenu, 300);
+  ensureCareersFooterLink();
+  ensureNationalMarketplaceLinks();
+  window.setTimeout(normalizeResourcesMenu, 300);
   window.setTimeout(normalizeResourcesMenu, 1000);
   window.setTimeout(ensureCareersFooterLink, 100);
   window.setTimeout(ensureCareersFooterLink, 500);
-  window.setTimeout(ensureCareersFooterLink, 1500);\n  window.setTimeout(ensureNationalMarketplaceLinks, 100);\n  window.setTimeout(ensureNationalMarketplaceLinks, 500);\n  window.setTimeout(ensureNationalMarketplaceLinks, 1500);
+  window.setTimeout(ensureCareersFooterLink, 1500);
+  window.setTimeout(ensureNationalMarketplaceLinks, 100);
+  window.setTimeout(ensureNationalMarketplaceLinks, 500);
+  window.setTimeout(ensureNationalMarketplaceLinks, 1500);
 })();
