@@ -1,0 +1,100 @@
+name: Verify listings header hover
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: ${{ !contains(github.event.head_commit.message, '[skip-listings-hover-test]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser test dependency
+        run: npm install --no-save --no-package-lock puppeteer-core@24.16.0
+
+      - name: Verify live hover-open menus
+        run: |
+          node <<'NODE'
+          const puppeteer = require('puppeteer-core');
+
+          const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+          (async () => {
+            const executablePath = process.env.CHROME_PATH || '/usr/bin/google-chrome';
+            const browser = await puppeteer.launch({
+              executablePath,
+              headless: true,
+              args: ['--no-sandbox', '--disable-dev-shm-usage'],
+            });
+
+            try {
+              const page = await browser.newPage();
+              await page.setViewport({ width: 1600, height: 1000 });
+              await page.goto('https://www.floridaliquorlicensemarket.com/listings', {
+                waitUntil: 'networkidle2',
+                timeout: 90000,
+              });
+
+              await page.waitForFunction(() => {
+                const labels = Array.from(document.querySelectorAll('.results-header nav a'))
+                  .map((link) => (link.textContent || '').replace(/\s+/g, ' ').trim());
+                return labels.includes('Market Data') && labels.includes('Resources');
+              }, { timeout: 30000 });
+
+              await page.evaluate(() => {
+                Array.from(document.querySelectorAll('.results-header nav a')).forEach((link) => {
+                  const label = (link.textContent || '').replace(/\s+/g, ' ').trim();
+                  if (label === 'Market Data') link.setAttribute('data-hover-test', 'market-data');
+                  if (label === 'Resources') link.setAttribute('data-hover-test', 'resources');
+                });
+              });
+
+              await page.hover('[data-hover-test="market-data"]');
+              await sleep(550);
+              const marketOpened = await page.$eval(
+                '.market-data-header-menu',
+                (menu) => menu.classList.contains('is-open') && menu.getAttribute('aria-hidden') === 'false',
+              );
+              if (!marketOpened) throw new Error('Market Data did not open on hover.');
+
+              await page.hover('.market-data-header-menu button');
+              await sleep(180);
+              const marketStayedOpen = await page.$eval(
+                '.market-data-header-menu',
+                (menu) => menu.classList.contains('is-open'),
+              );
+              if (!marketStayedOpen) throw new Error('Market Data closed while pointer entered the dropdown.');
+
+              await page.hover('[data-hover-test="resources"]');
+              await sleep(550);
+              const states = await page.evaluate(() => ({
+                marketOpen: document.querySelector('.market-data-header-menu')?.classList.contains('is-open') || false,
+                resourcesOpen: document.querySelector('.resources-header-menu')?.classList.contains('is-open') || false,
+              }));
+              if (states.marketOpen || !states.resourcesOpen) {
+                throw new Error(`Menu switching failed: ${JSON.stringify(states)}`);
+              }
+
+              await page.mouse.move(20, 600);
+              await sleep(500);
+              const resourcesClosed = await page.$eval(
+                '.resources-header-menu',
+                (menu) => !menu.classList.contains('is-open') && menu.getAttribute('aria-hidden') === 'true',
+              );
+              if (!resourcesClosed) throw new Error('Resources did not close after the pointer left.');
+
+              console.log('PASS: listings header menus open on hover, remain open during entry, switch cleanly, and close after exit.');
+            } finally {
+              await browser.close();
+            }
+          })().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE
