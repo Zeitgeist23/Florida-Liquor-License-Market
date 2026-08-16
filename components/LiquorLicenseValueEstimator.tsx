@@ -1,14 +1,19 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { floridaCounties } from "@/data/florida-counties";
+import type { Listing } from "@/data/listings";
+import { listingPageHref } from "@/lib/listing-page-urls";
+import interactionStyles from "./ComparableListingRows.module.css";
 import styles from "./LiquorLicenseValueEstimator.module.css";
 
 type ComparableListing = {
   reference: string;
   county: string;
-  licenseType: string;
+  licenseType: Listing["type"];
   status: string;
   askingPrice: number;
 };
@@ -55,6 +60,7 @@ function range(low: number | null, high: number | null) {
 }
 
 export default function LiquorLicenseValueEstimator() {
+  const router = useRouter();
   const [county, setCounty] = useState("");
   const [licenseType, setLicenseType] = useState("");
   const [licenseStatus, setLicenseStatus] = useState("");
@@ -225,14 +231,41 @@ export default function LiquorLicenseValueEstimator() {
               <table>
                 <thead><tr><th>Listing</th><th>License type</th><th>Status</th><th>Asking price</th></tr></thead>
                 <tbody>
-                  {guidance.comparables.map((listing, index) => (
-                    <tr key={`${listing.reference}-${listing.askingPrice}-${index}`}>
-                      <td>{listing.reference}</td>
-                      <td>{listing.licenseType}</td>
-                      <td>{listing.status}</td>
-                      <td><strong>{currency(listing.askingPrice)}</strong></td>
-                    </tr>
-                  ))}
+                  {guidance.comparables.map((listing, index) => {
+                    const href = listingPageHref({
+                      county: listing.county,
+                      type: listing.licenseType,
+                      sourceRef: listing.reference,
+                    });
+
+                    return (
+                      <tr
+                        className={interactionStyles.clickableRow}
+                        key={`${listing.reference}-${listing.askingPrice}-${index}`}
+                        onClick={(event) => {
+                          const target = event.target as HTMLElement;
+                          if (target.closest("a, button, input, select, textarea")) return;
+                          router.push(href);
+                        }}
+                        onMouseEnter={() => router.prefetch(href)}
+                      >
+                        <td>
+                          <Link
+                            className={interactionStyles.referenceLink}
+                            href={href}
+                            onFocus={() => router.prefetch(href)}
+                            aria-label={`View ${listing.reference} listing details`}
+                          >
+                            <span>{listing.reference}</span>
+                            <span className={interactionStyles.viewCue} aria-hidden="true">View listing <b>→</b></span>
+                          </Link>
+                        </td>
+                        <td>{listing.licenseType}</td>
+                        <td>{listing.status}</td>
+                        <td><strong>{currency(listing.askingPrice)}</strong></td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

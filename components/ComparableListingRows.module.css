@@ -1,0 +1,85 @@
+.clickableRow {
+  cursor: pointer;
+}
+
+.clickableRow td {
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.clickableRow:hover td,
+.clickableRow:focus-within td {
+  color: #ffffff;
+  background: rgba(16, 55, 77, 0.94);
+}
+
+.clickableRow:hover td:first-child,
+.clickableRow:focus-within td:first-child {
+  box-shadow: inset 3px 0 0 #f6a700;
+}
+
+.referenceLink {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  color: #dbe7ec;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.viewCue {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 5px;
+  color: #f6a700;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  text-transform: uppercase;
+  transform: translateX(-5px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.viewCue b {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.clickableRow:hover .referenceLink,
+.clickableRow:focus-within .referenceLink {
+  color: #ffc12e;
+}
+
+.clickableRow:hover .viewCue,
+.clickableRow:focus-within .viewCue {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.referenceLink:focus-visible {
+  border-radius: 3px;
+  outline: 2px solid #ffc12e;
+  outline-offset: 4px;
+}
+
+@media (max-width: 700px) {
+  .viewCue {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clickableRow td,
+  .viewCue {
+    transition: none;
+  }
+}
