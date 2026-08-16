@@ -1,0 +1,108 @@
+name: Verify live listings filter hover behavior
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser test dependency
+        run: npm install --no-save --no-package-lock --ignore-scripts puppeteer-core@24.16.0
+
+      - name: Test the live listings filters
+        run: |
+          node <<'NODE'
+          const puppeteer = require('puppeteer-core');
+          const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+          (async () => {
+            const browser = await puppeteer.launch({
+              executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
+              headless: true,
+              args: ['--no-sandbox', '--disable-dev-shm-usage'],
+            });
+
+            try {
+              const page = await browser.newPage();
+              await page.setViewport({ width: 1874, height: 1000 });
+
+              let ready = false;
+              for (let attempt = 0; attempt < 30; attempt += 1) {
+                await page.goto(`https://www.floridaliquorlicensemarket.com/listings?hover-check=${Date.now()}`, {
+                  waitUntil: 'networkidle2',
+                  timeout: 90000,
+                });
+                ready = Boolean(await page.$('[aria-label="Filter listings by Florida county"]'));
+                if (ready) break;
+                await sleep(10000);
+              }
+
+              if (!ready) throw new Error('The hover-enabled filter controls did not reach the live site.');
+
+              const county = '[aria-label="Filter listings by Florida county"]';
+              const licenseType = '[aria-label="Filter listings by license type"]';
+              const price = '[aria-label="Filter listings by asking price"]';
+
+              await page.hover(county);
+              await sleep(450);
+              const countyOpen = await page.$eval(county, (button) => button.getAttribute('aria-expanded') === 'true');
+              if (!countyOpen) throw new Error('County filter did not open on hover.');
+
+              await page.evaluate(() => {
+                const option = Array.from(document.querySelectorAll('[role="option"]'))
+                  .find((candidate) => (candidate.textContent || '').includes('Bay County'));
+                option?.setAttribute('data-hover-option', 'bay');
+              });
+              await page.hover('[data-hover-option="bay"]');
+              await sleep(180);
+              const countyStayedOpen = await page.$eval(county, (button) => button.getAttribute('aria-expanded') === 'true');
+              if (!countyStayedOpen) throw new Error('County filter closed while the pointer entered its menu.');
+
+              await page.click('[data-hover-option="bay"]');
+              await sleep(250);
+              const selectedCounty = await page.$eval(county, (button) => (button.textContent || '').trim());
+              if (!selectedCounty.includes('Bay County')) throw new Error(`County selection failed: ${selectedCounty}`);
+
+              await page.hover(licenseType);
+              await sleep(450);
+              const switching = await page.evaluate(() => ({
+                countyOpen: document.querySelector('[aria-label="Filter listings by Florida county"]')?.getAttribute('aria-expanded'),
+                typeOpen: document.querySelector('[aria-label="Filter listings by license type"]')?.getAttribute('aria-expanded'),
+              }));
+              if (switching.countyOpen !== 'false' || switching.typeOpen !== 'true') {
+                throw new Error(`Filter switching failed: ${JSON.stringify(switching)}`);
+              }
+
+              await page.mouse.move(20, 700);
+              await sleep(420);
+              const typeClosed = await page.$eval(licenseType, (button) => button.getAttribute('aria-expanded') === 'false');
+              if (!typeClosed) throw new Error('License-type filter did not close after pointer exit.');
+
+              await page.focus(price);
+              await page.keyboard.press('ArrowDown');
+              await sleep(150);
+              const keyboardOpened = await page.$eval(price, (button) => button.getAttribute('aria-expanded') === 'true');
+              if (!keyboardOpened) throw new Error('Price filter did not open by keyboard.');
+              await page.keyboard.press('Escape');
+              await sleep(100);
+              const keyboardClosed = await page.$eval(price, (button) => button.getAttribute('aria-expanded') === 'false');
+              if (!keyboardClosed) throw new Error('Price filter did not close with Escape.');
+
+              console.log('PASS: listings filter menus open on hover, stay open during entry, switch cleanly, select values, close after exit, and support keyboard control.');
+            } finally {
+              await browser.close();
+            }
+          })().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE
