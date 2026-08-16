@@ -11,12 +11,18 @@ jobs:
   verify:
     if: ${{ !contains(github.event.head_commit.message, '[skip-listings-hover-test]') }}
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install application dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Build every route
+        run: npm run build
+
       - name: Install browser test dependency
-        run: npm install --no-save --no-package-lock puppeteer-core@24.16.0
+        run: npm install --no-save --no-package-lock --ignore-scripts puppeteer-core@24.16.0
 
       - name: Verify live hover-open menus
         run: |
@@ -36,16 +42,6 @@ jobs:
             try {
               const page = await browser.newPage();
               await page.setViewport({ width: 1600, height: 1000 });
-              const client = await page.createCDPSession();
-              await client.send('Emulation.setEmulatedMedia', {
-                features: [
-                  { name: 'hover', value: 'hover' },
-                  { name: 'any-hover', value: 'hover' },
-                  { name: 'pointer', value: 'fine' },
-                  { name: 'any-pointer', value: 'fine' },
-                ],
-              });
-
               await page.goto('https://www.floridaliquorlicensemarket.com/listings', {
                 waitUntil: 'networkidle2',
                 timeout: 90000,
@@ -54,7 +50,7 @@ jobs:
               await page.waitForFunction(() => {
                 const labels = Array.from(document.querySelectorAll('.results-header nav a'))
                   .map((link) => (link.textContent || '').replace(/\s+/g, ' ').trim());
-                return labels.includes('Market Data') && labels.includes('Resources');
+                return labels.includes('Market Data') && labels.includes('License Types') && labels.includes('Resources');
               }, { timeout: 30000 });
 
               await page.evaluate(() => {
@@ -66,57 +62,57 @@ jobs:
               });
 
               await page.waitForFunction(() => {
-                const trigger = document.querySelector('[data-hover-test="market-data"]');
-                return trigger?.getAttribute('aria-haspopup') === 'menu';
+                const market = document.querySelector('[data-hover-test="market-data"]');
+                const resources = document.querySelector('[data-hover-test="resources"]');
+                return market?.getAttribute('aria-haspopup') === 'menu' &&
+                  resources?.getAttribute('aria-haspopup') === 'menu' &&
+                  document.querySelector('[data-listings-header-dropdown="market-data"]') &&
+                  document.querySelector('[data-listings-header-dropdown="resources"]');
               }, { timeout: 15000 });
-
-              const diagnostics = await page.evaluate(() => ({
-                hoverQuery: window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 900px)').matches,
-                anyHoverQuery: window.matchMedia('(any-hover: hover) and (any-pointer: fine)').matches,
-                width: window.innerWidth,
-                marketExpanded: document.querySelector('[data-hover-test="market-data"]')?.getAttribute('aria-expanded'),
-                scriptSources: Array.from(document.scripts)
-                  .map((script) => script.src)
-                  .filter((src) => /market-data-dropdown|resources-dropdown|header-menu-hover/.test(src)),
-              }));
-              console.log('Diagnostics:', JSON.stringify(diagnostics));
-              if (!diagnostics.hoverQuery) throw new Error('The test browser did not emulate desktop hover capability.');
 
               await page.hover('[data-hover-test="market-data"]');
               await sleep(650);
               const marketOpened = await page.$eval(
-                '.market-data-header-menu',
+                '[data-listings-header-dropdown="market-data"]',
                 (menu) => menu.classList.contains('is-open') && menu.getAttribute('aria-hidden') === 'false',
               );
-              if (!marketOpened) throw new Error(`Market Data did not open on hover. Diagnostics: ${JSON.stringify(diagnostics)}`);
+              if (!marketOpened) throw new Error('Market Data did not open on hover.');
 
-              await page.hover('.market-data-header-menu button');
+              await page.hover('[data-listings-header-dropdown="market-data"] a');
               await sleep(180);
               const marketStayedOpen = await page.$eval(
-                '.market-data-header-menu',
+                '[data-listings-header-dropdown="market-data"]',
                 (menu) => menu.classList.contains('is-open'),
               );
-              if (!marketStayedOpen) throw new Error('Market Data closed while pointer entered the dropdown.');
+              if (!marketStayedOpen) throw new Error('Market Data closed while the pointer entered the dropdown.');
 
               await page.hover('[data-hover-test="resources"]');
               await sleep(650);
-              const states = await page.evaluate(() => ({
-                marketOpen: document.querySelector('.market-data-header-menu')?.classList.contains('is-open') || false,
-                resourcesOpen: document.querySelector('.resources-header-menu')?.classList.contains('is-open') || false,
+              const switchedStates = await page.evaluate(() => ({
+                marketOpen: document.querySelector('[data-listings-header-dropdown="market-data"]')?.classList.contains('is-open') || false,
+                resourcesOpen: document.querySelector('[data-listings-header-dropdown="resources"]')?.classList.contains('is-open') || false,
               }));
-              if (states.marketOpen || !states.resourcesOpen) {
-                throw new Error(`Menu switching failed: ${JSON.stringify(states)}`);
+              if (switchedStates.marketOpen || !switchedStates.resourcesOpen) {
+                throw new Error(`Menu switching failed: ${JSON.stringify(switchedStates)}`);
               }
 
               await page.mouse.move(20, 600);
               await sleep(500);
               const resourcesClosed = await page.$eval(
-                '.resources-header-menu',
+                '[data-listings-header-dropdown="resources"]',
                 (menu) => !menu.classList.contains('is-open') && menu.getAttribute('aria-hidden') === 'true',
               );
               if (!resourcesClosed) throw new Error('Resources did not close after the pointer left.');
 
-              console.log('PASS: listings header menus open on hover, remain open during entry, switch cleanly, and close after exit.');
+              await page.click('[data-hover-test="market-data"]');
+              await sleep(180);
+              const clickOpened = await page.$eval(
+                '[data-listings-header-dropdown="market-data"]',
+                (menu) => menu.classList.contains('is-open'),
+              );
+              if (!clickOpened) throw new Error('Market Data did not remain usable by click.');
+
+              console.log('PASS: listings header dropdowns open on hover, stay open during entry, switch cleanly, close after exit, and still work by click.');
             } finally {
               await browser.close();
             }
