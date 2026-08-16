@@ -1,7 +1,7 @@
 (() => {
   const OPEN_DELAY_MS = 150;
   const CLOSE_DELAY_MS = 250;
-  const DESKTOP_HOVER_QUERY = "(any-hover: hover) and (any-pointer: fine)";
+  const DESKTOP_HOVER_QUERY = "(hover: hover) and (pointer: fine) and (min-width: 900px)";
 
   const definitions = [
     {
@@ -90,10 +90,14 @@
     clearTimer(closeTimers, entry.label);
 
     if (!desktopHoverAvailable() || !entry.trigger.isConnected) return;
-    if (isOpen(entry)) return;
+    if (isOpen(entry)) {
+      closeOtherEntries(entry);
+      return;
+    }
 
     if (entry.trigger.getAttribute("aria-haspopup") !== "menu") {
-      if (attempt < 6 && entry.trigger.matches(":hover")) {
+      const stillEngaged = entry.trigger.matches(":hover") || entry.trigger.matches(":focus-within");
+      if (attempt < 6 && stillEngaged) {
         const retry = window.setTimeout(() => openEntry(entry, attempt + 1), 120);
         openTimers.set(entry.label, retry);
       }
@@ -172,8 +176,15 @@
   document.addEventListener("focusin", (event) => {
     const target = event.target;
     if (!(target instanceof Element)) return;
-    const entry = entryForMenuElement(target);
-    if (entry) clearTimer(closeTimers, entry.label);
+
+    const triggerEntry = entryForTrigger(target.closest(".primary-nav a"));
+    if (triggerEntry) {
+      scheduleOpen(triggerEntry);
+      return;
+    }
+
+    const menuEntry = entryForMenuElement(target);
+    if (menuEntry) clearTimer(closeTimers, menuEntry.label);
   }, true);
 
   document.addEventListener("focusout", (event) => {
@@ -194,6 +205,7 @@
     const entry = entryForTrigger(trigger);
     if (!entry) return;
 
+    clearEntryTimers(entry);
     window.setTimeout(() => {
       if (isOpen(entry)) closeOtherEntries(entry);
     }, 0);
@@ -217,11 +229,18 @@
     });
   });
 
-  window.matchMedia(DESKTOP_HOVER_QUERY).addEventListener("change", (event) => {
+  const hoverMediaQuery = window.matchMedia(DESKTOP_HOVER_QUERY);
+  const handleCapabilityChange = (event) => {
     if (event.matches) return;
     definitions.forEach((definition) => {
       const entry = currentEntry(definition);
       if (entry) closeEntry(entry);
     });
-  });
+  };
+
+  if (typeof hoverMediaQuery.addEventListener === "function") {
+    hoverMediaQuery.addEventListener("change", handleCapabilityChange);
+  } else if (typeof hoverMediaQuery.addListener === "function") {
+    hoverMediaQuery.addListener(handleCapabilityChange);
+  }
 })();
