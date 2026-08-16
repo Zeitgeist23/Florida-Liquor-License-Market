@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
+import { countyValuationGuideHref, isCountyValuationGuide } from "@/data/county-valuation-guides";
 import { getCountyBySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
 import {
@@ -233,6 +234,7 @@ export default async function CountyPage({ params }: PageProps) {
             <p>{countySearchSummary}</p>
             <div className="county-hero-actions">
               <Link className="county-button county-button-gold" href={filteredListingsHref}>Browse {county.name} Licenses for Sale</Link>
+              {isCountyValuationGuide(county.slug) ? <Link className="county-button county-button-dark" href={countyValuationGuideHref(county.slug)}>Check {county.name} License Value</Link> : null}
               <Link className="county-button county-button-dark" href="/sell-your-license">List a License</Link>
             </div>
           </div>

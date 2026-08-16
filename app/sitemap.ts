@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { ABT_FORMS } from "@/data/abt-forms";
+import { countyValuationGuideHref, countyValuationGuideSlugs } from "@/data/county-valuation-guides";
 import { indexableCounties } from "@/data/florida-counties";
 import { indexableListingPages, listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
@@ -47,6 +48,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: county.featured ? 0.9 : 0.75,
   }));
 
+  const countyValuationPages: MetadataRoute.Sitemap = countyValuationGuideSlugs.map((slug) => ({
+    url: `${siteUrl}${countyValuationGuideHref(slug)}`,
+    lastModified,
+    changeFrequency: "daily",
+    priority: 0.88,
+  }));
+
   const marketplaceListings = await getMarketplaceListings();
   const listingPages: MetadataRoute.Sitemap = indexableListingPages(marketplaceListings).map(({ listing }) => ({
     url: `${siteUrl}${listingPageHref(listing)}`,
@@ -54,5 +62,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
-  return [...corePages, ...abtFormPages, ...countyPages, ...listingPages];
+  return [...corePages, ...abtFormPages, ...countyPages, ...countyValuationPages, ...listingPages];
 }

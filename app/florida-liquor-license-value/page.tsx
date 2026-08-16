@@ -3,11 +3,16 @@ import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import LiquorLicenseValueEstimator from "@/components/LiquorLicenseValueEstimator";
+import { countyValuationGuideHref, countyValuationGuideSlugs } from "@/data/county-valuation-guides";
+import { getCountyBySlug } from "@/data/florida-counties";
 import "@/app/resources/forms/abt-forms.css";
 import "./value-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-value`;
+const majorCountyValueGuides = countyValuationGuideSlugs
+  .map((slug) => getCountyBySlug(slug))
+  .filter((county): county is NonNullable<typeof county> => Boolean(county));
 
 export const metadata: Metadata = {
   title: "How Much Is My Florida Liquor License Worth? | Market Value Guide",
@@ -147,6 +152,23 @@ export default function FloridaLiquorLicenseValuePage() {
             <Link href="/florida-3ps-liquor-license-for-sale"><strong>Florida 3PS Licenses for Sale</strong><small>Compare package-store opportunities</small></Link>
             <Link href="/counties"><strong>Florida Liquor Licenses by County</strong><small>Open a county-specific market page</small></Link>
           </div>
+        </div>
+      </section>
+
+      <section className="value-county-guides page-shell">
+        <div className="value-heading">
+          <span>Major County Value Guides</span>
+          <h2>Compare current liquor-license value evidence by Florida county</h2>
+          <p>Open a dedicated county guide for current disclosed asking-price ranges, 4COP and 3PS evidence, market factors, and live comparables.</p>
+        </div>
+        <div className="value-county-guide-grid">
+          {majorCountyValueGuides.map((county) => (
+            <Link key={county.slug} href={countyValuationGuideHref(county.slug)}>
+              <strong>{county.name}</strong>
+              <span>{county.primaryCities.slice(0, 3).join(" · ")}</span>
+              <small>View current value evidence ›</small>
+            </Link>
+          ))}
         </div>
       </section>
 

@@ -157,9 +157,19 @@
 }
 
 .value-factors,
-.value-faq {
+.value-faq,
+.value-county-guides {
   padding: 66px 0;
 }
+
+.value-county-guides { border-top: 1px solid #1f3b4c; }
+.value-county-guides .value-heading > p { margin: 0; color: #b9c9d2; font-size: 14px; line-height: 1.7; }
+.value-county-guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; margin-top: 25px; }
+.value-county-guide-grid a { display: grid; gap: 5px; padding: 20px; border: 1px solid #345367; border-radius: 7px; background: #081e2d; }
+.value-county-guide-grid a:hover { border-color: #f6a700; transform: translateY(-1px); }
+.value-county-guide-grid strong { color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: 20px; }
+.value-county-guide-grid span { color: #aebfc8; font-size: 12px; }
+.value-county-guide-grid small { margin-top: 5px; color: #f6a700; font-size: 11px; font-weight: 900; text-transform: uppercase; }
 
 .value-factor-grid {
   display: grid;
@@ -274,6 +284,10 @@
 }
 
 @media (max-width: 540px) {
+  .value-county-guide-grid { grid-template-columns: 1fr; }
+  .value-county-guides .value-heading > p { font-size: 15px; }
+  .value-county-guide-grid span,
+  .value-county-guide-grid small { font-size: 13px; }
   .value-breadcrumbs { font-size: 12px; }
   .value-eyebrow,
   .value-heading > span,
