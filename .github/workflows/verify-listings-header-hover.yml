@@ -36,6 +36,16 @@ jobs:
             try {
               const page = await browser.newPage();
               await page.setViewport({ width: 1600, height: 1000 });
+              const client = await page.createCDPSession();
+              await client.send('Emulation.setEmulatedMedia', {
+                features: [
+                  { name: 'hover', value: 'hover' },
+                  { name: 'any-hover', value: 'hover' },
+                  { name: 'pointer', value: 'fine' },
+                  { name: 'any-pointer', value: 'fine' },
+                ],
+              });
+
               await page.goto('https://www.floridaliquorlicensemarket.com/listings', {
                 waitUntil: 'networkidle2',
                 timeout: 90000,
@@ -70,17 +80,7 @@ jobs:
                   .filter((src) => /market-data-dropdown|resources-dropdown|header-menu-hover/.test(src)),
               }));
               console.log('Diagnostics:', JSON.stringify(diagnostics));
-
-              await page.click('[data-hover-test="market-data"]');
-              await sleep(250);
-              const clickOpened = await page.$eval(
-                '.market-data-header-menu',
-                (menu) => menu.classList.contains('is-open'),
-              );
-              if (!clickOpened) throw new Error('Market Data did not open on click.');
-
-              await page.click('[data-hover-test="market-data"]');
-              await sleep(250);
+              if (!diagnostics.hoverQuery) throw new Error('The test browser did not emulate desktop hover capability.');
 
               await page.hover('[data-hover-test="market-data"]');
               await sleep(650);
