@@ -448,6 +448,30 @@
 }
 
 @media (max-width: 480px) {
+  .heading > span,
+  .resultTitle > span,
+  .rangeCard span,
+  .followUp > div > span { font-size: 12px; }
+  .heading p,
+  .resultTitle p,
+  .empty p { font-size: 15px; }
+  .form label > span,
+  .leadForm label > span,
+  .stats article span,
+  .tableWrap th { font-size: 12px; }
+  .form button,
+  .leadForm button,
+  .actions a { font-size: 13px; }
+  .rangeCard small { font-size: 13px; }
+  .rangeCard p,
+  .followUp > div > p,
+  .success p,
+  .error,
+  .notice,
+  .empty { font-size: 14px; }
+  .tableWrap td { font-size: 13px; }
+  .leadForm label > span small { font-size: 11px; }
+  .leadForm .consent span { font-size: 13px; }
   .rangeCard,
   .leadForm { grid-template-columns: 1fr; }
   .leadForm .consent,

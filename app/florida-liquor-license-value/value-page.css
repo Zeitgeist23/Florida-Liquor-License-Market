@@ -274,6 +274,20 @@
 }
 
 @media (max-width: 540px) {
+  .value-breadcrumbs { font-size: 12px; }
+  .value-eyebrow,
+  .value-heading > span,
+  .value-explainer article > span,
+  .value-market-links .page-shell > span,
+  .value-final-cta span { font-size: 13px; }
+  .value-hero-actions a,
+  .value-final-cta .page-shell > a { font-size: 13px; }
+  .value-explainer p,
+  .value-final-cta p { font-size: 15px; }
+  .value-factor-grid p,
+  .value-faq details p { font-size: 14px; }
+  .value-link-grid strong { font-size: 15px; }
+  .value-link-grid small { font-size: 13px; }
   .value-factor-grid,
   .value-link-grid { grid-template-columns: 1fr; }
   .value-hero-actions { flex-direction: column; }

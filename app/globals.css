@@ -272,6 +272,9 @@ nextjs-portal { display: none !important; }
   .video-invite-action { width: 100%; max-width: 320px; justify-content: center; }
   .video-invite-action i { margin-left: auto; }
   .service-card { min-height: 154px; }
+  .valuation-home-cta > div > span { font-size: 12px; }
+  .valuation-home-cta p { font-size: 15px; line-height: 1.6; }
+  .valuation-home-cta > a { font-size: 13px; }
   .stats { grid-template-columns: 1fr 1fr; }
   .stats article { min-height: 78px; }
   .stats article:last-child { grid-column: 1 / -1; }

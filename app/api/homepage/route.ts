@@ -288,7 +288,7 @@ export async function GET(request: Request) {
       .hero .trust-line img{display:none!important}
       #market-report-narration-button-v1{display:none!important}
       @media(min-width:821px){.site-header .primary-nav{gap:16px}}
-      @media(max-width:720px){.homepage-county-directory{padding:50px 0}.homepage-county-directory-heading{display:block}.homepage-county-directory-all{display:inline-block;margin-top:14px}.homepage-county-directory-grid{grid-template-columns:1fr}.homepage-county-directory-grid>a{align-items:flex-start}.homepage-valuation-cta{display:block;margin-top:20px;padding:25px 22px}.homepage-valuation-cta>a{justify-content:center;width:100%;margin-top:20px}}
+      @media(max-width:720px){.homepage-county-directory{padding:50px 0}.homepage-county-directory-heading{display:block}.homepage-county-directory-all{display:inline-block;margin-top:14px}.homepage-county-directory-grid{grid-template-columns:1fr}.homepage-county-directory-grid>a{align-items:flex-start}.homepage-valuation-cta{display:block;margin-top:20px;padding:25px 22px}.homepage-valuation-cta span{font-size:12px}.homepage-valuation-cta p{font-size:15px;line-height:1.6}.homepage-valuation-cta>a{justify-content:center;width:100%;margin-top:20px;font-size:13px}}
     </style>`;
     if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v7"')) {
       enhancedHtml = enhancedHtml.replace("</head>", `${carouselStyle}</head>`);
