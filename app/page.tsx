@@ -18,7 +18,7 @@ export default async function Page() {
       <Script src="/assets/market-data-dropdown.js?v=10" strategy="afterInteractive" />
       <Script src="/assets/resources-dropdown.js?v=10" strategy="afterInteractive" />
       <Script src="/assets/header-menu-coordinator.js?v=4" strategy="afterInteractive" />
-      <Script src="/assets/header-menu-hover.js?v=1" strategy="afterInteractive" />
+      <Script src="/assets/header-menu-hover.js?v=2" strategy="afterInteractive" />
       <ListYourLicenseLinkFix />
       <HomeCarouselAvailableColorFix />
       <MarketReportAudioPortal />
