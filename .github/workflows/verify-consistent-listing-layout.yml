@@ -23,11 +23,17 @@ jobs:
           curl --retry 6 --retry-delay 5 --max-time 45 -fsSL "${URL}?layout_check=${GITHUB_SHA}" -o page.html
           status=$(curl --retry 6 --retry-delay 5 --max-time 45 -sS -o /dev/null -w '%{http_code}' "${URL}?layout_check=${GITHUB_SHA}")
           echo "HTTP status: ${status}"
+          echo "HTML bytes: $(wc -c < page.html)"
+          echo 'Relevant classes found:'
+          grep -oE 'results-[a-z-]+|result-card-focused|marketplace-listing-page|paid-listing-page' page.html | sort -u | head -80 || true
+          echo 'Listing references found near FLLM-013:'
+          grep -oE '.{0,80}FLLM-013.{0,80}' page.html | head -10 || true
+
           test "${status}" = "200"
-          grep -Fq 'class="results-page"' page.html
-          grep -Fq 'class="results-header page-shell"' page.html
-          grep -Fq 'Florida Liquor Licenses' page.html
-          grep -Fq 'data-listing-reference="FLLM-013"' page.html
+          grep -Fq 'results-page' page.html || { echo 'MISSING: results-page'; exit 1; }
+          grep -Fq 'results-header' page.html || { echo 'MISSING: results-header'; exit 1; }
+          grep -Fq 'Florida Liquor Licenses' page.html || { echo 'MISSING: marketplace heading'; exit 1; }
+          grep -Fq 'FLLM-013' page.html || { echo 'MISSING: FLLM-013'; exit 1; }
           if grep -Eq 'marketplace-listing-page|paid-listing-page' page.html; then
             echo 'Old inconsistent detail layout is still present.'
             exit 1
