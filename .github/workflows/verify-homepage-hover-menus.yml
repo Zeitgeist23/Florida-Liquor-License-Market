@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - ".github/workflows/verify-homepage-hover-menus.yml"
+      - "public/assets/header-menu-coordinator.js"
   workflow_dispatch:
 
 permissions:
@@ -23,7 +24,7 @@ jobs:
           set -euo pipefail
           for attempt in $(seq 1 30); do
             body="$(curl -fsSL "https://www.floridaliquorlicensemarket.com/assets/header-menu-coordinator.js?v=2&verify=${GITHUB_SHA}" || true)"
-            if grep -q 'OPEN_DELAY_MS = 150' <<<"$body" && grep -q 'scheduleOpen' <<<"$body"; then
+            if grep -q 'OPEN_DELAY_MS = 150' <<<"$body" && grep -q 'suppressFocusOpenUntil' <<<"$body"; then
               echo "Updated coordinator asset is live."
               exit 0
             fi
@@ -93,7 +94,7 @@ jobs:
             await page.waitForTimeout(100);
             assert.equal(await marketMenu.isVisible(), true, "Click fallback did not open Market Data menu");
             await page.keyboard.press("Escape");
-            await page.waitForTimeout(100);
+            await page.waitForTimeout(150);
             assert.equal(await marketMenu.isVisible(), false, "Escape did not close the click-opened Market Data menu");
 
             console.log("LIVE HOVER MENU TEST PASSED");
