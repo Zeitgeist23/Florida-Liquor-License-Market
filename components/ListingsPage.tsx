@@ -4,9 +4,36 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { Listing } from "@/data/listings";
+import ListingsHoverSelect, { type ListingsHoverSelectOption } from "./ListingsHoverSelect";
 import MarketplaceListingCard from "./MarketplaceListingCard";
 
 const counties = `Alachua County,Baker County,Bay County,Bradford County,Brevard County,Broward County,Calhoun County,Charlotte County,Citrus County,Clay County,Collier County,Columbia County,DeSoto County,Dixie County,Duval County,Escambia County,Flagler County,Franklin County,Gadsden County,Gilchrist County,Glades County,Gulf County,Hamilton County,Hardee County,Hendry County,Hernando County,Highlands County,Hillsborough County,Holmes County,Indian River County,Jackson County,Jefferson County,Lafayette County,Lake County,Lee County,Leon County,Levy County,Liberty County,Madison County,Manatee County,Marion County,Martin County,Miami-Dade County,Monroe County,Nassau County,Okaloosa County,Okeechobee County,Orange County,Osceola County,Palm Beach County,Pasco County,Pinellas County,Polk County,Putnam County,Santa Rosa County,Sarasota County,Seminole County,St. Johns County,St. Lucie County,Sumter County,Suwannee County,Taylor County,Union County,Volusia County,Wakulla County,Walton County,Washington County`.split(",");
+
+const countyOptions: readonly ListingsHoverSelectOption[] = [
+  { value: "all", label: "All Florida Counties" },
+  ...counties.map((name) => ({ value: name, label: name })),
+];
+
+const licenseTypeOptions: readonly ListingsHoverSelectOption[] = [
+  { value: "all", label: "All License Types" },
+  { value: "4COP Quota", label: "4COP Quota" },
+  { value: "3PS Quota / Package Store", label: "3PS Quota / Package Store" },
+];
+
+const priceOptions: readonly ListingsHoverSelectOption[] = [
+  { value: "all", label: "All Prices" },
+  { value: "under150", label: "Under $150,000" },
+  { value: "150to350", label: "$150,000–$350,000" },
+  { value: "350to500", label: "$350,000–$500,000" },
+  { value: "500to1m", label: "$500,000–$1 Million" },
+  { value: "over1m", label: "Over $1 Million" },
+];
+
+const statusOptions: readonly ListingsHoverSelectOption[] = [
+  { value: "all", label: "Available & Sold" },
+  { value: "available", label: "Available" },
+  { value: "sold", label: "Sold" },
+];
 
 const faqLinks = [
   {
@@ -133,10 +160,42 @@ export default function ListingsPage({ initialListings, focusReference = null }:
       <section className="results-intro"><div className="page-shell"><span>Florida Marketplace Inventory</span><h1>Florida Liquor Licenses <span className="listings-title-gold">for Sale</span></h1><p className="listings-seo-intro">Browse {availableCount} current Florida liquor licenses for sale. Filter by county, license type, asking price, and availability.</p></div></section>
       <section className="results-content"><div className="page-shell">
         <form className="results-filters" onSubmit={(event) => event.preventDefault()}>
-          <label><span>County</span><select value={county} onChange={(event) => setCounty(event.target.value)}><option value="all">All Florida Counties</option>{counties.map((name) => <option key={name} value={name}>{name}</option>)}</select></label>
-          <label><span>License Type</span><select value={type} onChange={(event) => setType(event.target.value)}><option value="all">All License Types</option><option value="4COP Quota">4COP Quota</option><option value="3PS Quota / Package Store">3PS Quota / Package Store</option></select></label>
-          <label><span>Price Range</span><select value={price} onChange={(event) => setPrice(event.target.value)}><option value="all">All Prices</option><option value="under150">Under $150,000</option><option value="150to350">$150,000–$350,000</option><option value="350to500">$350,000–$500,000</option><option value="500to1m">$500,000–$1 Million</option><option value="over1m">Over $1 Million</option></select></label>
-          <label><span>Status</span><select value={status} onChange={(event) => setStatus(event.target.value)}><option value="all">Available &amp; Sold</option><option value="available">Available</option><option value="sold">Sold</option></select></label>
+          <label>
+            <span>County</span>
+            <ListingsHoverSelect
+              ariaLabel="Filter listings by Florida county"
+              value={county}
+              options={countyOptions}
+              onChange={setCounty}
+            />
+          </label>
+          <label>
+            <span>License Type</span>
+            <ListingsHoverSelect
+              ariaLabel="Filter listings by license type"
+              value={type}
+              options={licenseTypeOptions}
+              onChange={setType}
+            />
+          </label>
+          <label>
+            <span>Price Range</span>
+            <ListingsHoverSelect
+              ariaLabel="Filter listings by asking price"
+              value={price}
+              options={priceOptions}
+              onChange={setPrice}
+            />
+          </label>
+          <label>
+            <span>Status</span>
+            <ListingsHoverSelect
+              ariaLabel="Filter listings by availability"
+              value={status}
+              options={statusOptions}
+              onChange={setStatus}
+            />
+          </label>
           <button className="btn btn-gold" type="submit">Apply Filters</button>
         </form>
         <div className="inventory-disclaimer">Listings are for liquor-license interests only unless expressly stated otherwise. Businesses and real estate are not included. <Link href="/florida-4cop-liquor-license-for-sale">Florida 4COP licenses for sale</Link> · <Link href="/florida-3ps-liquor-license-for-sale">Florida 3PS licenses for sale</Link> · <Link href="/counties">All 67 county markets</Link>.</div>
