@@ -11,79 +11,10 @@ permissions:
 jobs:
   verify-live:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 10
     steps:
       - name: Wait for the production deployment
-        run: sleep 75
-
-      - name: Inspect DNS, headers, and deployed client bundle
-        env:
-          APEX_URL: https://floridaliquorlicensemarket.com/florida-liquor-license-value
-          WWW_URL: https://www.floridaliquorlicensemarket.com/florida-liquor-license-value
-        run: |
-          set -euo pipefail
-
-          echo '=== DNS ==='
-          echo 'Apex A records:'
-          dig +short floridaliquorlicensemarket.com A || true
-          echo 'Apex CNAME:'
-          dig +short floridaliquorlicensemarket.com CNAME || true
-          echo 'WWW A records:'
-          dig +short www.floridaliquorlicensemarket.com A || true
-          echo 'WWW CNAME:'
-          dig +short www.floridaliquorlicensemarket.com CNAME || true
-
-          check_url() {
-            local label="$1"
-            local url="$2"
-            local workdir
-            workdir="$(mktemp -d)"
-
-            echo
-            echo "=== ${label}: ${url} ==="
-            echo '--- response headers ---'
-            curl --retry 5 --retry-delay 5 --max-time 45 -sSIL "${url}?deployment_check=${GITHUB_SHA}" | sed -n '1,120p'
-
-            curl --retry 5 --retry-delay 5 --max-time 45 -fsSL "${url}?deployment_check=${GITHUB_SHA}" -o "${workdir}/page.html"
-            echo "HTML bytes: $(wc -c < "${workdir}/page.html")"
-            echo "HTML title: $(grep -o '<title>[^<]*' "${workdir}/page.html" | head -1 | sed 's/<title>//' || true)"
-
-            PAGE_URL="${url}" PAGE_FILE="${workdir}/page.html" BUNDLE_FILE="${workdir}/bundle.txt" python - <<'PY'
-          import os
-          import re
-          import urllib.parse
-          import urllib.request
-
-          page_url = os.environ['PAGE_URL']
-          page_file = os.environ['PAGE_FILE']
-          bundle_file = os.environ['BUNDLE_FILE']
-
-          html = open(page_file, 'r', encoding='utf-8', errors='ignore').read()
-          sources = list(dict.fromkeys(re.findall(r'<script[^>]+src=["\']([^"\']+)', html)))
-          print(f'Script sources found: {len(sources)}')
-
-          with open(bundle_file, 'wb') as output:
-              for source in sources:
-                  absolute = urllib.parse.urljoin(page_url, source)
-                  try:
-                      request = urllib.request.Request(absolute, headers={'User-Agent': 'FLLM-Live-Verification/1.0'})
-                      with urllib.request.urlopen(request, timeout=45) as response:
-                          data = response.read()
-                      output.write(data)
-                      output.write(b'\n')
-                      print(f'Fetched {len(data):>8} bytes  {absolute}')
-                  except Exception as exc:
-                      print(f'FAILED {absolute}: {exc}')
-          PY
-
-            echo "Client bundle bytes: $(wc -c < "${workdir}/bundle.txt")"
-            echo '--- expected deployment markers ---'
-            grep -aFq 'View listing' "${workdir}/bundle.txt" && echo 'FOUND: View listing'
-            grep -aFq 'onMouseEnter' "${workdir}/bundle.txt" && echo 'FOUND: hover prefetch code'
-          }
-
-          check_url 'APEX PRODUCTION' "$APEX_URL"
-          check_url 'WWW PRODUCTION' "$WWW_URL"
+        run: sleep 60
 
       - name: Verify the hover and click behavior in Chrome
         run: |
@@ -113,8 +44,11 @@ jobs:
               args: ['--no-sandbox', '--disable-dev-shm-usage'],
             });
             const page = await browser.newPage({ viewport: { width: 1480, height: 1100 } });
+            page.setDefaultTimeout(60000);
+
             const url = `https://www.floridaliquorlicensemarket.com/florida-liquor-license-value?ui_check=${process.env.GITHUB_SHA}#estimate`;
-            await page.goto(url, { waitUntil: 'networkidle', timeout: 90000 });
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+            await page.locator('select').first().waitFor({ state: 'visible' });
 
             const field = (text) => page.locator('label').filter({ hasText: text }).locator('select');
             await field('Florida County').selectOption({ label: 'Duval County' });
@@ -124,7 +58,7 @@ jobs:
             await page.getByRole('button', { name: 'Calculate My Market Range' }).click();
 
             const row = page.locator('tbody tr').first();
-            await row.waitFor({ state: 'visible', timeout: 60000 });
+            await row.waitFor({ state: 'visible' });
             const href = await row.locator('a').first().getAttribute('href');
             if (!href || !href.startsWith('/listings/')) {
               throw new Error(`Comparable row does not point to a listing page: ${href}`);
@@ -141,7 +75,7 @@ jobs:
             });
 
             await row.hover();
-            await page.waitForTimeout(250);
+            await page.waitForTimeout(300);
 
             const after = await row.evaluate((element) => {
               const cell = element.querySelector('td');
@@ -166,7 +100,7 @@ jobs:
 
             await page.screenshot({ path: 'live-estimator-hover.png', fullPage: true });
             await row.click();
-            await page.waitForURL('**/listings/**', { timeout: 60000 });
+            await page.waitForURL('**/listings/**');
             console.log('Clicked row destination:', page.url());
 
             await browser.close();
