@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { countySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
 import {
@@ -68,6 +68,10 @@ function compactCardDescription(description: string) {
   return `${clipped}…`;
 }
 
+function listingIdentity(listing: Pick<Listing, "county" | "type" | "price" | "priceLabel">) {
+  return `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
+}
+
 function ListingDescription({ listing }: { listing: Listing }) {
   const fullDescription = countyListingDescription(listing.county);
   return (
@@ -77,30 +81,67 @@ function ListingDescription({ listing }: { listing: Listing }) {
   );
 }
 
-export default function ListingsPage({ initialListings }: { initialListings: Listing[] }) {
+type ListingsPageProps = {
+  initialListings: Listing[];
+  focusReference?: string | null;
+};
+
+export default function ListingsPage({ initialListings, focusReference = null }: ListingsPageProps) {
   const [county, setCounty] = useState("all");
   const [type, setType] = useState("all");
   const [price, setPrice] = useState("all");
   const [status, setStatus] = useState("available");
+  const focusedCardRef = useRef<HTMLElement | null>(null);
+
+  const normalizedFocusReference = focusReference?.trim().toLowerCase() || "";
+  const focusListing = useMemo(
+    () => normalizedFocusReference
+      ? initialListings.find((listing) => listing.sourceRef?.trim().toLowerCase() === normalizedFocusReference)
+      : undefined,
+    [initialListings, normalizedFocusReference]
+  );
+  const focusIdentity = focusListing ? listingIdentity(focusListing) : "";
 
   const marketplaceListings = useMemo(() => Array.from(
     new Map(initialListings.map((listing) => [
-      `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`,
+      listingIdentity(listing),
       listing,
     ])).values()
   ), [initialListings]);
+
+  const orderedMarketplaceListings = useMemo(() => {
+    if (!focusIdentity) return marketplaceListings;
+
+    const selected: Listing[] = [];
+    const remaining: Listing[] = [];
+    for (const listing of marketplaceListings) {
+      if (listingIdentity(listing) === focusIdentity) selected.push(listing);
+      else remaining.push(listing);
+    }
+    return [...selected, ...remaining];
+  }, [focusIdentity, marketplaceListings]);
 
   const availableCount = useMemo(
     () => marketplaceListings.filter((listing) => Boolean(listing.sourceRef)).length,
     [marketplaceListings]
   );
 
-  const filtered = useMemo(() => marketplaceListings.filter((listing) =>
+  const filtered = useMemo(() => orderedMarketplaceListings.filter((listing) =>
     (county === "all" || listing.county === county) &&
     (type === "all" || listing.type === type) &&
     priceMatches(listing.price, price) &&
     (status === "all" || (status === "available" ? Boolean(listing.sourceRef) : !listing.sourceRef))
-  ), [county, type, price, status, marketplaceListings]);
+  ), [county, type, price, status, orderedMarketplaceListings]);
+
+  useEffect(() => {
+    if (!focusIdentity || !focusedCardRef.current) return;
+
+    const timeout = window.setTimeout(() => {
+      focusedCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 220);
+
+    return () => window.clearTimeout(timeout);
+  }, [focusIdentity]);
 
   function clearFilters() {
     setCounty("all");
@@ -128,7 +169,13 @@ export default function ListingsPage({ initialListings }: { initialListings: Lis
         <div className="results-summary"><strong>{filtered.length}</strong> matching listing{filtered.length === 1 ? "" : "s"}<button type="button" onClick={clearFilters}>Clear all filters</button></div>
         {filtered.length ? <div className="results-grid">{filtered.map((listing) => {
           const available = Boolean(listing.sourceRef);
-          return <article className={`result-card ${available ? "result-card-available" : "result-card-sold"}`} key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
+          const isFocused = Boolean(focusIdentity) && listingIdentity(listing) === focusIdentity;
+          return <article
+            className={`result-card ${available ? "result-card-available" : "result-card-sold"}${isFocused ? " result-card-focused" : ""}`}
+            key={listing.sourceRef ?? `${listing.county}-${listing.price}`}
+            ref={isFocused ? focusedCardRef : undefined}
+            data-listing-reference={listing.sourceRef || undefined}
+          >
             <span className="result-type-badge">{listing.type}</span>
             <div className="result-photo"><FloridaCountyMap county={listing.county} enlarged /></div>
             <div className="result-body">
