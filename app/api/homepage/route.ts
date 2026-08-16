@@ -216,6 +216,22 @@ function addNationalMarketplaceLinks(html: string) {
   return updated;
 }
 
+function insertHomepageValuationCta(html: string) {
+  if (html.includes('id="homepage-valuation-cta"')) return html;
+
+  const cta = `<section class="homepage-valuation-cta page-shell" id="homepage-valuation-cta" aria-labelledby="homepage-valuation-cta-title">
+    <div>
+      <span>Free Florida Market Estimate</span>
+      <h2 id="homepage-valuation-cta-title">How much is your Florida liquor license worth?</h2>
+      <p>Use recent asking prices and county-level market data to estimate a value range in minutes.</p>
+    </div>
+    <a href="/florida-liquor-license-value">Calculate License Value <i aria-hidden="true">›</i></a>
+  </section>`;
+  const statsPattern = /<section\b[^>]*class="[^"]*\bstats\b[^"]*"[^>]*>/i;
+
+  return html.replace(statsPattern, `${cta}$&`);
+}
+
 export async function GET(request: Request) {
   try {
     const dailyKey = floridaDateKey();
@@ -235,7 +251,7 @@ export async function GET(request: Request) {
         carouselListings,
       ),
     ));
-    enhancedHtml = addNationalMarketplaceLinks(enhancedHtml);
+    enhancedHtml = insertHomepageValuationCta(addNationalMarketplaceLinks(enhancedHtml));
 
     const carouselStyle = `<style id="homepage-available-carousel-styles-v7">
       .homepage-carousel-card-link{display:block;height:100%;color:inherit;text-decoration:none}
@@ -260,10 +276,19 @@ export async function GET(request: Request) {
       .homepage-county-directory-grid strong{display:block;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:19px}
       .homepage-county-directory-grid small{display:block;margin-top:4px;color:#9da8ae;font-size:10px}
       .homepage-county-directory-grid i{flex:0 0 auto;color:#f1a600;font-size:10px;font-style:normal;font-weight:900;text-transform:uppercase}
+      .homepage-valuation-cta{display:flex;align-items:center;justify-content:space-between;gap:30px;margin-top:28px;margin-bottom:8px;padding:30px 34px;border:1px solid #b88622;border-radius:5px;background:linear-gradient(125deg,#061728 0%,#0b2236 68%,#51380b 145%);box-shadow:0 15px 34px rgba(4,19,32,.16);color:#fff}
+      .homepage-valuation-cta>div{max-width:720px}
+      .homepage-valuation-cta span{display:block;color:#f1a600;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+      .homepage-valuation-cta h2{margin:7px 0 7px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:clamp(25px,3vw,36px);line-height:1.08}
+      .homepage-valuation-cta p{margin:0;color:#cbd5dc;font-size:12px;line-height:1.55}
+      .homepage-valuation-cta>a{display:inline-flex;flex:0 0 auto;align-items:center;gap:16px;min-height:48px;padding:0 20px;border-radius:3px;background:#f1a600;color:#071827;font-size:11px;font-weight:900;letter-spacing:.035em;text-decoration:none;text-transform:uppercase}
+      .homepage-valuation-cta>a:hover{background:#ffc13a}
+      .homepage-valuation-cta>a:focus-visible{outline:3px solid #fff;outline-offset:3px}
+      .homepage-valuation-cta>a i{font-size:20px;font-style:normal;line-height:1}
       .hero .trust-line img{display:none!important}
       #market-report-narration-button-v1{display:none!important}
       @media(min-width:821px){.site-header .primary-nav{gap:16px}}
-      @media(max-width:720px){.homepage-county-directory{padding:50px 0}.homepage-county-directory-heading{display:block}.homepage-county-directory-all{display:inline-block;margin-top:14px}.homepage-county-directory-grid{grid-template-columns:1fr}.homepage-county-directory-grid>a{align-items:flex-start}}
+      @media(max-width:720px){.homepage-county-directory{padding:50px 0}.homepage-county-directory-heading{display:block}.homepage-county-directory-all{display:inline-block;margin-top:14px}.homepage-county-directory-grid{grid-template-columns:1fr}.homepage-county-directory-grid>a{align-items:flex-start}.homepage-valuation-cta{display:block;margin-top:20px;padding:25px 22px}.homepage-valuation-cta>a{justify-content:center;width:100%;margin-top:20px}}
     </style>`;
     if (!enhancedHtml.includes('id="homepage-available-carousel-styles-v7"')) {
       enhancedHtml = enhancedHtml.replace("</head>", `${carouselStyle}</head>`);
@@ -292,7 +317,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/completed-sales-logo-size.js"></script>',
       '<script defer src="/assets/market-insights-popup-size.js"></script>',
       '<script defer src="/assets/homepage-listing-search.js"></script>',
-      '<script defer src="/assets/market-data-dropdown.js?v=5"></script>',
+      '<script defer src="/assets/market-data-dropdown.js?v=10"></script>',
       '<script defer src="/assets/market-heat-map-fit-v4.js?v=7"></script>',
       '<script defer src="/assets/market-heat-map.js?v=4"></script>',
       '<script defer src="/assets/market-heat-map-popup-cards-v3.js?v=2"></script>',
