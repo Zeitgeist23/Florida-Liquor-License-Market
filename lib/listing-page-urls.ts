@@ -25,10 +25,6 @@ function isPaidMarketplaceRef(sourceRef: string) {
   return /^FLLM-PAID-/i.test(sourceRef.trim());
 }
 
-function listingCardIdentity(listing: Pick<Listing, "county" | "type" | "price" | "priceLabel">) {
-  return `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
-}
-
 export function listingPageSlug(listing: Pick<Listing, "county" | "type" | "sourceRef">) {
   if (!listing.sourceRef) return null;
 
@@ -53,24 +49,20 @@ export type IndexableListingPage = {
 };
 
 export function indexableListingPages(input: Listing[]): IndexableListingPage[] {
-  // Keep routing in lockstep with the Listings page. The visible card grid uses
-  // the same county/type/price identity with last-write-wins behavior. Building
-  // detail pages from that exact set guarantees that every displayed AVAILABLE
-  // card has a matching /listings/[slug] route instead of a possible 404.
-  const visibleListings = Array.from(
-    new Map(input.map((listing) => [listingCardIdentity(listing), listing])).values()
-  );
-
   const pages = new Map<string, IndexableListingPage>();
 
-  for (const listing of visibleListings) {
+  // Every active source reference can be surfaced as a comparable in the value
+  // estimator, including two listings that happen to share the same county,
+  // license type, and asking price. Build a detail route for every distinct
+  // listing slug so none of those estimator links can lead to a 404.
+  for (const listing of input) {
     if (!listing.sourceRef) continue;
 
     const slug = listingPageSlug(listing);
     if (!slug) continue;
 
-    // If one source reference appears more than once, keep the latest visible
-    // record so the detail page agrees with the card the visitor actually saw.
+    // If the same canonical source reference appears more than once, keep the
+    // latest record so the detail page reflects the current marketplace data.
     pages.set(slug, { slug, listing });
   }
 
