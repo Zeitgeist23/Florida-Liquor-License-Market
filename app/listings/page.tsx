@@ -34,7 +34,7 @@ const faqs = [
   {
     question: "What is a Florida 4COP quota liquor license?",
     answer:
-      "A 4COP quota license is a county-limited full-liquor license used within its approved privileges for beer, wine, and spirits. It is commonly associated with bars, taverns, cocktail lounges, nightclubs, and full-liquor restaurant concepts, subject to state and local approvals.",
+      "A Florida 4COP quota license is a county-specific, transferable full-liquor license that may authorize beer, wine, and spirits sales for on-premises consumption and package sales within its approved privileges. It is commonly used by bars, taverns, cocktail lounges, nightclubs, and full-liquor restaurants. Proposed premises, zoning, and state transfer approval remain separate requirements.",
   },
   {
     question: "What is a Florida 3PS liquor license?",
