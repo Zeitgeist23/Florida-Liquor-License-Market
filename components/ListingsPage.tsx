@@ -2,14 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { countySlug } from "@/data/florida-counties";
+
 import type { Listing } from "@/data/listings";
-import {
-  countyListingDescription,
-  sellerReportedStatusLabel,
-} from "@/lib/county-listing-descriptions";
-import { listingPageHref } from "@/lib/listing-page-urls";
-import FloridaCountyMap from "./FloridaCountyMap";
+import MarketplaceListingCard from "./MarketplaceListingCard";
 
 const counties = `Alachua County,Baker County,Bay County,Bradford County,Brevard County,Broward County,Calhoun County,Charlotte County,Citrus County,Clay County,Collier County,Columbia County,DeSoto County,Dixie County,Duval County,Escambia County,Flagler County,Franklin County,Gadsden County,Gilchrist County,Glades County,Gulf County,Hamilton County,Hardee County,Hendry County,Hernando County,Highlands County,Hillsborough County,Holmes County,Indian River County,Jackson County,Jefferson County,Lafayette County,Lake County,Lee County,Leon County,Levy County,Liberty County,Madison County,Manatee County,Marion County,Martin County,Miami-Dade County,Monroe County,Nassau County,Okaloosa County,Okeechobee County,Orange County,Osceola County,Palm Beach County,Pasco County,Pinellas County,Polk County,Putnam County,Santa Rosa County,Sarasota County,Seminole County,St. Johns County,St. Lucie County,Sumter County,Suwannee County,Taylor County,Union County,Volusia County,Wakulla County,Walton County,Washington County`.split(",");
 
@@ -56,29 +51,8 @@ function priceMatches(price: number | null, range: string) {
     (range === "over1m" && price > 1000000);
 }
 
-function compactCardDescription(description: string) {
-  const clean = description.trim();
-  const maxCharacters = 122;
-  if (clean.length <= maxCharacters) return clean;
-
-  const tentative = clean.slice(0, maxCharacters + 1);
-  const lastSpace = tentative.lastIndexOf(" ");
-  const cutoff = lastSpace >= 92 ? lastSpace : maxCharacters;
-  const clipped = clean.slice(0, cutoff).replace(/[,:;.!?\s]+$/g, "");
-  return `${clipped}…`;
-}
-
 function listingIdentity(listing: Pick<Listing, "county" | "type" | "price" | "priceLabel">) {
   return `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
-}
-
-function ListingDescription({ listing }: { listing: Listing }) {
-  const fullDescription = countyListingDescription(listing.county);
-  return (
-    <div className="result-description">
-      <p title={fullDescription}>{compactCardDescription(fullDescription)}</p>
-    </div>
-  );
 }
 
 type ListingsPageProps = {
@@ -167,30 +141,21 @@ export default function ListingsPage({ initialListings, focusReference = null }:
         </form>
         <div className="inventory-disclaimer">Listings are for liquor-license interests only unless expressly stated otherwise. Businesses and real estate are not included. <Link href="/florida-4cop-liquor-license-for-sale">Florida 4COP licenses for sale</Link> · <Link href="/florida-3ps-liquor-license-for-sale">Florida 3PS licenses for sale</Link> · <Link href="/counties">All 67 county markets</Link>.</div>
         <div className="results-summary"><strong>{filtered.length}</strong> matching listing{filtered.length === 1 ? "" : "s"}<button type="button" onClick={clearFilters}>Clear all filters</button></div>
-        {filtered.length ? <div className="results-grid">{filtered.map((listing) => {
-          const available = Boolean(listing.sourceRef);
-          const isFocused = Boolean(focusIdentity) && listingIdentity(listing) === focusIdentity;
-          return <article
-            className={`result-card ${available ? "result-card-available" : "result-card-sold"}${isFocused ? " result-card-focused" : ""}`}
-            key={listing.sourceRef ?? `${listing.county}-${listing.price}`}
-            ref={isFocused ? focusedCardRef : undefined}
-            data-listing-reference={listing.sourceRef || undefined}
-          >
-            <span className="result-type-badge">{listing.type}</span>
-            <div className="result-photo"><FloridaCountyMap county={listing.county} enlarged /></div>
-            <div className="result-body">
-              <p className="result-county-row"><span className="result-pin" aria-hidden="true">●</span><Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p>
-              <h2>{available ? <Link href={listingPageHref(listing)} aria-label={`View ${listing.type} listing in ${listing.county}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link> : listing.priceLabel}</h2>
-              <div className="result-facts">
-                {available ? <span className="availability-pill" title={listing.licenseStatus ? sellerReportedStatusLabel(listing.licenseStatus) : "Status to confirm"}><span className="availability-dot" aria-hidden="true" />Available</span> : <span className="sold-status-inline">Sold</span>}
-              </div>
-              <ListingDescription listing={listing} />
-              <div className="result-actions">
-                {available ? <Link className="btn btn-gold result-view-button" href={listingPageHref(listing)}>View License <span aria-hidden="true">›</span></Link> : <span className="sold-status">SOLD</span>}
-              </div>
-            </div>
-          </article>;
-        })}</div> : <div className="no-results"><strong>No listings match all filters.</strong><p>Try broadening the county, price range, license type, or status.</p><button className="btn btn-gold" type="button" onClick={clearFilters}>View All Listings</button></div>}
+        {filtered.length ? (
+          <div className="results-grid">
+            {filtered.map((listing) => {
+              const isFocused = Boolean(focusIdentity) && listingIdentity(listing) === focusIdentity;
+              return (
+                <MarketplaceListingCard
+                  listing={listing}
+                  focused={isFocused}
+                  cardRef={isFocused ? focusedCardRef : undefined}
+                  key={listing.sourceRef ?? `${listing.county}-${listing.type}-${listing.priceLabel}`}
+                />
+              );
+            })}
+          </div>
+        ) : <div className="no-results"><strong>No listings match all filters.</strong><p>Try broadening the county, price range, license type, or status.</p><button className="btn btn-gold" type="button" onClick={clearFilters}>View All Listings</button></div>}
       </div></section>
 
       <section className="listings-seo-footer">
