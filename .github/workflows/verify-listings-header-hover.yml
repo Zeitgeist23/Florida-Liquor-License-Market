@@ -55,13 +55,40 @@ jobs:
                 });
               });
 
+              await page.waitForFunction(() => {
+                const trigger = document.querySelector('[data-hover-test="market-data"]');
+                return trigger?.getAttribute('aria-haspopup') === 'menu';
+              }, { timeout: 15000 });
+
+              const diagnostics = await page.evaluate(() => ({
+                hoverQuery: window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 900px)').matches,
+                anyHoverQuery: window.matchMedia('(any-hover: hover) and (any-pointer: fine)').matches,
+                width: window.innerWidth,
+                marketExpanded: document.querySelector('[data-hover-test="market-data"]')?.getAttribute('aria-expanded'),
+                scriptSources: Array.from(document.scripts)
+                  .map((script) => script.src)
+                  .filter((src) => /market-data-dropdown|resources-dropdown|header-menu-hover/.test(src)),
+              }));
+              console.log('Diagnostics:', JSON.stringify(diagnostics));
+
+              await page.click('[data-hover-test="market-data"]');
+              await sleep(250);
+              const clickOpened = await page.$eval(
+                '.market-data-header-menu',
+                (menu) => menu.classList.contains('is-open'),
+              );
+              if (!clickOpened) throw new Error('Market Data did not open on click.');
+
+              await page.click('[data-hover-test="market-data"]');
+              await sleep(250);
+
               await page.hover('[data-hover-test="market-data"]');
-              await sleep(550);
+              await sleep(650);
               const marketOpened = await page.$eval(
                 '.market-data-header-menu',
                 (menu) => menu.classList.contains('is-open') && menu.getAttribute('aria-hidden') === 'false',
               );
-              if (!marketOpened) throw new Error('Market Data did not open on hover.');
+              if (!marketOpened) throw new Error(`Market Data did not open on hover. Diagnostics: ${JSON.stringify(diagnostics)}`);
 
               await page.hover('.market-data-header-menu button');
               await sleep(180);
@@ -72,7 +99,7 @@ jobs:
               if (!marketStayedOpen) throw new Error('Market Data closed while pointer entered the dropdown.');
 
               await page.hover('[data-hover-test="resources"]');
-              await sleep(550);
+              await sleep(650);
               const states = await page.evaluate(() => ({
                 marketOpen: document.querySelector('.market-data-header-menu')?.classList.contains('is-open') || false,
                 resourcesOpen: document.querySelector('.resources-header-menu')?.classList.contains('is-open') || false,
