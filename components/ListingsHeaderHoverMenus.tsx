@@ -635,7 +635,9 @@ export default function ListingsHeaderHoverMenus() {
     document.addEventListener("focusout", onFocusOut, true);
     window.addEventListener("resize", repositionOpenMenu);
     window.addEventListener("scroll", repositionOpenMenu, { passive: true });
-    window.addEventListener("blur", closeAll);
+    const onWindowBlur = () => closeAll();
+
+    window.addEventListener("blur", onWindowBlur);
 
     const retries = [250, 700, 1500, 2600].map((delay) =>
       window.setTimeout(enhanceListingsHeader, delay),
@@ -651,7 +653,7 @@ export default function ListingsHeaderHoverMenus() {
       document.removeEventListener("focusout", onFocusOut, true);
       window.removeEventListener("resize", repositionOpenMenu);
       window.removeEventListener("scroll", repositionOpenMenu);
-      window.removeEventListener("blur", closeAll);
+      window.removeEventListener("blur", onWindowBlur);
       retries.forEach((timeout) => window.clearTimeout(timeout));
       closeAll();
     };
