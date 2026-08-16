@@ -18,11 +18,7 @@ const SCRIPT_ASSETS = [
   },
   {
     id: "fllm-listings-heat-map-popup-cards-v3-script",
-    src: "/assets/market-heat-map-popup-cards-v3.js?v=2",
-  },
-  {
-    id: "fllm-listings-heat-map-listings-card-sync-v1-script",
-    src: "/assets/market-heat-map-listings-card-sync-v1.js?v=1",
+    src: "/assets/market-heat-map-popup-cards-v3.js?v=3",
   },
   {
     id: "fllm-listings-heat-map-county-links-script",

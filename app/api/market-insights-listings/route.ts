@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { countySlug, getCountyBySlug } from "@/data/florida-counties";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
+import { listingPageHref } from "@/lib/listing-page-urls";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +27,7 @@ export async function GET() {
       price: listing.price,
       priceLabel: listing.priceLabel,
       sourceRef: listing.sourceRef,
+      href: listingPageHref(listing),
     }));
 
   return NextResponse.json(
