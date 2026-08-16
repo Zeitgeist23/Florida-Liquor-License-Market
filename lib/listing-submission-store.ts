@@ -2,6 +2,8 @@ import "server-only";
 
 import { randomBytes } from "node:crypto";
 
+import { floridaCounties } from "@/data/florida-counties";
+
 export type SubmissionStatus =
   | "pending_payment"
   | "paid"
@@ -107,6 +109,32 @@ export type CreateBuyerLeadInput = {
   message?: string | null;
 };
 
+export type CreateValuationLeadInput = {
+  fullName: string;
+  email: string;
+  phone: string;
+  county: string;
+  licenseType: string;
+  licenseStatus: string;
+  preferredTiming: string;
+  targetPriceText?: string | null;
+  estimate: {
+    count: number;
+    low: number | null;
+    median: number | null;
+    high: number | null;
+    typicalLow: number | null;
+    typicalHigh: number | null;
+    confidence: string;
+    generatedAt: string;
+  };
+};
+
+const valuationCounties = new Set(floridaCounties.map((county) => county.name));
+const valuationLicenseTypes = new Set(["4COP Quota", "3PS Quota / Package Store"]);
+const valuationStatuses = new Set(["Active", "Inactive / Escrowed", "Pending transfer", "Not sure"]);
+const valuationTimings = new Set(["Ready now", "Within 30 days", "Within 60–90 days", "Researching options"]);
+
 function databaseConfigured() {
   return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
 }
@@ -193,6 +221,19 @@ function makeBuyerLeadRef() {
   return `FLLM-BUYER-${date}-${token}`;
 }
 
+function makeValuationLeadRef() {
+  const date = new Date().toISOString().slice(0, 10).replaceAll("-", "");
+  const token = randomBytes(4).toString("hex").toUpperCase();
+  return `FLLM-VALUE-${date}-${token}`;
+}
+
+function cleanEstimateAmount(value: number | null) {
+  if (value === null || !Number.isFinite(value) || value < 0 || value > 100_000_000) {
+    return null;
+  }
+  return Math.round(value);
+}
+
 function buyerListingParts(listingRequested: string) {
   const requested = cleanText(listingRequested, 180);
   const licenseType = /3PS/i.test(requested)
@@ -273,6 +314,86 @@ export async function createBuyerLead(input: CreateBuyerLeadInput) {
 
 export function isBuyerLead(submission: Pick<ListingSubmission, "submissionRef">) {
   return submission.submissionRef.startsWith("FLLM-BUYER-");
+}
+
+export function isValuationLead(submission: Pick<ListingSubmission, "submissionRef">) {
+  return submission.submissionRef.startsWith("FLLM-VALUE-");
+}
+
+export async function createValuationLead(input: CreateValuationLeadInput) {
+  requireDatabase();
+
+  const fullName = cleanText(input.fullName, 160);
+  const email = cleanText(input.email, 254).toLowerCase();
+  const phone = cleanText(input.phone, 60);
+  const county = cleanText(input.county, 100);
+  const licenseType = cleanText(input.licenseType, 100);
+  const licenseStatus = cleanText(input.licenseStatus, 120);
+  const preferredTiming = cleanText(input.preferredTiming, 120);
+
+  if (!fullName || !email || !phone || !county || !licenseType || !licenseStatus || !preferredTiming) {
+    throw new Error("Please complete all required valuation fields.");
+  }
+  if (
+    !valuationCounties.has(county) ||
+    !valuationLicenseTypes.has(licenseType) ||
+    !valuationStatuses.has(licenseStatus) ||
+    !valuationTimings.has(preferredTiming)
+  ) {
+    throw new Error("Please select valid Florida license details.");
+  }
+  if (!/^\S+@\S+\.\S+$/.test(email)) {
+    throw new Error("Please enter a valid email address.");
+  }
+
+  const targetPriceText = cleanText(input.targetPriceText, 60) || null;
+  const details = {
+    kind: "valuation_lead",
+    estimate: {
+      count: Math.max(0, Math.min(500, Math.round(input.estimate.count || 0))),
+      low: cleanEstimateAmount(input.estimate.low),
+      median: cleanEstimateAmount(input.estimate.median),
+      high: cleanEstimateAmount(input.estimate.high),
+      typicalLow: cleanEstimateAmount(input.estimate.typicalLow),
+      typicalHigh: cleanEstimateAmount(input.estimate.typicalHigh),
+      confidence: cleanText(input.estimate.confidence, 40),
+      generatedAt: cleanText(input.estimate.generatedAt, 40),
+    },
+  };
+  const now = new Date().toISOString();
+  const row = {
+    submission_ref: makeValuationLeadRef(),
+    full_name: fullName,
+    first_name: fullName.split(/\s+/)[0] || "there",
+    email,
+    phone,
+    county,
+    license_type: licenseType,
+    asking_price: parseAskingPrice(targetPriceText),
+    asking_price_text: targetPriceText,
+    license_status: licenseStatus,
+    preferred_timing: preferredTiming,
+    message: JSON.stringify(details),
+    status: "pending_payment" satisfies SubmissionStatus,
+    payment_email_status: "pending" satisfies EmailDeliveryStatus,
+    approval_email_status: "pending" satisfies EmailDeliveryStatus,
+    listing_title: `${county} ${licenseType} valuation request`,
+    created_at: now,
+    updated_at: now,
+  };
+
+  const response = await fetch(endpoint("listing_submissions"), {
+    method: "POST",
+    headers: supabaseHeaders({ Prefer: "return=representation" }),
+    body: JSON.stringify(row),
+    cache: "no-store",
+  });
+  if (!response.ok) {
+    throw new Error(`Could not save the valuation request: ${response.status} ${await response.text()}`);
+  }
+  const rows = (await response.json()) as SubmissionRow[];
+  if (!rows[0]) throw new Error("The valuation request was not returned by the database.");
+  return toSubmission(rows[0]);
 }
 
 export async function createListingSubmission(input: CreateSubmissionInput) {
@@ -480,7 +601,9 @@ export async function approveListingSubmission(input: {
 }
 
 export async function listListingSubmissions() {
-  return (await listLeadSubmissions()).filter((submission) => !isBuyerLead(submission));
+  return (await listLeadSubmissions()).filter(
+    (submission) => !isBuyerLead(submission) && !isValuationLead(submission),
+  );
 }
 
 export async function listLeadSubmissions() {

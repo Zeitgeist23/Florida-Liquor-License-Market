@@ -243,6 +243,7 @@ export default async function FloridaQuotaLiquorLicenseCostPage() {
           <div className="quota-cost-links">
             <Link href="/florida-4cop-liquor-license-for-sale">Florida 4COP Liquor Licenses for Sale<span>Compare current full-liquor quota listings and asking prices.</span></Link>
             <Link href="/florida-3ps-liquor-license-for-sale">Florida 3PS Liquor Licenses for Sale<span>Compare current package-store quota opportunities.</span></Link>
+            <Link href="/florida-liquor-license-value">Florida Liquor License Value Estimator<span>Calculate a county-specific market range from current asking-price comparables.</span></Link>
             <Link href="/sell-your-license">Sell My Florida Liquor License<span>List your license or request broker-assisted selling support.</span></Link>
           </div>
         </div>
@@ -262,7 +263,7 @@ export default async function FloridaQuotaLiquorLicenseCostPage() {
       <section className="seo-market-cta">
         <div className="seo-market-shell seo-market-cta-inner">
           <div><span className="seo-market-section-kicker">Need a County-Specific Answer?</span><h2>Compare inventory or estimate your selling price.</h2><p>Use live county inventory for buyer research or start a confidential seller intake if you own a Florida quota license.</p></div>
-          <div className="seo-market-actions"><Link className="seo-market-button seo-market-button-gold" href="/listings">Browse Licenses</Link><Link className="seo-market-button seo-market-button-dark" href="/sell-your-license">Sell Your License</Link></div>
+          <div className="seo-market-actions"><Link className="seo-market-button seo-market-button-gold" href="/florida-liquor-license-value">Calculate License Value</Link><Link className="seo-market-button seo-market-button-dark" href="/sell-your-license">Sell Your License</Link></div>
         </div>
       </section>
     </main>

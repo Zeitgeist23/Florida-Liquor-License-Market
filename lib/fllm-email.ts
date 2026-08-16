@@ -451,6 +451,129 @@ ${details.notes || "None provided"}`;
   });
 }
 
+type ValuationLeadDetails = {
+  kind?: string;
+  estimate?: {
+    count?: number;
+    low?: number | null;
+    median?: number | null;
+    high?: number | null;
+    typicalLow?: number | null;
+    typicalHigh?: number | null;
+    confidence?: string | null;
+    generatedAt?: string | null;
+  };
+};
+
+function valuationDetails(submission: ListingSubmission) {
+  try {
+    return JSON.parse(submission.message || "{}") as ValuationLeadDetails;
+  } catch {
+    return {};
+  }
+}
+
+function valuationRange(details: ValuationLeadDetails) {
+  const low = details.estimate?.typicalLow ?? details.estimate?.low ?? null;
+  const high = details.estimate?.typicalHigh ?? details.estimate?.high ?? null;
+  if (low === null && high === null) return "No exact county range available";
+  if (low === high || high === null) return formatMoney(low);
+  if (low === null) return formatMoney(high);
+  return `${formatMoney(low)}–${formatMoney(high)}`;
+}
+
+export async function notifyFllmOfValuationLead(submission: ListingSubmission) {
+  const reviewEmail = process.env.VALUATION_LEAD_REVIEW_EMAIL || senderEmail();
+  const details = valuationDetails(submission);
+  const content = `
+    <p style="margin:0 0 18px;"><strong>A license owner requested follow-up after using the FLLM market estimator.</strong></p>
+    <p style="margin:0 0 18px;">
+      <strong>Lead Reference:</strong> ${escapeHtml(submission.submissionRef)}<br>
+      <strong>Name:</strong> ${escapeHtml(submission.fullName)}<br>
+      <strong>Email:</strong> <a href="mailto:${escapeHtml(submission.email)}">${escapeHtml(submission.email)}</a><br>
+      <strong>Phone:</strong> ${escapeHtml(submission.phone)}<br>
+      <strong>County:</strong> ${escapeHtml(countyLabel(submission.county))}<br>
+      <strong>License Type:</strong> ${escapeHtml(submission.licenseType)}<br>
+      <strong>License Status:</strong> ${escapeHtml(submission.licenseStatus)}<br>
+      <strong>Seller Timing:</strong> ${escapeHtml(submission.preferredTiming || "Not provided")}<br>
+      <strong>Target Price:</strong> ${escapeHtml(formatMoney(submission.askingPrice))}
+    </p>
+    <p style="margin:0 0 18px;">
+      <strong>Automated Market Range:</strong> ${escapeHtml(valuationRange(details))}<br>
+      <strong>Median Asking Price:</strong> ${escapeHtml(formatMoney(details.estimate?.median ?? null))}<br>
+      <strong>Exact Comparables:</strong> ${escapeHtml(String(details.estimate?.count ?? 0))}<br>
+      <strong>Data Confidence:</strong> ${escapeHtml(details.estimate?.confidence || "Unavailable")}
+    </p>
+    <p style="margin:0;">The seller authorized FLLM to contact them about this estimate and selling options.</p>`;
+
+  const text = `A license owner requested follow-up after using the FLLM market estimator.
+
+Lead Reference: ${submission.submissionRef}
+Name: ${submission.fullName}
+Email: ${submission.email}
+Phone: ${submission.phone}
+County: ${countyLabel(submission.county)}
+License Type: ${submission.licenseType}
+License Status: ${submission.licenseStatus}
+Seller Timing: ${submission.preferredTiming || "Not provided"}
+Target Price: ${formatMoney(submission.askingPrice)}
+
+Automated Market Range: ${valuationRange(details)}
+Median Asking Price: ${formatMoney(details.estimate?.median ?? null)}
+Exact Comparables: ${details.estimate?.count ?? 0}
+Data Confidence: ${details.estimate?.confidence || "Unavailable"}
+
+The seller authorized FLLM to contact them about this estimate and selling options.`;
+
+  return sendFllmEmail({
+    to: reviewEmail,
+    replyTo: submission.email,
+    subject: `New Valuation Lead — ${submission.county} ${submission.licenseType} — ${submission.submissionRef}`,
+    text,
+    html: emailShell(content),
+  });
+}
+
+export async function sendValuationLeadAcknowledgement(submission: ListingSubmission) {
+  const details = valuationDetails(submission);
+  const firstName = escapeHtml(submission.firstName || "there");
+  const content = `
+    <p style="margin:0 0 18px;">Hello ${firstName},</p>
+    <p style="margin:0 0 18px;">We received your request to discuss the FLLM market estimate for your ${escapeHtml(countyLabel(submission.county))} ${escapeHtml(submission.licenseType)} license.</p>
+    <p style="margin:0 0 18px;">
+      <strong>Current asking-price range:</strong> ${escapeHtml(valuationRange(details))}<br>
+      <strong>Median asking price:</strong> ${escapeHtml(formatMoney(details.estimate?.median ?? null))}<br>
+      <strong>Comparable listings:</strong> ${escapeHtml(String(details.estimate?.count ?? 0))}<br>
+      <strong>Reference:</strong> ${escapeHtml(submission.submissionRef)}
+    </p>
+    <p style="margin:0 0 18px;">An FLLM representative may contact you to discuss timing, current buyer interest and listing options.</p>
+    <p style="margin:0;">This market estimate uses advertised asking prices. It is not an appraisal, verified closed-sale report or guarantee of sale price.</p>`;
+
+  const text = `Hello ${submission.firstName || "there"},
+
+We received your request to discuss the FLLM market estimate for your ${countyLabel(submission.county)} ${submission.licenseType} license.
+
+Current asking-price range: ${valuationRange(details)}
+Median asking price: ${formatMoney(details.estimate?.median ?? null)}
+Comparable listings: ${details.estimate?.count ?? 0}
+Reference: ${submission.submissionRef}
+
+An FLLM representative may contact you to discuss timing, current buyer interest and listing options.
+
+This market estimate uses advertised asking prices. It is not an appraisal, verified closed-sale report or guarantee of sale price.
+
+Florida Liquor License Market
+${senderEmail()}
+${siteUrl()}`;
+
+  return sendFllmEmail({
+    to: submission.email,
+    subject: `Your Florida Liquor License Market Estimate — ${submission.submissionRef}`,
+    text,
+    html: emailShell(content),
+  });
+}
+
 export async function sendBrokerConsultationAcknowledgement(submission: ListingSubmission) {
   const firstName = escapeHtml(submission.firstName || "there");
   const details = `

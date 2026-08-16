@@ -36,8 +36,22 @@ type BuyerDetails = {
   notes?: string | null;
 };
 
+type ValuationDetails = {
+  estimate?: {
+    count?: number;
+    median?: number | null;
+    typicalLow?: number | null;
+    typicalHigh?: number | null;
+    confidence?: string | null;
+  };
+};
+
 function isBuyer(lead: Lead) {
   return lead.submissionRef.startsWith("FLLM-BUYER-");
+}
+
+function isValuation(lead: Lead) {
+  return lead.submissionRef.startsWith("FLLM-VALUE-");
 }
 
 function buyerDetails(lead: Lead): BuyerDetails {
@@ -47,6 +61,24 @@ function buyerDetails(lead: Lead): BuyerDetails {
   } catch {
     return { notes: lead.message };
   }
+}
+
+function valuationDetails(lead: Lead): ValuationDetails {
+  if (!isValuation(lead) || !lead.message) return {};
+  try {
+    return JSON.parse(lead.message) as ValuationDetails;
+  } catch {
+    return {};
+  }
+}
+
+function estimatedRange(details: ValuationDetails) {
+  const low = details.estimate?.typicalLow ?? null;
+  const high = details.estimate?.typicalHigh ?? null;
+  if (low === null && high === null) return "No exact county range";
+  if (low === high || high === null) return money(low);
+  if (low === null) return money(high);
+  return `${money(low)}–${money(high)}`;
 }
 
 function money(value: number | null) {
@@ -59,6 +91,7 @@ function money(value: number | null) {
 }
 
 function sellerStage(lead: Lead) {
+  if (isValuation(lead)) return "Estimate follow-up requested";
   if (lead.submissionRef.startsWith("FLLM-CONSULT-")) return "Consultation requested";
   if (lead.status === "approved") return "Published seller";
   if (lead.status === "paid") return "Paid — awaiting review";
@@ -69,7 +102,9 @@ function sellerStage(lead: Lead) {
 
 function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) {
   const buyer = isBuyer(lead);
+  const valuation = isValuation(lead);
   const details = buyerDetails(lead);
+  const valuationData = valuationDetails(lead);
   const amount = lead.approvedAskingPrice ?? lead.askingPrice;
 
   return (
@@ -77,7 +112,7 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
       <div className="lead-card-heading">
         <div>
           <div className="lead-tags">
-            <span className={buyer ? "lead-type buyer" : "lead-type seller"}>{buyer ? "Buyer lead" : "Seller lead"}</span>
+            <span className={`lead-type ${buyer ? "buyer" : valuation ? "valuation" : "seller"}`}>{buyer ? "Buyer lead" : valuation ? "Valuation lead" : "Seller lead"}</span>
             <span className="lead-stage">{buyer ? "Verification pending" : sellerStage(lead)}</span>
             {contactCount > 1 && <span className="lead-repeat">{contactCount} submissions from this contact</span>}
           </div>
@@ -91,7 +126,7 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
         <div><strong>Email</strong><a href={`mailto:${lead.email}`}>{lead.email}</a></div>
         <div><strong>Phone</strong><a href={`tel:${lead.phone}`}>{lead.phone}</a></div>
         <div><strong>{buyer ? "Listing" : "County"}</strong><span>{buyer ? lead.listingTitle || `${lead.county} ${lead.licenseType}` : lead.county}</span></div>
-        <div><strong>{buyer ? "Offer" : "Asking Price"}</strong><span className="lead-money">{money(amount)}</span></div>
+        <div><strong>{buyer ? "Offer" : valuation ? "Target Price" : "Asking Price"}</strong><span className="lead-money">{money(amount)}</span></div>
         <div><strong>License Type</strong><span>{lead.licenseType}</span></div>
         <div><strong>{buyer ? "Listing Reference" : "Timing"}</strong><span>{buyer ? lead.liveListingRef || "Not provided" : lead.preferredTiming || "Not provided"}</span></div>
       </div>
@@ -103,6 +138,15 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
           <div><strong>Proof of Funds</strong><span>{details.proofOfFunds || "Not provided"}</span></div>
           <div><strong>Offer Expiration</strong><span>{details.offerExpiration || "Not provided"}</span></div>
         </div>
+      ) : valuation ? (
+        <div className="lead-secondary-grid">
+          <div><strong>Estimated Range</strong><span>{estimatedRange(valuationData)}</span></div>
+          <div><strong>Estimated Median</strong><span>{money(valuationData.estimate?.median ?? null)}</span></div>
+          <div><strong>Exact Comparables</strong><span>{valuationData.estimate?.count ?? 0}</span></div>
+          <div><strong>Confidence</strong><span>{valuationData.estimate?.confidence || "Unavailable"}</span></div>
+          <div><strong>License Status</strong><span>{lead.licenseStatus}</span></div>
+          <div><strong>Contact Consent</strong><span>Authorized</span></div>
+        </div>
       ) : (
         <div className="lead-secondary-grid">
           <div><strong>License Status</strong><span>{lead.licenseStatus}</span></div>
@@ -110,10 +154,10 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
         </div>
       )}
 
-      {(details.contingencies || details.notes || (!buyer && lead.message)) && (
+      {(details.contingencies || details.notes || (!buyer && !valuation && lead.message)) && (
         <div className="lead-notes">
           {details.contingencies && <p><strong>Contingencies</strong>{details.contingencies}</p>}
-          {(details.notes || (!buyer && lead.message)) && <p><strong>Notes</strong>{details.notes || lead.message}</p>}
+          {(details.notes || (!buyer && !valuation && lead.message)) && <p><strong>Notes</strong>{details.notes || lead.message}</p>}
         </div>
       )}
     </article>
@@ -123,7 +167,7 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
 export default function AdminLeadsClient() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
-  const [filter, setFilter] = useState<"all" | "buyers" | "sellers">("all");
+  const [filter, setFilter] = useState<"all" | "buyers" | "valuations" | "sellers">("all");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -164,8 +208,10 @@ export default function AdminLeadsClient() {
     const query = search.trim().toLowerCase();
     return leads.filter((lead) => {
       const buyer = isBuyer(lead);
+      const valuation = isValuation(lead);
       if (filter === "buyers" && !buyer) return false;
-      if (filter === "sellers" && buyer) return false;
+      if (filter === "valuations" && !valuation) return false;
+      if (filter === "sellers" && (buyer || valuation)) return false;
       if (!query) return true;
       return [lead.fullName, lead.email, lead.phone, lead.county, lead.licenseType, lead.submissionRef, lead.listingTitle, lead.liveListingRef]
         .filter(Boolean)
@@ -188,8 +234,8 @@ export default function AdminLeadsClient() {
   }
 
   const buyers = leads.filter(isBuyer).length;
-  const sellers = leads.length - buyers;
-  const recent = leads.filter((lead) => Date.now() - new Date(lead.createdAt).getTime() <= 7 * 24 * 60 * 60 * 1000).length;
+  const valuations = leads.filter(isValuation).length;
+  const sellers = leads.length - buyers - valuations;
 
   return (
     <main className="leads-page">
@@ -201,14 +247,15 @@ export default function AdminLeadsClient() {
       <section className="lead-stats" aria-label="Lead summary">
         <div><span>Total Leads</span><strong>{leads.length}</strong></div>
         <div><span>Buyer Leads</span><strong>{buyers}</strong></div>
+        <div><span>Valuation Leads</span><strong>{valuations}</strong></div>
         <div><span>Seller Leads</span><strong>{sellers}</strong></div>
-        <div><span>New in 7 Days</span><strong>{recent}</strong></div>
       </section>
 
       <section className="lead-controls">
         <div className="lead-filter" role="group" aria-label="Lead type">
           <button className={filter === "all" ? "active" : ""} onClick={() => setFilter("all")}>All</button>
           <button className={filter === "buyers" ? "active" : ""} onClick={() => setFilter("buyers")}>Buyers</button>
+          <button className={filter === "valuations" ? "active" : ""} onClick={() => setFilter("valuations")}>Valuations</button>
           <button className={filter === "sellers" ? "active" : ""} onClick={() => setFilter("sellers")}>Sellers</button>
         </div>
         <label><span>Search leads</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name, email, phone, county, or reference" /></label>

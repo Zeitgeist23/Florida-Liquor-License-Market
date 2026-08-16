@@ -12,20 +12,20 @@ const canonicalUrl = `${siteUrl}/florida-liquor-license-value`;
 export const metadata: Metadata = {
   title: "How Much Is My Florida Liquor License Worth? | Market Value Guide",
   description:
-    "Estimate a Florida 4COP or 3PS liquor license using current asking-price comparables by county. See the low, median and high disclosed asking prices in the FLLM marketplace.",
+    "Calculate a Florida 4COP or 3PS liquor license market range using current asking-price comparables by county, then request private seller follow-up from FLLM.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
     title: "How Much Is My Florida Liquor License Worth?",
-    description: "Compare current Florida quota liquor-license asking prices by county and license type.",
+    description: "Calculate a Florida quota liquor-license market range by county and request private seller follow-up.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
     title: "How Much Is My Florida Liquor License Worth?",
-    description: "Check current Florida 4COP and 3PS asking-price comparables by county.",
+    description: "Calculate a Florida 4COP or 3PS market range using current asking-price comparables by county.",
   },
 };
 
@@ -59,7 +59,7 @@ export default function FloridaLiquorLicenseValuePage() {
       "@type": "WebPage",
       name: "How Much Is My Florida Liquor License Worth?",
       url: canonicalUrl,
-      description: "Florida liquor-license market pricing guidance using active asking-price comparables by county and license type.",
+      description: "Florida liquor-license market pricing guidance and seller follow-up using active asking-price comparables by county and license type.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
@@ -97,7 +97,7 @@ export default function FloridaLiquorLicenseValuePage() {
           <span className="value-eyebrow">Florida Quota License Market Data</span>
           <h1>How Much Is My Florida Liquor License Worth?</h1>
           <p>
-            Start with the market evidence. Select a Florida county and a 4COP or 3PS quota-license type to compare current disclosed asking prices in the FLLM marketplace.
+            Calculate a current market range from disclosed asking-price comparables, see the strength of the available evidence, and request private seller follow-up from FLLM.
           </p>
           <div className="value-hero-actions">
             <a href="#estimate">Check My License Market</a>
