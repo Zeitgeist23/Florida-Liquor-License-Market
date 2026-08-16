@@ -1,0 +1,29 @@
+name: Verify Bay listing route
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-route:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Wait for production deployment
+        run: sleep 60
+
+      - name: Verify formerly broken Bay listing URL
+        env:
+          URL: https://www.floridaliquorlicensemarket.com/listings/bay-4cop-quota-fllm-013-izlxhd
+        run: |
+          set -euo pipefail
+          curl --retry 6 --retry-delay 5 --max-time 45 -fsSL "${URL}?route_check=${GITHUB_SHA}" -o page.html
+          status=$(curl --retry 6 --retry-delay 5 --max-time 45 -sS -o /dev/null -w '%{http_code}' "${URL}?route_check=${GITHUB_SHA}")
+          echo "HTTP status: ${status}"
+          test "${status}" = "200"
+          grep -Fq 'Bay County 4COP Liquor License for Sale' page.html
+          echo 'Verified: Bay County FLLM-013 detail page loads successfully.'
