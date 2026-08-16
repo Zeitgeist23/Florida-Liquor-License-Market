@@ -1,0 +1,546 @@
+name: Unify public listing cards
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  refactor:
+    if: ${{ !contains(github.event.head_commit.message, '[listing-card-system]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply the shared listings-page card component everywhere public listings appear
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          def read(path):
+              return Path(path).read_text(encoding='utf-8')
+
+          def write(path, text):
+              Path(path).write_text(text, encoding='utf-8')
+
+          def replace_once(path, old, new):
+              text = read(path)
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{path}: expected one exact match, found {count}')
+              write(path, text.replace(old, new, 1))
+
+          def regex_once(path, pattern, replacement):
+              text = read(path)
+              updated, count = re.subn(pattern, replacement, text, count=1, flags=re.S)
+              if count != 1:
+                  raise SystemExit(f'{path}: expected one regex match, found {count}')
+              write(path, updated)
+
+          # /listings is the source of truth for every card stylesheet.
+          replace_once(
+              'app/listings/page.tsx',
+              '''import "./listings-premium.css";
+          import "./listings-header-position.css";
+          import "./listings-map-size.css";
+          import "./listings-county-links.css";
+          import "./listings-navy-refresh.css";
+          import "./listings-card-gold-borders.css";
+          import "./listings-title-highlight.css";
+          import "./listings-regression-fix.css";
+          import "./listings-filter-depth.css";
+          import "./listings-logo-3pct-lock.css";
+          import "./listings-conversion-cards.css";
+          import "./listings-card-overlap-fix.css";
+          import "./listings-masthead-darker.css";
+          import "./listings-mobile-header-fix.css";
+          import "./listings-seo-footer.css";''',
+              'import "./listing-card-system.css";'
+          )
+
+          # County inventory cards use the exact component and exact stylesheet stack.
+          replace_once(
+              'app/counties/[slug]/page.tsx',
+              'import FloridaCountyMap from "@/components/FloridaCountyMap";\n',
+              'import FloridaCountyMap from "@/components/FloridaCountyMap";\nimport MarketplaceListingCard from "@/components/MarketplaceListingCard";\n'
+          )
+          replace_once(
+              'app/counties/[slug]/page.tsx',
+              '''import "./county-page.css";
+          import "../../listings/listings-premium.css";
+          import "../../listings/listings-map-size.css";
+          import "../../listings/listings-county-links.css";
+          import "../../listings/listings-conversion-cards.css";
+          import "../../listings/listings-card-overlap-fix.css";''',
+              '''import "./county-page.css";
+          import "../../listings/listing-card-system.css";'''
+          )
+          replace_once(
+              'app/counties/[slug]/page.tsx',
+              '''                {available.map((listing) => (
+                    <article className="result-card result-card-available" id={listing.sourceRef} key={listingKey(listing)}>
+                      <span className="result-type-badge">{listing.type}</span>
+                      <div className="result-photo"><FloridaCountyMap county={listing.county} enlarged /></div>
+                      <div className="result-body">
+                        <p className="result-county-row"><span className="result-pin" aria-hidden="true">●</span><Link className="result-county-link" href={`/counties/${county.slug}`}>{listing.county}</Link></p>
+                        <h2><Link href={listingPageHref(listing)} aria-label={`View ${listing.type} listing in ${listing.county}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
+                        <div className="result-facts">
+                          <span className="availability-pill" title={listing.licenseStatus ? sellerReportedStatusLabel(listing.licenseStatus) : "Status to confirm"}><span className="availability-dot" aria-hidden="true" />Available</span>
+                        </div>
+                        <ListingDescription listing={listing} />
+                        <div className="result-actions">
+                          <Link className="btn btn-gold result-view-button" href={listingPageHref(listing)}>View License <span aria-hidden="true">›</span></Link>
+                        </div>
+                      </div>
+                    </article>
+                  ))}''',
+              '''                {available.map((listing) => (
+                    <MarketplaceListingCard
+                      id={listing.sourceRef}
+                      key={listingKey(listing)}
+                      listing={listing}
+                    />
+                  ))}'''
+          )
+
+          # 4COP inventory cards.
+          replace_once(
+              'app/florida-4cop-liquor-license-for-sale/page.tsx',
+              'import FloridaCountyMap from "@/components/FloridaCountyMap";\n',
+              'import FloridaCountyMap from "@/components/FloridaCountyMap";\nimport MarketplaceListingCard from "@/components/MarketplaceListingCard";\n'
+          )
+          regex_once(
+              'app/florida-4cop-liquor-license-for-sale/page.tsx',
+              r'import "\.\./listings/listings-premium\.css";.*?import "\.\./florida-liquor-licenses-for-sale/seo-market\.css";',
+              'import "../listings/listing-card-system.css";\nimport "../florida-liquor-licenses-for-sale/seo-market.css";'
+          )
+          replace_once(
+              'app/florida-4cop-liquor-license-for-sale/page.tsx',
+              '''          <div className="results-page seo-market-preview-results">
+              <div className="results-grid">
+                {previewListings.map((listing) => (
+                  <article className="result-card result-card-available" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
+                    <span className="result-type-badge">{listing.type}</span>
+                    <div className="result-photo"><FloridaCountyMap county={listing.county} enlarged /></div>
+                    <div className="result-body">
+                      <p className="result-county-row"><span className="result-pin" aria-hidden="true">●</span><Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p>
+                      <h2><Link href={listingPageHref(listing)} aria-label={`View ${listing.type} listing in ${listing.county}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
+                      <div className="result-facts">
+                        <span className="availability-pill" title={listing.licenseStatus ? sellerReportedStatusLabel(listing.licenseStatus) : "Status to confirm"}><span className="availability-dot" aria-hidden="true" />Available</span>
+                      </div>
+                      <ListingDescription listing={listing} />
+                      <div className="result-actions">
+                        <Link className="btn btn-gold result-view-button" href={listingPageHref(listing)}>View License <span aria-hidden="true">›</span></Link>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>''',
+              '''          <div className="results-page embedded-listing-results seo-market-preview-results">
+              <div className="results-grid">
+                {previewListings.map((listing) => (
+                  <MarketplaceListingCard
+                    key={listing.sourceRef ?? `${listing.county}-${listing.type}-${listing.priceLabel}`}
+                    listing={listing}
+                  />
+                ))}
+              </div>
+            </div>'''
+          )
+
+          # 3PS inventory cards.
+          replace_once(
+              'app/florida-3ps-liquor-license-for-sale/page.tsx',
+              'import FloridaCountyMap from "@/components/FloridaCountyMap";\n',
+              'import FloridaCountyMap from "@/components/FloridaCountyMap";\nimport MarketplaceListingCard from "@/components/MarketplaceListingCard";\n'
+          )
+          regex_once(
+              'app/florida-3ps-liquor-license-for-sale/page.tsx',
+              r'import "\.\./listings/listings-premium\.css";.*?import "\.\./florida-liquor-licenses-for-sale/seo-market\.css";',
+              'import "../listings/listing-card-system.css";\nimport "../florida-liquor-licenses-for-sale/seo-market.css";'
+          )
+          replace_once(
+              'app/florida-3ps-liquor-license-for-sale/page.tsx',
+              '''            <div className="results-page seo-market-preview-results">
+                <div className="results-grid">
+                  {previewListings.map((listing) => (
+                    <article className="result-card" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
+                      <div className="result-photo">
+                        <FloridaCountyMap county={listing.county} />
+                        <span className="result-type-badge">3PS Package Store</span>
+                      </div>
+                      <div className="result-body">
+                        <p>● <Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p>
+                        <h2><Link href={listingPageHref(listing)} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
+                        <div className="result-facts">
+                          <span>{listing.type}</span>
+                          <span>{listing.licenseStatus ? `${sellerReportedStatusLabel(listing.licenseStatus)} / Available` : "Available / Status to confirm"}</span>
+                        </div>
+                        <ListingDescription listing={listing} />
+                        <div className="result-actions">
+                          <Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link>
+                          <Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>''',
+              '''            <div className="results-page embedded-listing-results seo-market-preview-results">
+                <div className="results-grid">
+                  {previewListings.map((listing) => (
+                    <MarketplaceListingCard
+                      key={listing.sourceRef ?? `${listing.county}-${listing.type}-${listing.priceLabel}`}
+                      listing={listing}
+                    />
+                  ))}
+                </div>
+              </div>'''
+          )
+          text = read('app/florida-3ps-liquor-license-for-sale/page.tsx')
+          text = text.replace('import InventoryCardExpansion from "@/components/InventoryCardExpansion";\n', '')
+          text = text.replace('      <InventoryCardExpansion />\n', '')
+          write('app/florida-3ps-liquor-license-for-sale/page.tsx', text)
+
+          # Main value estimator comparable listings become the same cards.
+          replace_once(
+              'components/LiquorLicenseValueEstimator.tsx',
+              '''import Link from "next/link";
+          import { useRouter } from "next/navigation";
+          import { useState } from "react";''',
+              'import { useState } from "react";'
+          )
+          replace_once(
+              'components/LiquorLicenseValueEstimator.tsx',
+              '''import { listingPageHref } from "@/lib/listing-page-urls";
+          import interactionStyles from "./ComparableListingRows.module.css";
+          import styles from "./LiquorLicenseValueEstimator.module.css";''',
+              '''import MarketplaceListingCard from "./MarketplaceListingCard";
+          import styles from "./LiquorLicenseValueEstimator.module.css";'''
+          )
+          replace_once(
+              'components/LiquorLicenseValueEstimator.tsx',
+              '  const router = useRouter();\n',
+              ''
+          )
+          replace_once(
+              'components/LiquorLicenseValueEstimator.tsx',
+              '''          {guidance.comparables.length > 0 ? (
+              <div className={styles.tableWrap}>
+                <table>
+                  <thead><tr><th>Listing</th><th>License type</th><th>Status</th><th>Asking price</th></tr></thead>
+                  <tbody>
+                    {guidance.comparables.map((listing, index) => {
+                      const href = listingPageHref({
+                        county: listing.county,
+                        type: listing.licenseType,
+                        sourceRef: listing.reference,
+                      });
+
+                      return (
+                        <tr
+                          className={interactionStyles.clickableRow}
+                          key={`${listing.reference}-${listing.askingPrice}-${index}`}
+                          onClick={(event) => {
+                            const target = event.target as HTMLElement;
+                            if (target.closest("a, button, input, select, textarea")) return;
+                            router.push(href);
+                          }}
+                          onMouseEnter={() => router.prefetch(href)}
+                        >
+                          <td>
+                            <Link
+                              className={interactionStyles.referenceLink}
+                              href={href}
+                              onFocus={() => router.prefetch(href)}
+                              aria-label={`View ${listing.reference} listing details`}
+                            >
+                              <span>{listing.reference}</span>
+                              <span className={interactionStyles.viewCue} aria-hidden="true">View listing <b>→</b></span>
+                            </Link>
+                          </td>
+                          <td>{listing.licenseType}</td>
+                          <td>{listing.status}</td>
+                          <td><strong>{currency(listing.askingPrice)}</strong></td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : (''',
+              '''          {guidance.comparables.length > 0 ? (
+              <div className="results-page embedded-listing-results listing-cards-two">
+                <div className="results-grid">
+                  {guidance.comparables.map((listing, index) => (
+                    <MarketplaceListingCard
+                      key={`${listing.reference}-${listing.askingPrice}-${index}`}
+                      listing={{
+                        county: listing.county,
+                        type: listing.licenseType,
+                        price: listing.askingPrice,
+                        priceLabel: currency(listing.askingPrice),
+                        sourceRef: listing.reference,
+                        licenseStatus: listing.status,
+                        image: "/assets/license-market/license-01.png",
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : ('''
+          )
+
+          # Load the canonical card system wherever the estimator is rendered.
+          replace_once(
+              'app/florida-liquor-license-value/page.tsx',
+              'import "./value-page.css";\n',
+              'import "./value-page.css";\nimport "@/app/listings/listing-card-system.css";\n'
+          )
+
+          # County value guides use the same cards, not a separate listing table.
+          replace_once(
+              'app/counties/[slug]/liquor-license-value/page.tsx',
+              'import FormsSiteHeader from "@/components/FormsSiteHeader";\n',
+              'import FormsSiteHeader from "@/components/FormsSiteHeader";\nimport MarketplaceListingCard from "@/components/MarketplaceListingCard";\n'
+          )
+          replace_once(
+              'app/counties/[slug]/liquor-license-value/page.tsx',
+              'import "./county-value-page.css";\n',
+              'import "./county-value-page.css";\nimport "@/app/listings/listing-card-system.css";\n'
+          )
+          replace_once(
+              'app/counties/[slug]/liquor-license-value/page.tsx',
+              '''        {comparables.length ? (
+            <div className="county-value-table-wrap">
+              <table>
+                <thead><tr><th>Listing</th><th>License type</th><th>Market status</th><th>Disclosed ask</th><th>Details</th></tr></thead>
+                <tbody>
+                  {comparables.map((listing) => (
+                    <tr key={listing.sourceRef}>
+                      <td>{listing.sourceRef}</td>
+                      <td>{listing.type}</td>
+                      <td>Available</td>
+                      <td><strong>{money(listing.price)}</strong></td>
+                      <td><Link href={listingPageHref(listing)}>View listing ›</Link></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (''',
+              '''        {comparables.length ? (
+            <div className="results-page embedded-listing-results">
+              <div className="results-grid">
+                {comparables.map((listing) => (
+                  <MarketplaceListingCard key={listing.sourceRef} listing={listing} />
+                ))}
+              </div>
+            </div>
+          ) : ('''
+          )
+
+          # Seller-side market guidance uses the same card component.
+          replace_once(
+              'components/MarketPricingGuidance.tsx',
+              'import { useEffect, useState } from "react";\n\nimport styles from "./MarketPricingGuidance.module.css";\n',
+              'import { useEffect, useState } from "react";\n\nimport type { Listing } from "@/data/listings";\nimport MarketplaceListingCard from "./MarketplaceListingCard";\nimport styles from "./MarketPricingGuidance.module.css";\n'
+          )
+          replace_once(
+              'components/MarketPricingGuidance.tsx',
+              '  licenseType: string;\n',
+              '  licenseType: Listing["type"];\n'
+          )
+          replace_once(
+              'components/MarketPricingGuidance.tsx',
+              '''                {guidance.comparables.length ? (
+                    <div className={styles.tableWrap}>
+                      <table className={styles.table}>
+                        <thead>
+                          <tr>
+                            <th>Listing</th>
+                            <th>License type</th>
+                            <th>Status</th>
+                            <th>Asking price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {guidance.comparables.map((listing, index) => (
+                            <tr key={`${listing.reference}-${listing.askingPrice}-${index}`}>
+                              <td>{listing.reference}</td>
+                              <td>{listing.licenseType}</td>
+                              <td><span className={styles.status}>{listing.status}</span></td>
+                              <td className={styles.tablePrice}>{currency(listing.askingPrice)}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (''',
+              '''                {guidance.comparables.length ? (
+                    <div className="results-page embedded-listing-results listing-cards-one">
+                      <div className="results-grid">
+                        {guidance.comparables.map((listing, index) => (
+                          <MarketplaceListingCard
+                            key={`${listing.reference}-${listing.askingPrice}-${index}`}
+                            listing={{
+                              county: listing.county,
+                              type: listing.licenseType,
+                              price: listing.askingPrice,
+                              priceLabel: currency(listing.askingPrice),
+                              sourceRef: listing.reference,
+                              licenseStatus: listing.status,
+                              image: "/assets/license-market/license-01.png",
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ) : ('''
+          )
+          replace_once(
+              'app/sell-your-license/page.tsx',
+              'import "@/app/sell-your-license-preview/list-your-license-preview.css";\n',
+              'import "@/app/sell-your-license-preview/list-your-license-preview.css";\nimport "@/app/listings/listing-card-system.css";\n'
+          )
+
+          # Homepage featured inventory now uses live listings and the same cards.
+          replace_once(
+              'components/HomePage.tsx',
+              'import HomeMarketInsightsMap from "./HomeMarketInsightsMap";\n',
+              'import HomeMarketInsightsMap from "./HomeMarketInsightsMap";\nimport MarketplaceListingCard from "./MarketplaceListingCard";\n'
+          )
+          regex_once(
+              'components/HomePage.tsx',
+              r'type FeaturedListing = \{.*?\n\];\n\nconst transactions',
+              'const transactions'
+          )
+          replace_once(
+              'components/HomePage.tsx',
+              '  const [saved, setSaved] = useState<Set<string>>(new Set());\n',
+              ''
+          )
+          replace_once(
+              'components/HomePage.tsx',
+              '''  const filteredListings = useMemo(() => {
+              if (!searchActive) return listings;
+              return listings.filter((listing) => {
+                const countyMatch = county === "all" || listing.county === county;
+                const typeMatch = licenseType === "all" || listing.type === licenseType;
+                const priceMatch = priceRange === "all" || (priceRange === "under350" && listing.price < 350000) || (priceRange === "350to500" && listing.price >= 350000 && listing.price <= 500000) || (priceRange === "over500" && listing.price > 500000);
+                return countyMatch && typeMatch && priceMatch;
+              });
+            }, [county, licenseType, priceRange, searchActive]);''',
+              '''  const homepageListings = useMemo(
+              () => marketListings.filter((listing) => Boolean(listing.sourceRef)),
+              [marketListings],
+            );
+
+            const filteredListings = useMemo(() => {
+              if (!searchActive) return homepageListings;
+              return homepageListings.filter((listing) => {
+                const countyMatch = county === "all" || listing.county === county;
+                const typeMatch = licenseType === "all" || listing.type === licenseType;
+                const priceMatch = priceRange === "all" ||
+                  (listing.price !== null && priceRange === "under350" && listing.price < 350000) ||
+                  (listing.price !== null && priceRange === "350to500" && listing.price >= 350000 && listing.price <= 500000) ||
+                  (listing.price !== null && priceRange === "over500" && listing.price > 500000);
+                return countyMatch && typeMatch && priceMatch;
+              });
+            }, [county, homepageListings, licenseType, priceRange, searchActive]);'''
+          )
+          regex_once(
+              'components/HomePage.tsx',
+              r'\n  function toggleSaved\(name: string\) \{.*?\n  \}\n',
+              '\n'
+          )
+          text = read('components/HomePage.tsx')
+          text = text.replace('new Set(listings.map((listing) => listing.county))', 'new Set(homepageListings.map((listing) => listing.county))')
+          write('components/HomePage.tsx', text)
+          regex_once(
+              'components/HomePage.tsx',
+              r'        <div className="listing-carousel">.*?</div><button className="carousel-arrow next" type="button" aria-label="Next listings" onClick=\{\(\) => setCarouselOffset\(\(value\) => value \+ 1\)\}>›</button></div>',
+              '''        <div className="listing-carousel">
+              <button className="carousel-arrow previous" type="button" aria-label="Previous listings" onClick={() => setCarouselOffset((value) => value - 1)}>‹</button>
+              <div className="results-page embedded-listing-results homepage-listing-results">
+                <div className="results-grid">
+                  {orderedListings.slice(0, 3).map((listing) => (
+                    <MarketplaceListingCard
+                      key={listing.sourceRef ?? `${listing.county}-${listing.type}-${listing.priceLabel}`}
+                      listing={listing}
+                    />
+                  ))}
+                </div>
+              </div>
+              <button className="carousel-arrow next" type="button" aria-label="Next listings" onClick={() => setCarouselOffset((value) => value + 1)}>›</button>
+            </div>'''
+          )
+          regex_once(
+              'components/HomePage.tsx',
+              r'      \{marketInsightsOpen && <div className="market-list-modal-backdrop".*?</section></div>\}',
+              '''      {marketInsightsOpen && (
+              <div className="market-list-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setMarketInsightsOpen(false); }}>
+                <section className="market-list-modal" role="dialog" aria-modal="true" aria-labelledby="market-list-modal-title">
+                  <header>
+                    <div>
+                      <span>Florida Market Insights</span>
+                      <h2 id="market-list-modal-title">Current Available Licenses</h2>
+                      <p>{pricedMarketListings.length} available listing{pricedMarketListings.length === 1 ? "" : "s"}, ordered from highest to lowest asking price.</p>
+                    </div>
+                    <button type="button" aria-label="Close current available licenses" onClick={() => setMarketInsightsOpen(false)}>×</button>
+                  </header>
+                  <div className="market-list-scroll results-page embedded-listing-results listing-cards-two">
+                    <div className="results-grid">
+                      {pricedMarketListings.map((listing) => (
+                        <MarketplaceListingCard
+                          key={listing.sourceRef ?? `${listing.county}-${listing.type}-${listing.priceLabel}`}
+                          listing={listing}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <footer><span>Prices and availability are subject to confirmation.</span><a href="/listings">Open Full Listings Page ›</a></footer>
+                </section>
+              </div>
+            )}'''
+          )
+          replace_once(
+              'app/page.tsx',
+              'import "./home-market-insights.css";\n',
+              'import "./home-market-insights.css";\nimport "./listings/listing-card-system.css";\n'
+          )
+
+          # The temporary audit has served its purpose.
+          Path('.github/workflows/audit-listing-presentations.yml').unlink(missing_ok=True)
+          PY
+
+      - name: Stop when the refactor is already applied
+        run: |
+          if git diff --quiet; then
+            echo "No listing-card changes remain to apply."
+            echo "NO_CHANGES=true" >> "$GITHUB_ENV"
+          fi
+
+      - name: Install dependencies
+        if: env.NO_CHANGES != 'true'
+        run: npm ci --no-audit --no-fund
+
+      - name: Build the complete site
+        if: env.NO_CHANGES != 'true'
+        run: npm run build
+
+      - name: Commit the unified listing system
+        if: env.NO_CHANGES != 'true'
+        run: |
+          git config user.name "Zeitgeist23"
+          git config user.email "JWigg023@gmail.com"
+          git add -A
+          git commit -m "Unify listing cards sitewide [listing-card-system]"
+          git push origin main
