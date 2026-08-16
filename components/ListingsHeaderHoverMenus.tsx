@@ -582,8 +582,7 @@ export default function ListingsHeaderHoverMenus() {
       const trigger = target.closest<HTMLAnchorElement>("[data-listings-header-menu-trigger]");
       const menuName = menuNameForTrigger(trigger);
       if (menuName) {
-        clearTimer(closeTimers, menuName);
-        openMenu(menuName);
+        scheduleOpen(menuName);
         return;
       }
 
