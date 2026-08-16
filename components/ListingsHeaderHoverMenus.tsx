@@ -101,13 +101,28 @@ function ensureResponsiveStyles() {
       object-fit: contain;
     }
 
-    @media (min-width: 821px) and (max-width: 1180px) {
+    @media (min-width: 821px) and (max-width: 1500px) {
       .results-page > .results-header nav.primary-nav {
         gap: 10px !important;
       }
 
       .results-page > .results-header nav.primary-nav > a {
         font-size: 9.5px !important;
+      }
+    }
+
+    @media (min-width: 821px) and (max-width: 1050px) {
+      .results-page > .results-header {
+        height: auto !important;
+        min-height: 104px !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+      }
+
+      .results-page > .results-header nav.primary-nav {
+        flex-wrap: wrap !important;
+        align-content: center !important;
+        row-gap: 7px !important;
       }
     }
   `;
