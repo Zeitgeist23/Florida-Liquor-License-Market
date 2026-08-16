@@ -1,0 +1,39 @@
+.result-card-focused {
+  scroll-margin-top: 150px;
+  box-shadow:
+    0 0 0 2px rgba(255, 184, 24, 0.98),
+    0 0 34px rgba(255, 166, 0, 0.36),
+    0 18px 46px rgba(0, 0, 0, 0.34);
+  animation: listing-focus-pulse 1.25s ease-out 1;
+}
+
+.result-card-focused .result-type-badge {
+  box-shadow: 0 0 18px rgba(255, 174, 0, 0.38);
+}
+
+@keyframes listing-focus-pulse {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(255, 184, 24, 0.8),
+      0 0 0 rgba(255, 166, 0, 0),
+      0 18px 46px rgba(0, 0, 0, 0.34);
+  }
+  55% {
+    box-shadow:
+      0 0 0 7px rgba(255, 184, 24, 0.22),
+      0 0 44px rgba(255, 166, 0, 0.46),
+      0 18px 46px rgba(0, 0, 0, 0.34);
+  }
+  100% {
+    box-shadow:
+      0 0 0 2px rgba(255, 184, 24, 0.98),
+      0 0 34px rgba(255, 166, 0, 0.36),
+      0 18px 46px rgba(0, 0, 0, 0.34);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .result-card-focused {
+    animation: none;
+  }
+}
