@@ -1,0 +1,154 @@
+name: Verify live heat map listing navigation
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser test dependency
+        run: npm install --no-save --no-package-lock --ignore-scripts puppeteer-core@24.16.0
+
+      - name: Test listings and homepage heat maps
+        run: |
+          node <<'NODE'
+          const puppeteer = require('puppeteer-core');
+          const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+          async function firstLiveCounty(page) {
+            return page.evaluate(async () => {
+              const response = await fetch(`/api/market-insights-listings?test=${Date.now()}`, { cache: 'no-store' });
+              if (!response.ok) throw new Error(`market listings returned ${response.status}`);
+              const payload = await response.json();
+              const first = Array.isArray(payload.listings) ? payload.listings[0] : null;
+              if (!first?.county || !first?.sourceRef) throw new Error('No live heat-map listing was returned.');
+              return {
+                county: String(first.county).replace(/\s+County$/i, ''),
+                sourceRef: String(first.sourceRef),
+                canonicalHref: String(first.href || ''),
+              };
+            });
+          }
+
+          async function openCounty(page, county) {
+            await page.waitForSelector(`path[data-heat-map-county]`, { timeout: 30000 });
+            const clicked = await page.evaluate((name) => {
+              const path = Array.from(document.querySelectorAll('path[data-heat-map-county]'))
+                .find((candidate) => candidate.getAttribute('data-heat-map-county') === name);
+              if (!path) return false;
+              path.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+              return true;
+            }, county);
+            if (!clicked) throw new Error(`Could not find heat-map county path for ${county}.`);
+            await page.waitForSelector('.fllm-popup-card-shell.results-page .result-card', { timeout: 30000 });
+          }
+
+          (async () => {
+            const browser = await puppeteer.launch({
+              executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
+              headless: true,
+              args: ['--no-sandbox', '--disable-dev-shm-usage'],
+            });
+
+            try {
+              const listingsPage = await browser.newPage();
+              await listingsPage.setViewport({ width: 1700, height: 1000 });
+              await listingsPage.goto(`https://www.floridaliquorlicensemarket.com/listings?heat-test=${Date.now()}`, {
+                waitUntil: 'networkidle2',
+                timeout: 90000,
+              });
+
+              const listingRecord = await firstLiveCounty(listingsPage);
+              const heatButton = await listingsPage.$('.results-filters button');
+              if (!heatButton) throw new Error('Listings Heat Map button was not found.');
+              await heatButton.click();
+              await listingsPage.waitForSelector('.fllm-heat-map-modal', { timeout: 30000 });
+              await openCounty(listingsPage, listingRecord.county);
+
+              const listingCardState = await listingsPage.evaluate(() => {
+                const button = document.querySelector('.fllm-popup-card-shell .result-view-button');
+                const article = document.querySelector('.fllm-popup-card-shell .result-card');
+                return {
+                  href: button instanceof HTMLAnchorElement ? new URL(button.href).pathname : '',
+                  reference: article?.getAttribute('data-listing-reference') || '',
+                  oldCards: document.querySelectorAll('.fllm-county-listing-card').length,
+                };
+              });
+
+              if (!listingCardState.href.startsWith('/listings/') || listingCardState.href === '/listings') {
+                throw new Error(`Listings heat-map View License is not specific: ${JSON.stringify(listingCardState)}`);
+              }
+              if (listingCardState.oldCards !== 0) {
+                throw new Error(`Listings heat map still contains old cards: ${listingCardState.oldCards}`);
+              }
+              if (listingRecord.canonicalHref && listingCardState.href !== listingRecord.canonicalHref) {
+                throw new Error(`Heat-map href differs from canonical href: ${listingCardState.href} vs ${listingRecord.canonicalHref}`);
+              }
+
+              await Promise.all([
+                listingsPage.waitForNavigation({ waitUntil: 'networkidle2', timeout: 90000 }),
+                listingsPage.click('.fllm-popup-card-shell .result-view-button'),
+              ]);
+
+              const destination = await listingsPage.evaluate(() => ({
+                pathname: window.location.pathname,
+                focused: Boolean(document.querySelector('.result-card-focused')),
+              }));
+              if (destination.pathname !== listingCardState.href) {
+                throw new Error(`View License navigated to ${destination.pathname} instead of ${listingCardState.href}`);
+              }
+              if (!destination.focused) {
+                throw new Error('The individual listing destination did not focus the selected license card.');
+              }
+
+              const homePage = await browser.newPage();
+              await homePage.setViewport({ width: 1700, height: 1000 });
+              await homePage.goto(`https://www.floridaliquorlicensemarket.com/?heat-test=${Date.now()}`, {
+                waitUntil: 'networkidle2',
+                timeout: 90000,
+              });
+              const homeRecord = await firstLiveCounty(homePage);
+              await homePage.waitForFunction(() => Boolean(window.FLLMHeatMap?.open), { timeout: 30000 });
+              await homePage.evaluate(() => window.FLLMHeatMap.open(document.body));
+              await homePage.waitForSelector('.fllm-heat-map-modal', { timeout: 30000 });
+              await openCounty(homePage, homeRecord.county);
+
+              const homeCardState = await homePage.evaluate(() => {
+                const button = document.querySelector('.fllm-popup-card-shell .result-view-button');
+                return {
+                  currentCards: document.querySelectorAll('.fllm-popup-card-shell.results-page .result-card').length,
+                  oldCards: document.querySelectorAll('.fllm-county-listing-card').length,
+                  href: button instanceof HTMLAnchorElement ? new URL(button.href).pathname : '',
+                  background: document.querySelector('.fllm-popup-card-shell .result-card')
+                    ? getComputedStyle(document.querySelector('.fllm-popup-card-shell .result-card')).backgroundImage
+                    : '',
+                };
+              });
+
+              if (homeCardState.currentCards < 1 || homeCardState.oldCards !== 0) {
+                throw new Error(`Homepage heat map did not use current cards: ${JSON.stringify(homeCardState)}`);
+              }
+              if (!homeCardState.href.startsWith('/listings/') || homeCardState.href === '/listings') {
+                throw new Error(`Homepage heat-map View License is not specific: ${JSON.stringify(homeCardState)}`);
+              }
+              if (!/gradient/i.test(homeCardState.background)) {
+                throw new Error(`Homepage card did not receive current navy card styling: ${JSON.stringify(homeCardState)}`);
+              }
+
+              console.log('PASS: both heat maps use current listing cards and every View License link opens its individual listing route.');
+            } finally {
+              await browser.close();
+            }
+          })().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE
