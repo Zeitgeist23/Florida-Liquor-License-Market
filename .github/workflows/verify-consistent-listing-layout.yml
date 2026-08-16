@@ -1,0 +1,35 @@
+name: Verify consistent listing layout
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify-layout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Wait for production deployment
+        run: sleep 60
+
+      - name: Confirm the deep listing route uses the marketplace page
+        env:
+          URL: https://www.floridaliquorlicensemarket.com/listings/bay-4cop-quota-fllm-013-izlxhd
+        run: |
+          set -euo pipefail
+          curl --retry 6 --retry-delay 5 --max-time 45 -fsSL "${URL}?layout_check=${GITHUB_SHA}" -o page.html
+          status=$(curl --retry 6 --retry-delay 5 --max-time 45 -sS -o /dev/null -w '%{http_code}' "${URL}?layout_check=${GITHUB_SHA}")
+          echo "HTTP status: ${status}"
+          test "${status}" = "200"
+          grep -Fq 'class="results-page"' page.html
+          grep -Fq 'class="results-header page-shell"' page.html
+          grep -Fq 'Florida Liquor Licenses' page.html
+          grep -Fq 'data-listing-reference="FLLM-013"' page.html
+          if grep -Eq 'marketplace-listing-page|paid-listing-page' page.html; then
+            echo 'Old inconsistent detail layout is still present.'
+            exit 1
+          fi
+          echo 'Verified: deep listing URL now renders the standard marketplace inventory layout.'
