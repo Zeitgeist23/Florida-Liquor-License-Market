@@ -48,6 +48,7 @@
   const DESKTOP_HOVER_QUERY = "(hover: hover) and (pointer: fine) and (min-width: 900px)";
   const openTimers = new Map();
   const closeTimers = new Map();
+  let suppressFocusOpenUntil = 0;
 
   function normalizedText(element) {
     return (element?.textContent || "").replace(/\s+/g, " ").trim();
@@ -266,6 +267,8 @@
     const navLink = target instanceof Element ? target.closest(".primary-nav a") : null;
     if (navLink instanceof HTMLAnchorElement) {
       const clickedLabel = normalizedText(navLink).toLowerCase();
+      const clickedMenu = menus.find((menu) => menu.label.toLowerCase() === clickedLabel);
+      if (clickedMenu) clearMenuTimers(clickedMenu.label);
       menus.forEach((menu) => {
         if (clickedLabel !== menu.label.toLowerCase()) closeMenu(menu);
       });
@@ -319,7 +322,14 @@
     }
   }, true);
 
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    suppressFocusOpenUntil = Date.now() + 600;
+    menus.forEach((menu) => clearMenuTimers(menu.label));
+  }, true);
+
   document.addEventListener("focusin", (event) => {
+    if (Date.now() < suppressFocusOpenUntil) return;
     const target = event.target;
     if (!(target instanceof Element)) return;
 
