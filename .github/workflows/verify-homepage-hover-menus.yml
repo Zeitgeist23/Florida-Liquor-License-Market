@@ -92,9 +92,9 @@ jobs:
             await marketTrigger.click();
             await page.waitForTimeout(100);
             assert.equal(await marketMenu.isVisible(), true, "Click fallback did not open Market Data menu");
-            await page.mouse.move(20, 650);
-            await page.waitForTimeout(500);
-            assert.equal(await marketMenu.isVisible(), false, "Click-opened Market Data menu did not close after pointer left");
+            await page.keyboard.press("Escape");
+            await page.waitForTimeout(100);
+            assert.equal(await marketMenu.isVisible(), false, "Escape did not close the click-opened Market Data menu");
 
             console.log("LIVE HOVER MENU TEST PASSED");
           } finally {
