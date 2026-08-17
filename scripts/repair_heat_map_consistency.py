@@ -314,7 +314,7 @@ def main() -> None:
     )
     if not renderer_pattern.search(heat):
         raise RuntimeError("Existing heat-map renderer was not found.")
-    heat = renderer_pattern.sub(direct_renderer, heat, count=1)
+    heat = renderer_pattern.sub(lambda _match: direct_renderer, heat, count=1)
     heat_path.write_text(heat, encoding="utf-8")
 
     popup_path = Path("public/assets/market-heat-map-popup-cards-v3.js")

@@ -78,8 +78,11 @@ function priceMatches(price: number | null, range: string) {
     (range === "over1m" && price > 1000000);
 }
 
-function listingIdentity(listing: Pick<Listing, "county" | "type" | "price" | "priceLabel">) {
-  return `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
+function listingIdentity(listing: Pick<Listing, "county" | "type" | "price" | "priceLabel" | "sourceRef">) {
+  const reference = listing.sourceRef?.trim().toLowerCase();
+  return reference
+    ? `reference:${reference}`
+    : `market:${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
 }
 
 type ListingsPageProps = {
@@ -135,14 +138,20 @@ export default function ListingsPage({ initialListings, focusReference = null }:
   ), [county, type, price, status, orderedMarketplaceListings]);
 
   useEffect(() => {
-    if (!focusIdentity || !focusedCardRef.current) return;
+    if (!focusIdentity) return;
 
-    const timeout = window.setTimeout(() => {
-      focusedCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 220);
+    const revealSelectedListing = () => {
+      focusedCardRef.current?.scrollIntoView({ behavior: "auto", block: "center" });
+    };
 
-    return () => window.clearTimeout(timeout);
-  }, [focusIdentity]);
+    const frame = window.requestAnimationFrame(revealSelectedListing);
+    const retry = window.setTimeout(revealSelectedListing, 650);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(retry);
+    };
+  }, [focusIdentity, filtered.length]);
 
   function clearFilters() {
     setCounty("all");

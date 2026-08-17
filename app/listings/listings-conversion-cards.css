@@ -322,3 +322,28 @@
     margin-top: 14px !important;
   }
 }
+
+
+.results-page .result-card-focused {
+  border-color: #ffc12e !important;
+  box-shadow: 0 0 0 3px rgba(255, 193, 46, .24), 0 18px 42px rgba(0, 0, 0, .42) !important;
+}
+
+.results-page .result-card-focused::before {
+  content: "Selected License";
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 9px;
+  border: 1px solid #ffc12e;
+  border-radius: 4px;
+  color: #07131d;
+  background: #ffc12e;
+  font: 900 9px/1 Arial, Helvetica, sans-serif;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}

@@ -220,18 +220,4 @@
   });
   observer.observe(document.documentElement, { childList: true, subtree: true });
 
-  function ensureCurrentMarketplaceCardSync() {
-    const assetPath = "/assets/market-heat-map-listings-card-sync-v1.js";
-    const existing = Array.from(document.scripts).find((script) => script.src.includes(assetPath));
-    if (existing) return;
-
-    const script = document.createElement("script");
-    script.src = `${assetPath}?v=2`;
-    script.defer = true;
-    script.dataset.fllmHeatMapCurrentCardSync = "true";
-    document.head.appendChild(script);
-  }
-
-  ensureCurrentMarketplaceCardSync();
-
 })();

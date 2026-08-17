@@ -73,6 +73,237 @@
       .fllm-county-listing-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.fllm-county-listing-actions a{display:grid;place-items:center;min-height:40px;padding:8px;border:1px solid #c48600;border-radius:4px;text-align:center;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.03em}.fllm-county-listing-inquire{background:#f1a600;color:#07101a}.fllm-county-listing-offer{background:#07101a;color:#f1a600}.fllm-county-listing-actions a:hover,.fllm-county-listing-actions a:focus-visible{filter:brightness(1.08);outline:2px solid #f1a600;outline-offset:2px}
       .fllm-county-listings-empty{grid-column:1/-1;padding:42px 24px;text-align:center;border:1px solid #775d23;border-radius:7px;background:#0a1218}.fllm-county-listings-empty strong{display:block;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:25px}.fllm-county-listings-empty p{margin:9px auto 18px;max-width:520px;color:#bfc7cb;font-size:13px;line-height:1.5}.fllm-county-listings-empty a{display:inline-grid;place-items:center;min-height:42px;padding:8px 18px;border:1px solid #d29200;border-radius:4px;background:#f1a600;color:#07101a;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase}
       .fllm-county-listings-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px 20px;border-top:1px solid #a97513;background:#020405;color:#bfc7cb;font-size:11px}.fllm-county-listings-footer a{color:#f1a600;font-weight:900;text-decoration:none}
+
+      /* Use the exact current marketplace-card treatment inside every heat-map county dialog. */
+      .fllm-county-listings-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr))!important;
+        gap:18px!important;
+        align-items:start!important;
+        align-content:start!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page{
+        width:100%!important;
+        min-width:0!important;
+        min-height:0!important;
+        margin:0!important;
+        padding:0!important;
+        background:transparent!important;
+        color:inherit!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-card{
+        position:relative!important;
+        width:100%!important;
+        min-height:286px!important;
+        margin:0!important;
+        display:grid!important;
+        grid-template-columns:minmax(0,1.08fr) minmax(150px,.92fr)!important;
+        grid-template-rows:1fr!important;
+        align-items:stretch!important;
+        overflow:hidden!important;
+        border:1px solid #9b741d!important;
+        border-radius:8px!important;
+        color:#f7f4ec!important;
+        background:linear-gradient(145deg,#0b263b 0%,#071d2e 56%,#061725 100%)!important;
+        box-shadow:0 10px 28px rgba(0,0,0,.28)!important;
+        transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease!important;
+        text-align:left!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-card:hover{
+        transform:translateY(-2px)!important;
+        border-color:#e3a314!important;
+        box-shadow:0 15px 34px rgba(0,0,0,.38),0 0 0 1px rgba(241,166,0,.08)!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-type-badge{
+        position:absolute!important;
+        top:12px!important;
+        right:12px!important;
+        left:auto!important;
+        z-index:3!important;
+        padding:5px 10px!important;
+        border:1px solid #d99b10!important;
+        border-radius:5px!important;
+        color:#f5a900!important;
+        background:rgba(4,17,27,.94)!important;
+        font:900 9px/1 Arial,Helvetica,sans-serif!important;
+        letter-spacing:.02em!important;
+        text-transform:uppercase!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-body{
+        grid-column:1!important;
+        grid-row:1!important;
+        min-width:0!important;
+        display:flex!important;
+        flex-direction:column!important;
+        align-items:flex-start!important;
+        padding:20px 10px 18px 18px!important;
+        background:transparent!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-photo{
+        grid-column:2!important;
+        grid-row:1!important;
+        width:100%!important;
+        height:auto!important;
+        min-height:286px!important;
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        padding:42px 10px 46px 4px!important;
+        overflow:visible!important;
+        border:0!important;
+        background:transparent!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-photo .florida-county-map,
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-photo svg{
+        display:block!important;
+        width:118%!important;
+        height:118%!important;
+        max-width:215px!important;
+        max-height:215px!important;
+        margin:auto!important;
+        object-fit:contain!important;
+        filter:drop-shadow(0 8px 14px rgba(0,0,0,.38))!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-county-row{
+        width:100%!important;
+        margin:27px 0 0!important;
+        padding:0!important;
+        color:#f6f4ed!important;
+        background:transparent!important;
+        font:700 20px/1.14 Georgia,'Times New Roman',serif!important;
+        letter-spacing:normal!important;
+        text-transform:none!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-pin{
+        margin-right:6px!important;
+        color:#f1a600!important;
+        font:400 15px/1 Arial,Helvetica,sans-serif!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-county-link{
+        color:#f6f4ed!important;
+        font:inherit!important;
+        letter-spacing:normal!important;
+        text-decoration:none!important;
+        text-transform:none!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-county-link:hover{color:#f5ae17!important}
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-body>h2{
+        margin:8px 0 0!important;
+        padding:0!important;
+        color:#f3a700!important;
+        background:transparent!important;
+        font:900 30px/1 Arial,Helvetica,sans-serif!important;
+        letter-spacing:-.02em!important;
+        text-transform:none!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-body>h2 a{
+        color:inherit!important;
+        font:inherit!important;
+        letter-spacing:inherit!important;
+        text-decoration:none!important;
+        text-transform:none!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-facts{
+        width:auto!important;
+        min-height:0!important;
+        margin:12px 0 0!important;
+        padding:0!important;
+        display:block!important;
+        border:0!important;
+        background:transparent!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .availability-pill{
+        display:inline-flex!important;
+        align-items:center!important;
+        gap:7px!important;
+        min-height:29px!important;
+        padding:0 11px!important;
+        border:1px solid rgba(55,190,92,.72)!important;
+        border-radius:999px!important;
+        color:#51d56f!important;
+        background:rgba(19,86,45,.15)!important;
+        font:900 11px/1 Arial,Helvetica,sans-serif!important;
+        letter-spacing:.025em!important;
+        text-transform:uppercase!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .availability-dot{
+        width:8px!important;
+        height:8px!important;
+        display:inline-block!important;
+        flex:0 0 8px!important;
+        border-radius:50%!important;
+        background:#37c85b!important;
+        box-shadow:0 0 8px rgba(55,200,91,.38)!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-description{
+        width:100%!important;
+        min-height:42px!important;
+        margin:14px 0 0!important;
+        padding:0!important;
+        color:#e4e8ea!important;
+        background:transparent!important;
+        font:400 12px/1.46 Arial,Helvetica,sans-serif!important;
+        letter-spacing:normal!important;
+        text-transform:none!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-description p{
+        margin:0!important;
+        padding:0!important;
+        overflow:hidden!important;
+        display:-webkit-box!important;
+        -webkit-box-orient:vertical!important;
+        -webkit-line-clamp:2!important;
+        color:#e4e8ea!important;
+        background:transparent!important;
+        font:400 12px/1.46 Arial,Helvetica,sans-serif!important;
+        letter-spacing:normal!important;
+        text-transform:none!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-actions{
+        width:min(245px,100%)!important;
+        min-height:0!important;
+        margin:auto 0 0!important;
+        padding-top:15px!important;
+        display:block!important;
+        background:transparent!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-view-button{
+        width:100%!important;
+        min-height:43px!important;
+        display:inline-flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+        gap:13px!important;
+        padding:0 16px!important;
+        border:1px solid #efaa10!important;
+        border-radius:5px!important;
+        color:#07131d!important;
+        background:linear-gradient(145deg,#ffc13a 0%,#e99b00 100%)!important;
+        box-shadow:0 5px 15px rgba(228,148,0,.18)!important;
+        font:900 11px/1 Arial,Helvetica,sans-serif!important;
+        letter-spacing:.035em!important;
+        text-decoration:none!important;
+        text-transform:uppercase!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-view-button:hover{
+        color:#03090d!important;
+        background:linear-gradient(145deg,#ffd05d 0%,#f1a600 100%)!important;
+        filter:none!important;
+      }
+      .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-view-button span{
+        font-size:19px!important;
+        font-weight:400!important;
+        line-height:1!important;
+      }
+      @media(max-width:820px){
+        .fllm-county-listings-grid{grid-template-columns:1fr!important}
+      }
+      @media(max-width:520px){
+        .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-card{min-height:auto!important;grid-template-columns:1fr!important}
+        .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-body{grid-column:1!important;grid-row:1!important;padding:18px 16px 16px!important}
+        .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-photo{grid-column:1!important;grid-row:2!important;min-height:170px!important;padding:8px 18px 16px!important}
+        .fllm-county-listings-dialog .fllm-popup-card-shell.results-page .result-actions{width:100%!important;margin-top:14px!important}
+      }
+
       @media(max-width:760px){.${MODAL_CLASS}{width:97vw;height:94vh}.fllm-heat-map-header{padding:13px}.fllm-heat-map-brand{gap:10px}.fllm-heat-map-brand img{width:105px;height:50px}.fllm-heat-map-header h2{font-size:21px}.fllm-heat-map-header p{font-size:10px}.fllm-heat-map-content{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);padding:10px;gap:10px}.fllm-heat-map-legend{padding:12px}.fllm-heat-map-legend p,.fllm-heat-map-note{display:none}.fllm-heat-map-legend ul{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.fllm-heat-map-legend li{font-size:9px;gap:5px}.fllm-heat-map-legend i{width:18px;height:11px;flex-basis:18px}.fllm-heat-map-svg{max-width:88%;max-height:88%}.fllm-heat-map-footer{align-items:flex-start;flex-direction:column;padding:10px 14px}.fllm-county-listings-dialog{width:94vw;max-height:88vh}.fllm-county-listings-header{padding:15px}.fllm-county-listings-header h3{font-size:23px}.fllm-county-listings-grid{grid-template-columns:1fr;padding:12px;gap:12px}.fllm-county-listings-footer{align-items:flex-start;flex-direction:column;padding:10px 14px}}
     `;
     document.head.appendChild(style);
@@ -178,22 +409,66 @@
     return `/submit-offer?listing=${description}&ref=${reference}`;
   }
 
+  function countyPageSlug(value) {
+    return String(value || "")
+      .replace(/\s+County$/i, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function listingReferenceSlug(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function listingReferenceHash(value) {
+    let hash = 2166136261;
+    const text = String(value || "");
+    for (let index = 0; index < text.length; index += 1) {
+      hash ^= text.charCodeAt(index);
+      hash = Math.imul(hash, 16777619);
+    }
+    return (hash >>> 0).toString(36);
+  }
+
+  function directListingHref(listing, displayCounty, type) {
+    const supplied = String(listing?.href || "").trim();
+    if (/^\/listings\/[^/?#]+/i.test(supplied)) return supplied;
+
+    const reference = String(listing?.sourceRef || "").trim();
+    if (!reference) return `/listings?county=${encodeURIComponent(displayCounty)}`;
+    if (/^FLLM-PAID-/i.test(reference)) return `/listings/${encodeURIComponent(reference.toUpperCase())}`;
+
+    const refPart = listingReferenceSlug(reference).slice(0, 34) || "listing";
+    const typePart = /3PS/i.test(type) ? "3ps-quota" : "4cop-quota";
+    return `/listings/${countyPageSlug(displayCounty)}-${typePart}-${refPart}-${listingReferenceHash(reference)}`;
+  }
+
   function renderListingCard(listing, county) {
     const displayCounty = listing.county || `${county} County`;
     const type = listing.type || "Florida Quota Liquor License";
     const priceLabel = listing.priceLabel || (Number.isFinite(listing.price) ? money(listing.price) : "Price Undisclosed");
-    const reference = listing.sourceRef || "Reference pending";
+    const reference = String(listing.sourceRef || "").trim();
+    const href = directListingHref(listing, displayCounty, type);
     const mapUrl = `/api/county-map?county=${encodeURIComponent(displayCounty)}`;
-    return `<article class="fllm-county-listing-card">
-      <div class="fllm-county-listing-map"><img src="${mapUrl}" alt="Florida map with ${escapeHtml(displayCounty)} highlighted" /></div>
-      <div class="fllm-county-listing-body">
-        <p class="fllm-county-listing-location">● ${escapeHtml(displayCounty)}</p>
-        <h4 class="fllm-county-listing-price">${escapeHtml(priceLabel)}</h4>
-        <div class="fllm-county-listing-facts"><span>${escapeHtml(type)}</span><span>Transferable</span></div>
-        <small class="fllm-county-listing-reference">Listing reference: ${escapeHtml(reference)}</small>
-        <div class="fllm-county-listing-actions"><a class="fllm-county-listing-inquire" href="${inquiryHref(listing)}">Inquire</a><a class="fllm-county-listing-offer" href="${offerHref(listing)}">Submit an Offer</a></div>
-      </div>
-    </article>`;
+    const description = `${displayCounty} ${type} opportunity currently available through Florida Liquor License Market.`;
+
+    return `<div class="fllm-popup-card-shell results-page">
+      <article class="result-card result-card-available" data-listing-reference="${escapeHtml(reference)}" data-listing-href="${escapeHtml(href)}" data-marketplace-listing-card="true">
+        <span class="result-type-badge">${escapeHtml(type)}</span>
+        <div class="result-photo"><img class="florida-county-map" src="${escapeHtml(mapUrl)}" alt="Florida map with ${escapeHtml(displayCounty)} highlighted" /></div>
+        <div class="result-body">
+          <p class="result-county-row"><span class="result-pin" aria-hidden="true">●</span><a class="result-county-link" href="/counties/${countyPageSlug(displayCounty)}">${escapeHtml(displayCounty)}</a></p>
+          <h2><a href="${escapeHtml(href)}" aria-label="View ${escapeHtml(type)} listing in ${escapeHtml(displayCounty)}">${escapeHtml(priceLabel)}</a></h2>
+          <div class="result-facts"><span class="availability-pill" title="Available"><span class="availability-dot" aria-hidden="true"></span>Available</span></div>
+          <div class="result-description"><p>${escapeHtml(description)}</p></div>
+          <div class="result-actions"><a class="btn btn-gold result-view-button" href="${escapeHtml(href)}">View License <span aria-hidden="true">›</span></a></div>
+        </div>
+      </article>
+    </div>`;
   }
 
   function openCountyListings(county, listings, trigger) {

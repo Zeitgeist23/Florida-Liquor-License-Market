@@ -18,7 +18,7 @@ const SCRIPT_ASSETS = [
   },
   {
     id: "fllm-listings-heat-map-popup-cards-v3-script",
-    src: "/assets/market-heat-map-popup-cards-v3.js?v=3",
+    src: "/assets/market-heat-map-popup-cards-v3.js?v=4",
   },
   {
     id: "fllm-listings-heat-map-county-links-script",
@@ -26,7 +26,7 @@ const SCRIPT_ASSETS = [
   },
   {
     id: "fllm-listings-heat-map-script",
-    src: "/assets/market-heat-map.js?v=4",
+    src: "/assets/market-heat-map.js?v=5",
   },
 ] as const;
 
