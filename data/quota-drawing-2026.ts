@@ -60,7 +60,7 @@ export const QUOTA_DRAWING_2026 = {
 export async function getQuotaDrawingSourceStatus() {
   try {
     const response = await fetch(QUOTA_DRAWING_2026.sourceNoticeUrl, {
-      cache: "no-store",
+      next: { revalidate: 3600 },
       headers: { "User-Agent": "FloridaLiquorLicenseMarket/1.0" },
     });
 
