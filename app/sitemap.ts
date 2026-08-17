@@ -16,6 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/florida-3ps-liquor-license-for-sale`, lastModified, changeFrequency: "daily", priority: 0.85 },
     { url: `${siteUrl}/florida-quota-liquor-license-cost`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/florida-liquor-license-value`, lastModified, changeFrequency: "daily", priority: 0.9 },
+    { url: `${siteUrl}/florida-liquor-license-news`, lastModified, changeFrequency: "daily", priority: 0.85 },
     { url: `${siteUrl}/dbpr-abt-6002`, lastModified, changeFrequency: "monthly", priority: 0.85 },
     { url: `${siteUrl}/counties`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/sell-your-license`, lastModified, changeFrequency: "monthly", priority: 0.8 },
