@@ -21,8 +21,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Apply direct-card repair
-        run: python scripts/repair_heat_map_consistency.py
+      - name: Correct replacement handling and apply direct-card repair
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("scripts/repair_heat_map_consistency.py")
+          text = path.read_text(encoding="utf-8")
+          old = "renderer_pattern.sub(direct_renderer, heat, count=1)"
+          new = "renderer_pattern.sub(lambda _match: direct_renderer, heat, count=1)"
+          if old not in text and new not in text:
+              raise SystemExit("Expected renderer substitution was not found.")
+          path.write_text(text.replace(old, new, 1), encoding="utf-8")
+          PY
+          python scripts/repair_heat_map_consistency.py
 
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
@@ -42,6 +54,7 @@ jobs:
             components/ListingsHeatMapEnhancement.tsx \
             app/api/homepage/route.ts \
             components/ListingsPage.tsx \
-            app/listings/listings-conversion-cards.css
+            app/listings/listings-conversion-cards.css \
+            scripts/repair_heat_map_consistency.py
           git commit -m "Render heat-map cards directly and focus selected listing [heat-map-direct-cards-fixed]"
           git push origin main
