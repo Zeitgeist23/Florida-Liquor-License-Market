@@ -150,7 +150,7 @@ export default function FloridaLiquorLicenseNewsPage() {
           <span>FLLM Briefing · August 16, 2026</span>
           <h2 id="news-feature-title">Florida quota drawing season: what applicants should watch next</h2>
           <p>
-            Florida's annual quota drawing process is one of the most closely watched events in the state's liquor-license market. DBPR states that drawing entries are accepted for 45 days beginning on the third Monday in August when quota licenses are available. Before entering, applicants should confirm the current DBPR notice, eligible counties, filing deadline and ABT-6033 requirements directly with the Division.
+            Florida&apos;s annual quota drawing process is one of the most closely watched events in the state&apos;s liquor-license market. DBPR states that drawing entries are accepted for 45 days beginning on the third Monday in August when quota licenses are available. Before entering, applicants should confirm the current DBPR notice, eligible counties, filing deadline and ABT-6033 requirements directly with the Division.
           </p>
           <div className="news-feature-actions">
             <a href="https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=17270&clientCode=4087&xactCode=1030" target="_blank" rel="noopener noreferrer">Check Official Drawing Requirements <span aria-hidden="true">↗</span></a>
@@ -228,7 +228,7 @@ export default function FloridaLiquorLicenseNewsPage() {
 
       <section className="news-final-cta">
         <div className="page-shell">
-          <div><span>Florida Market Intelligence</span><h2>From a headline to a license opportunity</h2><p>Use FLLM's news, valuation tools, county data and active inventory together.</p></div>
+          <div><span>Florida Market Intelligence</span><h2>From a headline to a license opportunity</h2><p>Use FLLM&apos;s news, valuation tools, county data and active inventory together.</p></div>
           <div className="news-final-actions"><Link href="/listings">Browse Licenses</Link><Link href="/florida-liquor-license-value">Estimate License Value</Link></div>
         </div>
       </section>
