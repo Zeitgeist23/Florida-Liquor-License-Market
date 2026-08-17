@@ -99,6 +99,10 @@
     window.location.assign("/florida-liquor-license-value");
   }
 
+  function goToQuotaLottery() {
+    window.location.assign("/florida-liquor-license-lottery");
+  }
+
   function goToNewsInsights() {
     window.location.assign("/florida-liquor-license-news");
   }
@@ -217,6 +221,7 @@
       makeOption("Florida Liquor License Value Estimator", goToLicenseValueEstimator),
       makeOption("Recent Florida Transactions", goToRecentTransactions),
       makeOption("Florida Market Insights", goToMarketInsights),
+      makeOption("Quota Lottery Entry", goToQuotaLottery),
       makeOption("News & Insights", goToNewsInsights),
       makeOption("Heat Map", openHeatMap),
     );
