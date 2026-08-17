@@ -5,38 +5,128 @@
   "totalLicenses": 63,
   "totalCounties": 30,
   "entryFee": 100,
-  "lastVerified": "August 16, 2026",
+  "lastVerified": "August 17, 2026",
   "sourceNoticeUrl": "https://www2.myfloridalicense.com/abt/documents/ABT2026QuotaEntryPeriodAnnouncement.pdf",
   "counties": [
-    { "county": "Alachua", "licenses": 1 },
-    { "county": "Brevard", "licenses": 3 },
-    { "county": "Broward", "licenses": 4 },
-    { "county": "Charlotte", "licenses": 2 },
-    { "county": "Collier", "licenses": 1 },
-    { "county": "Dade", "licenses": 5 },
-    { "county": "Duval", "licenses": 3 },
-    { "county": "Flagler", "licenses": 1 },
-    { "county": "Franklin", "licenses": 1 },
-    { "county": "Hillsborough", "licenses": 3 },
-    { "county": "Jackson", "licenses": 1 },
-    { "county": "Lake", "licenses": 3 },
-    { "county": "Lee", "licenses": 2 },
-    { "county": "Leon", "licenses": 1 },
-    { "county": "Manatee", "licenses": 2 },
-    { "county": "Marion", "licenses": 2 },
-    { "county": "Okaloosa", "licenses": 1 },
-    { "county": "Orange", "licenses": 3 },
-    { "county": "Osceola", "licenses": 4 },
-    { "county": "Palm Beach", "licenses": 2 },
-    { "county": "Pasco", "licenses": 2 },
-    { "county": "Polk", "licenses": 5 },
-    { "county": "Santa Rosa", "licenses": 1 },
-    { "county": "Sarasota", "licenses": 1 },
-    { "county": "St. Johns", "licenses": 3 },
-    { "county": "St. Lucie", "licenses": 1 },
-    { "county": "Sumter", "licenses": 1 },
-    { "county": "Suwannee", "licenses": 1 },
-    { "county": "Volusia", "licenses": 2 },
-    { "county": "Walton", "licenses": 1 }
+    {
+      "county": "Alachua",
+      "licenses": 1
+    },
+    {
+      "county": "Brevard",
+      "licenses": 3
+    },
+    {
+      "county": "Broward",
+      "licenses": 4
+    },
+    {
+      "county": "Charlotte",
+      "licenses": 2
+    },
+    {
+      "county": "Collier",
+      "licenses": 1
+    },
+    {
+      "county": "Dade",
+      "licenses": 5
+    },
+    {
+      "county": "Duval",
+      "licenses": 3
+    },
+    {
+      "county": "Flagler",
+      "licenses": 1
+    },
+    {
+      "county": "Franklin",
+      "licenses": 1
+    },
+    {
+      "county": "Hillsborough",
+      "licenses": 3
+    },
+    {
+      "county": "Jackson",
+      "licenses": 1
+    },
+    {
+      "county": "Lake",
+      "licenses": 3
+    },
+    {
+      "county": "Lee",
+      "licenses": 2
+    },
+    {
+      "county": "Leon",
+      "licenses": 1
+    },
+    {
+      "county": "Manatee",
+      "licenses": 2
+    },
+    {
+      "county": "Marion",
+      "licenses": 2
+    },
+    {
+      "county": "Okaloosa",
+      "licenses": 1
+    },
+    {
+      "county": "Orange",
+      "licenses": 3
+    },
+    {
+      "county": "Osceola",
+      "licenses": 4
+    },
+    {
+      "county": "Palm Beach",
+      "licenses": 2
+    },
+    {
+      "county": "Pasco",
+      "licenses": 2
+    },
+    {
+      "county": "Polk",
+      "licenses": 5
+    },
+    {
+      "county": "Santa Rosa",
+      "licenses": 1
+    },
+    {
+      "county": "Sarasota",
+      "licenses": 1
+    },
+    {
+      "county": "St. Johns",
+      "licenses": 3
+    },
+    {
+      "county": "St. Lucie",
+      "licenses": 1
+    },
+    {
+      "county": "Sumter",
+      "licenses": 1
+    },
+    {
+      "county": "Suwannee",
+      "licenses": 1
+    },
+    {
+      "county": "Volusia",
+      "licenses": 2
+    },
+    {
+      "county": "Walton",
+      "licenses": 1
+    }
   ]
 }
