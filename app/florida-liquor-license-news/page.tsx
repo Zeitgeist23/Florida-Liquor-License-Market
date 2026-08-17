@@ -4,6 +4,7 @@ import Link from "next/link";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import "@/app/resources/forms/abt-forms.css";
 import "./news-insights.css";
+import "./news-mobile-readability.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-news`;
