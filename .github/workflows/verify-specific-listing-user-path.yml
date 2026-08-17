@@ -1,0 +1,180 @@
+name: Verify heat map opens dedicated license page
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/verify-specific-listing-user-path.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser dependency
+        run: npm install --no-save --no-package-lock --ignore-scripts puppeteer-core@24.16.0
+      - name: Test the exact live heat-map path
+        run: |
+          node <<'NODE'
+          const puppeteer = require('puppeteer-core');
+          const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+          const SITE = 'https://www.floridaliquorlicensemarket.com';
+
+          async function firstListing(page) {
+            return page.evaluate(async () => {
+              const response = await fetch(`/api/market-insights-listings?dedicated=${Date.now()}`, { cache: 'no-store' });
+              if (!response.ok) throw new Error(`Listings API returned ${response.status}`);
+              const payload = await response.json();
+              return (Array.isArray(payload.listings) ? payload.listings : [])
+                .find((listing) => listing?.sourceRef && listing?.county && /^\/listings\/[^/]+/.test(listing?.href || '')) || null;
+            });
+          }
+
+          async function waitForDedicatedDeployment(page) {
+            for (let attempt = 1; attempt <= 18; attempt += 1) {
+              await page.goto(`${SITE}/listings?dedicated-ready=${Date.now()}`, {
+                waitUntil: 'networkidle2',
+                timeout: 90000,
+              });
+              const record = await firstListing(page);
+              if (!record) throw new Error('No live listing was available for verification.');
+
+              await page.goto(`${SITE}${record.href}?dedicated-ready=${Date.now()}`, {
+                waitUntil: 'networkidle2',
+                timeout: 90000,
+              });
+              const ready = await page.evaluate((reference) => {
+                const main = document.querySelector('main.results-page.marketplace-listing-page');
+                const referenceVisible = Array.from(document.querySelectorAll('strong, span, p, h1, h2'))
+                  .some((element) => (element.textContent || '').includes(reference));
+                return Boolean(
+                  main &&
+                  document.querySelector('.marketplace-listing-hero') &&
+                  document.querySelector('.marketplace-listing-body') &&
+                  !document.querySelector('section.results-content') &&
+                  !document.querySelector('.results-filters') &&
+                  referenceVisible
+                );
+              }, record.sourceRef).catch(() => false);
+
+              if (ready) return record;
+              console.log(`Dedicated listing deployment not live on attempt ${attempt}; retrying.`);
+              await sleep(7000);
+            }
+            throw new Error('The dedicated individual listing page did not become live in time.');
+          }
+
+          async function clickVisibleHeatMapButton(page) {
+            const buttons = await page.$$('.results-filters button');
+            for (const button of buttons) {
+              const state = await button.evaluate((element) => {
+                const rect = element.getBoundingClientRect();
+                const style = getComputedStyle(element);
+                return {
+                  text: (element.textContent || '').replace(/\s+/g, ' ').trim(),
+                  visible: rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden',
+                };
+              });
+              if (state.visible && /^heat map$/i.test(state.text)) {
+                await button.click();
+                return;
+              }
+            }
+            throw new Error('The visible Listings-page Heat Map button was not found.');
+          }
+
+          async function selectCounty(page, countyName) {
+            const county = String(countyName).replace(/\s+County$/i, '');
+            await page.waitForSelector('.fllm-heat-map-modal path[data-heat-map-county]', { timeout: 30000 });
+            const clicked = await page.evaluate((name) => {
+              const path = Array.from(document.querySelectorAll('.fllm-heat-map-modal path[data-heat-map-county]'))
+                .find((candidate) => (candidate.getAttribute('data-heat-map-county') || '').trim().toLowerCase() === name.toLowerCase());
+              if (!path) return false;
+              path.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+              return true;
+            }, county);
+            if (!clicked) throw new Error(`Could not select ${county} on the heat map.`);
+            await page.waitForSelector('.fllm-county-listings-dialog', { timeout: 30000 });
+          }
+
+          async function clickExactViewLicense(page, record) {
+            const clicked = await page.evaluate((reference) => {
+              const card = Array.from(document.querySelectorAll('.fllm-county-listings-dialog .result-card'))
+                .find((candidate) => (candidate.getAttribute('data-listing-reference') || '').trim().toLowerCase() === reference.toLowerCase());
+              const button = card?.querySelector('.result-view-button');
+              if (!(button instanceof HTMLAnchorElement)) return null;
+              const href = new URL(button.href, location.origin).pathname;
+              button.click();
+              return href;
+            }, record.sourceRef);
+            if (!clicked) throw new Error(`No View License button was found for ${record.sourceRef}.`);
+            if (clicked !== record.href) throw new Error(`Heat-map button pointed to ${clicked}, expected ${record.href}.`);
+          }
+
+          async function assertDedicatedPage(page, record, label) {
+            await page.waitForFunction((expected) => location.pathname === expected, { timeout: 30000 }, record.href);
+            await page.waitForSelector('main.results-page.marketplace-listing-page .marketplace-listing-hero', { timeout: 30000 });
+            const state = await page.evaluate((reference) => ({
+              pathname: location.pathname,
+              dedicatedMain: Boolean(document.querySelector('main.results-page.marketplace-listing-page')),
+              hero: Boolean(document.querySelector('.marketplace-listing-hero')),
+              detailBody: Boolean(document.querySelector('.marketplace-listing-body')),
+              inventorySection: Boolean(document.querySelector('section.results-content')),
+              filterBar: Boolean(document.querySelector('.results-filters')),
+              exactReferenceVisible: Array.from(document.querySelectorAll('strong, span, p, h1, h2'))
+                .some((element) => (element.textContent || '').includes(reference)),
+              specificHeading: Array.from(document.querySelectorAll('h2'))
+                .some((element) => /Specific License Details/i.test(element.previousElementSibling?.textContent || '') || /specific license details/i.test(element.parentElement?.textContent || '')),
+            }), record.sourceRef);
+            console.log(`${label}:`, JSON.stringify(state, null, 2));
+            if (state.pathname !== record.href) throw new Error(`${label} opened ${state.pathname}, expected ${record.href}.`);
+            if (!state.dedicatedMain || !state.hero || !state.detailBody) throw new Error(`${label} did not render the dedicated listing layout.`);
+            if (state.inventorySection || state.filterBar) throw new Error(`${label} still rendered the full Listings inventory page.`);
+            if (!state.exactReferenceVisible) throw new Error(`${label} did not display exact reference ${record.sourceRef}.`);
+          }
+
+          (async () => {
+            const browser = await puppeteer.launch({
+              executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
+              headless: true,
+              args: ['--no-sandbox', '--disable-dev-shm-usage'],
+            });
+
+            try {
+              const readinessPage = await browser.newPage();
+              await readinessPage.setViewport({ width: 1700, height: 1000 });
+              const record = await waitForDedicatedDeployment(readinessPage);
+              console.log('TEST RECORD:', JSON.stringify(record));
+              await readinessPage.close();
+
+              const listings = await browser.newPage();
+              await listings.setViewport({ width: 1700, height: 1000 });
+              await listings.goto(`${SITE}/listings?exact-flow=${Date.now()}`, { waitUntil: 'networkidle2', timeout: 90000 });
+              await clickVisibleHeatMapButton(listings);
+              await listings.waitForSelector('.fllm-heat-map-modal', { timeout: 30000 });
+              await selectCounty(listings, record.county);
+              await clickExactViewLicense(listings, record);
+              await assertDedicatedPage(listings, record, 'Listings heat-map destination');
+              await listings.screenshot({ path: 'specific-listing-from-heat-map.png', fullPage: true });
+
+              console.log('PASS: Heat Map → county → View License opens a dedicated page for the exact selected license, not the statewide Listings page.');
+            } finally {
+              await browser.close();
+            }
+          })().catch((error) => {
+            console.error(error.stack || error);
+            process.exit(1);
+          });
+          NODE
+      - name: Upload verification screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: specific-listing-user-path-verification
+          path: specific-listing-from-heat-map.png
+          if-no-files-found: ignore
