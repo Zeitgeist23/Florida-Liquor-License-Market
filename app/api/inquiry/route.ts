@@ -1,38 +1,158 @@
 import { NextResponse } from "next/server";
 
-import { notifyFllmOfBuyerOffer } from "@/lib/fllm-email";
+import { notifyFllmOfBuyerOffer, sendFllmEmail } from "@/lib/fllm-email";
 import { createBuyerLead } from "@/lib/listing-submission-store";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-function value(formData: FormData, name: string) {
-  return String(formData.get(name) || "").trim();
+function value(formData: FormData, name: string, maxLength = 5000) {
+  return String(formData.get(name) || "").trim().slice(0, maxLength);
+}
+
+function escapeHtml(input: string) {
+  return input
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function contactRecipient() {
+  return (
+    process.env.FLLM_CONTACT_INQUIRY_EMAIL ||
+    process.env.GOOGLE_SENDER_EMAIL ||
+    "listings@floridaliquorlicensemarket.com"
+  );
+}
+
+function isBuyerOffer(formData: FormData) {
+  return Boolean(
+    formData.get("non_binding_acknowledgment") ||
+    value(formData, "offer_amount", 60) ||
+    value(formData, "purchase_method", 160) ||
+    value(formData, "target_closing", 120),
+  );
+}
+
+async function submitContactInquiry(request: Request, formData: FormData) {
+  const fullName = value(formData, "name", 160);
+  const email = value(formData, "email", 254).toLowerCase();
+  const phone = value(formData, "phone", 60);
+  const inquiryType = value(formData, "inquiry_type", 120);
+  const preferredCounty = value(formData, "preferred_county", 100);
+  const message = value(formData, "message", 5000);
+
+  if (!fullName || !email || !inquiryType || !message) {
+    return NextResponse.json(
+      { error: "Please complete the required inquiry fields." },
+      { status: 400 },
+    );
+  }
+  if (!/^\S+@\S+\.\S+$/.test(email)) {
+    return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
+  }
+
+  const listingReference = value(formData, "listing_reference", 100);
+  const listingRequested = value(formData, "listing_requested", 300);
+  const listingCounty = value(formData, "listing_county", 100) || preferredCounty;
+  const licenseType = value(formData, "license_type", 120);
+  const askingPrice = value(formData, "asking_price", 80);
+  const listingStatus = value(formData, "listing_status", 160);
+  const listingUrlValue = value(formData, "listing_url", 500);
+  const listingUrl = /^\/listings\/[a-z0-9%._~-]+(?:[/?#].*)?$/i.test(listingUrlValue)
+    ? new URL(listingUrlValue, request.url).toString()
+    : "";
+
+  const subject = listingReference
+    ? `Specific License Inquiry — ${listingReference} — ${listingCounty || listingRequested}`
+    : value(formData, "_subject", 240) || `FLLM Contact Inquiry — ${inquiryType}`;
+
+  const listingDetails = [
+    ["Listing reference", listingReference],
+    ["Selected listing", listingRequested],
+    ["County", listingCounty],
+    ["License type", licenseType],
+    ["Asking price", askingPrice],
+    ["Listing status", listingStatus],
+    ["Listing page", listingUrl],
+  ].filter(([, detail]) => Boolean(detail));
+
+  const textListingDetails = listingDetails.length
+    ? `\nSelected license details:\n${listingDetails.map(([label, detail]) => `${label}: ${detail}`).join("\n")}\n`
+    : "";
+
+  const text = `A new confidential inquiry was submitted through Florida Liquor License Market.\n\nName: ${fullName}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\nInquiry type: ${inquiryType}\nPreferred county: ${preferredCounty || "Not selected"}\n${textListingDetails}\nMessage:\n${message}`;
+
+  const listingRows = listingDetails
+    .map(([label, detail]) => {
+      const displayedDetail = label === "Listing page" && listingUrl
+        ? `<a href="${escapeHtml(listingUrl)}">${escapeHtml(listingUrl)}</a>`
+        : escapeHtml(detail);
+      return `<tr><td style="padding:7px 10px;border-bottom:1px solid #d9dee2;color:#596674;font-size:12px;font-weight:700;">${escapeHtml(label)}</td><td style="padding:7px 10px;border-bottom:1px solid #d9dee2;color:#071a3a;font-size:13px;font-weight:700;">${displayedDetail}</td></tr>`;
+    })
+    .join("");
+
+  const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#f4f6f7;font-family:Arial,Helvetica,sans-serif;color:#071a3a;">
+    <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #d6dde2;border-top:5px solid #f6a700;padding:24px;">
+      <div style="margin-bottom:20px;color:#f1a600;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;">Florida Liquor License Market</div>
+      <h1 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.15;">${listingReference ? "Specific License Inquiry" : "New Confidential Inquiry"}</h1>
+      <p style="margin:0 0 18px;line-height:1.65;"><strong>Name:</strong> ${escapeHtml(fullName)}<br><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a><br><strong>Phone:</strong> ${escapeHtml(phone || "Not provided")}<br><strong>Inquiry type:</strong> ${escapeHtml(inquiryType)}<br><strong>Preferred county:</strong> ${escapeHtml(preferredCounty || "Not selected")}</p>
+      ${listingRows ? `<h2 style="margin:24px 0 10px;font-size:17px;">Selected License Details</h2><table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border:1px solid #d9dee2;border-collapse:collapse;">${listingRows}</table>` : ""}
+      <h2 style="margin:24px 0 8px;font-size:17px;">Message</h2>
+      <p style="margin:0;white-space:pre-wrap;line-height:1.7;">${escapeHtml(message)}</p>
+    </div>
+  </body></html>`;
+
+  try {
+    await sendFllmEmail({
+      to: contactRecipient(),
+      replyTo: email,
+      subject,
+      text,
+      html,
+    });
+  } catch (notificationError) {
+    console.error("Contact inquiry notification failed", notificationError);
+    // The existing contact-page client treats 429 as a signal to use its FormSubmit fallback.
+    return NextResponse.json(
+      { error: "Primary notification service is unavailable." },
+      { status: 429 },
+    );
+  }
+
+  return NextResponse.json({ ok: true });
 }
 
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
-    if (value(formData, "_honey")) {
+    if (value(formData, "_honey", 200)) {
       return NextResponse.json({ ok: true });
     }
+
+    if (!isBuyerOffer(formData)) {
+      return submitContactInquiry(request, formData);
+    }
+
     if (!formData.get("non_binding_acknowledgment")) {
       return NextResponse.json({ error: "Please accept the offer acknowledgment." }, { status: 400 });
     }
 
     const lead = await createBuyerLead({
-      fullName: value(formData, "name"),
-      email: value(formData, "email"),
-      phone: value(formData, "phone"),
-      listingReference: value(formData, "listing_reference"),
-      listingRequested: value(formData, "listing_requested"),
-      offerAmountText: value(formData, "offer_amount"),
-      purchaseMethod: value(formData, "purchase_method"),
-      targetClosing: value(formData, "target_closing"),
-      proofOfFunds: value(formData, "proof_of_funds"),
-      offerExpiration: value(formData, "offer_expiration"),
-      contingencies: value(formData, "contingencies"),
-      message: value(formData, "message"),
+      fullName: value(formData, "name", 160),
+      email: value(formData, "email", 254),
+      phone: value(formData, "phone", 60),
+      listingReference: value(formData, "listing_reference", 100),
+      listingRequested: value(formData, "listing_requested", 300),
+      offerAmountText: value(formData, "offer_amount", 60),
+      purchaseMethod: value(formData, "purchase_method", 160),
+      targetClosing: value(formData, "target_closing", 120),
+      proofOfFunds: value(formData, "proof_of_funds", 160),
+      offerExpiration: value(formData, "offer_expiration", 40),
+      contingencies: value(formData, "contingencies", 5000),
+      message: value(formData, "message", 5000),
     });
 
     try {
@@ -43,10 +163,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ ok: true, leadReference: lead.submissionRef });
   } catch (error) {
-    console.error("Buyer offer capture failed", error);
+    console.error("Inquiry capture failed", error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Unable to submit offer." },
-      { status: 500 }
+      { error: error instanceof Error ? error.message : "Unable to submit inquiry." },
+      { status: 500 },
     );
   }
 }
