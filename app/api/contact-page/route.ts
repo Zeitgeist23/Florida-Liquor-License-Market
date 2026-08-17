@@ -107,7 +107,7 @@ const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v2">
   }
 </style>`;
 
-const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=1" defer></script>';
+const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=3" defer></script>';
 const CAREERS_ENTRY = '<a class="contact-careers-entry" href="/careers"><span>Interested in joining FLLM?</span><strong>View Careers →</strong></a>';
 
 function addContactEnhancements(html: string) {
