@@ -1,0 +1,171 @@
+name: Verify selected license inquiry context
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/verify-listing-inquiry-context.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser dependency
+        run: npm install --no-save --no-package-lock --ignore-scripts puppeteer-core@24.16.0
+      - name: Test exact individual-listing inquiry flow
+        run: |
+          node <<'NODE'
+          const puppeteer = require('puppeteer-core');
+          const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+          const SITE = 'https://www.floridaliquorlicensemarket.com';
+
+          function clean(value) {
+            return String(value || '').replace(/\s+/g, ' ').trim();
+          }
+
+          async function selectedListing(page) {
+            return page.evaluate(async () => {
+              const response = await fetch(`/api/market-insights-listings?inquiry-context=${Date.now()}`, { cache: 'no-store' });
+              if (!response.ok) throw new Error(`Listings API returned ${response.status}`);
+              const payload = await response.json();
+              const listings = Array.isArray(payload.listings) ? payload.listings : [];
+              return listings.find((listing) => listing?.sourceRef === 'FLLM-098') ||
+                listings.find((listing) => listing?.sourceRef && /^\/listings\/[^/]+/.test(listing?.href || '')) || null;
+            });
+          }
+
+          async function waitForLiveContext(page) {
+            for (let attempt = 1; attempt <= 15; attempt += 1) {
+              await page.goto(`${SITE}/listings?inquiry-ready=${Date.now()}`, {
+                waitUntil: 'networkidle2',
+                timeout: 90000,
+              });
+              const record = await selectedListing(page);
+              if (!record) throw new Error('No live listing was available for verification.');
+
+              await page.goto(`${SITE}${record.href}?inquiry-ready=${Date.now()}`, {
+                waitUntil: 'networkidle2',
+                timeout: 90000,
+              });
+
+              const linkState = await page.evaluate(() => {
+                const link = Array.from(document.querySelectorAll('a'))
+                  .find((candidate) => cleanText(candidate.textContent) === 'Inquire About This License');
+                function cleanText(value) { return String(value || '').replace(/\s+/g, ' ').trim(); }
+                if (!(link instanceof HTMLAnchorElement)) return null;
+                const url = new URL(link.href, location.origin);
+                return { pathname: url.pathname, search: url.search };
+              }).catch(() => null);
+
+              if (linkState?.pathname === '/contact' && new URLSearchParams(linkState.search).get('license_type')) {
+                return record;
+              }
+
+              console.log(`Inquiry-context deployment not ready on attempt ${attempt}; retrying.`);
+              await sleep(6000);
+            }
+            throw new Error('The specific-license inquiry context did not become live in time.');
+          }
+
+          (async () => {
+            const browser = await puppeteer.launch({
+              executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
+              headless: true,
+              args: ['--no-sandbox', '--disable-dev-shm-usage'],
+            });
+
+            try {
+              const page = await browser.newPage();
+              await page.setViewport({ width: 1700, height: 1100 });
+              const record = await waitForLiveContext(page);
+
+              const link = await page.evaluate(() => {
+                const anchor = Array.from(document.querySelectorAll('a'))
+                  .find((candidate) => (candidate.textContent || '').replace(/\s+/g, ' ').trim() === 'Inquire About This License');
+                if (!(anchor instanceof HTMLAnchorElement)) return null;
+                const url = new URL(anchor.href, location.origin);
+                return {
+                  href: `${url.pathname}${url.search}`,
+                  pathname: url.pathname,
+                  params: Object.fromEntries(url.searchParams.entries()),
+                };
+              });
+
+              if (!link) throw new Error('The Inquire About This License link was not found.');
+              if (link.pathname !== '/contact') throw new Error(`Inquiry link opened ${link.pathname} instead of /contact.`);
+              if (link.params.ref !== record.sourceRef) throw new Error(`Reference query mismatch: ${link.params.ref} vs ${record.sourceRef}.`);
+              if (link.params.county !== record.county) throw new Error(`County query mismatch: ${link.params.county} vs ${record.county}.`);
+              if (link.params.license_type !== record.type) throw new Error(`License-type query mismatch: ${link.params.license_type} vs ${record.type}.`);
+              if (link.params.asking_price !== record.priceLabel) throw new Error(`Price query mismatch: ${link.params.asking_price} vs ${record.priceLabel}.`);
+              if (link.params.listing_url !== record.href) throw new Error(`Return URL mismatch: ${link.params.listing_url} vs ${record.href}.`);
+              if (!link.params.listing.includes(record.sourceRef)) throw new Error('The human-readable listing summary does not include the exact reference.');
+
+              await page.goto(`${SITE}${link.href}`, { waitUntil: 'networkidle2', timeout: 90000 });
+              await page.waitForSelector('.contact-license-context', { timeout: 30000 });
+              await sleep(700);
+
+              const state = await page.evaluate(() => {
+                const form = document.querySelector('form.contact-page-form');
+                const panel = document.querySelector('.contact-license-context');
+                const hidden = (name) => form?.querySelector(`input[name="${name}"]`)?.value || '';
+                return {
+                  pathname: location.pathname,
+                  heading: (form?.querySelector('.seller-form-heading h2')?.textContent || '').trim(),
+                  panelText: (panel?.textContent || '').replace(/\s+/g, ' ').trim(),
+                  reference: hidden('listing_reference'),
+                  requested: hidden('listing_requested'),
+                  countyHidden: hidden('listing_county'),
+                  licenseTypeHidden: hidden('license_type'),
+                  priceHidden: hidden('asking_price'),
+                  statusHidden: hidden('listing_status'),
+                  listingUrlHidden: hidden('listing_url'),
+                  inquiryType: form?.querySelector('select[name="inquiry_type"]')?.value || '',
+                  preferredCounty: form?.querySelector('select[name="preferred_county"]')?.value || '',
+                  message: form?.querySelector('textarea[name="message"]')?.value || '',
+                  subject: hidden('_subject'),
+                  returnHref: panel?.querySelector('a')?.getAttribute('href') || '',
+                };
+              });
+
+              console.log('SELECTED RECORD:', JSON.stringify(record, null, 2));
+              console.log('INQUIRY SCREEN STATE:', JSON.stringify(state, null, 2));
+
+              if (state.pathname !== '/contact') throw new Error(`Inquiry screen pathname is ${state.pathname}.`);
+              if (state.heading !== 'Inquire About This License') throw new Error(`Inquiry heading is ${state.heading}.`);
+              for (const expected of [record.sourceRef, record.county, record.type, record.priceLabel]) {
+                if (!state.panelText.includes(expected)) throw new Error(`Selected-license panel is missing ${expected}.`);
+                if (!state.message.includes(expected)) throw new Error(`Prefilled message is missing ${expected}.`);
+              }
+              if (state.reference !== record.sourceRef) throw new Error(`Hidden reference is ${state.reference}.`);
+              if (state.countyHidden !== record.county) throw new Error(`Hidden county is ${state.countyHidden}.`);
+              if (state.licenseTypeHidden !== record.type) throw new Error(`Hidden license type is ${state.licenseTypeHidden}.`);
+              if (state.priceHidden !== record.priceLabel) throw new Error(`Hidden asking price is ${state.priceHidden}.`);
+              if (state.listingUrlHidden !== record.href) throw new Error(`Hidden listing URL is ${state.listingUrlHidden}.`);
+              if (state.inquiryType !== 'Buy a License') throw new Error(`Inquiry type is ${state.inquiryType}.`);
+              if (state.preferredCounty !== record.county) throw new Error(`Preferred county is ${state.preferredCounty}.`);
+              if (!state.subject.includes(record.sourceRef)) throw new Error(`Inquiry subject does not include ${record.sourceRef}.`);
+              if (state.returnHref !== record.href) throw new Error(`Return link is ${state.returnHref}.`);
+
+              await page.screenshot({ path: 'selected-license-inquiry-screen.png', fullPage: true });
+              console.log('PASS: The individual license reference, county, type, asking price, status, and listing URL carry into the inquiry screen and form.');
+            } finally {
+              await browser.close();
+            }
+          })().catch((error) => {
+            console.error(error.stack || error);
+            process.exit(1);
+          });
+          NODE
+      - name: Upload inquiry-screen verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selected-license-inquiry-screen-verification
+          path: selected-license-inquiry-screen.png
+          if-no-files-found: ignore
