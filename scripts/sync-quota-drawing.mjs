@@ -22,9 +22,13 @@ function regexEscape(value) {
 }
 
 function countyPattern(county) {
-  return regexEscape(county)
-    .replace(/St\\\. /g, "St\\.?\\s+")
-    .replace(/\\ /g, "\\s+");
+  return county
+    .split(/\s+/)
+    .map((part) => {
+      const escaped = regexEscape(part);
+      return /^St\\\.$/i.test(escaped) ? "St\\.?" : escaped;
+    })
+    .join("\\s+");
 }
 
 function formatDate(date) {
@@ -51,11 +55,16 @@ function discoverNoticeUrl(html, fallback) {
 }
 
 function extractDates(flatText, existing) {
-  const matches = [...flatText.matchAll(/([A-Z][a-z]+\s+\d{1,2},\s+\d{4})\s+at\s+(\d{1,2}:\d{2}\s*[AP]\.?(?:\s*)M\.?)\s+EST/gi)];
+  const matches = [...flatText.matchAll(/([A-Z][a-z]+\s+\d{1,2},\s+\d{4})\s*\(\s*(\d{1,2}:\d{2}\s*[AP]\.?(?:\s*)M\.?)\s+EST\s*\)/gi)];
   if (matches.length < 2) {
     return { entryOpens: existing.entryOpens, entryCloses: existing.entryCloses };
   }
-  const cleanTime = (value) => value.replace(/\s+/g, " ").replace(/A\.\s*M\./i, "A.M.").replace(/P\.\s*M\./i, "P.M.");
+
+  const cleanTime = (value) => value
+    .replace(/\s+/g, " ")
+    .replace(/A\.\s*M\./i, "A.M.")
+    .replace(/P\.\s*M\./i, "P.M.");
+
   return {
     entryOpens: `${matches[0][1]} at ${cleanTime(matches[0][2])} EST`,
     entryCloses: `${matches[1][1]} at ${cleanTime(matches[1][2])} EST`,
@@ -64,12 +73,14 @@ function extractDates(flatText, existing) {
 
 function parseNotice(text, existing, sourceNoticeUrl) {
   const flat = text.replace(/\s+/g, " ").trim();
-  const totalMatch = flat.match(/(?:there\s+are\s+)?(\d+)\s+quota beverage licenses?\s+(?:are\s+)?available\s+in\s+(\d+)\s+counties/i);
+  const totalMatch = flat.match(/LICENSES\s+AVAILABLE\s+(\d+)\s+Quota Beverage Licenses?\s+in\s+(\d+)\s+Counties/i)
+    || flat.match(/(?:there\s+are\s+)?(\d+)\s+quota beverage licenses?\s+(?:are\s+)?available\s+in\s+(\d+)\s+counties/i);
   if (!totalMatch) throw new Error("Could not find DBPR's total license/county statement in the quota notice.");
 
   const totalLicenses = Number(totalMatch[1]);
   const totalCounties = Number(totalMatch[2]);
-  const feeMatch = flat.match(/non-refundable\s+(?:drawing\s+)?entry fee(?:\s+of)?\s+\$\s*(\d+)/i)
+  const feeMatch = flat.match(/\$\s*(\d+)\s+per\s+entry/i)
+    || flat.match(/non-refundable\s+(?:drawing\s+)?entry fee(?:\s+of)?\s+\$\s*(\d+)/i)
     || flat.match(/\$\s*(\d+)\s+non-refundable\s+(?:drawing\s+)?entry fee/i);
   const entryFee = feeMatch ? Number(feeMatch[1]) : existing.entryFee;
 
