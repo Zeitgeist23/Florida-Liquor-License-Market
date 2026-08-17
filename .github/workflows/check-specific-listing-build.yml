@@ -1,0 +1,26 @@
+name: Check specific listing page build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/listings/[slug]/page.tsx"
+      - "app/listings/[slug]/listing-detail.css"
+      - ".github/workflows/check-specific-listing-build.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
