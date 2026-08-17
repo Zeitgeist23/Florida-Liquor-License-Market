@@ -1,0 +1,45 @@
+name: Embed static contact listing context
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/embed_contact_listing_context.py"
+      - ".github/workflows/embed-contact-listing-context.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  embed:
+    if: ${{ !contains(github.event.head_commit.message, '[static-contact-context]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Embed inquiry context assets in static contact page
+        run: python scripts/embed_contact_listing_context.py
+      - name: Validate browser script syntax
+        run: node --check public/assets/contact-listing-context.js
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Validate production build
+        run: npm run build
+      - name: Commit verified static contact update
+        run: |
+          if git diff --quiet -- public/contact/index.html; then
+            echo "No static contact update was needed."
+            exit 0
+          fi
+          git config user.name "Zeitgeist23"
+          git config user.email "JWigg023@gmail.com"
+          git add public/contact/index.html
+          git commit -m "Load selected license context on inquiry screen [static-contact-context]"
+          git push origin main
