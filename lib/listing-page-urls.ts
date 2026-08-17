@@ -1,5 +1,11 @@
 import type { Listing } from "@/data/listings";
 import { countySlug } from "@/data/florida-counties";
+import {
+  isDirectSellerReference,
+  withListingInventoryClass,
+  type ClassifiedListing,
+  type ListingWithInventoryClass,
+} from "@/lib/listing-inventory-class";
 
 function slugPart(value: string) {
   return value
@@ -21,22 +27,19 @@ function listingTypeSlug(type: Listing["type"]) {
   return type === "4COP Quota" ? "4cop-quota" : "3ps-quota";
 }
 
-function isPaidMarketplaceRef(sourceRef: string) {
-  return /^FLLM-PAID-/i.test(sourceRef.trim());
-}
-
-function publicListingForDetailPage(listing: Listing): Listing {
-  const isFllmSubmission = Boolean(listing.sourceRef && isPaidMarketplaceRef(listing.sourceRef));
+function publicListingForDetailPage(listing: ListingWithInventoryClass): ClassifiedListing {
+  const classified = withListingInventoryClass(listing);
+  const isFllmSubmission = isDirectSellerReference(classified.sourceRef);
 
   // Source names and source URLs are internal marketplace data. They are used
   // for ingestion, refresh, and deduplication, but are never exposed on public
   // individual-license pages. Imported notes can carry source-identifying
   // language as well, so only genuine FLLM-submitted seller notes are retained.
   return {
-    ...listing,
+    ...classified,
     sourceName: undefined,
     sourceUrl: undefined,
-    note: isFllmSubmission ? listing.note : undefined,
+    note: isFllmSubmission ? classified.note : undefined,
   };
 }
 
@@ -45,7 +48,7 @@ export function listingPageSlug(listing: Pick<Listing, "county" | "type" | "sour
 
   // Paid seller listings already use their public submission reference as the
   // canonical route. Keep that URL stable rather than creating a second page.
-  if (isPaidMarketplaceRef(listing.sourceRef)) {
+  if (isDirectSellerReference(listing.sourceRef)) {
     return listing.sourceRef.trim().toUpperCase();
   }
 
@@ -60,10 +63,10 @@ export function listingPageHref(listing: Pick<Listing, "county" | "type" | "sour
 
 export type IndexableListingPage = {
   slug: string;
-  listing: Listing;
+  listing: ClassifiedListing;
 };
 
-export function indexableListingPages(input: Listing[]): IndexableListingPage[] {
+export function indexableListingPages(input: ListingWithInventoryClass[]): IndexableListingPage[] {
   const pages = new Map<string, IndexableListingPage>();
 
   // Every active source reference can be surfaced as a comparable in the value
@@ -78,7 +81,7 @@ export function indexableListingPages(input: Listing[]): IndexableListingPage[] 
 
     // If the same canonical source reference appears more than once, keep the
     // latest record so the detail page reflects current marketplace data while
-    // presenting only FLLM-safe public fields.
+    // presenting only FLLM-safe public fields and retaining its inventory class.
     pages.set(slug, { slug, listing: publicListingForDetailPage(listing) });
   }
 
