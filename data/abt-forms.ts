@@ -85,6 +85,19 @@ export const ABT_FORMS: AbtFormDefinition[] = [
     lastVerified: "July 29, 2026",
   },
   {
+    id: "abt-6033",
+    formNumber: "DBPR ABT-6033",
+    title: "Quota Beverage License Drawing Entry Form",
+    shortTitle: "Quota License Drawing Entry",
+    description:
+      "Prepare the official form used to enter Florida's annual quota beverage license drawing for an available quota license in a particular county.",
+    useCases: ["Annual quota drawing entry", "County-specific quota license application priority", "Individual or business drawing entry preparation"],
+    officialPdfUrl:
+      "https://www2.myfloridalicense.com/abt/documents/ABT6033QuotaLicenseDrawingEntryForm.pdf",
+    lastVerified: "August 16, 2026",
+    featured: true,
+  },
+  {
     id: "abt-6001",
     formNumber: "DBPR ABT-6001",
     title: "Application for New Alcoholic Beverage License",
