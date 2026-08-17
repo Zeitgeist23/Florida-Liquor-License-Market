@@ -164,10 +164,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   const context = await loadListingContext(slug);
-  if (!context?.selected.sourceRef) notFound();
+  if (!context) notFound();
 
   const { selected, listings } = context;
-  const normalizedReference = selected.sourceRef.trim().toLowerCase();
+  const selectedReference = selected.sourceRef;
+  if (!selectedReference) notFound();
+  const normalizedReference = selectedReference.trim().toLowerCase();
   const countyHref = `/counties/${countySlug(selected.county)}`;
   const filteredCountyHref = `/listings?county=${encodeURIComponent(selected.county)}&status=available`;
   const canonicalPath = listingPageHref(selected);
@@ -182,8 +184,8 @@ export default async function Page({ params }: PageProps) {
   const statusLabel = selected.licenseStatus
     ? `${sellerReportedStatusLabel(selected.licenseStatus)} / Available`
     : "Available / Status to confirm";
-  const inquiryHref = `/contact?listing=${encodeURIComponent(`${selected.county} ${selected.type}`)}&ref=${encodeURIComponent(selected.sourceRef)}`;
-  const offerHref = `/submit-offer?listing=${encodeURIComponent(`${selected.county} ${selected.type}`)}&ref=${encodeURIComponent(selected.sourceRef)}`;
+  const inquiryHref = `/contact?listing=${encodeURIComponent(`${selected.county} ${selected.type}`)}&ref=${encodeURIComponent(selectedReference)}`;
+  const offerHref = `/submit-offer?listing=${encodeURIComponent(`${selected.county} ${selected.type}`)}&ref=${encodeURIComponent(selectedReference)}`;
   const related = listings
     .filter((listing) =>
       Boolean(listing.sourceRef) &&
@@ -207,7 +209,7 @@ export default async function Page({ params }: PageProps) {
       about: {
         "@type": "Thing",
         name: `${selected.type} in ${selected.county}`,
-        identifier: selected.sourceRef,
+        identifier: selectedReference,
       },
     },
     {
@@ -265,7 +267,7 @@ export default async function Page({ params }: PageProps) {
               <span>›</span>
               <Link href={countyHref}>{selected.county}</Link>
               <span>›</span>
-              <strong>{selected.sourceRef}</strong>
+              <strong>{selectedReference}</strong>
             </div>
             <span className="marketplace-listing-kicker">Individual Florida Marketplace Listing</span>
             <h1>{selected.county} {shortLicenseType(selected.type)} for Sale</h1>
@@ -275,7 +277,7 @@ export default async function Page({ params }: PageProps) {
                 <span className="availability-dot" aria-hidden="true" />
                 Available
               </span>
-              <span className="marketplace-listing-hero-reference">Listing {selected.sourceRef}</span>
+              <span className="marketplace-listing-hero-reference">Listing {selectedReference}</span>
             </div>
             <p className="marketplace-listing-summary">{descriptionParts.license}</p>
             <div className="marketplace-listing-actions">
@@ -310,7 +312,7 @@ export default async function Page({ params }: PageProps) {
 
               <div className="marketplace-listing-reference marketplace-listing-reference-inline">
                 <span>Exact Marketplace Reference</span>
-                <strong>{selected.sourceRef}</strong>
+                <strong>{selectedReference}</strong>
                 <p>This page is the individual detail page for this specific listed license.</p>
               </div>
 
@@ -323,7 +325,7 @@ export default async function Page({ params }: PageProps) {
 
               <section className="marketplace-listing-section">
                 <h2>About This License Listing</h2>
-                <p>This individual marketplace page represents the specific {selected.type} liquor-license interest identified as {selected.sourceRef} in {selected.county}. The displayed asking price is {selected.priceLabel}. Availability, price, license status, transferability, liens, and transaction terms should be confirmed before reliance or commitment.</p>
+                <p>This individual marketplace page represents the specific {selected.type} liquor-license interest identified as {selectedReference} in {selected.county}. The displayed asking price is {selected.priceLabel}. Availability, price, license status, transferability, liens, and transaction terms should be confirmed before reliance or commitment.</p>
                 <p>Unless an individual listing expressly states otherwise, the offering concerns a liquor-license interest only and does not include an operating business, leasehold, equipment, inventory, or real estate.</p>
               </section>
 
@@ -348,7 +350,7 @@ export default async function Page({ params }: PageProps) {
             <aside className="marketplace-listing-aside">
               <div className="marketplace-listing-action-card">
                 <span>Interested in This Exact License?</span>
-                <h2>Use Reference {selected.sourceRef}</h2>
+                <h2>Use Reference {selectedReference}</h2>
                 <ol>
                   <li>Confirm the license reference, category, county, and current availability.</li>
                   <li>Review the asking price and proposed transaction terms.</li>
@@ -363,7 +365,7 @@ export default async function Page({ params }: PageProps) {
 
               <div className="marketplace-listing-reference">
                 <span>Individual Listing Page</span>
-                <strong>{selected.sourceRef}</strong>
+                <strong>{selectedReference}</strong>
                 <p>The URL and page content identify this license separately from the statewide inventory.</p>
               </div>
             </aside>
