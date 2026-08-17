@@ -1,0 +1,153 @@
+name: Verify selected license inquiry context v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/verify-listing-inquiry-context-v2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser dependency
+        run: npm install --no-save --no-package-lock --ignore-scripts puppeteer-core@24.16.0
+      - name: Verify the live selected-license inquiry screen
+        run: |
+          node <<'NODE'
+          const puppeteer = require('puppeteer-core');
+          const SITE = 'https://www.floridaliquorlicensemarket.com';
+          const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+          async function getRecord() {
+            const response = await fetch(`${SITE}/api/market-insights-listings?inquiry-v2=${Date.now()}`, {
+              headers: { accept: 'application/json' },
+            });
+            if (!response.ok) throw new Error(`Listings API returned ${response.status}`);
+            const payload = await response.json();
+            const listings = Array.isArray(payload.listings) ? payload.listings : [];
+            return listings.find((listing) => listing?.sourceRef === 'FLLM-098') ||
+              listings.find((listing) => listing?.sourceRef && /^\/listings\/[^/]+/.test(listing?.href || ''));
+          }
+
+          (async () => {
+            const record = await getRecord();
+            if (!record) throw new Error('No specific listing was available for testing.');
+
+            const browser = await puppeteer.launch({
+              executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
+              headless: true,
+              args: ['--no-sandbox', '--disable-dev-shm-usage'],
+            });
+
+            try {
+              const page = await browser.newPage();
+              await page.setViewport({ width: 1700, height: 1100 });
+              page.setDefaultNavigationTimeout(45000);
+
+              await page.goto(`${SITE}${record.href}?inquiry-v2=${Date.now()}`, {
+                waitUntil: 'domcontentloaded',
+                timeout: 45000,
+              });
+              await page.waitForFunction(() => Array.from(document.querySelectorAll('a')).some(
+                (anchor) => (anchor.textContent || '').replace(/\s+/g, ' ').trim() === 'Inquire About This License'
+              ), { timeout: 30000 });
+
+              const inquiry = await page.evaluate(() => {
+                const anchor = Array.from(document.querySelectorAll('a')).find(
+                  (candidate) => (candidate.textContent || '').replace(/\s+/g, ' ').trim() === 'Inquire About This License'
+                );
+                if (!(anchor instanceof HTMLAnchorElement)) return null;
+                const url = new URL(anchor.href, location.origin);
+                return {
+                  href: `${url.pathname}${url.search}`,
+                  pathname: url.pathname,
+                  params: Object.fromEntries(url.searchParams.entries()),
+                };
+              });
+
+              if (!inquiry) throw new Error('The individual listing inquiry link was not found.');
+              const expectedParams = {
+                ref: record.sourceRef,
+                county: record.county,
+                license_type: record.type,
+                asking_price: record.priceLabel,
+                listing_url: record.href,
+              };
+              if (inquiry.pathname !== '/contact') throw new Error(`Inquiry path is ${inquiry.pathname}.`);
+              for (const [name, expected] of Object.entries(expectedParams)) {
+                if (inquiry.params[name] !== expected) {
+                  throw new Error(`${name} is ${inquiry.params[name]}, expected ${expected}.`);
+                }
+              }
+
+              await page.goto(`${SITE}${inquiry.href}`, {
+                waitUntil: 'domcontentloaded',
+                timeout: 45000,
+              });
+              await page.waitForSelector('.contact-license-context', { timeout: 30000 });
+              await sleep(1200);
+
+              const state = await page.evaluate(() => {
+                const form = document.querySelector('form.contact-page-form');
+                const panel = document.querySelector('.contact-license-context');
+                const inputValue = (name) => form?.querySelector(`[name="${name}"]`)?.value || '';
+                return {
+                  heading: (form?.querySelector('.seller-form-heading h2')?.textContent || '').trim(),
+                  panelText: (panel?.textContent || '').replace(/\s+/g, ' ').trim(),
+                  reference: inputValue('listing_reference'),
+                  listingRequested: inputValue('listing_requested'),
+                  county: inputValue('listing_county'),
+                  licenseType: inputValue('license_type'),
+                  price: inputValue('asking_price'),
+                  status: inputValue('listing_status'),
+                  listingUrl: inputValue('listing_url'),
+                  inquiryType: inputValue('inquiry_type'),
+                  preferredCounty: inputValue('preferred_county'),
+                  message: inputValue('message'),
+                  subject: inputValue('_subject'),
+                  returnHref: panel?.querySelector('a')?.getAttribute('href') || '',
+                };
+              });
+
+              console.log('LISTING:', JSON.stringify(record, null, 2));
+              console.log('INQUIRY SCREEN:', JSON.stringify(state, null, 2));
+
+              if (state.heading !== 'Inquire About This License') throw new Error(`Heading is ${state.heading}.`);
+              for (const expected of [record.sourceRef, record.county, record.type, record.priceLabel]) {
+                if (!state.panelText.includes(expected)) throw new Error(`Panel is missing ${expected}.`);
+                if (!state.message.includes(expected)) throw new Error(`Message is missing ${expected}.`);
+              }
+              if (state.reference !== record.sourceRef) throw new Error(`Reference field is ${state.reference}.`);
+              if (state.county !== record.county) throw new Error(`County field is ${state.county}.`);
+              if (state.licenseType !== record.type) throw new Error(`License type field is ${state.licenseType}.`);
+              if (state.price !== record.priceLabel) throw new Error(`Asking price field is ${state.price}.`);
+              if (state.listingUrl !== record.href) throw new Error(`Listing URL field is ${state.listingUrl}.`);
+              if (state.inquiryType !== 'Buy a License') throw new Error(`Inquiry type is ${state.inquiryType}.`);
+              if (state.preferredCounty !== record.county) throw new Error(`Preferred county is ${state.preferredCounty}.`);
+              if (!state.subject.includes(record.sourceRef)) throw new Error('Subject is missing the listing reference.');
+              if (state.returnHref !== record.href) throw new Error(`Return link is ${state.returnHref}.`);
+
+              await page.screenshot({ path: 'selected-license-inquiry-screen-v2.png', fullPage: true });
+              console.log('PASS: The selected license details are displayed and carried into the inquiry form.');
+            } finally {
+              await browser.close();
+            }
+          })().catch((error) => {
+            console.error(error.stack || error);
+            process.exit(1);
+          });
+          NODE
+      - name: Upload verified inquiry screen
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selected-license-inquiry-screen-v2
+          path: selected-license-inquiry-screen-v2.png
+          if-no-files-found: ignore
