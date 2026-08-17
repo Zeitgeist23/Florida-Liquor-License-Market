@@ -184,7 +184,17 @@ export default async function Page({ params }: PageProps) {
   const statusLabel = selected.licenseStatus
     ? `${sellerReportedStatusLabel(selected.licenseStatus)} / Available`
     : "Available / Status to confirm";
-  const inquiryHref = `/contact?listing=${encodeURIComponent(`${selected.county} ${selected.type}`)}&ref=${encodeURIComponent(selectedReference)}`;
+  const inquiryParams = new URLSearchParams({
+    source: "specific-license",
+    listing: `${selectedReference} — ${selected.county} — ${selected.type} — ${selected.priceLabel}`,
+    ref: selectedReference,
+    county: selected.county,
+    license_type: selected.type,
+    asking_price: selected.priceLabel,
+    listing_status: statusLabel,
+    listing_url: canonicalPath,
+  });
+  const inquiryHref = `/contact?${inquiryParams.toString()}`;
   const offerHref = `/submit-offer?listing=${encodeURIComponent(`${selected.county} ${selected.type}`)}&ref=${encodeURIComponent(selectedReference)}`;
   const related = listings
     .filter((listing) =>
