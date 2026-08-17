@@ -1,3 +1,88 @@
 @import "./marketplace-listing-detail.css";
+
+.results-page.marketplace-listing-page {
+  min-height: 100vh;
+  background: #050607;
+}
+
+.results-page.marketplace-listing-page > .results-header {
+  position: relative;
+  z-index: 20;
+}
+
+.marketplace-listing-availability {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+}
+
+.marketplace-listing-availability .availability-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 30px;
+  padding: 0 12px;
+  border: 1px solid rgba(55, 190, 92, .72);
+  border-radius: 999px;
+  color: #51d56f;
+  background: rgba(19, 86, 45, .15);
+  font: 900 11px/1 Arial, Helvetica, sans-serif;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+
+.marketplace-listing-availability .availability-dot {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: #37c85b;
+  box-shadow: 0 0 8px rgba(55, 200, 91, .38);
+}
+
+.marketplace-listing-hero-reference {
+  color: #d5dce0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+
+.marketplace-listing-reference-inline {
+  margin: 0 0 24px;
+  border-left: 3px solid #f1a600;
+}
+
+.marketplace-listing-source-section strong {
+  color: #fff;
+}
+
+.marketplace-listing-related .listing-detail-related-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+.marketplace-listing-related .result-card {
+  min-height: 286px;
+}
+
+.marketplace-listing-related .result-actions {
+  margin-top: auto;
+}
+
+@media (max-width: 980px) {
+  .marketplace-listing-related .listing-detail-related-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .marketplace-listing-related .listing-detail-related-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 .paid-listing-page{min-height:100vh;background:#f4f2ec;color:#071a3a;font-family:Arial,Helvetica,sans-serif}.paid-listing-header{height:86px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 max(28px,calc((100vw - 1180px)/2));background:#071a3a;border-bottom:3px solid #c88908}.paid-listing-header img{display:block;width:180px;height:auto}.paid-listing-header nav{display:flex;gap:24px}.paid-listing-header nav a{color:white;text-decoration:none;font-size:13px;font-weight:800}.paid-listing-hero{max-width:1180px;margin:48px auto 28px;padding:0 24px;display:grid;grid-template-columns:minmax(330px,.85fr) minmax(0,1.15fr);gap:44px;align-items:center}.paid-listing-map{background:white;border:1px solid #ddd6c8;box-shadow:0 15px 40px rgba(7,26,58,.11);padding:26px;min-height:390px;display:flex;align-items:center;justify-content:center}.paid-listing-map svg{width:100%;max-width:430px;height:auto}.paid-listing-kicker{display:block;color:#a46c00;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.paid-listing-copy h1{font-family:Georgia,'Times New Roman',serif;font-size:46px;line-height:1.08;margin:12px 0 14px}.paid-listing-price{font-family:Georgia,'Times New Roman',serif;font-size:34px;font-weight:800;color:#c07b00;margin:0 0 20px}.paid-listing-facts{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}.paid-listing-facts span{background:#071a3a;color:white;padding:8px 11px;border-radius:3px;font-size:12px;font-weight:800}.paid-listing-description{font-size:16px;line-height:1.75;white-space:pre-wrap}.paid-listing-reference{font-size:12px;color:#6d7280}.paid-listing-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.paid-listing-actions a{padding:13px 18px;border-radius:3px;font-weight:900;text-decoration:none}.paid-listing-primary{background:#c88908;color:#071a3a}.paid-listing-secondary{background:#071a3a;color:white;border:1px solid #c88908}.paid-listing-notice{max-width:1132px;margin:0 auto 60px;background:white;border-left:4px solid #c88908;padding:18px 22px}.paid-listing-notice p{margin:6px 0 0;color:#4c5567;line-height:1.6}@media(max-width:820px){.paid-listing-header{height:auto;padding:18px 22px;align-items:flex-start}.paid-listing-header nav{gap:10px;flex-direction:column;text-align:right}.paid-listing-hero{grid-template-columns:1fr;margin-top:28px}.paid-listing-copy h1{font-size:36px}}@media(max-width:520px){.paid-listing-header img{width:145px}.paid-listing-hero{padding:0 16px;gap:26px}.paid-listing-map{min-height:300px;padding:16px}.paid-listing-actions{flex-direction:column}.paid-listing-actions a{text-align:center}.paid-listing-notice{margin:0 16px 40px}}
 .paid-listing-description .paid-listing-cities{color:#707b88;font-size:14px;line-height:1.55}
