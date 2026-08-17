@@ -7,6 +7,7 @@ import {
   finishDiscoveryRun,
   recordDiscoveryCandidates
 } from "@/lib/listing-discovery-log";
+import type { ListingWithInventoryClass } from "@/lib/listing-inventory-class";
 import { refreshKnownListings } from "@/lib/listing-refresh";
 import { upsertMarketplaceListings } from "@/lib/listing-store";
 import { runDueLicenseReminders } from "@/lib/license-renewal-reminders";
@@ -29,7 +30,7 @@ function normalizeType(value: string | undefined): Listing["type"] | null {
   return null;
 }
 
-function normalizeListing(item: FeedListing, feedUrl: string): Listing | null {
+function normalizeListing(item: FeedListing, feedUrl: string): ListingWithInventoryClass | null {
   const type = normalizeType(item.type);
   const county = item.county?.trim();
   if (!county || !type || !item.sourceRef) return null;
@@ -46,11 +47,12 @@ function normalizeListing(item: FeedListing, feedUrl: string): Listing | null {
     sourceName: item.sourceName?.trim() || new URL(feedUrl).hostname,
     sourceUrl: item.sourceUrl?.trim() || feedUrl,
     note: item.note?.trim() || "External listing. Price and availability subject to confirmation.",
-    image: item.image?.trim() || "/assets/listing-miami.png"
+    image: item.image?.trim() || "/assets/listing-miami.png",
+    inventoryClass: "market",
   };
 }
 
-async function readFeed(feedUrl: string): Promise<Listing[]> {
+async function readFeed(feedUrl: string): Promise<ListingWithInventoryClass[]> {
   const response = await fetch(feedUrl, {
     headers: { Accept: "application/json", "User-Agent": "FloridaLiquorLicenseMarket/1.0" },
     cache: "no-store",
@@ -60,7 +62,7 @@ async function readFeed(feedUrl: string): Promise<Listing[]> {
   if (!response.ok) throw new Error(`${feedUrl} returned ${response.status}`);
   const body = await response.json();
   const items: FeedListing[] = Array.isArray(body) ? body : Array.isArray(body?.listings) ? body.listings : [];
-  return items.map((item) => normalizeListing(item, feedUrl)).filter((item): item is Listing => Boolean(item));
+  return items.map((item) => normalizeListing(item, feedUrl)).filter((item): item is ListingWithInventoryClass => Boolean(item));
 }
 
 function authorized(request: NextRequest): boolean {
