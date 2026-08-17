@@ -1,0 +1,89 @@
+name: Diagnose live contact listing context
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/diagnose-contact-listing-context.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser dependency
+        run: npm install --no-save --no-package-lock --ignore-scripts puppeteer-core@24.16.0
+      - name: Inspect live HTML, asset, and browser execution
+        run: |
+          node <<'NODE'
+          const puppeteer = require('puppeteer-core');
+          const SITE = 'https://www.floridaliquorlicensemarket.com';
+          const query = new URLSearchParams({
+            ref: 'FLLM-098',
+            listing: 'FLLM-098 — Monroe County — 4COP Quota — $1,300,000',
+            county: 'Monroe County',
+            license_type: '4COP Quota',
+            asking_price: '$1,300,000',
+            listing_status: 'Available / Status to confirm',
+            listing_url: '/listings/monroe-4cop-quota-fllm-098-fwyv94',
+          });
+          const url = `${SITE}/contact?${query.toString()}`;
+
+          (async () => {
+            const response = await fetch(url, { redirect: 'follow', headers: { accept: 'text/html' } });
+            const html = await response.text();
+            console.log('HTML STATUS:', response.status, response.url);
+            console.log('HTML LENGTH:', html.length);
+            console.log('HAS CONTEXT SCRIPT:', html.includes('contact-listing-context.js'));
+            console.log('HAS CONTEXT STYLES:', html.includes('contact-page-enhancements-v2'));
+            console.log('HAS FORM:', html.includes('contact-page-form'));
+
+            const assetResponse = await fetch(`${SITE}/assets/contact-listing-context.js?v=1`);
+            const assetText = await assetResponse.text();
+            console.log('ASSET STATUS:', assetResponse.status);
+            console.log('ASSET LENGTH:', assetText.length);
+            console.log('ASSET START:', assetText.slice(0, 180));
+
+            const browser = await puppeteer.launch({
+              executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
+              headless: true,
+              args: ['--no-sandbox', '--disable-dev-shm-usage'],
+            });
+            try {
+              const page = await browser.newPage();
+              page.on('console', (message) => console.log('BROWSER CONSOLE:', message.type(), message.text()));
+              page.on('pageerror', (error) => console.log('BROWSER PAGE ERROR:', error.message));
+              page.on('requestfailed', (request) => console.log('REQUEST FAILED:', request.url(), request.failure()?.errorText));
+              const navigation = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+              console.log('NAVIGATION STATUS:', navigation?.status(), page.url());
+              await new Promise((resolve) => setTimeout(resolve, 6500));
+              const state = await page.evaluate(() => ({
+                url: location.href,
+                form: Boolean(document.querySelector('form.contact-page-form')),
+                panel: Boolean(document.querySelector('.contact-license-context')),
+                heading: document.querySelector('.seller-form-heading h2')?.textContent || '',
+                scripts: Array.from(document.scripts).map((script) => script.src || '[inline]').filter((src) => /contact|page-|index-|inline/.test(src)),
+                bodyText: (document.body.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 1000),
+              }));
+              console.log('BROWSER STATE:', JSON.stringify(state, null, 2));
+              await page.screenshot({ path: 'contact-context-diagnostic.png', fullPage: true });
+            } finally {
+              await browser.close();
+            }
+          })().catch((error) => {
+            console.error(error.stack || error);
+            process.exit(1);
+          });
+          NODE
+      - name: Upload diagnostic screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: contact-listing-context-diagnostic
+          path: contact-context-diagnostic.png
+          if-no-files-found: ignore
