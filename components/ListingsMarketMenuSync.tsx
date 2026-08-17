@@ -19,16 +19,19 @@ function syncMenu() {
     .find((button) => /heat map/i.test(button.textContent || "")) || null;
 
   ITEMS.forEach((item) => {
-    let link = Array.from(menu.querySelectorAll(":scope > a"))
+    const existing = Array.from(menu.querySelectorAll(":scope > a"))
       .find((candidate) => normalizedText(candidate) === item.label.toLowerCase()) as HTMLAnchorElement | undefined;
 
-    if (!link) {
-      link = document.createElement("a");
-      link.href = item.href;
-      link.textContent = item.label;
-      link.setAttribute("role", "menuitem");
-      link.dataset.listingsMarketMenuSync = item.label.toLowerCase().replace(/\s+/g, "-");
+    if (existing) {
+      if (existing.getAttribute("href") !== item.href) existing.href = item.href;
+      return;
     }
+
+    const link = document.createElement("a");
+    link.href = item.href;
+    link.textContent = item.label;
+    link.setAttribute("role", "menuitem");
+    link.dataset.listingsMarketMenuSync = item.label.toLowerCase().replace(/\s+/g, "-");
 
     if (heatMapButton) menu.insertBefore(link, heatMapButton);
     else menu.appendChild(link);
@@ -41,7 +44,9 @@ export default function ListingsMarketMenuSync() {
   useEffect(() => {
     syncMenu();
 
-    const observer = new MutationObserver(() => syncMenu());
+    const observer = new MutationObserver(() => {
+      syncMenu();
+    });
     observer.observe(document.body, { childList: true, subtree: true });
 
     const retries = [250, 700, 1400, 2400].map((delay) => window.setTimeout(syncMenu, delay));
