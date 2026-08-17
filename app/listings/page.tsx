@@ -35,6 +35,7 @@ function firstSearchParam(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
 }
 
+// Keep buyer-facing filters intact while consolidating search signals into permanent county pages.
 function canonicalListingsUrl(searchParams: Record<string, string | string[] | undefined>) {
   const requestedCounty = firstSearchParam(searchParams.county)?.trim();
   if (!requestedCounty) return listingsUrl;
