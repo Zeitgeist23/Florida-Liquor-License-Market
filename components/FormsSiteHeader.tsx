@@ -45,7 +45,7 @@ export default function FormsSiteHeader({
           </a>
         </div>
       </header>
-      <Script src="/assets/market-data-dropdown.js?v=10" strategy="afterInteractive" />
+      <Script src="/assets/market-data-dropdown.js?v=11" strategy="afterInteractive" />
       <Script src="/assets/resources-dropdown.js?v=10" strategy="afterInteractive" />
       <Script src="/assets/header-menu-coordinator.js?v=4" strategy="afterInteractive" />
     </>
