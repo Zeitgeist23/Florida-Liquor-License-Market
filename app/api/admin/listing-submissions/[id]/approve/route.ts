@@ -94,6 +94,7 @@ export async function POST(
         sourceName: "Florida Liquor License Market",
         note: submission.message ?? undefined,
         image: "/assets/license-market/license-01.png",
+        inventoryClass: "direct_seller",
       },
     ]);
 
