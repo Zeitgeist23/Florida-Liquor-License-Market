@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "17 11 * * *"
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - scripts/sync-quota-drawing.mjs
+      - .github/workflows/sync-quota-drawing.yml
 
 permissions:
   contents: write
