@@ -11,6 +11,7 @@ create table if not exists public.listings (
   note text,
   image text not null,
   status text not null default 'available' check (status in ('available', 'sold')),
+  inventory_class text not null default 'market' check (inventory_class in ('market', 'direct_seller', 'fllm_exclusive')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   last_seen_at timestamptz not null default now()
@@ -21,6 +22,7 @@ create index if not exists listings_county_idx on public.listings(county);
 create index if not exists listings_source_url_idx on public.listings(source_url) where source_url is not null;
 create index if not exists listings_source_ref_idx on public.listings(source_ref) where source_ref is not null;
 create index if not exists listings_last_seen_idx on public.listings(last_seen_at);
+create index if not exists listings_inventory_class_idx on public.listings(inventory_class);
 
 alter table public.listings enable row level security;
 
