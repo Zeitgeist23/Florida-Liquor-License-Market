@@ -4,9 +4,10 @@ import ListingsMarketMenuSync from "@/components/ListingsMarketMenuSync";
 import ListingsPage from "@/components/ListingsPage";
 import ListingsQueryFilterEnhancement from "@/components/ListingsQueryFilterEnhancement";
 import MonroeMapCompletion from "@/components/MonroeMapCompletion";
+import { countySlug, getCountyBySlug } from "@/data/florida-counties";
+import type { Listing } from "@/data/listings";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
-import type { Listing } from "@/data/listings";
 import "./listings-premium.css";
 import "./listings-header-position.css";
 import "./listings-map-size.css";
@@ -25,6 +26,22 @@ import "./listings-seo-footer.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const listingsUrl = `${siteUrl}/listings`;
+
+type ListingsMetadataProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+function firstSearchParam(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function canonicalListingsUrl(searchParams: Record<string, string | string[] | undefined>) {
+  const requestedCounty = firstSearchParam(searchParams.county)?.trim();
+  if (!requestedCounty) return listingsUrl;
+
+  const county = getCountyBySlug(countySlug(requestedCounty));
+  return county?.indexable ? `${siteUrl}/counties/${county.slug}` : listingsUrl;
+}
 
 const faqs = [
   {
@@ -61,7 +78,9 @@ const faqs = [
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ searchParams }: ListingsMetadataProps): Promise<Metadata> {
+  const params = await searchParams;
+  const canonical = canonicalListingsUrl(params);
   const marketplaceListings = await getMarketplaceListings();
   const availableCount = marketplaceListings.filter((listing) => Boolean(listing.sourceRef)).length;
   const title = `Florida Liquor Licenses for Sale | ${availableCount} Current Listings`;
@@ -70,11 +89,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: { canonical: listingsUrl },
+    alternates: { canonical },
     robots: { index: true, follow: true },
     openGraph: {
       type: "website",
-      url: listingsUrl,
+      url: canonical,
       title,
       description,
       siteName: "Florida Liquor License Market",
