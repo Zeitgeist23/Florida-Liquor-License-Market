@@ -26,17 +26,17 @@ function isPaidMarketplaceRef(sourceRef: string) {
 }
 
 function publicListingForDetailPage(listing: Listing): Listing {
-  if (listing.sourceRef && isPaidMarketplaceRef(listing.sourceRef)) return listing;
+  const isFllmSubmission = Boolean(listing.sourceRef && isPaidMarketplaceRef(listing.sourceRef));
 
-  // Third-party source data is retained internally for ingestion, refresh, and
-  // deduplication, but it must never be exposed on FLLM's public detail pages.
-  // Imported notes can also contain source-identifying language, so suppress
-  // those on the public detail-page object as well.
+  // Source names and source URLs are internal marketplace data. They are used
+  // for ingestion, refresh, and deduplication, but are never exposed on public
+  // individual-license pages. Imported notes can carry source-identifying
+  // language as well, so only genuine FLLM-submitted seller notes are retained.
   return {
     ...listing,
     sourceName: undefined,
     sourceUrl: undefined,
-    note: undefined,
+    note: isFllmSubmission ? listing.note : undefined,
   };
 }
 
@@ -77,9 +77,8 @@ export function indexableListingPages(input: Listing[]): IndexableListingPage[] 
     if (!slug) continue;
 
     // If the same canonical source reference appears more than once, keep the
-    // latest record so the detail page reflects the current marketplace data.
-    // The public detail-page copy intentionally excludes third-party source
-    // names, URLs, and imported notes.
+    // latest record so the detail page reflects current marketplace data while
+    // presenting only FLLM-safe public fields.
     pages.set(slug, { slug, listing: publicListingForDetailPage(listing) });
   }
 
