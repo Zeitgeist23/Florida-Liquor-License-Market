@@ -1,0 +1,43 @@
+name: Apply specific-license inquiry context
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/add_listing_inquiry_context.py"
+      - ".github/workflows/apply-specific-license-inquiry-context.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: ${{ !contains(github.event.head_commit.message, '[listing-inquiry-context]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Add complete license context to inquiry link
+        run: python scripts/add_listing_inquiry_context.py
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Validate production build
+        run: npm run build
+      - name: Commit verified inquiry-context update
+        run: |
+          if git diff --quiet -- app/listings/[slug]/page.tsx; then
+            echo "No listing-page change was needed."
+            exit 0
+          fi
+          git config user.name "Zeitgeist23"
+          git config user.email "JWigg023@gmail.com"
+          git add app/listings/[slug]/page.tsx
+          git commit -m "Carry selected license into inquiry screen [listing-inquiry-context]"
+          git push origin main
