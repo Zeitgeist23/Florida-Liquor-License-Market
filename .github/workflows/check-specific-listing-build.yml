@@ -1,4 +1,4 @@
-name: Check specific listing page build
+name: Repair and validate specific listing page
 
 on:
   push:
@@ -10,17 +10,43 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
+    if: ${{ !contains(github.event.head_commit.message, '[specific-listing-built]') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+      - name: Narrow the selected listing reference
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('app/listings/[slug]/page.tsx')
+          text = path.read_text(encoding='utf-8')
+          old = '''  const context = await loadListingContext(slug);\n  if (!context?.selected.sourceRef) notFound();\n\n  const { selected, listings } = context;\n  const normalizedReference = selected.sourceRef.trim().toLowerCase();'''
+          new = '''  const context = await loadListingContext(slug);\n  if (!context) notFound();\n\n  const { selected, listings } = context;\n  const selectedReference = selected.sourceRef;\n  if (!selectedReference) notFound();\n  const normalizedReference = selectedReference.trim().toLowerCase();'''
+          if old not in text:
+              raise SystemExit('Expected listing-reference block was not found.')
+          text = text.replace(old, new, 1)
+          text = text.replace('selected.sourceRef', 'selectedReference')
+          text = text.replace('const selectedReference = selectedReference;', 'const selectedReference = selected.sourceRef;', 1)
+          path.write_text(text, encoding='utf-8')
+          PY
       - run: npm ci --no-audit --no-fund
       - run: npm run build
+      - name: Commit the verified repair
+        run: |
+          git config user.name "Zeitgeist23"
+          git config user.email "JWigg023@gmail.com"
+          git add 'app/listings/[slug]/page.tsx'
+          git commit -m "Build dedicated individual listing page [specific-listing-built]"
+          git push origin main
