@@ -4,20 +4,38 @@ import { listings, type Listing } from "@/data/listings";
 import { additionalListings } from "@/data/additional-listings";
 import { latestListings } from "@/data/latest-listings";
 import { marketAdditions } from "@/data/market-additions";
+import {
+  resolveListingInventoryClass,
+  withListingInventoryClass,
+  type ClassifiedListing,
+  type ListingInventoryClass,
+  type ListingWithInventoryClass,
+} from "@/lib/listing-inventory-class";
 
-const staticListings = [...listings, ...additionalListings, ...latestListings, ...marketAdditions].map((listing) =>
-  listing.sourceRef === "FLLM-030"
-    ? { ...listing, price: 200000, priceLabel: "$200,000" }
-    : listing
+const staticListings: ClassifiedListing[] = [
+  ...listings,
+  ...additionalListings,
+  ...latestListings,
+  ...marketAdditions,
+].map((listing) =>
+  withListingInventoryClass(
+    listing.sourceRef === "FLLM-030"
+      ? { ...listing, price: 200000, priceLabel: "$200,000" }
+      : listing,
+  )
 );
 
-function listingKey(listing: Listing) {
+function listingKey(listing: ListingWithInventoryClass) {
   return listing.sourceRef || `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
 }
 
-export function dedupeListings(input: Listing[]): Listing[] {
+export function dedupeListings(input: ListingWithInventoryClass[]): ClassifiedListing[] {
   return Array.from(
-    new Map(input.map((listing) => [listingKey(listing), listing])).values()
+    new Map(
+      input
+        .map((listing) => withListingInventoryClass(listing))
+        .map((listing) => [listingKey(listing), listing])
+    ).values()
   );
 }
 
@@ -46,10 +64,11 @@ type ListingRow = {
   note: string | null;
   image: string;
   status: "available" | "sold";
+  inventory_class?: ListingInventoryClass | null;
 };
 
-function rowToListing(row: ListingRow): Listing {
-  return {
+function rowToListing(row: ListingRow): ClassifiedListing {
+  return withListingInventoryClass({
     county: row.county,
     type: row.license_type,
     price: row.price,
@@ -59,7 +78,8 @@ function rowToListing(row: ListingRow): Listing {
     sourceUrl: row.source_url ?? undefined,
     note: row.note ?? undefined,
     image: row.image,
-  };
+    inventoryClass: row.inventory_class ?? undefined,
+  });
 }
 
 type ApprovedListingDetailsRow = {
@@ -99,66 +119,114 @@ function rowIdentityKeys(row: ListingRow): string[] {
   });
 }
 
-function listingToRow(listing: Listing) {
+function listingToRow(listing: ListingWithInventoryClass) {
+  const classified = withListingInventoryClass(listing);
   return {
-    dedupe_key: listingKey(listing),
-    county: listing.county,
-    license_type: listing.type,
-    price: listing.price,
-    price_label: listing.priceLabel,
-    source_ref: listing.sourceRef ?? null,
-    source_name: listing.sourceName ?? null,
-    source_url: listing.sourceUrl ?? null,
-    note: listing.note ?? null,
-    image: listing.image,
-    status: listing.sourceRef ? "available" : "sold",
+    dedupe_key: listingKey(classified),
+    county: classified.county,
+    license_type: classified.type,
+    price: classified.price,
+    price_label: classified.priceLabel,
+    source_ref: classified.sourceRef ?? null,
+    source_name: classified.sourceName ?? null,
+    source_url: classified.sourceUrl ?? null,
+    note: classified.note ?? null,
+    image: classified.image,
+    status: classified.sourceRef ? "available" : "sold",
+    inventory_class: classified.inventoryClass,
     last_seen_at: new Date().toISOString(),
   };
 }
 
-async function upsertRows(input: Listing[]) {
+function isMissingInventoryClassError(message: string): boolean {
+  return /inventory_class/i.test(message);
+}
+
+function withoutInventoryClass<T extends { inventory_class: ListingInventoryClass }>(row: T) {
+  const { inventory_class: _inventoryClass, ...legacyRow } = row;
+  return legacyRow;
+}
+
+async function upsertRows(input: ListingWithInventoryClass[]) {
   if (!databaseConfigured() || input.length === 0) return;
 
-  const response = await fetch(
-    `${process.env.SUPABASE_URL}/rest/v1/listings?on_conflict=dedupe_key`,
-    {
+  const rows = input.map(listingToRow);
+  const endpoint = `${process.env.SUPABASE_URL}/rest/v1/listings?on_conflict=dedupe_key`;
+  const requestHeaders = headers({ Prefer: "resolution=merge-duplicates,return=minimal" });
+
+  let response = await fetch(endpoint, {
+    method: "POST",
+    headers: requestHeaders,
+    body: JSON.stringify(rows),
+    cache: "no-store",
+  });
+
+  if (response.ok) return;
+
+  const firstError = await response.text();
+
+  // Keep the deployment backward-compatible until the inventory_class SQL
+  // migration is applied to an existing Supabase project. Runtime listings are
+  // still classified immediately; persistence begins as soon as the column exists.
+  if (isMissingInventoryClassError(firstError)) {
+    response = await fetch(endpoint, {
       method: "POST",
-      headers: headers({ Prefer: "resolution=merge-duplicates,return=minimal" }),
-      body: JSON.stringify(input.map(listingToRow)),
+      headers: requestHeaders,
+      body: JSON.stringify(rows.map(withoutInventoryClass)),
       cache: "no-store",
-    }
+    });
+    if (response.ok) return;
+  }
+
+  throw new Error(`Listing database upsert failed: ${response.status} ${response.ok ? "" : await response.text() || firstError}`);
+}
+
+async function readListingRows(): Promise<ListingRow[]> {
+  const baseFields = "county,license_type,price,price_label,source_ref,source_name,source_url,note,image,status";
+  let response = await fetch(
+    `${process.env.SUPABASE_URL}/rest/v1/listings?select=${baseFields},inventory_class&order=created_at.asc`,
+    { headers: headers(), cache: "no-store" }
+  );
+
+  if (response.ok) return (await response.json()) as ListingRow[];
+
+  const firstError = await response.text();
+  if (!isMissingInventoryClassError(firstError)) {
+    throw new Error(`Listing database read failed: ${response.status} ${firstError}`);
+  }
+
+  response = await fetch(
+    `${process.env.SUPABASE_URL}/rest/v1/listings?select=${baseFields}&order=created_at.asc`,
+    { headers: headers(), cache: "no-store" }
   );
 
   if (!response.ok) {
-    throw new Error(`Listing database upsert failed: ${response.status} ${await response.text()}`);
+    throw new Error(`Listing database read failed: ${response.status} ${await response.text()}`);
   }
+
+  return (await response.json()) as ListingRow[];
 }
 
-export async function getMarketplaceListings(): Promise<Listing[]> {
+export async function getMarketplaceListings(): Promise<ClassifiedListing[]> {
   const fallback = dedupeListings(staticListings);
   if (!databaseConfigured()) return fallback;
 
   try {
-    const response = await fetch(
-      `${process.env.SUPABASE_URL}/rest/v1/listings?select=county,license_type,price,price_label,source_ref,source_name,source_url,note,image,status&order=created_at.asc`,
-      { headers: headers(), cache: "no-store" }
-    );
-
-    if (!response.ok) throw new Error(`Listing database read failed: ${response.status}`);
-    const rows = (await response.json()) as ListingRow[];
+    const rows = await readListingRows();
     const databaseIdentities = new Set(rows.flatMap(rowIdentityKeys));
     const missingStaticListings = fallback.filter((listing) =>
       identityKeys(listing).every((key) => !databaseIdentities.has(key))
     );
     const approvedDetails = await getApprovedListingDetails();
-    const databaseListings = rows.map((row) => {
+    const databaseListings: ClassifiedListing[] = rows.map((row) => {
       const listing = rowToListing(row);
       const details = row.source_ref ? approvedDetails.get(row.source_ref) : undefined;
-      return {
+      return withListingInventoryClass({
         ...listing,
+        inventoryClass: row.inventory_class ?? resolveListingInventoryClass(listing),
         licenseStatus: details?.license_status ?? undefined,
         preferredTiming: details?.preferred_timing ?? undefined,
-      };
+      });
     });
     const mergedListings = dedupeListings([...missingStaticListings, ...databaseListings]);
 
@@ -172,6 +240,6 @@ export async function getMarketplaceListings(): Promise<Listing[]> {
   }
 }
 
-export async function upsertMarketplaceListings(input: Listing[]) {
+export async function upsertMarketplaceListings(input: ListingWithInventoryClass[]) {
   await upsertRows(dedupeListings(input));
 }
