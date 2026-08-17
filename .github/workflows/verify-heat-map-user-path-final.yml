@@ -1,0 +1,285 @@
+name: Final live heat map user-path verification
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser dependency
+        run: npm install --no-save --no-package-lock --ignore-scripts puppeteer-core@24.16.0
+
+      - name: Verify both visible heat-map paths
+        run: |
+          node <<'NODE'
+          const puppeteer = require('puppeteer-core');
+          const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+          const SITE = 'https://www.floridaliquorlicensemarket.com';
+
+          function clean(value) {
+            return String(value || '').replace(/\s+/g, ' ').trim();
+          }
+
+          function colorTokens(value) {
+            return clean(value).match(/rgba?\([^)]*\)/g) || [];
+          }
+
+          async function load(page, path) {
+            await page.goto(`${SITE}${path}${path.includes('?') ? '&' : '?'}final-check=${Date.now()}`, {
+              waitUntil: 'networkidle2',
+              timeout: 90000,
+            });
+          }
+
+          async function firstListing(page) {
+            return page.evaluate(async () => {
+              const response = await fetch(`/api/market-insights-listings?final=${Date.now()}`, { cache: 'no-store' });
+              if (!response.ok) throw new Error(`Listings API returned ${response.status}`);
+              const payload = await response.json();
+              return (Array.isArray(payload.listings) ? payload.listings : [])
+                .find((listing) => listing?.sourceRef && listing?.county && /^\/listings\/[^/]+/.test(listing?.href || '')) || null;
+            });
+          }
+
+          async function clickVisibleText(page, selector, label) {
+            const elements = await page.$$(selector);
+            for (const element of elements) {
+              const state = await element.evaluate((node) => {
+                const rect = node.getBoundingClientRect();
+                const style = getComputedStyle(node);
+                return {
+                  text: (node.textContent || '').replace(/\s+/g, ' ').trim(),
+                  visible: rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden',
+                };
+              });
+              if (state.visible && state.text.toLowerCase() === label.toLowerCase()) {
+                await element.click();
+                return true;
+              }
+            }
+            return false;
+          }
+
+          async function clickCounty(page, countyName) {
+            const county = clean(countyName).replace(/\s+County$/i, '');
+            await page.waitForSelector('.fllm-heat-map-modal path[data-heat-map-county]', { timeout: 30000 });
+            const clicked = await page.evaluate((name) => {
+              const path = Array.from(document.querySelectorAll('.fllm-heat-map-modal path[data-heat-map-county]'))
+                .find((item) => clean(item.getAttribute('data-heat-map-county')).toLowerCase() === name.toLowerCase());
+              function clean(value) { return String(value || '').replace(/\s+/g, ' ').trim(); }
+              if (!path) return false;
+              path.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+              return true;
+            }, county);
+            if (!clicked) throw new Error(`Could not select ${county} on the heat map.`);
+            await page.waitForSelector('.fllm-county-listings-dialog', { timeout: 30000 });
+            await sleep(500);
+          }
+
+          async function signature(page, selector) {
+            return page.$eval(selector, (card) => {
+              const county = card.querySelector('.result-county-row');
+              const price = card.querySelector('.result-body > h2');
+              const button = card.querySelector('.result-view-button');
+              const badge = card.querySelector('.result-type-badge');
+              const cardStyle = getComputedStyle(card);
+              const countyStyle = county ? getComputedStyle(county) : null;
+              const priceStyle = price ? getComputedStyle(price) : null;
+              const buttonStyle = button ? getComputedStyle(button) : null;
+              const badgeStyle = badge ? getComputedStyle(badge) : null;
+              const colors = (value) => String(value || '').match(/rgba?\([^)]*\)/g) || [];
+              return {
+                card: {
+                  gradientColors: colors(cardStyle.backgroundImage),
+                  borderColor: cardStyle.borderColor,
+                  borderRadius: cardStyle.borderRadius,
+                  display: cardStyle.display,
+                },
+                county: countyStyle && {
+                  color: countyStyle.color,
+                  fontFamily: countyStyle.fontFamily,
+                  fontSize: countyStyle.fontSize,
+                  fontWeight: countyStyle.fontWeight,
+                  textTransform: countyStyle.textTransform,
+                },
+                price: priceStyle && {
+                  color: priceStyle.color,
+                  fontSize: priceStyle.fontSize,
+                  fontWeight: priceStyle.fontWeight,
+                },
+                button: buttonStyle && {
+                  gradientColors: colors(buttonStyle.backgroundImage),
+                  color: buttonStyle.color,
+                  minHeight: buttonStyle.minHeight,
+                  borderRadius: buttonStyle.borderRadius,
+                  textTransform: buttonStyle.textTransform,
+                },
+                badge: badgeStyle && {
+                  color: badgeStyle.color,
+                  backgroundColor: badgeStyle.backgroundColor,
+                  borderColor: badgeStyle.borderColor,
+                  textTransform: badgeStyle.textTransform,
+                },
+              };
+            });
+          }
+
+          function compareSignatures(actual, expected, label) {
+            const differences = [];
+            for (const section of ['card', 'county', 'price', 'button', 'badge']) {
+              for (const [key, expectedValue] of Object.entries(expected[section] || {})) {
+                const actualValue = actual?.[section]?.[key];
+                if (JSON.stringify(actualValue) !== JSON.stringify(expectedValue)) {
+                  differences.push(`${section}.${key}: ${JSON.stringify(actualValue)} != ${JSON.stringify(expectedValue)}`);
+                }
+              }
+            }
+            if (differences.length) throw new Error(`${label} style mismatch: ${differences.join('; ')}`);
+          }
+
+          async function dialogCard(page, reference) {
+            return page.evaluate((targetReference) => {
+              const dialog = document.querySelector('.fllm-county-listings-dialog');
+              const cards = Array.from(dialog?.querySelectorAll('.fllm-popup-card-shell.results-page .result-card') || []);
+              const card = cards.find((candidate) => clean(candidate.getAttribute('data-listing-reference')).toLowerCase() === targetReference.toLowerCase());
+              function clean(value) { return String(value || '').replace(/\s+/g, ' ').trim(); }
+              if (!card) return null;
+              const button = card.querySelector('.result-view-button');
+              const county = card.querySelector('.result-county-link');
+              return {
+                reference: clean(card.getAttribute('data-listing-reference')),
+                href: button instanceof HTMLAnchorElement ? new URL(button.href, location.origin).pathname : '',
+                countyText: clean(county?.textContent),
+                currentCount: cards.length,
+                oldCount: dialog?.querySelectorAll('.fllm-county-listing-card').length || 0,
+                syncScriptCount: Array.from(document.scripts).filter((script) => script.src.includes('market-heat-map-listings-card-sync')).length,
+                heatMapVersionFive: Array.from(document.scripts).some((script) => script.src.includes('market-heat-map.js?v=5')),
+              };
+            }, reference);
+          }
+
+          async function validateDialog(page, record, baseline, label, screenshotPath) {
+            const state = await dialogCard(page, record.sourceRef);
+            console.log(`${label} STATE:`, JSON.stringify(state, null, 2));
+            if (!state) throw new Error(`${label} did not render the selected listing card.`);
+            if (state.oldCount !== 0) throw new Error(`${label} still contains ${state.oldCount} old-format card(s).`);
+            if (state.syncScriptCount !== 0) throw new Error(`${label} still loads the deferred card-conversion script.`);
+            if (!state.heatMapVersionFive) throw new Error(`${label} did not load the cache-busted direct renderer.`);
+            if (state.reference !== record.sourceRef) throw new Error(`${label} reference is ${state.reference}, expected ${record.sourceRef}.`);
+            if (state.href !== record.href) throw new Error(`${label} View License points to ${state.href}, expected ${record.href}.`);
+            if (state.countyText !== record.county) throw new Error(`${label} county text is ${state.countyText}, expected ${record.county}.`);
+            const actualSignature = await signature(page, `.fllm-county-listings-dialog .result-card[data-listing-reference="${record.sourceRef}"]`);
+            compareSignatures(actualSignature, baseline, label);
+            await page.screenshot({ path: screenshotPath });
+            return state;
+          }
+
+          (async () => {
+            const browser = await puppeteer.launch({
+              executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
+              headless: true,
+              args: ['--no-sandbox', '--disable-dev-shm-usage'],
+            });
+
+            try {
+              const listings = await browser.newPage();
+              await listings.setViewport({ width: 1700, height: 1000 });
+              await load(listings, '/listings');
+              await listings.waitForSelector('.results-grid .result-card', { timeout: 30000 });
+              const record = await firstListing(listings);
+              if (!record) throw new Error('No live listing was available for the final test.');
+              console.log('TEST RECORD:', JSON.stringify(record));
+              const baseline = await signature(listings, '.results-grid .result-card');
+
+              if (!await clickVisibleText(listings, '.results-filters button', 'Heat Map')) {
+                throw new Error('Listings-page Heat Map button was not found.');
+              }
+              await listings.waitForSelector('.fllm-heat-map-modal', { timeout: 30000 });
+              await clickCounty(listings, record.county);
+              await validateDialog(listings, record, baseline, 'Listings-page heat map', 'final-listings-heat-map.png');
+
+              const clicked = await listings.evaluate((reference) => {
+                const card = Array.from(document.querySelectorAll('.fllm-county-listings-dialog .result-card'))
+                  .find((item) => (item.getAttribute('data-listing-reference') || '').toLowerCase() === reference.toLowerCase());
+                const button = card?.querySelector('.result-view-button');
+                if (!(button instanceof HTMLAnchorElement)) return false;
+                button.click();
+                return true;
+              }, record.sourceRef);
+              if (!clicked) throw new Error('Could not click the Listings heat-map View License button.');
+
+              await listings.waitForFunction((path) => location.pathname === path, { timeout: 30000 }, record.href);
+              await listings.waitForSelector('.result-card-focused', { timeout: 30000 });
+              await sleep(900);
+              const destination = await listings.evaluate(() => {
+                const selected = document.querySelector('.result-card-focused');
+                if (!selected) return null;
+                const rect = selected.getBoundingClientRect();
+                return {
+                  pathname: location.pathname,
+                  reference: selected.getAttribute('data-listing-reference') || '',
+                  marker: getComputedStyle(selected, '::before').content,
+                  inViewport: rect.bottom > 0 && rect.top < innerHeight,
+                  selectedCount: document.querySelectorAll('.result-card-focused').length,
+                };
+              });
+              console.log('DESTINATION STATE:', JSON.stringify(destination, null, 2));
+              if (!destination) throw new Error('The specific listing route did not mark a selected license.');
+              if (destination.pathname !== record.href) throw new Error(`The destination is ${destination.pathname}, expected ${record.href}.`);
+              if (destination.reference !== record.sourceRef) throw new Error(`The selected card is ${destination.reference}, expected ${record.sourceRef}.`);
+              if (!/Selected License/i.test(destination.marker)) throw new Error(`Selected-license marker missing: ${destination.marker}`);
+              if (!destination.inViewport) throw new Error('The selected license is not visible after navigation.');
+              if (destination.selectedCount !== 1) throw new Error(`There are ${destination.selectedCount} selected cards instead of one.`);
+              await listings.screenshot({ path: 'final-specific-listing.png' });
+
+              const home = await browser.newPage();
+              await home.setViewport({ width: 1700, height: 1000 });
+              await load(home, '/');
+              await home.waitForFunction(() => Array.from(document.scripts).some((script) => script.src.includes('market-heat-map.js?v=5')), { timeout: 30000 });
+              const menuOpened = await home.evaluate(() => {
+                const trigger = Array.from(document.querySelectorAll('.primary-nav a'))
+                  .find((item) => (item.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase() === 'market data');
+                if (!(trigger instanceof HTMLElement)) return false;
+                trigger.click();
+                return true;
+              });
+              if (!menuOpened) throw new Error('Homepage Market Data menu was not found.');
+              await sleep(250);
+              if (!await clickVisibleText(home, '.market-data-header-menu button, #market-data-header-menu button', 'Heat Map')) {
+                throw new Error('Homepage Heat Map option was not found.');
+              }
+              await home.waitForSelector('.fllm-heat-map-modal', { timeout: 30000 });
+              await clickCounty(home, record.county);
+              await validateDialog(home, record, baseline, 'Homepage heat map', 'final-homepage-heat-map.png');
+
+              console.log('PASS: both visible heat-map paths use the current Listings-page card treatment, the View License button opens the exact selected listing route, and that selected license is visibly marked and in view.');
+            } finally {
+              await browser.close();
+            }
+          })().catch((error) => {
+            console.error(error.stack || error);
+            process.exit(1);
+          });
+          NODE
+
+      - name: Upload final screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-live-heat-map-verification
+          path: |
+            final-listings-heat-map.png
+            final-specific-listing.png
+            final-homepage-heat-map.png
+          if-no-files-found: ignore
