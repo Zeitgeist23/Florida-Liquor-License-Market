@@ -1,4 +1,7 @@
 (() => {
+  if (window.__FLLM_CONTACT_LISTING_CONTEXT_V3__) return;
+  window.__FLLM_CONTACT_LISTING_CONTEXT_V3__ = true;
+
   const params = new URLSearchParams(window.location.search);
   const context = {
     reference: (params.get("ref") || "").trim(),
@@ -30,28 +33,39 @@
   }
 
   const listingPath = safeListingPath(context.listingUrl);
+  let applying = false;
 
   function setSelectValue(select, value) {
-    if (!(select instanceof HTMLSelectElement) || !value) return;
+    if (!(select instanceof HTMLSelectElement) || !value) return false;
     const option = Array.from(select.options).find(
       (candidate) => candidate.value === value || candidate.textContent?.trim() === value,
     );
-    if (!option) return;
+    if (!option || select.value === option.value) return false;
+
     select.value = option.value;
     select.dispatchEvent(new Event("input", { bubbles: true }));
     select.dispatchEvent(new Event("change", { bubbles: true }));
+    return true;
   }
 
   function ensureHidden(form, name, value) {
-    if (!value) return;
+    if (!value) return false;
     let input = form.querySelector(`input[name="${name}"]`);
+    let changed = false;
+
     if (!(input instanceof HTMLInputElement)) {
       input = document.createElement("input");
       input.type = "hidden";
       input.name = name;
       form.appendChild(input);
+      changed = true;
     }
-    input.value = value;
+
+    if (input.value !== value) {
+      input.value = value;
+      changed = true;
+    }
+    return changed;
   }
 
   function detailItem(label, value) {
@@ -123,60 +137,74 @@
   }
 
   function applyContext() {
-    const form = document.querySelector("form.contact-page-form");
-    if (!(form instanceof HTMLFormElement)) return false;
+    if (applying) return false;
+    applying = true;
 
-    const formHeading = form.querySelector(".seller-form-heading h2");
-    if (formHeading) formHeading.textContent = "Inquire About This License";
+    try {
+      const form = document.querySelector("form.contact-page-form");
+      if (!(form instanceof HTMLFormElement)) return false;
 
-    let panel = form.querySelector('[data-fllm-listing-context="true"]');
-    if (!panel) {
-      panel = buildContextPanel();
-      const headingBlock = form.querySelector(".seller-form-heading");
-      if (headingBlock) headingBlock.insertAdjacentElement("afterend", panel);
-      else form.prepend(panel);
-    }
+      const formHeading = form.querySelector(".seller-form-heading h2");
+      if (formHeading && formHeading.textContent?.trim() !== "Inquire About This License") {
+        formHeading.textContent = "Inquire About This License";
+      }
 
-    const listingSummary = selectedLicenseSummary();
-    ensureHidden(form, "listing_reference", context.reference);
-    ensureHidden(form, "listing_requested", context.listing || listingSummary);
-    ensureHidden(form, "listing_county", context.county);
-    ensureHidden(form, "license_type", context.licenseType);
-    ensureHidden(form, "asking_price", context.askingPrice);
-    ensureHidden(form, "listing_status", context.status);
-    ensureHidden(form, "listing_url", listingPath);
+      let panel = form.querySelector('[data-fllm-listing-context="true"]');
+      if (!panel) {
+        panel = buildContextPanel();
+        const headingBlock = form.querySelector(".seller-form-heading");
+        if (headingBlock) headingBlock.insertAdjacentElement("afterend", panel);
+        else form.prepend(panel);
+      }
 
-    const subject = form.querySelector('input[name="_subject"]');
-    if (subject instanceof HTMLInputElement) {
-      subject.value = context.reference
+      const listingSummary = selectedLicenseSummary();
+      ensureHidden(form, "listing_reference", context.reference);
+      ensureHidden(form, "listing_requested", context.listing || listingSummary);
+      ensureHidden(form, "listing_county", context.county);
+      ensureHidden(form, "license_type", context.licenseType);
+      ensureHidden(form, "asking_price", context.askingPrice);
+      ensureHidden(form, "listing_status", context.status);
+      ensureHidden(form, "listing_url", listingPath);
+
+      const subject = form.querySelector('input[name="_subject"]');
+      const subjectValue = context.reference
         ? `FLLM License Inquiry — ${context.reference}`
         : "Florida Liquor License Market — Specific License Inquiry";
+      if (subject instanceof HTMLInputElement && subject.value !== subjectValue) {
+        subject.value = subjectValue;
+      }
+
+      setSelectValue(form.querySelector('select[name="inquiry_type"]'), "Buy a License");
+      setSelectValue(form.querySelector('select[name="preferred_county"]'), context.county);
+
+      const message = form.querySelector('textarea[name="message"]');
+      if (message instanceof HTMLTextAreaElement && !message.value.trim()) {
+        message.value = defaultMessage();
+        message.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+
+      return Boolean(form.querySelector('[data-fllm-listing-context="true"]'));
+    } finally {
+      applying = false;
     }
-
-    setSelectValue(form.querySelector('select[name="inquiry_type"]'), "Buy a License");
-    setSelectValue(form.querySelector('select[name="preferred_county"]'), context.county);
-
-    const message = form.querySelector('textarea[name="message"]');
-    if (message instanceof HTMLTextAreaElement && !message.value.trim()) {
-      message.value = defaultMessage();
-      message.dispatchEvent(new Event("input", { bubbles: true }));
-    }
-
-    return true;
   }
 
-  function start() {
-    applyContext();
-    [120, 450, 1100, 2200].forEach((delay) => window.setTimeout(applyContext, delay));
-
-    const observer = new MutationObserver(() => applyContext());
-    observer.observe(document.documentElement, { childList: true, subtree: true });
-    window.setTimeout(() => observer.disconnect(), 5000);
+  function startAfterHydration() {
+    const attempts = [0, 350, 1100, 2600];
+    attempts.forEach((delay) => window.setTimeout(applyContext, delay));
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", start, { once: true });
+  function scheduleStart() {
+    // The contact page is hydrated by its existing React bundle. Waiting until
+    // after window.load prevents this enhancement from changing server HTML
+    // before React has attached to it, while the later retries restore context
+    // if React replaces any form nodes during its initial render.
+    window.setTimeout(startAfterHydration, 450);
+  }
+
+  if (document.readyState === "complete") {
+    scheduleStart();
   } else {
-    start();
+    window.addEventListener("load", scheduleStart, { once: true });
   }
 })();
