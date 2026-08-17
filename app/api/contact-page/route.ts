@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-const CONTACT_PAGE_STYLES = `<style id="contact-logo-size-v1">
+const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v2">
   .contact-page > .seller-header > .seller-brand img {
     width: 71.25% !important;
     height: auto !important;
@@ -24,9 +24,102 @@ const CONTACT_PAGE_STYLES = `<style id="contact-logo-size-v1">
   .contact-careers-entry:focus-visible strong {
     text-decoration: underline;
   }
+  .contact-license-context {
+    margin: 2px 0 20px;
+    padding: 18px;
+    border: 1px solid rgba(246, 167, 0, .72);
+    border-left: 4px solid #f6a700;
+    border-radius: 6px;
+    color: #f8fafc;
+    background: linear-gradient(145deg, rgba(10, 34, 55, .98), rgba(4, 18, 30, .98));
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .22);
+  }
+  .contact-license-context-heading > span {
+    display: block;
+    margin-bottom: 6px;
+    color: #f6a700;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .contact-license-context-heading h3 {
+    margin: 0;
+    color: #fff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    line-height: 1.2;
+  }
+  .contact-license-context-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+  }
+  .contact-license-context-grid > div {
+    min-width: 0;
+    padding: 10px 11px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 4px;
+    background: rgba(2, 11, 18, .62);
+  }
+  .contact-license-context-grid span {
+    display: block;
+    margin-bottom: 5px;
+    color: #aebbc5;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+  .contact-license-context-grid strong {
+    display: block;
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+  .contact-license-context p {
+    margin: 14px 0 0;
+    color: #cbd5dc;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .contact-license-context > a {
+    display: inline-flex;
+    margin-top: 11px;
+    color: #f6a700;
+    font-size: 11px;
+    font-weight: 900;
+    text-decoration: none;
+  }
+  .contact-license-context > a:hover,
+  .contact-license-context > a:focus-visible {
+    text-decoration: underline;
+  }
+  @media (max-width: 620px) {
+    .contact-license-context-grid {
+      grid-template-columns: 1fr;
+    }
+    .contact-license-context-heading h3 {
+      font-size: 19px;
+    }
+  }
 </style>`;
 
+const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=1" defer></script>';
 const CAREERS_ENTRY = '<a class="contact-careers-entry" href="/careers"><span>Interested in joining FLLM?</span><strong>View Careers →</strong></a>';
+
+function addContactEnhancements(html: string) {
+  let enhanced = html;
+  if (!enhanced.includes('id="contact-page-enhancements-v2"')) {
+    enhanced = enhanced.replace("</head>", `${CONTACT_PAGE_STYLES}</head>`);
+  }
+  if (!enhanced.includes("contact-listing-context.js")) {
+    enhanced = enhanced.replace("</head>", `${CONTACT_CONTEXT_SCRIPT}</head>`);
+  }
+  return enhanced;
+}
 
 function addCareersEntryPoint(html: string) {
   if (html.includes('class="contact-careers-entry"')) return html;
@@ -81,10 +174,7 @@ export async function GET(request: Request) {
       throw new Error(`Static contact page returned ${sourceResponse.status}`);
     }
 
-    let html = await sourceResponse.text();
-    if (!html.includes('id="contact-logo-size-v1"')) {
-      html = html.replace("</head>", `${CONTACT_PAGE_STYLES}</head>`);
-    }
+    let html = addContactEnhancements(await sourceResponse.text());
     html = careersMode ? applyCareersMode(html) : addCareersEntryPoint(html);
 
     return new Response(html, {
