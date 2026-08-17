@@ -43,6 +43,13 @@
     padding: 0 !important;
   }
 
+  /* The hover-dropdown enhancement is a desktop navigation feature. Keep its
+     injected Market Data / License Types / Resources links out of the mobile
+     header so the original compact five-link mobile layout stays intact. */
+  .results-page > .results-header nav > a[data-listings-header-menu-link] {
+    display: none !important;
+  }
+
   .results-page > .results-header nav a {
     font-size: 9.5px !important;
     line-height: 1.2 !important;
