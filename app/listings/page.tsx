@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ListingsHeatMapEnhancement from "@/components/ListingsHeatMapEnhancement";
+import ListingsMarketMenuSync from "@/components/ListingsMarketMenuSync";
 import ListingsPage from "@/components/ListingsPage";
 import ListingsQueryFilterEnhancement from "@/components/ListingsQueryFilterEnhancement";
 import MonroeMapCompletion from "@/components/MonroeMapCompletion";
@@ -165,6 +166,7 @@ export default async function Page() {
       <ListingsQueryFilterEnhancement />
       <MonroeMapCompletion />
       <ListingsHeatMapEnhancement />
+      <ListingsMarketMenuSync />
     </>
   );
 }
