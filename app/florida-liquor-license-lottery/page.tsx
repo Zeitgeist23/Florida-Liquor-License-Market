@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import AbtPdfFormWorkspace from "@/components/AbtPdfFormWorkspace";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
-import { getAbtForm } from "@/data/abt-forms";
+import QuotaLotteryEntryForm from "@/components/QuotaLotteryEntryForm";
 import { getQuotaDrawingSourceStatus, QUOTA_DRAWING_2026 } from "@/data/quota-drawing-2026";
 import "@/app/resources/forms/abt-forms.css";
 import "./quota-lottery.css";
@@ -62,7 +61,6 @@ const rules = [
 
 export default async function FloridaLiquorLicenseLotteryPage() {
   const sourceStatus = await getQuotaDrawingSourceStatus();
-  const form = getAbtForm("abt-6033");
   const maxLicenses = Math.max(...QUOTA_DRAWING_2026.counties.map((item) => item.licenses));
 
   const structuredData = [
@@ -106,7 +104,7 @@ export default async function FloridaLiquorLicenseLotteryPage() {
               <span className="quota-eyebrow">Florida DBPR · 2026 Quota Beverage License Drawing</span>
               <h1>Florida Liquor License Lottery Entry</h1>
               <p>
-                Learn how Florida’s annual quota drawing works, see exactly which counties have new quota licenses available in 2026, and prepare the official ABT-6033 entry form through FLLM.
+                Learn how Florida’s annual quota drawing works, see exactly which counties have new quota licenses available in 2026, and prepare your ABT-6033 entry information through FLLM.
               </p>
               <div className="quota-hero-actions">
                 <a href="#availability">See 2026 County Availability</a>
@@ -156,7 +154,7 @@ export default async function FloridaLiquorLicenseLotteryPage() {
               <span>Current 2026 DBPR availability</span>
               <h2>63 quota licenses across 30 Florida counties</h2>
               <p>
-                The figures below are transcribed from DBPR’s official 2026 Quota Beverage License Drawing Entry Period notice and checked against the live DBPR source when this page loads.
+                The figures below are transcribed from DBPR’s official 2026 Quota Beverage License Drawing Entry Period notice and checked against the live DBPR source.
               </p>
             </div>
             <aside className={sourceStatus.reachable ? "quota-source-status is-live" : "quota-source-status"}>
@@ -214,23 +212,17 @@ export default async function FloridaLiquorLicenseLotteryPage() {
             <span>FLLM form preparation</span>
             <h2>Prepare your DBPR ABT-6033 quota drawing entry</h2>
             <p>
-              Use the FLLM guided workspace to complete the official entry-form fields. FLLM does not submit the entry or collect the state’s $100 fee; final submission and payment remain with DBPR.
+              Fill out the FLLM preparation form below, save the draft on your device, and then continue to the correct official DBPR Individual or Business entry. FLLM does not submit the entry or collect the state’s $100 fee.
             </p>
           </div>
 
-          <div className="quota-official-actions">
+          <QuotaLotteryEntryForm />
+
+          <div className="quota-official-actions quota-official-actions-after-form">
             <a href={QUOTA_DRAWING_2026.individualEntryUrl} target="_blank" rel="noopener noreferrer">DBPR Individual Entry ↗</a>
             <a href={QUOTA_DRAWING_2026.businessEntryUrl} target="_blank" rel="noopener noreferrer">DBPR Business Entry ↗</a>
             <a href={QUOTA_DRAWING_2026.officialFormUrl} target="_blank" rel="noopener noreferrer">Official ABT-6033 PDF ↗</a>
           </div>
-
-          {form ? (
-            <div className="quota-workspace-shell">
-              <AbtPdfFormWorkspace form={form} projectTransactionId={null} />
-            </div>
-          ) : (
-            <div className="quota-form-unavailable">The ABT-6033 workspace is temporarily unavailable. Use the official DBPR links above.</div>
-          )}
         </div>
       </section>
 
