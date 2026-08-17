@@ -1,0 +1,171 @@
+name: Diagnose actual live heat map user paths
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser dependency
+        run: npm install --no-save --no-package-lock --ignore-scripts puppeteer-core@24.16.0
+
+      - name: Reproduce user click paths
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const puppeteer = require('puppeteer-core');
+          const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+          async function getFirstListing(page) {
+            return page.evaluate(async () => {
+              const response = await fetch(`/api/market-insights-listings?diag=${Date.now()}`, { cache: 'no-store' });
+              const payload = await response.json();
+              const listings = Array.isArray(payload.listings) ? payload.listings : [];
+              const first = listings.find((listing) => listing?.sourceRef && listing?.county);
+              return first || null;
+            });
+          }
+
+          async function clickCounty(page, countyName) {
+            const bareCounty = String(countyName || '').replace(/\s+County$/i, '');
+            await page.waitForSelector('path[data-heat-map-county]', { timeout: 30000 });
+            const found = await page.evaluate((county) => {
+              const path = Array.from(document.querySelectorAll('path[data-heat-map-county]'))
+                .find((candidate) => (candidate.getAttribute('data-heat-map-county') || '').toLowerCase() === county.toLowerCase());
+              if (!path) return false;
+              path.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+              return true;
+            }, bareCounty);
+            if (!found) throw new Error(`County path not found: ${bareCounty}`);
+            await page.waitForSelector('.fllm-county-listings-dialog', { timeout: 30000 });
+            await sleep(1200);
+          }
+
+          async function inspectCountyCards(page, label) {
+            const state = await page.evaluate(() => {
+              const current = document.querySelector('.fllm-popup-card-shell.results-page .result-card');
+              const old = document.querySelector('.fllm-county-listing-card');
+              const button = document.querySelector('.result-view-button, .fllm-county-listing-actions a');
+              return {
+                pathname: location.pathname,
+                currentCardCount: document.querySelectorAll('.fllm-popup-card-shell.results-page .result-card').length,
+                oldCardCount: document.querySelectorAll('.fllm-county-listing-card').length,
+                buttonText: button?.textContent?.replace(/\s+/g, ' ').trim() || '',
+                buttonHref: button instanceof HTMLAnchorElement ? new URL(button.href, location.origin).pathname : '',
+                currentReference: current?.getAttribute('data-listing-reference') || '',
+                currentHref: current?.getAttribute('data-listing-href') || '',
+                oldReferenceText: old?.querySelector('.fllm-county-listing-reference')?.textContent?.replace(/\s+/g, ' ').trim() || '',
+                cardClass: current?.className || old?.className || '',
+                cardBackground: current ? getComputedStyle(current).backgroundImage : old ? getComputedStyle(old).backgroundImage : '',
+                loadedScripts: Array.from(document.scripts).map((s) => s.src).filter((src) => /market-heat-map|card-sync/.test(src)),
+                html: (current || old)?.outerHTML?.slice(0, 6000) || '',
+              };
+            });
+            console.log(`${label}: ${JSON.stringify(state, null, 2)}`);
+            return state;
+          }
+
+          (async () => {
+            const browser = await puppeteer.launch({
+              executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
+              headless: true,
+              args: ['--no-sandbox', '--disable-dev-shm-usage'],
+            });
+
+            try {
+              // Exact listings-page path.
+              const listings = await browser.newPage();
+              await listings.setViewport({ width: 1700, height: 1000 });
+              listings.on('console', (message) => console.log(`LISTINGS CONSOLE ${message.type()}: ${message.text()}`));
+              listings.on('pageerror', (error) => console.log(`LISTINGS PAGEERROR: ${error.stack || error.message}`));
+              await listings.goto(`https://www.floridaliquorlicensemarket.com/listings?diag=${Date.now()}`, {
+                waitUntil: 'networkidle2', timeout: 90000,
+              });
+              const listingRecord = await getFirstListing(listings);
+              console.log('LISTING RECORD:', JSON.stringify(listingRecord));
+              const heatButtons = await listings.$$('button');
+              let clickedHeat = false;
+              for (const button of heatButtons) {
+                const text = await button.evaluate((element) => (element.textContent || '').replace(/\s+/g, ' ').trim());
+                if (/^heat map$/i.test(text)) {
+                  await button.click();
+                  clickedHeat = true;
+                  break;
+                }
+              }
+              if (!clickedHeat) throw new Error('Listings Heat Map button not found by visible label.');
+              await listings.waitForSelector('.fllm-heat-map-modal', { timeout: 30000 });
+              await clickCounty(listings, listingRecord.county);
+              await listings.screenshot({ path: 'listings-county-dialog.png', fullPage: false });
+              const listingsState = await inspectCountyCards(listings, 'LISTINGS COUNTY CARDS');
+
+              if (listingsState.buttonHref) {
+                const expected = listingsState.buttonHref;
+                await Promise.all([
+                  listings.waitForNavigation({ waitUntil: 'networkidle2', timeout: 90000 }).catch(() => null),
+                  listings.click('.result-view-button, .fllm-county-listing-actions a'),
+                ]);
+                await sleep(1000);
+                console.log('LISTINGS DESTINATION:', JSON.stringify({ expected, actual: new URL(listings.url()).pathname, url: listings.url() }));
+              }
+
+              // Exact homepage path: hover Market Data, click Heat Map, click county.
+              const home = await browser.newPage();
+              await home.setViewport({ width: 1700, height: 1000 });
+              home.on('console', (message) => console.log(`HOME CONSOLE ${message.type()}: ${message.text()}`));
+              home.on('pageerror', (error) => console.log(`HOME PAGEERROR: ${error.stack || error.message}`));
+              await home.goto(`https://www.floridaliquorlicensemarket.com/?diag=${Date.now()}`, {
+                waitUntil: 'networkidle2', timeout: 90000,
+              });
+              const homeRecord = await getFirstListing(home);
+              console.log('HOME RECORD:', JSON.stringify(homeRecord));
+
+              const marketTrigger = await home.evaluateHandle(() => Array.from(document.querySelectorAll('.primary-nav a'))
+                .find((link) => (link.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase() === 'market data'));
+              const marketElement = marketTrigger.asElement();
+              if (!marketElement) throw new Error('Homepage Market Data trigger not found.');
+              await marketElement.hover();
+              await sleep(450);
+              await home.waitForSelector('.market-data-header-menu.is-open, #market-data-header-menu.is-open', { timeout: 15000 });
+              const menuButtons = await home.$$('.market-data-header-menu button, #market-data-header-menu button');
+              let clickedHomeHeat = false;
+              for (const button of menuButtons) {
+                const text = await button.evaluate((element) => (element.textContent || '').replace(/\s+/g, ' ').trim());
+                if (/^heat map$/i.test(text)) {
+                  await button.click();
+                  clickedHomeHeat = true;
+                  break;
+                }
+              }
+              if (!clickedHomeHeat) throw new Error('Homepage Heat Map menu option not found by visible label.');
+              await home.waitForSelector('.fllm-heat-map-modal', { timeout: 30000 });
+              await clickCounty(home, homeRecord.county);
+              await home.screenshot({ path: 'homepage-county-dialog.png', fullPage: false });
+              await inspectCountyCards(home, 'HOME COUNTY CARDS');
+            } finally {
+              await browser.close();
+            }
+          })().catch((error) => {
+            console.error(error.stack || error);
+            process.exit(1);
+          });
+          NODE
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-heat-map-diagnostics
+          path: |
+            listings-county-dialog.png
+            homepage-county-dialog.png
+          if-no-files-found: ignore
