@@ -9,7 +9,7 @@ import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFoote
 
 import "./globals.css";
 import "./buyer-guide-theme.css";
-import "./fllm-seo-theme.css";
+import "./listings-header-fix.css";
 
 const GOOGLE_ANALYTICS_ID = "G-PKP8PXCDWF";
 
