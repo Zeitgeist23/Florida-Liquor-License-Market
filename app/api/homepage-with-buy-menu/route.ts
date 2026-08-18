@@ -76,6 +76,12 @@ const installScript = `<script id="live-nav-dropdown-installer">
 })();
 </script>`;
 
+const supportScripts = `<!-- fllm-all-header-hover-menus -->
+<script src="/assets/core-nav-dropdowns.js?v=1" defer></script>
+<script src="/assets/market-data-dropdown.js?v=12" defer></script>
+<script src="/assets/resources-dropdown.js?v=10" defer></script>
+<script src="/assets/header-menu-coordinator.js?v=4" defer></script>`;
+
 function injectServerMenus(html: string) {
   let updated = html;
   if (!updated.includes(BUY_MARKER)) {
@@ -106,6 +112,7 @@ export async function GET(request: Request) {
   let html = injectServerMenus(sourceHtml);
   if (!html.includes('id="live-nav-dropdown-styles"')) html = html.replace("</head>", `${styles}</head>`);
   if (!html.includes('id="live-nav-dropdown-installer"')) html = html.replace("</body>", `${installScript}</body>`);
+  if (!html.includes("fllm-all-header-hover-menus")) html = html.replace("</body>", `${supportScripts}</body>`);
 
   return new Response(html, {
     status: 200,
