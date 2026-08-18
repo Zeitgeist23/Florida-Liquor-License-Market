@@ -37,9 +37,9 @@ const statusOptions: readonly ListingsHoverSelectOption[] = [
 
 const faqLinks = [
   {
-    question: "Where can I find Florida liquor licenses for sale?",
-    label: "Florida license guide",
-    href: "/resources/florida-liquor-license-types",
+    question: "How do I buy a Florida liquor license?",
+    label: "Step-by-step buyer guide",
+    href: "/how-to-buy-florida-liquor-license",
   },
   {
     question: "What is a Florida 4COP quota liquor license?",
@@ -231,7 +231,7 @@ export default function ListingsPage({ initialListings, focusReference = null }:
           <div className="listings-seo-guide">
             <span>Florida Buyer Guide</span>
             <h2>Buying a Florida Liquor License</h2>
-            <p>Florida quota liquor licenses are limited by county and may be transferred only subject to applicable state and local requirements. Buyers should first identify the privilege they need, then compare current inventory in the county where the license will be used. Full-liquor concepts can review <Link href="/florida-4cop-liquor-license-for-sale">Florida 4COP liquor licenses for sale</Link>, while package-store buyers can review <Link href="/florida-3ps-liquor-license-for-sale">Florida 3PS liquor licenses for sale</Link>.</p>
+            <p>Florida quota liquor licenses are limited by county and may be transferred only subject to applicable state and local requirements. <Link href="/how-to-buy-florida-liquor-license">Read the step-by-step guide to buying a Florida liquor license</Link>, then identify the privilege you need and compare current inventory in the county where the license will be used. Full-liquor concepts can review <Link href="/florida-4cop-liquor-license-for-sale">Florida 4COP liquor licenses for sale</Link>, while package-store buyers can review <Link href="/florida-3ps-liquor-license-for-sale">Florida 3PS liquor licenses for sale</Link>.</p>
             <p>Asking prices vary by county, supply, license category, seller terms, and market conditions. Use the <Link href="/counties">Florida county directory</Link> to compare local inventory, and confirm license status, liens, transfer requirements, zoning, premises eligibility, and transaction terms before closing.</p>
           </div>
           <div className="listings-seo-faq">
