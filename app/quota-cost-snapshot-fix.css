@@ -1,0 +1,23 @@
+/* Florida Quota License Cost page only: keep the snapshot stat tiles inside their card. */
+body:has(.quota-cost-table-wrap) .seo-market-snapshot {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+body:has(.quota-cost-table-wrap) .seo-market-snapshot-grid {
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+body:has(.quota-cost-table-wrap) .seo-market-snapshot-grid > div {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+body:has(.quota-cost-table-wrap) .seo-market-snapshot-grid strong,
+body:has(.quota-cost-table-wrap) .seo-market-snapshot-grid small {
+  min-width: 0;
+}
