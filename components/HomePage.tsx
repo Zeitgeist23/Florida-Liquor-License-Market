@@ -121,7 +121,15 @@ export default function Home({ marketListings }: { marketListings: MarketplaceLi
           <a className="brand-lockup" href="#top" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /></a>
           <button className="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>☰</button>
           <nav className={menuOpen ? "primary-nav is-open" : "primary-nav"} aria-label="Primary navigation">
-            <a href="/listings"><span>Buy</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a><a href="#sell"><span>Sell</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a><a href="#financing"><span>Finance</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a><a href="#market-data"><span>Invest</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a><a href="#market-data"><span>Market Data</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a><a href="/resources/florida-liquor-license-types"><span>License Types</span></a><a href="#resources"><span>Resources</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
+            <div className="buy-nav-dropdown">
+              <a className="buy-nav-trigger" href="/listings" aria-haspopup="true">
+                <span>Buy</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" />
+              </a>
+              <div className="buy-nav-menu" role="menu" aria-label="Buy">
+                <a href="/listings" role="menuitem">View Listings</a>
+                <a href="/how-to-buy-florida-liquor-license" role="menuitem">How to Buy a Florida Liquor License</a>
+              </div>
+            </div><a href="#sell"><span>Sell</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a><a href="#financing"><span>Finance</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a><a href="#market-data"><span>Invest</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a><a href="#market-data"><span>Market Data</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a><a href="/resources/florida-liquor-license-types"><span>License Types</span></a><a href="#resources"><span>Resources</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>
           </nav>
           <div className="header-actions"><a className="btn btn-gold" href="#sell">List Your License</a><a className="btn btn-outline" href="mailto:info@floridaliquorlicensemarket.com"><span className="contact-phone" aria-hidden="true">☎</span>Contact Us</a></div>
         </header>
