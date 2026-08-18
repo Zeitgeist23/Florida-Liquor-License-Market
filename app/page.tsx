@@ -15,6 +15,7 @@ export default async function Page() {
   return (
     <>
       <HomePage marketListings={marketplaceListings} />
+      <Script src="/assets/buy-dropdown.js?v=1" strategy="afterInteractive" />
       <Script src="/assets/market-data-dropdown.js?v=12" strategy="afterInteractive" />
       <Script src="/assets/resources-dropdown.js?v=10" strategy="afterInteractive" />
       <Script src="/assets/header-menu-coordinator.js?v=4" strategy="afterInteractive" />
