@@ -220,7 +220,7 @@ export default function HowToSellFloridaLiquorLicensePage() {
               <div className="seller-guide-step-number">1</div>
               <div>
                 <h3>Verify the exact license and ownership</h3>
-                <p>Confirm the license number, series, county, current owner and status before marketing it. Identify anything that may affect a transaction, including inactive or escrow status, pending changes, liens or security interests, or uncertainty about the seller's authority to transfer.</p>
+                <p>Confirm the license number, series, county, current owner and status before marketing it. Identify anything that may affect a transaction, including inactive or escrow status, pending changes, liens or security interests, or uncertainty about the seller&apos;s authority to transfer.</p>
               </div>
             </article>
             <article className="seller-guide-step">
@@ -264,7 +264,7 @@ export default function HowToSellFloridaLiquorLicensePage() {
               <div>
                 <h3>Coordinate the transfer and closing</h3>
                 <p>Work with the buyer and the professionals involved so the purchase agreement, closing funds, transfer materials and any location or ownership changes reflect the actual transaction. Confirm current DBPR requirements before closing and retain records of the completed sale.</p>
-                <p><Link href="/dbpr-abt-6002">Review FLLM's ABT-6002 transfer guide →</Link></p>
+                <p><Link href="/dbpr-abt-6002">Review FLLM&apos;s ABT-6002 transfer guide →</Link></p>
               </div>
             </article>
           </div>
@@ -348,7 +348,7 @@ export default function HowToSellFloridaLiquorLicensePage() {
           <div>
             <span className="seo-market-section-kicker">Ready to Sell?</span>
             <h2>Value the license, choose your selling path and reach the market.</h2>
-            <p>Start with a self-directed listing, request broker-assisted support, or estimate the license's current market range first.</p>
+            <p>Start with a self-directed listing, request broker-assisted support, or estimate the license&apos;s current market range first.</p>
           </div>
           <div className="seo-market-actions">
             <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Sell Your License</Link>
