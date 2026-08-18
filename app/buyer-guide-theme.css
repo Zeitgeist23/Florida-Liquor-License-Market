@@ -1,0 +1,286 @@
+/* Buyer guide only: match the established FLLM navy / gold / orange visual system. */
+body:has(.buy-guide-quick) .seo-market-page {
+  background: #f7f7f5;
+  color: #111820;
+}
+
+body:has(.buy-guide-quick) .seo-market-hero {
+  background:
+    radial-gradient(circle at 82% 18%, rgba(246, 167, 0, .20), transparent 30%),
+    linear-gradient(135deg, #020b12 0%, #061728 54%, #0a2237 100%);
+  border-top: 1px solid rgba(246, 167, 0, .38);
+  border-bottom: 1px solid rgba(246, 167, 0, .46);
+}
+
+body:has(.buy-guide-quick) .seo-market-breadcrumbs {
+  color: #cbd5df;
+}
+
+body:has(.buy-guide-quick) .seo-market-breadcrumbs a,
+body:has(.buy-guide-quick) .seo-market-kicker,
+body:has(.buy-guide-quick) .seo-market-section-kicker {
+  color: #f6a700;
+}
+
+body:has(.buy-guide-quick) .seo-market-hero h1 {
+  color: #fff;
+  text-shadow: 0 3px 22px rgba(0, 0, 0, .42);
+}
+
+body:has(.buy-guide-quick) .seo-market-hero p {
+  color: #dce5ec;
+}
+
+/* FLLM button treatment: dimensional gold gradient, navy/gold outline, and real hover depth. */
+body:has(.buy-guide-quick) .seo-market-button {
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+}
+
+body:has(.buy-guide-quick) .seo-market-button-gold {
+  border: 1px solid #ffc12d;
+  background: linear-gradient(145deg, #ffbd21 0%, #ef9000 100%);
+  color: #07111a;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .45),
+    inset 0 -1px 0 rgba(132, 76, 0, .28),
+    0 8px 22px rgba(246, 167, 0, .24),
+    0 2px 5px rgba(0, 0, 0, .25);
+}
+
+body:has(.buy-guide-quick) .seo-market-button-gold:hover,
+body:has(.buy-guide-quick) .seo-market-button-gold:focus-visible {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .5),
+    inset 0 -1px 0 rgba(132, 76, 0, .24),
+    0 12px 28px rgba(246, 167, 0, .30),
+    0 4px 8px rgba(0, 0, 0, .28);
+  outline: none;
+}
+
+body:has(.buy-guide-quick) .seo-market-button-dark {
+  border: 1px solid #f6a700;
+  background: linear-gradient(145deg, #0a2237 0%, #04111c 100%);
+  color: #f6a700;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .08),
+    0 8px 20px rgba(0, 0, 0, .26);
+}
+
+body:has(.buy-guide-quick) .seo-market-button-dark:hover,
+body:has(.buy-guide-quick) .seo-market-button-dark:focus-visible {
+  background: linear-gradient(145deg, #ffbd21 0%, #ef9000 100%);
+  color: #07111a;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(246, 167, 0, .24);
+  outline: none;
+}
+
+body:has(.buy-guide-quick) .seo-market-snapshot {
+  border: 1px solid rgba(246, 167, 0, .48);
+  background: rgba(2, 11, 18, .72);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, .32);
+}
+
+body:has(.buy-guide-quick) .seo-market-snapshot > span {
+  color: #ffb400;
+}
+
+body:has(.buy-guide-quick) .seo-market-snapshot-grid div {
+  border-color: rgba(246, 167, 0, .18);
+  background: rgba(10, 34, 55, .72);
+}
+
+body:has(.buy-guide-quick) .seo-market-intro {
+  background: linear-gradient(180deg, #fff 0%, #f7f7f5 100%);
+}
+
+body:has(.buy-guide-quick) .seo-market-intro h2,
+body:has(.buy-guide-quick) .seo-market-section-heading h2,
+body:has(.buy-guide-quick) .seo-market-faq h2 {
+  color: #061728;
+}
+
+body:has(.buy-guide-quick) .seo-market-intro p,
+body:has(.buy-guide-quick) .seo-market-faq p {
+  color: #425364;
+}
+
+body:has(.buy-guide-quick) .buy-guide-quick-card {
+  border: 1px solid rgba(246, 167, 0, .55);
+  background: linear-gradient(145deg, #0a2237 0%, #04111c 100%);
+  box-shadow: 0 14px 30px rgba(2, 11, 18, .18);
+}
+
+body:has(.buy-guide-quick) .buy-guide-quick-card strong {
+  color: #ffb400;
+}
+
+body:has(.buy-guide-quick) .buy-guide-quick-card p {
+  color: #dce5ec;
+}
+
+body:has(.buy-guide-quick) .seo-market-counties {
+  background:
+    radial-gradient(circle at 90% 10%, rgba(246, 167, 0, .08), transparent 26%),
+    linear-gradient(145deg, #0a2237 0%, #020b12 74%);
+  border-top: 1px solid rgba(246, 167, 0, .38);
+  border-bottom: 1px solid rgba(246, 167, 0, .38);
+}
+
+body:has(.buy-guide-quick) .seo-market-counties .seo-market-section-heading h2 {
+  color: #fff;
+}
+
+body:has(.buy-guide-quick) .seo-market-counties .seo-market-section-kicker {
+  color: #ffb400;
+}
+
+body:has(.buy-guide-quick) .buy-guide-step {
+  border: 1px solid rgba(246, 167, 0, .20);
+  background: linear-gradient(145deg, #0a2237 0%, #061728 100%);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .18);
+}
+
+body:has(.buy-guide-quick) .buy-guide-step-number {
+  border: 1px solid #ffc12d;
+  background: linear-gradient(145deg, #ffbd21 0%, #ef9000 100%);
+  color: #061728;
+  box-shadow: inset 0 1px rgba(255, 255, 255, .4), 0 6px 16px rgba(246, 167, 0, .22);
+}
+
+body:has(.buy-guide-quick) .buy-guide-step h3 {
+  color: #fff;
+}
+
+body:has(.buy-guide-quick) .buy-guide-step p {
+  color: #c7d2dc;
+}
+
+body:has(.buy-guide-quick) .buy-guide-step a {
+  color: #ffb400;
+}
+
+body:has(.buy-guide-quick) .buy-guide-table-wrap {
+  border-color: rgba(246, 167, 0, .42);
+  background: #061728;
+  box-shadow: 0 12px 26px rgba(2, 11, 18, .16);
+}
+
+body:has(.buy-guide-quick) .buy-guide-table thead th {
+  background: #020b12;
+  color: #ffb400;
+}
+
+body:has(.buy-guide-quick) .buy-guide-table tbody tr:hover {
+  background: rgba(246, 167, 0, .08);
+}
+
+body:has(.buy-guide-quick) .buy-guide-checklist li {
+  border-color: rgba(246, 167, 0, .18);
+  background: linear-gradient(145deg, #0a2237 0%, #061728 100%);
+  color: #d7e0e7;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .14);
+}
+
+body:has(.buy-guide-quick) .buy-guide-checklist li::before {
+  color: #ffb400;
+}
+
+body:has(.buy-guide-quick) .buy-guide-links a,
+body:has(.buy-guide-quick) .buy-guide-official a {
+  border: 1px solid rgba(246, 167, 0, .45);
+  background: linear-gradient(145deg, #0a2237 0%, #04111c 100%);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 0 8px 18px rgba(2, 11, 18, .14);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+body:has(.buy-guide-quick) .buy-guide-links a:hover,
+body:has(.buy-guide-quick) .buy-guide-links a:focus-visible,
+body:has(.buy-guide-quick) .buy-guide-official a:hover,
+body:has(.buy-guide-quick) .buy-guide-official a:focus-visible {
+  border-color: #ffb400;
+  background: linear-gradient(145deg, #0d2a42 0%, #061728 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(2, 11, 18, .22), 0 0 0 1px rgba(246, 167, 0, .08);
+  outline: none;
+}
+
+body:has(.buy-guide-quick) .buy-guide-links a span,
+body:has(.buy-guide-quick) .buy-guide-official a span {
+  color: #b9c8d4;
+}
+
+body:has(.buy-guide-quick) .buy-guide-disclaimer {
+  border-left-color: #f6a700;
+  background: rgba(246, 167, 0, .08);
+  color: #526171;
+}
+
+body:has(.buy-guide-quick) .seo-market-faq {
+  background: #f7f7f5;
+}
+
+body:has(.buy-guide-quick) .seo-market-faq details {
+  border: 1px solid #ded7c8;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(6, 23, 40, .05);
+}
+
+body:has(.buy-guide-quick) .seo-market-faq summary {
+  color: #061728;
+}
+
+body:has(.buy-guide-quick) .seo-market-cta {
+  padding: 50px 0;
+  border-top: 1px solid rgba(246, 167, 0, .45);
+  background:
+    radial-gradient(circle at 85% 20%, rgba(246, 167, 0, .16), transparent 26%),
+    linear-gradient(135deg, #061728 0%, #0a2237 100%);
+  color: #fff;
+}
+
+body:has(.buy-guide-quick) .seo-market-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+body:has(.buy-guide-quick) .seo-market-cta h2 {
+  margin: 7px 0 8px;
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 34px;
+  font-weight: 500;
+}
+
+body:has(.buy-guide-quick) .seo-market-cta p {
+  margin: 0;
+  color: #d2dde6;
+  line-height: 1.55;
+}
+
+@media (max-width: 760px) {
+  body:has(.buy-guide-quick) .seo-market-cta-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  body:has(.buy-guide-quick) .seo-market-actions {
+    width: 100%;
+  }
+
+  body:has(.buy-guide-quick) .seo-market-actions .seo-market-button {
+    flex: 1 1 210px;
+  }
+}

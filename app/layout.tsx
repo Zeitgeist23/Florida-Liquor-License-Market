@@ -8,6 +8,7 @@ import ListingsHeaderHoverMenus from "@/components/ListingsHeaderHoverMenus";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
 
 import "./globals.css";
+import "./buyer-guide-theme.css";
 
 const GOOGLE_ANALYTICS_ID = "G-PKP8PXCDWF";
 
