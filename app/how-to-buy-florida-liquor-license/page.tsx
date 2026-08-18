@@ -361,12 +361,12 @@ export default function HowToBuyFloridaLiquorLicensePage() {
             Florida Liquor License Market is a marketplace and information resource, not the licensing authority. Current application requirements should be confirmed with the Florida Division of Alcoholic Beverages and Tobacco and the current Florida Statutes.
           </p>
           <div className="buy-guide-official">
-            <a href="https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" target="_blank" rel="noopener noreferrer">Florida Division of Alcoholic Beverages &amp; Tobacco<span>Official DBPR licensing, applications, forms and account access.</span></a>
-            <a href="https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=13356&clientCode=4008&xactCode=1060" target="_blank" rel="noopener noreferrer">DBPR Transfer-of-Ownership Checklist<span>Official checklist for transfer of ownership of an alcoholic beverage license.</span></a>
-            <a href="https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/quota-license-information/" target="_blank" rel="noopener noreferrer">DBPR Quota License Information<span>Official quota drawing information and active/inactive quota license resources.</span></a>
-            <a href="https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.20.html" target="_blank" rel="noopener noreferrer">Florida Statute § 561.20<span>Official county quota limitation for applicable alcoholic beverage licenses.</span></a>
-            <a href="https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.32.html" target="_blank" rel="noopener noreferrer">Florida Statute § 561.32<span>Official statutory provisions governing transfer of alcoholic beverage licenses and interests.</span></a>
-            <a href="https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.15.html" target="_blank" rel="noopener noreferrer">Florida Statute § 561.15<span>Official applicant qualification requirements for licenses under the Beverage Law.</span></a>
+            <a href="/resources/official/florida-abt">Florida Division of Alcoholic Beverages &amp; Tobacco<span>Official DBPR licensing, applications, forms and account access.</span></a>
+            <a href="/resources/official/transfer-of-ownership">DBPR Transfer-of-Ownership Checklist<span>Official checklist for transfer of ownership of an alcoholic beverage license.</span></a>
+            <a href="/resources/official/quota-license-information">DBPR Quota License Information<span>Official quota drawing information and active/inactive quota license resources.</span></a>
+            <a href="/resources/official/statute-561-20">Florida Statute § 561.20<span>Official county quota limitation for applicable alcoholic beverage licenses.</span></a>
+            <a href="/resources/official/statute-561-32">Florida Statute § 561.32<span>Official statutory provisions governing transfer of alcoholic beverage licenses and interests.</span></a>
+            <a href="/resources/official/statute-561-15">Florida Statute § 561.15<span>Official applicant qualification requirements for licenses under the Beverage Law.</span></a>
           </div>
         </div>
       </section>
