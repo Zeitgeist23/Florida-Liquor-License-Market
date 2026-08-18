@@ -12,8 +12,9 @@ function injectBuyMenu(html: string) {
       <span>Buy</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"/>
     </button>
     <div class="live-buy-menu" role="menu" aria-label="Buy">
-      <a href="/listings" role="menuitem">View Listings</a>
+      
       <a href="/how-to-buy-florida-liquor-license" role="menuitem">How to Buy a Florida Liquor License</a>
+      <a href="/listings" role="menuitem">Current Liquor License Listings</a>
     </div>
   </div>`;
 
