@@ -4,6 +4,7 @@ import Script from "next/script";
 import AbtDemographicSelects from "@/components/AbtDemographicSelects";
 import AbtIncreaseInSeriesSelect from "@/components/AbtIncreaseInSeriesSelect";
 import AbtMoralCharacterQuestion from "@/components/AbtMoralCharacterQuestion";
+import BuyerGuideInternalResourceLinks from "@/components/BuyerGuideInternalResourceLinks";
 import ListingsHeaderHoverMenus from "@/components/ListingsHeaderHoverMenus";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
 
@@ -38,6 +39,7 @@ export default function RootLayout({
         <AbtDemographicSelects />
         <AbtMoralCharacterQuestion />
         {children}
+        <BuyerGuideInternalResourceLinks />
         <ListingsHeaderHoverMenus />
         <NationalMarketplaceFooterLink />
 
