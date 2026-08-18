@@ -1,7 +1,15 @@
-/* Buyer Guide CTA buttons only. Match the established FLLM gold button treatment without changing other page layouts. */
+/* Buyer Guide and Buyer-Guide-linked CTA buttons only.
+   Keep page layouts intact; standardize actionable buttons to the established FLLM gold treatment. */
+
 body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-button,
 body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-button-gold,
-body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-button-dark {
+body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-button-dark,
+.seo-market-page .seo-market-actions .seo-market-button,
+.seo-market-page .seo-market-actions .seo-market-button-gold,
+.seo-market-page .seo-market-actions .seo-market-button-dark,
+.official-resource-page .official-resource-actions a,
+.license-types-page .license-types-hero-actions .btn,
+.transfer-calculator-page .transfer-actions .btn {
   min-height: 48px !important;
   padding: 0 20px !important;
   border: 1px solid #f1a600 !important;
@@ -15,7 +23,7 @@ body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-butt
     inset 0 -1px 0 rgba(126, 72, 0, .24),
     0 8px 20px rgba(241, 166, 0, .24),
     0 2px 5px rgba(0, 0, 0, .22) !important;
-  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease !important;
+  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease, background .18s ease !important;
 }
 
 body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-button:hover,
@@ -23,7 +31,19 @@ body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-butt
 body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-button-gold:hover,
 body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-button-gold:focus-visible,
 body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-button-dark:hover,
-body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-button-dark:focus-visible {
+body:has(.buy-guide-quick) .seo-market-page .seo-market-actions .seo-market-button-dark:focus-visible,
+.seo-market-page .seo-market-actions .seo-market-button:hover,
+.seo-market-page .seo-market-actions .seo-market-button:focus-visible,
+.seo-market-page .seo-market-actions .seo-market-button-gold:hover,
+.seo-market-page .seo-market-actions .seo-market-button-gold:focus-visible,
+.seo-market-page .seo-market-actions .seo-market-button-dark:hover,
+.seo-market-page .seo-market-actions .seo-market-button-dark:focus-visible,
+.official-resource-page .official-resource-actions a:hover,
+.official-resource-page .official-resource-actions a:focus-visible,
+.license-types-page .license-types-hero-actions .btn:hover,
+.license-types-page .license-types-hero-actions .btn:focus-visible,
+.transfer-calculator-page .transfer-actions .btn:hover:not(:disabled),
+.transfer-calculator-page .transfer-actions .btn:focus-visible:not(:disabled) {
   background: linear-gradient(145deg, #ffd05a 0%, #f0a300 100%) !important;
   color: #07101a !important;
   filter: brightness(1.04) !important;
