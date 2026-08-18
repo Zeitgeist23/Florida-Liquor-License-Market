@@ -1,5 +1,5 @@
 /* Buyer Guide and Buyer-Guide-linked page header logos only.
-   Reduce the FLLM logo by 12% and move it 25px left without changing header layout. */
+   Keep the logo 12% smaller and move it an additional 25px left from its current position. */
 
 body:has(.buy-guide-quick) .forms-site-header .brand-lockup img,
 body:has(.seo-market-page .abt-header-wrap) .forms-site-header .brand-lockup img,
@@ -9,7 +9,7 @@ body:has(.transfer-calculator-page) .forms-site-header .brand-lockup img {
   width: 165.44px !important;
   height: 66.88px !important;
   position: relative;
-  left: -25px;
+  left: -50px;
   object-fit: cover !important;
   object-position: left center !important;
 }
@@ -19,7 +19,7 @@ body:has(.transfer-calculator-page) .forms-site-header .brand-lockup img {
   width: 152.24px !important;
   height: auto !important;
   position: relative;
-  left: -25px;
+  left: -50px;
 }
 
 @media (max-width: 720px) {
@@ -29,6 +29,6 @@ body:has(.transfer-calculator-page) .forms-site-header .brand-lockup img {
   body:has(.license-types-page) .forms-site-header .brand-lockup img,
   body:has(.transfer-calculator-page) .forms-site-header .brand-lockup img,
   .seo-market-page > .seo-market-header .seo-market-brand img {
-    left: -25px;
+    left: -50px;
   }
 }
