@@ -11,6 +11,7 @@ import "./globals.css";
 import "./buyer-guide-theme.css";
 import "./buyer-guide-buttons.css";
 import "./buyer-guide-logo.css";
+import "./seller-guide-theme.css";
 import "./listings-header-fix.css";
 import "./quota-cost-snapshot-fix.css";
 
