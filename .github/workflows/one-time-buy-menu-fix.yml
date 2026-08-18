@@ -1,0 +1,80 @@
+name: One-time direct BUY menu fix
+
+on:
+  push:
+    branches:
+      - fix/buy-menu-direct-markup
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/buy-menu-direct-markup
+          fetch-depth: 0
+
+      - name: Put BUY dropdown directly in HomePage header
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          home = Path('components/HomePage.tsx')
+          text = home.read_text()
+          old = '<a href="/listings"><span>Buy</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" /></a>'
+          new = '''<div className="buy-nav-dropdown">
+              <a className="buy-nav-trigger" href="/listings" aria-haspopup="true">
+                <span>Buy</span><img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" />
+              </a>
+              <div className="buy-nav-menu">
+                <a href="/listings">View Listings</a>
+                <a href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License</a>
+              </div>
+            </div>'''
+          if old not in text:
+              raise SystemExit('Expected BUY link markup not found; refusing to patch.')
+          home.write_text(text.replace(old, new, 1))
+
+          css_path = Path('app/globals.css')
+          css = css_path.read_text()
+          anchor = '.primary-nav a:hover { color: var(--gold); }\n'
+          addition = r'''
+.buy-nav-dropdown { position: relative; display: inline-flex; align-items: center; flex: 0 0 auto; }
+.buy-nav-trigger { display: inline-flex; align-items: center; gap: 5px; color: #fff; font-size: 10px; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
+.buy-nav-menu { position: absolute; top: calc(100% + 10px); left: 50%; z-index: 10050; display: none; width: 310px; transform: translateX(-50%); padding: 6px; border: 1px solid #f6a700; border-radius: 6px; background: #061728; box-shadow: 0 18px 48px rgba(0,0,0,.48); }
+.buy-nav-dropdown:hover .buy-nav-menu, .buy-nav-dropdown:focus-within .buy-nav-menu { display: grid; gap: 4px; }
+.primary-nav .buy-nav-menu a { display: block; width: 100%; padding: 12px 13px; border-radius: 4px; color: #fff; text-decoration: none; text-transform: none; white-space: normal; font: 700 13px/1.3 Arial, Helvetica, sans-serif; letter-spacing: .01em; }
+.primary-nav .buy-nav-menu a:hover, .primary-nav .buy-nav-menu a:focus-visible { color: #061728; background: #f6a700; outline: none; }
+@media (max-width: 820px) { .buy-nav-dropdown { width: 100%; justify-content: center; } .buy-nav-trigger { width: 100%; justify-content: center; padding: 12px; } .buy-nav-menu { top: 100%; width: min(310px, calc(100vw - 24px)); } }
+'''
+          if '.buy-nav-dropdown { position: relative;' not in css:
+              if anchor not in css:
+                  raise SystemExit('Expected primary-nav hover CSS not found; refusing to patch.')
+              css_path.write_text(css.replace(anchor, anchor + addition, 1))
+
+          page = Path('app/page.tsx')
+          page_text = page.read_text()
+          page_text = page_text.replace('import HomeBuyDropdown from "@/components/HomeBuyDropdown";\n', '')
+          page_text = page_text.replace('      <HomeBuyDropdown />\n', '')
+          page.write_text(page_text)
+
+          old_component = Path('components/HomeBuyDropdown.tsx')
+          if old_component.exists():
+              old_component.unlink()
+
+          workflow = Path('.github/workflows/one-time-buy-menu-fix.yml')
+          if workflow.exists():
+              workflow.unlink()
+          PY
+
+      - name: Commit direct header fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Render BUY dropdown directly in homepage header"
+          git push origin HEAD:fix/buy-menu-direct-markup
