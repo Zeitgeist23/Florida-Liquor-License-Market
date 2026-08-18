@@ -8,11 +8,6 @@
 
   const resources = [
     {
-      label: "How to Buy a Florida Liquor License",
-      href: "/how-to-buy-florida-liquor-license",
-      internal: true,
-    },
-    {
       label: "Florida Liquor License Lookup",
       href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
     },
