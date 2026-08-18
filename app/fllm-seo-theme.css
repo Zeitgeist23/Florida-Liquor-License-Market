@@ -1,0 +1,388 @@
+/* Shared FLLM visual system for buyer-guide-linked SEO/resource pages. */
+
+/* Core SEO pages linked from the Buyer Guide: quota cost, ABT-6002, 4COP, 3PS and related market pages. */
+.seo-market-page {
+  background: #f7f7f5;
+  color: #111820;
+}
+
+.seo-market-page .seo-market-header {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-block: 14px;
+  border-bottom: 1px solid rgba(246,167,0,.42);
+  color: #fff;
+  background: #020b12;
+}
+
+.seo-market-page .seo-market-header nav a {
+  color: #eef3f6;
+  transition: color .18s ease;
+}
+
+.seo-market-page .seo-market-header nav a:hover,
+.seo-market-page .seo-market-header nav a:focus-visible {
+  color: #f6a700;
+  outline: none;
+}
+
+.seo-market-page .seo-market-header .seo-market-nav-cta {
+  border: 1px solid #ffc12d;
+  border-radius: 5px;
+  color: #07111a;
+  background: linear-gradient(145deg,#ffbd21 0%,#ef9000 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45),0 8px 20px rgba(246,167,0,.20);
+}
+
+.seo-market-page .seo-market-hero {
+  border-top: 1px solid rgba(246,167,0,.36);
+  border-bottom: 1px solid rgba(246,167,0,.48);
+  background:
+    radial-gradient(circle at 84% 15%, rgba(246,167,0,.18), transparent 30%),
+    linear-gradient(135deg,#020b12 0%,#061728 56%,#0a2237 100%);
+}
+
+.seo-market-page .seo-market-breadcrumbs,
+.seo-market-page .seo-market-hero p {
+  color: #d7e0e7;
+}
+
+.seo-market-page .seo-market-breadcrumbs a,
+.seo-market-page .seo-market-kicker,
+.seo-market-page .seo-market-section-kicker,
+.seo-market-page .seo-market-section-heading > a {
+  color: #f6a700;
+}
+
+.seo-market-page .seo-market-hero h1 {
+  color: #fff;
+  text-shadow: 0 3px 22px rgba(0,0,0,.40);
+}
+
+.seo-market-page .seo-market-actions {
+  gap: 12px;
+}
+
+.seo-market-page .seo-market-button {
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  transition: transform .18s ease,filter .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease;
+}
+
+.seo-market-page .seo-market-button-gold {
+  border: 1px solid #ffc12d;
+  color: #07111a;
+  background: linear-gradient(145deg,#ffbd21 0%,#ef9000 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.46),inset 0 -1px 0 rgba(132,76,0,.25),0 8px 22px rgba(246,167,0,.24),0 2px 5px rgba(0,0,0,.24);
+}
+
+.seo-market-page .seo-market-button-gold:hover,
+.seo-market-page .seo-market-button-gold:focus-visible {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.52),0 12px 28px rgba(246,167,0,.30),0 4px 8px rgba(0,0,0,.28);
+  outline: none;
+}
+
+.seo-market-page .seo-market-button-dark {
+  border: 1px solid #f6a700;
+  color: #f6a700;
+  background: linear-gradient(145deg,#0a2237 0%,#04111c 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07),0 8px 20px rgba(0,0,0,.24);
+}
+
+.seo-market-page .seo-market-button-dark:hover,
+.seo-market-page .seo-market-button-dark:focus-visible {
+  color: #07111a;
+  background: linear-gradient(145deg,#ffbd21 0%,#ef9000 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(246,167,0,.24);
+  outline: none;
+}
+
+.seo-market-page .seo-market-snapshot {
+  border: 1px solid rgba(246,167,0,.48);
+  background: rgba(2,11,18,.76);
+  box-shadow: 0 20px 45px rgba(0,0,0,.30);
+}
+
+.seo-market-page .seo-market-snapshot > span {
+  color: #ffb400;
+}
+
+.seo-market-page .seo-market-snapshot-grid div {
+  border-color: rgba(246,167,0,.18);
+  background: rgba(10,34,55,.74);
+}
+
+.seo-market-page .seo-market-intro,
+.seo-market-page .seo-market-guide,
+.seo-market-page .seo-market-faq,
+.seo-market-page .seo-market-inventory {
+  background: linear-gradient(180deg,#fff 0%,#f7f7f5 100%);
+}
+
+.seo-market-page .seo-market-intro h2,
+.seo-market-page .seo-market-guide h2,
+.seo-market-page .seo-market-faq h2,
+.seo-market-page .seo-market-section-heading h2 {
+  color: #061728;
+}
+
+.seo-market-page .seo-market-intro p,
+.seo-market-page .seo-market-guide p,
+.seo-market-page .seo-market-faq p {
+  color: #425364;
+}
+
+.seo-market-page .seo-market-callout,
+.seo-market-page .seo-market-card,
+.seo-market-page .seo-market-guide-card {
+  border-color: rgba(246,167,0,.38);
+  background: linear-gradient(145deg,#0a2237 0%,#04111c 100%);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(2,11,18,.16);
+}
+
+.seo-market-page .seo-market-callout strong,
+.seo-market-page .seo-market-card h3,
+.seo-market-page .seo-market-guide-card h3 {
+  color: #fff;
+}
+
+.seo-market-page .seo-market-callout ul,
+.seo-market-page .seo-market-callout p,
+.seo-market-page .seo-market-card p,
+.seo-market-page .seo-market-guide-card p {
+  color: #c8d4dd;
+}
+
+.seo-market-page .seo-market-card a,
+.seo-market-page .seo-market-guide-card a {
+  color: #ffb400;
+}
+
+.seo-market-page .seo-market-counties {
+  border-top: 1px solid rgba(246,167,0,.38);
+  border-bottom: 1px solid rgba(246,167,0,.38);
+  background:
+    radial-gradient(circle at 90% 10%,rgba(246,167,0,.08),transparent 26%),
+    linear-gradient(145deg,#0a2237 0%,#020b12 74%);
+  color: #fff;
+}
+
+.seo-market-page .seo-market-counties .seo-market-section-heading h2,
+.seo-market-page .seo-market-counties h2 {
+  color: #fff;
+}
+
+.seo-market-page .seo-market-counties .seo-market-section-kicker {
+  color: #ffb400;
+}
+
+.seo-market-page .seo-market-county-grid a {
+  border-color: rgba(246,167,0,.24);
+  background: linear-gradient(145deg,#0a2237 0%,#061728 100%);
+  color: #eef3f6;
+  box-shadow: 0 7px 16px rgba(0,0,0,.10);
+}
+
+.seo-market-page .seo-market-county-grid a:hover,
+.seo-market-page .seo-market-county-grid a:focus-visible {
+  border-color: #f6a700;
+  color: #ffb400;
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.seo-market-page .seo-market-faq details {
+  border-color: #ded7c8;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(6,23,40,.05);
+}
+
+.seo-market-page .seo-market-faq summary {
+  color: #061728;
+}
+
+.seo-market-page .seo-market-cta,
+.seo-market-page .seo-market-final-cta {
+  border-top: 1px solid rgba(246,167,0,.45);
+  color: #fff;
+  background:
+    radial-gradient(circle at 85% 20%,rgba(246,167,0,.16),transparent 26%),
+    linear-gradient(135deg,#061728 0%,#0a2237 100%);
+}
+
+.seo-market-page .seo-market-cta h2,
+.seo-market-page .seo-market-final-cta h2 {
+  color: #fff;
+}
+
+.seo-market-page .seo-market-cta p,
+.seo-market-page .seo-market-final-cta p {
+  color: #d2dde6;
+}
+
+/* Buyer-guide linked card groups on quota-cost and ABT-6002 pages. */
+.seo-market-page .quota-cost-links a,
+.seo-market-page .abt6002-links a {
+  border: 1px solid rgba(246,167,0,.46);
+  background: linear-gradient(145deg,#0a2237 0%,#04111c 100%);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05),0 8px 18px rgba(2,11,18,.14);
+  transition: transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+
+.seo-market-page .quota-cost-links a:hover,
+.seo-market-page .quota-cost-links a:focus-visible,
+.seo-market-page .abt6002-links a:hover,
+.seo-market-page .abt6002-links a:focus-visible {
+  border-color: #ffb400;
+  background: linear-gradient(145deg,#0d2a42 0%,#061728 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(2,11,18,.22),0 0 0 1px rgba(246,167,0,.08);
+  outline: none;
+}
+
+.seo-market-page .quota-cost-links a span,
+.seo-market-page .abt6002-links a span {
+  color: #b9c8d4;
+}
+
+/* Quota transfer fee calculator: keep the form readable, but make the shell and controls unmistakably FLLM. */
+body:has(.transfer-calculator-page) {
+  background: #020b12;
+}
+
+body:has(.transfer-calculator-page) .transfer-calculator-page {
+  background:
+    radial-gradient(circle at 88% 8%,rgba(246,167,0,.08),transparent 26%),
+    linear-gradient(180deg,#061728 0%,#020b12 100%);
+  color: #eef3f6;
+}
+
+body:has(.transfer-calculator-page) .transfer-title-band {
+  border-block: 1px solid rgba(246,167,0,.45) !important;
+  background:
+    radial-gradient(circle at 84% 15%,rgba(246,167,0,.16),transparent 28%),
+    linear-gradient(135deg,#020b12 0%,#061728 58%,#0a2237 100%) !important;
+}
+
+body:has(.transfer-calculator-page) .transfer-title-band h1,
+body:has(.transfer-calculator-page) .transfer-title-band h2,
+body:has(.transfer-calculator-page) .transfer-title-band p {
+  color: #fff !important;
+}
+
+body:has(.transfer-calculator-page) .transfer-title-band .abt-eyebrow,
+body:has(.transfer-calculator-page) .abt-breadcrumbs a,
+body:has(.transfer-calculator-page) .transfer-title-band aside > span {
+  color: #f6a700 !important;
+}
+
+body:has(.transfer-calculator-page) .transfer-form-sheet {
+  border-color: #f6a700 !important;
+  box-shadow: 0 18px 42px rgba(0,0,0,.34) !important;
+}
+
+body:has(.transfer-calculator-page) .transfer-section-title,
+body:has(.transfer-calculator-page) .transfer-sales-table thead > tr:first-child th,
+body:has(.transfer-calculator-page) .transfer-sales-table thead > tr:nth-child(2) th {
+  border-color: #173247 !important;
+  color: #fff !important;
+  background: #061728 !important;
+}
+
+body:has(.transfer-calculator-page) .transfer-section-title,
+body:has(.transfer-calculator-page) .transfer-sales-table thead > tr:first-child th {
+  color: #f6a700 !important;
+}
+
+body:has(.transfer-calculator-page) .transfer-calculation-grid .transfer-primary-result,
+body:has(.transfer-calculator-page) .transfer-print-total,
+body:has(.transfer-calculator-page) .transfer-additional-result > div,
+body:has(.transfer-calculator-page) .transfer-disclosures {
+  background: #061728 !important;
+}
+
+body:has(.transfer-calculator-page) .transfer-primary-result strong,
+body:has(.transfer-calculator-page) .transfer-print-total > strong,
+body:has(.transfer-calculator-page) .transfer-print-total span,
+body:has(.transfer-calculator-page) .transfer-additional-result strong,
+body:has(.transfer-calculator-page) .transfer-disclosure-kicker,
+body:has(.transfer-calculator-page) .transfer-source-links a {
+  color: #f6a700 !important;
+}
+
+body:has(.transfer-calculator-page) .transfer-actions .btn,
+body:has(.transfer-calculator-page) .abt-forms-footer a {
+  border-radius: 5px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase;
+}
+
+body:has(.transfer-calculator-page) .transfer-actions .btn-gold {
+  border: 1px solid #ffc12d !important;
+  color: #07111a !important;
+  background: linear-gradient(145deg,#ffbd21 0%,#ef9000 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.46),0 8px 20px rgba(246,167,0,.22) !important;
+}
+
+body:has(.transfer-calculator-page) .transfer-actions .btn-outline {
+  border: 1px solid #f6a700 !important;
+  color: #f6a700 !important;
+  background: #061728 !important;
+}
+
+body:has(.transfer-calculator-page) .transfer-actions .btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
+
+/* License-types page is already dark FLLM; make its actions match the same dimensional button treatment. */
+.license-types-page .license-types-hero-actions .btn-gold {
+  border: 1px solid #ffc12d;
+  color: #07111a;
+  background: linear-gradient(145deg,#ffbd21 0%,#ef9000 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.46),0 8px 20px rgba(246,167,0,.22);
+}
+
+.license-types-page .license-types-hero-actions .btn-outline {
+  border-color: #f6a700;
+  color: #f6a700;
+  background: #061728;
+}
+
+.license-types-page .license-types-hero-actions .btn:hover,
+.license-types-page .license-types-hero-actions .btn:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  outline: none;
+}
+
+/* Official resource pages are already navy/gold; make the secondary button dimensional too. */
+.official-resource-page .official-resource-actions .dark {
+  border: 1px solid #f6a700;
+  color: #f6a700;
+  background: linear-gradient(145deg,#0a2237 0%,#04111c 100%);
+  box-shadow: 0 8px 18px rgba(0,0,0,.20);
+}
+
+.official-resource-page .official-resource-actions .dark:hover,
+.official-resource-page .official-resource-actions .dark:focus-visible {
+  color: #07111a;
+  background: linear-gradient(145deg,#ffbd21 0%,#ef9000 100%);
+  outline: none;
+}
+
+@media (max-width: 760px) {
+  .seo-market-page .seo-market-actions .seo-market-button {
+    flex: 1 1 210px;
+  }
+}
