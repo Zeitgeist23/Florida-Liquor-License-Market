@@ -1,7 +1,7 @@
 (() => {
   const ITEMS = [
-    { label: "How to Finance a Florida Liquor License", href: "/financing#how-to-finance" },
-    { label: "Private Lenders", href: "/financing#private-lenders" },
+    { label: "How to Finance a Florida Liquor License", href: "/how-to-finance-florida-liquor-license" },
+    { label: "Private Lenders", href: "/private-liquor-license-lenders" },
     { label: "Request Financing", href: "/financing#request-financing" },
   ];
 
