@@ -4,7 +4,6 @@ import Script from "next/script";
 import AbtDemographicSelects from "@/components/AbtDemographicSelects";
 import AbtIncreaseInSeriesSelect from "@/components/AbtIncreaseInSeriesSelect";
 import AbtMoralCharacterQuestion from "@/components/AbtMoralCharacterQuestion";
-import ListingsHeaderHoverMenus from "@/components/ListingsHeaderHoverMenus";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
 
 import "./globals.css";
@@ -43,10 +42,8 @@ export default function RootLayout({
         <AbtDemographicSelects />
         <AbtMoralCharacterQuestion />
         {children}
-        <ListingsHeaderHoverMenus />
         <NationalMarketplaceFooterLink />
 
-        <Script src="/assets/license-types-dropdown.js?v=1" strategy="afterInteractive" />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
           strategy="afterInteractive"
