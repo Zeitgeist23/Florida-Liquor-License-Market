@@ -13,6 +13,7 @@ import "./buyer-guide-logo.css";
 import "./seller-guide-theme.css";
 import "./listings-header-fix.css";
 import "./quota-cost-snapshot-fix.css";
+import "./license-types-navy-refresh.css";
 
 const GOOGLE_ANALYTICS_ID = "G-PKP8PXCDWF";
 
