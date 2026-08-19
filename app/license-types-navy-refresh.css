@@ -1,0 +1,110 @@
+/* FLLM License Types navy refresh.
+   Keeps the header/footer dark for hierarchy while moving educational content
+   from near-black to the established Florida Liquor License Market navy. */
+
+/* Reusable 4COP / 3PS / 2COP / SRX explainer pages */
+.license-explainer-page {
+  background: linear-gradient(180deg, #0b2b46 0%, #0d3555 44%, #092842 100%) !important;
+}
+
+.license-explainer-page .lt-definition {
+  background: linear-gradient(135deg, #103a59, #0d304c) !important;
+  border-color: rgba(246, 167, 0, .58) !important;
+}
+
+.license-explainer-page .lt-card {
+  background: #103653 !important;
+  border-color: rgba(246, 167, 0, .34) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, .14) !important;
+}
+
+.license-explainer-page .lt-panel {
+  background: #0f3857 !important;
+  border-color: rgba(255, 255, 255, .13) !important;
+}
+
+.license-explainer-page .lt-extra article {
+  background: linear-gradient(145deg, #103a59, #0d304c) !important;
+  border-color: rgba(246, 167, 0, .42) !important;
+}
+
+/* Main Florida Liquor License Types overview */
+.license-types-page {
+  background:
+    radial-gradient(circle at 84% 13%, rgba(246, 167, 0, .10), transparent 29%),
+    linear-gradient(180deg, #0b2a45 0%, #0d3452 46%, #092842 100%) !important;
+}
+
+.license-types-page .license-types-hero {
+  background:
+    linear-gradient(105deg, rgba(8, 37, 60, .97), rgba(13, 55, 86, .91)),
+    url("/assets/hero-bar-clean.png") right center / 44% auto no-repeat !important;
+}
+
+.license-types-page .license-types-definition {
+  background: linear-gradient(135deg, #123d5d, #0d304b 72%) !important;
+}
+
+.license-types-page .license-types-definition-mark,
+.license-types-page .license-types-population-number {
+  background: #0b2b45 !important;
+}
+
+.license-types-page .license-types-key article {
+  background: #103653 !important;
+}
+
+.license-types-page .license-types-population-rule {
+  background: linear-gradient(135deg, #123c5a, #0c2d47 72%) !important;
+}
+
+.license-types-page .license-types-table-wrap {
+  background: #0c2e49 !important;
+}
+
+.license-types-page .license-types-table thead th {
+  background: #123b58 !important;
+}
+
+.license-types-page .license-types-table tbody th {
+  background: #0e344f !important;
+}
+
+.license-types-page .license-types-table tbody th span {
+  background: #123b58 !important;
+}
+
+.license-types-page .license-types-quota {
+  background: linear-gradient(145deg, #123b59, #0c2c46) !important;
+}
+
+.license-types-page .license-types-quota-cards article {
+  background: #0d314d !important;
+}
+
+.license-types-page .license-types-quota-card:hover,
+.license-types-page .license-types-quota-card:focus-visible {
+  background: #154564 !important;
+}
+
+/* How Florida Liquor Licensing Works page (uniquely identified by investment section) */
+main:has(#investment-ownership) {
+  background: linear-gradient(180deg, #0b2a45 0%, #0d3452 48%, #092842 100%) !important;
+}
+
+main:has(#investment-ownership) > section:first-of-type {
+  background: linear-gradient(135deg, #0d3554, #124464) !important;
+}
+
+main:has(#investment-ownership) article {
+  background: #103653 !important;
+  border-color: #58728a !important;
+}
+
+main:has(#investment-ownership) #investment-ownership > div {
+  background: linear-gradient(135deg, #123d5d, #0d304b) !important;
+}
+
+main:has(#investment-ownership) > section:last-of-type {
+  background: #0c2d48 !important;
+}
