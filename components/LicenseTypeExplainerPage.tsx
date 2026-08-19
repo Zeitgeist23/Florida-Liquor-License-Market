@@ -38,11 +38,6 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-back{display:inline-flex;align-items:center;gap:7px;margin-top:28px;color:#d9e3ec;text-decoration:none;font-size:13px;font-weight:700}
         .lt-back:hover{color:var(--gold)}
         .lt-hero{padding:34px 0 28px}
-        .lt-hero-heading{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(290px,.55fr);gap:34px;align-items:center;margin-top:24px}
-        .lt-hero-copy{min-width:0}
-        .lt-hero-visual{position:relative;overflow:hidden;border:1px solid rgba(246,167,0,.68);border-radius:12px;background:#0a2136;box-shadow:0 18px 42px rgba(0,0,0,.24)}
-        .lt-hero-visual img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
-        .lt-hero-visual::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);pointer-events:none}
         .lt-eyebrow{display:inline-block;color:var(--gold);font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
         .lt-hero h1{margin:0;color:#fff;font:700 clamp(34px,5vw,60px)/1.02 Georgia,serif;max-width:930px}
         .lt-definition{margin:24px 0 0;padding:26px 28px;border:1px solid rgba(246,167,0,.55);border-left:5px solid var(--gold);border-radius:10px;background:rgba(255,255,255,.045);max-width:1050px}
@@ -59,6 +54,10 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-panel h2{margin:0 0 10px;color:var(--gold);font-size:20px}
         .lt-panel p{margin:0;color:#d7e1e9;font-size:16px;line-height:1.7}
         .lt-key{border-color:rgba(246,167,0,.45)}
+        .lt-business-visual{padding:2px 0 32px}
+        .lt-business-image{position:relative;margin:0;overflow:hidden;border:1px solid rgba(246,167,0,.58);border-radius:14px;background:#071927;box-shadow:0 20px 48px rgba(0,0,0,.24)}
+        .lt-business-image img{display:block;width:100%;height:auto;max-height:560px;aspect-ratio:16/7;object-fit:cover;object-position:center}
+        .lt-business-image::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);pointer-events:none}
         .lt-extra{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:0 0 28px}
         .lt-extra article{padding:25px;border:1px solid rgba(246,167,0,.38);border-radius:12px;background:linear-gradient(145deg,#0a2136,#071927)}
         .lt-extra article:last-child{border-left:4px solid var(--gold)}
@@ -72,7 +71,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-button.gold{background:var(--gold);color:#061728}
         .lt-button.outline{border:1px solid var(--gold);color:#fff}
         .lt-disclaimer{padding:18px 0 34px;color:#97a9b8;font-size:12px;line-height:1.6}
-        @media(max-width:850px){.lt-header{align-items:flex-start}.lt-header nav{display:none}.lt-hero-heading{grid-template-columns:1fr;gap:20px}.lt-hero-visual{max-width:560px}.lt-grid,.lt-extra{grid-template-columns:1fr}.lt-band{grid-template-columns:1fr}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
+        @media(max-width:850px){.lt-header{align-items:flex-start}.lt-header nav{display:none}.lt-grid,.lt-extra{grid-template-columns:1fr}.lt-band{grid-template-columns:1fr}.lt-business-image img{max-height:none;aspect-ratio:4/3}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
       `}</style>
 
       <header className="lt-header lt-shell">
@@ -90,16 +89,9 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
 
       <section className="lt-shell lt-hero">
         <Link className="lt-back" href="/resources/florida-liquor-license-types">← All Florida liquor license types</Link>
-        <div className="lt-hero-heading">
-          <div className="lt-hero-copy">
-            <span className="lt-eyebrow">{props.eyebrow}</span>
-            <h1>{props.title}</h1>
-          </div>
-          {props.imageSrc ? (
-            <div className="lt-hero-visual">
-              <img src={props.imageSrc} alt={props.imageAlt || `${props.title} business example`} />
-            </div>
-          ) : null}
+        <div style={{marginTop:24}}>
+          <span className="lt-eyebrow">{props.eyebrow}</span>
+          <h1>{props.title}</h1>
         </div>
         <div className="lt-definition">
           <h2>What is a {props.code} license?</h2>
@@ -133,6 +125,19 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
           <p>{props.keyPoint}</p>
         </article>
       </section>
+
+      {props.imageSrc ? (
+        <section className="lt-shell lt-business-visual" aria-label={`${props.code} business example`}>
+          <figure className="lt-business-image">
+            <img
+              src={props.imageSrc}
+              alt={props.imageAlt || `${props.code} business setting`}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </section>
+      ) : null}
 
       {(props.seriesClarification || props.investmentNote) ? (
         <section className="lt-shell lt-extra">
