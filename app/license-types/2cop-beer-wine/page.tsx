@@ -12,6 +12,8 @@ export default function Page() {
     code="2COP"
     title="Florida 2COP Beer & Wine License"
     eyebrow="Beer & Wine · On-Premises Consumption"
+    imageSrc="/assets/license-types-2cop.svg"
+    imageAlt="Restaurant and wine-bar interior representing businesses that commonly use a Florida 2COP beer and wine license"
     definition="A Florida 2COP license allows a qualifying retail beverage establishment to sell beer and wine for consumption on the licensed premises. Package sales in sealed containers may also be allowed where permitted by applicable local ordinances and license conditions."
     plainEnglish="This is the common beer-and-wine license for restaurants, cafés, wine bars and similar businesses that want customers to drink beer or wine on site but do not need to sell distilled spirits."
     sells={["Beer for on-premises consumption", "Wine for on-premises consumption", "Sealed beer and wine package sales where permitted", "No distilled spirits under the 2COP privilege"]}
