@@ -15,6 +15,8 @@ export type LicenseTypeExplainerProps = {
   officialHref: string;
   relatedHref?: string;
   relatedLabel?: string;
+  seriesClarification?: string;
+  investmentNote?: string;
 };
 
 export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProps) {
@@ -50,6 +52,12 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-panel h2{margin:0 0 10px;color:var(--gold);font-size:20px}
         .lt-panel p{margin:0;color:#d7e1e9;font-size:16px;line-height:1.7}
         .lt-key{border-color:rgba(246,167,0,.45)}
+        .lt-extra{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:0 0 28px}
+        .lt-extra article{padding:25px;border:1px solid rgba(246,167,0,.38);border-radius:12px;background:linear-gradient(145deg,#0a2136,#071927)}
+        .lt-extra article:last-child{border-left:4px solid var(--gold)}
+        .lt-extra h2{margin:0 0 10px;color:#fff;font-size:21px}
+        .lt-extra p{margin:0;color:#d7e1e9;font-size:15px;line-height:1.72}
+        .lt-extra a{display:inline-block;margin-top:12px;color:var(--gold);font-size:12px;font-weight:900;text-decoration:none}
         .lt-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 0 42px;border-top:1px solid rgba(246,167,0,.25)}
         .lt-cta p{margin:0;color:#cbd7e1;line-height:1.6}
         .lt-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
@@ -57,7 +65,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-button.gold{background:var(--gold);color:#061728}
         .lt-button.outline{border:1px solid var(--gold);color:#fff}
         .lt-disclaimer{padding:18px 0 34px;color:#97a9b8;font-size:12px;line-height:1.6}
-        @media(max-width:850px){.lt-header{align-items:flex-start}.lt-header nav{display:none}.lt-grid{grid-template-columns:1fr}.lt-band{grid-template-columns:1fr}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
+        @media(max-width:850px){.lt-header{align-items:flex-start}.lt-header nav{display:none}.lt-grid,.lt-extra{grid-template-columns:1fr}.lt-band{grid-template-columns:1fr}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
       `}</style>
 
       <header className="lt-header lt-shell">
@@ -66,6 +74,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         </Link>
         <nav aria-label="License type navigation">
           <Link href="/resources/florida-liquor-license-types">All License Types</Link>
+          <Link href="/resources/florida-liquor-license-system">How Florida Licensing Works</Link>
           <Link href="/listings">Licenses for Sale</Link>
           <Link href="/sell-your-license">Sell a License</Link>
           <Link href="/contact">Contact</Link>
@@ -111,6 +120,25 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         </article>
       </section>
 
+      {(props.seriesClarification || props.investmentNote) ? (
+        <section className="lt-shell lt-extra">
+          {props.seriesClarification ? (
+            <article>
+              <h2>Quota license vs. series designation</h2>
+              <p>{props.seriesClarification}</p>
+              <Link href="/resources/florida-liquor-license-system">See how the Florida liquor license system works →</Link>
+            </article>
+          ) : <div />}
+          {props.investmentNote ? (
+            <article>
+              <h2>Can this quota license be held as an investment?</h2>
+              <p>{props.investmentNote}</p>
+              <Link href="/resources/florida-liquor-license-system#investment-ownership">Read about inactive and escrow ownership →</Link>
+            </article>
+          ) : null}
+        </section>
+      ) : null}
+
       <section className="lt-shell lt-cta">
         <div>
           <p><strong>Official DBPR category:</strong> {props.officialLabel}</p>
@@ -123,7 +151,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
       </section>
 
       <div className="lt-shell lt-disclaimer">
-        Florida Liquor License Market provides marketplace and educational information. License privileges, eligibility, transferability and premises requirements are determined by applicable law and the Florida Division of Alcoholic Beverages and Tobacco. This page is not legal advice.
+        Florida Liquor License Market provides marketplace and educational information. License privileges, eligibility, transferability, inactive status, active-operation requirements and premises requirements are determined by applicable law and the Florida Division of Alcoholic Beverages and Tobacco. This page is not legal advice.
       </div>
     </main>
   );
