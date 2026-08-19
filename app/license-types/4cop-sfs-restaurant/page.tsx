@@ -12,7 +12,7 @@ export default function Page() {
     code="4COP-SFS"
     title="Florida 4COP-SFS Special Restaurant Liquor License"
     eyebrow="Full Liquor · Qualifying Restaurant"
-    imageSrc="https://images.pexels.com/photos/12387900/pexels-photo-12387900.jpeg?auto=compress&dpr=1&h=1000&w=1800"
+    imageSrc="https://images.pexels.com/photos/12387901/pexels-photo-12387901.jpeg?auto=compress&dpr=1&h=1000&w=1800"
     imageAlt="Sharp full-service restaurant interior representing businesses that commonly use a Florida 4COP-SFS special restaurant liquor license"
     definition="A Florida 4COP-SFS is a special full-liquor license for a qualifying food-service restaurant. It permits beer, wine and distilled spirits for consumption on the licensed premises when the restaurant meets the statutory and DBPR qualification requirements."
     plainEnglish="This is the special full-liquor restaurant route. A qualifying restaurant may be able to serve cocktails, beer and wine without buying a transferable county quota license, but the business must continue to satisfy the special restaurant requirements."
