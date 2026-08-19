@@ -1,4 +1,5 @@
 import HomePage from "@/components/HomePage";
+import Script from "next/script";
 import HomeCarouselAvailableColorFix from "@/components/HomeCarouselAvailableColorFix";
 import ListYourLicenseLinkFix from "@/components/ListYourLicenseLinkFix";
 import MarketReportAudioPortal from "@/components/MarketReportAudioPortal";
@@ -14,6 +15,7 @@ export default async function Page() {
   return (
     <>
       <HomePage marketListings={marketplaceListings} />
+      <Script src="/assets/license-types-dropdown.js?v=3" strategy="afterInteractive" />
       <ListYourLicenseLinkFix />
       <HomeCarouselAvailableColorFix />
       <MarketReportAudioPortal />
