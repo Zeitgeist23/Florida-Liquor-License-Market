@@ -4,6 +4,7 @@ import Script from "next/script";
 import AbtDemographicSelects from "@/components/AbtDemographicSelects";
 import AbtIncreaseInSeriesSelect from "@/components/AbtIncreaseInSeriesSelect";
 import AbtMoralCharacterQuestion from "@/components/AbtMoralCharacterQuestion";
+import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
 
 import "./globals.css";
@@ -42,6 +43,7 @@ export default function RootLayout({
         <AbtIncreaseInSeriesSelect />
         <AbtDemographicSelects />
         <AbtMoralCharacterQuestion />
+        <LicenseTypeLogoScale />
         {children}
         <NationalMarketplaceFooterLink />
 
