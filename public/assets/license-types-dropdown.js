@@ -6,12 +6,12 @@
   const DESKTOP_HOVER_QUERY = "(hover: hover) and (pointer: fine) and (min-width: 900px)";
 
   const items = [
-    { label: "Florida Liquor License Types", href: "/resources/florida-liquor-license-types", kind: "text" },
-    { label: "4COP Quota License", subtitle: "Bars, lounges, nightclubs & full-liquor restaurants", href: "/florida-4cop-liquor-license-for-sale", image: "/assets/license-types-4cop.svg" },
-    { label: "3PS Quota / Package Store", subtitle: "Liquor stores & sealed package sales", href: "/florida-3ps-liquor-license-for-sale", image: "/assets/license-types-3ps.svg" },
-    { label: "2COP Beer & Wine", subtitle: "Restaurants, cafés & wine bars", href: "/resources/florida-liquor-license-types#common-license-chart", image: "/assets/license-types-2cop.svg" },
-    { label: "SRX / 4COP-SFS Restaurant", subtitle: "Qualifying full-service restaurants", href: "/resources/florida-liquor-license-types", image: "/assets/license-types-srx.svg" },
-    { label: "Quota License Requirements", href: "/resources/florida-liquor-license-types#population-rule-title", kind: "text" },
+    { label: "Florida Liquor License Types", href: "/resources/florida-liquor-license-types" },
+    { label: "4COP Quota License", href: "/license-types/4cop-quota" },
+    { label: "3PS Quota / Package Store", href: "/license-types/3ps-package-store" },
+    { label: "2COP Beer & Wine", href: "/license-types/2cop-beer-wine" },
+    { label: "SRX / 4COP-SFS Restaurant", href: "/license-types/4cop-sfs-restaurant" },
+    { label: "Quota License Requirements", href: "/resources/florida-liquor-license-types#population-rule-title" },
   ];
 
   let openTimer = null;
@@ -37,18 +37,12 @@
     style.textContent = `
       .license-types-nav-trigger{cursor:pointer}
       .license-types-nav-trigger::after{content:"";display:inline-block;width:7px;height:7px;margin-left:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);opacity:.85}
-      .license-types-header-menu{position:fixed;z-index:10034;display:none;width:440px;padding:8px;border:1px solid #f6a700;border-radius:8px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12);font-family:Arial,Helvetica,sans-serif}
-      .license-types-header-menu.is-open{display:grid;gap:6px}
+      .license-types-header-menu{position:fixed;z-index:10034;display:none;width:320px;padding:6px;border:1px solid #f6a700;border-radius:6px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12);font-family:Arial,Helvetica,sans-serif}
+      .license-types-header-menu.is-open{display:grid;gap:4px}
       .license-types-header-menu::before{content:"";position:absolute;top:-7px;left:50%;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);border-left:1px solid #f6a700;border-top:1px solid #f6a700;background:#061728}
-      .license-types-header-menu a{position:relative;z-index:1;display:flex;align-items:center;gap:12px;width:100%;padding:8px;border-radius:6px;color:#fff;text-decoration:none;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
-      .license-types-header-menu a.license-types-text-link{padding:12px 13px}
+      .license-types-header-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;color:#fff;text-decoration:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
       .license-types-header-menu a:hover,.license-types-header-menu a:focus-visible{background:#f6a700;color:#061728;outline:none}
-      .license-types-menu-thumb{width:92px;height:66px;object-fit:cover;flex:0 0 auto;border-radius:5px;border:1px solid rgba(246,167,0,.35);box-shadow:0 4px 10px rgba(0,0,0,.22)}
-      .license-types-menu-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
-      .license-types-menu-copy strong{font-size:14px;line-height:1.2}
-      .license-types-menu-copy small{font-size:11px;line-height:1.35;font-weight:600;color:#c8d3dc}
-      .license-types-header-menu a:hover small,.license-types-header-menu a:focus-visible small{color:#173047}
-      @media(max-width:899px){.license-types-header-menu{width:min(420px,calc(100vw - 24px));max-height:72vh;overflow:auto}.license-types-menu-thumb{width:78px;height:58px}}
+      @media(max-width:899px){.license-types-header-menu{width:min(320px,calc(100vw - 24px));max-height:72vh;overflow:auto}}
     `;
     document.head.appendChild(style);
   }
@@ -68,24 +62,7 @@
       const link = document.createElement("a");
       link.href = item.href;
       link.setAttribute("role", "menuitem");
-      if (item.image) {
-        const img = document.createElement("img");
-        img.className = "license-types-menu-thumb";
-        img.src = item.image;
-        img.alt = "";
-        img.setAttribute("aria-hidden", "true");
-        const copy = document.createElement("span");
-        copy.className = "license-types-menu-copy";
-        const title = document.createElement("strong");
-        title.textContent = item.label;
-        const subtitle = document.createElement("small");
-        subtitle.textContent = item.subtitle || "";
-        copy.append(title, subtitle);
-        link.append(img, copy);
-      } else {
-        link.className = "license-types-text-link";
-        link.textContent = item.label;
-      }
+      link.textContent = item.label;
       link.addEventListener("click", closeMenu);
       menu.appendChild(link);
     });
@@ -108,7 +85,7 @@
     const menu = getMenu();
     if (!(trigger instanceof HTMLElement) || !(menu instanceof HTMLElement)) return;
     const rect = trigger.getBoundingClientRect();
-    const width = Math.min(440, window.innerWidth - 24);
+    const width = Math.min(320, window.innerWidth - 24);
     const desiredLeft = rect.left + rect.width / 2 - width / 2;
     const left = Math.max(12, Math.min(desiredLeft, window.innerWidth - width - 12));
     menu.style.width = `${width}px`;
