@@ -42,6 +42,7 @@
       width: 300,
       items: [
         { label: "Investment Opportunities", href: "/investment-opportunities" },
+        { label: "Self-Directed IRA Lending", href: "/self-directed-ira-liquor-license-lending" },
       ],
     },
   ];
