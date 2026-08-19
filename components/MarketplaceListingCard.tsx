@@ -3,6 +3,7 @@ import type { Ref } from "react";
 
 import { countySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
+import { canonicalFloridaCountyName } from "@/lib/county-normalization";
 import {
   countyListingDescription,
   sellerReportedStatusLabel,
@@ -32,7 +33,6 @@ export type MarketplaceListingCardProps = {
   cardRef?: Ref<HTMLElement>;
   id?: string;
   className?: string;
-  description?: string;
   actionLabel?: string;
 };
 
@@ -42,14 +42,20 @@ export default function MarketplaceListingCard({
   cardRef,
   id,
   className,
-  description,
   actionLabel = "View License",
 }: MarketplaceListingCardProps) {
-  const available = Boolean(listing.sourceRef);
-  const href = available ? listingPageHref(listing) : null;
-  const fullDescription = description || countyListingDescription(listing.county);
-  const statusTitle = listing.licenseStatus
-    ? sellerReportedStatusLabel(listing.licenseStatus)
+  const county = canonicalFloridaCountyName(listing.county);
+  const normalizedListing = county === listing.county ? listing : { ...listing, county };
+  const available = Boolean(normalizedListing.sourceRef);
+  const href = available ? listingPageHref(normalizedListing) : null;
+
+  // County-facing copy is deliberately generated from the exact same canonical
+  // county key used for the visible label, map, link, and detail-page route.
+  // Do not accept an independent description override here: that can allow one
+  // listing card to display another county's market copy.
+  const fullDescription = countyListingDescription(county);
+  const statusTitle = normalizedListing.licenseStatus
+    ? sellerReportedStatusLabel(normalizedListing.licenseStatus)
     : "Status to confirm";
 
   return (
@@ -62,30 +68,31 @@ export default function MarketplaceListingCard({
       )}
       id={id}
       ref={cardRef}
-      data-listing-reference={listing.sourceRef || undefined}
+      data-listing-reference={normalizedListing.sourceRef || undefined}
+      data-listing-county={county}
       data-marketplace-listing-card="true"
     >
-      <span className="result-type-badge">{listing.type}</span>
+      <span className="result-type-badge">{normalizedListing.type}</span>
       <div className="result-photo">
-        <FloridaCountyMap county={listing.county} enlarged />
+        <FloridaCountyMap county={county} enlarged />
       </div>
       <div className="result-body">
         <p className="result-county-row">
           <span className="result-pin" aria-hidden="true">●</span>
-          <Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>
-            {listing.county}
+          <Link className="result-county-link" href={`/counties/${countySlug(county)}`}>
+            {county}
           </Link>
         </p>
         <h2>
           {href ? (
             <Link
               href={href}
-              aria-label={`View ${listing.type} listing in ${listing.county}`}
+              aria-label={`View ${normalizedListing.type} listing in ${county}`}
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              {listing.priceLabel}
+              {normalizedListing.priceLabel}
             </Link>
-          ) : listing.priceLabel}
+          ) : normalizedListing.priceLabel}
         </h2>
         <div className="result-facts">
           {available ? (
