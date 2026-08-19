@@ -52,8 +52,8 @@ export default function PrivateLiquorLicenseLendersPage() {
         .private-lender-guide-page .seo-market-button:hover{transform:translateY(-2px);filter:brightness(1.08)}
         .private-lender-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px}
         .private-lender-card{padding:24px;border:1px solid rgba(246,167,0,.32);border-radius:13px;background:linear-gradient(145deg,#0a2237,#04111c);color:#d9e2ec;box-shadow:0 12px 26px rgba(0,0,0,.16)}
-        .private-lender-card h3{margin:0 0 10px;color:#fff;font-size:22px;line-height:1.25;font-weight:700}
-        .private-lender-card p{margin:0;color:#d9e2ec;font-size:18px;line-height:1.65;font-weight:500}
+        .private-lender-guide-page .private-lender-card h3{margin:0 0 10px;color:#fff !important;font-size:22px !important;line-height:1.25;font-weight:700}
+        .private-lender-guide-page .private-lender-card p{margin:0;color:#d9e2ec !important;font-size:18px !important;line-height:1.65 !important;font-weight:500}
         .private-lender-card strong{color:#ffb400}
         .private-lender-checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px;padding:0;list-style:none}
         .private-lender-checklist li{position:relative;padding:16px 16px 16px 45px;border:1px solid rgba(246,167,0,.18);border-radius:11px;background:linear-gradient(145deg,#0a2237,#061728);color:#d7e0e7;line-height:1.55}
@@ -61,7 +61,7 @@ export default function PrivateLiquorLicenseLendersPage() {
         .private-lender-note{margin-top:22px;padding:17px 19px;border-left:3px solid #f6a700;background:rgba(246,167,0,.08);color:#526171;font-size:12px;line-height:1.7}
         .private-lender-guide-page .seo-market-counties{background:linear-gradient(145deg,#0a2237 0%,#020b12 74%);border-top:1px solid rgba(246,167,0,.38);border-bottom:1px solid rgba(246,167,0,.38)}
         .private-lender-guide-page .seo-market-counties h2{color:#fff}
-        @media(max-width:820px){.private-lender-grid,.private-lender-checklist{grid-template-columns:1fr}.private-lender-card h3{font-size:20px}.private-lender-card p{font-size:16px;line-height:1.6}}
+        @media(max-width:820px){.private-lender-grid,.private-lender-checklist{grid-template-columns:1fr}.private-lender-guide-page .private-lender-card h3{font-size:20px !important}.private-lender-guide-page .private-lender-card p{font-size:16px !important;line-height:1.6 !important}}
       `}</style>
 
       <div className="abt-header-wrap">
