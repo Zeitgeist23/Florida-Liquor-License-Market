@@ -16,6 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/how-to-sell-florida-liquor-license`, lastModified, changeFrequency: "monthly", priority: 0.95 },
     { url: `${siteUrl}/how-to-finance-florida-liquor-license`, lastModified, changeFrequency: "monthly", priority: 0.95 },
     { url: `${siteUrl}/private-liquor-license-lenders`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${siteUrl}/self-directed-ira-liquor-license-lending`, lastModified, changeFrequency: "monthly", priority: 0.82 },
     { url: `${siteUrl}/florida-4cop-liquor-license-for-sale`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/florida-3ps-liquor-license-for-sale`, lastModified, changeFrequency: "daily", priority: 0.85 },
     { url: `${siteUrl}/florida-quota-liquor-license-cost`, lastModified, changeFrequency: "daily", priority: 0.9 },
