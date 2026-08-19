@@ -12,7 +12,7 @@ export default function Page() {
     code="3PS Quota"
     title="Florida 3PS Quota Package Store License"
     eyebrow="Quota Full Liquor · Package Sales"
-    imageSrc="/assets/license-types-3ps.svg"
+    imageSrc="/assets/license-types-3ps-generated.svg"
     imageAlt="Modern liquor package store with retail aisles and sealed bottles representing a Florida 3PS quota license"
     definition="A Florida 3PS quota license is a county-limited full-liquor quota license recorded in a package-sales series. It is used for retail sales of beer, wine and distilled spirits in sealed containers for consumption away from the licensed premises."
     plainEnglish="Think of the quota license as the scarce county license interest and 3PS as the package-sales series used when that quota license is approved for a liquor store or other qualifying off-premises retail operation."
