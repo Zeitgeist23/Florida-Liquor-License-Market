@@ -107,6 +107,23 @@ export default function HeaderNavMenus({
         .native-license-types-menu{width:320px}
         .primary-nav .native-nav-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus-visible{background:#f6a700;color:#061728;outline:none}
+
+        /* Legacy-menu hard stop: some older page/header code can still inject the
+           former image-card License Types menu. Keep every version text-only. */
+        .primary-nav .live-license-types-menu,
+        .primary-nav .home-license-types-menu,
+        .license-types-header-menu{width:320px!important;padding:6px!important}
+        .primary-nav .live-license-types-menu .live-license-card,
+        .primary-nav .home-license-types-menu a,
+        .license-types-header-menu a{display:block!important;width:100%!important;padding:12px 13px!important}
+        .primary-nav .live-license-types-menu .live-license-card>img,
+        .primary-nav .live-license-types-menu a>img,
+        .primary-nav .home-license-types-menu a>img,
+        .license-types-header-menu a>img,
+        .primary-nav .native-license-types-menu a>img{display:none!important}
+        .primary-nav .live-license-types-menu .live-license-card>span{display:block!important}
+        .primary-nav .live-license-types-menu .live-license-card small{display:none!important}
+
         @media(max-width:899px){
           .primary-nav .native-nav-dropdown{width:100%;display:block;padding-bottom:0;margin-bottom:0}
           .primary-nav .native-nav-dropdown>summary{width:100%;min-height:36px;justify-content:center}
