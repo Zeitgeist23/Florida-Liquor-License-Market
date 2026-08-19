@@ -43,6 +43,7 @@ export default function HeaderNavMenus({
           <summary><span>Invest</span>{chevron}</summary>
           <div className="native-nav-menu native-nav-menu-standard">
             <a href="/investment-opportunities">Investment Opportunities</a>
+            <a href="/resources/florida-liquor-license-system">Quota License Ownership &amp; Investing</a>
             <a href="/self-directed-ira-liquor-license-lending">Self-Directed IRA Lending</a>
           </div>
         </details>
@@ -63,6 +64,7 @@ export default function HeaderNavMenus({
           <summary><span>License Types</span>{chevron}</summary>
           <div className="native-nav-menu native-license-types-menu">
             <a href="/resources/florida-liquor-license-types">Florida Liquor License Types</a>
+            <a href="/resources/florida-liquor-license-system">How Florida Liquor Licensing Works</a>
             <a href="/license-types/4cop-quota">4COP Quota License</a>
             <a href="/license-types/3ps-package-store">3PS Quota / Package Store</a>
             <a href="/license-types/2cop-beer-wine">2COP Beer &amp; Wine</a>
