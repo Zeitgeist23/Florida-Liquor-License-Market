@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { Listing } from "@/data/listings";
+import HeaderNavMenus from "./HeaderNavMenus";
 import ListingsHoverSelect, { type ListingsHoverSelectOption } from "./ListingsHoverSelect";
 import MarketplaceListingCard from "./MarketplaceListingCard";
 
@@ -164,7 +165,7 @@ export default function ListingsPage({ initialListings, focusReference = null }:
     <main className="results-page">
       <header className="results-header page-shell">
         <Link className="seller-brand" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /></Link>
-        <nav aria-label="Listings navigation"><Link href="/">Home</Link><Link href="/listings">Florida Liquor Licenses for Sale</Link><Link href="/counties">Counties</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact Us</Link></nav>
+        <HeaderNavMenus className="primary-nav listings-primary-nav" showContactLink />
       </header>
       <section className="results-intro"><div className="page-shell"><span>Florida Marketplace Inventory</span><h1>Florida Liquor Licenses <span className="listings-title-gold">for Sale</span></h1><p className="listings-seo-intro">Browse {availableCount} current Florida liquor licenses for sale. Filter by county, license type, asking price, and availability.</p></div></section>
       <section className="results-content"><div className="page-shell">
