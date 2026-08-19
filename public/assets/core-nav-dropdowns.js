@@ -42,7 +42,6 @@
       width: 300,
       items: [
         { label: "Investment Opportunities", href: "/investment-opportunities" },
-        { label: "Recent Florida Transactions", href: "/listings?status=sold" },
       ],
     },
   ];
