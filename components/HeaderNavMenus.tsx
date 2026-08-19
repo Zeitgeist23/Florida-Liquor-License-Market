@@ -1,10 +1,14 @@
 type HeaderNavMenusProps = {
   className?: string;
+  showContactLink?: boolean;
 };
 
 const chevron = <img className="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true" />;
 
-export default function HeaderNavMenus({ className = "primary-nav" }: HeaderNavMenusProps) {
+export default function HeaderNavMenus({
+  className = "primary-nav",
+  showContactLink = false,
+}: HeaderNavMenusProps) {
   return (
     <>
       <nav className={className} aria-label="Primary navigation">
@@ -92,6 +96,8 @@ export default function HeaderNavMenus({ className = "primary-nav" }: HeaderNavM
             <a href="/resources/florida-department-of-revenue">Florida Department of Revenue (FDOR)</a>
           </div>
         </details>
+
+        {showContactLink && <a className="native-nav-direct-link" href="/contact"><span>Contact Us</span></a>}
       </nav>
 
       <style>{`
@@ -100,6 +106,8 @@ export default function HeaderNavMenus({ className = "primary-nav" }: HeaderNavM
         .primary-nav .native-nav-dropdown>summary::-webkit-details-marker{display:none}
         .primary-nav .native-nav-dropdown>summary::marker{content:""}
         .primary-nav .native-nav-dropdown>summary:hover,.primary-nav .native-nav-dropdown>summary:focus-visible{color:var(--gold,#f6a700);outline:none}
+        .primary-nav .native-nav-direct-link{display:inline-flex;align-items:center;flex:0 0 auto;color:#fff;font-size:10px;font-weight:600;line-height:1;text-transform:uppercase;white-space:nowrap}
+        .primary-nav .native-nav-direct-link:hover,.primary-nav .native-nav-direct-link:focus-visible{color:var(--gold,#f6a700);outline:none}
         .native-nav-menu{position:absolute;top:calc(100% + 10px);left:50%;z-index:10080;display:none;transform:translateX(-50%);padding:6px;border:1px solid #f6a700;border-radius:7px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12);font-family:Arial,Helvetica,sans-serif}
         .native-nav-dropdown[open]>.native-nav-menu,.native-nav-dropdown:hover>.native-nav-menu,.native-nav-dropdown:focus-within>.native-nav-menu{display:grid;gap:4px}
         .native-nav-menu::before{content:"";position:absolute;top:-7px;left:50%;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);border-left:1px solid #f6a700;border-top:1px solid #f6a700;background:#061728}
@@ -119,6 +127,7 @@ export default function HeaderNavMenus({ className = "primary-nav" }: HeaderNavM
         @media(max-width:899px){
           .primary-nav .native-nav-dropdown{width:100%;display:block}
           .primary-nav .native-nav-dropdown>summary{width:100%;min-height:36px;justify-content:center}
+          .primary-nav .native-nav-direct-link{width:100%;min-height:36px;justify-content:center}
           .native-nav-menu{position:static;left:auto;top:auto;width:100%!important;max-height:58vh;margin:2px 0 8px;transform:none;overflow:auto;box-shadow:none}
           .native-nav-menu::before{display:none}
           .native-license-card>img{width:78px;height:58px}
