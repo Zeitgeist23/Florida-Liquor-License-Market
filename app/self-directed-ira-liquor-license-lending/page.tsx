@@ -66,13 +66,13 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
         .ira-rules li::before{content:"•";position:absolute;left:17px;top:12px;color:#ffb400;font-size:28px;line-height:1;font-weight:900}
         .ira-example{margin-top:24px;padding:24px;border:1px solid rgba(246,167,0,.3);border-radius:13px;background:#fff;box-shadow:0 10px 24px rgba(7,26,58,.08)}
         .ira-example h3{margin:0 0 10px;color:#071a3a;font-size:22px}.ira-example p{margin:0;color:#465669;font-size:16px;line-height:1.7}
-        .ira-warning{margin-top:22px;padding:18px 20px;border-left:4px solid #f6a700;background:rgba(246,167,0,.09);color:#405063;line-height:1.7}
-        .ira-warning strong{color:#071a3a}
+        .ira-warning{margin-top:24px;padding:22px 24px;border-left:4px solid #f6a700;border-radius:0 10px 10px 0;background:rgba(255,255,255,.08);color:#e7edf3!important;font-size:17px;line-height:1.75;font-weight:500;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+        .ira-warning strong{color:#ffbf2f!important;font-weight:800}
         .ira-source-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
         .ira-source-links a{font-weight:800;color:#0a4d83;text-decoration:underline;text-underline-offset:3px}
         .ira-lending-guide-page .seo-market-counties{background:linear-gradient(145deg,#0a2237 0%,#020b12 74%);border-top:1px solid rgba(246,167,0,.38);border-bottom:1px solid rgba(246,167,0,.38)}
         .ira-lending-guide-page .seo-market-counties h2{color:#fff}
-        @media(max-width:820px){.ira-grid,.ira-rules{grid-template-columns:1fr}.ira-card h3{font-size:20px}.ira-card p{font-size:16px}.ira-steps li{padding-left:60px}}
+        @media(max-width:820px){.ira-grid,.ira-rules{grid-template-columns:1fr}.ira-card h3{font-size:20px}.ira-card p{font-size:16px}.ira-steps li{padding-left:60px}.ira-warning{padding:18px;font-size:15px;line-height:1.7}}
       `}</style>
 
       <div className="abt-header-wrap">
