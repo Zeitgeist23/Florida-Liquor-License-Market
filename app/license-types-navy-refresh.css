@@ -4,28 +4,74 @@
 
 /* Reusable 4COP / 3PS / 2COP / SRX explainer pages */
 .license-explainer-page {
-  background: linear-gradient(180deg, #0b2b46 0%, #0d3555 44%, #092842 100%) !important;
+  background: linear-gradient(180deg, #0a3150 0%, #0d3c5f 44%, #0a304d 100%) !important;
+}
+
+.license-explainer-page .lt-header {
+  border-bottom-color: rgba(246, 167, 0, .72) !important;
 }
 
 .license-explainer-page .lt-definition {
-  background: linear-gradient(135deg, #103a59, #0d304c) !important;
-  border-color: rgba(246, 167, 0, .58) !important;
+  background: linear-gradient(135deg, #08243a, #0a2b44) !important;
+  border-color: rgba(246, 167, 0, .82) !important;
+  box-shadow: 0 18px 42px rgba(2, 12, 22, .28) !important;
+}
+
+.license-explainer-page .lt-definition p {
+  color: #ffffff !important;
+}
+
+.license-explainer-page .lt-plain {
+  color: #e0eaf1 !important;
 }
 
 .license-explainer-page .lt-card {
-  background: #103653 !important;
-  border-color: rgba(246, 167, 0, .34) !important;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, .14) !important;
+  background: linear-gradient(145deg, #154a70, #103e60) !important;
+  border-color: #7894a8 !important;
+  border-top: 2px solid rgba(246, 167, 0, .92) !important;
+  box-shadow: 0 16px 38px rgba(2, 12, 22, .22) !important;
+}
+
+.license-explainer-page .lt-card h2,
+.license-explainer-page .lt-extra h2 {
+  color: #ffffff !important;
+}
+
+.license-explainer-page .lt-card ul {
+  color: #eef4f8 !important;
 }
 
 .license-explainer-page .lt-panel {
-  background: #0f3857 !important;
-  border-color: rgba(255, 255, 255, .13) !important;
+  background: #092942 !important;
+  border-color: #688398 !important;
+  box-shadow: 0 13px 30px rgba(2, 12, 22, .18) !important;
+}
+
+.license-explainer-page .lt-panel p {
+  color: #e4edf3 !important;
+}
+
+.license-explainer-page .lt-key {
+  border-color: rgba(246, 167, 0, .78) !important;
 }
 
 .license-explainer-page .lt-extra article {
-  background: linear-gradient(145deg, #103a59, #0d304c) !important;
-  border-color: rgba(246, 167, 0, .42) !important;
+  background: linear-gradient(145deg, #154a70, #103e60) !important;
+  border-color: #7894a8 !important;
+  box-shadow: 0 16px 38px rgba(2, 12, 22, .2) !important;
+}
+
+.license-explainer-page .lt-extra article:last-child {
+  border-left-color: #f6a700 !important;
+}
+
+.license-explainer-page .lt-extra p,
+.license-explainer-page .lt-cta p {
+  color: #e4edf3 !important;
+}
+
+.license-explainer-page .lt-disclaimer {
+  color: #c8d8e3 !important;
 }
 
 /* Main Florida Liquor License Types overview */
