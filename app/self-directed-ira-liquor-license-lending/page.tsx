@@ -11,7 +11,7 @@ const canonicalUrl = `${siteUrl}/self-directed-ira-liquor-license-lending`;
 export const metadata: Metadata = {
   title: "Self-Directed IRA Liquor License Lending | Florida 4COP & 3PS",
   description:
-    "Learn how a self-directed Traditional or Roth IRA may be used, through an appropriate custodian, to make a third-party private loan that helps finance a Florida 4COP or 3PS quota liquor license purchase or refinance.",
+    "Learn how a self-directed Traditional or Roth IRA may be used for third-party private lending tied to Florida liquor license transactions, and explore FLLM's flat-fee administrative IRA setup assistance.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Self-Directed IRA Lending for Florida Liquor License Financing",
     description:
-      "An educational guide to using self-directed retirement funds for third-party private lending tied to Florida 4COP and 3PS quota liquor license transactions.",
+      "An educational guide to self-directed IRA private lending for Florida 4COP and 3PS quota license transactions, plus administrative setup assistance.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -38,11 +38,31 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
     publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
   };
 
+  const serviceStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Self-Directed IRA Setup Assistance",
+    serviceType: "Administrative retirement-account setup and transfer coordination",
+    provider: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
+    description:
+      "Flat-fee administrative assistance organizing a customer's self-directed IRA custodian onboarding materials, transfer or rollover paperwork, document checklist, and follow-up. FLLM does not act as custodian, trustee, investment adviser, broker-dealer, tax adviser, or law firm.",
+    offers: {
+      "@type": "Offer",
+      price: "495.00",
+      priceCurrency: "USD",
+      url: `${canonicalUrl}#ira-setup-assistance`,
+    },
+  };
+
   return (
     <main className="seo-market-page ira-lending-guide-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceStructuredData).replaceAll("<", "\\u003c") }}
       />
       <style>{`
         .ira-lending-guide-page{background:#f7f7f5;color:#111820}
@@ -70,9 +90,23 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
         .ira-warning strong{color:#ffbf2f!important;font-weight:800}
         .ira-source-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
         .ira-source-links a{font-weight:800;color:#0a4d83;text-decoration:underline;text-underline-offset:3px}
+        .ira-setup-lead{max-width:850px;color:#465669;font-size:17px;line-height:1.75}
+        .ira-setup-service{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(260px,.55fr);gap:24px;margin-top:24px;padding:28px;border:1px solid rgba(246,167,0,.42);border-radius:15px;background:linear-gradient(145deg,#0a2237 0%,#04111c 78%);box-shadow:0 16px 34px rgba(7,26,58,.16)}
+        .ira-setup-service h3{margin:0 0 10px;color:#fff;font-size:24px;line-height:1.25}
+        .ira-setup-service p{margin:0;color:#dce5ec;font-size:16px;line-height:1.7}
+        .ira-setup-list{display:grid;gap:11px;margin:20px 0 0;padding:0;list-style:none}
+        .ira-setup-list li{position:relative;padding-left:30px;color:#e7edf3;font-size:15px;line-height:1.55}
+        .ira-setup-list li::before{content:"✓";position:absolute;left:0;top:0;color:#ffb400;font-weight:900;font-size:18px}
+        .ira-setup-price{align-self:start;padding:22px;border:1px solid rgba(246,167,0,.55);border-radius:12px;background:rgba(255,255,255,.06);text-align:center}
+        .ira-setup-price>span{display:block;color:#f6a700;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+        .ira-setup-price>strong{display:block;margin:8px 0 2px;color:#fff;font-size:48px;line-height:1;font-weight:900}
+        .ira-setup-price>small{display:block;margin-bottom:18px;color:#c9d5df;font-size:13px;line-height:1.5}
+        .ira-setup-price .seo-market-button{width:100%;justify-content:center}
+        .ira-admin-boundary{margin-top:16px;padding:18px 20px;border-left:4px solid #f6a700;border-radius:0 10px 10px 0;background:#fff;color:#465669;font-size:14px;line-height:1.7;box-shadow:0 8px 18px rgba(7,26,58,.06)}
+        .ira-admin-boundary strong{color:#071a3a}
         .ira-lending-guide-page .seo-market-counties{background:linear-gradient(145deg,#0a2237 0%,#020b12 74%);border-top:1px solid rgba(246,167,0,.38);border-bottom:1px solid rgba(246,167,0,.38)}
         .ira-lending-guide-page .seo-market-counties h2{color:#fff}
-        @media(max-width:820px){.ira-grid,.ira-rules{grid-template-columns:1fr}.ira-card h3{font-size:20px}.ira-card p{font-size:16px}.ira-steps li{padding-left:60px}.ira-warning{padding:18px;font-size:15px;line-height:1.7}}
+        @media(max-width:820px){.ira-grid,.ira-rules,.ira-setup-service{grid-template-columns:1fr}.ira-card h3{font-size:20px}.ira-card p{font-size:16px}.ira-steps li{padding-left:60px}.ira-warning{padding:18px;font-size:15px;line-height:1.7}.ira-setup-service{padding:20px}.ira-setup-price>strong{font-size:42px}}
       `}</style>
 
       <div className="abt-header-wrap">
@@ -93,7 +127,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/investment-opportunities">View Investment Opportunities</Link>
-                <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">Estimate License Value</Link>
+                <Link className="seo-market-button seo-market-button-dark" href="#ira-setup-assistance">IRA Setup Assistance — $495</Link>
               </div>
             </div>
           </div>
@@ -109,6 +143,41 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
             <article className="ira-card"><h3>Roth IRA</h3><p>A qualifying self-directed Roth IRA may also be able to hold private debt. Tax treatment depends on the account and the investor’s circumstances; FLLM does not provide tax advice.</p></article>
             <article className="ira-card"><h3>Third-party borrower</h3><p>The borrower should be an unrelated party who is not a disqualified person with respect to the IRA. The transaction must be evaluated for direct and indirect prohibited-transaction concerns.</p></article>
             <article className="ira-card"><h3>Interest returns to the IRA</h3><p>Loan payments are generally directed to the retirement account through the custodian or administrator. The IRA owner should not personally receive the borrower’s interest or principal payments.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section className="seo-market-intro" id="ira-setup-assistance">
+        <div className="seo-market-shell">
+          <span className="seo-market-section-kicker">Optional Administrative Service</span>
+          <h2>Self-Directed IRA Setup Assistance</h2>
+          <p className="ira-setup-lead">
+            Want help getting a self-directed IRA administratively ready? FLLM offers a flat-fee concierge service that helps organize the paperwork and follow-up required by the custodian you select. The IRA itself is established and held by the customer’s chosen IRA custodian or trustee — not by FLLM.
+          </p>
+
+          <div className="ira-setup-service">
+            <div>
+              <h3>Administrative setup & transfer coordination</h3>
+              <p>We help keep the process organized while you remain in control of the custodian, account elections, signatures and investment decisions.</p>
+              <ul className="ira-setup-list">
+                <li>Organize the account-opening materials required by your selected self-directed IRA custodian or administrator.</li>
+                <li>Help assemble factual information and supporting documents requested by the custodian, using information supplied or approved by you.</li>
+                <li>Help coordinate the custodian’s transfer or rollover paperwork with your existing IRA provider or retirement-plan administrator.</li>
+                <li>Track administrative follow-up, missing items and status updates while the new account is being opened and funded.</li>
+                <li>Prepare an administrative checklist for a future private-lending investment request once the account is established.</li>
+              </ul>
+            </div>
+
+            <aside className="ira-setup-price" aria-label="Self-Directed IRA Setup Assistance price">
+              <span>Flat administrative fee</span>
+              <strong>$495</strong>
+              <small>One-time setup-assistance fee. Not based on the IRA balance, amount transferred, loan size or whether any investment closes.</small>
+              <Link className="seo-market-button seo-market-button-gold" href="/contact?topic=self-directed-ira-setup">Request Setup Assistance</Link>
+            </aside>
+          </div>
+
+          <div className="ira-admin-boundary">
+            <strong>Administrative scope only.</strong> FLLM does not select your custodian, recommend whether you should make a rollover, transfer or Roth conversion, choose tax elections, draft customized legal or loan documents, provide legal, tax or investment advice, handle retirement funds, sign forms for you, determine prohibited-transaction compliance, or guarantee that a custodian will accept a proposed investment. You review and approve all elections and sign all required documents. Any actual movement of retirement assets is handled by the existing plan or IRA provider and the receiving custodian or trustee under their procedures.
           </div>
         </div>
       </section>
@@ -142,6 +211,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
           <div className="ira-source-links">
             <a href="https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-topics-prohibited-transactions" target="_blank" rel="noreferrer">IRS: Prohibited Transactions</a>
             <a href="https://www.irs.gov/retirement-plans/retirement-plans-faqs-regarding-loans" target="_blank" rel="noreferrer">IRS: IRA Loan Rules</a>
+            <a href="https://www.irs.gov/retirement-plans/plan-participant-employee/rollovers-of-retirement-plan-and-ira-distributions" target="_blank" rel="noreferrer">IRS: Rollovers & Trustee-to-Trustee Transfers</a>
             <a href="https://www.irs.gov/publications/p590a" target="_blank" rel="noreferrer">IRS Publication 590-A</a>
           </div>
         </div>
@@ -181,12 +251,12 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
         <div className="seo-market-shell seo-market-cta-inner">
           <div>
             <span className="seo-market-section-kicker">Explore Private Lending</span>
-            <h2>Review Florida liquor license investment opportunities.</h2>
+            <h2>Review opportunities — or get help organizing your IRA setup.</h2>
             <p>Evaluate the license, borrower, collateral structure, loan terms and retirement-account eligibility before committing capital.</p>
           </div>
           <div className="seo-market-actions">
             <Link className="seo-market-button seo-market-button-gold" href="/investment-opportunities">View Opportunities</Link>
-            <Link className="seo-market-button seo-market-button-dark" href="/private-liquor-license-lenders">Private Lending Guide</Link>
+            <Link className="seo-market-button seo-market-button-dark" href="#ira-setup-assistance">Setup Assistance — $495</Link>
           </div>
         </div>
       </section>
