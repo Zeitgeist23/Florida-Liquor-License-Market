@@ -56,6 +56,19 @@ function optimizeFinancingHtml(input: string): string {
     "<p>For buyers acquiring a Florida quota liquor license and current owners considering a refinance, specialized private lenders may evaluate license value, county, down payment or equity, transaction structure, and borrower qualifications.</p>"
   );
 
+  html = html.replace(
+    '<div class="seller-intro financing-intro">',
+    '<div class="seller-intro financing-intro" id="how-to-finance">'
+  );
+  html = html.replace(
+    '<article><h2>Access to Private Lenders</h2>',
+    '<article id="private-lenders"><h2>Access to Private Lenders</h2>'
+  );
+  html = html.replace(
+    '<form class="seller-form financing-form">',
+    '<form class="seller-form financing-form" id="request-financing">'
+  );
+
   return html;
 }
 
