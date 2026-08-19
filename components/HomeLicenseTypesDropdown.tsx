@@ -103,15 +103,15 @@ export default function HomeLicenseTypesDropdown() {
 
   return (
     <style>{`
-      .home-license-types-dropdown{position:relative;display:inline-flex;align-items:center;flex:0 0 auto}
+      .home-license-types-dropdown{position:relative;display:inline-flex;align-items:center;flex:0 0 auto;padding-bottom:10px;margin-bottom:-10px}
       .home-license-types-trigger{display:inline-flex;align-items:center;gap:5px;margin:0;padding:0;border:0;color:#fff;background:transparent;cursor:pointer;font:inherit;font-size:10px;font-weight:600;line-height:1;text-transform:uppercase;white-space:nowrap}
       .home-license-types-trigger:hover,.home-license-types-trigger:focus-visible{color:var(--gold);outline:none}
-      .home-license-types-menu{position:absolute;top:calc(100% + 10px);left:50%;z-index:10060;display:none;width:320px;transform:translateX(-50%);padding:6px;border:1px solid #f6a700;border-radius:6px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12)}
+      .home-license-types-menu{position:absolute;top:100%;left:50%;z-index:10060;display:none;width:320px;transform:translateX(-50%);padding:6px;border:1px solid #f6a700;border-radius:6px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12)}
       .home-license-types-menu.is-open,.home-license-types-dropdown:hover .home-license-types-menu,.home-license-types-dropdown:focus-within .home-license-types-menu{display:grid;gap:4px}
       .home-license-types-menu::before{content:"";position:absolute;top:-7px;left:50%;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);border-left:1px solid #f6a700;border-top:1px solid #f6a700;background:#061728}
       .primary-nav .home-license-types-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
       .primary-nav .home-license-types-menu a:hover,.primary-nav .home-license-types-menu a:focus-visible{background:#f6a700;color:#061728;outline:none}
-      @media(max-width:760px){.home-license-types-dropdown{width:100%;justify-content:center}.home-license-types-menu{position:fixed;top:72px;left:12px;width:calc(100vw - 24px);max-height:72vh;transform:none;overflow:auto}}
+      @media(max-width:760px){.home-license-types-dropdown{width:100%;justify-content:center;padding-bottom:0;margin-bottom:0}.home-license-types-menu{position:fixed;top:72px;left:12px;width:calc(100vw - 24px);max-height:72vh;transform:none;overflow:auto}}
     `}</style>
   );
 }
