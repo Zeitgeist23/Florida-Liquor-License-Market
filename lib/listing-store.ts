@@ -4,6 +4,7 @@ import { listings, type Listing } from "@/data/listings";
 import { additionalListings } from "@/data/additional-listings";
 import { latestListings } from "@/data/latest-listings";
 import { marketAdditions } from "@/data/market-additions";
+import { canonicalFloridaCountyName } from "@/lib/county-normalization";
 import {
   resolveListingInventoryClass,
   withListingInventoryClass,
@@ -12,13 +13,20 @@ import {
   type ListingWithInventoryClass,
 } from "@/lib/listing-inventory-class";
 
+function normalizeListing(listing: ListingWithInventoryClass): ClassifiedListing {
+  return withListingInventoryClass({
+    ...listing,
+    county: canonicalFloridaCountyName(listing.county),
+  });
+}
+
 const staticListings: ClassifiedListing[] = [
   ...listings,
   ...additionalListings,
   ...latestListings,
   ...marketAdditions,
 ].map((listing) =>
-  withListingInventoryClass(
+  normalizeListing(
     listing.sourceRef === "FLLM-030"
       ? { ...listing, price: 200000, priceLabel: "$200,000" }
       : listing,
@@ -26,14 +34,15 @@ const staticListings: ClassifiedListing[] = [
 );
 
 function listingKey(listing: ListingWithInventoryClass) {
-  return listing.sourceRef || `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
+  const county = canonicalFloridaCountyName(listing.county);
+  return listing.sourceRef || `${county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
 }
 
 export function dedupeListings(input: ListingWithInventoryClass[]): ClassifiedListing[] {
   return Array.from(
     new Map(
       input
-        .map((listing) => withListingInventoryClass(listing))
+        .map(normalizeListing)
         .map((listing) => [listingKey(listing), listing])
     ).values()
   );
@@ -68,7 +77,7 @@ type ListingRow = {
 };
 
 function rowToListing(row: ListingRow): ClassifiedListing {
-  return withListingInventoryClass({
+  return normalizeListing({
     county: row.county,
     type: row.license_type,
     price: row.price,
@@ -102,7 +111,8 @@ async function getApprovedListingDetails() {
 }
 
 function identityKeys(listing: Pick<Listing, "county" | "type" | "price" | "priceLabel" | "sourceRef" | "sourceUrl">): string[] {
-  const keys = [`signature:${listing.county.trim().toLowerCase()}|${listing.type}|${listing.price ?? listing.priceLabel}`];
+  const county = canonicalFloridaCountyName(listing.county).toLowerCase();
+  const keys = [`signature:${county}|${listing.type}|${listing.price ?? listing.priceLabel}`];
   if (listing.sourceRef) keys.push(`ref:${listing.sourceRef.trim().toLowerCase()}`);
   if (listing.sourceUrl) keys.push(`url:${listing.sourceUrl.trim().toLowerCase().replace(/\/+$/, "")}`);
   return keys;
@@ -120,7 +130,7 @@ function rowIdentityKeys(row: ListingRow): string[] {
 }
 
 function listingToRow(listing: ListingWithInventoryClass) {
-  const classified = withListingInventoryClass(listing);
+  const classified = normalizeListing(listing);
   return {
     dedupe_key: listingKey(classified),
     county: classified.county,
@@ -221,7 +231,7 @@ export async function getMarketplaceListings(): Promise<ClassifiedListing[]> {
     const databaseListings: ClassifiedListing[] = rows.map((row) => {
       const listing = rowToListing(row);
       const details = row.source_ref ? approvedDetails.get(row.source_ref) : undefined;
-      return withListingInventoryClass({
+      return normalizeListing({
         ...listing,
         inventoryClass: row.inventory_class ?? resolveListingInventoryClass(listing),
         licenseStatus: details?.license_status ?? undefined,
