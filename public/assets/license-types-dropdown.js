@@ -1,8 +1,8 @@
 (() => {
   const STYLE_ID = "license-types-dropdown-styles";
   const MENU_SELECTOR = '[data-license-types-menu="true"]';
-  const OPEN_DELAY_MS = 120;
-  const CLOSE_DELAY_MS = 220;
+  const OPEN_DELAY_MS = 80;
+  const CLOSE_DELAY_MS = 300;
   const DESKTOP_HOVER_QUERY = "(hover: hover) and (pointer: fine) and (min-width: 900px)";
 
   const items = [
@@ -37,7 +37,7 @@
     style.textContent = `
       .license-types-nav-trigger{cursor:pointer}
       .license-types-nav-trigger::after{content:"";display:inline-block;width:7px;height:7px;margin-left:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);opacity:.85}
-      .license-types-header-menu{position:fixed;z-index:10034;display:none;width:320px;padding:6px;border:1px solid #f6a700;border-radius:6px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12);font-family:Arial,Helvetica,sans-serif}
+      .license-types-header-menu{position:fixed;z-index:10090;display:none;width:320px;padding:6px;border:1px solid #f6a700;border-radius:6px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12);font-family:Arial,Helvetica,sans-serif}
       .license-types-header-menu.is-open{display:grid;gap:4px}
       .license-types-header-menu::before{content:"";position:absolute;top:-7px;left:50%;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);border-left:1px solid #f6a700;border-top:1px solid #f6a700;background:#061728}
       .license-types-header-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;color:#fff;text-decoration:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
@@ -67,7 +67,10 @@
       menu.appendChild(link);
     });
 
-    menu.addEventListener("pointerenter", () => clearTimeout(closeTimer));
+    menu.addEventListener("pointerenter", () => {
+      clearTimeout(openTimer);
+      clearTimeout(closeTimer);
+    });
     menu.addEventListener("pointerleave", scheduleClose);
     menu.addEventListener("focusin", () => clearTimeout(closeTimer));
     menu.addEventListener("focusout", (event) => {
@@ -90,7 +93,7 @@
     const left = Math.max(12, Math.min(desiredLeft, window.innerWidth - width - 12));
     menu.style.width = `${width}px`;
     menu.style.left = `${left}px`;
-    menu.style.top = `${rect.bottom + 8}px`;
+    menu.style.top = `${rect.bottom}px`;
   }
 
   function closeOtherMenus() {
@@ -104,7 +107,10 @@
     const trigger = findTrigger();
     if (!(trigger instanceof HTMLElement)) return;
     const menu = createMenu();
-    clearTimeout(openTimer); clearTimeout(closeTimer); closeOtherMenus(); positionMenu();
+    clearTimeout(openTimer);
+    clearTimeout(closeTimer);
+    closeOtherMenus();
+    positionMenu();
     menu.classList.add("is-open");
     menu.setAttribute("aria-hidden", "false");
     trigger.setAttribute("aria-expanded", "true");
@@ -112,7 +118,8 @@
   }
 
   function closeMenu() {
-    clearTimeout(openTimer); clearTimeout(closeTimer);
+    clearTimeout(openTimer);
+    clearTimeout(closeTimer);
     const trigger = findTrigger();
     const menu = getMenu();
     menu?.classList.remove("is-open");
@@ -122,13 +129,15 @@
 
   function scheduleOpen() {
     if (!desktopHoverAvailable()) return;
-    clearTimeout(closeTimer); clearTimeout(openTimer);
+    clearTimeout(closeTimer);
+    clearTimeout(openTimer);
     openTimer = window.setTimeout(() => openMenu(), OPEN_DELAY_MS);
   }
 
   function scheduleClose() {
     if (!desktopHoverAvailable()) return;
-    clearTimeout(openTimer); clearTimeout(closeTimer);
+    clearTimeout(openTimer);
+    clearTimeout(closeTimer);
     closeTimer = window.setTimeout(() => {
       const trigger = findTrigger();
       const menu = getMenu();
@@ -146,16 +155,38 @@
     trigger.classList.add("license-types-nav-trigger");
     trigger.setAttribute("aria-haspopup", "menu");
     trigger.setAttribute("aria-expanded", "false");
-    trigger.addEventListener("click", (event) => { event.preventDefault(); event.stopPropagation(); getMenu()?.classList.contains("is-open") ? closeMenu() : openMenu(); }, true);
-    trigger.addEventListener("keydown", (event) => { if (event.key === "ArrowDown") { event.preventDefault(); openMenu(true); } if (event.key === "Escape") closeMenu(); });
+    trigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      getMenu()?.classList.contains("is-open") ? closeMenu() : openMenu();
+    }, true);
+    trigger.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        openMenu(true);
+      }
+      if (event.key === "Escape") closeMenu();
+    });
     trigger.addEventListener("pointerenter", scheduleOpen);
     trigger.addEventListener("pointerleave", scheduleClose);
     trigger.addEventListener("focusin", scheduleOpen);
-    trigger.addEventListener("focusout", (event) => { const next = event.relatedTarget; const menu = getMenu(); if (next instanceof Node && (trigger.contains(next) || menu?.contains(next))) return; scheduleClose(); });
+    trigger.addEventListener("focusout", (event) => {
+      const next = event.relatedTarget;
+      const menu = getMenu();
+      if (next instanceof Node && (trigger.contains(next) || menu?.contains(next))) return;
+      scheduleClose();
+    });
     createMenu();
   }
 
-  document.addEventListener("click", (event) => { const target = event.target; if (!(target instanceof Node)) return; const trigger = findTrigger(); const menu = getMenu(); if (trigger?.contains(target) || menu?.contains(target)) return; closeMenu(); });
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Node)) return;
+    const trigger = findTrigger();
+    const menu = getMenu();
+    if (trigger?.contains(target) || menu?.contains(target)) return;
+    closeMenu();
+  });
   window.addEventListener("resize", positionMenu);
   window.addEventListener("scroll", positionMenu, { passive: true });
   const observer = new MutationObserver(bind);
