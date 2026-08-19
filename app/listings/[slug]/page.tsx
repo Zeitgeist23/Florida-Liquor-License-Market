@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import FloridaCountyMap from "@/components/FloridaCountyMap";
+import HeaderNavMenus from "@/components/HeaderNavMenus";
 import MarketplaceListingCard from "@/components/MarketplaceListingCard";
 import { countySlug, getCountyBySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
@@ -260,13 +261,7 @@ export default async function Page({ params }: PageProps) {
         <Link className="seller-brand" href="/" aria-label="Florida Liquor License Market home">
           <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
         </Link>
-        <nav aria-label="Listings navigation">
-          <Link href="/">Home</Link>
-          <Link href="/listings">Florida Liquor Licenses for Sale</Link>
-          <Link href="/counties">Counties</Link>
-          <Link href="/sell-your-license">List Your License</Link>
-          <Link href="/contact">Contact Us</Link>
-        </nav>
+        <HeaderNavMenus className="primary-nav listings-primary-nav" showContactLink />
       </header>
 
       <section className="marketplace-listing-hero">
