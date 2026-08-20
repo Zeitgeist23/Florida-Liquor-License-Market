@@ -47,6 +47,25 @@ function amount(value: number | null | undefined) {
   return typeof value === "number" && Number.isFinite(value) ? value : null;
 }
 
+function errorMessage(error: unknown) {
+  return error instanceof Error ? error.message : String(error || "Unknown error");
+}
+
+function isTransientFetchFailure(error: unknown) {
+  return /fetch failed|failed to fetch|networkerror|econnreset|etimedout|socket hang up/i.test(errorMessage(error));
+}
+
+async function retryTransient<T>(task: () => Promise<T>, label: string): Promise<T> {
+  try {
+    return await task();
+  } catch (error) {
+    if (!isTransientFetchFailure(error)) throw error;
+    console.warn(`${label} failed on first attempt; retrying once`, error);
+    await new Promise((resolve) => setTimeout(resolve, 350));
+    return task();
+  }
+}
+
 export async function POST(request: Request) {
   let orderId: string | null = null;
   try {
@@ -60,7 +79,7 @@ export async function POST(request: Request) {
     }
 
     const estimate = body.estimate ?? {};
-    const order = await createPreliminaryMarketReportOrder({
+    const createOrder = () => createPreliminaryMarketReportOrder({
       fullName: body.name ?? "",
       email: body.email ?? "",
       phone: body.phone ?? "",
@@ -84,10 +103,27 @@ export async function POST(request: Request) {
         generatedAt: estimate.generatedAt ?? new Date().toISOString(),
       },
     });
+
+    const order = await retryTransient(createOrder, "Market report order save");
     orderId = order.id;
 
-    const checkout = await createPreliminaryMarketReportCheckoutSession(order, request.url);
-    await attachCheckoutSession(order.id, checkout.id);
+    const checkout = await retryTransient(
+      () => createPreliminaryMarketReportCheckoutSession(order, request.url),
+      "Stripe report checkout",
+    );
+
+    // A temporary database update failure should not prevent a customer from
+    // reaching a valid Stripe Checkout session. The order reference is already
+    // stored before the checkout is created and Stripe also receives it as
+    // client_reference_id and metadata.
+    try {
+      await retryTransient(
+        () => attachCheckoutSession(order.id, checkout.id),
+        "Checkout session attachment",
+      );
+    } catch (attachError) {
+      console.error("Could not attach checkout session before redirect", attachError);
+    }
 
     return NextResponse.json({
       ok: true,
@@ -95,10 +131,14 @@ export async function POST(request: Request) {
       checkoutUrl: checkout.url,
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to create the preliminary market report order.";
+    const rawMessage = errorMessage(error);
+    const message = isTransientFetchFailure(error)
+      ? "Secure checkout could not be reached. Please try again in a moment."
+      : rawMessage || "Unable to create the preliminary market report order.";
+
     if (orderId) {
       try {
-        await markCheckoutFailed(orderId, message);
+        await markCheckoutFailed(orderId, rawMessage);
       } catch (markError) {
         console.error("Could not mark preliminary market report checkout as failed", markError);
       }
