@@ -202,44 +202,19 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
               <strong id="example-report-preview-title">See the report format before checkout</strong>
               <p>This sample is illustrative. Your completed report will use research specific to the subject license and county.</p>
             </div>
-
-            <div className={styles.previewMockup}>
-              <article className={styles.coverMockup} aria-label="Sample report cover">
-                <div className={styles.coverBrand}>FLORIDA LIQUOR LICENSE MARKET</div>
-                <div className={styles.coverRule} />
-                <span>PRELIMINARY MARKET REPORT</span>
-                <h6>Orange County<br />3PS Quota License</h6>
-                <div className={styles.coverBadge}>Market Analysis · DBPR Research · Comparables</div>
-                <small>Illustrative sample format</small>
-              </article>
-
-              <article className={styles.analysisMockup} aria-label="Sample market analysis page">
-                <div className={styles.analysisHeader}>
-                  <span>Market Value Analysis</span>
-                  <strong>SAMPLE</strong>
-                </div>
-                <div className={styles.indicatedRange}>
-                  <span>Indicated Market Range</span>
-                  <strong>$325K–$375K</strong>
-                </div>
-                <div className={styles.sampleStats}>
-                  <div><span>County</span><strong>Orange</strong></div>
-                  <div><span>License</span><strong>3PS</strong></div>
-                  <div><span>Comparables</span><strong>6</strong></div>
-                </div>
-                <div className={styles.chartLabel}>Comparable asking prices</div>
-                <div className={styles.sampleChart} aria-hidden="true">
-                  <i className={styles.barOne} />
-                  <i className={styles.barTwo} />
-                  <i className={styles.barThree} />
-                  <i className={styles.barFour} />
-                  <i className={styles.barFive} />
-                  <i className={styles.barSix} />
-                </div>
-                <div className={styles.chartAxis}><span>$300K</span><span>$425K</span></div>
-                <p className={styles.sampleFootnote}>Includes subject-license identification, county evidence, available transaction research, methodology, sources and limitations.</p>
-              </article>
-            </div>
+            <img
+              src="/assets/fllm-preliminary-market-report-preview.webp?v=20260820-1823"
+              alt="Glossy Florida Liquor License Market Value Report cover beside a sample valuation summary page with comparable sales, market value trend, county insights and market indicators."
+              loading="eager"
+              style={{
+                display: "block",
+                width: "100%",
+                height: "auto",
+                borderRadius: 8,
+                border: "1px solid rgba(246,167,0,.35)",
+                boxShadow: "0 14px 34px rgba(0,0,0,.32)",
+              }}
+            />
           </section>
 
           {error ? <p className={styles.error} role="alert">{error}</p> : null}
