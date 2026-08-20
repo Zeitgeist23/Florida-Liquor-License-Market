@@ -40,27 +40,26 @@ export async function createPreliminaryMarketReportCheckoutSession(
   params.set("metadata[product_kind]", "preliminary_market_report");
   params.set("metadata[county]", order.county);
   params.set("metadata[license_type]", order.licenseType);
-  params.set("metadata[license_number]", order.licenseNumber);
-  params.set("payment_intent_data[receipt_email]", order.email);
-
-  const priceId = process.env.STRIPE_MARKET_REPORT_PRICE_ID;
-  if (priceId) {
-    params.set("line_items[0][price]", priceId);
-  } else {
-    params.set("line_items[0][price_data][currency]", "usd");
-    params.set(
-      "line_items[0][price_data][unit_amount]",
-      String(PRELIMINARY_MARKET_REPORT_PRICE_CENTS),
-    );
-    params.set(
-      "line_items[0][price_data][product_data][name]",
-      "Preliminary Florida Liquor License Market Report",
-    );
-    params.set(
-      "line_items[0][price_data][product_data][description]",
-      "Manual FLLM research of a specific Florida quota liquor license, including available DBPR records, county market comparables, and available transaction evidence. Not a certified appraisal.",
-    );
+  if (order.licenseNumber) {
+    params.set("metadata[license_number]", order.licenseNumber);
   }
+
+  // Always create the $195 line item directly with the same live Stripe key
+  // used by the existing FLLM listing checkout. This avoids a stale or
+  // test-mode price ID preventing production checkout from opening.
+  params.set("line_items[0][price_data][currency]", "usd");
+  params.set(
+    "line_items[0][price_data][unit_amount]",
+    String(PRELIMINARY_MARKET_REPORT_PRICE_CENTS),
+  );
+  params.set(
+    "line_items[0][price_data][product_data][name]",
+    "Preliminary Florida Liquor License Market Report",
+  );
+  params.set(
+    "line_items[0][price_data][product_data][description]",
+    "Manual FLLM research of a specific Florida quota liquor license, including available DBPR records, county market comparables, and available transaction evidence. Not a certified appraisal.",
+  );
   params.set("line_items[0][quantity]", "1");
 
   const response = await fetch("https://api.stripe.com/v1/checkout/sessions", {
