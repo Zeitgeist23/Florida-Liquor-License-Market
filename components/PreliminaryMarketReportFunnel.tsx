@@ -25,6 +25,14 @@ type Props = {
   estimate: EstimateSnapshot;
 };
 
+function formatUsPhone(value: string) {
+  const raw = value.replace(/\D/g, "");
+  const digits = (raw.length === 11 && raw.startsWith("1") ? raw.slice(1) : raw).slice(0, 10);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
 export default function PreliminaryMarketReportFunnel(props: Props) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -66,7 +74,12 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
       }
       window.location.assign(result.checkoutUrl);
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Unable to open secure checkout.");
+      const message = cause instanceof Error ? cause.message : "Unable to open secure checkout.";
+      setError(
+        /fetch failed|failed to fetch|networkerror/i.test(message)
+          ? "Secure checkout could not be reached. Please try again in a moment."
+          : message,
+      );
       setLoading(false);
     }
   }
@@ -139,7 +152,17 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
           </label>
           <label>
             <span>Phone</span>
-            <input name="phone" type="tel" autoComplete="tel" required />
+            <input
+              name="phone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              maxLength={14}
+              onInput={(event) => {
+                event.currentTarget.value = formatUsPhone(event.currentTarget.value);
+              }}
+              required
+            />
           </label>
           <label>
             <span>Your Relationship to the License</span>
@@ -176,7 +199,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
           <section className={styles.previewSection} aria-label="Example report preview">
             <img
               className={styles.previewImage}
-              src="/assets/fllm-example-market-report-preview.webp?v=20260820-1716"
+              src="/assets/fllm-example-market-report-preview.webp?v=20260820-1742"
               alt="Example Florida Liquor License Market Value Report cover beside a sample valuation page with comparable sales, market trend, county insights, and market indicators."
               loading="eager"
             />
