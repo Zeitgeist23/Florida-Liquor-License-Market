@@ -9,6 +9,15 @@ const mirroredRoutes = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: "/how-to-buy-florida-liquor-license",
+        destination: "/buy-florida-liquor-license",
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return {
       beforeFiles: [
