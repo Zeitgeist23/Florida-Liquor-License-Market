@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 
 import { sendPaymentReceivedEmail } from "@/lib/fllm-email";
 import {
+  isPreliminaryMarketReportOrder,
+  sendPreliminaryMarketReportPaymentEmails,
+} from "@/lib/preliminary-market-report";
+import {
   claimPaymentEmail,
   finishPaymentEmail,
   markSubmissionPaid,
@@ -23,7 +27,7 @@ type StripeEvent = {
 async function processPaidCheckout(session: StripeCheckoutSession) {
   const submissionRef =
     session.metadata?.submission_ref || session.client_reference_id || "";
-  if (!submissionRef) throw new Error("Stripe session is missing the listing submission reference.");
+  if (!submissionRef) throw new Error("Stripe session is missing the submission reference.");
 
   const submission = await markSubmissionPaid({
     submissionRef,
@@ -36,7 +40,11 @@ async function processPaidCheckout(session: StripeCheckoutSession) {
   if (!claimed) return;
 
   try {
-    await sendPaymentReceivedEmail(claimed);
+    if (isPreliminaryMarketReportOrder(claimed)) {
+      await sendPreliminaryMarketReportPaymentEmails(claimed);
+    } else {
+      await sendPaymentReceivedEmail(claimed);
+    }
     await finishPaymentEmail(claimed.id, true);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Payment confirmation email failed.";
@@ -71,10 +79,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    console.error("Stripe listing webhook failed", error);
+    console.error("Stripe payment webhook failed", error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Webhook processing failed." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
