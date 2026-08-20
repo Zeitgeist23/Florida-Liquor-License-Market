@@ -37,6 +37,8 @@ type BuyerDetails = {
 };
 
 type ValuationDetails = {
+  licenseNumber?: string | null;
+  currentHolderOfRecord?: string | null;
   estimate?: {
     count?: number;
     median?: number | null;
@@ -106,6 +108,8 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
   const details = buyerDetails(lead);
   const valuationData = valuationDetails(lead);
   const amount = lead.approvedAskingPrice ?? lead.askingPrice;
+  const valuationLicenseNumber = lead.liveListingRef || valuationData.licenseNumber || "Not provided";
+  const valuationHolder = valuationData.currentHolderOfRecord || "Not provided";
 
   return (
     <article className="lead-card">
@@ -140,6 +144,8 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
         </div>
       ) : valuation ? (
         <div className="lead-secondary-grid">
+          <div><strong>License Number</strong><span>{valuationLicenseNumber}</span></div>
+          <div><strong>Current Holder of Record</strong><span>{valuationHolder}</span></div>
           <div><strong>Estimated Range</strong><span>{estimatedRange(valuationData)}</span></div>
           <div><strong>Estimated Median</strong><span>{money(valuationData.estimate?.median ?? null)}</span></div>
           <div><strong>Exact Comparables</strong><span>{valuationData.estimate?.count ?? 0}</span></div>
@@ -213,7 +219,19 @@ export default function AdminLeadsClient() {
       if (filter === "valuations" && !valuation) return false;
       if (filter === "sellers" && (buyer || valuation)) return false;
       if (!query) return true;
-      return [lead.fullName, lead.email, lead.phone, lead.county, lead.licenseType, lead.submissionRef, lead.listingTitle, lead.liveListingRef]
+      const valuationData = valuationDetails(lead);
+      return [
+        lead.fullName,
+        lead.email,
+        lead.phone,
+        lead.county,
+        lead.licenseType,
+        lead.submissionRef,
+        lead.listingTitle,
+        lead.liveListingRef,
+        valuationData.licenseNumber,
+        valuationData.currentHolderOfRecord,
+      ]
         .filter(Boolean)
         .some((value) => String(value).toLowerCase().includes(query));
     });
@@ -258,7 +276,7 @@ export default function AdminLeadsClient() {
           <button className={filter === "valuations" ? "active" : ""} onClick={() => setFilter("valuations")}>Valuations</button>
           <button className={filter === "sellers" ? "active" : ""} onClick={() => setFilter("sellers")}>Sellers</button>
         </div>
-        <label><span>Search leads</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name, email, phone, county, or reference" /></label>
+        <label><span>Search leads</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name, email, phone, county, license number, holder, or reference" /></label>
       </section>
 
       {error && <p className="leads-error">{error}</p>}
