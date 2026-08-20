@@ -12,13 +12,18 @@ export async function GET() {
   }
 
   try {
-    const submissions = await listListingSubmissions();
+    const submissions = (await listListingSubmissions()).filter((submission) => {
+      const reference = submission.submissionRef;
+      return !reference.startsWith("FLLM-BUYER-") &&
+        !reference.startsWith("FLLM-VALUE-") &&
+        !reference.startsWith("FLLM-REPORT-");
+    });
     return NextResponse.json({ submissions });
   } catch (error) {
     console.error("Could not load listing submissions", error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Could not load submissions." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
