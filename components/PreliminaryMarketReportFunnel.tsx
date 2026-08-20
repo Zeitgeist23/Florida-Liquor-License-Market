@@ -52,7 +52,6 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
           license_number: String(formData.get("license_number") || ""),
           current_holder_of_record: String(formData.get("current_holder_of_record") || ""),
           terms_accepted: formData.get("terms_accepted") === "Accepted",
-          honey: String(formData.get("honey") || ""),
           county: props.county,
           license_type: props.licenseType,
           license_status: props.licenseStatus,
@@ -168,10 +167,6 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
           <label className={styles.notes}>
             <span>Anything We Should Know? <small>Optional</small></span>
             <textarea name="notes" rows={4} placeholder="For example: refinance request, pending sale, unusual transfer history, or a deadline." maxLength={4000} />
-          </label>
-          <label className={styles.honey} aria-hidden="true">
-            <span>Company Website</span>
-            <input name="honey" tabIndex={-1} autoComplete="off" />
           </label>
           <label className={styles.consent}>
             <input name="terms_accepted" type="checkbox" value="Accepted" required />
