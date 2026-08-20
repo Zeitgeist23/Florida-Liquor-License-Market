@@ -120,7 +120,6 @@ export default function LiquorLicenseValueEstimator() {
           phone: String(formData.get("phone") || ""),
           target_price: String(formData.get("target_price") || ""),
           contact_consent: formData.get("contact_consent") === "Accepted",
-          honey: String(formData.get("honey") || ""),
           county: guidance.county,
           license_type: guidance.licenseType,
           license_number: licenseNumber,
@@ -344,7 +343,6 @@ export default function LiquorLicenseValueEstimator() {
                 <label><span>Email</span><input name="email" type="email" autoComplete="email" required /></label>
                 <label><span>Phone</span><input name="phone" type="tel" autoComplete="tel" required /></label>
                 <label><span>Your Target Price <small>Optional</small></span><input name="target_price" inputMode="numeric" placeholder="$" /></label>
-                <label className={styles.honey} aria-hidden="true"><span>Company Website</span><input name="honey" tabIndex={-1} autoComplete="off" /></label>
                 <label className={styles.consent}>
                   <input name="contact_consent" type="checkbox" value="Accepted" required />
                   <span>I authorize Florida Liquor License Market to contact me about this estimate and selling options.</span>
