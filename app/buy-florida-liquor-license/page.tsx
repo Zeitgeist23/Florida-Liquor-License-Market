@@ -5,6 +5,7 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 import "../resources/forms/abt-forms.css";
 import "../florida-liquor-licenses-for-sale/seo-market.css";
 
+// Buyer-focused SEO hub for transactional Florida liquor-license searches.
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/buy-florida-liquor-license`;
 
