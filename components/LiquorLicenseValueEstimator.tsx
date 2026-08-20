@@ -9,6 +9,7 @@ import type { Listing } from "@/data/listings";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import interactionStyles from "./ComparableListingRows.module.css";
 import styles from "./LiquorLicenseValueEstimator.module.css";
+import PreliminaryMarketReportFunnel from "./PreliminaryMarketReportFunnel";
 
 type ComparableListing = {
   reference: string;
@@ -301,6 +302,25 @@ export default function LiquorLicenseValueEstimator() {
           )}
 
           <p className={styles.notice}>{guidance.notice}</p>
+
+          <PreliminaryMarketReportFunnel
+            county={guidance.county}
+            licenseType={guidance.licenseType}
+            licenseNumber={licenseNumber}
+            currentHolderOfRecord={currentHolderOfRecord}
+            licenseStatus={licenseStatus}
+            preferredTiming={preferredTiming}
+            estimate={{
+              count: guidance.count,
+              low: guidance.low,
+              median: guidance.median,
+              high: guidance.high,
+              typicalLow: guidance.typicalLow,
+              typicalHigh: guidance.typicalHigh,
+              confidence: guidance.confidence,
+              generatedAt: guidance.generatedAt,
+            }}
+          />
 
           <section className={styles.followUp} aria-labelledby="valuation-follow-up-title">
             <div>
