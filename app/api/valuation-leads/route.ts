@@ -21,7 +21,6 @@ type RequestBody = {
   preferred_timing?: string;
   target_price?: string;
   contact_consent?: boolean | string;
-  honey?: string;
   estimate?: {
     count?: number;
     low?: number | null;
@@ -49,7 +48,6 @@ function cleanInline(value: string | undefined, maxLength: number) {
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as RequestBody;
-    if (body.honey) return NextResponse.json({ ok: true });
     if (!accepted(body.contact_consent)) {
       return NextResponse.json(
         { error: "Please authorize FLLM to contact you about this market estimate." },
