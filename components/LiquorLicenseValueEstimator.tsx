@@ -63,6 +63,8 @@ export default function LiquorLicenseValueEstimator() {
   const router = useRouter();
   const [county, setCounty] = useState("");
   const [licenseType, setLicenseType] = useState("");
+  const [licenseNumber, setLicenseNumber] = useState("");
+  const [currentHolderOfRecord, setCurrentHolderOfRecord] = useState("");
   const [licenseStatus, setLicenseStatus] = useState("");
   const [preferredTiming, setPreferredTiming] = useState("");
   const [loading, setLoading] = useState(false);
@@ -120,6 +122,8 @@ export default function LiquorLicenseValueEstimator() {
           honey: String(formData.get("honey") || ""),
           county: guidance.county,
           license_type: guidance.licenseType,
+          license_number: licenseNumber,
+          current_holder_of_record: currentHolderOfRecord,
           license_status: licenseStatus,
           preferred_timing: preferredTiming,
           estimate: {
@@ -156,7 +160,7 @@ export default function LiquorLicenseValueEstimator() {
       <div className={styles.heading}>
         <span>Free Florida Market Estimate</span>
         <h2 id="license-value-estimator-title">Calculate your current market range</h2>
-        <p>Enter the license location, type, status and timing. FLLM will compare current disclosed asking prices and show how much exact-market evidence is available.</p>
+        <p>Enter the license location, type, license identity, status and timing. FLLM will compare current disclosed asking prices and show how much exact-market evidence is available.</p>
       </div>
 
       <form className={styles.form} onSubmit={estimate}>
@@ -174,6 +178,26 @@ export default function LiquorLicenseValueEstimator() {
             <option value="4COP Quota">4COP Quota</option>
             <option value="3PS Quota / Package Store">3PS Quota / Package Store</option>
           </select>
+        </label>
+        <label>
+          <span>License Number <small>If available</small></span>
+          <input
+            value={licenseNumber}
+            onChange={(event) => setLicenseNumber(event.target.value)}
+            placeholder="e.g. BEV58-12345"
+            autoComplete="off"
+            maxLength={80}
+          />
+        </label>
+        <label>
+          <span>Current Holder of Record <small>If available</small></span>
+          <input
+            value={currentHolderOfRecord}
+            onChange={(event) => setCurrentHolderOfRecord(event.target.value)}
+            placeholder="Name shown in DBPR records"
+            autoComplete="organization"
+            maxLength={180}
+          />
         </label>
         <label>
           <span>Current License Status</span>
