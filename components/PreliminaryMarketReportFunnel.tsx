@@ -33,6 +33,9 @@ function formatUsPhone(value: string) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
+const reportPreviewUrl =
+  "https://raw.githubusercontent.com/Zeitgeist23/Florida-Liquor-License-Market/main/public/assets/fllm-preliminary-market-report-preview.webp";
+
 export default function PreliminaryMarketReportFunnel(props: Props) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -203,9 +206,13 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
               <p>This sample is illustrative. Your completed report will use research specific to the subject license and county.</p>
             </div>
             <img
-              src="/assets/fllm-preliminary-market-report-preview.webp?v=20260820-1823"
+              src={reportPreviewUrl}
               alt="Glossy Florida Liquor License Market Value Report cover beside a sample valuation summary page with comparable sales, market value trend, county insights and market indicators."
+              width={1448}
+              height={1086}
               loading="eager"
+              decoding="async"
+              referrerPolicy="no-referrer"
               style={{
                 display: "block",
                 width: "100%",
@@ -213,6 +220,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
                 borderRadius: 8,
                 border: "1px solid rgba(246,167,0,.35)",
                 boxShadow: "0 14px 34px rgba(0,0,0,.32)",
+                background: "#061724",
               }}
             />
           </section>
