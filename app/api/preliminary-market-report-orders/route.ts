@@ -27,7 +27,6 @@ type RequestBody = {
   purpose?: string;
   notes?: string;
   terms_accepted?: boolean | string;
-  honey?: string;
   estimate?: {
     count?: number;
     low?: number | null;
@@ -52,7 +51,6 @@ export async function POST(request: Request) {
   let orderId: string | null = null;
   try {
     const body = (await request.json()) as RequestBody;
-    if (body.honey) return NextResponse.json({ ok: true, checkoutUrl: "/" });
 
     if (!accepted(body.terms_accepted)) {
       return NextResponse.json(
