@@ -3,7 +3,7 @@ name: Diagnose Vercel build
 on:
   push:
     branches:
-      - agent/sync-live-site
+      - agent/buy-seo-diagnose
     paths:
       - .github/workflows/diagnose-build.yml
 
@@ -35,7 +35,7 @@ jobs:
           mkdir -p .diagnostics
           mv build-install.log build-output.log build-status.txt .diagnostics/
           git add .diagnostics
-          git commit -m "Capture Next.js build diagnostics" || exit 0
+          git commit -m "Capture buyer-page build diagnostics" || exit 0
           git push
 
-# Safe pre-production build check for Florida Liquor License Laws menu update.
+# Temporary diagnostic branch for the buyer SEO page build.
