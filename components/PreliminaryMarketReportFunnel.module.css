@@ -158,6 +158,7 @@
   color: #f7fbfd;
   background: #071a28;
   font: inherit;
+  color-scheme: dark;
 }
 
 .form input:not([type="checkbox"]),
@@ -174,6 +175,25 @@
 .form input::placeholder,
 .form textarea::placeholder {
   color: #7893a3;
+}
+
+.form input:-webkit-autofill,
+.form input:-webkit-autofill:hover,
+.form input:-webkit-autofill:focus,
+.form input:-webkit-autofill:active,
+.form textarea:-webkit-autofill,
+.form textarea:-webkit-autofill:hover,
+.form textarea:-webkit-autofill:focus,
+.form select:-webkit-autofill,
+.form select:-webkit-autofill:hover,
+.form select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f7fbfd !important;
+  caret-color: #f7fbfd;
+  -webkit-box-shadow: 0 0 0 1000px #071a28 inset !important;
+  box-shadow: 0 0 0 1000px #071a28 inset !important;
+  border: 1px solid #446479 !important;
+  background-color: #071a28 !important;
+  transition: background-color 9999s ease-out 0s;
 }
 
 .notes,
@@ -224,6 +244,7 @@
   width: 100%;
   height: auto;
   border-radius: 7px;
+  background: #071a28;
   box-shadow: 0 14px 32px rgba(0, 0, 0, .28);
 }
 
