@@ -10,7 +10,7 @@ const buyMenuMarkup = `<div class="live-nav-dropdown live-buy-dropdown" data-liv
   </button>
   <div class="live-nav-menu live-buy-menu">
     <a href="/listings">View Listings</a>
-    <a href="/buy-florida-liquor-license">Buy a Florida Liquor License</a>
+    <a href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License</a>
   </div>
 </div>`;
 
@@ -59,7 +59,7 @@ const installScript = `<script id="live-nav-dropdown-installer">
     wrap.className='live-nav-dropdown live-'+type+'-dropdown';
     wrap.setAttribute('data-live-'+type+'-dropdown','true');
     if(type==='buy'){
-      wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>Buy</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-buy-menu"><a href="/listings">View Listings</a><a href="/buy-florida-liquor-license">Buy a Florida Liquor License</a></div>';
+      wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>Buy</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-buy-menu"><a href="/listings">View Listings</a><a href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License</a></div>';
     }else if(type==='sell'){
       wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>Sell</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-sell-menu"><a href="/sell-your-license">Sell Your License</a><a href="/how-to-sell-florida-liquor-license">How to Sell a Florida Liquor License</a><a href="/florida-liquor-license-value">Get a License Valuation</a></div>';
     }else{
