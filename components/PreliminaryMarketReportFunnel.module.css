@@ -212,53 +212,18 @@
 
 .previewSection {
   margin-top: 4px;
-  padding: 12px;
-  border: 1px solid #38596d;
+  padding: 0;
+  border: 0;
   border-radius: 7px;
-  background: rgba(2, 17, 27, .56);
-}
-
-.previewHeading {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.previewHeading > span {
-  display: grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  flex: 0 0 24px;
-  border: 1px solid rgba(246, 167, 0, .58);
-  border-radius: 4px;
-  color: #f6a700;
-  font-size: 13px;
-}
-
-.previewHeading strong {
-  display: block;
-  margin: 1px 0 2px;
-  color: #f6a700;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-
-.previewHeading p {
-  margin: 0;
-  color: #c4d3db;
-  font-size: 9px;
-  line-height: 1.45;
+  background: transparent;
+  overflow: hidden;
 }
 
 .previewImage {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 7px;
   box-shadow: 0 14px 32px rgba(0, 0, 0, .28);
 }
 
@@ -347,7 +312,4 @@
   .includes span { min-height: auto; font-size: 13px; }
   .form label > span { font-size: 12px; }
   .consent span { font-size: 13px !important; }
-  .previewSection { padding: 9px; }
-  .previewHeading strong { font-size: 9px; }
-  .previewHeading p { font-size: 8px; }
 }
