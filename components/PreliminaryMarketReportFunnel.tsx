@@ -173,18 +173,12 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
             <span>I understand that the $195 product is a preliminary market report and not a certified or independent formal appraisal. I authorize FLLM to contact me if additional license information is needed.</span>
           </label>
 
-          <section className={styles.previewSection} aria-labelledby="example-report-preview-title">
-            <div className={styles.previewHeading}>
-              <span aria-hidden="true">▤</span>
-              <div>
-                <strong id="example-report-preview-title">Example Report Preview</strong>
-                <p>Below is a preview of what your Florida Liquor License Market Value Report includes.</p>
-              </div>
-            </div>
+          <section className={styles.previewSection} aria-label="Example report preview">
             <img
               className={styles.previewImage}
-              src="/assets/fllm-example-market-report-preview.webp"
+              src="/assets/fllm-example-market-report-preview.webp?v=20260820-1716"
               alt="Example Florida Liquor License Market Value Report cover beside a sample valuation page with comparable sales, market trend, county insights, and market indicators."
+              loading="eager"
             />
           </section>
 
