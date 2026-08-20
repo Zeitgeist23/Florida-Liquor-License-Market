@@ -180,93 +180,17 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
 
           <section className={styles.previewSection} aria-labelledby="example-report-preview-title">
             <div className={styles.previewHeading}>
-              <span className={styles.previewIcon} aria-hidden="true">▤</span>
+              <span aria-hidden="true">▤</span>
               <div>
-                <h6 id="example-report-preview-title">Example Report Preview</h6>
+                <strong id="example-report-preview-title">Example Report Preview</strong>
                 <p>Below is a preview of what your Florida Liquor License Market Value Report includes.</p>
               </div>
             </div>
-
-            <div className={styles.previewCanvas}>
-              <article className={styles.reportBook} aria-label="Example Florida Liquor License Market Value Report cover">
-                <div className={styles.bookSpine} aria-hidden="true" />
-                <div className={styles.bookGloss} aria-hidden="true" />
-                <img className={styles.bookLogo} src="/assets/brand-sharp.svg" alt="FLLM — Florida Liquor License Market" />
-                <div className={styles.bookTitle}>Florida Liquor License<br />Market Value Report</div>
-                <div className={styles.bookRule} />
-                <dl className={styles.bookDetails}>
-                  <div><dt>License Number</dt><dd>BEV7421986</dd></div>
-                  <div><dt>County / Quota</dt><dd>Orange County · 4COP</dd></div>
-                  <div><dt>Prepared On</dt><dd>May 15, 2024</dd></div>
-                </dl>
-                <div className={styles.bookPalm} aria-hidden="true">❯</div>
-                <div className={styles.bookWaves} aria-hidden="true"><i /><i /></div>
-              </article>
-
-              <article className={styles.reportSheet} aria-label="Example valuation summary page">
-                <header className={styles.sheetHeader}>
-                  <strong>Valuation Summary</strong>
-                  <span>Page 4 of 12</span>
-                </header>
-
-                <div className={styles.summaryGrid}>
-                  <div className={styles.valueCard}>
-                    <small>Estimated Market Value</small>
-                    <strong>$320,000</strong>
-                    <span>Market Confidence</span>
-                    <b>High</b>
-                  </div>
-                  <dl className={styles.subjectFacts}>
-                    <div><dt>License Type</dt><dd>4COP Quota</dd></div>
-                    <div><dt>County</dt><dd>Orange</dd></div>
-                    <div><dt>Date Prepared</dt><dd>05/15/2024</dd></div>
-                    <div><dt>License Number</dt><dd>BEV7421986</dd></div>
-                  </dl>
-                </div>
-
-                <section className={styles.chartBlock}>
-                  <h6>Comparable Sales (Last 12 Months)</h6>
-                  <div className={styles.barChart} aria-hidden="true">
-                    <span className={styles.barOne} /><span className={styles.barTwo} /><span className={styles.barThree} /><span className={styles.barFour} />
-                  </div>
-                  <div className={styles.chartLegend}><span>High</span><span>Average</span><span>Low</span><span>Subject Estimate</span></div>
-                </section>
-
-                <section className={styles.chartBlock}>
-                  <h6>Market Value Trend</h6>
-                  <svg className={styles.trendChart} viewBox="0 0 320 72" role="img" aria-label="Example upward market value trend">
-                    <line x1="10" y1="61" x2="310" y2="61" />
-                    <line x1="10" y1="10" x2="10" y2="61" />
-                    <polyline points="12,49 48,44 84,40 120,38 156,28 192,31 228,24 264,22 306,18" />
-                    <circle cx="12" cy="49" r="3" /><circle cx="48" cy="44" r="3" /><circle cx="84" cy="40" r="3" /><circle cx="120" cy="38" r="3" /><circle cx="156" cy="28" r="3" /><circle cx="192" cy="31" r="3" /><circle cx="228" cy="24" r="3" /><circle cx="264" cy="22" r="3" /><circle cx="306" cy="18" r="3" />
-                  </svg>
-                  <div className={styles.trendLabels}><span>May '23</span><span>Sep '23</span><span>Jan '24</span><span>May '24</span></div>
-                </section>
-
-                <div className={styles.sheetBottom}>
-                  <section>
-                    <h6>County / Market Insights</h6>
-                    <ul>
-                      <li>Consistent demand for 4COP quotas</li>
-                      <li>Limited new quota availability</li>
-                      <li>Strong tourism and population growth</li>
-                    </ul>
-                  </section>
-                  <section>
-                    <h6>Market Indicators</h6>
-                    <div className={styles.indicator}><span>Demand</span><i><b style={{ width: "86%" }} /></i><em>High</em></div>
-                    <div className={styles.indicator}><span>Inventory</span><i><b style={{ width: "32%" }} /></i><em>Low</em></div>
-                    <div className={styles.indicator}><span>Competition</span><i><b style={{ width: "61%" }} /></i><em>Moderate</em></div>
-                    <div className={styles.indicator}><span>Liquidity</span><i><b style={{ width: "58%" }} /></i><em>Moderate</em></div>
-                  </section>
-                </div>
-
-                <footer className={styles.sheetFooter}>
-                  <span>This example is a preliminary market analysis and is not a certified appraisal.</span>
-                  <img src="/assets/brand-sharp.svg" alt="FLLM" />
-                </footer>
-              </article>
-            </div>
+            <img
+              className={styles.previewImage}
+              src="/assets/fllm-example-market-report-preview.webp"
+              alt="Example Florida Liquor License Market Value Report cover beside a sample valuation page with comparable sales, market trend, county insights, and market indicators."
+            />
           </section>
 
           {error ? <p className={styles.error} role="alert">{error}</p> : null}
