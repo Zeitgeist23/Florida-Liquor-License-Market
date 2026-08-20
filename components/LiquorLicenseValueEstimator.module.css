@@ -63,19 +63,32 @@
   text-transform: uppercase;
 }
 
+.form label > span small {
+  margin-left: 5px;
+  color: #8fa8b6;
+  font-size: 8px;
+  letter-spacing: .04em;
+}
+
 .form select,
+.form input,
 .form button {
   min-height: 50px;
   border-radius: 6px;
   font: inherit;
 }
 
-.form select {
+.form select,
+.form input {
   width: 100%;
   padding: 0 13px;
   border: 1px solid #446479;
   color: #f7fbfd;
   background: #071a28;
+}
+
+.form input::placeholder {
+  color: #7893a3;
 }
 
 .form button {
@@ -459,6 +472,7 @@
   .leadForm label > span,
   .stats article span,
   .tableWrap th { font-size: 12px; }
+  .form label > span small { font-size: 10px; }
   .form button,
   .leadForm button,
   .actions a { font-size: 13px; }
