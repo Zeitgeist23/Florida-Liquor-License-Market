@@ -1,7 +1,17 @@
+import { gunzipSync } from "node:zlib";
+
 import { getAbtForm } from "@/data/abt-forms";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+
+// Interactive FLLM fillable copy of the current DBPR ABT-6023 form.
+// The PDF contains real AcroForm text fields and checkboxes, with page annotation
+// order explicitly set so Tab moves through fields in reading order.
+const FILLABLE_GZIP_BASE64 =
+  "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";
 
 export async function GET(request: Request) {
   const form = getAbtForm("abt-6023");
@@ -12,49 +22,19 @@ export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const download = requestUrl.searchParams.get("download") === "1";
 
-  try {
-    const upstream = await fetch(form.officialPdfUrl, {
-      cache: "no-store",
-      headers: {
-        Accept: "application/pdf,*/*;q=0.8",
-        "User-Agent": "FloridaLiquorLicenseMarket/1.0",
-      },
-    });
+  const pdfBytes = gunzipSync(Buffer.from(FILLABLE_GZIP_BASE64, "base64"));
 
-    if (!upstream.ok) {
-      throw new Error(`DBPR returned ${upstream.status}`);
-    }
-
-    const pdfBytes = await upstream.arrayBuffer();
-    const signature = new Uint8Array(pdfBytes, 0, Math.min(pdfBytes.byteLength, 5));
-    const startsWithPdf =
-      signature.length >= 5 &&
-      signature[0] === 0x25 &&
-      signature[1] === 0x50 &&
-      signature[2] === 0x44 &&
-      signature[3] === 0x46 &&
-      signature[4] === 0x2d;
-
-    if (!startsWithPdf) {
-      throw new Error("DBPR response was not a PDF");
-    }
-
-    return new Response(pdfBytes, {
-      status: 200,
-      headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": `${download ? "attachment" : "inline"}; filename="ABT-6023.pdf"`,
-        "Cache-Control": "no-store, max-age=0",
-        "X-Content-Type-Options": "nosniff",
-        "X-FLLM-Official-Source": form.officialPdfUrl,
-        "X-FLLM-Last-Verified": form.lastVerified,
-      },
-    });
-  } catch (error) {
-    console.error("Could not proxy official ABT-6023 PDF", error);
-
-    // If DBPR temporarily blocks server-side retrieval, let the browser open the
-    // official public PDF directly rather than leaving a broken embedded viewer.
-    return Response.redirect(form.officialPdfUrl, 307);
-  }
+  return new Response(pdfBytes, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `${download ? "attachment" : "inline"}; filename="ABT-6023-fillable.pdf"`,
+      "Content-Length": String(pdfBytes.byteLength),
+      "Cache-Control": "no-store, max-age=0",
+      "X-Content-Type-Options": "nosniff",
+      "X-FLLM-Official-Source": form.officialPdfUrl,
+      "X-FLLM-Last-Verified": form.lastVerified,
+      "X-FLLM-Interactive-Fields": "19",
+    },
+  });
 }
