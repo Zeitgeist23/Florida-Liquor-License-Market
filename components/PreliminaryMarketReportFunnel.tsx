@@ -33,10 +33,13 @@ function formatUsPhone(value: string) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
+const reportPreviewSrc = "/assets/fllm-example-market-report-preview.webp?v=20260820-1915";
+
 export default function PreliminaryMarketReportFunnel(props: Props) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [previewFailed, setPreviewFailed] = useState(false);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -226,7 +229,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
             </strong>
             <p
               style={{
-                margin: "6px 0 0",
+                margin: "6px 0 10px",
                 color: "#aebfc8",
                 fontSize: 12,
                 lineHeight: 1.5,
@@ -234,25 +237,38 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
             >
               This sample is illustrative. Your completed report will use research specific to the subject license and county.
             </p>
-          </div>
 
-          <img
-            src="/assets/fllm-preliminary-market-report-preview.webp?v=20260820-1856"
-            alt="Glossy Florida Liquor License Market Value Report cover beside a sample valuation summary page with comparable sales, market value trend, county insights and market indicators."
-            width={1448}
-            height={1086}
-            loading="eager"
-            decoding="sync"
-            style={{
-              gridColumn: "1 / -1",
-              display: "block",
-              width: "100%",
-              height: "auto",
-              marginTop: 2,
-              borderRadius: 10,
-              boxShadow: "0 16px 36px rgba(0,0,0,.30)",
-            }}
-          />
+            {!previewFailed ? (
+              <img
+                src={reportPreviewSrc}
+                alt="Glossy Florida Liquor License Market Value Report cover beside a sample valuation page with comparable sales, market trend, county insights and market indicators."
+                loading="eager"
+                decoding="async"
+                onError={() => setPreviewFailed(true)}
+                style={{
+                  display: "block",
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: 10,
+                  boxShadow: "0 16px 36px rgba(0,0,0,.30)",
+                }}
+              />
+            ) : (
+              <p
+                style={{
+                  margin: 0,
+                  padding: "12px 14px",
+                  border: "1px solid #38596d",
+                  borderRadius: 7,
+                  color: "#c7d5dc",
+                  background: "#071a28",
+                  fontSize: 12,
+                }}
+              >
+                The sample preview could not be loaded. The report order form and secure checkout remain available below.
+              </p>
+            )}
+          </div>
 
           {error ? <p className={styles.error} role="alert">{error}</p> : null}
 
