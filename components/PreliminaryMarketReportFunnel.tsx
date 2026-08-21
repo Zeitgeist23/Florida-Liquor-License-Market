@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import styles from "./PreliminaryMarketReportFunnel.module.css";
 
@@ -33,48 +33,12 @@ function formatUsPhone(value: string) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-const reportPreviewChunks = [
-  "/assets/report-preview-chunk-1.txt",
-  "/assets/report-preview-chunk-2.txt",
-  "/assets/report-preview-chunk-3.txt",
-  "/assets/report-preview-chunk-4.txt",
-  "/assets/report-preview-chunk-5.txt",
-  "/assets/report-preview-chunk-6.txt",
-  "/assets/report-preview-chunk-7.txt",
-  "/assets/report-preview-chunk-8.txt",
-];
+const reportPreviewSrc = "/assets/fllm-preliminary-market-report-preview.webp?v=20260820-2105";
 
 export default function PreliminaryMarketReportFunnel(props: Props) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [reportPreviewSrc, setReportPreviewSrc] = useState("");
-  const [previewError, setPreviewError] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    Promise.all(
-      reportPreviewChunks.map(async (url) => {
-        const response = await fetch(url, { cache: "force-cache" });
-        if (!response.ok) throw new Error(`Could not load ${url}`);
-        return (await response.text()).trim();
-      }),
-    )
-      .then((parts) => {
-        if (!cancelled) {
-          setReportPreviewSrc(`data:image/webp;base64,${parts.join("")}`);
-        }
-      })
-      .catch((cause) => {
-        console.error("Could not assemble the report preview", cause);
-        if (!cancelled) setPreviewError(true);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -157,39 +121,19 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
       </div>
 
       <div style={{ marginTop: 18, marginBottom: 18 }}>
-        {reportPreviewSrc ? (
-          <img
-            src={reportPreviewSrc}
-            alt="Glossy Florida Liquor License Market Value Report cover beside a sample valuation page with comparable sales, market trend, county insights and market indicators."
-            style={{
-              display: "block",
-              width: "100%",
-              height: "auto",
-              borderRadius: 10,
-              boxShadow: "0 16px 36px rgba(0,0,0,.30)",
-            }}
-          />
-        ) : previewError ? (
-          <p style={{ margin: 0, color: "#ffd8d4", fontSize: 12 }}>
-            The report preview could not be loaded.
-          </p>
-        ) : (
-          <div
-            aria-label="Loading report preview"
-            style={{
-              minHeight: 96,
-              display: "grid",
-              placeItems: "center",
-              border: "1px solid rgba(56,89,109,.5)",
-              borderRadius: 8,
-              color: "#aebfc8",
-              fontSize: 12,
-              background: "rgba(2,17,27,.28)",
-            }}
-          >
-            Loading report preview…
-          </div>
-        )}
+        <img
+          src={reportPreviewSrc}
+          alt="Glossy Florida Liquor License Market Value Report cover beside a sample valuation page with comparable sales, market trend, county insights and market indicators."
+          loading="eager"
+          decoding="async"
+          style={{
+            display: "block",
+            width: "100%",
+            height: "auto",
+            borderRadius: 10,
+            boxShadow: "0 16px 36px rgba(0,0,0,.30)",
+          }}
+        />
       </div>
 
       <p className={styles.boundary}>
