@@ -51,6 +51,9 @@ export default async function FloridaAbtFormWorkspacePage(
   const form = getAbtForm(formId.toLowerCase());
   if (!form) notFound();
 
+  const isAbt6023 = form.id === "abt-6023";
+  const abt6023PdfPath = "/api/abt-forms/abt-6023/pdf";
+
   return (
     <main className="abt-forms-page abt-single-form-page">
       <div className="abt-header-wrap">
@@ -92,7 +95,31 @@ export default async function FloridaAbtFormWorkspacePage(
           <ul>{form.useCases.map((useCase) => <li key={useCase}>{useCase}</li>)}</ul>
         </div>
 
-        <AbtPdfFormWorkspace form={form} projectTransactionId={transactionId || null} />
+        {isAbt6023 ? (
+          <section className="abt-workspace" aria-label={`${form.formNumber} fillable PDF workspace`}>
+            <div className="abt-viewer-panel">
+              <div className="abt-viewer-toolbar">
+                <div>
+                  <strong>Fillable {form.formNumber}</strong>
+                  <small>Complete the fields and checkboxes directly in the PDF viewer.</small>
+                </div>
+                <div>
+                  <a className="btn btn-outline" href={abt6023PdfPath} target="_blank" rel="noreferrer">Open Full Page</a>
+                  <a className="btn btn-gold" href={`${abt6023PdfPath}?download=1`}>Download Fillable Form</a>
+                </div>
+              </div>
+              <iframe
+                src={`${abt6023PdfPath}#toolbar=1&navpanes=0`}
+                title={`Fillable ${form.formNumber} PDF`}
+              />
+              <p className="abt-viewer-help">
+                ABT-6023 is completed directly in the browser PDF viewer so its fillable fields and checkboxes remain interactive. Use the PDF toolbar to save, print, or download your completed copy.
+              </p>
+            </div>
+          </section>
+        ) : (
+          <AbtPdfFormWorkspace form={form} projectTransactionId={transactionId || null} />
+        )}
       </section>
 
       <section className="abt-disclaimer page-shell" aria-label="Legal disclaimer">
