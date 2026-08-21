@@ -52,7 +52,7 @@ export default async function FloridaAbtFormWorkspacePage(
   if (!form) notFound();
 
   const isAbt6023 = form.id === "abt-6023";
-  const abt6023PdfPath = "/api/abt-forms/abt-6023/pdf";
+  const abt6023PdfPath = "/abt-forms/abt-6023.pdf";
 
   return (
     <main className="abt-forms-page abt-single-form-page">
@@ -105,7 +105,7 @@ export default async function FloridaAbtFormWorkspacePage(
                 </div>
                 <div>
                   <a className="btn btn-outline" href={abt6023PdfPath} target="_blank" rel="noreferrer">Open Full Page</a>
-                  <a className="btn btn-gold" href={`${abt6023PdfPath}?download=1`}>Download Fillable Form</a>
+                  <a className="btn btn-gold" href={abt6023PdfPath} download="ABT-6023-interactive.pdf">Download Fillable Form</a>
                 </div>
               </div>
               <iframe
