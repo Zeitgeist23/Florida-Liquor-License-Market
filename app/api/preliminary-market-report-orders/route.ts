@@ -1,7 +1,9 @@
+import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 
 import {
   createPreliminaryMarketReportOrder,
+  type PreliminaryMarketReportOrder,
 } from "@/lib/preliminary-market-report";
 import {
   attachCheckoutSession,
@@ -66,8 +68,50 @@ async function retryTransient<T>(task: () => Promise<T>, label: string): Promise
   }
 }
 
+function fallbackOrder(body: RequestBody): PreliminaryMarketReportOrder {
+  const fullName = (body.name ?? "").trim();
+  const email = (body.email ?? "").trim().toLowerCase();
+  const phone = (body.phone ?? "").trim();
+  const county = (body.county ?? "").trim();
+  const licenseType = (body.license_type ?? "").trim();
+  const licenseStatus = (body.license_status ?? "").trim();
+  const preferredTiming = (body.preferred_timing ?? "").trim();
+  const licenseNumber = (body.license_number ?? "").trim();
+  const currentHolderOfRecord = (body.current_holder_of_record ?? "").trim() || null;
+  const relationship = (body.relationship ?? "").trim();
+  const purpose = (body.purpose ?? "").trim();
+
+  if (!fullName || !email || !phone || !county || !licenseType || !licenseNumber || !relationship || !purpose) {
+    throw new Error("Please complete all required preliminary market report fields.");
+  }
+  if (!/^\S+@\S+\.\S+$/.test(email)) throw new Error("Please enter a valid email address.");
+
+  const id = randomUUID();
+  const refDate = new Date().toISOString().slice(0, 10).replaceAll("-", "");
+  const submissionRef = `FLLM-REPORT-${refDate}-${id.slice(0, 8).toUpperCase()}`;
+
+  return {
+    id,
+    submissionRef,
+    fullName,
+    firstName: fullName.split(/\s+/)[0] || "there",
+    email,
+    phone,
+    county,
+    licenseType,
+    licenseStatus,
+    preferredTiming,
+    licenseNumber,
+    currentHolderOfRecord,
+    relationship,
+    purpose,
+  };
+}
+
 export async function POST(request: Request) {
   let orderId: string | null = null;
+  let orderPersisted = false;
+
   try {
     const body = (await request.json()) as RequestBody;
 
@@ -79,32 +123,45 @@ export async function POST(request: Request) {
     }
 
     const estimate = body.estimate ?? {};
-    const createOrder = () => createPreliminaryMarketReportOrder({
-      fullName: body.name ?? "",
-      email: body.email ?? "",
-      phone: body.phone ?? "",
-      county: body.county ?? "",
-      licenseType: body.license_type ?? "",
-      licenseStatus: body.license_status ?? "",
-      preferredTiming: body.preferred_timing ?? "",
-      licenseNumber: body.license_number ?? "",
-      currentHolderOfRecord: body.current_holder_of_record,
-      relationship: body.relationship ?? "",
-      purpose: body.purpose ?? "",
-      notes: body.notes,
-      estimate: {
-        count: typeof estimate.count === "number" ? estimate.count : 0,
-        low: amount(estimate.low),
-        median: amount(estimate.median),
-        high: amount(estimate.high),
-        typicalLow: amount(estimate.typicalLow),
-        typicalHigh: amount(estimate.typicalHigh),
-        confidence: estimate.confidence ?? "unavailable",
-        generatedAt: estimate.generatedAt ?? new Date().toISOString(),
-      },
-    });
+    let order: PreliminaryMarketReportOrder;
 
-    const order = await retryTransient(createOrder, "Market report order save");
+    try {
+      order = await retryTransient(
+        () => createPreliminaryMarketReportOrder({
+          fullName: body.name ?? "",
+          email: body.email ?? "",
+          phone: body.phone ?? "",
+          county: body.county ?? "",
+          licenseType: body.license_type ?? "",
+          licenseStatus: body.license_status ?? "",
+          preferredTiming: body.preferred_timing ?? "",
+          licenseNumber: body.license_number ?? "",
+          currentHolderOfRecord: body.current_holder_of_record,
+          relationship: body.relationship ?? "",
+          purpose: body.purpose ?? "",
+          notes: body.notes,
+          estimate: {
+            count: typeof estimate.count === "number" ? estimate.count : 0,
+            low: amount(estimate.low),
+            median: amount(estimate.median),
+            high: amount(estimate.high),
+            typicalLow: amount(estimate.typicalLow),
+            typicalHigh: amount(estimate.typicalHigh),
+            confidence: estimate.confidence ?? "unavailable",
+            generatedAt: estimate.generatedAt ?? new Date().toISOString(),
+          },
+        }),
+        "Market report order save",
+      );
+      orderPersisted = true;
+    } catch (databaseError) {
+      // Do not block a customer from reaching Stripe solely because the
+      // internal order database is unavailable. Stripe receives the order
+      // reference and subject-license metadata and the payment remains traceable.
+      console.error("Market report order database save failed; continuing to Stripe", databaseError);
+      order = fallbackOrder(body);
+    }
+
     orderId = order.id;
 
     const checkout = await retryTransient(
@@ -112,17 +169,15 @@ export async function POST(request: Request) {
       "Stripe report checkout",
     );
 
-    // A temporary database update failure should not prevent a customer from
-    // reaching a valid Stripe Checkout session. The order reference is already
-    // stored before the checkout is created and Stripe also receives it as
-    // client_reference_id and metadata.
-    try {
-      await retryTransient(
-        () => attachCheckoutSession(order.id, checkout.id),
-        "Checkout session attachment",
-      );
-    } catch (attachError) {
-      console.error("Could not attach checkout session before redirect", attachError);
+    if (orderPersisted) {
+      try {
+        await retryTransient(
+          () => attachCheckoutSession(order.id, checkout.id),
+          "Checkout session attachment",
+        );
+      } catch (attachError) {
+        console.error("Could not attach checkout session before redirect", attachError);
+      }
     }
 
     return NextResponse.json({
@@ -136,7 +191,7 @@ export async function POST(request: Request) {
       ? "Secure checkout could not be reached. Please try again in a moment."
       : rawMessage || "Unable to create the preliminary market report order.";
 
-    if (orderId) {
+    if (orderId && orderPersisted) {
       try {
         await markCheckoutFailed(orderId, rawMessage);
       } catch (markError) {
