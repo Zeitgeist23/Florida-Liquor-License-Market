@@ -62,33 +62,13 @@ export default function FloridaAbtFormsPage() {
               <div className="abt-card-actions">
                 <a
                   className="btn btn-gold"
-                  href={
-                    form.id === "abt-6002"
-                      ? "/dbpr-abt-6002"
-                      : form.id === "abt-6023"
-                        ? form.officialPdfUrl
-                        : `/resources/forms/${form.id}`
-                  }
-                  {...(form.id === "abt-6023" ? { target: "_blank", rel: "noreferrer" } : {})}
+                  href={form.id === "abt-6002" ? "/dbpr-abt-6002" : `/resources/forms/${form.id}`}
                 >
-                  {form.id === "abt-6002"
-                    ? "ABT-6002 Guide & Form"
-                    : form.id === "abt-6023"
-                      ? "Open Official Form"
-                      : "Complete Form Online"}
+                  {form.id === "abt-6002" ? "ABT-6002 Guide & Form" : "Complete Form Online"}
                 </a>
-                {form.id === "abt-6023" ? (
-                  <a
-                    className="btn btn-outline"
-                    href="https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=12898&clientCode=4089&xactCode=1030"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    DBPR Filing Requirements
-                  </a>
-                ) : (
-                  <a className="btn btn-outline" href={`/api/abt-forms/${form.id}/pdf`} target="_blank" rel="noreferrer">View Blank Form</a>
-                )}
+                <a className="btn btn-outline" href={`/api/abt-forms/${form.id}/pdf`} target="_blank" rel="noreferrer">
+                  {form.id === "abt-6023" ? "View Interactive Blank Form" : "View Blank Form"}
+                </a>
               </div>
             </article>
           ))}
