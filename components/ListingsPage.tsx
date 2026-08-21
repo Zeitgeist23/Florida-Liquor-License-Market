@@ -167,7 +167,7 @@ export default function ListingsPage({ initialListings, focusReference = null }:
         <Link className="seller-brand" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /></Link>
         <HeaderNavMenus className="primary-nav listings-primary-nav" showContactLink />
       </header>
-      <section className="results-intro"><div className="page-shell"><span>Florida Marketplace Inventory</span><h1>Florida Liquor Licenses <span className="listings-title-gold">for Sale</span></h1><p className="listings-seo-intro">Browse {availableCount} current Florida liquor licenses for sale. Filter by county, license type, asking price, and availability.</p></div></section>
+      <section className="results-intro"><div className="page-shell"><span>Florida Marketplace Inventory</span><h1>Florida Liquor Licenses <span className="listings-title-gold">for Sale</span></h1><p className="listings-seo-intro">Browse {availableCount} current Florida liquor licenses for sale across the statewide marketplace. Compare transferable <Link href="/florida-4cop-liquor-license-for-sale">4COP quota liquor licenses</Link> and <Link href="/florida-3ps-liquor-license-for-sale">3PS package-store licenses</Link>, then filter current inventory by county, license type, asking price, and availability. Buyers can also use the <Link href="/counties">Florida county market directory</Link> to review county-specific inventory and pricing before opening an individual listing for details.</p></div></section>
       <section className="results-content"><div className="page-shell">
         <form className="results-filters" onSubmit={(event) => event.preventDefault()}>
           <label>
