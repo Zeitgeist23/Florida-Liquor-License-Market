@@ -38,7 +38,7 @@ export default function FloridaAbtFormsPage() {
       <section className="abt-forms-content page-shell" aria-labelledby="forms-heading">
         <div className="abt-section-heading">
           <div>
-            <span>Eight frequently used applications</span>
+            <span>Nine frequently used applications</span>
             <h2 id="forms-heading">Choose a form to begin</h2>
           </div>
           <p>
@@ -60,10 +60,35 @@ export default function FloridaAbtFormsPage() {
               </ul>
               <div className="abt-card-meta">Current official form · Last verified {form.lastVerified}</div>
               <div className="abt-card-actions">
-                <a className="btn btn-gold" href={form.id === "abt-6002" ? "/dbpr-abt-6002" : `/resources/forms/${form.id}`}>
-                  {form.id === "abt-6002" ? "ABT-6002 Guide & Form" : "Complete Form Online"}
+                <a
+                  className="btn btn-gold"
+                  href={
+                    form.id === "abt-6002"
+                      ? "/dbpr-abt-6002"
+                      : form.id === "abt-6023"
+                        ? form.officialPdfUrl
+                        : `/resources/forms/${form.id}`
+                  }
+                  {...(form.id === "abt-6023" ? { target: "_blank", rel: "noreferrer" } : {})}
+                >
+                  {form.id === "abt-6002"
+                    ? "ABT-6002 Guide & Form"
+                    : form.id === "abt-6023"
+                      ? "Open Official Form"
+                      : "Complete Form Online"}
                 </a>
-                <a className="btn btn-outline" href={`/api/abt-forms/${form.id}/pdf`} target="_blank" rel="noreferrer">View Blank Form</a>
+                {form.id === "abt-6023" ? (
+                  <a
+                    className="btn btn-outline"
+                    href="https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=12898&clientCode=4089&xactCode=1030"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    DBPR Filing Requirements
+                  </a>
+                ) : (
+                  <a className="btn btn-outline" href={`/api/abt-forms/${form.id}/pdf`} target="_blank" rel="noreferrer">View Blank Form</a>
+                )}
               </div>
             </article>
           ))}
