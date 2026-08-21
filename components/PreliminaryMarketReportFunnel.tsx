@@ -33,13 +33,12 @@ function formatUsPhone(value: string) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-const reportPreviewSrc = "/assets/fllm-preliminary-market-report-preview.webp?v=20260820-1945";
+const reportPreviewSrc = "/assets/fllm-preliminary-market-report-preview.webp?v=20260820-1956";
 
 export default function PreliminaryMarketReportFunnel(props: Props) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [previewFailed, setPreviewFailed] = useState(false);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -119,6 +118,31 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
         <span>Available transfer &amp; transaction evidence</span>
         <span>Market conditions &amp; indicated value range</span>
         <span>Sources, methodology &amp; limitations</span>
+      </div>
+
+      <div
+        style={{
+          marginTop: 18,
+          marginBottom: 18,
+        }}
+      >
+        <img
+          src={reportPreviewSrc}
+          alt="Glossy Florida Liquor License Market Value Report cover beside a sample valuation page with comparable sales, market trend, county insights and market indicators."
+          loading="eager"
+          style={{
+            display: "block",
+            width: "100%",
+            height: "auto",
+            maxHeight: 620,
+            objectFit: "contain",
+            borderRadius: 10,
+            boxShadow: "0 16px 36px rgba(0,0,0,.30)",
+          }}
+          onError={(event) => {
+            event.currentTarget.style.display = "none";
+          }}
+        />
       </div>
 
       <p className={styles.boundary}>
@@ -205,32 +229,6 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
             <input name="terms_accepted" type="checkbox" value="Accepted" required />
             <span>I understand that the $195 product is a preliminary market report and not a certified or independent formal appraisal. I authorize FLLM to contact me if additional license information is needed.</span>
           </label>
-
-          <div style={{ gridColumn: "1 / -1", marginTop: 10 }}>
-            <span style={{ display: "block", color: "#f6a700", fontSize: 10, fontWeight: 900, letterSpacing: ".1em", textTransform: "uppercase" }}>
-              Example report preview
-            </span>
-            <strong style={{ display: "block", marginTop: 5, color: "#fff", fontSize: 18 }}>
-              See the report format before checkout
-            </strong>
-            <p style={{ margin: "6px 0 10px", color: "#aebfc8", fontSize: 12, lineHeight: 1.5 }}>
-              This sample is illustrative. Your completed report will use research specific to the subject license and county.
-            </p>
-
-            {!previewFailed ? (
-              <img
-                src={reportPreviewSrc}
-                alt="Glossy Florida Liquor License Market Value Report cover beside a sample valuation page with comparable sales, market trend, county insights and market indicators."
-                loading="eager"
-                onError={() => setPreviewFailed(true)}
-                style={{ display: "block", width: "100%", height: "auto", maxHeight: 620, objectFit: "contain", borderRadius: 10, boxShadow: "0 16px 36px rgba(0,0,0,.30)" }}
-              />
-            ) : (
-              <p style={{ margin: 0, color: "#ffd8d4", fontSize: 12 }}>
-                The sample preview could not be loaded.
-              </p>
-            )}
-          </div>
 
           {error ? <p className={styles.error} role="alert">{error}</p> : null}
 
