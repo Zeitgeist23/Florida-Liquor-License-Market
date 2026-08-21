@@ -53,7 +53,7 @@ export default async function FloridaAbtFormWorkspacePage(
 
   const isAbt6023 = form.id === "abt-6023";
   const abt6023PdfPath = "/api/abt-forms/abt-6023/pdf";
-  const abt6023ViewerPath = `${abt6023PdfPath}?v=20260821-2`;
+  const abt6023ViewerPath = `${abt6023PdfPath}?v=20260821-3`;
 
   return (
     <main className="abt-forms-page abt-single-form-page">
@@ -81,7 +81,7 @@ export default async function FloridaAbtFormWorkspacePage(
             <aside>
               <span>Last verified</span>
               <strong>{form.lastVerified}</strong>
-              <small>Loaded from the current official DBPR/ABT PDF source and displayed through FLLM.</small>
+              <small>Based on the current official DBPR/ABT form and displayed through FLLM.</small>
             </aside>
           </div>
         </div>
@@ -97,24 +97,25 @@ export default async function FloridaAbtFormWorkspacePage(
         </div>
 
         {isAbt6023 ? (
-          <section className="abt-workspace" aria-label={`${form.formNumber} PDF workspace`}>
+          <section className="abt-workspace" aria-label={`${form.formNumber} fillable PDF workspace`}>
             <div className="abt-viewer-panel">
               <div className="abt-viewer-toolbar">
                 <div>
-                  <strong>Official {form.formNumber}</strong>
-                  <small>View the current DBPR form directly in your browser.</small>
+                  <strong>Interactive Fillable {form.formNumber}</strong>
+                  <small>Tab through the fields in order and click the checklist boxes directly in the PDF.</small>
                 </div>
                 <div>
-                  <a className="btn btn-outline" href={abt6023ViewerPath} target="_blank" rel="noreferrer">Open Full Page</a>
-                  <a className="btn btn-gold" href={`${abt6023PdfPath}?download=1`}>Download Form</a>
+                  <a className="btn btn-outline" href={form.officialPdfUrl} target="_blank" rel="noreferrer">View Official DBPR PDF</a>
+                  <a className="btn btn-outline" href={abt6023ViewerPath} target="_blank" rel="noreferrer">Open Fillable Full Page</a>
+                  <a className="btn btn-gold" href={`${abt6023PdfPath}?download=1`}>Download Fillable Form</a>
                 </div>
               </div>
               <iframe
                 src={`${abt6023ViewerPath}#toolbar=1&navpanes=0`}
-                title={`${form.formNumber} PDF`}
+                title={`Interactive fillable ${form.formNumber} PDF`}
               />
               <p className="abt-viewer-help">
-                This viewer loads the current official DBPR/ABT form through FLLM. Use the PDF toolbar to save, print, or download a copy. If the embedded viewer is unavailable, use Open Full Page above.
+                This FLLM interactive copy is based on the current official DBPR/ABT ABT-6023 form. It contains real PDF form fields and checkboxes. Use Tab to move through fields in reading order, click the checklist boxes to toggle them, and use the PDF toolbar to save or print your completed copy.
               </p>
             </div>
           </section>
