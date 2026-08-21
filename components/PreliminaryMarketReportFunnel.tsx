@@ -33,7 +33,7 @@ function formatUsPhone(value: string) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-const reportPreviewSrc = "/assets/fllm-example-market-report-preview.webp?v=20260820-1915";
+const reportPreviewSrc = "/assets/fllm-preliminary-market-report-preview.webp?v=20260820-1945";
 
 export default function PreliminaryMarketReportFunnel(props: Props) {
   const [open, setOpen] = useState(false);
@@ -71,11 +71,18 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
         }),
       });
 
-      const result = (await response.json()) as { checkoutUrl?: string | null; error?: string };
+      let result: { checkoutUrl?: string | null; error?: string } = {};
+      try {
+        result = (await response.json()) as { checkoutUrl?: string | null; error?: string };
+      } catch {
+        throw new Error(`Secure checkout returned an invalid response (${response.status}).`);
+      }
+
       if (!response.ok || !result.checkoutUrl) {
         throw new Error(result.error || "Unable to open secure checkout.");
       }
-      window.location.assign(result.checkoutUrl);
+
+      window.location.href = result.checkoutUrl;
     } catch (cause) {
       const message = cause instanceof Error ? cause.message : "Unable to open secure checkout.";
       setError(
@@ -199,42 +206,14 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
             <span>I understand that the $195 product is a preliminary market report and not a certified or independent formal appraisal. I authorize FLLM to contact me if additional license information is needed.</span>
           </label>
 
-          <div
-            style={{
-              gridColumn: "1 / -1",
-              marginTop: 10,
-            }}
-          >
-            <span
-              style={{
-                display: "block",
-                color: "#f6a700",
-                fontSize: 10,
-                fontWeight: 900,
-                letterSpacing: ".1em",
-                textTransform: "uppercase",
-              }}
-            >
+          <div style={{ gridColumn: "1 / -1", marginTop: 10 }}>
+            <span style={{ display: "block", color: "#f6a700", fontSize: 10, fontWeight: 900, letterSpacing: ".1em", textTransform: "uppercase" }}>
               Example report preview
             </span>
-            <strong
-              style={{
-                display: "block",
-                marginTop: 5,
-                color: "#fff",
-                fontSize: 18,
-              }}
-            >
+            <strong style={{ display: "block", marginTop: 5, color: "#fff", fontSize: 18 }}>
               See the report format before checkout
             </strong>
-            <p
-              style={{
-                margin: "6px 0 10px",
-                color: "#aebfc8",
-                fontSize: 12,
-                lineHeight: 1.5,
-              }}
-            >
+            <p style={{ margin: "6px 0 10px", color: "#aebfc8", fontSize: 12, lineHeight: 1.5 }}>
               This sample is illustrative. Your completed report will use research specific to the subject license and county.
             </p>
 
@@ -243,29 +222,12 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
                 src={reportPreviewSrc}
                 alt="Glossy Florida Liquor License Market Value Report cover beside a sample valuation page with comparable sales, market trend, county insights and market indicators."
                 loading="eager"
-                decoding="async"
                 onError={() => setPreviewFailed(true)}
-                style={{
-                  display: "block",
-                  width: "100%",
-                  height: "auto",
-                  borderRadius: 10,
-                  boxShadow: "0 16px 36px rgba(0,0,0,.30)",
-                }}
+                style={{ display: "block", width: "100%", height: "auto", maxHeight: 620, objectFit: "contain", borderRadius: 10, boxShadow: "0 16px 36px rgba(0,0,0,.30)" }}
               />
             ) : (
-              <p
-                style={{
-                  margin: 0,
-                  padding: "12px 14px",
-                  border: "1px solid #38596d",
-                  borderRadius: 7,
-                  color: "#c7d5dc",
-                  background: "#071a28",
-                  fontSize: 12,
-                }}
-              >
-                The sample preview could not be loaded. The report order form and secure checkout remain available below.
+              <p style={{ margin: 0, color: "#ffd8d4", fontSize: 12 }}>
+                The sample preview could not be loaded.
               </p>
             )}
           </div>
