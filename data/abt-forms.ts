@@ -37,6 +37,18 @@ export const ABT_FORMS: AbtFormDefinition[] = [
     lastVerified: "July 29, 2026",
   },
   {
+    id: "abt-6023",
+    formNumber: "DBPR ABT-6023",
+    title: "Request for Alcoholic Beverage License Lien Search",
+    shortTitle: "Alcoholic Beverage License Lien Search",
+    description:
+      "Request an official DBPR/ABT search for liens or mortgagee interests recorded against a Florida spirituous alcoholic beverage license.",
+    useCases: ["Buyer due diligence before closing", "Confirm recorded liens or mortgagee interests", "License-secured financing review"],
+    officialPdfUrl:
+      "https://www2.myfloridalicense.com/abt/documents/LienSearchRequestForm.pdf",
+    lastVerified: "August 21, 2026",
+  },
+  {
     id: "abt-6027",
     formNumber: "DBPR ABT-6027",
     title: "Application for Inactive Status or Waiver of Active Operation Requirements",
