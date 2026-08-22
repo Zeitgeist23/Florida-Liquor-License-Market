@@ -17,11 +17,6 @@
       internal: true,
     },
     {
-      label: "Liquor License Attorneys",
-      href: "/resources/liquor-license-attorneys",
-      internal: true,
-    },
-    {
       label: "Florida Division of Alcoholic Beverages",
       href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
     },
