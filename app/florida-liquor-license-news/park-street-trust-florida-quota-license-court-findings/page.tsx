@@ -141,6 +141,9 @@ export default function ParkStreetTrustCourtFindingsPage() {
           <p>
             This is a Florida circuit-court trial decision, not statewide appellate precedent. FLLM presents the decision for market and educational context and does not express an opinion on the correctness of the ruling or provide legal advice.
           </p>
+          <p>
+            For users seeking counsel for a Florida liquor-license dispute or appeal, FLLM also maintains an independent directory of <Link href="/resources/liquor-license-attorneys#litigation-appeals">Florida Liquor License Litigation &amp; Appeals Attorneys</Link>.
+          </p>
         </section>
 
         <section className="news-court-document" id="full-court-findings" aria-labelledby="court-document-title">
@@ -183,6 +186,7 @@ export default function ParkStreetTrustCourtFindingsPage() {
 
         <div className="news-article-actions">
           <Link href="/florida-liquor-license-news">← Back to Florida Liquor License News</Link>
+          <Link href="/resources/liquor-license-attorneys#litigation-appeals">Find Litigation &amp; Appeals Attorneys</Link>
           <Link href="/listings">Browse Current Licenses</Link>
         </div>
       </article>
