@@ -142,6 +142,9 @@ export default function ParkStreetTrustCourtFindingsPage() {
             This is a Florida circuit-court trial decision, not statewide appellate precedent. FLLM presents the decision for market and educational context and does not express an opinion on the correctness of the ruling or provide legal advice.
           </p>
           <p>
+            For a broader explanation of how Florida law can treat a liquor license as a regulatory privilege while recognizing transferable economic and property-like characteristics in other contexts, read FLLM&apos;s <Link href="/resources/florida-liquor-license-property-or-privilege">Is a Florida Liquor License Property or a Privilege?</Link> explainer.
+          </p>
+          <p>
             For users seeking counsel for a Florida liquor-license dispute or appeal, FLLM also maintains an independent directory of <Link href="/resources/liquor-license-attorneys#litigation-appeals">Florida Liquor License Litigation &amp; Appeals Attorneys</Link>.
           </p>
         </section>
@@ -186,6 +189,7 @@ export default function ParkStreetTrustCourtFindingsPage() {
 
         <div className="news-article-actions">
           <Link href="/florida-liquor-license-news">← Back to Florida Liquor License News</Link>
+          <Link href="/resources/florida-liquor-license-property-or-privilege">Property or Privilege Explainer</Link>
           <Link href="/resources/liquor-license-attorneys#litigation-appeals">Find Litigation &amp; Appeals Attorneys</Link>
           <Link href="/listings">Browse Current Licenses</Link>
         </div>
