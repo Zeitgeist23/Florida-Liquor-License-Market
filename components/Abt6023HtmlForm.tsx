@@ -157,7 +157,8 @@ export default function Abt6023HtmlForm({ form }: { form: AbtFormDefinition }) {
       page.drawText("Generated through FloridaLiquorLicenseMarket.com", { x: 330, y: 34, size: 8, font: italic, color: black });
 
       const bytes = await doc.save();
-      const blob = new Blob([bytes], { type: "application/pdf" });
+      const pdfBuffer = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
+      const blob = new Blob([pdfBuffer], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
