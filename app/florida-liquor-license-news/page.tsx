@@ -8,6 +8,7 @@ import "./news-insights.css";
 import "./news-mobile-readability.css";
 import "./current-events.css";
 import "./court-decisions.css";
+import "./supplemental-sources.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-news`;
@@ -252,6 +253,21 @@ export default function FloridaLiquorLicenseNewsPage() {
               </article>
             ))}
           </div>
+
+          <aside className="news-practitioner-source" aria-label="Additional practitioner source for the 2023 restaurant liquor-license reform">
+            <div>
+              <span>Legislation &amp; Reform · Additional Source</span>
+              <h3>Lowndes: Change in Florida Alcohol Statute Eases Requirements for Restaurant Liquor Licenses</h3>
+              <p>
+                Lowndes also analyzed the 2023 special food service reform, emphasizing that the reduced size and seating thresholds can allow more small restaurants to qualify for full-liquor service without purchasing a quota license on the open market.
+              </p>
+            </div>
+            <div className="news-practitioner-source-meta">
+              <span>July 24, 2023 · Lowndes</span>
+              <Link href="/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs">Read the FLLM Reform Analysis</Link>
+              <a href="https://www.lowndes-law.com/newsroom/insights/change-in-florida-alcohol-statute-eases-requirements-for-restaurant-liquor-licenses" target="_blank" rel="noopener noreferrer">View Lowndes Source ↗</a>
+            </div>
+          </aside>
         </div>
       </section>
 
