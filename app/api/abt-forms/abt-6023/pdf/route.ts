@@ -8,6 +8,7 @@ const W=612,H=792,B=rgb(0,0,0),WHITE=rgb(1,1,1),GRAY=rgb(.82,.82,.82),FB=rgb(.47
 const center=(p:PDFPage,t:string,y:number,s:number,f:PDFFont)=>p.drawText(t,{x:(W-f.widthOfTextAtSize(t,s))/2,y,size:s,font:f,color:B});
 const row=(p:PDFPage,x:number,y:number,w:number,h=25)=>p.drawRectangle({x,y:y-h,width:w,height:h,borderColor:B,borderWidth:1});
 const section=(p:PDFPage,x:number,y:number,w:number,t:string,f:PDFFont)=>{p.drawRectangle({x,y:y-20,width:w,height:20,color:GRAY,borderColor:B,borderWidth:1});const s=10;p.drawText(t,{x:x+(w-f.widthOfTextAtSize(t,s))/2,y:y-14,size:s,font:f,color:B});};
+const toArrayBuffer=(bytes:Uint8Array)=>bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength) as ArrayBuffer;
 
 async function build(){
   const d=await PDFDocument.create(),regular=await d.embedFont(StandardFonts.Helvetica),bold=await d.embedFont(StandardFonts.HelveticaBold),italic=await d.embedFont(StandardFonts.HelveticaOblique),form=d.getForm();
@@ -22,7 +23,7 @@ async function build(){
   p1.drawText("GENERAL INSTRUCTIONS",{x:72,y:560,size:10,font:bold,color:B});p1.drawText("Please complete all information. All questions are applicable.",{x:72,y:536,size:10,font:regular,color:B});
   p1.drawText("REQUEST REQUIREMENTS",{x:72,y:505,size:10,font:bold,color:B});p1.drawText("The request must be accompanied by a check in the amount of $20.00. Make checks payable to the",{x:72,y:480,size:10,font:regular,color:B});p1.drawText("Division of Alcoholic Beverages & Tobacco.",{x:72,y:467,size:10,font:regular,color:B});
   p1.drawText("REQUEST CHECKLIST",{x:72,y:435,size:10,font:bold,color:B});
-  const x=72,top=420,w=468,l=142;p1.drawRectangle({x,y:320,width:w,height:100,borderColor:B,borderWidth:1});p1.drawRectangle({x,y:396,width:w,height:24,color:GRAY,borderColor:B,borderWidth:1});p1.drawLine({start:{x:x+l,y:420},end:{x:x+l,y:320},thickness:1,color:B});
+  const x=72,w=468,l=142;p1.drawRectangle({x,y:320,width:w,height:100,borderColor:B,borderWidth:1});p1.drawRectangle({x,y:396,width:w,height:24,color:GRAY,borderColor:B,borderWidth:1});p1.drawLine({start:{x:x+l,y:420},end:{x:x+l,y:320},thickness:1,color:B});
   p1.drawText("TRANSACTION",{x:x+6,y:404,size:9,font:bold,color:B});p1.drawText("REQUEST REQUIREMENTS",{x:x+l+6,y:404,size:9,font:bold,color:B});
   ["APPLICATION FOR","ALCOHOLIC BEVERAGE","LICENSE LIEN SEARCH"].forEach((t,i)=>p1.drawText(t,{x:x+6,y:373-i*14,size:9,font:bold,color:B}));
   box(p1,"Checklist_Complete_Application",x+l+12,373);p1.drawText("Complete DBPR ABT-6023 Application for Alcoholic Beverage",{x:x+l+30,y:380,size:9,font:regular,color:B});p1.drawText("License Lien Search",{x:x+l+30,y:367,size:9,font:regular,color:B});
@@ -50,13 +51,13 @@ async function build(){
   form.updateFieldAppearances(regular);return d.save({useObjectStreams:false});
 }
 
-function headers(cfg:ReturnType<typeof getAbtForm>,download:boolean,total:number){return {"Content-Type":"application/pdf","Content-Disposition":`${download?"attachment":"inline"}; filename="ABT-6023-fillable.pdf"`,"Cache-Control":"no-store, no-cache, must-revalidate, max-age=0","Pragma":"no-cache","Expires":"0","Accept-Ranges":"bytes","X-Content-Type-Options":"nosniff","X-FLLM-Official-Source":cfg?.officialPdfUrl||"","X-FLLM-Last-Verified":cfg?.lastVerified||"","X-FLLM-PDF-Revision":"20260821-6","Content-Length":String(total)};}
+function headers(cfg:ReturnType<typeof getAbtForm>,download:boolean,length:number){return {"Content-Type":"application/pdf","Content-Disposition":`${download?"attachment":"inline"}; filename="ABT-6023-fillable.pdf"`,"Cache-Control":"no-store, no-cache, must-revalidate, max-age=0","Pragma":"no-cache","Expires":"0","Accept-Ranges":"bytes","X-Content-Type-Options":"nosniff","X-FLLM-Official-Source":cfg?.officialPdfUrl||"","X-FLLM-Last-Verified":cfg?.lastVerified||"","X-FLLM-PDF-Revision":"20260821-6","Content-Length":String(length)};}
 
 export async function GET(request:Request){
   const cfg=getAbtForm("abt-6023");if(!cfg)return Response.json({error:"ABT-6023 is not configured."},{status:404});
   const u=new URL(request.url),download=u.searchParams.get("download")==="1",bytes=await build(),total=bytes.byteLength,range=request.headers.get("range");
-  if(range){const m=/bytes=(\d*)-(\d*)/.exec(range);if(m){let start=m[1]?Number(m[1]):0,end=m[2]?Number(m[2]):total-1;if(!m[1]&&m[2]){const suffix=Number(m[2]);start=Math.max(total-suffix,0);end=total-1;}start=Math.max(0,start);end=Math.min(total-1,end);if(start<=end){const chunk=bytes.slice(start,end+1);return new Response(chunk,{status:206,headers:{...headers(cfg,download,chunk.byteLength),"Content-Range":`bytes ${start}-${end}/${total}`}});}}return new Response(null,{status:416,headers:{...headers(cfg,download,0),"Content-Range":`bytes */${total}`}});}
-  return new Response(bytes,{status:200,headers:headers(cfg,download,total)});
+  if(range){const m=/bytes=(\d*)-(\d*)/.exec(range);if(m){let start=m[1]?Number(m[1]):0,end=m[2]?Number(m[2]):total-1;if(!m[1]&&m[2]){const suffix=Number(m[2]);start=Math.max(total-suffix,0);end=total-1;}start=Math.max(0,start);end=Math.min(total-1,end);if(start<=end){const chunk=bytes.slice(start,end+1);return new Response(toArrayBuffer(chunk),{status:206,headers:{...headers(cfg,download,chunk.byteLength),"Content-Range":`bytes ${start}-${end}/${total}`}});}}return new Response(null,{status:416,headers:{...headers(cfg,download,0),"Content-Range":`bytes */${total}`}});}
+  return new Response(toArrayBuffer(bytes),{status:200,headers:headers(cfg,download,total)});
 }
 
 export async function HEAD(request:Request){const cfg=getAbtForm("abt-6023");if(!cfg)return new Response(null,{status:404});const u=new URL(request.url),download=u.searchParams.get("download")==="1",bytes=await build();return new Response(null,{status:200,headers:headers(cfg,download,bytes.byteLength)});}
