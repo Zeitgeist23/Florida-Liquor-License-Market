@@ -124,6 +124,25 @@ export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { 
           </figure>
         )}
 
+        {isSfsReformStory && !article.video && (
+          <figure className="news-article-video">
+            <div className="news-article-video-frame">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/oJw45KzNvtI"
+                title="First Coast News report on Florida restaurant liquor-license reform"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+            <figcaption className="news-article-video-caption">
+              <span className="news-article-video-credit">Video source</span><br />
+              <strong>First Coast News</strong> — the publisher&apos;s official report plays inside FLLM while the FLLM article provides the broader statewide licensing context.
+            </figcaption>
+          </figure>
+        )}
+
         <p className="news-article-intro">{article.intro}</p>
 
         {article.sections.map((section) => (
