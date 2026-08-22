@@ -15,7 +15,7 @@ const canonicalUrl = `${siteUrl}/florida-liquor-license-news`;
 export const metadata: Metadata = {
   title: "Florida Liquor License News & Current Events | FLLM",
   description:
-    "Follow Florida liquor license news and current events, DBPR and ABT updates, enforcement matters, court decisions, quota drawing developments, 4COP and 3PS market trends, transaction data and FLLM video briefings.",
+    "Follow Florida liquor license news and current events, DBPR and ABT updates, enforcement matters, court decisions, licensing reform, quota drawing developments, 4COP and 3PS market trends, transaction data and FLLM video briefings.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -23,18 +23,27 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Florida Liquor License News & Current Events",
     description:
-      "Florida liquor license news, current events, enforcement developments, court decisions, official DBPR updates, quota drawing developments and market trends.",
+      "Florida liquor license news, current events, enforcement developments, court decisions, licensing reform, official DBPR updates, quota drawing developments and market trends.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
     title: "Florida Liquor License News & Current Events",
     description:
-      "Florida liquor license news, current events, court decisions, DBPR updates, enforcement matters and market trends from FLLM.",
+      "Florida liquor license news, current events, court decisions, licensing reform, DBPR updates, enforcement matters and market trends from FLLM.",
   },
 };
 
 const officialUpdates = [
+  {
+    eyebrow: "Legislation & Licensing Reform",
+    title: "Florida's alcohol licensing reform opened the door to more small restaurants",
+    date: "October 12, 2023",
+    copy:
+      "The University of Miami Business Law Review examined Florida's 2023 special food service licensing reform, which lowered the size and seating thresholds for qualifying restaurants while retaining the 51% food and nonalcoholic beverage revenue requirement.",
+    href: "/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs",
+    source: "University of Miami Business Law Review",
+  },
   {
     eyebrow: "Enforcement & Current Events",
     title: "Officials move to suspend Orlando venue's liquor license after drag show attended by children",
@@ -108,7 +117,7 @@ export default function FloridaLiquorLicenseNewsPage() {
       name: "Florida Liquor License News & Current Events",
       url: canonicalUrl,
       description:
-        "Florida liquor license news, current events, DBPR and ABT updates, enforcement matters, court decisions, quota drawing developments, market trends and FLLM briefings.",
+        "Florida liquor license news, current events, DBPR and ABT updates, enforcement matters, court decisions, licensing reform, quota drawing developments, market trends and FLLM briefings.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
@@ -142,7 +151,7 @@ export default function FloridaLiquorLicenseNewsPage() {
               <span className="news-eyebrow">Florida Liquor License News Desk</span>
               <h1>Florida Liquor License News &amp; Current Events</h1>
               <p>
-                Follow Florida liquor-license headlines, enforcement matters, court decisions, DBPR and ABT notices, quota drawings, legislation, market activity and video reports—all presented inside an FLLM-style news experience.
+                Follow Florida liquor-license headlines, enforcement matters, court decisions, licensing reform, DBPR and ABT notices, quota drawings, legislation, market activity and video reports—all presented inside an FLLM-style news experience.
               </p>
               <div className="news-hero-actions">
                 <a href="#current-events">Current Events</a>
@@ -165,6 +174,7 @@ export default function FloridaLiquorLicenseNewsPage() {
           <a href="#current-events">Current Events</a>
           <a href="#latest">Enforcement</a>
           <a href="#court-decisions">Court Decisions &amp; Litigation</a>
+          <a href="#latest">Legislation &amp; Reform</a>
           <a href="#latest">DBPR &amp; ABT</a>
           <a href="#latest">Quota Drawings</a>
           <a href="#market-trends">Market Data</a>
@@ -238,7 +248,7 @@ export default function FloridaLiquorLicenseNewsPage() {
                 <h3>{item.title}</h3>
                 <p>{item.copy}</p>
                 <Link href={item.href}>Read Inside FLLM <span aria-hidden="true">›</span></Link>
-                <small className={item.source.includes("ClickOrlando") ? "news-card-source-publisher" : undefined}>Source: {item.source}</small>
+                <small className={item.source.includes("ClickOrlando") || item.source.includes("University of Miami") ? "news-card-source-publisher" : undefined}>Source: {item.source}</small>
               </article>
             ))}
           </div>
