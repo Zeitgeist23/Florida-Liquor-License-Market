@@ -66,7 +66,12 @@ export default function FloridaAbtFormsPage() {
                 >
                   {form.id === "abt-6002" ? "ABT-6002 Guide & Form" : "Complete Form Online"}
                 </a>
-                <a className="btn btn-outline" href={`/api/abt-forms/${form.id}/pdf`} target="_blank" rel="noreferrer">
+                <a
+                  className="btn btn-outline"
+                  href={form.id === "abt-6023" ? "/abt-forms/abt-6023.pdf" : `/api/abt-forms/${form.id}/pdf`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   {form.id === "abt-6023" ? "View Interactive Blank Form" : "View Blank Form"}
                 </a>
               </div>
