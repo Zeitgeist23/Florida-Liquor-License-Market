@@ -6,15 +6,107 @@ import "../forms/abt-forms.css";
 import "./liquor-license-attorneys.css";
 import "./attorney-practice-types.css";
 
+const siteUrl = "https://www.floridaliquorlicensemarket.com";
+const canonicalUrl = `${siteUrl}/resources/liquor-license-attorneys`;
+
 export const metadata: Metadata = {
-  title: "Florida Liquor License Attorneys | Florida Liquor License Market",
+  title: "Florida Liquor License Attorneys | Litigation & Appeals",
   description:
-    "Find Florida attorneys for alcoholic-beverage licensing, liquor-license purchases and sales, transfers, transaction closings, litigation, and appeals.",
+    "Find Florida liquor license attorneys for litigation, appeals, DBPR/ABT licensing, transfers, purchase and sale transactions, lien issues, escrow, and closings.",
+  alternates: { canonical: canonicalUrl },
+  robots: { index: true, follow: true },
+  keywords: [
+    "Florida liquor license attorney",
+    "Florida liquor license litigation attorney",
+    "Florida liquor license appeal attorney",
+    "Florida alcohol license attorney",
+    "Florida ABT attorney",
+    "Florida liquor license lawyer",
+  ],
+  openGraph: {
+    type: "website",
+    url: canonicalUrl,
+    title: "Florida Liquor License Attorneys | Litigation & Appeals",
+    description:
+      "Independent directory of Florida attorneys whose published practices include liquor-license litigation, appeals, licensing, transfers, transactions, and closings.",
+    siteName: "Florida Liquor License Market",
+  },
+  twitter: {
+    card: "summary",
+    title: "Florida Liquor License Attorneys | Litigation & Appeals",
+    description:
+      "Find Florida attorneys for liquor-license litigation, appeals, licensing, transfers, transactions, and closings.",
+  },
 };
 
+const faqItems = [
+  {
+    question: "What does a Florida liquor license litigation attorney handle?",
+    answer:
+      "Depending on the attorney's practice and the dispute, liquor-license litigation can involve purchase agreements, ownership and transfer disputes, liens, specific-performance claims, injunctions, administrative matters, enforcement disputes, and other civil claims involving alcoholic-beverage licenses. Users should confirm the attorney's actual experience with the specific issue before hiring counsel.",
+  },
+  {
+    question: "When might a Florida liquor license appeal attorney be needed?",
+    answer:
+      "An appellate attorney may be needed when a party seeks review of a trial-court ruling or an appealable administrative decision involving a liquor license. Appellate work can include issue preservation, standards of review, briefing, record analysis, and oral argument. Deadlines and available review procedures depend on the case posture.",
+  },
+  {
+    question: "Does FLLM recommend or certify the attorneys in this directory?",
+    answer:
+      "No. Florida Liquor License Market provides an informational directory only. Inclusion and practice-focus labels are not endorsements, rankings, referrals, or Florida Bar specialty certifications. Users should independently verify credentials, experience, fees, conflicts, and engagement terms.",
+  },
+] as const;
+
 export default function FloridaLiquorLicenseAttorneysPage() {
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Florida Liquor License Attorneys",
+      url: canonicalUrl,
+      description:
+        "Independent directory of Florida attorneys for liquor-license litigation, appeals, licensing, transfers, transactions, lien issues, escrow and closings.",
+      about: [
+        "Florida liquor license attorneys",
+        "Florida liquor license litigation",
+        "Florida liquor license appeals",
+        "Florida DBPR and ABT licensing",
+      ],
+      isPartOf: {
+        "@type": "WebSite",
+        name: "Florida Liquor License Market",
+        url: siteUrl,
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+        { "@type": "ListItem", position: 2, name: "Florida Liquor License Attorneys", item: canonicalUrl },
+      ],
+    },
+  ];
+
   return (
     <main className="attorney-directory-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
+      />
+
       <div className="abt-header-wrap">
         <FormsSiteHeader />
       </div>
@@ -25,12 +117,13 @@ export default function FloridaLiquorLicenseAttorneysPage() {
             <a href="/">Home</a><span>›</span><b>Florida Liquor License Attorneys</b>
           </nav>
           <span className="attorney-eyebrow">Resources · Independent legal directory</span>
-          <h1>Florida Liquor License Attorneys</h1>
+          <h1>Florida Liquor License Attorneys: Licensing, Litigation &amp; Appeals</h1>
           <p>
-            Public contact information for Florida attorneys whose practices include alcoholic-beverage licensing, regulated transactions, liquor-license purchases and sales, related closings, civil litigation, or appellate matters.
+            Find Florida attorneys whose published practices include alcoholic-beverage licensing, liquor-license purchases and sales, transfers and closings, as well as attorneys who handle civil litigation and appellate matters involving Florida liquor-license disputes.
           </p>
           <div className="attorney-hero-actions">
             <a className="btn btn-gold" href="#attorney-directory">Browse Attorneys</a>
+            <a className="btn btn-outline" href="#litigation-appeals">Litigation &amp; Appeals</a>
             <a
               className="btn btn-outline attorney-join-button"
               href="/resources/liquor-license-attorneys/apply"
@@ -52,10 +145,10 @@ export default function FloridaLiquorLicenseAttorneysPage() {
       <section className="attorney-intro page-shell" aria-labelledby="directory-heading">
         <div>
           <span>Before choosing counsel</span>
-          <h2 id="directory-heading">Compare experience, availability, and fees</h2>
+          <h2 id="directory-heading">Compare Florida liquor-license legal experience, availability, and fees</h2>
         </div>
         <p>
-          Ask whether the attorney handles the specific legal work you need, including licensing and regulatory filings, purchase agreements, due diligence, liens and tax-clearance issues, escrow and closings, civil litigation, trial-level preservation, or appellate representation.
+          Ask whether the attorney handles the specific legal work you need, including DBPR / ABT licensing and regulatory filings, purchase agreements, due diligence, liens and tax-clearance issues, escrow and closings, civil litigation, trial-level preservation, or appellate representation.
         </p>
       </section>
 
@@ -82,7 +175,51 @@ export default function FloridaLiquorLicenseAttorneysPage() {
         </article>
       </section>
 
+      <section className="attorney-litigation-focus page-shell" id="litigation-appeals" aria-labelledby="litigation-heading">
+        <div className="attorney-litigation-heading">
+          <span>Litigation &amp; Appeals</span>
+          <h2 id="litigation-heading">Florida Liquor License Litigation &amp; Appeals Attorneys</h2>
+          <p>
+            Florida liquor-license disputes can involve valuable transferable license rights, purchase contracts, ownership claims, liens, closing obligations, administrative action, and appellate review. The directory identifies attorneys whose published practices may be relevant to those disputes so users can compare counsel and verify experience directly.
+          </p>
+        </div>
+        <div className="attorney-litigation-grid">
+          <article>
+            <strong>Contract &amp; Ownership Disputes</strong>
+            <p>Purchase agreements, competing claims, transfer obligations, title issues, and specific-performance litigation.</p>
+          </article>
+          <article>
+            <strong>DBPR / ABT Disputes</strong>
+            <p>Administrative and regulatory matters involving alcoholic-beverage licenses, enforcement, licensing decisions, and related proceedings.</p>
+          </article>
+          <article>
+            <strong>Trial &amp; Injunctive Relief</strong>
+            <p>Civil litigation, temporary or permanent relief, evidentiary issues, and preservation of issues for review.</p>
+          </article>
+          <article>
+            <strong>Florida Appeals</strong>
+            <p>Record review, appellate strategy, standards of review, briefing, oral argument, and post-judgment appellate work.</p>
+          </article>
+        </div>
+        <a className="attorney-litigation-directory-link" href="#attorney-directory">Compare attorneys in the directory ↓</a>
+      </section>
+
       <AttorneyDirectory />
+
+      <section className="attorney-faq page-shell" aria-labelledby="attorney-faq-heading">
+        <div className="attorney-faq-heading">
+          <span>Florida liquor-license legal questions</span>
+          <h2 id="attorney-faq-heading">Litigation, appeals, and attorney selection</h2>
+        </div>
+        <div className="attorney-faq-grid">
+          {faqItems.map((item) => (
+            <article key={item.question}>
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section className="attorney-official-resources page-shell" aria-labelledby="official-resources-heading">
         <div>
