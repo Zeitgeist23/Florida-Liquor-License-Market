@@ -7,6 +7,7 @@ import { NEWS_ARTICLES, getNewsArticle } from "@/data/news-articles";
 import "@/app/resources/forms/abt-forms.css";
 import "../news-insights.css";
 import "../news-mobile-readability.css";
+import "../current-events.css";
 import "./article.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -67,11 +68,13 @@ export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { 
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "News & Insights", item: `${siteUrl}/florida-liquor-license-news` },
+        { "@type": "ListItem", position: 2, name: "News & Current Events", item: `${siteUrl}/florida-liquor-license-news` },
         { "@type": "ListItem", position: 3, name: article.title, item: articleUrl },
       ],
     },
   ];
+
+  const isPublisherStory = article.sourceType === "publisher";
 
   return (
     <main className="news-insights-page news-article-page">
@@ -87,7 +90,7 @@ export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { 
       <section className="news-article-hero">
         <div className="page-shell news-article-shell">
           <nav className="news-breadcrumbs" aria-label="Breadcrumb">
-            <Link href="/">Home</Link><span>›</span><Link href="/florida-liquor-license-news">News &amp; Insights</Link><span>›</span><strong>{article.eyebrow}</strong>
+            <Link href="/">Home</Link><span>›</span><Link href="/florida-liquor-license-news">News &amp; Current Events</Link><span>›</span><strong>{article.eyebrow}</strong>
           </nav>
           <span className="news-eyebrow">{article.eyebrow}</span>
           <h1>{article.title}</h1>
@@ -100,6 +103,25 @@ export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { 
       </section>
 
       <article className="page-shell news-article-shell news-article-body">
+        {article.video && (
+          <figure className="news-article-video">
+            <div className="news-article-video-frame">
+              <iframe
+                src={article.video.embedUrl}
+                title={article.video.title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+            <figcaption className="news-article-video-caption">
+              <span className="news-article-video-credit">Video source</span><br />
+              <strong>{article.video.provider}</strong> — video plays inside FLLM using the publisher&apos;s official embedded player.
+            </figcaption>
+          </figure>
+        )}
+
         <p className="news-article-intro">{article.intro}</p>
 
         {article.sections.map((section) => (
@@ -114,11 +136,18 @@ export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { 
           </section>
         ))}
 
-        <aside className="news-article-source">
-          <span>Official source</span>
+        <aside className={`news-article-source ${isPublisherStory ? "news-article-source-publisher" : ""}`}>
+          <span>{isPublisherStory ? "Original reporting" : "Official source"}</span>
           <strong>{article.officialSourceLabel}</strong>
-          <p>FLLM summarizes the development for market participants. Use the official agency source to verify current requirements, notices and source documents.</p>
-          <a href={article.officialSourceUrl} target="_blank" rel="noopener noreferrer">Open Official DBPR / ABT Source <span aria-hidden="true">↗</span></a>
+          <p>
+            {isPublisherStory
+              ? "FLLM summarizes the development for Florida liquor-license market participants while crediting the original publisher and keeping the main reading and video experience on FLLM."
+              : "FLLM summarizes the development for market participants. Use the official agency source to verify current requirements, notices and source documents."}
+          </p>
+          {article.sourceNote && <p className="news-source-disclosure">{article.sourceNote}</p>}
+          <a href={article.officialSourceUrl} target="_blank" rel="noopener noreferrer">
+            {isPublisherStory ? "View Original Publisher Source" : "Open Official DBPR / ABT Source"} <span aria-hidden="true">↗</span>
+          </a>
         </aside>
 
         <div className="news-article-actions">
