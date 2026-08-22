@@ -21,7 +21,9 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as {
       email?: string;
+      name?: string;
       firstName?: string;
+      address?: string;
       phone?: string;
       counties?: string[];
       licenseTypes?: string[];
@@ -30,6 +32,19 @@ export async function POST(request: Request) {
     };
 
     const email = body.email?.trim().toLowerCase() ?? "";
+    const name = (body.name ?? body.firstName ?? "").trim();
+    const address = body.address?.trim() ?? "";
+    const phone = body.phone?.trim() ?? "";
+
+    if (!name) {
+      return NextResponse.json({ error: "Enter your name." }, { status: 400 });
+    }
+    if (!address) {
+      return NextResponse.json({ error: "Enter your address." }, { status: 400 });
+    }
+    if (!phone) {
+      return NextResponse.json({ error: "Enter your phone number." }, { status: 400 });
+    }
     if (!validEmail(email)) {
       return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
     }
@@ -62,8 +77,9 @@ export async function POST(request: Request) {
 
     const alert = await createLicenseAlert({
       email,
-      firstName: body.firstName,
-      phone: body.phone,
+      firstName: name,
+      address,
+      phone,
       counties,
       licenseTypes,
       maxPrice,
