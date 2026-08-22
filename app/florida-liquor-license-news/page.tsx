@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import CourtDecisionsFeature from "@/components/news/CourtDecisionsFeature";
 import "@/app/resources/forms/abt-forms.css";
 import "./news-insights.css";
 import "./news-mobile-readability.css";
 import "./current-events.css";
+import "./court-decisions.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-news`;
@@ -13,7 +15,7 @@ const canonicalUrl = `${siteUrl}/florida-liquor-license-news`;
 export const metadata: Metadata = {
   title: "Florida Liquor License News & Current Events | FLLM",
   description:
-    "Follow Florida liquor license news and current events, DBPR and ABT updates, enforcement matters, quota drawing developments, 4COP and 3PS market trends, transaction data and FLLM video briefings.",
+    "Follow Florida liquor license news and current events, DBPR and ABT updates, enforcement matters, court decisions, quota drawing developments, 4COP and 3PS market trends, transaction data and FLLM video briefings.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -21,14 +23,14 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Florida Liquor License News & Current Events",
     description:
-      "Florida liquor license news, current events, enforcement developments, official DBPR updates, quota drawing developments and market trends.",
+      "Florida liquor license news, current events, enforcement developments, court decisions, official DBPR updates, quota drawing developments and market trends.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
     title: "Florida Liquor License News & Current Events",
     description:
-      "Florida liquor license news, current events, DBPR updates, enforcement matters and market trends from FLLM.",
+      "Florida liquor license news, current events, court decisions, DBPR updates, enforcement matters and market trends from FLLM.",
   },
 };
 
@@ -106,7 +108,7 @@ export default function FloridaLiquorLicenseNewsPage() {
       name: "Florida Liquor License News & Current Events",
       url: canonicalUrl,
       description:
-        "Florida liquor license news, current events, DBPR and ABT updates, enforcement matters, quota drawing developments, market trends and FLLM briefings.",
+        "Florida liquor license news, current events, DBPR and ABT updates, enforcement matters, court decisions, quota drawing developments, market trends and FLLM briefings.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
@@ -140,10 +142,11 @@ export default function FloridaLiquorLicenseNewsPage() {
               <span className="news-eyebrow">Florida Liquor License News Desk</span>
               <h1>Florida Liquor License News &amp; Current Events</h1>
               <p>
-                Follow Florida liquor-license headlines, enforcement matters, DBPR and ABT notices, quota drawings, legislation, market activity and video reports—all presented inside an FLLM-style news experience.
+                Follow Florida liquor-license headlines, enforcement matters, court decisions, DBPR and ABT notices, quota drawings, legislation, market activity and video reports—all presented inside an FLLM-style news experience.
               </p>
               <div className="news-hero-actions">
                 <a href="#current-events">Current Events</a>
+                <a href="#court-decisions">Court Decisions</a>
                 <a href="#latest">Latest Updates</a>
                 <a href="#videos">Video Briefings</a>
               </div>
@@ -151,7 +154,7 @@ export default function FloridaLiquorLicenseNewsPage() {
             <aside className="news-hero-panel">
               <span>FLLM News Desk</span>
               <strong>Florida license news without losing the FLLM experience</strong>
-              <p>FLLM publishes its own summaries, credits the original publisher or agency, and embeds official publisher video when an embeddable player is available.</p>
+              <p>FLLM publishes its own summaries, credits the original publisher, agency or court source, and keeps important videos and public-document readers inside FLLM whenever practical.</p>
             </aside>
           </div>
         </div>
@@ -161,6 +164,7 @@ export default function FloridaLiquorLicenseNewsPage() {
         <div className="page-shell">
           <a href="#current-events">Current Events</a>
           <a href="#latest">Enforcement</a>
+          <a href="#court-decisions">Court Decisions &amp; Litigation</a>
           <a href="#latest">DBPR &amp; ABT</a>
           <a href="#latest">Quota Drawings</a>
           <a href="#market-trends">Market Data</a>
@@ -198,6 +202,8 @@ export default function FloridaLiquorLicenseNewsPage() {
           </div>
         </div>
       </section>
+
+      <CourtDecisionsFeature />
 
       <section className="news-feature page-shell" aria-labelledby="news-feature-title">
         <div className="news-feature-copy">
