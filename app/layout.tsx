@@ -16,6 +16,7 @@ import "./listings-header-fix.css";
 import "./quota-cost-snapshot-fix.css";
 import "./license-types-navy-refresh.css";
 import "./news-editorial-readability.css";
+import "./news-source-readability.css";
 
 const GOOGLE_ANALYTICS_ID = "G-PKP8PXCDWF";
 
