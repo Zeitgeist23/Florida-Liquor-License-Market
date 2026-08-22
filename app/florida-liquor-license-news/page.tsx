@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import CourtDecisionsFeature from "@/components/news/CourtDecisionsFeature";
+import SupplementalNewsCoverage from "@/components/news/SupplementalNewsCoverage";
 import "@/app/resources/forms/abt-forms.css";
 import "./news-insights.css";
 import "./news-mobile-readability.css";
@@ -270,6 +271,8 @@ export default function FloridaLiquorLicenseNewsPage() {
           </aside>
         </div>
       </section>
+
+      <SupplementalNewsCoverage />
 
       <section className="news-market page-shell" id="market-trends" aria-labelledby="market-trends-title">
         <div className="news-section-heading">
