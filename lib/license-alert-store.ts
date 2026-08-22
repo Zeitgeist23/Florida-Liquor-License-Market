@@ -9,6 +9,7 @@ export type LicenseAlert = {
   objectName: string;
   email: string;
   first_name: string;
+  address: string;
   phone: string;
   counties: string[];
   license_types: Array<"4COP Quota" | "3PS Quota / Package Store">;
@@ -114,12 +115,14 @@ async function readAlert(objectName: string) {
   if (!response.ok) return null;
   const alert = (await response.json()) as LicenseAlert;
   alert.objectName = objectName;
+  if (typeof alert.address !== "string") alert.address = "";
   return alert;
 }
 
 export async function createLicenseAlert(input: {
   email: string;
   firstName?: string;
+  address?: string;
   phone?: string;
   counties: string[];
   licenseTypes: Array<"4COP Quota" | "3PS Quota / Package Store">;
@@ -133,6 +136,7 @@ export async function createLicenseAlert(input: {
     objectName: `${now.slice(0, 10)}__${id}.json`,
     email: input.email.trim().toLowerCase(),
     first_name: input.firstName?.trim() ?? "",
+    address: input.address?.trim() ?? "",
     phone: input.phone?.trim() ?? "",
     counties: Array.from(new Set(input.counties.map((county) => county.trim()).filter(Boolean))),
     license_types: Array.from(new Set(input.licenseTypes)),
