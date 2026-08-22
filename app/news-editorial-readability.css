@@ -1,0 +1,137 @@
+/* FLLM News Desk readability standard.
+   Scope every rule to news pages so other FLLM sections retain their existing layout. */
+
+/* Match the desktop News header logo to the landing-page header logo. */
+@media (min-width: 900px) {
+  .news-insights-page .news-header-wrap .forms-site-header .brand-lockup {
+    flex: 0 0 209px;
+  }
+
+  .news-insights-page .news-header-wrap .forms-site-header .brand-lockup img {
+    display: block;
+    width: 188px !important;
+    height: 76px !important;
+    position: static !important;
+    left: auto !important;
+    transform: none !important;
+    object-fit: cover !important;
+    object-position: left center !important;
+  }
+}
+
+/* All full News articles use the same wider editorial canvas. */
+.news-insights-page.news-article-page .news-article-shell {
+  max-width: 1280px;
+}
+
+.news-insights-page.news-article-page .news-article-hero h1 {
+  max-width: 1080px;
+}
+
+.news-insights-page.news-article-page .news-article-deck {
+  max-width: 980px;
+  font-size: 18px;
+  line-height: 1.72;
+}
+
+/* Keep prose on a comfortable reading measure inside the wider page. */
+.news-insights-page.news-article-page .news-article-intro,
+.news-insights-page.news-article-page .news-article-section,
+.news-insights-page.news-article-page .news-article-source,
+.news-insights-page.news-article-page .news-article-actions,
+.news-insights-page.news-article-page .news-article-video {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.news-insights-page.news-article-page .news-article-intro {
+  padding: 24px 26px;
+  font-size: 18px;
+  line-height: 1.76;
+}
+
+.news-insights-page.news-article-page .news-article-section p,
+.news-insights-page.news-article-page .news-article-section li {
+  font-size: 17.5px;
+  line-height: 1.78;
+}
+
+.news-insights-page.news-article-page .news-article-source p {
+  font-size: 15.5px;
+  line-height: 1.7;
+}
+
+.news-insights-page.news-article-page .news-article-video-caption {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.news-insights-page.news-article-page .news-article-actions a {
+  font-size: 13px;
+}
+
+/* News landing-page editorial copy: enlarge readable summaries, not compact metadata. */
+.news-insights-page .news-hero p {
+  font-size: 18px;
+  line-height: 1.72;
+}
+
+.news-insights-page .news-hero-panel p {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.news-insights-page .news-feature-copy p,
+.news-insights-page .news-current-copy p,
+.news-insights-page .news-court-feature-copy p {
+  font-size: 16px;
+  line-height: 1.72;
+}
+
+.news-insights-page .news-card p,
+.news-insights-page .news-market-grid p,
+.news-insights-page .news-video-card p,
+.news-insights-page .news-final-cta p,
+.news-insights-page .news-feature-stat p {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.news-insights-page .news-card h3 {
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+@media (max-width: 720px) {
+  .news-insights-page.news-article-page .news-article-shell {
+    max-width: none;
+  }
+
+  .news-insights-page.news-article-page .news-article-deck {
+    font-size: 17px;
+  }
+
+  .news-insights-page.news-article-page .news-article-intro {
+    padding: 20px;
+    font-size: 17px;
+  }
+
+  .news-insights-page.news-article-page .news-article-section p,
+  .news-insights-page.news-article-page .news-article-section li {
+    font-size: 16.5px;
+    line-height: 1.72;
+  }
+
+  .news-insights-page .news-feature-copy p,
+  .news-insights-page .news-current-copy p,
+  .news-insights-page .news-court-feature-copy p,
+  .news-insights-page .news-card p,
+  .news-insights-page .news-market-grid p,
+  .news-insights-page .news-video-card p,
+  .news-insights-page .news-final-cta p,
+  .news-insights-page .news-feature-stat p {
+    font-size: 15.5px;
+    line-height: 1.65;
+  }
+}
