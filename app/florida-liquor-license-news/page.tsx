@@ -3,12 +3,14 @@ import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import CourtDecisionsFeature from "@/components/news/CourtDecisionsFeature";
+import LiveNewsMonitor from "@/components/news/LiveNewsMonitor";
 import "@/app/resources/forms/abt-forms.css";
 import "./news-insights.css";
 import "./news-mobile-readability.css";
 import "./current-events.css";
 import "./court-decisions.css";
 import "./supplemental-sources.css";
+import "./live-news-monitor.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-news`;
@@ -195,15 +197,15 @@ export default function FloridaLiquorLicenseNewsPage() {
               </p>
               <div className="news-hero-actions">
                 <a href="#current-events">Current Events</a>
+                <a href="#live-monitor">Live News Monitor</a>
                 <a href="#court-decisions">Court Decisions</a>
-                <a href="#latest">Latest Updates</a>
                 <a href="#videos">Video Briefings</a>
               </div>
             </div>
             <aside className="news-hero-panel">
               <span>FLLM News Desk</span>
               <strong>Florida license news without losing the FLLM experience</strong>
-              <p>FLLM publishes its own summaries, credits the original publisher, agency or court source, and keeps important videos and public-document readers inside FLLM whenever practical.</p>
+              <p>FLLM publishes its own summaries, credits the original publisher, agency or court source, and keeps important videos and public-document readers inside FLLM whenever practical. The automated News Monitor also checks Google News, Bing News and selected Florida publishers for fresh liquor-license coverage.</p>
             </aside>
           </div>
         </div>
@@ -212,6 +214,7 @@ export default function FloridaLiquorLicenseNewsPage() {
       <nav className="news-category-nav" aria-label="Florida liquor license news categories">
         <div className="page-shell">
           <a href="#current-events">Current Events</a>
+          <a href="#live-monitor">Live Monitor</a>
           <a href="#latest">Enforcement</a>
           <a href="#court-decisions">Court Decisions &amp; Litigation</a>
           <a href="#latest">Legislation &amp; Reform</a>
@@ -252,6 +255,8 @@ export default function FloridaLiquorLicenseNewsPage() {
           </div>
         </div>
       </section>
+
+      <LiveNewsMonitor />
 
       <CourtDecisionsFeature />
 
