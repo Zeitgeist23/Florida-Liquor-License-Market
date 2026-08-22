@@ -3,8 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
-import { ADDITIONAL_NEWS_ARTICLES } from "@/data/additional-news-articles";
-import { NEWS_ARTICLES } from "@/data/news-articles";
+import { NEWS_ARTICLES, getNewsArticle } from "@/data/news-articles";
 import "@/app/resources/forms/abt-forms.css";
 import "../news-insights.css";
 import "../news-mobile-readability.css";
@@ -13,19 +12,14 @@ import "../supplemental-sources.css";
 import "./article.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
-const ALL_NEWS_ARTICLES = [...NEWS_ARTICLES, ...ADDITIONAL_NEWS_ARTICLES];
-
-function getAllNewsArticle(slug: string) {
-  return ALL_NEWS_ARTICLES.find((article) => article.slug === slug) ?? null;
-}
 
 export function generateStaticParams() {
-  return ALL_NEWS_ARTICLES.map((article) => ({ slug: article.slug }));
+  return NEWS_ARTICLES.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const article = getAllNewsArticle(slug);
+  const article = getNewsArticle(slug);
   if (!article) return {};
 
   const url = `${siteUrl}/florida-liquor-license-news/${article.slug}`;
@@ -51,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const article = getAllNewsArticle(slug);
+  const article = getNewsArticle(slug);
   if (!article) notFound();
 
   const articleUrl = `${siteUrl}/florida-liquor-license-news/${article.slug}`;
