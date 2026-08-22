@@ -40,6 +40,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <style>{`
+          /* Native React header menus supersede the old injected Resources menu.
+             Hide only the legacy menu when the native Resources dropdown is present. */
+          body:has(.native-nav-resources-menu) .resources-header-menu {
+            display: none !important;
+          }
+        `}</style>
         <AbtIncreaseInSeriesSelect />
         <AbtDemographicSelects />
         <AbtMoralCharacterQuestion />
