@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import Abt6023BrowserForm from "@/components/Abt6023BrowserForm";
+import Abt6033OfficialPdfViewer from "@/components/Abt6033OfficialPdfViewer";
 import AbtPdfFormWorkspace from "@/components/AbtPdfFormWorkspace";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { ABT_FORMS, ABT_FORMS_DISCLAIMER, getAbtForm } from "@/data/abt-forms";
@@ -95,6 +96,8 @@ export default async function FloridaAbtFormWorkspacePage(
 
         {form.id === "abt-6023" ? (
           <Abt6023BrowserForm officialPdfUrl={form.officialPdfUrl} />
+        ) : form.id === "abt-6033" ? (
+          <Abt6033OfficialPdfViewer officialPdfUrl={form.officialPdfUrl} />
         ) : (
           <AbtPdfFormWorkspace form={form} projectTransactionId={transactionId || null} />
         )}
