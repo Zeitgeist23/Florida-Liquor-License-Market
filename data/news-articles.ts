@@ -24,6 +24,58 @@ export type NewsArticle = {
 
 export const NEWS_ARTICLES: NewsArticle[] = [
   {
+    slug: "florida-alcohol-licensing-reform-small-restaurants-sfs",
+    eyebrow: "Legislation & Licensing Reform",
+    title: "Florida's alcohol licensing reform opened the door to more small restaurants",
+    date: "October 12, 2023",
+    publishedDate: "2023-10-12",
+    summary:
+      "The University of Miami Business Law Review examined Florida's 2023 special food service licensing reform, which reduced the size and seating thresholds for qualifying restaurants while retaining the 51% food-and-nonalcoholic-beverage revenue requirement.",
+    intro:
+      "The University of Miami Business Law Review published an analysis of Florida's 2023 reform to the special food service licensing requirements. The change lowered the minimum service area and seating thresholds for qualifying restaurants, making full-liquor service potentially accessible to more restaurant concepts without requiring the purchase of a quota license on the open market.",
+    sections: [
+      {
+        heading: "What changed in 2023",
+        paragraphs: [
+          "Before the reform, the special food service framework generally required a restaurant to have at least 2,500 square feet of service area and capacity to serve 150 persons at one time. The 2023 change reduced those thresholds to 2,000 square feet of service area and the ability to serve 120 persons at one time, with at least 120 physical seats available during operating hours.",
+          "The reform did not eliminate the food-sales requirement. Qualifying restaurants must still derive at least 51 percent of gross food and beverage revenue from food and nonalcoholic beverages during the applicable operating periods."
+        ]
+      },
+      {
+        heading: "Why the reform matters to restaurants and quota-license buyers",
+        paragraphs: [
+          "For smaller restaurants, the lower size and seating thresholds can create a path to full-liquor service through a special food service license rather than purchasing a county quota license. That can materially change the economics of opening, expanding or acquiring a restaurant.",
+          "For the quota-license market, the distinction matters because a restaurant that qualifies for a special food service license may not need to compete for a transferable 4COP quota license. Buyers should therefore determine early whether the business model qualifies for a special restaurant license before valuing or purchasing a quota license."
+        ],
+        bullets: [
+          "Confirm the restaurant's service-area measurement and physical seating count.",
+          "Model the 51 percent food and nonalcoholic beverage revenue requirement.",
+          "Compare the special food service route with the cost and flexibility of a transferable quota license.",
+          "Verify current DBPR / ABT requirements before signing a lease or license purchase agreement."
+        ]
+      },
+      {
+        heading: "Current Florida law",
+        paragraphs: [
+          "The 2026 Florida Statutes continue to state the 2,000-square-foot, 120-person and 120-seat requirements for the special restaurant license, together with the 51 percent food and nonalcoholic beverage revenue test. The current provision appears in section 561.20(2)(a)4., Florida Statutes.",
+          "Because licensing statutes and administrative requirements can change, restaurant owners and buyers should confirm the current statute and DBPR / ABT guidance at the time of application or transaction."
+        ]
+      },
+      {
+        heading: "FLLM market takeaway",
+        paragraphs: [
+          "The 2023 reform is important market context because not every restaurant that wants to sell spirits needs a scarce county quota license. FLLM treats special food service eligibility and quota-license availability as separate paths that should be evaluated against the buyer's concept, premises, operating model and long-term transfer needs."
+        ]
+      }
+    ],
+    officialSourceUrl:
+      "https://business-law-review.law.miami.edu/floridas-game-changing-alcohol-licensing-reform-a-win-for-small-restaurants/",
+    officialSourceLabel: "University of Miami Business Law Review",
+    sourceType: "publisher",
+    sourceNote:
+      "Original analysis by Frances Rodriguez, published October 12, 2023 by the University of Miami Business Law Review. FLLM provides its own market-focused summary and does not reproduce the publisher's article."
+  },
+  {
     slug: "orlando-venue-liquor-license-suspension-drag-show",
     eyebrow: "Enforcement & Current Events",
     title: "Officials move to suspend Orlando venue's liquor license after drag show attended by children",
