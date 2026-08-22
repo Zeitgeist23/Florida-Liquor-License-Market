@@ -40,7 +40,7 @@ const navMenus: NavMenu[] = [
     menuClassName: "native-nav-menu-standard",
     links: [
       { href: "/sell-your-license", label: "Sell Your License" },
-      { href: "/how-to-sell-florida-liquor-license", label: "How to Sell a Florida Liquor License" },
+      { href: "/how-to-sell-fllorida-liquor-license", label: "How to Sell a Florida Liquor License" },
       { href: "/florida-liquor-license-value", label: "Get a License Valuation" },
     ],
   },
@@ -254,8 +254,8 @@ export default function HeaderNavMenus({
         .native-nav-market-menu{width:300px}
         .native-nav-resources-menu{width:350px}
         .native-license-types-menu{width:320px}
-        .primary-nav .native-nav-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
-        .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus-visible{background:#f6a700;color:#061728;outline:none}
+        .primary-nav .native-nav-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;background:transparent!important;box-shadow:none!important;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
+        .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{background:transparent!important;box-shadow:none!important;color:#f6a700;outline:none}
 
         /* Legacy-menu hard stop: some older page/header code can still inject the
            former image-card License Types menu. Keep every version text-only. */
@@ -264,7 +264,13 @@ export default function HeaderNavMenus({
         .license-types-header-menu{width:320px!important;padding:6px!important}
         .primary-nav .live-license-types-menu .live-license-card,
         .primary-nav .home-license-types-menu a,
-        .license-types-header-menu a{display:block!important;width:100%!important;padding:12px 13px!important}
+        .license-types-header-menu a{display:block!important;width:100%!important;padding:12px 13px!important;background:transparent!important;box-shadow:none!important}
+        .primary-nav .live-license-types-menu .live-license-card:hover,
+        .primary-nav .live-license-types-menu .live-license-card:focus,
+        .primary-nav .home-license-types-menu a:hover,
+        .primary-nav .home-license-types-menu a:focus,
+        .license-types-header-menu a:hover,
+        .license-types-header-menu a:focus{background:transparent!important;box-shadow:none!important;color:#f6a700!important;outline:none}
         .primary-nav .live-license-types-menu .live-license-card>img,
         .primary-nav .live-license-types-menu a>img,
         .primary-nav .home-license-types-menu a>img,
