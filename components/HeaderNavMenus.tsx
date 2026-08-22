@@ -69,6 +69,7 @@ const navMenus: NavMenu[] = [
     label: "Market Data",
     menuClassName: "native-nav-menu-standard native-nav-market-menu",
     links: [
+      { href: "/counties", label: "Florida Market Data by County" },
       { href: "/florida-liquor-license-value", label: "Florida Liquor License Value Estimator" },
       { href: "/listings?status=sold", label: "Recent Florida Transactions" },
       { href: "/#market-data", label: "Florida Market Insights" },
