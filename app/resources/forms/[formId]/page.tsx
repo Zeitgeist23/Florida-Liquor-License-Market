@@ -53,7 +53,7 @@ export default async function FloridaAbtFormWorkspacePage(
 
   const isAbt6023 = form.id === "abt-6023";
   const abt6023PdfPath = "/api/abt-forms/abt-6023/pdf";
-  const abt6023ViewerPath = `${abt6023PdfPath}?v=20260821-3`;
+  const abt6023ViewerPath = `${abt6023PdfPath}?v=20260821-5`;
 
   return (
     <main className="abt-forms-page abt-single-form-page">
