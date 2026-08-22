@@ -6,37 +6,10 @@ import "../forms/abt-forms.css";
 import "./liquor-license-attorneys.css";
 import "./attorney-practice-types.css";
 
-const siteUrl = "https://www.floridaliquorlicensemarket.com";
-const canonicalUrl = `${siteUrl}/resources/liquor-license-attorneys`;
-
 export const metadata: Metadata = {
   title: "Florida Liquor License Attorneys | Litigation & Appeals",
   description:
     "Find Florida liquor license attorneys for litigation, appeals, DBPR/ABT licensing, transfers, purchase and sale transactions, lien issues, escrow, and closings.",
-  alternates: { canonical: canonicalUrl },
-  robots: { index: true, follow: true },
-  keywords: [
-    "Florida liquor license attorney",
-    "Florida liquor license litigation attorney",
-    "Florida liquor license appeal attorney",
-    "Florida alcohol license attorney",
-    "Florida ABT attorney",
-    "Florida liquor license lawyer",
-  ],
-  openGraph: {
-    type: "website",
-    url: canonicalUrl,
-    title: "Florida Liquor License Attorneys | Litigation & Appeals",
-    description:
-      "Independent directory of Florida attorneys whose published practices include liquor-license litigation, appeals, licensing, transfers, transactions, and closings.",
-    siteName: "Florida Liquor License Market",
-  },
-  twitter: {
-    card: "summary",
-    title: "Florida Liquor License Attorneys | Litigation & Appeals",
-    description:
-      "Find Florida attorneys for liquor-license litigation, appeals, licensing, transfers, transactions, and closings.",
-  },
 };
 
 const faqItems = [
@@ -58,55 +31,8 @@ const faqItems = [
 ] as const;
 
 export default function FloridaLiquorLicenseAttorneysPage() {
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      name: "Florida Liquor License Attorneys",
-      url: canonicalUrl,
-      description:
-        "Independent directory of Florida attorneys for liquor-license litigation, appeals, licensing, transfers, transactions, lien issues, escrow and closings.",
-      about: [
-        "Florida liquor license attorneys",
-        "Florida liquor license litigation",
-        "Florida liquor license appeals",
-        "Florida DBPR and ABT licensing",
-      ],
-      isPartOf: {
-        "@type": "WebSite",
-        name: "Florida Liquor License Market",
-        url: siteUrl,
-      },
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: faqItems.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
-      })),
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Florida Liquor License Attorneys", item: canonicalUrl },
-      ],
-    },
-  ];
-
   return (
     <main className="attorney-directory-page">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
-      />
-
       <div className="abt-header-wrap">
         <FormsSiteHeader />
       </div>
