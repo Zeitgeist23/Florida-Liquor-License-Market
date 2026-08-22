@@ -10,6 +10,37 @@
   z-index: 20;
 }
 
+/* Listing-detail navigation stays neutral white on hover/open. Keep the
+   FLLM gold menu border, but remove gold text/glow highlight treatments. */
+.marketplace-listing-page .listings-primary-nav .native-nav-trigger:hover,
+.marketplace-listing-page .listings-primary-nav .native-nav-trigger:focus-visible,
+.marketplace-listing-page .listings-primary-nav .native-nav-dropdown.is-open > .native-nav-trigger {
+  color: #fff !important;
+  text-shadow: none !important;
+}
+
+.marketplace-listing-page .listings-primary-nav .native-nav-menu a:hover,
+.marketplace-listing-page .listings-primary-nav .native-nav-menu a:focus,
+.marketplace-listing-page .listings-primary-nav .native-nav-menu a:focus-visible,
+.marketplace-listing-page .listings-primary-nav .native-nav-menu a:active {
+  color: #fff !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+.marketplace-listing-page .listings-primary-nav .native-nav-menu a::before,
+.marketplace-listing-page .listings-primary-nav .native-nav-menu a::after,
+.marketplace-listing-page .listings-primary-nav .native-nav-trigger::before,
+.marketplace-listing-page .listings-primary-nav .native-nav-trigger::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
 .marketplace-listing-availability {
   display: flex;
   flex-wrap: wrap;
