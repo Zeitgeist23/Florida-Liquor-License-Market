@@ -104,7 +104,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("License Alert signup failed", error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "License Alert signup failed." },
+      { error: "We could not create your License Alert. Please try again." },
       { status: 500 }
     );
   }
