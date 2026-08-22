@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import Abt6023BrowserForm from "@/components/Abt6023BrowserForm";
 import AbtPdfFormWorkspace from "@/components/AbtPdfFormWorkspace";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { ABT_FORMS, ABT_FORMS_DISCLAIMER, getAbtForm } from "@/data/abt-forms";
@@ -92,7 +93,11 @@ export default async function FloridaAbtFormWorkspacePage(
           <ul>{form.useCases.map((useCase) => <li key={useCase}>{useCase}</li>)}</ul>
         </div>
 
-        <AbtPdfFormWorkspace form={form} projectTransactionId={transactionId || null} />
+        {form.id === "abt-6023" ? (
+          <Abt6023BrowserForm officialPdfUrl={form.officialPdfUrl} />
+        ) : (
+          <AbtPdfFormWorkspace form={form} projectTransactionId={transactionId || null} />
+        )}
       </section>
 
       <section className="abt-disclaimer page-shell" aria-label="Legal disclaimer">
