@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { ABT_FORMS } from "@/data/abt-forms";
 import { countyValuationGuideHref, countyValuationGuideSlugs } from "@/data/county-valuation-guides";
 import { indexableCounties } from "@/data/florida-counties";
+import { NEWS_ARTICLES } from "@/data/news-articles";
 import { indexableListingPages, listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
 
@@ -53,6 +54,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.55,
     }));
 
+  const newsArticlePages: MetadataRoute.Sitemap = NEWS_ARTICLES.map((article) => ({
+    url: `${siteUrl}/florida-liquor-license-news/${article.slug}`,
+    lastModified,
+    changeFrequency: "weekly" as const,
+    priority: 0.72,
+  }));
+
   const countyPages: MetadataRoute.Sitemap = indexableCounties.map((county) => ({
     url: `${siteUrl}/counties/${county.slug}`,
     lastModified,
@@ -74,5 +82,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
-  return [...corePages, ...abtFormPages, ...countyPages, ...countyValuationPages, ...listingPages];
+  return [...corePages, ...abtFormPages, ...newsArticlePages, ...countyPages, ...countyValuationPages, ...listingPages];
 }
