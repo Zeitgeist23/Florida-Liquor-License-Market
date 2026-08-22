@@ -51,10 +51,6 @@ export default async function FloridaAbtFormWorkspacePage(
   const form = getAbtForm(formId.toLowerCase());
   if (!form) notFound();
 
-  const isAbt6023 = form.id === "abt-6023";
-  const abt6023PdfPath = "/api/abt-forms/abt-6023/pdf";
-  const abt6023ViewerPath = `${abt6023PdfPath}?v=20260821-6`;
-
   return (
     <main className="abt-forms-page abt-single-form-page">
       <div className="abt-header-wrap">
@@ -96,32 +92,7 @@ export default async function FloridaAbtFormWorkspacePage(
           <ul>{form.useCases.map((useCase) => <li key={useCase}>{useCase}</li>)}</ul>
         </div>
 
-        {isAbt6023 ? (
-          <section className="abt-workspace" aria-label={`${form.formNumber} fillable PDF workspace`}>
-            <div className="abt-viewer-panel">
-              <div className="abt-viewer-toolbar">
-                <div>
-                  <strong>Interactive Fillable {form.formNumber}</strong>
-                  <small>Tab through the fields in order and click the checklist boxes directly in the PDF.</small>
-                </div>
-                <div>
-                  <a className="btn btn-outline" href={form.officialPdfUrl} target="_blank" rel="noreferrer">View Official DBPR PDF</a>
-                  <a className="btn btn-outline" href={abt6023ViewerPath} target="_blank" rel="noreferrer">Open Fillable Full Page</a>
-                  <a className="btn btn-gold" href={`${abt6023PdfPath}?download=1`}>Download Fillable Form</a>
-                </div>
-              </div>
-              <iframe
-                src={`${abt6023ViewerPath}#toolbar=1&navpanes=0`}
-                title={`Interactive fillable ${form.formNumber} PDF`}
-              />
-              <p className="abt-viewer-help">
-                This FLLM interactive copy is based on the current official DBPR/ABT ABT-6023 form. It contains real PDF form fields and checkboxes. Use Tab to move through fields in reading order, click the checklist boxes to toggle them, and use the PDF toolbar to save or print your completed copy.
-              </p>
-            </div>
-          </section>
-        ) : (
-          <AbtPdfFormWorkspace form={form} projectTransactionId={transactionId || null} />
-        )}
+        <AbtPdfFormWorkspace form={form} projectTransactionId={transactionId || null} />
       </section>
 
       <section className="abt-disclaimer page-shell" aria-label="Legal disclaimer">
