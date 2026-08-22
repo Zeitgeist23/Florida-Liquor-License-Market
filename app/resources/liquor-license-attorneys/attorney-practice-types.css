@@ -71,6 +71,69 @@
   letter-spacing: -.04em;
 }
 
+.attorney-published-resource {
+  position: relative;
+  display: grid;
+  gap: 3px;
+  margin-top: 11px;
+  padding: 11px 34px 11px 12px;
+  border: 1px solid #40576a;
+  border-radius: 5px;
+  background: rgba(2, 11, 18, .48);
+  text-decoration: none;
+}
+
+.attorney-published-resource > span,
+.attorney-modal-resource > span {
+  color: #8fa1ad;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.attorney-published-resource > strong,
+.attorney-modal-resource > strong {
+  color: #fff;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.attorney-published-resource > em {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  color: #f6a700;
+  font-size: 15px;
+  font-style: normal;
+}
+
+.attorney-published-resource:hover,
+.attorney-published-resource:focus-visible,
+.attorney-modal-resource:hover,
+.attorney-modal-resource:focus-visible {
+  border-color: #f6a700;
+  outline: none;
+}
+
+.attorney-modal-resource {
+  display: grid;
+  gap: 4px;
+  margin: 0 0 18px;
+  padding: 12px 13px;
+  border: 1px solid #40576a;
+  border-radius: 5px;
+  background: #06131e;
+  text-decoration: none;
+}
+
+.attorney-modal-resource > small {
+  color: #f6a700;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
 .attorney-litigation-focus {
   margin-bottom: 34px;
   padding: 27px;
