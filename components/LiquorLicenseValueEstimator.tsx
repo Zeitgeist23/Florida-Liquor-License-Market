@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { floridaCounties } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
@@ -62,6 +62,7 @@ function range(low: number | null, high: number | null) {
 
 export default function LiquorLicenseValueEstimator() {
   const router = useRouter();
+  const resultsRef = useRef<HTMLDivElement | null>(null);
   const [county, setCounty] = useState("");
   const [licenseType, setLicenseType] = useState("");
   const [licenseNumber, setLicenseNumber] = useState("");
@@ -74,6 +75,17 @@ export default function LiquorLicenseValueEstimator() {
   const [leadLoading, setLeadLoading] = useState(false);
   const [leadError, setLeadError] = useState("");
   const [leadReference, setLeadReference] = useState("");
+
+  useEffect(() => {
+    if (!guidance) return;
+
+    const timeout = window.setTimeout(() => {
+      const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+      resultsRef.current?.scrollIntoView({ behavior, block: "start" });
+    }, 80);
+
+    return () => window.clearTimeout(timeout);
+  }, [guidance]);
 
   async function estimate(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -227,7 +239,7 @@ export default function LiquorLicenseValueEstimator() {
       {error ? <p className={styles.error} role="alert">{error}</p> : null}
 
       {guidance ? (
-        <div className={styles.results} aria-live="polite">
+        <div ref={resultsRef} className={styles.results} aria-live="polite" style={{ scrollMarginTop: "110px" }}>
           <div className={styles.resultTitle}>
             <span>Your current market snapshot</span>
             <h3>{guidance.county} · {guidance.licenseType}</h3>
