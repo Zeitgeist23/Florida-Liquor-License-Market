@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { notFound } from "next/navigation";
 
 import AbtPdfFormWorkspace from "@/components/AbtPdfFormWorkspace";
@@ -41,10 +42,10 @@ export async function generateMetadata(
 }
 
 function NativeAbt6023({ officialPdfUrl }: { officialPdfUrl: string }) {
-  const input = { width: "100%", minHeight: 42, border: "1px solid #8ea2b6", borderRadius: 7, padding: "9px 11px", background: "#f7fbff", color: "#071827", fontSize: 15 };
-  const label = { display: "grid", gap: 6, color: "#d7e7f5", fontWeight: 800, fontSize: 13 };
-  const card = { border: "1px solid #355069", borderRadius: 10, overflow: "hidden", background: "#061522" };
-  const head = { margin: 0, padding: "11px 14px", background: "#c7d4df", color: "#071827", fontSize: 16, fontWeight: 900 };
+  const input: CSSProperties = { width: "100%", minHeight: 42, border: "1px solid #8ea2b6", borderRadius: 7, padding: "9px 11px", background: "#f7fbff", color: "#071827", fontSize: 15 };
+  const label: CSSProperties = { display: "grid", gap: 6, color: "#d7e7f5", fontWeight: 800, fontSize: 13 };
+  const card: CSSProperties = { border: "1px solid #355069", borderRadius: 10, overflow: "hidden", background: "#061522" };
+  const head: CSSProperties = { margin: 0, padding: "11px 14px", background: "#c7d4df", color: "#071827", fontSize: 16, fontWeight: 900 };
 
   return (
     <section className="abt-workspace" aria-label="ABT-6023 browser form workspace">
