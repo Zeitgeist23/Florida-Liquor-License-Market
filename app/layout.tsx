@@ -41,50 +41,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <style>{`
-          body:has(.native-nav-resources-menu) .resources-header-menu {
-            display: none !important;
-          }
-        `}</style>
         <AbtIncreaseInSeriesSelect />
         <AbtDemographicSelects />
         <AbtMoralCharacterQuestion />
         <LicenseTypeLogoScale />
         {children}
         <NationalMarketplaceFooterLink />
-
-        <Script id="remove-duplicate-resources-menu" strategy="afterInteractive">
-          {`
-            (() => {
-              function removeDuplicateResourcesMenu() {
-                const nativeMenu = document.querySelector('.native-nav-resources-menu');
-                if (!nativeMenu) return;
-
-                document.querySelectorAll('.resources-header-menu').forEach((menu) => {
-                  if (menu !== nativeMenu && !nativeMenu.contains(menu)) menu.remove();
-                });
-
-                document.querySelectorAll('a[href="/resources/liquor-license-attorneys"]').forEach((link) => {
-                  if (nativeMenu.contains(link)) return;
-                  const duplicateMenu = link.closest('[role="menu"]');
-                  if (duplicateMenu && duplicateMenu !== nativeMenu && !nativeMenu.contains(duplicateMenu)) {
-                    duplicateMenu.remove();
-                  } else {
-                    link.remove();
-                  }
-                });
-              }
-
-              removeDuplicateResourcesMenu();
-              const observer = new MutationObserver(removeDuplicateResourcesMenu);
-              observer.observe(document.body, { childList: true, subtree: true });
-              window.addEventListener('load', removeDuplicateResourcesMenu, { once: true });
-              window.setTimeout(removeDuplicateResourcesMenu, 100);
-              window.setTimeout(removeDuplicateResourcesMenu, 500);
-              window.setTimeout(removeDuplicateResourcesMenu, 1500);
-            })();
-          `}
-        </Script>
 
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
