@@ -1,3 +1,11 @@
+/* News-section header logo only: 8% smaller than the standard 188 x 76 header logo. */
+.news-header-wrap .forms-site-header .brand-lockup img {
+  width: 172.96px !important;
+  height: 69.92px !important;
+  object-fit: cover !important;
+  object-position: left center !important;
+}
+
 @media (max-width: 680px) {
   .news-breadcrumbs {
     font-size: 13px;
