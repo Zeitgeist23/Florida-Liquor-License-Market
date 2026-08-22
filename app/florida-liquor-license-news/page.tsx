@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import CourtDecisionsFeature from "@/components/news/CourtDecisionsFeature";
-import SupplementalNewsCoverage from "@/components/news/SupplementalNewsCoverage";
 import "@/app/resources/forms/abt-forms.css";
 import "./news-insights.css";
 import "./news-mobile-readability.css";
@@ -90,6 +89,45 @@ const officialUpdates = [
       "DBPR publishes downloadable active and inactive quota-license listings that can help owners, buyers and market participants follow statewide license status data.",
     href: "/florida-liquor-license-news/track-active-inactive-florida-quota-license-lists",
     source: "Florida DBPR / ABT",
+  },
+] as const;
+
+const supplementalCoverage = [
+  {
+    eyebrow: "Restaurant Licensing Video",
+    title: "Gov. DeSantis signs law making it easier for some restaurants to get liquor licenses",
+    date: "2023",
+    copy:
+      "First Coast News covered Florida's restaurant-licensing reform that lowered the special food service size and seating thresholds for qualifying restaurants while preserving the food-sales requirement.",
+    source: "First Coast News",
+    sourceUrl: "https://www.firstcoastnews.com/",
+  },
+  {
+    eyebrow: "Enforcement & Administrative Licensing",
+    title: "DeSantis seeks to revoke alcohol license for Miami Hyatt over drag event",
+    date: "March 15, 2023",
+    copy:
+      "CBS News reported that Florida regulators moved to revoke the Hyatt Regency Miami liquor license after a December event. Hyatt said the license remained valid while it addressed the administrative complaint.",
+    source: "CBS News / MoneyWatch",
+    sourceUrl: "https://www.cbsnews.com/news/desantis-miami-hyatt-liquor-license-drag-show/",
+  },
+  {
+    eyebrow: "Alcohol Law & Interstate Commerce",
+    title: "Florida wine retailer loses challenge to Missouri liquor licensing rules",
+    date: "February 16, 2021",
+    copy:
+      "Courthouse News Service reported that the Eighth Circuit rejected a Florida wine retailer's challenge to Missouri liquor-license residency and physical-presence rules.",
+    source: "Courthouse News Service",
+    sourceUrl: "https://www.courthousenews.com/florida-wine-retailer-loses-challenge-to-missouri-liquor-licensing-rules/",
+  },
+  {
+    eyebrow: "Tied House & Licensing",
+    title: "Burger King's Whopper Bar wins Florida alcohol license after 14 years",
+    date: "December 16, 2024",
+    copy:
+      "Greenspoon Marder reported that Florida DABT closed a long-running tied-house licensing dispute and granted the Miami Beach Whopper Bar a 2COP license subject to a consent-order restriction.",
+    source: "Greenspoon Marder",
+    sourceUrl: "https://www.gmlaw.com/news/a-new-chapter-for-tied-house-laws-burger-kings-whopper-bar-wins-florida-alcohol-license-after-14-years/",
   },
 ] as const;
 
@@ -272,7 +310,25 @@ export default function FloridaLiquorLicenseNewsPage() {
         </div>
       </section>
 
-      <SupplementalNewsCoverage />
+      <section className="news-latest" id="industry-coverage">
+        <div className="page-shell">
+          <div className="news-section-heading">
+            <div><span>Additional Industry Coverage</span><h2>Florida liquor-license articles and cases</h2></div>
+            <span className="news-source-note">FLLM summaries with publisher attribution</span>
+          </div>
+          <div className="news-card-grid">
+            {supplementalCoverage.map((item) => (
+              <article className="news-card" key={item.title}>
+                <div className="news-card-meta"><span>{item.eyebrow}</span><time>{item.date}</time></div>
+                <h3>{item.title}</h3>
+                <p>{item.copy}</p>
+                <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">View Original Source <span aria-hidden="true">↗</span></a>
+                <small>Source: {item.source}</small>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="news-market page-shell" id="market-trends" aria-labelledby="market-trends-title">
         <div className="news-section-heading">
@@ -311,6 +367,30 @@ export default function FloridaLiquorLicenseNewsPage() {
               </div>
               <div><span>FLLM Market Report</span><strong>Florida Market Insights</strong><p>Open the latest FLLM market-insights section and market report from the homepage.</p></div>
             </Link>
+          </div>
+
+          <div className="news-current-event-card" style={{ marginTop: "22px" }}>
+            <div className="news-current-video">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/f_0E98RqARw"
+                title="Bar owners urge state regulator for relief on liquor license renewals"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+            <div className="news-current-copy">
+              <span>WKMG News 6 / ClickOrlando · License Renewals</span>
+              <h2>Bar owners urge state regulator for relief on liquor-license renewals</h2>
+              <p>
+                WKMG News 6 / ClickOrlando reported on bars and breweries seeking relief from liquor-license renewal burdens while COVID-19 operating restrictions kept many businesses closed or restricted. The publisher video plays directly inside FLLM.
+              </p>
+              <div className="news-current-meta"><span>August 2020</span><span>Source: WKMG News 6 / ClickOrlando</span></div>
+              <div className="news-current-actions">
+                <a href="https://www.youtube.com/watch?v=f_0E98RqARw" target="_blank" rel="noopener noreferrer">Open Publisher Video ↗</a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
