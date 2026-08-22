@@ -50,4 +50,13 @@ async function build(){
   form.updateFieldAppearances(regular);return d.save({useObjectStreams:false});
 }
 
-export async function GET(request:Request){const cfg=getAbtForm("abt-6023");if(!cfg)return Response.json({error:"ABT-6023 is not configured."},{status:404});const u=new URL(request.url),download=u.searchParams.get("download")==="1",bytes=await build(),body=bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength) as ArrayBuffer;return new Response(body,{status:200,headers:{"Content-Type":"application/pdf","Content-Disposition":`${download?"attachment":"inline"}; filename="ABT-6023-fillable.pdf"`,"Cache-Control":"no-store, max-age=0","X-Content-Type-Options":"nosniff","X-FLLM-Official-Source":cfg.officialPdfUrl,"X-FLLM-Last-Verified":cfg.lastVerified,"X-FLLM-PDF-Revision":"20260821-5"}});}
+function headers(cfg:ReturnType<typeof getAbtForm>,download:boolean,total:number){return {"Content-Type":"application/pdf","Content-Disposition":`${download?"attachment":"inline"}; filename="ABT-6023-fillable.pdf"`,"Cache-Control":"no-store, no-cache, must-revalidate, max-age=0","Pragma":"no-cache","Expires":"0","Accept-Ranges":"bytes","X-Content-Type-Options":"nosniff","X-FLLM-Official-Source":cfg?.officialPdfUrl||"","X-FLLM-Last-Verified":cfg?.lastVerified||"","X-FLLM-PDF-Revision":"20260821-6","Content-Length":String(total)};}
+
+export async function GET(request:Request){
+  const cfg=getAbtForm("abt-6023");if(!cfg)return Response.json({error:"ABT-6023 is not configured."},{status:404});
+  const u=new URL(request.url),download=u.searchParams.get("download")==="1",bytes=await build(),total=bytes.byteLength,range=request.headers.get("range");
+  if(range){const m=/bytes=(\d*)-(\d*)/.exec(range);if(m){let start=m[1]?Number(m[1]):0,end=m[2]?Number(m[2]):total-1;if(!m[1]&&m[2]){const suffix=Number(m[2]);start=Math.max(total-suffix,0);end=total-1;}start=Math.max(0,start);end=Math.min(total-1,end);if(start<=end){const chunk=bytes.slice(start,end+1);return new Response(chunk,{status:206,headers:{...headers(cfg,download,chunk.byteLength),"Content-Range":`bytes ${start}-${end}/${total}`}});}}return new Response(null,{status:416,headers:{...headers(cfg,download,0),"Content-Range":`bytes */${total}`}});}
+  return new Response(bytes,{status:200,headers:headers(cfg,download,total)});
+}
+
+export async function HEAD(request:Request){const cfg=getAbtForm("abt-6023");if(!cfg)return new Response(null,{status:404});const u=new URL(request.url),download=u.searchParams.get("download")==="1",bytes=await build();return new Response(null,{status:200,headers:headers(cfg,download,bytes.byteLength)});}
