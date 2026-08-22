@@ -1,13 +1,13 @@
 .attorney-practice-types {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  padding-bottom: 24px;
+  gap: 12px;
+  padding-bottom: 26px;
 }
 
 .attorney-practice-types article {
   min-width: 0;
-  padding: 16px 17px;
+  padding: 20px 20px;
   border: 1px solid #344f62;
   border-radius: 6px;
   background: #091c2a;
@@ -16,23 +16,24 @@
 .attorney-practice-types article > span {
   display: block;
   color: #f6a700;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 900;
   letter-spacing: .08em;
 }
 
 .attorney-practice-types strong {
   display: block;
-  margin-top: 5px;
+  margin-top: 6px;
   color: #fff;
-  font-size: 12px;
+  font-size: 16px;
+  line-height: 1.3;
 }
 
 .attorney-practice-types p {
-  margin: 7px 0 0;
-  color: #8fa1ad;
-  font-size: 9px;
-  line-height: 1.55;
+  margin: 9px 0 0;
+  color: #b1bec7;
+  font-size: 13px;
+  line-height: 1.58;
 }
 
 .attorney-practice-badge,
@@ -41,12 +42,12 @@
   width: fit-content;
   align-items: center;
   margin-top: 14px;
-  padding: 6px 9px;
+  padding: 7px 10px;
   border: 1px solid rgba(246, 167, 0, .55);
   border-radius: 999px;
   color: #ffc02b;
   background: rgba(246, 167, 0, .07);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 900;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -74,9 +75,9 @@
 .attorney-published-resource {
   position: relative;
   display: grid;
-  gap: 3px;
-  margin-top: 11px;
-  padding: 11px 34px 11px 12px;
+  gap: 4px;
+  margin-top: 12px;
+  padding: 13px 38px 13px 14px;
   border: 1px solid #40576a;
   border-radius: 5px;
   background: rgba(2, 11, 18, .48);
@@ -85,8 +86,8 @@
 
 .attorney-published-resource > span,
 .attorney-modal-resource > span {
-  color: #8fa1ad;
-  font-size: 8px;
+  color: #a9b7c0;
+  font-size: 10px;
   font-weight: 900;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -95,17 +96,17 @@
 .attorney-published-resource > strong,
 .attorney-modal-resource > strong {
   color: #fff;
-  font-size: 10px;
-  line-height: 1.35;
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .attorney-published-resource > em {
   position: absolute;
   top: 50%;
-  right: 12px;
+  right: 13px;
   transform: translateY(-50%);
   color: #f6a700;
-  font-size: 15px;
+  font-size: 17px;
   font-style: normal;
 }
 
@@ -119,9 +120,9 @@
 
 .attorney-modal-resource {
   display: grid;
-  gap: 4px;
+  gap: 5px;
   margin: 0 0 18px;
-  padding: 12px 13px;
+  padding: 14px 15px;
   border: 1px solid #40576a;
   border-radius: 5px;
   background: #06131e;
@@ -130,13 +131,13 @@
 
 .attorney-modal-resource > small {
   color: #f6a700;
-  font-size: 8px;
-  line-height: 1.4;
+  font-size: 10px;
+  line-height: 1.45;
 }
 
 .attorney-litigation-focus {
-  margin-bottom: 34px;
-  padding: 27px;
+  margin-bottom: 36px;
+  padding: 32px;
   border: 1px solid #425b6d;
   border-top: 3px solid #f6a700;
   border-radius: 8px;
@@ -150,7 +151,7 @@
 .attorney-faq-heading > span {
   display: block;
   color: #f6a700;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -158,32 +159,32 @@
 
 .attorney-litigation-heading h2,
 .attorney-faq-heading h2 {
-  max-width: 880px;
-  margin: 7px 0 11px;
+  max-width: 920px;
+  margin: 8px 0 13px;
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(26px, 3.4vw, 38px);
+  font-size: clamp(29px, 3.4vw, 40px);
   line-height: 1.1;
 }
 
 .attorney-litigation-heading > p {
-  max-width: 900px;
+  max-width: 980px;
   margin: 0;
-  color: #b6c3cb;
-  font-size: 12px;
-  line-height: 1.72;
+  color: #c8d2d8;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 .attorney-litigation-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 22px;
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .attorney-litigation-grid article {
   min-width: 0;
-  padding: 16px;
+  padding: 20px;
   border: 1px solid #344f62;
   border-radius: 6px;
   background: rgba(2, 11, 18, .48);
@@ -192,24 +193,25 @@
 .attorney-litigation-grid strong {
   display: block;
   color: #fff;
-  font-size: 11px;
-  line-height: 1.35;
+  font-size: 15px;
+  line-height: 1.4;
 }
 
 .attorney-litigation-grid p {
-  margin: 7px 0 0;
-  color: #8fa1ad;
-  font-size: 9px;
-  line-height: 1.58;
+  margin: 9px 0 0;
+  color: #b4c1ca;
+  font-size: 13px;
+  line-height: 1.62;
 }
 
 .attorney-litigation-directory-link {
   display: inline-flex;
-  margin-top: 20px;
+  margin-top: 22px;
   color: #f6a700;
-  font-size: 10px;
+  font-size: 13px;
+  line-height: 1.45;
   font-weight: 900;
-  letter-spacing: .04em;
+  letter-spacing: .03em;
   text-transform: uppercase;
 }
 
@@ -221,23 +223,23 @@
 }
 
 .attorney-faq {
-  padding-top: 4px;
-  padding-bottom: 34px;
+  padding-top: 6px;
+  padding-bottom: 36px;
 }
 
 .attorney-faq-heading {
-  margin-bottom: 17px;
+  margin-bottom: 19px;
 }
 
 .attorney-faq-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 
 .attorney-faq-grid article {
   min-width: 0;
-  padding: 19px;
+  padding: 22px;
   border: 1px solid #344f62;
   border-radius: 7px;
   background: #091c2a;
@@ -246,23 +248,25 @@
 .attorney-faq-grid h3 {
   margin: 0;
   color: #fff;
-  font-size: 13px;
-  line-height: 1.35;
+  font-size: 16px;
+  line-height: 1.4;
 }
 
 .attorney-faq-grid p {
-  margin: 9px 0 0;
-  color: #9aabb6;
-  font-size: 10px;
-  line-height: 1.65;
+  margin: 10px 0 0;
+  color: #b2c0c9;
+  font-size: 13px;
+  line-height: 1.68;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .attorney-practice-types,
   .attorney-litigation-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
 
+@media (max-width: 900px) {
   .attorney-faq-grid {
     grid-template-columns: 1fr;
   }
@@ -274,11 +278,22 @@
     grid-template-columns: 1fr;
   }
 
+  .attorney-practice-types strong,
+  .attorney-litigation-grid strong {
+    font-size: 17px;
+  }
+
+  .attorney-practice-types p,
+  .attorney-litigation-grid p,
+  .attorney-faq-grid p {
+    font-size: 14px;
+  }
+
   .attorney-modal-monogram {
     min-height: 240px;
   }
 
   .attorney-litigation-focus {
-    padding: 21px 17px;
+    padding: 24px 19px;
   }
 }
