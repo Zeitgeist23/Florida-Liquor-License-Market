@@ -29,6 +29,7 @@ const navMenus: NavMenu[] = [
     menuClassName: "native-nav-menu-standard",
     links: [
       { href: "/listings", label: "View Listings" },
+      { href: "/license-alerts", label: "Create a License Alert" },
       { href: "/how-to-buy-florida-liquor-license", label: "How to Buy a Florida Liquor License" },
       { href: "/counties", label: "Florida County Markets" },
     ],

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { sendListingApprovedEmail } from "@/lib/fllm-email";
+import { notifyMatchingLicenseAlerts } from "@/lib/license-alert-notifications";
 import {
   approveListingSubmission,
   claimApprovalEmail,
@@ -83,20 +84,19 @@ export async function POST(
     if (!title) return NextResponse.json({ error: "A listing title is required." }, { status: 400 });
 
     const liveListingUrl = `${siteOrigin(request.url)}/listings/${submission.submissionRef.toLowerCase()}`;
+    const publishedListing = {
+      county: countyLabel(submission.county),
+      type: licenseType,
+      price: askingPrice,
+      priceLabel: priceLabel(askingPrice),
+      sourceRef: submission.submissionRef,
+      sourceName: "Florida Liquor License Market",
+      note: submission.message ?? undefined,
+      image: "/assets/license-market/license-01.png",
+      inventoryClass: "direct_seller" as const,
+    };
 
-    await upsertMarketplaceListings([
-      {
-        county: countyLabel(submission.county),
-        type: licenseType,
-        price: askingPrice,
-        priceLabel: priceLabel(askingPrice),
-        sourceRef: submission.submissionRef,
-        sourceName: "Florida Liquor License Market",
-        note: submission.message ?? undefined,
-        image: "/assets/license-market/license-01.png",
-        inventoryClass: "direct_seller",
-      },
-    ]);
+    await upsertMarketplaceListings([publishedListing]);
 
     const approved = await approveListingSubmission({
       id: submission.id,
@@ -116,6 +116,12 @@ export async function POST(
         await finishApprovalEmail(claimed.id, false, message);
         console.error("Approved listing email failed", error);
       }
+    }
+
+    try {
+      await notifyMatchingLicenseAlerts(publishedListing, liveListingUrl);
+    } catch (error) {
+      console.error("Buyer License Alerts failed after listing approval", error);
     }
 
     const refreshed = await getSubmissionById(approved.id);
