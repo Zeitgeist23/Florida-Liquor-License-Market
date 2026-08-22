@@ -128,6 +128,7 @@ export default function FloridaLiquorLicenseAttorneysPage() {
           </article>
         </div>
         <a className="attorney-litigation-directory-link" href="#attorney-directory">Compare attorneys in the directory ↓</a>
+        <a className="attorney-litigation-directory-link" href="/resources/florida-liquor-license-property-or-privilege">Read FLLM explainer: Is a Florida liquor license property or a privilege? ›</a>
       </section>
 
       <AttorneyDirectory />
