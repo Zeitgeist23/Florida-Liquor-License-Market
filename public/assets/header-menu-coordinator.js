@@ -54,6 +54,16 @@
     return (element?.textContent || "").replace(/\s+/g, " ").trim();
   }
 
+  function nativeResourcesMenuPresent() {
+    return Boolean(document.querySelector(".native-nav-resources-menu"));
+  }
+
+  function removeLegacyResourcesMenus() {
+    if (!nativeResourcesMenuPresent()) return false;
+    document.querySelectorAll(".resources-header-menu").forEach((legacyMenu) => legacyMenu.remove());
+    return true;
+  }
+
   function findTrigger(label) {
     return Array.from(document.querySelectorAll(".primary-nav a"))
       .find((link) => normalizedText(link).toLowerCase() === label.toLowerCase()) || null;
@@ -76,6 +86,8 @@
   }
 
   function normalizeResourcesMenu() {
+    if (removeLegacyResourcesMenus()) return true;
+
     const menu = document.querySelector(".resources-header-menu");
     if (!(menu instanceof HTMLElement)) return false;
 
@@ -173,6 +185,7 @@
   }
 
   function menuElement(menuDefinition) {
+    if (menuDefinition.label === "Resources" && nativeResourcesMenuPresent()) return null;
     const menu = document.querySelector(menuDefinition.selector);
     return menu instanceof HTMLElement ? menu : null;
   }
@@ -207,6 +220,11 @@
     clearTimer(openTimers, menuDefinition.label);
     clearTimer(closeTimers, menuDefinition.label);
 
+    if (menuDefinition.label === "Resources" && nativeResourcesMenuPresent()) {
+      removeLegacyResourcesMenus();
+      return;
+    }
+
     if (!desktopHoverAvailable()) return;
     const trigger = findTrigger(menuDefinition.label);
     if (!(trigger instanceof HTMLAnchorElement) || !trigger.isConnected) return;
@@ -230,6 +248,10 @@
   }
 
   function scheduleOpen(menuDefinition) {
+    if (menuDefinition.label === "Resources" && nativeResourcesMenuPresent()) {
+      removeLegacyResourcesMenus();
+      return;
+    }
     if (!desktopHoverAvailable()) return;
     clearTimer(closeTimers, menuDefinition.label);
     clearTimer(openTimers, menuDefinition.label);
@@ -382,6 +404,7 @@
   normalizeResourcesMenu();
   ensureCareersFooterLink();
   ensureNationalMarketplaceLinks();
+  window.setTimeout(normalizeResourcesMenu, 100);
   window.setTimeout(normalizeResourcesMenu, 300);
   window.setTimeout(normalizeResourcesMenu, 1000);
   window.setTimeout(ensureCareersFooterLink, 100);
