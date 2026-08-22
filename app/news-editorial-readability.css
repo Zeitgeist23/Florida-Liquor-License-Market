@@ -1,16 +1,16 @@
 /* FLLM News Desk readability standard.
    Scope every rule to news pages so other FLLM sections retain their existing layout. */
 
-/* Match the desktop News header logo to the landing-page header logo. */
+/* News header logo: 12% smaller than the previous News setting. */
 @media (min-width: 900px) {
   .news-insights-page .news-header-wrap .forms-site-header .brand-lockup {
-    flex: 0 0 209px;
+    flex: 0 0 184px;
   }
 
   .news-insights-page .news-header-wrap .forms-site-header .brand-lockup img {
     display: block;
-    width: 188px !important;
-    height: 76px !important;
+    width: 165.44px !important;
+    height: 66.88px !important;
     position: static !important;
     left: auto !important;
     transform: none !important;
