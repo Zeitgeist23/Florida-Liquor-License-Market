@@ -38,7 +38,10 @@ const sectionTitleStyle = { margin: 0, padding: "12px 16px", background: "#c7d4d
 
 export default function Abt6023HtmlForm({ form }: { form: AbtFormDefinition }) {
   const [values, setValues] = useState<Values>(EMPTY);
-  const set = <K extends keyof Values>(key: K, value: Values[K]) => setValues((v) => ({ ...v, [key]: value }));
+
+  function set<K extends keyof Values>(key: K, value: Values[K]) {
+    setValues((v) => ({ ...v, [key]: value }));
+  }
 
   return (
     <section className="abt-workspace" aria-label="ABT-6023 browser form workspace">
