@@ -3,6 +3,7 @@ export type NewsArticle = {
   eyebrow: string;
   title: string;
   date: string;
+  publishedDate?: string;
   summary: string;
   intro: string;
   sections: Array<{
@@ -20,6 +21,7 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     eyebrow: "FLLM Briefing",
     title: "Florida quota drawing season: what applicants should watch next",
     date: "August 16, 2026",
+    publishedDate: "2026-08-16",
     summary:
       "A practical FLLM briefing on the annual Florida quota drawing entry window, eligible counties and the ABT-6033 filing process.",
     intro:
@@ -55,6 +57,7 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     eyebrow: "Quota Drawing",
     title: "2025 Florida quota drawing results are posted",
     date: "May 6, 2026",
+    publishedDate: "2026-05-06",
     summary:
       "Florida DBPR reports that the public drawing for the 2025 quota alcoholic beverage license entry period was held May 6, 2026.",
     intro:
