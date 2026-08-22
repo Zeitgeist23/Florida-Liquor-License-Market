@@ -1,10 +1,12 @@
 "use client";
 
+import type { CSSProperties } from "react";
+
 export default function Abt6023HtmlForm({ formNumber, officialPdfUrl }: { formNumber: string; officialPdfUrl: string }) {
-  const inputStyle = { width: "100%", minHeight: 42, borderRadius: 8, border: "1px solid #8ea2b6", background: "#f7fbff", color: "#071827", padding: "9px 11px", fontSize: 15, boxSizing: "border-box" as const };
-  const labelStyle = { display: "grid", gap: 6, fontSize: 13, fontWeight: 800, color: "#d7e7f5" };
-  const sectionStyle = { border: "1px solid #355069", borderRadius: 12, overflow: "hidden", background: "#061522" };
-  const headingStyle = { margin: 0, padding: "12px 16px", background: "#c7d4df", color: "#071827", fontSize: 16, fontWeight: 900 };
+  const inputStyle: CSSProperties = { width: "100%", minHeight: 42, borderRadius: 8, border: "1px solid #8ea2b6", background: "#f7fbff", color: "#071827", padding: "9px 11px", fontSize: 15, boxSizing: "border-box" };
+  const labelStyle: CSSProperties = { display: "grid", gap: 6, fontSize: 13, fontWeight: 800, color: "#d7e7f5" };
+  const sectionStyle: CSSProperties = { border: "1px solid #355069", borderRadius: 12, overflow: "hidden", background: "#061522" };
+  const headingStyle: CSSProperties = { margin: 0, padding: "12px 16px", background: "#c7d4df", color: "#071827", fontSize: 16, fontWeight: 900 };
 
   return (
     <section className="abt-workspace" aria-label="ABT-6023 browser form workspace">
