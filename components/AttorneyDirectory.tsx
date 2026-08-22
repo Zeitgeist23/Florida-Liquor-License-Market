@@ -52,7 +52,7 @@ const attorneys: Attorney[] = [
     ],
     publishedResourceLabel: "Published firm resource",
     publishedResourceTitle: "Alcoholic Beverage and Tobacco Licenses Overview",
-    publishedResourceUrl: "https://www.jimersonfirm.com/services/administrative-law-licensing/alcoholic-beverage-and-tobacco-licenses/",
+    publishedResourceUrl: "/resources/liquor-license-attorneys/articles/alcoholic-beverage-and-tobacco-licenses-overview",
   },
   {
     name: "Deborah A. Carman",
@@ -221,10 +221,10 @@ export default function AttorneyDirectory() {
               View attorney or firm profile <span aria-hidden="true">↗</span>
             </a>
             {attorney.publishedResourceTitle && attorney.publishedResourceUrl && (
-              <a className="attorney-published-resource" href={attorney.publishedResourceUrl} target="_blank" rel="noreferrer">
+              <a className="attorney-published-resource" href={attorney.publishedResourceUrl}>
                 <span>{attorney.publishedResourceLabel ?? "Published resource"}</span>
                 <strong>{attorney.publishedResourceTitle}</strong>
-                <em aria-hidden="true">↗</em>
+                <em aria-hidden="true">›</em>
               </a>
             )}
             <span className="attorney-card-hint">Click anywhere else for full details</span>
@@ -282,16 +282,16 @@ export default function AttorneyDirectory() {
               </ul>
 
               {selectedAttorney.publishedResourceTitle && selectedAttorney.publishedResourceUrl && (
-                <a className="attorney-modal-resource" href={selectedAttorney.publishedResourceUrl} target="_blank" rel="noreferrer">
+                <a className="attorney-modal-resource" href={selectedAttorney.publishedResourceUrl}>
                   <span>{selectedAttorney.publishedResourceLabel ?? "Published resource"}</span>
                   <strong>{selectedAttorney.publishedResourceTitle}</strong>
-                  <small>Open the firm&apos;s alcoholic-beverage licensing overview ↗</small>
+                  <small>Read inside the FLLM resource viewer ›</small>
                 </a>
               )}
 
               <div className="attorney-modal-actions">
-                <a className="btn btn-gold" href={selectedAttorney.phoneHref}>
-                  Call {selectedAttorney.phone}
+                <a className="btn btn-gold attorney-modal-call" href={selectedAttorney.phoneHref}>
+                  <span>Call</span><strong>{selectedAttorney.phone}</strong>
                 </a>
                 <a className="btn btn-outline" href={selectedAttorney.profile} target="_blank" rel="noreferrer">
                   Visit Firm Profile ↗
@@ -311,6 +311,25 @@ export default function AttorneyDirectory() {
           </section>
         </div>
       )}
+
+      <style>{`
+        .attorney-modal-actions .attorney-modal-call {
+          min-height: 52px;
+          gap: 8px;
+          font-size: 11px !important;
+          font-weight: 900;
+        }
+        .attorney-modal-actions .attorney-modal-call strong {
+          font-size: 16px;
+          line-height: 1;
+          letter-spacing: .025em;
+        }
+        .attorney-modal-secondary-phone {
+          font-size: 14px !important;
+          line-height: 1.45;
+          font-weight: 900 !important;
+        }
+      `}</style>
     </>
   );
 }
