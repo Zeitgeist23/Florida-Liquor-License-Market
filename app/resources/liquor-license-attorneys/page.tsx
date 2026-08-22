@@ -30,6 +30,25 @@ const faqItems = [
   },
 ] as const;
 
+const publishedResources = [
+  {
+    publisher: "Godfrey Legal · B.F. Godfrey, P.A.",
+    title: "Orlando Liquor License Lawyer — Obtaining a Florida Liquor License",
+    location: "Orlando, Florida",
+    summary:
+      "Godfrey Legal's liquor-licensing overview discusses the Florida licensing process and the role legal counsel can play when a business is applying for authority to sell alcoholic beverages.",
+    href: "https://godfreylegal.com/orlando-commercial-real-estate-lawyer/liquor-licensing/",
+  },
+  {
+    publisher: "Jimerson Birr, P.A.",
+    title: "Alcoholic Beverage and Tobacco Licenses Overview",
+    location: "Florida statewide administrative-law practice",
+    summary:
+      "Jimerson Birr's published overview discusses alcoholic-beverage licensing, DBPR administrative matters, license defense, and judicial review of adverse agency decisions.",
+    href: "https://www.jimersonfirm.com/services/administrative-law-licensing/alcoholic-beverage-and-tobacco-licenses/",
+  },
+] as const;
+
 export default function FloridaLiquorLicenseAttorneysPage() {
   return (
     <main className="attorney-directory-page">
@@ -50,6 +69,7 @@ export default function FloridaLiquorLicenseAttorneysPage() {
           <div className="attorney-hero-actions">
             <a className="btn btn-gold" href="#attorney-directory">Browse Attorneys</a>
             <a className="btn btn-outline" href="#litigation-appeals">Litigation &amp; Appeals</a>
+            <a className="btn btn-outline" href="#published-resources">Published Resources</a>
             <a
               className="btn btn-outline attorney-join-button"
               href="/resources/liquor-license-attorneys/apply"
@@ -132,6 +152,29 @@ export default function FloridaLiquorLicenseAttorneysPage() {
       </section>
 
       <AttorneyDirectory />
+
+      <section className="attorney-published-resources page-shell" id="published-resources" aria-labelledby="published-resources-heading">
+        <div className="attorney-published-resources-heading">
+          <span>Published Florida liquor-license resources</span>
+          <h2 id="published-resources-heading">Articles from Florida law firms</h2>
+          <p>
+            FLLM links to selected public articles from Florida law firms when the material is directly relevant to alcoholic-beverage licensing, regulatory disputes, transactions, or appeals. These links are provided for research and do not constitute an endorsement of the publisher or legal advice.
+          </p>
+        </div>
+        <div className="attorney-published-resources-grid">
+          {publishedResources.map((resource) => (
+            <article key={resource.href}>
+              <span>{resource.publisher}</span>
+              <h3>{resource.title}</h3>
+              <small>{resource.location}</small>
+              <p>{resource.summary}</p>
+              <a href={resource.href} target="_blank" rel="noreferrer">
+                Read original article <span aria-hidden="true">↗</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section className="attorney-faq page-shell" aria-labelledby="attorney-faq-heading">
         <div className="attorney-faq-heading">
