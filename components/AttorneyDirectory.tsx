@@ -2,7 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const attorneys = [
+type Attorney = {
+  name: string;
+  firm: string;
+  location: string;
+  category: string;
+  phone: string;
+  phoneHref: string;
+  profile: string;
+  services: string[];
+  image?: string;
+  imageCredit?: string;
+  secondaryPhone?: string;
+  secondaryPhoneHref?: string;
+};
+
+const attorneys: Attorney[] = [
   {
     name: "Hannah Becker",
     firm: "Spencer Fane LLP",
@@ -99,9 +114,7 @@ const attorneys = [
       "Appellate briefing, issue framing, and preservation strategy",
     ],
   },
-] as const;
-
-type Attorney = (typeof attorneys)[number];
+];
 
 function getInitials(name: string) {
   return name.split(" ").map((part) => part[0]).join("").slice(0, 2);
@@ -175,7 +188,7 @@ export default function AttorneyDirectory() {
                 <span>Call</span>
                 <strong>{attorney.phone}</strong>
               </a>
-              {"secondaryPhone" in attorney && (
+              {attorney.secondaryPhone && attorney.secondaryPhoneHref && (
                 <a className="attorney-secondary-phone" href={attorney.secondaryPhoneHref}>
                   {attorney.secondaryPhone}
                 </a>
@@ -214,10 +227,10 @@ export default function AttorneyDirectory() {
             </button>
 
             <div className="attorney-modal-photo">
-              {"image" in selectedAttorney ? (
+              {selectedAttorney.image ? (
                 <>
                   <img src={selectedAttorney.image} alt={`Portrait of ${selectedAttorney.name}`} />
-                  <small>{selectedAttorney.imageCredit}</small>
+                  <small>{selectedAttorney.imageCredit ?? "Portrait from attorney or firm website"}</small>
                 </>
               ) : (
                 <>
@@ -248,7 +261,7 @@ export default function AttorneyDirectory() {
                 </a>
               </div>
 
-              {"secondaryPhone" in selectedAttorney && (
+              {selectedAttorney.secondaryPhone && selectedAttorney.secondaryPhoneHref && (
                 <a className="attorney-modal-secondary-phone" href={selectedAttorney.secondaryPhoneHref}>
                   {selectedAttorney.secondaryPhone}
                 </a>
