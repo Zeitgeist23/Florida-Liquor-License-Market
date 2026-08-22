@@ -33,7 +33,7 @@ function formatUsPhone(value: string) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-const reportPreviewSrc = "/assets/fllm-example-market-report-preview.webp?v=20260820-2245";
+const reportPreviewSrc = "/assets/fllm-preliminary-market-report-preview.webp?v=20260822";
 
 export default function PreliminaryMarketReportFunnel(props: Props) {
   const [open, setOpen] = useState(false);
