@@ -15,6 +15,10 @@
       href: "/listings",
     },
     {
+      label: "Get a License Alert",
+      href: "/license-alerts",
+    },
+    {
       label: "How to Buy a Florida Liquor License",
       href: "/how-to-buy-florida-liquor-license",
     },
