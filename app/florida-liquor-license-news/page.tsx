@@ -5,33 +5,43 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 import "@/app/resources/forms/abt-forms.css";
 import "./news-insights.css";
 import "./news-mobile-readability.css";
+import "./current-events.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-news`;
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License News & Insights | FLLM",
+  title: "Florida Liquor License News & Current Events | FLLM",
   description:
-    "Follow Florida liquor license news, DBPR and ABT updates, quota drawing developments, 4COP and 3PS market trends, transaction data and FLLM video briefings.",
+    "Follow Florida liquor license news and current events, DBPR and ABT updates, enforcement matters, quota drawing developments, 4COP and 3PS market trends, transaction data and FLLM video briefings.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Liquor License News & Insights",
+    title: "Florida Liquor License News & Current Events",
     description:
-      "Florida liquor license news, official DBPR updates, quota drawing developments, market trends and FLLM briefings.",
+      "Florida liquor license news, current events, enforcement developments, official DBPR updates, quota drawing developments and market trends.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Florida Liquor License News & Insights",
+    title: "Florida Liquor License News & Current Events",
     description:
-      "Florida liquor license news, DBPR updates, quota drawing developments and market trends from FLLM.",
+      "Florida liquor license news, current events, DBPR updates, enforcement matters and market trends from FLLM.",
   },
 };
 
 const officialUpdates = [
+  {
+    eyebrow: "Enforcement & Current Events",
+    title: "Officials move to suspend Orlando venue's liquor license after drag show attended by children",
+    date: "February 3, 2023",
+    copy:
+      "WKMG News 6 / ClickOrlando reported that Florida officials moved to suspend an Orlando performing arts venue's liquor license after a December 2022 event.",
+    href: "/florida-liquor-license-news/orlando-venue-liquor-license-suspension-drag-show",
+    source: "WKMG News 6 / ClickOrlando",
+  },
   {
     eyebrow: "Quota Drawing",
     title: "2025 Florida quota drawing results are posted",
@@ -93,10 +103,10 @@ export default function FloridaLiquorLicenseNewsPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Florida Liquor License News & Insights",
+      name: "Florida Liquor License News & Current Events",
       url: canonicalUrl,
       description:
-        "Florida liquor license news, DBPR and ABT updates, quota drawing developments, market trends and FLLM briefings.",
+        "Florida liquor license news, current events, DBPR and ABT updates, enforcement matters, quota drawing developments, market trends and FLLM briefings.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
@@ -104,7 +114,7 @@ export default function FloridaLiquorLicenseNewsPage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "News & Insights", item: canonicalUrl },
+        { "@type": "ListItem", position: 2, name: "News & Current Events", item: canonicalUrl },
       ],
     },
   ];
@@ -123,25 +133,68 @@ export default function FloridaLiquorLicenseNewsPage() {
       <section className="news-hero">
         <div className="page-shell">
           <nav className="news-breadcrumbs" aria-label="Breadcrumb">
-            <Link href="/">Home</Link><span>›</span><strong>News &amp; Insights</strong>
+            <Link href="/">Home</Link><span>›</span><strong>News &amp; Current Events</strong>
           </nav>
           <div className="news-hero-grid">
             <div>
-              <span className="news-eyebrow">Florida Liquor License Market Intelligence</span>
-              <h1>Florida Liquor License News &amp; Insights</h1>
+              <span className="news-eyebrow">Florida Liquor License News Desk</span>
+              <h1>Florida Liquor License News &amp; Current Events</h1>
               <p>
-                Follow the developments that can matter to Florida liquor-license buyers, sellers, brokers, investors and operators—from DBPR notices and quota drawings to 4COP and 3PS market activity.
+                Follow Florida liquor-license headlines, enforcement matters, DBPR and ABT notices, quota drawings, legislation, market activity and video reports—all presented inside an FLLM-style news experience.
               </p>
               <div className="news-hero-actions">
+                <a href="#current-events">Current Events</a>
                 <a href="#latest">Latest Updates</a>
                 <a href="#videos">Video Briefings</a>
               </div>
             </div>
             <aside className="news-hero-panel">
               <span>FLLM News Desk</span>
-              <strong>One place for Florida license-market developments</strong>
-              <p>FLLM articles summarize official DBPR and ABT developments in a consistent market-focused format, with the original agency source available inside each article.</p>
+              <strong>Florida license news without losing the FLLM experience</strong>
+              <p>FLLM publishes its own summaries, credits the original publisher or agency, and embeds official publisher video when an embeddable player is available.</p>
             </aside>
+          </div>
+        </div>
+      </section>
+
+      <nav className="news-category-nav" aria-label="Florida liquor license news categories">
+        <div className="page-shell">
+          <a href="#current-events">Current Events</a>
+          <a href="#latest">Enforcement</a>
+          <a href="#latest">DBPR &amp; ABT</a>
+          <a href="#latest">Quota Drawings</a>
+          <a href="#market-trends">Market Data</a>
+          <a href="#videos">Video</a>
+        </div>
+      </nav>
+
+      <section className="news-current-event page-shell" id="current-events" aria-labelledby="current-event-title">
+        <div className="news-section-heading">
+          <div><span>Featured Current Event</span><h2>Florida liquor-license enforcement in the news</h2></div>
+          <span className="news-source-note">Publisher video stays inside FLLM</span>
+        </div>
+        <div className="news-current-event-card">
+          <div className="news-current-video">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/kFBjJpE5iNo"
+              title="WKMG News 6 report on Orlando venue liquor-license suspension action"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+          <div className="news-current-copy">
+            <span>Enforcement &amp; Current Events</span>
+            <h2 id="current-event-title">Officials move to suspend Orlando venue&apos;s liquor license after drag show attended by children</h2>
+            <p>
+              WKMG News 6 / ClickOrlando reported that Florida officials moved to suspend an Orlando performing arts venue&apos;s liquor license after a December 2022 event. FLLM summarizes the licensing significance while the station&apos;s official video plays directly on this page.
+            </p>
+            <div className="news-current-meta"><span>February 3, 2023</span><span>Source: WKMG News 6 / ClickOrlando</span></div>
+            <div className="news-current-actions">
+              <Link href="/florida-liquor-license-news/orlando-venue-liquor-license-suspension-drag-show">Read FLLM Summary</Link>
+              <a href="https://www.clickorlando.com/video/news/2023/02/04/officials-move-to-suspend-orlando-venues-liquor-license-after-drag-show-attended-by-children/" target="_blank" rel="noopener noreferrer">Original Source ↗</a>
+            </div>
           </div>
         </div>
       </section>
@@ -169,8 +222,8 @@ export default function FloridaLiquorLicenseNewsPage() {
       <section className="news-latest" id="latest">
         <div className="page-shell">
           <div className="news-section-heading">
-            <div><span>Latest Updates</span><h2>Florida liquor-license developments</h2></div>
-            <span className="news-source-note">Sources verified with Florida DBPR / ABT</span>
+            <div><span>News &amp; Regulatory Updates</span><h2>Florida liquor-license developments</h2></div>
+            <span className="news-source-note">FLLM summaries with original source attribution</span>
           </div>
           <div className="news-card-grid">
             {officialUpdates.map((item) => (
@@ -178,15 +231,15 @@ export default function FloridaLiquorLicenseNewsPage() {
                 <div className="news-card-meta"><span>{item.eyebrow}</span><time>{item.date}</time></div>
                 <h3>{item.title}</h3>
                 <p>{item.copy}</p>
-                <Link href={item.href}>Read Article <span aria-hidden="true">›</span></Link>
-                <small>Source: {item.source}</small>
+                <Link href={item.href}>Read Inside FLLM <span aria-hidden="true">›</span></Link>
+                <small className={item.source.includes("ClickOrlando") ? "news-card-source-publisher" : undefined}>Source: {item.source}</small>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="news-market page-shell" aria-labelledby="market-trends-title">
+      <section className="news-market page-shell" id="market-trends" aria-labelledby="market-trends-title">
         <div className="news-section-heading">
           <div><span>Market Trends</span><h2 id="market-trends-title">Turn the news into market context</h2></div>
           <Link href="/listings">Browse Current Inventory</Link>
@@ -206,22 +259,22 @@ export default function FloridaLiquorLicenseNewsPage() {
       <section className="news-videos" id="videos">
         <div className="page-shell">
           <div className="news-section-heading news-section-heading-light">
-            <div><span>Video &amp; Briefings</span><h2>Watch and listen to FLLM market coverage</h2></div>
+            <div><span>Video &amp; Briefings</span><h2>Watch Florida liquor-license coverage inside FLLM</h2></div>
           </div>
           <div className="news-video-grid">
-            <Link className="news-video-card news-video-primary" href="/#market-data">
+            <Link className="news-video-card news-video-primary" href="/florida-liquor-license-news/orlando-venue-liquor-license-suspension-drag-show">
+              <div className="news-video-preview">
+                <img src="https://i.ytimg.com/vi/kFBjJpE5iNo/hqdefault.jpg" alt="WKMG News 6 Orlando liquor-license enforcement report" />
+                <span className="news-play" aria-hidden="true">▶</span>
+              </div>
+              <div><span>Publisher Video</span><strong>Orlando liquor-license enforcement report</strong><p>Watch the WKMG News 6 / ClickOrlando report and read FLLM&apos;s licensing summary without leaving the FLLM article.</p></div>
+            </Link>
+            <Link className="news-video-card" href="/#market-data">
               <div className="news-video-preview">
                 <img src="/assets/market-report-studio.png" alt="Florida Liquor License Market Report studio" />
                 <span className="news-play" aria-hidden="true">▶</span>
               </div>
               <div><span>FLLM Market Report</span><strong>Florida Market Insights</strong><p>Open the latest FLLM market-insights section and market report from the homepage.</p></div>
-            </Link>
-            <Link className="news-video-card" href="/#market-report">
-              <div className="news-video-preview news-video-how-it-works">
-                <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-                <span className="news-play" aria-hidden="true">▶</span>
-              </div>
-              <div><span>Marketplace Briefing</span><strong>How Florida Liquor License Market Works</strong><p>See the marketplace flow for buyers, sellers, financing sources and investors.</p></div>
             </Link>
           </div>
         </div>
