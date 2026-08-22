@@ -15,6 +15,9 @@ type Attorney = {
   imageCredit?: string;
   secondaryPhone?: string;
   secondaryPhoneHref?: string;
+  publishedResourceTitle?: string;
+  publishedResourceUrl?: string;
+  publishedResourceLabel?: string;
 };
 
 const attorneys: Attorney[] = [
@@ -33,6 +36,23 @@ const attorneys: Attorney[] = [
       "Licensing and permitting",
       "Hospitality mergers and acquisitions",
     ],
+  },
+  {
+    name: "James “Joby” Birr, III",
+    firm: "Jimerson Birr, P.A.",
+    location: "Jacksonville · Statewide Florida matters",
+    category: "Licensing & Regulatory",
+    phone: "904-389-0050",
+    phoneHref: "tel:+19043890050",
+    profile: "https://www.jimersonfirm.com/attorneys/james-joby-birr-iii/",
+    services: [
+      "Alcoholic-beverage and tobacco licensing and compliance",
+      "Administrative law, agency proceedings, and DBPR licensing disputes",
+      "Appeals and judicial review involving adverse agency decisions",
+    ],
+    publishedResourceLabel: "Published firm resource",
+    publishedResourceTitle: "Alcoholic Beverage and Tobacco Licenses Overview",
+    publishedResourceUrl: "https://www.jimersonfirm.com/services/administrative-law-licensing/alcoholic-beverage-and-tobacco-licenses/",
   },
   {
     name: "Deborah A. Carman",
@@ -198,6 +218,13 @@ export default function AttorneyDirectory() {
             <a className="attorney-profile-link" href={attorney.profile} target="_blank" rel="noreferrer">
               View attorney or firm profile <span aria-hidden="true">↗</span>
             </a>
+            {attorney.publishedResourceTitle && attorney.publishedResourceUrl && (
+              <a className="attorney-published-resource" href={attorney.publishedResourceUrl} target="_blank" rel="noreferrer">
+                <span>{attorney.publishedResourceLabel ?? "Published resource"}</span>
+                <strong>{attorney.publishedResourceTitle}</strong>
+                <em aria-hidden="true">↗</em>
+              </a>
+            )}
             <span className="attorney-card-hint">Click anywhere else for full details</span>
           </article>
         ))}
@@ -251,6 +278,14 @@ export default function AttorneyDirectory() {
               <ul>
                 {selectedAttorney.services.map((service) => <li key={service}>{service}</li>)}
               </ul>
+
+              {selectedAttorney.publishedResourceTitle && selectedAttorney.publishedResourceUrl && (
+                <a className="attorney-modal-resource" href={selectedAttorney.publishedResourceUrl} target="_blank" rel="noreferrer">
+                  <span>{selectedAttorney.publishedResourceLabel ?? "Published resource"}</span>
+                  <strong>{selectedAttorney.publishedResourceTitle}</strong>
+                  <small>Open the firm&apos;s alcoholic-beverage licensing overview ↗</small>
+                </a>
+              )}
 
               <div className="attorney-modal-actions">
                 <a className="btn btn-gold" href={selectedAttorney.phoneHref}>
