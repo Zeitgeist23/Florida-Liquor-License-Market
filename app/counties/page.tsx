@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { countyPopulations2024 } from "@/data/county-populations-2024";
 import { QUOTA_DRAWING_2026 } from "@/data/quota-drawing-2026";
 import { countySlug, floridaCounties, getCountyBySlug } from "@/data/florida-counties";
-import type { Listing } from "@/data/listings";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import "./counties-page.css";
@@ -25,87 +25,11 @@ export const metadata: Metadata = {
       "Current 4COP and 3PS asking-price data, active inventory, population estimates and quota drawing availability across Florida's 67 counties.",
     siteName: "Florida Liquor License Market",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Florida Liquor License Market Data by County",
-    description: "Compare current Florida quota liquor-license market data across all 67 counties.",
-  },
 };
 
 export const dynamic = "force-dynamic";
 
-// U.S. Census Bureau Vintage 2024 county population estimates.
-const countyPopulations2024: Record<string, number> = {
-  "Alachua County": 291782,
-  "Baker County": 29325,
-  "Bay County": 199718,
-  "Bradford County": 28075,
-  "Brevard County": 658447,
-  "Broward County": 2037472,
-  "Calhoun County": 13278,
-  "Charlotte County": 212122,
-  "Citrus County": 170174,
-  "Clay County": 236760,
-  "Collier County": 416233,
-  "Columbia County": 73977,
-  "DeSoto County": 36744,
-  "Dixie County": 17614,
-  "Duval County": 1055159,
-  "Escambia County": 331275,
-  "Flagler County": 136744,
-  "Franklin County": 12979,
-  "Gadsden County": 44151,
-  "Gilchrist County": 20233,
-  "Glades County": 13132,
-  "Gulf County": 15876,
-  "Hamilton County": 14334,
-  "Hardee County": 26068,
-  "Hendry County": 46130,
-  "Hernando County": 218150,
-  "Highlands County": 109778,
-  "Hillsborough County": 1581426,
-  "Holmes County": 19876,
-  "Indian River County": 172139,
-  "Jackson County": 49980,
-  "Jefferson County": 15921,
-  "Lafayette County": 8640,
-  "Lake County": 444204,
-  "Lee County": 860959,
-  "Leon County": 300488,
-  "Levy County": 47765,
-  "Liberty County": 7955,
-  "Madison County": 18364,
-  "Manatee County": 458352,
-  "Marion County": 428905,
-  "Martin County": 165666,
-  "Miami-Dade County": 2838461,
-  "Monroe County": 80908,
-  "Nassau County": 104376,
-  "Okaloosa County": 220483,
-  "Okeechobee County": 42369,
-  "Orange County": 1533646,
-  "Osceola County": 468058,
-  "Palm Beach County": 1582055,
-  "Pasco County": 659114,
-  "Pinellas County": 965870,
-  "Polk County": 852878,
-  "Putnam County": 77301,
-  "Santa Rosa County": 207653,
-  "Sarasota County": 476604,
-  "Seminole County": 494605,
-  "St. Johns County": 334928,
-  "St. Lucie County": 390670,
-  "Sumter County": 154693,
-  "Suwannee County": 47536,
-  "Taylor County": 21843,
-  "Union County": 15738,
-  "Volusia County": 602772,
-  "Wakulla County": 37115,
-  "Walton County": 89666,
-  "Washington County": 26503,
-};
-
-type AskingPriceSummary = {
+type PriceStats = {
   count: number;
   low: number | null;
   median: number | null;
@@ -121,19 +45,18 @@ function money(value: number) {
 }
 
 function median(values: number[]) {
-  if (!values.length) return null;
+  if (values.length === 0) return null;
   const sorted = [...values].sort((a, b) => a - b);
   const middle = Math.floor(sorted.length / 2);
-  return sorted.length % 2
+  return sorted.length % 2 === 1
     ? sorted[middle]
     : Math.round((sorted[middle - 1] + sorted[middle]) / 2);
 }
 
-function summarizePrices(listings: Listing[]): AskingPriceSummary {
-  const prices = listings
-    .map((listing) => listing.price)
-    .filter((price): price is number => Number.isFinite(price));
-
+function priceStats(values: Array<number | null>): PriceStats {
+  const prices = values.filter(
+    (value): value is number => typeof value === "number" && Number.isFinite(value),
+  );
   return {
     count: prices.length,
     low: prices.length ? Math.min(...prices) : null,
@@ -147,39 +70,40 @@ function canonicalCountyName(value: string) {
   return getCountyBySlug(countySlug(normalized))?.name ?? value;
 }
 
-function drawingCountyName(value: string) {
-  if (value === "Dade") return "Miami-Dade County";
-  return `${value} County`;
+function dbprCountyName(value: string) {
+  return value === "Dade" ? "Miami-Dade County" : `${value} County`;
 }
 
-function AskingPriceCell({ summary }: { summary: AskingPriceSummary }) {
-  if (summary.median === null) return <span className="market-data-empty">—</span>;
-
-  const range = summary.low !== null && summary.high !== null && summary.low !== summary.high
-    ? `${money(summary.low)}–${money(summary.high)}`
+function AskingPriceCell({ stats }: { stats: PriceStats }) {
+  if (stats.median === null) return <span className="market-data-empty">—</span>;
+  const range = stats.low !== null && stats.high !== null && stats.low !== stats.high
+    ? `${money(stats.low)}–${money(stats.high)}`
     : null;
 
   return (
     <span className="market-price-cell">
-      <strong>{money(summary.median)}</strong>
-      <small>{summary.count} disclosed ask{summary.count === 1 ? "" : "s"}{range ? ` · ${range}` : ""}</small>
+      <strong>{money(stats.median)}</strong>
+      <small>
+        {stats.count} disclosed ask{stats.count === 1 ? "" : "s"}
+        {range ? ` · ${range}` : ""}
+      </small>
     </span>
   );
 }
 
 export default async function CountiesPage() {
-  const listings = getVisibleAvailableMarketplaceListings(await getMarketplaceListings()).map((listing) => ({
+  const activeListings = getVisibleAvailableMarketplaceListings(await getMarketplaceListings()).map((listing) => ({
     ...listing,
     county: canonicalCountyName(listing.county),
   }));
 
-  const drawingByCounty = new Map(
-    QUOTA_DRAWING_2026.counties.map((item) => [drawingCountyName(item.county), item.licenses]),
+  const drawingByCounty = new Map<string, number>(
+    QUOTA_DRAWING_2026.counties.map((item) => [dbprCountyName(item.county), item.licenses]),
   );
 
   const alphabetical = [...floridaCounties].sort((a, b) => a.name.localeCompare(b.name));
   const countyRows = alphabetical.map((county) => {
-    const countyListings = listings.filter((listing) => listing.county === county.name);
+    const countyListings = activeListings.filter((listing) => listing.county === county.name);
     const fourCop = countyListings.filter((listing) => listing.type === "4COP Quota");
     const threePs = countyListings.filter((listing) => listing.type === "3PS Quota / Package Store");
 
@@ -187,20 +111,21 @@ export default async function CountiesPage() {
       county,
       population: countyPopulations2024[county.name] ?? null,
       listingCount: countyListings.length,
-      fourCop: summarizePrices(fourCop),
-      threePs: summarizePrices(threePs),
+      fourCop: priceStats(fourCop.map((listing) => listing.price)),
+      threePs: priceStats(threePs.map((listing) => listing.price)),
       drawingLicenses: drawingByCounty.get(county.name) ?? 0,
     };
   });
 
-  const disclosedStatewidePrices = listings
-    .map((listing) => listing.price)
-    .filter((price): price is number => Number.isFinite(price));
-  const statewideMedian = median(disclosedStatewidePrices);
+  const statewideMedian = median(
+    activeListings
+      .map((listing) => listing.price)
+      .filter((price): price is number => typeof price === "number" && Number.isFinite(price)),
+  );
   const marketsWithInventory = countyRows.filter((row) => row.listingCount > 0).length;
   const topMarkets = [...countyRows]
     .filter((row) => row.listingCount > 0)
-    .sort((left, right) => right.listingCount - left.listingCount || left.county.name.localeCompare(right.county.name))
+    .sort((a, b) => b.listingCount - a.listingCount || a.county.name.localeCompare(b.county.name))
     .slice(0, 6);
   const snapshotDate = new Intl.DateTimeFormat("en-US", {
     month: "long",
@@ -208,6 +133,7 @@ export default async function CountiesPage() {
     year: "numeric",
     timeZone: "America/New_York",
   }).format(new Date());
+  const citationHtml = `<a href="${canonicalUrl}">Florida liquor license market data by county</a>`;
 
   const structuredData = [
     {
@@ -215,18 +141,10 @@ export default async function CountiesPage() {
       "@type": "Dataset",
       name: "Florida Liquor License Market Data by County",
       description:
-        "County-level Florida liquor-license market dataset combining current disclosed 4COP and 3PS asking prices, active marketplace inventory, 2024 Census population estimates and 2026 DBPR quota drawing availability.",
+        "County-level Florida liquor-license data combining current asking prices, active marketplace inventory, 2024 county population estimates and 2026 DBPR quota drawing availability.",
       url: canonicalUrl,
       creator: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
       spatialCoverage: { "@type": "Place", name: "Florida, United States" },
-      temporalCoverage: "2024/2026",
-      variableMeasured: [
-        "Active liquor license listings",
-        "4COP asking prices",
-        "3PS asking prices",
-        "County population",
-        "2026 quota drawing licenses",
-      ],
     },
     {
       "@context": "https://schema.org",
@@ -240,14 +158,6 @@ export default async function CountiesPage() {
         name: county.name,
         url: `${siteUrl}/counties/${county.slug}`,
       })),
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Florida Liquor License Market Data", item: canonicalUrl },
-      ],
     },
   ];
 
@@ -285,7 +195,7 @@ export default async function CountiesPage() {
         </div>
       </section>
 
-      <section className="market-snapshot directory-shell" aria-label="Florida liquor license market snapshot">
+      <section className="market-snapshot directory-shell">
         <div className="market-snapshot-heading">
           <div>
             <span>Live marketplace snapshot</span>
@@ -294,13 +204,13 @@ export default async function CountiesPage() {
           <p>Marketplace snapshot: {snapshotDate}. DBPR drawing data verified {QUOTA_DRAWING_2026.lastVerified}.</p>
         </div>
         <div className="market-stat-grid">
-          <article><strong>{listings.length}</strong><span>Active marketplace listings</span></article>
+          <article><strong>{activeListings.length}</strong><span>Active marketplace listings</span></article>
           <article><strong>{marketsWithInventory}</strong><span>Counties with active inventory</span></article>
           <article><strong>{statewideMedian === null ? "—" : money(statewideMedian)}</strong><span>Median disclosed asking price*</span></article>
           <article><strong>{QUOTA_DRAWING_2026.totalLicenses}</strong><span>2026 DBPR drawing licenses</span></article>
         </div>
         <p className="market-data-caution">
-          *Statewide median is a market snapshot only. Florida quota licenses are county-specific, and asking prices are not appraisals, verified closed-sale prices or guarantees of value.
+          *Statewide median is a market snapshot only. Florida quota licenses are county-specific. Asking prices are not appraisals, verified closed-sale prices or guarantees of value.
         </p>
       </section>
 
@@ -331,11 +241,8 @@ export default async function CountiesPage() {
       <section className="county-market-data" id="county-market-table">
         <div className="directory-shell">
           <div className="directory-heading market-table-heading">
-            <div>
-              <span>All 67 Florida counties</span>
-              <h2>County-by-county liquor license market table</h2>
-            </div>
-            <p>Median and range figures use currently disclosed asking prices in FLLM's active marketplace inventory.</p>
+            <div><span>All 67 Florida counties</span><h2>County-by-county liquor license market table</h2></div>
+            <p>{"Median and range figures use currently disclosed asking prices in FLLM's active marketplace inventory."}</p>
           </div>
 
           <div className="market-table-wrap">
@@ -361,12 +268,14 @@ export default async function CountiesPage() {
                     </td>
                     <td>{row.population?.toLocaleString("en-US") ?? "—"}</td>
                     <td>
-                      {row.listingCount > 0
-                        ? <Link className="market-count-link" href={`/listings?county=${encodeURIComponent(row.county.name)}&status=available`}>{row.listingCount}</Link>
-                        : <span className="market-data-empty">0</span>}
+                      {row.listingCount > 0 ? (
+                        <Link className="market-count-link" href={`/listings?county=${encodeURIComponent(row.county.name)}&status=available`}>
+                          {row.listingCount}
+                        </Link>
+                      ) : <span className="market-data-empty">0</span>}
                     </td>
-                    <td><AskingPriceCell summary={row.fourCop} /></td>
-                    <td><AskingPriceCell summary={row.threePs} /></td>
+                    <td><AskingPriceCell stats={row.fourCop} /></td>
+                    <td><AskingPriceCell stats={row.threePs} /></td>
                     <td>{row.drawingLicenses > 0 ? <strong className="drawing-count">{row.drawingLicenses}</strong> : <span className="market-data-empty">—</span>}</td>
                   </tr>
                 ))}
@@ -374,38 +283,32 @@ export default async function CountiesPage() {
             </table>
           </div>
           <p className="market-table-footnote">
-            “2026 New Quota” reflects licenses listed in DBPR's 2026 Quota Beverage License Drawing notice. A drawing selection establishes priority to apply; it does not itself issue the beverage license.
+            The 2026 quota column reflects licenses in the official DBPR Quota Beverage License Drawing notice. Selection in the drawing establishes priority to apply; it does not itself issue a license.
           </p>
         </div>
       </section>
 
       <section className="market-methodology directory-shell" id="methodology">
-        <div className="directory-heading">
-          <div><span>Transparent methodology</span><h2>Where this Florida liquor license data comes from</h2></div>
-        </div>
+        <div className="directory-heading"><div><span>Transparent methodology</span><h2>Where the market data comes from</h2></div></div>
         <div className="methodology-grid">
           <article>
-            <b>01</b>
-            <strong>Current asking prices</strong>
-            <p>FLLM aggregates active marketplace listings and direct seller submissions. The table calculates disclosed low, median and high asking prices by county and license type.</p>
-            <Link href="/listings">View the underlying marketplace ›</Link>
+            <b>01</b><strong>Current asking prices</strong>
+            <p>FLLM uses active marketplace inventory and direct seller submissions, then calculates disclosed asking-price medians and ranges by county and license type.</p>
+            <Link href="/listings">View current marketplace inventory ›</Link>
           </article>
           <article>
-            <b>02</b>
-            <strong>County population</strong>
-            <p>Population figures are U.S. Census Bureau Vintage 2024 county population estimates and are shown to provide context for Florida's county-based quota system.</p>
+            <b>02</b><strong>County population</strong>
+            <p>Population figures are U.S. Census Bureau Vintage 2024 county estimates and provide context for Florida's county-based quota system.</p>
             <a href="https://www.census.gov/programs-surveys/popest.html" target="_blank" rel="noopener noreferrer">U.S. Census Population Estimates ↗</a>
           </article>
           <article>
-            <b>03</b>
-            <strong>Quota drawing availability</strong>
-            <p>The 2026 column is based on the Florida DBPR Division of Alcoholic Beverages and Tobacco's official quota drawing notice, last verified by FLLM on {QUOTA_DRAWING_2026.lastVerified}.</p>
+            <b>03</b><strong>Quota drawing availability</strong>
+            <p>2026 availability is taken from the Florida DBPR Division of Alcoholic Beverages and Tobacco's official drawing notice, verified {QUOTA_DRAWING_2026.lastVerified}.</p>
             <a href={QUOTA_DRAWING_2026.sourceNoticeUrl} target="_blank" rel="noopener noreferrer">Official 2026 DBPR Notice ↗</a>
           </article>
           <article>
-            <b>04</b>
-            <strong>Regulatory reference</strong>
-            <p>License classification, issuance and transfer requirements remain governed by Florida law and DBPR/ABT. Market data does not replace regulatory, legal or financial due diligence.</p>
+            <b>04</b><strong>Regulatory reference</strong>
+            <p>License issuance and transfer requirements remain governed by Florida law and DBPR/ABT. Market data does not replace independent legal, regulatory or financial diligence.</p>
             <a href={QUOTA_DRAWING_2026.quotaInformationUrl} target="_blank" rel="noopener noreferrer">DBPR Quota License Information ↗</a>
           </article>
         </div>
@@ -417,13 +320,13 @@ export default async function CountiesPage() {
             <span>Researchers, attorneys, brokers & journalists</span>
             <h2>Cite or link to this market data</h2>
             <p>
-              This page is designed as a continuously updated reference for Florida quota liquor-license market research. When citing FLLM data, link to this page so readers can review the current underlying market snapshot and methodology.
+              This page is designed as a continuously updated reference for Florida quota liquor-license research. Link to this page so readers can review the current market snapshot, county data and methodology.
             </p>
           </div>
           <aside>
             <strong>Suggested citation</strong>
             <p>Florida Liquor License Market, “Florida Liquor License Market Data by County,” accessed {snapshotDate}.</p>
-            <code>&lt;a href=&quot;{canonicalUrl}&quot;&gt;Florida liquor license market data by county&lt;/a&gt;</code>
+            <code>{citationHtml}</code>
           </aside>
         </div>
       </section>
