@@ -128,6 +128,8 @@ const attorneys: Attorney[] = [
     phone: "813-418-3320",
     phoneHref: "tel:+18134183320",
     profile: "https://www.schropplaw.com/attorney-profiles/charles-m-schropp/",
+    image: "/api/attorney-photo/charles-m-schropp",
+    imageCredit: "Portrait from Schropp Law Firm",
     services: [
       "Florida liquor-license litigation and appellate matters",
       "Civil litigation and appeals statewide throughout Florida",
