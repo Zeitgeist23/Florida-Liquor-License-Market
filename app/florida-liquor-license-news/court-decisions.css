@@ -255,6 +255,91 @@
   line-height: 1.6;
 }
 
+/* Park Street findings article: use a wider research layout while keeping
+   narrative paragraphs at a comfortable reading measure. */
+.news-article-page:has(#full-court-findings) .news-article-shell {
+  max-width: 1280px;
+}
+
+.news-article-page:has(#full-court-findings) .news-article-hero h1 {
+  max-width: 1080px;
+}
+
+.news-article-page:has(#full-court-findings) .news-article-deck {
+  max-width: 980px;
+  font-size: 18px;
+  line-height: 1.72;
+}
+
+.news-article-page:has(#full-court-findings) .news-article-intro,
+.news-article-page:has(#full-court-findings) .news-article-section,
+.news-article-page:has(#full-court-findings) .news-court-source,
+.news-article-page:has(#full-court-findings) .news-article-actions {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.news-article-page:has(#full-court-findings) .news-article-intro {
+  padding: 24px 26px;
+  font-size: 18px;
+  line-height: 1.76;
+}
+
+.news-article-page:has(#full-court-findings) .news-article-section p,
+.news-article-page:has(#full-court-findings) .news-article-section li {
+  font-size: 17.5px;
+  line-height: 1.78;
+}
+
+.news-article-page:has(#full-court-findings) .news-court-document {
+  width: 100%;
+  margin-top: 52px;
+}
+
+.news-article-page:has(#full-court-findings) .news-court-document-head {
+  padding: 28px 30px;
+}
+
+.news-article-page:has(#full-court-findings) .news-court-document-head > div:first-child > span {
+  font-size: 11px;
+}
+
+.news-article-page:has(#full-court-findings) .news-court-document-head p {
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.news-article-page:has(#full-court-findings) .news-court-reader-note {
+  padding: 15px 22px;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.news-article-page:has(#full-court-findings) .news-court-document-scroll {
+  max-height: 920px;
+  padding: 28px;
+}
+
+.news-article-page:has(#full-court-findings) .news-court-page {
+  max-width: 1060px;
+  padding: 30px 38px 38px;
+}
+
+.news-article-page:has(#full-court-findings) .news-court-page-meta {
+  font-size: 10.5px;
+}
+
+.news-article-page:has(#full-court-findings) .news-court-page pre {
+  font-size: 14.5px;
+  line-height: 1.68;
+}
+
+.news-article-page:has(#full-court-findings) .news-court-source p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
 @media (max-width: 760px) {
   .news-court-feature-card {
     grid-template-columns: 1fr;
@@ -300,5 +385,29 @@
   .news-court-page pre {
     font-size: 9.5px;
     line-height: 1.45;
+  }
+
+  .news-article-page:has(#full-court-findings) .news-article-intro {
+    padding: 20px;
+    font-size: 17px;
+  }
+
+  .news-article-page:has(#full-court-findings) .news-article-section p,
+  .news-article-page:has(#full-court-findings) .news-article-section li {
+    font-size: 16.5px;
+  }
+
+  .news-article-page:has(#full-court-findings) .news-court-document-scroll {
+    max-height: 720px;
+    padding: 10px;
+  }
+
+  .news-article-page:has(#full-court-findings) .news-court-page {
+    padding: 18px 15px 24px;
+  }
+
+  .news-article-page:has(#full-court-findings) .news-court-page pre {
+    font-size: 11px;
+    line-height: 1.55;
   }
 }
