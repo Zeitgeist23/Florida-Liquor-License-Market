@@ -3,6 +3,8 @@ import "server-only";
 import { createHash } from "node:crypto";
 import type { Listing } from "@/data/listings";
 import { canonicalizeSourceUrl } from "@/lib/listing-discovery";
+import { notifyMatchingLicenseAlerts } from "@/lib/license-alert-notifications";
+import { listingPageHref } from "@/lib/listing-page-urls";
 
 export type DiscoveryPublishResult = {
   databaseConfigured: boolean;
@@ -24,6 +26,14 @@ type ExistingListingRow = {
   source_url: string | null;
   status: "available" | "sold";
 };
+
+function siteUrl() {
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.FLLM_SITE_URL ||
+    "https://www.floridaliquorlicensemarket.com"
+  ).replace(/\/$/, "");
+}
 
 function databaseConfigured(): boolean {
   return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
@@ -221,6 +231,15 @@ export async function publishDiscoveredListings(input: Listing[]): Promise<Disco
 
   if (!insertResponse.ok) {
     throw new Error(`Discovered listing insert failed: ${insertResponse.status} ${await insertResponse.text()}`);
+  }
+
+  const alertResults = await Promise.allSettled(
+    listings.map((listing) =>
+      notifyMatchingLicenseAlerts(listing, `${siteUrl()}${listingPageHref(listing)}`)
+    )
+  );
+  for (const result of alertResults) {
+    if (result.status === "rejected") console.error("New-listing License Alerts failed", result.reason);
   }
 
   return {
