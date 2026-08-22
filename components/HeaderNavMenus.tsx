@@ -238,6 +238,7 @@ export default function HeaderNavMenus({
           );
         })}
 
+        <a className="native-nav-direct-link native-nav-license-alert-link" href="/license-alerts"><span>License Alerts</span></a>
         {showContactLink && <a className="native-nav-direct-link" href="/contact"><span>Contact Us</span></a>}
       </nav>
 
@@ -246,6 +247,8 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-trigger{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;gap:5px;padding:0;border:0;background:transparent;color:#fff;cursor:pointer;font:600 10px/1 Arial,Helvetica,sans-serif;text-transform:uppercase;white-space:nowrap}
         .primary-nav .native-nav-trigger:hover,.primary-nav .native-nav-trigger:focus-visible,.primary-nav .native-nav-dropdown.is-open>.native-nav-trigger{color:var(--gold,#f6a700);outline:none}
         .primary-nav .native-nav-direct-link{display:inline-flex;align-items:center;flex:0 0 auto;color:#fff;font-size:10px;font-weight:600;line-height:1;text-transform:uppercase;white-space:nowrap}
+        .primary-nav .native-nav-license-alert-link{color:#f6a700}
+        .primary-nav .native-nav-license-alert-link:hover,.primary-nav .native-nav-license-alert-link:focus-visible{color:#ffc44d}
         .primary-nav .native-nav-direct-link:hover,.primary-nav .native-nav-direct-link:focus-visible{color:var(--gold,#f6a700);outline:none}
         .native-nav-menu{position:absolute;top:100%;left:50%;z-index:10080;display:none;transform:translateX(-50%);padding:6px;border:1px solid #f6a700;border-radius:7px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12);font-family:Arial,Helvetica,sans-serif}
         .native-nav-dropdown.is-open>.native-nav-menu{display:grid;gap:4px}
