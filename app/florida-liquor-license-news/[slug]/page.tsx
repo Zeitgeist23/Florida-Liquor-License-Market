@@ -47,21 +47,21 @@ export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { 
   if (!article) notFound();
 
   const articleUrl = `${siteUrl}/florida-liquor-license-news/${article.slug}`;
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      headline: article.title,
-      description: article.summary,
-      datePublished: article.date,
-      dateModified: article.date,
-      mainEntityOfPage: articleUrl,
-      publisher: {
-        "@type": "Organization",
-        name: "Florida Liquor License Market",
-        url: siteUrl,
-      },
+  const articleStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: article.title,
+    description: article.summary,
+    ...(article.publishedDate ? { datePublished: article.publishedDate, dateModified: article.publishedDate } : {}),
+    mainEntityOfPage: articleUrl,
+    publisher: {
+      "@type": "Organization",
+      name: "Florida Liquor License Market",
+      url: siteUrl,
     },
+  };
+  const structuredData = [
+    articleStructuredData,
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
