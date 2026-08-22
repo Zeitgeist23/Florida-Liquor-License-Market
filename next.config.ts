@@ -12,10 +12,6 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
-        {
-          source: "/assets/fllm-preliminary-market-report-preview.webp",
-          destination: "/assets/fllm-example-market-report-preview.webp",
-        },
         { source: "/assets/florida-map-clean.png", destination: "/api/market-map" },
         { source: "/assets/fllm-email-logo.png", destination: "/api/email-logo" },
         { source: "/", destination: "/api/homepage-with-buy-menu" },
