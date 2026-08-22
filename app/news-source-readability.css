@@ -1,0 +1,49 @@
+/* Standardize source-card and publisher-note text across FLLM News.
+   Keep headings larger, but eliminate undersized metadata/body copy. */
+
+.news-insights-page .news-article-source p,
+.news-insights-page .news-source-disclosure,
+.news-insights-page .news-additional-source-card > span,
+.news-insights-page .news-additional-source-card em,
+.news-insights-page .news-additional-source-card p,
+.news-insights-page .news-practitioner-source > div:first-child > span,
+.news-insights-page .news-practitioner-source p,
+.news-insights-page .news-practitioner-source-meta > span,
+.news-insights-page .news-practitioner-source-meta a {
+  font-size: 15.5px !important;
+  line-height: 1.7 !important;
+}
+
+.news-insights-page .news-additional-source-card > span,
+.news-insights-page .news-practitioner-source > div:first-child > span,
+.news-insights-page .news-practitioner-source-meta > span {
+  letter-spacing: .07em;
+}
+
+.news-insights-page .news-additional-source-card a {
+  min-height: 44px;
+  padding: 0 16px;
+  font-size: 15.5px !important;
+  line-height: 1.25;
+}
+
+.news-insights-page .news-article-source > span {
+  font-size: 15.5px !important;
+  line-height: 1.45;
+}
+
+@media (max-width: 720px) {
+  .news-insights-page .news-article-source p,
+  .news-insights-page .news-source-disclosure,
+  .news-insights-page .news-additional-source-card > span,
+  .news-insights-page .news-additional-source-card em,
+  .news-insights-page .news-additional-source-card p,
+  .news-insights-page .news-additional-source-card a,
+  .news-insights-page .news-practitioner-source > div:first-child > span,
+  .news-insights-page .news-practitioner-source p,
+  .news-insights-page .news-practitioner-source-meta > span,
+  .news-insights-page .news-practitioner-source-meta a,
+  .news-insights-page .news-article-source > span {
+    font-size: 15.5px !important;
+  }
+}
