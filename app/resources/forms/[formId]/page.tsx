@@ -94,7 +94,7 @@ export default async function FloridaAbtFormWorkspacePage(
         </div>
 
         {form.id === "abt-6023" ? (
-          <Abt6023HtmlForm form={form} />
+          <Abt6023HtmlForm formNumber={form.formNumber} officialPdfUrl={form.officialPdfUrl} />
         ) : (
           <AbtPdfFormWorkspace form={form} projectTransactionId={transactionId || null} />
         )}
