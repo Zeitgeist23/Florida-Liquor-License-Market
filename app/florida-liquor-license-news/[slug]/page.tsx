@@ -8,6 +8,7 @@ import "@/app/resources/forms/abt-forms.css";
 import "../news-insights.css";
 import "../news-mobile-readability.css";
 import "../current-events.css";
+import "../supplemental-sources.css";
 import "./article.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -75,6 +76,7 @@ export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { 
   ];
 
   const isPublisherStory = article.sourceType === "publisher";
+  const isSfsReformStory = article.slug === "florida-alcohol-licensing-reform-small-restaurants-sfs";
 
   return (
     <main className="news-insights-page news-article-page">
@@ -136,6 +138,18 @@ export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { 
           </section>
         ))}
 
+        {isSfsReformStory && (
+          <section className="news-article-section">
+            <h2>Florida practitioner analysis</h2>
+            <p>
+              Lowndes published a Florida practitioner analysis on July 24, 2023 describing the same statutory change. The firm explained that the legislation reduced the prior 2,500-square-foot and 150-person thresholds to 2,000 square feet and 120 seats for qualifying special food service restaurants.
+            </p>
+            <p>
+              Lowndes also emphasized the practical market consequence: smaller restaurants that satisfy the SFS requirements may be able to serve full liquor without purchasing a quota license on the open market. That makes SFS eligibility an important early due-diligence question for restaurant buyers and operators comparing licensing paths.
+            </p>
+          </section>
+        )}
+
         <aside className={`news-article-source ${isPublisherStory ? "news-article-source-publisher" : ""}`}>
           <span>{isPublisherStory ? "Original reporting" : "Official source"}</span>
           <strong>{article.officialSourceLabel}</strong>
@@ -149,6 +163,27 @@ export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { 
             {isPublisherStory ? "View Original Publisher Source" : "Open Official DBPR / ABT Source"} <span aria-hidden="true">↗</span>
           </a>
         </aside>
+
+        {isSfsReformStory && (
+          <section className="news-additional-sources" aria-labelledby="additional-practitioner-sources-title">
+            <h2 id="additional-practitioner-sources-title">Additional Florida practitioner source</h2>
+            <div className="news-additional-source-card">
+              <span>Lowndes · Florida alcohol licensing</span>
+              <strong>Change in Florida Alcohol Statute Eases Requirements for Restaurant Liquor Licenses</strong>
+              <em>Published July 24, 2023</em>
+              <p>
+                Lowndes analyzed the same 2023 SFS reform from a Florida practitioner perspective, highlighting the reduced size and seating requirements and the potential for smaller restaurants to qualify for full-liquor service without buying a quota license.
+              </p>
+              <a
+                href="https://www.lowndes-law.com/newsroom/insights/change-in-florida-alcohol-statute-eases-requirements-for-restaurant-liquor-licenses"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Lowndes Source <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </section>
+        )}
 
         <div className="news-article-actions">
           <Link href="/florida-liquor-license-news">← Back to Florida Liquor License News</Link>
