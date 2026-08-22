@@ -7,6 +7,7 @@ const attorneys = [
     name: "Hannah Becker",
     firm: "Spencer Fane LLP",
     location: "Tampa · Statewide matters",
+    category: "Licensing & Regulatory",
     phone: "813-424-3544",
     phoneHref: "tel:+18134243544",
     profile: "https://www.spencerfane.com/professionals/hannah-becker/",
@@ -22,6 +23,7 @@ const attorneys = [
     name: "Deborah A. Carman",
     firm: "Carman Law Firm, P.A.",
     location: "Boca Raton · Statewide representation",
+    category: "Transactions & Transfers",
     phone: "561-392-7031",
     phoneHref: "tel:+15613927031",
     profile: "https://carmanlegal.com/attorneys/",
@@ -37,6 +39,7 @@ const attorneys = [
     name: "Ryan Malkin",
     firm: "Malkin Law, P.A.",
     location: "Miami Beach · Florida and nationwide beverage matters",
+    category: "Licensing & Regulatory",
     phone: "305-763-8539",
     phoneHref: "tel:+13057638539",
     profile: "https://www.malkinlawfirm.com/",
@@ -52,6 +55,7 @@ const attorneys = [
     name: "Alexis Mason",
     firm: "Spencer Fane LLP",
     location: "Tampa · Statewide matters",
+    category: "Transactions & Transfers",
     phone: "813-424-3543",
     phoneHref: "tel:+18134243543",
     profile: "https://www.spencerfane.com/professionals/alexis-mason/",
@@ -67,6 +71,7 @@ const attorneys = [
     name: "Samuel A. Rubert",
     firm: "Rubert Law",
     location: "Weston and Miami · Statewide representation",
+    category: "Transactions & Transfers",
     phone: "954-546-7951",
     phoneHref: "tel:+19545467951",
     secondaryPhone: "Miami: 305-809-7669",
@@ -80,9 +85,27 @@ const attorneys = [
       "Purchase-agreement, lease, and operational review",
     ],
   },
+  {
+    name: "Charles M. Schropp",
+    firm: "Schropp Law Firm, P.A.",
+    location: "Tampa · Statewide appellate matters",
+    category: "Litigation & Appeals",
+    phone: "813-418-3320",
+    phoneHref: "tel:+18134183320",
+    profile: "https://www.schropplaw.com/attorney-profiles/charles-m-schropp/",
+    services: [
+      "Florida liquor-license litigation and appellate matters",
+      "Civil litigation and appeals statewide throughout Florida",
+      "Appellate briefing, issue framing, and preservation strategy",
+    ],
+  },
 ] as const;
 
 type Attorney = (typeof attorneys)[number];
+
+function getInitials(name: string) {
+  return name.split(" ").map((part) => part[0]).join("").slice(0, 2);
+}
 
 export default function AttorneyDirectory() {
   const [selectedAttorney, setSelectedAttorney] = useState<Attorney | null>(null);
@@ -133,13 +156,15 @@ export default function AttorneyDirectory() {
             }}
           >
             <div className="attorney-card-heading">
-              <span aria-hidden="true">{attorney.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}</span>
+              <span aria-hidden="true">{getInitials(attorney.name)}</span>
               <div>
                 <h2>{attorney.name}</h2>
                 <strong>{attorney.firm}</strong>
                 <small>{attorney.location}</small>
               </div>
             </div>
+
+            <span className="attorney-practice-badge">{attorney.category}</span>
 
             <ul>
               {attorney.services.map((service) => <li key={service}>{service}</li>)}
@@ -189,8 +214,17 @@ export default function AttorneyDirectory() {
             </button>
 
             <div className="attorney-modal-photo">
-              <img src={selectedAttorney.image} alt={`Portrait of ${selectedAttorney.name}`} />
-              <small>{selectedAttorney.imageCredit}</small>
+              {"image" in selectedAttorney ? (
+                <>
+                  <img src={selectedAttorney.image} alt={`Portrait of ${selectedAttorney.name}`} />
+                  <small>{selectedAttorney.imageCredit}</small>
+                </>
+              ) : (
+                <>
+                  <div className="attorney-modal-monogram" aria-hidden="true">{getInitials(selectedAttorney.name)}</div>
+                  <small>Visit the firm profile for attorney information.</small>
+                </>
+              )}
             </div>
 
             <div className="attorney-modal-details">
@@ -198,6 +232,7 @@ export default function AttorneyDirectory() {
               <h2 id="attorney-modal-title">{selectedAttorney.name}</h2>
               <strong>{selectedAttorney.firm}</strong>
               <p>{selectedAttorney.location}</p>
+              <span className="attorney-modal-practice-badge">{selectedAttorney.category}</span>
 
               <h3>Published practice information</h3>
               <ul>
@@ -220,7 +255,7 @@ export default function AttorneyDirectory() {
               )}
 
               <small className="attorney-modal-notice">
-                FLLM does not endorse or guarantee any listed attorney. Verify credentials, services, fees, and engagement terms independently.
+                FLLM does not endorse or guarantee any listed attorney. Practice-focus labels are directory categories, not Florida Bar specialty certifications. Verify credentials, services, fees, and engagement terms independently.
               </small>
             </div>
           </section>
@@ -229,4 +264,3 @@ export default function AttorneyDirectory() {
     </>
   );
 }
-
