@@ -38,7 +38,7 @@ export default function SupplementalNewsCoverage() {
                 <div className="news-card-meta"><span>{item.eyebrow}</span><time>{item.date}</time></div>
                 <h3>{item.title}</h3>
                 <p>{item.copy}</p>
-                <Link href={item.href}>Read Inside FLLM <span aria-hidden="true">›</span></Link>
+                <a href={item.href}>Read Inside FLLM <span aria-hidden="true">›</span></a>
                 <small>Source: {item.source}</small>
               </article>
             ))}
