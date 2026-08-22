@@ -38,7 +38,7 @@ const officialUpdates = [
     date: "May 6, 2026",
     copy:
       "Florida DBPR reports that the public drawing for the 2025 quota alcoholic beverage license entry period was held May 6, 2026, covering counties across the state.",
-    href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/quota-license-information/",
+    href: "/florida-liquor-license-news/2025-florida-quota-drawing-results-posted",
     source: "Florida DBPR / ABT",
   },
   {
@@ -47,7 +47,7 @@ const officialUpdates = [
     date: "Current DBPR notice",
     copy:
       "DBPR says Alcoholic Beverages and Tobacco licensees, permit holders and applicants must create and maintain an account in the Division's online system.",
-    href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/faqs/",
+    href: "/florida-liquor-license-news/online-account-requirement-abt-licensees-applicants",
     source: "Florida DBPR / ABT",
   },
   {
@@ -56,7 +56,7 @@ const officialUpdates = [
     date: "Current rulemaking notice",
     copy:
       "The Division's News & Notices page includes rulemaking activity addressing quota drawing entry procedures and related beverage-license rules.",
-    href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/news-and-notices/",
+    href: "/florida-liquor-license-news/quota-drawing-procedures-current-abt-rulemaking",
     source: "Florida DBPR / ABT",
   },
   {
@@ -65,7 +65,7 @@ const officialUpdates = [
     date: "Updated by DBPR",
     copy:
       "DBPR publishes downloadable active and inactive quota-license listings that can help owners, buyers and market participants follow statewide license status data.",
-    href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/quota-license-information/",
+    href: "/florida-liquor-license-news/track-active-inactive-florida-quota-license-lists",
     source: "Florida DBPR / ABT",
   },
 ] as const;
@@ -140,7 +140,7 @@ export default function FloridaLiquorLicenseNewsPage() {
             <aside className="news-hero-panel">
               <span>FLLM News Desk</span>
               <strong>One place for Florida license-market developments</strong>
-              <p>Official updates are linked to their original sources. FLLM market tools and commentary are clearly identified separately.</p>
+              <p>FLLM articles summarize official DBPR and ABT developments in a consistent market-focused format, with the original agency source available inside each article.</p>
             </aside>
           </div>
         </div>
@@ -154,7 +154,7 @@ export default function FloridaLiquorLicenseNewsPage() {
             Florida&apos;s annual quota drawing process is one of the most closely watched events in the state&apos;s liquor-license market. DBPR states that drawing entries are accepted for 45 days beginning on the third Monday in August when quota licenses are available. Before entering, applicants should confirm the current DBPR notice, eligible counties, filing deadline and ABT-6033 requirements directly with the Division.
           </p>
           <div className="news-feature-actions">
-            <a href="https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=17270&clientCode=4087&xactCode=1030" target="_blank" rel="noopener noreferrer">Check Official Drawing Requirements <span aria-hidden="true">↗</span></a>
+            <Link href="/florida-liquor-license-news/florida-quota-drawing-season-what-applicants-should-watch-next">Read FLLM Briefing</Link>
             <Link href="/resources/forms/abt-6033">View ABT-6033 Resources</Link>
           </div>
         </div>
@@ -170,7 +170,7 @@ export default function FloridaLiquorLicenseNewsPage() {
         <div className="page-shell">
           <div className="news-section-heading">
             <div><span>Latest Updates</span><h2>Florida liquor-license developments</h2></div>
-            <a href="https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" target="_blank" rel="noopener noreferrer">Florida DBPR / ABT <span aria-hidden="true">↗</span></a>
+            <span className="news-source-note">Sources verified with Florida DBPR / ABT</span>
           </div>
           <div className="news-card-grid">
             {officialUpdates.map((item) => (
@@ -178,7 +178,7 @@ export default function FloridaLiquorLicenseNewsPage() {
                 <div className="news-card-meta"><span>{item.eyebrow}</span><time>{item.date}</time></div>
                 <h3>{item.title}</h3>
                 <p>{item.copy}</p>
-                <a href={item.href} target="_blank" rel="noopener noreferrer">Read Official Source <span aria-hidden="true">↗</span></a>
+                <Link href={item.href}>Read Article <span aria-hidden="true">›</span></Link>
                 <small>Source: {item.source}</small>
               </article>
             ))}
