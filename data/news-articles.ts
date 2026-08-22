@@ -13,9 +13,60 @@ export type NewsArticle = {
   }>;
   officialSourceUrl: string;
   officialSourceLabel: string;
+  sourceType?: "official" | "publisher";
+  sourceNote?: string;
+  video?: {
+    embedUrl: string;
+    title: string;
+    provider: string;
+  };
 };
 
 export const NEWS_ARTICLES: NewsArticle[] = [
+  {
+    slug: "orlando-venue-liquor-license-suspension-drag-show",
+    eyebrow: "Enforcement & Current Events",
+    title: "Officials move to suspend Orlando venue's liquor license after drag show attended by children",
+    date: "February 3, 2023",
+    publishedDate: "2023-02-03",
+    summary:
+      "WKMG News 6 / ClickOrlando reported that Florida officials moved to suspend an Orlando performing arts venue's liquor license after a December 2022 drag show attended by children.",
+    intro:
+      "WKMG News 6 / ClickOrlando reported that an Orlando performing arts venue faced the loss of its liquor license after Florida officials took administrative action tied to a December 2022 event. FLLM presents the original station video alongside its own regulatory and market summary so readers can stay inside the FLLM news experience.",
+    sections: [
+      {
+        heading: "What happened",
+        paragraphs: [
+          "According to WKMG News 6 / ClickOrlando, state officials moved against the venue's alcoholic-beverage license after the December 2022 show. The matter illustrates how alleged conduct at licensed premises can lead to an administrative licensing dispute in addition to any other legal issues that may be raised.",
+          "The underlying allegations, defenses and procedural posture should be evaluated from the agency record and the parties' filings. FLLM does not treat a licensing complaint or proposed suspension as a final adjudication unless the agency record shows that result."
+        ]
+      },
+      {
+        heading: "Why it matters to Florida license holders",
+        paragraphs: [
+          "A Florida alcoholic-beverage license is not only a marketable business asset; it is also subject to continuing regulatory oversight. Enforcement matters can affect operations, transfers, financing, due diligence and the value a buyer or lender assigns to a license-related transaction.",
+          "For buyers and lenders, the practical takeaway is to review the current DBPR / ABT license record and any known administrative matters before closing or funding a transaction."
+        ],
+        bullets: [
+          "Check the current DBPR / ABT license status before a transaction closes.",
+          "Ask whether any administrative complaint, suspension, revocation or other enforcement matter is pending.",
+          "Distinguish allegations and proposed agency action from a final agency order.",
+          "Use original reporting and agency records to verify material facts."
+        ]
+      }
+    ],
+    officialSourceUrl:
+      "https://www.clickorlando.com/video/news/2023/02/04/officials-move-to-suspend-orlando-venues-liquor-license-after-drag-show-attended-by-children/",
+    officialSourceLabel: "WKMG News 6 / ClickOrlando",
+    sourceType: "publisher",
+    sourceNote:
+      "Original reporting and video are credited to WKMG News 6 / ClickOrlando. FLLM provides its own summary and does not reproduce the publisher's article.",
+    video: {
+      embedUrl: "https://www.youtube-nocookie.com/embed/kFBjJpE5iNo",
+      title: "WKMG News 6 report on Orlando venue liquor-license suspension action",
+      provider: "WKMG News 6 / ClickOrlando"
+    }
+  },
   {
     slug: "florida-quota-drawing-season-what-applicants-should-watch-next",
     eyebrow: "FLLM Briefing",
