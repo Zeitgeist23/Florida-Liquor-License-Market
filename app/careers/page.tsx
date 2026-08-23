@@ -56,7 +56,7 @@ export default function CareersPage() {
           <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
         </Link>
         <nav aria-label="Careers navigation">
-          <Link href="/florida-liquor-licenses-for-sale">Licenses for Sale</Link>
+          <Link href="/listings">Licenses for Sale</Link>
           <Link href="/sell-your-license">List Your License</Link>
           <Link href="/contact">Contact Us</Link>
         </nav>
