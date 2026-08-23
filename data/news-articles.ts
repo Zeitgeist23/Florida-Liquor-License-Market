@@ -120,6 +120,51 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     }
   },
   {
+    slug: "knights-pub-liquor-license-suspended-covid-19",
+    eyebrow: "Enforcement & Current Events",
+    title: "Knight's Pub liquor license suspended after COVID-19 outbreak",
+    date: "June 23, 2020",
+    publishedDate: "2020-06-23",
+    summary:
+      "FOX 35 Orlando reported that Florida regulators suspended the alcohol license of Knight's Pub near the University of Central Florida after employees and customers tested positive for COVID-19 and officials cited reopening-guideline violations.",
+    intro:
+      "FOX 35 Orlando reported in June 2020 that the Department of Business and Professional Regulation suspended Knight's Pub's alcoholic-beverage license amid a COVID-19 outbreak tied to the popular bar near the University of Central Florida. FLLM provides a market and regulatory summary of the reported enforcement action while crediting the original FOX 35 reporting.",
+    sections: [
+      {
+        heading: "What FOX 35 reported",
+        paragraphs: [
+          "FOX 35 reported that DBPR suspended the Knight's Pub liquor license after 13 employees and at least 28 customers tested positive for coronavirus. The station also reported that a state document cited alleged violations of reopening requirements, including serving alcoholic beverages to patrons who were not seated and concerns about social distancing.",
+          "The suspension occurred during Florida's 2020 COVID-19 emergency period, when bars and restaurants were operating under temporary public-health and reopening restrictions that differed substantially from ordinary licensing conditions."
+        ]
+      },
+      {
+        heading: "Why the enforcement action matters to license holders",
+        paragraphs: [
+          "The Knight's Pub matter is an example of how an alcoholic-beverage license can be affected by emergency orders and operating-rule enforcement in addition to the ordinary transfer, renewal and compliance rules that govern Florida licensees.",
+          "For buyers, sellers and lenders reviewing a liquor-license transaction, historical enforcement matters can be relevant to due diligence even when the particular emergency rule that triggered the action is no longer in effect."
+        ],
+        bullets: [
+          "Confirm the current DBPR / ABT status of a license before closing.",
+          "Review known administrative complaints, suspensions or other enforcement history when material to the transaction.",
+          "Distinguish temporary emergency-era operating rules from current Florida alcoholic-beverage law.",
+          "Use the agency record and original reporting to verify the facts of a historical enforcement matter."
+        ]
+      },
+      {
+        heading: "FLLM market takeaway",
+        paragraphs: [
+          "A quota liquor license may have substantial private-market value, but that value exists within a regulated licensing system. Operational compliance, pending agency action and license status can all affect transaction timing, lender review and buyer confidence."
+        ]
+      }
+    ],
+    officialSourceUrl:
+      "https://www.fox35orlando.com/news/knights-pub-gets-liquor-license-suspended-after-employees-customers-test-positive-for-covid-19",
+    officialSourceLabel: "FOX 35 Orlando",
+    sourceType: "publisher",
+    sourceNote:
+      "Original reporting was published by FOX 35 Orlando and updated June 23, 2020. FLLM provides its own summary and regulatory context and does not reproduce the publisher's article."
+  },
+  {
     slug: "florida-quota-drawing-season-what-applicants-should-watch-next",
     eyebrow: "FLLM Briefing",
     title: "Florida quota drawing season: what applicants should watch next",
