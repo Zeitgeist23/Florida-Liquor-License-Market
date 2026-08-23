@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { floridaCounties } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
 import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
 export const dynamic = "force-dynamic";
 
@@ -48,13 +49,16 @@ export async function GET(request: Request) {
     );
   }
 
-  const listings = await getMarketplaceListings();
+  // Use the same visible/deduplicated inventory set used by the listings page,
+  // heat map, county market pages and Market Index. This prevents a repeated
+  // source record from being counted twice in valuation comparables.
+  const listings = getVisibleAvailableMarketplaceListings(await getMarketplaceListings());
+
   const comparables = listings
     .filter(
       (listing) =>
         listing.county === county &&
         listing.type === licenseType &&
-        Boolean(listing.sourceRef) &&
         listing.price !== null,
     )
     .sort((left, right) => (left.price ?? 0) - (right.price ?? 0))
@@ -71,7 +75,6 @@ export async function GET(request: Request) {
     .filter(
       (listing) =>
         listing.type === licenseType &&
-        Boolean(listing.sourceRef) &&
         listing.price !== null,
     )
     .map((listing) => listing.price as number)
