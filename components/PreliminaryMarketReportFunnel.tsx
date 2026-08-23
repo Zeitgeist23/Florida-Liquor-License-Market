@@ -3,6 +3,12 @@
 import { useState } from "react";
 
 import styles from "./PreliminaryMarketReportFunnel.module.css";
+import reportChunk1 from "./report-preview-base64/chunk1";
+import reportChunk2 from "./report-preview-base64/chunk2";
+import reportChunk3 from "./report-preview-base64/chunk3";
+import reportChunk4 from "./report-preview-base64/chunk4";
+import reportChunk5 from "./report-preview-base64/chunk5";
+import reportChunk6 from "./report-preview-base64/chunk6";
 
 type EstimateSnapshot = {
   count: number;
@@ -33,7 +39,14 @@ function formatUsPhone(value: string) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-const reportPreviewSrc = "/assets/fllm-preliminary-market-report-preview-selected.webp?v=20260822-1906";
+const reportPreviewSrc =
+  "data:image/webp;base64," +
+  reportChunk1 +
+  reportChunk2 +
+  reportChunk3 +
+  reportChunk4 +
+  reportChunk5 +
+  reportChunk6;
 
 export default function PreliminaryMarketReportFunnel(props: Props) {
   const [open, setOpen] = useState(false);
@@ -94,58 +107,52 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
   }
 
   return (
-    <section className={styles.report} aria-labelledby="preliminary-market-report-title">
-      <div className={styles.topline}>
-        <span>Deeper license-specific research</span>
-        <strong>$195</strong>
-      </div>
-
-      <div className={styles.intro}>
-        <div>
-          <h4 id="preliminary-market-report-title">Order a Preliminary Market Report</h4>
+    <section className={styles.report} aria-labelledby="market-value-report-title">
+      <div className={styles.hero}>
+        <div className={styles.heroCopy}>
+          <span className={styles.eyebrow}>License-specific market research</span>
+          <h4 id="market-value-report-title">Florida Liquor License Market Value Report</h4>
           <p>
-            Move beyond the automated asking-price snapshot. FLLM will manually research your specific Florida quota license and prepare a professional PDF market report.
+            Order a professional FLLM report for your specific Florida quota liquor license, with license identity research, county market evidence, comparable asking prices, market trends, and an indicated value range.
           </p>
         </div>
-        {!open ? (
-          <button type="button" onClick={() => setOpen(true)}>Order My Report — $195</button>
-        ) : null}
+
+        <div className={styles.orderPanel}>
+          <span>One-time report fee</span>
+          <strong>$195</strong>
+          {!open ? (
+            <button type="button" onClick={() => setOpen(true)}>
+              Order Market Report — $195
+            </button>
+          ) : (
+            <a href="#market-report-order-form">Complete Order Below</a>
+          )}
+        </div>
       </div>
 
-      <div className={styles.includes}>
-        <span>Subject license &amp; DBPR identity review</span>
-        <span>Current county asking-price comparables</span>
-        <span>Available transfer &amp; transaction evidence</span>
-        <span>Market conditions &amp; indicated value range</span>
-        <span>Sources, methodology &amp; limitations</span>
-      </div>
-
-      <div style={{ marginTop: 18, marginBottom: 18 }}>
+      <figure className={styles.reportPreview}>
         <img
+          className={styles.reportImage}
           src={reportPreviewSrc}
-          alt="Glossy Florida Liquor License Market Value Report cover beside a sample valuation page with comparable sales, market trend, county insights and market indicators."
+          alt="Florida Liquor License Market Value Report cover beside a sample market analysis page with valuation summary, comparable sales, market trend, county insights, and market indicators."
           loading="eager"
           decoding="async"
-          style={{
-            display: "block",
-            width: "100%",
-            height: "auto",
-            borderRadius: 10,
-            boxShadow: "0 16px 36px rgba(0,0,0,.30)",
-          }}
         />
-      </div>
+        <figcaption>Example Florida Liquor License Market Value Report</figcaption>
+      </figure>
 
       <p className={styles.boundary}>
         This is a preliminary market analysis prepared by Florida Liquor License Market. It is not a certified appraisal, real-estate appraisal, fairness opinion, or guarantee of value. If a lender, court, estate, or other institution requires an independent formal appraisal, FLLM can help coordinate one with a credentialed valuation professional.
       </p>
 
       {open ? (
-        <form className={styles.form} onSubmit={submit}>
+        <form id="market-report-order-form" className={styles.form} onSubmit={submit}>
           <div className={styles.formHeading}>
             <span>Secure report order</span>
             <h5>{props.county} · {props.licenseType}</h5>
-            <p>Complete the license identity and contact information below. You will be redirected to secure Stripe checkout for the one-time $195 report fee.</p>
+            <p>
+              Complete the license identity and contact information below. You will be redirected to secure Stripe checkout for the one-time $195 report fee.
+            </p>
           </div>
 
           <label>
@@ -214,18 +221,30 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
           </label>
           <label className={styles.notes}>
             <span>Anything We Should Know? <small>Optional</small></span>
-            <textarea name="notes" rows={4} placeholder="For example: refinance request, pending sale, unusual transfer history, or a deadline." maxLength={4000} />
+            <textarea
+              name="notes"
+              rows={4}
+              placeholder="For example: refinance request, pending sale, unusual transfer history, or a deadline."
+              maxLength={4000}
+            />
           </label>
           <label className={styles.consent}>
             <input name="terms_accepted" type="checkbox" value="Accepted" required />
-            <span>I understand that the $195 product is a preliminary market report and not a certified or independent formal appraisal. I authorize FLLM to contact me if additional license information is needed.</span>
+            <span>
+              I understand that the $195 product is a preliminary market report and not a certified or independent formal appraisal. I authorize FLLM to contact me if additional license information is needed.
+            </span>
           </label>
 
           {error ? <p className={styles.error} role="alert">{error}</p> : null}
 
           <div className={styles.checkoutRow}>
-            <div><span>One-time report fee</span><strong>$195</strong></div>
-            <button type="submit" disabled={loading}>{loading ? "Opening Secure Checkout…" : "Continue to Secure Checkout — $195"}</button>
+            <div>
+              <span>One-time report fee</span>
+              <strong>$195</strong>
+            </div>
+            <button type="submit" disabled={loading}>
+              {loading ? "Opening Secure Checkout…" : "Continue to Secure Checkout — $195"}
+            </button>
           </div>
         </form>
       ) : null}
