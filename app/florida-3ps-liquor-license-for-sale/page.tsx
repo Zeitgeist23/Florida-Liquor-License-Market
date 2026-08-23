@@ -1,19 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import FloridaCountyMap from "@/components/FloridaCountyMap";
-import InventoryCardExpansion from "@/components/InventoryCardExpansion";
-import { countySlug, indexableCounties } from "@/data/florida-counties";
-import type { Listing } from "@/data/listings";
-import {
-  marketplaceListingDescriptionParts,
-  sellerReportedStatusLabel,
-} from "@/lib/county-listing-descriptions";
+
+import { indexableCounties } from "@/data/florida-counties";
 import { getMarketplaceListings } from "@/lib/listing-store";
-import { listingPageHref } from "@/lib/listing-page-urls";
-import "../listings/listings-premium.css";
-import "../listings/listings-map-size.css";
-import "../listings/listings-card-expand.css";
-import "../listings/listings-county-links.css";
 import "../florida-liquor-licenses-for-sale/seo-market.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -23,21 +12,15 @@ const listingsHref = "/listings?type=3PS%20Quota%20%2F%20Package%20Store&status=
 export const metadata: Metadata = {
   title: "Florida 3PS Liquor Licenses for Sale | Package Store Listings",
   description:
-    "Browse current Florida 3PS quota liquor licenses for sale by county and asking price. Compare package-store liquor-license opportunities for sealed beer, wine and spirits sales.",
+    "Browse current Florida 3PS quota liquor licenses for sale by county and asking price. Compare package-store opportunities, then open the canonical FLLM Listings marketplace for current inventory.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
     title: "Florida 3PS Liquor Licenses for Sale | Package Store Listings",
-    description:
-      "Compare current Florida 3PS package-store liquor-license listings by county, asking price and availability.",
+    description: "Compare current Florida 3PS package-store liquor-license opportunities by county and asking price.",
     siteName: "Florida Liquor License Market",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Florida 3PS Liquor Licenses for Sale",
-    description: "Browse current Florida 3PS package-store liquor-license marketplace inventory.",
   },
 };
 
@@ -55,27 +38,26 @@ function median(values: number[]) {
   if (!values.length) return null;
   const sorted = [...values].sort((a, b) => a - b);
   const middle = Math.floor(sorted.length / 2);
-  return sorted.length % 2
-    ? sorted[middle]
-    : Math.round((sorted[middle - 1] + sorted[middle]) / 2);
+  return sorted.length % 2 ? sorted[middle] : Math.round((sorted[middle - 1] + sorted[middle]) / 2);
 }
 
-function ListingDescription({ listing }: { listing: Listing }) {
-  const description = marketplaceListingDescriptionParts({
-    county: listing.county,
-    licenseType: listing.type,
-    licenseStatus: listing.licenseStatus,
-    preferredTiming: listing.preferredTiming,
-  });
-
-  return (
-    <div className="result-description">
-      <p>{description.license}</p>
-      <p>{description.county}</p>
-      {description.cities && <p className="result-cities">{description.cities}</p>}
-    </div>
-  );
-}
+const faqs = [
+  {
+    question: "What is a Florida 3PS quota liquor license?",
+    answer:
+      "A Florida 3PS-family quota license is generally used for package-store sales of beer, wine and distilled spirits in sealed containers for off-premises consumption. The exact series designation can vary by county population and remains subject to Florida regulatory approval.",
+  },
+  {
+    question: "Where can I browse current Florida 3PS licenses for sale?",
+    answer:
+      "Use this page for 3PS-specific market context, then open the FLLM Listings marketplace filtered to 3PS opportunities for the current statewide inventory.",
+  },
+  {
+    question: "How much does a Florida 3PS liquor license cost?",
+    answer:
+      "There is no single statewide price. Asking prices vary by county, supply, buyer demand, seller terms, license status and current market conditions.",
+  },
+];
 
 export default async function Florida3PsLiquorLicenseForSalePage() {
   const marketplaceListings = await getMarketplaceListings();
@@ -98,75 +80,23 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
     .filter(({ count }) => count > 0)
     .sort((a, b) => b.count - a.count || a.county.name.localeCompare(b.county.name));
 
-  const previewListings = [...availableListings]
-    .sort((a, b) => {
-      const byCounty = a.county.localeCompare(b.county);
-      if (byCounty !== 0) return byCounty;
-      if (a.price === null) return 1;
-      if (b.price === null) return -1;
-      return a.price - b.price;
-    })
-    .slice(0, 12);
-
-  const faqs = [
-    {
-      question: "What is a Florida 3PS liquor license?",
-      answer:
-        "A Florida 3PS-family quota license is generally used for package-store sales of beer, wine and spirits in sealed containers for consumption away from the licensed premises. The exact series designation can vary with county population, and the proposed premises and transfer remain subject to applicable approvals.",
-    },
-    {
-      question: "Is a 3PS license the Florida liquor-store license?",
-      answer:
-        "The 3PS family is the quota full-liquor package-sales category commonly associated with liquor stores and package stores. Buyers should confirm the exact series code, privileges and premises requirements for the county and transaction being considered.",
-    },
-    {
-      question: "Can a Florida 3PS quota license be moved to another county?",
-      answer:
-        "Quota licenses are county-specific. Buyers should search within the county where the license will be used and confirm the proposed transfer and premises with the Florida Division of Alcoholic Beverages and Tobacco.",
-    },
-    {
-      question: "How much does a Florida 3PS liquor license cost?",
-      answer:
-        "There is no single statewide market price. Asking prices vary by county, supply, demand, seller terms, license status and market conditions. Current disclosed asking prices on this page provide a marketplace snapshot rather than a guaranteed valuation.",
-    },
-    {
-      question: "Where can I find a Florida liquor-store license for sale?",
-      answer:
-        "Use this page to compare current 3PS-family package-store opportunities, then open the full filtered Listings page or a county market page to review available inventory and make an inquiry.",
-    },
-  ];
-
   const structuredData = [
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
       name: "Florida 3PS Liquor Licenses for Sale",
       url: canonicalUrl,
-      description:
-        "Current Florida 3PS package-store liquor-license marketplace inventory organized by county, asking price and availability.",
-      isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
+      description: "Florida 3PS package-store liquor-license market context and current marketplace inventory links.",
+      isPartOf: { "@type": "CollectionPage", name: "Florida Liquor Licenses for Sale", url: `${siteUrl}/listings` },
     },
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Florida Liquor Licenses for Sale", item: `${siteUrl}/florida-liquor-licenses-for-sale` },
+        { "@type": "ListItem", position: 2, name: "Florida Liquor Licenses for Sale", item: `${siteUrl}/listings` },
         { "@type": "ListItem", position: 3, name: "Florida 3PS Liquor Licenses for Sale", item: canonicalUrl },
       ],
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      name: "Florida 3PS liquor licenses for sale",
-      url: canonicalUrl,
-      numberOfItems: availableListings.length,
-      itemListElement: availableListings.slice(0, 50).map((listing, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: `3PS package-store liquor license in ${listing.county} — ${listing.priceLabel}`,
-        url: `${siteUrl}${listingPageHref(listing)}`,
-      })),
     },
     {
       "@context": "https://schema.org",
@@ -181,23 +111,14 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
 
   return (
     <main className="seo-market-page">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
-      />
-      <style>{`
-        .seo-market-listings-shell { width: min(1480px, calc(100% - 60px)); }
-        .seo-market-preview-results { min-height: 0 !important; background: transparent !important; color: inherit !important; }
-        @media (max-width: 720px) { .seo-market-listings-shell { width: min(100% - 24px, 1480px); } }
-      `}</style>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }} />
 
       <header className="seo-market-header seo-market-shell">
         <Link className="seo-market-brand" href="/" aria-label="Florida Liquor License Market home">
           <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
         </Link>
         <nav aria-label="Marketplace navigation">
-          <Link href="/florida-liquor-licenses-for-sale">Licenses for Sale</Link>
-          <Link href="/listings">Listings</Link>
+          <Link href="/listings">Licenses for Sale</Link>
           <Link href="/counties">Counties</Link>
           <Link className="seo-market-nav-cta" href="/sell-your-license">List Your License</Link>
         </nav>
@@ -206,18 +127,18 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
       <section className="seo-market-hero">
         <div className="seo-market-shell">
           <div className="seo-market-breadcrumbs">
-            <Link href="/">Home</Link><span>›</span><Link href="/florida-liquor-licenses-for-sale">Florida Liquor Licenses for Sale</Link><span>›</span><strong>3PS</strong>
+            <Link href="/">Home</Link><span>›</span><Link href="/listings">Florida Liquor Licenses for Sale</Link><span>›</span><strong>3PS</strong>
           </div>
           <div className="seo-market-hero-grid">
             <div>
               <span className="seo-market-kicker">Florida Package-Store Quota Marketplace</span>
               <h1>Florida 3PS Liquor Licenses for Sale</h1>
               <p>
-                Browse current Florida 3PS-family quota liquor-license opportunities by county and asking price. Compare package-store licenses used for sealed beer, wine and spirits sales for off-premises consumption, subject to state and local approvals.
+                Compare current 3PS-family package-store opportunities by county and disclosed asking price, then open the canonical FLLM Listings marketplace for the current statewide inventory.
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href={listingsHref}>Browse All 3PS Listings</Link>
-                <Link className="seo-market-button seo-market-button-dark" href="/counties">Search by County</Link>
+                <Link className="seo-market-button seo-market-button-dark" href="/counties">Browse County Markets</Link>
               </div>
             </div>
             <aside className="seo-market-snapshot" aria-label="Current Florida 3PS marketplace snapshot">
@@ -239,10 +160,10 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
             <span className="seo-market-section-kicker">Package-Store License Guide</span>
             <h2>What a Florida 3PS liquor license is used for</h2>
             <p>
-              The 3PS family is the full-liquor package-sales category buyers commonly search for when opening or acquiring a liquor-store operation. It supports sealed package sales of beer, wine and spirits for consumption away from the licensed premises within the approved license privileges.
+              The 3PS family is the quota full-liquor package-sales category commonly associated with liquor stores and package stores. It supports sealed package sales of beer, wine and distilled spirits for off-premises consumption within approved license privileges.
             </p>
             <p>
-              The exact series designation can vary with county population. Before buying, confirm the license series, county, premises, zoning, ownership structure and transfer requirements. <Link href="/resources/florida-liquor-license-types">Compare Florida liquor-license types</Link>.
+              Before purchasing, confirm the exact series, county, license status, ownership, premises requirements and transfer conditions. <Link href="/license-types/3ps-package-store">Read the 3PS license-type guide</Link>.
             </p>
           </article>
           <aside className="seo-market-callout">
@@ -257,52 +178,11 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
         </div>
       </section>
 
-      <section className="seo-market-inventory">
-        <div className="seo-market-shell seo-market-listings-shell">
-          <div className="seo-market-section-heading">
-            <div><span className="seo-market-section-kicker">Current Opportunities</span><h2>3PS liquor licenses currently for sale in Florida</h2></div>
-            <Link href={listingsHref}>View all 3PS listings ›</Link>
-          </div>
-          {previewListings.length ? (
-            <div className="results-page seo-market-preview-results">
-              <div className="results-grid">
-                {previewListings.map((listing) => (
-                  <article className="result-card" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
-                    <div className="result-photo">
-                      <FloridaCountyMap county={listing.county} />
-                      <span className="result-type-badge">3PS Package Store</span>
-                    </div>
-                    <div className="result-body">
-                      <p>● <Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p>
-                      <h2><Link href={listingPageHref(listing)} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
-                      <div className="result-facts">
-                        <span>{listing.type}</span>
-                        <span>{listing.licenseStatus ? `${sellerReportedStatusLabel(listing.licenseStatus)} / Available` : "Available / Status to confirm"}</span>
-                      </div>
-                      <ListingDescription listing={listing} />
-                      <div className="result-actions">
-                        <Link className="btn btn-gold" href={`/contact?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Inquire</Link>
-                        <Link className="btn offer-button" href={`/submit-offer?listing=${encodeURIComponent(`${listing.county} ${listing.type}`)}&ref=${listing.sourceRef}`}>Submit an Offer</Link>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="seo-market-callout">
-              <strong>No active 3PS listings are displayed right now.</strong>
-              <p>Inventory changes frequently. Buyers can still review county markets or contact FLLM about current package-store opportunities.</p>
-            </div>
-          )}
-        </div>
-      </section>
-
       <section className="seo-market-counties">
         <div className="seo-market-shell">
           <div className="seo-market-section-heading">
             <div><span className="seo-market-section-kicker">Active County Markets</span><h2>Florida 3PS licenses for sale by county</h2></div>
-            <Link href="/counties">Browse all county markets ›</Link>
+            <Link href={listingsHref}>View all 3PS listings ›</Link>
           </div>
           {countyCounts.length ? (
             <div className="seo-market-county-grid">
@@ -311,32 +191,15 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
               ))}
             </div>
           ) : (
-            <p>Use the statewide county directory to identify the Florida market where a package-store license is needed.</p>
+            <p>No active 3PS inventory is currently displayed. Browse the full marketplace for the latest availability.</p>
           )}
-        </div>
-      </section>
-
-      <section className="seo-market-guide">
-        <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">Buyer Process</span>
-          <h2>How to buy a Florida 3PS liquor license</h2>
-          <p>Start with the county, confirm the package-store privileges needed, compare current inventory and then verify the specific license and transfer before committing funds.</p>
-          <div className="seo-market-guide-grid">
-            <article className="seo-market-guide-card"><span>1</span><h3>Choose the county</h3><p>A quota license is county-specific, so begin in the county where the package store will operate.</p></article>
-            <article className="seo-market-guide-card"><span>2</span><h3>Compare 3PS opportunities</h3><p>Review asking prices, exact series designation, status, seller terms and listing details.</p></article>
-            <article className="seo-market-guide-card"><span>3</span><h3>Verify and transfer</h3><p>Confirm liens, ownership, premises, zoning, transfer paperwork and required state or local approvals before closing.</p></article>
-          </div>
-          <div className="seo-market-actions" style={{ marginTop: 28 }}>
-            <Link className="seo-market-button seo-market-button-gold" href={listingsHref}>Search Florida 3PS Licenses</Link>
-            <Link className="seo-market-button seo-market-button-dark" href="/financing">Explore Liquor License Financing</Link>
-          </div>
         </div>
       </section>
 
       <section className="seo-market-faq">
         <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">Florida 3PS FAQs</span>
-          <h2>Questions buyers ask about package-store licenses</h2>
+          <span className="seo-market-section-kicker">3PS Buyer Questions</span>
+          <h2>Florida 3PS liquor-license FAQs</h2>
           <div className="seo-market-faq-grid">
             {faqs.map((faq) => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}
           </div>
@@ -345,23 +208,10 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
 
       <section className="seo-market-final-cta">
         <div className="seo-market-shell">
-          <div><h2>Looking for a Florida liquor-store license?</h2><p>Open the live marketplace inventory and filter current 3PS package-store opportunities by county, price and availability.</p></div>
-          <Link className="seo-market-button seo-market-button-dark" href={listingsHref}>Browse 3PS Liquor Licenses for Sale</Link>
+          <div><h2>Browse current Florida 3PS opportunities</h2><p>Use the canonical FLLM Listings marketplace for live inventory, filters and individual license pages.</p></div>
+          <Link className="seo-market-button seo-market-button-dark" href={listingsHref}>Open 3PS Listings</Link>
         </div>
       </section>
-
-      <footer className="seo-market-footer">
-        <div className="seo-market-shell">
-          <span>© Florida Liquor License Market</span>
-          <nav>
-            <Link href="/florida-liquor-licenses-for-sale">Florida Licenses for Sale</Link>
-            <Link href="/florida-4cop-liquor-license-for-sale">4COP Licenses</Link>
-            <Link href="/counties">Counties</Link>
-            <Link href="/contact">Contact</Link>
-          </nav>
-        </div>
-      </footer>
-      <InventoryCardExpansion />
     </main>
   );
 }
