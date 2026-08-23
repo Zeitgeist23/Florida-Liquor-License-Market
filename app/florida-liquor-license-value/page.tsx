@@ -122,6 +122,7 @@ export default function FloridaLiquorLicenseValuePage() {
         <aside>
           <strong>Important distinction</strong>
           <p>Advertised asking price is not the same thing as a verified closing price. This page provides market pricing guidance, not an appraisal or guarantee of value.</p>
+          <Link href="/florida-liquor-license-appraisal">Read the Florida liquor license appraisal guide →</Link>
         </aside>
       </section>
 
@@ -147,6 +148,7 @@ export default function FloridaLiquorLicenseValuePage() {
           <span>Compare the Florida market</span>
           <h2>Go from an estimate to live opportunities</h2>
           <div className="value-link-grid">
+            <Link href="/florida-liquor-license-appraisal"><strong>Florida Liquor License Appraisal Guide</strong><small>Learn the factors used to evaluate a 4COP or 3PS license</small></Link>
             <Link href="/florida-liquor-licenses-for-sale"><strong>Florida Liquor Licenses for Sale</strong><small>Browse current statewide inventory</small></Link>
             <Link href="/florida-4cop-liquor-license-for-sale"><strong>Florida 4COP Licenses for Sale</strong><small>Compare current 4COP opportunities</small></Link>
             <Link href="/florida-3ps-liquor-license-for-sale"><strong>Florida 3PS Licenses for Sale</strong><small>Compare package-store opportunities</small></Link>
