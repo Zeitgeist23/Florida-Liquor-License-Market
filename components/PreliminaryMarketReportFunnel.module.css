@@ -173,7 +173,7 @@
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
-  transition: transform .18s ease, filter .18s ease, color .18s ease, background .18s ease, box-shadow .18s ease;
+  transition: filter .18s ease, color .18s ease, background .18s ease, box-shadow .18s ease;
 }
 
 .primaryProductAction {
@@ -388,7 +388,6 @@
 .primaryProductAction:focus-visible,
 .checkoutRow button:hover:not(:disabled),
 .checkoutRow button:focus-visible:not(:disabled) {
-  transform: translateY(-2px);
   filter: brightness(1.08);
   box-shadow: 0 10px 24px rgba(246, 167, 0, .2);
   outline: none;
@@ -396,7 +395,6 @@
 
 .formalProductAction:hover,
 .formalProductAction:focus-visible {
-  transform: translateY(-2px);
   color: #071019;
   background: linear-gradient(145deg, #ffc12e, #eb9300);
   box-shadow: 0 10px 24px rgba(246, 167, 0, .2);
@@ -409,13 +407,6 @@
   .formalProductAction,
   .checkoutRow button {
     transition: none;
-  }
-
-  .primaryProductAction:hover,
-  .primaryProductAction:focus-visible,
-  .formalProductAction:hover,
-  .formalProductAction:focus-visible {
-    transform: none;
   }
 }
 
