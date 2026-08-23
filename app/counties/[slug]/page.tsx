@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import CountyMarketDataPanel from "@/components/CountyMarketDataPanel";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import { countyValuationGuideHref, isCountyValuationGuide } from "@/data/county-valuation-guides";
 import { getCountyBySlug } from "@/data/florida-counties";
@@ -252,6 +253,12 @@ export default async function CountyPage({ params }: PageProps) {
         <div><span>Median Disclosed Ask</span><strong>{medianPrice === null ? "Undisclosed" : money(medianPrice)}</strong></div>
         <div><span>Highest Disclosed Ask</span><strong>{highest === null ? "Undisclosed" : money(highest)}</strong></div>
       </section>
+
+      <CountyMarketDataPanel
+        county={county}
+        listings={available}
+        hasValuationGuide={isCountyValuationGuide(county.slug)}
+      />
 
       <section className="county-inventory">
         <div className="county-shell">
