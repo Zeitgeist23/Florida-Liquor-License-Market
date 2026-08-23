@@ -15,15 +15,15 @@ const majorCountyValueGuides = countyValuationGuideSlugs
   .filter((county): county is NonNullable<typeof county> => Boolean(county));
 
 export const metadata: Metadata = {
-  title: "How Much Is My Florida Liquor License Worth? | Market Value Guide",
+  title: "Florida Liquor License Value | How Much Is My License Worth?",
   description:
-    "Estimate the current market range for a Florida 4COP or 3PS liquor license using county-specific disclosed asking-price comparables from FLLM.",
+    "Estimate the current Florida liquor license value for a 4COP or 3PS quota license using county-specific disclosed asking-price comparables from FLLM.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "How Much Is My Florida Liquor License Worth?",
+    title: "Florida Liquor License Value | How Much Is My License Worth?",
     description: "Estimate a Florida quota liquor-license market range using current county-specific asking-price comparables.",
     siteName: "Florida Liquor License Market",
   },
@@ -52,7 +52,7 @@ export default function FloridaLiquorLicenseValuePage() {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "How Much Is My Florida Liquor License Worth?",
+      name: "Florida Liquor License Value: How Much Is My License Worth?",
       url: canonicalUrl,
       description: "Florida liquor-license market pricing guidance using current asking-price comparables by county and license type.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
@@ -82,7 +82,7 @@ export default function FloridaLiquorLicenseValuePage() {
             <Link href="/">Home</Link><span>›</span><strong>Florida Liquor License Value</strong>
           </nav>
           <span className="value-eyebrow">Florida Quota License Market Value</span>
-          <h1>How Much Is My Florida Liquor License Worth?</h1>
+          <h1>Florida Liquor License Value: How Much Is My License Worth?</h1>
           <p>
             Estimate a current market range from disclosed asking-price comparables for the same Florida county and quota-license category.
           </p>
