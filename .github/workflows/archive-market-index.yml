@@ -1,0 +1,75 @@
+name: Archive FLLM Market Index
+
+on:
+  schedule:
+    - cron: "15 6 28 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archive-fllm-market-index
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download current FLLM market index
+        shell: bash
+        run: |
+          set -euo pipefail
+          SNAPSHOT_DATE="$(date -u +%Y-%m-%d)"
+          PERIOD="$(date -u +%Y-%m)"
+          MONTH="$(date -u +%m)"
+          YEAR="$(date -u +%Y)"
+          ARCHIVE_DIR="public/data/market-index-archive"
+          QUARTER_DIR="public/data/quarterly-market-reports"
+          URL="https://www.floridaliquorlicensemarket.com/api/florida-liquor-license-market-index.csv"
+
+          mkdir -p "$ARCHIVE_DIR" "$QUARTER_DIR"
+          TEMP_FILE="$(mktemp)"
+          curl --fail --location --retry 5 --retry-delay 10 --max-time 120 "$URL" -o "$TEMP_FILE"
+          test -s "$TEMP_FILE"
+          grep -q "County,Primary Cities" "$TEMP_FILE"
+
+          ARCHIVE_FILE="$ARCHIVE_DIR/${PERIOD}-florida-liquor-license-market-index.csv"
+          cp "$TEMP_FILE" "$ARCHIVE_FILE"
+
+          case "$MONTH" in
+            03) QUARTER="Q1" ;;
+            06) QUARTER="Q2" ;;
+            09) QUARTER="Q3" ;;
+            12) QUARTER="Q4" ;;
+            *) QUARTER="" ;;
+          esac
+
+          if [ -n "$QUARTER" ]; then
+            cp "$TEMP_FILE" "$QUARTER_DIR/${YEAR}-${QUARTER}-florida-liquor-license-market-index.csv"
+          fi
+
+          cat > "$ARCHIVE_DIR/latest.json" <<EOF
+          {
+            "snapshotDate": "$SNAPSHOT_DATE",
+            "period": "$PERIOD",
+            "file": "/data/market-index-archive/${PERIOD}-florida-liquor-license-market-index.csv"
+          }
+          EOF
+
+      - name: Commit archived market data
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "FLLM Market Data Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/data/market-index-archive public/data/quarterly-market-reports
+          if git diff --cached --quiet; then
+            echo "No market-index archive changes to commit."
+            exit 0
+          fi
+          git commit -m "Archive monthly FLLM market index"
+          git push
