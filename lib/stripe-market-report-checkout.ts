@@ -6,6 +6,9 @@ import {
   type PreliminaryMarketReportOrder,
 } from "@/lib/preliminary-market-report";
 
+const ACTIVE_MARKET_REPORT_PAYMENT_LINK =
+  "https://buy.stripe.com/8x2eV5h1H6fz4qp6r3ebu01";
+
 function siteUrl(requestUrl?: string) {
   const configured = process.env.NEXT_PUBLIC_SITE_URL || process.env.FLLM_SITE_URL;
   if (configured) return configured.replace(/\/$/, "");
@@ -19,7 +22,17 @@ export async function createPreliminaryMarketReportCheckoutSession(
 ) {
   const stripeSecret = process.env.STRIPE_SECRET_KEY;
   if (!stripeSecret) {
-    throw new Error("Secure report checkout is temporarily unavailable. Please contact FLLM for assistance.");
+    const paymentLink = new URL(
+      process.env.STRIPE_MARKET_REPORT_PAYMENT_LINK || ACTIVE_MARKET_REPORT_PAYMENT_LINK,
+    );
+    paymentLink.searchParams.set("client_reference_id", order.submissionRef);
+    paymentLink.searchParams.set("prefilled_email", order.email);
+
+    return {
+      id: `payment_link_${order.submissionRef}`,
+      url: paymentLink.toString(),
+      client_reference_id: order.submissionRef,
+    } satisfies StripeCheckoutSession;
   }
 
   const origin = siteUrl(requestUrl);
