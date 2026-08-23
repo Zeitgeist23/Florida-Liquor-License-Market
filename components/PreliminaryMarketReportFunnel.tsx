@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import styles from "./PreliminaryMarketReportFunnel.module.css";
 
@@ -34,9 +34,27 @@ function formatUsPhone(value: string) {
 }
 
 export default function PreliminaryMarketReportFunnel(props: Props) {
+  const orderFormRef = useRef<HTMLFormElement | null>(null);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const scrollToOrderForm = useCallback(() => {
+    const url = new URL(window.location.href);
+    url.hash = "market-report-order-form";
+    window.history.replaceState(null, "", url);
+
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    orderFormRef.current?.scrollIntoView({ behavior, block: "start" });
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const timeout = window.setTimeout(scrollToOrderForm, 80);
+
+    return () => window.clearTimeout(timeout);
+  }, [open, scrollToOrderForm]);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -105,13 +123,15 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
         <div className={styles.orderPanel}>
           <span>One-time report fee</span>
           <strong>$195</strong>
-          {!open ? (
-            <button type="button" onClick={() => setOpen(true)}>
-              Order Market Report — $195
-            </button>
-          ) : (
-            <a href="#market-report-order-form">Complete Order Below</a>
-          )}
+          <button
+            type="button"
+            onClick={() => {
+              if (open) scrollToOrderForm();
+              else setOpen(true);
+            }}
+          >
+            {open ? "Complete Order Below" : "Order Market Report — $195"}
+          </button>
         </div>
       </div>
 
@@ -131,7 +151,13 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
       </p>
 
       {open ? (
-        <form id="market-report-order-form" className={styles.form} onSubmit={submit}>
+        <form
+          ref={orderFormRef}
+          id="market-report-order-form"
+          className={styles.form}
+          onSubmit={submit}
+          style={{ scrollMarginTop: "110px" }}
+        >
           <div className={styles.formHeading}>
             <span>Secure report order</span>
             <h5>{props.county} · {props.licenseType}</h5>
