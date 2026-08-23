@@ -1,0 +1,1 @@
+Temporary build-time chunks for the exact user-supplied report preview image.
