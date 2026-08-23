@@ -5,9 +5,9 @@ import "@/app/resources/forms/abt-forms.css";
 import "@/app/sell-your-license-preview/list-your-license-preview.css";
 
 export const metadata: Metadata = {
-  title: "Sell a Florida Liquor License | List Your License for Sale",
+  title: "List Your Florida Liquor License for Sale | FLLM",
   description:
-    "Learn how to sell your Florida liquor license and list it for sale through Florida Liquor License Market. Choose self-directed or broker-assisted selling, review Florida quota-license pricing, and prepare for the transfer process.",
+    "List a Florida quota liquor license for sale through Florida Liquor License Market. Choose a self-directed marketplace listing or request broker-assisted transaction support.",
   alternates: {
     canonical: "https://www.floridaliquorlicensemarket.com/sell-your-license",
   },
@@ -15,9 +15,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://www.floridaliquorlicensemarket.com/sell-your-license",
-    title: "Sell a Florida Liquor License | Florida Liquor License Market",
+    title: "List Your Florida Liquor License for Sale | FLLM",
     description:
-      "Learn how to sell or list a Florida liquor license with confidential self-directed or broker-assisted options.",
+      "Create a self-directed Florida liquor-license listing or request broker-assisted transaction support.",
     siteName: "Florida Liquor License Market",
   },
 };
