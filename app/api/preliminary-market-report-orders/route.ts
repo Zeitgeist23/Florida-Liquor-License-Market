@@ -6,6 +6,10 @@ import {
   type PreliminaryMarketReportOrder,
 } from "@/lib/preliminary-market-report";
 import {
+  isValidFloridaRetailLicenseNumber,
+  validateFloridaRetailLicenseIdentity,
+} from "@/lib/license-fee-lookup";
+import {
   attachCheckoutSession,
   getSubmissionByCheckoutSession,
   markCheckoutFailed,
@@ -119,6 +123,46 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: "Please acknowledge the preliminary market report terms before continuing." },
         { status: 400 },
+      );
+    }
+
+    const licenseNumber = (body.license_number ?? "").trim();
+    const county = (body.county ?? "").trim();
+    const licenseType = (body.license_type ?? "").trim();
+
+    if (!licenseNumber || !county || !licenseType) {
+      return NextResponse.json(
+        { error: "Please complete the license number, county and license type before continuing." },
+        { status: 400 },
+      );
+    }
+
+    if (!isValidFloridaRetailLicenseNumber(licenseNumber)) {
+      return NextResponse.json(
+        { error: "Enter a valid Florida DBPR license number before continuing." },
+        { status: 400 },
+      );
+    }
+
+    const identity = await retryTransient(
+      () => validateFloridaRetailLicenseIdentity(licenseNumber, county, licenseType),
+      "DBPR license verification",
+    );
+
+    if (identity.status === "not_found") {
+      return NextResponse.json(
+        { error: "That license number was not found in DBPR’s current public retail beverage license records. Please correct it before continuing." },
+        { status: 400 },
+      );
+    }
+
+    if (identity.status === "mismatch" && identity.record) {
+      const expectedType = identity.expectedLicenseType ?? `DBPR series ${identity.record.series}`;
+      return NextResponse.json(
+        {
+          error: `DBPR records show ${identity.record.licenseNumber} in ${identity.record.county} County as ${expectedType}, not ${county} as ${licenseType}. Please correct the license details before continuing.`,
+        },
+        { status: 409 },
       );
     }
 

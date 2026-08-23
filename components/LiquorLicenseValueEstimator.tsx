@@ -37,6 +37,24 @@ type PricingGuidance = {
   notice: string;
 };
 
+type DbprLicenseRecord = {
+  licenseNumber: string;
+  ownerName: string;
+  series: string;
+  county: string;
+  primaryStatus: string;
+  secondaryStatus: string;
+};
+
+type DbprValidation = {
+  status: "match" | "mismatch" | "not_found" | "unavailable" | "invalid";
+  countyMatches?: boolean;
+  licenseTypeMatches?: boolean;
+  expectedLicenseType?: "4COP Quota" | "3PS Quota / Package Store" | null;
+  record?: DbprLicenseRecord | null;
+  error?: string;
+};
+
 const confidenceLabels: Record<Confidence, string> = {
   strong: "Strong comparable set",
   moderate: "Moderate comparable set",
@@ -63,6 +81,8 @@ function range(low: number | null, high: number | null) {
 export default function LiquorLicenseValueEstimator() {
   const router = useRouter();
   const resultsRef = useRef<HTMLDivElement | null>(null);
+  const licenseNumberRef = useRef<HTMLInputElement | null>(null);
+  const warningDialogRef = useRef<HTMLDivElement | null>(null);
   const [county, setCounty] = useState("");
   const [licenseType, setLicenseType] = useState("");
   const [licenseNumber, setLicenseNumber] = useState("");
@@ -76,6 +96,7 @@ export default function LiquorLicenseValueEstimator() {
   const [leadError, setLeadError] = useState("");
   const [leadReference, setLeadReference] = useState("");
   const [showAllComparables, setShowAllComparables] = useState(false);
+  const [dbprWarning, setDbprWarning] = useState<DbprValidation | null>(null);
 
   useEffect(() => {
     if (!guidance) return;
@@ -88,31 +109,92 @@ export default function LiquorLicenseValueEstimator() {
     return () => window.clearTimeout(timeout);
   }, [guidance]);
 
-  async function estimate(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!county || !licenseType || !licenseStatus || !preferredTiming) return;
+  useEffect(() => {
+    if (!dbprWarning) return;
 
-    setLoading(true);
+    warningDialogRef.current?.focus();
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setDbprWarning(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [dbprWarning]);
+
+  function resetResults() {
     setError("");
     setGuidance(null);
     setLeadError("");
     setLeadReference("");
     setShowAllComparables(false);
+  }
+
+  async function loadGuidance(resolvedCounty: string, resolvedLicenseType: string) {
+    const params = new URLSearchParams({ county: resolvedCounty, licenseType: resolvedLicenseType });
+    const response = await fetch(`/api/market-pricing-guidance?${params.toString()}`, {
+      headers: { Accept: "application/json" },
+      cache: "no-store",
+    });
+    const result = (await response.json()) as PricingGuidance & { error?: string };
+    if (!response.ok) throw new Error(result.error || "Unable to load current Florida marketplace data.");
+    setGuidance(result);
+  }
+
+  async function estimate(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!county || !licenseType || !licenseStatus || !preferredTiming) return;
+
+    setLoading(true);
+    setDbprWarning(null);
+    resetResults();
 
     try {
-      const params = new URLSearchParams({ county, licenseType });
-      const response = await fetch(`/api/market-pricing-guidance?${params.toString()}`, {
-        headers: { Accept: "application/json" },
-        cache: "no-store",
-      });
-      const result = (await response.json()) as PricingGuidance & { error?: string };
-      if (!response.ok) throw new Error(result.error || "Unable to load current Florida marketplace data.");
-      setGuidance(result);
+      if (licenseNumber.trim()) {
+        const validationParams = new URLSearchParams({ licenseNumber, county, licenseType });
+        const validationResponse = await fetch(`/api/license-identity-validation?${validationParams.toString()}`, {
+          headers: { Accept: "application/json" },
+          cache: "no-store",
+        });
+        const validation = (await validationResponse.json()) as DbprValidation;
+
+        if (!validationResponse.ok || validation.status !== "match") {
+          setDbprWarning(validation);
+          return;
+        }
+      }
+
+      await loadGuidance(county, licenseType);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Unable to load current Florida marketplace data.");
     } finally {
       setLoading(false);
     }
+  }
+
+  async function useDbprRecord() {
+    const record = dbprWarning?.record;
+    const expectedLicenseType = dbprWarning?.expectedLicenseType;
+    if (!record || !expectedLicenseType) return;
+
+    const recordedCounty = `${record.county.replace(/\s+County$/i, "")} County`;
+    setCounty(recordedCounty);
+    setLicenseType(expectedLicenseType);
+    setCurrentHolderOfRecord((current) => current || record.ownerName);
+    setDbprWarning(null);
+    setLoading(true);
+    resetResults();
+
+    try {
+      await loadGuidance(recordedCounty, expectedLicenseType);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Unable to load current Florida marketplace data.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function correctLicenseNumber() {
+    setDbprWarning(null);
+    window.requestAnimationFrame(() => licenseNumberRef.current?.focus());
   }
 
   async function submitLead(event: React.FormEvent<HTMLFormElement>) {
@@ -196,6 +278,7 @@ export default function LiquorLicenseValueEstimator() {
         <label>
           <span>License Number <small>If available</small></span>
           <input
+            ref={licenseNumberRef}
             value={licenseNumber}
             onChange={(event) => setLicenseNumber(event.target.value)}
             placeholder="e.g. BEV58-12345"
@@ -234,9 +317,71 @@ export default function LiquorLicenseValueEstimator() {
           </select>
         </label>
         <button type="submit" disabled={loading || !county || !licenseType || !licenseStatus || !preferredTiming}>
-          {loading ? "Calculating Market Range…" : "Calculate My Market Range"}
+          {loading ? (licenseNumber.trim() ? "Verifying DBPR Record…" : "Calculating Market Range…") : "Calculate My Market Range"}
         </button>
       </form>
+
+      {dbprWarning ? (
+        <div className={styles.warningBackdrop} role="presentation">
+          <div
+            ref={warningDialogRef}
+            className={styles.warningDialog}
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="dbpr-warning-title"
+            aria-describedby="dbpr-warning-description"
+            tabIndex={-1}
+          >
+            <span className={styles.warningEyebrow}>DBPR record verification</span>
+            <h3 id="dbpr-warning-title">
+              {dbprWarning.status === "mismatch"
+                ? "License details do not match"
+                : dbprWarning.status === "not_found"
+                  ? "License number not found"
+                  : dbprWarning.status === "invalid"
+                    ? "License number needs correction"
+                    : "DBPR verification unavailable"}
+            </h3>
+            <p id="dbpr-warning-description">
+              {dbprWarning.status === "mismatch" && dbprWarning.record
+                ? "We stopped the estimate because the selected market does not match the current public DBPR record."
+                : dbprWarning.error || "We could not verify this license against DBPR’s current public records. Please try again."}
+            </p>
+
+            {dbprWarning.status === "mismatch" && dbprWarning.record ? (
+              <div className={styles.warningComparison}>
+                <div>
+                  <span>You selected</span>
+                  <strong>{county}</strong>
+                  <small>{licenseType}</small>
+                </div>
+                <div className={styles.recordedDetails}>
+                  <span>DBPR record</span>
+                  <strong>{dbprWarning.record.county} County</strong>
+                  <small>{dbprWarning.expectedLicenseType ?? `Series ${dbprWarning.record.series}`}</small>
+                </div>
+              </div>
+            ) : null}
+
+            {dbprWarning.record ? (
+              <p className={styles.warningRecordNote}>
+                License {dbprWarning.record.licenseNumber} · {dbprWarning.record.ownerName} · {dbprWarning.record.primaryStatus} / {dbprWarning.record.secondaryStatus}
+              </p>
+            ) : null}
+
+            <div className={styles.warningActions}>
+              {dbprWarning.status === "mismatch" && dbprWarning.expectedLicenseType ? (
+                <button type="button" className={styles.warningPrimary} onClick={useDbprRecord}>
+                  Use DBPR Record &amp; Calculate
+                </button>
+              ) : null}
+              <button type="button" onClick={correctLicenseNumber}>
+                Correct License Number
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {error ? <p className={styles.error} role="alert">{error}</p> : null}
 

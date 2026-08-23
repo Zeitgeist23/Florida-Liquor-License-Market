@@ -156,6 +156,133 @@
   opacity: .58;
 }
 
+.warningBackdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(0, 9, 15, .84);
+  backdrop-filter: blur(8px);
+}
+
+.warningDialog {
+  width: min(620px, 100%);
+  padding: 30px;
+  border: 1px solid #f6a700;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(246, 167, 0, .17), transparent 36%),
+    #071a28;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, .62);
+  outline: none;
+}
+
+.warningEyebrow {
+  color: #f6a700;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.warningDialog h3 {
+  margin: 8px 0 10px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(28px, 4vw, 38px);
+  line-height: 1.08;
+}
+
+.warningDialog > p {
+  margin: 0;
+  color: #c4d3da;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.warningComparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.warningComparison > div {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border: 1px solid #795052;
+  border-radius: 8px;
+  background: rgba(112, 36, 37, .2);
+}
+
+.warningComparison .recordedDetails {
+  border-color: #4b8c70;
+  background: rgba(17, 83, 56, .22);
+}
+
+.warningComparison span {
+  color: #f6a700;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.warningComparison strong {
+  color: #fff;
+  font-size: 17px;
+}
+
+.warningComparison small {
+  color: #b8cbd4;
+  font-size: 12px;
+}
+
+.warningDialog .warningRecordNote {
+  margin-top: 12px;
+  color: #91aebd;
+  font-size: 11px;
+}
+
+.warningActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.warningActions button {
+  min-height: 48px;
+  flex: 1 1 220px;
+  padding: 0 17px;
+  border: 1px solid #5b7688;
+  border-radius: 6px;
+  color: #eef6f9;
+  background: #0a2232;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.warningActions .warningPrimary {
+  border-color: #ffc12e;
+  color: #071019;
+  background: linear-gradient(145deg, #ffc12e, #eb9300);
+}
+
+.warningActions button:hover,
+.warningActions button:focus-visible {
+  filter: brightness(1.08);
+  outline: 2px solid #f6a700;
+  outline-offset: 2px;
+}
+
 .error,
 .notice,
 .empty {
@@ -637,4 +764,9 @@
   .comparablesHeader { display: grid; gap: 7px; }
   .actions { flex-direction: column; }
   .actions a { width: 100%; text-align: center; }
+  .warningBackdrop { padding: 12px; }
+  .warningDialog { padding: 22px 17px; }
+  .warningComparison { grid-template-columns: 1fr; }
+  .warningDialog > p { font-size: 14px; }
+  .warningActions button { font-size: 12px; }
 }

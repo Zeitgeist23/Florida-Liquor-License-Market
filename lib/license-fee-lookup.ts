@@ -110,8 +110,37 @@ export type LicenseFeeLookupResult = {
   sourceUpdated: string;
 };
 
+export type LicenseIdentityValidation = {
+  status: "match" | "mismatch" | "not_found";
+  countyMatches: boolean;
+  licenseTypeMatches: boolean;
+  expectedLicenseType: "4COP Quota" | "3PS Quota / Package Store" | null;
+  record: LicenseFeeLookupResult | null;
+};
+
 function normalizeLicenseNumber(value: string) {
   return value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+}
+
+export function isValidFloridaRetailLicenseNumber(value: string) {
+  const normalized = normalizeLicenseNumber(value);
+  return normalized.length >= 5 && normalized.length <= 20;
+}
+
+function normalizeCountyName(value: string) {
+  return value
+    .replace(/\s+County$/i, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+}
+
+function marketLicenseTypeForSeries(seriesValue: string) {
+  const series = seriesValue.trim().toUpperCase();
+  if (["4COP", "5COP", "6COP", "7COP", "8COP"].includes(series)) return "4COP Quota" as const;
+  if (["3PS", "3APS", "3BPS", "3CPS", "3DPS"].includes(series)) {
+    return "3PS Quota / Package Store" as const;
+  }
+  return null;
 }
 
 function parseCsvRow(line: string) {
@@ -217,6 +246,35 @@ export async function lookupFloridaRetailLicense(rawLicenseNumber: string) {
     ...fee,
     sourceUpdated: new Date().toISOString(),
   } satisfies LicenseFeeLookupResult;
+}
+
+export async function validateFloridaRetailLicenseIdentity(
+  rawLicenseNumber: string,
+  selectedCounty: string,
+  selectedLicenseType: string,
+): Promise<LicenseIdentityValidation> {
+  const record = await lookupFloridaRetailLicense(rawLicenseNumber);
+  if (!record) {
+    return {
+      status: "not_found",
+      countyMatches: false,
+      licenseTypeMatches: false,
+      expectedLicenseType: null,
+      record: null,
+    };
+  }
+
+  const expectedLicenseType = marketLicenseTypeForSeries(record.series);
+  const countyMatches = normalizeCountyName(record.county) === normalizeCountyName(selectedCounty);
+  const licenseTypeMatches = expectedLicenseType === selectedLicenseType;
+
+  return {
+    status: countyMatches && licenseTypeMatches ? "match" : "mismatch",
+    countyMatches,
+    licenseTypeMatches,
+    expectedLicenseType,
+    record,
+  };
 }
 
 export function reminderDateForExpiration(expirationDate: string, now = new Date()) {
