@@ -35,6 +35,7 @@ function formatUsPhone(value: string) {
 
 export default function PreliminaryMarketReportFunnel(props: Props) {
   const orderFormRef = useRef<HTMLFormElement | null>(null);
+  const productGridRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -55,6 +56,30 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
 
     return () => window.clearTimeout(timeout);
   }, [open, scrollToOrderForm]);
+
+  useEffect(() => {
+    const cards = Array.from(productGridRef.current?.querySelectorAll("article") ?? []);
+    if (!cards.length) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      cards.forEach((card) => card.classList.add(styles.inView));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add(styles.inView);
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -6% 0px" },
+    );
+
+    cards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -119,7 +144,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
         </p>
       </div>
 
-      <div className={styles.productGrid}>
+      <div ref={productGridRef} className={styles.productGrid}>
         <article className={`${styles.productCard} ${styles.preliminaryCard}`}>
           <figure className={styles.productPreview}>
             <img

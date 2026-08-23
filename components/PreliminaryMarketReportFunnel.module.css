@@ -46,22 +46,67 @@
 }
 
 .productCard {
+  position: relative;
   display: grid;
   grid-template-rows: auto 1fr;
   height: 100%;
   overflow: hidden;
   border: 1px solid #38596d;
   border-radius: 12px;
-  background: rgba(2, 17, 27, .78);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, .22);
-  transition: border-color .22s ease, box-shadow .22s ease, background-color .22s ease;
+  opacity: .58;
+  background: linear-gradient(155deg, #0d3045 0%, #071e2d 45%, #03131f 100%);
+  box-shadow:
+    0 28px 58px rgba(0, 0, 0, .35),
+    0 8px 16px rgba(0, 0, 0, .24),
+    inset 0 1px 0 rgba(255, 255, 255, .08),
+    inset 0 -1px 0 rgba(0, 0, 0, .55);
+  transform: perspective(1200px) translateY(28px) scale(.982);
+  transform-origin: center bottom;
+  transition:
+    opacity .62s ease,
+    transform .62s cubic-bezier(.2, .75, .2, 1),
+    border-color .24s ease,
+    box-shadow .24s ease;
+}
+
+.productCard::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(125deg, rgba(255, 255, 255, .12), transparent 22%, transparent 72%, rgba(246, 167, 0, .07)),
+    radial-gradient(circle at 18% 0%, rgba(107, 185, 225, .13), transparent 32%);
+  content: "";
+  opacity: .38;
+  pointer-events: none;
+  transition: opacity .24s ease, background .24s ease;
+}
+
+.productCard > * {
+  position: relative;
+  z-index: 1;
+}
+
+.productCard.inView {
+  opacity: 1;
+  transform: perspective(1200px) translateY(0) scale(1);
 }
 
 .productCard:hover,
 .productCard:focus-within {
   border-color: #f6a700;
-  background-color: rgba(10, 39, 57, .96);
-  box-shadow: 0 24px 52px rgba(0, 0, 0, .34), 0 0 0 1px rgba(246, 167, 0, .18);
+  box-shadow:
+    0 34px 72px rgba(0, 0, 0, .5),
+    0 14px 25px rgba(0, 0, 0, .3),
+    0 0 0 1px rgba(246, 167, 0, .24),
+    inset 0 1px 0 rgba(255, 255, 255, .14),
+    inset 0 -1px 0 rgba(0, 0, 0, .58);
+}
+
+.productCard:hover::before,
+.productCard:focus-within::before {
+  opacity: .9;
 }
 
 .preliminaryCard {
@@ -70,7 +115,7 @@
 
 .formalCard {
   border-color: rgba(226, 190, 94, .72);
-  background: linear-gradient(160deg, rgba(18, 39, 54, .96), rgba(2, 17, 27, .92));
+  background: linear-gradient(155deg, #152f40 0%, #0a2231 46%, #04141f 100%);
 }
 
 .productPreview {
@@ -78,6 +123,7 @@
   margin: 0;
   padding: 10px 10px 0;
   overflow: hidden;
+  background: linear-gradient(180deg, rgba(0, 0, 0, .22), transparent);
 }
 
 .productImage {
@@ -87,7 +133,22 @@
   object-fit: contain;
   border-radius: 8px;
   background: #071522;
-  box-shadow: 0 15px 36px rgba(0, 0, 0, .30);
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, .42),
+    0 3px 8px rgba(0, 0, 0, .3),
+    inset 0 1px 0 rgba(255, 255, 255, .08);
+  transform: translateZ(0) scale(1);
+  transition: transform .36s ease, filter .36s ease, box-shadow .36s ease;
+}
+
+.productCard:hover .productImage,
+.productCard:focus-within .productImage {
+  filter: saturate(1.08) contrast(1.03);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, .5),
+    0 6px 13px rgba(0, 0, 0, .34),
+    inset 0 1px 0 rgba(255, 255, 255, .12);
+  transform: translateY(-3px) scale(1.018);
 }
 
 .productPreview figcaption {
@@ -403,10 +464,17 @@
 
 @media (prefers-reduced-motion: reduce) {
   .productCard,
+  .productImage,
   .primaryProductAction,
   .formalProductAction,
   .checkoutRow button {
     transition: none;
+  }
+
+  .productCard,
+  .productCard.inView {
+    opacity: 1;
+    transform: none;
   }
 }
 
