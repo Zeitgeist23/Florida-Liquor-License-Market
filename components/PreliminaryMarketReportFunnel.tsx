@@ -3,12 +3,6 @@
 import { useState } from "react";
 
 import styles from "./PreliminaryMarketReportFunnel.module.css";
-import reportChunk1 from "./report-preview-base64/chunk1";
-import reportChunk2 from "./report-preview-base64/chunk2";
-import reportChunk3 from "./report-preview-base64/chunk3";
-import reportChunk4 from "./report-preview-base64/chunk4";
-import reportChunk5 from "./report-preview-base64/chunk5";
-import reportChunk6 from "./report-preview-base64/chunk6";
 
 type EstimateSnapshot = {
   count: number;
@@ -38,15 +32,6 @@ function formatUsPhone(value: string) {
   if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
-
-const reportPreviewSrc =
-  "data:image/webp;base64," +
-  reportChunk1 +
-  reportChunk2 +
-  reportChunk3 +
-  reportChunk4 +
-  reportChunk5 +
-  reportChunk6;
 
 export default function PreliminaryMarketReportFunnel(props: Props) {
   const [open, setOpen] = useState(false);
@@ -133,7 +118,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
       <figure className={styles.reportPreview}>
         <img
           className={styles.reportImage}
-          src={reportPreviewSrc}
+          src="/assets/fllm-market-value-report-preview-v2.webp"
           alt="Florida Liquor License Market Value Report cover beside a sample market analysis page with valuation summary, comparable sales, market trend, county insights, and market indicators."
           loading="eager"
           decoding="async"
