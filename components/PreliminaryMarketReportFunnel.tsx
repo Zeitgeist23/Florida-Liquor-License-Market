@@ -111,44 +111,92 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
 
   return (
     <section id="market-report-offer" className={styles.report} aria-labelledby="market-value-report-title">
-      <div className={styles.hero}>
-        <div className={styles.heroCopy}>
-          <span className={styles.eyebrow}>License-specific market research</span>
-          <h4 id="market-value-report-title">Florida Liquor License Market Value Report</h4>
-          <p>
-            Order a professional FLLM report for your specific Florida quota liquor license, with license identity research, county market evidence, comparable asking prices, market trends, and an indicated value range.
-          </p>
-        </div>
-
-        <div className={styles.orderPanel}>
-          <span>One-time report fee</span>
-          <strong>$195</strong>
-          <button
-            type="button"
-            onClick={() => {
-              if (open) scrollToOrderForm();
-              else setOpen(true);
-            }}
-          >
-            {open ? "Complete Order Below" : "Order Market Report — $195"}
-          </button>
-        </div>
+      <div className={styles.sectionHeading}>
+        <span className={styles.eyebrow}>Choose the report that fits your purpose</span>
+        <h4 id="market-value-report-title">Two separate Florida liquor license valuation reports</h4>
+        <p>
+          Start with practical market guidance or order the broader, lender-oriented appraisal. Each report has a separate scope, presentation and order process.
+        </p>
       </div>
 
-      <figure className={styles.reportPreview}>
-        <img
-          className={styles.reportImage}
-          src="/assets/fllm-market-value-report-preview-v2.webp"
-          alt="Florida Liquor License Market Value Report cover beside a sample market analysis page with valuation summary, comparable sales, market trend, county insights, and market indicators."
-          loading="eager"
-          decoding="async"
-        />
-        <figcaption>Example Florida Liquor License Market Value Report</figcaption>
-      </figure>
+      <div className={styles.productGrid}>
+        <article className={`${styles.productCard} ${styles.preliminaryCard}`}>
+          <figure className={styles.productPreview}>
+            <img
+              className={styles.productImage}
+              src="/assets/fllm-market-value-report-preview-v2.webp"
+              alt="FLLM Preliminary Florida Liquor License Market Value Report cover beside a sample market analysis page."
+              loading="eager"
+              decoding="async"
+            />
+            <figcaption>Preliminary report preview</figcaption>
+          </figure>
 
-      <p className={styles.boundary}>
-        This is a preliminary market analysis prepared by Florida Liquor License Market. It is not a certified appraisal, real-estate appraisal, fairness opinion, or guarantee of value. If a lender, court, estate, or other institution requires an independent formal appraisal, FLLM can help coordinate one with a credentialed valuation professional.
-      </p>
+          <div className={styles.productBody}>
+            <span className={styles.productType}>Market guidance</span>
+            <div className={styles.productTitleRow}>
+              <h5>Preliminary Market Report</h5>
+              <strong>$195</strong>
+            </div>
+            <p>
+              License identity research, available DBPR information, exact-county asking-price evidence, market trends and an indicated preliminary range.
+            </p>
+            <ul>
+              <li>For owners, buyers and early-stage decisions</li>
+              <li>Current market evidence and DBPR research</li>
+              <li>Not intended as a lender appraisal</li>
+            </ul>
+            <button
+              className={styles.primaryProductAction}
+              type="button"
+              onClick={() => {
+                if (open) scrollToOrderForm();
+                else setOpen(true);
+              }}
+            >
+              {open ? "Complete Preliminary Order Below" : "Order Preliminary Report — $195"}
+            </button>
+          </div>
+        </article>
+
+        <article className={`${styles.productCard} ${styles.formalCard}`}>
+          <figure className={styles.productPreview}>
+            <img
+              className={styles.productImage}
+              src="/assets/fllm-formal-appraisal-preview-v1.webp"
+              alt="Closed confidential FLLM Formal Florida Quota Liquor License Appraisal in a premium navy presentation."
+              loading="eager"
+              decoding="async"
+            />
+            <figcaption>Confidential interior and methodology withheld</figcaption>
+          </figure>
+
+          <div className={styles.productBody}>
+            <span className={styles.productType}>Lender-oriented valuation</span>
+            <div className={styles.productTitleRow}>
+              <h5>Formal Quota License Appraisal</h5>
+              <strong>$995</strong>
+            </div>
+            <p>
+              A separate subject-license assignment with same-county 3PS and 4COP evidence, available verified transactions, regulatory analysis, exhibits and a signed value reconciliation.
+            </p>
+            <ul>
+              <li>Defined intended use and effective date</li>
+              <li>Designed for lender and professional review</li>
+              <li>Interior methods and documents remain private</li>
+            </ul>
+            <a className={styles.formalProductAction} href="/florida-liquor-license-appraisal#order-form">
+              Order Formal Appraisal — $995
+            </a>
+            <small>Acceptance and credential requirements are determined by the receiving institution.</small>
+          </div>
+        </article>
+      </div>
+
+      <div className={styles.scopeNotice}>
+        <p><strong>Preliminary report:</strong> market research and pricing guidance; not a certified appraisal, real-estate appraisal, fairness opinion or guarantee of value.</p>
+        <p><strong>Formal appraisal:</strong> a separate, expanded FLLM valuation assignment designed for professional review; lender acceptance remains subject to the receiving institution&apos;s requirements.</p>
+      </div>
 
       {open ? (
         <form
