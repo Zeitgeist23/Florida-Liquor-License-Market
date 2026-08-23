@@ -51,6 +51,7 @@ function dbprCountyName(value: string) {
 export function marketPriceStats(values: Array<number | null | undefined>): MarketPriceStats {
   const prices = values
     .filter((value): value is number => typeof value === "number" && Number.isFinite(value))
+    .map((value) => Math.round(value))
     .sort((a, b) => a - b);
 
   if (!prices.length) return { count: 0, low: null, median: null, high: null };
