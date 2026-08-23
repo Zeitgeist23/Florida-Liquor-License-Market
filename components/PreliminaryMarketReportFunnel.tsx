@@ -92,7 +92,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
   }
 
   return (
-    <section className={styles.report} aria-labelledby="market-value-report-title">
+    <section id="market-report-offer" className={styles.report} aria-labelledby="market-value-report-title">
       <div className={styles.hero}>
         <div className={styles.heroCopy}>
           <span className={styles.eyebrow}>License-specific market research</span>

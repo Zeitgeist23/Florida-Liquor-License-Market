@@ -75,6 +75,7 @@ export default function LiquorLicenseValueEstimator() {
   const [leadLoading, setLeadLoading] = useState(false);
   const [leadError, setLeadError] = useState("");
   const [leadReference, setLeadReference] = useState("");
+  const [showAllComparables, setShowAllComparables] = useState(false);
 
   useEffect(() => {
     if (!guidance) return;
@@ -96,6 +97,7 @@ export default function LiquorLicenseValueEstimator() {
     setGuidance(null);
     setLeadError("");
     setLeadReference("");
+    setShowAllComparables(false);
 
     try {
       const params = new URLSearchParams({ county, licenseType });
@@ -262,49 +264,94 @@ export default function LiquorLicenseValueEstimator() {
             <article><span>Highest asking price</span><strong>{currency(guidance.high)}</strong></article>
           </div>
 
-          {guidance.comparables.length > 0 ? (
-            <div className={styles.tableWrap}>
-              <table>
-                <thead><tr><th>Listing</th><th>License type</th><th>Status</th><th>Asking price</th></tr></thead>
-                <tbody>
-                  {guidance.comparables.map((listing, index) => {
-                    const href = listingPageHref({
-                      county: listing.county,
-                      type: listing.licenseType,
-                      sourceRef: listing.reference,
-                    });
-
-                    return (
-                      <tr
-                        className={interactionStyles.clickableRow}
-                        key={`${listing.reference}-${listing.askingPrice}-${index}`}
-                        onClick={(event) => {
-                          const target = event.target as HTMLElement;
-                          if (target.closest("a, button, input, select, textarea")) return;
-                          router.push(href);
-                        }}
-                        onMouseEnter={() => router.prefetch(href)}
-                      >
-                        <td>
-                          <Link
-                            className={interactionStyles.referenceLink}
-                            href={href}
-                            onFocus={() => router.prefetch(href)}
-                            aria-label={`View ${listing.reference} listing details`}
-                          >
-                            <span>{listing.reference}</span>
-                            <span className={interactionStyles.viewCue} aria-hidden="true">View listing <b>→</b></span>
-                          </Link>
-                        </td>
-                        <td>{listing.licenseType}</td>
-                        <td>{listing.status}</td>
-                        <td><strong>{currency(listing.askingPrice)}</strong></td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+          <section className={styles.conversionChoices} aria-labelledby="result-next-step-title">
+            <div className={styles.choiceHeading}>
+              <span>Choose your next step</span>
+              <h4 id="result-next-step-title">Turn this market snapshot into a decision</h4>
             </div>
+            <div className={`${styles.conversionChoice} ${styles.paidChoice}`}>
+              <div>
+                <span>Professional market research</span>
+                <strong>Order a license-specific report</strong>
+                <p>Get identity research, county evidence, market trends and an indicated value range.</p>
+              </div>
+              <a href="#market-report-offer">Order Detailed Report — $195</a>
+            </div>
+            <div className={styles.conversionChoice}>
+              <div>
+                <span>Free private follow-up</span>
+                <strong>Email this estimate</strong>
+                <p>Receive the snapshot and discuss buyer interest, timing and selling options.</p>
+              </div>
+              <a href="#email-estimate-form">Email My Free Estimate</a>
+            </div>
+          </section>
+
+          {guidance.comparables.length > 0 ? (
+            <section className={styles.comparables} aria-labelledby="market-comparables-title">
+              <div className={styles.comparablesHeader}>
+                <div>
+                  <span>Current marketplace evidence</span>
+                  <h4 id="market-comparables-title">Exact county comparables</h4>
+                </div>
+                <p>
+                  Showing {showAllComparables ? guidance.comparables.length : Math.min(5, guidance.comparables.length)} of {guidance.comparables.length}
+                </p>
+              </div>
+              <div className={styles.tableWrap} id="market-comparables-table">
+                <table>
+                  <thead><tr><th>Listing</th><th>License type</th><th>Status</th><th>Asking price</th></tr></thead>
+                  <tbody>
+                    {(showAllComparables ? guidance.comparables : guidance.comparables.slice(0, 5)).map((listing, index) => {
+                      const href = listingPageHref({
+                        county: listing.county,
+                        type: listing.licenseType,
+                        sourceRef: listing.reference,
+                      });
+
+                      return (
+                        <tr
+                          className={interactionStyles.clickableRow}
+                          key={`${listing.reference}-${listing.askingPrice}-${index}`}
+                          onClick={(event) => {
+                            const target = event.target as HTMLElement;
+                            if (target.closest("a, button, input, select, textarea")) return;
+                            router.push(href);
+                          }}
+                          onMouseEnter={() => router.prefetch(href)}
+                        >
+                          <td>
+                            <Link
+                              className={interactionStyles.referenceLink}
+                              href={href}
+                              onFocus={() => router.prefetch(href)}
+                              aria-label={`View ${listing.reference} listing details`}
+                            >
+                              <span>{listing.reference}</span>
+                              <span className={interactionStyles.viewCue} aria-hidden="true">View listing <b>→</b></span>
+                            </Link>
+                          </td>
+                          <td>{listing.licenseType}</td>
+                          <td>{listing.status}</td>
+                          <td><strong>{currency(listing.askingPrice)}</strong></td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              {guidance.comparables.length > 5 ? (
+                <button
+                  className={styles.comparablesToggle}
+                  type="button"
+                  aria-expanded={showAllComparables}
+                  aria-controls="market-comparables-table"
+                  onClick={() => setShowAllComparables((current) => !current)}
+                >
+                  {showAllComparables ? "Show Fewer Comparables" : `Show All ${guidance.comparables.length} Comparables`}
+                </button>
+              ) : null}
+            </section>
           ) : (
             <div className={styles.empty}>
               <strong>No disclosed active asking-price comparables are currently available for this exact county/type combination.</strong>
@@ -333,7 +380,7 @@ export default function LiquorLicenseValueEstimator() {
             }}
           />
 
-          <section className={styles.followUp} aria-labelledby="valuation-follow-up-title">
+          <section id="email-estimate-form" className={styles.followUp} aria-labelledby="valuation-follow-up-title">
             <div>
               <span>Private seller follow-up</span>
               <h4 id="valuation-follow-up-title">Get this result by email and discuss your options</h4>
