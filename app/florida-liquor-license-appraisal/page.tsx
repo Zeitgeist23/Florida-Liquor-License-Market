@@ -9,78 +9,49 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-appraisal`;
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Appraisal | Valuation Guide & Market Data",
+  title: "Formal Florida Liquor License Appraisal Guide | When One Is Needed",
   description:
-    "Florida liquor license appraisal and valuation guide for 4COP and 3PS quota licenses. Learn what affects value, compare county market evidence, and check a current market range.",
+    "Learn when a lender, court, estate, tax matter or financial report may require a formal Florida liquor license appraisal, what information an appraiser may review, and how a formal appraisal differs from FLLM market pricing guidance.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "article",
     url: canonicalUrl,
-    title: "Florida Liquor License Appraisal | Valuation Guide & Market Data",
+    title: "Formal Florida Liquor License Appraisal Guide",
     description:
-      "Understand Florida liquor license appraisal factors, county-specific value evidence, comparable listings and the difference between a market estimate and a formal appraisal.",
+      "Understand when an independent formal liquor-license appraisal may be required and how it differs from marketplace asking-price guidance.",
     siteName: "Florida Liquor License Market",
   },
 };
 
-const factors = [
-  {
-    title: "County",
-    text: "Florida quota licenses are county-specific. Supply, population, active inventory and buyer demand can produce very different values from one county to another.",
-  },
-  {
-    title: "License Type",
-    text: "4COP quota and 3PS quota licenses serve different business uses and buyer pools, so valuation should begin with the correct license category.",
-  },
-  {
-    title: "Comparable Listings",
-    text: "Current asking prices can help establish a market range, but an advertised asking price should not automatically be treated as a verified closing price.",
-  },
-  {
-    title: "License Status",
-    text: "Active, inactive, escrowed or pending-transfer status can affect due diligence, transaction timing and how a buyer evaluates the license.",
-  },
-  {
-    title: "Ownership and Liens",
-    text: "Ownership, security interests, liens and other title-related issues may affect a transaction and can matter to buyers, lenders and attorneys.",
-  },
-  {
-    title: "Transaction Terms",
-    text: "Cash terms, seller financing, contingencies, deposits and closing timing can affect the economics of a particular liquor-license transaction.",
-  },
+const appraisalInputs = [
+  ["Purpose and effective date", "A formal appraisal is prepared for a defined purpose and valuation date, such as underwriting, litigation, estate administration, tax reporting or financial reporting."],
+  ["Exact county and license series", "Florida quota-license markets are county-specific. The appraiser should identify the exact license category, series and county before evaluating market evidence."],
+  ["Verified market evidence", "A formal assignment may consider verified transaction evidence, current offerings, historical sales, market conditions and other support appropriate to the appraisal methodology."],
+  ["License status and ownership", "Active, inactive, escrowed or pending-transfer status, ownership, liens and security interests may affect the analysis or due-diligence scope."],
+  ["Transaction and regulatory conditions", "Transfer restrictions, intended use, premises considerations and other transaction-specific conditions may be relevant to the valuation assignment."],
 ];
 
 const faqs = [
   {
-    question: "How do you appraise a Florida liquor license?",
+    question: "When might I need a formal Florida liquor license appraisal?",
     answer:
-      "A Florida liquor license appraisal generally starts with the exact county and license series, then considers current supply, comparable licenses offered for sale, available transaction evidence, license status, buyer demand and transaction terms. Because quota-license markets are county-specific, a statewide average may be misleading for a particular license.",
+      "A bank, private lender, court, estate, tax professional, accountant, auditor or other third party may require an independent appraisal prepared for a specific purpose and effective date. The required credentials, scope and methodology depend on the requesting party and the assignment.",
   },
   {
-    question: "How much is a Florida 4COP liquor license worth?",
+    question: "Is the FLLM market-value estimator a formal appraisal?",
     answer:
-      "There is no single statewide 4COP value. Pricing can differ significantly by county based on quota supply, population, current inventory and buyer demand. County-specific comparables are generally more useful than a statewide number.",
+      "No. FLLM market pricing guidance uses disclosed asking-price comparables and marketplace information. It is not a certified appraisal, USPAP appraisal, broker price opinion, verified closed-sale report or guarantee of value.",
   },
   {
-    question: "How much is a Florida 3PS liquor license worth?",
+    question: "What information may a liquor-license appraiser review?",
     answer:
-      "A 3PS quota-license value also depends heavily on county-specific supply and demand. Package-store buyers may evaluate a 3PS differently from a 4COP because the permitted uses and buyer pools differ.",
+      "The analysis may include the county, license series, license number, ownership, status, comparable market evidence, transaction history, liens or security interests, market conditions and the purpose and effective date of the appraisal.",
   },
   {
-    question: "Is the FLLM market estimate a formal appraisal?",
+    question: "Where can I check current asking-price evidence instead?",
     answer:
-      "No. FLLM provides market pricing guidance from disclosed active asking-price comparables. It is not a USPAP appraisal, certified appraisal, broker price opinion, verified closed-sale report or guarantee of value.",
-  },
-  {
-    question: "When might I need an independent liquor license appraisal?",
-    answer:
-      "A lender, court, estate, tax adviser, accountant or other third party may require an independent formal appraisal prepared for a specific purpose and effective date. The required standard depends on the institution or legal matter involved.",
-  },
-  {
-    question: "What information should I gather before a valuation?",
-    answer:
-      "Have the county, license series, license number if available, current holder of record, license status and intended transaction timing. Information about liens, pending transfers, financing terms or unusual transaction conditions may also be relevant.",
+      "Use the FLLM Florida Liquor License Value page for current county-specific asking-price guidance and the Listings page to review active marketplace inventory. Those tools are useful market references but do not replace a formal appraisal when one is required.",
   },
 ];
 
@@ -89,11 +60,11 @@ export default function FloridaLiquorLicenseAppraisalPage() {
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "Florida Liquor License Appraisal: Valuation Guide and Market Data",
+      headline: "Formal Florida Liquor License Appraisal Guide",
       description:
-        "A Florida liquor license appraisal and valuation guide covering 4COP and 3PS licenses, county-specific market factors, comparable asking prices and formal appraisal considerations.",
+        "A guide to when an independent formal Florida liquor-license appraisal may be required and the information commonly considered in the assignment.",
       datePublished: "2026-08-22",
-      dateModified: "2026-08-22",
+      dateModified: "2026-08-23",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market" },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -113,7 +84,7 @@ export default function FloridaLiquorLicenseAppraisalPage() {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
         { "@type": "ListItem", position: 2, name: "Florida Liquor License Value", item: `${siteUrl}/florida-liquor-license-value` },
-        { "@type": "ListItem", position: 3, name: "Florida Liquor License Appraisal", item: canonicalUrl },
+        { "@type": "ListItem", position: 3, name: "Formal Appraisal Guide", item: canonicalUrl },
       ],
     },
   ];
@@ -126,33 +97,33 @@ export default function FloridaLiquorLicenseAppraisalPage() {
       />
 
       <div className="abt-header-wrap">
-        <FormsSiteHeader primaryActionHref="/florida-liquor-license-value" primaryActionLabel="Check License Value" />
+        <FormsSiteHeader primaryActionHref="/florida-liquor-license-value" primaryActionLabel="Check Market Value" />
       </div>
 
       <section className="seo-market-hero">
         <div className="seo-market-shell">
           <div className="seo-market-breadcrumbs">
-            <Link href="/">Home</Link><span>›</span><Link href="/florida-liquor-license-value">License Value</Link><span>›</span><strong>Appraisal Guide</strong>
+            <Link href="/">Home</Link><span>›</span><Link href="/florida-liquor-license-value">License Value</Link><span>›</span><strong>Formal Appraisal</strong>
           </div>
           <div className="seo-market-hero-grid">
             <div>
-              <span className="seo-market-kicker">Florida Liquor License Appraisal</span>
-              <h1>Florida Liquor License Appraisal &amp; Valuation Guide</h1>
+              <span className="seo-market-kicker">Independent Formal Valuation</span>
+              <h1>When a Formal Florida Liquor License Appraisal May Be Needed</h1>
               <p>
-                Learn how Florida 4COP and 3PS quota licenses are evaluated, why values can differ sharply by county, and when a market estimate may not be enough for a lender, court, estate or other formal purpose.
+                A marketplace estimate and a formal appraisal serve different purposes. This guide explains when a lender, court, estate, tax matter or financial-reporting assignment may require an independent appraisal and what information may be considered.
               </p>
               <div className="seo-market-actions">
-                <Link className="seo-market-button seo-market-button-gold" href="/florida-liquor-license-value">Calculate a Market Range</Link>
-                <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-licenses-for-sale">View Current Listings</Link>
+                <Link className="seo-market-button seo-market-button-gold" href="/florida-liquor-license-value">Check Current Market Value</Link>
+                <Link className="seo-market-button seo-market-button-dark" href="/listings">View Current Listings</Link>
               </div>
             </div>
-            <aside className="seo-market-snapshot" aria-label="Florida liquor license appraisal factors">
-              <span>Valuation Starts With</span>
+            <aside className="seo-market-snapshot" aria-label="Formal appraisal use cases">
+              <span>Common Formal Uses</span>
               <div className="seo-market-snapshot-grid">
-                <div><strong>1</strong><small>county</small></div>
-                <div><strong>2</strong><small>license type</small></div>
-                <div><strong>3</strong><small>comparables</small></div>
-                <div><strong>4</strong><small>status and terms</small></div>
+                <div><strong>1</strong><small>loan underwriting</small></div>
+                <div><strong>2</strong><small>litigation</small></div>
+                <div><strong>3</strong><small>estate or tax</small></div>
+                <div><strong>4</strong><small>financial reporting</small></div>
               </div>
             </aside>
           </div>
@@ -162,22 +133,18 @@ export default function FloridaLiquorLicenseAppraisalPage() {
       <section className="seo-market-intro">
         <div className="seo-market-shell seo-market-intro-grid">
           <article>
-            <span className="seo-market-section-kicker">Quick Answer</span>
-            <h2>There is no single statewide Florida liquor license appraisal value</h2>
+            <span className="seo-market-section-kicker">Key Distinction</span>
+            <h2>Market pricing guidance is not a formal appraisal</h2>
             <p>
-              Florida quota liquor licenses trade in county-specific markets. A 4COP or 3PS license in one county can have a very different market value from the same license series in another county because supply, population, competing inventory and buyer demand differ.
-            </p>
-            <p>
-              A useful market valuation therefore begins with the exact county and license type, then compares current market evidence. Sellers may use active comparable listings as a practical starting point when deciding on an asking price.
+              FLLM can show active asking-price evidence and county-specific marketplace data. That information can help a buyer or seller understand the current market, but a third party may require an independent appraisal prepared under its own standards, credentials and scope requirements.
             </p>
           </article>
           <aside className="seo-market-callout">
-            <strong>Market estimate vs. formal appraisal</strong>
+            <strong>Use the right page for the right question</strong>
             <ul>
-              <li>FLLM market guidance uses disclosed asking-price comparables.</li>
-              <li>Asking prices are not the same as verified closing prices.</li>
-              <li>Some lenders, courts and tax matters may require an independent formal appraisal.</li>
-              <li>The required appraisal standard depends on the purpose of the valuation.</li>
+              <li>“What is my license worth?” → use the FLLM market-value page.</li>
+              <li>“What licenses are currently for sale?” → use Listings.</li>
+              <li>“Do I need an independent formal appraisal?” → use this guide.</li>
             </ul>
           </aside>
         </div>
@@ -185,76 +152,24 @@ export default function FloridaLiquorLicenseAppraisalPage() {
 
       <section className="seo-market-guide">
         <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">Appraisal Factors</span>
-          <h2>What affects a Florida liquor license appraisal?</h2>
+          <span className="seo-market-section-kicker">Formal Appraisal Inputs</span>
+          <h2>Information commonly relevant to an appraisal assignment</h2>
           <div className="seo-market-guide-grid">
-            {factors.map((factor, index) => (
-              <article className="seo-market-guide-card" key={factor.title}>
+            {appraisalInputs.map(([title, text], index) => (
+              <article className="seo-market-guide-card" key={title}>
                 <span>{index + 1}</span>
-                <h3>{factor.title}</h3>
-                <p>{factor.text}</p>
+                <h3>{title}</h3>
+                <p>{text}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="seo-market-counties">
-        <div className="seo-market-shell">
-          <div className="seo-market-section-heading">
-            <div>
-              <span className="seo-market-section-kicker">4COP and 3PS Valuation</span>
-              <h2>Compare the correct Florida quota-license market</h2>
-            </div>
-          </div>
-          <div className="seo-market-card-grid">
-            <article className="seo-market-card">
-              <div>
-                <div className="seo-market-card-top"><span>4COP Quota</span><span>On-premise full liquor</span></div>
-                <h3>4COP Liquor License Appraisal</h3>
-                <p>Compare county 4COP supply, current listings, buyer demand, license status and transaction terms.</p>
-              </div>
-              <Link href="/florida-4cop-liquor-license-for-sale">View 4COP market evidence →</Link>
-            </article>
-            <article className="seo-market-card">
-              <div>
-                <div className="seo-market-card-top"><span>3PS Quota</span><span>Package-store use</span></div>
-                <h3>3PS Liquor License Appraisal</h3>
-                <p>Compare county 3PS inventory, package-store license offerings, local demand and transaction conditions.</p>
-              </div>
-              <Link href="/florida-3ps-liquor-license-for-sale">View 3PS market evidence →</Link>
-            </article>
-            <article className="seo-market-card">
-              <div>
-                <div className="seo-market-card-top"><span>County Markets</span><span>Local comparables</span></div>
-                <h3>County-Specific License Value</h3>
-                <p>Open county pages and value guides to see why Florida liquor-license pricing is local rather than statewide.</p>
-              </div>
-              <Link href="/counties">Browse Florida counties →</Link>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="seo-market-guide">
-        <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">When a Formal Appraisal May Be Needed</span>
-          <h2>The purpose of the valuation matters</h2>
-          <div className="seo-market-guide-grid">
-            <article className="seo-market-guide-card"><span>1</span><h3>Loan Underwriting</h3><p>A bank, SBA lender or private lender may specify who can prepare the valuation and what documentation it will accept.</p></article>
-            <article className="seo-market-guide-card"><span>2</span><h3>Litigation or Disputes</h3><p>Courts, attorneys or parties may require an independent expert opinion supported by a defined methodology and evidence.</p></article>
-            <article className="seo-market-guide-card"><span>3</span><h3>Estate or Tax Matters</h3><p>Estate administration, gifting or tax reporting may require a valuation prepared for a specific effective date and legal purpose.</p></article>
-            <article className="seo-market-guide-card"><span>4</span><h3>Financial Reporting</h3><p>Accountants, auditors, investors or owners may need valuation support that follows their reporting requirements.</p></article>
-            <article className="seo-market-guide-card"><span>5</span><h3>Ownership Transactions</h3><p>Buyouts, dissolutions and ownership disputes may call for a neutral valuation tied to the applicable valuation date.</p></article>
-            <article className="seo-market-guide-card"><span>6</span><h3>Sale Planning</h3><p>A seller deciding where to price a license may begin with current market evidence and obtain additional professional advice if needed.</p></article>
-          </div>
-        </div>
-      </section>
-
       <section className="seo-market-faq">
         <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">Florida Liquor License Appraisal Questions</span>
-          <h2>Frequently asked appraisal and valuation questions</h2>
+          <span className="seo-market-section-kicker">Formal Appraisal Questions</span>
+          <h2>Florida liquor license appraisal FAQs</h2>
           <div className="seo-market-faq-grid">
             {faqs.map((faq) => (
               <details key={faq.question}>
@@ -269,10 +184,13 @@ export default function FloridaLiquorLicenseAppraisalPage() {
       <section className="seo-market-final-cta">
         <div className="seo-market-shell">
           <div>
-            <h2>Check the current Florida liquor-license market</h2>
-            <p>Use county-specific asking-price evidence as a starting point for a market-value range.</p>
+            <h2>Need current marketplace evidence first?</h2>
+            <p>Check county-specific asking-price comparables or browse current Florida liquor-license inventory.</p>
           </div>
-          <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">Check My License Value</Link>
+          <div className="seo-market-actions">
+            <Link className="seo-market-button seo-market-button-gold" href="/florida-liquor-license-value">Check Market Value</Link>
+            <Link className="seo-market-button seo-market-button-dark" href="/listings">Browse Listings</Link>
+          </div>
         </div>
       </section>
     </main>
