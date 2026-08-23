@@ -136,6 +136,20 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
     const formData = new FormData(form);
 
     try {
+      let orderEstimate = props.estimate;
+      if (orderCounty !== props.county || orderLicenseType !== props.licenseType) {
+        const guidanceParams = new URLSearchParams({ county: orderCounty, licenseType: orderLicenseType });
+        const guidanceResponse = await fetch(`/api/market-pricing-guidance?${guidanceParams.toString()}`, {
+          headers: { Accept: "application/json" },
+          cache: "no-store",
+        });
+        const updatedEstimate = (await guidanceResponse.json()) as EstimateSnapshot & { error?: string };
+        if (!guidanceResponse.ok) {
+          throw new Error(updatedEstimate.error || "Unable to update the market data for the corrected DBPR record.");
+        }
+        orderEstimate = updatedEstimate;
+      }
+
       const response = await fetch("/api/preliminary-market-report-orders", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
@@ -153,7 +167,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
           license_type: orderLicenseType,
           license_status: props.licenseStatus,
           preferred_timing: props.preferredTiming,
-          estimate: props.estimate,
+          estimate: orderEstimate,
         }),
       });
 
