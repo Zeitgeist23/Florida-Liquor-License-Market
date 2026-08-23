@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 
 import { sendPaymentReceivedEmail } from "@/lib/fllm-email";
 import {
+  isFormalLicenseAppraisalOrder,
+  sendFormalLicenseAppraisalPaymentEmails,
+} from "@/lib/formal-license-appraisal";
+import {
   isPreliminaryMarketReportOrder,
   sendPreliminaryMarketReportPaymentEmails,
 } from "@/lib/preliminary-market-report";
@@ -40,7 +44,9 @@ async function processPaidCheckout(session: StripeCheckoutSession) {
   if (!claimed) return;
 
   try {
-    if (isPreliminaryMarketReportOrder(claimed)) {
+    if (isFormalLicenseAppraisalOrder(claimed)) {
+      await sendFormalLicenseAppraisalPaymentEmails(claimed);
+    } else if (isPreliminaryMarketReportOrder(claimed)) {
       await sendPreliminaryMarketReportPaymentEmails(claimed);
     } else {
       await sendPaymentReceivedEmail(claimed);

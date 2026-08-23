@@ -1,25 +1,27 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import FormalLicenseAppraisalOrder from "@/components/FormalLicenseAppraisalOrder";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import "../resources/forms/abt-forms.css";
 import "../florida-liquor-licenses-for-sale/seo-market.css";
+import "./appraisal-report.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-appraisal`;
 
 export const metadata: Metadata = {
-  title: "Formal Florida Liquor License Appraisal Guide | When One Is Needed",
+  title: "Florida Liquor License Appraisal & Valuation Report | FLLM",
   description:
-    "Learn when a lender, court, estate, tax matter or financial report may require a formal Florida liquor license appraisal, what information an appraiser may review, and how a formal appraisal differs from FLLM market pricing guidance.",
+    "Review the FLLM license-specific Florida quota liquor-license valuation report standard, including 3PS and 4COP county comparables, recent sales evidence, DBPR research, conversion analysis and ABT-6014.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "article",
     url: canonicalUrl,
-    title: "Formal Florida Liquor License Appraisal Guide",
+    title: "Florida Liquor License Appraisal and Valuation Report",
     description:
-      "Understand when an independent formal liquor-license appraisal may be required and how it differs from marketplace asking-price guidance.",
+      "Understand the FLLM license-specific valuation report standard and when a credentialed independent appraisal may also be required.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -32,6 +34,26 @@ const appraisalInputs = [
   ["Transaction and regulatory conditions", "Transfer restrictions, intended use, premises considerations and other transaction-specific conditions may be relevant to the valuation assignment."],
 ];
 
+const reportEvidenceOrder = [
+  ["Primary evidence", "Same-county listings and verified recent sales for the subject license series: 3PS for a 3PS subject or 4COP for a 4COP subject."],
+  ["Cross-series quota evidence", "Same-county 3PS and 4COP listings and verified recent sales, shown in separate tables so package-store and consumption-on-premises evidence is not blended without explanation."],
+  ["Conversion analysis", "The report evaluates whether the subject quota license may be changed or increased in series, the applicable DBPR application path, premises qualification, fees, timing and approval risk."],
+  ["Reconciliation", "The indicated value explains the weight assigned to exact-series evidence, cross-series evidence and verified sale evidence, including any supported conversion adjustment."],
+];
+
+const requiredReportSections = [
+  "Subject-license identity, county, current series, status and holder of record",
+  "Effective valuation date, intended use and report assumptions",
+  "DBPR record review, transfer history and available lien or security-interest information",
+  "Same-county 3PS active asking-price comparables",
+  "Same-county 4COP active asking-price comparables",
+  "Verified same-county recent 3PS and 4COP sales or transfers, when available",
+  "Quota-series conversion analysis and supported conversion-cost or timing adjustment",
+  "Reconciled indicated market-value range and conclusion",
+  "Analyst identity, signature, independence statement, assumptions and limiting conditions",
+  "Regulatory exhibit displaying page 1 of DBPR ABT-6014",
+];
+
 const faqs = [
   {
     question: "When might I need a formal Florida liquor license appraisal?",
@@ -41,12 +63,22 @@ const faqs = [
   {
     question: "Is the FLLM market-value estimator a formal appraisal?",
     answer:
-      "No. FLLM market pricing guidance uses disclosed asking-price comparables and marketplace information. It is not a certified appraisal, USPAP appraisal, broker price opinion, verified closed-sale report or guarantee of value.",
+      "No. The free estimator and $195 preliminary market report are separate market-guidance products. The $995 FLLM formal appraisal is a distinct subject-license assignment with a defined intended use, broader evidence, exhibits and a signed value reconciliation.",
   },
   {
     question: "What information may a liquor-license appraiser review?",
     answer:
       "The analysis may include the county, license series, license number, ownership, status, comparable market evidence, transaction history, liens or security interests, market conditions and the purpose and effective date of the appraisal.",
+  },
+  {
+    question: "Should a 3PS appraisal consider 4COP quota-license evidence?",
+    answer:
+      "Yes, when the licenses are in the same county and the report explains the series difference. Exact 3PS evidence remains primary for a 3PS subject, but same-county 4COP offerings and verified recent sales may provide relevant secondary quota-market evidence because a series change or increase may be requested through DBPR. The reverse analysis also applies to a 4COP subject.",
+  },
+  {
+    question: "Can a lender or bank use the FLLM formal appraisal?",
+    answer:
+      "The report is designed for lender and professional review and can be submitted for underwriting or collateral analysis. The receiving institution makes the final decision on acceptance and may require a particular appraiser credential, reliance statement, format or additional scope. Those requirements should be confirmed before ordering whenever possible.",
   },
   {
     question: "Where can I check current asking-price evidence instead?",
@@ -60,9 +92,9 @@ export default function FloridaLiquorLicenseAppraisalPage() {
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "Formal Florida Liquor License Appraisal Guide",
+      headline: "Florida Liquor License Appraisal and Valuation Report",
       description:
-        "A guide to when an independent formal Florida liquor-license appraisal may be required and the information commonly considered in the assignment.",
+        "The FLLM report standard for a license-specific Florida quota liquor-license valuation and guidance on when an independent credentialed appraisal may be required.",
       datePublished: "2026-08-22",
       dateModified: "2026-08-23",
       mainEntityOfPage: canonicalUrl,
@@ -107,13 +139,13 @@ export default function FloridaLiquorLicenseAppraisalPage() {
           </div>
           <div className="seo-market-hero-grid">
             <div>
-              <span className="seo-market-kicker">Independent Formal Valuation</span>
-              <h1>When a Formal Florida Liquor License Appraisal May Be Needed</h1>
+              <span className="seo-market-kicker">License-Specific Valuation</span>
+              <h1>Florida Liquor License Appraisal and Market Valuation Reports</h1>
               <p>
-                A marketplace estimate and a formal appraisal serve different purposes. This guide explains when a lender, court, estate, tax matter or financial-reporting assignment may require an independent appraisal and what information may be considered.
+                FLLM can prepare a detailed market valuation for a specific Florida 3PS or 4COP quota license using DBPR research, same-county cross-series evidence, available recent transactions, regulatory conversion analysis and a reconciled value conclusion.
               </p>
               <div className="seo-market-actions">
-                <Link className="seo-market-button seo-market-button-gold" href="/florida-liquor-license-value">Check Current Market Value</Link>
+                <a className="seo-market-button seo-market-button-gold" href="#order-form">Order Formal Appraisal — $995</a>
                 <Link className="seo-market-button seo-market-button-dark" href="/listings">View Current Listings</Link>
               </div>
             </div>
@@ -134,17 +166,17 @@ export default function FloridaLiquorLicenseAppraisalPage() {
         <div className="seo-market-shell seo-market-intro-grid">
           <article>
             <span className="seo-market-section-kicker">Key Distinction</span>
-            <h2>Market pricing guidance is not a formal appraisal</h2>
+            <h2>FLLM valuation report versus a credentialed appraisal</h2>
             <p>
-              FLLM can show active asking-price evidence and county-specific marketplace data. That information can help a buyer or seller understand the current market, but a third party may require an independent appraisal prepared under its own standards, credentials and scope requirements.
+              FLLM’s paid report is a formal, license-specific market valuation in its research, organization and value reconciliation. It is not represented as a USPAP-certified or credentialed independent appraisal. A lender, court, estate, tax authority or auditor may impose separate appraiser-qualification or scope requirements.
             </p>
           </article>
           <aside className="seo-market-callout">
             <strong>Use the right page for the right question</strong>
             <ul>
-              <li>“What is my license worth?” → use the FLLM market-value page.</li>
+              <li>“What is my specific license worth?” → order the FLLM valuation report.</li>
               <li>“What licenses are currently for sale?” → use Listings.</li>
-              <li>“Do I need an independent formal appraisal?” → use this guide.</li>
+              <li>“Does a third party require a credential?” → confirm its appraisal requirements before ordering.</li>
             </ul>
           </aside>
         </div>
@@ -166,6 +198,67 @@ export default function FloridaLiquorLicenseAppraisalPage() {
         </div>
       </section>
 
+      <section className="appraisal-standard">
+        <div className="seo-market-shell">
+          <span className="seo-market-section-kicker">FLLM Report Standard</span>
+          <h2>Cross-series valuation for a specific 3PS or 4COP quota license</h2>
+          <p className="appraisal-standard-lead">
+            An FLLM license-specific valuation report should not conclude that a subject has no useful market evidence merely because no exact-series listing is currently advertised. It should analyze both quota series within the subject county, while preserving the distinction between asking prices and verified closed transactions.
+          </p>
+
+          <div className="appraisal-evidence-grid">
+            {reportEvidenceOrder.map(([title, text], index) => (
+              <article key={title}>
+                <span>{index + 1}</span>
+                <div><h3>{title}</h3><p>{text}</p></div>
+              </article>
+            ))}
+          </div>
+
+          <div className="appraisal-report-outline">
+            <div>
+              <span className="seo-market-section-kicker">Required Report Contents</span>
+              <h3>What the completed report should contain</h3>
+              <ol>
+                {requiredReportSections.map((section) => <li key={section}>{section}</li>)}
+              </ol>
+            </div>
+            <aside>
+              <strong>Important terminology</strong>
+              <p>
+                The quota package-store series is <b>3PS</b>, not “3COP.” A 3PS-to-4COP request is not completed merely by checking a box. The form initiates a DBPR review; approval, premises qualification and applicable supporting documents and fees remain required.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section className="appraisal-regulatory-exhibit">
+        <div className="seo-market-shell">
+          <div className="appraisal-exhibit-heading">
+            <div>
+              <span className="seo-market-section-kicker">Regulatory Exhibit</span>
+              <h2>DBPR ABT-6014 — page 1</h2>
+              <p>
+                The completed appraisal should reproduce this page as an exhibit when a same-owner change or increase in series is relevant. The narrative must explain that ABT-6014 is an application for DBPR approval—not an automatic conversion.
+              </p>
+            </div>
+            <a href="/abt-forms/abt-6014.pdf" target="_blank" rel="noreferrer">Open official form</a>
+          </div>
+          <div className="appraisal-pdf-frame">
+            <iframe
+              title="Page 1 of DBPR ABT-6014 change of location or series application"
+              src="/abt-forms/abt-6014.pdf#page=1&view=FitH&toolbar=0&navpanes=0"
+            />
+          </div>
+          <p className="appraisal-exhibit-note">
+            If ownership is transferred at the same time, the report should also address ABT-6002 and identify the transfer-of-ownership and increase/change-in-series request as separate approval components.
+          </p>
+        </div>
+      </section>
+
+      <FormalLicenseAppraisalOrder />
+
       <section className="seo-market-faq">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">Formal Appraisal Questions</span>
@@ -185,10 +278,10 @@ export default function FloridaLiquorLicenseAppraisalPage() {
         <div className="seo-market-shell">
           <div>
             <h2>Need current marketplace evidence first?</h2>
-            <p>Check county-specific asking-price comparables or browse current Florida liquor-license inventory.</p>
+            <p>Choose the $195 preliminary market report for general guidance or the separate $995 formal appraisal for a lender-oriented, license-specific valuation assignment.</p>
           </div>
           <div className="seo-market-actions">
-            <Link className="seo-market-button seo-market-button-gold" href="/florida-liquor-license-value">Check Market Value</Link>
+            <a className="seo-market-button seo-market-button-gold" href="#order-form">Order Formal Appraisal</a>
             <Link className="seo-market-button seo-market-button-dark" href="/listings">Browse Listings</Link>
           </div>
         </div>

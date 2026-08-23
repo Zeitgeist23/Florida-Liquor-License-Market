@@ -38,7 +38,7 @@ const faqs = [
   {
     question: "Is the FLLM market estimate a formal appraisal?",
     answer:
-      "No. FLLM provides marketplace pricing guidance based on disclosed asking-price comparables. It is not a certified appraisal, USPAP appraisal, broker price opinion or guarantee of a sale price.",
+      "No. The free estimate and $195 preliminary market report are not formal appraisals. FLLM separately offers a $995 lender-oriented quota-license appraisal with subject-license research, same-county 3PS and 4COP evidence, available verified recent sales, regulatory conversion analysis, exhibits and a reconciled value conclusion. The receiving institution determines its acceptance and credential requirements.",
   },
   {
     question: "Why does liquor-license value vary by Florida county?",
@@ -102,10 +102,68 @@ export default function FloridaLiquorLicenseValuePage() {
           </p>
         </article>
         <aside>
-          <strong>Need a formal appraisal?</strong>
-          <p>A lender, court, estate, tax matter or financial-reporting assignment may require an independent formal appraisal prepared for a defined purpose and effective date.</p>
-          <Link href="/florida-liquor-license-appraisal">Read the formal appraisal guide →</Link>
+          <strong>Need a lender-oriented formal appraisal?</strong>
+          <p>The separate $995 FLLM appraisal covers one identified license, same-county 3PS and 4COP market evidence, available verified recent transactions, conversion analysis and supporting exhibits.</p>
+          <Link href="/florida-liquor-license-appraisal#order-form">Review or order the formal appraisal →</Link>
         </aside>
+      </section>
+
+      <section className="report-options page-shell" aria-labelledby="report-options-title">
+        <div className="report-options-heading">
+          <span>Choose the right level of research</span>
+          <h2 id="report-options-title">Two separate Florida liquor license reports</h2>
+          <p>The preliminary report provides practical market guidance. The formal appraisal is a separate lender-oriented valuation assignment with a broader scope and confidential interior.</p>
+        </div>
+
+        <div className="report-options-grid">
+          <article className="report-option-card report-option-preliminary">
+            <div className="report-option-image">
+              <img
+                src="/assets/fllm-market-value-report-preview-v2.webp"
+                alt="FLLM Preliminary Florida Liquor License Market Value Report cover beside a sample market analysis page"
+                loading="eager"
+              />
+            </div>
+            <div className="report-option-body">
+              <div className="report-option-title-row">
+                <div><span>Market guidance</span><h3>Preliminary Market Report</h3></div>
+                <strong>$195</strong>
+              </div>
+              <p>License identity research, available DBPR information, current exact county asking-price evidence, market trends and an indicated preliminary range.</p>
+              <ul>
+                <li>Designed for owners, buyers and early-stage decisions</li>
+                <li>Current marketplace evidence and DBPR research</li>
+                <li>Not intended as a lender appraisal</li>
+              </ul>
+              <a href="#estimate">Order Preliminary Report — $195</a>
+            </div>
+          </article>
+
+          <article className="report-option-card report-option-formal">
+            <div className="report-option-image">
+              <img
+                src="/assets/fllm-formal-appraisal-preview-v1.webp"
+                alt="Closed confidential FLLM Formal Florida Quota Liquor License Appraisal in a premium navy hardbound presentation"
+                loading="eager"
+              />
+              <span className="report-option-confidential">Confidential interior withheld</span>
+            </div>
+            <div className="report-option-body">
+              <div className="report-option-title-row">
+                <div><span>Lender-oriented valuation</span><h3>Formal Quota License Appraisal</h3></div>
+                <strong>$995</strong>
+              </div>
+              <p>A formal subject-license assignment with separate same-county 3PS and 4COP evidence, available verified transactions, regulatory analysis, exhibits and a signed value reconciliation.</p>
+              <ul>
+                <li>Prepared for a defined intended use and effective date</li>
+                <li>Designed for lender and professional review</li>
+                <li>Interior methods and supporting documents remain private</li>
+              </ul>
+              <Link href="/florida-liquor-license-appraisal#order-form">Order Formal Appraisal — $995</Link>
+              <small>Acceptance and credential requirements are determined by the receiving institution.</small>
+            </div>
+          </article>
+        </div>
       </section>
 
       <div id="estimate" className="value-estimator-wrap">
@@ -121,7 +179,7 @@ export default function FloridaLiquorLicenseValuePage() {
             <Link href="/florida-4cop-liquor-license-for-sale"><strong>Florida 4COP Licenses for Sale</strong><small>Compare current 4COP opportunities</small></Link>
             <Link href="/florida-3ps-liquor-license-for-sale"><strong>Florida 3PS Licenses for Sale</strong><small>Compare current package-store opportunities</small></Link>
             <Link href="/counties"><strong>Florida Liquor Licenses by County</strong><small>Browse all 67 county markets and current data</small></Link>
-            <Link href="/florida-liquor-license-appraisal"><strong>Formal Appraisal Guide</strong><small>Learn when an independent appraisal may be required</small></Link>
+            <Link href="/florida-liquor-license-appraisal"><strong>Formal Appraisal — $995</strong><small>Order a separate lender-oriented, license-specific valuation</small></Link>
           </div>
         </div>
       </section>

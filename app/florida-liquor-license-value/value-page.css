@@ -156,6 +156,170 @@
   padding: 18px 0 68px;
 }
 
+.report-options {
+  padding: 38px 0 58px;
+}
+
+.report-options-heading {
+  max-width: 860px;
+}
+
+.report-options-heading > span {
+  display: block;
+  color: #f6a700;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.report-options-heading h2 {
+  margin: 8px 0 12px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(31px, 4.2vw, 48px);
+  line-height: 1.04;
+}
+
+.report-options-heading p {
+  margin: 0;
+  color: #b9c9d2;
+  font-size: 14px;
+  line-height: 1.72;
+}
+
+.report-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.report-option-card {
+  overflow: hidden;
+  border: 1px solid #37596d;
+  border-radius: 11px;
+  background: #081e2d;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, .22);
+}
+
+.report-option-formal {
+  border-color: rgba(246, 167, 0, .78);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, .28), 0 0 0 1px rgba(246, 167, 0, .08);
+}
+
+.report-option-image {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-bottom: 1px solid #37596d;
+  background: #04101a;
+}
+
+.report-option-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.report-option-confidential {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 8px 10px;
+  border: 1px solid rgba(246, 167, 0, .7);
+  border-radius: 5px;
+  color: #ffd56c;
+  background: rgba(2, 11, 18, .88);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.report-option-body {
+  padding: 25px;
+}
+
+.report-option-title-row {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.report-option-title-row span {
+  color: #f6a700;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.report-option-title-row h3 {
+  margin: 6px 0 0;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 3vw, 35px);
+  line-height: 1.02;
+}
+
+.report-option-title-row > strong {
+  flex: none;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 32px;
+}
+
+.report-option-body > p {
+  margin: 18px 0 13px;
+  color: #becdd5;
+  font-size: 13px;
+  line-height: 1.67;
+}
+
+.report-option-body ul {
+  min-height: 92px;
+  margin: 0 0 20px;
+  padding-left: 20px;
+  color: #d4dfe4;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.report-option-body > a {
+  display: flex;
+  min-height: 51px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 17px;
+  border: 1px solid #f6a700;
+  border-radius: 6px;
+  color: #07131d;
+  background: linear-gradient(145deg, #ffc339, #ed9700);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .035em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.report-option-preliminary .report-option-body > a {
+  border-color: #6f8ca0;
+  color: #eef6f9;
+  background: #0c2b40;
+}
+
+.report-option-body > small {
+  display: block;
+  margin-top: 11px;
+  color: #8fa7b5;
+  font-size: 10px;
+  line-height: 1.55;
+  text-align: center;
+}
+
 .value-factors,
 .value-faq,
 .value-county-guides {
@@ -280,6 +444,7 @@
   .value-factor-grid,
   .value-link-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .value-faq-grid { grid-template-columns: 1fr; }
+  .report-options-grid { grid-template-columns: 1fr; }
   .value-final-cta .page-shell > a { width: 100%; }
 }
 
@@ -304,6 +469,12 @@
   .value-link-grid small { font-size: 13px; }
   .value-factor-grid,
   .value-link-grid { grid-template-columns: 1fr; }
+  .report-options-heading > span { font-size: 13px; }
+  .report-options-heading p,
+  .report-option-body > p { font-size: 15px; }
+  .report-option-body ul { min-height: 0; font-size: 14px; }
+  .report-option-body > a { font-size: 13px; }
+  .report-option-body > small { font-size: 12px; }
   .value-hero-actions { flex-direction: column; }
   .value-hero-actions a { width: 100%; }
 }
