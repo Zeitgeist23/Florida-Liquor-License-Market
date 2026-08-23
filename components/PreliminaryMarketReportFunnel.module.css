@@ -54,12 +54,11 @@
   border-radius: 12px;
   background: rgba(2, 17, 27, .78);
   box-shadow: 0 16px 35px rgba(0, 0, 0, .22);
-  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, background-color .22s ease;
+  transition: border-color .22s ease, box-shadow .22s ease, background-color .22s ease;
 }
 
 .productCard:hover,
 .productCard:focus-within {
-  transform: translateY(-5px);
   border-color: #f6a700;
   background-color: rgba(10, 39, 57, .96);
   box-shadow: 0 24px 52px rgba(0, 0, 0, .34), 0 0 0 1px rgba(246, 167, 0, .18);
@@ -412,8 +411,6 @@
     transition: none;
   }
 
-  .productCard:hover,
-  .productCard:focus-within,
   .primaryProductAction:hover,
   .primaryProductAction:focus-visible,
   .formalProductAction:hover,
