@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
         destination: "/listings",
         permanent: true,
       },
+      {
+        source: "/florida-quota-liquor-license-cost",
+        destination: "/counties",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
