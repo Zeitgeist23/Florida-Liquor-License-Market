@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { floridaCounties } from "@/data/florida-counties";
 import styles from "./PreliminaryMarketReportFunnel.module.css";
 
 type EstimateSnapshot = {
@@ -25,6 +26,24 @@ type Props = {
   estimate: EstimateSnapshot;
 };
 
+type DbprLicenseRecord = {
+  licenseNumber: string;
+  ownerName: string;
+  series: string;
+  county: string;
+  primaryStatus: string;
+  secondaryStatus: string;
+};
+
+type DbprValidation = {
+  status: "match" | "mismatch" | "not_found" | "unavailable" | "invalid";
+  countyMatches?: boolean;
+  licenseTypeMatches?: boolean;
+  expectedLicenseType?: "4COP Quota" | "3PS Quota / Package Store" | null;
+  record?: DbprLicenseRecord | null;
+  error?: string;
+};
+
 function formatUsPhone(value: string) {
   const raw = value.replace(/\D/g, "");
   const digits = (raw.length === 11 && raw.startsWith("1") ? raw.slice(1) : raw).slice(0, 10);
@@ -36,9 +55,18 @@ function formatUsPhone(value: string) {
 export default function PreliminaryMarketReportFunnel(props: Props) {
   const orderFormRef = useRef<HTMLFormElement | null>(null);
   const productGridRef = useRef<HTMLDivElement | null>(null);
+  const warningDialogRef = useRef<HTMLDivElement | null>(null);
+  const countyRef = useRef<HTMLSelectElement | null>(null);
+  const licenseTypeRef = useRef<HTMLSelectElement | null>(null);
+  const licenseNumberRef = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [dbprWarning, setDbprWarning] = useState<DbprValidation | null>(null);
+  const [orderCounty, setOrderCounty] = useState(props.county);
+  const [orderLicenseType, setOrderLicenseType] = useState(props.licenseType);
+  const [orderLicenseNumber, setOrderLicenseNumber] = useState(props.licenseNumber);
+  const [orderHolder, setOrderHolder] = useState(props.currentHolderOfRecord);
 
   const scrollToOrderForm = useCallback(() => {
     const url = new URL(window.location.href);
@@ -56,6 +84,24 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
 
     return () => window.clearTimeout(timeout);
   }, [open, scrollToOrderForm]);
+
+  useEffect(() => {
+    setOrderCounty(props.county);
+    setOrderLicenseType(props.licenseType);
+    setOrderLicenseNumber(props.licenseNumber);
+    setOrderHolder(props.currentHolderOfRecord);
+  }, [props.county, props.currentHolderOfRecord, props.licenseNumber, props.licenseType]);
+
+  useEffect(() => {
+    if (!dbprWarning) return;
+
+    warningDialogRef.current?.focus();
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setDbprWarning(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [dbprWarning]);
 
   useEffect(() => {
     const cards = Array.from(productGridRef.current?.querySelectorAll("article") ?? []);
@@ -103,22 +149,27 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
           license_number: String(formData.get("license_number") || ""),
           current_holder_of_record: String(formData.get("current_holder_of_record") || ""),
           terms_accepted: formData.get("terms_accepted") === "Accepted",
-          county: props.county,
-          license_type: props.licenseType,
+          county: orderCounty,
+          license_type: orderLicenseType,
           license_status: props.licenseStatus,
           preferred_timing: props.preferredTiming,
           estimate: props.estimate,
         }),
       });
 
-      let result: { checkoutUrl?: string | null; error?: string } = {};
+      let result: { checkoutUrl?: string | null; error?: string; validation?: DbprValidation } = {};
       try {
-        result = (await response.json()) as { checkoutUrl?: string | null; error?: string };
+        result = (await response.json()) as { checkoutUrl?: string | null; error?: string; validation?: DbprValidation };
       } catch {
         throw new Error(`Secure checkout returned an invalid response (${response.status}).`);
       }
 
       if (!response.ok || !result.checkoutUrl) {
+        if (result.validation) {
+          setDbprWarning(result.validation);
+          setLoading(false);
+          return;
+        }
         throw new Error(result.error || "Unable to open secure checkout.");
       }
 
@@ -132,6 +183,30 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
       );
       setLoading(false);
     }
+  }
+
+  function useDbprRecord() {
+    const record = dbprWarning?.record;
+    const expectedLicenseType = dbprWarning?.expectedLicenseType;
+    if (!record || !expectedLicenseType) return;
+
+    const recordedCounty = `${record.county.replace(/\s+County$/i, "")} County`;
+    setOrderCounty(recordedCounty);
+    setOrderLicenseType(expectedLicenseType);
+    setOrderLicenseNumber(record.licenseNumber);
+    setOrderHolder((current) => current || record.ownerName);
+    setDbprWarning(null);
+    setError("");
+  }
+
+  function editLicenseDetails() {
+    const warning = dbprWarning;
+    setDbprWarning(null);
+    window.requestAnimationFrame(() => {
+      if (warning?.countyMatches === false) countyRef.current?.focus();
+      else if (warning?.licenseTypeMatches === false) licenseTypeRef.current?.focus();
+      else licenseNumberRef.current?.focus();
+    });
   }
 
   return (
@@ -235,17 +310,54 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
         >
           <div className={styles.formHeading}>
             <span>Secure report order</span>
-            <h5>{props.county} · {props.licenseType}</h5>
+            <h5>{orderCounty} · {orderLicenseType}</h5>
             <p>
               Complete the license identity and contact information below. You will be redirected to secure Stripe checkout for the one-time $195 report fee.
             </p>
           </div>
 
           <label>
+            <span>Florida County</span>
+            <select
+              ref={countyRef}
+              value={orderCounty}
+              onChange={(event) => {
+                setOrderCounty(event.target.value);
+                setError("");
+              }}
+              required
+            >
+              <option value="">Select county</option>
+              {floridaCounties.map((item) => <option key={item.slug} value={item.name}>{item.name}</option>)}
+            </select>
+          </label>
+          <label>
+            <span>License Type</span>
+            <select
+              ref={licenseTypeRef}
+              value={orderLicenseType}
+              onChange={(event) => {
+                setOrderLicenseType(event.target.value);
+                setError("");
+              }}
+              required
+            >
+              <option value="">Select license type</option>
+              <option value="4COP Quota">4COP Quota</option>
+              <option value="3PS Quota / Package Store">3PS Quota / Package Store</option>
+            </select>
+          </label>
+
+          <label>
             <span>License Number</span>
             <input
+              ref={licenseNumberRef}
               name="license_number"
-              defaultValue={props.licenseNumber}
+              value={orderLicenseNumber}
+              onChange={(event) => {
+                setOrderLicenseNumber(event.target.value);
+                setError("");
+              }}
               placeholder="e.g. BEV58-12345"
               maxLength={80}
               required
@@ -255,7 +367,8 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
             <span>Current Holder of Record <small>If known</small></span>
             <input
               name="current_holder_of_record"
-              defaultValue={props.currentHolderOfRecord}
+              value={orderHolder}
+              onChange={(event) => setOrderHolder(event.target.value)}
               placeholder="Name shown in DBPR records"
               maxLength={180}
             />
@@ -333,6 +446,66 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
             </button>
           </div>
         </form>
+      ) : null}
+
+      {dbprWarning ? (
+        <div className={styles.warningBackdrop} role="presentation">
+          <div
+            ref={warningDialogRef}
+            className={styles.warningDialog}
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="order-dbpr-warning-title"
+            aria-describedby="order-dbpr-warning-description"
+            tabIndex={-1}
+          >
+            <span className={styles.warningEyebrow}>DBPR record verification</span>
+            <h3 id="order-dbpr-warning-title">
+              {dbprWarning.status === "mismatch"
+                ? "License details do not match"
+                : dbprWarning.status === "not_found"
+                  ? "License number not found"
+                  : "License number needs correction"}
+            </h3>
+            <p id="order-dbpr-warning-description">
+              {dbprWarning.status === "mismatch" && dbprWarning.record
+                ? "Choose the verified DBPR record below to correct the order automatically, or return to the form and edit the license details yourself."
+                : dbprWarning.error || "Please correct the license information before continuing."}
+            </p>
+
+            {dbprWarning.status === "mismatch" && dbprWarning.record ? (
+              <div className={styles.warningComparison}>
+                <div>
+                  <span>Current order</span>
+                  <strong>{orderCounty}</strong>
+                  <small>{orderLicenseType}</small>
+                </div>
+                <div className={styles.recordedDetails}>
+                  <span>Verified DBPR record</span>
+                  <strong>{dbprWarning.record.county} County</strong>
+                  <small>{dbprWarning.expectedLicenseType ?? `Series ${dbprWarning.record.series}`}</small>
+                </div>
+              </div>
+            ) : null}
+
+            {dbprWarning.record ? (
+              <p className={styles.warningRecordNote}>
+                License {dbprWarning.record.licenseNumber} · {dbprWarning.record.ownerName} · {dbprWarning.record.primaryStatus} / {dbprWarning.record.secondaryStatus}
+              </p>
+            ) : null}
+
+            <div className={styles.warningActions}>
+              {dbprWarning.status === "mismatch" && dbprWarning.record && dbprWarning.expectedLicenseType ? (
+                <button type="button" className={styles.warningPrimary} onClick={useDbprRecord}>
+                  Use Verified DBPR Record
+                </button>
+              ) : null}
+              <button type="button" onClick={editLicenseDetails}>
+                Edit License Details Manually
+              </button>
+            </div>
+          </div>
+        </div>
       ) : null}
     </section>
   );

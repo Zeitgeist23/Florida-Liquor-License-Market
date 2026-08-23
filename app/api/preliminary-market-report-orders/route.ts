@@ -138,8 +138,9 @@ export async function POST(request: Request) {
     }
 
     if (!isValidFloridaRetailLicenseNumber(licenseNumber)) {
+      const error = "Enter a valid Florida DBPR license number before continuing.";
       return NextResponse.json(
-        { error: "Enter a valid Florida DBPR license number before continuing." },
+        { error, validation: { status: "invalid", error } },
         { status: 400 },
       );
     }
@@ -150,8 +151,9 @@ export async function POST(request: Request) {
     );
 
     if (identity.status === "not_found") {
+      const error = "That license number was not found in DBPR’s current public retail beverage license records. Please correct it before continuing.";
       return NextResponse.json(
-        { error: "That license number was not found in DBPR’s current public retail beverage license records. Please correct it before continuing." },
+        { error, validation: { ...identity, error } },
         { status: 400 },
       );
     }
@@ -161,6 +163,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error: `DBPR records show ${identity.record.licenseNumber} in ${identity.record.county} County as ${expectedType}, not ${county} as ${licenseType}. Please correct the license details before continuing.`,
+          validation: identity,
         },
         { status: 409 },
       );
