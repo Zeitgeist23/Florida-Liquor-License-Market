@@ -197,6 +197,29 @@ export default function LiquorLicenseValueEstimator() {
     window.requestAnimationFrame(() => licenseNumberRef.current?.focus());
   }
 
+  function scrollToReportActions(event: React.MouseEvent<HTMLAnchorElement>) {
+    event.preventDefault();
+
+    const target = document.getElementById("report-order-actions");
+    if (!target) return;
+
+    const url = new URL(window.location.href);
+    url.hash = "report-order-actions";
+    window.history.replaceState(null, "", url);
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const placeButtons = (behavior: ScrollBehavior) => {
+      const rect = target.getBoundingClientRect();
+      const centeredTop = window.scrollY + rect.top - ((window.innerHeight - rect.height) / 2);
+      window.scrollTo({ top: Math.max(0, centeredTop), behavior });
+    };
+
+    placeButtons(reducedMotion ? "auto" : "smooth");
+
+    // Correct for any late font or image layout shift after the long page scroll.
+    window.setTimeout(() => placeButtons("auto"), 900);
+  }
+
   async function submitLead(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!guidance) return;
@@ -420,7 +443,7 @@ export default function LiquorLicenseValueEstimator() {
                 <strong>Order a license-specific report</strong>
                 <p>Get identity research, county evidence, market trends and an indicated value range.</p>
               </div>
-              <a href="#report-order-actions">Compare Report Options</a>
+              <a href="#report-order-actions" onClick={scrollToReportActions}>Compare Report Options</a>
             </div>
             <div className={styles.conversionChoice}>
               <div>
