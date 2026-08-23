@@ -420,7 +420,7 @@ export default function LiquorLicenseValueEstimator() {
                 <strong>Order a license-specific report</strong>
                 <p>Get identity research, county evidence, market trends and an indicated value range.</p>
               </div>
-              <a href="#market-report-offer">Order Detailed Report — $195</a>
+              <a href="#report-order-actions">Compare Report Options</a>
             </div>
             <div className={styles.conversionChoice}>
               <div>

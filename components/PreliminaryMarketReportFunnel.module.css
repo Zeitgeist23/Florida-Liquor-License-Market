@@ -41,17 +41,28 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
+  align-items: stretch;
   margin-top: 26px;
 }
 
 .productCard {
   display: grid;
-  align-content: start;
+  grid-template-rows: auto 1fr;
+  height: 100%;
   overflow: hidden;
   border: 1px solid #38596d;
   border-radius: 12px;
   background: rgba(2, 17, 27, .78);
   box-shadow: 0 16px 35px rgba(0, 0, 0, .22);
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, background-color .22s ease;
+}
+
+.productCard:hover,
+.productCard:focus-within {
+  transform: translateY(-5px);
+  border-color: #f6a700;
+  background-color: rgba(10, 39, 57, .96);
+  box-shadow: 0 24px 52px rgba(0, 0, 0, .34), 0 0 0 1px rgba(246, 167, 0, .18);
 }
 
 .preliminaryCard {
@@ -91,7 +102,8 @@
 
 .productBody {
   display: grid;
-  align-content: start;
+  grid-template-rows: auto auto auto 1fr auto minmax(28px, auto);
+  align-content: stretch;
   gap: 13px;
   padding: 20px;
 }
@@ -162,6 +174,11 @@
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
+  transition: transform .18s ease, filter .18s ease, color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.primaryProductAction {
+  scroll-margin-top: 150px;
 }
 
 .formalProductAction {
@@ -171,9 +188,12 @@
 }
 
 .productBody > small {
+  display: block;
+  min-height: 28px;
   color: #91aebd;
   font-size: 9px;
   line-height: 1.5;
+  text-align: center;
 }
 
 .scopeNotice {
@@ -367,12 +387,39 @@
 
 .primaryProductAction:hover,
 .primaryProductAction:focus-visible,
-.formalProductAction:hover,
-.formalProductAction:focus-visible,
 .checkoutRow button:hover:not(:disabled),
 .checkoutRow button:focus-visible:not(:disabled) {
+  transform: translateY(-2px);
   filter: brightness(1.08);
+  box-shadow: 0 10px 24px rgba(246, 167, 0, .2);
   outline: none;
+}
+
+.formalProductAction:hover,
+.formalProductAction:focus-visible {
+  transform: translateY(-2px);
+  color: #071019;
+  background: linear-gradient(145deg, #ffc12e, #eb9300);
+  box-shadow: 0 10px 24px rgba(246, 167, 0, .2);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .productCard,
+  .primaryProductAction,
+  .formalProductAction,
+  .checkoutRow button {
+    transition: none;
+  }
+
+  .productCard:hover,
+  .productCard:focus-within,
+  .primaryProductAction:hover,
+  .primaryProductAction:focus-visible,
+  .formalProductAction:hover,
+  .formalProductAction:focus-visible {
+    transform: none;
+  }
 }
 
 @media (max-width: 900px) {

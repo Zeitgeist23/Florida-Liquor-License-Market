@@ -147,6 +147,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
               <li>Not intended as a lender appraisal</li>
             </ul>
             <button
+              id="report-order-actions"
               className={styles.primaryProductAction}
               type="button"
               onClick={() => {
@@ -156,6 +157,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
             >
               {open ? "Complete Preliminary Order Below" : "Order Preliminary Report — $195"}
             </button>
+            <small>Secure one-time checkout after completing the report-order details.</small>
           </div>
         </article>
 
