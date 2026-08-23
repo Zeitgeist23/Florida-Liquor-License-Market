@@ -160,7 +160,7 @@ export default async function ResearchPage() {
           </article>
           <article>
             <strong>U.S. Census Bureau</strong>
-            <p>County population context uses Vintage 2024 county estimates, separate from FLLM's marketplace inventory calculations.</p>
+            <p>County population context uses Vintage 2024 county estimates, separate from FLLM&apos;s marketplace inventory calculations.</p>
             <a href="https://www.census.gov/programs-surveys/popest.html" target="_blank" rel="noopener noreferrer">Population Estimates ↗</a>
           </article>
           <article>
