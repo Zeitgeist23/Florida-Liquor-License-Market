@@ -197,27 +197,28 @@ export default function LiquorLicenseValueEstimator() {
     window.requestAnimationFrame(() => licenseNumberRef.current?.focus());
   }
 
-  function scrollToReportActions(event: React.MouseEvent<HTMLAnchorElement>) {
+  function scrollToReportOptions(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
 
-    const target = document.getElementById("report-order-actions");
+    const target = document.getElementById("report-options-cards");
     if (!target) return;
 
     const url = new URL(window.location.href);
-    url.hash = "report-order-actions";
+    url.hash = "report-options-cards";
     window.history.replaceState(null, "", url);
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const placeButtons = (behavior: ScrollBehavior) => {
+    const placeCards = (behavior: ScrollBehavior) => {
       const rect = target.getBoundingClientRect();
-      const centeredTop = window.scrollY + rect.top - ((window.innerHeight - rect.height) / 2);
-      window.scrollTo({ top: Math.max(0, centeredTop), behavior });
+      const headerOffset = window.innerWidth <= 640 ? 72 : 88;
+      const cardRowTop = window.scrollY + rect.top - headerOffset;
+      window.scrollTo({ top: Math.max(0, cardRowTop), behavior });
     };
 
-    placeButtons(reducedMotion ? "auto" : "smooth");
+    placeCards(reducedMotion ? "auto" : "smooth");
 
     // Correct for any late font or image layout shift after the long page scroll.
-    window.setTimeout(() => placeButtons("auto"), 900);
+    window.setTimeout(() => placeCards("auto"), 900);
   }
 
   async function submitLead(event: React.FormEvent<HTMLFormElement>) {
@@ -443,7 +444,7 @@ export default function LiquorLicenseValueEstimator() {
                 <strong>Order a license-specific report</strong>
                 <p>Get identity research, county evidence, market trends and an indicated value range.</p>
               </div>
-              <a href="#report-order-actions" onClick={scrollToReportActions}>Compare Report Options</a>
+              <a href="#report-options-cards" onClick={scrollToReportOptions}>Compare Report Options</a>
             </div>
             <div className={styles.conversionChoice}>
               <div>

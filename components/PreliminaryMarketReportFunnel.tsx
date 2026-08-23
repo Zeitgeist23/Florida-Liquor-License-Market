@@ -144,7 +144,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
         </p>
       </div>
 
-      <div ref={productGridRef} className={styles.productGrid}>
+      <div id="report-options-cards" ref={productGridRef} className={styles.productGrid}>
         <article className={`${styles.productCard} ${styles.preliminaryCard}`}>
           <figure className={styles.productPreview}>
             <img
