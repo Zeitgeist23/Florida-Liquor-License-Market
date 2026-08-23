@@ -26,6 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/license-types/4cop-sfs-restaurant`, lastModified, changeFrequency: "monthly", priority: 0.84 },
     { url: `${siteUrl}/florida-quota-liquor-license-cost`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/florida-liquor-license-value`, lastModified, changeFrequency: "daily", priority: 0.9 },
+    { url: `${siteUrl}/florida-liquor-license-appraisal`, lastModified, changeFrequency: "daily", priority: 0.92 },
     { url: `${siteUrl}/florida-liquor-license-news`, lastModified, changeFrequency: "daily", priority: 0.85 },
     { url: `${siteUrl}/florida-liquor-license-news/park-street-trust-florida-quota-license-court-findings`, lastModified, changeFrequency: "monthly", priority: 0.78 },
     { url: `${siteUrl}/florida-liquor-license-lottery`, lastModified, changeFrequency: "daily", priority: 0.9 },
