@@ -24,7 +24,7 @@ type MonitorResponse = {
   error?: string;
 };
 
-function formatDate(value: string | null, discoveredAt?: string) {
+function formatDate(value: string | null, discoveredAt?: string): string {
   if (!value && discoveredAt) return `Discovered ${formatDate(discoveredAt)}`;
   if (!value) return "Publication date unavailable";
   const date = new Date(value);
