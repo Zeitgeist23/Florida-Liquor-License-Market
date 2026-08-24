@@ -80,7 +80,7 @@ function range(low: number | null, high: number | null) {
 
 export default function LiquorLicenseValueEstimator() {
   const router = useRouter();
-  const resultsRef = useRef<HTMLDivElement | null>(null);
+  const resultTitleRef = useRef<HTMLDivElement | null>(null);
   const conversionChoicesRef = useRef<HTMLElement | null>(null);
   const licenseNumberRef = useRef<HTMLInputElement | null>(null);
   const warningDialogRef = useRef<HTMLDivElement | null>(null);
@@ -103,12 +103,28 @@ export default function LiquorLicenseValueEstimator() {
   useEffect(() => {
     if (!guidance) return;
 
+    let correctionTimeout: number | undefined;
     const timeout = window.setTimeout(() => {
-      const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
-      resultsRef.current?.scrollIntoView({ behavior, block: "start" });
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const placeSnapshot = (behavior: ScrollBehavior) => {
+        const target = resultTitleRef.current;
+        if (!target) return;
+        const headerOffset = window.innerWidth <= 640 ? 72 : 88;
+        const rect = target.getBoundingClientRect();
+        window.scrollTo({
+          top: Math.max(0, window.scrollY + rect.top - headerOffset),
+          behavior,
+        });
+      };
+
+      placeSnapshot(reducedMotion ? "auto" : "smooth");
+      correctionTimeout = window.setTimeout(() => placeSnapshot("auto"), 900);
     }, 80);
 
-    return () => window.clearTimeout(timeout);
+    return () => {
+      window.clearTimeout(timeout);
+      if (correctionTimeout) window.clearTimeout(correctionTimeout);
+    };
   }, [guidance]);
 
   useEffect(() => {
@@ -435,8 +451,8 @@ export default function LiquorLicenseValueEstimator() {
       {error ? <p className={styles.error} role="alert">{error}</p> : null}
 
       {guidance ? (
-        <div ref={resultsRef} className={styles.results} aria-live="polite" style={{ scrollMarginTop: "110px" }}>
-          <div className={styles.resultTitle}>
+        <div className={styles.results} aria-live="polite">
+          <div ref={resultTitleRef} className={styles.resultTitle}>
             <span>Your current market snapshot</span>
             <h3>{guidance.county} · {guidance.licenseType}</h3>
             <p>Based on active FLLM marketplace listings with disclosed asking prices. Status and timing are recorded for follow-up; they do not create an unsupported automatic price adjustment.</p>
