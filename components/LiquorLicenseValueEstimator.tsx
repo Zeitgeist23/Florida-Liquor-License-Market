@@ -200,25 +200,25 @@ export default function LiquorLicenseValueEstimator() {
   function scrollToReportOptions(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
 
-    const target = document.getElementById("report-options-cards");
+    const target = document.getElementById("report-options-heading");
     if (!target) return;
 
     const url = new URL(window.location.href);
-    url.hash = "report-options-cards";
+    url.hash = "report-options-heading";
     window.history.replaceState(null, "", url);
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const placeCards = (behavior: ScrollBehavior) => {
+    const placeOptions = (behavior: ScrollBehavior) => {
       const rect = target.getBoundingClientRect();
       const headerOffset = window.innerWidth <= 640 ? 72 : 88;
       const cardRowTop = window.scrollY + rect.top - headerOffset;
       window.scrollTo({ top: Math.max(0, cardRowTop), behavior });
     };
 
-    placeCards(reducedMotion ? "auto" : "smooth");
+    placeOptions(reducedMotion ? "auto" : "smooth");
 
     // Correct for any late font or image layout shift after the long page scroll.
-    window.setTimeout(() => placeCards("auto"), 900);
+    window.setTimeout(() => placeOptions("auto"), 900);
   }
 
   async function submitLead(event: React.FormEvent<HTMLFormElement>) {
@@ -444,7 +444,7 @@ export default function LiquorLicenseValueEstimator() {
                 <strong>Order a license-specific report</strong>
                 <p>Get identity research, county evidence, market trends and an indicated value range.</p>
               </div>
-              <a href="#report-options-cards" onClick={scrollToReportOptions}>Compare Report Options</a>
+              <a href="#report-options-heading" onClick={scrollToReportOptions}>Compare Report Options</a>
             </div>
             <div className={styles.conversionChoice}>
               <div>

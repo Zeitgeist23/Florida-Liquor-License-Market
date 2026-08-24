@@ -225,7 +225,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
 
   return (
     <section id="market-report-offer" className={styles.report} aria-labelledby="market-value-report-title">
-      <div className={styles.sectionHeading}>
+      <div id="report-options-heading" className={styles.sectionHeading}>
         <span className={styles.eyebrow}>Choose the report that fits your purpose</span>
         <h4 id="market-value-report-title">Two separate Florida liquor license valuation reports</h4>
         <p>
@@ -277,6 +277,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
 
         <article className={`${styles.productCard} ${styles.formalCard}`}>
           <figure className={styles.productPreview}>
+            <span className={styles.premiumBadge}>For lenders &amp; professional use</span>
             <img
               className={styles.productImage}
               src="/assets/fllm-formal-appraisal-preview-v1.webp"
