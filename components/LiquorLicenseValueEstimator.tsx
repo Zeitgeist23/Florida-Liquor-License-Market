@@ -241,17 +241,17 @@ export default function LiquorLicenseValueEstimator() {
   function scrollToReportOptions(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
 
-    const target = document.getElementById("report-options-heading");
+    const target = document.getElementById("report-options-cards");
     if (!target) return;
 
     const url = new URL(window.location.href);
-    url.hash = "report-options-heading";
+    url.hash = "report-options-cards";
     window.history.replaceState(null, "", url);
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const placeOptions = (behavior: ScrollBehavior) => {
       const rect = target.getBoundingClientRect();
-      const headerOffset = window.innerWidth <= 640 ? 72 : 88;
+      const headerOffset = window.innerWidth <= 640 ? 72 : 84;
       const cardRowTop = window.scrollY + rect.top - headerOffset;
       window.scrollTo({ top: Math.max(0, cardRowTop), behavior });
     };
@@ -489,7 +489,7 @@ export default function LiquorLicenseValueEstimator() {
                 <strong>Order a license-specific report</strong>
                 <p>Get identity research, county evidence, market trends and an indicated value range.</p>
               </div>
-              <a href="#report-options-heading" onClick={scrollToReportOptions}>Compare Report Options</a>
+              <a href="#report-options-cards" onClick={scrollToReportOptions}>Compare Report Options</a>
             </div>
             <div className={styles.conversionChoice}>
               <div>
