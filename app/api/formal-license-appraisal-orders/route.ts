@@ -85,17 +85,29 @@ export async function POST(request: Request) {
       );
     }
 
-    const identity = await retryTransient(
-      () => validateFloridaRetailLicenseIdentity(licenseNumber, county, licenseType),
-      "DBPR formal appraisal license verification",
-    );
-    if (identity.status === "not_found") {
+    let identity: Awaited<ReturnType<typeof validateFloridaRetailLicenseIdentity>> | null = null;
+    try {
+      identity = await retryTransient(
+        () => validateFloridaRetailLicenseIdentity(licenseNumber, county, licenseType),
+        "DBPR formal appraisal license verification",
+      );
+    } catch (verificationError) {
+      // DBPR's public CSV is an external research source and is occasionally
+      // unreachable from the checkout function. Do not prevent a customer from
+      // paying for an appraisal when that source is temporarily unavailable;
+      // the subject-license verification remains part of the paid assignment.
+      console.warn(
+        "DBPR formal appraisal verification unavailable; continuing to checkout for manual verification",
+        verificationError,
+      );
+    }
+    if (identity?.status === "not_found") {
       return NextResponse.json(
         { error: "That license number was not found in DBPR’s current public retail beverage records." },
         { status: 400 },
       );
     }
-    if (identity.status === "mismatch" && identity.record) {
+    if (identity?.status === "mismatch" && identity.record) {
       const expectedType = identity.expectedLicenseType ?? `DBPR series ${identity.record.series}`;
       return NextResponse.json(
         {
@@ -162,10 +174,10 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const sessionId = new URL(request.url).searchParams.get("session_id");
-    if (!sessionId) return NextResponse.json({ error: "Missing checkout session." }, { status: 400 });
+    if (!sessionId) return NextResponse.json( { error: "Missing checkout session." }, { status: 400 });
     const submission = await getSubmissionByCheckoutSession(sessionId);
-    if (!submission) return NextResponse.json({ status: "processing" });
-    return NextResponse.json({
+    if (!submission) return NextResponse.json( { status: "processing" });
+    return NextResponse.json(
       status: submission.status,
       orderReference: submission.submissionRef,
       paymentEmailStatus: submission.paymentEmailStatus,
