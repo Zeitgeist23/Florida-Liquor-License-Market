@@ -3,6 +3,7 @@
 import { FormEvent, useMemo, useState } from "react";
 
 import type { AbtFormDefinition } from "@/data/abt-forms";
+import { generateFllmApplicationPacket } from "@/lib/fllm-application-packet";
 
 type ApplicationPath = {
   formId: string;
@@ -141,18 +142,7 @@ export default function FloridaAlcoholLicenseApplicationCenter({ forms }: { form
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/application-preparation-packet", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ formId: selectedFormId, ...packet }),
-      });
-
-      if (!response.ok) {
-        const result = await response.json().catch(() => null) as { error?: string } | null;
-        throw new Error(result?.error || "The preparation packet could not be generated.");
-      }
-
-      const blob = await response.blob();
+      const blob = await generateFllmApplicationPacket(packet, selectedForm);
       const downloadUrl = URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = downloadUrl;
