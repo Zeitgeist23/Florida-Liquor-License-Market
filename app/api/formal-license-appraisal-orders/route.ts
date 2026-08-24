@@ -5,7 +5,6 @@ import {
 } from "@/lib/formal-license-appraisal";
 import {
   isValidFloridaRetailLicenseNumber,
-  validateFloridaRetailLicenseIdentity,
 } from "@/lib/license-fee-lookup";
 import {
   attachCheckoutSession,
@@ -85,38 +84,6 @@ export async function POST(request: Request) {
       );
     }
 
-    let identity: Awaited<ReturnType<typeof validateFloridaRetailLicenseIdentity>> | null = null;
-    try {
-      identity = await retryTransient(
-        () => validateFloridaRetailLicenseIdentity(licenseNumber, county, licenseType),
-        "DBPR formal appraisal license verification",
-      );
-    } catch (verificationError) {
-      // DBPR's public CSV is an external research source and is occasionally
-      // unreachable from the checkout function. Do not prevent a customer from
-      // paying for an appraisal when that source is temporarily unavailable;
-      // the subject-license verification remains part of the paid assignment.
-      console.warn(
-        "DBPR formal appraisal verification unavailable; continuing to checkout for manual verification",
-        verificationError,
-      );
-    }
-    if (identity?.status === "not_found") {
-      return NextResponse.json(
-        { error: "That license number was not found in DBPR’s current public retail beverage records." },
-        { status: 400 },
-      );
-    }
-    if (identity?.status === "mismatch" && identity.record) {
-      const expectedType = identity.expectedLicenseType ?? `DBPR series ${identity.record.series}`;
-      return NextResponse.json(
-        {
-          error: `DBPR records show ${identity.record.licenseNumber} in ${identity.record.county} County as ${expectedType}, not ${county} as ${licenseType}. Please correct the subject-license details.`,
-        },
-        { status: 409 },
-      );
-    }
-
     const order = await retryTransient(
       () => createFormalLicenseAppraisalOrder({
         fullName: body.name ?? "",
@@ -184,6 +151,6 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error("Could not read formal appraisal order status", error);
-    return NextResponse.json({ status: "processing" });
+    return NextResponse.json({ status: "processing " });
   }
 }
