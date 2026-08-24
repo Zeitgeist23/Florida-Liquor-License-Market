@@ -93,6 +93,14 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
   }, [props.county, props.currentHolderOfRecord, props.licenseNumber, props.licenseType]);
 
   useEffect(() => {
+    // Browsers can restore this page from the back/forward cache after Stripe.
+    // Clear the in-flight checkout state so the restored form is usable again.
+    const resetCheckoutState = () => setLoading(false);
+    window.addEventListener("pageshow", resetCheckoutState);
+    return () => window.removeEventListener("pageshow", resetCheckoutState);
+  }, []);
+
+  useEffect(() => {
     if (!dbprWarning) return;
 
     warningDialogRef.current?.focus();
