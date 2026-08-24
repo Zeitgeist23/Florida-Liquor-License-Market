@@ -251,9 +251,15 @@ export default function LiquorLicenseValueEstimator() {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const placeOptions = (behavior: ScrollBehavior) => {
       const rect = target.getBoundingClientRect();
-      const headerOffset = window.innerWidth <= 640 ? 72 : 84;
-      const cardRowTop = window.scrollY + rect.top - headerOffset;
-      window.scrollTo({ top: Math.max(0, cardRowTop), behavior });
+      const preliminaryAction = document.getElementById("report-order-actions");
+
+      // On desktop, frame the full comparison so the heading remains visible
+      // while the aligned order buttons sit just above the viewport edge.
+      const scrollTop = window.innerWidth > 640 && preliminaryAction
+        ? window.scrollY + preliminaryAction.getBoundingClientRect().bottom - (window.innerHeight - 18)
+        : window.scrollY + rect.top - 72;
+
+      window.scrollTo({ top: Math.max(0, scrollTop), behavior });
     };
 
     placeOptions(reducedMotion ? "auto" : "smooth");
