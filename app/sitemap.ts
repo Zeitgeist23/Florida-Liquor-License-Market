@@ -38,6 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/investment-opportunities`, lastModified, changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/careers`, lastModified, changeFrequency: "monthly", priority: 0.45 },
     { url: `${siteUrl}/resources/forms`, lastModified, changeFrequency: "weekly", priority: 0.82 },
+    { url: `${siteUrl}/resources/application-center`, lastModified, changeFrequency: "weekly", priority: 0.76 },
     { url: `${siteUrl}/resources/quota-transfer-fee-calculator`, lastModified, changeFrequency: "monthly", priority: 0.65 },
     { url: `${siteUrl}/resources/liquor-license-attorneys`, lastModified, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/resources/florida-liquor-license-property-or-privilege`, lastModified, changeFrequency: "monthly", priority: 0.68 },
