@@ -316,7 +316,6 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
           id="market-report-order-form"
           className={styles.form}
           onSubmit={submit}
-          style={{ scrollMarginTop: "110px" }}
         >
           <div className={styles.formHeading}>
             <span>Secure report order</span>
