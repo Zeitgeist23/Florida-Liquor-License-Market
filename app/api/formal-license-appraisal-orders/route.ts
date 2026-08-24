@@ -141,16 +141,16 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const sessionId = new URL(request.url).searchParams.get("session_id");
-    if (!sessionId) return NextResponse.json( { error: "Missing checkout session." }, { status: 400 });
+    if (!sessionId) return NextResponse.json({ error: "Missing checkout session." }, { status: 400 });
     const submission = await getSubmissionByCheckoutSession(sessionId);
-    if (!submission) return NextResponse.json( { status: "processing" });
-    return NextResponse.json(
+    if (!submission) return NextResponse.json({ status: "processing" });
+    return NextResponse.json({
       status: submission.status,
       orderReference: submission.submissionRef,
       paymentEmailStatus: submission.paymentEmailStatus,
     });
   } catch (error) {
     console.error("Could not read formal appraisal order status", error);
-    return NextResponse.json({ status: "processing " });
+    return NextResponse.json({ status: "processing" });
   }
 }
