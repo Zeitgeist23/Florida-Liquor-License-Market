@@ -81,6 +81,7 @@ function range(low: number | null, high: number | null) {
 export default function LiquorLicenseValueEstimator() {
   const router = useRouter();
   const resultsRef = useRef<HTMLDivElement | null>(null);
+  const conversionChoicesRef = useRef<HTMLElement | null>(null);
   const licenseNumberRef = useRef<HTMLInputElement | null>(null);
   const warningDialogRef = useRef<HTMLDivElement | null>(null);
   const [county, setCounty] = useState("");
@@ -96,6 +97,7 @@ export default function LiquorLicenseValueEstimator() {
   const [leadError, setLeadError] = useState("");
   const [leadReference, setLeadReference] = useState("");
   const [showAllComparables, setShowAllComparables] = useState(false);
+  const [choicesInView, setChoicesInView] = useState(false);
   const [dbprWarning, setDbprWarning] = useState<DbprValidation | null>(null);
 
   useEffect(() => {
@@ -120,12 +122,35 @@ export default function LiquorLicenseValueEstimator() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [dbprWarning]);
 
+  useEffect(() => {
+    if (!guidance || !conversionChoicesRef.current) return;
+
+    const section = conversionChoicesRef.current;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setChoicesInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setChoicesInView(true);
+        observer.disconnect();
+      },
+      { threshold: 0.24, rootMargin: "0px 0px -7% 0px" },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [guidance]);
+
   function resetResults() {
     setError("");
     setGuidance(null);
     setLeadError("");
     setLeadReference("");
     setShowAllComparables(false);
+    setChoicesInView(false);
   }
 
   async function loadGuidance(resolvedCounty: string, resolvedLicenseType: string) {
@@ -433,7 +458,11 @@ export default function LiquorLicenseValueEstimator() {
             <article><span>Highest asking price</span><strong>{currency(guidance.high)}</strong></article>
           </div>
 
-          <section className={styles.conversionChoices} aria-labelledby="result-next-step-title">
+          <section
+            ref={conversionChoicesRef}
+            className={`${styles.conversionChoices} ${choicesInView ? styles.choicesInView : ""}`}
+            aria-labelledby="result-next-step-title"
+          >
             <div className={styles.choiceHeading}>
               <span>Choose your next step</span>
               <h4 id="result-next-step-title">Turn this market snapshot into a decision</h4>
