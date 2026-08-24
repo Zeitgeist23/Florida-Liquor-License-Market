@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 
 import { floridaCounties } from "@/data/florida-counties";
 
+const FORMAL_APPRAISAL_PAYMENT_LINK =
+  "https://buy.stripe.com/7sY14fdPv6fz3ml3eRebu02";
+
 type Props = {
   initialCounty?: string;
   initialLicenseType?: string;
@@ -21,7 +24,6 @@ function formatUsPhone(value: string) {
 
 export default function FormalLicenseAppraisalOrder(props: Props) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const resetCheckoutState = () => setLoading(false);
@@ -29,48 +31,50 @@ export default function FormalLicenseAppraisalOrder(props: Props) {
     return () => window.removeEventListener("pageshow", resetCheckoutState);
   }, []);
 
-  async function submit(event: React.FormEvent<HTMLFormElement>) {
+  function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
-    setError("");
     const formData = new FormData(event.currentTarget);
+    const licenseNumber = String(formData.get("license_number") || "");
+    const licenseReference = licenseNumber.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 20);
+    const date = new Date().toISOString().slice(0, 10).replaceAll("-", "");
+    const randomToken = Array.from(crypto.getRandomValues(new Uint8Array(4)))
+      .map((value) => value.toString(16).padStart(2, "0"))
+      .join("")
+      .toUpperCase();
+    const submissionReference = `FLLM-APPRAISAL-${date}-${licenseReference}-${randomToken}`;
+    const email = String(formData.get("email") || "");
+    const order = {
+      submission_ref: submissionReference,
+      name: String(formData.get("name") || ""),
+      email,
+      phone: String(formData.get("phone") || ""),
+      county: String(formData.get("county") || ""),
+      license_type: String(formData.get("license_type") || ""),
+      license_number: licenseNumber,
+      current_holder_of_record: String(formData.get("current_holder_of_record") || ""),
+      ordering_party: String(formData.get("ordering_party") || ""),
+      intended_use: String(formData.get("intended_use") || ""),
+      institution_name: String(formData.get("institution_name") || ""),
+      effective_date: String(formData.get("effective_date") || ""),
+      notes: String(formData.get("notes") || ""),
+      terms_accepted: formData.get("terms_accepted") === "Accepted",
+      lender_disclosure_accepted: formData.get("lender_disclosure_accepted") === "Accepted",
+    };
 
-    try {
-      const response = await fetch("/api/formal-license-appraisal-orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: String(formData.get("name") || ""),
-          email: String(formData.get("email") || ""),
-          phone: String(formData.get("phone") || ""),
-          county: String(formData.get("county") || ""),
-          license_type: String(formData.get("license_type") || ""),
-          license_number: String(formData.get("license_number") || ""),
-          current_holder_of_record: String(formData.get("current_holder_of_record") || ""),
-          ordering_party: String(formData.get("ordering_party") || ""),
-          intended_use: String(formData.get("intended_use") || ""),
-          institution_name: String(formData.get("institution_name") || ""),
-          effective_date: String(formData.get("effective_date") || ""),
-          notes: String(formData.get("notes") || ""),
-          terms_accepted: formData.get("terms_accepted") === "Accepted",
-          lender_disclosure_accepted: formData.get("lender_disclosure_accepted") === "Accepted",
-        }),
-      });
+    // Preserve the complete order in the background, but never make a customer
+    // wait for DBPR, database, email or Stripe API calls before opening payment.
+    void fetch("/api/formal-license-appraisal-orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(order),
+      keepalive: true,
+    }).catch(() => undefined);
 
-      const result = (await response.json()) as { checkoutUrl?: string | null; error?: string };
-      if (!response.ok || !result.checkoutUrl) {
-        throw new Error(result.error || "Unable to open secure formal-appraisal checkout.");
-      }
-      window.location.href = result.checkoutUrl;
-    } catch (cause) {
-      const message = cause instanceof Error ? cause.message : "Unable to open secure checkout.";
-      setError(
-        /fetch failed|failed to fetch|networkerror/i.test(message)
-          ? "Secure checkout could not be reached. Please try again in a moment."
-          : message,
-      );
-      setLoading(false);
-    }
+    const checkout = new URL(FORMAL_APPRAISAL_PAYMENT_LINK);
+    checkout.searchParams.set("client_reference_id", submissionReference);
+    checkout.searchParams.set("prefilled_email", email);
+    window.location.assign(checkout.toString());
   }
 
   return (
@@ -194,8 +198,6 @@ export default function FormalLicenseAppraisalOrder(props: Props) {
             <input name="lender_disclosure_accepted" type="checkbox" value="Accepted" required />
             <span>I understand that each lender or institution determines report acceptance and may require a particular credential, format, reliance language or additional scope.</span>
           </label>
-
-          {error ? <p className="formal-appraisal-error" role="alert">{error}</p> : null}
 
           <button className="formal-appraisal-submit" type="submit" disabled={loading}>
             {loading ? "Opening Secure Checkout…" : "Continue to Secure Checkout — $995"}

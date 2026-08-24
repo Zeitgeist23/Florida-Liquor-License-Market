@@ -17,6 +17,7 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 type RequestBody = {
+  submission_ref?: string;
   name?: string;
   email?: string;
   phone?: string;
@@ -86,6 +87,7 @@ export async function POST(request: Request) {
 
     const order = await retryTransient(
       () => createFormalLicenseAppraisalOrder({
+        submissionRef: body.submission_ref,
         fullName: body.name ?? "",
         email: body.email ?? "",
         phone: body.phone ?? "",

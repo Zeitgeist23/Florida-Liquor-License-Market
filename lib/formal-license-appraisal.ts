@@ -27,6 +27,7 @@ export type FormalLicenseAppraisalOrder = {
 };
 
 export type CreateFormalLicenseAppraisalOrderInput = {
+  submissionRef?: string | null;
   fullName: string;
   email: string;
   phone: string;
@@ -164,7 +165,12 @@ export async function createFormalLicenseAppraisalOrder(
     notes,
   };
 
-  const submissionRef = makeAppraisalRef();
+  const suppliedSubmissionRef = cleanText(input.submissionRef, 100).toUpperCase();
+  const submissionRef = /^FLLM-APPRAISAL-\d{8}-[A-Z0-9]{5,20}-[A-F0-9]{8}$/.test(
+    suppliedSubmissionRef,
+  )
+    ? suppliedSubmissionRef
+    : makeAppraisalRef();
   const now = new Date().toISOString();
   const row = {
     submission_ref: submissionRef,
