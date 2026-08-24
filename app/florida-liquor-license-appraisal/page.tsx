@@ -20,17 +20,17 @@ function firstParam(value: string | string[] | undefined) {
 }
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Appraisal & Valuation Report | FLLM",
+  title: "Florida Liquor License Appraisal | 4COP & 3PS Valuation",
   description:
-    "Review the FLLM license-specific Florida quota liquor-license valuation report standard, including 3PS and 4COP county comparables, recent sales evidence, DBPR research, conversion analysis and ABT-6014.",
+    "Florida liquor license appraisal and valuation for 4COP and 3PS quota licenses, using county-specific comparables, DBPR research, transaction evidence and a reconciled value conclusion.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
-    type: "article",
+    type: "website",
     url: canonicalUrl,
-    title: "Florida Liquor License Appraisal and Valuation Report",
+    title: "Florida Liquor License Appraisal | 4COP & 3PS Valuation",
     description:
-      "Understand the FLLM license-specific valuation report standard and when a credentialed independent appraisal may also be required.",
+      "Florida liquor license appraisal and valuation for a specific 4COP or 3PS quota license using county market evidence, DBPR research and a reconciled value conclusion.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -109,15 +109,30 @@ export default async function FloridaLiquorLicenseAppraisalPage({ searchParams }
   const structuredData = [
     {
       "@context": "https://schema.org",
-      "@type": "Article",
-      headline: "Florida Liquor License Appraisal and Valuation Report",
+      "@type": "WebPage",
+      name: "Florida Liquor License Appraisal and Valuation Report",
+      url: canonicalUrl,
       description:
-        "The FLLM report standard for a license-specific Florida quota liquor-license valuation and guidance on when an independent credentialed appraisal may be required.",
+        "Florida liquor license appraisal and valuation information for 4COP and 3PS quota licenses, including county comparables, DBPR research, transaction evidence and value reconciliation.",
       datePublished: "2026-08-22",
-      dateModified: "2026-08-23",
-      mainEntityOfPage: canonicalUrl,
-      author: { "@type": "Organization", name: "Florida Liquor License Market" },
-      publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
+      dateModified: "2026-08-24",
+      isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
+      about: { "@type": "Thing", name: "Florida liquor license appraisal" },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: "Florida Liquor License Appraisal and Valuation Report",
+      serviceType: "Florida quota liquor license appraisal and valuation",
+      provider: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
+      areaServed: { "@type": "State", name: "Florida" },
+      url: canonicalUrl,
+      offers: {
+        "@type": "Offer",
+        price: "995",
+        priceCurrency: "USD",
+        url: `${canonicalUrl}#order-form`,
+      },
     },
     {
       "@context": "https://schema.org",
@@ -134,7 +149,7 @@ export default async function FloridaLiquorLicenseAppraisalPage({ searchParams }
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
         { "@type": "ListItem", position: 2, name: "Florida Liquor License Value", item: `${siteUrl}/florida-liquor-license-value` },
-        { "@type": "ListItem", position: 3, name: "Formal Appraisal Guide", item: canonicalUrl },
+        { "@type": "ListItem", position: 3, name: "Florida Liquor License Appraisal", item: canonicalUrl },
       ],
     },
   ];
