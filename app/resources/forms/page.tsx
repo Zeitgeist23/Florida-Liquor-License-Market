@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
 
+import FloridaAlcoholLicenseApplicationCenter from "@/components/FloridaAlcoholLicenseApplicationCenter";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { ABT_FORMS, ABT_FORMS_DISCLAIMER } from "@/data/abt-forms";
 import "./abt-forms.css";
 
 export const metadata: Metadata = {
-  title: "Florida ABT Forms | Florida Liquor License Market",
+  title: "Florida Alcohol License Application Center | FLLM",
   description:
-    "Complete, review, download, and print commonly used Florida DBPR Division of Alcoholic Beverages and Tobacco forms without leaving Florida Liquor License Market.",
+    "Find the correct Florida alcohol-license application, complete the current official DBPR/ABT form, and generate an FLLM Application Preparation Packet.",
   alternates: { canonical: "https://www.floridaliquorlicensemarket.com/resources/forms" },
   robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    url: "https://www.floridaliquorlicensemarket.com/resources/forms",
+    title: "Florida Alcohol License Application Center",
+    description: "Find the correct official ABT form and prepare a professional FLLM application packet.",
+    siteName: "Florida Liquor License Market",
+  },
 };
 
 export default function FloridaAbtFormsPage() {
@@ -21,28 +29,32 @@ export default function FloridaAbtFormsPage() {
 
       <section className="abt-forms-hero">
         <div className="page-shell">
-          <span className="abt-eyebrow">Resources · Official Florida Forms</span>
-          <h1>Florida ABT Forms</h1>
+          <span className="abt-eyebrow">Florida licensing · official forms · guided preparation</span>
+          <h1>Florida Alcohol License Application Center</h1>
           <p>
-            Complete commonly used Florida alcoholic-beverage licensing forms through a guided FLLM workspace, then review, download, and print the completed official PDF.
+            Tell FLLM what you need to accomplish. The Application Center identifies the corresponding official Florida form, opens a guided completion workspace and creates a professional preparation packet for your filing file.
           </p>
           <div className="abt-hero-assurances" aria-label="Form service benefits">
-            <span>✓ Stay on FLLM</span>
+            <span>✓ Find the correct form</span>
             <span>✓ Current official PDFs</span>
-            <span>✓ Private browser-based completion</span>
-            <span>✓ Print or download</span>
+            <span>✓ Guided browser completion</span>
+            <span>✓ FLLM preparation packet</span>
           </div>
         </div>
       </section>
 
+      <div className="page-shell application-center-shell">
+        <FloridaAlcoholLicenseApplicationCenter forms={ABT_FORMS} />
+      </div>
+
       <section className="abt-forms-content page-shell" aria-labelledby="forms-heading">
         <div className="abt-section-heading">
           <div>
-            <span>Nine frequently used applications</span>
-            <h2 id="forms-heading">Choose a form to begin</h2>
+            <span>Official form library</span>
+            <h2 id="forms-heading">Or browse all supported ABT forms</h2>
           </div>
           <p>
-            Each workspace loads the current official document through Florida Liquor License Market. Your answers are processed locally in your browser and are not submitted to FLLM.
+            Each workspace loads the current official document through Florida Liquor License Market. The form pages retain the government headings, certifications and signature language required for filing.
           </p>
         </div>
 
@@ -64,7 +76,7 @@ export default function FloridaAbtFormsPage() {
                   className="btn btn-gold"
                   href={form.id === "abt-6002" ? "/dbpr-abt-6002" : `/resources/forms/${form.id}`}
                 >
-                  {form.id === "abt-6002" ? "ABT-6002 Guide & Form" : "Complete Form Online"}
+                  {form.id === "abt-6002" ? "ABT-6002 Guide & Form" : "Complete Official Form"}
                 </a>
                 <a
                   className="btn btn-outline"
@@ -83,13 +95,13 @@ export default function FloridaAbtFormsPage() {
       <section className="abt-how-it-works">
         <div className="page-shell">
           <div className="abt-section-heading compact">
-            <div><span>Simple preparation process</span><h2>How it works</h2></div>
+            <div><span>From question to filing file</span><h2>How the FLLM Application Center works</h2></div>
           </div>
           <div className="abt-process-grid">
-            <article><b>1</b><span><strong>Select the correct form</strong><small>Review the purpose and common uses before beginning.</small></span></article>
-            <article><b>2</b><span><strong>Complete the official fields</strong><small>Use the guided filler or type directly in the official PDF viewer.</small></span></article>
-            <article><b>3</b><span><strong>Review the completed PDF</strong><small>Confirm names, license numbers, addresses, and disclosures.</small></span></article>
-            <article><b>4</b><span><strong>Print, sign, and submit</strong><small>Add required notarizations, attachments, and filing fees.</small></span></article>
+            <article><b>1</b><span><strong>Describe the filing purpose</strong><small>Choose the action you need to complete instead of guessing at a form number.</small></span></article>
+            <article><b>2</b><span><strong>Complete the official form</strong><small>Use the guided FLLM workspace while retaining the current government document.</small></span></article>
+            <article><b>3</b><span><strong>Generate the FLLM packet</strong><small>Add a branded cover, preparation checklist and document index to the official form.</small></span></article>
+            <article><b>4</b><span><strong>Review and file with DBPR</strong><small>Add required signatures, attachments and fees, then submit through the official channel.</small></span></article>
           </div>
         </div>
       </section>

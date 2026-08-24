@@ -114,7 +114,7 @@ const navMenus: NavMenu[] = [
       },
       { href: "/resources/florida-liquor-license-types", label: "Types of Florida Liquor Licenses" },
       { href: "/resources/license-fees", label: "License Fees" },
-      { href: "/resources/forms", label: "Florida ABT Forms" },
+      { href: "/resources/forms", label: "Alcohol License Application Center" },
       { href: "/resources/florida-department-of-revenue", label: "Florida Department of Revenue (FDOR)" },
     ],
   },
