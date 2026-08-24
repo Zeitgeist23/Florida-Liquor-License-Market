@@ -1,6 +1,3 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
-
 import { NextResponse } from "next/server";
 import { PDFDocument, PDFFont, PDFPage, StandardFonts, rgb } from "pdf-lib";
 
@@ -109,11 +106,18 @@ function isPdf(bytes: Uint8Array) {
     && bytes[4] === 0x2d;
 }
 
-async function loadOfficialPdf(formId: string, officialPdfUrl: string) {
+async function loadOfficialPdf(formId: string, officialPdfUrl: string, requestUrl: string) {
   try {
-    const localPath = path.join(process.cwd(), "public", "abt-forms", `${formId}.pdf`);
-    const localBytes = new Uint8Array(await readFile(localPath));
-    if (isPdf(localBytes)) return localBytes;
+    const bundledFormUrl = new URL(`/abt-forms/${formId}.pdf`, requestUrl);
+    const localResponse = await fetch(bundledFormUrl, {
+      cache: "no-store",
+      redirect: "follow",
+      headers: { Accept: "application/pdf,application/octet-stream;q=0.9,*/*;q=0.8" },
+    });
+    if (localResponse.ok) {
+      const localBytes = new Uint8Array(await localResponse.arrayBuffer());
+      if (isPdf(localBytes)) return localBytes;
+    }
   } catch {
     // Some time-limited forms, such as ABT-6033, are retrieved from DBPR.
   }
@@ -345,7 +349,7 @@ export async function POST(request: Request) {
 
   try {
     const [officialBytes, introDocument] = await Promise.all([
-      loadOfficialPdf(form.id, form.officialPdfUrl),
+      loadOfficialPdf(form.id, form.officialPdfUrl, request.url),
       createIntroPages(payload, form),
     ]);
     const officialDocument = await PDFDocument.load(officialBytes, { ignoreEncryption: true });
