@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { floridaCounties } from "@/data/florida-counties";
 
@@ -15,6 +15,12 @@ function formatUsPhone(value: string) {
 export default function FormalLicenseAppraisalOrder() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const resetCheckoutState = () => setLoading(false);
+    window.addEventListener("pageshow", resetCheckoutState);
+    return () => window.removeEventListener("pageshow", resetCheckoutState);
+  }, []);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

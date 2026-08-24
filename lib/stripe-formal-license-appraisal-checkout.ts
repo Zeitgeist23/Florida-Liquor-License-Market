@@ -6,6 +6,9 @@ import {
 } from "@/lib/formal-license-appraisal";
 import type { StripeCheckoutSession } from "@/lib/stripe-listing-checkout";
 
+const ACTIVE_FORMAL_APPRAISAL_PAYMENT_LINK =
+  "https://buy.stripe.com/7sY14fdPv6fz3ml3eRebu02";
+
 function siteUrl(requestUrl?: string) {
   const configured = process.env.NEXT_PUBLIC_SITE_URL || process.env.FLLM_SITE_URL;
   if (configured) return configured.replace(/\/$/, "");
@@ -19,11 +22,9 @@ export async function createFormalLicenseAppraisalCheckoutSession(
 ) {
   const stripeSecret = process.env.STRIPE_SECRET_KEY;
   if (!stripeSecret) {
-    const configuredPaymentLink = process.env.STRIPE_FORMAL_APPRAISAL_PAYMENT_LINK;
-    if (!configuredPaymentLink) {
-      throw new Error("Secure formal-appraisal checkout is awaiting the dedicated $995 Stripe payment link.");
-    }
-    const paymentLink = new URL(configuredPaymentLink);
+    const paymentLink = new URL(
+      process.env.STRIPE_FORMAL_APPRAISAL_PAYMENT_LINK || ACTIVE_FORMAL_APPRAISAL_PAYMENT_LINK,
+    );
     paymentLink.searchParams.set("client_reference_id", order.submissionRef);
     paymentLink.searchParams.set("prefilled_email", order.email);
     return {
