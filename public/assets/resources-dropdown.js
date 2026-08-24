@@ -31,6 +31,11 @@
       internal: true,
     },
     {
+      label: "Alcohol License Application Center",
+      href: "/resources/application-center",
+      internal: true,
+    },
+    {
       label: "Florida ABT Forms",
       href: "/resources/forms",
       internal: true,
