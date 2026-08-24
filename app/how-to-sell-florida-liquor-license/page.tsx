@@ -11,7 +11,7 @@ const canonicalUrl = `${siteUrl}/how-to-sell-florida-liquor-license`;
 export const metadata: Metadata = {
   title: "How to Sell a Florida Liquor License | Seller Guide",
   description:
-    "Learn how to sell a Florida liquor license step by step. Compare self-directed and broker-assisted selling, estimate market value, prepare your listing, negotiate terms, and coordinate the transfer and closing.",
+    "Learn how to sell a Florida liquor license step by step. Compare self-directed and broker-assisted selling, set an asking-price strategy, prepare your listing, negotiate terms, and coordinate transfer and closing.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "How to Sell a Florida Liquor License | Seller Guide",
     description:
-      "A practical Florida seller guide covering valuation, self-directed and broker-assisted selling, marketing, buyer inquiries, negotiation, transfer preparation and closing.",
+      "A practical Florida seller guide covering pricing strategy, self-directed and broker-assisted selling, marketing, buyer inquiries, negotiation, transfer preparation and closing.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -38,7 +38,7 @@ const faqs = [
   {
     question: "How do I know what my Florida liquor license is worth?",
     answer:
-      "Quota-license value varies by county, license type, available inventory, current asking prices, transaction history, status and buyer demand. A valuation should be treated as a market estimate rather than a guaranteed sale price. FLLM provides county-level market information and a license valuation tool to help establish a starting range.",
+      "Quota-license value varies by county, license type, available inventory, current asking prices, transaction history, status and buyer demand. Current pricing guidance should be treated as a market reference rather than a guaranteed sale price. FLLM provides county-level market information and a license value tool to help establish a starting range.",
   },
   {
     question: "Can I list my license on FLLM without using a broker?",
@@ -64,9 +64,9 @@ export default function HowToSellFloridaLiquorLicensePage() {
       "@type": "Article",
       headline: "How to Sell a Florida Liquor License: Step-by-Step Seller Guide",
       description:
-        "A practical guide to selling a Florida liquor license, including valuation, self-directed and broker-assisted marketing, buyer inquiries, negotiation, transfer preparation and closing.",
+        "A practical guide to selling a Florida liquor license, including pricing strategy, self-directed and broker-assisted marketing, buyer inquiries, negotiation, transfer preparation and closing.",
       datePublished: "2026-08-18",
-      dateModified: "2026-08-18",
+      dateModified: "2026-08-24",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market" },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -137,11 +137,11 @@ export default function HowToSellFloridaLiquorLicensePage() {
               <span className="seo-market-kicker">Florida Liquor License Seller Guide</span>
               <h1>How to Sell a Florida Liquor License</h1>
               <p>
-                Selling a Florida liquor license starts with knowing what you own, what the market may pay, and how much transaction support you want. This guide covers valuation, self-directed and broker-assisted selling, listing preparation, buyer inquiries, negotiation, transfer preparation and closing.
+                Selling a Florida liquor license starts with knowing what you own, what the market may pay, and how much transaction support you want. This guide covers pricing strategy, self-directed and broker-assisted selling, listing preparation, buyer inquiries, negotiation, transfer preparation and closing.
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Sell Your License</Link>
-                <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">Get a License Valuation</Link>
+                <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">Check License Value</Link>
               </div>
             </div>
             <aside className="seo-market-snapshot" aria-label="Florida liquor license selling process">
@@ -228,7 +228,7 @@ export default function HowToSellFloridaLiquorLicensePage() {
               <div>
                 <h3>Establish a realistic market-value range</h3>
                 <p>Quota-license prices vary by county, license type, available inventory, asking prices and buyer demand. Use current county-level information as a reference rather than assuming the highest advertised price represents realizable value.</p>
-                <p><Link href="/florida-liquor-license-value">Use the FLLM license valuation tool →</Link></p>
+                <p><Link href="/florida-liquor-license-value">Use the FLLM license value tool →</Link></p>
               </div>
             </article>
             <article className="seller-guide-step">
@@ -274,17 +274,17 @@ export default function HowToSellFloridaLiquorLicensePage() {
       <section className="seo-market-intro" id="fllm-seller-help">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">FLLM Seller Services & Resources</span>
-          <h2>Use FLLM to value, market and prepare your sale</h2>
+          <h2>Use FLLM to price, market and prepare your sale</h2>
           <p>
             Florida Liquor License Market gives sellers both a self-directed marketplace path and access to broker-assisted consultation, together with market and transaction resources that can help before and during a sale.
           </p>
           <div className="seller-guide-links">
             <Link href="/sell-your-license">List Your License<span>Choose self-directed selling or request a broker-assisted consultation.</span></Link>
-            <Link href="/florida-liquor-license-value">License Valuation<span>Estimate a market-value range using county and license-type data.</span></Link>
-            <Link href="/florida-quota-liquor-license-cost">County Asking Prices<span>Compare disclosed 4COP and 3PS asking-price information by county.</span></Link>
+            <Link href="/florida-liquor-license-value">License Value<span>Estimate a market-value range using county and license-type data.</span></Link>
+            <Link href="/florida-liquor-license-appraisal">Florida Liquor License Appraisal<span>Review the dedicated license-specific appraisal and valuation report page.</span></Link>
             <Link href="/resources/quota-transfer-fee-calculator">Transfer Fee Calculator<span>Estimate the statutory quota transfer-fee component as part of transaction planning.</span></Link>
             <Link href="/dbpr-abt-6002">Transfer Resources<span>Review the ownership-transfer guide and related preparation information.</span></Link>
-            <Link href="/contact">Seller Assistance<span>Contact FLLM with questions about listing, valuation or broker-assisted options.</span></Link>
+            <Link href="/contact">Seller Assistance<span>Contact FLLM with questions about listing, pricing or broker-assisted options.</span></Link>
           </div>
         </div>
       </section>
@@ -322,7 +322,7 @@ export default function HowToSellFloridaLiquorLicensePage() {
             A seller should consider not only the headline purchase price but also brokerage compensation if applicable, legal or professional costs, transfer-related expenses allocated to the seller, taxes, lien payoffs and other closing adjustments. The amount a seller receives at closing can differ materially from the advertised asking price.
           </p>
           <p className="seller-guide-note">
-            FLLM market estimates and asking-price information are informational starting points, not appraisals or guarantees of a sale price. Transaction-specific tax, legal and licensing consequences should be reviewed with the appropriate professionals.
+            FLLM market estimates and asking-price information are informational starting points, not appraisals or guarantees of a sale price. For a license-specific appraisal, use the dedicated <Link href="/florida-liquor-license-appraisal">Florida Liquor License Appraisal</Link> page. Transaction-specific tax, legal and licensing consequences should be reviewed with the appropriate professionals.
           </p>
         </div>
       </section>
@@ -347,12 +347,12 @@ export default function HowToSellFloridaLiquorLicensePage() {
         <div className="seo-market-shell seo-market-cta-inner">
           <div>
             <span className="seo-market-section-kicker">Ready to Sell?</span>
-            <h2>Value the license, choose your selling path and reach the market.</h2>
+            <h2>Price the license, choose your selling path and reach the market.</h2>
             <p>Start with a self-directed listing, request broker-assisted support, or estimate the license&apos;s current market range first.</p>
           </div>
           <div className="seo-market-actions">
             <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Sell Your License</Link>
-            <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">Get a Valuation</Link>
+            <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">Check License Value</Link>
             <Link className="seo-market-button seo-market-button-dark" href="/contact">Contact FLLM</Link>
           </div>
         </div>
