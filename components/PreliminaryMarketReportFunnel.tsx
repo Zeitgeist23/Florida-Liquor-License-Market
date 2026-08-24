@@ -310,11 +310,6 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
         </article>
       </div>
 
-      <div className={styles.scopeNotice}>
-        <p><strong>Preliminary report:</strong> market research and pricing guidance; not a certified appraisal, real-estate appraisal, fairness opinion or guarantee of value.</p>
-        <p><strong>Formal appraisal:</strong> a separate, expanded FLLM valuation assignment designed for professional review; lender acceptance remains subject to the receiving institution&apos;s requirements.</p>
-      </div>
-
       {open ? (
         <form
           ref={orderFormRef}
