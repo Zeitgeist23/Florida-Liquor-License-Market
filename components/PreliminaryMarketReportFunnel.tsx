@@ -68,6 +68,13 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
   const [orderLicenseNumber, setOrderLicenseNumber] = useState(props.licenseNumber);
   const [orderHolder, setOrderHolder] = useState(props.currentHolderOfRecord);
 
+  const formalAppraisalParams = new URLSearchParams();
+  if (orderCounty) formalAppraisalParams.set("county", orderCounty);
+  if (orderLicenseType) formalAppraisalParams.set("license_type", orderLicenseType);
+  if (orderLicenseNumber) formalAppraisalParams.set("license_number", orderLicenseNumber);
+  if (orderHolder) formalAppraisalParams.set("current_holder_of_record", orderHolder);
+  const formalAppraisalHref = `/florida-liquor-license-appraisal?${formalAppraisalParams.toString()}#order-form`;
+
   const scrollToOrderForm = useCallback(() => {
     const url = new URL(window.location.href);
     url.hash = "market-report-order-form";
@@ -310,7 +317,7 @@ export default function PreliminaryMarketReportFunnel(props: Props) {
               <li>Designed for lender and professional review</li>
               <li>Interior methods and documents remain private</li>
             </ul>
-            <a className={styles.formalProductAction} href="/florida-liquor-license-appraisal#order-form">
+            <a className={styles.formalProductAction} href={formalAppraisalHref}>
               Order Formal Appraisal — $995
             </a>
             <small>Acceptance and credential requirements are determined by the receiving institution.</small>

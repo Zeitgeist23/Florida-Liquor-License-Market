@@ -4,6 +4,13 @@ import { useEffect, useState } from "react";
 
 import { floridaCounties } from "@/data/florida-counties";
 
+type Props = {
+  initialCounty?: string;
+  initialLicenseType?: string;
+  initialLicenseNumber?: string;
+  initialHolder?: string;
+};
+
 function formatUsPhone(value: string) {
   const raw = value.replace(/\D/g, "");
   const digits = (raw.length === 11 && raw.startsWith("1") ? raw.slice(1) : raw).slice(0, 10);
@@ -12,7 +19,7 @@ function formatUsPhone(value: string) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-export default function FormalLicenseAppraisalOrder() {
+export default function FormalLicenseAppraisalOrder(props: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -102,14 +109,14 @@ export default function FormalLicenseAppraisalOrder() {
 
           <label>
             <span>Florida County</span>
-            <select name="county" defaultValue="" required>
+            <select name="county" defaultValue={props.initialCounty || ""} required>
               <option value="" disabled>Select county</option>
               {floridaCounties.map((county) => <option key={county.slug}>{county.name}</option>)}
             </select>
           </label>
           <label>
             <span>Subject License Series</span>
-            <select name="license_type" defaultValue="" required>
+            <select name="license_type" defaultValue={props.initialLicenseType || ""} required>
               <option value="" disabled>Select series</option>
               <option>4COP Quota</option>
               <option>3PS Quota / Package Store</option>
@@ -117,11 +124,11 @@ export default function FormalLicenseAppraisalOrder() {
           </label>
           <label>
             <span>License Number</span>
-            <input name="license_number" placeholder="e.g. BEV6500-184" maxLength={80} required />
+            <input name="license_number" defaultValue={props.initialLicenseNumber || ""} placeholder="e.g. BEV6500-184" maxLength={80} required />
           </label>
           <label>
             <span>Current Holder of Record <small>If known</small></span>
-            <input name="current_holder_of_record" placeholder="Name shown in DBPR records" maxLength={180} />
+            <input name="current_holder_of_record" defaultValue={props.initialHolder || ""} placeholder="Name shown in DBPR records" maxLength={180} />
           </label>
           <label>
             <span>Ordering Party</span>

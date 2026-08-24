@@ -3,12 +3,21 @@ import Link from "next/link";
 
 import FormalLicenseAppraisalOrder from "@/components/FormalLicenseAppraisalOrder";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import { floridaCounties } from "@/data/florida-counties";
 import "../resources/forms/abt-forms.css";
 import "../florida-liquor-licenses-for-sale/seo-market.css";
 import "./appraisal-report.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-appraisal`;
+
+type PageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+function firstParam(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] || "" : value || "";
+}
 
 export const metadata: Metadata = {
   title: "Florida Liquor License Appraisal & Valuation Report | FLLM",
@@ -87,7 +96,16 @@ const faqs = [
   },
 ];
 
-export default function FloridaLiquorLicenseAppraisalPage() {
+export default async function FloridaLiquorLicenseAppraisalPage({ searchParams }: PageProps) {
+  const query = await searchParams;
+  const requestedCounty = firstParam(query.county);
+  const requestedLicenseType = firstParam(query.license_type);
+  const initialCounty = floridaCounties.some((county) => county.name === requestedCounty) ? requestedCounty : "";
+  const initialLicenseType = ["4COP Quota", "3PS Quota / Package Store"].includes(requestedLicenseType)
+    ? requestedLicenseType
+    : "";
+  const initialLicenseNumber = firstParam(query.license_number).slice(0, 80);
+  const initialHolder = firstParam(query.current_holder_of_record).slice(0, 180);
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -257,7 +275,12 @@ export default function FloridaLiquorLicenseAppraisalPage() {
         </div>
       </section>
 
-      <FormalLicenseAppraisalOrder />
+      <FormalLicenseAppraisalOrder
+        initialCounty={initialCounty}
+        initialLicenseType={initialLicenseType}
+        initialLicenseNumber={initialLicenseNumber}
+        initialHolder={initialHolder}
+      />
 
       <section className="seo-market-faq">
         <div className="seo-market-shell">
