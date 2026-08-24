@@ -24,10 +24,11 @@ type MonitorResponse = {
   error?: string;
 };
 
-function formatDate(value: string | null) {
-  if (!value) return "Recently discovered";
+function formatDate(value: string | null, discoveredAt?: string) {
+  if (!value && discoveredAt) return `Discovered ${formatDate(discoveredAt)}`;
+  if (!value) return "Publication date unavailable";
   const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "Recently discovered";
+  if (Number.isNaN(date.getTime())) return "Publication date unavailable";
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "numeric",
@@ -114,7 +115,7 @@ export default function LiveNewsMonitor() {
             <article className={`live-news-monitor-card${isOpen ? " is-open" : ""}`} key={item.slug}>
               <div className="live-news-monitor-meta">
                 <span>{item.category}</span>
-                <time>{formatDate(item.publishedAt)}</time>
+                <time dateTime={item.publishedAt || data?.updatedAt}>{formatDate(item.publishedAt, data?.updatedAt)}</time>
               </div>
               <h3>{item.title}</h3>
               <p>{item.summary}</p>

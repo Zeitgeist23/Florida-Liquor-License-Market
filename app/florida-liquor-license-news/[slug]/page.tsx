@@ -54,7 +54,10 @@ export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { 
     "@type": "NewsArticle",
     headline: article.title,
     description: article.summary,
-    ...(article.publishedDate ? { datePublished: article.publishedDate, dateModified: article.publishedDate } : {}),
+    ...(article.publishedDate ? { datePublished: article.publishedDate } : {}),
+    ...((article.reviewedDate || article.publishedDate)
+      ? { dateModified: article.reviewedDate || article.publishedDate }
+      : {}),
     mainEntityOfPage: articleUrl,
     publisher: {
       "@type": "Organization",

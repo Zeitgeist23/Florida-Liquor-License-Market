@@ -37,6 +37,19 @@
   padding-bottom: 52px;
 }
 
+.news-historical-event {
+  padding-top: 58px;
+  border-top: 1px solid #e3e7ea;
+}
+
+.news-historical-event .news-current-event-card {
+  box-shadow: 0 14px 36px rgba(6, 23, 40, .09);
+}
+
+.news-historical-event .news-current-copy > span {
+  color: #ffd36a;
+}
+
 .news-current-event-card {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);

@@ -4,6 +4,7 @@ export type NewsArticle = {
   title: string;
   date: string;
   publishedDate?: string;
+  reviewedDate?: string;
   summary: string;
   intro: string;
   sections: Array<{
@@ -166,25 +167,27 @@ export const NEWS_ARTICLES: NewsArticle[] = [
   },
   {
     slug: "florida-quota-drawing-season-what-applicants-should-watch-next",
-    eyebrow: "FLLM Briefing",
-    title: "Florida quota drawing season: what applicants should watch next",
-    date: "August 16, 2026",
-    publishedDate: "2026-08-16",
+    eyebrow: "2026 Quota Drawing",
+    title: "2026 Florida quota drawing entry period is open",
+    date: "August 17, 2026",
+    publishedDate: "2026-08-17",
     summary:
-      "A practical FLLM briefing on the annual Florida quota drawing entry window, eligible counties and the ABT-6033 filing process.",
+      "DBPR's 2026 quota drawing entry period runs from August 17 through September 30, 2026, with 63 quota licenses available across 30 Florida counties.",
     intro:
-      "Florida's annual quota drawing is one of the most closely watched events in the state's liquor-license market. DBPR states that drawing entries are accepted for 45 days beginning on the third Monday in August when one or more quota licenses are available.",
+      "Florida's annual quota drawing is one of the most closely watched events in the state's liquor-license market. DBPR's 2026 announcement lists 63 quota licenses across 30 counties and states that entries are accepted from August 17, 2026 at 12:00 a.m. EST through September 30, 2026 at 5:00 p.m. EST.",
     sections: [
       {
-        heading: "What applicants should confirm first",
+        heading: "2026 entry-period details",
         paragraphs: [
-          "Before submitting an entry, applicants should confirm the current DBPR notice, the counties for which quota licenses are available, the filing deadline and the current filing instructions.",
-          "The drawing process is administrative and county-specific. Applicants should rely on the current DBPR requirements rather than prior-year dates or assumptions about county availability."
+          "The official announcement identifies the counties and number of quota licenses available in each. The entry fee is $100 per application, and applicants should use the current filing route and form specified by DBPR.",
+          "The drawing process is administrative and county-specific. Applicants should rely on the 2026 DBPR announcement and current requirements rather than prior-year dates or assumptions about county availability."
         ],
         bullets: [
-          "Confirm the current quota-drawing announcement and eligible counties.",
+          "Entry opens August 17, 2026 at 12:00 a.m. EST.",
+          "Entry closes September 30, 2026 at 5:00 p.m. EST.",
+          "DBPR lists 63 quota licenses across 30 counties.",
           "Review the current ABT-6033 entry form and instructions.",
-          "Verify the filing deadline and required entry fee before submission.",
+          "Verify the $100 entry fee and filing method before submission.",
           "Keep a copy of the completed entry and proof of submission."
         ]
       },
@@ -197,8 +200,8 @@ export const NEWS_ARTICLES: NewsArticle[] = [
       }
     ],
     officialSourceUrl:
-      "https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=17270&clientCode=4087&xactCode=1030",
-    officialSourceLabel: "Florida DBPR quota drawing requirements"
+      "https://www2.myfloridalicense.com/abt/documents/ABT2026QuotaEntryPeriodAnnouncement.pdf",
+    officialSourceLabel: "Florida DBPR 2026 quota entry-period announcement"
   },
   {
     slug: "2025-florida-quota-drawing-results-posted",
@@ -234,7 +237,8 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     slug: "online-account-requirement-abt-licensees-applicants",
     eyebrow: "DBPR Update",
     title: "Online account requirement for ABT licensees and applicants",
-    date: "Current DBPR notice",
+    date: "Reviewed August 24, 2026",
+    reviewedDate: "2026-08-24",
     summary:
       "DBPR says Alcoholic Beverages and Tobacco licensees, permit holders and applicants must create and maintain an account in the Division's online system.",
     intro:
@@ -265,7 +269,8 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     slug: "quota-drawing-procedures-current-abt-rulemaking",
     eyebrow: "Rulemaking Watch",
     title: "Quota drawing procedures are part of current ABT rulemaking notices",
-    date: "Current rulemaking notice",
+    date: "Reviewed August 24, 2026",
+    reviewedDate: "2026-08-24",
     summary:
       "The Division's News & Notices page includes rulemaking activity addressing quota drawing entry procedures and related beverage-license rules.",
     intro:
@@ -293,7 +298,8 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     slug: "track-active-inactive-florida-quota-license-lists",
     eyebrow: "License Data",
     title: "Track active and inactive Florida quota license lists",
-    date: "Updated by DBPR",
+    date: "Reviewed August 24, 2026",
+    reviewedDate: "2026-08-24",
     summary:
       "DBPR publishes downloadable active and inactive quota-license listings that help market participants follow statewide license-status data.",
     intro:
