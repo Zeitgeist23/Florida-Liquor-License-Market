@@ -29,10 +29,16 @@ type StripeEvent = {
 };
 
 async function processPaidCheckout(session: StripeCheckoutSession) {
-  // IRA setup assistance is fulfilled from the Stripe customer details and
+  // IRA setup assistance is fulfilled from Stripe's customer details and
   // remains visible in the FLLM Stripe Dashboard. It is not a marketplace
   // submission, so it must not enter the listing/appraisal order workflow.
-  if (session.metadata?.product_type === "ira_setup_assistance") return;
+  const paymentLinkId = (
+    session as StripeCheckoutSession & { payment_link?: string | null }
+  ).payment_link;
+  if (
+    session.metadata?.product_type === "ira_setup_assistance" ||
+    paymentLinkId === "plink_1U8ORJ1LFXNUhoXjseTCoYmX"
+  ) return;
 
   const submissionRef =
     session.metadata?.submission_ref || session.client_reference_id || "";
