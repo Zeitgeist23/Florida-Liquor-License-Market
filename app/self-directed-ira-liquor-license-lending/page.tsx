@@ -172,7 +172,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
               <span>Flat administrative fee</span>
               <strong>$495</strong>
               <small>One-time setup-assistance fee. Not based on the IRA balance, amount transferred, loan size or whether any investment closes.</small>
-              <Link className="seo-market-button seo-market-button-gold" href="/contact?topic=self-directed-ira-setup">Request Setup Assistance</Link>
+              <a className="seo-market-button seo-market-button-gold" href="https://buy.stripe.com/5kQ4gr5iZ47r9KJ2aNebu03">Pay Securely with Stripe — $495</a>
             </aside>
           </div>
 
