@@ -6,13 +6,30 @@ import "../forms/abt-forms.css";
 import "./liquor-license-attorneys.css";
 import "./attorney-practice-types.css";
 
+const siteUrl = "https://www.floridaliquorlicensemarket.com";
+const canonicalUrl = `${siteUrl}/resources/liquor-license-attorneys`;
+
 export const metadata: Metadata = {
-  title: "Florida Liquor License Attorneys | Litigation & Appeals",
+  title: "Florida Liquor License Attorneys & Lawyers | Litigation",
   description:
-    "Browse FLLM's independent Florida liquor license attorney directory for DBPR/ABT licensing, transfers, transactions, litigation, appeals, liens, and closings.",
+    "Find liquor license lawyers in Florida for DBPR/ABT licensing, transfers, transactions, litigation, appeals, liens, escrow, and closings in FLLM's independent directory.",
+  alternates: { canonical: canonicalUrl },
+  openGraph: {
+    type: "website",
+    url: canonicalUrl,
+    title: "Florida Liquor License Attorneys & Lawyers | Litigation",
+    description:
+      "Compare Florida liquor license attorneys and lawyers for licensing, transactions, litigation, appeals, liens, escrow, and closings.",
+    siteName: "Florida Liquor License Market",
+  },
 };
 
 const faqItems = [
+  {
+    question: "How do I find liquor license lawyers in Florida?",
+    answer:
+      "Use the FLLM directory to compare Florida lawyers whose published practices include alcoholic-beverage licensing, DBPR or ABT matters, license transfers and closings, contract disputes, civil litigation, or appeals. Confirm directly that an attorney handles your specific matter, practices in the relevant location, has no conflict, and is currently eligible to practice through The Florida Bar.",
+  },
   {
     question: "What does a Florida liquor license litigation attorney handle?",
     answer:
@@ -50,8 +67,48 @@ const publishedResources = [
 ] as const;
 
 export default function FloridaLiquorLicenseAttorneysPage() {
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Florida Liquor License Attorneys and Lawyers",
+      url: canonicalUrl,
+      description:
+        "An independent directory of liquor license lawyers in Florida for licensing, regulatory matters, transactions, litigation, appeals, liens, escrow, and closings.",
+      dateModified: "2026-08-25",
+      isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
+      about: [
+        { "@type": "Thing", name: "Florida alcoholic beverage law" },
+        { "@type": "Thing", name: "Florida liquor license attorneys" },
+        { "@type": "Thing", name: "Florida liquor license litigation" },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+        { "@type": "ListItem", position: 2, name: "Resources", item: `${siteUrl}/resources` },
+        { "@type": "ListItem", position: 3, name: "Florida Liquor License Attorneys and Lawyers", item: canonicalUrl },
+      ],
+    },
+  ];
+
   return (
     <main className="attorney-directory-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
+      />
       <div className="abt-header-wrap">
         <FormsSiteHeader />
       </div>
@@ -59,12 +116,12 @@ export default function FloridaLiquorLicenseAttorneysPage() {
       <section className="attorney-hero">
         <div className="page-shell">
           <nav className="attorney-breadcrumbs" aria-label="Breadcrumb">
-            <a href="/">Home</a><span>›</span><b>Florida Liquor License Attorneys</b>
+            <a href="/">Home</a><span>›</span><b>Florida Liquor License Attorneys and Lawyers</b>
           </nav>
           <span className="attorney-eyebrow">Resources · Independent legal directory</span>
-          <h1>Florida Liquor License Attorneys: Licensing, Litigation &amp; Appeals</h1>
+          <h1>Florida Liquor License Attorneys and Lawyers: Licensing, Litigation &amp; Appeals</h1>
           <p>
-            Find Florida attorneys whose published practices include alcoholic-beverage licensing, liquor-license purchases and sales, transfers and closings, as well as attorneys who handle civil litigation and appellate matters involving Florida liquor-license disputes.
+            Find liquor license lawyers in Florida whose published practices include alcoholic-beverage licensing, liquor-license purchases and sales, transfers and closings, as well as civil litigation and appellate matters involving Florida liquor-license disputes.
           </p>
           <div className="attorney-hero-actions">
             <a className="btn btn-gold" href="#attorney-directory">Browse Attorneys</a>
@@ -91,7 +148,7 @@ export default function FloridaLiquorLicenseAttorneysPage() {
       <section className="attorney-intro page-shell" aria-labelledby="directory-heading">
         <div>
           <span>Before choosing counsel</span>
-          <h2 id="directory-heading">Compare Florida liquor-license legal experience, availability, and fees</h2>
+          <h2 id="directory-heading">Compare liquor license lawyers in Florida by experience, availability, and fees</h2>
         </div>
         <p>
           Ask whether the attorney handles the specific legal work you need, including DBPR / ABT licensing and regulatory filings, purchase agreements, due diligence, liens and tax-clearance issues, escrow and closings, civil litigation, trial-level preservation, or appellate representation.
@@ -178,8 +235,8 @@ export default function FloridaLiquorLicenseAttorneysPage() {
 
       <section className="attorney-faq page-shell" aria-labelledby="attorney-faq-heading">
         <div className="attorney-faq-heading">
-          <span>Florida liquor-license legal questions</span>
-          <h2 id="attorney-faq-heading">Litigation, appeals, and attorney selection</h2>
+          <span>Questions about liquor license lawyers in Florida</span>
+          <h2 id="attorney-faq-heading">Licensing, litigation, appeals, and attorney selection</h2>
         </div>
         <div className="attorney-faq-grid">
           {faqItems.map((item) => (
