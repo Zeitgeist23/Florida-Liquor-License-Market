@@ -9,17 +9,28 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/how-to-finance-florida-liquor-license`;
 
 export const metadata: Metadata = {
-  title: "How to Finance a Florida Liquor License | Financing Guide",
+  title: "How to Finance a Florida Quota Liquor License | FLLM",
   description:
-    "Learn which Florida liquor licenses can support financing, why traditional banks often avoid stand-alone liquor-license loans, who private lenders are, and the rates, terms and underwriting factors commonly involved.",
+    "Learn how Florida 4COP and 3PS quota-license financing works, including private lenders, seller financing, promissory notes, security interests and ABT-6022.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
+  keywords: [
+    "how to finance a Florida quota liquor license",
+    "Florida quota liquor license financing",
+    "Florida 4COP financing",
+    "Florida 3PS financing",
+    "Florida liquor license private lenders",
+    "Florida liquor license seller financing",
+    "Florida liquor license promissory note",
+    "Florida liquor license security interest",
+    "ABT-6022",
+  ],
   openGraph: {
     type: "article",
     url: canonicalUrl,
-    title: "How to Finance a Florida Liquor License | FLLM",
+    title: "How to Finance a Florida Quota Liquor License | FLLM",
     description:
-      "A practical guide to financing transferable Florida quota liquor licenses, including collateral value, private lenders, underwriting, rates and transaction structure.",
+      "A practical guide to 4COP and 3PS quota-license financing, including private lenders, seller financing, promissory notes, security interests and ABT-6022.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -50,6 +61,11 @@ const faqs = [
     answer:
       "Florida law recognizes security interests and liens involving alcoholic-beverage licenses, but enforcement and transfer remain subject to Florida Beverage Law and DBPR requirements. A lender should use transaction documents and filing procedures appropriate to the license and the specific financing structure.",
   },
+  {
+    question: "How is a Florida quota liquor-license loan documented and perfected?",
+    answer:
+      "The loan is generally evidenced by a promissory note, while a separate security agreement grants the lender a contractual security interest in the quota license. For an interest against a qualifying spirituous alcoholic-beverage license to be perfected under section 561.65, it must be recorded with the Division within 90 days after creation, generally using ABT-6022. Additional documents or filings may be appropriate depending on the complete collateral package and transaction.",
+  },
 ];
 
 export default function HowToFinanceFloridaLiquorLicensePage() {
@@ -57,11 +73,11 @@ export default function HowToFinanceFloridaLiquorLicensePage() {
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "How to Finance a Florida Liquor License",
+      headline: "How to Finance a Florida Quota Liquor License",
       description:
-        "A practical guide to financing transferable Florida quota liquor licenses, including collateral value, private lenders, underwriting, rates and terms.",
+        "A practical guide to financing Florida 4COP and 3PS quota liquor licenses through private lenders, seller financing, promissory notes and properly recorded security interests.",
       datePublished: "2026-08-18",
-      dateModified: "2026-08-18",
+      dateModified: "2026-08-25",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market" },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -81,7 +97,7 @@ export default function HowToFinanceFloridaLiquorLicensePage() {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
         { "@type": "ListItem", position: 2, name: "Finance", item: `${siteUrl}/financing` },
-        { "@type": "ListItem", position: 3, name: "How to Finance a Florida Liquor License", item: canonicalUrl },
+        { "@type": "ListItem", position: 3, name: "How to Finance a Florida Quota Liquor License", item: canonicalUrl },
       ],
     },
   ];
@@ -137,10 +153,10 @@ export default function HowToFinanceFloridaLiquorLicensePage() {
           </div>
           <div className="seo-market-hero-grid">
             <div>
-              <span className="seo-market-kicker">Florida Liquor License Financing Guide</span>
-              <h1>How to Finance a Florida Liquor License</h1>
+              <span className="seo-market-kicker">Florida Quota Liquor License Financing Guide</span>
+              <h1>How to Finance a Florida Quota Liquor License</h1>
               <p>
-                Transferable Florida quota liquor licenses can have substantial stand-alone market value, but financing them is different from financing real estate, equipment or ordinary business assets. This guide explains which licenses are commonly financeable, why banks often avoid the collateral, who private lenders are, and what borrowers should expect from underwriting, rates and terms.
+                Transferable Florida 4COP and 3PS quota liquor licenses can have substantial stand-alone market value, but financing them is different from financing real estate, equipment or ordinary business assets. This guide explains private lenders, seller financing, promissory notes, security interests, ABT-6022 recording, underwriting, rates and terms.
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/private-liquor-license-lenders">Private Lenders</Link>
@@ -247,7 +263,7 @@ export default function HowToFinanceFloridaLiquorLicensePage() {
 
       <section className="seo-market-faq">
         <div className="seo-market-shell">
-          <div className="seo-market-section-heading"><div><span className="seo-market-section-kicker">Financing Questions</span><h2>Florida liquor license financing FAQ</h2></div></div>
+          <div className="seo-market-section-heading"><div><span className="seo-market-section-kicker">Financing Questions</span><h2>Florida quota liquor license financing FAQ</h2></div></div>
           <div className="seo-market-faq-list">
             {faqs.map((faq) => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}
           </div>
