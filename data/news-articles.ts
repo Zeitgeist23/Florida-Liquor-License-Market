@@ -168,40 +168,67 @@ export const NEWS_ARTICLES: NewsArticle[] = [
   {
     slug: "florida-quota-drawing-season-what-applicants-should-watch-next",
     eyebrow: "2026 Quota Drawing",
-    title: "2026 Florida quota drawing entry period is open",
-    date: "August 17, 2026",
-    publishedDate: "2026-08-17",
+    title: "Florida Announces 63 Quota Liquor Licenses Across 30 Counties for the 2026 Drawing",
+    date: "August 19, 2026",
+    publishedDate: "2026-08-19",
+    reviewedDate: "2026-08-25",
     summary:
-      "DBPR's 2026 quota drawing entry period runs from August 17 through September 30, 2026, with 63 quota licenses available across 30 Florida counties.",
+      "Florida DBPR announced 63 quota beverage licenses across 30 counties for the 2026 drawing. Entries close September 30, 2026 at 5 p.m. EDT.",
     intro:
-      "Florida's annual quota drawing is one of the most closely watched events in the state's liquor-license market. DBPR's 2026 announcement lists 63 quota licenses across 30 counties and states that entries are accepted from August 17, 2026 at 12:00 a.m. EST through September 30, 2026 at 5:00 p.m. EST.",
+      "Florida's Department of Business and Professional Regulation announced on August 19, 2026 that 63 quota beverage licenses are available across 30 counties for the 2026 drawing entry period. The official notice states that the entry period began August 17, and DBPR will accept entries through September 30, 2026 at 5 p.m. EDT.",
     sections: [
       {
-        heading: "2026 entry-period details",
+        heading: "What Florida announced for the 2026 quota drawing",
         paragraphs: [
-          "The official announcement identifies the counties and number of quota licenses available in each. The entry fee is $100 per application, and applicants should use the current filing route and form specified by DBPR.",
-          "The drawing process is administrative and county-specific. Applicants should rely on the 2026 DBPR announcement and current requirements rather than prior-year dates or assumptions about county availability."
+          "DBPR says the 2026 entry period makes 63 quota beverage licenses available across 30 Florida counties. The annual process awards selected entrants the opportunity to apply for a newly available license in the county entered.",
+          "Selection is not the same as license issuance. A selected entrant must still submit the required application, qualify under Florida law and complete the Division's licensing process."
         ],
         bullets: [
-          "Entry opens August 17, 2026 at 12:00 a.m. EST.",
-          "Entry closes September 30, 2026 at 5:00 p.m. EST.",
-          "DBPR lists 63 quota licenses across 30 counties.",
-          "Review the current ABT-6033 entry form and instructions.",
-          "Verify the $100 entry fee and filing method before submission.",
-          "Keep a copy of the completed entry and proof of submission."
+          "Official press release date: August 19, 2026.",
+          "Entry deadline: September 30, 2026 at 5 p.m. EDT.",
+          "Available licenses: 63 across 30 counties.",
+          "Drawing date: to be announced by DBPR after the entry period closes.",
+          "Selection gives an entrant the right to apply; it does not itself issue a license."
         ]
       },
       {
-        heading: "Why the drawing matters to the market",
+        heading: "2026 licenses available by county",
         paragraphs: [
-          "New quota licenses can add supply in individual counties, so drawing activity is relevant not only to applicants but also to existing license owners, buyers, lenders and brokers following county-level scarcity.",
-          "FLLM tracks drawing developments alongside current listings, county market information and DBPR public records so users can evaluate the drawing in the broader context of the Florida liquor-license market."
+          "The official 2026 notice identifies the following county allocations. The allocations total 63 licenses in 30 counties."
+        ],
+        bullets: [
+          "5 licenses each: Dade and Polk.",
+          "4 licenses each: Broward and Osceola.",
+          "3 licenses each: Brevard, Duval, Hillsborough, Lake, Orange and St. Johns.",
+          "2 licenses each: Charlotte, Lee, Manatee, Marion, Palm Beach, Pasco and Volusia.",
+          "1 license each: Alachua, Collier, Flagler, Franklin, Jackson, Leon, Okaloosa, Santa Rosa, Sarasota, St. Lucie, Sumter, Suwannee and Walton."
+        ]
+      },
+      {
+        heading: "What applicants should do before the deadline",
+        paragraphs: [
+          "Applicants should use DBPR's current online portal and instructions, choose the county carefully and retain proof of submission. The official notice lists a $100 nonrefundable entry fee for each county-specific entry.",
+          "Because entry rules, forms and filing systems can change, applicants should verify the current DBPR materials immediately before filing rather than relying on a prior-year drawing guide."
+        ],
+        bullets: [
+          "Review the current ABT-6033 entry form and DBPR instructions.",
+          "Confirm the applicant name, entity information and selected county before filing.",
+          "Verify the $100 fee and online filing route.",
+          "Submit before 5 p.m. EDT on September 30, 2026.",
+          "Keep the completed entry and payment confirmation."
+        ]
+      },
+      {
+        heading: "Why the 2026 drawing matters to the Florida liquor-license market",
+        paragraphs: [
+          "New quota licenses add supply at the county level. The effect is not uniform statewide: a county receiving five new licenses may experience a different market response than a county receiving one, while counties absent from the notice receive no new drawing supply from this entry period.",
+          "FLLM tracks the drawing alongside current listings, county asking-price data and DBPR records. Drawing availability is market context, not a substitute for a license appraisal, legal review or transaction-specific due diligence."
         ]
       }
     ],
     officialSourceUrl:
-      "https://www2.myfloridalicense.com/abt/documents/ABT2026QuotaEntryPeriodAnnouncement.pdf",
-    officialSourceLabel: "Florida DBPR 2026 quota entry-period announcement"
+      "https://www2.myfloridalicense.com/florida-dbpr-announces-quota-beverage-licenses-2026-entry-period/",
+    officialSourceLabel: "Florida DBPR press release — August 19, 2026"
   },
   {
     slug: "2025-florida-quota-drawing-results-posted",
