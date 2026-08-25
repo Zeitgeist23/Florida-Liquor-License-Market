@@ -148,6 +148,41 @@
   color: #fff;
 }
 
+.property-chattel-legal-sequence {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding-left: 22px;
+  color: #c9d4dc;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.property-chattel-legal-sequence li {
+  padding-left: 4px;
+}
+
+.property-chattel-legal-sequence li::marker {
+  color: #f6a700;
+  font-weight: 900;
+}
+
+.property-chattel-legal-sequence strong {
+  color: #fff;
+}
+
+.property-chattel-legal-sequence a {
+  color: #f6c453;
+  font-weight: 800;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.property-chattel-legal-sequence a:hover,
+.property-chattel-legal-sequence a:focus-visible {
+  color: #fff;
+}
+
 .property-chattel-explainer aside {
   align-self: start;
   padding: 17px;
