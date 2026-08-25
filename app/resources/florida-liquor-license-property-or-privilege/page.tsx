@@ -14,7 +14,7 @@ const canonicalUrl = `${siteUrl}/resources/florida-liquor-license-property-or-pr
 export const metadata: Metadata = {
   title: "Is a Florida Liquor License Property or a Privilege? | FLLM",
   description:
-    "Understand why Florida liquor licenses can be treated as regulatory privileges while quota licenses also have transferable economic and property-like characteristics in private transactions.",
+    "Learn why Florida quota liquor licenses have property-like value, and how lenders record liens or security interests using ABT-6022 under sections 561.32 and 561.65.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
@@ -23,13 +23,16 @@ export const metadata: Metadata = {
     "Florida quota liquor license property rights",
     "Florida liquor license transfer law",
     "Florida liquor license lien",
+    "Florida liquor license security interest",
+    "ABT-6022",
+    "Florida liquor license lien search",
   ],
   openGraph: {
     type: "article",
     url: canonicalUrl,
     title: "Is a Florida Liquor License Property or a Privilege?",
     description:
-      "FLLM explains the difference between regulatory use rights and the economic, transferable characteristics of Florida quota liquor licenses.",
+      "FLLM explains regulatory use rights, transferable economic value, and the Florida process for recording a lien or security interest in a quota liquor license.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -41,7 +44,7 @@ export default function FloridaLiquorLicensePropertyOrPrivilegePage() {
       "@type": "Article",
       headline: "Is a Florida Liquor License Property or a Privilege?",
       description:
-        "An FLLM legal and market explainer on the regulatory privilege and private economic characteristics of Florida liquor licenses.",
+        "An FLLM legal and market explainer on the regulatory privilege, private economic characteristics, and statutory lien-recording process for Florida liquor licenses.",
       mainEntityOfPage: canonicalUrl,
       publisher: {
         "@type": "Organization",
@@ -56,6 +59,36 @@ export default function FloridaLiquorLicensePropertyOrPrivilegePage() {
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
         { "@type": "ListItem", position: 2, name: "Resources", item: `${siteUrl}/resources` },
         { "@type": "ListItem", position: 3, name: "Property or Privilege", item: canonicalUrl },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "How is a security interest in a Florida quota liquor license recorded?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Section 561.65 requires the lien or security interest in a spirituous alcoholic-beverage license to be recorded with the Florida Division of Alcoholic Beverages and Tobacco within 90 days after creation. ABT-6022 is the Division form used to record a lien or mortgagee's interest.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How long does a recorded Florida liquor-license lien remain effective?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "A lien or security interest filed on or after July 1, 1995 expires five years after recordation unless the lienholder renews it during the six months before expiration.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Is a UCC filing alone enough for a Florida liquor-license security interest?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Recording with the Division under section 561.65 is the statutory method for perfecting an interest against the spirituous alcoholic-beverage license. Whether a separate UCC filing is appropriate for other transaction collateral or obligations depends on the documents and legal context.",
+          },
+        },
       ],
     },
   ];
@@ -149,6 +182,84 @@ export default function FloridaLiquorLicensePropertyOrPrivilegePage() {
           <p>
             The distinction between economic ownership concepts and regulatory use rights should not be read to bypass Florida transfer law. Section 561.32 states that Beverage Law licenses are not transferable except as provided by statute and requires Division approval of the purchaser in a qualifying transfer. Transaction documents should therefore distinguish contractual or security interests from the regulatory steps required to complete a transfer or exercise license privileges.
           </p>
+        </section>
+
+        <section className="property-lien-guide" aria-labelledby="property-lien-guide-title">
+          <div className="property-lien-guide-heading">
+            <span>Practical lender and seller-financing guide</span>
+            <h2 id="property-lien-guide-title">How to record and protect a security interest in a Florida quota liquor license</h2>
+            <p>
+              Florida uses a specialized statutory recording system for liens and security interests in spirituous alcoholic-beverage licenses. The following is a general roadmap; transaction documents, additional collateral, priority, enforcement, and borrower or lender qualifications may require advice from Florida counsel.
+            </p>
+          </div>
+
+          <ol className="property-lien-steps">
+            <li>
+              <span>01</span>
+              <div>
+                <h3>Create transaction-specific loan and security documents</h3>
+                <p>The promissory note and security agreement should identify the parties, the covered license, the secured obligation, and the agreed remedies. The documents should be dated and executed consistently with the contemplated filing.</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <h3>Record ABT-6022 within 90 days</h3>
+                <p>Section 561.65 requires the party holding the lien or security interest to record it with the Division within 90 days after its creation. DBPR identifies <strong>ABT-6022</strong> as the form for recording a lien or mortgagee&apos;s interest, assignment, assumption, renewal, or extension involving a qualifying spirituous alcoholic-beverage license. The statutory recording fee is <strong>$10</strong>.</p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <h3>Address disclosure and Beverage Law qualifications</h3>
+                <p>Section 561.32 treats a person holding a security interest as indirectly interested in the license. The interest must be disclosed to the Division, and the secured party is subject to Beverage Law qualifications as a precondition to enforcement.</p>
+              </div>
+            </li>
+            <li>
+              <span>04</span>
+              <div>
+                <h3>Search the Division&apos;s lien records</h3>
+                <p>ABT-6023 can be used to request the Division&apos;s search for recorded liens or mortgagee interests. Section 561.65 sets the lien-search fee at <strong>$20</strong>. A transaction may also call for UCC, tax, judgment, litigation, and other public-record searches because an ABT search answers only part of the due-diligence question.</p>
+              </div>
+            </li>
+            <li>
+              <span>05</span>
+              <div>
+                <h3>Evaluate whether other filings are appropriate</h3>
+                <p>Division recording under section 561.65 is the statutory method for perfecting an interest against the license. A separate UCC filing may still be appropriate when the security package covers other collateral or when counsel determines that an additional filing is prudent. The correct filing strategy depends on the complete transaction—not only the license.</p>
+              </div>
+            </li>
+            <li>
+              <span>06</span>
+              <div>
+                <h3>Calendar the five-year expiration and enforcement requirements</h3>
+                <p>Liens and security interests filed on or after July 1, 1995 expire five years after recordation unless renewed during the six months before expiration. Foreclosure, enforcement, operation, or transfer of the license remains subject to sections 561.32 and 561.65, Division authorization, and applicable qualification requirements.</p>
+              </div>
+            </li>
+          </ol>
+
+          <div className="property-lien-actions" aria-label="Florida liquor license lien and financing resources">
+            <Link href="/resources/forms/abt-6022">
+              <span>Record an interest</span>
+              <strong>Open FLLM&apos;s ABT-6022 workspace</strong>
+              <small>Review, complete, download, and print the current official form.</small>
+            </Link>
+            <Link href="/resources/forms/abt-6023">
+              <span>Check recorded interests</span>
+              <strong>Open FLLM&apos;s ABT-6023 lien-search workspace</strong>
+              <small>Prepare a request for the Division&apos;s alcoholic-beverage lien records.</small>
+            </Link>
+            <Link href="/how-to-finance-florida-liquor-license">
+              <span>Transaction planning</span>
+              <strong>Review the Florida liquor-license financing guide</strong>
+              <small>Understand collateral value, underwriting, lenders, rates, and structure.</small>
+            </Link>
+            <Link href="/florida-liquor-license-court-decisions#selected-decisions">
+              <span>Legal context</span>
+              <strong>Review Florida lien and security-interest decisions</strong>
+              <small>See McGurn, Walling, Flanigan&apos;s, and other selected decisions.</small>
+            </Link>
+          </div>
         </section>
 
         <section className="news-article-section" aria-labelledby="sources-heading">
