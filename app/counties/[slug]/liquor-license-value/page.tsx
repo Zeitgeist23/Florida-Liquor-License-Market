@@ -10,6 +10,7 @@ import {
   isCountyValuationGuide,
 } from "@/data/county-valuation-guides";
 import { getCountyBySlug } from "@/data/florida-counties";
+import { getHistoricalAskingPricesByCounty } from "@/data/historical-asking-prices";
 import type { Listing } from "@/data/listings";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
@@ -17,6 +18,7 @@ import { getVisibleMarketplaceListings } from "@/lib/visible-marketplace-listing
 import "@/app/resources/forms/abt-forms.css";
 import "./appraisal-link.css";
 import "./county-value-page.css";
+import "./historical-asking-prices.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const licenseTypes: Listing["type"][] = ["4COP Quota", "3PS Quota / Package Store"];
@@ -54,6 +56,23 @@ function isComparable(listing: Listing): listing is Comparable {
   return Boolean(listing.sourceRef) && listing.price !== null && Number.isFinite(listing.price);
 }
 
+function shortDate(value: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${value}T00:00:00Z`));
+}
+
+function chartDate(value: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${value}T00:00:00Z`));
+}
+
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -88,6 +107,7 @@ export default async function CountyLiquorLicenseValuePage({ params }: PageProps
   if (!county || !isCountyValuationGuide(slug)) notFound();
 
   const marketplaceListings = getVisibleMarketplaceListings(await getMarketplaceListings());
+  const historicalAsks = getHistoricalAskingPricesByCounty(county.name);
   const comparables = marketplaceListings
     .filter((listing): listing is Comparable => listing.county === county.name && isComparable(listing))
     .sort((left, right) => left.price - right.price);
@@ -99,6 +119,15 @@ export default async function CountyLiquorLicenseValuePage({ params }: PageProps
   const canonical = `${siteUrl}${countyValuationGuideHref(slug)}`;
   const countyPageHref = `/counties/${county.slug}`;
   const listingsHref = `/listings?county=${encodeURIComponent(county.name)}&status=available`;
+  const historicalPrices = historicalAsks.map((observation) => observation.askingPrice);
+  const historicalLow = historicalPrices.length ? Math.min(...historicalPrices) : null;
+  const historicalHigh = historicalPrices.length ? Math.max(...historicalPrices) : null;
+  const historicalChartPoints = historicalAsks.map((observation, index) => {
+    const x = historicalAsks.length === 1 ? 50 : 8 + (index / (historicalAsks.length - 1)) * 84;
+    const spread = (historicalHigh ?? 0) - (historicalLow ?? 0);
+    const normalized = spread ? (observation.askingPrice - (historicalLow ?? 0)) / spread : 0.5;
+    return { observation, x, y: 76 - normalized * 52 };
+  });
 
   const typeSnapshots = licenseTypes.map((licenseType) => {
     const exact = comparables.filter((listing) => listing.type === licenseType);
@@ -279,6 +308,45 @@ export default async function CountyLiquorLicenseValuePage({ params }: PageProps
           </div>
         )}
       </section>
+
+      {historicalAsks.length ? (
+        <section className="county-value-history" aria-labelledby="county-value-history-title">
+          <div className="page-shell">
+            <div className="county-value-heading">
+              <span>Dated Historical Advertisements</span>
+              <h2 id="county-value-history-title">{county.name} asking-price history</h2>
+              <p>These dated advertisements preserve prior market signals without treating them as current inventory. They are mapped to {county.name} and ordered by the date shown by the source.</p>
+            </div>
+            <div className="county-value-history-grid">
+              <figure className="county-value-history-chart">
+                <figcaption><strong>Advertised asking-price trend</strong><span>{shortDate(historicalAsks[0].listedDate)}–{shortDate(historicalAsks[historicalAsks.length - 1].listedDate)}</span></figcaption>
+                <svg viewBox="0 0 100 100" role="img" aria-label={`${county.name} historical advertised asking prices from ${money(historicalLow)} to ${money(historicalHigh)}`}>
+                  <line x1="8" y1="76" x2="92" y2="76" className="county-value-chart-axis" />
+                  <line x1="8" y1="24" x2="8" y2="76" className="county-value-chart-axis" />
+                  <polyline points={historicalChartPoints.map((point) => `${point.x},${point.y}`).join(" ")} className="county-value-chart-line" />
+                  {historicalChartPoints.map(({ observation, x, y }) => (
+                    <g key={observation.id}>
+                      <circle cx={x} cy={y} r="2.4" className="county-value-chart-point" />
+                      <text x={x} y={Math.max(10, y - 6)} textAnchor="middle" className="county-value-chart-price">{money(observation.askingPrice)}</text>
+                      <text x={x} y="87" textAnchor="middle" className="county-value-chart-date">{chartDate(observation.listedDate)}</text>
+                    </g>
+                  ))}
+                </svg>
+              </figure>
+              <div className="county-value-history-list" aria-label="Historical asking-price observations">
+                {historicalAsks.map((observation) => (
+                  <article key={observation.id}>
+                    <div><span>{shortDate(observation.listedDate)}</span><strong>{money(observation.askingPrice)}</strong></div>
+                    <p>{observation.licenseType} historical advertisement</p>
+                    <a href={observation.sourceUrl} target="_blank" rel="noreferrer">View source page ↗</a>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <aside className="county-value-history-disclosure"><strong>How to read this history:</strong> these are advertised asking prices, not verified sale prices. The source pages do not disclose license numbers, so separate ads may concern the same quota license or a repriced offering. FLLM therefore does not use these records to increase active inventory or imply distinct ownership.</aside>
+          </div>
+        </section>
+      ) : null}
 
       <section className="county-value-explainer">
         <div className="page-shell county-value-explainer-grid">
