@@ -91,4 +91,15 @@ export const latestListings: Listing[] = [
   { county: "Pasco County", type: "3PS Quota / Package Store", price: 325000, priceLabel: "$325,000", sourceRef: "FLLM-181", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/pasco-county-3ps-quota-liquor-license-for-sale-beer-wine-and-spirits/2539265/", note: brokerNote, image: "/assets/listing-lee.png" },
   { county: "Duval County", type: "4COP Quota", price: 799000, priceLabel: "$799,000", sourceRef: "FLLM-182", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-opportunity/4cop-quota-liquor-license-for-sale-in-duval-county-fl/2534883/", note: brokerNote, image: "/assets/listing-lee.png" },
   { county: "Sarasota County", type: "4COP Quota", price: 700000, priceLabel: "$700,000", sourceRef: "FLLM-183", sourceName: "Liquor License Auctioneers", sourceUrl: "https://liquorlicenseauctioneers.com/liquor-license/4cop3ps-sarasota-a3306", note: brokerNote, image: "/assets/listing-sarasota.png" },
+  {
+    county: "St. Johns County",
+    type: "4COP Quota",
+    price: 625000,
+    priceLabel: "$625,000",
+    sourceRef: "FLLM-184",
+    sourceName: "BizBuySell",
+    sourceUrl: "https://www.bizbuysell.com/florida/miscellaneous-restaurant-and-bars-business-assets-for-sale/",
+    note: "External BizBuySell advertisement. Advertised at $625,000 with the seller paying the transfer fee. The public advertisement does not disclose a license number, so possible overlap with other St. Johns County advertisements has not been independently ruled out. Availability, price, identity and terms are subject to confirmation with the source.",
+    image: "/assets/listing-lee.png",
+  },
 ];
