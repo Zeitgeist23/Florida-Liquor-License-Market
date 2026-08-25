@@ -11,7 +11,7 @@ const canonicalUrl = `${siteUrl}/self-directed-ira-liquor-license-lending`;
 export const metadata: Metadata = {
   title: "Self-Directed IRA Liquor License Lending | Florida 4COP & 3PS",
   description:
-    "Learn how a self-directed Traditional or Roth IRA may be used for third-party private lending tied to Florida liquor license transactions, and explore FLLM's flat-fee administrative IRA setup assistance.",
+    "Learn how a self-directed IRA may make an unrelated third-party Florida liquor-license loan, including notes, security agreements, chattel mortgages, and lien recording.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Self-Directed IRA Lending for Florida Liquor License Financing",
     description:
-      "An educational guide to self-directed IRA private lending for Florida 4COP and 3PS quota license transactions, plus administrative setup assistance.",
+      "An educational guide to self-directed IRA private lending, loan documentation, and collateral protection for Florida 4COP and 3PS quota-license transactions.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -30,9 +30,9 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
     "@type": "Article",
     headline: "Self-Directed IRA Lending for Florida Liquor License Financing",
     description:
-      "An educational guide to self-directed IRA private lending for unrelated third-party Florida 4COP and 3PS quota liquor license purchases and refinances.",
+      "An educational guide to self-directed IRA private lending, security agreements, and collateral protection for unrelated third-party Florida 4COP and 3PS quota-license transactions.",
     datePublished: "2026-08-19",
-    dateModified: "2026-08-19",
+    dateModified: "2026-08-25",
     mainEntityOfPage: canonicalUrl,
     author: { "@type": "Organization", name: "Florida Liquor License Market" },
     publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -86,6 +86,11 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
         .ira-rules li::before{content:"•";position:absolute;left:17px;top:12px;color:#ffb400;font-size:28px;line-height:1;font-weight:900}
         .ira-example{margin-top:24px;padding:24px;border:1px solid rgba(246,167,0,.3);border-radius:13px;background:#fff;box-shadow:0 10px 24px rgba(7,26,58,.08)}
         .ira-example h3{margin:0 0 10px;color:#071a3a;font-size:22px}.ira-example p{margin:0;color:#465669;font-size:16px;line-height:1.7}
+        .ira-chattel-guide{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:18px;margin-top:24px;padding:26px;border:1px solid rgba(246,167,0,.38);border-radius:14px;background:linear-gradient(145deg,#0a2237,#04111c);box-shadow:0 14px 30px rgba(7,26,58,.15)}
+        .ira-chattel-guide h3{margin:0 0 10px;color:#fff;font-size:24px;line-height:1.25}.ira-chattel-guide p{margin:0;color:#dce5ec;font-size:16px;line-height:1.72}.ira-chattel-guide p+p{margin-top:11px}.ira-chattel-guide strong{color:#ffb400}
+        .ira-chattel-example{align-self:start;padding:20px;border:1px solid rgba(246,167,0,.52);border-radius:11px;background:rgba(255,255,255,.06)}
+        .ira-chattel-example>span{display:block;color:#f6a700;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.ira-chattel-example h4{margin:7px 0 9px;color:#fff;font-size:19px;line-height:1.3}.ira-chattel-example p{color:#d7e0e7;font-size:14px;line-height:1.65}
+        .ira-chattel-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.ira-chattel-links a{display:inline-flex;align-items:center;min-height:42px;padding:0 15px;border:1px solid rgba(246,167,0,.52);border-radius:5px;color:#ffbd21;font-size:12px;font-weight:900;text-decoration:none}.ira-chattel-links a:hover{border-color:#ffbd21;background:rgba(246,167,0,.08)}
         .ira-warning{margin-top:24px;padding:22px 24px;border-left:4px solid #f6a700;border-radius:0 10px 10px 0;background:rgba(255,255,255,.08);color:#e7edf3!important;font-size:17px;line-height:1.75;font-weight:500;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
         .ira-warning strong{color:#ffbf2f!important;font-weight:800}
         .ira-source-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
@@ -106,7 +111,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
         .ira-admin-boundary strong{color:#071a3a}
         .ira-lending-guide-page .seo-market-counties{background:linear-gradient(145deg,#0a2237 0%,#020b12 74%);border-top:1px solid rgba(246,167,0,.38);border-bottom:1px solid rgba(246,167,0,.38)}
         .ira-lending-guide-page .seo-market-counties h2{color:#fff}
-        @media(max-width:820px){.ira-grid,.ira-rules,.ira-setup-service{grid-template-columns:1fr}.ira-card h3{font-size:20px}.ira-card p{font-size:16px}.ira-steps li{padding-left:60px}.ira-warning{padding:18px;font-size:15px;line-height:1.7}.ira-setup-service{padding:20px}.ira-setup-price>strong{font-size:42px}}
+        @media(max-width:820px){.ira-grid,.ira-rules,.ira-setup-service,.ira-chattel-guide{grid-template-columns:1fr}.ira-card h3{font-size:20px}.ira-card p{font-size:16px}.ira-steps li{padding-left:60px}.ira-warning{padding:18px;font-size:15px;line-height:1.7}.ira-setup-service,.ira-chattel-guide{padding:20px}.ira-setup-price>strong{font-size:42px}}
       `}</style>
 
       <div className="abt-header-wrap">
@@ -193,6 +198,35 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
             <li><strong>Document and fund through the IRA.</strong> If approved, the retirement account — not the IRA owner personally — funds the loan, and the note and related documents are titled for the IRA in the form required by the custodian.</li>
             <li><strong>Direct payments back to the IRA.</strong> Principal and interest are paid to the IRA account according to the loan documents and custodian procedures.</li>
           </ol>
+        </div>
+      </section>
+
+      <section className="seo-market-intro" id="license-backed-collateral-documents">
+        <div className="seo-market-shell">
+          <span className="seo-market-section-kicker">License-Backed Loan Documents</span>
+          <h2>How a “chattel mortgage” can fit into a Florida quota-license loan</h2>
+          <div className="ira-chattel-guide">
+            <div>
+              <h3>The note creates the debt; the security agreement identifies the collateral.</h3>
+              <p>
+                A private loan may include a promissory note and a separate security agreement—sometimes traditionally titled a <em>chattel mortgage</em>—that identifies the quota license as collateral and states the borrower&apos;s covenants and the lender&apos;s contractual remedies. The agreement may restrict an unauthorized sale, assignment, lease, additional lien, or other disposition while the loan remains outstanding.
+              </p>
+              <p>
+                A Florida quota liquor license is a regulated <strong>general intangible</strong>, not ordinary physical chattel. The agreement does not give the IRA owner or custodian a right to operate under the license, and signing it does not by itself prove that the lender&apos;s interest was recorded or perfected.
+              </p>
+              <div className="ira-chattel-links">
+                <Link href="/resources/florida-liquor-license-property-or-privilege#chattel-mortgage">Read FLLM&apos;s Complete Chattel-Mortgage Guide</Link>
+                <Link href="/resources/forms/abt-6022">Open the ABT-6022 Workspace</Link>
+              </div>
+            </div>
+            <aside className="ira-chattel-example">
+              <span>Anonymized illustration</span>
+              <h4>A $200,000 IRA-owned private loan</h4>
+              <p>
+                A properly titled retirement account funds a $200,000 loan to an unrelated borrower purchasing or refinancing a Florida 4COP quota license. The borrower signs the note and security agreement, the custodian holds the investment for the IRA, and payments return to the IRA. Separate Division recording, qualification, priority, and enforcement requirements still apply.
+              </p>
+            </aside>
+          </div>
         </div>
       </section>
 

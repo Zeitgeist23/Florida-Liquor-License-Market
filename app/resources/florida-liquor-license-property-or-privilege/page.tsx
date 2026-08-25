@@ -89,6 +89,14 @@ export default function FloridaLiquorLicensePropertyOrPrivilegePage() {
             text: "Recording with the Division under section 561.65 is the statutory method for perfecting an interest against the spirituous alcoholic-beverage license. Whether a separate UCC filing is appropriate for other transaction collateral or obligations depends on the documents and legal context.",
           },
         },
+        {
+          "@type": "Question",
+          name: "What is a chattel mortgage in a Florida quota liquor-license loan?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "A document titled a chattel mortgage may function as the security agreement that grants the lender a security interest in the license-related collateral and states the borrower's covenants and remedies. A Florida liquor license is a regulated general intangible, not physical chattel, and the agreement does not by itself perfect the interest or authorize the lender to operate under the license.",
+          },
+        },
       ],
     },
   ];
@@ -193,6 +201,48 @@ export default function FloridaLiquorLicensePropertyOrPrivilegePage() {
             </p>
           </div>
 
+          <div className="property-chattel-explainer" id="chattel-mortgage">
+            <div>
+              <span>Traditional loan-document terminology</span>
+              <h3>What is a security agreement or “chattel mortgage”?</h3>
+              <p>
+                In a license-backed loan, a document titled <em>Security Agreement</em>, <em>Chattel Mortgage</em>, or both may be used to grant the lender a contractual security interest in identified collateral. It commonly connects the borrower&apos;s repayment obligations under a promissory note to the lender&apos;s collateral rights and states the borrower&apos;s warranties, covenants, transfer restrictions, default provisions, and remedies.
+              </p>
+              <p>
+                The traditional title should not be read to mean that a Florida quota liquor license is an ordinary piece of physical chattel. Florida decisions describe the license as a regulated <strong>general intangible</strong>. The paper certificate is evidence of the license; it is not the license itself.
+              </p>
+            </div>
+            <aside>
+              <strong>Regulatory boundary</strong>
+              <p>
+                The agreement can create contractual collateral rights, but it does not by itself record or perfect the interest, transfer the license, or authorize the lender to sell alcoholic beverages. Recording, enforcement, foreclosure, operation, and transfer remain subject to Florida Beverage Law, Division procedures, and applicable qualification requirements.
+              </p>
+            </aside>
+          </div>
+
+          <div className="property-document-anatomy" aria-label="Anatomy of a Florida liquor license backed loan">
+            <article>
+              <span>Loan obligation</span>
+              <h3>Promissory note</h3>
+              <p>States the principal, interest, payment schedule, maturity, balloon terms, late charges, default provisions, and other repayment obligations.</p>
+            </article>
+            <article>
+              <span>Collateral contract</span>
+              <h3>Security agreement or chattel mortgage</h3>
+              <p>Identifies the license and secured obligations and may restrict an unauthorized sale, assignment, lease, additional lien, or other disposition.</p>
+            </article>
+            <article>
+              <span>Division record</span>
+              <h3>ABT-6022 filing</h3>
+              <p>Records the lien or mortgagee&apos;s interest with the Division under section 561.65. The security agreement alone is not proof of statutory perfection.</p>
+            </article>
+            <article>
+              <span>Default process</span>
+              <h3>Enforcement and approved transfer</h3>
+              <p>Collateral remedies must follow the governing documents, judicial procedures where required, and the Division&apos;s qualification and transfer rules.</p>
+            </article>
+          </div>
+
           <ol className="property-lien-steps">
             <li>
               <span>01</span>
@@ -237,6 +287,15 @@ export default function FloridaLiquorLicensePropertyOrPrivilegePage() {
               </div>
             </li>
           </ol>
+
+          <div className="property-chattel-example">
+            <span>Anonymized educational example</span>
+            <h3>How a $200,000 license-backed loan could be documented</h3>
+            <p>
+              An investor or properly titled retirement account funds a $200,000 loan to an unrelated borrower acquiring or refinancing a transferable Florida 4COP quota liquor license. The borrower signs a promissory note and a security agreement—sometimes titled a chattel mortgage—that identifies the license as collateral and restricts unauthorized transfers or additional encumbrances. The lender then takes the separate steps required to record and protect the interest with the Division. The exact documents, lien priority, additional filings, default remedies, and qualification issues must be evaluated for the particular transaction.
+            </p>
+            <small>This hypothetical is not a loan offer, legal form, investment recommendation, or representation that any particular document or transaction is enforceable.</small>
+          </div>
 
           <div className="property-lien-actions" aria-label="Florida liquor license lien and financing resources">
             <Link href="/resources/forms/abt-6022">
