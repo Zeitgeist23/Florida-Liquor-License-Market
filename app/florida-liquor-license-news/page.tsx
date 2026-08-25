@@ -14,8 +14,8 @@ import "./live-news-monitor.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-news`;
-const pageUpdatedLabel = "August 24, 2026";
-const pageUpdatedIso = "2026-08-24";
+const pageUpdatedLabel = "August 25, 2026";
+const pageUpdatedIso = "2026-08-25";
 
 export const metadata: Metadata = {
   title: "Florida Liquor License News & Current Events | FLLM",
@@ -40,6 +40,16 @@ export const metadata: Metadata = {
 };
 
 const officialUpdates = [
+  {
+    eyebrow: "2026 Quota Drawing",
+    title: "Florida announces 63 quota liquor licenses across 30 counties",
+    date: "August 19, 2026",
+    dateTime: "2026-08-19",
+    copy:
+      "DBPR's 2026 quota drawing entry period offers 63 licenses across 30 counties. Entries close September 30, 2026 at 5 p.m. EDT, and selection gives an entrant the right to apply rather than an issued license.",
+    href: "/florida-liquor-license-news/florida-quota-drawing-season-what-applicants-should-watch-next",
+    source: "Florida DBPR / ABT",
+  },
   {
     eyebrow: "Quota Drawing",
     title: "2025 Florida quota drawing results are posted",
@@ -233,22 +243,22 @@ export default function FloridaLiquorLicenseNewsPage() {
 
       <section className="news-feature page-shell" id="current-events" aria-labelledby="current-event-title">
         <div className="news-feature-copy">
-          <span>Current 2026 Development · August 17, 2026</span>
-          <h2 id="current-event-title">2026 Florida quota drawing entry period is open</h2>
+          <span>Current 2026 Development · August 19, 2026</span>
+          <h2 id="current-event-title">Florida announces 63 quota liquor licenses across 30 counties</h2>
           <p>
-            DBPR&apos;s 2026 announcement lists 63 quota licenses across 30 counties. The entry period opened August 17, 2026 and closes September 30, 2026 at 5:00 p.m. EST. Applicants should confirm the official announcement and current ABT-6033 filing instructions before submitting an entry.
+            DBPR&apos;s August 19 announcement confirms 63 quota licenses across 30 counties. Entries close September 30, 2026 at 5 p.m. EDT. Selection provides the right to apply for a license; it does not itself issue one.
           </p>
           <div className="news-feature-actions">
             <Link href="/florida-liquor-license-news/florida-quota-drawing-season-what-applicants-should-watch-next">Read the 2026 FLLM Briefing</Link>
             <Link href="/resources/forms/abt-6033">View ABT-6033 Resources</Link>
           </div>
-          <small className="news-feature-verified">Official DBPR announcement verified August 23, 2026</small>
+          <small className="news-feature-verified">Official DBPR announcement verified August 25, 2026</small>
         </div>
         <div className="news-feature-stat" aria-label="2026 quota drawing summary">
           <small>2026 quota licenses announced</small>
           <strong>63</strong>
           <span>licenses</span>
-          <p>Across 30 Florida counties; entry closes September 30, 2026 at 5:00 p.m. EST.</p>
+          <p>Across 30 Florida counties; entry closes September 30, 2026 at 5 p.m. EDT.</p>
         </div>
       </section>
 
