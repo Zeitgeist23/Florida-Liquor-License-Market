@@ -29,6 +29,11 @@ type StripeEvent = {
 };
 
 async function processPaidCheckout(session: StripeCheckoutSession) {
+  // IRA setup assistance is fulfilled from the Stripe customer details and
+  // remains visible in the FLLM Stripe Dashboard. It is not a marketplace
+  // submission, so it must not enter the listing/appraisal order workflow.
+  if (session.metadata?.product_type === "ira_setup_assistance") return;
+
   const submissionRef =
     session.metadata?.submission_ref || session.client_reference_id || "";
   if (!submissionRef) throw new Error("Stripe session is missing the submission reference.");
