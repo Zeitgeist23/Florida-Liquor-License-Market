@@ -91,10 +91,10 @@ export default function FloridaLiquorLicensePropertyOrPrivilegePage() {
         },
         {
           "@type": "Question",
-          name: "What is a chattel mortgage in a Florida quota liquor-license loan?",
+          name: "Is a Florida liquor license loan a chattel mortgage?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "A document titled a chattel mortgage may function as the security agreement that grants the lender a security interest in the license-related collateral and states the borrower's covenants and remedies. A Florida liquor license is a regulated general intangible, not physical chattel, and the agreement does not by itself perfect the interest or authorize the lender to operate under the license.",
+            text: "Not in the traditional tangible-property sense. The loan is evidenced by a promissory note, and the lender may receive a contractual security interest through a document titled Security Agreement, Chattel Mortgage, or both. Florida law classifies the quota license itself as a regulated general intangible, not tangible chattel. The interest must be recorded with the Division within 90 days under section 561.65, generally using ABT-6022.",
           },
         },
       ],
@@ -203,14 +203,17 @@ export default function FloridaLiquorLicensePropertyOrPrivilegePage() {
 
           <div className="property-chattel-explainer" id="chattel-mortgage">
             <div>
-              <span>Traditional loan-document terminology</span>
-              <h3>What is a security agreement or “chattel mortgage”?</h3>
+              <span>Document title versus legal classification</span>
+              <h3>Is a Florida liquor license loan a “chattel mortgage”?</h3>
               <p>
-                In a license-backed loan, a document titled <em>Security Agreement</em>, <em>Chattel Mortgage</em>, or both may be used to grant the lender a contractual security interest in identified collateral. It commonly connects the borrower&apos;s repayment obligations under a promissory note to the lender&apos;s collateral rights and states the borrower&apos;s warranties, covenants, transfer restrictions, default provisions, and remedies.
+                <strong>No—not in the traditional tangible-property sense.</strong> A Florida quota liquor-license loan may use an instrument bearing that title, but the document&apos;s title does not change the legal character of the loan or convert the license into physical chattel.
               </p>
-              <p>
-                The traditional title should not be read to mean that a Florida quota liquor license is an ordinary piece of physical chattel. Florida decisions describe the license as a regulated <strong>general intangible</strong>. The paper certificate is evidence of the license; it is not the license itself.
-              </p>
+              <ol className="property-chattel-legal-sequence">
+                <li><strong>The loan is evidenced by a promissory note.</strong> The note states the principal, interest, payment schedule, maturity, default provisions, and repayment obligation.</li>
+                <li><strong>The lender receives a contractual security interest in the quota license.</strong> A security agreement connects the borrower&apos;s obligations under the note to the lender&apos;s collateral rights.</li>
+                <li><strong>The security document may be titled “Security Agreement/Chattel Mortgage.”</strong> The Advanta–Beachway transaction document reviewed by FLLM used that title. That is evidence of drafting terminology—not a controlling legal classification of the license.</li>
+                <li><strong>The license is a regulated general intangible, not tangible chattel.</strong> The Florida Supreme Court made that distinction in <a href="https://law.justia.com/cases/florida/supreme-court/1994/81126-0.html" target="_blank" rel="noopener noreferrer"><em>Walling Enterprises v. Mathias</em></a>. The interest is perfected through Florida&apos;s specialized statutory process by recording with the Division within 90 days under <a href="https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&amp;Search_String=&amp;URL=0500-0599%2F0561%2FSections%2F0561.65.html" target="_blank" rel="noopener noreferrer">section 561.65</a>, generally using ABT-6022. See also <a href="https://law.justia.com/cases/florida/supreme-court/1992/77390-0.html" target="_blank" rel="noopener noreferrer"><em>United States v. McGurn</em></a>.</li>
+              </ol>
             </div>
             <aside>
               <strong>Regulatory boundary</strong>
