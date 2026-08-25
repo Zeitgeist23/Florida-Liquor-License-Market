@@ -15,6 +15,7 @@ import { listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import "@/app/resources/forms/abt-forms.css";
+import "./appraisal-link.css";
 import "./county-value-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -216,6 +217,15 @@ export default async function CountyLiquorLicenseValuePage({ params }: PageProps
           <article><span>Highest Asking Price</span><strong>{money(high)}</strong></article>
         </div>
         <p className="county-value-disclaimer">Asking prices are not verified closing prices. This is market pricing guidance, not an appraisal, broker price opinion, or guarantee of value.</p>
+        {slug === "hillsborough-county" ? (
+          <aside className="county-value-appraisal-link" aria-label="Hillsborough County formal appraisal information">
+            <div>
+              <strong>Need a license-specific conclusion?</strong>
+              <p>For lender, buyer, seller, legal, estate or fiduciary review, FLLM can analyze an identified 3PS or 4COP license using DBPR research, same-county evidence and a signed value reconciliation.</p>
+            </div>
+            <Link href="/florida-liquor-license-appraisal">Review the Florida liquor license appraisal service →</Link>
+          </aside>
+        ) : null}
       </section>
 
       <section className="county-value-types">

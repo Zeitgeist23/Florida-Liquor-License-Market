@@ -229,6 +229,7 @@ export default function HowToSellFloridaLiquorLicensePage() {
                 <h3>Establish a realistic market-value range</h3>
                 <p>Quota-license prices vary by county, license type, available inventory, asking prices and buyer demand. Use current county-level information as a reference rather than assuming the highest advertised price represents realizable value.</p>
                 <p><Link href="/florida-liquor-license-value">Use the FLLM license value tool →</Link></p>
+                <p><Link href="/florida-liquor-license-appraisal">Need a license-specific report for a lender, legal matter or fiduciary review? Review the Florida liquor license appraisal service →</Link></p>
               </div>
             </article>
             <article className="seller-guide-step">

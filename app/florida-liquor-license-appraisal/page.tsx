@@ -22,7 +22,7 @@ function firstParam(value: string | string[] | undefined) {
 export const metadata: Metadata = {
   title: "Florida Liquor License Appraisal | 4COP & 3PS Valuation",
   description:
-    "Florida liquor license appraisal and valuation for 4COP and 3PS quota licenses, using county-specific comparables, DBPR research, transaction evidence and a reconciled value conclusion.",
+    "Order a license-specific Florida liquor license appraisal for lender, buyer, seller, legal or estate review, with DBPR research and same-county 3PS/4COP evidence.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Florida Liquor License Appraisal | 4COP & 3PS Valuation",
     description:
-      "Florida liquor license appraisal and valuation for a specific 4COP or 3PS quota license using county market evidence, DBPR research and a reconciled value conclusion.",
+      "A license-specific Florida liquor license appraisal and market valuation report for lender, buyer, seller, legal, estate and fiduciary review.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -48,6 +48,12 @@ const reportEvidenceOrder = [
   ["Cross-series quota evidence", "Same-county 3PS and 4COP listings and verified recent sales, shown in separate tables so package-store and consumption-on-premises evidence is not blended without explanation."],
   ["Conversion analysis", "The report evaluates whether the subject quota license may be changed or increased in series, the applicable DBPR application path, premises qualification, fees, timing and approval risk."],
   ["Reconciliation", "The indicated value explains the weight assigned to exact-series evidence, cross-series evidence and verified sale evidence, including any supported conversion adjustment."],
+];
+
+const appraisalServiceHighlights = [
+  ["Lender and collateral review", "A defined intended use, effective date, subject-license verification, market evidence and a signed value reconciliation organized for bank or private-lender review."],
+  ["Buyer, seller and fiduciary decisions", "License-specific support for purchase, sale, estate, legal, accounting and financial-reporting decisions when a general county estimate is not enough."],
+  ["Signed electronic report delivery", "The completed report is delivered electronically as a signed PDF with applicable exhibits after the assignment scope and required subject records are complete."],
 ];
 
 const requiredReportSections = [
@@ -115,22 +121,28 @@ export default async function FloridaLiquorLicenseAppraisalPage({ searchParams }
       description:
         "Florida liquor license appraisal and valuation information for 4COP and 3PS quota licenses, including county comparables, DBPR research, transaction evidence and value reconciliation.",
       datePublished: "2026-08-22",
-      dateModified: "2026-08-24",
+      dateModified: "2026-08-25",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
       about: { "@type": "Thing", name: "Florida liquor license appraisal" },
+      mainEntityOfPage: canonicalUrl,
+      author: { "@type": "Organization", name: "Florida Liquor License Market" },
+      publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
       "@context": "https://schema.org",
       "@type": "Service",
-      name: "Florida Liquor License Appraisal and Valuation Report",
-      serviceType: "Florida quota liquor license appraisal and valuation",
-      provider: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
+      name: "Florida Liquor License Appraisal and Market Valuation Report",
+      description:
+        "A license-specific Florida 3PS or 4COP quota liquor-license appraisal and market valuation report with DBPR research, same-county market evidence and a signed value reconciliation.",
+      serviceType: "Florida quota liquor license appraisal and market valuation",
       areaServed: { "@type": "State", name: "Florida" },
+      provider: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
       url: canonicalUrl,
       offers: {
         "@type": "Offer",
         price: "995",
         priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
         url: `${canonicalUrl}#order-form`,
       },
     },
@@ -162,7 +174,7 @@ export default async function FloridaLiquorLicenseAppraisalPage({ searchParams }
       />
 
       <div className="abt-header-wrap">
-        <FormsSiteHeader primaryActionHref="/florida-liquor-license-value" primaryActionLabel="Check Market Value" />
+        <FormsSiteHeader primaryActionHref="#order-form" primaryActionLabel="Order Appraisal" />
       </div>
 
       <section className="seo-market-hero">
@@ -212,6 +224,30 @@ export default async function FloridaLiquorLicenseAppraisalPage({ searchParams }
               <li>“Does a third party require a credential?” → confirm its appraisal requirements before ordering.</li>
             </ul>
           </aside>
+        </div>
+      </section>
+
+      <section className="appraisal-service-path" aria-labelledby="appraisal-service-path-title">
+        <div className="seo-market-shell">
+          <span className="seo-market-section-kicker">Decision-Ready License Analysis</span>
+          <h2 id="appraisal-service-path-title">When a county estimate is not enough</h2>
+          <p className="appraisal-service-path-lead">
+            A general asking-price range can help orient a transaction. A formal assignment goes further by identifying one subject license, one intended use and one effective date, then reconciling the evidence into a signed conclusion.
+          </p>
+          <div className="appraisal-service-path-grid">
+            {appraisalServiceHighlights.map(([title, text]) => (
+              <article key={title}>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="appraisal-market-examples">
+            <strong>Review county-level evidence that supports the appraisal process:</strong>
+            <Link href="/counties/hillsborough-county/liquor-license-value">Hillsborough County</Link>
+            <Link href="/counties/orange-county/liquor-license-value">Orange County</Link>
+            <Link href="/counties/osceola-county/liquor-license-value">Osceola County</Link>
+          </div>
         </div>
       </section>
 

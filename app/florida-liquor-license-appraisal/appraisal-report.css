@@ -1,3 +1,77 @@
+.appraisal-service-path {
+  padding: 68px 0;
+  border-top: 1px solid #ded7c8;
+  border-bottom: 1px solid #ded7c8;
+  background: #f7f4ed;
+}
+
+.appraisal-service-path h2 {
+  max-width: 820px;
+  margin: 8px 0 14px;
+  color: #132237;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(31px, 4vw, 45px);
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+.appraisal-service-path-lead {
+  max-width: 900px;
+  margin: 0;
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.appraisal-service-path-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+  margin-top: 28px;
+}
+
+.appraisal-service-path-grid article {
+  padding: 23px;
+  border: 1px solid #d4ccbc;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(18, 31, 44, .07);
+}
+
+.appraisal-service-path-grid h3 {
+  margin: 0 0 9px;
+  color: #132237;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+}
+
+.appraisal-service-path-grid p {
+  margin: 0;
+  color: #596574;
+  line-height: 1.65;
+}
+
+.appraisal-market-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: center;
+  margin-top: 24px;
+  padding: 16px 18px;
+  border-left: 4px solid #c69c3d;
+  color: #3e4a58;
+  background: #fff;
+}
+
+.appraisal-market-examples strong {
+  color: #132237;
+}
+
+.appraisal-market-examples a {
+  color: #77530d;
+  font-weight: 800;
+}
+
 .appraisal-standard {
   padding: 68px 0;
   border-top: 1px solid #ded7c8;
@@ -370,6 +444,14 @@
 }
 
 @media (max-width: 760px) {
+  .appraisal-service-path-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .appraisal-market-examples {
+    display: grid;
+  }
+
   .appraisal-evidence-grid,
   .appraisal-report-outline {
     grid-template-columns: 1fr;
