@@ -35,6 +35,9 @@ export default function CourtDecisionsFeature() {
             FLLM presents a neutral transaction-focused summary and the complete filed findings in a scrollable FLLM reader. The document can also be opened or downloaded as an FLLM-formatted PDF without sending the reader to an outside court site.
           </p>
           <div className="news-court-feature-actions">
+            <Link href="/florida-liquor-license-court-decisions">
+              Browse Court Decisions &amp; Case Law
+            </Link>
             <Link href="/florida-liquor-license-news/park-street-trust-florida-quota-license-court-findings">
               Read Findings Inside FLLM
             </Link>

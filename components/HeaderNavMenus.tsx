@@ -106,6 +106,7 @@ const navMenus: NavMenu[] = [
       },
       { href: "/resources/quota-transfer-fee-calculator", label: "Quota License Transfer Fee Calculator" },
       { href: "/resources/liquor-license-attorneys", label: "Liquor License Attorneys" },
+      { href: "/florida-liquor-license-court-decisions", label: "Court Decisions & Case Law" },
       {
         href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
         label: "Florida Division of Alcoholic Beverages",

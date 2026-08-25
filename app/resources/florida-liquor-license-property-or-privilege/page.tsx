@@ -182,6 +182,7 @@ export default function FloridaLiquorLicensePropertyOrPrivilegePage() {
         </div>
 
         <div className="news-article-actions">
+          <Link href="/florida-liquor-license-court-decisions">Browse Florida Liquor License Court Decisions</Link>
           <Link href="/resources/liquor-license-attorneys">Find Florida Liquor License Attorneys</Link>
           <Link href="/resources/liquor-license-attorneys#litigation-appeals">Litigation &amp; Appeals Attorneys</Link>
           <Link href="/florida-liquor-license-news">Florida Liquor License News</Link>
