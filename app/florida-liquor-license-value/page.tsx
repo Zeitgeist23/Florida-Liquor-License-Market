@@ -31,6 +31,11 @@ export const metadata: Metadata = {
 
 const faqs = [
   {
+    question: "How do you value a Florida 4COP quota liquor license?",
+    answer:
+      "A Florida 4COP quota liquor license is valued within its county market by examining current supply and buyer demand, disclosed same-county asking-price comparables, available verified closed transactions, license status and transferability, liens or other encumbrances, transaction terms and relevant population or hospitality-market trends. Because Florida liquor-license sales occur in a thin privately negotiated market, asking prices are evidence rather than confirmed sale prices and should be reconciled with any verifiable transaction data.",
+  },
+  {
     question: "How much is my Florida liquor license worth?",
     answer:
       "There is no single statewide value. Florida quota-license pricing varies by county, license type, current supply, buyer demand, seller timing and transaction terms. FLLM uses disclosed active asking-price comparables to provide a current market range.",
@@ -106,6 +111,34 @@ export default function FloridaLiquorLicenseValuePage() {
           <p>The separate $995 FLLM appraisal covers one identified license, same-county 3PS and 4COP market evidence, available verified recent transactions, conversion analysis and supporting exhibits.</p>
           <Link href="/florida-liquor-license-appraisal#order-form">Review or order the formal appraisal →</Link>
         </aside>
+      </section>
+
+      <section className="value-factors page-shell" aria-labelledby="four-cop-valuation-title">
+        <div className="value-heading">
+          <span>4COP Valuation Guide</span>
+          <h2 id="four-cop-valuation-title">How to value a Florida 4COP quota liquor license</h2>
+          <p className="value-fourcop-summary">
+            A Florida 4COP quota liquor license is valued primarily within its county market. A defensible analysis considers current supply and buyer demand, disclosed same-county asking-price comparables, available verified closed transactions, license status and transferability, liens or other encumbrances, transaction terms, and relevant population or hospitality-market trends. Because Florida liquor-license sales occur in a <strong>thin privately negotiated market</strong>, asking prices are useful market evidence but are not verified closing prices unless independently confirmed.
+          </p>
+        </div>
+        <div className="value-factor-grid">
+          <article>
+            <strong>County market</strong>
+            <p>Quota licenses are county-specific. Available supply, active buyer demand, hospitality activity and population trends can produce materially different values from one Florida county to another.</p>
+          </article>
+          <article>
+            <strong>Comparable evidence</strong>
+            <p>Current disclosed asking prices help establish a market range. Available verified transactions deserve separate consideration because an advertised asking price does not prove the price at which a license closed.</p>
+          </article>
+          <article>
+            <strong>License condition</strong>
+            <p>Series, active or inactive status, transferability, renewal standing, approved county, regulatory history and the ability to complete an intended transfer or change can affect marketability.</p>
+          </article>
+          <article>
+            <strong>Liens and terms</strong>
+            <p>Recorded liens, tax issues, other encumbrances, seller-financing terms, closing timing and transaction contingencies may affect the value and risk of the license interest being analyzed.</p>
+          </article>
+        </div>
       </section>
 
       <div id="estimate" className="value-estimator-wrap">
