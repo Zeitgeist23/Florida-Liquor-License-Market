@@ -9,7 +9,7 @@ import "./attorney-practice-types.css";
 export const metadata: Metadata = {
   title: "Florida Liquor License Attorneys | Litigation & Appeals",
   description:
-    "Find Florida liquor license attorneys for litigation, appeals, DBPR/ABT licensing, transfers, purchase and sale transactions, lien issues, escrow, and closings.",
+    "Browse FLLM's independent Florida liquor license attorney directory for DBPR/ABT licensing, transfers, transactions, litigation, appeals, liens, and closings.",
 };
 
 const faqItems = [
