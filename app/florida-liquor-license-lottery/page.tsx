@@ -13,17 +13,17 @@ const canonicalUrl = `${siteUrl}/florida-liquor-license-lottery`;
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "2026 Florida Liquor License Lottery | Quota Drawing Entry Guide",
+  title: "2026 Florida Liquor License Lottery: 63 Licenses & Deadline",
   description:
-    "See the 2026 Florida quota liquor license drawing counties, available licenses, entry dates, $100 entry fee, ABT-6033 requirements and FLLM form-preparation workspace.",
+    "Enter Florida's 2026 liquor license lottery by September 30. See all 63 quota licenses across 30 counties, the $100 fee, ABT-6033 and official DBPR links.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "2026 Florida Liquor License Lottery & Quota Drawing Entry",
+    title: "2026 Florida Liquor License Lottery: 63 Licenses Across 30 Counties",
     description:
-      "Current 2026 DBPR quota drawing availability, entry rules, county chart and ABT-6033 preparation workspace.",
+      "Current 2026 Florida quota drawing counties, September 30 deadline, entry rules, $100 fee, ABT-6033 workspace and official DBPR links.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -59,6 +59,29 @@ const rules = [
   "DBPR must receive the entry before the published deadline.",
 ] as const;
 
+const lotteryFaqs = [
+  {
+    question: "What is the deadline for the 2026 Florida liquor license lottery?",
+    answer:
+      "DBPR's 2026 quota beverage license drawing entry period closes September 30, 2026 at 5:00 p.m. EDT. DBPR must receive the entry before the published deadline.",
+  },
+  {
+    question: "How many Florida quota liquor licenses are available in 2026?",
+    answer:
+      "DBPR announced 63 quota beverage licenses across 30 Florida counties for the 2026 drawing entry period.",
+  },
+  {
+    question: "What form is used to enter the Florida liquor license lottery?",
+    answer:
+      "The current quota drawing entry form is DBPR ABT-6033. A separate entry is required for each county entered, subject to DBPR's current instructions and eligibility rules.",
+  },
+  {
+    question: "Does winning the Florida liquor license lottery issue the license?",
+    answer:
+      "No. Selection in the drawing establishes the entrant's priority and right to apply for an available quota license. The selected applicant must still qualify under Florida Beverage Law before DBPR can issue the license.",
+  },
+] as const;
+
 export default async function FloridaLiquorLicenseLotteryPage() {
   const sourceStatus = await getQuotaDrawingSourceStatus();
   const maxLicenses = Math.max(...QUOTA_DRAWING_2026.counties.map((item) => item.licenses));
@@ -81,6 +104,18 @@ export default async function FloridaLiquorLicenseLotteryPage() {
         { "@type": "ListItem", position: 2, name: "2026 Quota Lottery Entry", item: canonicalUrl },
       ],
     },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: lotteryFaqs.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
   ];
 
   return (
@@ -97,14 +132,14 @@ export default async function FloridaLiquorLicenseLotteryPage() {
       <section className="quota-hero">
         <div className="page-shell">
           <nav className="quota-breadcrumbs" aria-label="Breadcrumb">
-            <Link href="/">Home</Link><span>›</span><strong>2026 Quota Lottery Entry</strong>
+            <Link href="/">Home</Link><span>›</span><strong>2026 Florida Liquor License Lottery</strong>
           </nav>
           <div className="quota-hero-grid">
             <div>
               <span className="quota-eyebrow">Florida DBPR · 2026 Quota Beverage License Drawing</span>
-              <h1>Florida Liquor License Lottery Entry</h1>
+              <h1>2026 Florida Liquor License Lottery</h1>
               <p>
-                Learn how Florida’s annual quota drawing works, see exactly which counties have new quota licenses available in 2026, and prepare your ABT-6033 entry information through FLLM.
+                Florida&apos;s official 2026 quota drawing offers <strong>63 liquor licenses across 30 counties</strong>. Entries close <strong>September 30, 2026 at 5:00 p.m. EDT</strong>. See every eligible county, review the $100 entry fee and prepare your ABT-6033 information through FLLM.
               </p>
               <div className="quota-hero-actions">
                 <a href="#availability">See 2026 County Availability</a>
@@ -223,6 +258,21 @@ export default async function FloridaLiquorLicenseLotteryPage() {
             <a href={QUOTA_DRAWING_2026.businessEntryUrl} target="_blank" rel="noopener noreferrer">DBPR Business Entry ↗</a>
             <a href={QUOTA_DRAWING_2026.officialFormUrl} target="_blank" rel="noopener noreferrer">Official ABT-6033 PDF ↗</a>
           </div>
+        </div>
+      </section>
+
+      <section className="quota-faq page-shell" aria-labelledby="quota-faq-title">
+        <div className="quota-section-heading">
+          <span>2026 lottery questions</span>
+          <h2 id="quota-faq-title">Florida quota drawing answers</h2>
+        </div>
+        <div className="quota-faq-grid">
+          {lotteryFaqs.map((item) => (
+            <article key={item.question}>
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
         </div>
       </section>
 
