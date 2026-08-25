@@ -162,6 +162,22 @@
   padding: 66px 0;
 }
 
+.value-factors {
+  border-top: 1px solid #1f3b4c;
+}
+
+.value-fourcop-summary {
+  max-width: 980px;
+  margin: 0;
+  color: #c6d3da;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.value-fourcop-summary strong {
+  color: #fff;
+}
+
 .value-county-guides { border-top: 1px solid #1f3b4c; }
 .value-county-guides .value-heading > p { margin: 0; color: #b9c9d2; font-size: 14px; line-height: 1.7; }
 .value-county-guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; margin-top: 25px; }
@@ -197,8 +213,8 @@
 .value-factor-grid p {
   margin: 0;
   color: #b8c8d0;
-  font-size: 13px;
-  line-height: 1.65;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 .value-market-links {
