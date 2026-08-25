@@ -205,7 +205,7 @@ export default function AttorneyDirectory() {
               {attorney.services.map((service) => <li key={service}>{service}</li>)}
             </ul>
 
-            <div className="attorney-contact">
+            <div className="attorney-contact" data-nosnippet="">
               <a className="attorney-phone" href={attorney.phoneHref}>
                 <span>Call</span>
                 <strong>{attorney.phone}</strong>
@@ -289,7 +289,7 @@ export default function AttorneyDirectory() {
                 </a>
               )}
 
-              <div className="attorney-modal-actions">
+              <div className="attorney-modal-actions" data-nosnippet="">
                 <a className="btn btn-gold attorney-modal-call" href={selectedAttorney.phoneHref}>
                   <span>Call</span><strong>{selectedAttorney.phone}</strong>
                 </a>
@@ -299,7 +299,11 @@ export default function AttorneyDirectory() {
               </div>
 
               {selectedAttorney.secondaryPhone && selectedAttorney.secondaryPhoneHref && (
-                <a className="attorney-modal-secondary-phone" href={selectedAttorney.secondaryPhoneHref}>
+                <a
+                  className="attorney-modal-secondary-phone"
+                  data-nosnippet=""
+                  href={selectedAttorney.secondaryPhoneHref}
+                >
                   {selectedAttorney.secondaryPhone}
                 </a>
               )}
