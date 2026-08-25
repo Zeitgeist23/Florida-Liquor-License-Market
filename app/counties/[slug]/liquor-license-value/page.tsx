@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
@@ -28,6 +28,10 @@ type PageProps = {
 };
 
 type Comparable = Omit<Listing, "price" | "sourceRef"> & { price: number; sourceRef: string };
+
+function canonicalCountySlug(slug: string) {
+  return slug.endsWith("-county") ? slug.slice(0, -"-county".length) : slug;
+}
 
 function money(value: number | null) {
   if (value === null) return "No disclosed data";
@@ -76,7 +80,8 @@ function chartDate(value: string) {
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug: requestedSlug } = await params;
+  const slug = canonicalCountySlug(requestedSlug);
   const county = getCountyBySlug(slug);
   if (!county || !isCountyValuationGuide(slug)) return {};
 
@@ -102,9 +107,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function CountyLiquorLicenseValuePage({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug: requestedSlug } = await params;
+  const slug = canonicalCountySlug(requestedSlug);
   const county = getCountyBySlug(slug);
   if (!county || !isCountyValuationGuide(slug)) notFound();
+  if (requestedSlug !== slug) permanentRedirect(countyValuationGuideHref(slug));
 
   const marketplaceListings = getVisibleMarketplaceListings(await getMarketplaceListings());
   const historicalAsks = getHistoricalAskingPricesByCounty(county.name);
