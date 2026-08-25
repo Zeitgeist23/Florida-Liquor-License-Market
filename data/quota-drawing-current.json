@@ -1,7 +1,7 @@
 {
   "year": 2026,
-  "entryOpens": "August 17, 2026 at 12:00 A.M. EST",
-  "entryCloses": "September 30, 2026 at 5:00 P.M. EST",
+  "entryOpens": "August 17, 2026 at 12:00 A.M. EDT",
+  "entryCloses": "September 30, 2026 at 5:00 P.M. EDT",
   "totalLicenses": 63,
   "totalCounties": 30,
   "entryFee": 100,
