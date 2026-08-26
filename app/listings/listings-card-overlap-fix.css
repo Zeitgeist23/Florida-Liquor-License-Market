@@ -3,6 +3,14 @@
    Preserve the approved card border and one continuous navy card surface. */
 
 @media (min-width: 761px) {
+  /* Keep the button's closing edge visible above the card's clipped body layer. */
+  .results-page .result-actions .result-view-button {
+    border-right: 1px solid #efaa10 !important;
+    box-shadow:
+      inset -1px 0 0 #efaa10,
+      0 5px 15px rgba(228, 148, 0, .18) !important;
+  }
+
   .results-page .result-card {
     min-height: 330px !important;
     grid-template-columns: minmax(0, 1.18fr) minmax(150px, .82fr) !important;
