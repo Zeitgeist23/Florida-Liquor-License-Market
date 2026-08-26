@@ -74,7 +74,7 @@ function corporateSignatureHtml() {
       </div>
     </div>`;
 }
-function emailShell(content: string) {
+export function emailShell(content: string) {
   return `<!doctype html><html><body style="margin:0;padding:24px;background:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#111111;">
     <div style="max-width:760px;">${content}${corporateSignatureHtml()}</div>
   </body></html>`;
