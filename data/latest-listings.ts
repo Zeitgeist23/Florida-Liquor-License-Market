@@ -102,4 +102,7 @@ export const latestListings: Listing[] = [
     note: "External BizBuySell advertisement. Advertised at $625,000 with the seller paying the transfer fee. The public advertisement does not disclose a license number, so possible overlap with other St. Johns County advertisements has not been independently ruled out. Availability, price, identity and terms are subject to confirmation with the source.",
     image: "/assets/listing-lee.png",
   },
+  { county: "Lee County", type: "4COP Quota", price: 300000, priceLabel: "$300,000", sourceRef: "FLLM-185", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/lee-county-4cop-3ps-quota-liquor-license-for-sale/2543090/", note: brokerNote, image: "/assets/listing-lee.png" },
+  { county: "Duval County", type: "4COP Quota", price: 850000, priceLabel: "$850,000", sourceRef: "FLLM-186", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-opportunity/4cop-quota-liquor-license-for-sale-in-jacksonville-fl/2511916/", note: brokerNote, image: "/assets/listing-lee.png" },
+  { county: "Escambia County", type: "4COP Quota", price: 525000, priceLabel: "$525,000", sourceRef: "FLLM-187", sourceName: "BizBuySell", sourceUrl: "https://www.bizbuysell.com/business-asset/4cop-quota-liquor-license/2480306/", note: brokerNote, image: "/assets/listing-sarasota.png" },
 ];
