@@ -1,7 +1,13 @@
 import type { Listing } from "@/data/listings";
 
 function visibleListingIdentity(listing: Listing) {
-  return `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
+  const sourceRef = listing.sourceRef?.trim().toLowerCase();
+  if (sourceRef) return `source-ref:${sourceRef}`;
+
+  const sourceUrl = listing.sourceUrl?.trim().toLowerCase().replace(/\/+$/, "");
+  if (sourceUrl) return `source-url:${sourceUrl}`;
+
+  return `fallback:${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
 }
 
 export function preservePaidListingIdentity(input: Listing[]): Listing[] {
