@@ -1,11 +1,11 @@
 {
   "year": 2026,
-  "entryOpens": "August 17, 2026 at 12:00 A.M. EDT",
-  "entryCloses": "September 30, 2026 at 5:00 P.M. EDT",
+  "entryOpens": "August 17, 2026 at 12:00 A.M. EST",
+  "entryCloses": "September 30, 2026 at 5:00 P.M. EST",
   "totalLicenses": 63,
   "totalCounties": 30,
   "entryFee": 100,
-  "lastVerified": "August 25, 2026",
+  "lastVerified": "August 26, 2026",
   "sourceNoticeUrl": "https://www2.myfloridalicense.com/abt/documents/ABT2026QuotaEntryPeriodAnnouncement.pdf",
   "counties": [
     {
