@@ -1,10 +1,9 @@
 import "server-only";
 
 import { APPROVED_BROKER_RECIPIENTS } from "@/data/approved-broker-directory";
-import {
-  FLLM_GMAIL_SIGNATURE_CONTENT_ID,
-  FLLM_GMAIL_SIGNATURE_IMAGE_BASE64,
-} from "@/lib/fllm-gmail-signature";
+import { FLLM_GMAIL_SIGNATURE_IMAGE_BASE64 } from "@/lib/fllm-gmail-signature";
+
+const FLLM_SIGNATURE_CID_PLACEHOLDER = "__FLLM_SIGNATURE_CID__";
 import type { ListingSubmission } from "@/lib/listing-submission-store";
 
 
@@ -61,7 +60,7 @@ function corporateSignatureHtml() {
           <tbody>
             <tr>
               <td style="padding-right:16px;vertical-align:middle">
-                <img src="cid:${FLLM_GMAIL_SIGNATURE_CONTENT_ID}" width="108" height="108" alt="Florida Liquor License Market" style="display:block;border:0;width:108px;height:108px">
+                <img src="cid:${FLLM_SIGNATURE_CID_PLACEHOLDER}" width="108" height="108" alt="Florida Liquor License Market" style="display:block;border:0;width:108px;height:108px">
               </td>
               <td style="border-left:2px solid rgb(200,137,8);padding-left:16px;vertical-align:middle">
                 <div style="font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:22px;font-weight:bold;white-space:nowrap">Florida Liquor License Market</div>
@@ -144,6 +143,8 @@ export async function sendFllmEmail(input: {
   }>;
 }) {
   const sender = senderEmail();
+  const signatureContentId = `fllm-signature-${Date.now()}-${Math.random().toString(16).slice(2)}@floridaliquorlicensemarket.com`;
+  const html = input.html.replaceAll(FLLM_SIGNATURE_CID_PLACEHOLDER, signatureContentId);
   const alternativeBoundary = `fllm-alt-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   const relatedBoundary = `fllm-related-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   const mixedBoundary = `fllm-mixed-${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -174,7 +175,7 @@ export async function sendFllmEmail(input: {
     'Content-Type: text/html; charset="UTF-8"',
     "Content-Transfer-Encoding: 8bit",
     "",
-    input.html,
+    html,
     "",
     `--${alternativeBoundary}--`,
     "",
@@ -182,9 +183,9 @@ export async function sendFllmEmail(input: {
     "Content-Type: image/png; name=Florida Liquor License Market",
     "Content-Disposition: attachment; filename=Florida Liquor License Market",
     "Content-Transfer-Encoding: base64",
-    `X-Attachment-Id: ${FLLM_GMAIL_SIGNATURE_CONTENT_ID}`,
+    `X-Attachment-Id: ${signatureContentId}`,
     "X-Attachment-Content-Disposition: inline",
-    `Content-ID: <${FLLM_GMAIL_SIGNATURE_CONTENT_ID}>`,
+    `Content-ID: <${signatureContentId}>`,
     "",
     FLLM_GMAIL_SIGNATURE_IMAGE_BASE64.match(/.{1,76}/g)?.join("\r\n") || "",
     "",
