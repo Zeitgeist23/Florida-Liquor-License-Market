@@ -1,6 +1,10 @@
 import "server-only";
 
 import { APPROVED_BROKER_RECIPIENTS } from "@/data/approved-broker-directory";
+import {
+  FLLM_GMAIL_SIGNATURE_CONTENT_ID,
+  FLLM_GMAIL_SIGNATURE_IMAGE_BASE64,
+} from "@/lib/fllm-gmail-signature";
 import type { ListingSubmission } from "@/lib/listing-submission-store";
 
 
@@ -50,28 +54,27 @@ function corporateSignatureHtml() {
   const origin = siteUrl();
   const sender = senderEmail();
   return `
-    <div style="height:28px;line-height:28px;font-size:28px;">&nbsp;</div>
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;color:#071a3a;border-collapse:collapse;">
-      <tr>
-        <td style="padding-right:16px;vertical-align:middle;">
-          <img src="${origin}/fllm-email-logo.png" width="108" height="108" alt="Florida Liquor License Market" style="display:block;border:0;width:108px;height:108px;">
-        </td>
-        <td style="border-left:2px solid #c88908;padding-left:16px;vertical-align:middle;">
-          <div style="font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:22px;font-weight:bold;color:#071a3a;white-space:nowrap;">Florida Liquor License Market</div>
-          <div style="margin-top:4px;font-size:12px;line-height:17px;font-style:italic;color:#b87300;">Florida’s marketplace for buying, selling and financing liquor licenses</div>
-          <div style="margin-top:9px;font-size:13px;line-height:19px;">
-            <span style="color:#071a3a;">✉</span>&nbsp;
-            <a href="mailto:${sender}" style="color:#071a3a;text-decoration:none;">${sender}</a>
-          </div>
-          <div style="font-size:13px;line-height:19px;">
-            <span style="color:#071a3a;">●</span>&nbsp;
-            <a href="${origin}" style="color:#071a3a;text-decoration:none;">www.floridaliquorlicensemarket.com</a>
-          </div>
-        </td>
-      </tr>
-    </table>`;
+    <div dir="ltr" class="gmail_signature" data-smartmail="gmail_signature">
+      <div dir="ltr">
+        <div style="color:rgb(0,0,0);font-family:'Times New Roman';height:28px;line-height:28px;font-size:28px">&nbsp;</div>
+        <table cellpadding="0" cellspacing="0" border="0" style="font-size:medium;color:rgb(7,26,58);border-collapse:collapse">
+          <tbody>
+            <tr>
+              <td style="padding-right:16px;vertical-align:middle">
+                <img src="cid:${FLLM_GMAIL_SIGNATURE_CONTENT_ID}" width="108" height="108" alt="Florida Liquor License Market" style="display:block;border:0;width:108px;height:108px">
+              </td>
+              <td style="border-left:2px solid rgb(200,137,8);padding-left:16px;vertical-align:middle">
+                <div style="font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:22px;font-weight:bold;white-space:nowrap">Florida Liquor License Market</div>
+                <div style="margin-top:4px;font-size:12px;line-height:17px;font-style:italic;color:rgb(184,115,0)">Florida’s marketplace for buying, selling and financing liquor licenses</div>
+                <div style="margin-top:9px;font-size:13px;line-height:19px">✉&nbsp;&nbsp;<a href="mailto:${sender}" style="color:rgb(7,26,58);text-decoration:none" target="_blank">${sender}</a></div>
+                <div style="font-size:13px;line-height:19px">●&nbsp;&nbsp;<a href="${origin}" style="color:rgb(7,26,58);text-decoration:none" target="_blank">www.floridaliquorlicensemarket.com</a></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>`;
 }
-
 function emailShell(content: string) {
   return `<!doctype html><html><body style="margin:0;padding:24px;background:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#111111;">
     <div style="max-width:760px;">${content}${corporateSignatureHtml()}</div>
@@ -142,6 +145,7 @@ export async function sendFllmEmail(input: {
 }) {
   const sender = senderEmail();
   const alternativeBoundary = `fllm-alt-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const relatedBoundary = `fllm-related-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   const mixedBoundary = `fllm-mixed-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   const headers = [
     `From: Florida Liquor License Market <${sender}>`,
@@ -155,6 +159,9 @@ export async function sendFllmEmail(input: {
   ];
   const alternative = [
     `--${mixedBoundary}`,
+    `Content-Type: multipart/related; boundary="${relatedBoundary}"`,
+    "",
+    `--${relatedBoundary}`,
     `Content-Type: multipart/alternative; boundary="${alternativeBoundary}"`,
     "",
     `--${alternativeBoundary}`,
@@ -170,6 +177,18 @@ export async function sendFllmEmail(input: {
     input.html,
     "",
     `--${alternativeBoundary}--`,
+    "",
+    `--${relatedBoundary}`,
+    "Content-Type: image/png; name=Florida Liquor License Market",
+    "Content-Disposition: attachment; filename=Florida Liquor License Market",
+    "Content-Transfer-Encoding: base64",
+    `X-Attachment-Id: ${FLLM_GMAIL_SIGNATURE_CONTENT_ID}`,
+    "X-Attachment-Content-Disposition: inline",
+    `Content-ID: <${FLLM_GMAIL_SIGNATURE_CONTENT_ID}>`,
+    "",
+    FLLM_GMAIL_SIGNATURE_IMAGE_BASE64.match(/.{1,76}/g)?.join("\r\n") || "",
+    "",
+    `--${relatedBoundary}--`,
   ];
   const attachments = (input.attachments ?? []).flatMap((attachment) => {
     const fileName = attachment.fileName.replace(/["\r\n]/g, "_");
