@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { sendListingApprovedEmail } from "@/lib/fllm-email";
+import { notifyApprovedBrokersOfListing, sendListingApprovedEmail } from "@/lib/fllm-email";
 import { notifyMatchingLicenseAlerts } from "@/lib/license-alert-notifications";
 import {
   approveListingSubmission,
@@ -57,6 +57,7 @@ export async function POST(
     if (!submission) {
       return NextResponse.json({ error: "Submission not found." }, { status: 404 });
     }
+    const isFirstApproval = submission.status === "paid";
     if (submission.status !== "paid" && submission.status !== "approved") {
       return NextResponse.json(
         { error: "This submission cannot be published until Stripe payment is confirmed." },
@@ -122,6 +123,26 @@ export async function POST(
       await notifyMatchingLicenseAlerts(publishedListing, liveListingUrl);
     } catch (error) {
       console.error("Buyer License Alerts failed after listing approval", error);
+    }
+
+    if (isFirstApproval) {
+      try {
+        const brokerResult = await notifyApprovedBrokersOfListing(approved);
+        console.info("Approved broker listing notifications completed", {
+          listingRef: approved.submissionRef,
+          attempted: brokerResult.attempted,
+          sent: brokerResult.sent,
+          failed: brokerResult.failed,
+        });
+        if (brokerResult.failures.length) {
+          console.error("Some approved broker listing notifications failed", {
+            listingRef: approved.submissionRef,
+            failures: brokerResult.failures,
+          });
+        }
+      } catch (error) {
+        console.error("Approved broker listing notifications failed", error);
+      }
     }
 
     const refreshed = await getSubmissionById(approved.id);
