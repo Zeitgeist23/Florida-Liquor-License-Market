@@ -130,7 +130,10 @@ export async function GET(request: Request) {
     });
   }
 
-  let html = injectServerMenus(sourceHtml);
+  let html = injectServerMenus(sourceHtml).replace(
+    'class="report-episodes-link" href="#resources"',
+    'class="report-episodes-link" href="/florida-liquor-license-news"',
+  );
   if (!html.includes('id="live-nav-dropdown-styles"')) html = html.replace("</head>", `${styles}</head>`);
   if (!html.includes('id="live-nav-dropdown-installer"')) html = html.replace("</body>", `${installScript}</body>`);
   if (!html.includes("fllm-all-header-hover-menus")) html = html.replace("</body>", `${supportScripts}</body>`);
