@@ -41,7 +41,6 @@ const navMenus: NavMenu[] = [
     links: [
       { href: "/sell-your-license", label: "Sell Your License" },
       { href: "/how-to-sell-florida-liquor-license", label: "How to Sell a Florida Liquor License" },
-      { href: "/florida-liquor-license-broker", label: "Florida Liquor License Broker" },
       { href: "/florida-liquor-license-value", label: "Get a License Valuation" },
     ],
   },
@@ -85,7 +84,7 @@ const navMenus: NavMenu[] = [
     menuClassName: "native-license-types-menu",
     wrapperClassName: "native-nav-license-types",
     links: [
-      { href: "/resources/florida-liquor-license-types", label: "Florida Liquor License Types" },
+      { href: "/resources/florida-liquor-license-types", label: "Types of Florida Liquor Licenses" },
       { href: "/resources/florida-liquor-license-system", label: "How Florida Liquor Licensing Works" },
       { href: "/license-types/4cop-quota", label: "4COP Quota License" },
       { href: "/license-types/3ps-package-store", label: "3PS Quota / Package Store" },
@@ -114,7 +113,6 @@ const navMenus: NavMenu[] = [
         target: "_blank",
         rel: "noopener noreferrer",
       },
-      { href: "/resources/florida-liquor-license-types", label: "Types of Florida Liquor Licenses" },
       { href: "/resources/license-fees", label: "License Fees" },
       { href: "/resources/application-center", label: "Alcohol License Application Center" },
       { href: "/resources/forms", label: "Florida ABT Forms" },
@@ -259,7 +257,6 @@ export default function HeaderNavMenus({
         .native-license-types-menu{width:320px}
         .primary-nav .native-nav-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;background:transparent!important;box-shadow:none!important;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{background:transparent!important;box-shadow:none!important;color:#f6a700;outline:none}
-        .primary-nav .native-nav-menu a::before,.primary-nav .native-nav-menu a::after,.primary-nav .native-nav-trigger::before,.primary-nav .native-nav-trigger::after{content:none!important;display:none!important;background:none!important;box-shadow:none!important;filter:none!important}
 
         /* Legacy-menu hard stop: some older page/header code can still inject the
            former image-card License Types menu. Keep every version text-only. */

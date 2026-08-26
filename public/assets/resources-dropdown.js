@@ -21,11 +21,6 @@
       href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
     },
     {
-      label: "Types of Florida Liquor Licenses",
-      href: "/resources/florida-liquor-license-types",
-      internal: true,
-    },
-    {
       label: "License Fees",
       href: "/resources/license-fees",
       internal: true,

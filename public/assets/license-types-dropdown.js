@@ -6,7 +6,7 @@
   const DESKTOP_HOVER_QUERY = "(hover: hover) and (pointer: fine) and (min-width: 900px)";
 
   const items = [
-    { label: "Florida Liquor License Types", href: "/resources/florida-liquor-license-types" },
+    { label: "Types of Florida Liquor Licenses", href: "/resources/florida-liquor-license-types" },
     { label: "4COP Quota License", href: "/license-types/4cop-quota" },
     { label: "3PS Quota / Package Store", href: "/license-types/3ps-package-store" },
     { label: "2COP Beer & Wine", href: "/license-types/2cop-beer-wine" },

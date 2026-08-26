@@ -10,10 +10,6 @@
       href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
     },
     {
-      label: "Types of Florida Liquor Licenses",
-      href: "/resources/florida-liquor-license-types",
-    },
-    {
       label: "Florida Liquor License Laws",
       href: "/resources/florida-liquor-license-laws",
     },
