@@ -103,9 +103,29 @@
     }
   }
 
+  function repairEpisodesLink() {
+    const link = document.querySelector('.report-episodes-link');
+    if (!(link instanceof HTMLAnchorElement)) return;
+    link.href = '/florida-liquor-license-news';
+  }
+
+  function navigateToEpisodes(event) {
+    const link = event.target instanceof Element
+      ? event.target.closest('.report-episodes-link')
+      : null;
+    if (!(link instanceof HTMLAnchorElement)) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    window.location.assign('/florida-liquor-license-news');
+  }
+
   function initialize() {
     installStyles();
+    repairEpisodesLink();
+    document.addEventListener('click', navigateToEpisodes, true);
     document.addEventListener('click', scrollToMarketReport, true);
+    window.setTimeout(repairEpisodesLink, 250);
+    window.setTimeout(repairEpisodesLink, 1000);
     window.addEventListener('wheel', cancelSmoothScrollOnUserInput, { passive: true });
     window.addEventListener('touchstart', cancelSmoothScrollOnUserInput, { passive: true });
     window.addEventListener('keydown', handleKeydown, true);
