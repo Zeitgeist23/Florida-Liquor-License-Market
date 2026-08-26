@@ -41,6 +41,7 @@ const navMenus: NavMenu[] = [
     links: [
       { href: "/sell-your-license", label: "Sell Your License" },
       { href: "/how-to-sell-florida-liquor-license", label: "How to Sell a Florida Liquor License" },
+      { href: "/florida-liquor-license-broker", label: "Florida Liquor License Broker" },
       { href: "/florida-liquor-license-value", label: "Get a License Valuation" },
     ],
   },
