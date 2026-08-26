@@ -331,6 +331,7 @@ export default async function Page({ params }: PageProps) {
               <section className="marketplace-listing-section">
                 <h2>About This License Listing</h2>
                 <p>This individual marketplace page represents the specific {selected.type} liquor-license interest identified as {selectedReference} in {selected.county}. The displayed asking price is {selected.priceLabel}. Availability, price, license status, transferability, liens, and transaction terms should be confirmed before reliance or commitment.</p>
+                <p>This license can be used at bars, liquor stores, restaurants, hotels, etc. Convert between a 4COP (bar/restaurant) or 3PS (liquor store) as needed based on business type.</p>
                 <p>Unless an individual listing expressly states otherwise, the offering concerns a liquor-license interest only and does not include an operating business, leasehold, equipment, inventory, or real estate.</p>
               </section>
 
