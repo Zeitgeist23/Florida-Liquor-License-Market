@@ -259,6 +259,7 @@ export default function HeaderNavMenus({
         .native-license-types-menu{width:320px}
         .primary-nav .native-nav-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;background:transparent!important;box-shadow:none!important;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{background:transparent!important;box-shadow:none!important;color:#f6a700;outline:none}
+        .primary-nav .native-nav-menu a::before,.primary-nav .native-nav-menu a::after,.primary-nav .native-nav-trigger::before,.primary-nav .native-nav-trigger::after{content:none!important;display:none!important;background:none!important;box-shadow:none!important;filter:none!important}
 
         /* Legacy-menu hard stop: some older page/header code can still inject the
            former image-card License Types menu. Keep every version text-only. */
