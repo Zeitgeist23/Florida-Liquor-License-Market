@@ -1,5 +1,6 @@
 import "server-only";
 
+import { APPROVED_BROKER_RECIPIENTS } from "@/data/approved-broker-directory";
 import type { ListingSubmission } from "@/lib/listing-submission-store";
 
 function siteUrl() {
@@ -640,5 +641,91 @@ export async function sendListingApprovedEmail(submission: ListingSubmission) {
     text,
     html: emailShell(details),
   });
+}
+
+export type ApprovedBrokerNotificationResult = {
+  attempted: number;
+  sent: number;
+  failed: number;
+  failures: Array<{ email: string; error: string }>;
+};
+
+export async function notifyApprovedBrokersOfListing(
+  submission: ListingSubmission
+): Promise<ApprovedBrokerNotificationResult> {
+  if (!submission.liveListingUrl || !submission.listingTitle || !submission.approvedLicenseType) {
+    throw new Error("The approved listing is missing its title, license type, or live URL.");
+  }
+
+  const county = countyLabel(submission.county);
+  const listingTitle = approvedEmailTitle(submission);
+  const liveUrl = escapeHtml(submission.liveListingUrl);
+  const askingPrice = formatMoney(submission.approvedAskingPrice ?? submission.askingPrice);
+  const subject = \`New FLLM Listing — \${county} \${submission.approvedLicenseType}\`;
+
+  const deliveries = await Promise.all(
+    APPROVED_BROKER_RECIPIENTS.map(async (broker) => {
+      const firstName = escapeHtml(broker.name.split(/\s+/)[0] || broker.name);
+      const content = \`
+        <p style="margin:0 0 18px;">Hello \${firstName},</p>
+        <p style="margin:0 0 18px;">Florida Liquor License Market has published a new liquor-license listing that may be relevant to your clients.</p>
+        <p style="margin:0 0 18px;">
+          <strong>Listing:</strong> \${escapeHtml(listingTitle)}<br>
+          <strong>County:</strong> \${escapeHtml(county)}<br>
+          <strong>License Type:</strong> \${escapeHtml(submission.approvedLicenseType)}<br>
+          <strong>Asking Price:</strong> \${escapeHtml(askingPrice)}<br>
+          <strong>Reference:</strong> \${escapeHtml(submission.submissionRef)}
+        </p>
+        <p style="margin:0 0 18px;"><a href="\${liveUrl}" style="color:#0645ad;font-weight:bold;text-decoration:underline;">View the live listing</a></p>
+        <p style="margin:0 0 18px;">Availability, price, license status, and transfer eligibility remain subject to confirmation and applicable regulatory requirements.</p>
+        <p style="margin:0;">If you prefer not to receive approved FLLM listing notices, reply to this email and we will remove you from the outreach directory.</p>\`;
+
+      const text = \`Hello \${broker.name.split(/\s+/)[0] || broker.name},
+
+Florida Liquor License Market has published a new liquor-license listing that may be relevant to your clients.
+
+Listing: \${listingTitle}
+County: \${county}
+License Type: \${submission.approvedLicenseType}
+Asking Price: \${askingPrice}
+Reference: \${submission.submissionRef}
+View the live listing: \${submission.liveListingUrl}
+
+Availability, price, license status, and transfer eligibility remain subject to confirmation and applicable regulatory requirements.
+
+If you prefer not to receive approved FLLM listing notices, reply to this email and we will remove you from the outreach directory.
+
+Florida Liquor License Market
+\${senderEmail()}
+\${siteUrl()}\`;
+
+      try {
+        await sendFllmEmail({
+          to: broker.email,
+          subject,
+          text,
+          html: emailShell(content),
+        });
+        return { email: broker.email, sent: true as const };
+      } catch (error) {
+        return {
+          email: broker.email,
+          sent: false as const,
+          error: error instanceof Error ? error.message : "Broker notification failed.",
+        };
+      }
+    })
+  );
+
+  const failures = deliveries
+    .filter((delivery): delivery is { email: string; sent: false; error: string } => !delivery.sent)
+    .map((delivery) => ({ email: delivery.email, error: delivery.error }));
+
+  return {
+    attempted: deliveries.length,
+    sent: deliveries.length - failures.length,
+    failed: failures.length,
+    failures,
+  };
 }
 
