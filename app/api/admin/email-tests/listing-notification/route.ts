@@ -79,3 +79,7 @@ https://www.floridaliquorlicensemarket.com`;
     );
   }
 }
+
+// Temporary authenticated GET for the browser-based production test.
+// Removed immediately after the single approved send.
+export const GET = POST;
