@@ -109,8 +109,26 @@ export default function MarketplaceListingCard({
         </div>
         <div className="result-actions">
           {href ? (
-            <Link className="btn btn-gold result-view-button" href={href}>
+            <Link
+              className="btn btn-gold result-view-button"
+              href={href}
+              style={{ position: "relative", boxSizing: "border-box" }}
+            >
               {actionLabel} <span aria-hidden="true">›</span>
+              <span
+                className="result-view-button-closing-edge"
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: 1,
+                  background: "#efaa10",
+                  pointerEvents: "none",
+                  zIndex: 3,
+                }}
+              />
             </Link>
           ) : (
             <span className="sold-status">SOLD</span>
