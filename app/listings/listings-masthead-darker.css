@@ -1,4 +1,6 @@
-/* Listings masthead only: slightly darker navy. No layout, card, filter, text, or behavior changes. */
+@import "./listings-menu-fix.css";
+
+/* Listings masthead only: slightly darker navy. No card, filter, or content changes. */
 .results-page > .results-header {
   background: linear-gradient(
     180deg,
