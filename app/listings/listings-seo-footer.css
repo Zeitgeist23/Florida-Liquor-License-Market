@@ -1,3 +1,5 @@
+@import "./listings-view-button-edge-fix.css";
+
 .results-page .listings-seo-footer {
   margin-top: 72px;
   padding: 64px 0 max(116px, calc(72px + env(safe-area-inset-bottom)));
