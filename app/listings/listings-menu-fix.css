@@ -1,0 +1,33 @@
+/* Listings-page header dropdown correction.
+   Keep desktop menus attached to the bottom of the full masthead instead of
+   opening from the middle of the navigation row, and prevent the listings
+   header's top-level uppercase typography from leaking into menu items. */
+
+@media (min-width: 900px) {
+  .results-page > .results-header nav.listings-primary-nav > .native-nav-dropdown {
+    height: 100%;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .results-page > .results-header nav.listings-primary-nav > .native-nav-dropdown > .native-nav-menu {
+    top: calc(100% - 1px);
+  }
+}
+
+.results-page > .results-header nav.listings-primary-nav .native-nav-menu a {
+  padding: 10px 12px !important;
+  color: #fff !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  letter-spacing: .01em !important;
+  text-transform: none !important;
+}
+
+.results-page > .results-header nav.listings-primary-nav .native-nav-menu a:hover,
+.results-page > .results-header nav.listings-primary-nav .native-nav-menu a:focus,
+.results-page > .results-header nav.listings-primary-nav .native-nav-menu a:focus-visible,
+.results-page > .results-header nav.listings-primary-nav .native-nav-menu a:active {
+  color: #f6a700 !important;
+}
