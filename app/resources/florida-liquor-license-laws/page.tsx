@@ -11,7 +11,7 @@ const canonicalUrl = `${siteUrl}/resources/florida-liquor-license-laws`;
 export const metadata: Metadata = {
   title: "Florida Liquor License Laws | Quota Statutes & ABT Rules | FLLM",
   description:
-    "Florida quota liquor license laws cited by FLLM, including quota limits, transfers, applications, local ordinances, package-store restrictions, and ABT administrative rules.",
+    "Florida quota liquor license laws cited by FLLM, including quota limits, transfers, liens, active-operation requirements, inactive status, package-store restrictions, and ABT administrative rules.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
 };
@@ -52,9 +52,23 @@ const statutes = [
       "Sets statutory restrictions for package-store premises and merchandise and is relevant to 3PS-family liquor-store operations.",
     href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0565/Sections/0565.04.html",
   },
+  {
+    citation: "F.S. § 561.29(1)(i)",
+    title: "Quota-license active-operation requirements",
+    summary:
+      "Requires covered quota-license premises to maintain bona fide active operation, addresses written inactive-status notice and waivers, and prevents related-party transfers from restarting the applicable operating period.",
+    href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.29.html",
+  },
 ];
 
 const abtRules = [
+  {
+    citation: "F.A.C. Rule 61A-5.0012",
+    title: "Mortgagee's Interest; Alcoholic Beverage Lien Search",
+    summary:
+      "Governs Division lien searches and the recording, assignment, renewal, or extension of liens and security interests affecting spirituous alcoholic-beverage licenses.",
+    href: "https://flrules.org/gateway/ruleno.asp?id=61A-5.0012",
+  },
   {
     citation: "F.A.C. Rule 61A-5.010",
     title: "Applications; Transfer Fee",
@@ -68,6 +82,13 @@ const abtRules = [
     summary:
       "Administrative rule governing the public drawing process for newly available quota alcoholic-beverage licenses.",
     href: "https://flrules.org/gateway/ruleno.asp?id=61A-5.0105",
+  },
+  {
+    citation: "F.A.C. Rule 61A-5.0106",
+    title: "Inactive Status or Waiver of Active Operation Requirements",
+    summary:
+      "Requires ABT-6027 when placing a quota alcoholic-beverage license into inactive status or requesting a waiver of active-operation requirements.",
+    href: "https://flrules.org/gateway/ruleno.asp?id=61A-5.0106",
   },
 ];
 
@@ -89,6 +110,24 @@ const officialSources = [
     title: "Chapter 561 — Beverage Law: Administration",
     summary: "Open the full official chapter.",
     href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/0561.html",
+  },
+  {
+    citation: "DBPR ABT-6022",
+    title: "Application for Lien / Mortgagee's Interest",
+    summary: "Official form for recording a new lien, assignment or assumption, or lien renewal or extension.",
+    href: "https://www.flrules.org/Gateway/reference.asp?No=Ref-03330",
+  },
+  {
+    citation: "DBPR ABT-6023",
+    title: "Alcoholic Beverage License Lien Search",
+    summary: "Official form used to request a Division lien search for a spirituous alcoholic-beverage license.",
+    href: "https://www.flrules.org/Gateway/reference.asp?No=Ref-03359",
+  },
+  {
+    citation: "DBPR ABT-6027",
+    title: "Inactive Status or Active-Operation Waiver",
+    summary: "Official form for inactive-status notice, the one-time waiver election, or a conditional waiver request.",
+    href: "https://www.flrules.org/Gateway/reference.asp?No=Ref-10916",
   },
 ];
 
