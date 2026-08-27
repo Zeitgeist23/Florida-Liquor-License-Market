@@ -1,0 +1,29 @@
+/* Close the right edge of every View License button.
+   The button sits inside a clipped listing-card text column, so keep its
+   closing border slightly inside that column and draw the edge internally. */
+
+.results-page .result-actions {
+  padding-right: 2px !important;
+}
+
+.results-page .result-actions .result-view-button {
+  position: relative !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  border: 1px solid #efaa10 !important;
+  border-right: 1px solid #efaa10 !important;
+}
+
+.results-page .result-actions .result-view-button::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 1px !important;
+  display: block !important;
+  background: #efaa10 !important;
+  pointer-events: none !important;
+}
