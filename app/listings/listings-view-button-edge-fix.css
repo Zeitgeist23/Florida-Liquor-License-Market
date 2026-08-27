@@ -1,13 +1,19 @@
-/* Close the right edge of every View License button.
-   The button sits inside a clipped listing-card text column, so keep its
-   closing border slightly inside that column and draw the edge internally. */
+/* Definitive View License button edge correction.
+   On desktop the card's text pane clips overflow; keep the complete button
+   several pixels inside that pane so its right border cannot be cut off. */
 
-.results-page .result-actions {
-  padding-right: 2px !important;
+@media (min-width: 761px) {
+  .results-page .result-actions {
+    box-sizing: border-box !important;
+    width: min(245px, calc(100% - 8px)) !important;
+    max-width: calc(100% - 8px) !important;
+    padding-right: 0 !important;
+  }
 }
 
 .results-page .result-actions .result-view-button {
   position: relative !important;
+  isolation: isolate !important;
   box-sizing: border-box !important;
   width: 100% !important;
   max-width: 100% !important;
@@ -16,14 +22,15 @@
   border-right: 1px solid #efaa10 !important;
 }
 
-.results-page .result-actions .result-view-button::after {
-  content: "" !important;
+.results-page .result-actions .result-view-button-closing-edge {
   position: absolute !important;
+  z-index: 3 !important;
   top: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
   width: 1px !important;
   display: block !important;
+  flex: 0 0 1px !important;
   background: #efaa10 !important;
   pointer-events: none !important;
 }
