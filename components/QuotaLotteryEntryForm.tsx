@@ -112,10 +112,15 @@ function signerName(person: InterestedPerson) {
   return [person.firstName, person.middleName, person.lastName].filter(Boolean).join(" ");
 }
 
+function isAccountServiceUnavailable(error: unknown) {
+  const message = error instanceof Error ? error.message : String(error ?? "");
+  return /fetch failed|failed to fetch|networkerror|secure FLLM account service (?:could not be reached|did not respond)|database has not been activated|transaction document service is not available/i.test(message);
+}
+
 function friendlyWorkflowError(error: unknown, fallback: string) {
   const message = error instanceof Error ? error.message : fallback;
-  return /fetch failed|failed to fetch|networkerror|secure FLLM account service could not be reached/i.test(message)
-    ? "The secure FLLM account service did not respond. Please try again. Your form entries remain saved on this device."
+  return isAccountServiceUnavailable(error)
+    ? "FLLM account storage is temporarily unavailable. You can still generate, download and print your populated ABT-6033; your entries remain saved on this device."
     : message;
 }
 
@@ -148,8 +153,10 @@ export default function QuotaLotteryEntryForm() {
   const [typedSignature, setTypedSignature] = useState("");
   const [drawnSignature, setDrawnSignature] = useState("");
   const [signatureConsent, setSignatureConsent] = useState(false);
+  const [accountUnavailable, setAccountUnavailable] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
   const [pdfFileName, setPdfFileName] = useState("");
+  const [pdfStoredInAccount, setPdfStoredInAccount] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -191,16 +198,25 @@ export default function QuotaLotteryEntryForm() {
                   initial = locallyBlank ? saved : mergeBlankProfile(initial, saved);
                 }
                 if (active) setTransactionId(matching.id);
-              } catch {
-                if (active) setSaveStatus("Your FLLM account is connected. The saved PDF workspace could not be restored, but you can continue with this form.");
+              } catch (caught) {
+                if (active) {
+                  setSaveStatus("Your saved PDF workspace could not be restored, but you can continue with this form.");
+                  if (isAccountServiceUnavailable(caught)) setAccountUnavailable(true);
+                }
               }
             }
-          } catch {
-            if (active) setSaveStatus("Your FLLM account is connected. Saved projects could not be loaded, but your entries on this device are available.");
+          } catch (caught) {
+            if (active) {
+              setSaveStatus("Saved projects could not be loaded, but your entries on this device are available.");
+              if (isAccountServiceUnavailable(caught)) setAccountUnavailable(true);
+            }
           }
         }
       } catch (caught) {
-        if (active) setError(friendlyWorkflowError(caught, "Your account could not be loaded."));
+        if (active) {
+          if (isAccountServiceUnavailable(caught)) setAccountUnavailable(true);
+          setError(friendlyWorkflowError(caught, "Your account could not be loaded."));
+        }
       } finally {
         if (active) {
           setDraft(initial);
@@ -219,6 +235,7 @@ export default function QuotaLotteryEntryForm() {
       setTransactionId("");
       setSaveStatus(`${displayCounty(county)} County selected. Complete the form to generate its ABT-6033.`);
       setPdfUrl((current) => { if (current) URL.revokeObjectURL(current); return ""; });
+      setPdfStoredInAccount(false);
     }
     window.addEventListener("fllm:lottery-county-selected", handleCountySelection);
     return () => window.removeEventListener("fllm:lottery-county-selected", handleCountySelection);
@@ -321,6 +338,8 @@ export default function QuotaLotteryEntryForm() {
     setDrawnSignature("");
     setTypedSignature("");
     setSignatureConsent(false);
+    setPdfStoredInAccount(false);
+    setPdfUrl((current) => { if (current) URL.revokeObjectURL(current); return ""; });
     setSaveStatus("Draft cleared.");
   }
 
@@ -364,9 +383,9 @@ export default function QuotaLotteryEntryForm() {
     return id;
   }
 
-  async function generatePdf(account: PortalUser) {
+  async function preparePdfOnDevice() {
     if (!requiredComplete) throw new Error(`Still required: ${missingRequirements.join(", ")}.`);
-    const id = await saveToAccount(account);
+    saveLocal();
     const templateResponse = await fetch("/abt-forms/abt-6033.pdf", { cache: "no-store" });
     if (!templateResponse.ok) throw new Error("The verified 2026 DBPR ABT-6033 template could not be loaded.");
 
@@ -379,26 +398,55 @@ export default function QuotaLotteryEntryForm() {
     const nextUrl = URL.createObjectURL(blob);
     setPdfUrl((current) => { if (current) URL.revokeObjectURL(current); return nextUrl; });
     setPdfFileName(fileName);
-
-    const form = new FormData();
-    form.set("file", new File([blob], fileName, { type: "application/pdf" }));
-    const upload = await fetch(`/api/portal/transactions/${id}/documents/abt-6033`, { method: "POST", body: form });
-    const uploadData = (await upload.json()) as Record<string, unknown>;
-    if (!upload.ok) throw new Error(String(uploadData.error ?? "The prepared PDF could not be saved."));
-    await requestJson(`/api/portal/transactions/${id}/documents/abt-6033`, {
-      method: "PATCH",
-      body: JSON.stringify({ status: "Awaiting signatures", draftData: draft }),
-    });
-    setSaveStatus("Your populated ABT-6033 is ready and saved in your FLLM account as Awaiting signatures.");
+    setPdfStoredInAccount(false);
+    return { blob, fileName };
   }
 
-  async function perform(action: Exclude<PendingAction, null>, account: PortalUser) {
+  async function generatePdf(account: PortalUser | null) {
+    const { blob, fileName } = await preparePdfOnDevice();
+
+    if (!account || accountUnavailable) {
+      setSaveStatus("Your populated ABT-6033 was generated and saved on this device. Download it now; it has not been stored in an FLLM account.");
+      return;
+    }
+
+    try {
+      const id = await saveToAccount(account);
+
+      const form = new FormData();
+      form.set("file", new File([blob], fileName, { type: "application/pdf" }));
+      const upload = await fetch(`/api/portal/transactions/${id}/documents/abt-6033`, { method: "POST", body: form });
+      const uploadData = (await upload.json()) as Record<string, unknown>;
+      if (!upload.ok) throw new Error(String(uploadData.error ?? "The prepared PDF could not be saved."));
+      await requestJson(`/api/portal/transactions/${id}/documents/abt-6033`, {
+        method: "PATCH",
+        body: JSON.stringify({ status: "Awaiting signatures", draftData: draft }),
+      });
+      setPdfStoredInAccount(true);
+      setSaveStatus("Your populated ABT-6033 is ready and saved in your FLLM account as Awaiting signatures.");
+    } catch (caught) {
+      if (isAccountServiceUnavailable(caught)) setAccountUnavailable(true);
+      setError(friendlyWorkflowError(caught, "The account copy could not be saved, but your PDF is ready on this device."));
+      setSaveStatus("Your populated ABT-6033 was generated on this device. Download it now; the account copy could not be stored.");
+    }
+  }
+
+  async function perform(action: Exclude<PendingAction, null>, account: PortalUser | null) {
     setBusy(true);
     setError("");
     try {
-      if (action === "save") await saveToAccount(account);
+      if (action === "save" && account && !accountUnavailable) await saveToAccount(account);
+      else if (action === "save") {
+        saveLocal();
+        setSaveStatus("Saved on this device. Account storage is temporarily unavailable.");
+      }
       else await generatePdf(account);
     } catch (caught) {
+      if (isAccountServiceUnavailable(caught)) {
+        setAccountUnavailable(true);
+        saveLocal();
+        if (action === "save") setSaveStatus("Saved on this device. Account storage is temporarily unavailable.");
+      }
       setError(friendlyWorkflowError(caught, "The lottery entry could not be prepared."));
     } finally {
       setBusy(false);
@@ -407,6 +455,10 @@ export default function QuotaLotteryEntryForm() {
 
   function requestAction(action: Exclude<PendingAction, null>) {
     if (!user) {
+      if (accountUnavailable) {
+        void perform(action, null);
+        return;
+      }
       setPendingAction(action);
       setAuthGate(true);
       setAuthError("");
@@ -428,13 +480,15 @@ export default function QuotaLotteryEntryForm() {
       const account = data.user as PortalUser;
       setUser(account);
       setDraft((current) => mergeBlankProfile(current, { entrantName: account.fullName, email: account.email }));
+      setAccountUnavailable(false);
       setAuthGate(false);
       const action = pendingAction;
       setPendingAction(null);
       setSaveStatus(`Signed in as ${account.email}. Blank name and email fields were prefilled.`);
       if (action) await perform(action, account);
     } catch (caught) {
-      setAuthError(caught instanceof Error ? caught.message : "Your account could not be opened.");
+      if (isAccountServiceUnavailable(caught)) setAccountUnavailable(true);
+      setAuthError(friendlyWorkflowError(caught, "Your account could not be opened."));
     } finally {
       setAuthBusy(false);
     }
@@ -453,6 +507,13 @@ export default function QuotaLotteryEntryForm() {
     window.open(href, "_blank", "noopener,noreferrer");
   }
 
+  function continueWithoutAccount() {
+    const action = pendingAction ?? "generate";
+    setAuthGate(false);
+    setPendingAction(null);
+    void perform(action, null);
+  }
+
   return (
     <div className="quota-native-form" aria-label="FLLM quota drawing entry preparation form">
       <div className="quota-native-form-head">
@@ -465,8 +526,10 @@ export default function QuotaLotteryEntryForm() {
         <div><strong>The $100 fee is paid only to DBPR.</strong><span>FLLM never collects the lottery fee and cannot submit payment for you. You finish and pay through the official DBPR process.</span></div>
       </div>
 
-      <div className={`quota-account-state ${user ? "is-signed-in" : ""}`}>
-        {user ? (
+      <div className={`quota-account-state ${user && !accountUnavailable ? "is-signed-in" : ""}`}>
+        {accountUnavailable ? (
+          <><div><strong>Account storage temporarily unavailable</strong><span>You can still complete, generate, download and print the populated ABT-6033. Your recovery draft stays on this device.</span></div></>
+        ) : user ? (
           <><div><strong>FLLM account connected</strong><span>{user.fullName} · {user.email}</span><small>Your saved contact profile prefills blank fields. Signatures are never reused.</small></div><div><a href="/transaction-portal">Open My Account</a><button type="button" onClick={signOut}>Sign out</button></div></>
         ) : (
           <><div><strong>Start now; create an account when you save</strong><span>An FLLM account is required to store the draft and generated PDF securely.</span></div><button type="button" onClick={() => { setPendingAction(null); setAuthGate(true); }}>Create Account or Sign In</button></>
@@ -531,7 +594,7 @@ export default function QuotaLotteryEntryForm() {
       </div>
 
       <div className="quota-form-footer">
-        <div><button className="quota-save-draft" type="button" onClick={() => requestAction("save")} disabled={busy}>{busy ? "Working…" : "Save to My FLLM Account"}</button><button className="quota-clear-draft" type="button" onClick={clearDraft} disabled={busy}>Clear</button>{restored && saveStatus && <span role="status">{saveStatus}</span>}</div>
+        <div><button className="quota-save-draft" type="button" onClick={() => requestAction("save")} disabled={busy}>{busy ? "Working…" : accountUnavailable ? "Save on This Device" : "Save to My FLLM Account"}</button><button className="quota-clear-draft" type="button" onClick={clearDraft} disabled={busy}>Clear</button>{restored && saveStatus && <span role="status">{saveStatus}</span>}</div>
         <button className="quota-dbpr-handoff" type="button" onClick={() => requestAction("generate")} disabled={!requiredComplete || busy}>{busy ? "Preparing…" : "Generate My Populated ABT-6033"}</button>
       </div>
       {!requiredComplete && <p className="quota-form-required-note"><strong>Still required:</strong> {missingRequirements.join(", ")}.</p>}
@@ -539,7 +602,7 @@ export default function QuotaLotteryEntryForm() {
 
       {pdfUrl && (
         <section className="quota-pdf-result" aria-live="polite">
-          <div><span>Prepared PDF ready</span><h4>Review every page before submitting</h4><p>Your populated form is saved in your FLLM account as <strong>Awaiting signatures</strong>. FLLM has not submitted it and has not collected the $100 DBPR fee.</p></div>
+          <div><span>Prepared PDF ready</span><h4>Review every page before submitting</h4><p>{pdfStoredInAccount ? <>Your populated form is saved in your FLLM account as <strong>Awaiting signatures</strong>.</> : <>Your populated form was created on this device and <strong>was not stored in an FLLM account</strong>. Download it before leaving this page.</>} FLLM has not submitted it and has not collected the $100 DBPR fee.</p></div>
           <iframe src={pdfUrl} title="Prepared ABT-6033 preview" />
           <div className="quota-pdf-actions"><a href={pdfUrl} download={pdfFileName}>Download ABT-6033</a><button type="button" onClick={() => window.open(pdfUrl, "_blank", "noopener,noreferrer")}>Open to Print</button><button type="button" onClick={continueToDbpr}>Continue to Official DBPR &amp; Pay $100 <span aria-hidden="true">↗</span></button></div>
           <small>DBPR is the only filing authority. Confirm that all required people have signed and follow the official filing instructions and deadline.</small>
@@ -559,6 +622,7 @@ export default function QuotaLotteryEntryForm() {
               {authError && <p role="alert">{authError}</p>}
               <button type="submit" disabled={authBusy}>{authBusy ? "Please wait…" : authMode === "register" ? "Create Account & Continue" : "Sign In & Continue"}</button>
             </form>
+            {accountUnavailable && pendingAction && <button className="quota-account-offline" type="button" onClick={continueWithoutAccount}>Continue on This Device Without Account Storage</button>}
             <small>FLLM does not collect the DBPR fee and does not submit your lottery entry.</small>
           </section>
         </div>
