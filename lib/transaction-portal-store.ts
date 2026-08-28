@@ -8,6 +8,8 @@ import {
   timingSafeEqual,
 } from "node:crypto";
 
+import { retryableFetch } from "@/lib/retryable-fetch";
+
 export const PORTAL_SESSION_COOKIE = "fllm_portal_session";
 export const PORTAL_SESSION_SECONDS = 60 * 60 * 24 * 30;
 
@@ -148,7 +150,7 @@ function toTransaction(row: PortalTransactionRow): PortalTransaction {
 
 async function readRows<T>(pathAndQuery: string): Promise<T[]> {
   requireDatabase();
-  const response = await fetch(endpoint(pathAndQuery), { headers: headers(), cache: "no-store" });
+  const response = await retryableFetch(endpoint(pathAndQuery), { headers: headers(), cache: "no-store" });
   if (!response.ok) throw new Error(`Portal database request failed (${response.status}).`);
   return (await response.json()) as T[];
 }

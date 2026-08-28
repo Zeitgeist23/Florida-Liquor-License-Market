@@ -112,6 +112,13 @@ function signerName(person: InterestedPerson) {
   return [person.firstName, person.middleName, person.lastName].filter(Boolean).join(" ");
 }
 
+function friendlyWorkflowError(error: unknown, fallback: string) {
+  const message = error instanceof Error ? error.message : fallback;
+  return /fetch failed|failed to fetch|networkerror|secure FLLM account service could not be reached/i.test(message)
+    ? "The secure FLLM account service did not respond. Please try again. Your form entries remain saved on this device."
+    : message;
+}
+
 async function requestJson(url: string, options?: RequestInit) {
   const response = await fetch(url, {
     ...options,
@@ -161,31 +168,39 @@ export default function QuotaLotteryEntryForm() {
         const account = (session.user ?? null) as PortalUser | null;
         if (account) {
           initial = mergeBlankProfile(initial, { entrantName: account.fullName, email: account.email });
-          const transactionData = await requestJson("/api/portal/transactions");
-          const allTransactions = (transactionData.transactions ?? []) as PortalTransaction[];
-          const lotteryTransactions = allTransactions
-            .filter((item) => item.licenseType === "2026 Quota Drawing Entry")
-            .sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
-          const requestedCounty = initial.county ? `${displayCounty(initial.county)} County` : "";
-          const matching = lotteryTransactions.find((item) => item.county === requestedCounty)
-            ?? (!initial.county ? lotteryTransactions[0] : undefined);
-          if (matching) {
-            const documentData = await requestJson(`/api/portal/transactions/${matching.id}/documents/abt-6033`);
-            const record = documentData.document as { draftData?: unknown } | undefined;
-            if (record?.draftData) {
-              const saved = normalizeDraft(record.draftData);
-              const locallyBlank = !initial.county && !initial.mailingAddress && !initial.phone;
-              initial = locallyBlank ? saved : mergeBlankProfile(initial, saved);
+          if (active) setUser(account);
+
+          try {
+            const transactionData = await requestJson("/api/portal/transactions");
+            const allTransactions = (transactionData.transactions ?? []) as PortalTransaction[];
+            const lotteryTransactions = allTransactions
+              .filter((item) => item.licenseType === "2026 Quota Drawing Entry")
+              .sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
+            const requestedCounty = initial.county ? `${displayCounty(initial.county)} County` : "";
+            const matching = lotteryTransactions.find((item) => item.county === requestedCounty)
+              ?? (!initial.county ? lotteryTransactions[0] : undefined);
+            if (active) setTransactions(allTransactions);
+
+            if (matching) {
+              try {
+                const documentData = await requestJson(`/api/portal/transactions/${matching.id}/documents/abt-6033`);
+                const record = documentData.document as { draftData?: unknown } | undefined;
+                if (record?.draftData) {
+                  const saved = normalizeDraft(record.draftData);
+                  const locallyBlank = !initial.county && !initial.mailingAddress && !initial.phone;
+                  initial = locallyBlank ? saved : mergeBlankProfile(initial, saved);
+                }
+                if (active) setTransactionId(matching.id);
+              } catch {
+                if (active) setSaveStatus("Your FLLM account is connected. The saved PDF workspace could not be restored, but you can continue with this form.");
+              }
             }
-            setTransactionId(matching.id);
-          }
-          if (active) {
-            setUser(account);
-            setTransactions(allTransactions);
+          } catch {
+            if (active) setSaveStatus("Your FLLM account is connected. Saved projects could not be loaded, but your entries on this device are available.");
           }
         }
       } catch (caught) {
-        if (active) setError(caught instanceof Error ? caught.message : "Your account could not be loaded.");
+        if (active) setError(friendlyWorkflowError(caught, "Your account could not be loaded."));
       } finally {
         if (active) {
           setDraft(initial);
@@ -215,10 +230,29 @@ export default function QuotaLotteryEntryForm() {
     () => QUOTA_DRAWING_2026.counties.find((item) => item.county === draft.county) || null,
     [draft.county]
   );
-  const validPeople = draft.interestedPersons.filter((person) =>
+  const validPeople = useMemo(() => draft.interestedPersons.filter((person) =>
     person.firstName.trim() && person.lastName.trim() && person.dateOfBirth
-  );
+  ), [draft.interestedPersons]);
   const signer = draft.interestedPersons.find((person) => person.id === signerId) ?? null;
+
+  useEffect(() => {
+    if (signatureMode === "wet" || !validPeople.length) return;
+    if (validPeople.some((person) => person.id === signerId)) return;
+
+    const expectedNames = [user?.fullName, typedSignature]
+      .filter(Boolean)
+      .map((name) => String(name).trim().toLowerCase());
+    const nextSigner = validPeople.find((person) =>
+      expectedNames.includes(signerName(person).trim().toLowerCase())
+    ) ?? (validPeople.length === 1 ? validPeople[0] : null);
+
+    if (!nextSigner) return;
+    setSignerId(nextSigner.id);
+    if (signatureMode === "typed") {
+      setTypedSignature((current) => current.trim() || signerName(nextSigner));
+    }
+  }, [signatureMode, signerId, typedSignature, user?.fullName, validPeople]);
+
   const signatureReady = signatureMode === "wet" || Boolean(
     signerId && signatureConsent && (signatureMode === "typed" ? typedSignature.trim() : drawnSignature)
   );
@@ -349,7 +383,7 @@ export default function QuotaLotteryEntryForm() {
       if (action === "save") await saveToAccount(account);
       else await generatePdf(account);
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "The lottery entry could not be prepared.");
+      setError(friendlyWorkflowError(caught, "The lottery entry could not be prepared."));
     } finally {
       setBusy(false);
     }
@@ -472,7 +506,7 @@ export default function QuotaLotteryEntryForm() {
         {signatureMode !== "wet" && (
           <div className="quota-electronic-signature">
             <label><span>Which interested person is the FLLM account holder signing now?</span><select value={signerId} onChange={(event) => { const id = event.target.value; setSignerId(id); const person = draft.interestedPersons.find((item) => item.id === id); if (person) setTypedSignature(signerName(person)); }}><option value="">Select the signer</option>{validPeople.map((person) => <option key={person.id} value={person.id}>{signerName(person)}</option>)}</select></label>
-            {signatureMode === "typed" && <label><span>Typed electronic signature</span><input value={typedSignature} onChange={(event) => setTypedSignature(event.target.value)} placeholder={signer ? signerName(signer) : "Full legal name"} /></label>}
+            {signatureMode === "typed" && <label><span>Typed electronic signature</span><input value={typedSignature} onChange={(event) => setTypedSignature(event.target.value)} placeholder={signer ? signerName(signer) : "Select the signer first"} disabled={!signer} /></label>}
             {signatureMode === "drawn" && <QuotaLotterySignaturePad onChange={setDrawnSignature} />}
             <label className="quota-signature-consent"><input type="checkbox" checked={signatureConsent} onChange={(event) => setSignatureConsent(event.target.checked)} /><span>I am the selected signer, I intend this mark to be my electronic signature, and—if signing for a business—I am authorized to sign. FLLM will not reuse this signature. I understand DBPR may require an original or replacement signature.</span></label>
             {draft.entryType === "individual" && validPeople.length > 1 && <p className="quota-signature-warning">Every individual listed in Section 4 must sign. This tool applies only the account holder’s electronic signature; print the PDF for all other required signatures.</p>}
@@ -484,7 +518,7 @@ export default function QuotaLotteryEntryForm() {
         <div><button className="quota-save-draft" type="button" onClick={() => requestAction("save")} disabled={busy}>{busy ? "Working…" : "Save to My FLLM Account"}</button><button className="quota-clear-draft" type="button" onClick={clearDraft} disabled={busy}>Clear</button>{restored && saveStatus && <span role="status">{saveStatus}</span>}</div>
         <button className="quota-dbpr-handoff" type="button" onClick={() => requestAction("generate")} disabled={!requiredComplete || busy}>{busy ? "Preparing…" : "Generate My Populated ABT-6033"}</button>
       </div>
-      {!requiredComplete && <p className="quota-form-required-note">Complete every contact field, at least one interested person, the affirmation and the selected signature step to generate the official form.</p>}
+      {!requiredComplete && <p className="quota-form-required-note">{signatureMode !== "wet" && validPeople.length > 0 && !signerId ? "Select which interested person is signing electronically." : "Complete every contact field, at least one interested person, the affirmation and the selected signature step to generate the official form."}</p>}
       {error && <p className="quota-form-error" role="alert">{error}</p>}
 
       {pdfUrl && (
