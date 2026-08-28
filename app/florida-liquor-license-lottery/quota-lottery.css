@@ -546,6 +546,56 @@
 .quota-form-heading { scroll-margin-top: 24px; }
 .quota-form-heading h2 { color: #fff; }
 .quota-form-heading p { color: rgba(255,255,255,.76); }
+.quota-filing-choices {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 20px;
+  margin: 28px 0 42px;
+}
+.quota-filing-choice {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  min-height: 300px;
+  padding: 28px;
+  border: 1px solid rgba(63,211,237,.55);
+  border-radius: 10px;
+  background: #071c2b;
+  box-shadow: 0 18px 44px rgba(0,0,0,.22);
+}
+.quota-filing-choice > span,
+.quota-printable-heading > span {
+  color: var(--quota-cyan);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.quota-filing-choice h3,
+.quota-printable-heading h3 { margin: 10px 0 8px; color: #fff; font-size: 27px; line-height: 1.08; }
+.quota-filing-choice p,
+.quota-printable-heading p { margin: 0; color: rgba(255,255,255,.74); font-size: 14px; line-height: 1.6; }
+.quota-filing-choice > div { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 24px; }
+.quota-filing-choice a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 15px;
+  border: 1px solid var(--quota-cyan-deep);
+  border-radius: 5px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
+}
+.quota-filing-choice-online > div a:first-child,
+.quota-filing-choice .quota-filing-choice-primary { margin-top: auto; border-color: var(--quota-gold); background: var(--quota-gold); color: var(--quota-navy); }
+.quota-filing-choice .quota-filing-choice-primary { margin-top: auto; }
+.quota-filing-choice small { display: block; margin-top: 14px; color: rgba(255,255,255,.54); font-size: 10px; line-height: 1.5; }
+.quota-printable-heading { margin-bottom: 18px; scroll-margin-top: 24px; }
+.quota-printable-heading [id="printable-abt-6033"] { scroll-margin-top: 24px; }
+.quota-printable-heading h3 { font-size: 30px; }
 .quota-official-actions { margin-bottom: 24px; }
 .quota-official-actions-after-form { margin: 20px 0 0; }
 .quota-official-actions a { background: transparent; color: var(--quota-gold); }
@@ -1069,6 +1119,14 @@
   .quota-requirements-grid { grid-template-columns: 1fr; }
   .quota-requirements-grid article { padding: 17px; }
   .quota-dbpr-address { padding: 20px 18px; }
+  .quota-filing-choices { grid-template-columns: 1fr; margin: 22px 0 34px; }
+  .quota-filing-choice { min-height: 0; padding: 22px 18px; }
+  .quota-filing-choice h3,
+  .quota-printable-heading h3 { font-size: 25px; }
+  .quota-filing-choice p,
+  .quota-printable-heading p { font-size: 15px; }
+  .quota-filing-choice > div { align-items: stretch; flex-direction: column; width: 100%; }
+  .quota-filing-choice a { min-height: 48px; width: 100%; font-size: 13px; }
 
   .quota-native-form-head { align-items: flex-start; flex-direction: column; padding: 22px 18px; }
   .quota-native-form-head > div:first-child > span { font-size: 13px; }

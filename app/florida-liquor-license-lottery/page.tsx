@@ -321,12 +321,39 @@ export default async function FloridaLiquorLicenseLotteryPage() {
 
       <section className="quota-form-section" id="entry-form">
         <div className="page-shell">
-          <div className="quota-section-heading quota-form-heading" id="entry-form-heading">
-            <span>FLLM form preparation</span>
-            <h2>Prepare your DBPR ABT-6033 quota drawing entry</h2>
+          <div className="quota-section-heading quota-form-heading">
+            <span>Choose your filing method</span>
+            <h2>Two ways to enter the Florida liquor license lottery</h2>
             <p>
-              Fill out the FLLM preparation form below, save the draft on your device, and then continue to the correct official DBPR Individual or Business online entry. DBPR requires its own account and collects the $100 fee after its application steps; FLLM does not submit the entry or collect the fee.
+              Choose the official DBPR online process or use FLLM to prepare a printable ABT-6033. The two systems are separate, so an FLLM-prepared form does not populate DBPR&apos;s online application.
             </p>
+          </div>
+
+          <div className="quota-filing-choices" aria-label="Lottery entry filing choices">
+            <article className="quota-filing-choice quota-filing-choice-online">
+              <span>Choice 1 · Online filing</span>
+              <h3>Enter Online Through DBPR</h3>
+              <p>Skip the FLLM form. Sign in or create a DBPR account, complete DBPR&apos;s online entry, and pay the $100 fee at DBPR&apos;s final payment step.</p>
+              <div>
+                <a href={QUOTA_DRAWING_2026.individualEntryUrl} target="_blank" rel="noopener noreferrer">Individual DBPR Entry ↗</a>
+                <a href={QUOTA_DRAWING_2026.businessEntryUrl} target="_blank" rel="noopener noreferrer">Business DBPR Entry ↗</a>
+              </div>
+              <small>Best for applicants who intend to submit and pay online.</small>
+            </article>
+
+            <article className="quota-filing-choice quota-filing-choice-print">
+              <span>Choice 2 · Printable application</span>
+              <h3>Prepare a Printable ABT-6033</h3>
+              <p>Enter the information below once, generate the populated PDF, review it, print it and sign it. Follow DBPR&apos;s current delivery and payment instructions.</p>
+              <a className="quota-filing-choice-primary" href="#printable-abt-6033">Prepare Printable Form ↓</a>
+              <small>FLLM does not submit the form or collect DBPR&apos;s $100 fee.</small>
+            </article>
+          </div>
+
+          <div className="quota-printable-heading" id="entry-form-heading">
+            <span>Printable application workspace</span>
+            <h3 id="printable-abt-6033">Prepare your populated ABT-6033</h3>
+            <p>Use this form only if you want a downloadable PDF for review, printing and signature.</p>
           </div>
 
           <QuotaLotteryEntryForm />

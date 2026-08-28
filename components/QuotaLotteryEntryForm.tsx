@@ -360,12 +360,14 @@ export default function QuotaLotteryEntryForm() {
     window.localStorage.removeItem("fllm-quota-drawing-entry-2026-v1");
     setDraft({ ...EMPTY_DRAFT, interestedPersons: [emptyInterestedPerson()] });
     setTransactionId("");
+    setSignatureMode("wet");
     setSignerId("");
     setDrawnSignature("");
     setTypedSignature("");
     setSignatureConsent(false);
     setPdfStoredInAccount(false);
     setPdfUrl((current) => { if (current) URL.revokeObjectURL(current); return ""; });
+    setError("");
     setSaveStatus("Draft cleared.");
   }
 
