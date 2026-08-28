@@ -116,22 +116,22 @@
 .quota-hero-stats strong { color: var(--quota-green); font-size: 34px; line-height: 1; }
 .quota-hero-stats span { margin-top: 8px; color: rgba(255,255,255,.76); font-size: 11px; line-height: 1.35; }
 
-.quota-hero-summary { display: grid; gap: 12px; }
+.quota-hero-summary { display: grid; gap: 26px; }
 .quota-countdown {
-  padding: 16px 17px 15px;
-  border: 1px solid rgba(53,206,233,.68);
-  border-radius: 10px;
+  padding: 21px 22px 20px;
+  border: 2px solid rgba(53,206,233,.72);
+  border-radius: 12px;
   background: linear-gradient(145deg,rgba(3,25,39,.96),rgba(2,11,19,.92));
-  box-shadow: 0 18px 45px rgba(0,0,0,.24), 0 0 24px rgba(53,206,233,.08);
+  box-shadow: 0 18px 45px rgba(0,0,0,.24), 0 0 30px rgba(53,206,233,.1);
 }
-.quota-countdown-heading { display: flex; align-items: center; gap: 11px; }
+.quota-countdown-heading { display: flex; align-items: center; gap: 15px; }
 .quota-countdown-heading > i {
   position: relative;
   display: block;
-  width: 31px;
-  height: 31px;
-  flex: 0 0 31px;
-  border: 2px solid var(--quota-cyan);
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  border: 3px solid var(--quota-cyan);
   border-radius: 50%;
   box-shadow: 0 0 14px rgba(53,206,233,.3);
 }
@@ -140,23 +140,40 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 2px;
+  width: 3px;
   border-radius: 2px;
   background: var(--quota-cyan);
   content: "";
   transform-origin: 50% 100%;
 }
-.quota-countdown-heading > i::before { height: 9px; transform: translate(-50%,-100%); }
-.quota-countdown-heading > i::after { height: 7px; transform: translate(-50%,-100%) rotate(120deg); }
+.quota-countdown-heading > i::before { height: 13px; transform: translate(-50%,-100%); }
+.quota-countdown-heading > i::after {
+  height: 16px;
+  animation: quota-clock-tick 60s steps(60,end) infinite;
+  transform: translate(-50%,-100%);
+}
+@keyframes quota-clock-tick {
+  to { transform: translate(-50%,-100%) rotate(360deg); }
+}
 .quota-countdown-heading > div { display: flex; min-width: 0; flex-direction: column; gap: 3px; }
-.quota-countdown-heading strong { color: var(--quota-cyan); font-size: 12px; letter-spacing: .07em; text-transform: uppercase; }
-.quota-countdown-heading span { color: rgba(255,255,255,.68); font-size: 9px; line-height: 1.35; }
-.quota-countdown-units { display: grid; grid-template-columns: repeat(3,1fr); margin-top: 13px; }
+.quota-countdown-heading strong { color: var(--quota-cyan); font-size: 14px; letter-spacing: .07em; text-transform: uppercase; }
+.quota-countdown-heading span { color: rgba(255,255,255,.72); font-size: 10px; line-height: 1.35; }
+.quota-countdown-units {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  margin-top: 18px;
+  padding-top: 17px;
+  border-top: 1px solid rgba(53,206,233,.2);
+}
 .quota-countdown-units > span { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .quota-countdown-units > span + span { border-left: 1px solid rgba(53,206,233,.22); }
-.quota-countdown-units strong { color: #fff; font-size: 25px; line-height: 1; font-variant-numeric: tabular-nums; }
-.quota-countdown-units small { margin-top: 5px; color: #91e9fa; font-size: 8px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.quota-countdown-units strong { color: #fff; font-size: 28px; line-height: 1; font-variant-numeric: tabular-nums; }
+.quota-countdown-units small { margin-top: 6px; color: #91e9fa; font-size: 9px; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; }
 .quota-countdown-closed { display: block; margin-top: 13px; color: #fff; font-size: 18px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .quota-countdown-heading > i::after { animation: none; }
+}
 
 .quota-window {
   display: grid;
@@ -785,10 +802,10 @@
   .quota-hero-stats article { min-height: 92px; }
   .quota-hero-stats article + article { border-left: 0; border-top: 1px solid rgba(246,167,0,.22); }
   .quota-hero-stats span { font-size: 13px; }
-  .quota-countdown { padding: 18px; }
-  .quota-countdown-heading strong { font-size: 13px; }
-  .quota-countdown-heading span { font-size: 11px; }
-  .quota-countdown-units strong { font-size: 29px; }
+  .quota-countdown { padding: 20px 17px; }
+  .quota-countdown-heading strong { font-size: 14px; }
+  .quota-countdown-heading span { font-size: 12px; }
+  .quota-countdown-units strong { font-size: 27px; }
   .quota-countdown-units small { font-size: 10px; }
   .quota-hero-actions,
   .quota-official-actions,
