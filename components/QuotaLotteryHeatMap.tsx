@@ -170,8 +170,8 @@ export default function QuotaLotteryHeatMap({
       <div className="quota-map-stage">
         <aside className="quota-map-instruction" aria-hidden="true">
           <span>2026 Florida quota lottery</span>
-          <strong>Select a County</strong>
-          <p>View new licenses, population and current FLLM asking-price data.</p>
+          <strong>Click County to Begin Lottery Entry Application</strong>
+          <p>Eligible cyan counties prefill the application and take you directly to the entry form.</p>
           <small>63 licenses · 30 eligible counties</small>
         </aside>
 
