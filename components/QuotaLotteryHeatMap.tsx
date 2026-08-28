@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { FocusEvent, MouseEvent, PointerEvent } from "react";
 
 import { FLORIDA_COUNTY_PATHS } from "@/components/FloridaCountyMap";
@@ -87,6 +87,15 @@ export default function QuotaLotteryHeatMap({
   // the pointer. Otherwise one click makes every later hover appear mislabeled.
   const activeCounty = hoveredCounty ?? lockedCounty;
 
+  useEffect(() => {
+    const dismissTooltip = () => {
+      setHoveredCounty(null);
+      setLockedCounty(null);
+    };
+    window.addEventListener("scroll", dismissTooltip, { passive: true });
+    return () => window.removeEventListener("scroll", dismissTooltip);
+  }, []);
+
   function positionFromPointer(
     event: PointerEvent<SVGPathElement> | MouseEvent<SVGPathElement>,
   ) {
@@ -167,7 +176,13 @@ export default function QuotaLotteryHeatMap({
         </div>
       </div>
 
-      <div className="quota-map-stage">
+      <div
+        className="quota-map-stage"
+        onPointerLeave={() => {
+          setHoveredCounty(null);
+          setLockedCounty(null);
+        }}
+      >
         <aside className="quota-map-instruction" aria-hidden="true">
           <span>2026 Florida quota lottery</span>
           <strong>Click a County to Start</strong>
