@@ -82,7 +82,10 @@ export default function QuotaLotteryHeatMap({
     alignRight: false,
   });
 
-  const activeCounty = lockedCounty ?? hoveredCounty;
+  // A click keeps a county selected for touch users and form prefilling, but a
+  // live mouse or keyboard hover must always identify the shape currently under
+  // the pointer. Otherwise one click makes every later hover appear mislabeled.
+  const activeCounty = hoveredCounty ?? lockedCounty;
 
   function positionFromPointer(
     event: PointerEvent<SVGPathElement> | MouseEvent<SVGPathElement>,
@@ -191,21 +194,21 @@ export default function QuotaLotteryHeatMap({
                   aria-label={label}
                   aria-pressed={lockedCounty === county.name}
                   onPointerEnter={(event) => {
-                    if (!lockedCounty) setHoveredCounty(county.name);
+                    setHoveredCounty(county.name);
                     positionFromPointer(event);
                   }}
                   onPointerMove={(event) => {
-                    if (!lockedCounty) positionFromPointer(event);
+                    positionFromPointer(event);
                   }}
                   onPointerLeave={() => {
-                    if (!lockedCounty) setHoveredCounty(null);
+                    setHoveredCounty(null);
                   }}
                   onFocus={(event) => {
-                    if (!lockedCounty) setHoveredCounty(county.name);
+                    setHoveredCounty(county.name);
                     positionFromFocus(event);
                   }}
                   onBlur={() => {
-                    if (!lockedCounty) setHoveredCounty(null);
+                    setHoveredCounty(null);
                   }}
                   onClick={(event) => {
                     positionFromPointer(event);
