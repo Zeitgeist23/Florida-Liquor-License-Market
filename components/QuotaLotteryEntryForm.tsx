@@ -51,6 +51,7 @@ const EMPTY_DRAFT: EntryDraft = {
   email: "",
   interestedPersons: [emptyInterestedPerson()],
   affirmation: false,
+  mailingFeeIncluded: false,
 };
 
 function legacyNameParts(name: string) {
@@ -91,6 +92,7 @@ function normalizeDraft(value: unknown, fallback: EntryDraft = EMPTY_DRAFT): Ent
         })
       : fallback.interestedPersons.length ? fallback.interestedPersons : [emptyInterestedPerson()],
     affirmation: Boolean(input.affirmation ?? fallback.affirmation),
+    mailingFeeIncluded: Boolean(input.mailingFeeIncluded ?? fallback.mailingFeeIncluded),
   };
 }
 
@@ -303,6 +305,9 @@ export default function QuotaLotteryEntryForm() {
     return missing;
   }, [draft, drawnSignature, signatureConsent, signatureMode, signerId, typedSignature, validPeople]);
   const requiredComplete = missingRequirements.length === 0;
+  const entryFormChecklistWillBeMarked = requiredComplete
+    && signatureMode !== "wet"
+    && (draft.entryType === "business" || validPeople.length === 1);
 
   function focusFirstMissing() {
     const first = missingRequirements[0];
@@ -601,6 +606,17 @@ export default function QuotaLotteryEntryForm() {
       <div className="quota-form-section-block">
         <div className="quota-form-section-title"><span>4</span><div><strong>Review the official affirmation</strong><small>Review Section 5 in the official ABT-6033 before signing.</small></div></div>
         <label className="quota-affirmation"><input id="quota-affirmation" type="checkbox" checked={draft.affirmation} onChange={(event) => update("affirmation", event.target.checked)} /><span>I reviewed the official Section 5 affirmations and understand that my final signed entry must be truthful, complete, submitted to DBPR on time, and accompanied by the $100 DBPR entry fee.</span></label>
+        <div className="quota-pdf-checklist" aria-labelledby="quota-pdf-checklist-title">
+          <div><strong id="quota-pdf-checklist-title">Page 1 PDF checklist</strong><span>These choices control the two large checklist boxes on the printable ABT-6033.</span></div>
+          <label className={entryFormChecklistWillBeMarked ? "is-ready" : ""}>
+            <input type="checkbox" checked={entryFormChecklistWillBeMarked} readOnly disabled />
+            <span><strong>Entry Form DBPR ABT-6033</strong><small>{entryFormChecklistWillBeMarked ? "Will be marked automatically because this PDF contains the signature required for the selected entry type." : signatureMode === "wet" ? "Will remain blank. Sign the printed form with wet ink, then check this box by hand." : draft.entryType === "individual" && validPeople.length > 1 ? "Will remain blank because every interested person on an individual entry must sign; this workspace places one electronic signature." : "Will be marked automatically after the form and electronic signature are complete."}</small></span>
+          </label>
+          <label>
+            <input type="checkbox" checked={draft.mailingFeeIncluded} onChange={(event) => update("mailingFeeIncluded", event.target.checked)} />
+            <span><strong>Entry Fee</strong><small>Mark this in the PDF only if you will include a $100 check or money order payable to the Division of Alcoholic Beverages and Tobacco with the mailed form. FLLM does not collect this fee.</small></span>
+          </label>
+        </div>
       </div>
 
       <div className="quota-form-section-block quota-signature-section">

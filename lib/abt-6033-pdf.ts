@@ -22,6 +22,7 @@ export type Abt6033Draft = {
   email: string;
   interestedPersons: Abt6033InterestedPerson[];
   affirmation: boolean;
+  mailingFeeIncluded: boolean;
 };
 
 export type Abt6033ElectronicSignature = {
@@ -56,6 +57,7 @@ export async function createAbt6033Pdf(
   const pdf = await PDFDocument.load(templateBytes, { ignoreEncryption: true, updateMetadata: false });
   if (pdf.getPageCount() < 3) throw new Error("The official ABT-6033 template is missing its entry page.");
 
+  const checklistPage = pdf.getPage(0);
   const page = pdf.getPage(2);
   const font = await pdf.embedFont(StandardFonts.Helvetica);
   const signatureFont = await pdf.embedFont(StandardFonts.HelveticaOblique);
@@ -64,6 +66,31 @@ export async function createAbt6033Pdf(
     const text = fitText(value, width, font, textSize);
     if (text) page.drawText(text, { x, y, size: textSize, font, color: ink });
   };
+
+  const drawChecklistMark = (x: number, y: number) => {
+    checklistPage.drawText("X", { x, y, size: 9.5, font, color: ink });
+  };
+
+  // Page 1 checklist. A business entry needs one authorized signer; an
+  // individual entry needs every interested person to sign. Because this
+  // workspace places one electronic signature, an individual entry with more
+  // than one person remains unchecked. Wet-ink copies also remain unchecked so
+  // the applicant can sign and verify them after printing. The fee item is
+  // marked only after the applicant explicitly confirms a mailed payment.
+  const completedPeople = draft.interestedPersons.filter(
+    (person) => person.firstName.trim() && person.lastName.trim() && person.dateOfBirth,
+  );
+  const entryFormComplete = Boolean(electronicSignature)
+    && (draft.entryType === "business" || completedPeople.length === 1);
+  if (entryFormComplete) {
+    drawChecklistMark(76.5, 559);
+    drawChecklistMark(102, 546);
+    drawChecklistMark(102, 534);
+  }
+  if (draft.mailingFeeIncluded) {
+    drawChecklistMark(76.5, 523);
+    drawChecklistMark(102, 511.5);
+  }
 
   // Section 1 — entrant type and name.
   page.drawText("X", {
