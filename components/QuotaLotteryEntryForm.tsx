@@ -82,6 +82,18 @@ export default function QuotaLotteryEntryForm() {
     }
   }, []);
 
+  useEffect(() => {
+    function handleCountySelection(event: Event) {
+      const county = (event as CustomEvent<{ county?: string }>).detail?.county;
+      if (!county || !QUOTA_DRAWING_2026.counties.some((item) => item.county === county)) return;
+      setDraft((current) => ({ ...current, county }));
+      setSaveStatus(`${county === "Dade" ? "Miami-Dade" : county} County selected from the map.`);
+    }
+
+    window.addEventListener("fllm:lottery-county-selected", handleCountySelection);
+    return () => window.removeEventListener("fllm:lottery-county-selected", handleCountySelection);
+  }, []);
+
   const selectedCounty = useMemo(
     () => QUOTA_DRAWING_2026.counties.find((item) => item.county === draft.county) || null,
     [draft.county]

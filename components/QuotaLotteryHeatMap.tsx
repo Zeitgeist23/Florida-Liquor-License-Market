@@ -15,6 +15,13 @@ type AvailableCounty = {
   licenses: number;
 };
 
+export type CountyAskingPriceSummary = {
+  county: string;
+  type: "4COP Quota" | "3PS Quota / Package Store";
+  averageAskingPrice: number;
+  listingCount: number;
+};
+
 type TooltipPosition = {
   left: number;
   top: number;
@@ -22,18 +29,23 @@ type TooltipPosition = {
 };
 
 const numberFormatter = new Intl.NumberFormat("en-US");
+const currencyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
 
 function availabilityCountyName(county: string) {
   return county === "Dade" ? "Miami-Dade" : county;
 }
 
 function countyFill(licenses: number) {
-  if (licenses >= 5) return "#9a5d00";
-  if (licenses === 4) return "#c47b00";
-  if (licenses === 3) return "#e99a00";
-  if (licenses === 2) return "#f6b928";
-  if (licenses === 1) return "#ffdb72";
-  return "#e8edf0";
+  if (licenses >= 5) return "#007b9e";
+  if (licenses === 4) return "#00a6cf";
+  if (licenses === 3) return "#35cee9";
+  if (licenses === 2) return "#91e9fa";
+  if (licenses === 1) return "#d8f7ff";
+  return "#ffffff";
 }
 
 function countyLabel(county: string, population: number, licenses: number) {
@@ -43,8 +55,10 @@ function countyLabel(county: string, population: number, licenses: number) {
 
 export default function QuotaLotteryHeatMap({
   availableLicenses,
+  askingPriceSummaries,
 }: {
   availableLicenses: readonly AvailableCounty[];
+  askingPriceSummaries: readonly CountyAskingPriceSummary[];
 }) {
   const licensesByCounty = useMemo(
     () =>
@@ -53,6 +67,13 @@ export default function QuotaLotteryHeatMap({
       ),
     [availableLicenses],
   );
+  const askingPricesByCounty = useMemo(() => {
+    const grouped = new Map<string, CountyAskingPriceSummary[]>();
+    askingPriceSummaries.forEach((summary) => {
+      grouped.set(summary.county, [...(grouped.get(summary.county) ?? []), summary]);
+    });
+    return grouped;
+  }, [askingPriceSummaries]);
   const [hoveredCounty, setHoveredCounty] = useState<string | null>(null);
   const [lockedCounty, setLockedCounty] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState<TooltipPosition>({
@@ -73,7 +94,7 @@ export default function QuotaLotteryHeatMap({
     const pointerTop = event.clientY - stageRect.top;
     setTooltipPosition({
       left: pointerLeft,
-      top: Math.min(pointerTop + 14, Math.max(18, stageRect.height - 132)),
+      top: Math.min(pointerTop + 14, Math.max(18, stageRect.height - 245)),
       alignRight: pointerLeft > stageRect.width * 0.65,
     });
   }
@@ -88,7 +109,7 @@ export default function QuotaLotteryHeatMap({
       left: countyCenter,
       top: Math.min(
         countyRect.bottom - stageRect.top + 10,
-        Math.max(18, stageRect.height - 132),
+        Math.max(18, stageRect.height - 245),
       ),
       alignRight: countyCenter > stageRect.width * 0.65,
     });
@@ -98,6 +119,16 @@ export default function QuotaLotteryHeatMap({
     ? FLORIDA_COUNTY_POPULATIONS_2025[activeCounty]
     : undefined;
   const activeLicenses = activeCounty ? licensesByCounty.get(activeCounty) ?? 0 : 0;
+  const activeAskingPrices = activeCounty ? askingPricesByCounty.get(activeCounty) ?? [] : [];
+
+  function selectCounty(county: string) {
+    const drawingCounty = county === "Miami-Dade" ? "Dade" : county;
+    window.dispatchEvent(
+      new CustomEvent("fllm:lottery-county-selected", {
+        detail: { county: drawingCounty },
+      }),
+    );
+  }
 
   return (
     <section className="quota-heat-map" aria-labelledby="quota-map-title">
@@ -127,6 +158,13 @@ export default function QuotaLotteryHeatMap({
       </div>
 
       <div className="quota-map-stage">
+        <aside className="quota-map-instruction" aria-hidden="true">
+          <span>2026 Florida quota lottery</span>
+          <strong>Select a County</strong>
+          <p>View new licenses, population and current FLLM asking-price data.</p>
+          <small>63 licenses · 30 eligible counties</small>
+        </aside>
+
         <svg
           className="quota-lottery-map-svg"
           viewBox="132 8 302 276"
@@ -146,7 +184,7 @@ export default function QuotaLotteryHeatMap({
                   d={county.path}
                   className={isActive ? "quota-map-county is-active" : "quota-map-county"}
                   fill={countyFill(licenses)}
-                  stroke={isActive ? "#061728" : "#6f7f89"}
+                  stroke={isActive ? "#ffffff" : "#6f8fa2"}
                   strokeWidth={isActive ? 1.8 : 0.72}
                   tabIndex={0}
                   role="button"
@@ -173,12 +211,14 @@ export default function QuotaLotteryHeatMap({
                     positionFromPointer(event);
                     setLockedCounty((current) => (current === county.name ? null : county.name));
                     setHoveredCounty(county.name);
+                    selectCounty(county.name);
                   }}
                   onKeyDown={(event) => {
                     if (event.key !== "Enter" && event.key !== " ") return;
                     event.preventDefault();
                     setLockedCounty((current) => (current === county.name ? null : county.name));
                     setHoveredCounty(county.name);
+                    selectCounty(county.name);
                   }}
                 >
                   <title>{label}</title>
@@ -209,7 +249,18 @@ export default function QuotaLotteryHeatMap({
                 <dd>{numberFormatter.format(activePopulation)}</dd>
               </div>
             </dl>
-            <small>{FLORIDA_POPULATION_ESTIMATE_DATE} estimate</small>
+            <div className="quota-map-prices">
+              {activeAskingPrices.length ? activeAskingPrices.map((summary) => (
+                <div key={summary.type}>
+                  <span>{summary.type === "4COP Quota" ? "4COP" : "3PS"} {summary.listingCount === 1 ? "asking price" : "average asking"}</span>
+                  <strong>{currencyFormatter.format(summary.averageAskingPrice)}</strong>
+                  <small>{summary.listingCount} active disclosed listing{summary.listingCount === 1 ? "" : "s"}</small>
+                </div>
+              )) : (
+                <p>No current FLLM asking-price data for this county.</p>
+              )}
+            </div>
+            <small>{FLORIDA_POPULATION_ESTIMATE_DATE} population estimate · Asking prices are not completed sales or appraisals.</small>
           </div>
         ) : null}
       </div>

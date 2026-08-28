@@ -3,8 +3,11 @@ import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import QuotaLotteryHeatMap from "@/components/QuotaLotteryHeatMap";
+import type { CountyAskingPriceSummary } from "@/components/QuotaLotteryHeatMap";
 import QuotaLotteryEntryForm from "@/components/QuotaLotteryEntryForm";
 import { getQuotaDrawingSourceStatus, QUOTA_DRAWING_2026 } from "@/data/quota-drawing-2026";
+import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import "@/app/resources/forms/abt-forms.css";
 import "./quota-lottery.css";
 
@@ -52,13 +55,61 @@ const steps = [
   },
 ] as const;
 
-const rules = [
-  "An entrant, whether an individual or business, may submit only one entry form per county.",
-  "A person with a direct or indirect interest may not appear on more than one entry for the same county.",
-  "A separate ABT-6033 entry form is required for each county entered.",
-  "All interested persons must be disclosed with full names and dates of birth.",
-  "DBPR must receive the entry before the published deadline.",
+const officialRequirements = [
+  {
+    title: "Entry form",
+    copy: "Use DBPR ABT-6033. The form is available through DBPR Online Services or as an official printable PDF.",
+  },
+  {
+    title: "Entry fee",
+    copy: "$100 per entry form. DBPR states that the drawing entry fee is non-refundable.",
+  },
+  {
+    title: "Entry limitation",
+    copy: "An individual or business may submit only one entry per county. An entrant or interested person may not appear on more than one entry in the same county.",
+  },
+  {
+    title: "Entry submittal",
+    copy: "Apply through DBPR Online Services, or mail or hand-deliver the printable application to the Division of Alcoholic Beverages and Tobacco.",
+  },
+  {
+    title: "Entry deadline",
+    copy: "DBPR must receive the 2026 entry by September 30, 2026 at 5:00 p.m. Entries received after the deadline will be refused or returned.",
+  },
+  {
+    title: "What selection means",
+    copy: "The selected entrant earns the right to apply for an available quota license. Selection does not itself issue the license.",
+  },
 ] as const;
+
+function countyNameForMap(county: string) {
+  return county.replace(/\s+County$/i, "");
+}
+
+function summarizeCountyAskingPrices(
+  listings: Awaited<ReturnType<typeof getMarketplaceListings>>,
+): CountyAskingPriceSummary[] {
+  const grouped = new Map<string, { county: string; type: CountyAskingPriceSummary["type"]; total: number; count: number }>();
+
+  getVisibleAvailableMarketplaceListings(listings).forEach((listing) => {
+    if (!Number.isFinite(listing.price)) return;
+    const county = countyNameForMap(listing.county);
+    const key = `${county}|${listing.type}`;
+    const current = grouped.get(key) ?? { county, type: listing.type, total: 0, count: 0 };
+    current.total += listing.price as number;
+    current.count += 1;
+    grouped.set(key, current);
+  });
+
+  return [...grouped.values()]
+    .map((group) => ({
+      county: group.county,
+      type: group.type,
+      averageAskingPrice: Math.round(group.total / group.count),
+      listingCount: group.count,
+    }))
+    .sort((left, right) => left.county.localeCompare(right.county) || left.type.localeCompare(right.type));
+}
 
 const lotteryFaqs = [
   {
@@ -84,7 +135,11 @@ const lotteryFaqs = [
 ] as const;
 
 export default async function FloridaLiquorLicenseLotteryPage() {
-  const sourceStatus = await getQuotaDrawingSourceStatus();
+  const [sourceStatus, marketplaceListings] = await Promise.all([
+    getQuotaDrawingSourceStatus(),
+    getMarketplaceListings(),
+  ]);
+  const askingPriceSummaries = summarizeCountyAskingPrices(marketplaceListings);
   const maxLicenses = Math.max(...QUOTA_DRAWING_2026.counties.map((item) => item.licenses));
 
   const structuredData = [
@@ -200,7 +255,10 @@ export default async function FloridaLiquorLicenseLotteryPage() {
             </aside>
           </div>
 
-          <QuotaLotteryHeatMap availableLicenses={QUOTA_DRAWING_2026.counties} />
+          <QuotaLotteryHeatMap
+            availableLicenses={QUOTA_DRAWING_2026.counties}
+            askingPriceSummaries={askingPriceSummaries}
+          />
 
           <div className="quota-chart" role="table" aria-label="2026 Florida quota drawing licenses by county">
             <div className="quota-chart-head" role="row">
@@ -230,17 +288,30 @@ export default async function FloridaLiquorLicenseLotteryPage() {
 
       <section className="quota-rules page-shell">
         <div className="quota-section-heading">
-          <span>Entry rules that matter</span>
-          <h2>Before you submit an ABT-6033</h2>
+          <span>Official DBPR entry requirements</span>
+          <h2>Rules to review before submitting ABT-6033</h2>
+          <p>This summary reflects DBPR&apos;s official quota drawing instructions. DBPR&apos;s published forms and instructions control.</p>
         </div>
-        <div className="quota-rules-grid">
-          <ul>{rules.map((rule) => <li key={rule}>{rule}</li>)}</ul>
-          <aside>
-            <strong>Winning the drawing is not the license</strong>
-            <p>
-              DBPR describes the selected entrant as earning the right to apply for an available quota license. The applicant must still qualify under Florida Beverage Law before the license can be issued.
-            </p>
-          </aside>
+        <div className="quota-requirements-grid">
+          {officialRequirements.map((requirement, index) => (
+            <article key={requirement.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <div><strong>{requirement.title}</strong><p>{requirement.copy}</p></div>
+            </article>
+          ))}
+        </div>
+        <div className="quota-dbpr-address">
+          <div>
+            <span>Mail or hand delivery</span>
+            <strong>Department of Business and Professional Regulation</strong>
+            <p>Attention: Quota Beverage License Drawing<br />2601 Blair Stone Road<br />Tallahassee, Florida 32399-1019</p>
+          </div>
+          <div className="quota-official-actions">
+            <a href={QUOTA_DRAWING_2026.individualEntryUrl} target="_blank" rel="noopener noreferrer">DBPR Individual Entry ↗</a>
+            <a href={QUOTA_DRAWING_2026.businessEntryUrl} target="_blank" rel="noopener noreferrer">DBPR Business Entry ↗</a>
+            <a href={QUOTA_DRAWING_2026.officialFormUrl} target="_blank" rel="noopener noreferrer">Official ABT-6033 PDF ↗</a>
+            <a href={QUOTA_DRAWING_2026.sourceNoticeUrl} target="_blank" rel="noopener noreferrer">2026 DBPR Notice ↗</a>
+          </div>
         </div>
       </section>
 
