@@ -116,6 +116,48 @@
 .quota-hero-stats strong { color: var(--quota-green); font-size: 34px; line-height: 1; }
 .quota-hero-stats span { margin-top: 8px; color: rgba(255,255,255,.76); font-size: 11px; line-height: 1.35; }
 
+.quota-hero-summary { display: grid; gap: 12px; }
+.quota-countdown {
+  padding: 16px 17px 15px;
+  border: 1px solid rgba(53,206,233,.68);
+  border-radius: 10px;
+  background: linear-gradient(145deg,rgba(3,25,39,.96),rgba(2,11,19,.92));
+  box-shadow: 0 18px 45px rgba(0,0,0,.24), 0 0 24px rgba(53,206,233,.08);
+}
+.quota-countdown-heading { display: flex; align-items: center; gap: 11px; }
+.quota-countdown-heading > i {
+  position: relative;
+  display: block;
+  width: 31px;
+  height: 31px;
+  flex: 0 0 31px;
+  border: 2px solid var(--quota-cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 14px rgba(53,206,233,.3);
+}
+.quota-countdown-heading > i::before,
+.quota-countdown-heading > i::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--quota-cyan);
+  content: "";
+  transform-origin: 50% 100%;
+}
+.quota-countdown-heading > i::before { height: 9px; transform: translate(-50%,-100%); }
+.quota-countdown-heading > i::after { height: 7px; transform: translate(-50%,-100%) rotate(120deg); }
+.quota-countdown-heading > div { display: flex; min-width: 0; flex-direction: column; gap: 3px; }
+.quota-countdown-heading strong { color: var(--quota-cyan); font-size: 12px; letter-spacing: .07em; text-transform: uppercase; }
+.quota-countdown-heading span { color: rgba(255,255,255,.68); font-size: 9px; line-height: 1.35; }
+.quota-countdown-units { display: grid; grid-template-columns: repeat(3,1fr); margin-top: 13px; }
+.quota-countdown-units > span { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.quota-countdown-units > span + span { border-left: 1px solid rgba(53,206,233,.22); }
+.quota-countdown-units strong { color: #fff; font-size: 25px; line-height: 1; font-variant-numeric: tabular-nums; }
+.quota-countdown-units small { margin-top: 5px; color: #91e9fa; font-size: 8px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.quota-countdown-closed { display: block; margin-top: 13px; color: #fff; font-size: 18px; }
+
 .quota-window {
   display: grid;
   grid-template-columns: 1fr 1fr auto;
@@ -299,8 +341,8 @@
   z-index: 2;
   top: 50%;
   left: 30px;
-  width: 238px;
-  padding: 21px 20px 19px;
+  width: 264px;
+  padding: 23px 22px 21px;
   border: 1px solid rgba(145,233,250,.48);
   border-radius: 9px;
   background: rgba(2,11,19,.84);
@@ -320,18 +362,18 @@
 .quota-map-instruction > strong {
   display: block;
   margin-top: 8px;
-  font-size: 22px;
-  line-height: 1.08;
+  font-size: 23px;
+  line-height: 1.1;
   letter-spacing: -.025em;
 }
 .quota-map-instruction p {
-  margin: 10px 0 13px;
+  margin: 12px 0 14px;
   color: rgba(255,255,255,.76);
   font-size: 12px;
   line-height: 1.5;
 }
 .quota-map-instruction small {
-  display: inline-flex;
+  display: block;
   padding-top: 11px;
   border-top: 1px solid rgba(145,233,250,.25);
   color: #fff;
@@ -533,6 +575,24 @@
 .quota-native-form-badge strong { color: var(--quota-green); font-size: 20px; }
 .quota-native-form-badge span { margin-top: 3px; color: rgba(255,255,255,.68); font-size: 9px; text-transform: uppercase; letter-spacing: .06em; }
 
+.quota-native-form-disclosure {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 1px;
+  border-bottom: 1px solid rgba(53,206,233,.34);
+  background: rgba(53,206,233,.24);
+}
+.quota-native-form-disclosure > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 15px 28px;
+  background: #082332;
+  color: #fff;
+}
+.quota-native-form-disclosure strong { color: #91e9fa; font-size: 13px; }
+.quota-native-form-disclosure span { color: rgba(255,255,255,.78); font-size: 11px; line-height: 1.5; }
+
 .quota-form-section-block { padding: 26px 28px; border-bottom: 1px solid #dce2e6; }
 .quota-form-section-title {
   display: flex;
@@ -725,6 +785,11 @@
   .quota-hero-stats article { min-height: 92px; }
   .quota-hero-stats article + article { border-left: 0; border-top: 1px solid rgba(246,167,0,.22); }
   .quota-hero-stats span { font-size: 13px; }
+  .quota-countdown { padding: 18px; }
+  .quota-countdown-heading strong { font-size: 13px; }
+  .quota-countdown-heading span { font-size: 11px; }
+  .quota-countdown-units strong { font-size: 29px; }
+  .quota-countdown-units small { font-size: 10px; }
   .quota-hero-actions,
   .quota-official-actions,
   .quota-final-actions { flex-direction: column; align-items: stretch; }
@@ -788,6 +853,10 @@
   .quota-native-form-head p { font-size: 15px; }
   .quota-native-form-badge { align-items: flex-start; min-width: 0; }
   .quota-native-form-badge span { font-size: 11px; }
+  .quota-native-form-disclosure { grid-template-columns: 1fr; }
+  .quota-native-form-disclosure > div { padding: 16px 18px; }
+  .quota-native-form-disclosure strong { font-size: 15px; }
+  .quota-native-form-disclosure span { font-size: 13px; }
   .quota-form-section-block { padding: 22px 18px; }
   .quota-form-section-title { align-items: flex-start; }
   .quota-form-section-title strong { font-size: 18px; }

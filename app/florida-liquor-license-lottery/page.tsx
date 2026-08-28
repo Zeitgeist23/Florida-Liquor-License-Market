@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import QuotaLotteryCountdown from "@/components/QuotaLotteryCountdown";
 import QuotaLotteryHeatMap from "@/components/QuotaLotteryHeatMap";
 import type { CountyAskingPriceSummary } from "@/components/QuotaLotteryHeatMap";
 import QuotaLotteryEntryForm from "@/components/QuotaLotteryEntryForm";
@@ -115,7 +116,7 @@ const lotteryFaqs = [
   {
     question: "What is the deadline for the 2026 Florida liquor license lottery?",
     answer:
-      "DBPR's 2026 quota beverage license drawing entry period closes September 30, 2026 at 5:00 p.m. EDT. DBPR must receive the entry before the published deadline.",
+      "DBPR's 2026 quota beverage license drawing entry period closes September 30, 2026 at 5:00 p.m. Eastern Time. DBPR must receive the entry before the published deadline.",
   },
   {
     question: "How many Florida quota liquor licenses are available in 2026?",
@@ -195,18 +196,21 @@ export default async function FloridaLiquorLicenseLotteryPage() {
               <span className="quota-eyebrow">Florida DBPR · 2026 Quota Beverage License Drawing</span>
               <h1>2026 Florida Liquor License Lottery</h1>
               <p>
-                Florida&apos;s official 2026 quota drawing offers <strong>63 liquor licenses across 30 counties</strong>. Entries close <strong>September 30, 2026 at 5:00 p.m. EDT</strong>. See every eligible county, review the $100 entry fee and prepare your ABT-6033 information through FLLM.
+                Florida&apos;s official 2026 quota drawing offers <strong>63 liquor licenses across 30 counties</strong>. Entries close <strong>September 30, 2026 at 5:00 p.m. ET</strong>. See every eligible county, review the $100 DBPR fee and use FLLM&apos;s free preparation tool before submitting directly to DBPR.
               </p>
               <div className="quota-hero-actions">
                 <a href="#availability">See 2026 County Availability</a>
                 <a href="#entry-form">Prepare an Entry</a>
               </div>
             </div>
-            <aside className="quota-hero-stats" aria-label="2026 quota drawing summary">
-              <article><strong>{QUOTA_DRAWING_2026.totalLicenses}</strong><span>Licenses available</span></article>
-              <article><strong>{QUOTA_DRAWING_2026.totalCounties}</strong><span>Eligible counties</span></article>
-              <article><strong>${QUOTA_DRAWING_2026.entryFee}</strong><span>Entry fee</span></article>
-            </aside>
+            <div className="quota-hero-summary">
+              <QuotaLotteryCountdown />
+              <aside className="quota-hero-stats" aria-label="2026 quota drawing summary">
+                <article><strong>{QUOTA_DRAWING_2026.totalLicenses}</strong><span>Licenses available</span></article>
+                <article><strong>{QUOTA_DRAWING_2026.totalCounties}</strong><span>Eligible counties</span></article>
+                <article><strong>${QUOTA_DRAWING_2026.entryFee}</strong><span>DBPR entry fee</span></article>
+              </aside>
+            </div>
           </div>
         </div>
       </section>

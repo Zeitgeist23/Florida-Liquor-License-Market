@@ -170,9 +170,9 @@ export default function QuotaLotteryHeatMap({
       <div className="quota-map-stage">
         <aside className="quota-map-instruction" aria-hidden="true">
           <span>2026 Florida quota lottery</span>
-          <strong>Click County to Begin Lottery Entry Application</strong>
-          <p>Eligible cyan counties prefill the application and take you directly to the entry form.</p>
-          <small>63 licenses · 30 eligible counties</small>
+          <strong>Click a County to Start</strong>
+          <p>Choose one eligible cyan county to prepare one lottery entry for a chance to receive one quota license.</p>
+          <small>FLLM does not submit the entry or collect the $100 DBPR fee.</small>
         </aside>
 
         <svg

@@ -166,12 +166,23 @@ export default function QuotaLotteryEntryForm() {
           <span>2026 FLLM Entry Preparation</span>
           <h3>Prepare your Florida quota drawing information</h3>
           <p>
-            Complete the information below before moving to DBPR. Your draft stays on this device unless you choose the official DBPR entry link.
+            Use this free FLLM tool to prepare one lottery entry for the county you select. Your draft stays on this device.
           </p>
         </div>
         <div className="quota-native-form-badge">
           <strong>ABT-6033</strong>
           <span>Preparation workspace</span>
+        </div>
+      </div>
+
+      <div className="quota-native-form-disclosure" role="note">
+        <div>
+          <strong>One entry. One potential license.</strong>
+          <span>Each entry is for a chance to receive one quota license in the selected county.</span>
+        </div>
+        <div>
+          <strong>No fee is paid to FLLM.</strong>
+          <span>FLLM does not submit your entry or collect the $100 fee. Submit and pay DBPR directly.</span>
         </div>
       </div>
 
