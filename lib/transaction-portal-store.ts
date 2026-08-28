@@ -9,6 +9,7 @@ import {
 } from "node:crypto";
 
 import { retryableFetch } from "@/lib/retryable-fetch";
+import { supabaseServiceSettings } from "@/lib/supabase-settings";
 
 export const PORTAL_SESSION_COOKIE = "fllm_portal_session";
 export const PORTAL_SESSION_SECONDS = 60 * 60 * 24 * 30;
@@ -73,18 +74,16 @@ export type CreatePortalTransactionInput = {
   representativeAssistance: boolean;
 };
 
-function requireDatabase() {
-  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error("The secure transaction portal database has not been activated.");
-  }
+function settings() {
+  return supabaseServiceSettings("The secure transaction portal database has not been activated.");
 }
 
 function endpoint(pathAndQuery: string) {
-  return `${process.env.SUPABASE_URL}/rest/v1/${pathAndQuery}`;
+  return `${settings().url}/rest/v1/${pathAndQuery}`;
 }
 
 function headers(extra: HeadersInit = {}): HeadersInit {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY ?? "";
+  const { key } = settings();
   return {
     apikey: key,
     Authorization: `Bearer ${key}`,
@@ -149,7 +148,6 @@ function toTransaction(row: PortalTransactionRow): PortalTransaction {
 }
 
 async function readRows<T>(pathAndQuery: string): Promise<T[]> {
-  requireDatabase();
   const response = await retryableFetch(endpoint(pathAndQuery), { headers: headers(), cache: "no-store" });
   if (!response.ok) throw new Error(`Portal database request failed (${response.status}).`);
   return (await response.json()) as T[];
@@ -160,7 +158,6 @@ export async function createPortalUser(input: {
   email: unknown;
   password: unknown;
 }) {
-  requireDatabase();
   const fullName = clean(input.fullName, 160);
   const email = normalizeEmail(input.email);
   const password = String(input.password ?? "");
@@ -201,7 +198,6 @@ export async function authenticatePortalUser(emailValue: unknown, passwordValue:
 }
 
 export async function createPortalSession(userId: string) {
-  requireDatabase();
   const token = randomBytes(32).toString("base64url");
   const expiresAt = new Date(Date.now() + PORTAL_SESSION_SECONDS * 1000).toISOString();
   const response = await fetch(endpoint("portal_sessions"), {
@@ -216,7 +212,6 @@ export async function createPortalSession(userId: string) {
 
 export async function deletePortalSession(token: string) {
   if (!token) return;
-  requireDatabase();
   await fetch(endpoint(`portal_sessions?token_hash=eq.${hashSessionToken(token)}`), {
     method: "DELETE",
     headers: headers(),
@@ -260,7 +255,6 @@ export async function updatePortalTransactionStatus(
   transactionId: string,
   status: string
 ) {
-  requireDatabase();
   const response = await fetch(
     endpoint(
       `portal_transactions?id=eq.${encodeURIComponent(transactionId)}&user_id=eq.${encodeURIComponent(userId)}&select=*`
@@ -278,7 +272,6 @@ export async function updatePortalTransactionStatus(
 }
 
 export async function createPortalTransaction(userId: string, input: CreatePortalTransactionInput) {
-  requireDatabase();
   const transactionName = clean(input.transactionName, 160);
   const participantRole = clean(input.participantRole, 40);
   const county = clean(input.county, 100);

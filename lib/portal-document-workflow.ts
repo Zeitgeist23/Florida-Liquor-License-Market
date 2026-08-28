@@ -5,6 +5,7 @@ import { randomUUID } from "node:crypto";
 import type { PortalTransaction } from "@/lib/transaction-portal-store";
 import { updatePortalTransactionStatus } from "@/lib/transaction-portal-store";
 import { retryableFetch } from "@/lib/retryable-fetch";
+import { supabaseServiceSettings } from "@/lib/supabase-settings";
 
 const BUCKET = "portal-transaction-documents";
 const MAX_FILE_SIZE = 20 * 1024 * 1024;
@@ -94,10 +95,7 @@ export function documentDefinitions(transaction: PortalTransaction): PortalDocum
 }
 
 function settings() {
-  const url = process.env.SUPABASE_URL?.replace(/\/$/, "");
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) throw new Error("The secure transaction document service is not available.");
-  return { url, key };
+  return supabaseServiceSettings("The secure transaction document service is not available.");
 }
 
 function authHeaders(contentType?: string) {
