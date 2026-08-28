@@ -311,8 +311,8 @@ export default async function FloridaLiquorLicenseLotteryPage() {
             <p>Attention: Quota Beverage License Drawing<br />2601 Blair Stone Road<br />Tallahassee, Florida 32399-1019</p>
           </div>
           <div className="quota-official-actions">
-            <a href={QUOTA_DRAWING_2026.individualEntryUrl} target="_blank" rel="noopener noreferrer">DBPR Individual Entry ↗</a>
-            <a href={QUOTA_DRAWING_2026.businessEntryUrl} target="_blank" rel="noopener noreferrer">DBPR Business Entry ↗</a>
+            <a href={QUOTA_DRAWING_2026.individualEntryUrl} target="_blank" rel="noopener noreferrer">Start DBPR Individual Online Entry ↗</a>
+            <a href={QUOTA_DRAWING_2026.businessEntryUrl} target="_blank" rel="noopener noreferrer">Start DBPR Business Online Entry ↗</a>
             <a href={QUOTA_DRAWING_2026.officialFormUrl} target="_blank" rel="noopener noreferrer">Official ABT-6033 PDF ↗</a>
             <a href={QUOTA_DRAWING_2026.sourceNoticeUrl} target="_blank" rel="noopener noreferrer">2026 DBPR Notice ↗</a>
           </div>
@@ -325,15 +325,15 @@ export default async function FloridaLiquorLicenseLotteryPage() {
             <span>FLLM form preparation</span>
             <h2>Prepare your DBPR ABT-6033 quota drawing entry</h2>
             <p>
-              Fill out the FLLM preparation form below, save the draft on your device, and then continue to the correct official DBPR Individual or Business entry. FLLM does not submit the entry or collect the state’s $100 fee.
+              Fill out the FLLM preparation form below, save the draft on your device, and then continue to the correct official DBPR Individual or Business online entry. DBPR requires its own account and collects the $100 fee after its application steps; FLLM does not submit the entry or collect the fee.
             </p>
           </div>
 
           <QuotaLotteryEntryForm />
 
           <div className="quota-official-actions quota-official-actions-after-form">
-            <a href={QUOTA_DRAWING_2026.individualEntryUrl} target="_blank" rel="noopener noreferrer">DBPR Individual Entry ↗</a>
-            <a href={QUOTA_DRAWING_2026.businessEntryUrl} target="_blank" rel="noopener noreferrer">DBPR Business Entry ↗</a>
+            <a href={QUOTA_DRAWING_2026.individualEntryUrl} target="_blank" rel="noopener noreferrer">Start DBPR Individual Online Entry ↗</a>
+            <a href={QUOTA_DRAWING_2026.businessEntryUrl} target="_blank" rel="noopener noreferrer">Start DBPR Business Online Entry ↗</a>
             <a href={QUOTA_DRAWING_2026.officialFormUrl} target="_blank" rel="noopener noreferrer">Official ABT-6033 PDF ↗</a>
           </div>
         </div>

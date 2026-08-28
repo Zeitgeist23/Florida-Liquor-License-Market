@@ -630,8 +630,8 @@ export default function QuotaLotteryEntryForm() {
         <section className="quota-pdf-result" aria-live="polite">
           <div><span>Prepared PDF ready</span><h4>Review every page before submitting</h4><p>{pdfStoredInAccount ? <>Your populated form is saved in your FLLM account as <strong>Awaiting signatures</strong>.</> : <>Your populated form was created on this device and <strong>was not stored in an FLLM account</strong>. Download it before leaving this page.</>} FLLM has not submitted it and has not collected the $100 DBPR fee.</p></div>
           <iframe src={pdfUrl} title="Prepared ABT-6033 preview" />
-          <div className="quota-pdf-actions"><a href={pdfUrl} download={pdfFileName}>Download ABT-6033</a><button type="button" onClick={() => window.open(pdfUrl, "_blank", "noopener,noreferrer")}>Open to Print</button><button type="button" onClick={continueToDbpr}>Continue to Official DBPR &amp; Pay $100 <span aria-hidden="true">↗</span></button></div>
-          <small>DBPR is the only filing authority. Confirm that all required people have signed and follow the official filing instructions and deadline.</small>
+          <div className="quota-pdf-actions"><a href={pdfUrl} download={pdfFileName}>Download ABT-6033</a><button type="button" onClick={() => window.open(pdfUrl, "_blank", "noopener,noreferrer")}>Open to Print</button><button type="button" onClick={continueToDbpr}>Start Official DBPR Online Entry <span aria-hidden="true">↗</span></button></div>
+          <small>DBPR requires you to sign in or create a DBPR account, complete its online entry, and pay the $100 fee at DBPR&apos;s final payment step. DBPR does not provide a public link that skips directly to payment, and your FLLM-prepared PDF will not automatically populate DBPR&apos;s online system.</small>
         </section>
       )}
 
