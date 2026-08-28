@@ -4,6 +4,7 @@ import { randomUUID } from "node:crypto";
 
 import type { PortalTransaction } from "@/lib/transaction-portal-store";
 import { updatePortalTransactionStatus } from "@/lib/transaction-portal-store";
+import { retryableFetch } from "@/lib/retryable-fetch";
 
 const BUCKET = "portal-transaction-documents";
 const MAX_FILE_SIZE = 20 * 1024 * 1024;
@@ -119,7 +120,7 @@ function recordPath(userId: string, transactionId: string, documentKey: string) 
 
 async function initializeBucket() {
   const { url } = settings();
-  const response = await fetch(`${url}/storage/v1/bucket`, {
+  const response = await retryableFetch(`${url}/storage/v1/bucket`, {
     method: "POST",
     headers: authHeaders("application/json"),
     body: JSON.stringify({
@@ -131,7 +132,10 @@ async function initializeBucket() {
     }),
     cache: "no-store",
   });
-  if (!response.ok && response.status !== 409) {
+  const errorBody = response.ok ? "" : await response.text();
+  const alreadyExists = response.status === 409
+    || (response.status === 400 && /already exists|duplicate/i.test(errorBody));
+  if (!response.ok && !alreadyExists) {
     throw new Error("Private project document storage could not be initialized.");
   }
 }
@@ -198,7 +202,7 @@ async function readRecord(
   definition: PortalDocumentDefinition
 ) {
   await ensureBucket();
-  const response = await fetch(objectUrl(recordPath(userId, transactionId, definition.key)), {
+  const response = await retryableFetch(objectUrl(recordPath(userId, transactionId, definition.key)), {
     headers: authHeaders(),
     cache: "no-store",
   });
@@ -428,7 +432,7 @@ export async function downloadPortalDocument(
     ? record.versions.find((candidate) => candidate.id === versionId)
     : record.versions.at(-1);
   if (!version) return null;
-  const response = await fetch(objectUrl(version.objectPath), {
+  const response = await retryableFetch(objectUrl(version.objectPath), {
     headers: authHeaders(),
     cache: "no-store",
   });
