@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 import {
+  checkPortalDatabase,
   getPortalUserFromSession,
   PORTAL_SESSION_COOKIE,
 } from "@/lib/transaction-portal-store";
@@ -10,6 +11,7 @@ export async function GET() {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get(PORTAL_SESSION_COOKIE)?.value;
+    if (!token) await checkPortalDatabase();
     const user = await getPortalUserFromSession(token);
     return NextResponse.json({ user });
   } catch (error) {

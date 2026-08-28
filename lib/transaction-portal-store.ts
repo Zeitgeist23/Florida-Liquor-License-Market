@@ -153,6 +153,10 @@ async function readRows<T>(pathAndQuery: string): Promise<T[]> {
   return (await response.json()) as T[];
 }
 
+export async function checkPortalDatabase() {
+  await readRows<{ id: string }>("portal_users?select=id&limit=0");
+}
+
 export async function createPortalUser(input: {
   fullName: unknown;
   email: unknown;
