@@ -85,6 +85,26 @@ const counties = [
 ];
 
 function documentsFor(transaction: PortalTransaction): DocumentItem[] {
+  if (transaction.licenseType === "2026 Quota Drawing Entry") {
+    return [
+      {
+        key: "abt-6033",
+        title: "DBPR ABT-6033 Quota Drawing Entry",
+        description: "County-specific quota drawing entry prepared through the FLLM lottery workspace.",
+        label: "Return to lottery workspace",
+        href: "/florida-liquor-license-lottery#entry-form",
+        requiresSignature: true,
+      },
+      {
+        key: "dbpr-submission",
+        title: "DBPR Submission and Payment Record",
+        description: "Retain the DBPR submission confirmation or mail/hand-delivery evidence for this entry.",
+        label: "Open official DBPR entry",
+        href: "https://www.myfloridalicense.com/CheckListDetail.asp?XACT_DEFN_ID=17270&clientCode=4087&xactCode=1030",
+      },
+    ];
+  }
+
   const documents: DocumentItem[] = [
     {
       key: "abt-6002",
@@ -384,6 +404,7 @@ export default function TransactionPortalClient() {
 
   function projectHref(document: DocumentItem, transactionId: string) {
     if (!document.href) return "";
+    if (/^https?:\/\//i.test(document.href)) return document.href;
     const separator = document.href.includes("?") ? "&" : "?";
     return `${document.href}${separator}transactionId=${encodeURIComponent(transactionId)}`;
   }
@@ -659,7 +680,7 @@ export default function TransactionPortalClient() {
                     )}
                   </div>
                   <div className="portal-document-actions">
-                    {document.href && <a href={projectHref(document, selected.id)}>{document.label} <span aria-hidden="true">&gt;</span></a>}
+                    {document.href && <a href={projectHref(document, selected.id)} target={/^https?:\/\//i.test(document.href) ? "_blank" : undefined} rel={/^https?:\/\//i.test(document.href) ? "noopener noreferrer" : undefined}>{document.label} <span aria-hidden="true">&gt;</span></a>}
                     {document.key === "fdor-clearance" && status !== "Submitted" && (
                       <button
                         className="portal-agency-button"
@@ -671,7 +692,7 @@ export default function TransactionPortalClient() {
                         Review &amp; Send to FDOR
                       </button>
                     )}
-                    {document.key === "dbpr-submission" && status !== "Submitted" && status !== "Completed" && (
+                    {selected.licenseType !== "2026 Quota Drawing Entry" && document.key === "dbpr-submission" && status !== "Submitted" && status !== "Completed" && (
                       <button
                         className="portal-agency-button"
                         type="button"
@@ -682,7 +703,7 @@ export default function TransactionPortalClient() {
                         Prepare DBPR Package
                       </button>
                     )}
-                    {document.key === "dbpr-submission" && status === "Completed" && (
+                    {selected.licenseType !== "2026 Quota Drawing Entry" && document.key === "dbpr-submission" && status === "Completed" && (
                       <>
                         <button
                           className="portal-agency-button"

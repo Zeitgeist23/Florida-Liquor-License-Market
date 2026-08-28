@@ -282,7 +282,7 @@ export async function createPortalTransaction(userId: string, input: CreatePorta
   const county = clean(input.county, 100);
   const licenseType = clean(input.licenseType, 100);
   const licenseNumber = clean(input.licenseNumber, 80) || null;
-  const allowedRoles = new Set(["Buyer", "Seller", "Broker", "Attorney", "Lender", "Other"]);
+  const allowedRoles = new Set(["Buyer", "Seller", "Broker", "Attorney", "Lender", "Lottery Entrant", "Other"]);
 
   if (!transactionName || !county || !licenseType || !allowedRoles.has(participantRole)) {
     throw new Error("Please complete the transaction name, your role, county, and license type.");
