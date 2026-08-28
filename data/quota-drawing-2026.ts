@@ -20,9 +20,9 @@ export const QUOTA_DRAWING_2026 = {
   officialFormUrl:
     "https://www2.myfloridalicense.com/abt/documents/ABT6033QuotaLicenseDrawingEntryForm.pdf",
   individualEntryUrl:
-    "https://www.myfloridalicense.com/CheckListDetail.asp?XACT_DEFN_ID=17270&clientCode=4087&xactCode=1030",
+    "https://www.myfloridalicense.com/datamart/languageChoiceFLDBPR.do?xact_defn_id=17270",
   businessEntryUrl:
-    "https://www.myfloridalicense.com/intentions2.asp?boardid=400&chBoard=true&professionid=4088",
+    "https://www.myfloridalicense.com/datamart/languageChoiceFLDBPR.do?xact_defn_id=17271",
   lastVerified: currentDrawing.lastVerified,
   counties: currentDrawing.counties as QuotaDrawingCounty[],
 } as const;
