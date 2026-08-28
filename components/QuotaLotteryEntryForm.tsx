@@ -253,14 +253,30 @@ export default function QuotaLotteryEntryForm() {
     }
   }, [signatureMode, signerId, typedSignature, user?.fullName, validPeople]);
 
-  const signatureReady = signatureMode === "wet" || Boolean(
-    signerId && signatureConsent && (signatureMode === "typed" ? typedSignature.trim() : drawnSignature)
-  );
-  const requiredComplete = Boolean(
-    draft.entrantName.trim() && draft.county && draft.mailingAddress.trim() && draft.city.trim()
-      && draft.mailingCounty.trim() && draft.state.trim() && draft.zip.trim() && draft.phone.trim()
-      && draft.email.trim() && validPeople.length && draft.affirmation && signatureReady
-  );
+  const missingRequirements = useMemo(() => {
+    const missing: string[] = [];
+    if (!draft.entrantName.trim()) missing.push("entrant legal name");
+    if (!draft.county) missing.push("drawing county");
+    if (!draft.mailingAddress.trim()) missing.push("mailing address");
+    if (!draft.city.trim()) missing.push("city");
+    if (!draft.mailingCounty.trim()) missing.push("mailing-address county");
+    if (!draft.state.trim()) missing.push("state");
+    if (!draft.zip.trim()) missing.push("ZIP code");
+    if (!draft.phone.trim()) missing.push("phone number");
+    if (!draft.email.trim()) missing.push("email address");
+    if (!validPeople.length) missing.push("one complete interested person");
+    if (!draft.affirmation) missing.push("Section 5 affirmation");
+
+    if (signatureMode !== "wet") {
+      if (!signerId) missing.push("electronic signer");
+      if (signatureMode === "typed" && !typedSignature.trim()) missing.push("typed signature");
+      if (signatureMode === "drawn" && !drawnSignature) missing.push("drawn signature");
+      if (!signatureConsent) missing.push("electronic-signature consent");
+    }
+
+    return missing;
+  }, [draft, drawnSignature, signatureConsent, signatureMode, signerId, typedSignature, validPeople]);
+  const requiredComplete = missingRequirements.length === 0;
 
   function update<K extends keyof EntryDraft>(key: K, value: EntryDraft[K]) {
     setDraft((current) => ({ ...current, [key]: value }));
@@ -349,7 +365,7 @@ export default function QuotaLotteryEntryForm() {
   }
 
   async function generatePdf(account: PortalUser) {
-    if (!requiredComplete) throw new Error("Complete all required fields, at least one interested person, the affirmation, and your selected signature step.");
+    if (!requiredComplete) throw new Error(`Still required: ${missingRequirements.join(", ")}.`);
     const id = await saveToAccount(account);
     const templateResponse = await fetch("/abt-forms/abt-6033.pdf", { cache: "no-store" });
     if (!templateResponse.ok) throw new Error("The verified 2026 DBPR ABT-6033 template could not be loaded.");
@@ -518,7 +534,7 @@ export default function QuotaLotteryEntryForm() {
         <div><button className="quota-save-draft" type="button" onClick={() => requestAction("save")} disabled={busy}>{busy ? "Working…" : "Save to My FLLM Account"}</button><button className="quota-clear-draft" type="button" onClick={clearDraft} disabled={busy}>Clear</button>{restored && saveStatus && <span role="status">{saveStatus}</span>}</div>
         <button className="quota-dbpr-handoff" type="button" onClick={() => requestAction("generate")} disabled={!requiredComplete || busy}>{busy ? "Preparing…" : "Generate My Populated ABT-6033"}</button>
       </div>
-      {!requiredComplete && <p className="quota-form-required-note">{signatureMode !== "wet" && validPeople.length > 0 && !signerId ? "Select which interested person is signing electronically." : "Complete every contact field, at least one interested person, the affirmation and the selected signature step to generate the official form."}</p>}
+      {!requiredComplete && <p className="quota-form-required-note"><strong>Still required:</strong> {missingRequirements.join(", ")}.</p>}
       {error && <p className="quota-form-error" role="alert">{error}</p>}
 
       {pdfUrl && (
