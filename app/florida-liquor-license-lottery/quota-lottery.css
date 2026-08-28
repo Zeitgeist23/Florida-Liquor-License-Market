@@ -220,6 +220,129 @@
 .quota-source-status span { font-size: 11px; font-weight: 900; }
 .quota-source-status small { font-size: 9px; color: #818b93; }
 
+.quota-heat-map {
+  margin: 32px 0 26px;
+  overflow: hidden;
+  border: 1px solid #cfc8ba;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 16px 42px rgba(14,26,36,.08);
+}
+.quota-map-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 24px 26px 20px;
+  border-bottom: 1px solid #d9dee2;
+}
+.quota-map-heading > div:first-child { max-width: 760px; }
+.quota-map-heading > div:first-child > span {
+  color: #9b6800;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+.quota-map-heading h3 {
+  margin: 6px 0 8px;
+  color: var(--quota-navy);
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.06;
+  letter-spacing: -.03em;
+}
+.quota-map-heading p {
+  margin: 0;
+  color: var(--quota-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.quota-map-key {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(6, 28px);
+  gap: 5px;
+}
+.quota-map-key > span {
+  grid-column: 1 / -1;
+  color: #66717a;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-align: right;
+  text-transform: uppercase;
+}
+.quota-map-key i {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid rgba(6,23,40,.22);
+  border-radius: 4px;
+  color: var(--quota-navy);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+}
+.quota-map-stage {
+  position: relative;
+  min-height: 440px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 57% 42%, rgba(246,167,0,.13), transparent 28%),
+    linear-gradient(145deg, #0b2a43 0%, #061728 58%, #020b13 100%);
+}
+.quota-lottery-map-svg {
+  display: block;
+  width: 100%;
+  height: clamp(440px, 52vw, 650px);
+  touch-action: manipulation;
+}
+.quota-map-county {
+  cursor: pointer;
+  outline: none;
+  transition: fill .14s ease, stroke .14s ease, stroke-width .14s ease, filter .14s ease;
+  vector-effect: non-scaling-stroke;
+}
+.quota-map-county:hover,
+.quota-map-county:focus-visible,
+.quota-map-county.is-active {
+  filter: drop-shadow(0 0 4px rgba(255,255,255,.9));
+  stroke: #061728;
+  stroke-width: 2.1;
+}
+.quota-map-tooltip {
+  position: absolute;
+  z-index: 5;
+  width: min(260px, calc(100% - 28px));
+  pointer-events: none;
+  padding: 15px 16px 13px;
+  border: 1px solid rgba(246,167,0,.88);
+  border-radius: 8px;
+  background: rgba(2,11,19,.97);
+  color: #fff;
+  box-shadow: 0 16px 35px rgba(0,0,0,.38);
+}
+.quota-map-tooltip > strong {
+  display: block;
+  color: var(--quota-gold);
+  font-size: 16px;
+}
+.quota-map-tooltip dl { display: grid; gap: 7px; margin: 11px 0 8px; }
+.quota-map-tooltip dl > div { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; }
+.quota-map-tooltip dt { color: #acbac3; font-size: 11px; }
+.quota-map-tooltip dd { margin: 0; font-size: 15px; font-weight: 900; }
+.quota-map-tooltip small { color: #8f9ba3; font-size: 9px; }
+.quota-map-source {
+  margin: 0;
+  padding: 13px 20px 15px;
+  border-top: 1px solid #d9dee2;
+  color: #69747c;
+  font-size: 10px;
+  line-height: 1.55;
+}
+.quota-map-source a { color: #765000; font-weight: 800; }
+
 .quota-chart {
   border: 1px solid #d5d0c5;
   border-radius: 9px;
@@ -478,6 +601,8 @@
   .quota-window { grid-template-columns: 1fr 1fr; }
   .quota-window > a { grid-column: 1 / -1; }
   .quota-section-heading-row { align-items: flex-start; flex-direction: column; }
+  .quota-map-heading { align-items: flex-start; flex-direction: column; }
+  .quota-map-key > span { text-align: left; }
   .quota-interested-row { grid-template-columns: 80px minmax(0,1fr) 170px; }
   .quota-interested-row > button { grid-column: 2 / -1; justify-self: start; }
   .quota-final-cta > .page-shell { flex-direction: column; align-items: flex-start; }
@@ -516,6 +641,25 @@
   .quota-final-cta p { font-size: 15px; }
   .quota-source-status span { font-size: 13px; }
   .quota-source-status small { font-size: 12px; }
+  .quota-heat-map { margin-top: 24px; }
+  .quota-map-heading { padding: 20px 18px; }
+  .quota-map-heading > div:first-child > span { font-size: 12px; }
+  .quota-map-heading h3 { font-size: 27px; }
+  .quota-map-heading p { font-size: 15px; }
+  .quota-map-stage { min-height: 370px; }
+  .quota-lottery-map-svg { height: 370px; }
+  .quota-map-tooltip {
+    left: 14px !important;
+    right: 14px;
+    bottom: 14px;
+    top: auto !important;
+    width: auto;
+    transform: none !important;
+  }
+  .quota-map-tooltip dt { font-size: 12px; }
+  .quota-map-tooltip dd { font-size: 16px; }
+  .quota-map-tooltip small { font-size: 11px; }
+  .quota-map-source { padding: 13px 16px 15px; font-size: 12px; }
   .quota-chart-head { display: none; }
   .quota-chart-row {
     grid-template-columns: minmax(0,1fr) 42px;

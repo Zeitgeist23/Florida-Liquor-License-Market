@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import QuotaLotteryHeatMap from "@/components/QuotaLotteryHeatMap";
 import QuotaLotteryEntryForm from "@/components/QuotaLotteryEntryForm";
 import { getQuotaDrawingSourceStatus, QUOTA_DRAWING_2026 } from "@/data/quota-drawing-2026";
 import "@/app/resources/forms/abt-forms.css";
@@ -198,6 +199,8 @@ export default async function FloridaLiquorLicenseLotteryPage() {
               <small>Verified {QUOTA_DRAWING_2026.lastVerified}</small>
             </aside>
           </div>
+
+          <QuotaLotteryHeatMap availableLicenses={QUOTA_DRAWING_2026.counties} />
 
           <div className="quota-chart" role="table" aria-label="2026 Florida quota drawing licenses by county">
             <div className="quota-chart-head" role="row">
