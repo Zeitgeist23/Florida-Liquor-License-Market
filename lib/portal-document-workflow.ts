@@ -68,6 +68,13 @@ export type PortalDocumentRecord = {
 };
 
 export function documentDefinitions(transaction: PortalTransaction): PortalDocumentDefinition[] {
+  if (transaction.licenseType === "2026 Quota Drawing Entry") {
+    return [
+      { key: "abt-6033", title: "DBPR ABT-6033 Quota Drawing Entry", requiresSignature: true },
+      { key: "dbpr-submission", title: "DBPR Submission and Payment Record", requiresSignature: false },
+    ];
+  }
+
   const definitions: PortalDocumentDefinition[] = [
     { key: "abt-6002", title: "DBPR/ABT-6002", requiresSignature: true },
     { key: "dbpr-submission", title: "DBPR Submission Package and Delivery", requiresSignature: false },
