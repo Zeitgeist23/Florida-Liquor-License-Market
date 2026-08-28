@@ -19,7 +19,9 @@ export function normalizeSupabaseUrl(rawValue: string, serviceKey: string) {
   if (/^https?:\/\//i.test(raw)) {
     try {
       const parsed = new URL(raw);
-      if (/\.supabase\.co$/i.test(parsed.hostname)) return `${parsed.protocol}//${parsed.hostname}`;
+      if (/^[a-z0-9]{15,}\.supabase\.co$/i.test(parsed.hostname)) {
+        return `${parsed.protocol}//${parsed.hostname}`;
+      }
     } catch {
       // Recover from a project ref or service-key claim below.
     }
