@@ -23,6 +23,7 @@ type PortalTransaction = {
 };
 type PendingAction = "save" | "generate" | null;
 type SignatureMode = "wet" | "typed" | "drawn";
+type MissingRequirement = { label: string; targetId: string };
 
 const STORAGE_KEY = "fllm-quota-drawing-entry-2026-v2";
 
@@ -271,29 +272,54 @@ export default function QuotaLotteryEntryForm() {
   }, [signatureMode, signerId, typedSignature, user?.fullName, validPeople]);
 
   const missingRequirements = useMemo(() => {
-    const missing: string[] = [];
-    if (!draft.entrantName.trim()) missing.push("entrant legal name");
-    if (!draft.county) missing.push("drawing county");
-    if (!draft.mailingAddress.trim()) missing.push("mailing address");
-    if (!draft.city.trim()) missing.push("city");
-    if (!draft.mailingCounty.trim()) missing.push("mailing-address county");
-    if (!draft.state.trim()) missing.push("state");
-    if (!draft.zip.trim()) missing.push("ZIP code");
-    if (!draft.phone.trim()) missing.push("phone number");
-    if (!draft.email.trim()) missing.push("email address");
-    if (!validPeople.length) missing.push("one complete interested person");
-    if (!draft.affirmation) missing.push("Section 5 affirmation");
+    const missing: MissingRequirement[] = [];
+    if (!draft.entrantName.trim()) missing.push({ label: "entrant legal name in Section 1", targetId: "quota-entrant-name" });
+    if (!draft.county) missing.push({ label: "drawing county in Section 1", targetId: "quota-drawing-county" });
+    if (!draft.mailingAddress.trim()) missing.push({ label: "mailing address in Section 2", targetId: "quota-mailing-address" });
+    if (!draft.city.trim()) missing.push({ label: "city in Section 2", targetId: "quota-city" });
+    if (!draft.mailingCounty.trim()) missing.push({ label: "mailing county in Section 2", targetId: "quota-mailing-county" });
+    if (!draft.state.trim()) missing.push({ label: "state in Section 2", targetId: "quota-state" });
+    if (!draft.zip.trim()) missing.push({ label: "ZIP code in Section 2", targetId: "quota-zip" });
+    if (!draft.phone.trim()) missing.push({ label: "phone number in Section 2", targetId: "quota-phone" });
+    if (!draft.email.trim()) missing.push({ label: "email address in Section 2", targetId: "quota-email" });
+    if (!validPeople.length) {
+      const person = draft.interestedPersons[0];
+      const targetId = !person?.lastName.trim()
+        ? "quota-person-0-last-name"
+        : !person.firstName.trim()
+          ? "quota-person-0-first-name"
+          : "quota-person-0-date-of-birth";
+      missing.push({ label: "one complete interested person in Section 3", targetId });
+    }
+    if (!draft.affirmation) missing.push({ label: "official affirmation in Section 4", targetId: "quota-affirmation" });
 
     if (signatureMode !== "wet") {
-      if (!signerId) missing.push("electronic signer");
-      if (signatureMode === "typed" && !typedSignature.trim()) missing.push("typed signature");
-      if (signatureMode === "drawn" && !drawnSignature) missing.push("drawn signature");
-      if (!signatureConsent) missing.push("electronic-signature consent");
+      if (!signerId) missing.push({ label: "electronic signer in Section 5", targetId: "quota-electronic-signer" });
+      if (signatureMode === "typed" && !typedSignature.trim()) missing.push({ label: "typed signature in Section 5", targetId: "quota-typed-signature" });
+      if (signatureMode === "drawn" && !drawnSignature) missing.push({ label: "drawn signature in Section 5", targetId: "quota-drawn-signature" });
+      if (!signatureConsent) missing.push({ label: "electronic-signature consent in Section 5", targetId: "quota-signature-consent" });
     }
 
     return missing;
   }, [draft, drawnSignature, signatureConsent, signatureMode, signerId, typedSignature, validPeople]);
   const requiredComplete = missingRequirements.length === 0;
+
+  function focusFirstMissing() {
+    const first = missingRequirements[0];
+    if (!first) return;
+    const control = document.getElementById(first.targetId);
+    setError(`Please complete the ${first.label} before generating your populated ABT-6033.`);
+    control?.scrollIntoView({ behavior: "smooth", block: "center" });
+    window.setTimeout(() => control?.focus({ preventScroll: true }), 450);
+  }
+
+  function handleGenerate() {
+    if (!requiredComplete) {
+      focusFirstMissing();
+      return;
+    }
+    requestAction("generate");
+  }
 
   function update<K extends keyof EntryDraft>(key: K, value: EntryDraft[K]) {
     setDraft((current) => ({ ...current, [key]: value }));
@@ -384,7 +410,7 @@ export default function QuotaLotteryEntryForm() {
   }
 
   async function preparePdfOnDevice() {
-    if (!requiredComplete) throw new Error(`Still required: ${missingRequirements.join(", ")}.`);
+    if (!requiredComplete) throw new Error(`Still required: ${missingRequirements.map((item) => item.label).join(", ")}.`);
     saveLocal();
     const templateResponse = await fetch("/abt-forms/abt-6033.pdf", { cache: "no-store" });
     if (!templateResponse.ok) throw new Error("The verified 2026 DBPR ABT-6033 template could not be loaded.");
@@ -543,8 +569,8 @@ export default function QuotaLotteryEntryForm() {
           <label className={draft.entryType === "business" ? "is-selected" : ""}><input type="radio" name="entryType" checked={draft.entryType === "business"} onChange={() => update("entryType", "business")} /><span><strong>Business</strong><small>Enter through a legal business entity</small></span></label>
         </div>
         <div className="quota-native-grid quota-native-grid-two">
-          <label><span>{draft.entryType === "business" ? "Business / entity name" : "Entrant full legal name"}</span><input value={draft.entrantName} onChange={(event) => update("entrantName", event.target.value)} autoComplete="name" /></label>
-          <label><span>2026 drawing county</span><select value={draft.county} onChange={(event) => { update("county", event.target.value); setTransactionId(""); }}><option value="">Select an eligible county</option>{QUOTA_DRAWING_2026.counties.map((item) => <option key={item.county} value={item.county}>{displayCounty(item.county)} County — {item.licenses} license{item.licenses === 1 ? "" : "s"}</option>)}</select></label>
+          <label><span>{draft.entryType === "business" ? "Business / entity name" : "Entrant full legal name"}</span><input id="quota-entrant-name" value={draft.entrantName} onChange={(event) => update("entrantName", event.target.value)} autoComplete="name" /></label>
+          <label><span>2026 drawing county</span><select id="quota-drawing-county" value={draft.county} onChange={(event) => { update("county", event.target.value); setTransactionId(""); }}><option value="">Select an eligible county</option>{QUOTA_DRAWING_2026.counties.map((item) => <option key={item.county} value={item.county}>{displayCounty(item.county)} County — {item.licenses} license{item.licenses === 1 ? "" : "s"}</option>)}</select></label>
         </div>
         {selectedCounty && <div className="quota-county-confirmation"><span>2026 DBPR availability</span><strong>{displayCounty(selectedCounty.county)} County: {selectedCounty.licenses} quota license{selectedCounty.licenses === 1 ? "" : "s"} available; this form is one entry for one potential license.</strong></div>}
       </div>
@@ -552,12 +578,12 @@ export default function QuotaLotteryEntryForm() {
       <div className="quota-form-section-block">
         <div className="quota-form-section-title"><span>2</span><div><strong>Mailing and contact information</strong><small>These fields match Section 3 of ABT-6033.</small></div></div>
         <div className="quota-native-grid quota-native-grid-two">
-          <label className="quota-grid-wide"><span>Mailing address</span><input value={draft.mailingAddress} onChange={(event) => update("mailingAddress", event.target.value)} autoComplete="street-address" /></label>
-          <label><span>City</span><input value={draft.city} onChange={(event) => update("city", event.target.value)} autoComplete="address-level2" /></label>
-          <label><span>Mailing county</span><input value={draft.mailingCounty} onChange={(event) => update("mailingCounty", event.target.value)} /></label>
-          <div className="quota-native-grid quota-native-grid-state"><label><span>State</span><input value={draft.state} onChange={(event) => update("state", event.target.value.toUpperCase().slice(0, 2))} autoComplete="address-level1" /></label><label><span>ZIP</span><input value={draft.zip} onChange={(event) => update("zip", event.target.value)} inputMode="numeric" autoComplete="postal-code" /></label></div>
-          <div className="quota-native-grid quota-native-grid-phone"><label><span>Phone</span><input value={draft.phone} onChange={(event) => update("phone", event.target.value)} type="tel" autoComplete="tel" /></label><label><span>Extension</span><input value={draft.phoneExtension} onChange={(event) => update("phoneExtension", event.target.value)} /></label></div>
-          <label className="quota-grid-wide"><span>Email</span><input value={draft.email} onChange={(event) => update("email", event.target.value)} type="email" autoComplete="email" /></label>
+          <label className="quota-grid-wide"><span>Mailing address</span><input id="quota-mailing-address" value={draft.mailingAddress} onChange={(event) => update("mailingAddress", event.target.value)} autoComplete="street-address" /></label>
+          <label><span>City</span><input id="quota-city" value={draft.city} onChange={(event) => update("city", event.target.value)} autoComplete="address-level2" /></label>
+          <label><span>Mailing county</span><input id="quota-mailing-county" value={draft.mailingCounty} onChange={(event) => update("mailingCounty", event.target.value)} /></label>
+          <div className="quota-native-grid quota-native-grid-state"><label><span>State</span><input id="quota-state" value={draft.state} onChange={(event) => update("state", event.target.value.toUpperCase().slice(0, 2))} autoComplete="address-level1" /></label><label><span>ZIP</span><input id="quota-zip" value={draft.zip} onChange={(event) => update("zip", event.target.value)} inputMode="numeric" autoComplete="postal-code" /></label></div>
+          <div className="quota-native-grid quota-native-grid-phone"><label><span>Phone</span><input id="quota-phone" value={draft.phone} onChange={(event) => update("phone", event.target.value)} type="tel" autoComplete="tel" /></label><label><span>Extension</span><input value={draft.phoneExtension} onChange={(event) => update("phoneExtension", event.target.value)} /></label></div>
+          <label className="quota-grid-wide"><span>Email</span><input id="quota-email" value={draft.email} onChange={(event) => update("email", event.target.value)} type="email" autoComplete="email" /></label>
         </div>
       </div>
 
@@ -565,14 +591,14 @@ export default function QuotaLotteryEntryForm() {
         <div className="quota-form-section-title quota-form-section-title-actions"><span>3</span><div><strong>Interested persons</strong><small>Enter the separate last, first and middle names and date of birth exactly as Section 4 requests. Maximum four on this form.</small></div><button type="button" onClick={addInterestedPerson} disabled={draft.interestedPersons.length >= 4}>+ Add Person</button></div>
         <div className="quota-interested-list">
           {draft.interestedPersons.map((person, index) => (
-            <div className="quota-interested-row" key={person.id}><strong>Person {index + 1}</strong><label><span>Last name</span><input value={person.lastName} onChange={(event) => updateInterestedPerson(person.id, "lastName", event.target.value)} /></label><label><span>First name</span><input value={person.firstName} onChange={(event) => updateInterestedPerson(person.id, "firstName", event.target.value)} /></label><label><span>Middle name</span><input value={person.middleName} onChange={(event) => updateInterestedPerson(person.id, "middleName", event.target.value)} /></label><label><span>Date of birth</span><input type="date" value={person.dateOfBirth} onChange={(event) => updateInterestedPerson(person.id, "dateOfBirth", event.target.value)} /></label><button type="button" onClick={() => removeInterestedPerson(person.id)} aria-label={`Remove person ${index + 1}`}>Remove</button></div>
+            <div className="quota-interested-row" key={person.id}><strong>Person {index + 1}</strong><label><span>Last name</span><input id={`quota-person-${index}-last-name`} value={person.lastName} onChange={(event) => updateInterestedPerson(person.id, "lastName", event.target.value)} /></label><label><span>First name</span><input id={`quota-person-${index}-first-name`} value={person.firstName} onChange={(event) => updateInterestedPerson(person.id, "firstName", event.target.value)} /></label><label><span>Middle name</span><input value={person.middleName} onChange={(event) => updateInterestedPerson(person.id, "middleName", event.target.value)} /></label><label><span>Date of birth</span><input id={`quota-person-${index}-date-of-birth`} type="date" value={person.dateOfBirth} onChange={(event) => updateInterestedPerson(person.id, "dateOfBirth", event.target.value)} /></label><button type="button" onClick={() => removeInterestedPerson(person.id)} aria-label={`Remove person ${index + 1}`}>Remove</button></div>
           ))}
         </div>
       </div>
 
       <div className="quota-form-section-block">
         <div className="quota-form-section-title"><span>4</span><div><strong>Review the official affirmation</strong><small>Review Section 5 in the official ABT-6033 before signing.</small></div></div>
-        <label className="quota-affirmation"><input type="checkbox" checked={draft.affirmation} onChange={(event) => update("affirmation", event.target.checked)} /><span>I reviewed the official Section 5 affirmations and understand that my final signed entry must be truthful, complete, submitted to DBPR on time, and accompanied by the $100 DBPR entry fee.</span></label>
+        <label className="quota-affirmation"><input id="quota-affirmation" type="checkbox" checked={draft.affirmation} onChange={(event) => update("affirmation", event.target.checked)} /><span>I reviewed the official Section 5 affirmations and understand that my final signed entry must be truthful, complete, submitted to DBPR on time, and accompanied by the $100 DBPR entry fee.</span></label>
       </div>
 
       <div className="quota-form-section-block quota-signature-section">
@@ -584,10 +610,10 @@ export default function QuotaLotteryEntryForm() {
         </div>
         {signatureMode !== "wet" && (
           <div className="quota-electronic-signature">
-            <label><span>Which interested person is the FLLM account holder signing now?</span><select value={signerId} onChange={(event) => { const id = event.target.value; setSignerId(id); const person = draft.interestedPersons.find((item) => item.id === id); if (person) setTypedSignature(signerName(person)); }}><option value="">Select the signer</option>{validPeople.map((person) => <option key={person.id} value={person.id}>{signerName(person)}</option>)}</select></label>
-            {signatureMode === "typed" && <label><span>Typed electronic signature</span><input value={typedSignature} onChange={(event) => setTypedSignature(event.target.value)} placeholder={signer ? signerName(signer) : "Select the signer first"} disabled={!signer} /></label>}
-            {signatureMode === "drawn" && <QuotaLotterySignaturePad onChange={setDrawnSignature} />}
-            <label className="quota-signature-consent"><input type="checkbox" checked={signatureConsent} onChange={(event) => setSignatureConsent(event.target.checked)} /><span>I am the selected signer, I intend this mark to be my electronic signature, and—if signing for a business—I am authorized to sign. FLLM will not reuse this signature. I understand DBPR may require an original or replacement signature.</span></label>
+            <label><span>Which interested person is the FLLM account holder signing now?</span><select id="quota-electronic-signer" value={signerId} onChange={(event) => { const id = event.target.value; setSignerId(id); const person = draft.interestedPersons.find((item) => item.id === id); if (person) setTypedSignature(signerName(person)); }}><option value="">Select the signer</option>{validPeople.map((person) => <option key={person.id} value={person.id}>{signerName(person)}</option>)}</select></label>
+            {signatureMode === "typed" && <label><span>Typed electronic signature</span><input id="quota-typed-signature" value={typedSignature} onChange={(event) => setTypedSignature(event.target.value)} placeholder={signer ? signerName(signer) : "Select the signer first"} disabled={!signer} /></label>}
+            {signatureMode === "drawn" && <div className="quota-signature-pad-target" id="quota-drawn-signature" tabIndex={-1}><QuotaLotterySignaturePad onChange={setDrawnSignature} /></div>}
+            <label className="quota-signature-consent"><input id="quota-signature-consent" type="checkbox" checked={signatureConsent} onChange={(event) => setSignatureConsent(event.target.checked)} /><span>I am the selected signer, I intend this mark to be my electronic signature, and—if signing for a business—I am authorized to sign. FLLM will not reuse this signature. I understand DBPR may require an original or replacement signature.</span></label>
             {draft.entryType === "individual" && validPeople.length > 1 && <p className="quota-signature-warning">Every individual listed in Section 4 must sign. This tool applies only the account holder’s electronic signature; print the PDF for all other required signatures.</p>}
           </div>
         )}
@@ -595,9 +621,9 @@ export default function QuotaLotteryEntryForm() {
 
       <div className="quota-form-footer">
         <div><button className="quota-save-draft" type="button" onClick={() => requestAction("save")} disabled={busy}>{busy ? "Working…" : accountUnavailable ? "Save on This Device" : "Save to My FLLM Account"}</button><button className="quota-clear-draft" type="button" onClick={clearDraft} disabled={busy}>Clear</button>{restored && saveStatus && <span role="status">{saveStatus}</span>}</div>
-        <button className="quota-dbpr-handoff" type="button" onClick={() => requestAction("generate")} disabled={!requiredComplete || busy}>{busy ? "Preparing…" : "Generate My Populated ABT-6033"}</button>
+        <button className="quota-dbpr-handoff" type="button" onClick={handleGenerate} disabled={busy}>{busy ? "Preparing…" : "Generate My Populated ABT-6033"}</button>
       </div>
-      {!requiredComplete && <p className="quota-form-required-note"><strong>Still required:</strong> {missingRequirements.join(", ")}.</p>}
+      {!requiredComplete && <div className="quota-form-required-note"><p><strong>Still required:</strong> {missingRequirements.map((item) => item.label).join(", ")}.</p><button type="button" onClick={focusFirstMissing}>Go to first missing field</button></div>}
       {error && <p className="quota-form-error" role="alert">{error}</p>}
 
       {pdfUrl && (

@@ -821,6 +821,7 @@
   font: 600 14px/1.2 Arial,Helvetica,sans-serif;
 }
 .quota-signature-pad { grid-column: 1 / -1; }
+.quota-signature-pad-target { grid-column: 1 / -1; }
 .quota-signature-pad canvas {
   display: block;
   width: 100%;
@@ -876,7 +877,34 @@
   color: var(--quota-navy);
 }
 .quota-dbpr-handoff:disabled { border-color: #cbd2d7; background: #dce2e6; color: #7d8891; cursor: not-allowed; }
-.quota-form-required-note { margin: 0; padding: 0 28px 22px; background: #eef2f4; color: #6a747c; font-size: 11px; line-height: 1.45; }
+.quota-form-required-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 0;
+  padding: 0 28px 22px;
+  background: #eef2f4;
+  color: #5d6871;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.quota-form-required-note p { margin: 0; }
+.quota-form-required-note button {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--quota-cyan-deep);
+  border-radius: 5px;
+  background: #fff;
+  color: #075a70;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 900;
+}
+.quota-native-form input[id],
+.quota-native-form select[id],
+.quota-native-form [id="quota-drawn-signature"] { scroll-margin-top: 120px; }
 .quota-form-error { margin: 0; padding: 14px 28px; border-top: 1px solid #e8c4b4; background: #fff3ee; color: #9b3b17; font-size: 12px; font-weight: 800; }
 
 .quota-pdf-result { padding: 28px; border-top: 4px solid var(--quota-cyan-deep); background: #06202d; color: #fff; }
@@ -1091,6 +1119,8 @@
   .quota-signature-pad canvas { height: 130px; }
   .quota-form-footer { align-items: stretch; flex-direction: column; padding: 18px; }
   .quota-form-footer > div { align-items: stretch; flex-direction: column; }
+  .quota-form-required-note { align-items: stretch; flex-direction: column; }
+  .quota-form-required-note button { min-height: 44px; }
   .quota-form-footer button { width: 100%; min-height: 48px; font-size: 14px; }
   .quota-form-footer > div > span { font-size: 13px; }
   .quota-form-required-note { padding: 0 18px 20px; font-size: 13px; }
