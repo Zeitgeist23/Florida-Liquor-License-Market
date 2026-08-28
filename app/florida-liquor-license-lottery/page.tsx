@@ -317,7 +317,7 @@ export default async function FloridaLiquorLicenseLotteryPage() {
 
       <section className="quota-form-section" id="entry-form">
         <div className="page-shell">
-          <div className="quota-section-heading quota-form-heading">
+          <div className="quota-section-heading quota-form-heading" id="entry-form-heading">
             <span>FLLM form preparation</span>
             <h2>Prepare your DBPR ABT-6033 quota drawing entry</h2>
             <p>

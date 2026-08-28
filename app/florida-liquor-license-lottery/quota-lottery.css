@@ -484,6 +484,7 @@
 .quota-dbpr-address .quota-official-actions a:first-child { background: var(--quota-gold); border-color: var(--quota-gold); color: var(--quota-navy); }
 
 .quota-form-section { padding: 64px 0 74px; background: #03111e; color: #fff; }
+.quota-form-heading { scroll-margin-top: 24px; }
 .quota-form-heading h2 { color: #fff; }
 .quota-form-heading p { color: rgba(255,255,255,.76); }
 .quota-official-actions { margin-bottom: 24px; }

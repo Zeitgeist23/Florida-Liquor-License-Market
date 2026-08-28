@@ -125,12 +125,19 @@ export default function QuotaLotteryHeatMap({
   const activeAskingPrices = activeCounty ? askingPricesByCounty.get(activeCounty) ?? [] : [];
 
   function selectCounty(county: string) {
+    if (!licensesByCounty.has(county)) return;
     const drawingCounty = county === "Miami-Dade" ? "Dade" : county;
     window.dispatchEvent(
       new CustomEvent("fllm:lottery-county-selected", {
         detail: { county: drawingCounty },
       }),
     );
+    window.requestAnimationFrame(() => {
+      document.getElementById("entry-form-heading")?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "start",
+      });
+    });
   }
 
   return (
