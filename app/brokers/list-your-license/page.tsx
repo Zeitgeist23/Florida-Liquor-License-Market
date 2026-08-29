@@ -5,6 +5,7 @@ import Link from "next/link";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import BrokerListingForm from "./BrokerListingForm";
+import ListingPreviewSelector from "./ListingPreviewSelector";
 import styles from "./broker-listing.module.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -264,7 +265,10 @@ export default function BrokerListYourLicensePage() {
             </p>
           </div>
           <div className={styles.previewGrid}>
-            <div>
+            <ListingPreviewSelector
+              tier="standard"
+              className={styles.previewChoice}
+            >
               <div className={styles.previewLabel}>
                 <span>Standard Listing</span>
                 <strong>$14.95</strong>
@@ -274,8 +278,11 @@ export default function BrokerListYourLicensePage() {
                 Appears within the regular marketplace order and remains active
                 until sold or withdrawn.
               </p>
-            </div>
-            <div>
+            </ListingPreviewSelector>
+            <ListingPreviewSelector
+              tier="featured"
+              className={styles.previewChoice}
+            >
               <div className={styles.previewLabel}>
                 <span>Featured Listing</span>
                 <strong>$24.95</strong>
@@ -286,7 +293,7 @@ export default function BrokerListYourLicensePage() {
                 displays the broker&apos;s name and phone directly on the card,
                 then continues as a Standard listing.
               </p>
-            </div>
+            </ListingPreviewSelector>
           </div>
         </div>
       </section>
