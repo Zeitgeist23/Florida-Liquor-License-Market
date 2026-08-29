@@ -41,6 +41,16 @@ export const metadata: Metadata = {
 
 const officialUpdates = [
   {
+    eyebrow: "Beverage Law & Restaurant Operations",
+    title: "Florida's permanent cocktails-to-go law and today's compliance rules",
+    date: "Reviewed August 29, 2026",
+    dateTime: "2026-08-29",
+    copy:
+      "FLLM connects the COVID-era emergency order and 2021 SB 148 to the current rules for qualifying 4COP quota and special food service restaurants, including the updated SFS size and seating thresholds.",
+    href: "/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law",
+    source: "PS Law Group / Florida Legislature",
+  },
+  {
     eyebrow: "Court Decision & Beverage-Law Enforcement",
     title: "Eleventh Circuit clears the way for enforcement of Florida's adult live performance law",
     date: "August 4, 2026",
@@ -252,7 +262,7 @@ export default function FloridaLiquorLicenseNewsPage() {
             <aside className="news-hero-panel">
               <span>FLLM News Desk</span>
               <strong>Florida license news without losing the FLLM experience</strong>
-              <p>FLLM publishes its own summaries, credits the original publisher, agency or court source, and keeps important videos and public-document readers inside FLLM whenever practical. The automated News Monitor also checks Google News, Bing News and selected Florida publishers for fresh liquor-license coverage.</p>
+              <p>FLLM publishes its own summaries, credits the original publisher, agency or court source, and keeps important videos and public-document readers inside FLLM whenever practical. The automated News Monitor checks Google News, Bing News, Yahoo News and selected Florida publishers every day for fresh liquor-license coverage.</p>
             </aside>
           </div>
         </div>

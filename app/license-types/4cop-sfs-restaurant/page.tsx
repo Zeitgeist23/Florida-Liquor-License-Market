@@ -27,6 +27,11 @@ export default function Page() {
     relatedLabel="Compare With 4COP Quota"
     researchLinks={[
       {
+        href: "/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law",
+        label: "Florida Cocktails-to-Go Law",
+        description: "See how SB 148 and current law govern sealed restaurant alcohol-to-go sales."
+      },
+      {
         href: "/florida-liquor-license-news/orlando-special-food-service-liquor-license-hb-1447-hb-1647",
         label: "Orlando Special Restaurant Zones",
         description: "See how Orlando's 2018 and 2021 local acts affect qualifying smaller restaurants."

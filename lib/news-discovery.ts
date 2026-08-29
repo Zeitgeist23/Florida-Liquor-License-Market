@@ -1,3 +1,5 @@
+import { unstable_cache } from "next/cache";
+
 export type DiscoveredNewsItem = {
   slug: string;
   title: string;
@@ -13,7 +15,7 @@ export type DiscoveredNewsItem = {
 };
 
 type FeedDefinition = {
-  provider: "Google News" | "Bing News";
+  provider: "Google News" | "Bing News" | "Yahoo News";
   query: string;
   label: string;
 };
@@ -55,6 +57,7 @@ const FLORIDA_SOURCE_DOMAINS = [
 ];
 
 const CURATED_SOURCE_URLS = new Set([
+  "https://www.pslawgrp.com/blog/cocktails-to-go-how-the-covid-19-pandemic-shaped-new-regulations-on-liquor-licenses-in-florida/",
   "https://www.clickorlando.com/video/news/2023/02/04/officials-move-to-suspend-orlando-venues-liquor-license-after-drag-show-attended-by-children/",
   "https://business-law-review.law.miami.edu/floridas-game-changing-alcohol-licensing-reform-a-win-for-small-restaurants/",
   "https://www.cbsnews.com/news/desantis-miami-hyatt-liquor-license-drag-show/",
@@ -259,35 +262,59 @@ function buildFeeds(): FeedDefinition[] {
   for (const query of SEARCH_QUERIES.slice(0, 3)) {
     feeds.push({ provider: "Bing News", query, label: "statewide search" });
   }
+  for (const query of SEARCH_QUERIES.slice(0, 3)) {
+    feeds.push({ provider: "Yahoo News", query, label: "statewide search" });
+  }
   for (const query of PUBLISHER_QUERIES) {
     feeds.push({ provider: "Google News", query, label: "Florida publisher watch" });
   }
   return feeds;
 }
 
-function feedUrl(feed: FeedDefinition) {
+function feedUrls(feed: FeedDefinition) {
   if (feed.provider === "Bing News") {
-    return `https://www.bing.com/news/search?q=${encodeURIComponent(feed.query)}&format=rss`;
+    return [`https://www.bing.com/news/search?q=${encodeURIComponent(feed.query)}&format=rss`];
   }
-  return `https://news.google.com/rss/search?q=${encodeURIComponent(feed.query)}&hl=en-US&gl=US&ceid=US:en`;
+  if (feed.provider === "Yahoo News") {
+    return [
+      `https://news.search.yahoo.com/rss?p=${encodeURIComponent(feed.query)}`,
+      `https://news.yahoo.com/rss/search?q=${encodeURIComponent(feed.query)}`,
+    ];
+  }
+  return [`https://news.google.com/rss/search?q=${encodeURIComponent(feed.query)}&hl=en-US&gl=US&ceid=US:en`];
 }
 
 async function fetchFeed(feed: FeedDefinition) {
-  const response = await fetch(feedUrl(feed), {
-    headers: {
-      "User-Agent": "Mozilla/5.0 (compatible; FLLMNewsMonitor/1.0; +https://www.floridaliquorlicensemarket.com/florida-liquor-license-news)",
-      Accept: "application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8",
-    },
-    next: { revalidate: 1800 },
-    signal: AbortSignal.timeout(8000),
-  });
-  if (!response.ok) throw new Error(`${feed.provider} returned ${response.status}`);
-  return parseRss(await response.text(), feed);
+  const failures: string[] = [];
+  for (const url of feedUrls(feed)) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (compatible; FLLMNewsMonitor/2.0; +https://www.floridaliquorlicensemarket.com/florida-liquor-license-news)",
+          Accept: "application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8",
+        },
+        cache: "no-store",
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!response.ok) {
+        failures.push(`${new URL(url).hostname}: ${response.status}`);
+        continue;
+      }
+      return parseRss(await response.text(), feed);
+    } catch (error) {
+      failures.push(error instanceof Error ? error.message : String(error));
+    }
+  }
+  throw new Error(`${feed.provider} feed failed (${failures.join("; ")})`);
 }
 
-export async function discoverFloridaLiquorLicenseNews(limit = 18) {
+async function discoverFloridaLiquorLicenseNewsUncached() {
   const feeds = buildFeeds();
   const settled = await Promise.allSettled(feeds.map((feed) => fetchFeed(feed)));
+  const successfulFeeds = settled.filter((result) => result.status === "fulfilled").length;
+  if (successfulFeeds === 0) {
+    throw new Error("Google News, Bing News, and Yahoo News feeds were all unavailable.");
+  }
   const allItems = settled.flatMap((result) => result.status === "fulfilled" ? result.value : []);
   const now = Date.now();
   const maxAgeMs = 180 * 24 * 60 * 60 * 1000;
@@ -306,12 +333,34 @@ export async function discoverFloridaLiquorLicenseNews(limit = 18) {
     if (!existing || item.relevanceScore > existing.relevanceScore) byFingerprint.set(fingerprint, item);
   }
 
-  return Array.from(byFingerprint.values())
+  const items = Array.from(byFingerprint.values())
     .sort((a, b) => {
       const dateA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
       const dateB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
       if (dateB !== dateA) return dateB - dateA;
       return b.relevanceScore - a.relevanceScore;
     })
-    .slice(0, limit);
+    .slice(0, 30);
+
+  return {
+    updatedAt: new Date().toISOString(),
+    feedsChecked: feeds.length,
+    successfulFeeds,
+    items,
+  };
+}
+
+const getDailyNewsSnapshot = unstable_cache(
+  discoverFloridaLiquorLicenseNewsUncached,
+  ["fllm-daily-news-snapshot-v2"],
+  { revalidate: 86400, tags: ["fllm-daily-news"] },
+);
+
+export async function getFloridaLiquorLicenseNewsSnapshot() {
+  return getDailyNewsSnapshot();
+}
+
+export async function discoverFloridaLiquorLicenseNews(limit = 18) {
+  const snapshot = await getDailyNewsSnapshot();
+  return snapshot.items.slice(0, limit);
 }

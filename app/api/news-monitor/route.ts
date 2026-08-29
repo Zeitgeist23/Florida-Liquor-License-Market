@@ -1,20 +1,23 @@
 import { NextResponse } from "next/server";
 
-import { discoverFloridaLiquorLicenseNews } from "@/lib/news-discovery";
+import { getFloridaLiquorLicenseNewsSnapshot } from "@/lib/news-discovery";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export async function GET() {
   try {
-    const items = await discoverFloridaLiquorLicenseNews(18);
+    const snapshot = await getFloridaLiquorLicenseNewsSnapshot();
     return NextResponse.json(
       {
-        updatedAt: new Date().toISOString(),
-        refreshMinutes: 30,
+        updatedAt: snapshot.updatedAt,
+        refreshMinutes: 1440,
+        feedsChecked: snapshot.feedsChecked,
+        successfulFeeds: snapshot.successfulFeeds,
         sources: [
           "Google News RSS",
           "Bing News RSS",
+          "Yahoo News search",
           "First Coast News",
           "WKMG News 6 / ClickOrlando",
           "WFLA",
@@ -24,11 +27,11 @@ export async function GET() {
           "Tampa Bay Times",
           "Florida Politics",
         ],
-        items,
+        items: snapshot.items.slice(0, 18),
       },
       {
         headers: {
-          "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600",
+          "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
         },
       }
     );
@@ -37,7 +40,7 @@ export async function GET() {
     return NextResponse.json(
       {
         updatedAt: new Date().toISOString(),
-        refreshMinutes: 30,
+        refreshMinutes: 1440,
         sources: [],
         items: [],
         error: "The live news monitor could not refresh at this moment.",

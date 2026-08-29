@@ -30,6 +30,77 @@ export type NewsArticle = {
 
 export const NEWS_ARTICLES: NewsArticle[] = [
   {
+    slug: "florida-cocktails-to-go-sb-148-current-law",
+    eyebrow: "Beverage Law & Restaurant Operations",
+    title: "Florida's cocktails-to-go law: from COVID emergency order to permanent Beverage Law",
+    date: "Reviewed August 29, 2026",
+    publishedDate: "2026-08-29",
+    reviewedDate: "2026-08-29",
+    summary:
+      "Florida made qualifying restaurant alcohol-to-go sales permanent through SB 148 in 2021. FLLM connects the pandemic-era history to the current rules for 4COP quota and special food service licensees.",
+    intro:
+      "A PS Law Group article traces Florida's cocktails-to-go policy from Executive Order 20-71 during the COVID-19 emergency to Senate Bill 148. Governor Ron DeSantis signed SB 148 on May 13, 2021; it became Chapter 2021-30 and took effect July 1, 2021. The permanent law authorizes qualifying food-service licensees to sell or deliver certain alcoholic beverages for off-premises consumption under detailed food-order, sealing, transport, delivery, and age-verification rules.",
+    sections: [
+      {
+        heading: "What changed in 2021",
+        paragraphs: [
+          "The temporary pandemic policy allowed restaurants and on-premises vendors to offer carry-out alcohol while dine-in operations were restricted. SB 148 made a structured version of alcohol-to-go permanent and amended several parts of Florida's Beverage Law and open-container statute.",
+          "The law applies differently depending on the license. A qualifying special food service licensee operates under section 561.20(2)(a)4., while a qualifying 4COP quota vendor's prepared-drink privileges and conditions appear in section 565.045. Both paths require a public food service operation and food in the same order."
+        ]
+      },
+      {
+        heading: "Current rules differ from the article's historical SFS threshold",
+        paragraphs: [
+          "The PS Law Group article describes the 2,500-square-foot and 150-person special food service thresholds that applied when SB 148 was enacted. Florida changed those statewide eligibility thresholds in 2023. Current section 561.20(2)(a)4. generally requires at least 2,000 square feet of service area, capacity to serve meals to 120 persons at one time, at least 120 physical seats during operating hours, and at least 51 percent of gross food-and-beverage revenue from food and nonalcoholic beverages during the applicable operating periods.",
+          "Current SFS alcohol-to-go sales must accompany food in the same order. Prepared wine- or liquor-based drinks must be securely sealed, placed in a visibly tamper-evident bag or other container, and accompanied by a dated receipt. The SFS provision does not authorize the restaurant to sell a manufacturer-sealed bottle of distilled spirits."
+        ]
+      },
+      {
+        heading: "Rules for qualifying 4COP quota restaurants",
+        paragraphs: [
+          "Section 565.045 permits covered consumption-on-premises vendors to sell or deliver prepared alcoholic beverages in sealed containers for off-premises consumption when the vendor also holds a public food service license. Food must be sold in the same order, and the charge for food and nonalcoholic beverages must generally equal at least 40 percent of the order total after excluding manufacturer-sealed alcoholic beverages.",
+          "Sales or deliveries may not continue after the vendor stops preparing food for the day or after midnight, whichever occurs first. The prepared beverage must use an unbroken seal, tamper-evident outer packaging, and a dated receipt. Motor-vehicle transport and alcohol-delivery age rules also apply."
+        ],
+        bullets: [
+          "SB 148 became Chapter 2021-30 and took effect July 1, 2021.",
+          "Special food service authority: section 561.20(2)(a)4., Florida Statutes.",
+          "Covered 4COP quota vendor authority: section 565.045, Florida Statutes.",
+          "A properly sealed beverage transported under the cited statutes is addressed by the open-container exception in section 316.1936(9)."
+        ]
+      },
+      {
+        heading: "FLLM compliance and market takeaway",
+        paragraphs: [
+          "Cocktails-to-go expand the operating utility of qualifying restaurant licenses, but they do not convert an SFS license into a transferable quota asset or eliminate the conditions attached to either license type. Buyers should confirm the exact license series, food-service status, premises qualifications, sales mix, packaging procedures, delivery practices, and local restrictions during due diligence.",
+          "FLLM treats the PS Law Group article as useful historical commentary and uses the enacted bill and current Florida Statutes for the present compliance framework."
+        ]
+      }
+    ],
+    officialSourceUrl:
+      "https://www.pslawgrp.com/blog/cocktails-to-go-how-the-covid-19-pandemic-shaped-new-regulations-on-liquor-licenses-in-florida/",
+    officialSourceLabel: "PS Law Group — Cocktails-to-Go",
+    sourceType: "publisher",
+    sourceNote:
+      "FLLM verified the article's legislative history against Florida Senate records for SB 148 and checked its operating summary against the 2026 versions of sections 561.20, 565.045, and 316.1936. The article's 2,500-square-foot and 150-person SFS figures describe the law when published, not the current statewide threshold.",
+    relatedLinks: [
+      {
+        href: "/resources/florida-liquor-license-laws#cocktails-to-go",
+        label: "Florida Cocktails-to-Go Laws",
+        description: "Open SB 148, Chapter 2021-30, and the current statutory framework."
+      },
+      {
+        href: "/license-types/4cop-sfs-restaurant",
+        label: "4COP-SFS Restaurant License",
+        description: "Review the current statewide restaurant eligibility requirements."
+      },
+      {
+        href: "/license-types/4cop-quota",
+        label: "4COP Quota License",
+        description: "Compare the transferable quota asset and its restaurant operating privileges."
+      }
+    ]
+  },
+  {
     slug: "eleventh-circuit-florida-adult-live-performance-law-liquor-licenses",
     eyebrow: "Court Decision & Beverage-Law Enforcement",
     title: "Eleventh Circuit clears the way for Florida to enforce its adult live performance law",

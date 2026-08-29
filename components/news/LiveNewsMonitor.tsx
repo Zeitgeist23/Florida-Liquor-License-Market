@@ -19,6 +19,8 @@ type MonitorItem = {
 type MonitorResponse = {
   updatedAt: string;
   refreshMinutes: number;
+  feedsChecked?: number;
+  successfulFeeds?: number;
   sources: string[];
   items: MonitorItem[];
   error?: string;
@@ -65,7 +67,7 @@ export default function LiveNewsMonitor() {
     }
 
     void refresh();
-    const timer = window.setInterval(refresh, 30 * 60 * 1000);
+    const timer = window.setInterval(refresh, 24 * 60 * 60 * 1000);
     return () => {
       cancelled = true;
       window.clearInterval(timer);
@@ -83,15 +85,15 @@ export default function LiveNewsMonitor() {
         </div>
         <div className="live-news-monitor-status">
           <strong>{loading ? "Scanning sources…" : "Monitor active"}</strong>
-          <small>Refreshes about every 30 minutes</small>
+          <small>Daily automated scan</small>
         </div>
       </div>
 
       <div className="live-news-monitor-explainer">
         <p>
-          FLLM checks Google News and Bing News feeds plus Florida publishers including First Coast News, ClickOrlando, WFLA, FOX 13 Tampa Bay, CBS Miami, Miami Herald, Tampa Bay Times and Florida Politics. Stories are scored for Florida liquor-license relevance and duplicates are removed automatically.
+          FLLM checks Google News, Bing News and Yahoo News every day, together with Florida publishers including First Coast News, ClickOrlando, WFLA, FOX 13 Tampa Bay, CBS Miami, Miami Herald, Tampa Bay Times and Florida Politics. Stories are scored for Florida liquor-license relevance, classified by topic, checked for Florida context and deduplicated before appearing here.
         </p>
-        <span>Current FLLM articles and playable videos remain unchanged above and below this monitor.</span>
+        <span>The monitor publishes source-provided headlines and short summaries automatically. FLLM legal briefings remain separately researched and verified against official sources.</span>
       </div>
 
       {data?.error && visibleItems.length === 0 ? (

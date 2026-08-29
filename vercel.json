@@ -7,6 +7,10 @@
     {
       "path": "/api/cron/reconcile-bizbuysell",
       "schedule": "17 * * * *"
+    },
+    {
+      "path": "/api/cron/update-news",
+      "schedule": "30 12 * * *"
     }
   ]
 }

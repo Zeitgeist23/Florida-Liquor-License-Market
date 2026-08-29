@@ -11,7 +11,7 @@ const canonicalUrl = `${siteUrl}/resources/florida-liquor-license-laws`;
 export const metadata: Metadata = {
   title: "Florida Liquor License Laws | Quota Statutes & ABT Rules | FLLM",
   description:
-    "Florida quota liquor license laws cited by FLLM, including quota limits, transfers, liens, active-operation requirements, inactive status, package-store restrictions, and ABT administrative rules.",
+    "Florida liquor license laws cited by FLLM, including quota limits, transfers, liens, cocktails-to-go, restaurant licensing, enforcement, inactive status, and ABT administrative rules.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
 };
@@ -73,6 +73,27 @@ const statutes = [
       "Defines the regulated conduct and prohibits knowingly admitting a child to an adult live performance. Read together with section 561.29 for beverage-license consequences.",
     href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0800-0899/0827/Sections/0827.11.html",
   },
+  {
+    citation: "F.S. § 561.20(2)(a)4.",
+    title: "Special food service licenses and sealed alcohol-to-go",
+    summary:
+      "Contains the current statewide SFS restaurant qualifications and authorizes qualifying licensees to sell or deliver certain sealed alcoholic beverages with food in the same order.",
+    href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.20.html",
+  },
+  {
+    citation: "F.S. § 565.045",
+    title: "Consumption-on-premises vendors and cocktails-to-go",
+    summary:
+      "Sets the current food-service, order-composition, hours, sealing, packaging, transport, and delivery conditions for covered full-liquor consumption-on-premises vendors.",
+    href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0565/Sections/0565.045.html",
+  },
+  {
+    citation: "F.S. § 316.1936(9)",
+    title: "Sealed alcohol-to-go open-container exception",
+    summary:
+      "Provides that alcoholic beverages sealed and transported under the identified Beverage Law provisions are not open containers under Florida's vehicle open-container statute.",
+    href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0300-0399/0316/Sections/0316.1936.html",
+  },
 ];
 
 const abtRules = [
@@ -107,6 +128,12 @@ const abtRules = [
 ];
 
 const officialSources = [
+  {
+    citation: "Chapter 2021-30",
+    title: "Cocktails-to-Go — SB 148",
+    summary: "Official bill history for the 2021 law that made qualifying restaurant alcohol-to-go sales permanent in Florida.",
+    href: "https://www.flsenate.gov/Session/Bill/2021/148",
+  },
   {
     citation: "Chapter 2018-187",
     title: "Orlando Downtown Restaurant Area — HB 1447",
@@ -273,6 +300,12 @@ export default function FloridaLiquorLicenseLawsPage() {
             <p>Each FLLM briefing identifies the event date, distinguishes current law from commentary, and links back to the controlling statute, license type, county, or court resource.</p>
           </div>
           <div className="laws-development-grid">
+            <Link className="laws-development-card" id="cocktails-to-go" href="/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law">
+              <span>2021 Law · Current 2026 Rules</span>
+              <h3>Florida cocktails-to-go and restaurant liquor licenses</h3>
+              <p>SB 148 made qualifying restaurant alcohol-to-go sales permanent. FLLM compares the original law with today&apos;s SFS thresholds and current 4COP operating requirements.</p>
+              <b>Read Cocktails-to-Go Guide ›</b>
+            </Link>
             <Link className="laws-development-card" href="/florida-liquor-license-news/eleventh-circuit-florida-adult-live-performance-law-liquor-licenses">
               <span>August 4, 2026 · Eleventh Circuit</span>
               <h3>Adult live performance law and beverage-license enforcement</h3>

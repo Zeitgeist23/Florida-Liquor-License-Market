@@ -27,5 +27,22 @@ export default function Page() {
     officialHref="https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=7048&clientCode=4006&xactCode=1065"
     relatedHref="/florida-4cop-liquor-license-for-sale"
     relatedLabel="View 4COP Quota Licenses for Sale"
+    researchLinks={[
+      {
+        href: "/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law",
+        label: "Florida Cocktails-to-Go Law",
+        description: "Review current food-order, sealing, packaging, and delivery rules for qualifying 4COP restaurants."
+      },
+      {
+        href: "/resources/florida-liquor-license-laws#cocktails-to-go",
+        label: "Cocktails-to-Go Statutes",
+        description: "Open SB 148, section 565.045, and the related open-container provision."
+      },
+      {
+        href: "/license-types/4cop-sfs-restaurant",
+        label: "Compare 4COP-SFS",
+        description: "Compare the transferable quota license with the qualification-based restaurant license."
+      }
+    ]}
   />;
 }
