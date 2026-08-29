@@ -18,6 +18,15 @@ function value(form: FormData, key: string, maxLength = 5000) {
     .slice(0, maxLength);
 }
 
+function values(form: FormData, key: string, maxLength = 5000) {
+  return form
+    .getAll(key)
+    .map((item) => String(item).trim())
+    .filter(Boolean)
+    .join(", ")
+    .slice(0, maxLength);
+}
+
 function accepted(form: FormData, key: string) {
   return value(form, key, 30) === "Accepted";
 }
@@ -69,7 +78,7 @@ export async function POST(request: Request) {
     }
 
     const brokerageName = value(form, "brokerage_name", 180);
-    const contactPreference = value(form, "contact_preference", 120);
+    const contactPreference = values(form, "contact_preference", 500);
     if (!brokerageName || !contactPreference) {
       return NextResponse.json(
         {
