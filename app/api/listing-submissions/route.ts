@@ -7,6 +7,7 @@ import {
   getSubmissionByCheckoutSession,
 } from "@/lib/listing-submission-store";
 import { createListingCheckoutSession } from "@/lib/stripe-listing-checkout";
+import { listingPaymentDetails } from "@/lib/listing-payment-details";
 import {
   notifyFllmOfBrokerConsultation,
   sendBrokerConsultationAcknowledgement,
@@ -32,7 +33,12 @@ type RequestBody = {
 };
 
 function accepted(value: boolean | string | undefined) {
-  return value === true || value === "true" || value === "Certified" || value === "Accepted";
+  return (
+    value === true ||
+    value === "true" ||
+    value === "Certified" ||
+    value === "Accepted"
+  );
 }
 
 export async function POST(request: Request) {
@@ -44,14 +50,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, checkoutUrl: "/" });
     }
     const brokerAssisted = body.sale_method === "Broker-Assisted Listing";
-    if (!accepted(body.seller_certification) || (!brokerAssisted && !accepted(body.fee_agreement))) {
+    if (
+      !accepted(body.seller_certification) ||
+      (!brokerAssisted && !accepted(body.fee_agreement))
+    ) {
       return NextResponse.json(
         {
           error: brokerAssisted
             ? "Please accept the seller certification before requesting a consultation."
             : "Please accept both seller certifications before continuing.",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -73,12 +82,18 @@ export async function POST(request: Request) {
       try {
         await notifyFllmOfBrokerConsultation(submission);
       } catch (notificationError) {
-        console.error("Broker consultation notification failed", notificationError);
+        console.error(
+          "Broker consultation notification failed",
+          notificationError,
+        );
       }
       try {
         await sendBrokerConsultationAcknowledgement(submission);
       } catch (acknowledgementError) {
-        console.error("Broker consultation acknowledgement failed", acknowledgementError);
+        console.error(
+          "Broker consultation acknowledgement failed",
+          acknowledgementError,
+        );
       }
 
       return NextResponse.json({
@@ -88,7 +103,10 @@ export async function POST(request: Request) {
       });
     }
 
-    const checkout = await createListingCheckoutSession(submission, request.url);
+    const checkout = await createListingCheckoutSession(
+      submission,
+      request.url,
+    );
     await attachCheckoutSession(submission.id, checkout.id);
 
     return NextResponse.json({
@@ -97,7 +115,10 @@ export async function POST(request: Request) {
       checkoutUrl: checkout.url,
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to create secure checkout.";
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Unable to create secure checkout.";
     if (submissionId) {
       try {
         await markCheckoutFailed(submissionId, message);
@@ -114,16 +135,23 @@ export async function GET(request: Request) {
   try {
     const sessionId = new URL(request.url).searchParams.get("session_id");
     if (!sessionId) {
-      return NextResponse.json({ error: "Missing checkout session." }, { status: 400 });
+      return NextResponse.json(
+        { error: "Missing checkout session." },
+        { status: 400 },
+      );
     }
     const submission = await getSubmissionByCheckoutSession(sessionId);
     if (!submission) {
       return NextResponse.json({ status: "processing" });
     }
+    const payment = listingPaymentDetails(submission.message);
     return NextResponse.json({
       status: submission.status,
       submissionRef: submission.submissionRef,
       paymentEmailStatus: submission.paymentEmailStatus,
+      listingTier: payment.tier,
+      listingTierLabel: payment.tierLabel,
+      paymentAmount: payment.amountLabel,
     });
   } catch (error) {
     console.error("Could not read listing submission status", error);

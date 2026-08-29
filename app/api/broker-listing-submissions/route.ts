@@ -32,7 +32,7 @@ const listingOptions = {
     label: "Featured Broker Listing",
     unitAmount: 2495,
     description:
-      "Featured badge and 30 days of priority marketplace placement after publication.",
+      "Featured badge, prominent broker contact display and 30 days of priority marketplace placement after publication.",
     paymentLink: process.env.STRIPE_FEATURED_LISTING_PAYMENT_LINK,
   },
 } as const;

@@ -5,7 +5,7 @@ import { FLLM_GMAIL_SIGNATURE_IMAGE_BASE64 } from "@/lib/fllm-gmail-signature";
 
 const FLLM_SIGNATURE_CID_PLACEHOLDER = "__FLLM_SIGNATURE_CID__";
 import type { ListingSubmission } from "@/lib/listing-submission-store";
-
+import { listingPaymentDetails } from "@/lib/listing-payment-details";
 
 function siteUrl() {
   return (
@@ -16,7 +16,9 @@ function siteUrl() {
 }
 
 function senderEmail() {
-  return process.env.GOOGLE_SENDER_EMAIL || "listings@floridaliquorlicensemarket.com";
+  return (
+    process.env.GOOGLE_SENDER_EMAIL || "listings@floridaliquorlicensemarket.com"
+  );
 }
 
 function escapeHtml(value: string | null | undefined) {
@@ -44,7 +46,9 @@ function countyLabel(county: string) {
 
 function approvedEmailTitle(submission: ListingSubmission) {
   if (!submission.listingTitle || !submission.approvedLicenseType) {
-    throw new Error("The approved listing is missing its title or license type.");
+    throw new Error(
+      "The approved listing is missing its title or license type.",
+    );
   }
   return submission.listingTitle;
 }
@@ -86,7 +90,7 @@ async function accessToken() {
   const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
   if (!clientId || !clientSecret || !refreshToken) {
     throw new Error(
-      "Google email credentials are incomplete. Configure GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, and GOOGLE_REFRESH_TOKEN."
+      "Google email credentials are incomplete. Configure GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, and GOOGLE_REFRESH_TOKEN.",
     );
   }
 
@@ -103,9 +107,14 @@ async function accessToken() {
     body,
     cache: "no-store",
   });
-  const payload = (await response.json()) as { access_token?: string; error_description?: string };
+  const payload = (await response.json()) as {
+    access_token?: string;
+    error_description?: string;
+  };
   if (!response.ok || !payload.access_token) {
-    throw new Error(payload.error_description || "Google OAuth token refresh failed.");
+    throw new Error(
+      payload.error_description || "Google OAuth token refresh failed.",
+    );
   }
   return payload.access_token;
 }
@@ -123,10 +132,12 @@ function base64Url(value: string) {
 }
 
 function attachmentBase64(value: Uint8Array) {
-  return Buffer.from(value)
-    .toString("base64")
-    .match(/.{1,76}/g)
-    ?.join("\r\n") || "";
+  return (
+    Buffer.from(value)
+      .toString("base64")
+      .match(/.{1,76}/g)
+      ?.join("\r\n") || ""
+  );
 }
 
 export async function sendFllmEmail(input: {
@@ -144,7 +155,10 @@ export async function sendFllmEmail(input: {
 }) {
   const sender = senderEmail();
   const signatureContentId = `fllm-signature-${Date.now()}-${Math.random().toString(16).slice(2)}@floridaliquorlicensemarket.com`;
-  const html = input.html.replaceAll(FLLM_SIGNATURE_CID_PLACEHOLDER, signatureContentId);
+  const html = input.html.replaceAll(
+    FLLM_SIGNATURE_CID_PLACEHOLDER,
+    signatureContentId,
+  );
   const alternativeBoundary = `fllm-alt-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   const relatedBoundary = `fllm-related-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   const mixedBoundary = `fllm-mixed-${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -203,7 +217,12 @@ export async function sendFllmEmail(input: {
       "",
     ];
   });
-  const mime = [...headers, ...alternative, ...attachments, `--${mixedBoundary}--`].join("\r\n");
+  const mime = [
+    ...headers,
+    ...alternative,
+    ...attachments,
+    `--${mixedBoundary}--`,
+  ].join("\r\n");
 
   const token = await accessToken();
   const response = await fetch(
@@ -216,11 +235,13 @@ export async function sendFllmEmail(input: {
       },
       body: JSON.stringify({ raw: base64Url(mime) }),
       cache: "no-store",
-    }
+    },
   );
 
   if (!response.ok) {
-    throw new Error(`Gmail API send failed: ${response.status} ${await response.text()}`);
+    throw new Error(
+      `Gmail API send failed: ${response.status} ${await response.text()}`,
+    );
   }
   return response.json() as Promise<{ id: string; threadId: string }>;
 }
@@ -247,12 +268,14 @@ function applicationReviewEmail() {
 }
 
 export async function notifyFllmOfAttorneyApplication(
-  application: AttorneyDirectoryApplicationEmail
+  application: AttorneyDirectoryApplicationEmail,
 ) {
   const servicesHtml = application.services
     .map((service) => `<li>${escapeHtml(service)}</li>`)
     .join("");
-  const servicesText = application.services.map((service) => `- ${service}`).join("\n");
+  const servicesText = application.services
+    .map((service) => `- ${service}`)
+    .join("\n");
   const portraitHtml = application.portraitUrl
     ? `<br><strong>Portrait URL:</strong> <a href="${escapeHtml(application.portraitUrl)}">${escapeHtml(application.portraitUrl)}</a>`
     : "";
@@ -312,9 +335,11 @@ Submitted: ${application.submittedAt}`;
 }
 
 export async function sendAttorneyApplicationAcknowledgement(
-  application: AttorneyDirectoryApplicationEmail
+  application: AttorneyDirectoryApplicationEmail,
 ) {
-  const firstName = escapeHtml(application.fullName.split(/\s+/)[0] || application.fullName);
+  const firstName = escapeHtml(
+    application.fullName.split(/\s+/)[0] || application.fullName,
+  );
   const details = `
     <p style="margin:0 0 18px;">Hello ${firstName},</p>
     <p style="margin:0 0 18px;">Thank you for applying to the Florida Liquor License Market attorney directory.</p>
@@ -350,9 +375,10 @@ ${siteUrl()}`;
 
 export async function sendPaymentReceivedEmail(submission: ListingSubmission) {
   const firstName = escapeHtml(submission.firstName || "there");
+  const payment = listingPaymentDetails(submission.message);
   const details = `
     <p style="margin:0 0 18px;">Hello ${firstName},</p>
-    <p style="margin:0 0 18px;">Thank you for submitting your Florida liquor license listing and completing the $14.95 listing-submission payment.</p>
+    <p style="margin:0 0 18px;">Thank you for submitting your Florida liquor license listing and completing the ${payment.amountLabel} ${payment.tierLabel.toLowerCase()} payment through Stripe.</p>
     <p style="margin:0 0 18px;">Your submission has been received and is now under review. Payment does not guarantee publication. We will send another email after the listing has been reviewed and, if approved, published on the Florida Liquor License Market website.</p>
     <p style="margin:0 0 18px;"><strong>County:</strong> ${escapeHtml(countyLabel(submission.county))}<br>
     <strong>License Type:</strong> ${escapeHtml(submission.licenseType)}<br>
@@ -360,7 +386,7 @@ export async function sendPaymentReceivedEmail(submission: ListingSubmission) {
     <strong>Submission Reference:</strong> ${escapeHtml(submission.submissionRef)}</p>
     <p style="margin:0;">No further action is required at this time.</p>`;
 
-  const text = `Hello ${submission.firstName || "there"},\n\nThank you for submitting your Florida liquor license listing and completing the $14.95 listing-submission payment.\n\nYour submission has been received and is now under review. Payment does not guarantee publication. We will send another email after the listing has been reviewed and, if approved, published on the Florida Liquor License Market website.\n\nCounty: ${countyLabel(submission.county)}\nLicense Type: ${submission.licenseType}\nAsking Price: ${formatMoney(submission.askingPrice)}\nSubmission Reference: ${submission.submissionRef}\n\nNo further action is required at this time.\n\nFlorida Liquor License Market\n${senderEmail()}\n${siteUrl()}`;
+  const text = `Hello ${submission.firstName || "there"},\n\nThank you for submitting your Florida liquor license listing and completing the ${payment.amountLabel} ${payment.tierLabel.toLowerCase()} payment through Stripe.\n\nYour submission has been received and is now under review. Payment does not guarantee publication. We will send another email after the listing has been reviewed and, if approved, published on the Florida Liquor License Market website.\n\nCounty: ${countyLabel(submission.county)}\nLicense Type: ${submission.licenseType}\nAsking Price: ${formatMoney(submission.askingPrice)}\nSubmission Reference: ${submission.submissionRef}\n\nNo further action is required at this time.\n\nFlorida Liquor License Market\n${senderEmail()}\n${siteUrl()}`;
 
   return sendFllmEmail({
     to: submission.email,
@@ -370,8 +396,11 @@ export async function sendPaymentReceivedEmail(submission: ListingSubmission) {
   });
 }
 
-export async function notifyFllmOfBrokerConsultation(submission: ListingSubmission) {
-  const reviewEmail = process.env.BROKER_CONSULTATION_REVIEW_EMAIL || senderEmail();
+export async function notifyFllmOfBrokerConsultation(
+  submission: ListingSubmission,
+) {
+  const reviewEmail =
+    process.env.BROKER_CONSULTATION_REVIEW_EMAIL || senderEmail();
   const details = `
     <p style="margin:0 0 18px;"><strong>A seller has requested a broker-assisted consultation.</strong></p>
     <p style="margin:0 0 18px;">
@@ -556,7 +585,9 @@ The seller authorized FLLM to contact them about this estimate and selling optio
   });
 }
 
-export async function sendValuationLeadAcknowledgement(submission: ListingSubmission) {
+export async function sendValuationLeadAcknowledgement(
+  submission: ListingSubmission,
+) {
   const details = valuationDetails(submission);
   const firstName = escapeHtml(submission.firstName || "there");
   const content = `
@@ -596,7 +627,9 @@ ${siteUrl()}`;
   });
 }
 
-export async function sendBrokerConsultationAcknowledgement(submission: ListingSubmission) {
+export async function sendBrokerConsultationAcknowledgement(
+  submission: ListingSubmission,
+) {
   const firstName = escapeHtml(submission.firstName || "there");
   const details = `
     <p style="margin:0 0 18px;">Hello ${firstName},</p>
@@ -630,8 +663,14 @@ ${siteUrl()}`;
 }
 
 export async function sendListingApprovedEmail(submission: ListingSubmission) {
-  if (!submission.liveListingUrl || !submission.listingTitle || !submission.approvedLicenseType) {
-    throw new Error("The approved listing is missing its title, license type, or live URL.");
+  if (
+    !submission.liveListingUrl ||
+    !submission.listingTitle ||
+    !submission.approvedLicenseType
+  ) {
+    throw new Error(
+      "The approved listing is missing its title, license type, or live URL.",
+    );
   }
 
   const firstName = escapeHtml(submission.firstName || "there");
@@ -672,16 +711,24 @@ export type ApprovedBrokerNotificationResult = {
 };
 
 export async function notifyApprovedBrokersOfListing(
-  submission: ListingSubmission
+  submission: ListingSubmission,
 ): Promise<ApprovedBrokerNotificationResult> {
-  if (!submission.liveListingUrl || !submission.listingTitle || !submission.approvedLicenseType) {
-    throw new Error("The approved listing is missing its title, license type, or live URL.");
+  if (
+    !submission.liveListingUrl ||
+    !submission.listingTitle ||
+    !submission.approvedLicenseType
+  ) {
+    throw new Error(
+      "The approved listing is missing its title, license type, or live URL.",
+    );
   }
 
   const county = countyLabel(submission.county);
   const listingTitle = approvedEmailTitle(submission);
   const liveUrl = escapeHtml(submission.liveListingUrl);
-  const askingPrice = formatMoney(submission.approvedAskingPrice ?? submission.askingPrice);
+  const askingPrice = formatMoney(
+    submission.approvedAskingPrice ?? submission.askingPrice,
+  );
   const subject = `New FLLM Listing — ${county} ${submission.approvedLicenseType}`;
 
   const deliveries = await Promise.all(
@@ -732,14 +779,20 @@ ${siteUrl()}`;
         return {
           email: broker.email,
           sent: false as const,
-          error: error instanceof Error ? error.message : "Broker notification failed.",
+          error:
+            error instanceof Error
+              ? error.message
+              : "Broker notification failed.",
         };
       }
-    })
+    }),
   );
 
   const failures = deliveries
-    .filter((delivery): delivery is { email: string; sent: false; error: string } => !delivery.sent)
+    .filter(
+      (delivery): delivery is { email: string; sent: false; error: string } =>
+        !delivery.sent,
+    )
     .map((delivery) => ({ email: delivery.email, error: delivery.error }));
 
   return {
@@ -749,4 +802,3 @@ ${siteUrl()}`;
     failures,
   };
 }
-
