@@ -27,14 +27,18 @@ const listingOptions = {
     label: "Standard Broker Listing",
     unitAmount: 1495,
     description: "Standard marketplace publication after review.",
-    paymentLink: process.env.STRIPE_LISTING_PAYMENT_LINK,
+    paymentLink:
+      process.env.STRIPE_LISTING_PAYMENT_LINK ||
+      "https://buy.stripe.com/00w00b8vbgUd3ml5mZebu04",
   },
   featured: {
     label: "Featured Broker Listing",
     unitAmount: 2495,
     description:
       "Featured badge, prominent broker contact display and 30 days of priority marketplace placement after publication.",
-    paymentLink: process.env.STRIPE_FEATURED_LISTING_PAYMENT_LINK,
+    paymentLink:
+      process.env.STRIPE_FEATURED_LISTING_PAYMENT_LINK ||
+      "https://buy.stripe.com/5kQ00bdPv5bv4qpbLnebu05",
   },
 } as const;
 
