@@ -137,11 +137,15 @@ export default function CountyMarketDataPanel({
         <div className="county-data-evidence">
           <div className="county-data-evidence-heading">
             <div><span>Current Market Evidence</span><h3>Live {county.name} listing references</h3></div>
-            <Link href={filteredListingsHref}>View all county listings ›</Link>
+            <Link href={filteredListingsHref}>View all {county.name} liquor licenses for sale ›</Link>
           </div>
           <div className="county-data-evidence-grid">
             {evidenceListings.map((listing) => (
-              <Link key={listing.sourceRef} href={listingPageHref(listing)}>
+              <Link
+                key={listing.sourceRef}
+                href={listingPageHref(listing)}
+                aria-label={`View ${county.name} ${listing.type} offered at ${listing.priceLabel}, reference ${listing.sourceRef}`}
+              >
                 <span>{listing.sourceRef}</span>
                 <strong>{listing.type}</strong>
                 <b>{listing.priceLabel}</b>
