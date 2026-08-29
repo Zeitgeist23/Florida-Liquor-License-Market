@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import CountyMarketDataPanel from "@/components/CountyMarketDataPanel";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import { countyValuationGuideHref, isCountyValuationGuide } from "@/data/county-valuation-guides";
@@ -41,6 +42,63 @@ function median(values: number[]) {
   return sorted.length % 2 ? sorted[middle] : Math.round((sorted[middle - 1] + sorted[middle]) / 2);
 }
 
+const getCountyListingSnapshot = cache(async (countyName: string) => {
+  const marketplaceListings = getVisibleMarketplaceListings(await getMarketplaceListings());
+  const countyListings = marketplaceListings.filter((listing) => listing.county === countyName);
+  const available = countyListings.filter((listing) => Boolean(listing.sourceRef));
+  const sold = countyListings.filter((listing) => !listing.sourceRef);
+  const disclosedPrices = available
+    .map((listing) => listing.price)
+    .filter((price): price is number => Number.isFinite(price));
+
+  return {
+    available,
+    sold,
+    lowest: disclosedPrices.length ? Math.min(...disclosedPrices) : null,
+    highest: disclosedPrices.length ? Math.max(...disclosedPrices) : null,
+    medianPrice: median(disclosedPrices),
+  };
+});
+
+function countyMetadataTitle(county: NonNullable<ReturnType<typeof getCountyBySlug>>) {
+  const primaryCity = county.primaryCities[0];
+  const localTitle = primaryCity
+    ? `${county.name} 4COP & 3PS Liquor Licenses for Sale | ${primaryCity}`
+    : `${county.name} Liquor Licenses for Sale | 4COP & 3PS`;
+
+  return localTitle.length <= 72
+    ? localTitle
+    : `${county.name} Liquor Licenses for Sale | 4COP & 3PS`;
+}
+
+function countyMarketDescription(
+  county: NonNullable<ReturnType<typeof getCountyBySlug>>,
+  snapshot: Awaited<ReturnType<typeof getCountyListingSnapshot>>,
+) {
+  const primaryCity = county.primaryCities[0];
+  const marketName = primaryCity ? `${primaryCity} and ${county.name}` : county.name;
+
+  if (!snapshot.available.length) {
+    return `Browse current ${marketName} 4COP and 3PS quota liquor-license opportunities, asking prices, availability, and county market data.`;
+  }
+
+  if (snapshot.lowest === null || snapshot.highest === null) {
+    return `Compare ${snapshot.available.length} active ${marketName} quota-license listing${snapshot.available.length === 1 ? "" : "s"}, including current 4COP and 3PS inventory and availability.`;
+  }
+
+  const priceSummary = snapshot.lowest === snapshot.highest
+    ? `Disclosed ask: ${money(snapshot.lowest)}.`
+    : `Asks range ${money(snapshot.lowest)}–${money(snapshot.highest)}${snapshot.medianPrice === null ? "." : `; median ${money(snapshot.medianPrice)}.`}`;
+
+  return `Compare ${snapshot.available.length} active ${marketName} quota-license listing${snapshot.available.length === 1 ? "" : "s"}. ${priceSummary} Browse 4COP and 3PS.`;
+}
+
+function absoluteImageUrl(image: string | undefined) {
+  if (!image) return undefined;
+  if (/^https?:\/\//i.test(image)) return image;
+  return `${siteUrl}${image.startsWith("/") ? image : `/${image}`}`;
+}
+
 function listingKey(listing: Listing) {
   return listing.sourceRef ?? `${listing.county}-${listing.type}-${listing.priceLabel}`;
 }
@@ -72,17 +130,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const county = getCountyBySlug(slug);
   if (!county) return {};
 
+  const snapshot = await getCountyListingSnapshot(county.name);
   const canonical = `${siteUrl}/counties/${county.slug}`;
-  const isDuval = county.slug === "duval";
-  const title = isDuval
-    ? "Duval County Liquor Licenses for Sale | Jacksonville 4COP & 3PS"
-    : `${county.name} Liquor Licenses for Sale | 4COP & 3PS`;
-  const cityPhrase = county.primaryCities.length
-    ? ` across ${county.primaryCities.slice(0, 3).join(", ")}`
-    : "";
-  const description = isDuval
-    ? "Browse Duval County and Jacksonville liquor licenses for sale, including current 4COP and 3PS quota opportunities, asking prices, availability, and live marketplace inventory."
-    : `Browse ${county.name} liquor licenses for sale, including current 4COP and 3PS quota opportunities, asking prices, availability, and live marketplace inventory${cityPhrase}.`;
+  const title = countyMetadataTitle(county);
+  const description = countyMarketDescription(county, snapshot);
 
   return {
     title,
@@ -111,20 +162,11 @@ export default async function CountyPage({ params }: PageProps) {
   const county = getCountyBySlug(slug);
   if (!county) notFound();
 
-  const marketplaceListings = getVisibleMarketplaceListings(await getMarketplaceListings());
-  const countyListings = marketplaceListings.filter((listing) => listing.county === county.name);
-  const available = countyListings.filter((listing) => Boolean(listing.sourceRef));
-  const sold = countyListings.filter((listing) => !listing.sourceRef);
-  const disclosedPrices = available
-    .map((listing) => listing.price)
-    .filter((price): price is number => Number.isFinite(price));
-  const lowest = disclosedPrices.length ? Math.min(...disclosedPrices) : null;
-  const highest = disclosedPrices.length ? Math.max(...disclosedPrices) : null;
-  const medianPrice = median(disclosedPrices);
+  const { available, sold, lowest, highest, medianPrice } = await getCountyListingSnapshot(county.name);
   const canonical = `${siteUrl}/counties/${county.slug}`;
   const filteredListingsHref = `/listings?county=${encodeURIComponent(county.name)}&status=available`;
   const cityText = county.primaryCities.length ? county.primaryCities.join(", ") : county.name.replace(" County", "");
-  const countySearchSummary = `Compare current ${county.name} liquor licenses for sale, including 4COP and 3PS quota opportunities, asking prices, availability, and marketplace inventory for ${cityText}.`;
+  const countySearchSummary = countyMarketDescription(county, { available, sold, lowest, highest, medianPrice });
   const nearby = county.nearbyCounties
     .map((nearbySlug) => getCountyBySlug(nearbySlug))
     .filter((value): value is NonNullable<typeof value> => Boolean(value));
@@ -189,8 +231,22 @@ export default async function CountyPage({ params }: PageProps) {
       itemListElement: available.slice(0, 30).map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: `${listing.type} in ${county.name} — ${listing.priceLabel}`,
-        url: `${siteUrl}${listingPageHref(listing)}`,
+        item: {
+          "@type": "Product",
+          name: `${county.name} ${listing.type} — ${listing.priceLabel}`,
+          description: countyListingDescription(county.name),
+          sku: listing.sourceRef,
+          category: listing.type,
+          image: absoluteImageUrl(listing.image),
+          url: `${siteUrl}${listingPageHref(listing)}`,
+          offers: listing.price === null ? undefined : {
+            "@type": "Offer",
+            price: listing.price,
+            priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
+            url: `${siteUrl}${listingPageHref(listing)}`,
+          },
+        },
       })),
     },
     {
@@ -277,13 +333,13 @@ export default async function CountyPage({ params }: PageProps) {
                     <div className="result-photo"><FloridaCountyMap county={listing.county} enlarged /></div>
                     <div className="result-body">
                       <p className="result-county-row"><span className="result-pin" aria-hidden="true">●</span><Link className="result-county-link" href={`/counties/${county.slug}`}>{listing.county}</Link></p>
-                      <h2><Link href={listingPageHref(listing)} aria-label={`View ${listing.type} listing in ${listing.county}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
+                      <h2><Link href={listingPageHref(listing)} aria-label={`View ${listing.county} ${listing.type} offered at ${listing.priceLabel}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
                       <div className="result-facts">
                         <span className="availability-pill" title={listing.licenseStatus ? sellerReportedStatusLabel(listing.licenseStatus) : "Status to confirm"}><span className="availability-dot" aria-hidden="true" />Available</span>
                       </div>
                       <ListingDescription listing={listing} />
                       <div className="result-actions">
-                        <Link className="btn btn-gold result-view-button" href={listingPageHref(listing)}>View License <span aria-hidden="true">›</span></Link>
+                        <Link className="btn btn-gold result-view-button" href={listingPageHref(listing)}>View {listing.type} Details <span aria-hidden="true">›</span></Link>
                       </div>
                     </div>
                   </article>
