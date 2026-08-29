@@ -66,8 +66,8 @@ function extractDates(flatText, existing) {
     .replace(/P\.\s*M\./i, "P.M.");
 
   return {
-    entryOpens: `${matches[0][1]} at ${cleanTime(matches[0][2])} EST`,
-    entryCloses: `${matches[1][1]} at ${cleanTime(matches[1][2])} EST`,
+    entryOpens: `${matches[0][1]} at ${cleanTime(matches[0][2])} ET`,
+    entryCloses: `${matches[1][1]} at ${cleanTime(matches[1][2])} ET`,
   };
 }
 
