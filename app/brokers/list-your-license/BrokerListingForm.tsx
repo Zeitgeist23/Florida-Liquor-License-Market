@@ -28,17 +28,31 @@ export default function BrokerListingForm() {
   const [documentName, setDocumentName] = useState("");
 
   useEffect(() => {
-    if (
-      new URLSearchParams(window.location.search).get("payment") === "cancelled"
-    ) {
-      setIsError(true);
-      setStatus(
-        "Payment was canceled. Your broker listing has not been activated. You may resubmit when ready.",
-      );
-      document
-        .getElementById("broker-listing-form")
-        ?.scrollIntoView({ block: "start" });
+    function restoreFormAfterCheckout() {
+      setSubmitting(false);
+
+      if (
+        new URLSearchParams(window.location.search).get("payment") ===
+        "cancelled"
+      ) {
+        setIsError(true);
+        setStatus(
+          "Payment was canceled. Your broker listing has not been activated. You may resubmit when ready.",
+        );
+        document
+          .getElementById("broker-listing-form")
+          ?.scrollIntoView({ block: "start" });
+        return;
+      }
+
+      setIsError(false);
+      setStatus("");
     }
+
+    restoreFormAfterCheckout();
+    window.addEventListener("pageshow", restoreFormAfterCheckout);
+    return () =>
+      window.removeEventListener("pageshow", restoreFormAfterCheckout);
   }, []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
