@@ -30,7 +30,7 @@ type ListingCheckoutOptions = {
 };
 
 const ACTIVE_LISTING_PAYMENT_LINK =
-  "https://buy.stripe.com/5kQ7sD8vb8nHcWVdTvebu00";
+  "https://buy.stripe.com/00w00b8vbgUd3ml5mZebu04";
 
 function siteUrl(requestUrl?: string) {
   const configured =
