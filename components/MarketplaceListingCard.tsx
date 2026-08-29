@@ -27,6 +27,19 @@ function classNames(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(" ");
 }
 
+function featuredBrokerContact(note: string | undefined) {
+  if (!note) return null;
+  const match = note.match(
+    /Independent broker listing represented by (.+?)\. (?:Buyer inquiry routing|License availability)/,
+  );
+  if (!match) return null;
+  const [name, brokerage, , phone] = match[1]
+    .split(" · ")
+    .map((value) => value.trim());
+  if (!name || !phone) return null;
+  return { name, brokerage, phone };
+}
+
 export type MarketplaceListingCardProps = {
   listing: Listing;
   focused?: boolean;
@@ -58,6 +71,9 @@ export default function MarketplaceListingCard({
   const statusTitle = normalizedListing.licenseStatus
     ? sellerReportedStatusLabel(normalizedListing.licenseStatus)
     : "Status to confirm";
+  const brokerContact = normalizedListing.featuredUntil
+    ? featuredBrokerContact(normalizedListing.note)
+    : null;
 
   return (
     <article
@@ -121,6 +137,18 @@ export default function MarketplaceListingCard({
             {compactCardDescription(fullDescription)}
           </p>
         </div>
+        {brokerContact ? (
+          <address className="featured-broker-contact">
+            <span>Listing Broker</span>
+            <strong>{brokerContact.name}</strong>
+            {brokerContact.brokerage ? (
+              <small>{brokerContact.brokerage}</small>
+            ) : null}
+            <a href={`tel:${brokerContact.phone.replace(/[^\d+]/g, "")}`}>
+              {brokerContact.phone}
+            </a>
+          </address>
+        ) : null}
         <div className="result-actions">
           {href ? (
             <Link

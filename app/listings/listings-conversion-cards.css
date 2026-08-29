@@ -226,6 +226,48 @@
   text-transform: none !important;
 }
 
+.results-page .featured-broker-contact {
+  width: 100% !important;
+  display: grid !important;
+  gap: 2px !important;
+  margin: 12px 0 0 !important;
+  padding: 9px 11px !important;
+  border-left: 2px solid #f1a600 !important;
+  color: #fff !important;
+  background: rgba(241, 166, 0, 0.075) !important;
+  font-style: normal !important;
+}
+
+.results-page .featured-broker-contact > span {
+  color: #f1a600 !important;
+  font-size: 8px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+.results-page .featured-broker-contact > strong {
+  color: #fff !important;
+  font-size: 12px !important;
+}
+
+.results-page .featured-broker-contact > small {
+  color: #bfcbd3 !important;
+  font-size: 9px !important;
+}
+
+.results-page .featured-broker-contact > a {
+  margin-top: 2px !important;
+  color: #51d56f !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  text-decoration: none !important;
+}
+
+.results-page .featured-broker-contact > a:hover {
+  text-decoration: underline !important;
+}
+
 .results-page .result-actions {
   width: min(245px, 100%) !important;
   min-height: 0 !important;

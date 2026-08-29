@@ -59,7 +59,7 @@ const faqs = [
   {
     question: "What does the Featured option include?",
     answer:
-      "A Featured listing receives a Featured badge and priority marketplace placement for 30 days after publication. It then remains live as a Standard listing until sold, withdrawn or otherwise removed.",
+      "A Featured listing receives a Featured badge, prominent broker name and phone display, and priority marketplace placement for 30 days after publication. It then remains live as a Standard listing until sold, withdrawn or otherwise removed.",
   },
   {
     question: "Will my contact information appear on the listing?",
@@ -93,7 +93,18 @@ function ListingPreview({ featured = false }: { featured?: boolean }) {
           Transferable Florida quota liquor-license opportunity. Price and
           availability subject to confirmation.
         </p>
-        <span className={styles.previewBroker}>Listed by Sample Brokerage</span>
+        {featured ? (
+          <address className={styles.previewFeaturedContact}>
+            <small>Listing Broker</small>
+            <b>Alex Morgan</b>
+            <span>Sample Florida Brokerage</span>
+            <strong>(407) 555-0148</strong>
+          </address>
+        ) : (
+          <span className={styles.previewBroker}>
+            Listed by Sample Florida Brokerage
+          </span>
+        )}
         <span className={styles.previewButton}>
           View License <b>›</b>
         </span>
@@ -248,8 +259,8 @@ export default function BrokerListYourLicensePage() {
             <h2>See the difference before you choose</h2>
             <p>
               Both options use the same professional marketplace card. Featured
-              adds a gold badge, stronger border treatment and priority
-              placement for the first 30 days.
+              adds a gold badge, stronger border treatment, prominent broker
+              contact information and priority placement for the first 30 days.
             </p>
           </div>
           <div className={styles.previewGrid}>
@@ -272,6 +283,7 @@ export default function BrokerListYourLicensePage() {
               <ListingPreview featured />
               <p className={styles.previewCaption}>
                 Receives the Featured badge and priority placement for 30 days,
+                displays the broker&apos;s name and phone directly on the card,
                 then continues as a Standard listing.
               </p>
             </div>
