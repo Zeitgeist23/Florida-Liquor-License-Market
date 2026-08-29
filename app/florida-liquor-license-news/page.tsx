@@ -14,8 +14,8 @@ import "./live-news-monitor.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-news`;
-const pageUpdatedLabel = "August 25, 2026";
-const pageUpdatedIso = "2026-08-25";
+const pageUpdatedLabel = "August 29, 2026";
+const pageUpdatedIso = "2026-08-29";
 
 export const metadata: Metadata = {
   title: "Florida Liquor License News & Current Events | FLLM",
@@ -40,6 +40,36 @@ export const metadata: Metadata = {
 };
 
 const officialUpdates = [
+  {
+    eyebrow: "Court Decision & Beverage-Law Enforcement",
+    title: "Eleventh Circuit clears the way for enforcement of Florida's adult live performance law",
+    date: "August 4, 2026",
+    dateTime: "2026-08-04",
+    copy:
+      "The en banc Eleventh Circuit vacated the preliminary injunction in HM Florida-ORL, LLC v. Griffin. FLLM explains the continuing litigation and the law's potential liquor-license penalties.",
+    href: "/florida-liquor-license-news/eleventh-circuit-florida-adult-live-performance-law-liquor-licenses",
+    source: "Eleventh Circuit / WKMG News 6",
+  },
+  {
+    eyebrow: "Orlando Local Licensing Law",
+    title: "Orlando's special food service liquor-license zones explained",
+    date: "Reviewed August 29, 2026",
+    dateTime: "2026-08-29",
+    copy:
+      "FLLM dates and connects the 2018 and 2021 Orlando local acts that created special-license paths for qualifying smaller restaurants in designated districts.",
+    href: "/florida-liquor-license-news/orlando-special-food-service-liquor-license-hb-1447-hb-1647",
+    source: "Florida Legislature / City of Orlando",
+  },
+  {
+    eyebrow: "Industry Commentary & License Access",
+    title: "Florida's 2COP beer-and-wine license offers statewide access without a county quota",
+    date: "December 18, 2025",
+    dateTime: "2025-12-18",
+    copy:
+      "A Tallahassee Democrat opinion highlighted the 2COP framework as an innovation tool. FLLM separates the commentary from the current licensing rules verified through Florida DBPR.",
+    href: "/florida-liquor-license-news/florida-2cop-beer-wine-license-statewide-access-market-context",
+    source: "Tallahassee Democrat Opinion / Florida DBPR",
+  },
   {
     eyebrow: "2026 Quota Drawing",
     title: "Florida announces 63 quota liquor licenses across 30 counties",
@@ -215,6 +245,7 @@ export default function FloridaLiquorLicenseNewsPage() {
                 <a href="#current-events">Current Events</a>
                 <a href="#live-monitor">Live News Monitor</a>
                 <a href="#court-decisions">Court Decisions</a>
+                <Link href="/resources/florida-liquor-license-laws">Laws Library</Link>
                 <a href="#videos">Video Briefings</a>
               </div>
             </div>
@@ -233,6 +264,7 @@ export default function FloridaLiquorLicenseNewsPage() {
           <a href="#live-monitor">Live Monitor</a>
           <a href="#historical-enforcement">Historical Enforcement</a>
           <a href="#court-decisions">Court Decisions &amp; Litigation</a>
+          <Link href="/resources/florida-liquor-license-laws">Laws &amp; Regulations</Link>
           <a href="#latest">Legislation &amp; Reform</a>
           <a href="#latest">DBPR &amp; ABT</a>
           <a href="#latest">Quota Drawings</a>

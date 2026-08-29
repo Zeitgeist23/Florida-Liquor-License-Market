@@ -25,5 +25,22 @@ export default function Page() {
     officialHref="https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=7021&clientCode=4006&xactCode=1028"
     relatedHref="/resources/florida-liquor-license-types"
     relatedLabel="Compare All License Types"
+    researchLinks={[
+      {
+        href: "/florida-liquor-license-news/florida-2cop-beer-wine-license-statewide-access-market-context",
+        label: "2COP Statewide Access & Market Context",
+        description: "Separate the non-quota licensing rule from recent industry commentary."
+      },
+      {
+        href: "/resources/florida-liquor-license-laws#current-developments",
+        label: "Florida Liquor License Laws",
+        description: "Review official statutes, DBPR sources, and connected regulatory updates."
+      },
+      {
+        href: "/license-types/4cop-quota",
+        label: "Compare With 4COP Quota",
+        description: "See why a county quota license has different privileges, scarcity, and market value."
+      }
+    ]}
   />;
 }

@@ -59,6 +59,20 @@ const statutes = [
       "Requires covered quota-license premises to maintain bona fide active operation, addresses written inactive-status notice and waivers, and prevents related-party transfers from restarting the applicable operating period.",
     href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.29.html",
   },
+  {
+    citation: "F.S. § 561.29(1)(l)",
+    title: "Adult live performance enforcement at licensed premises",
+    summary:
+      "Authorizes Beverage Law discipline when a licensed premises admits a child to an adult live performance in violation of section 827.11, including stated first- and repeat-violation fines.",
+    href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.29.html",
+  },
+  {
+    citation: "F.S. § 827.11",
+    title: "Adult live performances",
+    summary:
+      "Defines the regulated conduct and prohibits knowingly admitting a child to an adult live performance. Read together with section 561.29 for beverage-license consequences.",
+    href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0800-0899/0827/Sections/0827.11.html",
+  },
 ];
 
 const abtRules = [
@@ -93,6 +107,24 @@ const abtRules = [
 ];
 
 const officialSources = [
+  {
+    citation: "Chapter 2018-187",
+    title: "Orlando Downtown Restaurant Area — HB 1447",
+    summary: "Official Florida Legislature history for the 2018 Orlando special restaurant alcoholic-beverage license act.",
+    href: "https://www.flsenate.gov/Session/Bill/2018/1447",
+  },
+  {
+    citation: "Chapter 2021-265",
+    title: "Orlando Main Street Incentive Areas — HB 1647",
+    summary: "Official Florida Legislature history for the act expanding Orlando's special small-restaurant licensing zones.",
+    href: "https://www.flsenate.gov/Session/Bill/2021/1647",
+  },
+  {
+    citation: "Chapter 2023-94",
+    title: "Protection of Children — SB 1438",
+    summary: "Official legislative history for the 2023 law affecting adult live performances and beverage-license enforcement.",
+    href: "https://www.flsenate.gov/Session/Bill/2023/1438",
+  },
   {
     citation: "Official Division Index",
     title: "DBPR / ABT Statutes & Rules",
@@ -173,7 +205,14 @@ const styles = `
   .law-modal-titlebar{padding:16px 20px;border-bottom:1px solid #294657;background:#071b29}.law-modal-titlebar>span{color:#f6a700;font-size:11px;font-weight:900;text-transform:uppercase}.law-modal-titlebar h2{margin:5px 0 5px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:clamp(22px,3vw,32px);line-height:1.1}.law-modal-titlebar p{max-width:950px;margin:0;color:#aebfc9;font-size:12px;line-height:1.5}
   .law-modal-frame-wrap{flex:1;min-height:0;background:#fff}.law-modal-frame{display:block;width:100%;height:100%;border:0;background:#fff}
   .law-modal-footer{display:flex;justify-content:space-between;gap:18px;padding:10px 18px;border-top:1px solid rgba(246,167,0,.35);background:#030c13;color:#8fa4b0;font-size:10px}
-  @media(max-width:820px){.laws-heading,.laws-grid,.official-source-grid{grid-template-columns:1fr}.laws-heading{gap:8px}.law-modal-backdrop{padding:8px}.law-modal{width:100%;height:94vh}.law-modal-brand img{height:36px}.law-modal-footer{display:block}.law-modal-footer span{display:block}.law-modal-footer span+span{margin-top:4px}}
+  .laws-development-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .laws-development-card{display:flex;flex-direction:column;min-height:250px;padding:22px;border:1px solid #38566a;border-radius:8px;background:linear-gradient(145deg,#0a2639,#04131f);color:inherit;text-decoration:none;transition:transform .18s ease,border-color .18s ease}
+  .laws-development-card:hover,.laws-development-card:focus-visible{transform:translateY(-4px);border-color:#f6a700;outline:none}
+  .laws-development-card span{color:#f6a700;font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
+  .laws-development-card h3{margin:12px 0 9px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.2}
+  .laws-development-card p{margin:0;color:#b9c9d2;font-size:13px;line-height:1.62}
+  .laws-development-card b{margin-top:auto;padding-top:18px;color:#f6a700;font-size:11px;text-transform:uppercase}
+  @media(max-width:820px){.laws-heading,.laws-grid,.official-source-grid,.laws-development-grid{grid-template-columns:1fr}.laws-heading{gap:8px}.laws-development-card{min-height:0}.law-modal-backdrop{padding:8px}.law-modal{width:100%;height:94vh}.law-modal-brand img{height:36px}.law-modal-footer{display:block}.law-modal-footer span{display:block}.law-modal-footer span+span{margin-top:4px}}
 `;
 
 export default function FloridaLiquorLicenseLawsPage() {
@@ -224,6 +263,35 @@ export default function FloridaLiquorLicenseLawsPage() {
             sourceName="Official Florida government source"
             variant="compact"
           />
+        </div>
+      </section>
+
+      <section className="laws-section alt" id="current-developments">
+        <div className="page-shell">
+          <div className="laws-heading">
+            <div><span>Law Connected to Market Context</span><h2>Current and historical developments</h2></div>
+            <p>Each FLLM briefing identifies the event date, distinguishes current law from commentary, and links back to the controlling statute, license type, county, or court resource.</p>
+          </div>
+          <div className="laws-development-grid">
+            <Link className="laws-development-card" href="/florida-liquor-license-news/eleventh-circuit-florida-adult-live-performance-law-liquor-licenses">
+              <span>August 4, 2026 · Eleventh Circuit</span>
+              <h3>Adult live performance law and beverage-license enforcement</h3>
+              <p>The en banc court vacated the preliminary injunction. The FLLM briefing explains the continuing case and the license penalties in section 561.29(1)(l).</p>
+              <b>Read Court Update ›</b>
+            </Link>
+            <Link className="laws-development-card" href="/florida-liquor-license-news/orlando-special-food-service-liquor-license-hb-1447-hb-1647">
+              <span>2018 &amp; 2021 · Orlando Local Acts</span>
+              <h3>Orlando special food service license zones</h3>
+              <p>HB 1447 and HB 1647 created and expanded a special-license path for qualifying smaller restaurants in designated Orlando areas.</p>
+              <b>Read Orlando Law Guide ›</b>
+            </Link>
+            <Link className="laws-development-card" href="/florida-liquor-license-news/florida-2cop-beer-wine-license-statewide-access-market-context">
+              <span>2COP · Beer &amp; Wine Access</span>
+              <h3>Non-quota beer-and-wine licensing</h3>
+              <p>DBPR confirms beer-and-wine licenses are not numerically restricted like county full-liquor quota licenses. FLLM separates that rule from industry opinion.</p>
+              <b>Read 2COP Market Context ›</b>
+            </Link>
+          </div>
         </div>
       </section>
 

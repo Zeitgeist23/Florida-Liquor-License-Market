@@ -25,5 +25,22 @@ export default function Page() {
     officialHref="https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=7059&clientCode=4006&xactCode=1034"
     relatedHref="/license-types/4cop-quota"
     relatedLabel="Compare With 4COP Quota"
+    researchLinks={[
+      {
+        href: "/florida-liquor-license-news/orlando-special-food-service-liquor-license-hb-1447-hb-1647",
+        label: "Orlando Special Restaurant Zones",
+        description: "See how Orlando's 2018 and 2021 local acts affect qualifying smaller restaurants."
+      },
+      {
+        href: "/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs",
+        label: "2023 Statewide SFS Reform",
+        description: "Review the current statewide size, seating, and revenue framework."
+      },
+      {
+        href: "/resources/florida-liquor-license-laws#current-developments",
+        label: "Florida Liquor License Laws",
+        description: "Open the statewide statute and the official Orlando special acts."
+      }
+    ]}
   />;
 }

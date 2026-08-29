@@ -15,6 +15,7 @@ export type LicenseTypeExplainerProps = {
   officialHref: string;
   relatedHref?: string;
   relatedLabel?: string;
+  researchLinks?: Array<{ href: string; label: string; description: string }>;
   seriesClarification?: string;
   investmentNote?: string;
   imageSrc?: string;
@@ -64,6 +65,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-extra h2{margin:0 0 10px;color:#fff;font-size:21px}
         .lt-extra p{margin:0;color:#d7e1e9;font-size:15px;line-height:1.72}
         .lt-extra a{display:inline-block;margin-top:12px;color:var(--gold);font-size:12px;font-weight:900;text-decoration:none}
+        .lt-research{padding:0 0 34px}.lt-research>span{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.lt-research h2{margin:8px 0 16px;color:#fff;font:700 28px/1.15 Georgia,serif}.lt-research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.lt-research-grid a{display:flex;flex-direction:column;min-height:150px;padding:19px;border:1px solid rgba(246,167,0,.38);border-radius:10px;background:#081e31;color:inherit;text-decoration:none;transition:transform .18s ease,border-color .18s ease}.lt-research-grid a:hover,.lt-research-grid a:focus-visible{transform:translateY(-3px);border-color:var(--gold);outline:none}.lt-research-grid strong{color:#fff;font-size:17px;line-height:1.3}.lt-research-grid p{margin:9px 0 13px;color:var(--muted);font-size:13px;line-height:1.55}.lt-research-grid small{margin-top:auto;color:var(--gold);font-weight:900;text-transform:uppercase}
         .lt-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 0 42px;border-top:1px solid rgba(246,167,0,.25)}
         .lt-cta p{margin:0;color:#cbd7e1;line-height:1.6}
         .lt-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
@@ -71,7 +73,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-button.gold{background:var(--gold);color:#061728}
         .lt-button.outline{border:1px solid var(--gold);color:#fff}
         .lt-disclaimer{padding:18px 0 34px;color:#97a9b8;font-size:12px;line-height:1.6}
-        @media(max-width:850px){.lt-header{align-items:flex-start}.lt-header nav{display:none}.lt-grid,.lt-extra{grid-template-columns:1fr}.lt-band{grid-template-columns:1fr}.lt-business-image img{max-height:none;aspect-ratio:4/3}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
+        @media(max-width:850px){.lt-header{align-items:flex-start}.lt-header nav{display:none}.lt-grid,.lt-extra,.lt-research-grid{grid-template-columns:1fr}.lt-research-grid a{min-height:0}.lt-band{grid-template-columns:1fr}.lt-business-image img{max-height:none;aspect-ratio:4/3}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
       `}</style>
 
       <header className="lt-header lt-shell">
@@ -155,6 +157,22 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
               <Link href="/resources/florida-liquor-license-system#investment-ownership">Read about inactive and escrow ownership →</Link>
             </article>
           ) : null}
+        </section>
+      ) : null}
+
+      {props.researchLinks && props.researchLinks.length > 0 ? (
+        <section className="lt-shell lt-research" aria-labelledby="related-research-title">
+          <span>Connected FLLM Research</span>
+          <h2 id="related-research-title">Related laws and market context</h2>
+          <div className="lt-research-grid">
+            {props.researchLinks.map((item) => (
+              <Link href={item.href} key={item.href}>
+                <strong>{item.label}</strong>
+                <p>{item.description}</p>
+                <small>Read inside FLLM ›</small>
+              </Link>
+            ))}
+          </div>
         </section>
       ) : null}
 

@@ -207,6 +207,22 @@ export default async function FloridaLiquorLicenseNewsArticlePage({ params }: { 
           </section>
         )}
 
+        {article.relatedLinks && article.relatedLinks.length > 0 && (
+          <section className="news-related-links" aria-labelledby="related-fllm-research-title">
+            <span>Continue inside FLLM</span>
+            <h2 id="related-fllm-research-title">Related laws, license guides, and market research</h2>
+            <div className="news-related-links-grid">
+              {article.relatedLinks.map((item) => (
+                <Link href={item.href} key={item.href}>
+                  <strong>{item.label}</strong>
+                  <p>{item.description}</p>
+                  <small>Open FLLM resource <span aria-hidden="true">›</span></small>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         <div className="news-article-actions">
           <Link href="/florida-liquor-license-news">← Back to Florida Liquor License News</Link>
           <Link href="/listings">Browse Current Licenses</Link>

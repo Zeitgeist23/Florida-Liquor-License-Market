@@ -16,6 +16,11 @@ export type NewsArticle = {
   officialSourceLabel: string;
   sourceType?: "official" | "publisher";
   sourceNote?: string;
+  relatedLinks?: Array<{
+    href: string;
+    label: string;
+    description: string;
+  }>;
   video?: {
     embedUrl: string;
     title: string;
@@ -24,6 +29,185 @@ export type NewsArticle = {
 };
 
 export const NEWS_ARTICLES: NewsArticle[] = [
+  {
+    slug: "eleventh-circuit-florida-adult-live-performance-law-liquor-licenses",
+    eyebrow: "Court Decision & Beverage-Law Enforcement",
+    title: "Eleventh Circuit clears the way for Florida to enforce its adult live performance law",
+    date: "August 4, 2026",
+    publishedDate: "2026-08-04",
+    reviewedDate: "2026-08-29",
+    summary:
+      "The en banc Eleventh Circuit vacated the preliminary injunction in HM Florida-ORL, LLC v. Griffin, allowing enforcement of Florida's 2023 Protection of Children Act while the litigation continues.",
+    intro:
+      "On August 4, 2026, the full U.S. Court of Appeals for the Eleventh Circuit issued an 8-5 decision in HM Florida-ORL, LLC v. Griffin. The court concluded that the Orlando restaurant challenging Florida's Protection of Children Act was unlikely to succeed on its facial overbreadth and vagueness claims and vacated the preliminary injunction that had blocked enforcement.",
+    sections: [
+      {
+        heading: "What the Eleventh Circuit decided",
+        paragraphs: [
+          "The ruling concerns a preliminary injunction, not a final judgment after trial. The en banc court held that Hamburger Mary's had not shown the likelihood of success required for preliminary relief and sent the case back for further proceedings.",
+          "The court's decision permits Florida to enforce the 2023 law during the continuing litigation. The law does not prohibit every drag performance; it regulates knowingly admitting a child to an 'adult live performance' as that term is defined in section 827.11, Florida Statutes."
+        ]
+      },
+      {
+        heading: "Why this is a liquor-license development",
+        paragraphs: [
+          "Chapter 2023-94 amended Florida's Beverage Law to authorize the Division of Alcoholic Beverages and Tobacco to suspend or revoke a beverage license, or impose a fine, when the Division finds sufficient cause that a licensed premises admitted a child to an adult live performance in violation of section 827.11.",
+          "The statute specifies a $5,000 fine for a first violation and $10,000 for a second or later violation. It also characterizes a violation as an immediate, serious danger for purposes of emergency agency action under section 120.60(6)."
+        ],
+        bullets: [
+          "Decision: HM Florida-ORL, LLC v. Secretary of the Florida Department of Business and Professional Regulation, No. 23-12160.",
+          "Court and date: U.S. Court of Appeals for the Eleventh Circuit, en banc, August 4, 2026.",
+          "Current posture: preliminary injunction vacated; litigation continues.",
+          "Statutory sources: sections 561.29(1)(l) and 827.11, Florida Statutes."
+        ]
+      },
+      {
+        heading: "FLLM compliance and transaction takeaway",
+        paragraphs: [
+          "License holders should review the statutory definition, current agency guidance, and event-specific facts with qualified counsel. Buyers and lenders should also ask whether a licensed premises has any pending administrative complaint, emergency suspension, fine, or related litigation before closing.",
+          "FLLM tracks this decision because it connects constitutional litigation, venue operations, and the regulatory status of valuable Florida beverage licenses."
+        ]
+      }
+    ],
+    officialSourceUrl:
+      "https://caselaw.findlaw.com/court/us-11th-circuit/294891.html",
+    officialSourceLabel: "Eleventh Circuit opinion — No. 23-12160",
+    sourceType: "publisher",
+    sourceNote:
+      "FLLM's summary is based on the August 4, 2026 en banc opinion and official Florida legislative materials. Original reporting highlighted by the user included WKMG News 6 / ClickOrlando and Florida Phoenix coverage.",
+    relatedLinks: [
+      {
+        href: "/florida-liquor-license-court-decisions",
+        label: "Florida Liquor License Court Decisions",
+        description: "Read the case in FLLM's selective case-law research hub."
+      },
+      {
+        href: "/resources/florida-liquor-license-laws#current-developments",
+        label: "Florida Liquor License Laws",
+        description: "Review the Beverage Law penalty provision and related official sources."
+      },
+      {
+        href: "/resources/liquor-license-attorneys#litigation-appeals",
+        label: "Litigation and Appeals Attorneys",
+        description: "Find Florida counsel by relevant practice area."
+      }
+    ]
+  },
+  {
+    slug: "orlando-special-food-service-liquor-license-hb-1447-hb-1647",
+    eyebrow: "Orlando Local Licensing Law",
+    title: "Orlando's special food service liquor-license zones: HB 1447 and HB 1647 explained",
+    date: "Reviewed August 29, 2026",
+    publishedDate: "2026-08-29",
+    reviewedDate: "2026-08-29",
+    summary:
+      "Florida local laws enacted in 2018 and 2021 created and expanded Orlando zones where qualifying smaller restaurants can seek special full-liquor restaurant licenses.",
+    intro:
+      "A search result describing a 'new' Orlando restaurant liquor-license law refers to legislation enacted several years ago. Florida HB 1447 became Chapter 2018-187, and HB 1647 became Chapter 2021-265. Together, the local acts created and expanded Orlando areas where a smaller bona fide restaurant may qualify for a special alcoholic-beverage license under criteria tailored to the designated zones.",
+    sections: [
+      {
+        heading: "What the Orlando local acts changed",
+        paragraphs: [
+          "Chapter 2018-187 created a Downtown Restaurant Area exception. Chapter 2021-265 added Orlando Main Street Small Restaurant Incentive Areas and became effective June 29, 2021.",
+          "For restaurants within the covered areas, the local framework uses a minimum of 1,800 square feet of contiguous space, capacity to serve meals to at least 80 persons at one time, and a requirement to derive at least 51 percent of gross food-and-beverage revenue from food and nonalcoholic beverages during the applicable operating periods."
+        ]
+      },
+      {
+        heading: "How the local rule differs from current statewide SFS law",
+        paragraphs: [
+          "Current section 561.20(2)(a)4., Florida Statutes, generally requires a bona fide food service establishment to have at least 2,000 square feet of service area, capacity to serve meals to 120 persons, at least 120 physical seats during operating hours, and the 51 percent food-and-nonalcoholic-beverage revenue mix.",
+          "The City of Orlando identifies eligible downtown and Main Street districts and publishes local application guidance. A restaurant should confirm that its exact address lies in a qualifying area and that it satisfies both state and local requirements before relying on the special-license path."
+        ]
+      },
+      {
+        heading: "Why the special-zone rules matter to the market",
+        paragraphs: [
+          "A qualifying Orlando restaurant may be able to serve full liquor without acquiring a transferable Orange County quota license. That can change site selection, acquisition economics, and demand for quota inventory.",
+          "The special license is qualification-based and should not be valued as though it were a freely transferable 4COP quota asset. FLLM keeps the local-law explanation connected to the Orange County market page, the 4COP-SFS guide, the statewide laws library, and current news coverage."
+        ]
+      }
+    ],
+    officialSourceUrl: "https://www.flsenate.gov/Session/Bill/2021/1647",
+    officialSourceLabel: "Florida Legislature — HB 1647 (2021), Chapter 2021-265",
+    sourceType: "official",
+    sourceNote:
+      "FLLM verified the historical legislation against Florida Senate bill records and current City of Orlando guidance. The Global Law Experts article supplied useful background but is not described here as a newly enacted 2026 law.",
+    relatedLinks: [
+      {
+        href: "/license-types/4cop-sfs-restaurant",
+        label: "4COP-SFS Restaurant License Guide",
+        description: "Compare the special restaurant path with a quota license."
+      },
+      {
+        href: "/counties/orange",
+        label: "Orange County Liquor License Market",
+        description: "See county inventory, market context, and valuation resources."
+      },
+      {
+        href: "/resources/florida-liquor-license-laws#current-developments",
+        label: "Florida Liquor License Laws",
+        description: "Open the official Orlando acts and statewide SFS statute."
+      }
+    ]
+  },
+  {
+    slug: "florida-2cop-beer-wine-license-statewide-access-market-context",
+    eyebrow: "Industry Commentary & License Access",
+    title: "Florida's 2COP beer-and-wine license offers statewide access without a county quota",
+    date: "December 18, 2025",
+    publishedDate: "2025-12-18",
+    reviewedDate: "2026-08-29",
+    summary:
+      "A Tallahassee Democrat opinion highlighted the 2COP license as an innovation tool; Florida DBPR confirms beer-and-wine licenses are not numerically restricted like county quota liquor licenses.",
+    intro:
+      "A December 2025 Tallahassee Democrat opinion argued that Florida's beer-and-wine licensing framework can support restaurant and beverage innovation. The policy argument is commentary, but its central licensing distinction is confirmed by Florida DBPR: beer-and-wine licenses are not subject to the numerical county quota that constrains full-liquor quota licenses.",
+    sections: [
+      {
+        heading: "What a 2COP license authorizes",
+        paragraphs: [
+          "Florida DBPR describes 2COP as a beer-and-wine consumption-on-premises license. It authorizes malt and vinous beverages for on-premises consumption, and sealed package sales may also be allowed where local ordinances permit.",
+          "A 2COP does not authorize distilled spirits. A business that needs vodka, rum, whiskey, tequila, or other spirituous beverages must evaluate an appropriate full-liquor license category."
+        ]
+      },
+      {
+        heading: "The market-transparency distinction",
+        paragraphs: [
+          "DBPR's licensing FAQ states that there is no numerical restriction on licenses issued to sell beer and wine. By contrast, ordinary full-liquor quota licenses are limited by county population and generally must be acquired from an existing owner or through the state's quota drawing.",
+          "That distinction affects cost, timing, transferability, and asset value. A 2COP is an operating privilege obtained through the licensing process; it is not the same scarce, county-specific market asset as a 4COP or 3PS quota license."
+        ]
+      },
+      {
+        heading: "FLLM market takeaway",
+        paragraphs: [
+          "Businesses should identify the beverages they actually need to sell before shopping for a quota license. A restaurant, cafe, taproom, or wine-focused concept that does not require spirits may avoid the cost and scarcity associated with a quota asset by using the appropriate beer-and-wine license.",
+          "FLLM links the commentary to the official 2COP guide and laws library so readers can separate the underlying regulation from the publisher's policy argument."
+        ]
+      }
+    ],
+    officialSourceUrl:
+      "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/faqs/",
+    officialSourceLabel: "Florida DBPR / ABT licensing FAQ",
+    sourceType: "official",
+    sourceNote:
+      "The Tallahassee Democrat item is an opinion article, not an official legal source. FLLM used DBPR's current licensing pages to verify the regulatory distinction and presents the opinion only as industry commentary.",
+    relatedLinks: [
+      {
+        href: "/license-types/2cop-beer-wine",
+        label: "Florida 2COP Beer & Wine License",
+        description: "Review privileges, limitations, and the official application source."
+      },
+      {
+        href: "/license-types/4cop-quota",
+        label: "Florida 4COP Quota License",
+        description: "Compare a beer-and-wine privilege with a county quota asset."
+      },
+      {
+        href: "/resources/florida-liquor-license-laws#current-developments",
+        label: "Florida Liquor License Laws",
+        description: "Read the official statutory and DBPR framework."
+      }
+    ]
+  },
   {
     slug: "florida-alcohol-licensing-reform-small-restaurants-sfs",
     eyebrow: "Legislation & Licensing Reform",

@@ -43,9 +43,23 @@ type CaseEntry = {
   summary: string;
   transactionNote: string;
   href: string;
+  internalHref?: string;
 };
 
 const appellateCases: CaseEntry[] = [
+  {
+    name: "HM Florida-ORL, LLC v. Secretary of the Florida Department of Business and Professional Regulation",
+    citation: "No. 23-12160, 2026 WL 2235960 (11th Cir. Aug. 4, 2026) (en banc)",
+    court: "U.S. Court of Appeals, Eleventh Circuit",
+    year: "2026",
+    topic: "Beverage-law enforcement · Preliminary injunction",
+    summary:
+      "The en banc court vacated the preliminary injunction blocking enforcement of Florida's Protection of Children Act. The majority concluded that the Orlando restaurant challenging the law had not shown a likelihood of success on its facial overbreadth and vagueness claims.",
+    transactionNote:
+      "The decision permits enforcement while litigation continues. For beverage-license holders, sections 561.29(1)(l) and 827.11 are material because the statutory framework authorizes fines and possible license suspension or revocation for covered conduct at a licensed premises.",
+    href: "https://caselaw.findlaw.com/court/us-11th-circuit/294891.html",
+    internalHref: "/florida-liquor-license-news/eleventh-circuit-florida-adult-live-performance-law-liquor-licenses",
+  },
   {
     name: "House v. Cotton",
     citation: "52 So. 2d 340 (Fla. 1951)",
@@ -245,6 +259,9 @@ export default function FloridaLiquorLicenseCourtDecisionsPage() {
                 <a href={item.href} target="_blank" rel="noopener noreferrer" aria-label={`Read the full opinion in ${item.name}`}>
                   Read Full Published Opinion <span aria-hidden="true">↗</span>
                 </a>
+                {item.internalHref ? (
+                  <Link href={item.internalHref}>Read FLLM Case Update <span aria-hidden="true">›</span></Link>
+                ) : null}
               </article>
             ))}
           </div>

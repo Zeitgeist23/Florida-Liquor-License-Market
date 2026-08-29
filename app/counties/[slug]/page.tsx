@@ -362,6 +362,11 @@ export default async function CountyPage({ params }: PageProps) {
           <h2>Understanding the {county.name} License Market</h2>
           <p>{county.marketOverview}</p>
           <p>A quota license is county-specific. A buyer should confirm that the license category fits the proposed use and should separately evaluate the intended premises, zoning, local approvals, liens, purchase documents, and the state transfer process.</p>
+          {county.slug === "orange" ? (
+            <p>
+              Orlando restaurants should also evaluate the local special food service zones created by Florida&apos;s 2018 and 2021 local acts. A qualifying restaurant in a designated area may have a special-license path that differs from buying an Orange County quota asset. <Link href="/florida-liquor-license-news/orlando-special-food-service-liquor-license-hb-1447-hb-1647">Read FLLM&apos;s Orlando special-license law guide ›</Link>
+            </p>
+          ) : null}
         </article>
         <aside>
           <h3>Transaction checklist</h3>
