@@ -26,6 +26,11 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
+        {
+          source: "/downloads/FLLM_Official_Buyers_and_Sellers_Guide_2026.pdf",
+          destination: "/api/guide-download?source=direct-file-url&action=direct",
+          missing: [{ type: "query", key: "fllm_raw" }],
+        },
         { source: "/assets/florida-map-clean.png", destination: "/api/market-map" },
         { source: "/assets/fllm-email-logo.png", destination: "/api/email-logo" },
         { source: "/", destination: "/api/homepage-with-buy-menu" },
