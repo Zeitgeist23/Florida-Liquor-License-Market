@@ -99,6 +99,7 @@ const navMenus: NavMenu[] = [
     menuClassName: "native-nav-menu-standard native-nav-resources-menu",
     links: [
       { href: "/free-guide", label: "Free Buyer’s & Seller’s Guide" },
+      { href: "/resources", label: "View All Resources" },
       {
         href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
         label: "Florida Liquor License Lookup",

@@ -48,6 +48,10 @@ const RESOURCE_ITEMS = [
     href: "/free-guide",
   },
   {
+    label: "View All Resources",
+    href: "/resources",
+  },
+  {
     label: "Florida Liquor License Lookup",
     href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
     external: true,
