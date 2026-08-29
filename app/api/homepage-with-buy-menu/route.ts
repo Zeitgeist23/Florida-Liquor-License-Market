@@ -96,8 +96,8 @@ const supportScripts = `<!-- fllm-all-header-hover-menus -->
 <script src="/assets/core-nav-dropdowns.js?v=2" defer></script>
 <script src="/assets/finance-menu-options.js?v=2" defer></script>
 <script src="/assets/market-data-dropdown.js?v=12" defer></script>
-<script src="/assets/resources-dropdown.js?v=10" defer></script>
-<script src="/assets/header-menu-coordinator.js?v=4" defer></script>`;
+<script src="/assets/resources-dropdown.js?v=11" defer></script>
+<script src="/assets/header-menu-coordinator.js?v=5" defer></script>`;
 
 function injectServerMenus(html: string) {
   let updated = html;

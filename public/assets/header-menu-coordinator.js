@@ -6,6 +6,18 @@
 
   const resourcesOrder = [
     {
+      label: "Free Buyer’s & Seller’s Guide",
+      href: "/free-guide",
+    },
+    {
+      label: "View All Resources",
+      href: "/resources",
+    },
+    {
+      label: "Alcohol License Application Center",
+      href: "/resources/application-center",
+    },
+    {
       label: "Florida Liquor License Lookup",
       href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
     },
@@ -111,6 +123,9 @@
     const orderDiffers = desiredNodes.some((node, index) => knownNodesInCurrentOrder[index] !== node);
 
     if (orderDiffers) desiredNodes.forEach((node) => menu.appendChild(node));
+    Array.from(menu.querySelectorAll(":scope > a"))
+      .filter((item) => !desiredNodes.includes(item))
+      .forEach((item) => item.remove());
     return true;
   }
 

@@ -8,21 +8,13 @@
 
   const resources = [
     {
-      label: "Florida Liquor License Lookup",
-      href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
-    },
-    {
-      label: "Quota License Transfer Fee Calculator",
-      href: "/resources/quota-transfer-fee-calculator",
+      label: "Free Buyer’s & Seller’s Guide",
+      href: "/free-guide",
       internal: true,
     },
     {
-      label: "Florida Division of Alcoholic Beverages",
-      href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
-    },
-    {
-      label: "License Fees",
-      href: "/resources/license-fees",
+      label: "View All Resources",
+      href: "/resources",
       internal: true,
     },
     {
@@ -31,13 +23,41 @@
       internal: true,
     },
     {
+      label: "Florida Liquor License Lookup",
+      href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
+    },
+    {
+      label: "Florida Liquor License Laws",
+      href: "/resources/florida-liquor-license-laws",
+      internal: true,
+    },
+    {
+      label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)",
+      href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
+    },
+    {
       label: "Florida ABT Forms",
       href: "/resources/forms",
       internal: true,
     },
     {
+      label: "License Fees",
+      href: "/resources/license-fees",
+      internal: true,
+    },
+    {
+      label: "Quota License Transfer Fee Calculator",
+      href: "/resources/quota-transfer-fee-calculator",
+      internal: true,
+    },
+    {
       label: "Florida Department of Revenue (FDOR)",
       href: "/resources/florida-department-of-revenue",
+      internal: true,
+    },
+    {
+      label: "Liquor License Attorneys",
+      href: "/resources/liquor-license-attorneys",
       internal: true,
     },
   ];
@@ -94,6 +114,23 @@
         background:#f6a700;
         color:#061728;
         outline:none;
+      }
+      .resources-header-menu a[href="/free-guide"]{
+        background:linear-gradient(135deg,#ffc12e,#e99300);
+        color:#061728;
+        font-weight:900;
+      }
+      .resources-header-menu a[href="/free-guide"]::after{
+        content:"FREE PDF";
+        float:right;
+        margin-left:12px;
+        font-size:9px;
+        letter-spacing:.08em;
+      }
+      .resources-header-menu a[href="/free-guide"]:hover,
+      .resources-header-menu a[href="/free-guide"]:focus-visible{
+        background:#ffd15c;
+        color:#061728;
       }
       .primary-nav a[data-resources-dropdown-bound="true"]{cursor:pointer}
       @media(max-width:760px){
