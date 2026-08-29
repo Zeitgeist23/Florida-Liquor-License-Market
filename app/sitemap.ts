@@ -12,6 +12,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
   const corePages: MetadataRoute.Sitemap = [
     { url: siteUrl, lastModified, changeFrequency: "daily", priority: 1 },
+    { url: `${siteUrl}/es`, lastModified, changeFrequency: "weekly", priority: 0.9, alternates: { languages: { en: siteUrl, es: `${siteUrl}/es` } } },
+    { url: `${siteUrl}/es/licencias-en-venta`, lastModified, changeFrequency: "daily", priority: 0.86, alternates: { languages: { en: `${siteUrl}/listings`, es: `${siteUrl}/es/licencias-en-venta` } } },
+    { url: `${siteUrl}/es/vender-licencia`, lastModified, changeFrequency: "monthly", priority: 0.76, alternates: { languages: { en: `${siteUrl}/sell-your-license`, es: `${siteUrl}/es/vender-licencia` } } },
+    { url: `${siteUrl}/es/financiamiento`, lastModified, changeFrequency: "monthly", priority: 0.76, alternates: { languages: { en: `${siteUrl}/financing`, es: `${siteUrl}/es/financiamiento` } } },
+    { url: `${siteUrl}/es/tipos-de-licencias`, lastModified, changeFrequency: "monthly", priority: 0.78, alternates: { languages: { en: `${siteUrl}/resources/florida-liquor-license-types`, es: `${siteUrl}/es/tipos-de-licencias` } } },
+    { url: `${siteUrl}/es/leyes`, lastModified, changeFrequency: "monthly", priority: 0.72, alternates: { languages: { en: `${siteUrl}/resources/florida-liquor-license-laws`, es: `${siteUrl}/es/leyes` } } },
     { url: `${siteUrl}/listings`, lastModified, changeFrequency: "daily", priority: 1 },
     { url: `${siteUrl}/free-guide`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/how-to-buy-florida-liquor-license`, lastModified, changeFrequency: "monthly", priority: 0.95 },

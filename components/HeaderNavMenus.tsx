@@ -243,6 +243,7 @@ export default function HeaderNavMenus({
           );
         })}
 
+        <a className="native-nav-direct-link native-nav-language-link" href="/es" lang="es" hrefLang="es" aria-label="Ver Florida Liquor License Market en español"><span>ES</span></a>
         {showContactLink && <a className="native-nav-direct-link" href="/contact"><span>Contact Us</span></a>}
       </nav>
 
@@ -252,6 +253,8 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-trigger:hover,.primary-nav .native-nav-trigger:focus-visible,.primary-nav .native-nav-dropdown.is-open>.native-nav-trigger{color:var(--gold,#f6a700);outline:none}
         .primary-nav .native-nav-direct-link{display:inline-flex;align-items:center;flex:0 0 auto;color:#fff;font-size:10px;font-weight:600;line-height:1;text-transform:uppercase;white-space:nowrap}
         .primary-nav .native-nav-direct-link:hover,.primary-nav .native-nav-direct-link:focus-visible{color:var(--gold,#f6a700);outline:none}
+        .primary-nav .native-nav-language-link{padding:4px 7px;border:1px solid rgba(255,255,255,.42);border-radius:999px;font-weight:900;letter-spacing:.08em}
+        .primary-nav .native-nav-language-link:hover,.primary-nav .native-nav-language-link:focus-visible{border-color:var(--gold,#f6a700)}
         .native-nav-menu{position:absolute;top:100%;left:50%;z-index:10080;display:none;transform:translateX(-50%);padding:6px;border:1px solid #f6a700;border-radius:7px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12);font-family:Arial,Helvetica,sans-serif}
         .native-nav-dropdown.is-open>.native-nav-menu{display:grid;gap:4px}
         .native-nav-menu::before{content:"";position:absolute;top:-7px;left:50%;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);border-left:1px solid #f6a700;border-top:1px solid #f6a700;background:#061728}
