@@ -31,10 +31,14 @@ const countyContent: Record<string, CountyContent> = {
   alachua: {
     primaryCities: ["Gainesville"],
     introduction: "Alachua County is anchored by Gainesville and the University of Florida, with a diverse economy supported by education, healthcare, research, hospitality, and regional commerce.",
+    marketOverview: "Alachua County's quota-license market is centered on Gainesville and is supported by the University of Florida, healthcare, live events, restaurants, hotels, and regional traffic. Buyers should compare current 4COP and 3PS asking prices while separately confirming premises eligibility, Gainesville-area zoning, transfer timing, liens, and seller terms.",
+    nearbyCounties: ["marion", "clay", "citrus", "duval"],
   },
   bay: {
     primaryCities: ["Panama City", "Panama City Beach"],
     introduction: "Bay County is home to Panama City and Panama City Beach, with year-round dining demand supported by Gulf tourism, military activity, boating, conventions, and hospitality.",
+    marketOverview: "Bay County quota-license demand is shaped by Panama City, Panama City Beach, Gulf tourism, military activity, and seasonal hospitality traffic. Buyers comparing 4COP and 3PS opportunities should evaluate asking price together with transfer timing, intended premises, local zoning, liens, seller terms, and the seasonality of the proposed concept.",
+    nearbyCounties: ["okaloosa", "santa-rosa", "escambia", "gulf"],
   },
   brevard: {
     primaryCities: ["Melbourne", "Cocoa Beach", "Titusville"],
@@ -78,6 +82,12 @@ const countyContent: Record<string, CountyContent> = {
     primaryCities: ["Pensacola"],
     introduction: "Escambia County is Florida's westernmost county and home to Pensacola, with military activity, Gulf Coast tourism, education, healthcare, restaurants, nightlife, and regional commerce.",
   },
+  gulf: {
+    primaryCities: ["Port St. Joe", "Wewahitchka"],
+    introduction: "Gulf County includes Port St. Joe, Cape San Blas, Mexico Beach-area visitors, and smaller coastal communities supported by tourism, boating, fishing, restaurants, vacation rentals, and local commerce.",
+    marketOverview: "Gulf County quota liquor licenses serve a small, supply-constrained coastal market shaped by Port St. Joe, beach tourism, vacation rentals, restaurants, and seasonal demand. Buyers should compare current 4COP and 3PS opportunities carefully and confirm the license series, county transfer eligibility, premises, zoning, liens, and seller terms.",
+    nearbyCounties: ["bay", "leon"],
+  },
   hernando: {
     primaryCities: ["Brooksville", "Spring Hill"],
     introduction: "Hernando County is a growing Nature Coast market north of Tampa, known for suburban development, springs, recreation, expanding retail centers, restaurants, and hospitality demand.",
@@ -114,6 +124,8 @@ const countyContent: Record<string, CountyContent> = {
   manatee: {
     primaryCities: ["Bradenton", "Palmetto"],
     introduction: "Manatee County is home to Bradenton and growing Gulf Coast communities, with beaches, boating, tourism, residential development, restaurants, and expanding hospitality demand.",
+    marketOverview: "Manatee County's quota-license market serves Bradenton, Palmetto, Lakewood Ranch, coastal communities, and the wider Sarasota-Bradenton hospitality corridor. Buyers should compare current 4COP and 3PS inventory by asking price and terms, then independently confirm premises, zoning, transfer eligibility, liens, and regulatory timing.",
+    nearbyCounties: ["sarasota", "hillsborough", "pinellas", "desoto"],
   },
   marion: {
     primaryCities: ["Ocala"],
@@ -148,6 +160,8 @@ const countyContent: Record<string, CountyContent> = {
   osceola: {
     primaryCities: ["Kissimmee", "St. Cloud"],
     introduction: "Osceola County is a fast-growing Central Florida market south of Orlando, anchored by Kissimmee, residential development, attractions, restaurants, hotels, and the regional tourism corridor.",
+    marketOverview: "Osceola County quota-license demand is concentrated around Kissimmee, St. Cloud, hotels, attractions, restaurants, and the south-Orlando tourism corridor. Buyers should compare current 4COP and 3PS asks while confirming whether a license-only offering fits the proposed premises, zoning, financing, transfer schedule, and operating plan.",
+    nearbyCounties: ["orange", "polk", "lake", "brevard"],
   },
   "palm-beach": {
     primaryCities: ["West Palm Beach", "Boca Raton", "Delray Beach"],
@@ -198,6 +212,8 @@ const countyContent: Record<string, CountyContent> = {
   "st-johns": {
     primaryCities: ["St. Augustine", "Ponte Vedra Beach"],
     introduction: "St. Johns County is home to historic St. Augustine and fast-growing coastal communities, with strong tourism, hospitality, schools, residential development, and restaurant activity.",
+    marketOverview: "St. Johns County quota-license demand is supported by St. Augustine tourism, Ponte Vedra Beach hospitality, coastal growth, restaurants, hotels, and year-round residential demand. Buyers should compare disclosed asks and seller terms while independently confirming premises, zoning, transfer eligibility, liens, and the intended license series.",
+    nearbyCounties: ["duval", "clay", "volusia"],
   },
   "st-lucie": {
     primaryCities: ["Port St. Lucie", "Fort Pierce"],
