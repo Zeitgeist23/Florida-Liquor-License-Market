@@ -22,10 +22,29 @@ export default function BrokerListingForm() {
   );
   const [askingPrice, setAskingPrice] = useState("");
   const [phone, setPhone] = useState("");
+  const [inquiryRoutes, setInquiryRoutes] = useState([
+    "Direct email",
+    "Direct phone",
+    "FLLM inquiry form forwarded to broker",
+  ]);
   const [status, setStatus] = useState("");
   const [isError, setIsError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [documentName, setDocumentName] = useState("");
+
+  const allInquiryRoutes = [
+    "Direct email",
+    "Direct phone",
+    "FLLM inquiry form forwarded to broker",
+  ];
+
+  function toggleInquiryRoute(route: string, checked: boolean) {
+    setInquiryRoutes((current) =>
+      checked
+        ? Array.from(new Set([...current, route]))
+        : current.filter((item) => item !== route),
+    );
+  }
 
   useEffect(() => {
     function restoreFormAfterCheckout() {
@@ -257,18 +276,42 @@ export default function BrokerListingForm() {
               placeholder="https://"
             />
           </label>
-          <label className={styles.fullField}>
+          <div className={`${styles.fullField} ${styles.inquiryRouting}`}>
             <span>Buyer inquiry routing *</span>
-            <select name="contact_preference" required defaultValue="">
-              <option value="" disabled>
-                Select preferred contact route
-              </option>
-              <option>Email</option>
-              <option>Phone</option>
-              <option>Email and phone</option>
-              <option>FLLM inquiry form forwarded to broker</option>
-            </select>
-          </label>
+            <small>
+              Select every method buyers may use to reach you. All methods are
+              included by default.
+            </small>
+            <div className={styles.inquiryOptions}>
+              <label className={styles.includeAllOption}>
+                <input
+                  type="checkbox"
+                  checked={inquiryRoutes.length === allInquiryRoutes.length}
+                  onChange={(event) =>
+                    setInquiryRoutes(
+                      event.target.checked ? [...allInquiryRoutes] : [],
+                    )
+                  }
+                />
+                <span>Include all inquiry methods</span>
+              </label>
+              {allInquiryRoutes.map((route, index) => (
+                <label key={route}>
+                  <input
+                    type="checkbox"
+                    name="contact_preference"
+                    value={route}
+                    checked={inquiryRoutes.includes(route)}
+                    required={index === 0 && inquiryRoutes.length === 0}
+                    onChange={(event) =>
+                      toggleInquiryRoute(route, event.target.checked)
+                    }
+                  />
+                  <span>{route}</span>
+                </label>
+              ))}
+            </div>
+          </div>
         </div>
       </fieldset>
       <fieldset>
