@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import FloridaCountyMap from "@/components/FloridaCountyMap";
 import BrokerListingForm from "./BrokerListingForm";
 import styles from "./broker-listing.module.css";
 
@@ -71,6 +72,38 @@ const faqs = [
       "No. FLLM reviews each submission for accuracy, authority and marketplace fit. A rejected submission is eligible for a refund of the listing-submission fee.",
   },
 ];
+
+function ListingPreview({ featured = false }: { featured?: boolean }) {
+  return (
+    <article
+      className={`${styles.previewCard} ${featured ? styles.previewFeatured : ""}`}
+      aria-label={`${featured ? "Featured" : "Standard"} marketplace listing preview`}
+    >
+      {featured ? (
+        <span className={styles.previewFeaturedBadge}>Featured</span>
+      ) : null}
+      <span className={styles.previewType}>4COP Quota</span>
+      <div className={styles.previewCopy}>
+        <span className={styles.previewCounty}>● Orange County</span>
+        <strong>$435,000</strong>
+        <span className={styles.previewAvailable}>
+          <i /> Available
+        </span>
+        <p>
+          Transferable Florida quota liquor-license opportunity. Price and
+          availability subject to confirmation.
+        </p>
+        <span className={styles.previewBroker}>Listed by Sample Brokerage</span>
+        <span className={styles.previewButton}>
+          View License <b>›</b>
+        </span>
+      </div>
+      <div className={styles.previewMap}>
+        <FloridaCountyMap county="Orange County" enlarged />
+      </div>
+    </article>
+  );
+}
 
 export default function BrokerListYourLicensePage() {
   const structuredData = {
@@ -163,6 +196,7 @@ export default function BrokerListYourLicensePage() {
               <span>Choose Your Exposure</span>
               <div className={styles.heroPlans}>
                 <div>
+                  <em>Default</em>
                   <b>Standard</b>
                   <strong>$14.95</strong>
                   <small>Marketplace listing</small>
@@ -203,6 +237,44 @@ export default function BrokerListYourLicensePage() {
                 <p>{benefit}</p>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.previewSection} id="listing-previews">
+        <div className={styles.shell}>
+          <div className={styles.sectionHeading}>
+            <span>Listing Appearance</span>
+            <h2>See the difference before you choose</h2>
+            <p>
+              Both options use the same professional marketplace card. Featured
+              adds a gold badge, stronger border treatment and priority
+              placement for the first 30 days.
+            </p>
+          </div>
+          <div className={styles.previewGrid}>
+            <div>
+              <div className={styles.previewLabel}>
+                <span>Standard Listing</span>
+                <strong>$14.95</strong>
+              </div>
+              <ListingPreview />
+              <p className={styles.previewCaption}>
+                Appears within the regular marketplace order and remains active
+                until sold or withdrawn.
+              </p>
+            </div>
+            <div>
+              <div className={styles.previewLabel}>
+                <span>Featured Listing</span>
+                <strong>$24.95</strong>
+              </div>
+              <ListingPreview featured />
+              <p className={styles.previewCaption}>
+                Receives the Featured badge and priority placement for 30 days,
+                then continues as a Standard listing.
+              </p>
+            </div>
           </div>
         </div>
       </section>

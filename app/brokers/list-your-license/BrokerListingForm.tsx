@@ -112,6 +112,7 @@ export default function BrokerListingForm() {
               checked={listingTier === "standard"}
               onChange={() => setListingTier("standard")}
             />
+            <span className={styles.defaultFlag}>Default</span>
             <span className={styles.tierTop}>
               <b>Standard</b>
               <strong>$14.95</strong>
@@ -142,7 +143,6 @@ export default function BrokerListingForm() {
               checked={listingTier === "featured"}
               onChange={() => setListingTier("featured")}
             />
-            <span className={styles.featuredFlag}>Recommended</span>
             <span className={styles.tierTop}>
               <b>Featured</b>
               <strong>$24.95</strong>
