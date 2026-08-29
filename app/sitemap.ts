@@ -88,6 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const marketplaceListings = await getMarketplaceListings();
   const listingPages: MetadataRoute.Sitemap = indexableListingPages(marketplaceListings).map(({ listing }) => ({
     url: `${siteUrl}${listingPageHref(listing)}`,
+    lastModified: listing.lastModified,
     changeFrequency: "daily",
     priority: 0.85,
   }));
