@@ -45,7 +45,8 @@ export default function MarketplaceListingCard({
   actionLabel = "View License",
 }: MarketplaceListingCardProps) {
   const county = canonicalFloridaCountyName(listing.county);
-  const normalizedListing = county === listing.county ? listing : { ...listing, county };
+  const normalizedListing =
+    county === listing.county ? listing : { ...listing, county };
   const available = Boolean(normalizedListing.sourceRef);
   const href = available ? listingPageHref(normalizedListing) : null;
 
@@ -63,6 +64,7 @@ export default function MarketplaceListingCard({
       className={classNames(
         "result-card",
         available ? "result-card-available" : "result-card-sold",
+        normalizedListing.featuredUntil && "result-card-featured",
         focused && "result-card-focused",
         className,
       )}
@@ -72,14 +74,22 @@ export default function MarketplaceListingCard({
       data-listing-county={county}
       data-marketplace-listing-card="true"
     >
+      {normalizedListing.featuredUntil ? (
+        <span className="featured-listing-badge">Featured</span>
+      ) : null}
       <span className="result-type-badge">{normalizedListing.type}</span>
       <div className="result-photo">
         <FloridaCountyMap county={county} enlarged />
       </div>
       <div className="result-body">
         <p className="result-county-row">
-          <span className="result-pin" aria-hidden="true">●</span>
-          <Link className="result-county-link" href={`/counties/${countySlug(county)}`}>
+          <span className="result-pin" aria-hidden="true">
+            ●
+          </span>
+          <Link
+            className="result-county-link"
+            href={`/counties/${countySlug(county)}`}
+          >
             {county}
           </Link>
         </p>
@@ -92,7 +102,9 @@ export default function MarketplaceListingCard({
             >
               {normalizedListing.priceLabel}
             </Link>
-          ) : normalizedListing.priceLabel}
+          ) : (
+            normalizedListing.priceLabel
+          )}
         </h2>
         <div className="result-facts">
           {available ? (
@@ -105,7 +117,9 @@ export default function MarketplaceListingCard({
           )}
         </div>
         <div className="result-description">
-          <p title={fullDescription}>{compactCardDescription(fullDescription)}</p>
+          <p title={fullDescription}>
+            {compactCardDescription(fullDescription)}
+          </p>
         </div>
         <div className="result-actions">
           {href ? (

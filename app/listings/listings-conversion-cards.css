@@ -3,7 +3,7 @@
 
 .results-page .results-filters .btn {
   min-width: 148px !important;
-  letter-spacing: .04em !important;
+  letter-spacing: 0.04em !important;
 }
 
 .results-page .results-grid {
@@ -14,21 +14,54 @@
   position: relative !important;
   min-height: 286px !important;
   display: grid !important;
-  grid-template-columns: minmax(0, 1.08fr) minmax(172px, .92fr) !important;
+  grid-template-columns: minmax(0, 1.08fr) minmax(172px, 0.92fr) !important;
   grid-template-rows: 1fr !important;
   align-items: stretch !important;
   overflow: hidden !important;
   border: 1px solid #9b741d !important;
   border-radius: 8px !important;
-  background: linear-gradient(145deg, #0b263b 0%, #071d2e 56%, #061725 100%) !important;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, .28) !important;
-  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease !important;
+  background: linear-gradient(
+    145deg,
+    #0b263b 0%,
+    #071d2e 56%,
+    #061725 100%
+  ) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28) !important;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease !important;
 }
 
 .results-page .result-card:hover {
   transform: translateY(-2px) !important;
   border-color: #e3a314 !important;
-  box-shadow: 0 15px 34px rgba(0, 0, 0, .38), 0 0 0 1px rgba(241, 166, 0, .08) !important;
+  box-shadow:
+    0 15px 34px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(241, 166, 0, 0.08) !important;
+}
+
+.results-page .result-card-featured {
+  border-color: #f1ad15 !important;
+  box-shadow:
+    0 15px 36px rgba(0, 0, 0, 0.38),
+    0 0 0 2px rgba(241, 173, 21, 0.16) !important;
+}
+
+.results-page .featured-listing-badge {
+  position: absolute !important;
+  top: 12px !important;
+  left: 12px !important;
+  z-index: 4 !important;
+  padding: 6px 11px !important;
+  border-radius: 4px !important;
+  color: #071827 !important;
+  background: linear-gradient(145deg, #ffc42d, #e89500) !important;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.28) !important;
+  font-size: 9px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
 }
 
 .results-page .result-body {
@@ -62,7 +95,7 @@
   height: 118% !important;
   max-width: 215px !important;
   max-height: 215px !important;
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .38)) !important;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.38)) !important;
 }
 
 .results-page .result-type-badge {
@@ -75,11 +108,11 @@
   border: 1px solid #d99b10 !important;
   border-radius: 5px !important;
   color: #f5a900 !important;
-  background: rgba(4, 17, 27, .94) !important;
+  background: rgba(4, 17, 27, 0.94) !important;
   font-size: 9px !important;
   font-weight: 900 !important;
   line-height: 1 !important;
-  letter-spacing: .02em !important;
+  letter-spacing: 0.02em !important;
   text-transform: uppercase !important;
 }
 
@@ -88,7 +121,7 @@
   width: 100% !important;
   margin: 27px 0 0 !important;
   color: #f6f4ed !important;
-  font-family: Georgia, 'Times New Roman', serif !important;
+  font-family: Georgia, "Times New Roman", serif !important;
   font-size: 20px !important;
   font-weight: 700 !important;
   line-height: 1.14 !important;
@@ -117,7 +150,7 @@
   font-size: 30px !important;
   font-weight: 900 !important;
   line-height: 1 !important;
-  letter-spacing: -.02em !important;
+  letter-spacing: -0.02em !important;
 }
 
 .results-page .result-facts {
@@ -139,14 +172,14 @@
   font-size: 11px !important;
   font-weight: 900 !important;
   line-height: 1 !important;
-  letter-spacing: .025em !important;
+  letter-spacing: 0.025em !important;
   text-transform: uppercase !important;
 }
 
 .results-page .availability-pill {
-  border: 1px solid rgba(55, 190, 92, .72) !important;
+  border: 1px solid rgba(55, 190, 92, 0.72) !important;
   color: #51d56f !important;
-  background: rgba(19, 86, 45, .15) !important;
+  background: rgba(19, 86, 45, 0.15) !important;
 }
 
 .results-page .availability-dot {
@@ -156,13 +189,13 @@
   flex: 0 0 8px !important;
   border-radius: 50% !important;
   background: #37c85b !important;
-  box-shadow: 0 0 8px rgba(55, 200, 91, .38) !important;
+  box-shadow: 0 0 8px rgba(55, 200, 91, 0.38) !important;
 }
 
 .results-page .sold-status-inline {
-  border: 1px solid rgba(222, 72, 72, .8) !important;
+  border: 1px solid rgba(222, 72, 72, 0.8) !important;
   color: #ff7474 !important;
-  background: rgba(101, 19, 19, .2) !important;
+  background: rgba(101, 19, 19, 0.2) !important;
 }
 
 .results-page .result-description {
@@ -213,10 +246,10 @@
   border-radius: 5px !important;
   color: #07131d !important;
   background: linear-gradient(145deg, #ffc13a 0%, #e99b00 100%) !important;
-  box-shadow: 0 5px 15px rgba(228, 148, 0, .18) !important;
+  box-shadow: 0 5px 15px rgba(228, 148, 0, 0.18) !important;
   font-size: 11px !important;
   font-weight: 900 !important;
-  letter-spacing: .035em !important;
+  letter-spacing: 0.035em !important;
   text-transform: uppercase !important;
 }
 
@@ -254,7 +287,7 @@
 
   .results-page .result-card {
     min-height: 258px !important;
-    grid-template-columns: minmax(0, 1.15fr) minmax(130px, .85fr) !important;
+    grid-template-columns: minmax(0, 1.15fr) minmax(130px, 0.85fr) !important;
   }
 
   .results-page .result-photo {
@@ -323,10 +356,11 @@
   }
 }
 
-
 .results-page .result-card-focused {
   border-color: #ffc12e !important;
-  box-shadow: 0 0 0 3px rgba(255, 193, 46, .24), 0 18px 42px rgba(0, 0, 0, .42) !important;
+  box-shadow:
+    0 0 0 3px rgba(255, 193, 46, 0.24),
+    0 18px 42px rgba(0, 0, 0, 0.42) !important;
 }
 
 .results-page .result-card-focused::before {
@@ -343,7 +377,10 @@
   border-radius: 4px;
   color: #07131d;
   background: #ffc12e;
-  font: 900 9px/1 Arial, Helvetica, sans-serif;
-  letter-spacing: .045em;
+  font:
+    900 9px/1 Arial,
+    Helvetica,
+    sans-serif;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
 }

@@ -12,7 +12,7 @@ const canonicalUrl = `${siteUrl}/brokers/list-your-license`;
 export const metadata: Metadata = {
   title: "List a Client’s Florida Liquor License | FLLM for Brokers",
   description:
-    "Florida business and real estate brokers can advertise a client’s quota liquor license on FLLM for a one-time $14.95 fee and receive buyer inquiries directly.",
+    "Florida brokers can advertise a client’s quota liquor license on FLLM with Standard and Featured one-time marketplace listing options.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -37,7 +37,10 @@ const benefits = [
 const steps = [
   ["Submit", "Provide the broker, client-authority and license information."],
   ["Review", "FLLM verifies the submission for accuracy and marketplace fit."],
-  ["Publish", "The approved listing identifies you as the independent representative."],
+  [
+    "Publish",
+    "The approved listing identifies you as the independent representative.",
+  ],
   ["Connect", "Qualified buyer inquiries are routed to your selected contact."],
 ];
 
@@ -50,7 +53,12 @@ const faqs = [
   {
     question: "Does FLLM receive part of my commission?",
     answer:
-      "No. The $14.95 charge is a one-time listing-submission fee. FLLM does not seek or receive any portion of the submitting broker’s commission.",
+      "No. Standard and Featured charges are one-time listing-submission fees. FLLM does not seek or receive any portion of the submitting broker’s commission.",
+  },
+  {
+    question: "What does the Featured option include?",
+    answer:
+      "A Featured listing receives a Featured badge and priority marketplace placement for 30 days after publication. It then remains live as a Standard listing until sold, withdrawn or otherwise removed.",
   },
   {
     question: "Will my contact information appear on the listing?",
@@ -69,9 +77,26 @@ export default function BrokerListYourLicensePage() {
     "@context": "https://schema.org",
     "@type": "Service",
     name: "FLLM Independent Broker Marketplace Listing",
-    provider: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
+    provider: {
+      "@type": "Organization",
+      name: "Florida Liquor License Market",
+      url: siteUrl,
+    },
     areaServed: { "@type": "State", name: "Florida" },
-    offers: { "@type": "Offer", price: "14.95", priceCurrency: "USD" },
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Standard Broker Listing",
+        price: "14.95",
+        priceCurrency: "USD",
+      },
+      {
+        "@type": "Offer",
+        name: "Featured Broker Listing",
+        price: "24.95",
+        priceCurrency: "USD",
+      },
+    ],
     description:
       "Advertising-only marketplace listing for Florida brokers representing owners of quota liquor licenses.",
   };
@@ -80,7 +105,9 @@ export default function BrokerListYourLicensePage() {
     <main className={styles.page}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c"),
+        }}
       />
 
       <div className={styles.headerWrap}>
@@ -91,28 +118,66 @@ export default function BrokerListYourLicensePage() {
       </div>
 
       <section className={styles.hero}>
-        <Image className={styles.heroImage} src="/assets/hero-bar-clean.png" alt="Premium Florida hospitality venue" fill priority sizes="100vw" />
+        <Image
+          className={styles.heroImage}
+          src="/assets/hero-bar-clean.png"
+          alt="Premium Florida hospitality venue"
+          fill
+          priority
+          sizes="100vw"
+        />
         <div className={styles.heroShade} />
         <div className={styles.shell}>
           <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-            <Link href="/">Home</Link><span>›</span><Link href="/florida-liquor-license-broker">Broker Services</Link><span>›</span><strong>List a Client License</strong>
+            <Link href="/">Home</Link>
+            <span>›</span>
+            <Link href="/florida-liquor-license-broker">Broker Services</Link>
+            <span>›</span>
+            <strong>List a Client License</strong>
           </nav>
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
-              <span className={styles.kicker}>Independent Broker Marketplace</span>
+              <span className={styles.kicker}>
+                Independent Broker Marketplace
+              </span>
               <h1>Add Your Client&apos;s Florida Liquor License to FLLM</h1>
-              <p>Reach buyers searching Florida&apos;s specialized quota-license market while you remain the listing representative and transaction contact.</p>
+              <p>
+                Reach buyers searching Florida&apos;s specialized quota-license
+                market while you remain the listing representative and
+                transaction contact.
+              </p>
               <div className={styles.heroActions}>
-                <a className={styles.goldButton} href="#broker-listing-form">Start a Broker Listing — $14.95</a>
-                <Link className={styles.outlineButton} href="/listings">View Marketplace Listings</Link>
+                <a className={styles.goldButton} href="#broker-listing-form">
+                  Choose a Listing Option
+                </a>
+                <Link className={styles.outlineButton} href="/listings">
+                  View Marketplace Listings
+                </Link>
               </div>
-              <small>One-time submission fee · No share of your commission · Statewide exposure</small>
+              <small>
+                Listings from $14.95 · No share of your commission · Statewide
+                exposure
+              </small>
             </div>
             <aside className={styles.priceCard}>
-              <span>Broker Marketplace Listing</span>
-              <strong><sup>$</sup>14<small>.95</small></strong>
-              <p>One-time listing-submission fee</p>
-              <ul><li>No recurring charge</li><li>No FLLM commission</li><li>Publication after review</li></ul>
+              <span>Choose Your Exposure</span>
+              <div className={styles.heroPlans}>
+                <div>
+                  <b>Standard</b>
+                  <strong>$14.95</strong>
+                  <small>Marketplace listing</small>
+                </div>
+                <div>
+                  <b>Featured</b>
+                  <strong>$24.95</strong>
+                  <small>30-day priority placement</small>
+                </div>
+              </div>
+              <ul>
+                <li>One-time fee</li>
+                <li>No recurring charge</li>
+                <li>No FLLM commission</li>
+              </ul>
             </aside>
           </div>
         </div>
@@ -122,10 +187,23 @@ export default function BrokerListYourLicensePage() {
         <div className={styles.shell}>
           <div className={styles.sectionHeading}>
             <span>Built for Florida Brokers</span>
-            <h2>Expand the listing&apos;s exposure without surrendering the relationship</h2>
-            <p>FLLM provides the marketplace and inquiry routing. You remain responsible for your client, representation and transaction.</p>
+            <h2>
+              Expand the listing&apos;s exposure without surrendering the
+              relationship
+            </h2>
+            <p>
+              FLLM provides the marketplace and inquiry routing. You remain
+              responsible for your client, representation and transaction.
+            </p>
           </div>
-          <div className={styles.benefitGrid}>{benefits.map((benefit) => <article key={benefit}><i>✓</i><p>{benefit}</p></article>)}</div>
+          <div className={styles.benefitGrid}>
+            {benefits.map((benefit) => (
+              <article key={benefit}>
+                <i>✓</i>
+                <p>{benefit}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -133,18 +211,39 @@ export default function BrokerListYourLicensePage() {
         <div className={styles.shell}>
           <div className={styles.sectionHeadingLight}>
             <span>Clear Marketplace Distinction</span>
-            <h2>Independent broker advertising and FLLM representation are different services</h2>
+            <h2>
+              Independent broker advertising and FLLM representation are
+              different services
+            </h2>
           </div>
           <div className={styles.distinctionGrid}>
             <article>
-              <span>Independent Broker Listing</span><h3>You remain the representative</h3>
-              <p>FLLM advertises the license and routes inquiries. Your name, brokerage and selected contact information identify you as the transaction contact.</p>
-              <ul><li>$14.95 one-time fee</li><li>No FLLM commission</li><li>Your client relationship remains yours</li></ul>
+              <span>Independent Broker Listing</span>
+              <h3>You remain the representative</h3>
+              <p>
+                FLLM advertises the license and routes inquiries. Your name,
+                brokerage and selected contact information identify you as the
+                transaction contact.
+              </p>
+              <ul>
+                <li>Standard or Featured one-time listing</li>
+                <li>No FLLM commission</li>
+                <li>Your client relationship remains yours</li>
+              </ul>
             </article>
             <article>
-              <span>FLLM-Represented Listing</span><h3>Separate professional engagement</h3>
-              <p>FLLM provides brokerage services only for matters accepted under a separate written agreement defining the client, services and compensation.</p>
-              <ul><li>Separate written agreement</li><li>Defined representation and scope</li><li>Professionally managed transaction support</li></ul>
+              <span>FLLM-Represented Listing</span>
+              <h3>Separate professional engagement</h3>
+              <p>
+                FLLM provides brokerage services only for matters accepted under
+                a separate written agreement defining the client, services and
+                compensation.
+              </p>
+              <ul>
+                <li>Separate written agreement</li>
+                <li>Defined representation and scope</li>
+                <li>Professionally managed transaction support</li>
+              </ul>
             </article>
           </div>
         </div>
@@ -152,28 +251,79 @@ export default function BrokerListYourLicensePage() {
 
       <section className={styles.processSection}>
         <div className={styles.shell}>
-          <div className={styles.sectionHeading}><span>How It Works</span><h2>Four steps from submission to buyer inquiry</h2></div>
-          <div className={styles.steps}>{steps.map(([title, copy], index) => <article key={title}><b>{index + 1}</b><h3>{title}</h3><p>{copy}</p></article>)}</div>
+          <div className={styles.sectionHeading}>
+            <span>How It Works</span>
+            <h2>Four steps from submission to buyer inquiry</h2>
+          </div>
+          <div className={styles.steps}>
+            {steps.map(([title, copy], index) => (
+              <article key={title}>
+                <b>{index + 1}</b>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className={styles.formSection} id="broker-listing-form">
         <div className={styles.shell}>
-          <div className={styles.formIntro}><span>Broker Submission</span><h2>List a client&apos;s quota license</h2><p>Complete the broker and license information below. You may keep the license number private while still providing it to FLLM for review.</p></div>
+          <div className={styles.formIntro}>
+            <span>Broker Submission</span>
+            <h2>List a client&apos;s quota license</h2>
+            <p>
+              Complete the broker and license information below. You may keep
+              the license number private while still providing it to FLLM for
+              review.
+            </p>
+          </div>
           <BrokerListingForm />
         </div>
       </section>
 
       <section className={styles.faqSection}>
         <div className={styles.shell}>
-          <div className={styles.sectionHeading}><span>Broker Questions</span><h2>Before you submit</h2></div>
-          <div className={styles.faqList}>{faqs.map((faq) => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</div>
-          <div className={styles.multiListing}><div><span>Have several licenses to add?</span><h3>Ask FLLM about coordinated broker inventory submissions.</h3></div><a href="mailto:listings@floridaliquorlicensemarket.com?subject=Multiple%20Broker%20Listings">Contact the Listings Team</a></div>
+          <div className={styles.sectionHeading}>
+            <span>Broker Questions</span>
+            <h2>Before you submit</h2>
+          </div>
+          <div className={styles.faqList}>
+            {faqs.map((faq) => (
+              <details key={faq.question}>
+                <summary>{faq.question}</summary>
+                <p>{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+          <div className={styles.multiListing}>
+            <div>
+              <span>Have several licenses to add?</span>
+              <h3>Ask FLLM about coordinated broker inventory submissions.</h3>
+            </div>
+            <a href="mailto:listings@floridaliquorlicensemarket.com?subject=Multiple%20Broker%20Listings">
+              Contact the Listings Team
+            </a>
+          </div>
         </div>
       </section>
 
       <footer className={styles.footer}>
-        <div className={styles.shell}><Image src="/assets/brand-footer.svg" alt="Florida Liquor License Market" width={215} height={78} /><p>Independent broker marketplace listings are advertising services only. FLLM does not provide legal, tax, title or regulatory advice and does not guarantee publication, availability, transfer approval or closing.</p><Link href="/contact">Contact FLLM</Link></div>
+        <div className={styles.shell}>
+          <Image
+            src="/assets/brand-footer.svg"
+            alt="Florida Liquor License Market"
+            width={215}
+            height={78}
+          />
+          <p>
+            Independent broker marketplace listings are advertising services
+            only. FLLM does not provide legal, tax, title or regulatory advice
+            and does not guarantee publication, availability, transfer approval
+            or closing.
+          </p>
+          <Link href="/contact">Contact FLLM</Link>
+        </div>
       </footer>
     </main>
   );
