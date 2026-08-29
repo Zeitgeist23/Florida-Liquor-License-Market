@@ -55,6 +55,25 @@ export default function BrokerListingForm() {
       window.removeEventListener("pageshow", restoreFormAfterCheckout);
   }, []);
 
+  useEffect(() => {
+    function selectListingTier(event: Event) {
+      const tier = (event as CustomEvent<{ tier?: string }>).detail?.tier;
+      if (tier === "standard" || tier === "featured") {
+        setListingTier(tier);
+      }
+    }
+
+    window.addEventListener(
+      "fllm:select-broker-listing-tier",
+      selectListingTier,
+    );
+    return () =>
+      window.removeEventListener(
+        "fllm:select-broker-listing-tier",
+        selectListingTier,
+      );
+  }, []);
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (submitting) return;
