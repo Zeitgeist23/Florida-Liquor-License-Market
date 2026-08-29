@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { randomBytes, randomUUID } from "node:crypto";
 
 import { uploadBrokerListingDocument } from "@/lib/broker-listing-documents";
 import {
@@ -36,6 +37,11 @@ const listingOptions = {
     paymentLink: process.env.STRIPE_FEATURED_LISTING_PAYMENT_LINK,
   },
 } as const;
+
+function emergencySubmissionRef() {
+  const date = new Date().toISOString().slice(0, 10).replaceAll("-", "");
+  return `FLLM-PAID-${date}-${randomBytes(4).toString("hex").toUpperCase()}`;
+}
 
 export async function POST(request: Request) {
   let submissionId: string | null = null;
@@ -86,6 +92,34 @@ export async function POST(request: Request) {
         ? await uploadBrokerListingDocument(document)
         : null;
 
+    const fullName = value(form, "name", 160);
+    const email = value(form, "email", 254).toLowerCase();
+    const phone = value(form, "phone", 60);
+    const county = value(form, "county", 100);
+    const licenseType = value(form, "license_type", 100);
+    const askingPriceText = value(form, "asking_price", 60);
+    const licenseStatus = value(form, "license_status", 120);
+    const preferredTiming = value(form, "preferred_timing", 120);
+    if (
+      !fullName ||
+      !email ||
+      !phone ||
+      !county ||
+      !licenseType ||
+      !licenseStatus
+    ) {
+      return NextResponse.json(
+        { error: "Please complete all required broker and license fields." },
+        { status: 400 },
+      );
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      return NextResponse.json(
+        { error: "Please enter a valid email address." },
+        { status: 400 },
+      );
+    }
+
     const notes = [
       "Submission type: Independent Broker Marketplace Listing",
       `Listing option: ${listingTier.label} — $${(listingTier.unitAmount / 100).toFixed(2)}`,
@@ -106,20 +140,44 @@ export async function POST(request: Request) {
     const additional = value(form, "message", 3500);
     if (additional) notes.push(`Broker notes: ${additional}`);
 
-    stage = "saving the broker listing";
-    const submission = await createListingSubmission({
-      fullName: value(form, "name", 160),
-      email: value(form, "email", 254),
-      phone: value(form, "phone", 60),
-      county: value(form, "county", 100),
-      licenseType: value(form, "license_type", 100),
-      askingPriceText: value(form, "asking_price", 60),
-      licenseStatus: value(form, "license_status", 120),
-      preferredTiming: value(form, "preferred_timing", 120),
+    const submissionInput = {
+      fullName,
+      email,
+      phone,
+      county,
+      licenseType,
+      askingPriceText,
+      licenseStatus,
+      preferredTiming,
       message: notes.join("\n\n"),
       requiresPayment: true,
-    });
-    submissionId = submission.id;
+    };
+    stage = "saving the broker listing";
+    let databaseSaved = true;
+    let submission;
+    try {
+      submission = await createListingSubmission(submissionInput);
+      submissionId = submission.id;
+    } catch (databaseError) {
+      if (
+        !(databaseError instanceof Error) ||
+        databaseError.message !== "fetch failed"
+      ) {
+        throw databaseError;
+      }
+      databaseSaved = false;
+      submission = {
+        id: randomUUID(),
+        submissionRef: emergencySubmissionRef(),
+        email,
+        county,
+        licenseType,
+      };
+      console.warn("Broker listing will be recovered from Stripe metadata", {
+        submissionRef: submission.submissionRef,
+        error: databaseError.message,
+      });
+    }
 
     stage = "opening secure Stripe Checkout";
     const checkout = await createListingCheckoutSession(
@@ -133,6 +191,34 @@ export async function POST(request: Request) {
         metadata: {
           listing_tier: listingTierKey,
           listing_price: String(listingTier.unitAmount),
+          recovery_version: "broker_v1",
+          database_saved: String(databaseSaved),
+          full_name: fullName.slice(0, 500),
+          email: email.slice(0, 500),
+          phone: phone.slice(0, 500),
+          county: county.slice(0, 500),
+          license_type: licenseType.slice(0, 500),
+          asking_price_text: askingPriceText.slice(0, 500),
+          license_status: licenseStatus.slice(0, 500),
+          preferred_timing: preferredTiming.slice(0, 500),
+          brokerage_name: brokerageName.slice(0, 500),
+          broker_license: value(form, "broker_license_number", 100).slice(
+            0,
+            500,
+          ),
+          brokerage_website: value(form, "brokerage_website", 300).slice(
+            0,
+            500,
+          ),
+          contact_preference: contactPreference.slice(0, 500),
+          license_number: value(form, "license_number", 100).slice(0, 500),
+          license_visibility: value(
+            form,
+            "license_number_visibility",
+            100,
+          ).slice(0, 500),
+          broker_notes: additional.slice(0, 500),
+          document_path: storedDocument?.objectPath.slice(0, 500) || "",
         },
         paymentLink: listingTier.paymentLink,
       },
@@ -142,7 +228,8 @@ export async function POST(request: Request) {
     // from submission_ref after payment even if this nonessential PATCH has a
     // transient database/network failure.
     try {
-      await attachCheckoutSession(submission.id, checkout.id);
+      if (databaseSaved)
+        await attachCheckoutSession(submission.id, checkout.id);
     } catch (attachError) {
       console.warn(
         "Broker checkout session attachment will be reconciled by webhook",

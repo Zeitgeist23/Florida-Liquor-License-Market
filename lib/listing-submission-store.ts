@@ -5,11 +5,7 @@ import { randomBytes } from "node:crypto";
 import { floridaCounties } from "@/data/florida-counties";
 
 export type SubmissionStatus =
-  | "pending_payment"
-  | "paid"
-  | "approved"
-  | "rejected"
-  | "checkout_failed";
+  "pending_payment" | "paid" | "approved" | "rejected" | "checkout_failed";
 
 export type EmailDeliveryStatus = "pending" | "sending" | "sent" | "failed";
 
@@ -94,6 +90,10 @@ export type CreateSubmissionInput = {
   requiresPayment?: boolean;
 };
 
+export type RecoverSubmissionInput = CreateSubmissionInput & {
+  submissionRef: string;
+};
+
 export type CreateBuyerLeadInput = {
   fullName: string;
   email: string;
@@ -131,17 +131,34 @@ export type CreateValuationLeadInput = {
 };
 
 const valuationCounties = new Set(floridaCounties.map((county) => county.name));
-const valuationLicenseTypes = new Set(["4COP Quota", "3PS Quota / Package Store"]);
-const valuationStatuses = new Set(["Active", "Inactive / Escrowed", "Pending transfer", "Not sure"]);
-const valuationTimings = new Set(["Ready now", "Within 30 days", "Within 60–90 days", "Researching options"]);
+const valuationLicenseTypes = new Set([
+  "4COP Quota",
+  "3PS Quota / Package Store",
+]);
+const valuationStatuses = new Set([
+  "Active",
+  "Inactive / Escrowed",
+  "Pending transfer",
+  "Not sure",
+]);
+const valuationTimings = new Set([
+  "Ready now",
+  "Within 30 days",
+  "Within 60–90 days",
+  "Researching options",
+]);
 
 function databaseConfigured() {
-  return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+  return Boolean(
+    process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY,
+  );
 }
 
 function requireDatabase() {
   if (!databaseConfigured()) {
-    throw new Error("Listing automation requires SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.");
+    throw new Error(
+      "Listing automation requires SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.",
+    );
   }
 }
 
@@ -204,7 +221,8 @@ function parseAskingPrice(value: string | null | undefined): number | null {
   const cleaned = (value ?? "").replace(/[^0-9.]/g, "");
   if (!cleaned) return null;
   const amount = Number(cleaned);
-  if (!Number.isFinite(amount) || amount < 0 || amount > 100_000_000) return null;
+  if (!Number.isFinite(amount) || amount < 0 || amount > 100_000_000)
+    return null;
   return Math.round(amount);
 }
 
@@ -228,7 +246,12 @@ function makeValuationLeadRef() {
 }
 
 function cleanEstimateAmount(value: number | null) {
-  if (value === null || !Number.isFinite(value) || value < 0 || value > 100_000_000) {
+  if (
+    value === null ||
+    !Number.isFinite(value) ||
+    value < 0 ||
+    value > 100_000_000
+  ) {
     return null;
   }
   return Math.round(value);
@@ -239,9 +262,8 @@ function buyerListingParts(listingRequested: string) {
   const licenseType = /3PS/i.test(requested)
     ? "3PS Quota / Package Store"
     : "4COP Quota";
-  const county = requested
-    .replace(/\s+(?:4COP|3PS).*$/i, "")
-    .trim() || "Florida";
+  const county =
+    requested.replace(/\s+(?:4COP|3PS).*$/i, "").trim() || "Florida";
   return { requested, county, licenseType };
 }
 
@@ -252,13 +274,24 @@ export async function createBuyerLead(input: CreateBuyerLeadInput) {
   const email = cleanText(input.email, 254).toLowerCase();
   const phone = cleanText(input.phone, 60);
   const listingReference = cleanText(input.listingReference, 100);
-  const { requested, county, licenseType } = buyerListingParts(input.listingRequested);
+  const { requested, county, licenseType } = buyerListingParts(
+    input.listingRequested,
+  );
   const offerAmountText = cleanText(input.offerAmountText, 60);
   const offerAmount = parseAskingPrice(offerAmountText);
   const purchaseMethod = cleanText(input.purchaseMethod, 160);
   const targetClosing = cleanText(input.targetClosing, 120);
 
-  if (!fullName || !email || !phone || !listingReference || !requested || offerAmount === null || !purchaseMethod || !targetClosing) {
+  if (
+    !fullName ||
+    !email ||
+    !phone ||
+    !listingReference ||
+    !requested ||
+    offerAmount === null ||
+    !purchaseMethod ||
+    !targetClosing
+  ) {
     throw new Error("Please complete all required offer fields.");
   }
   if (!/^\S+@\S+\.\S+$/.test(email)) {
@@ -305,18 +338,25 @@ export async function createBuyerLead(input: CreateBuyerLeadInput) {
     cache: "no-store",
   });
   if (!response.ok) {
-    throw new Error(`Could not save the buyer lead: ${response.status} ${await response.text()}`);
+    throw new Error(
+      `Could not save the buyer lead: ${response.status} ${await response.text()}`,
+    );
   }
   const rows = (await response.json()) as SubmissionRow[];
-  if (!rows[0]) throw new Error("The buyer lead was not returned by the database.");
+  if (!rows[0])
+    throw new Error("The buyer lead was not returned by the database.");
   return toSubmission(rows[0]);
 }
 
-export function isBuyerLead(submission: Pick<ListingSubmission, "submissionRef">) {
+export function isBuyerLead(
+  submission: Pick<ListingSubmission, "submissionRef">,
+) {
   return submission.submissionRef.startsWith("FLLM-BUYER-");
 }
 
-export function isValuationLead(submission: Pick<ListingSubmission, "submissionRef">) {
+export function isValuationLead(
+  submission: Pick<ListingSubmission, "submissionRef">,
+) {
   return submission.submissionRef.startsWith("FLLM-VALUE-");
 }
 
@@ -331,7 +371,15 @@ export async function createValuationLead(input: CreateValuationLeadInput) {
   const licenseStatus = cleanText(input.licenseStatus, 120);
   const preferredTiming = cleanText(input.preferredTiming, 120);
 
-  if (!fullName || !email || !phone || !county || !licenseType || !licenseStatus || !preferredTiming) {
+  if (
+    !fullName ||
+    !email ||
+    !phone ||
+    !county ||
+    !licenseType ||
+    !licenseStatus ||
+    !preferredTiming
+  ) {
     throw new Error("Please complete all required valuation fields.");
   }
   if (
@@ -389,10 +437,13 @@ export async function createValuationLead(input: CreateValuationLeadInput) {
     cache: "no-store",
   });
   if (!response.ok) {
-    throw new Error(`Could not save the valuation request: ${response.status} ${await response.text()}`);
+    throw new Error(
+      `Could not save the valuation request: ${response.status} ${await response.text()}`,
+    );
   }
   const rows = (await response.json()) as SubmissionRow[];
-  if (!rows[0]) throw new Error("The valuation request was not returned by the database.");
+  if (!rows[0])
+    throw new Error("The valuation request was not returned by the database.");
   return toSubmission(rows[0]);
 }
 
@@ -408,7 +459,14 @@ export async function createListingSubmission(input: CreateSubmissionInput) {
   const licenseType = cleanText(input.licenseType, 100);
   const licenseStatus = cleanText(input.licenseStatus, 120);
 
-  if (!fullName || !email || !phone || !county || !licenseType || !licenseStatus) {
+  if (
+    !fullName ||
+    !email ||
+    !phone ||
+    !county ||
+    !licenseType ||
+    !licenseStatus
+  ) {
     throw new Error("Please complete all required listing fields.");
   }
 
@@ -447,26 +505,105 @@ export async function createListingSubmission(input: CreateSubmissionInput) {
   });
 
   if (!response.ok) {
-    throw new Error(`Could not save the listing submission: ${response.status} ${await response.text()}`);
+    throw new Error(
+      `Could not save the listing submission: ${response.status} ${await response.text()}`,
+    );
   }
 
   const rows = (await response.json()) as SubmissionRow[];
-  if (!rows[0]) throw new Error("The listing submission was not returned by the database.");
+  if (!rows[0])
+    throw new Error("The listing submission was not returned by the database.");
+  return toSubmission(rows[0]);
+}
+
+export async function recoverListingSubmission(input: RecoverSubmissionInput) {
+  requireDatabase();
+
+  const existing = await getSubmissionByRef(input.submissionRef);
+  if (existing) return existing;
+
+  const fullName = cleanText(input.fullName, 160);
+  const email = cleanText(input.email, 254).toLowerCase();
+  const phone = cleanText(input.phone, 60);
+  const county = cleanText(input.county, 100);
+  const licenseType = cleanText(input.licenseType, 100);
+  const licenseStatus = cleanText(input.licenseStatus, 120);
+  if (
+    !fullName ||
+    !email ||
+    !phone ||
+    !county ||
+    !licenseType ||
+    !licenseStatus
+  ) {
+    throw new Error(
+      "Stripe recovery metadata is missing required listing fields.",
+    );
+  }
+
+  const now = new Date().toISOString();
+  const askingPriceText = cleanText(input.askingPriceText, 60) || null;
+  const row = {
+    submission_ref: cleanText(input.submissionRef, 100),
+    full_name: fullName,
+    first_name: fullName.split(/\s+/)[0] || "there",
+    email,
+    phone,
+    county,
+    license_type: licenseType,
+    asking_price: parseAskingPrice(askingPriceText),
+    asking_price_text: askingPriceText,
+    license_status: licenseStatus,
+    preferred_timing: cleanText(input.preferredTiming, 120) || null,
+    message: cleanText(input.message, 5000) || null,
+    status: "pending_payment" satisfies SubmissionStatus,
+    payment_email_status: "pending" satisfies EmailDeliveryStatus,
+    approval_email_status: "pending" satisfies EmailDeliveryStatus,
+    created_at: now,
+    updated_at: now,
+  };
+
+  const response = await fetch(endpoint("listing_submissions"), {
+    method: "POST",
+    headers: supabaseHeaders({ Prefer: "return=representation" }),
+    body: JSON.stringify(row),
+    cache: "no-store",
+  });
+  if (!response.ok) {
+    // A retried Stripe webhook may race another successful recovery.
+    const recovered = await getSubmissionByRef(input.submissionRef);
+    if (recovered) return recovered;
+    throw new Error(
+      `Could not recover the paid listing submission: ${response.status} ${await response.text()}`,
+    );
+  }
+  const rows = (await response.json()) as SubmissionRow[];
+  if (!rows[0])
+    throw new Error(
+      "The recovered listing submission was not returned by the database.",
+    );
   return toSubmission(rows[0]);
 }
 
 async function getSingle(query: string): Promise<ListingSubmission | null> {
   requireDatabase();
-  const response = await fetch(endpoint(`listing_submissions?${query}&limit=1`), {
-    headers: supabaseHeaders(),
-    cache: "no-store",
-  });
-  if (!response.ok) throw new Error(`Could not read listing submission: ${response.status}`);
+  const response = await fetch(
+    endpoint(`listing_submissions?${query}&limit=1`),
+    {
+      headers: supabaseHeaders(),
+      cache: "no-store",
+    },
+  );
+  if (!response.ok)
+    throw new Error(`Could not read listing submission: ${response.status}`);
   const rows = (await response.json()) as SubmissionRow[];
   return rows[0] ? toSubmission(rows[0]) : null;
 }
 
-async function patchRows(query: string, values: Record<string, unknown>): Promise<ListingSubmission[]> {
+async function patchRows(
+  query: string,
+  values: Record<string, unknown>,
+): Promise<ListingSubmission[]> {
   requireDatabase();
   const response = await fetch(endpoint(`listing_submissions?${query}`), {
     method: "PATCH",
@@ -475,7 +612,9 @@ async function patchRows(query: string, values: Record<string, unknown>): Promis
     cache: "no-store",
   });
   if (!response.ok) {
-    throw new Error(`Could not update listing submission: ${response.status} ${await response.text()}`);
+    throw new Error(
+      `Could not update listing submission: ${response.status} ${await response.text()}`,
+    );
   }
   return ((await response.json()) as SubmissionRow[]).map(toSubmission);
 }
@@ -485,20 +624,27 @@ export async function getSubmissionById(id: string) {
 }
 
 export async function getSubmissionByRef(submissionRef: string) {
-  return getSingle(`submission_ref=eq.${encodeURIComponent(submissionRef)}&select=*`);
+  return getSingle(
+    `submission_ref=eq.${encodeURIComponent(submissionRef)}&select=*`,
+  );
 }
 
 export async function getSubmissionByCheckoutSession(sessionId: string) {
-  return getSingle(`stripe_checkout_session_id=eq.${encodeURIComponent(sessionId)}&select=*`);
+  return getSingle(
+    `stripe_checkout_session_id=eq.${encodeURIComponent(sessionId)}&select=*`,
+  );
 }
 
 export async function getApprovedSubmissionByPublicRef(submissionRef: string) {
   return getSingle(
-    `submission_ref=eq.${encodeURIComponent(submissionRef)}&status=eq.approved&select=*`
+    `submission_ref=eq.${encodeURIComponent(submissionRef)}&status=eq.approved&select=*`,
   );
 }
 
-export async function attachCheckoutSession(id: string, checkoutSessionId: string) {
+export async function attachCheckoutSession(
+  id: string,
+  checkoutSessionId: string,
+) {
   const rows = await patchRows(`id=eq.${encodeURIComponent(id)}&select=*`, {
     stripe_checkout_session_id: checkoutSessionId,
     last_error: null,
@@ -521,28 +667,33 @@ export async function markSubmissionPaid(input: {
   customerEmail?: string | null;
 }) {
   const existing = await getSubmissionByRef(input.submissionRef);
-  if (!existing) throw new Error(`Unknown listing submission ${input.submissionRef}.`);
-  if (existing.status === "approved" || existing.status === "paid") return existing;
+  if (!existing)
+    throw new Error(`Unknown listing submission ${input.submissionRef}.`);
+  if (existing.status === "approved" || existing.status === "paid")
+    return existing;
 
   const now = new Date().toISOString();
-  const rows = await patchRows(`id=eq.${encodeURIComponent(existing.id)}&select=*`, {
-    status: "paid",
-    stripe_checkout_session_id: input.checkoutSessionId,
-    stripe_payment_intent_id: input.paymentIntentId ?? null,
-    stripe_customer_email: input.customerEmail ?? null,
-    paid_at: now,
-    last_error: null,
-  });
+  const rows = await patchRows(
+    `id=eq.${encodeURIComponent(existing.id)}&select=*`,
+    {
+      status: "paid",
+      stripe_checkout_session_id: input.checkoutSessionId,
+      stripe_payment_intent_id: input.paymentIntentId ?? null,
+      stripe_customer_email: input.customerEmail ?? null,
+      paid_at: now,
+      last_error: null,
+    },
+  );
   return rows[0] ?? existing;
 }
 
 async function claimEmail(
   id: string,
-  column: "payment_email_status" | "approval_email_status"
+  column: "payment_email_status" | "approval_email_status",
 ): Promise<ListingSubmission | null> {
   const rows = await patchRows(
     `id=eq.${encodeURIComponent(id)}&${column}=in.(pending,failed)&select=*`,
-    { [column]: "sending", last_error: null }
+    { [column]: "sending", last_error: null },
   );
   return rows[0] ?? null;
 }
@@ -555,16 +706,26 @@ export function claimApprovalEmail(id: string) {
   return claimEmail(id, "approval_email_status");
 }
 
-export async function finishPaymentEmail(id: string, sent: boolean, error?: string) {
+export async function finishPaymentEmail(
+  id: string,
+  sent: boolean,
+  error?: string,
+) {
   const rows = await patchRows(`id=eq.${encodeURIComponent(id)}&select=*`, {
     payment_email_status: sent ? "sent" : "failed",
     payment_email_sent_at: sent ? new Date().toISOString() : null,
-    last_error: sent ? null : (error ?? "Payment confirmation email failed").slice(0, 2000),
+    last_error: sent
+      ? null
+      : (error ?? "Payment confirmation email failed").slice(0, 2000),
   });
   return rows[0] ?? null;
 }
 
-export async function finishApprovalEmail(id: string, sent: boolean, error?: string) {
+export async function finishApprovalEmail(
+  id: string,
+  sent: boolean,
+  error?: string,
+) {
   const rows = await patchRows(`id=eq.${encodeURIComponent(id)}&select=*`, {
     approval_email_status: sent ? "sent" : "failed",
     approval_email_sent_at: sent ? new Date().toISOString() : null,
@@ -587,16 +748,19 @@ export async function approveListingSubmission(input: {
   }
 
   const now = new Date().toISOString();
-  const rows = await patchRows(`id=eq.${encodeURIComponent(input.id)}&select=*`, {
-    status: "approved",
-    listing_title: cleanText(input.title, 180),
-    approved_license_type: input.licenseType,
-    approved_asking_price: input.askingPrice,
-    live_listing_ref: existing.submissionRef,
-    live_listing_url: input.liveListingUrl,
-    approved_at: existing.approvedAt ?? now,
-    last_error: null,
-  });
+  const rows = await patchRows(
+    `id=eq.${encodeURIComponent(input.id)}&select=*`,
+    {
+      status: "approved",
+      listing_title: cleanText(input.title, 180),
+      approved_license_type: input.licenseType,
+      approved_asking_price: input.askingPrice,
+      live_listing_ref: existing.submissionRef,
+      live_listing_url: input.liveListingUrl,
+      approved_at: existing.approvedAt ?? now,
+      last_error: null,
+    },
+  );
   return rows[0] ?? existing;
 }
 
@@ -610,8 +774,9 @@ export async function listLeadSubmissions() {
   requireDatabase();
   const response = await fetch(
     endpoint("listing_submissions?select=*&order=created_at.desc&limit=500"),
-    { headers: supabaseHeaders(), cache: "no-store" }
+    { headers: supabaseHeaders(), cache: "no-store" },
   );
-  if (!response.ok) throw new Error(`Could not list submissions: ${response.status}`);
+  if (!response.ok)
+    throw new Error(`Could not list submissions: ${response.status}`);
   return ((await response.json()) as SubmissionRow[]).map(toSubmission);
 }

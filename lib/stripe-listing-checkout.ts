@@ -2,8 +2,6 @@ import "server-only";
 
 import { createHmac, timingSafeEqual } from "node:crypto";
 
-import type { ListingSubmission } from "@/lib/listing-submission-store";
-
 export type StripeCheckoutSession = {
   id: string;
   url: string | null;
@@ -13,6 +11,14 @@ export type StripeCheckoutSession = {
   payment_intent?: string | null;
   customer_email?: string | null;
   customer_details?: { email?: string | null } | null;
+};
+
+export type ListingCheckoutSubmission = {
+  id: string;
+  submissionRef: string;
+  email: string;
+  county: string;
+  licenseType: string;
 };
 
 type ListingCheckoutOptions = {
@@ -35,7 +41,7 @@ function siteUrl(requestUrl?: string) {
 }
 
 export async function createListingCheckoutSession(
-  submission: ListingSubmission,
+  submission: ListingCheckoutSubmission,
   requestUrl?: string,
   cancelPath = "/sell-your-license?payment=cancelled",
   options: ListingCheckoutOptions = {},
