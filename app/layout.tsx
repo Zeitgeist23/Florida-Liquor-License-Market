@@ -19,6 +19,26 @@ import "./news-editorial-readability.css";
 import "./news-source-readability.css";
 
 const GOOGLE_ANALYTICS_ID = "G-PKP8PXCDWF";
+const siteUrl = "https://www.floridaliquorlicensemarket.com";
+
+const globalStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
+    name: "Florida Liquor License Market",
+    url: siteUrl,
+    logo: `${siteUrl}/assets/brand-sharp.svg`,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    name: "Florida Liquor License Market",
+    url: siteUrl,
+    publisher: { "@id": `${siteUrl}/#organization` },
+  },
+];
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.floridaliquorlicensemarket.com"),
@@ -42,6 +62,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalStructuredData).replaceAll("<", "\\u003c") }}
+        />
         <AbtIncreaseInSeriesSelect />
         <AbtDemographicSelects />
         <AbtMoralCharacterQuestion />
