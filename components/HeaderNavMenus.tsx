@@ -51,6 +51,7 @@ const navMenus: NavMenu[] = [
     menuClassName: "native-nav-menu-standard",
     links: [
       { href: "/financing", label: "Liquor License Financing" },
+      { href: "/sba-7a-liquor-license-business-financing", label: "SBA 7(a) Business Financing" },
       { href: "/financing-disclosure", label: "Financing Disclosure" },
       { href: "/private-lending-disclosure", label: "Private Lending Disclosure" },
     ],
