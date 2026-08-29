@@ -2,9 +2,30 @@
 
 import { FormEvent, useState } from "react";
 
-const downloadUrl = "/downloads/FLLM_Official_Buyers_and_Sellers_Guide_2026.pdf";
+const downloadFilename = "FLLM_Official_Buyers_and_Sellers_Guide_2026.pdf";
 
 type FormStatus = "idle" | "sending" | "sent" | "error";
+
+function trackedDownloadUrl(action: string) {
+  const params = new URLSearchParams({
+    source: "free-guide",
+    action,
+  });
+
+  if (typeof window !== "undefined") {
+    params.set("source_page", window.location.pathname);
+
+    const pageParams = new URLSearchParams(window.location.search);
+    for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"]) {
+      const value = pageParams.get(key);
+      if (value) params.set(key, value);
+    }
+
+    if (document.referrer) params.set("entry_referrer", document.referrer);
+  }
+
+  return `/api/guide-download?${params.toString()}`;
+}
 
 async function fallbackSubmission(formData: FormData) {
   formData.set("_template", "table");
@@ -41,8 +62,8 @@ export default function FreeGuideCapture() {
       form.reset();
 
       const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.download = "FLLM_Official_Buyers_and_Sellers_Guide_2026.pdf";
+      link.href = trackedDownloadUrl("automatic-after-form");
+      link.download = downloadFilename;
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -57,7 +78,7 @@ export default function FreeGuideCapture() {
       <div className="guide-success" role="status">
         <strong>Your guide is ready.</strong>
         <p>The download should begin automatically. You can also use the button below.</p>
-        <a href={downloadUrl} download>Download the free guide</a>
+        <a href={trackedDownloadUrl("manual-after-form")} download={downloadFilename}>Download the free guide</a>
       </div>
     );
   }
