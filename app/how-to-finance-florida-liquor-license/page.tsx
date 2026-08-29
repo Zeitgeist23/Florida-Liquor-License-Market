@@ -221,6 +221,7 @@ export default function HowToFinanceFloridaLiquorLicensePage() {
           </p>
           <div className="finance-guide-links">
             <Link href="/private-liquor-license-lenders">Private Lender Guide<span>See how specialty lenders evaluate quota-license collateral and structure transactions.</span></Link>
+            <Link href="/sba-7a-liquor-license-business-financing">SBA 7(a) Business Financing<span>Learn when financing may fit the purchase or refinance of an operating liquor store, restaurant, bar or nightclub.</span></Link>
             <Link href="/florida-liquor-license-value">Estimate License Value<span>Start with the county and license type because collateral value drives the financing conversation.</span></Link>
             <Link href="/financing#request-financing">Request Financing<span>Submit the license, county, purchase price or value, requested loan amount and transaction timeline.</span></Link>
           </div>
