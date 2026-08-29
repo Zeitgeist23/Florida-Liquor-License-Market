@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
@@ -78,7 +79,13 @@ function marketplaceTitle(listing: Listing) {
 }
 
 function marketplaceDescription(listing: Listing) {
-  return `View the individual ${listing.county} ${shortLicenseType(listing.type)} listing offered at ${listing.priceLabel}. Review the exact marketplace reference, license details, county information, inquiry options, and offer link.`;
+  return `${listing.county} ${shortLicenseType(listing.type)} offered at ${listing.priceLabel}. Review quota-license privileges, availability, marketplace reference, county market data, and inquiry options.`;
+}
+
+function absoluteImageUrl(image: string | undefined) {
+  if (!image) return undefined;
+  if (/^https?:\/\//i.test(image)) return image;
+  return `${siteUrl}${image.startsWith("/") ? image : `/${image}`}`;
 }
 
 function paidSubmissionAsListing(
@@ -100,7 +107,7 @@ function paidSubmissionAsListing(
   };
 }
 
-async function loadListingContext(slug: string) {
+const loadListingContext = cache(async (slug: string) => {
   const rawListings = await getMarketplaceListings();
   const pages = indexableListingPages(rawListings);
   const entry = pages.find((page) => page.slug === slug);
@@ -124,7 +131,7 @@ async function loadListingContext(slug: string) {
     selected: paidListing,
     listings: prepareListingsForDisplay(alreadyIncluded ? rawListings : [...rawListings, paidListing]),
   };
-}
+});
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -205,6 +212,8 @@ export default async function Page({ params }: PageProps) {
     )
     .slice(0, 3);
 
+  const productId = `${canonical}#license`;
+
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -218,9 +227,31 @@ export default async function Page({ params }: PageProps) {
         url: `${siteUrl}${statewideListingsHref}`,
       },
       about: {
-        "@type": "Thing",
-        name: `${selected.type} in ${selected.county}`,
-        identifier: selectedReference,
+        "@id": productId,
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "@id": productId,
+      name: `${selected.county} ${selected.type} — ${selected.priceLabel}`,
+      description: marketplaceDescription(selected),
+      sku: selectedReference,
+      identifier: selectedReference,
+      category: selected.type,
+      image: absoluteImageUrl(selected.image),
+      url: canonical,
+      additionalProperty: [
+        { "@type": "PropertyValue", name: "County", value: selected.county },
+        { "@type": "PropertyValue", name: "License type", value: selected.type },
+        { "@type": "PropertyValue", name: "Marketplace status", value: statusLabel },
+      ],
+      offers: selected.price === null ? undefined : {
+        "@type": "Offer",
+        price: selected.price,
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        url: canonical,
       },
     },
     {
@@ -339,7 +370,7 @@ export default async function Page({ params }: PageProps) {
                 <h2>{selected.county} Market Context</h2>
                 <p>{county?.marketOverview ?? descriptionParts.county}</p>
                 {descriptionParts.cities && <p>{descriptionParts.cities}</p>}
-                <p><Link href={filteredCountyHref}>Compare current {selected.county} listings →</Link></p>
+                <p><Link href={filteredCountyHref}>Compare current {selected.county} 4COP and 3PS liquor-license listings →</Link></p>
               </section>
 
               {selected.sourceName && (
@@ -365,8 +396,8 @@ export default async function Page({ params }: PageProps) {
                 </ol>
                 <Link className="marketplace-listing-primary" href={inquiryHref}>Request Confidential Details</Link>
                 <Link className="marketplace-listing-text-link" href={offerHref}>Submit an offer for this license →</Link>
-                <Link className="marketplace-listing-text-link" href={countyHref}>View the {selected.county} market →</Link>
-                <Link className="marketplace-listing-text-link" href={statewideListingsHref}>Return to all Florida listings →</Link>
+                <Link className="marketplace-listing-text-link" href={countyHref}>Compare {selected.county} liquor-license prices and inventory →</Link>
+                <Link className="marketplace-listing-text-link" href={statewideListingsHref}>Browse all Florida liquor licenses for sale →</Link>
               </div>
 
               <div className="marketplace-listing-reference">
