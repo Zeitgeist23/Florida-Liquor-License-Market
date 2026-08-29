@@ -27,7 +27,8 @@ function siteUrl(requestUrl?: string) {
 
 export async function createListingCheckoutSession(
   submission: ListingSubmission,
-  requestUrl?: string
+  requestUrl?: string,
+  cancelPath = "/sell-your-license?payment=cancelled"
 ) {
   const stripeSecret = process.env.STRIPE_SECRET_KEY;
   if (!stripeSecret) {
@@ -54,7 +55,7 @@ export async function createListingCheckoutSession(
   );
   params.set(
     "cancel_url",
-    `${origin}/sell-your-license?payment=cancelled&submission_ref=${encodeURIComponent(submission.submissionRef)}`
+    `${origin}${cancelPath}${cancelPath.includes("?") ? "&" : "?"}submission_ref=${encodeURIComponent(submission.submissionRef)}`
   );
   params.set("metadata[submission_ref]", submission.submissionRef);
   params.set("metadata[submission_id]", submission.id);

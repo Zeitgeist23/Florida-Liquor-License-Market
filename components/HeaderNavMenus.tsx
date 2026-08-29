@@ -40,6 +40,7 @@ const navMenus: NavMenu[] = [
     menuClassName: "native-nav-menu-standard",
     links: [
       { href: "/sell-your-license", label: "Sell Your License" },
+      { href: "/brokers/list-your-license", label: "For Brokers — List a Client License" },
       { href: "/how-to-sell-florida-liquor-license", label: "How to Sell a Florida Liquor License" },
       { href: "/florida-liquor-license-value", label: "Get a License Valuation" },
     ],

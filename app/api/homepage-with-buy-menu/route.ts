@@ -22,6 +22,7 @@ const sellMenuMarkup = `<div class="live-nav-dropdown live-sell-dropdown" data-l
   </button>
   <div class="live-nav-menu live-sell-menu">
     <a href="/sell-your-license">Sell Your License</a>
+    <a href="/brokers/list-your-license">For Brokers — List a Client License</a>
     <a href="/how-to-sell-florida-liquor-license">How to Sell a Florida Liquor License</a>
     <a href="/florida-liquor-license-value">Get a License Valuation</a>
   </div>
@@ -63,7 +64,7 @@ const installScript = `<script id="live-nav-dropdown-installer">
     if(type==='buy'){
       wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>Buy</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-buy-menu"><a href="/listings">View Listings</a><a href="/license-alerts">Get a License Alert</a><a href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License</a><a href="/counties">Florida County Markets</a></div>';
     }else if(type==='sell'){
-      wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>Sell</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-sell-menu"><a href="/sell-your-license">Sell Your License</a><a href="/how-to-sell-florida-liquor-license">How to Sell a Florida Liquor License</a><a href="/florida-liquor-license-value">Get a License Valuation</a></div>';
+      wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>Sell</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-sell-menu"><a href="/sell-your-license">Sell Your License</a><a href="/brokers/list-your-license">For Brokers — List a Client License</a><a href="/how-to-sell-florida-liquor-license">How to Sell a Florida Liquor License</a><a href="/florida-liquor-license-value">Get a License Valuation</a></div>';
     }else{
       wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>License Types</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-license-types-menu"><a href="/resources/florida-liquor-license-types">Types of Florida Liquor Licenses</a><a href="/license-types/4cop-quota">4COP Quota License</a><a href="/license-types/3ps-package-store">3PS Quota / Package Store</a><a href="/license-types/2cop-beer-wine">2COP Beer &amp; Wine</a><a href="/license-types/4cop-sfs-restaurant">SRX / 4COP-SFS Restaurant</a><a href="/resources/florida-liquor-license-types#population-rule-title">Quota License Requirements</a></div>';
     }
@@ -93,7 +94,7 @@ const installScript = `<script id="live-nav-dropdown-installer">
 </script>`;
 
 const supportScripts = `<!-- fllm-all-header-hover-menus -->
-<script src="/assets/core-nav-dropdowns.js?v=2" defer></script>
+<script src="/assets/core-nav-dropdowns.js?v=3" defer></script>
 <script src="/assets/finance-menu-options.js?v=2" defer></script>
 <script src="/assets/market-data-dropdown.js?v=12" defer></script>
 <script src="/assets/resources-dropdown.js?v=12" defer></script>
