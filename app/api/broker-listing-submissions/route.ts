@@ -39,6 +39,7 @@ const listingOptions = {
 
 export async function POST(request: Request) {
   let submissionId: string | null = null;
+  let stage = "reading the broker listing form";
   try {
     const form = await request.formData();
     if (value(form, "_honey", 200))
@@ -79,6 +80,7 @@ export async function POST(request: Request) {
     const listingTier = listingOptions[listingTierKey];
 
     const document = form.get("supporting_document");
+    stage = "storing the optional supporting document";
     const storedDocument =
       document instanceof File && document.size
         ? await uploadBrokerListingDocument(document)
@@ -104,6 +106,7 @@ export async function POST(request: Request) {
     const additional = value(form, "message", 3500);
     if (additional) notes.push(`Broker notes: ${additional}`);
 
+    stage = "saving the broker listing";
     const submission = await createListingSubmission({
       fullName: value(form, "name", 160),
       email: value(form, "email", 254),
@@ -118,6 +121,7 @@ export async function POST(request: Request) {
     });
     submissionId = submission.id;
 
+    stage = "opening secure Stripe Checkout";
     const checkout = await createListingCheckoutSession(
       submission,
       request.url,
@@ -133,7 +137,25 @@ export async function POST(request: Request) {
         paymentLink: listingTier.paymentLink,
       },
     );
-    await attachCheckoutSession(submission.id, checkout.id);
+    // Do not strand the customer on this page after Stripe has already created
+    // a valid Checkout Session. The webhook can reconcile the real session ID
+    // from submission_ref after payment even if this nonessential PATCH has a
+    // transient database/network failure.
+    try {
+      await attachCheckoutSession(submission.id, checkout.id);
+    } catch (attachError) {
+      console.warn(
+        "Broker checkout session attachment will be reconciled by webhook",
+        {
+          submissionRef: submission.submissionRef,
+          checkoutSessionId: checkout.id,
+          error:
+            attachError instanceof Error
+              ? attachError.message
+              : String(attachError),
+        },
+      );
+    }
 
     return NextResponse.json({
       ok: true,
@@ -152,7 +174,13 @@ export async function POST(request: Request) {
         console.error("Could not mark broker checkout as failed", markError);
       }
     }
-    console.error("Broker listing submission failed", error);
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("Broker listing submission failed", { stage, error });
+    const customerMessage =
+      message === "fetch failed"
+        ? stage === "opening secure Stripe Checkout"
+          ? "Stripe could not be reached. Please try again; no payment was processed."
+          : "The listing service could not be reached. Please try again."
+        : message;
+    return NextResponse.json({ error: customerMessage }, { status: 500 });
   }
 }

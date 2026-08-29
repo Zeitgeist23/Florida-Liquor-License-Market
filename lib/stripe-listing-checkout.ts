@@ -107,15 +107,39 @@ export async function createListingCheckoutSession(
   }
   params.set("line_items[0][quantity]", "1");
 
-  const response = await fetch("https://api.stripe.com/v1/checkout/sessions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${stripeSecret}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: params,
-    cache: "no-store",
-  });
+  let response: Response | null = null;
+  let networkError: unknown = null;
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    try {
+      response = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${stripeSecret}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+          // A retry must never create a second Checkout Session or a second
+          // payment opportunity for the same saved submission.
+          "Idempotency-Key": `fllm-listing-${submission.id}`,
+        },
+        body: params,
+        cache: "no-store",
+        signal: AbortSignal.timeout(15_000),
+      });
+      break;
+    } catch (error) {
+      networkError = error;
+      console.warn("Stripe Checkout network attempt failed", {
+        attempt,
+        submissionRef: submission.submissionRef,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  if (!response) {
+    throw networkError instanceof Error
+      ? networkError
+      : new Error("Stripe Checkout could not be reached.");
+  }
 
   const payload = (await response.json()) as StripeCheckoutSession & {
     error?: { message?: string };
