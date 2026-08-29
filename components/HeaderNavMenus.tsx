@@ -258,10 +258,10 @@ export default function HeaderNavMenus({
         .native-nav-resources-menu{width:350px}
         .native-license-types-menu{width:320px}
         .primary-nav .native-nav-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;background:transparent!important;box-shadow:none!important;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
-        .primary-nav .native-nav-resources-menu a[href="/free-guide"]{background:linear-gradient(135deg,#ffc12e,#e99300)!important;color:#061728;font-weight:900}
+        .primary-nav .native-nav-resources-menu a[href="/free-guide"]{background:transparent!important;color:#fff;font-weight:900}
         .primary-nav .native-nav-resources-menu a[href="/free-guide"]::after{content:"FREE PDF";float:right;margin-left:12px;font-size:9px;letter-spacing:.08em}
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{background:transparent!important;box-shadow:none!important;color:#f6a700;outline:none}
-        .primary-nav .native-nav-resources-menu a[href="/free-guide"]:hover,.primary-nav .native-nav-resources-menu a[href="/free-guide"]:focus-visible{background:#ffd15c!important;color:#061728}
+        .primary-nav .native-nav-resources-menu a[href="/free-guide"]:hover,.primary-nav .native-nav-resources-menu a[href="/free-guide"]:focus-visible{background:#f6a700!important;color:#061728}
 
         /* Legacy-menu hard stop: some older page/header code can still inject the
            former image-card License Types menu. Keep every version text-only. */

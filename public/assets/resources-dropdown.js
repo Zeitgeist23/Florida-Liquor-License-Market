@@ -116,8 +116,8 @@
         outline:none;
       }
       .resources-header-menu a[href="/free-guide"]{
-        background:linear-gradient(135deg,#ffc12e,#e99300);
-        color:#061728;
+        background:transparent;
+        color:#fff;
         font-weight:900;
       }
       .resources-header-menu a[href="/free-guide"]::after{
@@ -129,7 +129,7 @@
       }
       .resources-header-menu a[href="/free-guide"]:hover,
       .resources-header-menu a[href="/free-guide"]:focus-visible{
-        background:#ffd15c;
+        background:#f6a700;
         color:#061728;
       }
       .primary-nav a[data-resources-dropdown-bound="true"]{cursor:pointer}

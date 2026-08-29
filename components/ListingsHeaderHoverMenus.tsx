@@ -328,8 +328,8 @@ function ensureStyles() {
     }
 
     .resources-header-menu a[href="/free-guide"] {
-      color: #061728;
-      background: linear-gradient(135deg, #ffc12e, #e99300);
+      color: #fff;
+      background: transparent;
       font-weight: 900;
     }
 
