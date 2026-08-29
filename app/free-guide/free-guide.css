@@ -1,0 +1,52 @@
+.free-guide-page{min-height:100vh;color:#f5f7f8;background:#030b12;font-family:Arial,Helvetica,sans-serif}
+.free-guide-header-wrap{position:relative;z-index:20;border-bottom:1px solid rgba(246,167,0,.55);background:#020b12}
+.free-guide-header-wrap .site-header{margin-inline:auto}
+.free-guide-hero{position:relative;overflow:hidden;padding:58px 0 66px;background:radial-gradient(circle at 23% 32%,rgba(19,67,96,.5),transparent 30%),linear-gradient(125deg,#020910 0%,#071b2b 54%,#02080e 100%)}
+.free-guide-hero::before{content:"";position:absolute;inset:0;opacity:.22;background:linear-gradient(115deg,transparent 0 43%,rgba(255,255,255,.09) 49%,transparent 54%);pointer-events:none}
+.free-guide-glow{position:absolute;width:420px;height:420px;right:-150px;top:-170px;border-radius:50%;background:rgba(246,167,0,.14);filter:blur(60px)}
+.free-guide-layout{position:relative;z-index:2;display:grid;grid-template-columns:minmax(300px,.72fr) minmax(480px,1.28fr);gap:72px;align-items:start}
+.guide-cover-column{position:sticky;top:24px}
+.guide-cover-frame{position:relative;padding:10px;border:1px solid rgba(246,167,0,.6);border-radius:9px;background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.02));box-shadow:0 35px 70px rgba(0,0,0,.55),0 0 45px rgba(246,167,0,.11);transform:perspective(1200px) rotateY(3deg)}
+.guide-cover-frame::after{content:"";position:absolute;inset:10px;border-radius:4px;background:linear-gradient(115deg,rgba(255,255,255,.26),transparent 23% 76%,rgba(255,255,255,.08));mix-blend-mode:screen;pointer-events:none}
+.guide-cover-frame img{display:block;width:100%;height:auto;border-radius:4px}
+.guide-format{display:flex;justify-content:center;gap:10px;margin:18px 0 0;color:#cbd5dc;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+.guide-format strong{color:#ffc12e}
+.guide-eyebrow{margin:0 0 14px;color:#f6a700;font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.guide-copy h1{max-width:760px;margin:0;color:#fff;font:400 clamp(38px,4.2vw,62px)/1.02 Georgia,"Times New Roman",serif;letter-spacing:-.025em}
+.guide-lead{max-width:720px;margin:22px 0 28px;color:#d3dde4;font-size:19px;line-height:1.6}
+.guide-included{padding:22px 25px;border:1px solid rgba(137,164,181,.38);border-left:4px solid #f6a700;border-radius:6px;background:rgba(4,18,29,.76)}
+.guide-included h2{margin:0 0 14px;color:#fff;font:700 20px/1.2 Arial,Helvetica,sans-serif;text-transform:uppercase}
+.guide-included ul{display:grid;grid-template-columns:1fr 1fr;gap:11px 26px;margin:0;padding:0;list-style:none}
+.guide-included li{position:relative;padding-left:22px;color:#e2e8ec;font-size:15px;line-height:1.45}
+.guide-included li::before{content:"✓";position:absolute;left:0;color:#f6a700;font-weight:900}
+.guide-capture{margin-top:28px;padding:28px;border:1px solid rgba(246,167,0,.72);border-radius:8px;background:#f7f7f4;color:#071a2c;box-shadow:0 22px 55px rgba(0,0,0,.32)}
+.guide-form-heading span{display:block;color:#b46b00;font-size:11px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.guide-form-heading h2{margin:5px 0 20px;color:#071a2c;font:700 30px/1.1 Georgia,"Times New Roman",serif}
+.guide-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-form-grid label>span{display:block;margin:0 0 7px;font-size:13px;font-weight:800}
+.guide-form-grid input,.guide-form-grid select{width:100%;height:48px;padding:0 12px;border:1px solid #aeb9c1;border-radius:4px;background:#fff;color:#071a2c;font-size:16px;outline:none}
+.guide-form-grid input:focus,.guide-form-grid select:focus{border-color:#d78800;box-shadow:0 0 0 3px rgba(246,167,0,.18)}
+.guide-county-field{grid-column:1/-1}
+.guide-consent{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start;margin:18px 0;color:#344552;font-size:13px;line-height:1.45}
+.guide-consent input{width:18px;height:18px;margin:0;accent-color:#e99a00}
+.guide-honey{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+.guide-capture button,.guide-success a{display:flex;width:100%;min-height:54px;align-items:center;justify-content:center;border:0;border-radius:5px;color:#07101a;background:linear-gradient(135deg,#ffc12e,#e99300);box-shadow:0 8px 20px rgba(211,128,0,.25);font-size:15px;font-weight:900;letter-spacing:.035em;text-transform:uppercase;cursor:pointer}
+.guide-capture button:hover,.guide-capture button:focus-visible,.guide-success a:hover,.guide-success a:focus-visible{filter:brightness(1.08);outline:2px solid #061728;outline-offset:2px}
+.guide-capture button:disabled{cursor:wait;opacity:.72}
+.guide-capture>small{display:block;margin-top:11px;color:#52616b;font-size:12px;text-align:center}
+.guide-error{margin:0 0 14px;padding:10px 12px;border-left:3px solid #b42318;background:#fff0ee;color:#8a1c14;font-size:13px}
+.guide-success{margin-top:28px;padding:30px;border:1px solid #f6a700;border-radius:8px;background:#f7f7f4;color:#071a2c;text-align:center}
+.guide-success strong{display:block;font:700 30px/1.15 Georgia,"Times New Roman",serif}
+.guide-success p{margin:10px 0 20px;font-size:15px;line-height:1.55}
+.guide-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding-block:42px;color:#071a2c;background:#fff}
+.guide-trust article{padding:5px 34px;border-right:1px solid #d9dee2}
+.guide-trust article:last-child{border-right:0}
+.guide-trust span{color:#d98a00;font-size:12px;font-weight:900;letter-spacing:.12em}
+.guide-trust h2{margin:7px 0 9px;font:700 24px/1.15 Georgia,"Times New Roman",serif}
+.guide-trust p{margin:0;color:#3e505d;font-size:14px;line-height:1.6}
+.free-guide-footer{padding:26px 0;border-top:1px solid #26394a;background:#020a10}
+.free-guide-footer .page-shell{display:flex;align-items:center;gap:34px}
+.free-guide-footer img{width:230px;height:auto}
+.free-guide-footer p{max-width:760px;margin:0;color:#aebbc4;font-size:12px;line-height:1.55}
+@media(max-width:900px){.free-guide-layout{grid-template-columns:1fr;gap:42px}.guide-cover-column{position:static;max-width:440px;margin:auto}.guide-trust{grid-template-columns:1fr}.guide-trust article{padding:22px 24px;border-right:0;border-bottom:1px solid #d9dee2}.free-guide-footer .page-shell{align-items:flex-start;flex-direction:column}.free-guide-footer img{width:205px}}
+@media(max-width:620px){.free-guide-hero{padding:36px 0 44px}.guide-copy h1{font-size:39px}.guide-lead{font-size:17px}.guide-included{padding:19px}.guide-included ul,.guide-form-grid{grid-template-columns:1fr}.guide-county-field{grid-column:auto}.guide-capture{padding:21px 18px}.guide-form-grid input,.guide-form-grid select{font-size:16px}.guide-cover-frame{transform:none}.guide-format{flex-wrap:wrap;font-size:11px}.free-guide-header-wrap .header-actions{display:none}}

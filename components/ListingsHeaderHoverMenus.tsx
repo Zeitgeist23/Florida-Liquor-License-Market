@@ -44,6 +44,10 @@ const MARKET_DATA_ITEMS = [
 
 const RESOURCE_ITEMS = [
   {
+    label: "Free Buyer’s & Seller’s Guide",
+    href: "/free-guide",
+  },
+  {
     label: "Florida Liquor License Lookup",
     href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
     external: true,
@@ -317,6 +321,20 @@ function ensureStyles() {
       color: #061728;
       background: #f6a700;
       outline: none;
+    }
+
+    .resources-header-menu a[href="/free-guide"] {
+      color: #061728;
+      background: linear-gradient(135deg, #ffc12e, #e99300);
+      font-weight: 900;
+    }
+
+    .resources-header-menu a[href="/free-guide"]::after {
+      content: "FREE PDF";
+      float: right;
+      margin-left: 12px;
+      font-size: 9px;
+      letter-spacing: .08em;
     }
 
     @media (min-width: 821px) and (max-width: 1500px) {

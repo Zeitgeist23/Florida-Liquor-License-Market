@@ -13,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const corePages: MetadataRoute.Sitemap = [
     { url: siteUrl, lastModified, changeFrequency: "daily", priority: 1 },
     { url: `${siteUrl}/listings`, lastModified, changeFrequency: "daily", priority: 1 },
+    { url: `${siteUrl}/free-guide`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/how-to-buy-florida-liquor-license`, lastModified, changeFrequency: "monthly", priority: 0.95 },
     { url: `${siteUrl}/how-to-sell-florida-liquor-license`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/florida-liquor-license-broker`, lastModified, changeFrequency: "monthly", priority: 0.92 },
