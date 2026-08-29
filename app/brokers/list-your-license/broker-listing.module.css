@@ -870,6 +870,65 @@
 .fullField {
   grid-column: 1/-1;
 }
+.inquiryRouting {
+  display: grid;
+  gap: 8px;
+}
+.inquiryRouting > span {
+  color: #243744;
+  font-size: 12px;
+  font-weight: 800;
+}
+.inquiryRouting > small {
+  color: #5b6c77;
+  font: 500 12px/1.45 Arial, sans-serif;
+}
+.inquiryOptions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.inquiryOptions label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 11px 14px;
+  border: 1px solid #bdc7cd;
+  border-radius: 7px;
+  background: #fff;
+  cursor: pointer;
+}
+.inquiryOptions label:has(input:checked) {
+  border-color: #d89200;
+  background: #fff8e8;
+  box-shadow: 0 0 0 2px rgba(246, 167, 0, 0.12);
+}
+.inquiryOptions input {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  padding: 0;
+  accent-color: #d89200;
+}
+.inquiryOptions label > span {
+  color: #152a38;
+  font-size: 13px;
+  font-weight: 700;
+}
+.inquiryOptions .includeAllOption {
+  grid-column: 1/-1;
+  border-color: #d89200;
+  background: #0a2032;
+}
+.inquiryOptions .includeAllOption:has(input:checked) {
+  background: #0a2032;
+}
+.inquiryOptions .includeAllOption > span {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
 .fileField {
   display: flex;
   align-items: center;
