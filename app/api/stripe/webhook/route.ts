@@ -49,6 +49,27 @@ async function processPaidCheckout(session: StripeCheckoutSession) {
     throw new Error("Stripe session is missing the submission reference.");
 
   let existing = await getSubmissionByRef(submissionRef);
+  if (!existing && session.metadata?.recovery_version === "self_v1") {
+    const metadata = session.metadata;
+    const recoveryNotes = [
+      "Submission type: Self-Directed Listing",
+      `Preferred contact method and seller details: ${metadata.seller_notes || "Not provided"}`,
+      "Recovered from authenticated Stripe Checkout metadata after a temporary listing-database outage.",
+    ];
+    existing = await recoverListingSubmission({
+      submissionRef,
+      fullName: metadata.full_name || "",
+      email: metadata.email || session.customer_email || "",
+      phone: metadata.phone || "",
+      county: metadata.county || "",
+      licenseType: metadata.license_type || "",
+      askingPriceText: metadata.asking_price_text || "",
+      licenseStatus: metadata.license_status || "",
+      preferredTiming: metadata.preferred_timing || "",
+      message: recoveryNotes.join("\n\n"),
+      requiresPayment: true,
+    });
+  }
   if (!existing && session.metadata?.recovery_version === "broker_v1") {
     const metadata = session.metadata;
     const recoveryNotes = [
