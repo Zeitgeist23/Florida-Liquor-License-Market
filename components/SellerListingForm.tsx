@@ -182,7 +182,14 @@ export default function SellerListingForm() {
 
   async function submitListing() {
     const form = formRef.current;
-    if (!form || submitting || !form.reportValidity()) return;
+    if (!form || submitting) return;
+
+    // Mobile Safari can leave the telephone keypad covering the checkout
+    // controls after the phone field is completed. Dismiss it before
+    // validating and starting the checkout request.
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement) activeElement.blur();
+    if (!form.reportValidity()) return;
 
     if (!county || !licenseType) {
       setIsError(true);
