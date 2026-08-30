@@ -318,7 +318,12 @@ export default function ListingsPage({
           <div className="results-summary">
             <span>
               Showing <strong>{Math.min(visibleCount, filtered.length)}</strong> of{" "}
-              <strong>{filtered.length}</strong> matching listing
+              <strong>{filtered.length}</strong>{" "}
+              {status === "available"
+                ? "available license"
+                : status === "sold"
+                  ? "sold license"
+                  : "license"}
               {filtered.length === 1 ? "" : "s"}
             </span>
             <button type="button" onClick={clearFilters}>
