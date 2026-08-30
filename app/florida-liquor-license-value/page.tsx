@@ -105,6 +105,9 @@ export default function FloridaLiquorLicenseValuePage() {
           <p>
             FLLM compares current disclosed asking prices by county and license type. Asking prices are marketplace evidence, not verified closing prices, and the result is guidance rather than a guaranteed valuation.
           </p>
+          <p>
+            Buying rather than valuing a specific license? Compare <Link href="/florida-quota-liquor-license-cost">Florida liquor license cost by county</Link> using current disclosed 4COP and 3PS asking-price data.
+          </p>
         </article>
         <aside>
           <strong>Need a lender-oriented formal appraisal?</strong>

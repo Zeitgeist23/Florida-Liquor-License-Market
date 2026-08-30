@@ -73,6 +73,7 @@ const navMenus: NavMenu[] = [
     links: [
       { href: "/counties", label: "Florida Market Data by County" },
       { href: "/florida-liquor-license-value", label: "Florida Liquor License Value Estimator" },
+      { href: "/florida-quota-liquor-license-cost", label: "Florida Liquor License Cost by County" },
       { href: "/listings?status=sold", label: "Recent Florida Transactions" },
       { href: "/#market-data", label: "Florida Market Insights" },
       { href: "/florida-liquor-license-lottery", label: "Quota Lottery Entry" },

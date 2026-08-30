@@ -34,6 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/license-types/2cop-beer-wine`, lastModified, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/license-types/4cop-sfs-restaurant`, lastModified, changeFrequency: "monthly", priority: 0.72 },
     { url: `${siteUrl}/florida-liquor-license-value`, lastModified, changeFrequency: "daily", priority: 0.9 },
+    { url: `${siteUrl}/florida-quota-liquor-license-cost`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/florida-liquor-license-appraisal`, lastModified, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/florida-liquor-license-news`, lastModified, changeFrequency: "daily", priority: 0.75 },
     { url: `${siteUrl}/florida-liquor-license-court-decisions`, lastModified, changeFrequency: "monthly", priority: 0.78 },

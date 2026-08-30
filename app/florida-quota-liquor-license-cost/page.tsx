@@ -11,15 +11,15 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-quota-liquor-license-cost`;
 
 export const metadata: Metadata = {
-  title: "Florida Quota Liquor License Cost by County | 4COP & 3PS Prices",
+  title: "Florida Liquor License Cost by County | 4COP & 3PS Prices",
   description:
-    "See Florida quota liquor license cost by county using current disclosed 4COP and 3PS asking prices. Compare Florida liquor license prices, county markets, state fees and current listings.",
+    "See Florida liquor license cost by county using current disclosed 4COP and 3PS asking prices. Compare quota-license prices, county markets, state fees and current listings.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Quota Liquor License Cost by County | 4COP & 3PS Prices",
+    title: "Florida Liquor License Cost by County | 4COP & 3PS Prices",
     description:
       "Compare current Florida quota liquor-license asking prices by county, including 4COP and 3PS marketplace inventory.",
     siteName: "Florida Liquor License Market",
@@ -105,7 +105,7 @@ export default async function FloridaQuotaLiquorLicenseCostPage() {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "Florida Quota Liquor License Cost by County",
+      name: "Florida Liquor License Cost by County",
       url: canonicalUrl,
       description:
         "Florida quota liquor-license asking-price guide by county using current disclosed 4COP and 3PS marketplace inventory.",
@@ -154,7 +154,7 @@ export default async function FloridaQuotaLiquorLicenseCostPage() {
           <div className="seo-market-hero-grid">
             <div>
               <span className="seo-market-kicker">Florida Quota License Pricing Guide</span>
-              <h1>Florida Quota Liquor License Cost by County</h1>
+              <h1>Florida Liquor License Cost by County</h1>
               <p>
                 How much does a Florida quota liquor license cost? There is no single statewide market price. Compare current disclosed 4COP and 3PS asking prices by county, then open the county market or live listing to review the opportunities behind the numbers.
               </p>
@@ -251,7 +251,7 @@ export default async function FloridaQuotaLiquorLicenseCostPage() {
 
       <section className="seo-market-faq">
         <div className="seo-market-shell">
-          <div className="seo-market-section-heading"><div><span className="seo-market-section-kicker">Pricing Questions</span><h2>Florida quota liquor license cost FAQ</h2></div></div>
+          <div className="seo-market-section-heading"><div><span className="seo-market-section-kicker">Pricing Questions</span><h2>Florida liquor license cost FAQ</h2></div></div>
           <div className="seo-market-faq-list">
             {faqs.map((faq) => (
               <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>

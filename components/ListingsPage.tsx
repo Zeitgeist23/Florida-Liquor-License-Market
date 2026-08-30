@@ -61,8 +61,8 @@ const faqLinks = [
   },
   {
     question: "What does a Florida liquor license cost?",
-    label: "Pricing & value guide",
-    href: "/florida-liquor-license-value",
+    label: "Cost and pricing guide",
+    href: "/florida-quota-liquor-license-cost",
   },
   {
     question: "Can I search Florida liquor licenses by county?",
