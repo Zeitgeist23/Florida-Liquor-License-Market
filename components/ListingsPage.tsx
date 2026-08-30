@@ -41,6 +41,8 @@ const statusOptions: readonly ListingsHoverSelectOption[] = [
   { value: "sold", label: "Sold" },
 ];
 
+const LISTINGS_PAGE_SIZE = 24;
+
 const faqLinks = [
   {
     question: "How do I buy a Florida liquor license?",
@@ -112,6 +114,7 @@ export default function ListingsPage({
   const [type, setType] = useState("all");
   const [price, setPrice] = useState("all");
   const [status, setStatus] = useState("available");
+  const [visibleCount, setVisibleCount] = useState(LISTINGS_PAGE_SIZE);
   const focusedCardRef = useRef<HTMLElement | null>(null);
 
   const normalizedFocusReference = focusReference?.trim().toLowerCase() || "";
@@ -175,6 +178,15 @@ export default function ListingsPage({
       ),
     [county, type, price, status, orderedMarketplaceListings],
   );
+
+  const visibleListings = useMemo(
+    () => filtered.slice(0, visibleCount),
+    [filtered, visibleCount],
+  );
+
+  useEffect(() => {
+    setVisibleCount(LISTINGS_PAGE_SIZE);
+  }, [county, type, price, status]);
 
   useEffect(() => {
     if (!focusIdentity) return;
@@ -304,31 +316,53 @@ export default function ListingsPage({
             · <Link href="/counties">All 67 county markets</Link>.
           </div>
           <div className="results-summary">
-            <strong>{filtered.length}</strong> matching listing
-            {filtered.length === 1 ? "" : "s"}
+            <span>
+              Showing <strong>{Math.min(visibleCount, filtered.length)}</strong> of{" "}
+              <strong>{filtered.length}</strong> matching listing
+              {filtered.length === 1 ? "" : "s"}
+            </span>
             <button type="button" onClick={clearFilters}>
               Clear all filters
             </button>
           </div>
           {filtered.length ? (
-            <div className="results-grid">
-              {filtered.map((listing) => {
-                const isFocused =
-                  Boolean(focusIdentity) &&
-                  listingIdentity(listing) === focusIdentity;
-                return (
-                  <MarketplaceListingCard
-                    listing={listing}
-                    focused={isFocused}
-                    cardRef={isFocused ? focusedCardRef : undefined}
-                    key={
-                      listing.sourceRef ??
-                      `${listing.county}-${listing.type}-${listing.priceLabel}`
+            <>
+              <div className="results-grid">
+                {visibleListings.map((listing) => {
+                  const isFocused =
+                    Boolean(focusIdentity) &&
+                    listingIdentity(listing) === focusIdentity;
+                  return (
+                    <MarketplaceListingCard
+                      listing={listing}
+                      focused={isFocused}
+                      cardRef={isFocused ? focusedCardRef : undefined}
+                      key={
+                        listing.sourceRef ??
+                        `${listing.county}-${listing.type}-${listing.priceLabel}`
+                      }
+                    />
+                  );
+                })}
+              </div>
+              {visibleCount < filtered.length ? (
+                <div className="listings-load-more">
+                  <button
+                    className="btn btn-gold"
+                    type="button"
+                    onClick={() =>
+                      setVisibleCount((current) => current + LISTINGS_PAGE_SIZE)
                     }
-                  />
-                );
-              })}
-            </div>
+                  >
+                    Show More Licenses
+                  </button>
+                  <small>
+                    {filtered.length - visibleCount} additional listing
+                    {filtered.length - visibleCount === 1 ? "" : "s"}
+                  </small>
+                </div>
+              ) : null}
+            </>
           ) : (
             <div className="no-results">
               <strong>No listings match all filters.</strong>

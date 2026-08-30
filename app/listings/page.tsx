@@ -83,6 +83,9 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({ searchParams }: ListingsMetadataProps): Promise<Metadata> {
   const params = await searchParams;
   const canonical = canonicalListingsUrl(params);
+  const hasFilters = Object.values(params).some((value) =>
+    Array.isArray(value) ? value.some(Boolean) : Boolean(value),
+  );
   const title = "Florida Liquor Licenses for Sale | 4COP & 3PS Listings";
   const description =
     "Search Florida liquor licenses for sale by county, license type and asking price. View current 4COP quota and 3PS liquor license listings throughout Florida.";
@@ -91,7 +94,7 @@ export async function generateMetadata({ searchParams }: ListingsMetadataProps):
     title,
     description,
     alternates: { canonical },
-    robots: { index: true, follow: true },
+    robots: hasFilters ? { index: false, follow: true } : { index: true, follow: true },
     openGraph: {
       type: "website",
       url: canonical,
@@ -158,7 +161,7 @@ export default async function Page() {
       name: "Florida liquor licenses for sale",
       url: listingsUrl,
       numberOfItems: availableListings.length,
-      itemListElement: availableListings.map((listing, index) => ({
+      itemListElement: availableListings.slice(0, 24).map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: `${listing.type} in ${listing.county} — ${listing.priceLabel}`,

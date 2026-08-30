@@ -1,13 +1,4 @@
-const monroePath = [
-  "M365.128,230.762L386.572,230.693L386.572,248.312L383.988,250.604L380.242,250.741L376.754,248.894L372.491,247.833L369.133,245.369L366.549,242.184L364.999,238.276L363.449,234.436L365.128,230.762Z",
-  "M386.572,248.312L390.059,250.878L389.155,253.612L385.538,252.964L382.955,250.741Z",
-  "M382.18,253.373L379.338,255.458L376.367,256.585L374.946,255.115L378.175,252.759Z",
-  "M373.654,257.408L369.778,259.638L366.678,260.978L364.87,259.492L368.616,257.226Z",
-  "M362.932,262.018L359.315,264.229L355.827,265.417L354.277,263.745L358.153,261.482Z",
-  "M352.21,266.403L348.206,268.256L344.718,269.147L343.297,267.39L347.56,265.602Z",
-  "M341.101,270.074L336.967,272.027L333.35,272.849L332.058,271.061L336.451,269.147Z",
-  "M329.733,273.633L325.858,275.527L321.983,276.201L320.95,274.339L325.083,272.544Z",
-].join("");
+import { FLORIDA_COUNTY_PATHS } from "@/components/FloridaCountyMap";
 
 function normalizeCounty(name: string) {
   return name.replace(/ County$/i, "").replace(/[^a-z]/gi, "").toLowerCase();
@@ -43,29 +34,16 @@ export async function GET(request: Request) {
     }
 
     const target = normalizeCounty(county);
-    const geometryUrl = new URL("/assets/FloridaCountyMap-B1wEtUus.js", request.url);
-    const geometryResponse = await fetch(geometryUrl, { cache: "force-cache" });
-    if (!geometryResponse.ok) {
-      throw new Error(`County geometry returned ${geometryResponse.status}`);
-    }
-
-    const source = await geometryResponse.text();
-    const countyPattern = /\{id:`([^`]*)`,name:`([^`]*)`,path:`([^`]*)`\}/g;
-    const paths: string[] = [];
-    let matchedTarget = false;
-    let match: RegExpExecArray | null;
-
-    while ((match = countyPattern.exec(source))) {
-      if (normalizeCounty(match[2]) === target) matchedTarget = true;
-      paths.push(countyPath(match[2], match[3], target));
-    }
+    const matchedTarget = FLORIDA_COUNTY_PATHS.some(
+      (entry) => normalizeCounty(entry.name) === target,
+    );
+    const paths = FLORIDA_COUNTY_PATHS.map((entry) =>
+      countyPath(entry.name, entry.path, target),
+    );
 
     if (paths.length < 60) {
       throw new Error(`Only ${paths.length} county paths were found`);
     }
-
-    if (target === normalizeCounty("Monroe")) matchedTarget = true;
-    paths.push(countyPath("Monroe", monroePath, target));
 
     const safeCounty = escapeXml(county);
     const description = matchedTarget

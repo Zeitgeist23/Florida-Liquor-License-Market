@@ -9,7 +9,6 @@ import {
   sellerReportedStatusLabel,
 } from "@/lib/county-listing-descriptions";
 import { listingPageHref } from "@/lib/listing-page-urls";
-import FloridaCountyMap from "./FloridaCountyMap";
 
 function compactCardDescription(description: string) {
   const clean = description.trim();
@@ -95,7 +94,15 @@ export default function MarketplaceListingCard({
       ) : null}
       <span className="result-type-badge">{normalizedListing.type}</span>
       <div className="result-photo">
-        <FloridaCountyMap county={county} enlarged />
+        <img
+          className="florida-county-map"
+          src={`/api/county-map?county=${encodeURIComponent(county)}`}
+          alt={`Florida map with ${county} highlighted in gold`}
+          width={560}
+          height={300}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <div className="result-body">
         <p className="result-county-row">
