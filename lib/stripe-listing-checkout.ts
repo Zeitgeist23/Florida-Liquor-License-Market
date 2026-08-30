@@ -32,6 +32,27 @@ type ListingCheckoutOptions = {
 const ACTIVE_LISTING_PAYMENT_LINK =
   "https://buy.stripe.com/00w00b8vbgUd3ml5mZebu04";
 
+function paymentLinkCheckout(
+  submission: ListingCheckoutSubmission,
+  paymentLinkOverride?: string,
+) {
+  const paymentLink = new URL(
+    paymentLinkOverride ||
+      process.env.STRIPE_LISTING_PAYMENT_LINK ||
+      ACTIVE_LISTING_PAYMENT_LINK,
+  );
+  paymentLink.searchParams.set(
+    "client_reference_id",
+    submission.submissionRef,
+  );
+
+  return {
+    id: `payment_link_${submission.submissionRef}`,
+    url: paymentLink.toString(),
+    client_reference_id: submission.submissionRef,
+  } satisfies StripeCheckoutSession;
+}
+
 function siteUrl(requestUrl?: string) {
   const configured =
     process.env.NEXT_PUBLIC_SITE_URL || process.env.FLLM_SITE_URL;
@@ -53,21 +74,7 @@ export async function createListingCheckoutSession(
         "Secure checkout is temporarily unavailable for this listing option.",
       );
     }
-    const paymentLink = new URL(
-      options.paymentLink ||
-        process.env.STRIPE_LISTING_PAYMENT_LINK ||
-        ACTIVE_LISTING_PAYMENT_LINK,
-    );
-    paymentLink.searchParams.set(
-      "client_reference_id",
-      submission.submissionRef,
-    );
-
-    return {
-      id: `payment_link_${submission.submissionRef}`,
-      url: paymentLink.toString(),
-      client_reference_id: submission.submissionRef,
-    } satisfies StripeCheckoutSession;
+    return paymentLinkCheckout(submission, options.paymentLink);
   }
 
   const origin = siteUrl(requestUrl);
@@ -142,6 +149,16 @@ export async function createListingCheckoutSession(
   }
 
   if (!response) {
+    if (options.paymentLink) {
+      console.warn("Using Stripe Payment Link after Checkout API network failure", {
+        submissionRef: submission.submissionRef,
+        error:
+          networkError instanceof Error
+            ? networkError.message
+            : String(networkError),
+      });
+      return paymentLinkCheckout(submission, options.paymentLink);
+    }
     throw networkError instanceof Error
       ? networkError
       : new Error("Stripe Checkout could not be reached.");
