@@ -3,6 +3,9 @@ export const dynamic = "force-dynamic";
 const BUY_MARKER = 'data-live-buy-dropdown="true"';
 const SELL_MARKER = 'data-live-sell-dropdown="true"';
 const LICENSE_TYPES_MARKER = 'data-live-license-types-dropdown="true"';
+const LANGUAGE_MARKER = 'data-home-language-switch="es"';
+
+const languageSwitchMarkup = `<a class="btn btn-outline homepage-language-switch" href="/es" lang="es" hreflang="es" data-home-language-switch="es" aria-label="Cambiar el sitio a español">ESPAÑOL</a>`;
 
 const buyMenuMarkup = `<div class="live-nav-dropdown live-buy-dropdown" data-live-buy-dropdown="true">
   <button class="live-nav-trigger" type="button" aria-haspopup="true">
@@ -43,6 +46,8 @@ const licenseTypesMenuMarkup = `<div class="live-nav-dropdown live-license-types
 </div>`;
 
 const styles = `<style id="live-nav-dropdown-styles">
+.site-header .homepage-language-switch{min-width:auto;padding-left:14px;padding-right:14px;border-color:#f6a700;color:#fff;font-weight:800;letter-spacing:.04em}
+.site-header .homepage-language-switch:hover,.site-header .homepage-language-switch:focus-visible{background:#f6a700;color:#061728}
 .primary-nav .live-nav-dropdown{position:relative;display:inline-flex;align-items:center;flex:0 0 auto}
 .primary-nav .live-nav-trigger{display:inline-flex;align-items:center;gap:5px;margin:0;padding:0;border:0;background:transparent;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:10px;font-weight:600;line-height:1;text-transform:uppercase;white-space:nowrap;cursor:pointer}
 .primary-nav .live-nav-trigger:hover,.primary-nav .live-nav-trigger:focus-visible{color:#f6a700;outline:none}
@@ -102,6 +107,9 @@ const supportScripts = `<!-- fllm-all-header-hover-menus -->
 
 function injectServerMenus(html: string) {
   let updated = html;
+  if (!updated.includes(LANGUAGE_MARKER)) {
+    updated = updated.replace(/(<div\b[^>]*class="[^"]*\bheader-actions\b[^"]*"[^>]*>)/i, `$1${languageSwitchMarkup}`);
+  }
   if (!updated.includes(BUY_MARKER)) {
     const buyLinkPattern = /<a\b[^>]*href="\/listings"[^>]*>\s*<span>Buy<\/span>\s*<img\b[^>]*class="[^"]*\bnav-chevron\b[^"]*"[^>]*\/?>(?:\s*)<\/a>/i;
     updated = updated.replace(buyLinkPattern, buyMenuMarkup);
