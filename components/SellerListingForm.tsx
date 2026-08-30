@@ -51,11 +51,13 @@ function CurrencyInput({
   value,
   onChange,
   onComplete,
+  invalid,
 }: {
   name: string;
   value: string;
   onChange: (value: string) => void;
   onComplete?: () => void;
+  invalid?: boolean;
 }) {
   return (
     <input
@@ -65,8 +67,9 @@ function CurrencyInput({
       name={name}
       placeholder="$0"
       value={value ? `$${value}` : ""}
+      aria-invalid={invalid || undefined}
       onChange={(event) => onChange(formatCurrency(event.target.value))}
-      onBlur={onComplete}
+      onBlur={() => onComplete?.()}
     />
   );
 }
@@ -79,6 +82,7 @@ export default function SellerListingForm() {
   const [consultationSubmitted, setConsultationSubmitted] = useState(false);
   const [status, setStatus] = useState("");
   const [isError, setIsError] = useState(false);
+  const [validationField, setValidationField] = useState("");
   const [askingPrice, setAskingPrice] = useState("");
   const [county, setCounty] = useState("");
   const [licenseType, setLicenseType] = useState("");
@@ -124,10 +128,10 @@ export default function SellerListingForm() {
 
   function openReview(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    advanceIfComplete();
+    advanceIfComplete(true);
   }
 
-  function advanceIfComplete() {
+  function advanceIfComplete(showErrors = false) {
     const form = formRef.current;
     if (!form) return;
 
@@ -136,9 +140,41 @@ export default function SellerListingForm() {
       ? ["broker_currently_represented", "broker_arrangement", "desired_net_amount", "broker_contact_method"]
       : ["self_license_status", "self_preferred_timing", "self_asking_price", "self_contact_method"];
 
-    const complete = requiredFields.every((field) => String(data.get(field) || "").trim());
-    if (!complete) return;
+    if (validationField && String(data.get(validationField) || "").trim()) {
+      setValidationField("");
+      setIsError(false);
+      setStatus("");
+    }
 
+    const missingField = requiredFields.find((field) => !String(data.get(field) || "").trim());
+    if (missingField) {
+      if (showErrors) {
+        const fieldLabels: Record<string, string> = {
+          broker_currently_represented: "whether you are currently represented by another broker",
+          broker_arrangement: "your preferred brokerage arrangement",
+          desired_net_amount: "your desired net amount",
+          broker_contact_method: "your preferred contact method",
+          self_license_status: "the current license status",
+          self_preferred_timing: "your preferred sale timing",
+          self_asking_price: "the asking price",
+          self_contact_method: "your preferred contact method",
+        };
+        setValidationField(missingField);
+        setIsError(true);
+        setStatus(`Please select or enter ${fieldLabels[missingField]} before continuing.`);
+
+        const control = form.elements.namedItem(missingField);
+        if (control instanceof HTMLElement) {
+          requestAnimationFrame(() => {
+            control.scrollIntoView({ behavior: "smooth", block: "center" });
+            control.focus({ preventScroll: true });
+          });
+        }
+      }
+      return;
+    }
+
+    setValidationField("");
     setIsError(false);
     setStatus("");
     setReviewOpen(true);
@@ -287,7 +323,7 @@ export default function SellerListingForm() {
           <nav><a href="/">Return Home</a><a href="/contact">Contact Us</a></nav>
         </div>
 
-        <form ref={formRef} className={styles.overlayForm} onSubmit={openReview}>
+        <form ref={formRef} className={styles.overlayForm} onSubmit={openReview} noValidate>
           <label className={styles.honeypot} aria-hidden="true">
             Leave blank<input type="text" tabIndex={-1} autoComplete="off" name="_honey" />
           </label>
@@ -335,6 +371,7 @@ export default function SellerListingForm() {
                     <select
                       name="broker_currently_represented"
                       required
+                      aria-invalid={validationField === "broker_currently_represented" || undefined}
                       value={brokerCurrentlyRepresented}
                       onChange={(event) => {
                         setBrokerCurrentlyRepresented(event.target.value);
@@ -352,6 +389,7 @@ export default function SellerListingForm() {
                     <span>Preferred arrangement</span>
                     <select
                       name="broker_arrangement"
+                      aria-invalid={validationField === "broker_arrangement" || undefined}
                       value={brokerArrangement}
                       onChange={(event) => {
                         setBrokerArrangement(event.target.value);
@@ -371,9 +409,10 @@ export default function SellerListingForm() {
                       inputMode="decimal"
                       name="desired_net_amount"
                       placeholder="$"
+                      aria-invalid={validationField === "desired_net_amount" || undefined}
                       value={desiredNetAmount}
                       onChange={(event) => setDesiredNetAmount(event.target.value)}
-                      onBlur={advanceIfComplete}
+                      onBlur={() => advanceIfComplete()}
                     />
                   </label>
 
@@ -382,6 +421,7 @@ export default function SellerListingForm() {
                     <select
                       name="broker_contact_method"
                       required
+                      aria-invalid={validationField === "broker_contact_method" || undefined}
                       value={brokerContactMethod}
                       onChange={(event) => {
                         setBrokerContactMethod(event.target.value);
@@ -403,6 +443,7 @@ export default function SellerListingForm() {
                     <select
                       name="self_license_status"
                       required
+                      aria-invalid={validationField === "self_license_status" || undefined}
                       value={selfLicenseStatus}
                       onChange={(event) => {
                         setSelfLicenseStatus(event.target.value);
@@ -423,6 +464,7 @@ export default function SellerListingForm() {
                     <select
                       name="self_preferred_timing"
                       required
+                      aria-invalid={validationField === "self_preferred_timing" || undefined}
                       value={selfPreferredTiming}
                       onChange={(event) => {
                         setSelfPreferredTiming(event.target.value);
@@ -445,6 +487,7 @@ export default function SellerListingForm() {
                       value={askingPrice}
                       onChange={setAskingPrice}
                       onComplete={advanceIfComplete}
+                      invalid={validationField === "self_asking_price"}
                     />
                   </label>
 
@@ -453,6 +496,7 @@ export default function SellerListingForm() {
                     <select
                       name="self_contact_method"
                       required
+                      aria-invalid={validationField === "self_contact_method" || undefined}
                       value={selfContactMethod}
                       onChange={(event) => {
                         setSelfContactMethod(event.target.value);
@@ -523,8 +567,11 @@ export default function SellerListingForm() {
 
             <div className={`${styles.modernFormActions} ${!brokerAssisted ? styles.selfFormActions : ""}`}>
               <a href="/sell-your-license#listing-options">← Change listing option</a>
-              <button type="submit">Continue to Contact Details</button>
+              <button type="button" onClick={() => advanceIfComplete(true)}>Continue to Contact Details</button>
             </div>
+            {validationField && status && (
+              <p className={styles.stepValidationError} role="alert">{status}</p>
+            )}
           </div>
 
           {previewOpen && !brokerAssisted && (
@@ -566,7 +613,7 @@ export default function SellerListingForm() {
                   type="button"
                   onClick={() => {
                     setPreviewOpen(false);
-                    advanceIfComplete();
+                    advanceIfComplete(true);
                   }}
                 >
                   Continue to Contact Details
