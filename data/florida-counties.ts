@@ -214,6 +214,7 @@ const countyContent: Record<string, CountyContent> = {
     introduction: "St. Johns County is home to historic St. Augustine and fast-growing coastal communities, with strong tourism, hospitality, schools, residential development, and restaurant activity.",
     marketOverview: "St. Johns County quota-license demand is supported by St. Augustine tourism, Ponte Vedra Beach hospitality, coastal growth, restaurants, hotels, and year-round residential demand. Buyers should compare disclosed asks and seller terms while independently confirming premises, zoning, transfer eligibility, liens, and the intended license series.",
     nearbyCounties: ["duval", "clay", "volusia"],
+    featured: true,
   },
   "st-lucie": {
     primaryCities: ["Port St. Lucie", "Fort Pierce"],

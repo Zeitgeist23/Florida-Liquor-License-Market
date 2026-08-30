@@ -125,7 +125,6 @@ export default async function CountyLiquorLicenseValuePage({ params }: PageProps
   const cityText = county.primaryCities.join(", ") || county.name.replace(" County", "");
   const canonical = `${siteUrl}${countyValuationGuideHref(slug)}`;
   const countyPageHref = `/counties/${county.slug}`;
-  const listingsHref = `/listings?county=${encodeURIComponent(county.name)}&status=available`;
   const historicalPrices = historicalAsks.map((observation) => observation.askingPrice);
   const historicalLow = historicalPrices.length ? Math.min(...historicalPrices) : null;
   const historicalHigh = historicalPrices.length ? Math.max(...historicalPrices) : null;
@@ -229,7 +228,7 @@ export default async function CountyLiquorLicenseValuePage({ params }: PageProps
             <p>{snapshotSentence}</p>
             <div className="county-value-actions">
               <Link className="county-value-button county-value-button-gold" href="/florida-liquor-license-value#estimate">Calculate My License Value</Link>
-              <Link className="county-value-button county-value-button-dark" href={listingsHref}>View {county.name} Listings</Link>
+              <Link className="county-value-button county-value-button-dark" href={countyPageHref}>View {county.name} Liquor Licenses for Sale</Link>
             </div>
           </div>
           <div className="county-value-map" aria-label={`${county.name} market map`}>
@@ -288,21 +287,21 @@ export default async function CountyLiquorLicenseValuePage({ params }: PageProps
 
       <section className="county-value-comparables page-shell">
         <div className="county-value-heading">
-          <span>Current Comparable Listings</span>
+          <span>Current Asking-Price Comparables</span>
           <h2>Evidence behind the {county.name} snapshot</h2>
         </div>
         {comparables.length ? (
           <div className="county-value-table-wrap">
             <table>
-              <thead><tr><th>Listing</th><th>License type</th><th>Market status</th><th>Disclosed ask</th><th>Details</th></tr></thead>
+              <thead><tr><th>Reference</th><th>License type</th><th>Evidence status</th><th>Disclosed ask</th><th>Details</th></tr></thead>
               <tbody>
                 {comparables.map((listing) => (
                   <tr key={listing.sourceRef}>
                     <td>{listing.sourceRef}</td>
                     <td>{listing.type}</td>
-                    <td>Available</td>
+                    <td>Active advertisement</td>
                     <td><strong>{money(listing.price)}</strong></td>
-                    <td><Link href={listingPageHref(listing)}>View listing ›</Link></td>
+                    <td><Link href={listingPageHref(listing)}>Review comparable ›</Link></td>
                   </tr>
                 ))}
               </tbody>

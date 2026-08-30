@@ -46,7 +46,7 @@ export default function CountyMarketDataPanel({
   const drawingLicenses = QUOTA_DRAWING_2026.counties.find(
     (item) => dbprCountyName(item.county) === county.name,
   )?.licenses ?? 0;
-  const filteredListingsHref = `/listings?county=${encodeURIComponent(county.name)}&status=available`;
+  const countyInventoryHref = `/counties/${county.slug}#available-licenses`;
   const snapshotDate = new Intl.DateTimeFormat("en-US", {
     month: "long",
     day: "numeric",
@@ -137,7 +137,7 @@ export default function CountyMarketDataPanel({
         <div className="county-data-evidence">
           <div className="county-data-evidence-heading">
             <div><span>Current Market Evidence</span><h3>Live {county.name} listing references</h3></div>
-            <Link href={filteredListingsHref}>View all {county.name} liquor licenses for sale ›</Link>
+            <Link href={countyInventoryHref}>View all {county.name} liquor licenses for sale ›</Link>
           </div>
           <div className="county-data-evidence-grid">
             {evidenceListings.map((listing) => (
@@ -156,7 +156,7 @@ export default function CountyMarketDataPanel({
       ) : null}
 
       <div className="county-data-links">
-        <Link href={filteredListingsHref}>Browse {county.name} licenses for sale</Link>
+        <Link href={countyInventoryHref}>Browse {county.name} liquor licenses for sale</Link>
         {hasValuationGuide ? <Link href={countyValuationGuideHref(county.slug)}>Review {county.name} valuation evidence</Link> : null}
         <Link href="/florida-liquor-license-market-index">Compare all 67 counties</Link>
         <Link href="/research">Data methodology &amp; citation guide</Link>

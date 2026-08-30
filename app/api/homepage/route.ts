@@ -132,7 +132,7 @@ function renderListingCard(listing: CarouselListing) {
 function renderCountyDirectorySection() {
   const countyLinks = featuredCounties.map((county) => `
     <a href="/counties/${county.slug}">
-      <span><strong>${escapeHtml(county.name)}</strong><small>${escapeHtml(county.primaryCities.join(" · "))}</small></span>
+      <span><strong>${escapeHtml(county.name)}</strong><small>${escapeHtml(county.primaryCities.join(" · "))} · 4COP &amp; 3PS licenses for sale</small></span>
       <i>View Market ›</i>
     </a>`).join("");
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cache } from "react";
@@ -25,6 +26,45 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
+};
+
+type CountyBuyerResource = {
+  title: string;
+  description: string;
+  links: Array<{ href: string; label: string }>;
+};
+
+const countyBuyerResources: Record<string, CountyBuyerResource> = {
+  duval: {
+    title: "Jacksonville and Duval County premises review",
+    description:
+      "A Duval County quota license remains county-specific, but ownership of the license does not by itself approve a Jacksonville location. Before committing to a premises, buyers should confirm the proposed use, zoning, certificates, local approvals, and the separate DBPR transfer or change-of-location requirements.",
+    links: [
+      {
+        href: "https://www.jacksonville.gov/departments/planning-department",
+        label: "Jacksonville Planning Department",
+      },
+      {
+        href: "https://www.jacksonville.gov/departments/public-works/development-services-division/zoning-section",
+        label: "Jacksonville Zoning Section",
+      },
+    ],
+  },
+  "st-johns": {
+    title: "St. Augustine and St. Johns County premises review",
+    description:
+      "A St. Johns County quota license can serve markets including St. Augustine and Ponte Vedra Beach, but the license does not automatically approve a particular address. Buyers should identify the governing local jurisdiction and confirm land use, zoning, historic-district rules when applicable, local approvals, and the separate DBPR transfer or change-of-location requirements.",
+    links: [
+      {
+        href: "https://www.sjcfl.us/departments/planning-and-zoning/",
+        label: "St. Johns County Planning and Zoning",
+      },
+      {
+        href: "https://www.citystaug.com/198/Planning-Zoning",
+        label: "City of St. Augustine Planning and Zoning",
+      },
+    ],
+  },
 };
 
 function money(value: number) {
@@ -164,8 +204,9 @@ export default async function CountyPage({ params }: PageProps) {
 
   const { available, sold, lowest, highest, medianPrice } = await getCountyListingSnapshot(county.name);
   const canonical = `${siteUrl}/counties/${county.slug}`;
-  const filteredListingsHref = `/listings?county=${encodeURIComponent(county.name)}&status=available`;
+  const inventoryHref = "#available-licenses";
   const cityText = county.primaryCities.length ? county.primaryCities.join(", ") : county.name.replace(" County", "");
+  const buyerResource = countyBuyerResources[county.slug];
   const countySearchSummary = countyMarketDescription(county, { available, sold, lowest, highest, medianPrice });
   const nearby = county.nearbyCounties
     .map((nearbySlug) => getCountyBySlug(nearbySlug))
@@ -290,7 +331,7 @@ export default async function CountyPage({ params }: PageProps) {
             <p>{county.introduction}</p>
             <p>{countySearchSummary}</p>
             <div className="county-hero-actions">
-              <Link className="county-button county-button-gold" href={filteredListingsHref}>Browse {county.name} Licenses for Sale</Link>
+              <Link className="county-button county-button-gold" href={inventoryHref}>Browse {county.name} Licenses for Sale</Link>
               {isCountyValuationGuide(county.slug) ? <Link className="county-button county-button-dark" href={countyValuationGuideHref(county.slug)}>Check {county.name} License Value</Link> : null}
               <Link className="county-button county-button-dark" href="/sell-your-license">List a License</Link>
             </div>
@@ -316,11 +357,11 @@ export default async function CountyPage({ params }: PageProps) {
         hasValuationGuide={isCountyValuationGuide(county.slug)}
       />
 
-      <section className="county-inventory">
+      <section className="county-inventory" id="available-licenses">
         <div className="county-shell">
           <div className="county-section-heading">
             <div><span>Current Marketplace Inventory</span><h2>Available Licenses in {county.name}</h2></div>
-            <Link href={filteredListingsHref}>Browse all {county.name} liquor licenses for sale ›</Link>
+            <Link href={inventoryHref}>Browse all {county.name} liquor licenses for sale ›</Link>
           </div>
           <p className="county-disclaimer">Listings are for liquor-license interests only unless expressly stated otherwise. Prices and availability remain subject to confirmation.</p>
 
@@ -330,7 +371,17 @@ export default async function CountyPage({ params }: PageProps) {
                 {available.map((listing) => (
                   <article className="result-card result-card-available" id={listing.sourceRef} key={listingKey(listing)}>
                     <span className="result-type-badge">{listing.type}</span>
-                    <div className="result-photo"><FloridaCountyMap county={listing.county} enlarged /></div>
+                    <div className="result-photo">
+                      <Image
+                        className="florida-county-map"
+                        src={`/api/county-map?county=${encodeURIComponent(listing.county)}`}
+                        alt={`Florida map with ${listing.county} highlighted in gold`}
+                        width={560}
+                        height={300}
+                        loading="lazy"
+                        unoptimized
+                      />
+                    </div>
                     <div className="result-body">
                       <p className="result-county-row"><span className="result-pin" aria-hidden="true">●</span><Link className="result-county-link" href={`/counties/${county.slug}`}>{listing.county}</Link></p>
                       <h2><Link href={listingPageHref(listing)} aria-label={`View ${listing.county} ${listing.type} offered at ${listing.priceLabel}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
@@ -380,9 +431,28 @@ export default async function CountyPage({ params }: PageProps) {
         </aside>
       </section>
 
+      {buyerResource ? (
+        <section className="county-local-authority county-shell" aria-labelledby="county-local-authority-title">
+          <article>
+            <span>Local Premises and Zoning Resources</span>
+            <h2 id="county-local-authority-title">{buyerResource.title}</h2>
+            <p>{buyerResource.description}</p>
+          </article>
+          <aside>
+            <strong>Official local resources</strong>
+            {buyerResource.links.map((resource) => (
+              <a key={resource.href} href={resource.href} target="_blank" rel="noopener noreferrer">
+                {resource.label} ↗
+              </a>
+            ))}
+            <small>Local approval requirements depend on the proposed premises and use. Confirm requirements directly with the responsible agency.</small>
+          </aside>
+        </section>
+      ) : null}
+
       <section className="county-cta">
         <div className="county-shell county-cta-grid">
-          <div><span>For Buyers</span><h2>Need a license in {county.name}?</h2><p>Browse current marketplace inventory and compare available 4COP and 3PS opportunities in this county.</p><Link className="county-button county-button-gold" href={filteredListingsHref}>Browse {county.name} Licenses for Sale</Link></div>
+          <div><span>For Buyers</span><h2>Need a license in {county.name}?</h2><p>Browse current marketplace inventory and compare available 4COP and 3PS opportunities in this county.</p><Link className="county-button county-button-gold" href={inventoryHref}>Browse {county.name} Licenses for Sale</Link></div>
           <div><span>For Sellers and Brokers</span><h2>Have a license to market?</h2><p>Publish the opportunity statewide while keeping confidential information off the public listing card.</p><Link className="county-button county-button-gold" href="/sell-your-license">List Your License</Link></div>
         </div>
       </section>
