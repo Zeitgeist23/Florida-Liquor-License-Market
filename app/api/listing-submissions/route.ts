@@ -147,8 +147,7 @@ export async function POST(request: Request) {
       "/sell-your-license?payment=cancelled",
       {
         paymentLink: databaseSaved
-          ? process.env.STRIPE_LISTING_PAYMENT_LINK ||
-            "https://buy.stripe.com/00w00b8vbgUd3ml5mZebu04"
+          ? "https://buy.stripe.com/5kQ7sD8vb8nHcWVdTvebu00"
           : undefined,
         metadata: {
           recovery_version: "self_v1",
