@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { randomBytes, randomUUID } from "node:crypto";
 
 import {
   createListingSubmission,
@@ -41,8 +42,14 @@ function accepted(value: boolean | string | undefined) {
   );
 }
 
+function emergencySubmissionRef() {
+  const date = new Date().toISOString().slice(0, 10).replaceAll("-", "");
+  return `FLLM-PAID-${date}-${randomBytes(4).toString("hex").toUpperCase()}`;
+}
+
 export async function POST(request: Request) {
   let submissionId: string | null = null;
+  let stage = "reading the seller listing form";
   try {
     const body = (await request.json()) as RequestBody;
 
@@ -64,7 +71,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const submission = await createListingSubmission({
+    const submissionInput = {
       fullName: body.name ?? "",
       email: body.email ?? "",
       phone: body.phone ?? "",
@@ -75,12 +82,42 @@ export async function POST(request: Request) {
       preferredTiming: body.preferred_timing,
       message: body.message,
       requiresPayment: !brokerAssisted,
-    });
-    submissionId = submission.id;
+    };
+
+    stage = "saving the seller listing";
+    let databaseSaved = true;
+    let submission;
+    try {
+      submission = await createListingSubmission(submissionInput);
+      submissionId = submission.id;
+    } catch (databaseError) {
+      if (
+        brokerAssisted ||
+        !(databaseError instanceof Error) ||
+        databaseError.message !== "fetch failed"
+      ) {
+        throw databaseError;
+      }
+      databaseSaved = false;
+      submission = {
+        id: randomUUID(),
+        submissionRef: emergencySubmissionRef(),
+        email: submissionInput.email,
+        county: submissionInput.county,
+        licenseType: submissionInput.licenseType,
+      };
+      console.warn("Seller listing will be recovered from Stripe metadata", {
+        submissionRef: submission.submissionRef,
+        error: databaseError.message,
+      });
+    }
 
     if (brokerAssisted) {
+      const savedSubmission = submission as Awaited<
+        ReturnType<typeof createListingSubmission>
+      >;
       try {
-        await notifyFllmOfBrokerConsultation(submission);
+        await notifyFllmOfBrokerConsultation(savedSubmission);
       } catch (notificationError) {
         console.error(
           "Broker consultation notification failed",
@@ -88,7 +125,7 @@ export async function POST(request: Request) {
         );
       }
       try {
-        await sendBrokerConsultationAcknowledgement(submission);
+        await sendBrokerConsultationAcknowledgement(savedSubmission);
       } catch (acknowledgementError) {
         console.error(
           "Broker consultation acknowledgement failed",
@@ -98,16 +135,52 @@ export async function POST(request: Request) {
 
       return NextResponse.json({
         ok: true,
-        submissionRef: submission.submissionRef,
+        submissionRef: savedSubmission.submissionRef,
         consultationRequested: true,
       });
     }
 
+    stage = "opening secure Stripe Checkout";
     const checkout = await createListingCheckoutSession(
       submission,
       request.url,
+      "/sell-your-license?payment=cancelled",
+      {
+        paymentLink: databaseSaved
+          ? process.env.STRIPE_LISTING_PAYMENT_LINK ||
+            "https://buy.stripe.com/00w00b8vbgUd3ml5mZebu04"
+          : undefined,
+        metadata: {
+          recovery_version: "self_v1",
+          database_saved: String(databaseSaved),
+          full_name: submissionInput.fullName.slice(0, 500),
+          email: submissionInput.email.slice(0, 500),
+          phone: submissionInput.phone.slice(0, 500),
+          county: submissionInput.county.slice(0, 500),
+          license_type: submissionInput.licenseType.slice(0, 500),
+          asking_price_text: (submissionInput.askingPriceText || "").slice(0, 500),
+          license_status: submissionInput.licenseStatus.slice(0, 500),
+          preferred_timing: (submissionInput.preferredTiming || "").slice(0, 500),
+          seller_notes: (submissionInput.message || "").slice(0, 500),
+        },
+      },
     );
-    await attachCheckoutSession(submission.id, checkout.id);
+    try {
+      if (databaseSaved)
+        await attachCheckoutSession(submission.id, checkout.id);
+    } catch (attachError) {
+      console.warn(
+        "Seller checkout session attachment will be reconciled by webhook",
+        {
+          submissionRef: submission.submissionRef,
+          checkoutSessionId: checkout.id,
+          error:
+            attachError instanceof Error
+              ? attachError.message
+              : String(attachError),
+        },
+      );
+    }
 
     return NextResponse.json({
       ok: true,
@@ -126,8 +199,14 @@ export async function POST(request: Request) {
         console.error("Could not mark listing checkout as failed", markError);
       }
     }
-    console.error("Listing submission checkout failed", error);
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("Listing submission checkout failed", { stage, error });
+    const customerMessage =
+      message === "fetch failed"
+        ? stage === "opening secure Stripe Checkout"
+          ? "Stripe could not be reached. Please try again; no payment was processed."
+          : "The listing service could not be reached. Please try again."
+        : message;
+    return NextResponse.json({ error: customerMessage }, { status: 500 });
   }
 }
 
