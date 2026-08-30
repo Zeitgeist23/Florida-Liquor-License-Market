@@ -181,7 +181,7 @@
 .results-page .results-summary {
   margin: 0 0 14px !important;
   color: #f5f5f2 !important;
-  font-size: 0 !important;
+  font-size: 16px !important;
 }
 
 .results-page .results-summary strong {
@@ -190,10 +190,7 @@
 }
 
 .results-page .results-summary strong::after {
-  content: " Licenses Found";
-  color: #f5f5f2;
-  font-size: 16px;
-  font-weight: 700;
+  content: none;
 }
 
 .results-page .results-summary button {
