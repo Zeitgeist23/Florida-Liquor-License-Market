@@ -243,7 +243,6 @@ export default function HeaderNavMenus({
           );
         })}
 
-        <a className="native-nav-direct-link native-nav-language-link" href="/es" lang="es" hrefLang="es" aria-label="Ver Florida Liquor License Market en español"><span>ES</span></a>
         {showContactLink && <a className="native-nav-direct-link" href="/contact"><span>Contact Us</span></a>}
       </nav>
 

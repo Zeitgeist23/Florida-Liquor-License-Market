@@ -3,10 +3,6 @@ export const dynamic = "force-dynamic";
 const BUY_MARKER = 'data-live-buy-dropdown="true"';
 const SELL_MARKER = 'data-live-sell-dropdown="true"';
 const LICENSE_TYPES_MARKER = 'data-live-license-types-dropdown="true"';
-const LANGUAGE_MARKER = 'data-home-language-switch="es"';
-
-const languageSwitchMarkup = `<a class="btn btn-outline homepage-language-switch" href="/es" lang="es" hreflang="es" data-home-language-switch="es" aria-label="Cambiar el sitio a español">ESPAÑOL</a>`;
-
 const buyMenuMarkup = `<div class="live-nav-dropdown live-buy-dropdown" data-live-buy-dropdown="true">
   <button class="live-nav-trigger" type="button" aria-haspopup="true">
     <span>Buy</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"/>
@@ -46,8 +42,6 @@ const licenseTypesMenuMarkup = `<div class="live-nav-dropdown live-license-types
 </div>`;
 
 const styles = `<style id="live-nav-dropdown-styles">
-.site-header .homepage-language-switch{min-width:auto;padding-left:14px;padding-right:14px;border-color:#f6a700;color:#fff;font-weight:800;letter-spacing:.04em}
-.site-header .homepage-language-switch:hover,.site-header .homepage-language-switch:focus-visible{background:#f6a700;color:#061728}
 .primary-nav .live-nav-dropdown{position:relative;display:inline-flex;align-items:center;flex:0 0 auto}
 .primary-nav .live-nav-trigger{display:inline-flex;align-items:center;gap:5px;margin:0;padding:0;border:0;background:transparent;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:10px;font-weight:600;line-height:1;text-transform:uppercase;white-space:nowrap;cursor:pointer}
 .primary-nav .live-nav-trigger:hover,.primary-nav .live-nav-trigger:focus-visible{color:#f6a700;outline:none}
@@ -62,19 +56,6 @@ const styles = `<style id="live-nav-dropdown-styles">
 
 const installScript = `<script id="live-nav-dropdown-installer">
 (function(){
-  function ensureLanguageSwitch(){
-    var actions=document.querySelector('.site-header .header-actions');
-    if(!actions||actions.querySelector('[data-home-language-switch="es"]'))return;
-    var link=document.createElement('a');
-    link.className='btn btn-outline homepage-language-switch';
-    link.href='/es';
-    link.lang='es';
-    link.hreflang='es';
-    link.setAttribute('data-home-language-switch','es');
-    link.setAttribute('aria-label','Cambiar el sitio a español');
-    link.textContent='ESPAÑOL';
-    actions.insertBefore(link,actions.firstChild);
-  }
   function makeMenu(type){
     var wrap=document.createElement('div');
     wrap.className='live-nav-dropdown live-'+type+'-dropdown';
@@ -100,17 +81,13 @@ const installScript = `<script id="live-nav-dropdown-installer">
   }
   function install(){
     var nav=document.querySelector('.site-header .primary-nav');
-    ensureLanguageSwitch();
     if(!nav)return;
     if(!nav.querySelector('.live-buy-dropdown')){var buy=findPlainLink(nav,'buy','/listings');if(buy)buy.replaceWith(makeMenu('buy'));}
     if(!nav.querySelector('.live-sell-dropdown')){var sell=findPlainLink(nav,'sell','/sell-your-license');if(sell)sell.replaceWith(makeMenu('sell'));}
     if(!nav.querySelector('.live-license-types-dropdown')){var license=findPlainLink(nav,'license types','/resources/florida-liquor-license-types');if(license)license.replaceWith(makeMenu('license-types'));}
   }
   document.addEventListener('click',function(e){document.querySelectorAll('.live-nav-dropdown.is-open').forEach(function(w){if(!w.contains(e.target))w.classList.remove('is-open');});});
-  function start(){
-    install();requestAnimationFrame(install);setTimeout(install,100);setTimeout(install,500);setTimeout(install,1200);
-    new MutationObserver(ensureLanguageSwitch).observe(document.documentElement,{childList:true,subtree:true});
-  }
+  function start(){install();requestAnimationFrame(install);setTimeout(install,100);setTimeout(install,500);setTimeout(install,1200);}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
 </script>`;
@@ -124,9 +101,6 @@ const supportScripts = `<!-- fllm-all-header-hover-menus -->
 
 function injectServerMenus(html: string) {
   let updated = html;
-  if (!updated.includes(LANGUAGE_MARKER)) {
-    updated = updated.replace(/(<div\b[^>]*class="[^"]*\bheader-actions\b[^"]*"[^>]*>)/i, `$1${languageSwitchMarkup}`);
-  }
   if (!updated.includes(BUY_MARKER)) {
     const buyLinkPattern = /<a\b[^>]*href="\/listings"[^>]*>\s*<span>Buy<\/span>\s*<img\b[^>]*class="[^"]*\bnav-chevron\b[^"]*"[^>]*\/?>(?:\s*)<\/a>/i;
     updated = updated.replace(buyLinkPattern, buyMenuMarkup);
