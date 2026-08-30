@@ -62,6 +62,19 @@ const styles = `<style id="live-nav-dropdown-styles">
 
 const installScript = `<script id="live-nav-dropdown-installer">
 (function(){
+  function ensureLanguageSwitch(){
+    var actions=document.querySelector('.site-header .header-actions');
+    if(!actions||actions.querySelector('[data-home-language-switch="es"]'))return;
+    var link=document.createElement('a');
+    link.className='btn btn-outline homepage-language-switch';
+    link.href='/es';
+    link.lang='es';
+    link.hreflang='es';
+    link.setAttribute('data-home-language-switch','es');
+    link.setAttribute('aria-label','Cambiar el sitio a español');
+    link.textContent='ESPAÑOL';
+    actions.insertBefore(link,actions.firstChild);
+  }
   function makeMenu(type){
     var wrap=document.createElement('div');
     wrap.className='live-nav-dropdown live-'+type+'-dropdown';
@@ -87,13 +100,17 @@ const installScript = `<script id="live-nav-dropdown-installer">
   }
   function install(){
     var nav=document.querySelector('.site-header .primary-nav');
+    ensureLanguageSwitch();
     if(!nav)return;
     if(!nav.querySelector('.live-buy-dropdown')){var buy=findPlainLink(nav,'buy','/listings');if(buy)buy.replaceWith(makeMenu('buy'));}
     if(!nav.querySelector('.live-sell-dropdown')){var sell=findPlainLink(nav,'sell','/sell-your-license');if(sell)sell.replaceWith(makeMenu('sell'));}
     if(!nav.querySelector('.live-license-types-dropdown')){var license=findPlainLink(nav,'license types','/resources/florida-liquor-license-types');if(license)license.replaceWith(makeMenu('license-types'));}
   }
   document.addEventListener('click',function(e){document.querySelectorAll('.live-nav-dropdown.is-open').forEach(function(w){if(!w.contains(e.target))w.classList.remove('is-open');});});
-  function start(){install();requestAnimationFrame(install);setTimeout(install,100);setTimeout(install,500);setTimeout(install,1200);}
+  function start(){
+    install();requestAnimationFrame(install);setTimeout(install,100);setTimeout(install,500);setTimeout(install,1200);
+    new MutationObserver(ensureLanguageSwitch).observe(document.documentElement,{childList:true,subtree:true});
+  }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
 </script>`;
