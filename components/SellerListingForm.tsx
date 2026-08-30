@@ -148,6 +148,12 @@ export default function SellerListingForm() {
     const form = formRef.current;
     if (!form || submitting || !form.reportValidity()) return;
 
+    if (!county || !licenseType) {
+      setIsError(true);
+      setStatus("County and license type are required. Return to the listing options and select both before continuing.");
+      return;
+    }
+
     const data = new FormData(form);
     setSubmitting(true);
     setIsError(false);
@@ -168,10 +174,10 @@ export default function SellerListingForm() {
         );
       } else {
         notes.push(
-          `License status: ${String(data.get("self_license_status") || "Not provided")}`,
-          `Preferred sale timing: ${String(data.get("self_preferred_timing") || "Not provided")}`,
-          `Asking price: ${String(data.get("self_asking_price") || "Not provided")}`,
-          `Preferred contact method: ${String(data.get("self_contact_method") || "Not provided")}`,
+          `License status: ${selfLicenseStatus || "Not provided"}`,
+          `Preferred sale timing: ${selfPreferredTiming || "Not provided"}`,
+          `Asking price: ${askingPrice || "Not provided"}`,
+          `Preferred contact method: ${selfContactMethod || "Not provided"}`,
         );
       }
       const sellerMessage = String(data.get("message") || "").trim();
@@ -184,11 +190,14 @@ export default function SellerListingForm() {
           name: String(data.get("name") || ""),
           email: String(data.get("email") || ""),
           phone: String(data.get("phone") || ""),
-          county: String(data.get("county") || ""),
-          license_type: String(data.get("license_type") || ""),
-          asking_price: String(data.get("asking_price") || data.get("self_asking_price") || ""),
-          license_status: String(data.get("self_license_status") || "Initial confidential listing submission"),
-          preferred_timing: String(data.get("self_preferred_timing") || ""),
+          // These values originate in the URL and render the confirmed listing preview.
+          // React state is the source of truth because modal hidden fields can be empty
+          // after client hydration even while the visible review shows the correct values.
+          county,
+          license_type: licenseType,
+          asking_price: askingPrice,
+          license_status: selfLicenseStatus || "Initial confidential listing submission",
+          preferred_timing: selfPreferredTiming,
           message: notes.join("\n\n"),
           sale_method: saleMethod,
           seller_certification: Boolean(data.get("seller_certification")),
