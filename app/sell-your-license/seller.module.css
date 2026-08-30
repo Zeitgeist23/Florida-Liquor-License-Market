@@ -1389,6 +1389,24 @@
   font-size: 15px;
 }
 
+.modernPage .brokerFields [aria-invalid="true"] {
+  border-color: #ff8a8a;
+  box-shadow: 0 0 0 3px rgba(255, 80, 80, .18);
+  outline: none;
+}
+
+.modernPage .stepValidationError {
+  margin: -4px 0 0;
+  padding: 12px 15px;
+  border: 1px solid rgba(255, 111, 111, .72);
+  border-radius: 6px;
+  color: #ffd4d4;
+  background: rgba(132, 24, 34, .28);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
 .modernPage .modernFormActions {
   display: flex;
   align-items: center;
