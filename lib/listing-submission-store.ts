@@ -641,6 +641,28 @@ export async function getApprovedSubmissionByPublicRef(submissionRef: string) {
   );
 }
 
+export async function updateListingSubmissionContact(input: {
+  id: string;
+  email: string;
+  phone: string;
+}) {
+  const email = cleanText(input.email, 254).toLowerCase();
+  const phone = cleanText(input.phone, 60);
+  if (!/^\S+@\S+\.\S+$/.test(email)) {
+    throw new Error("Enter a valid seller email address.");
+  }
+  if (!phone) {
+    throw new Error("Enter the seller phone number.");
+  }
+
+  const rows = await patchRows(
+    `id=eq.${encodeURIComponent(input.id)}&select=*`,
+    { email, phone, last_error: null },
+  );
+  if (!rows[0]) throw new Error("Listing submission not found.");
+  return rows[0];
+}
+
 export async function attachCheckoutSession(
   id: string,
   checkoutSessionId: string,

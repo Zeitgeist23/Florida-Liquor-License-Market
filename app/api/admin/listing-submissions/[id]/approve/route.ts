@@ -11,6 +11,7 @@ import {
   claimApprovalEmail,
   finishApprovalEmail,
   getSubmissionById,
+  updateListingSubmissionContact,
 } from "@/lib/listing-submission-store";
 import { upsertMarketplaceListings } from "@/lib/listing-store";
 
@@ -21,6 +22,8 @@ type ApprovalBody = {
   title?: string;
   licenseType?: "4COP Quota" | "3PS Quota / Package Store";
   askingPrice?: number | null;
+  email?: string;
+  phone?: string;
 };
 
 function siteOrigin(requestUrl: string) {
@@ -91,25 +94,30 @@ export async function POST(
   request: Request,
   context: { params: Promise<{ id: string }> },
 ) {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const requestUrl = new URL(request.url);
+  const submittedBody = request.headers.get("content-type")?.includes("application/json")
+    ? ((await request.json()) as ApprovalBody)
+    : {};
   const body: ApprovalBody = {
-    title: requestUrl.searchParams.get("title") ?? undefined,
+    title: requestUrl.searchParams.get("title") ?? submittedBody.title,
     licenseType:
       (requestUrl.searchParams.get("licenseType") as ApprovalBody["licenseType"]) ??
-      undefined,
+      submittedBody.licenseType,
     askingPrice: requestUrl.searchParams.has("askingPrice")
       ? requestUrl.searchParams.get("askingPrice")
         ? Number(requestUrl.searchParams.get("askingPrice"))
         : null
-      : undefined,
+      : submittedBody.askingPrice,
+    email: requestUrl.searchParams.get("email") ?? submittedBody.email,
+    phone: requestUrl.searchParams.get("phone") ?? submittedBody.phone,
   };
-
-  if (!(await isAdminAuthenticated())) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
   try {
     const { id } = await context.params;
-    const submission = await getSubmissionById(id);
+    let submission = await getSubmissionById(id);
     if (!submission) {
       return NextResponse.json(
         { error: "Submission not found." },
@@ -126,6 +134,12 @@ export async function POST(
         { status: 409 },
       );
     }
+
+    submission = await updateListingSubmissionContact({
+      id: submission.id,
+      email: body.email ?? submission.email,
+      phone: body.phone ?? submission.phone,
+    });
 
     const licenseType = body.licenseType;
     if (
