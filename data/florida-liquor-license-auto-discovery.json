@@ -14,63 +14,110 @@
       "name": "BizBuySell",
       "domain": "bizbuysell.com",
       "autoPublish": true,
-      "individualListingPathPatterns": ["^/business-asset/", "^/business-opportunity/", "/[0-9]{6,}/?$"]
+      "individualListingPathPatterns": [
+        "^/business-asset/",
+        "^/business-opportunity/",
+        "/[0-9]{6,}/?$"
+      ]
     },
     {
       "sourceId": "bizquest",
       "name": "BizQuest",
       "domain": "bizquest.com",
       "autoPublish": true,
-      "individualListingPathPatterns": ["^/asset-sales/", "^/business-for-sale/", "/BW[0-9]+/?$"]
+      "individualListingPathPatterns": [
+        "^/asset-sales/",
+        "^/business-for-sale/",
+        "/BW[0-9]+/?$"
+      ]
     },
     {
       "sourceId": "liquorlicense-com",
       "name": "LiquorLicense.com",
       "domain": "liquorlicense.com",
       "autoPublish": false,
-      "individualListingPathPatterns": ["/listing/", "/license/", "/licenses/"]
+      "individualListingPathPatterns": [
+        "/listing/",
+        "/license/",
+        "/licenses/"
+      ]
     },
     {
       "sourceId": "liquor-license-marketplace",
       "name": "Liquor License Marketplace",
       "domain": "liquorlicensemarketplace.com",
       "autoPublish": false,
-      "individualListingPathPatterns": ["/listing/", "/license/", "/licenses/"]
+      "individualListingPathPatterns": [
+        "/listing/",
+        "/license/",
+        "/licenses/"
+      ]
     },
     {
       "sourceId": "liquor-license-auctioneers",
       "name": "Liquor License Auctioneers",
       "domain": "liquorlicenseauctioneers.com",
       "autoPublish": true,
-      "individualListingPathPatterns": ["^/liquor-license/", "/A[0-9]+/?$"]
+      "individualListingPathPatterns": [
+        "^/liquor-license/",
+        "/A[0-9]+/?$"
+      ],
+      "directCrawl": {
+        "sitemapUrls": [
+          "https://liquorlicenseauctioneers.com/sitemap.xml"
+        ],
+        "listingPathPatterns": [
+          "^/liquor-license/4cop3ps-[a-z0-9-]+-a[0-9]+/?$"
+        ],
+        "concurrency": 6
+      }
     },
     {
       "sourceId": "florida-liquor-license-sales",
       "name": "Florida Liquor License Sales",
       "domain": "floridaliquorlicensesales.com",
       "autoPublish": false,
-      "individualListingPathPatterns": ["/listing/", "/license/", "/licenses/", "/for-sale/"]
+      "individualListingPathPatterns": [
+        "/listing/",
+        "/license/",
+        "/licenses/",
+        "/for-sale/"
+      ]
     },
     {
       "sourceId": "businesses-for-sale",
       "name": "BusinessesForSale.com",
       "domain": "businessesforsale.com",
       "autoPublish": true,
-      "individualListingPathPatterns": ["-for-sale\\.aspx$", "/for-sale/", "/businesses-for-sale/"]
+      "individualListingPathPatterns": [
+        "-for-sale\\.aspx$",
+        "/for-sale/",
+        "/businesses-for-sale/"
+      ]
     },
     {
       "sourceId": "florida-liquor-licenses-dot-com",
       "name": "FloridaLiquorLicenses.com / Florida Business Investments",
       "domain": "floridaliquorlicenses.com",
       "autoPublish": false,
-      "individualListingPathPatterns": ["/listing/", "/license/", "/licenses/", "/for-sale/"]
+      "individualListingPathPatterns": [
+        "/listing/",
+        "/license/",
+        "/licenses/",
+        "/for-sale/"
+      ]
     },
     {
       "sourceId": "liquor-license-fl",
       "name": "Liquor License FL",
       "domain": "liquorlicensefl.com",
       "autoPublish": false,
-      "individualListingPathPatterns": ["/listing/", "/license/", "/licenses/", "/for-sale/"]
+      "individualListingPathPatterns": [
+        "/listing/",
+        "/license/",
+        "/licenses/",
+        "/for-sale/"
+      ]
     }
   ]
 }
