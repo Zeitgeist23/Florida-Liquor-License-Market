@@ -1,0 +1,70 @@
+.seo-market-section {
+  padding: 64px 0;
+  background: #f6f4ef;
+}
+
+.seo-market-section-alt {
+  background: #ffffff;
+  border-top: 1px solid #e8e3d9;
+  border-bottom: 1px solid #e8e3d9;
+}
+
+.seo-market-section h2 {
+  margin: 8px 0 14px;
+  color: #132237;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(31px, 4vw, 45px);
+  line-height: 1.08;
+  font-weight: 500;
+}
+
+.seo-market-section > .seo-market-shell > p,
+.seo-market-section article + p {
+  color: #4b5563;
+  line-height: 1.75;
+  font-size: 16px;
+}
+
+.seo-market-section .seo-market-button-dark {
+  background: #102034;
+  border-color: #102034;
+  color: #ffffff;
+}
+
+.seo-market-faqs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.seo-market-faqs details {
+  padding: 19px 20px;
+  border: 1px solid #e1ddd3;
+  border-radius: 10px;
+  background: #fbfaf7;
+}
+
+.seo-market-faqs summary {
+  cursor: pointer;
+  color: #17283c;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.seo-market-faqs details p {
+  margin: 12px 0 0;
+  color: #4b5563;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+@media (max-width: 640px) {
+  .seo-market-section {
+    padding: 50px 0;
+  }
+
+  .seo-market-faqs {
+    grid-template-columns: 1fr;
+  }
+}
