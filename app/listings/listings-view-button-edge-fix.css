@@ -20,6 +20,8 @@
   .results-page .result-description p {
     max-width: 100% !important;
     overflow: hidden !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
   }
 
   .results-page .result-actions {
@@ -40,7 +42,7 @@
     width: 100% !important;
     height: 100% !important;
     min-height: 312px !important;
-    padding: 18px 4px 18px 0 !important;
+    padding: 14px 2px 14px 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -51,13 +53,13 @@
 
   .results-page .result-photo .florida-county-map,
   .results-page .result-photo svg {
-    width: 148% !important;
-    height: 148% !important;
-    max-width: 330px !important;
-    max-height: 330px !important;
+    width: 160% !important;
+    height: 160% !important;
+    max-width: 360px !important;
+    max-height: 360px !important;
     object-fit: contain !important;
     background: transparent !important;
-    transform: translateX(2px) scale(1.04) !important;
+    transform: translateX(2px) scale(1.06) !important;
     transform-origin: center center !important;
     filter: drop-shadow(0 9px 16px rgba(0, 0, 0, .38)) !important;
   }
@@ -65,16 +67,16 @@
   .results-page .result-type-badge {
     top: 14px !important;
     right: 14px !important;
-    min-height: 28px !important;
-    padding: 0 13px !important;
+    min-height: 26px !important;
+    padding: 0 12px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     border-radius: 5px !important;
-    font-size: 11px !important;
+    font-size: 10px !important;
     font-weight: 900 !important;
     line-height: 1 !important;
-    letter-spacing: .035em !important;
+    letter-spacing: .03em !important;
   }
 }
 
@@ -91,16 +93,16 @@
 
   .results-page .result-photo .florida-county-map,
   .results-page .result-photo svg {
-    width: 140% !important;
-    height: 140% !important;
-    max-width: 292px !important;
-    max-height: 292px !important;
+    width: 151% !important;
+    height: 151% !important;
+    max-width: 316px !important;
+    max-height: 316px !important;
   }
 
   .results-page .result-type-badge {
-    min-height: 26px !important;
-    padding: 0 11px !important;
-    font-size: 10px !important;
+    min-height: 24px !important;
+    padding: 0 10px !important;
+    font-size: 9px !important;
   }
 }
 
@@ -142,18 +144,24 @@
 }
 
 @media (max-width: 760px) {
+  .results-page .result-description,
+  .results-page .result-description p {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+
   .results-page .result-photo .florida-county-map,
   .results-page .result-photo svg {
-    width: 128% !important;
-    height: 128% !important;
-    max-width: 230px !important;
-    max-height: 230px !important;
+    width: 138% !important;
+    height: 138% !important;
+    max-width: 248px !important;
+    max-height: 248px !important;
     background: transparent !important;
   }
 
   .results-page .result-type-badge {
-    min-height: 25px !important;
-    padding: 0 10px !important;
-    font-size: 10px !important;
+    min-height: 23px !important;
+    padding: 0 9px !important;
+    font-size: 9px !important;
   }
 }
