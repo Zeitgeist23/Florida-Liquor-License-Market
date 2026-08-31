@@ -641,6 +641,24 @@ export async function getApprovedSubmissionByPublicRef(submissionRef: string) {
   );
 }
 
+export async function listApprovedMarketplaceSubmissions() {
+  requireDatabase();
+  const response = await fetch(
+    endpoint(
+      "listing_submissions?status=eq.approved&select=*&order=approved_at.asc&limit=500",
+    ),
+    { headers: supabaseHeaders(), cache: "no-store" },
+  );
+  if (!response.ok) {
+    throw new Error(
+      `Could not list approved marketplace submissions: ${response.status} ${await response.text()}`,
+    );
+  }
+  return ((await response.json()) as SubmissionRow[])
+    .map(toSubmission)
+    .filter((submission) => submission.submissionRef.startsWith("FLLM-PAID-"));
+}
+
 export async function updateListingSubmissionContact(input: {
   id: string;
   email: string;

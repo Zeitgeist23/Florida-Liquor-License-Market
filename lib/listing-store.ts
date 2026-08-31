@@ -12,6 +12,10 @@ import {
   type ListingInventoryClass,
   type ListingWithInventoryClass,
 } from "@/lib/listing-inventory-class";
+import {
+  listApprovedMarketplaceSubmissions,
+  type ListingSubmission,
+} from "@/lib/listing-submission-store";
 
 function normalizeListing(
   listing: ListingWithInventoryClass,
@@ -98,6 +102,44 @@ function rowToListing(row: ListingRow): ClassifiedListing {
     note: row.note ?? undefined,
     image: row.image,
     inventoryClass: row.inventory_class ?? undefined,
+  });
+}
+
+function approvedSubmissionToListing(
+  submission: ListingSubmission,
+): ClassifiedListing | null {
+  if (!submission.approvedLicenseType) return null;
+
+  const price = submission.approvedAskingPrice;
+  const priceLabel =
+    price === null
+      ? "Price Undisclosed"
+      : new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          maximumFractionDigits: 0,
+        }).format(price);
+
+  return normalizeListing({
+    county: submission.county,
+    type: submission.approvedLicenseType,
+    price,
+    priceLabel,
+    sourceRef: submission.submissionRef,
+    sourceName: "Florida Liquor License Market",
+    note:
+      "Direct seller listing submitted to Florida Liquor License Market. Availability, license status, price and transfer terms remain subject to confirmation.",
+    image: "/assets/license-market/license-01.png",
+    inventoryClass: "direct_seller",
+    licenseStatus: submission.licenseStatus || undefined,
+    preferredTiming: submission.preferredTiming || undefined,
+    featuredUntil: activeFeaturedUntil({
+      submission_ref: submission.submissionRef,
+      license_status: submission.licenseStatus,
+      preferred_timing: submission.preferredTiming,
+      message: submission.message,
+      approved_at: submission.approvedAt,
+    }),
   });
 }
 
@@ -274,7 +316,26 @@ export async function getMarketplaceListings(): Promise<ClassifiedListing[]> {
   if (!databaseConfigured()) return fallback;
 
   try {
-    const rows = await readListingRows();
+    const approvedSubmissions = await listApprovedMarketplaceSubmissions();
+    const approvedListings = approvedSubmissions
+      .map(approvedSubmissionToListing)
+      .filter((listing): listing is ClassifiedListing => Boolean(listing));
+
+    let rows: ListingRow[] = [];
+    let listingsTableAvailable = true;
+    try {
+      rows = await readListingRows();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (/PGRST205|Could not find the table ['\"]public\.listings/i.test(message)) {
+        listingsTableAvailable = false;
+        console.warn(
+          "Supabase listings table is not installed; serving static inventory plus approved paid submissions.",
+        );
+      } else {
+        throw error;
+      }
+    }
     const databaseIdentities = new Set(rows.flatMap(rowIdentityKeys));
     const missingStaticListings = fallback.filter((listing) =>
       identityKeys(listing).every((key) => !databaseIdentities.has(key)),
@@ -297,11 +358,14 @@ export async function getMarketplaceListings(): Promise<ClassifiedListing[]> {
     const mergedListings = dedupeListings([
       ...missingStaticListings,
       ...databaseListings,
+      ...approvedListings,
     ]);
 
     // Seed only built-in records that do not already exist. Existing database
     // rows remain authoritative for refreshed prices and availability status.
-    await upsertRows(missingStaticListings);
+    if (listingsTableAvailable) {
+      await upsertRows(missingStaticListings);
+    }
     return mergedListings;
   } catch (error) {
     console.error(error);

@@ -100,7 +100,8 @@ function paidSubmissionAsListing(
     priceLabel: priceLabel(submission.approvedAskingPrice),
     sourceRef: submission.submissionRef,
     sourceName: "Florida Liquor License Market",
-    note: submission.message || undefined,
+    note:
+      "Direct seller listing submitted to Florida Liquor License Market. Availability, license status, price and transfer terms remain subject to confirmation.",
     licenseStatus: submission.licenseStatus || undefined,
     preferredTiming: submission.preferredTiming || undefined,
     image: "/assets/license-market/license-01.png",
