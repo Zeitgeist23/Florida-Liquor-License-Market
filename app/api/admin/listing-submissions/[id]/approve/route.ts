@@ -13,7 +13,6 @@ import {
   getSubmissionById,
   updateListingSubmissionContact,
 } from "@/lib/listing-submission-store";
-import { upsertMarketplaceListings } from "@/lib/listing-store";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -63,7 +62,9 @@ function publicListingNote(
   const isBrokerListing = submission.message?.includes(
     "Submission type: Independent Broker Marketplace Listing",
   );
-  if (!isBrokerListing) return submission.message ?? undefined;
+  if (!isBrokerListing) {
+    return "Direct seller listing submitted to Florida Liquor License Market. Availability, license status, price and transfer terms remain subject to confirmation.";
+  }
 
   const brokerage =
     brokerMessageValue(submission.message, "Brokerage") ||
@@ -192,8 +193,6 @@ export async function POST(
       image: "/assets/license-market/license-01.png",
       inventoryClass: "direct_seller" as const,
     };
-
-    await upsertMarketplaceListings([publishedListing]);
 
     const approved = await approveListingSubmission({
       id: submission.id,
