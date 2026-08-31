@@ -1,22 +1,84 @@
-/* Definitive View License button edge correction.
-   On desktop the card's text pane clips overflow; keep the complete button
-   several pixels inside that pane so its right border cannot be cut off. */
+/* Final listing-card geometry correction.
+   Keep the county map visually embedded in the card, enlarge it vertically,
+   and keep the View License button safely inside the text pane so its complete
+   right-hand border is always visible. This file loads last on /listings. */
 
 @media (min-width: 761px) {
-  .results-page .result-actions {
-    box-sizing: border-box !important;
-    width: min(245px, calc(100% - 8px)) !important;
-    max-width: calc(100% - 8px) !important;
-    padding-right: 0 !important;
+  .results-page .result-card {
+    grid-template-columns: minmax(0, 1.30fr) minmax(170px, .70fr) !important;
+    column-gap: 0 !important;
   }
 
-  /* The county-map image carries the darker navy panel visible on the right
-     side of each card. Start that panel slightly farther right without moving
-     the card border or changing the approved text/button geometry. */
+  .results-page .result-body {
+    position: relative !important;
+    z-index: 3 !important;
+    overflow: visible !important;
+    padding-right: 12px !important;
+  }
+
+  .results-page .result-description,
+  .results-page .result-description p {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .results-page .result-actions {
+    position: relative !important;
+    z-index: 6 !important;
+    box-sizing: border-box !important;
+    width: min(258px, calc(100% - 24px)) !important;
+    max-width: calc(100% - 24px) !important;
+    margin-right: 24px !important;
+    padding-right: 0 !important;
+    overflow: visible !important;
+  }
+
   .results-page .result-photo {
-    width: calc(100% - 18px) !important;
-    transform: translateX(18px) !important;
-    transform-origin: right center !important;
+    position: relative !important;
+    z-index: 1 !important;
+    align-self: stretch !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 312px !important;
+    padding: 25px 8px 25px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important;
+    background: transparent !important;
+    transform: none !important;
+  }
+
+  .results-page .result-photo .florida-county-map,
+  .results-page .result-photo svg {
+    width: 132% !important;
+    height: 132% !important;
+    max-width: 276px !important;
+    max-height: 292px !important;
+    object-fit: contain !important;
+    background: transparent !important;
+    transform: translateX(4px) !important;
+    filter: drop-shadow(0 9px 16px rgba(0, 0, 0, .38)) !important;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1120px) {
+  .results-page .result-card {
+    grid-template-columns: minmax(0, 1.27fr) minmax(158px, .73fr) !important;
+  }
+
+  .results-page .result-actions {
+    width: min(238px, calc(100% - 22px)) !important;
+    max-width: calc(100% - 22px) !important;
+    margin-right: 22px !important;
+  }
+
+  .results-page .result-photo .florida-county-map,
+  .results-page .result-photo svg {
+    width: 126% !important;
+    height: 126% !important;
+    max-width: 248px !important;
+    max-height: 270px !important;
   }
 }
 
@@ -26,14 +88,27 @@
   box-sizing: border-box !important;
   width: 100% !important;
   max-width: 100% !important;
-  overflow: hidden !important;
+  overflow: visible !important;
   border: 1px solid #efaa10 !important;
   border-right: 1px solid #efaa10 !important;
+  box-shadow:
+    inset -1px 0 0 #efaa10,
+    0 5px 15px rgba(228, 148, 0, .18) !important;
+}
+
+.results-page .result-actions .result-view-button::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -1px !important;
+  z-index: 4 !important;
+  border: 1px solid #efaa10 !important;
+  border-radius: inherit !important;
+  pointer-events: none !important;
 }
 
 .results-page .result-actions .result-view-button-closing-edge {
   position: absolute !important;
-  z-index: 3 !important;
+  z-index: 5 !important;
   top: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
@@ -42,4 +117,15 @@
   flex: 0 0 1px !important;
   background: #efaa10 !important;
   pointer-events: none !important;
+}
+
+@media (max-width: 760px) {
+  .results-page .result-photo .florida-county-map,
+  .results-page .result-photo svg {
+    width: 116% !important;
+    height: 116% !important;
+    max-width: 205px !important;
+    max-height: 205px !important;
+    background: transparent !important;
+  }
 }
