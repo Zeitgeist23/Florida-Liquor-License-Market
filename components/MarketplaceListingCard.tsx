@@ -96,7 +96,7 @@ export default function MarketplaceListingCard({
       <div className="result-photo">
         <img
           className="florida-county-map"
-          src={`/api/county-map?county=${encodeURIComponent(county)}`}
+          src={`/api/county-map?county=${encodeURIComponent(county)}&transparent=1`}
           alt={`Florida map with ${county} highlighted in gold`}
           width={560}
           height={300}
