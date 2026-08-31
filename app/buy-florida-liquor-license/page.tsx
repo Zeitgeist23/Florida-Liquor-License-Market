@@ -165,11 +165,20 @@ export default function BuyFloridaLiquorLicensePage() {
         .buy-license-callout h3{margin:0 0 8px;color:#fff;font-size:21px}
         .buy-license-callout p{margin:0;color:#bdcbd6;line-height:1.7}
         .buy-license-callout a{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:0 20px;border-radius:8px;background:#eda91a;color:#061728;font-weight:900;text-decoration:none;white-space:nowrap}
+        .buy-license-free-guide{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:14px;padding:22px 24px;border:1px solid #d9c184;border-radius:14px;background:#fffaf0;box-shadow:0 10px 26px rgba(17,31,47,.07)}
+        .buy-license-free-guide span{display:block;margin-bottom:6px;color:#8a651d;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+        .buy-license-free-guide h3{margin:0 0 7px;color:#132237;font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:500}
+        .buy-license-free-guide p{margin:0;color:#4b5563;line-height:1.65}
+        .buy-license-free-guide a{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:0 20px;border-radius:8px;background:#102034;color:#fff;font-weight:900;text-decoration:none;white-space:nowrap}
+        .buy-license-guide-inline{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:22px;padding:15px 17px;border:1px solid #ded6c3;border-radius:10px;background:#fffdf8;color:#4b5563!important}
+        .buy-license-guide-inline strong{color:#132237}
+        .buy-license-guide-inline a{color:#805d18;font-weight:900;text-decoration:none}
+        .buy-license-guide-inline a:hover{text-decoration:underline}
         .buy-license-note{margin-top:20px;padding:17px 19px;border-left:3px solid #eda91a;background:rgba(237,169,26,.06);color:#afbfcc;font-size:12px;line-height:1.7}
         .buy-license-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
         .buy-license-links a{display:block;padding:18px;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:#071d33;color:#f3f7fa;text-decoration:none;font-weight:800}
         .buy-license-links a span{display:block;margin-top:6px;color:#9fb0bf;font-size:12px;font-weight:500;line-height:1.5}
-        @media(max-width:840px){.buy-license-grid{grid-template-columns:1fr}.buy-license-steps{grid-template-columns:1fr}.buy-license-callout{grid-template-columns:1fr}.buy-license-callout a{justify-self:start}.buy-license-links{grid-template-columns:1fr}}
+        @media(max-width:840px){.buy-license-grid{grid-template-columns:1fr}.buy-license-steps{grid-template-columns:1fr}.buy-license-callout,.buy-license-free-guide{grid-template-columns:1fr}.buy-license-callout a,.buy-license-free-guide a{justify-self:start}.buy-license-links{grid-template-columns:1fr}}
         @media(max-width:560px){.buy-license-step{grid-template-columns:1fr}.buy-license-step-number{width:38px;height:38px}}
       `}</style>
 
@@ -268,6 +277,14 @@ export default function BuyFloridaLiquorLicensePage() {
             </div>
             <Link href="/how-to-buy-florida-liquor-license">Read the Buyer Guide</Link>
           </div>
+          <div className="buy-license-free-guide">
+            <div>
+              <span>Free Download</span>
+              <h3>The Official Florida Liquor License Market Buyer’s & Seller’s Guide</h3>
+              <p>Not ready to buy yet? Download the free guide to learn how Florida quota licenses are priced, transferred, financed and purchased before making an offer.</p>
+            </div>
+            <Link href="/free-guide">Download the Free Guide</Link>
+          </div>
         </div>
       </section>
 
@@ -304,6 +321,11 @@ export default function BuyFloridaLiquorLicensePage() {
             <Link className="seo-market-button seo-market-button-dark" href="/resources/liquor-license-attorneys">Find an Attorney</Link>
             <Link className="seo-market-button seo-market-button-dark" href="/contact">Request Buyer Assistance</Link>
           </div>
+          <p className="buy-license-guide-inline">
+            <strong>Still researching?</strong>
+            <span>Get the Official FLLM Buyer’s & Seller’s Guide before you make an offer.</span>
+            <Link href="/free-guide">Download the Free Guide →</Link>
+          </p>
           <div className="buy-license-note">
             Florida Liquor License Market is a marketplace, market-data and transaction-resource platform. Information on this page is general information and is not legal, tax, lending, zoning or regulatory advice. Buyers should confirm current requirements with the appropriate professionals and government agencies before closing a transaction.
           </div>
