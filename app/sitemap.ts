@@ -42,6 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/florida-liquor-license-lottery`, lastModified, changeFrequency: "daily", priority: 0.82 },
     { url: `${siteUrl}/dbpr-abt-6002`, lastModified, changeFrequency: "monthly", priority: 0.72 },
     { url: `${siteUrl}/counties`, lastModified, changeFrequency: "daily", priority: 0.9 },
+    { url: `${siteUrl}/florida-quota-liquor-license-market-report`, lastModified, changeFrequency: "daily", priority: 0.96 },
     { url: `${siteUrl}/florida-liquor-license-market-index`, lastModified, changeFrequency: "daily", priority: 0.94 },
     { url: `${siteUrl}/research`, lastModified, changeFrequency: "weekly", priority: 0.82 },
     { url: `${siteUrl}/sell-your-license`, lastModified, changeFrequency: "monthly", priority: 0.82 },
