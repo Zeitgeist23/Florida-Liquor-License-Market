@@ -44,20 +44,19 @@ Each authorized URL may return either a JSON array or an object with a `listings
 
 `vercel.json` calls `/api/cron/update-listings` once each day at 11:00 UTC. When `TAVILY_API_KEY` is present and `AUTO_DISCOVERY_ENABLED` is not `false`, the job:
 
-1. Searches each configured Florida liquor-license source through Tavily using a domain restriction.
-2. Rotates among multiple Florida 4COP/3PS search queries so the same source can surface different inventory over time.
-3. Splits the daily county rotation into focused two-county searches, preventing long result lists from crowding out valid inventory.
-4. Accepts only individual listing URLs that match a known source-specific URL pattern.
-5. Requires a Florida county, a 4COP or 3PS license type, sale intent, and a minimum search relevance score.
-6. Rejects results containing terms such as sold, in escrow, under contract, sale pending, off market, or expired.
-7. Creates a stable source reference from the source's listing ID or a canonical URL hash.
-8. Refreshes existing records when an exact source URL or source reference reappears, including price and availability changes.
-9. Rechecks the least-recently-seen known source URLs through Tavily Extract each day; failed extraction never removes a listing.
-10. Adds only genuinely new, high-confidence listings to Supabase, where they appear on the live listings page.
+1. Reads every configured direct-crawl sitemap, including nested sitemap indexes, without a search-result cap or county rotation.
+2. Fetches and validates every matching individual listing page from sources that expressly permit direct crawling. Liquor License Auctioneers is currently reconciled this way against its complete published sitemap.
+3. Deduplicates by the source's stable advertisement ID and canonical URL, so distinct licenses with the same county and price remain distinct.
+4. Requires a Florida county, a 4COP or 3PS license type, active sale intent, and a valid individual-listing URL.
+5. Rejects results containing terms such as sold, in escrow, under contract, sale pending, off market, or expired.
+6. Refreshes existing records when an exact source URL or source reference reappears, including price and availability changes.
+7. Uses Tavily domain-restricted searches only as supplemental discovery for sources that do not provide a crawlable complete inventory index or block direct retrieval.
+8. Rechecks the least-recently-seen known source URLs through Tavily Extract each day; failed extraction never removes a listing.
+9. Adds only genuinely new, high-confidence listings to Supabase, where they appear on the live listings page.
 
 The source configuration is stored in `data/florida-liquor-license-auto-discovery.json`. Sources that do not expose reliable individual listing pages are checked but are not auto-published; their qualified results are reported as manual-review candidates in the cron response.
 
-The algorithm does not directly scrape restricted marketplaces. Public discovery is performed through a compliant search API, while direct ingestion remains limited to feeds or APIs authorized for retrieval and republication.
+The crawler identifies itself as `FLLM-InventoryBot`, follows a source's published sitemap, and is enabled only for sources whose public crawling rules permit retrieval. Restricted marketplaces remain on compliant search/feed discovery unless the source authorizes direct access.
 
 ## 5. Deployment behavior
 
