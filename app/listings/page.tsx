@@ -86,9 +86,9 @@ export async function generateMetadata({ searchParams }: ListingsMetadataProps):
   const hasFilters = Object.values(params).some((value) =>
     Array.isArray(value) ? value.some(Boolean) : Boolean(value),
   );
-  const title = "Florida Liquor Licenses for Sale | 4COP & 3PS Listings";
+  const title = "Florida Liquor License for Sale | 4COP & 3PS Listings";
   const description =
-    "Search Florida liquor licenses for sale by county, license type and asking price. View current 4COP quota and 3PS liquor license listings throughout Florida.";
+    "Browse current Florida liquor licenses for sale, including transferable 4COP quota and 3PS package-store licenses. Search statewide inventory by county, license type, price and availability.";
 
   return {
     title,
