@@ -91,13 +91,23 @@ export async function POST(
   request: Request,
   context: { params: Promise<{ id: string }> },
 ) {
+  let body: ApprovalBody;
+  try {
+    body = (await request.json()) as ApprovalBody;
+  } catch (error) {
+    console.error("Listing approval failed to read request body", error);
+    return NextResponse.json(
+      { error: "Could not read the approval request body." },
+      { status: 400 },
+    );
+  }
+
   if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
     const { id } = await context.params;
-    const body = (await request.json()) as ApprovalBody;
     const submission = await getSubmissionById(id);
     if (!submission) {
       return NextResponse.json(
