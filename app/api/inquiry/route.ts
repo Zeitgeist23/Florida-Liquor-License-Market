@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
 
-import { notifyFllmOfBuyerOffer, sendFllmEmail } from "@/lib/fllm-email";
-import { createBuyerLead } from "@/lib/listing-submission-store";
+import {
+  notifyFllmOfBuyerOffer,
+  sendApprovedSellerContactToBuyer,
+  sendFllmEmail,
+} from "@/lib/fllm-email";
+import {
+  createBuyerLead,
+  getApprovedSubmissionByPublicRef,
+} from "@/lib/listing-submission-store";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -43,8 +50,9 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   const inquiryType = value(formData, "inquiry_type", 120);
   const preferredCounty = value(formData, "preferred_county", 100);
   const message = value(formData, "message", 5000);
+  const listingReference = value(formData, "listing_reference", 100);
 
-  if (!fullName || !email || !inquiryType || !message) {
+  if (!fullName || !email || !inquiryType || !message || (listingReference && !phone)) {
     return NextResponse.json(
       { error: "Please complete the required inquiry fields." },
       { status: 400 },
@@ -54,29 +62,56 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
   }
 
-  const listingReference = value(formData, "listing_reference", 100);
-  const listingRequested = value(formData, "listing_requested", 300);
-  const listingCounty = value(formData, "listing_county", 100) || preferredCounty;
-  const licenseType = value(formData, "license_type", 120);
-  const askingPrice = value(formData, "asking_price", 80);
-  const listingStatus = value(formData, "listing_status", 160);
+  const submittedListingRequested = value(formData, "listing_requested", 300);
+  const submittedListingCounty = value(formData, "listing_county", 100) || preferredCounty;
+  const submittedLicenseType = value(formData, "license_type", 120);
+  const submittedAskingPrice = value(formData, "asking_price", 80);
+  const submittedListingStatus = value(formData, "listing_status", 160);
   const listingUrlValue = value(formData, "listing_url", 500);
   const listingUrl = /^\/listings\/[a-z0-9%._~-]+(?:[/?#].*)?$/i.test(listingUrlValue)
     ? new URL(listingUrlValue, request.url).toString()
     : "";
+  const approvedSellerSubmission = /^FLLM-PAID-/i.test(listingReference)
+    ? await getApprovedSubmissionByPublicRef(listingReference.toUpperCase())
+    : null;
+  const resolvedListingReference =
+    approvedSellerSubmission?.liveListingRef ||
+    approvedSellerSubmission?.submissionRef ||
+    listingReference;
+  const listingRequested =
+    approvedSellerSubmission?.listingTitle || submittedListingRequested;
+  const listingCounty = approvedSellerSubmission?.county || submittedListingCounty;
+  const licenseType =
+    approvedSellerSubmission?.approvedLicenseType || submittedLicenseType;
+  const approvedAskingPrice = approvedSellerSubmission
+    ? approvedSellerSubmission.approvedAskingPrice ?? approvedSellerSubmission.askingPrice
+    : null;
+  const askingPrice = approvedSellerSubmission
+    ? approvedAskingPrice === null
+      ? "Price not disclosed"
+      : new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          maximumFractionDigits: 0,
+        }).format(approvedAskingPrice)
+    : submittedAskingPrice;
+  const listingStatus = approvedSellerSubmission
+    ? approvedSellerSubmission.licenseStatus
+    : submittedListingStatus;
+  const resolvedListingUrl = approvedSellerSubmission?.liveListingUrl || listingUrl;
 
-  const subject = listingReference
-    ? `Specific License Inquiry — ${listingReference} — ${listingCounty || listingRequested}`
+  const subject = resolvedListingReference
+    ? `Specific License Inquiry — ${resolvedListingReference} — ${listingCounty || listingRequested}`
     : value(formData, "_subject", 240) || `FLLM Contact Inquiry — ${inquiryType}`;
 
   const listingDetails = [
-    ["Listing reference", listingReference],
+    ["Listing reference", resolvedListingReference],
     ["Selected listing", listingRequested],
     ["County", listingCounty],
     ["License type", licenseType],
     ["Asking price", askingPrice],
     ["Listing status", listingStatus],
-    ["Listing page", listingUrl],
+    ["Listing page", resolvedListingUrl],
   ].filter(([, detail]) => Boolean(detail));
 
   const textListingDetails = listingDetails.length
@@ -87,8 +122,8 @@ async function submitContactInquiry(request: Request, formData: FormData) {
 
   const listingRows = listingDetails
     .map(([label, detail]) => {
-      const displayedDetail = label === "Listing page" && listingUrl
-        ? `<a href="${escapeHtml(listingUrl)}">${escapeHtml(listingUrl)}</a>`
+      const displayedDetail = label === "Listing page" && resolvedListingUrl
+        ? `<a href="${escapeHtml(resolvedListingUrl)}">${escapeHtml(resolvedListingUrl)}</a>`
         : escapeHtml(detail);
       return `<tr><td style="padding:7px 10px;border-bottom:1px solid #d9dee2;color:#596674;font-size:12px;font-weight:700;">${escapeHtml(label)}</td><td style="padding:7px 10px;border-bottom:1px solid #d9dee2;color:#071a3a;font-size:13px;font-weight:700;">${displayedDetail}</td></tr>`;
     })
@@ -97,7 +132,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#f4f6f7;font-family:Arial,Helvetica,sans-serif;color:#071a3a;">
     <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #d6dde2;border-top:5px solid #f6a700;padding:24px;">
       <div style="margin-bottom:20px;color:#f1a600;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;">Florida Liquor License Market</div>
-      <h1 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.15;">${listingReference ? "Specific License Inquiry" : "New Confidential Inquiry"}</h1>
+      <h1 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.15;">${resolvedListingReference ? "Specific License Inquiry" : "New Confidential Inquiry"}</h1>
       <p style="margin:0 0 18px;line-height:1.65;"><strong>Name:</strong> ${escapeHtml(fullName)}<br><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a><br><strong>Phone:</strong> ${escapeHtml(phone || "Not provided")}<br><strong>Inquiry type:</strong> ${escapeHtml(inquiryType)}<br><strong>Preferred county:</strong> ${escapeHtml(preferredCounty || "Not selected")}</p>
       ${listingRows ? `<h2 style="margin:24px 0 10px;font-size:17px;">Selected License Details</h2><table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border:1px solid #d9dee2;border-collapse:collapse;">${listingRows}</table>` : ""}
       <h2 style="margin:24px 0 8px;font-size:17px;">Message</h2>
@@ -122,7 +157,26 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     );
   }
 
-  return NextResponse.json({ ok: true });
+  if (approvedSellerSubmission) {
+    try {
+      await sendApprovedSellerContactToBuyer({
+        buyerName: fullName,
+        buyerEmail: email,
+        submission: approvedSellerSubmission,
+      });
+    } catch (buyerDeliveryError) {
+      console.error("Approved seller contact delivery failed", buyerDeliveryError);
+      return NextResponse.json(
+        { error: "Your inquiry was received, but the seller contact email could not be delivered. Please try again." },
+        { status: 502 },
+      );
+    }
+  }
+
+  return NextResponse.json({
+    ok: true,
+    sellerContactDelivered: Boolean(approvedSellerSubmission),
+  });
 }
 
 export async function POST(request: Request) {

@@ -177,6 +177,15 @@
       setSelectValue(form.querySelector('select[name="inquiry_type"]'), "Buy a License");
       setSelectValue(form.querySelector('select[name="preferred_county"]'), context.county);
 
+      const phone = form.querySelector('input[name="phone"]');
+      if (phone instanceof HTMLInputElement) {
+        phone.required = true;
+        const phoneLabel = phone.closest("label")?.querySelector("span");
+        if (phoneLabel && phoneLabel.textContent?.trim() === "Phone") {
+          phoneLabel.textContent = "Phone *";
+        }
+      }
+
       const message = form.querySelector('textarea[name="message"]');
       if (message instanceof HTMLTextAreaElement && !message.value.trim()) {
         message.value = defaultMessage();
