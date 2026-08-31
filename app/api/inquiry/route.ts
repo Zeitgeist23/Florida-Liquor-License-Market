@@ -9,6 +9,7 @@ import {
   createBuyerLead,
   getApprovedSubmissionByPublicRef,
 } from "@/lib/listing-submission-store";
+import { publicListingReference } from "@/lib/public-listing-reference";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -71,12 +72,13 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   const listingUrl = /^\/listings\/[a-z0-9%._~-]+(?:[/?#].*)?$/i.test(listingUrlValue)
     ? new URL(listingUrlValue, request.url).toString()
     : "";
-  const approvedSellerSubmission = /^FLLM-PAID-/i.test(listingReference)
+  const approvedSellerSubmission = /^FLLM-/i.test(listingReference)
     ? await getApprovedSubmissionByPublicRef(listingReference.toUpperCase())
     : null;
   const resolvedListingReference =
-    approvedSellerSubmission?.liveListingRef ||
-    approvedSellerSubmission?.submissionRef ||
+    (approvedSellerSubmission
+      ? publicListingReference(approvedSellerSubmission)
+      : null) ||
     listingReference;
   const listingRequested =
     approvedSellerSubmission?.listingTitle || submittedListingRequested;

@@ -3,6 +3,7 @@ import "server-only";
 import { randomBytes } from "node:crypto";
 
 import { floridaCounties } from "@/data/florida-counties";
+import { publicListingReference } from "@/lib/public-listing-reference";
 
 export type SubmissionStatus =
   "pending_payment" | "paid" | "approved" | "rejected" | "checkout_failed";
@@ -636,8 +637,17 @@ export async function getSubmissionByCheckoutSession(sessionId: string) {
 }
 
 export async function getApprovedSubmissionByPublicRef(submissionRef: string) {
-  return getSingle(
-    `submission_ref=eq.${encodeURIComponent(submissionRef)}&status=eq.approved&select=*`,
+  const reference = cleanText(submissionRef, 100).toUpperCase();
+  const directMatch = await getSingle(
+    `${/^FLLM-PAID-/i.test(reference) ? "submission_ref" : "live_listing_ref"}=eq.${encodeURIComponent(reference)}&status=eq.approved&select=*`,
+  );
+  if (directMatch) return directMatch;
+
+  const approved = await listApprovedMarketplaceSubmissions();
+  return (
+    approved.find(
+      (submission) => publicListingReference(submission) === reference,
+    ) ?? null
   );
 }
 
@@ -779,6 +789,7 @@ export async function approveListingSubmission(input: {
   title: string;
   licenseType: "4COP Quota" | "3PS Quota / Package Store";
   askingPrice: number | null;
+  liveListingRef: string;
   liveListingUrl: string;
 }) {
   const existing = await getSubmissionById(input.id);
@@ -795,7 +806,7 @@ export async function approveListingSubmission(input: {
       listing_title: cleanText(input.title, 180),
       approved_license_type: input.licenseType,
       approved_asking_price: input.askingPrice,
-      live_listing_ref: existing.submissionRef,
+      live_listing_ref: cleanText(input.liveListingRef, 100).toUpperCase(),
       live_listing_url: input.liveListingUrl,
       approved_at: existing.approvedAt ?? now,
       last_error: null,
