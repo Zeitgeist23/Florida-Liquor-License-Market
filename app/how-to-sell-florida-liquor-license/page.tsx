@@ -9,17 +9,17 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/how-to-sell-florida-liquor-license`;
 
 export const metadata: Metadata = {
-  title: "How to Sell a Florida Liquor License | Seller Guide",
+  title: "How to Sell a Florida Liquor License | 7-Step Seller Guide",
   description:
-    "Learn how to sell a Florida liquor license step by step. Compare self-directed and broker-assisted selling, set an asking-price strategy, prepare your listing, negotiate terms, and coordinate transfer and closing.",
+    "Learn how to sell a Florida liquor license in 7 steps. Price the license, choose self-directed or broker-assisted selling, prepare the listing, negotiate terms, review ABT-6002 transfer requirements and coordinate closing.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "article",
     url: canonicalUrl,
-    title: "How to Sell a Florida Liquor License | Seller Guide",
+    title: "How to Sell a Florida Liquor License | 7-Step Seller Guide",
     description:
-      "A practical Florida seller guide covering pricing strategy, self-directed and broker-assisted selling, marketing, buyer inquiries, negotiation, transfer preparation and closing.",
+      "A practical Florida seller guide covering pricing strategy, self-directed and broker-assisted selling, marketing, buyer inquiries, negotiation, ABT-6002 transfer preparation and closing.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -55,6 +55,11 @@ const faqs = [
     answer:
       "The parties typically document the agreed terms in writing, complete transaction-specific due diligence, coordinate deposits and closing conditions, and prepare the materials required for the ownership-transfer process. The buyer and seller should confirm current DBPR requirements and use appropriate legal, tax or licensing professionals when needed.",
   },
+  {
+    question: "Does the seller complete the ABT-6002 when a Florida liquor license is sold?",
+    answer:
+      "The seller or transferor generally must complete and sign the seller-side transfer documents required for the transaction, including the applicable transferor information or affidavit. Seller-side paperwork does not replace the buyer or transferee's completed transfer application. The parties should use the current DBPR ABT-6002 checklist and instructions for the actual transaction.",
+  },
 ];
 
 export default function HowToSellFloridaLiquorLicensePage() {
@@ -62,11 +67,11 @@ export default function HowToSellFloridaLiquorLicensePage() {
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "How to Sell a Florida Liquor License: Step-by-Step Seller Guide",
+      headline: "How to Sell a Florida Liquor License: 7-Step Seller Guide",
       description:
-        "A practical guide to selling a Florida liquor license, including pricing strategy, self-directed and broker-assisted marketing, buyer inquiries, negotiation, transfer preparation and closing.",
+        "A practical guide to selling a Florida liquor license, including pricing strategy, self-directed and broker-assisted marketing, buyer inquiries, negotiation, ABT-6002 transfer preparation and closing.",
       datePublished: "2026-08-18",
-      dateModified: "2026-08-24",
+      dateModified: "2026-08-31",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market" },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -119,7 +124,12 @@ export default function HowToSellFloridaLiquorLicensePage() {
         .seller-guide-checklist li{position:relative;padding:16px 16px 16px 45px;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:#071d33;color:#cbd6df;line-height:1.55}
         .seller-guide-checklist li::before{content:"✓";position:absolute;left:16px;top:15px;color:#eda91a;font-weight:900}
         .seller-guide-note{margin-top:22px;padding:16px 18px;border-left:3px solid #eda91a;background:rgba(237,169,26,.06);color:#aebdca;font-size:12px;line-height:1.7}
-        @media(max-width:820px){.seller-guide-paths{grid-template-columns:1fr}.seller-guide-links{grid-template-columns:1fr}.seller-guide-checklist{grid-template-columns:1fr}}
+        .seller-guide-free{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:26px;padding:24px;border:1px solid rgba(237,169,26,.4);border-radius:14px;background:linear-gradient(135deg,#071d33,#0b2943)}
+        .seller-guide-free span{display:block;margin-bottom:7px;color:#eda91a;font-size:11px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
+        .seller-guide-free h3{margin:0 0 8px;color:#fff;font-size:22px}
+        .seller-guide-free p{margin:0;color:#bdcbd6;line-height:1.7}
+        .seller-guide-free a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:8px;background:#eda91a;color:#061728;font-weight:900;text-decoration:none;white-space:nowrap}
+        @media(max-width:820px){.seller-guide-paths{grid-template-columns:1fr}.seller-guide-links{grid-template-columns:1fr}.seller-guide-checklist{grid-template-columns:1fr}.seller-guide-free{grid-template-columns:1fr}.seller-guide-free a{justify-self:start}}
         @media(max-width:560px){.seller-guide-step{grid-template-columns:1fr}.seller-guide-step-number{width:42px;height:42px}.seller-guide-step h3{font-size:18px}}
       `}</style>
 
@@ -137,11 +147,12 @@ export default function HowToSellFloridaLiquorLicensePage() {
               <span className="seo-market-kicker">Florida Liquor License Seller Guide</span>
               <h1>How to Sell a Florida Liquor License</h1>
               <p>
-                Selling a Florida liquor license starts with knowing what you own, what the market may pay, and how much transaction support you want. This guide covers pricing strategy, self-directed and broker-assisted selling, listing preparation, buyer inquiries, negotiation, transfer preparation and closing.
+                Selling a Florida liquor license starts with knowing what you own, what the market may pay, and how much transaction support you want. This guide covers pricing strategy, self-directed and broker-assisted selling, listing preparation, buyer inquiries, negotiation, ABT-6002 transfer preparation and closing.
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Sell Your License</Link>
                 <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">Check License Value</Link>
+                <Link className="seo-market-button seo-market-button-dark" href="/free-guide">Free Buyer’s & Seller’s Guide</Link>
               </div>
             </div>
             <aside className="seo-market-snapshot" aria-label="Florida liquor license selling process">
@@ -263,11 +274,21 @@ export default function HowToSellFloridaLiquorLicensePage() {
             <article className="seller-guide-step">
               <div className="seller-guide-step-number">7</div>
               <div>
-                <h3>Coordinate the transfer and closing</h3>
+                <h3>Coordinate the ABT-6002 transfer and closing</h3>
                 <p>Work with the buyer and the professionals involved so the purchase agreement, closing funds, transfer materials and any location or ownership changes reflect the actual transaction. Confirm current DBPR requirements before closing and retain records of the completed sale.</p>
+                <p>The seller or transferor generally completes the seller-side transfer information or affidavit required for the transaction. That seller-side document is not a substitute for the buyer or transferee&apos;s completed ABT-6002 transfer application. The current DBPR checklist and instructions should control the filing.</p>
                 <p><Link href="/dbpr-abt-6002">Review FLLM&apos;s ABT-6002 transfer guide →</Link></p>
               </div>
             </article>
+          </div>
+
+          <div className="seller-guide-free">
+            <div>
+              <span>Free Download</span>
+              <h3>The Official Florida Liquor License Market Buyer’s & Seller’s Guide</h3>
+              <p>Review pricing, transfers, financing, due diligence, license types and transaction resources before you list or negotiate a sale.</p>
+            </div>
+            <Link href="/free-guide">Download the Free Guide</Link>
           </div>
         </div>
       </section>
@@ -284,7 +305,8 @@ export default function HowToSellFloridaLiquorLicensePage() {
             <Link href="/florida-liquor-license-value">License Value<span>Estimate a market-value range using county and license-type data.</span></Link>
             <Link href="/florida-liquor-license-appraisal">Florida Liquor License Appraisal<span>Review the dedicated license-specific appraisal and valuation report page.</span></Link>
             <Link href="/resources/quota-transfer-fee-calculator">Transfer Fee Calculator<span>Estimate the statutory quota transfer-fee component as part of transaction planning.</span></Link>
-            <Link href="/dbpr-abt-6002">Transfer Resources<span>Review the ownership-transfer guide and related preparation information.</span></Link>
+            <Link href="/dbpr-abt-6002">ABT-6002 Transfer Resources<span>Review the ownership-transfer guide and seller/buyer preparation information.</span></Link>
+            <Link href="/free-guide">Free Buyer’s & Seller’s Guide<span>Download FLLM’s comprehensive transaction guide before listing or closing.</span></Link>
             <Link href="/contact">Seller Assistance<span>Contact FLLM with questions about listing, pricing or broker-assisted options.</span></Link>
           </div>
         </div>
@@ -310,7 +332,7 @@ export default function HowToSellFloridaLiquorLicensePage() {
             <li>Any existing brokerage or listing agreement.</li>
             <li>Information a buyer may reasonably request for due diligence.</li>
             <li>A plan for legal, tax, licensing and closing support if needed.</li>
-            <li>Current DBPR transfer requirements before closing.</li>
+            <li>Current DBPR and ABT-6002 transfer requirements before closing.</li>
           </ul>
         </div>
       </section>
