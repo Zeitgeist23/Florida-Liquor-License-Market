@@ -14,6 +14,14 @@ const exactAuthorityPaths = new Set([
   "/counties",
 ]);
 
+const sbaAppraisalAuthorityPaths = new Set([
+  "/florida-liquor-license-appraisal",
+  "/florida-liquor-license-sba-appraisal",
+  "/sba-7a-liquor-license-business-financing",
+  "/how-to-finance-florida-liquor-license",
+  "/financing",
+]);
+
 function isCountyMarketPage(pathname: string) {
   const parts = pathname.split("/").filter(Boolean);
   return parts.length === 2 && parts[0] === "counties";
@@ -22,9 +30,10 @@ function isCountyMarketPage(pathname: string) {
 export default function SeoAuthorityEnhancements() {
   const pathname = usePathname();
   const showAuthorityLinks = exactAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
+  const showSbaAppraisalLink = sbaAppraisalAuthorityPaths.has(pathname);
   const showBrokerKit = pathname === "/brokers/list-your-license" || pathname === "/how-to-sell-florida-liquor-license";
 
-  if (!showAuthorityLinks && !showBrokerKit) return null;
+  if (!showAuthorityLinks && !showSbaAppraisalLink && !showBrokerKit) return null;
 
   return (
     <>
@@ -35,6 +44,18 @@ export default function SeoAuthorityEnhancements() {
               <strong>Florida statewide marketplace:</strong>{" "}
               <Link href="/listings">browse current Florida liquor licenses for sale</Link>, including 4COP quota and 3PS package-store opportunities, or review the{" "}
               <Link href="/florida-quota-liquor-license-market-report">Florida Quota Liquor License Market Report</Link> for current statewide inventory and asking-price evidence.
+            </p>
+          </div>
+        </aside>
+      ) : null}
+
+      {showSbaAppraisalLink ? (
+        <aside className="fllm-authority-links" aria-label="Florida liquor license SBA appraisal resource">
+          <div className="fllm-authority-links__inner">
+            <p>
+              <strong>SBA and lender valuation:</strong>{" "}
+              <Link href="/florida-liquor-license-sba-appraisal">Florida Liquor License SBA Appraisal</Link> explains how a license-specific 4COP or 3PS market valuation can support SBA 7(a) and lender review while remaining separate from any business valuation, credentialed appraisal or other scope the lender may require. Review the{" "}
+              <Link href="/florida-liquor-license-appraisal">FLLM formal liquor-license appraisal methodology</Link> before ordering.
             </p>
           </div>
         </aside>
