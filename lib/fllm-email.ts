@@ -246,6 +246,80 @@ export async function sendFllmEmail(input: {
   return response.json() as Promise<{ id: string; threadId: string }>;
 }
 
+export async function sendApprovedSellerContactToBuyer(input: {
+  buyerName: string;
+  buyerEmail: string;
+  submission: ListingSubmission;
+}) {
+  const { submission } = input;
+  if (
+    submission.status !== "approved" ||
+    !submission.approvedLicenseType ||
+    !submission.email ||
+    !submission.phone
+  ) {
+    throw new Error("The approved listing is missing seller contact information.");
+  }
+
+  const buyerFirstName = escapeHtml(input.buyerName.split(/\s+/)[0] || "there");
+  const sellerName = escapeHtml(submission.fullName);
+  const sellerEmail = escapeHtml(submission.email);
+  const sellerPhone = escapeHtml(submission.phone);
+  const reference = escapeHtml(submission.liveListingRef || submission.submissionRef);
+  const county = escapeHtml(countyLabel(submission.county));
+  const licenseType = escapeHtml(submission.approvedLicenseType);
+  const askingPrice = escapeHtml(
+    formatMoney(submission.approvedAskingPrice ?? submission.askingPrice),
+  );
+  const liveListingUrl = submission.liveListingUrl
+    ? escapeHtml(submission.liveListingUrl)
+    : "";
+
+  const content = `
+    <p style="margin:0 0 18px;">Hello ${buyerFirstName},</p>
+    <p style="margin:0 0 18px;">Thank you for your inquiry through Florida Liquor License Market. The approved contact for the license you selected is below.</p>
+    <p style="margin:0 0 18px;">
+      <strong>Listing Reference:</strong> ${reference}<br>
+      <strong>County:</strong> ${county}<br>
+      <strong>License Type:</strong> ${licenseType}<br>
+      <strong>Asking Price:</strong> ${askingPrice}
+    </p>
+    <p style="margin:0 0 18px;">
+      <strong>Listing Representative:</strong> ${sellerName}<br>
+      <strong>Email:</strong> <a href="mailto:${sellerEmail}" style="color:#0645ad;">${sellerEmail}</a><br>
+      <strong>Phone:</strong> <a href="tel:${sellerPhone.replace(/[^+\d]/g, "")}" style="color:#0645ad;">${sellerPhone}</a>
+    </p>
+    ${liveListingUrl ? `<p style="margin:0 0 18px;"><a href="${liveListingUrl}" style="color:#0645ad;font-weight:bold;text-decoration:underline;">View the license listing</a></p>` : ""}
+    <p style="margin:0;">Availability, asking price, license status, and transfer eligibility remain subject to confirmation and applicable regulatory requirements.</p>`;
+
+  const text = `Hello ${input.buyerName.split(/\s+/)[0] || "there"},
+
+Thank you for your inquiry through Florida Liquor License Market. The approved contact for the license you selected is below.
+
+Listing Reference: ${submission.liveListingRef || submission.submissionRef}
+County: ${countyLabel(submission.county)}
+License Type: ${submission.approvedLicenseType}
+Asking Price: ${formatMoney(submission.approvedAskingPrice ?? submission.askingPrice)}
+
+Listing Representative: ${submission.fullName}
+Email: ${submission.email}
+Phone: ${submission.phone}
+${submission.liveListingUrl ? `Listing: ${submission.liveListingUrl}\n` : ""}
+Availability, asking price, license status, and transfer eligibility remain subject to confirmation and applicable regulatory requirements.
+
+Florida Liquor License Market
+${senderEmail()}
+${siteUrl()}`;
+
+  return sendFllmEmail({
+    to: input.buyerEmail,
+    replyTo: submission.email,
+    subject: `Contact Information for ${submission.liveListingRef || submission.submissionRef}`,
+    text,
+    html: emailShell(content),
+  });
+}
+
 export type AttorneyDirectoryApplicationEmail = {
   reference: string;
   fullName: string;
