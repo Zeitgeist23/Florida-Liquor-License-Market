@@ -1,11 +1,11 @@
 /* Final listing-card geometry correction.
-   Keep the county map visually embedded in the card, enlarge it vertically,
-   and keep the View License button safely inside the text pane so its complete
-   right-hand border is always visible. This file loads last on /listings. */
+   Keep the county map visually embedded in the card, make it substantially
+   larger, and keep the View License button safely inside the text pane so its
+   complete right-hand border remains visible. This file loads last on /listings. */
 
 @media (min-width: 761px) {
   .results-page .result-card {
-    grid-template-columns: minmax(0, 1.30fr) minmax(170px, .70fr) !important;
+    grid-template-columns: minmax(0, 1.14fr) minmax(205px, .86fr) !important;
     column-gap: 0 !important;
   }
 
@@ -40,7 +40,7 @@
     width: 100% !important;
     height: 100% !important;
     min-height: 312px !important;
-    padding: 25px 8px 25px 0 !important;
+    padding: 18px 4px 18px 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -51,20 +51,36 @@
 
   .results-page .result-photo .florida-county-map,
   .results-page .result-photo svg {
-    width: 132% !important;
-    height: 132% !important;
-    max-width: 276px !important;
-    max-height: 292px !important;
+    width: 148% !important;
+    height: 148% !important;
+    max-width: 330px !important;
+    max-height: 330px !important;
     object-fit: contain !important;
     background: transparent !important;
-    transform: translateX(4px) !important;
+    transform: translateX(2px) scale(1.04) !important;
+    transform-origin: center center !important;
     filter: drop-shadow(0 9px 16px rgba(0, 0, 0, .38)) !important;
+  }
+
+  .results-page .result-type-badge {
+    top: 14px !important;
+    right: 14px !important;
+    min-height: 28px !important;
+    padding: 0 13px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 5px !important;
+    font-size: 11px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    letter-spacing: .035em !important;
   }
 }
 
 @media (min-width: 761px) and (max-width: 1120px) {
   .results-page .result-card {
-    grid-template-columns: minmax(0, 1.27fr) minmax(158px, .73fr) !important;
+    grid-template-columns: minmax(0, 1.18fr) minmax(180px, .82fr) !important;
   }
 
   .results-page .result-actions {
@@ -75,10 +91,16 @@
 
   .results-page .result-photo .florida-county-map,
   .results-page .result-photo svg {
-    width: 126% !important;
-    height: 126% !important;
-    max-width: 248px !important;
-    max-height: 270px !important;
+    width: 140% !important;
+    height: 140% !important;
+    max-width: 292px !important;
+    max-height: 292px !important;
+  }
+
+  .results-page .result-type-badge {
+    min-height: 26px !important;
+    padding: 0 11px !important;
+    font-size: 10px !important;
   }
 }
 
@@ -122,10 +144,16 @@
 @media (max-width: 760px) {
   .results-page .result-photo .florida-county-map,
   .results-page .result-photo svg {
-    width: 116% !important;
-    height: 116% !important;
-    max-width: 205px !important;
-    max-height: 205px !important;
+    width: 128% !important;
+    height: 128% !important;
+    max-width: 230px !important;
+    max-height: 230px !important;
     background: transparent !important;
+  }
+
+  .results-page .result-type-badge {
+    min-height: 25px !important;
+    padding: 0 10px !important;
+    font-size: 10px !important;
   }
 }
