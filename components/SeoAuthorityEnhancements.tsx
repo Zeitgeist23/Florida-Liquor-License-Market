@@ -31,6 +31,17 @@ const litigationAuthorityPaths = new Set([
   "/resources/liquor-license-attorneys",
 ]);
 
+const lawyerAuthorityPaths = new Set([
+  "/resources",
+  "/resources/florida-liquor-license-laws",
+  "/florida-liquor-license-court-decisions",
+  "/florida-liquor-license-appraisal",
+  "/florida-liquor-license-value-expert-witness",
+  "/how-to-buy-florida-liquor-license",
+  "/how-to-sell-florida-liquor-license",
+  "/dbpr-abt-6002",
+]);
+
 function isCountyMarketPage(pathname: string) {
   const parts = pathname.split("/").filter(Boolean);
   return parts.length === 2 && parts[0] === "counties";
@@ -41,9 +52,10 @@ export default function SeoAuthorityEnhancements() {
   const showAuthorityLinks = exactAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showSbaAppraisalLink = sbaAppraisalAuthorityPaths.has(pathname);
   const showLitigationLink = litigationAuthorityPaths.has(pathname);
+  const showLawyerLink = lawyerAuthorityPaths.has(pathname);
   const showBrokerKit = pathname === "/brokers/list-your-license" || pathname === "/how-to-sell-florida-liquor-license";
 
-  if (!showAuthorityLinks && !showSbaAppraisalLink && !showLitigationLink && !showBrokerKit) return null;
+  if (!showAuthorityLinks && !showSbaAppraisalLink && !showLitigationLink && !showLawyerLink && !showBrokerKit) return null;
 
   return (
     <>
@@ -77,6 +89,17 @@ export default function SeoAuthorityEnhancements() {
             <p>
               <strong>Litigation and expert-witness valuation:</strong>{" "}
               <Link href="/florida-liquor-license-value-expert-witness">Florida Liquor License Value Expert Witness &amp; Litigation Support</Link> explains how county-specific 4COP and 3PS market evidence, DBPR research and transaction analysis can support counsel or a retained expert, while distinguishing an FLLM market valuation from court qualification, USPAP credentials or testimony requirements.
+            </p>
+          </div>
+        </aside>
+      ) : null}
+
+      {showLawyerLink ? (
+        <aside className="fllm-authority-links" aria-label="Florida liquor license lawyer and attorney directory">
+          <div className="fllm-authority-links__inner">
+            <p>
+              <strong>Need legal counsel?</strong>{" "}
+              <Link href="/resources/liquor-license-attorneys">Find a Florida Liquor License Lawyer or Florida Liquor License Attorney</Link> for licensing, DBPR / ABT matters, transfers, transactions, litigation, appeals, liens, escrow, and closings through FLLM&apos;s independent attorney directory.
             </p>
           </div>
         </aside>
