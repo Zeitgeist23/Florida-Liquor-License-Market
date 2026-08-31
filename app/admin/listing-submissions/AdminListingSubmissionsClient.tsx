@@ -58,6 +58,8 @@ function SubmissionCard({ submission, reload }: { submission: Submission; reload
   const [price, setPrice] = useState(
     String(submission.approvedAskingPrice ?? submission.askingPrice ?? "")
   );
+  const [email, setEmail] = useState(submission.email);
+  const [phone, setPhone] = useState(submission.phone);
   const [working, setWorking] = useState(false);
   const [error, setError] = useState("");
 
@@ -72,6 +74,8 @@ function SubmissionCard({ submission, reload }: { submission: Submission; reload
           title,
           licenseType,
           askingPrice: price.trim() ? Number(price.replace(/[^0-9.]/g, "")) : null,
+          email,
+          phone,
         }),
       });
       const payload = (await response.json()) as { error?: string };
@@ -111,6 +115,17 @@ function SubmissionCard({ submission, reload }: { submission: Submission; reload
       </div>
 
       {submission.message && <div className="admin-notes"><strong>Seller Notes</strong><p>{submission.message}</p></div>}
+
+      <div className="admin-contact-fields">
+        <label>
+          <span>Seller Email Used for Buyer Inquiries</span>
+          <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
+        </label>
+        <label>
+          <span>Seller Phone Used for Buyer Inquiries</span>
+          <input type="tel" value={phone} onChange={(event) => setPhone(event.target.value)} required />
+        </label>
+      </div>
 
       <div className="admin-approval-fields">
         <label>
