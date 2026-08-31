@@ -146,6 +146,7 @@ function approvedSubmissionToListing(
     inventoryClass: "direct_seller",
     licenseStatus: submission.licenseStatus || undefined,
     preferredTiming: submission.preferredTiming || undefined,
+    publishedAt: submission.approvedAt || undefined,
     featuredUntil: activeFeaturedUntil({
       submission_ref: submission.submissionRef,
       license_status: submission.licenseStatus,
@@ -174,12 +175,34 @@ async function getApprovedListingDetails() {
     return new Map<string, ApprovedListingDetailsRow>();
   }
   const rows = (await response.json()) as ApprovedListingDetailsRow[];
-  return new Map(rows.map((row) => [row.submission_ref, row]));
+  return new Map(
+    rows.flatMap((row) => [
+      [row.submission_ref, row] as const,
+      [publicListingReference({ submissionRef: row.submission_ref }), row] as const,
+    ]),
+  );
 }
 
+const editorialFeaturedUntil = new Map([
+  ["FLLM-168405", "2026-09-30T23:59:59.000Z"],
+]);
+
 function activeFeaturedUntil(details: ApprovedListingDetailsRow | undefined) {
+  if (!details) return undefined;
+
+  const publicReference = publicListingReference({
+    submissionRef: details.submission_ref,
+  });
+  const editorialExpiry = editorialFeaturedUntil.get(publicReference);
   if (
-    !details?.approved_at ||
+    editorialExpiry &&
+    new Date(editorialExpiry).getTime() > Date.now()
+  ) {
+    return editorialExpiry;
+  }
+
+  if (
+    !details.approved_at ||
     !details.message?.includes("Listing option: Featured Broker Listing")
   ) {
     return undefined;
@@ -365,6 +388,7 @@ export async function getMarketplaceListings(): Promise<ClassifiedListing[]> {
           row.inventory_class ?? resolveListingInventoryClass(listing),
         licenseStatus: details?.license_status ?? undefined,
         preferredTiming: details?.preferred_timing ?? undefined,
+        publishedAt: details?.approved_at ?? undefined,
         featuredUntil: activeFeaturedUntil(details),
       });
     });

@@ -138,9 +138,20 @@ export default function ListingsPage({
           initialListings.map((listing) => [listingIdentity(listing), listing]),
         ).values(),
       ).sort(
-        (left, right) =>
-          Number(Boolean(right.featuredUntil)) -
-          Number(Boolean(left.featuredUntil)),
+        (left, right) => {
+          const featuredOrder =
+            Number(Boolean(right.featuredUntil)) -
+            Number(Boolean(left.featuredUntil));
+          if (featuredOrder !== 0) return featuredOrder;
+
+          const leftPublished = left.publishedAt
+            ? new Date(left.publishedAt).getTime()
+            : 0;
+          const rightPublished = right.publishedAt
+            ? new Date(right.publishedAt).getTime()
+            : 0;
+          return rightPublished - leftPublished;
+        },
       ),
     [initialListings],
   );

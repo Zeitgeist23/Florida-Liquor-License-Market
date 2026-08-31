@@ -126,9 +126,11 @@ a { color: inherit; text-decoration: none; }
 .listing-carousel { position: relative; }
 .listing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
 .listing-card { overflow: hidden; border: 1px solid #d7d9db; border-radius: 7px; background: white; box-shadow: 0 6px 18px rgba(20,28,35,.06); }
+.listing-card-featured { border-color: #e3a314; box-shadow: 0 10px 26px rgba(20,28,35,.13), 0 0 0 2px rgba(227,163,20,.14); }
 .listing-photo { height: 124px; position: relative; overflow: hidden; background: #132232; }
 .listing-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .listing-photo > span { position: absolute; top: 8px; left: 9px; padding: 5px 9px; border-radius: 5px; color: var(--gold); background: #06121e; text-transform: uppercase; font-size: 9px; font-weight: 900; }
+.homepage-featured-badge { position: absolute; left: 9px; bottom: 8px; padding: 5px 9px; border-radius: 4px; color: #071827; background: linear-gradient(145deg, #ffc42d, #e89500); box-shadow: 0 4px 12px rgba(0,0,0,.28); font-size: 9px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
 .listing-photo > button { position: absolute; top: 5px; right: 7px; border: 0; background: transparent; color: var(--gold); font-size: 27px; cursor: pointer; text-shadow: 0 1px 3px #000; }
 .listing-body { padding: 12px 12px 14px; }
 .listing-body p { margin: 0; font-size: 10px; font-weight: 800; text-transform: uppercase; }
@@ -137,6 +139,8 @@ a { color: inherit; text-decoration: none; }
 .listing-body > div { display: flex; justify-content: space-between; gap: 8px; font-size: 9px; }
 .listing-body > div span:first-child::first-letter { color: var(--gold); }
 .listing-body > div span:last-child::first-letter { color: var(--orange); }
+.homepage-listing-action { min-height: 34px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; margin-top: 12px; padding: 0 13px; border: 1px solid #d69300; border-radius: 4px; color: #071827; background: var(--gold); font-size: 9px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; }
+.homepage-listing-action:hover { color: white; background: #071827; }
 .carousel-arrow { position: absolute; z-index: 4; top: 46px; width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: 50%; color: white; background: #09131e; font-size: 21px; cursor: pointer; }
 .carousel-arrow.previous { left: -15px; }
 .carousel-arrow.next { right: -15px; }
