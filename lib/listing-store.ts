@@ -215,6 +215,8 @@ async function upsertRows(input: ListingWithInventoryClass[]) {
   if (response.ok) return;
 
   const firstError = await response.text();
+  let finalStatus = response.status;
+  let finalError = firstError;
 
   // Keep the deployment backward-compatible until the inventory_class SQL
   // migration is applied to an existing Supabase project. Runtime listings are
@@ -227,10 +229,12 @@ async function upsertRows(input: ListingWithInventoryClass[]) {
       cache: "no-store",
     });
     if (response.ok) return;
+    finalStatus = response.status;
+    finalError = await response.text();
   }
 
   throw new Error(
-    `Listing database upsert failed: ${response.status} ${response.ok ? "" : (await response.text()) || firstError}`,
+    `Listing database upsert failed: ${finalStatus} ${finalError || firstError}`,
   );
 }
 
