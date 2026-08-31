@@ -20,8 +20,8 @@
   .results-page .result-description p {
     max-width: 100% !important;
     overflow: hidden !important;
-    font-size: 13px !important;
-    line-height: 1.5 !important;
+    font-size: 13.5px !important;
+    line-height: 1.52 !important;
   }
 
   .results-page .result-actions {
@@ -146,8 +146,8 @@
 @media (max-width: 760px) {
   .results-page .result-description,
   .results-page .result-description p {
-    font-size: 12px !important;
-    line-height: 1.5 !important;
+    font-size: 12.5px !important;
+    line-height: 1.52 !important;
   }
 
   .results-page .result-photo .florida-county-map,
