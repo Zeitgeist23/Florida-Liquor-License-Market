@@ -90,7 +90,7 @@ export default function MarketplaceListingCard({
       data-marketplace-listing-card="true"
     >
       {normalizedListing.featuredUntil ? (
-        <span className="featured-listing-badge">Featured</span>
+        <span className="featured-listing-badge">Featured Listing</span>
       ) : null}
       <span className="result-type-badge">{normalizedListing.type}</span>
       <div className="result-photo">

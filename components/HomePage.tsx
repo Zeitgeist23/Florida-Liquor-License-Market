@@ -2,20 +2,25 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { Listing as MarketplaceListing } from "@/data/listings";
+import { listingPageHref } from "@/lib/listing-page-urls";
 import HomeMarketInsightsMap from "./HomeMarketInsightsMap";
 import HeaderNavMenus from "./HeaderNavMenus";
 
 type FeaturedListing = {
   county: string;
   type: string;
-  price: number;
+  price: number | null;
   priceLabel: string;
   image: string;
+  sourceRef?: string;
   sourceName?: string;
   sourceUrl?: string;
+  href?: string;
+  featured?: boolean;
+  publishedAt?: string;
 };
 
-const listings: FeaturedListing[] = [
+const fallbackFeaturedListings: FeaturedListing[] = [
   { county: "Miami-Dade County", type: "4COP Quota", price: 495000, priceLabel: "$495,000", image: "/assets/listing-miami.png" },
   { county: "Palm Beach County", type: "4COP Quota", price: 575000, priceLabel: "$575,000", image: "/assets/listing-palm-beach.png" },
   { county: "Sarasota County", type: "3PS Quota / Package Store", price: 340000, priceLabel: "$340,000", image: "/assets/listing-sarasota.png" },
@@ -60,15 +65,59 @@ export default function Home({ marketListings }: { marketListings: MarketplaceLi
   const [carouselOffset, setCarouselOffset] = useState(0);
   const [marketInsightsOpen, setMarketInsightsOpen] = useState(false);
 
+  const carouselListings = useMemo(() => {
+    const featuredMarketplaceListings: FeaturedListing[] = marketListings
+      .filter(
+        (listing) => Boolean(listing.sourceRef && listing.featuredUntil),
+      )
+      .sort((left, right) => {
+        const leftPublished = left.publishedAt
+          ? new Date(left.publishedAt).getTime()
+          : 0;
+        const rightPublished = right.publishedAt
+          ? new Date(right.publishedAt).getTime()
+          : 0;
+        return rightPublished - leftPublished;
+      })
+      .map((listing) => ({
+        county: listing.county,
+        type: listing.type,
+        price: listing.price,
+        priceLabel: listing.priceLabel,
+        image: listing.image,
+        sourceRef: listing.sourceRef,
+        href: listingPageHref(listing),
+        featured: true,
+        publishedAt: listing.publishedAt,
+      }));
+
+    const featuredIdentities = new Set(
+      featuredMarketplaceListings.map(
+        (listing) =>
+          `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`,
+      ),
+    );
+
+    return [
+      ...featuredMarketplaceListings,
+      ...fallbackFeaturedListings.filter(
+        (listing) =>
+          !featuredIdentities.has(
+            `${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`,
+          ),
+      ),
+    ];
+  }, [marketListings]);
+
   const filteredListings = useMemo(() => {
-    if (!searchActive) return listings;
-    return listings.filter((listing) => {
+    if (!searchActive) return carouselListings;
+    return carouselListings.filter((listing) => {
       const countyMatch = county === "all" || listing.county === county;
       const typeMatch = licenseType === "all" || listing.type === licenseType;
-      const priceMatch = priceRange === "all" || (priceRange === "under350" && listing.price < 350000) || (priceRange === "350to500" && listing.price >= 350000 && listing.price <= 500000) || (priceRange === "over500" && listing.price > 500000);
+      const priceMatch = priceRange === "all" || (listing.price !== null && ((priceRange === "under350" && listing.price < 350000) || (priceRange === "350to500" && listing.price >= 350000 && listing.price <= 500000) || (priceRange === "over500" && listing.price > 500000)));
       return countyMatch && typeMatch && priceMatch;
     });
-  }, [county, licenseType, priceRange, searchActive]);
+  }, [carouselListings, county, licenseType, priceRange, searchActive]);
 
   const orderedListings = useMemo(() => {
     if (filteredListings.length < 2) return filteredListings;
@@ -132,7 +181,7 @@ export default function Home({ marketListings }: { marketListings: MarketplaceLi
           <form className="license-search" onSubmit={submitSearch}>
             <h2><span className="search-heading-icon" aria-hidden="true" /> Find a Florida Liquor License</h2>
             <div className="search-controls">
-              <label><span className="sr-only">County</span><img className="search-control-icon" src="/assets/search-county.png" alt="" aria-hidden="true" /><select value={county} onChange={(event) => setCounty(event.target.value)}><option value="all">Select County</option>{[...new Set(listings.map((listing) => listing.county))].map((listingCounty) => <option key={listingCounty} value={listingCounty}>{listingCounty}</option>)}</select></label>
+              <label><span className="sr-only">County</span><img className="search-control-icon" src="/assets/search-county.png" alt="" aria-hidden="true" /><select value={county} onChange={(event) => setCounty(event.target.value)}><option value="all">Select County</option>{[...new Set(carouselListings.map((listing) => listing.county))].map((listingCounty) => <option key={listingCounty} value={listingCounty}>{listingCounty}</option>)}</select></label>
               <label><span className="sr-only">License type</span><img className="search-control-icon" src="/assets/search-license.png" alt="" aria-hidden="true" /><select value={licenseType} onChange={(event) => setLicenseType(event.target.value)}><option value="all">Select License Type</option><option value="4COP Quota">4COP Quota</option><option value="3PS Quota / Package Store">3PS Quota / Package Store</option></select></label>
               <label><span className="sr-only">Price range</span><img className="search-control-icon" src="/assets/search-price.png" alt="" aria-hidden="true" /><select value={priceRange} onChange={(event) => setPriceRange(event.target.value)}><option value="all">Price Range</option><option value="under350">Under $350,000</option><option value="350to500">$350,000–$500,000</option><option value="over500">Over $500,000</option></select></label>
               <button className="btn btn-gold search-submit" type="submit">Search Listings <img className="search-button-icon" src="/assets/search-submit.png" alt="" aria-hidden="true" /></button>
@@ -155,7 +204,42 @@ export default function Home({ marketListings }: { marketListings: MarketplaceLi
       <section className="market-content" id="featured"><div className="page-shell">
         <div className="section-title"><h2>Featured Florida Liquor Licenses</h2><button type="button" onClick={() => { setSearchActive(false); setCounty("all"); setLicenseType("all"); setPriceRange("all"); }}>View All Listings ›</button></div>
         {searchActive && <div className="search-result" role="status">{filteredListings.length ? `${filteredListings.length} matching license${filteredListings.length === 1 ? "" : "s"} found.` : "No current listings match those filters."}<button type="button" onClick={() => setSearchActive(false)}>Clear filters</button></div>}
-        <div className="listing-carousel"><button className="carousel-arrow previous" type="button" aria-label="Previous listings" onClick={() => setCarouselOffset((value) => value - 1)}>‹</button><div className="listing-grid">{orderedListings.map((listing) => <article className="listing-card" key={`${listing.county}-${listing.price}`}><div className="listing-photo"><img src={listing.image} alt={`Restaurant or bar interior representing ${listing.county}`} /><span>{listing.type}</span><button type="button" aria-label={`${saved.has(listing.county) ? "Remove" : "Save"} ${listing.county} listing`} aria-pressed={saved.has(listing.county)} onClick={() => toggleSaved(listing.county)}>{saved.has(listing.county) ? "★" : "☆"}</button></div><div className="listing-body"><p>● {listing.county}</p><h3>{listing.priceLabel}</h3><div><span>★ Restaurant / Bar</span><span>⇄ Transferable</span></div>{listing.sourceUrl && <p><a href={listing.sourceUrl} target="_blank" rel="noopener noreferrer">External listing via {listing.sourceName} ↗</a></p>}</div></article>)}</div><button className="carousel-arrow next" type="button" aria-label="Next listings" onClick={() => setCarouselOffset((value) => value + 1)}>›</button></div>
+        <div className="listing-carousel">
+          <button className="carousel-arrow previous" type="button" aria-label="Previous listings" onClick={() => setCarouselOffset((value) => value - 1)}>‹</button>
+          <div className="listing-grid">
+            {orderedListings.map((listing) => {
+              const savedKey = listing.sourceRef ?? `${listing.county}-${listing.type}-${listing.priceLabel}`;
+              return (
+                <article
+                  className={`listing-card${listing.featured ? " listing-card-featured" : ""}`}
+                  key={savedKey}
+                >
+                  <div className="listing-photo">
+                    <img src={listing.image} alt={`Restaurant or bar interior representing ${listing.county}`} />
+                    <span>{listing.type}</span>
+                    {listing.featured ? <strong className="homepage-featured-badge">Featured Listing</strong> : null}
+                    <button
+                      type="button"
+                      aria-label={`${saved.has(savedKey) ? "Remove" : "Save"} ${listing.county} listing`}
+                      aria-pressed={saved.has(savedKey)}
+                      onClick={() => toggleSaved(savedKey)}
+                    >
+                      {saved.has(savedKey) ? "★" : "☆"}
+                    </button>
+                  </div>
+                  <div className="listing-body">
+                    <p>● {listing.county}</p>
+                    <h3>{listing.priceLabel}</h3>
+                    <div><span>★ License Only</span><span>⇄ Transferable</span></div>
+                    {listing.href ? <a className="homepage-listing-action" href={listing.href}>View License <span aria-hidden="true">›</span></a> : null}
+                    {listing.sourceUrl && <p><a href={listing.sourceUrl} target="_blank" rel="noopener noreferrer">External listing via {listing.sourceName} ↗</a></p>}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          <button className="carousel-arrow next" type="button" aria-label="Next listings" onClick={() => setCarouselOffset((value) => value + 1)}>›</button>
+        </div>
         <section className="market-report" id="market-report" aria-labelledby="market-report-title"><div className="report-copy"><span className="report-eyebrow">Video Briefing · Episode 1</span><h2 id="market-report-title">Florida Liquor License<br /><em>Market Report</em></h2><p>Watch our three-minute introduction to learn how buyers, sellers, financing partners, and investors connect through Florida&apos;s dedicated liquor license marketplace.</p><a className="report-episodes-link" href="/florida-liquor-license-news">View All Episodes <span aria-hidden="true">›</span></a></div><div className="report-video" role="img" aria-label="Video coming soon: Florida Liquor License Market Report"><div className="report-screen"><span className="report-live-label">Market Report</span><img className="report-brand-mark" src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /><div className="report-desk" aria-hidden="true"><span className="report-presenter presenter-one" /><span className="report-presenter presenter-two" /><i /></div><div className="report-video-message"><span className="report-play" aria-hidden="true">▶</span><strong>Episode 1 Coming Soon</strong><small>The video will play here—never automatically.</small></div></div></div></section>
         <section className="insight-grid" id="market-data">
           <article className="info-panel transactions-panel"><div className="panel-title"><h2>Recent Florida Transactions</h2><a href="#featured">View All ›</a></div><table><thead><tr><th>County</th><th>License Type</th><th>Sale Price</th></tr></thead><tbody>{transactions.map(([transactionCounty, type, price]) => <tr key={transactionCounty}><td>{transactionCounty}</td><td>{type}</td><td>{price}</td></tr>)}</tbody></table><a className="panel-link" href="#featured">View All Transactions ›</a></article>

@@ -10,6 +10,7 @@ export type Listing = {
   licenseStatus?: string;
   preferredTiming?: string;
   featuredUntil?: string;
+  publishedAt?: string;
   image: string;
 };
 
