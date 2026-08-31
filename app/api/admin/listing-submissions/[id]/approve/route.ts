@@ -94,14 +94,15 @@ export async function POST(
   request: Request,
   context: { params: Promise<{ id: string }> },
 ) {
-  if (!(await isAdminAuthenticated())) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   const requestUrl = new URL(request.url);
   const submittedBody = request.headers.get("content-type")?.includes("application/json")
     ? ((await request.json()) as ApprovalBody)
     : {};
+
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const body: ApprovalBody = {
     title: requestUrl.searchParams.get("title") ?? submittedBody.title,
     licenseType:
