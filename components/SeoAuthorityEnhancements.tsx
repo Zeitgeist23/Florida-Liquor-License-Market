@@ -22,6 +22,15 @@ const sbaAppraisalAuthorityPaths = new Set([
   "/financing",
 ]);
 
+const litigationAuthorityPaths = new Set([
+  "/florida-liquor-license-appraisal",
+  "/florida-liquor-license-value",
+  "/florida-liquor-license-value-expert-witness",
+  "/florida-liquor-license-court-decisions",
+  "/resources/florida-liquor-license-laws",
+  "/resources/liquor-license-attorneys",
+]);
+
 function isCountyMarketPage(pathname: string) {
   const parts = pathname.split("/").filter(Boolean);
   return parts.length === 2 && parts[0] === "counties";
@@ -31,9 +40,10 @@ export default function SeoAuthorityEnhancements() {
   const pathname = usePathname();
   const showAuthorityLinks = exactAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showSbaAppraisalLink = sbaAppraisalAuthorityPaths.has(pathname);
+  const showLitigationLink = litigationAuthorityPaths.has(pathname);
   const showBrokerKit = pathname === "/brokers/list-your-license" || pathname === "/how-to-sell-florida-liquor-license";
 
-  if (!showAuthorityLinks && !showSbaAppraisalLink && !showBrokerKit) return null;
+  if (!showAuthorityLinks && !showSbaAppraisalLink && !showLitigationLink && !showBrokerKit) return null;
 
   return (
     <>
@@ -56,6 +66,17 @@ export default function SeoAuthorityEnhancements() {
               <strong>SBA and lender valuation:</strong>{" "}
               <Link href="/florida-liquor-license-sba-appraisal">Florida Liquor License SBA Appraisal</Link> explains how a license-specific 4COP or 3PS market valuation can support SBA 7(a) and lender review while remaining separate from any business valuation, credentialed appraisal or other scope the lender may require. Review the{" "}
               <Link href="/florida-liquor-license-appraisal">FLLM formal liquor-license appraisal methodology</Link> before ordering.
+            </p>
+          </div>
+        </aside>
+      ) : null}
+
+      {showLitigationLink ? (
+        <aside className="fllm-authority-links" aria-label="Florida liquor license expert witness and litigation valuation resource">
+          <div className="fllm-authority-links__inner">
+            <p>
+              <strong>Litigation and expert-witness valuation:</strong>{" "}
+              <Link href="/florida-liquor-license-value-expert-witness">Florida Liquor License Value Expert Witness &amp; Litigation Support</Link> explains how county-specific 4COP and 3PS market evidence, DBPR research and transaction analysis can support counsel or a retained expert, while distinguishing an FLLM market valuation from court qualification, USPAP credentials or testimony requirements.
             </p>
           </div>
         </aside>
