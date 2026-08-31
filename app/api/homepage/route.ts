@@ -1,10 +1,15 @@
-import { featuredCounties, countySlug } from "@/data/florida-counties";
-import { availableListings, type Listing } from "@/data/listings";
+import { featuredCounties } from "@/data/florida-counties";
+import type { Listing } from "@/data/listings";
+import { listingPageHref } from "@/lib/listing-page-urls";
+import { getMarketplaceListings } from "@/lib/listing-store";
 
 export const dynamic = "force-dynamic";
 
 type CarouselListing = Pick<Listing, "county" | "type" | "priceLabel" | "sourceRef"> & {
   mapUrl: string;
+  href: string;
+  featured: boolean;
+  publishedAt?: string;
 };
 
 function floridaDateKey(date = new Date()) {
@@ -39,14 +44,27 @@ function seededRandom(seed: number) {
   };
 }
 
-function selectDailyCarouselListings(dateKey: string) {
-  const shuffled = availableListings.map((listing) => ({
-    county: listing.county,
-    type: listing.type,
-    priceLabel: listing.priceLabel,
-    sourceRef: listing.sourceRef,
-    mapUrl: `/api/county-map?county=${encodeURIComponent(listing.county)}`,
-  }));
+async function selectDailyCarouselListings(dateKey: string) {
+  const availableListings = (await getMarketplaceListings()).filter(
+    (listing) => Boolean(listing.sourceRef),
+  );
+  const featuredListings = availableListings
+    .filter((listing) => Boolean(listing.featuredUntil))
+    .sort((left, right) => {
+      const leftPublished = left.publishedAt
+        ? new Date(left.publishedAt).getTime()
+        : 0;
+      const rightPublished = right.publishedAt
+        ? new Date(right.publishedAt).getTime()
+        : 0;
+      return rightPublished - leftPublished;
+    });
+  const featuredReferences = new Set(
+    featuredListings.map((listing) => listing.sourceRef),
+  );
+  const shuffled = availableListings.filter(
+    (listing) => !featuredReferences.has(listing.sourceRef),
+  );
   const random = seededRandom(seedFromString(`fllm-home-carousel-${dateKey}`));
 
   for (let index = shuffled.length - 1; index > 0; index -= 1) {
@@ -54,7 +72,18 @@ function selectDailyCarouselListings(dateKey: string) {
     [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
   }
 
-  return shuffled.slice(0, Math.min(10, shuffled.length));
+  return [...featuredListings, ...shuffled]
+    .slice(0, Math.min(10, availableListings.length))
+    .map((listing) => ({
+      county: listing.county,
+      type: listing.type,
+      priceLabel: listing.priceLabel,
+      sourceRef: listing.sourceRef,
+      mapUrl: `/api/county-map?county=${encodeURIComponent(listing.county)}`,
+      href: listingPageHref(listing),
+      featured: Boolean(listing.featuredUntil),
+      publishedAt: listing.publishedAt,
+    }));
 }
 
 function replaceSection(
@@ -102,28 +131,29 @@ function escapeHtml(value: string) {
     .replaceAll("'", "&#39;");
 }
 
-function countyHref(listing: Pick<Listing, "county">) {
-  return `/counties/${countySlug(listing.county)}`;
-}
-
 function renderListingCard(listing: CarouselListing) {
   const county = escapeHtml(listing.county);
   const type = escapeHtml(listing.type);
   const price = escapeHtml(listing.priceLabel);
   const mapUrl = escapeHtml(listing.mapUrl);
-  const href = escapeHtml(countyHref(listing));
+  const href = escapeHtml(listing.href);
+  const featuredClass = listing.featured ? " homepage-featured-card" : "";
+  const featuredBadge = listing.featured
+    ? '<strong class="homepage-featured-badge">Featured Listing</strong>'
+    : "";
 
-  return `<article class="listing-card" data-homepage-available-card="true">
-    <a class="homepage-carousel-card-link" href="${href}" aria-label="View the ${county} liquor license market page">
+  return `<article class="listing-card${featuredClass}" data-homepage-available-card="true"${listing.featured ? ' data-homepage-featured-card="true"' : ""}>
+    <a class="homepage-carousel-card-link" href="${href}" aria-label="View this ${type} listing in ${county}">
       <div class="listing-photo homepage-county-map-panel">
         <img class="homepage-county-map" src="${mapUrl}" alt="Florida map with ${county} highlighted" loading="lazy"/>
         <span>${type}</span>
+        ${featuredBadge}
       </div>
       <div class="listing-body">
         <p>● ${county}</p>
         <h3>${price}</h3>
         <div class="listing-facts"><span>${type}</span><span class="homepage-available-status">Available</span></div>
-        <small class="homepage-county-market-label">View County Market ›</small>
+        <small class="homepage-county-market-label">View License ›</small>
       </div>
     </a>
   </article>`;
@@ -235,7 +265,7 @@ function insertHomepageValuationCta(html: string) {
 export async function GET(request: Request) {
   try {
     const dailyKey = floridaDateKey();
-    const carouselListings = selectDailyCarouselListings(dailyKey);
+    const carouselListings = await selectDailyCarouselListings(dailyKey);
     const sourceUrl = new URL("/index.html", request.url);
     sourceUrl.searchParams.set("source", "1");
 
@@ -258,6 +288,8 @@ export async function GET(request: Request) {
       .homepage-carousel-card-link:focus-visible{outline:3px solid #f6a700;outline-offset:-3px}
       .homepage-county-map-panel{background:#061728}
       .homepage-county-map-panel .homepage-county-map{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+      .market-page .listing-card.homepage-featured-card{border-color:#e3a314;box-shadow:0 10px 26px rgba(20,28,35,.16),0 0 0 2px rgba(227,163,20,.18)}
+      .market-page .homepage-featured-card .homepage-featured-badge{position:absolute;left:9px;bottom:8px;z-index:3;padding:5px 9px;border-radius:4px;color:#071827;background:linear-gradient(145deg,#ffc42d,#e89500);box-shadow:0 4px 12px rgba(0,0,0,.28);font:900 9px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.06em;text-transform:uppercase}
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status,
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status:first-letter,
       .market-page .listing-card[data-homepage-available-card="true"] .listing-body .listing-facts .homepage-available-status::first-letter{color:#58c94f!important}
