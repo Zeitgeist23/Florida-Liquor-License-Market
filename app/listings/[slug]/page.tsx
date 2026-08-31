@@ -13,6 +13,7 @@ import {
   sellerReportedStatusLabel,
 } from "@/lib/county-listing-descriptions";
 import { prepareListingsForDisplay } from "@/lib/listing-display";
+import type { ListingWithInventoryClass } from "@/lib/listing-inventory-class";
 import { indexableListingPages, listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getApprovedSubmissionByPublicRef } from "@/lib/listing-submission-store";
@@ -91,7 +92,7 @@ function absoluteImageUrl(image: string | undefined) {
 
 function paidSubmissionAsListing(
   submission: NonNullable<Awaited<ReturnType<typeof loadPaidListing>>>,
-): Listing | null {
+): ListingWithInventoryClass | null {
   if (!submission.approvedLicenseType) return null;
 
   return {
@@ -106,6 +107,7 @@ function paidSubmissionAsListing(
     licenseStatus: submission.licenseStatus || undefined,
     preferredTiming: submission.preferredTiming || undefined,
     image: "/assets/license-market/license-01.png",
+    inventoryClass: "direct_seller",
   };
 }
 
