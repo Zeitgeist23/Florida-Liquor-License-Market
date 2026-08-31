@@ -9,6 +9,15 @@
     max-width: calc(100% - 8px) !important;
     padding-right: 0 !important;
   }
+
+  /* The county-map image carries the darker navy panel visible on the right
+     side of each card. Start that panel slightly farther right without moving
+     the card border or changing the approved text/button geometry. */
+  .results-page .result-photo {
+    width: calc(100% - 18px) !important;
+    transform: translateX(18px) !important;
+    transform-origin: right center !important;
+  }
 }
 
 .results-page .result-actions .result-view-button {
