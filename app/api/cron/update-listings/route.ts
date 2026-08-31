@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { Listing } from "@/data/listings";
+import { crawlDirectListingSources } from "@/lib/direct-listing-crawl";
 import { publishDiscoveredListings } from "@/lib/discovered-listing-store";
 import { discoverPublicListings } from "@/lib/listing-discovery";
 import {
@@ -14,7 +15,7 @@ import { runDueLicenseReminders } from "@/lib/license-renewal-reminders";
 import { discoverQuotaPhraseListings } from "@/lib/quota-listing-discovery";
 
 export const dynamic = "force-dynamic";
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 type FeedListing = Partial<Listing> & {
   county?: string;
@@ -98,17 +99,19 @@ export async function GET(request: NextRequest) {
       .filter(Boolean);
 
     const tavilyApiKey = process.env.TAVILY_API_KEY?.trim();
-    const autoDiscoveryEnabled = Boolean(tavilyApiKey) && process.env.AUTO_DISCOVERY_ENABLED !== "false";
+    const discoveryEnabled = process.env.AUTO_DISCOVERY_ENABLED !== "false";
+    const autoDiscoveryEnabled = Boolean(tavilyApiKey) && discoveryEnabled;
 
     const feedPromise = Promise.allSettled(feedUrls.map(readFeed));
     const maintenancePromise = Promise.allSettled([
+      discoveryEnabled ? crawlDirectListingSources() : Promise.resolve(null),
       autoDiscoveryEnabled && tavilyApiKey ? discoverPublicListings(tavilyApiKey) : Promise.resolve(null),
       autoDiscoveryEnabled && tavilyApiKey ? discoverQuotaPhraseListings(tavilyApiKey) : Promise.resolve(null),
       tavilyApiKey ? refreshKnownListings(tavilyApiKey) : Promise.resolve(null),
       runDueLicenseReminders()
     ] as const);
 
-    const [feedResults, [primaryResult, supplementalResult, refreshResult, reminderResult]] = await Promise.all([
+    const [feedResults, [directResult, primaryResult, supplementalResult, refreshResult, reminderResult]] = await Promise.all([
       feedPromise,
       maintenancePromise
     ]);
@@ -116,6 +119,7 @@ export async function GET(request: NextRequest) {
     const feedListings = feedResults.flatMap((result) => result.status === "fulfilled" ? result.value : []);
     await upsertMarketplaceListings(feedListings);
 
+    const direct = directResult.status === "fulfilled" ? directResult.value : null;
     const primary = primaryResult.status === "fulfilled" ? primaryResult.value : null;
     const supplemental = supplementalResult.status === "fulfilled" ? supplementalResult.value : null;
     const refresh = refreshResult.status === "fulfilled" ? refreshResult.value : null;
@@ -123,6 +127,7 @@ export async function GET(request: NextRequest) {
 
     const discoveredByIdentity = new Map<string, Listing>();
     for (const listing of [
+      ...(direct?.qualifiedListings ?? []),
       ...(primary?.qualifiedListings ?? []),
       ...(supplemental?.qualifiedListings ?? [])
     ]) {
@@ -131,6 +136,7 @@ export async function GET(request: NextRequest) {
 
     const publish = await publishDiscoveredListings(Array.from(discoveredByIdentity.values()));
     await recordDiscoveryCandidates(runId, [
+      ...(direct?.reviewCandidates ?? []),
       ...(primary?.reviewCandidates ?? []),
       ...(supplemental?.reviewCandidates ?? [])
     ]);
@@ -142,7 +148,7 @@ export async function GET(request: NextRequest) {
         failed: feedResults.filter((result) => result.status === "rejected").length
       },
       discovery: {
-        enabled: autoDiscoveryEnabled,
+        enabled: discoveryEnabled,
         qualified: discoveredByIdentity.size,
         inserted: publish.inserted,
         refreshedExisting: publish.refreshedExisting,
@@ -151,6 +157,19 @@ export async function GET(request: NextRequest) {
         skippedExisting: publish.skippedExisting,
         skippedDuplicateCandidate: publish.skippedDuplicateCandidate,
         databaseConfigured: publish.databaseConfigured,
+        directCrawl: direct ? {
+          checkedSources: direct.checkedSources,
+          listingUrls: direct.listingUrls,
+          pagesFetched: direct.pagesFetched,
+          qualified: direct.qualifiedListings.length,
+          manualReviewCandidates: direct.manualReviewCandidates,
+          unavailableListings: direct.unavailableListings,
+          failedPages: direct.failedPages,
+          sources: direct.sourceResults
+        } : {
+          error: resultError(directResult),
+          message: discoveryEnabled ? undefined : "Automatic discovery is disabled."
+        },
         primary: primary ? {
           checkedSources: primary.checkedSources,
           searchResults: primary.searchResults,
