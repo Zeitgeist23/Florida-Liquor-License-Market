@@ -26,6 +26,7 @@ export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
     const county = url.searchParams.get("county")?.trim();
+    const transparent = url.searchParams.get("transparent") === "1";
     if (!county) {
       return new Response("County is required", {
         status: 400,
@@ -64,7 +65,7 @@ export async function GET(request: Request) {
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <rect width="560" height="300" fill="url(#map-background)"/>
+  ${transparent ? "" : '<rect width="560" height="300" fill="url(#map-background)"/>'}
   <g stroke-linejoin="round" stroke-linecap="round">${paths.join("")}</g>
 </svg>`;
 
