@@ -6,6 +6,7 @@ import AbtIncreaseInSeriesSelect from "@/components/AbtIncreaseInSeriesSelect";
 import AbtMoralCharacterQuestion from "@/components/AbtMoralCharacterQuestion";
 import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
+import SeoAuthorityEnhancements from "@/components/SeoAuthorityEnhancements";
 
 import "./globals.css";
 import "./buyer-guide-theme.css";
@@ -17,6 +18,7 @@ import "./quota-cost-snapshot-fix.css";
 import "./license-types-navy-refresh.css";
 import "./news-editorial-readability.css";
 import "./news-source-readability.css";
+import "./seo-authority-enhancements.css";
 
 const GOOGLE_ANALYTICS_ID = "G-PKP8PXCDWF";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -71,6 +73,7 @@ export default function RootLayout({
         <AbtMoralCharacterQuestion />
         <LicenseTypeLogoScale />
         {children}
+        <SeoAuthorityEnhancements />
         <NationalMarketplaceFooterLink />
 
         <Script
