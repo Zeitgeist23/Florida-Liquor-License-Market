@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 
 import FloridaCountyMap from "@/components/FloridaCountyMap";
@@ -16,6 +16,7 @@ import { prepareListingsForDisplay } from "@/lib/listing-display";
 import { indexableListingPages, listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getApprovedSubmissionByPublicRef } from "@/lib/listing-submission-store";
+import { publicListingReference } from "@/lib/public-listing-reference";
 
 import "@/app/listings/listings-premium.css";
 import "@/app/listings/listings-header-position.css";
@@ -43,13 +44,13 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-function publicPaidReference(slug: string) {
+function publicMarketplaceReference(slug: string) {
   const reference = decodeURIComponent(slug).trim().toUpperCase();
-  return /^FLLM-PAID-/.test(reference) ? reference : null;
+  return /^FLLM-[A-Z0-9-]+$/.test(reference) ? reference : null;
 }
 
 async function loadPaidListing(slug: string) {
-  const reference = publicPaidReference(slug);
+  const reference = publicMarketplaceReference(slug);
   if (!reference) return null;
 
   try {
@@ -98,7 +99,7 @@ function paidSubmissionAsListing(
     type: submission.approvedLicenseType,
     price: submission.approvedAskingPrice,
     priceLabel: priceLabel(submission.approvedAskingPrice),
-    sourceRef: submission.submissionRef,
+    sourceRef: publicListingReference(submission),
     sourceName: "Florida Liquor License Market",
     note:
       "Direct seller listing submitted to Florida Liquor License Market. Availability, license status, price and transfer terms remain subject to confirmation.",
@@ -178,6 +179,13 @@ export default async function Page({ params }: PageProps) {
   const { selected, listings } = context;
   const selectedReference = selected.sourceRef;
   if (!selectedReference) notFound();
+  const requestedReference = publicMarketplaceReference(slug);
+  if (
+    requestedReference &&
+    requestedReference !== selectedReference.trim().toUpperCase()
+  ) {
+    permanentRedirect(listingPageHref(selected));
+  }
   const normalizedReference = selectedReference.trim().toLowerCase();
   const countyHref = `/counties/${countySlug(selected.county)}`;
   const filteredCountyHref = `/listings?county=${encodeURIComponent(selected.county)}&status=available`;

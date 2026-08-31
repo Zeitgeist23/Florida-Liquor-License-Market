@@ -13,6 +13,7 @@ import {
   getSubmissionById,
   updateListingSubmissionContact,
 } from "@/lib/listing-submission-store";
+import { publicListingReference } from "@/lib/public-listing-reference";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -168,11 +169,14 @@ export async function POST(
       );
     }
 
-    const defaultTitle = `${countyLabel(submission.county)} ${licenseType} Liquor License (${submission.submissionRef})`;
+    const marketplaceReference = publicListingReference(submission);
+    const defaultTitle = `${countyLabel(submission.county)} ${licenseType} Liquor License (${marketplaceReference})`;
     const legacyDefaultTitle = `${licenseType} License – ${submission.county}`;
     const requestedTitle = (body.title || "").trim();
     const title =
-      !requestedTitle || requestedTitle === legacyDefaultTitle
+      !requestedTitle ||
+      requestedTitle === legacyDefaultTitle ||
+      /FLLM-PAID-/i.test(requestedTitle)
         ? defaultTitle
         : requestedTitle;
     if (!title)
@@ -181,13 +185,13 @@ export async function POST(
         { status: 400 },
       );
 
-    const liveListingUrl = `${siteOrigin(request.url)}/listings/${submission.submissionRef.toLowerCase()}`;
+    const liveListingUrl = `${siteOrigin(request.url)}/listings/${marketplaceReference.toLowerCase()}`;
     const publishedListing = {
       county: countyLabel(submission.county),
       type: licenseType,
       price: askingPrice,
       priceLabel: priceLabel(askingPrice),
-      sourceRef: submission.submissionRef,
+      sourceRef: marketplaceReference,
       sourceName: "Florida Liquor License Market",
       note: publicListingNote(submission),
       image: "/assets/license-market/license-01.png",
@@ -199,6 +203,7 @@ export async function POST(
       title,
       licenseType,
       askingPrice,
+      liveListingRef: marketplaceReference,
       liveListingUrl,
     });
 

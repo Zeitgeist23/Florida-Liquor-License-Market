@@ -1,4 +1,8 @@
 import type { Listing } from "@/data/listings";
+import {
+  isDirectSellerListing,
+  type ListingWithInventoryClass,
+} from "@/lib/listing-inventory-class";
 
 function visibleListingIdentity(listing: Listing) {
   const sourceRef = listing.sourceRef?.trim().toLowerCase();
@@ -10,9 +14,9 @@ function visibleListingIdentity(listing: Listing) {
   return `fallback:${listing.county}|${listing.type}|${listing.price ?? listing.priceLabel}`;
 }
 
-export function preservePaidListingIdentity(input: Listing[]): Listing[] {
+export function preservePaidListingIdentity(input: ListingWithInventoryClass[]): Listing[] {
   return input.map((listing, index) => {
-    if (!listing.sourceRef?.startsWith("FLLM-PAID-")) return listing;
+    if (!isDirectSellerListing(listing)) return listing;
 
     if (listing.price === null) {
       return {
@@ -30,13 +34,15 @@ export function preservePaidListingIdentity(input: Listing[]): Listing[] {
   });
 }
 
-export function getVisibleMarketplaceListings(input: Listing[]): Listing[] {
+export function getVisibleMarketplaceListings(input: ListingWithInventoryClass[]): Listing[] {
   const normalized = preservePaidListingIdentity(input);
   return Array.from(
     new Map(normalized.map((listing) => [visibleListingIdentity(listing), listing])).values(),
   );
 }
 
-export function getVisibleAvailableMarketplaceListings(input: Listing[]): Listing[] {
+export function getVisibleAvailableMarketplaceListings(
+  input: ListingWithInventoryClass[],
+): Listing[] {
   return getVisibleMarketplaceListings(input).filter((listing) => Boolean(listing.sourceRef));
 }

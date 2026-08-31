@@ -6,6 +6,7 @@ import { FLLM_GMAIL_SIGNATURE_IMAGE_BASE64 } from "@/lib/fllm-gmail-signature";
 const FLLM_SIGNATURE_CID_PLACEHOLDER = "__FLLM_SIGNATURE_CID__";
 import type { ListingSubmission } from "@/lib/listing-submission-store";
 import { listingPaymentDetails } from "@/lib/listing-payment-details";
+import { publicListingReference } from "@/lib/public-listing-reference";
 
 function siteUrl() {
   return (
@@ -50,7 +51,14 @@ function approvedEmailTitle(submission: ListingSubmission) {
       "The approved listing is missing its title or license type.",
     );
   }
+  if (/FLLM-PAID-/i.test(submission.listingTitle)) {
+    return `${countyLabel(submission.county)} ${submission.approvedLicenseType} Liquor License (${publicListingReference(submission)})`;
+  }
   return submission.listingTitle;
+}
+
+function approvedPublicListingUrl(submission: ListingSubmission) {
+  return `${siteUrl()}/listings/${publicListingReference(submission).toLowerCase()}`;
 }
 
 function corporateSignatureHtml() {
@@ -265,15 +273,14 @@ export async function sendApprovedSellerContactToBuyer(input: {
   const sellerName = escapeHtml(submission.fullName);
   const sellerEmail = escapeHtml(submission.email);
   const sellerPhone = escapeHtml(submission.phone);
-  const reference = escapeHtml(submission.liveListingRef || submission.submissionRef);
+  const publicReference = publicListingReference(submission);
+  const reference = escapeHtml(publicReference);
   const county = escapeHtml(countyLabel(submission.county));
   const licenseType = escapeHtml(submission.approvedLicenseType);
   const askingPrice = escapeHtml(
     formatMoney(submission.approvedAskingPrice ?? submission.askingPrice),
   );
-  const liveListingUrl = submission.liveListingUrl
-    ? escapeHtml(submission.liveListingUrl)
-    : "";
+  const liveListingUrl = escapeHtml(approvedPublicListingUrl(submission));
 
   const content = `
     <p style="margin:0 0 18px;">Hello ${buyerFirstName},</p>
@@ -296,7 +303,7 @@ export async function sendApprovedSellerContactToBuyer(input: {
 
 Thank you for your inquiry through Florida Liquor License Market. The approved contact for the license you selected is below.
 
-Listing Reference: ${submission.liveListingRef || submission.submissionRef}
+Listing Reference: ${publicReference}
 County: ${countyLabel(submission.county)}
 License Type: ${submission.approvedLicenseType}
 Asking Price: ${formatMoney(submission.approvedAskingPrice ?? submission.askingPrice)}
@@ -304,7 +311,7 @@ Asking Price: ${formatMoney(submission.approvedAskingPrice ?? submission.askingP
 Listing Representative: ${submission.fullName}
 Email: ${submission.email}
 Phone: ${submission.phone}
-${submission.liveListingUrl ? `Listing: ${submission.liveListingUrl}\n` : ""}
+Listing: ${approvedPublicListingUrl(submission)}
 Availability, asking price, license status, and transfer eligibility remain subject to confirmation and applicable regulatory requirements.
 
 Florida Liquor License Market
@@ -314,7 +321,7 @@ ${siteUrl()}`;
   return sendFllmEmail({
     to: input.buyerEmail,
     replyTo: submission.email,
-    subject: `Contact Information for ${submission.liveListingRef || submission.submissionRef}`,
+    subject: `Contact Information for ${publicReference}`,
     text,
     html: emailShell(content),
   });
@@ -751,7 +758,7 @@ export async function sendListingApprovedEmail(submission: ListingSubmission) {
   const county = countyLabel(submission.county);
   const listingTitle = approvedEmailTitle(submission);
   const liveUrl = escapeHtml(submission.liveListingUrl);
-  const cardImageUrl = `${siteUrl()}/api/listing-email-card/${encodeURIComponent(submission.submissionRef)}`;
+  const cardImageUrl = `${siteUrl()}/api/listing-email-card/${encodeURIComponent(publicListingReference(submission))}`;
 
   const details = `
     <p style="margin:0 0 18px;">Hello ${firstName},</p>
@@ -816,7 +823,7 @@ export async function notifyApprovedBrokersOfListing(
           <strong>County:</strong> ${escapeHtml(county)}<br>
           <strong>License Type:</strong> ${escapeHtml(submission.approvedLicenseType)}<br>
           <strong>Asking Price:</strong> ${escapeHtml(askingPrice)}<br>
-          <strong>Reference:</strong> ${escapeHtml(submission.submissionRef)}
+          <strong>Reference:</strong> ${escapeHtml(publicListingReference(submission))}
         </p>
         <p style="margin:0 0 18px;"><a href="${liveUrl}" style="color:#0645ad;font-weight:bold;text-decoration:underline;">View the live listing</a></p>
         <p style="margin:0 0 18px;">Availability, price, license status, and transfer eligibility remain subject to confirmation and applicable regulatory requirements.</p>
@@ -830,7 +837,7 @@ Listing: ${listingTitle}
 County: ${county}
 License Type: ${submission.approvedLicenseType}
 Asking Price: ${askingPrice}
-Reference: ${submission.submissionRef}
+Reference: ${publicListingReference(submission)}
 View the live listing: ${submission.liveListingUrl}
 
 Availability, price, license status, and transfer eligibility remain subject to confirmation and applicable regulatory requirements.

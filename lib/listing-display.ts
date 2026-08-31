@@ -1,4 +1,8 @@
 import type { Listing } from "@/data/listings";
+import {
+  isDirectSellerListing,
+  type ListingWithInventoryClass,
+} from "@/lib/listing-inventory-class";
 
 /**
  * The marketplace grid intentionally collapses ordinary duplicate cards that
@@ -6,9 +10,9 @@ import type { Listing } from "@/data/listings";
  * their own identity even when those display fields happen to match another
  * listing, so give only those records a non-visible identity offset.
  */
-export function prepareListingsForDisplay(input: Listing[]): Listing[] {
+export function prepareListingsForDisplay(input: ListingWithInventoryClass[]): Listing[] {
   return input.map((listing, index) => {
-    if (!listing.sourceRef?.startsWith("FLLM-PAID-")) return listing;
+    if (!isDirectSellerListing(listing)) return listing;
 
     if (listing.price === null) {
       return {

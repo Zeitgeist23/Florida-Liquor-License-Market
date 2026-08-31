@@ -7,6 +7,10 @@ import ListingsQueryFilterEnhancement from "@/components/ListingsQueryFilterEnha
 import MonroeMapCompletion from "@/components/MonroeMapCompletion";
 import { countySlug, getCountyBySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
+import {
+  isDirectSellerListing,
+  type ListingWithInventoryClass,
+} from "@/lib/listing-inventory-class";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import "./listings-premium.css";
@@ -111,9 +115,9 @@ export async function generateMetadata({ searchParams }: ListingsMetadataProps):
   };
 }
 
-function preservePaidListingIdentity(input: Listing[]): Listing[] {
+function preservePaidListingIdentity(input: ListingWithInventoryClass[]): Listing[] {
   return input.map((listing, index) => {
-    if (!listing.sourceRef?.startsWith("FLLM-PAID-")) return listing;
+    if (!isDirectSellerListing(listing)) return listing;
 
     if (listing.price === null) {
       return {

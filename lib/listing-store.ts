@@ -16,6 +16,10 @@ import {
   listApprovedMarketplaceSubmissions,
   type ListingSubmission,
 } from "@/lib/listing-submission-store";
+import {
+  isPrivateSubmissionReference,
+  publicListingReference,
+} from "@/lib/public-listing-reference";
 
 function normalizeListing(
   listing: ListingWithInventoryClass,
@@ -90,18 +94,27 @@ type ListingRow = {
 };
 
 function rowToListing(row: ListingRow): ClassifiedListing {
+  const wasPrivateSubmissionReference = isPrivateSubmissionReference(
+    row.source_ref,
+  );
+  const sourceRef =
+    row.source_ref && wasPrivateSubmissionReference
+      ? publicListingReference({ submissionRef: row.source_ref })
+      : row.source_ref;
   return normalizeListing({
     county: row.county,
     type: row.license_type,
     price: row.price,
     priceLabel: row.price_label,
     sourceRef:
-      row.status === "available" ? (row.source_ref ?? undefined) : undefined,
+      row.status === "available" ? (sourceRef ?? undefined) : undefined,
     sourceName: row.source_name ?? undefined,
     sourceUrl: row.source_url ?? undefined,
     note: row.note ?? undefined,
     image: row.image,
-    inventoryClass: row.inventory_class ?? undefined,
+    inventoryClass:
+      row.inventory_class ??
+      (wasPrivateSubmissionReference ? "direct_seller" : undefined),
   });
 }
 
@@ -125,7 +138,7 @@ function approvedSubmissionToListing(
     type: submission.approvedLicenseType,
     price,
     priceLabel,
-    sourceRef: submission.submissionRef,
+    sourceRef: publicListingReference(submission),
     sourceName: "Florida Liquor License Market",
     note:
       "Direct seller listing submitted to Florida Liquor License Market. Availability, license status, price and transfer terms remain subject to confirmation.",

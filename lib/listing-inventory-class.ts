@@ -26,6 +26,15 @@ export function isDirectSellerReference(sourceRef: string | null | undefined): b
   return /^FLLM-PAID-/i.test(sourceRef?.trim() ?? "");
 }
 
+export function isDirectSellerListing(
+  listing: Pick<ListingWithInventoryClass, "sourceRef" | "inventoryClass">,
+): boolean {
+  return (
+    listing.inventoryClass === "direct_seller" ||
+    isDirectSellerReference(listing.sourceRef)
+  );
+}
+
 export function isFllmExclusiveReference(sourceRef: string | null | undefined): boolean {
   return /^FLLM-EXCLUSIVE-/i.test(sourceRef?.trim() ?? "");
 }
@@ -38,7 +47,7 @@ export function resolveListingInventoryClass(
   }
 
   if (isFllmExclusiveReference(listing.sourceRef)) return "fllm_exclusive";
-  if (isDirectSellerReference(listing.sourceRef)) return "direct_seller";
+  if (isDirectSellerListing(listing)) return "direct_seller";
 
   // Legacy FLLM references and all outside-source inventory are market data
   // unless FLLM deliberately classifies the listing otherwise. This prevents

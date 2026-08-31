@@ -1,6 +1,7 @@
 import type { Listing } from "@/data/listings";
 import { countySlug } from "@/data/florida-counties";
 import {
+  isDirectSellerListing,
   isDirectSellerReference,
   withListingInventoryClass,
   type ClassifiedListing,
@@ -29,7 +30,7 @@ function listingTypeSlug(type: Listing["type"]) {
 
 function publicListingForDetailPage(listing: ListingWithInventoryClass): ClassifiedListing {
   const classified = withListingInventoryClass(listing);
-  const isFllmSubmission = isDirectSellerReference(classified.sourceRef);
+  const isFllmSubmission = isDirectSellerListing(classified);
 
   // Source names and source URLs are internal marketplace data. They are used
   // for ingestion, refresh, and deduplication, but are never exposed on public
@@ -43,12 +44,19 @@ function publicListingForDetailPage(listing: ListingWithInventoryClass): Classif
   };
 }
 
-export function listingPageSlug(listing: Pick<Listing, "county" | "type" | "sourceRef">) {
+export function listingPageSlug(
+  listing: Pick<Listing, "county" | "type" | "sourceRef"> & {
+    inventoryClass?: ListingWithInventoryClass["inventoryClass"];
+  },
+) {
   if (!listing.sourceRef) return null;
 
   // Paid seller listings already use their public submission reference as the
   // canonical route. Keep that URL stable rather than creating a second page.
-  if (isDirectSellerReference(listing.sourceRef)) {
+  if (
+    listing.inventoryClass === "direct_seller" ||
+    isDirectSellerReference(listing.sourceRef)
+  ) {
     return listing.sourceRef.trim().toUpperCase();
   }
 
@@ -56,7 +64,11 @@ export function listingPageSlug(listing: Pick<Listing, "county" | "type" | "sour
   return `${countySlug(listing.county)}-${listingTypeSlug(listing.type)}-${reference}-${shortHash(listing.sourceRef)}`;
 }
 
-export function listingPageHref(listing: Pick<Listing, "county" | "type" | "sourceRef">) {
+export function listingPageHref(
+  listing: Pick<Listing, "county" | "type" | "sourceRef"> & {
+    inventoryClass?: ListingWithInventoryClass["inventoryClass"];
+  },
+) {
   const slug = listingPageSlug(listing);
   return slug ? `/listings/${slug}` : "/listings";
 }
