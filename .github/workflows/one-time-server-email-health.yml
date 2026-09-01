@@ -1,0 +1,30 @@
+name: One-Time FLLM Server Email Health
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/one-time-server-email-health.yml
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exercise live FLLM server email transport
+        shell: bash
+        run: |
+          status=$(curl -sS -o /tmp/body.txt -w '%{http_code}' \
+            -X POST 'https://www.floridaliquorlicensemarket.com/api/inquiry' \
+            -F 'name=FLLM Server Transport Test' \
+            -F 'email=jwigg023@gmail.com' \
+            -F 'inquiry_type=General Inquiry' \
+            -F 'message=TEST ONLY — server-side email transport health verification after Resend deployment. No response is required.' \
+            -F '_subject=TEST — FLLM Server Email Transport Health')
+          echo "HTTP_STATUS=$status"
+          echo 'RESPONSE_BODY<<EOF'
+          cat /tmp/body.txt
+          echo
+          echo 'EOF'
