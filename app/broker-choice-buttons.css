@@ -1,4 +1,5 @@
 /* Scoped CTA treatment for /florida-liquor-license-broker only. */
+.broker-choice-page .forms-site-header .btn-gold,
 .broker-choice-page .seo-market-button-gold,
 .broker-choice-page .broker-card-actions .primary,
 .broker-choice-page .broker-final-actions .gold {
@@ -27,6 +28,7 @@
   cursor: pointer;
 }
 
+.broker-choice-page .forms-site-header .btn-gold:hover,
 .broker-choice-page .seo-market-button-gold:hover,
 .broker-choice-page .broker-card-actions .primary:hover,
 .broker-choice-page .broker-final-actions .gold:hover {
@@ -41,6 +43,7 @@
     0 0 0 1px rgba(255, 210, 90, 0.18);
 }
 
+.broker-choice-page .forms-site-header .btn-gold:active,
 .broker-choice-page .seo-market-button-gold:active,
 .broker-choice-page .broker-card-actions .primary:active,
 .broker-choice-page .broker-final-actions .gold:active {
@@ -52,6 +55,7 @@
     0 4px 10px rgba(0, 0, 0, 0.28);
 }
 
+.broker-choice-page .forms-site-header .btn-gold:focus-visible,
 .broker-choice-page .seo-market-button-gold:focus-visible,
 .broker-choice-page .broker-card-actions .primary:focus-visible,
 .broker-choice-page .broker-final-actions .gold:focus-visible {
@@ -60,6 +64,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .broker-choice-page .forms-site-header .btn-gold,
   .broker-choice-page .seo-market-button-gold,
   .broker-choice-page .broker-card-actions .primary,
   .broker-choice-page .broker-final-actions .gold {
