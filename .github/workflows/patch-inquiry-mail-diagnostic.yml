@@ -1,0 +1,55 @@
+name: Patch Existing Inquiry Mail Diagnostic
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/patch-inquiry-mail-diagnostic.yml
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add temporary GET diagnostic to existing inquiry route
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('app/api/inquiry/route.ts')
+          s = p.read_text()
+          marker = 'export async function POST(request: Request) {'
+          diag = '''export async function GET(request: Request) {\n  const url = new URL(request.url);\n  if (url.searchParams.get("maildiag") !== "fllm-91c7") {\n    return NextResponse.json({ error: "Method not allowed" }, { status: 405 });\n  }\n\n  const env = {\n    clientId: Boolean(process.env.GOOGLE_CLIENT_ID),\n    clientSecret: Boolean(process.env.GOOGLE_CLIENT_SECRET),\n    refreshToken: Boolean(process.env.GOOGLE_REFRESH_TOKEN),\n    sender: process.env.GOOGLE_SENDER_EMAIL || null,\n  };\n\n  try {\n    const result = await sendFllmEmail({\n      to: "jwigg023@gmail.com",\n      subject: "FLLM production mail diagnostic — no action required",\n      text: "One-time FLLM production mail diagnostic.",\n      html: "<p>One-time FLLM production mail diagnostic.</p>",\n    });\n    return NextResponse.json({ diag: "fllm-91c7", ok: true, env, result });\n  } catch (error) {\n    return NextResponse.json({\n      diag: "fllm-91c7",\n      ok: false,\n      env,\n      error: error instanceof Error ? error.message : String(error),\n    }, { status: 500 });\n  }\n}\n\n'''
+          if 'diag: "fllm-91c7"' not in s:
+              if marker not in s:
+                  raise SystemExit('POST marker not found')
+              s = s.replace(marker, diag + marker, 1)
+              p.write_text(s)
+          PY
+          git diff --check
+      - name: Push diagnostic route
+        shell: bash
+        run: |
+          git config user.name 'Zeitgeist23'
+          git config user.email 'JWigg023@gmail.com'
+          git add app/api/inquiry/route.ts
+          git commit -m 'Temporarily diagnose inquiry mail transport'
+          git push origin main
+      - name: Poll live existing inquiry route for exact mail failure
+        shell: bash
+        run: |
+          for n in $(seq 1 30); do
+            status=$(curl -sS -o /tmp/diag.json -w '%{http_code}' 'https://www.floridaliquorlicensemarket.com/api/inquiry?maildiag=fllm-91c7' || true)
+            body=$(cat /tmp/diag.json 2>/dev/null || true)
+            echo "ATTEMPT=$n HTTP_STATUS=$status BODY=$body"
+            if echo "$body" | grep -q '"diag":"fllm-91c7"'; then
+              exit 0
+            fi
+            sleep 10
+          done
+          exit 1
