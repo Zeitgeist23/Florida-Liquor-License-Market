@@ -1,0 +1,115 @@
+name: Finalize Inquiry Failover
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/finalize-inquiry-failover.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      - name: Install durable human failover and remove diagnostics
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          route = Path('app/api/inquiry/route.ts')
+          s = route.read_text()
+
+          # Remove the temporary production GET diagnostic.
+          s = re.sub(
+              r'export async function GET\(request: Request\) \{.*?\n\}\n\n(?=export async function POST)',
+              '',
+              s,
+              flags=re.S,
+          )
+
+          # Phone is optional in the UI; do not reject a specific-listing inquiry when omitted.
+          s = s.replace(
+              'if (!fullName || !email || !inquiryType || !message || (listingReference && !phone)) {',
+              'if (!fullName || !email || !inquiryType || !message) {',
+          )
+
+          # Remove the known-bad server-to-server FormSubmit fallback helper.
+          s = re.sub(
+              r'\nconst FORM_SUBMIT_FALLBACK =\n  "https://formsubmit\.co/ajax/listings@floridaliquorlicensemarket\.com";\n',
+              '\n',
+              s,
+          )
+          s = re.sub(
+              r'\nfunction safeEmail\(.*?\n\}\n\nasync function sendFormSubmitInquiryFallback\(.*?\n\}\n\n(?=async function submitContactInquiry)',
+              '\n',
+              s,
+              flags=re.S,
+          )
+
+          # Remove the server fallback attempt; browser receives verified seller metadata immediately.
+          s = re.sub(
+              r'\n  let fallbackDelivered = false;\n  if \(fllmNotificationFailed \|\| sellerDeliveryFailed \|\| buyerDeliveryFailed\) \{.*?\n  \}\n\n  const browserFallbackCc',
+              '\n  const browserFallbackCc',
+              s,
+              flags=re.S,
+          )
+          s = s.replace('if (sellerDeliveryFailed && !fallbackDelivered) {', 'if (sellerDeliveryFailed) {')
+          s = s.replace('if (buyerDeliveryFailed && !fallbackDelivered) {', 'if (buyerDeliveryFailed) {')
+          s = s.replace('if (fllmNotificationFailed && !fallbackDelivered) {', 'if (fllmNotificationFailed) {')
+          s = s.replace('    deliveryMode: fallbackDelivered ? "fallback" : "primary",\n', '    deliveryMode: "primary",\n')
+          route.write_text(s)
+
+          js = Path('public/assets/page-BbHDipGH.js')
+          source = js.read_text()
+
+          # Replace all prior AJAX/hidden-frame failovers with a top-level normal form POST.
+          start = 'r.set(`_subject`,`Florida Liquor License Market — New Contact Inquiry`),r.set(`_template`,`table`),r.set(`_url`,window.location.href);'
+          if start not in source:
+              raise SystemExit('current FormSubmit fallback start marker not found')
+
+          # Locate from the start marker through the fallback's `return` immediately before normal !e.ok handling.
+          pattern = re.compile(
+              re.escape(start) + r'.*?;t\(`sent`\),n\.reset\(\);return(?=\}if\(!e\.ok\))'
+          )
+          replacement = (
+              'r.set(`_subject`,`Florida Liquor License Market — New Contact Inquiry`),'
+              'r.set(`_template`,`table`),r.set(`_url`,window.location.href),r.delete(`_captcha`);'
+              'let o=document.createElement(`form`);o.method=`POST`,o.action=`https://formsubmit.co/listings@floridaliquorlicensemarket.com`,'
+              'o.style.display=`none`;for(let[e,t]of r.entries())if(typeof t===`string`){let n=document.createElement(`input`);'
+              'n.type=`hidden`,n.name=e,n.value=t,o.appendChild(n)}document.body.appendChild(o),o.submit();return'
+          )
+          source, count = pattern.subn(replacement, source, count=1)
+          if count != 1:
+              raise SystemExit(f'fallback replacement count={count}')
+          js.write_text(source)
+          PY
+
+          # Remove one-off diagnostic/test workflow files and standalone diagnostic route.
+          rm -f app/api/_diag-mail-91c7/route.ts
+          rm -f .github/workflows/diag-mail.yml
+          rm -f .github/workflows/patch-inquiry-mail-diagnostic.yml
+          rm -f .github/workflows/check-mail-secret-presence.yml
+          rm -f .github/workflows/patch-formsubmit-json-fallback.yml
+          rm -f .github/workflows/one-time-vraj-inquiry-test.yml
+          rm -f .github/workflows/patch-browser-inquiry-fallback.yml
+          rm -f .github/workflows/finalize-inquiry-failover.yml
+
+          node --check public/assets/page-BbHDipGH.js
+          git diff --check
+
+      - name: Commit production failover
+        shell: bash
+        run: |
+          git config user.name 'Zeitgeist23'
+          git config user.email 'JWigg023@gmail.com'
+          git add -A
+          git commit -m 'Finalize reliable buyer inquiry failover'
+          git push origin main
