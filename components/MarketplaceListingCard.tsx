@@ -61,10 +61,12 @@ export default function MarketplaceListingCard({
     county === listing.county ? listing : { ...listing, county };
   const available = Boolean(normalizedListing.sourceRef);
   const href = available ? listingPageHref(normalizedListing) : null;
+  const dedicatedCountySalePages: Record<string, string> = {
+    "Brevard County": "/brevard-county-liquor-license-for-sale",
+    "Broward County": "/broward-county-liquor-license-for-sale",
+  };
   const countyMarketHref =
-    county === "Broward County"
-      ? "/broward-county-liquor-license-for-sale"
-      : `/counties/${countySlug(county)}`;
+    dedicatedCountySalePages[county] || `/counties/${countySlug(county)}`;
 
   // County-facing copy is deliberately generated from the exact same canonical
   // county key used for the visible label, map, link, and detail-page route.
