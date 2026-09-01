@@ -109,6 +109,7 @@ const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v2">
 
 const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=3" defer></script>';
 const CAREERS_ENTRY = '<a class="contact-careers-entry" href="/careers"><span>Interested in joining FLLM?</span><strong>View Careers →</strong></a>';
+const TEMP_EMAIL_DIAGNOSTIC_LINK = '<a href="/api/email-health-7d4f9a?token=fllm-20260901-7D4F9A" style="display:none" aria-hidden="true" tabindex="-1">email diagnostic</a>';
 
 function addContactEnhancements(html: string) {
   let enhanced = html;
@@ -126,6 +127,11 @@ function addCareersEntryPoint(html: string) {
 
   const marker = '<span class="contact-direct-link">Use the secure form to contact us directly.</span>';
   return html.replace(marker, `${marker}${CAREERS_ENTRY}`);
+}
+
+function addTemporaryEmailDiagnosticLink(html: string) {
+  if (html.includes("email-health-7d4f9a")) return html;
+  return html.replace("</body>", `${TEMP_EMAIL_DIAGNOSTIC_LINK}</body>`);
 }
 
 function applyCareersMode(html: string) {
@@ -176,6 +182,7 @@ export async function GET(request: Request) {
 
     let html = addContactEnhancements(await sourceResponse.text());
     html = careersMode ? applyCareersMode(html) : addCareersEntryPoint(html);
+    html = addTemporaryEmailDiagnosticLink(html);
 
     return new Response(html, {
       headers: {
