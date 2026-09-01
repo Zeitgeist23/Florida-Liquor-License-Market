@@ -15,8 +15,6 @@ import { publicListingReference } from "@/lib/public-listing-reference";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-const FORM_SUBMIT_FALLBACK =
-  "https://formsubmit.co/ajax/listings@floridaliquorlicensemarket.com";
 
 function value(formData: FormData, name: string, maxLength = 5000) {
   return String(formData.get(name) || "").trim().slice(0, maxLength);
@@ -48,75 +46,6 @@ function isBuyerOffer(formData: FormData) {
   );
 }
 
-function safeEmail(value: string | null | undefined) {
-  const email = (value || "").trim().toLowerCase();
-  return /^\S+@\S+\.\S+$/.test(email) && !/[\r\n,]/.test(email) ? email : "";
-}
-
-async function sendFormSubmitInquiryFallback(input: {
-  request: Request;
-  fullName: string;
-  buyerEmail: string;
-  phone: string;
-  inquiryType: string;
-  preferredCounty: string;
-  message: string;
-  subject: string;
-  listingReference: string;
-  listingRequested: string;
-  listingCounty: string;
-  licenseType: string;
-  askingPrice: string;
-  listingStatus: string;
-  listingUrl: string;
-  ccRecipients: string[];
-  sellerName?: string;
-  sellerEmail?: string;
-  sellerPhone?: string;
-}) {
-  const fallback = new FormData();
-  fallback.set("_subject", `${input.subject} — FLLM fallback delivery`);
-  fallback.set("_template", "table");
-  fallback.set("_captcha", "false");
-  fallback.set("_replyto", input.buyerEmail);
-  fallback.set("_url", input.request.url);
-
-  const cc = Array.from(
-    new Set(input.ccRecipients.map((recipient) => safeEmail(recipient)).filter(Boolean)),
-  );
-  if (cc.length) fallback.set("_cc", cc.join(","));
-
-  fallback.set("name", input.fullName);
-  fallback.set("email", input.buyerEmail);
-  fallback.set("phone", input.phone || "Not provided");
-  fallback.set("inquiry_type", input.inquiryType);
-  fallback.set("preferred_county", input.preferredCounty || "Not selected");
-  fallback.set("listing_reference", input.listingReference || "Not provided");
-  fallback.set("listing_requested", input.listingRequested || "Not provided");
-  fallback.set("listing_county", input.listingCounty || "Not provided");
-  fallback.set("license_type", input.licenseType || "Not provided");
-  fallback.set("asking_price", input.askingPrice || "Not disclosed");
-  fallback.set("listing_status", input.listingStatus || "Not provided");
-  fallback.set("listing_url", input.listingUrl || "Not provided");
-  if (input.sellerName) fallback.set("listing_representative", input.sellerName);
-  if (input.sellerEmail) fallback.set("listing_representative_email", input.sellerEmail);
-  if (input.sellerPhone) fallback.set("listing_representative_phone", input.sellerPhone);
-  fallback.set("message", input.message);
-
-  const response = await fetch(FORM_SUBMIT_FALLBACK, {
-    method: "POST",
-    headers: { Accept: "application/json" },
-    body: fallback,
-    cache: "no-store",
-  });
-
-  if (!response.ok) {
-    throw new Error(
-      `FormSubmit fallback failed: ${response.status} ${await response.text()}`,
-    );
-  }
-}
-
 async function submitContactInquiry(request: Request, formData: FormData) {
   const fullName = value(formData, "name", 160);
   const email = value(formData, "email", 254).toLowerCase();
@@ -126,7 +55,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   const message = value(formData, "message", 5000);
   const listingReference = value(formData, "listing_reference", 100);
 
-  if (!fullName || !email || !inquiryType || !message || (listingReference && !phone)) {
+  if (!fullName || !email || !inquiryType || !message) {
     return NextResponse.json(
       { error: "Please complete the required inquiry fields." },
       { status: 400 },
@@ -259,44 +188,6 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     }
   }
 
-  let fallbackDelivered = false;
-  if (fllmNotificationFailed || sellerDeliveryFailed || buyerDeliveryFailed) {
-    const fallbackCc: string[] = [];
-    if (sellerDeliveryFailed && approvedSellerSubmission?.email) {
-      fallbackCc.push(approvedSellerSubmission.email);
-    }
-    if (buyerDeliveryFailed && approvedSellerSubmission) {
-      fallbackCc.push(email);
-    }
-
-    try {
-      await sendFormSubmitInquiryFallback({
-        request,
-        fullName,
-        buyerEmail: email,
-        phone,
-        inquiryType,
-        preferredCounty,
-        message,
-        subject,
-        listingReference: resolvedListingReference,
-        listingRequested,
-        listingCounty,
-        licenseType,
-        askingPrice,
-        listingStatus,
-        listingUrl: resolvedListingUrl,
-        ccRecipients: fallbackCc,
-        sellerName: approvedSellerSubmission?.fullName,
-        sellerEmail: approvedSellerSubmission?.email,
-        sellerPhone: approvedSellerSubmission?.phone,
-      });
-      fallbackDelivered = true;
-    } catch (fallbackError) {
-      console.error("Inquiry fallback delivery failed", fallbackError);
-    }
-  }
-
   const browserFallbackCc = Array.from(new Set([
     ...(sellerDeliveryFailed && approvedSellerSubmission?.email
       ? [approvedSellerSubmission.email]
@@ -311,21 +202,21 @@ async function submitContactInquiry(request: Request, formData: FormData) {
       }
     : null;
 
-  if (sellerDeliveryFailed && !fallbackDelivered) {
+  if (sellerDeliveryFailed) {
     return NextResponse.json(
       { error: "Your inquiry was received, but the seller notification email could not be delivered. Please try again.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
       { status: 502 },
     );
   }
 
-  if (buyerDeliveryFailed && !fallbackDelivered) {
+  if (buyerDeliveryFailed) {
     return NextResponse.json(
       { error: "Your inquiry was received, but the seller contact email could not be delivered. Please try again.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
       { status: 502 },
     );
   }
 
-  if (fllmNotificationFailed && !fallbackDelivered) {
+  if (fllmNotificationFailed) {
     // The contact-page client still has its own browser-side FormSubmit fallback
     // as a final administrative copy if both server delivery paths fail.
     return NextResponse.json(
@@ -338,39 +229,8 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     ok: true,
     sellerNotified: Boolean(approvedSellerSubmission),
     sellerContactDelivered: Boolean(approvedSellerSubmission),
-    deliveryMode: fallbackDelivered ? "fallback" : "primary",
+    deliveryMode: "primary",
   });
-}
-
-export async function GET(request: Request) {
-  const url = new URL(request.url);
-  if (url.searchParams.get("maildiag") !== "fllm-91c7") {
-    return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
-  }
-
-  const env = {
-    clientId: Boolean(process.env.GOOGLE_CLIENT_ID),
-    clientSecret: Boolean(process.env.GOOGLE_CLIENT_SECRET),
-    refreshToken: Boolean(process.env.GOOGLE_REFRESH_TOKEN),
-    sender: process.env.GOOGLE_SENDER_EMAIL || null,
-  };
-
-  try {
-    const result = await sendFllmEmail({
-      to: "jwigg023@gmail.com",
-      subject: "FLLM production mail diagnostic — no action required",
-      text: "One-time FLLM production mail diagnostic.",
-      html: "<p>One-time FLLM production mail diagnostic.</p>",
-    });
-    return NextResponse.json({ diag: "fllm-91c7", ok: true, env, result });
-  } catch (error) {
-    return NextResponse.json({
-      diag: "fllm-91c7",
-      ok: false,
-      env,
-      error: error instanceof Error ? error.message : String(error),
-    }, { status: 500 });
-  }
 }
 
 export async function POST(request: Request) {
