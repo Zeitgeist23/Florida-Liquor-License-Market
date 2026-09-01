@@ -1,7 +1,5 @@
 import "server-only";
 
-import { FLLM_GMAIL_SIGNATURE_IMAGE_BASE64 } from "@/lib/fllm-gmail-signature";
-
 const FLLM_SIGNATURE_CID_PLACEHOLDER = "__FLLM_SIGNATURE_CID__";
 
 export type ResendEmailInput = {
@@ -18,11 +16,25 @@ export type ResendEmailInput = {
   }>;
 };
 
+function siteUrl() {
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.FLLM_SITE_URL ||
+    "https://www.floridaliquorlicensemarket.com"
+  ).replace(/\/$/, "");
+}
+
+function resendDomain() {
+  return (process.env.RESEND_EMAIL_DOMAIN || "floridaliquorlicensemarket.com")
+    .trim()
+    .replace(/^https?:\/\//i, "")
+    .replace(/\/.*$/, "");
+}
+
 function senderEmail() {
   return (
     process.env.RESEND_FROM_EMAIL ||
-    process.env.GOOGLE_SENDER_EMAIL ||
-    "listings@floridaliquorlicensemarket.com"
+    `listings@${resendDomain()}`
   );
 }
 
@@ -32,10 +44,9 @@ export async function sendViaResend(input: ResendEmailInput) {
     throw new Error("RESEND_API_KEY is not configured.");
   }
 
-  const signatureContentId = `fllm-signature-${Date.now()}-${Math.random().toString(16).slice(2)}@floridaliquorlicensemarket.com`;
   const html = input.html.replaceAll(
-    FLLM_SIGNATURE_CID_PLACEHOLDER,
-    signatureContentId,
+    `cid:${FLLM_SIGNATURE_CID_PLACEHOLDER}`,
+    `${siteUrl()}/assets/fllm-email-logo.png`,
   );
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -52,17 +63,14 @@ export async function sendViaResend(input: ResendEmailInput) {
       subject: input.subject,
       text: input.text,
       html,
-      attachments: [
-        {
-          filename: "Florida Liquor License Market.png",
-          content: FLLM_GMAIL_SIGNATURE_IMAGE_BASE64,
-          content_id: signatureContentId,
-        },
-        ...(input.attachments ?? []).map((attachment) => ({
-          filename: attachment.fileName.replace(/["\r\n]/g, "_"),
-          content: Buffer.from(attachment.content).toString("base64"),
-        })),
-      ],
+      ...(input.attachments?.length
+        ? {
+            attachments: input.attachments.map((attachment) => ({
+              filename: attachment.fileName.replace(/["\r\n]/g, "_"),
+              content: Buffer.from(attachment.content).toString("base64"),
+            })),
+          }
+        : {}),
     }),
     cache: "no-store",
   });
