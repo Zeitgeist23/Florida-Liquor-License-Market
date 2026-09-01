@@ -63,11 +63,75 @@
   outline-offset: 3px;
 }
 
+/* Cyan/white secondary CTAs: intentionally distinct from the gold primary action. */
+.broker-choice-page .seo-market-button-dark,
+.broker-choice-page .broker-card-actions .secondary,
+.broker-choice-page .broker-final-actions .outline {
+  position: relative;
+  border: 1px solid #8cefff;
+  background: linear-gradient(
+    180deg,
+    #40dcff 0%,
+    #19c7ef 18%,
+    #0797c4 62%,
+    #05658d 100%
+  );
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -2px 0 rgba(0, 55, 82, 0.35),
+    0 3px 0 #034968,
+    0 8px 18px rgba(0, 0, 0, 0.28);
+  text-shadow: 0 1px 1px rgba(0, 48, 70, 0.5);
+  transform: translateY(0);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease,
+    border-color 160ms ease;
+  cursor: pointer;
+}
+
+.broker-choice-page .seo-market-button-dark:hover,
+.broker-choice-page .broker-card-actions .secondary:hover,
+.broker-choice-page .broker-final-actions .outline:hover {
+  border-color: #d7fbff;
+  filter: brightness(1.08) saturate(1.06);
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.68),
+    inset 0 -2px 0 rgba(0, 55, 82, 0.28),
+    0 5px 0 #034968,
+    0 14px 28px rgba(0, 0, 0, 0.36),
+    0 0 0 1px rgba(140, 239, 255, 0.2);
+}
+
+.broker-choice-page .seo-market-button-dark:active,
+.broker-choice-page .broker-card-actions .secondary:active,
+.broker-choice-page .broker-final-actions .outline:active {
+  transform: translateY(1px);
+  filter: brightness(0.98);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 64, 92, 0.34),
+    0 1px 0 #034968,
+    0 4px 10px rgba(0, 0, 0, 0.26);
+}
+
+.broker-choice-page .seo-market-button-dark:focus-visible,
+.broker-choice-page .broker-card-actions .secondary:focus-visible,
+.broker-choice-page .broker-final-actions .outline:focus-visible {
+  outline: 3px solid rgba(173, 246, 255, 0.9);
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .broker-choice-page .forms-site-header .btn-gold,
   .broker-choice-page .seo-market-button-gold,
   .broker-choice-page .broker-card-actions .primary,
-  .broker-choice-page .broker-final-actions .gold {
+  .broker-choice-page .broker-final-actions .gold,
+  .broker-choice-page .seo-market-button-dark,
+  .broker-choice-page .broker-card-actions .secondary,
+  .broker-choice-page .broker-final-actions .outline {
     transition: none;
   }
 }
