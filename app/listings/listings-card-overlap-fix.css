@@ -140,7 +140,7 @@
 
 .results-page .featured-listing-badge {
   position: absolute !important;
-  top: 2px !important;
+  top: 5px !important;
   left: 2px !important;
   right: auto !important;
   z-index: 5 !important;
