@@ -1,0 +1,68 @@
+/* Scoped CTA treatment for /florida-liquor-license-broker only. */
+.broker-choice-page .seo-market-button-gold,
+.broker-choice-page .broker-card-actions .primary,
+.broker-choice-page .broker-final-actions .gold {
+  position: relative;
+  border: 1px solid #ffd25a;
+  background: linear-gradient(
+    180deg,
+    #ffe28a 0%,
+    #f5bd2f 16%,
+    #e8a91d 58%,
+    #c98508 100%
+  );
+  color: #071521;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -2px 0 rgba(112, 65, 0, 0.3),
+    0 3px 0 #8e5a05,
+    0 8px 18px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(0);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease,
+    border-color 160ms ease;
+  cursor: pointer;
+}
+
+.broker-choice-page .seo-market-button-gold:hover,
+.broker-choice-page .broker-card-actions .primary:hover,
+.broker-choice-page .broker-final-actions .gold:hover {
+  border-color: #ffe38c;
+  filter: brightness(1.06) saturate(1.05);
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 -2px 0 rgba(112, 65, 0, 0.22),
+    0 5px 0 #8e5a05,
+    0 14px 28px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(255, 210, 90, 0.18);
+}
+
+.broker-choice-page .seo-market-button-gold:active,
+.broker-choice-page .broker-card-actions .primary:active,
+.broker-choice-page .broker-final-actions .gold:active {
+  transform: translateY(1px);
+  filter: brightness(0.98);
+  box-shadow:
+    inset 0 2px 4px rgba(103, 59, 0, 0.26),
+    0 1px 0 #8e5a05,
+    0 4px 10px rgba(0, 0, 0, 0.28);
+}
+
+.broker-choice-page .seo-market-button-gold:focus-visible,
+.broker-choice-page .broker-card-actions .primary:focus-visible,
+.broker-choice-page .broker-final-actions .gold:focus-visible {
+  outline: 3px solid rgba(255, 220, 118, 0.82);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .broker-choice-page .seo-market-button-gold,
+  .broker-choice-page .broker-card-actions .primary,
+  .broker-choice-page .broker-final-actions .gold {
+    transition: none;
+  }
+}
