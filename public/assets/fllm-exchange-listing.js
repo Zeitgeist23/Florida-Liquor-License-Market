@@ -1,8 +1,8 @@
 (() => {
-  if (window.__FLLM_EXCHANGE_LISTING_V1__) return;
-  window.__FLLM_EXCHANGE_LISTING_V1__ = true;
+  if (window.__FLLM_EXCHANGE_LISTING_V2__) return;
+  window.__FLLM_EXCHANGE_LISTING_V2__ = true;
 
-  const money = (value) => value == null ? "No active bids" : new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+  const money = (value) => value == null ? "Undisclosed" : new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
   const parseMoney = (value) => {
     const n = Number(String(value || "").replace(/[^0-9.]/g, ""));
     return Number.isFinite(n) ? Math.round(n) : null;
@@ -31,13 +31,11 @@
     section.dataset.fllmExchange = "true";
     section.innerHTML = `
       <div class="fllm-exchange-header">
-        <div><span>FLLM Exchange</span><h2>Live Bid / Ask Market</h2><p>Submit a confidential buyer bid. The seller can accept or counter through a secure FLLM link.</p></div>
+        <div><span>FLLM Exchange</span><h2>Confidential Bid / Ask Exchange</h2><p>Submit a confidential buyer bid. Buyer bids, bid counts, and bid/ask spreads are not displayed publicly. The seller can accept or counter through a secure FLLM link.</p></div>
         <div class="fllm-exchange-badge">PRICE DISCOVERY</div>
       </div>
-      <div class="fllm-exchange-tape" aria-label="Current bid ask market">
+      <div class="fllm-exchange-tape" aria-label="Seller asking price">
         <div><span>SELLER ASK</span><strong data-exchange-ask>${money(quote.askingPrice)}</strong></div>
-        <div><span>BEST BUYER BID</span><strong data-exchange-bid>${money(quote.bestBid)}</strong><small data-exchange-count>${quote.bidCount || 0} active bid${quote.bidCount === 1 ? "" : "s"}</small></div>
-        <div><span>SPREAD</span><strong data-exchange-spread>${quote.bestBid == null ? "—" : money(Math.max(0, quote.askingPrice - quote.bestBid))}</strong></div>
       </div>
       <form class="fllm-exchange-form">
         <div class="fllm-exchange-form-heading"><strong>Place a Bid</strong><span>Listing ${listingRef}</span></div>
@@ -49,7 +47,7 @@
         <button type="submit">Submit Buyer Bid</button>
         <p class="fllm-exchange-status" role="status" aria-live="polite"></p>
       </form>
-      <p class="fllm-exchange-legal">FLLM Exchange is a negotiation and price-discovery feature. Displayed bids, asks, counters, acceptances and price matches do not themselves create a binding purchase agreement or guarantee DBPR transfer approval.</p>`;
+      <p class="fllm-exchange-legal">FLLM Exchange is a confidential negotiation and price-discovery feature. Buyer bids, counters, acceptances and price matches are not displayed publicly and do not themselves create a binding purchase agreement or guarantee DBPR transfer approval.</p>`;
 
     const firstGrid = bodyShell.querySelector(".marketplace-listing-grid");
     if (firstGrid) firstGrid.insertAdjacentElement("beforebegin", section);
@@ -82,12 +80,6 @@
         });
         const result = await response.json();
         if (!response.ok) throw new Error(result.error || "Unable to submit bid.");
-        const bidNode = section.querySelector("[data-exchange-bid]");
-        const countNode = section.querySelector("[data-exchange-count]");
-        const spreadNode = section.querySelector("[data-exchange-spread]");
-        if (bidNode) bidNode.textContent = money(result.bestBid);
-        if (countNode) countNode.textContent = `${result.bidCount || 0} active bid${result.bidCount === 1 ? "" : "s"}`;
-        if (spreadNode) spreadNode.textContent = result.bestBid == null ? "—" : money(Math.max(0, quote.askingPrice - result.bestBid));
         status.classList.add(result.matched ? "matched" : "success");
         status.textContent = result.matched
           ? `PRICE MATCH REACHED. FLLM recorded a non-binding price match${result.transactionRef ? ` and opened transaction ${result.transactionRef}` : ""}. Check your email for the next step.`

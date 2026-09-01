@@ -1,26 +1,20 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 
 function money(value: number | null) {
-  if (value === null) return "No active bids";
+  if (value === null) return "Undisclosed";
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 }
 
 export default function FllmExchangePanel(props: {
   listingRef: string;
   askingPrice: number | null;
-  initialBestBid: number | null;
-  initialBidCount: number;
+  initialBestBid?: number | null;
+  initialBidCount?: number;
 }) {
-  const [bestBid, setBestBid] = useState(props.initialBestBid);
-  const [bidCount, setBidCount] = useState(props.initialBidCount);
   const [status, setStatus] = useState<"idle"|"submitting"|"success"|"matched"|"error">("idle");
   const [message, setMessage] = useState("");
-  const spread = useMemo(() => {
-    if (props.askingPrice === null || bestBid === null) return null;
-    return Math.max(0, props.askingPrice - bestBid);
-  }, [props.askingPrice, bestBid]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,10 +35,8 @@ export default function FllmExchangePanel(props: {
           acknowledgment: data.get("acknowledgment") === "on",
         }),
       });
-      const result = await response.json() as { error?: string; matched?: boolean; bestBid?: number|null; bidCount?: number; transactionRef?: string|null };
+      const result = await response.json() as { error?: string; matched?: boolean; transactionRef?: string|null };
       if (!response.ok) throw new Error(result.error || "Unable to submit bid.");
-      setBestBid(result.bestBid ?? bestBid);
-      setBidCount(result.bidCount ?? bidCount + 1);
       setStatus(result.matched ? "matched" : "success");
       setMessage(result.matched
         ? `PRICE MATCH REACHED. FLLM recorded a non-binding price match. ${result.transactionRef ? `Transaction ${result.transactionRef} has been opened.` : ""}`
@@ -61,16 +53,14 @@ export default function FllmExchangePanel(props: {
       <div className="fllm-exchange-header">
         <div>
           <span>FLLM Exchange</span>
-          <h2 id={`exchange-${props.listingRef}`}>Live Bid / Ask Market</h2>
-          <p>Submit a confidential buyer bid. The seller can accept or counter through a secure FLLM link.</p>
+          <h2 id={`exchange-${props.listingRef}`}>Confidential Bid / Ask Exchange</h2>
+          <p>Submit a confidential buyer bid. Buyer bids, bid counts, and bid/ask spreads are not displayed publicly. The seller can accept or counter through a secure FLLM link.</p>
         </div>
         <div className="fllm-exchange-badge">PRICE DISCOVERY</div>
       </div>
 
-      <div className="fllm-exchange-tape" role="group" aria-label="Current bid ask market">
+      <div className="fllm-exchange-tape" role="group" aria-label="Seller asking price">
         <div><span>SELLER ASK</span><strong>{props.askingPrice === null ? "Undisclosed" : money(props.askingPrice)}</strong></div>
-        <div><span>BEST BUYER BID</span><strong>{money(bestBid)}</strong><small>{bidCount} active bid{bidCount === 1 ? "" : "s"}</small></div>
-        <div><span>SPREAD</span><strong>{spread === null ? "—" : money(spread)}</strong></div>
       </div>
 
       {props.askingPrice !== null ? (
@@ -88,7 +78,7 @@ export default function FllmExchangePanel(props: {
         <p className="fllm-exchange-unavailable">Exchange bidding will open when the seller publishes an asking price.</p>
       )}
 
-      <p className="fllm-exchange-legal">FLLM Exchange is a negotiation and price-discovery feature. Displayed bids, asks, counters, acceptances and price matches do not themselves create a binding purchase agreement or guarantee DBPR transfer approval.</p>
+      <p className="fllm-exchange-legal">FLLM Exchange is a confidential negotiation and price-discovery feature. Buyer bids, counters, acceptances and price matches are not displayed publicly and do not themselves create a binding purchase agreement or guarantee DBPR transfer approval.</p>
     </section>
   );
 }

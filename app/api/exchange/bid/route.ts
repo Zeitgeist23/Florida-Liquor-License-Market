@@ -4,7 +4,6 @@ import { sendFllmEmail } from "@/lib/fllm-email";
 import {
   createExchangeOrder,
   createMatchedTransaction,
-  getExchangeMarket,
   issueExchangeToken,
   markOrder,
 } from "@/lib/exchange-store";
@@ -122,8 +121,7 @@ export async function POST(request: Request) {
       console.error("Exchange internal notification failed", error);
     }
 
-    const market = await getExchangeMarket(listingRef);
-    return NextResponse.json({ ok: true, matched, transactionRef, bestBid: market.bestBid, bidCount: market.bidCount });
+    return NextResponse.json({ ok: true, matched, transactionRef });
   } catch (error) {
     console.error("FLLM Exchange bid failed", error);
     return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to submit bid." }, { status: 500 });
