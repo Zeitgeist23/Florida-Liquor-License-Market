@@ -181,3 +181,5 @@ export async function sendFllmEmail(input: FllmEmailInput) {
           git add lib/fllm-email.ts .github/workflows/install-server-email-transport.yml
           git commit -m 'Add Resend server email transport with Gmail fallback'
           git push origin main
+
+# trigger 2
