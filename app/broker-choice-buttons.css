@@ -172,6 +172,13 @@
   margin-top: 26px !important;
 }
 
+/* Give the paired brokerage-card CTAs more breathing room. */
+.broker-choice-page .broker-card-actions {
+  row-gap: 20px !important;
+  column-gap: 12px !important;
+  padding-top: 24px !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .broker-choice-page .forms-site-header .btn-gold,
   .broker-choice-page .seo-market-button-gold,
