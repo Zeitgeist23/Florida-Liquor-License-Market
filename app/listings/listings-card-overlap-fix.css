@@ -123,3 +123,39 @@
     padding-top: 9px !important;
   }
 }
+
+/* Featured listing correction: preserve the exact approved standard-card border and shadow.
+   Only the small cyan Featured Listing label differentiates the card. */
+.results-page .result-card-featured {
+  border: 1px solid #9b741d !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28) !important;
+}
+
+.results-page .result-card-featured:hover {
+  border-color: #e3a314 !important;
+  box-shadow:
+    0 15px 34px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(241, 166, 0, 0.08) !important;
+}
+
+.results-page .featured-listing-badge {
+  position: absolute !important;
+  top: -1px !important;
+  left: -1px !important;
+  right: auto !important;
+  z-index: 5 !important;
+  margin: 0 !important;
+  padding: 5px 10px !important;
+  border: 1px solid #66e6ff !important;
+  border-radius: 8px 4px 4px 4px !important;
+  color: #ffffff !important;
+  background: linear-gradient(180deg, #168bb3 0%, #0b6284 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.24),
+    0 3px 8px rgba(0,0,0,.24) !important;
+  font-size: 9px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+}
