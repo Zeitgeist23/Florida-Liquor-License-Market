@@ -8,6 +8,7 @@ import "../florida-liquor-licenses-for-sale/seo-market.css";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-3ps-liquor-license-for-sale`;
 const listingsHref = "/listings?type=3PS%20Quota%20%2F%20Package%20Store&status=available";
+const featuredSarasotaHref = "/listings/fllm-168405";
 
 export const metadata: Metadata = {
   title: "Florida 3PS Liquor Licenses for Sale | Package Store Listings",
@@ -63,6 +64,9 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
   const marketplaceListings = await getMarketplaceListings();
   const availableListings = marketplaceListings.filter(
     (listing) => Boolean(listing.sourceRef) && listing.type.includes("3PS"),
+  );
+  const featuredSarasotaListing = availableListings.find(
+    (listing) => listing.sourceRef?.trim().toUpperCase() === "FLLM-168405",
   );
   const disclosedPrices = availableListings
     .map((listing) => listing.price)
@@ -172,6 +176,9 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
               <li>Lowest disclosed ask: {lowestPrice === null ? "Varies" : money(lowestPrice)}</li>
               <li>Median disclosed ask: {medianPrice === null ? "Varies" : money(medianPrice)}</li>
               <li>Highest disclosed ask: {highestPrice === null ? "Varies" : money(highestPrice)}</li>
+              {featuredSarasotaListing ? (
+                <li><Link href={featuredSarasotaHref}><strong>Featured Sarasota County 3PS listing: {featuredSarasotaListing.priceLabel} →</strong></Link></li>
+              ) : null}
               <li>Prices and availability remain subject to seller confirmation.</li>
             </ul>
           </aside>
