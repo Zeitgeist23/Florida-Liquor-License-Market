@@ -161,6 +161,31 @@ export async function sendFllmEmail(input: {
     content: Uint8Array;
   }>;
 }) {
+  const googleCredentialsConfigured = Boolean(
+    process.env.GOOGLE_CLIENT_ID &&
+      process.env.GOOGLE_CLIENT_SECRET &&
+      process.env.GOOGLE_REFRESH_TOKEN,
+  );
+
+  if (process.env.RESEND_API_KEY) {
+    try {
+      const { sendViaResend } = await import("@/lib/resend-email-transport");
+      return await sendViaResend(input);
+    } catch (resendError) {
+      if (!googleCredentialsConfigured) {
+        throw resendError;
+      }
+      console.error(
+        "Resend email delivery failed; falling back to Gmail API",
+        resendError,
+      );
+    }
+  } else if (!googleCredentialsConfigured) {
+    throw new Error(
+      "No server email transport is configured. Configure RESEND_API_KEY (preferred) or the Google OAuth email credentials.",
+    );
+  }
+
   const sender = senderEmail();
   const signatureContentId = `fllm-signature-${Date.now()}-${Math.random().toString(16).slice(2)}@floridaliquorlicensemarket.com`;
   const html = input.html.replaceAll(
