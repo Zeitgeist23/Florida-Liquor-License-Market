@@ -4,6 +4,7 @@ import Script from "next/script";
 import AbtDemographicSelects from "@/components/AbtDemographicSelects";
 import AbtIncreaseInSeriesSelect from "@/components/AbtIncreaseInSeriesSelect";
 import AbtMoralCharacterQuestion from "@/components/AbtMoralCharacterQuestion";
+import BrokerAssistanceNavigationEnhancement from "@/components/BrokerAssistanceNavigationEnhancement";
 import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
 import SeoAuthorityEnhancements from "@/components/SeoAuthorityEnhancements";
@@ -73,6 +74,7 @@ export default function RootLayout({
         <AbtIncreaseInSeriesSelect />
         <AbtDemographicSelects />
         <AbtMoralCharacterQuestion />
+        <BrokerAssistanceNavigationEnhancement />
         <LicenseTypeLogoScale />
         {children}
         <SeoAuthorityEnhancements />
