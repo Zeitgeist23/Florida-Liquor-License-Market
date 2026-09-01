@@ -1,4 +1,4 @@
-name: One-Time Vraj Inquiry Delivery Test
+name: One-Time Vraj Browser Inquiry Test
 
 on:
   push:
@@ -11,30 +11,80 @@ permissions:
 
 jobs:
   submit:
-    if: github.event.head_commit.message == 'Run one-time Vraj inquiry delivery test'
+    if: github.event.head_commit.message == 'Run browser Vraj inquiry delivery test'
     runs-on: ubuntu-latest
     steps:
-      - name: Submit test buyer inquiry through live FLLM
+      - name: Install Playwright Chromium
         shell: bash
         run: |
-          set -euo pipefail
-          response_file="$(mktemp)"
-          status=$(curl -sS -o "$response_file" -w '%{http_code}' \
-            -X POST 'https://www.floridaliquorlicensemarket.com/api/inquiry' \
-            --form-string 'name=James Wigg' \
-            --form-string 'email=jwigg023@gmail.com' \
-            --form-string 'phone=TEST DELIVERY CHECK' \
-            --form-string 'inquiry_type=Buy a License' \
-            --form-string 'preferred_county=Sarasota County' \
-            --form-string 'listing_reference=FLLM-168405' \
-            --form-string 'listing_requested=FLLM-168405 — Sarasota County — 3PS Quota / Package Store — $550,000' \
-            --form-string 'listing_county=Sarasota County' \
-            --form-string 'license_type=3PS Quota / Package Store' \
-            --form-string 'asking_price=$550,000' \
-            --form-string 'listing_status=Active / Available' \
-            --form-string 'listing_url=/listings/FLLM-168405' \
-            --form-string 'message=TEST BUYER INQUIRY — FLLM delivery verification for Vraj Patel’s Sarasota County listing FLLM-168405. No response or action is required.' )
-          echo "HTTP_STATUS=$status"
-          cat "$response_file"
-          echo
-          test "$status" = "200"
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Submit buyer inquiry in browser
+        shell: bash
+        run: |
+          cat > /tmp/vraj-test.cjs <<'NODE'
+          const { chromium } = require('playwright');
+
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const page = await browser.newPage();
+            const responses = [];
+            page.on('response', async (response) => {
+              const url = response.url();
+              if (url.includes('/api/inquiry') || url.includes('formsubmit.co')) {
+                let body = '';
+                try { body = await response.text(); } catch {}
+                responses.push({ url, status: response.status(), body: body.slice(0, 1200) });
+              }
+            });
+            page.on('console', msg => console.log('BROWSER_CONSOLE', msg.type(), msg.text()));
+
+            const params = new URLSearchParams({
+              source: 'specific-license',
+              listing: 'FLLM-168405 — Sarasota County — 3PS Quota / Package Store — $550,000',
+              ref: 'FLLM-168405',
+              county: 'Sarasota County',
+              license_type: '3PS Quota / Package Store',
+              asking_price: '$550,000',
+              listing_status: 'Active / Available',
+              listing_url: '/listings/FLLM-168405',
+            });
+            const url = `https://www.floridaliquorlicensemarket.com/contact?${params.toString()}`;
+            await page.goto(url, { waitUntil: 'networkidle', timeout: 90000 });
+            await page.waitForSelector('form.contact-page-form', { timeout: 30000 });
+            await page.waitForTimeout(3500);
+
+            await page.locator('input[name="name"]').fill('James Wigg');
+            await page.locator('input[name="email"]').fill('jwigg023@gmail.com');
+            await page.locator('input[name="phone"]').fill('TEST DELIVERY CHECK');
+            await page.locator('select[name="inquiry_type"]').selectOption({ label: 'Buy a License' });
+            await page.locator('select[name="preferred_county"]').selectOption({ label: 'Sarasota County' });
+            await page.locator('textarea[name="message"]').fill('TEST BUYER INQUIRY — FLLM delivery verification for Vraj Patel’s Sarasota County listing FLLM-168405. No response or action is required.');
+
+            console.log('LISTING_REFERENCE', await page.locator('input[name="listing_reference"]').inputValue());
+            console.log('LISTING_REQUESTED', await page.locator('input[name="listing_requested"]').inputValue());
+
+            await page.locator('button[type="submit"]').click();
+            await page.waitForFunction(() => {
+              const el = document.querySelector('.contact-status');
+              return el && (el.classList.contains('sent') || el.classList.contains('error'));
+            }, { timeout: 90000 });
+            await page.waitForTimeout(2500);
+
+            const statusText = await page.locator('.contact-status').innerText();
+            const statusClass = await page.locator('.contact-status').getAttribute('class');
+            console.log('FORM_STATUS_CLASS', statusClass);
+            console.log('FORM_STATUS_TEXT', statusText);
+            console.log('DELIVERY_RESPONSES', JSON.stringify(responses, null, 2));
+
+            if (!statusClass.includes('sent')) {
+              throw new Error(`Browser inquiry did not report success: ${statusText}`);
+            }
+            await browser.close();
+          })().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE
+          NODE_PATH="$PWD/node_modules" node /tmp/vraj-test.cjs
