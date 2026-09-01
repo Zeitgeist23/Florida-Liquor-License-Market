@@ -1,0 +1,37 @@
+name: One-Time Vraj Resend Inquiry Test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/one-time-vraj-resend-test.yml
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit live buyer inquiry for Vraj listing
+        shell: bash
+        run: |
+          status=$(curl -sS -o /tmp/body.txt -w '%{http_code}' \
+            -X POST 'https://www.floridaliquorlicensemarket.com/api/inquiry' \
+            -F 'name=James Wigg' \
+            -F 'email=jwigg023@gmail.com' \
+            -F 'inquiry_type=Buy a License' \
+            -F 'preferred_county=Sarasota County' \
+            -F 'listing_reference=FLLM-168405' \
+            -F 'listing_requested=FLLM-168405 — Sarasota County — 3PS Quota / Package Store — $550,000' \
+            -F 'listing_county=Sarasota County' \
+            -F 'license_type=3PS Quota / Package Store' \
+            -F 'asking_price=$550,000' \
+            -F 'listing_status=Active / Available' \
+            -F 'listing_url=/listings/FLLM-168405' \
+            -F 'message=TEST BUYER INQUIRY — FLLM Resend end-to-end delivery verification for Vraj Patel’s Sarasota County listing FLLM-168405. No response or action is required.')
+          echo "HTTP_STATUS=$status"
+          echo 'RESPONSE_BODY<<EOF'
+          cat /tmp/body.txt
+          echo
+          echo 'EOF'
