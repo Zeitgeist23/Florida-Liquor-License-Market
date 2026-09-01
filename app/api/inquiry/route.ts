@@ -342,6 +342,37 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   });
 }
 
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  if (url.searchParams.get("maildiag") !== "fllm-91c7") {
+    return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
+  }
+
+  const env = {
+    clientId: Boolean(process.env.GOOGLE_CLIENT_ID),
+    clientSecret: Boolean(process.env.GOOGLE_CLIENT_SECRET),
+    refreshToken: Boolean(process.env.GOOGLE_REFRESH_TOKEN),
+    sender: process.env.GOOGLE_SENDER_EMAIL || null,
+  };
+
+  try {
+    const result = await sendFllmEmail({
+      to: "jwigg023@gmail.com",
+      subject: "FLLM production mail diagnostic — no action required",
+      text: "One-time FLLM production mail diagnostic.",
+      html: "<p>One-time FLLM production mail diagnostic.</p>",
+    });
+    return NextResponse.json({ diag: "fllm-91c7", ok: true, env, result });
+  } catch (error) {
+    return NextResponse.json({
+      diag: "fllm-91c7",
+      ok: false,
+      env,
+      error: error instanceof Error ? error.message : String(error),
+    }, { status: 500 });
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
