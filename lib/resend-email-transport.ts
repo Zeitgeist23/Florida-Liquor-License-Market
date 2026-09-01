@@ -31,11 +31,23 @@ function resendDomain() {
     .replace(/\/.*$/, "");
 }
 
-function senderEmail() {
-  return (
-    process.env.RESEND_FROM_EMAIL ||
-    `listings@${resendDomain()}`
-  );
+function exchangeEmail() {
+  return `exchange@${resendDomain()}`;
+}
+
+function senderIdentity(input: ResendEmailInput) {
+  const exchangeAddress = exchangeEmail();
+  const isExchange = input.replyTo?.trim().toLowerCase() === exchangeAddress.toLowerCase();
+  if (isExchange) {
+    return {
+      name: "Florida Liquor License Market Exchange",
+      email: exchangeAddress,
+    };
+  }
+  return {
+    name: "Florida Liquor License Market",
+    email: process.env.RESEND_FROM_EMAIL || `listings@${resendDomain()}`,
+  };
 }
 
 export async function sendViaResend(input: ResendEmailInput) {
@@ -48,6 +60,7 @@ export async function sendViaResend(input: ResendEmailInput) {
     `cid:${FLLM_SIGNATURE_CID_PLACEHOLDER}`,
     `${siteUrl()}/assets/fllm-email-logo.png`,
   );
+  const sender = senderIdentity(input);
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -56,7 +69,7 @@ export async function sendViaResend(input: ResendEmailInput) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: `Florida Liquor License Market <${senderEmail()}>`,
+      from: `${sender.name} <${sender.email}>`,
       to: input.to,
       ...(input.cc ? { cc: input.cc } : {}),
       ...(input.replyTo ? { reply_to: input.replyTo } : {}),
