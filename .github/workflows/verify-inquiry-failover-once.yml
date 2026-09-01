@@ -57,15 +57,16 @@ jobs:
             });
 
             await page.goto(`https://www.floridaliquorlicensemarket.com/contact?${params}`, { waitUntil: 'networkidle', timeout: 90000 });
-            await page.waitForSelector('form.contact-page-form');
-            await page.locator('input[name="name"]').fill('James Wigg');
-            await page.locator('input[name="email"]').fill('jwigg023@gmail.com');
-            await page.locator('select[name="inquiry_type"]').selectOption({ label: 'Buy a License' });
-            await page.locator('select[name="preferred_county"]').selectOption({ label: 'Sarasota County' });
-            await page.locator('textarea[name="message"]').fill('CONTROLLED FAILOVER VERIFICATION — intercepted before FormSubmit delivery.');
-            await page.locator('button[type="submit"]').click();
+            const form = page.locator('form.contact-page-form');
+            await form.waitFor();
+            await form.locator('input[name="name"]').fill('James Wigg');
+            await form.locator('input[name="email"]').fill('jwigg023@gmail.com');
+            await form.locator('select[name="inquiry_type"]').selectOption({ label: 'Buy a License' });
+            await form.locator('select[name="preferred_county"]').selectOption({ label: 'Sarasota County' });
+            await form.locator('textarea[name="message"]').fill('CONTROLLED FAILOVER VERIFICATION — intercepted before FormSubmit delivery.');
+            await form.locator('button[type="submit"]').click();
 
-            for (let i = 0; i < 120 && !fallbackRequest; i++) await page.waitForTimeout(100);
+            for (let i = 0; i < 150 && !fallbackRequest; i++) await page.waitForTimeout(100);
 
             console.log('API_RESULT', JSON.stringify(apiResult));
             console.log('FALLBACK_URL', fallbackRequest?.url);
