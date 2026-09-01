@@ -1,0 +1,183 @@
+name: Install Server Email Transport
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/install-server-email-transport.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Add Resend primary transport with Gmail fallback
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('lib/fllm-email.ts')
+          s = p.read_text()
+
+          old_sender = '''function senderEmail() {
+  return (
+    process.env.GOOGLE_SENDER_EMAIL || "listings@floridaliquorlicensemarket.com"
+  );
+}
+'''
+          new_sender = '''function senderEmail() {
+  return (
+    process.env.RESEND_FROM_EMAIL ||
+    process.env.GOOGLE_SENDER_EMAIL ||
+    "listings@floridaliquorlicensemarket.com"
+  );
+}
+
+function googleCredentialsConfigured() {
+  return Boolean(
+    process.env.GOOGLE_CLIENT_ID &&
+      process.env.GOOGLE_CLIENT_SECRET &&
+      process.env.GOOGLE_REFRESH_TOKEN,
+  );
+}
+'''
+          if old_sender not in s:
+              raise SystemExit('senderEmail marker not found')
+          s = s.replace(old_sender, new_sender, 1)
+
+          old_signature = '''export async function sendFllmEmail(input: {
+  to: string;
+  cc?: string;
+  replyTo?: string;
+  subject: string;
+  text: string;
+  html: string;
+  attachments?: Array<{
+    fileName: string;
+    contentType: string;
+    content: Uint8Array;
+  }>;
+}) {
+  const sender = senderEmail();
+'''
+
+          new_signature = '''type FllmEmailInput = {
+  to: string;
+  cc?: string;
+  replyTo?: string;
+  subject: string;
+  text: string;
+  html: string;
+  attachments?: Array<{
+    fileName: string;
+    contentType: string;
+    content: Uint8Array;
+  }>;
+};
+
+async function sendViaResend(input: FllmEmailInput) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY is not configured.");
+  }
+
+  const sender = senderEmail();
+  const signatureContentId = `fllm-signature-${Date.now()}-${Math.random().toString(16).slice(2)}@floridaliquorlicensemarket.com`;
+  const html = input.html.replaceAll(
+    FLLM_SIGNATURE_CID_PLACEHOLDER,
+    signatureContentId,
+  );
+  const attachments = [
+    {
+      filename: "Florida Liquor License Market.png",
+      content: FLLM_GMAIL_SIGNATURE_IMAGE_BASE64,
+      content_id: signatureContentId,
+    },
+    ...(input.attachments ?? []).map((attachment) => ({
+      filename: attachment.fileName.replace(/["\\r\\n]/g, "_"),
+      content: Buffer.from(attachment.content).toString("base64"),
+    })),
+  ];
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: `Florida Liquor License Market <${sender}>`,
+      to: input.to,
+      ...(input.cc ? { cc: input.cc } : {}),
+      ...(input.replyTo ? { reply_to: input.replyTo } : {}),
+      subject: input.subject,
+      text: input.text,
+      html,
+      attachments,
+    }),
+    cache: "no-store",
+  });
+
+  const responseText = await response.text();
+  let payload: { id?: string; message?: string; name?: string } = {};
+  try {
+    payload = JSON.parse(responseText) as typeof payload;
+  } catch {
+    // Preserve the raw response below when Resend returns a non-JSON error.
+  }
+
+  if (!response.ok || !payload.id) {
+    throw new Error(
+      `Resend API send failed: ${response.status} ${payload.message || responseText || "Unknown error"}`,
+    );
+  }
+
+  return { id: payload.id, threadId: payload.id };
+}
+
+export async function sendFllmEmail(input: FllmEmailInput) {
+  if (process.env.RESEND_API_KEY) {
+    try {
+      return await sendViaResend(input);
+    } catch (resendError) {
+      if (!googleCredentialsConfigured()) {
+        throw resendError;
+      }
+      console.error("Resend email delivery failed; falling back to Gmail API", resendError);
+    }
+  } else if (!googleCredentialsConfigured()) {
+    throw new Error(
+      "No server email transport is configured. Configure RESEND_API_KEY (preferred) or the Google OAuth email credentials.",
+    );
+  }
+
+  const sender = senderEmail();
+'''
+          if old_signature not in s:
+              raise SystemExit('sendFllmEmail signature marker not found')
+          s = s.replace(old_signature, new_signature, 1)
+
+          p.write_text(s)
+          PY
+
+          git diff --check
+          npx tsc --noEmit
+          npm run build
+
+      - name: Commit transport and remove installer
+        shell: bash
+        run: |
+          rm -f .github/workflows/install-server-email-transport.yml
+          git config user.name 'Zeitgeist23'
+          git config user.email 'JWigg023@gmail.com'
+          git add lib/fllm-email.ts .github/workflows/install-server-email-transport.yml
+          git commit -m 'Add Resend server email transport with Gmail fallback'
+          git push origin main
