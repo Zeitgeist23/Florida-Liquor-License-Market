@@ -34,6 +34,11 @@ export default function HomeBuyDropdown() {
     menu.className = "buy-nav-menu";
     menu.setAttribute("role", "menu");
 
+    const buyerPageLink = document.createElement("a");
+    buyerPageLink.href = "/buy-florida-liquor-license";
+    buyerPageLink.textContent = "Buy a Florida Liquor License";
+    buyerPageLink.setAttribute("role", "menuitem");
+
     const listingsLink = document.createElement("a");
     listingsLink.href = "/listings";
     listingsLink.textContent = "View Listings";
@@ -44,7 +49,7 @@ export default function HomeBuyDropdown() {
     guideLink.textContent = "How to Buy a Florida Liquor License";
     guideLink.setAttribute("role", "menuitem");
 
-    menu.append(listingsLink, guideLink);
+    menu.append(buyerPageLink, listingsLink, guideLink);
     wrapper.append(trigger, menu);
 
     originalBuy.style.display = "none";
