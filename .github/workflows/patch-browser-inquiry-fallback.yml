@@ -1,0 +1,71 @@
+name: Patch Browser Inquiry Fallback
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/patch-browser-inquiry-fallback.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.head_commit.message == 'Patch browser seller inquiry fallback'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Patch inquiry fallback handoff
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          route = Path('app/api/inquiry/route.ts')
+          text = route.read_text()
+          marker = '  if (sellerDeliveryFailed && !fallbackDelivered) {\n'
+          insert = '''  const browserFallbackCc = Array.from(new Set([\n    ...(sellerDeliveryFailed && approvedSellerSubmission?.email\n      ? [approvedSellerSubmission.email]\n      : []),\n    ...(buyerDeliveryFailed ? [email] : []),\n  ]));\n  const browserFallbackSellerContact = approvedSellerSubmission\n    ? {\n        name: approvedSellerSubmission.fullName,\n        email: approvedSellerSubmission.email,\n        phone: approvedSellerSubmission.phone,\n      }\n    : null;\n\n  if (sellerDeliveryFailed && !fallbackDelivered) {\n'''
+          if 'const browserFallbackCc' not in text:
+              if marker not in text:
+                  raise SystemExit('route insertion marker not found')
+              text = text.replace(marker, insert, 1)
+
+          text = text.replace(
+              '{ error: "Your inquiry was received, but the seller notification email could not be delivered. Please try again." },',
+              '{ error: "Your inquiry was received, but the seller notification email could not be delivered. Please try again.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },',
+              1,
+          )
+          text = text.replace(
+              '{ error: "Your inquiry was received, but the seller contact email could not be delivered. Please try again." },',
+              '{ error: "Your inquiry was received, but the seller contact email could not be delivered. Please try again.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },',
+              1,
+          )
+          text = text.replace(
+              '{ error: "Primary FLLM notification service is unavailable." },',
+              '{ error: "Primary FLLM notification service is unavailable.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },',
+              1,
+          )
+          route.write_text(text)
+
+          js = Path('public/assets/page-BbHDipGH.js')
+          source = js.read_text()
+          old = '''try{let e=await fetch(`/api/inquiry`,{method:`POST`,body:r});if(e.status===429&&(r.set(`_subject`,`Florida Liquor License Market — New Contact Inquiry`),r.set(`_template`,`table`),r.set(`_captcha`,`false`),e=await fetch(`https://formsubmit.co/ajax/listings@floridaliquorlicensemarket.com`,{method:`POST`,headers:{Accept:`application/json`},body:r})),!e.ok)throw Error(`Unable to submit inquiry`);t(`sent`),n.reset()}catch{t(`error`)}}'''
+          new = '''try{let e=await fetch(`/api/inquiry`,{method:`POST`,body:r});if(e.status===429||e.status===502){let t={};try{t=await e.clone().json()}catch{}Array.isArray(t.fallbackCc)&&t.fallbackCc.length&&r.set(`_cc`,t.fallbackCc.join(`,`));let i=t.fallbackSellerContact;i&&typeof i===`object`&&(i.name&&r.set(`listing_representative`,i.name),i.email&&r.set(`listing_representative_email`,i.email),i.phone&&r.set(`listing_representative_phone`,i.phone));r.set(`_subject`,`Florida Liquor License Market — New Contact Inquiry`),r.set(`_template`,`table`),r.set(`_captcha`,`false`),e=await fetch(`https://formsubmit.co/ajax/listings@floridaliquorlicensemarket.com`,{method:`POST`,headers:{Accept:`application/json`},body:r})}if(!e.ok)throw Error(`Unable to submit inquiry`);t(`sent`),n.reset()}catch{t(`error`)}}'''
+          if new not in source:
+              if old not in source:
+                  raise SystemExit('client fallback marker not found')
+              source = source.replace(old, new, 1)
+          js.write_text(source)
+          PY
+          node --check public/assets/page-BbHDipGH.js
+          git diff --check
+      - name: Commit patched fallback
+        shell: bash
+        run: |
+          git config user.name 'Zeitgeist23'
+          git config user.email 'JWigg023@gmail.com'
+          git add app/api/inquiry/route.ts public/assets/page-BbHDipGH.js
+          git commit -m 'Fix browser fallback for seller inquiry delivery'
+          git push origin main
