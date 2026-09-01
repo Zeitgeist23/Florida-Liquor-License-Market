@@ -2,10 +2,27 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import MarketplaceListingCard from "@/components/MarketplaceListingCard";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
+
 import "../resources/forms/abt-forms.css";
+import "../listings/listings-premium.css";
+import "../listings/listings-header-position.css";
+import "../listings/listings-map-size.css";
+import "../listings/listings-county-links.css";
+import "../listings/listings-navy-refresh.css";
+import "../listings/listings-card-gold-borders.css";
+import "../listings/listings-title-highlight.css";
+import "../listings/listings-regression-fix.css";
+import "../listings/listings-filter-depth.css";
+import "../listings/listings-logo-3pct-lock.css";
+import "../listings/listings-conversion-cards.css";
+import "../listings/listings-card-overlap-fix.css";
+import "../listings/listings-masthead-darker.css";
+import "../listings/listings-mobile-header-fix.css";
+import "../listings/listings-view-button-edge-fix.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/broward-county-liquor-license-for-sale`;
@@ -77,7 +94,7 @@ export default async function BrowardCountyLiquorLicenseForSalePage() {
     {
       question: "Where can I find a Broward County liquor license for sale?",
       answer:
-        "Current Broward County 4COP and 3PS quota-license opportunities are listed on this page when available. Each active opportunity links to an individual FLLM listing page with the current asking price, license type, marketplace reference and inquiry options.",
+        "Current Broward County 4COP and 3PS quota-license opportunities are listed on this page when available. Each active opportunity opens its individual FLLM marketplace page with the current asking price, license type, marketplace reference and inquiry options.",
     },
     {
       question: "Can a Broward County quota liquor license be moved to another Florida county?",
@@ -103,10 +120,7 @@ export default async function BrowardCountyLiquorLicenseForSalePage() {
       name: "Broward County Liquor Licenses for Sale",
       url: canonicalUrl,
       description: marketSummary,
-      about: {
-        "@type": "Place",
-        name: "Broward County, Florida",
-      },
+      about: { "@type": "Place", name: "Broward County, Florida" },
       isPartOf: {
         "@type": "WebSite",
         name: "Florida Liquor License Market",
@@ -131,8 +145,18 @@ export default async function BrowardCountyLiquorLicenseForSalePage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Florida Liquor Licenses for Sale", item: `${siteUrl}/listings` },
-        { "@type": "ListItem", position: 3, name: "Broward County Liquor Licenses for Sale", item: canonicalUrl },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Florida Liquor Licenses for Sale",
+          item: `${siteUrl}/listings`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Broward County Liquor Licenses for Sale",
+          item: canonicalUrl,
+        },
       ],
     },
     {
@@ -157,16 +181,16 @@ export default async function BrowardCountyLiquorLicenseForSalePage() {
 
       <style>{`
         .broward-sale-page{min-height:100vh;background:#04111d;color:#fff}
-        .broward-shell{width:min(1120px,calc(100% - 40px));margin:0 auto}
+        .broward-shell{width:min(1480px,calc(100% - 60px));margin:0 auto}
         .broward-hero{padding:64px 0 58px;border-bottom:1px solid rgba(237,169,26,.32);background:radial-gradient(circle at 82% 16%,rgba(41,103,145,.28),transparent 32%),linear-gradient(135deg,#0a2942,#051827 58%,#03101b)}
         .broward-breadcrumbs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;color:#9fb0bd;font-size:11px}.broward-breadcrumbs a{color:#f1aa1c}.broward-kicker{color:#f1aa1c;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
-        .broward-hero h1{max-width:900px;margin:10px 0 16px;font-family:Georgia,'Times New Roman',serif;font-size:clamp(42px,6vw,68px);line-height:1.02}.broward-hero p{max-width:870px;margin:0 0 12px;color:#d3dde4;font-size:17px;line-height:1.72}.broward-hero strong{color:#fff}
-        .broward-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.broward-actions a,.broward-card a{display:inline-flex;min-height:46px;align-items:center;justify-content:center;padding:0 18px;border-radius:6px;font-weight:900;text-decoration:none}.broward-actions .gold,.broward-card a{border:1px solid #f0ab1c;color:#071521;background:linear-gradient(145deg,#ffc441,#e99b06);box-shadow:0 8px 18px rgba(0,0,0,.22)}.broward-actions .dark{border:1px solid rgba(255,255,255,.25);color:#fff;background:#071d31}
+        .broward-hero h1{max-width:900px;margin:10px 0 16px;font-family:Georgia,'Times New Roman',serif;font-size:clamp(42px,6vw,68px);line-height:1.02}.broward-hero p{max-width:900px;margin:0 0 12px;color:#d3dde4;font-size:17px;line-height:1.72}.broward-hero strong{color:#fff}
+        .broward-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.broward-actions a{display:inline-flex;min-height:46px;align-items:center;justify-content:center;padding:0 18px;border-radius:6px;font-weight:900;text-decoration:none}.broward-actions .gold{border:1px solid #f0ab1c;color:#071521;background:linear-gradient(145deg,#ffc441,#e99b06);box-shadow:0 8px 18px rgba(0,0,0,.22)}.broward-actions .dark{border:1px solid rgba(255,255,255,.25);color:#fff;background:#071d31}
         .broward-inventory{padding:62px 0;background:#061827}.broward-heading{display:grid;grid-template-columns:1fr minmax(280px,480px);gap:28px;align-items:end;margin-bottom:26px}.broward-heading span,.broward-info span{color:#f1aa1c;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.broward-heading h2,.broward-info h2,.broward-faq h2{margin:7px 0 0;font-size:clamp(30px,4vw,42px)}.broward-heading p{margin:0;color:#b9c7d1;line-height:1.65}
-        .broward-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.broward-card{position:relative;padding:27px;border:1px solid #9b741d;border-radius:10px;background:linear-gradient(145deg,#0a263e,#061827);box-shadow:0 12px 30px rgba(0,0,0,.24)}.broward-card>span{display:inline-flex;padding:6px 9px;border:1px solid #d99b10;border-radius:5px;color:#f5a900;background:#04111d;font-size:10px;font-weight:900;text-transform:uppercase}.broward-card h3{margin:17px 0 8px;color:#f3a700;font-size:32px}.broward-card p{margin:0 0 22px;color:#d2dce3;line-height:1.65}.broward-card small{display:block;margin-top:12px;color:#9fb0bb}
+        .broward-results-scope{min-height:0!important;background:transparent!important;color:inherit!important}.broward-results-scope .results-grid{margin:0!important}.broward-empty{padding:28px;border:1px solid #9b741d;border-radius:8px;background:linear-gradient(145deg,#0b263b,#061725);box-shadow:0 10px 28px rgba(0,0,0,.28)}.broward-empty h3{margin:0 0 8px;color:#f3a700}.broward-empty p{color:#d2dce3}.broward-empty a{color:#f1aa1c;font-weight:900}
         .broward-info{padding:62px 0;background:#04111d}.broward-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.broward-info article{padding:26px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#071d31}.broward-info p,.broward-info li{color:#c8d3db;line-height:1.72}.broward-info ul{display:grid;gap:9px;padding-left:20px}
         .broward-faq{padding:60px 0 70px;background:#061827}.broward-faq details{border-bottom:1px solid rgba(255,255,255,.1)}.broward-faq summary{padding:18px 0;font-weight:850;cursor:pointer}.broward-faq details p{margin:0;padding:0 0 18px;color:#bfccd5;line-height:1.72}.broward-related{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.broward-related a{color:#f1aa1c;text-decoration:underline;text-underline-offset:3px}
-        @media(max-width:760px){.broward-heading,.broward-grid,.broward-info-grid{grid-template-columns:1fr}.broward-shell{width:min(100% - 30px,1120px)}.broward-hero{padding-top:42px}}
+        @media(max-width:760px){.broward-heading,.broward-info-grid{grid-template-columns:1fr}.broward-shell{width:min(100% - 30px,1480px)}.broward-hero{padding-top:42px}}
       `}</style>
 
       <div className="abt-header-wrap">
@@ -197,30 +221,35 @@ export default async function BrowardCountyLiquorLicenseForSalePage() {
       <section className="broward-inventory" id="current-broward-inventory">
         <div className="broward-shell">
           <div className="broward-heading">
-            <div><span>Current Marketplace Inventory</span><h2>Broward County 4COP & 3PS licenses for sale</h2></div>
-            <p>Each opportunity below opens its individual FLLM detail page. Asking prices and availability can change, so confirm the current listing before relying on a quoted price.</p>
+            <div>
+              <span>Current Marketplace Inventory</span>
+              <h2>Broward County 4COP & 3PS licenses for sale</h2>
+            </div>
+            <p>
+              These are the same live FLLM marketplace cards used on the statewide Listings page. Open an individual listing to review its current price, marketplace reference and inquiry options.
+            </p>
           </div>
 
           {browardListings.length ? (
-            <div className="broward-grid">
-              {browardListings.map((listing) => (
-                <article className="broward-card" key={listing.sourceRef ?? `${listing.type}-${listing.priceLabel}`}>
-                  <span>{listing.type}</span>
-                  <h3>{listing.priceLabel}</h3>
-                  <p>{shortType(listing.type)} quota liquor-license opportunity in Broward County, Florida. Review the individual marketplace page for the current reference, availability and inquiry options.</p>
-                  <Link href={listingPageHref(listing)}>
-                    View Broward County {shortType(listing.type)} Liquor License for Sale
-                  </Link>
-                  {listing.sourceRef ? <small>FLLM marketplace reference: {listing.sourceRef}</small> : null}
-                </article>
-              ))}
+            <div className="results-page broward-results-scope">
+              <div className="results-grid">
+                {browardListings.map((listing) => (
+                  <MarketplaceListingCard
+                    key={listing.sourceRef ?? `${listing.type}-${listing.priceLabel}`}
+                    listing={listing}
+                  />
+                ))}
+              </div>
             </div>
           ) : (
-            <article className="broward-card">
-              <span>Inventory Update</span>
+            <article className="broward-empty">
               <h3>No active Broward listing displayed</h3>
-              <p>Inventory can change quickly. Browse the statewide marketplace or create a license alert to monitor new Broward County opportunities.</p>
-              <Link href="/listings?county=Broward%20County&status=available">Search Broward County Listings</Link>
+              <p>
+                Inventory can change quickly. Browse the statewide marketplace or create a license alert to monitor new Broward County opportunities.
+              </p>
+              <Link href="/listings?county=Broward%20County&status=available">
+                Search Broward County Listings
+              </Link>
             </article>
           )}
         </div>
@@ -231,8 +260,12 @@ export default async function BrowardCountyLiquorLicenseForSalePage() {
           <article>
             <span>Broward Buyer Context</span>
             <h2>Fort Lauderdale and Broward County quota-license market</h2>
-            <p>Broward County is one of Florida&apos;s largest year-round hospitality markets, with dense population, beaches, boating, hotels, restaurants, nightlife and entertainment concentrated around Fort Lauderdale and surrounding cities.</p>
-            <p>A quota license is county-specific. Buying the license does not by itself approve a particular premises or operating concept.</p>
+            <p>
+              Broward County is one of Florida&apos;s largest year-round hospitality markets, with dense population, beaches, boating, hotels, restaurants, nightlife and entertainment concentrated around Fort Lauderdale and surrounding cities.
+            </p>
+            <p>
+              A quota license is county-specific. Buying the license does not by itself approve a particular premises or operating concept.
+            </p>
           </article>
           <article>
             <span>Before You Buy</span>
