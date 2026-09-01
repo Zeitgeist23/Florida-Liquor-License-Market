@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { sendBuyerInquiryToApprovedSeller } from "@/lib/buyer-inquiry-email";
 import {
   notifyFllmOfBuyerOffer,
   sendApprovedSellerContactToBuyer,
@@ -142,6 +143,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     </div>
   </body></html>`;
 
+  let fllmNotificationFailed = false;
   try {
     await sendFllmEmail({
       to: contactRecipient(),
@@ -151,15 +153,28 @@ async function submitContactInquiry(request: Request, formData: FormData) {
       html,
     });
   } catch (notificationError) {
+    fllmNotificationFailed = true;
     console.error("Contact inquiry notification failed", notificationError);
-    // The existing contact-page client treats 429 as a signal to use its FormSubmit fallback.
-    return NextResponse.json(
-      { error: "Primary notification service is unavailable." },
-      { status: 429 },
-    );
   }
 
   if (approvedSellerSubmission) {
+    try {
+      await sendBuyerInquiryToApprovedSeller({
+        buyerName: fullName,
+        buyerEmail: email,
+        buyerPhone: phone,
+        inquiryType,
+        message,
+        submission: approvedSellerSubmission,
+      });
+    } catch (sellerDeliveryError) {
+      console.error("Buyer inquiry delivery to approved seller failed", sellerDeliveryError);
+      return NextResponse.json(
+        { error: "Your inquiry was received, but the seller notification email could not be delivered. Please try again." },
+        { status: 502 },
+      );
+    }
+
     try {
       await sendApprovedSellerContactToBuyer({
         buyerName: fullName,
@@ -175,8 +190,19 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     }
   }
 
+  if (fllmNotificationFailed) {
+    // Returning 429 only after the paid-listing routing has been attempted lets
+    // the contact-page client send its existing FormSubmit backup copy to FLLM
+    // without bypassing seller/buyer delivery.
+    return NextResponse.json(
+      { error: "Primary FLLM notification service is unavailable." },
+      { status: 429 },
+    );
+  }
+
   return NextResponse.json({
     ok: true,
+    sellerNotified: Boolean(approvedSellerSubmission),
     sellerContactDelivered: Boolean(approvedSellerSubmission),
   });
 }
