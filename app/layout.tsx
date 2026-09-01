@@ -19,6 +19,7 @@ import "./license-types-navy-refresh.css";
 import "./news-editorial-readability.css";
 import "./news-source-readability.css";
 import "./seo-authority-enhancements.css";
+import "./listings/[slug]/exchange-panel.css";
 
 const GOOGLE_ANALYTICS_ID = "G-PKP8PXCDWF";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -76,6 +77,7 @@ export default function RootLayout({
         <SeoAuthorityEnhancements />
         <NationalMarketplaceFooterLink />
 
+        <Script src="/assets/fllm-exchange-listing.js?v=1" strategy="afterInteractive" />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
           strategy="afterInteractive"
