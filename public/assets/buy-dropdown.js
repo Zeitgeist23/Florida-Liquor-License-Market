@@ -11,6 +11,10 @@
 
   const items = [
     {
+      label: "Buy a Florida Liquor License",
+      href: "/buy-florida-liquor-license",
+    },
+    {
       label: "View Listings",
       href: "/listings",
     },
