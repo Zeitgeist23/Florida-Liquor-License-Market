@@ -1,0 +1,40 @@
+name: One-Time Vraj Inquiry Delivery Test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/one-time-vraj-inquiry-test.yml
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    if: github.event.head_commit.message == 'Run one-time Vraj inquiry delivery test'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit test buyer inquiry through live FLLM
+        shell: bash
+        run: |
+          set -euo pipefail
+          response_file="$(mktemp)"
+          status=$(curl -sS -o "$response_file" -w '%{http_code}' \
+            -X POST 'https://www.floridaliquorlicensemarket.com/api/inquiry' \
+            --form-string 'name=James Wigg' \
+            --form-string 'email=jwigg023@gmail.com' \
+            --form-string 'phone=TEST DELIVERY CHECK' \
+            --form-string 'inquiry_type=Buy a License' \
+            --form-string 'preferred_county=Sarasota County' \
+            --form-string 'listing_reference=FLLM-168405' \
+            --form-string 'listing_requested=FLLM-168405 — Sarasota County — 3PS Quota / Package Store — $550,000' \
+            --form-string 'listing_county=Sarasota County' \
+            --form-string 'license_type=3PS Quota / Package Store' \
+            --form-string 'asking_price=$550,000' \
+            --form-string 'listing_status=Active / Available' \
+            --form-string 'listing_url=/listings/FLLM-168405' \
+            --form-string 'message=TEST BUYER INQUIRY — FLLM delivery verification for Vraj Patel’s Sarasota County listing FLLM-168405. No response or action is required.' )
+          echo "HTTP_STATUS=$status"
+          cat "$response_file"
+          echo
+          test "$status" = "200"
