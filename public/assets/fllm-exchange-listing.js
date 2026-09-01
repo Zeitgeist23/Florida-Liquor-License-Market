@@ -2,6 +2,27 @@
   if (window.__FLLM_EXCHANGE_LISTING_V2__) return;
   window.__FLLM_EXCHANGE_LISTING_V2__ = true;
 
+  if (!document.getElementById("fllm-exchange-button-depth")) {
+    const style = document.createElement("style");
+    style.id = "fllm-exchange-button-depth";
+    style.textContent = `
+      .fllm-exchange-form button[type="submit"] {
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.30), inset 0 -2px 0 rgba(0,0,0,.16), 0 5px 12px rgba(0,0,0,.24);
+        transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+      }
+      .fllm-exchange-form button[type="submit"]:hover:not(:disabled),
+      .fllm-exchange-form button[type="submit"]:focus-visible:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.34), inset 0 -2px 0 rgba(0,0,0,.18), 0 7px 15px rgba(0,0,0,.28);
+      }
+      .fllm-exchange-form button[type="submit"]:active:not(:disabled) {
+        transform: translateY(1px);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.22);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   const money = (value) => value == null ? "Undisclosed" : new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
   const parseMoney = (value) => {
     const n = Number(String(value || "").replace(/[^0-9.]/g, ""));
