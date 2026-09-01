@@ -124,6 +124,54 @@
   outline-offset: 3px;
 }
 
+/* Hero: clearly separate the two brokerage paths instead of presenting two stacked gold bars. */
+.broker-choice-page .seo-market-hero .seo-market-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 19px !important;
+  margin-top: 28px !important;
+}
+
+.broker-choice-page .seo-market-hero .seo-market-actions .seo-market-button {
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+/* buyer-guide-buttons.css globally forces all hero buttons gold; override that only on this page. */
+.broker-choice-page .seo-market-hero .seo-market-actions .seo-market-button-dark {
+  border: 1px solid #8cefff !important;
+  background: linear-gradient(180deg,#40dcff 0%,#19c7ef 18%,#0797c4 62%,#05658d 100%) !important;
+  color: #ffffff !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.55),
+    inset 0 -2px 0 rgba(0,55,82,.35),
+    0 3px 0 #034968,
+    0 8px 18px rgba(0,0,0,.28) !important;
+  text-shadow: 0 1px 1px rgba(0,48,70,.5) !important;
+  text-transform: uppercase !important;
+}
+
+.broker-choice-page .seo-market-hero .seo-market-actions .seo-market-button-dark:hover,
+.broker-choice-page .seo-market-hero .seo-market-actions .seo-market-button-dark:focus-visible {
+  border-color: #d7fbff !important;
+  background: linear-gradient(180deg,#68e5ff 0%,#29cff2 18%,#08a2d1 62%,#057299 100%) !important;
+  color: #ffffff !important;
+  filter: brightness(1.06) saturate(1.05) !important;
+  transform: translateY(-3px) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.68),
+    inset 0 -2px 0 rgba(0,55,82,.28),
+    0 5px 0 #034968,
+    0 14px 28px rgba(0,0,0,.36),
+    0 0 0 1px rgba(140,239,255,.2) !important;
+}
+
+.broker-choice-page .seo-market-hero .broker-choice-note {
+  margin-top: 26px !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .broker-choice-page .forms-site-header .btn-gold,
   .broker-choice-page .seo-market-button-gold,
