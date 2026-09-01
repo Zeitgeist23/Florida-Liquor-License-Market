@@ -297,16 +297,30 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     }
   }
 
+  const browserFallbackCc = Array.from(new Set([
+    ...(sellerDeliveryFailed && approvedSellerSubmission?.email
+      ? [approvedSellerSubmission.email]
+      : []),
+    ...(buyerDeliveryFailed ? [email] : []),
+  ]));
+  const browserFallbackSellerContact = approvedSellerSubmission
+    ? {
+        name: approvedSellerSubmission.fullName,
+        email: approvedSellerSubmission.email,
+        phone: approvedSellerSubmission.phone,
+      }
+    : null;
+
   if (sellerDeliveryFailed && !fallbackDelivered) {
     return NextResponse.json(
-      { error: "Your inquiry was received, but the seller notification email could not be delivered. Please try again." },
+      { error: "Your inquiry was received, but the seller notification email could not be delivered. Please try again.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
       { status: 502 },
     );
   }
 
   if (buyerDeliveryFailed && !fallbackDelivered) {
     return NextResponse.json(
-      { error: "Your inquiry was received, but the seller contact email could not be delivered. Please try again." },
+      { error: "Your inquiry was received, but the seller contact email could not be delivered. Please try again.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
       { status: 502 },
     );
   }
@@ -315,7 +329,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     // The contact-page client still has its own browser-side FormSubmit fallback
     // as a final administrative copy if both server delivery paths fail.
     return NextResponse.json(
-      { error: "Primary FLLM notification service is unavailable." },
+      { error: "Primary FLLM notification service is unavailable.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
       { status: 429 },
     );
   }
