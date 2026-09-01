@@ -124,8 +124,21 @@
   }
 }
 
-/* Featured listing correction: preserve the exact approved standard-card border and shadow.
-   Only the small cyan Featured Listing label differentiates the card. */
+/* LOCKED FLLM FEATURED LISTING CARD STANDARD — approved 2026-09-01.
+   This is the canonical reusable treatment for every featured marketplace card.
+   MarketplaceListingCard automatically applies result-card-featured and featured-listing-badge
+   whenever a listing has featuredUntil, so future featured listings inherit this exact look.
+   Do not create listing-specific border, glow, badge-position, sparkle, or color overrides.
+
+   Locked visual specification:
+   - same standard-card gold border and shadow as non-featured listings
+   - cyan/white Featured Listing badge only
+   - badge position: top 8px, left 33px
+   - badge padding: 5px 10px
+   - badge border: #66e6ff
+   - badge background: #168bb3 to #0b6284
+   - no sparkle, no extra featured-card glow, no alternate card frame
+*/
 .results-page .result-card-featured {
   border: 1px solid #9b741d !important;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28) !important;
