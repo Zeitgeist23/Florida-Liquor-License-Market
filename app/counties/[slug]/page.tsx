@@ -35,6 +35,21 @@ type CountyBuyerResource = {
 };
 
 const countyBuyerResources: Record<string, CountyBuyerResource> = {
+  "miami-dade": {
+    title: "Miami-Dade County and City of Miami premises review",
+    description:
+      "A Miami-Dade County quota liquor license can serve markets including Miami, Miami Beach, Doral, Hialeah, Homestead, and Coral Gables, but the license does not automatically approve a particular premises. Buyers should identify the governing municipality or unincorporated county jurisdiction and confirm zoning, certificates of use, local alcoholic-beverage approvals, and the separate DBPR transfer or change-of-location requirements.",
+    links: [
+      {
+        href: "https://www.miami.gov/Planning-Zoning-Land-Use",
+        label: "City of Miami Planning, Zoning and Land Use",
+      },
+      {
+        href: "https://www.miami.gov/Planning-Zoning-Land-Use/Get-An-Alcohol-Reservation-Letter",
+        label: "City of Miami Alcohol Reservation Letter",
+      },
+    ],
+  },
   duval: {
     title: "Jacksonville and Duval County premises review",
     description:
@@ -101,6 +116,10 @@ const getCountyListingSnapshot = cache(async (countyName: string) => {
 });
 
 function countyMetadataTitle(county: NonNullable<ReturnType<typeof getCountyBySlug>>) {
+  if (county.slug === "miami-dade") {
+    return "Miami-Dade County Liquor License for Sale | 4COP & 3PS";
+  }
+
   const primaryCity = county.primaryCities[0];
   const localTitle = primaryCity
     ? `${county.name} 4COP & 3PS Liquor Licenses for Sale | ${primaryCity}`
