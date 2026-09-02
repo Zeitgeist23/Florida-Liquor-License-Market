@@ -51,8 +51,10 @@ async function processPaidCheckout(session: StripeCheckoutSession) {
   let existing = await getSubmissionByRef(submissionRef);
   if (!existing && session.metadata?.recovery_version === "self_v1") {
     const metadata = session.metadata;
+    const featured = metadata.listing_tier === "featured";
     const recoveryNotes = [
       "Submission type: Self-Directed Listing",
+      `Listing option: ${featured ? "Featured Self-Directed Listing — $24.95" : "Standard Self-Directed Listing — $14.95"}`,
       `Preferred contact method and seller details: ${metadata.seller_notes || "Not provided"}`,
       "Recovered from authenticated Stripe Checkout metadata after a temporary listing-database outage.",
     ];
