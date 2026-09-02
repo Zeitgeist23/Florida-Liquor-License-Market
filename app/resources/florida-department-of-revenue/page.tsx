@@ -183,7 +183,7 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
       </section>
 
       <section className="fdor-hardcopy page-shell" aria-labelledby="fdor-hardcopy-heading">
-        <div>
+        <div className="fdor-hardcopy-copy">
           <span>Hardcopy clearance requests</span>
           <h2 id="fdor-hardcopy-heading">Information FDOR says to include</h2>
           <p>
@@ -192,6 +192,62 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
             business information and tax-identification number, and DR-835 when a qualified
             representative is making the request.
           </p>
+
+          <div className="fdor-clean-title-guide" aria-label="Clean-title and financing diligence">
+            <div className="fdor-guide-intro">
+              <strong>Why these records matter</strong>
+              <p>
+                When a 4COP Quota or 3PS liquor license is bought, sold, financed, or refinanced,
+                buyers and lenders commonly use current FDOR records to evaluate unresolved Florida
+                tax liabilities before closing. The required package depends on the transaction and
+                the lender’s closing instructions.
+              </p>
+            </div>
+
+            <article>
+              <span>Seller transaction document</span>
+              <h3>Certificate of Compliance</h3>
+              <p>
+                A seller may request this point-in-time certificate and provide it to the buyer as
+                evidence that FDOR has not issued a Notice of Intent to Audit and that the account
+                has no currently outstanding liabilities.
+              </p>
+              <ul>
+                <li>Supports seller good-standing and successor-liability diligence.</li>
+                <li>Helps the buyer and lender evaluate whether funds, payoff, or escrow protection may be needed.</li>
+                <li>May need to be refreshed if the closing is delayed.</li>
+              </ul>
+            </article>
+
+            <article>
+              <span>Account-status document</span>
+              <h3>Tax Clearance Letter</h3>
+              <p>
+                This letter reports the current status of an FDOR account. A private lender,
+                commercial bank, or closing professional may request it when underwriting an
+                acquisition loan or refinancing secured by a 4COP Quota or 3PS license.
+              </p>
+              <ul>
+                <li>Supports verification of current tax standing during underwriting and closing.</li>
+                <li>Does not prevent a later audit of prior reporting periods.</li>
+                <li>Does not replace a Certificate of Compliance when that transaction document is required.</li>
+              </ul>
+            </article>
+
+            <div className="fdor-guide-checklist">
+              <strong>Clean-title and collateral file</strong>
+              <p>
+                Review these FDOR records together with DBPR/ABT license status, registered
+                ownership and county, UCC and lien searches, payoff or release documents, and all
+                required transfer or change-of-location approvals.
+              </p>
+            </div>
+
+            <aside>
+              Neither document is title insurance or a guarantee of transferable title. Closing
+              requirements are set by the transaction, lender, regulators, and professional counsel.
+            </aside>
+          </div>
         </div>
         <div className="fdor-mailing-card">
           <strong>Florida Department of Revenue</strong>
