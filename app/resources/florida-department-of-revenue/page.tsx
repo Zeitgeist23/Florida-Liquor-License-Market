@@ -209,6 +209,18 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
           >
             Verify current instructions with FDOR ↗
           </a>
+          <div className="fdor-map-card">
+            <div>
+              <strong>FDOR Tallahassee office</strong>
+              <span>2450 Shumard Oak Boulevard, Tallahassee, FL 32311</span>
+            </div>
+            <iframe
+              title="Map of the Florida Department of Revenue Tallahassee office"
+              src="https://www.google.com/maps?q=Florida+Department+of+Revenue,+2450+Shumard+Oak+Boulevard,+Tallahassee,+FL+32311&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
       </section>
 
