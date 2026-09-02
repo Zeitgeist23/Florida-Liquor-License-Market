@@ -228,7 +228,7 @@ export default function Home({ marketListings }: { marketListings: MarketplaceLi
                     </button>
                   </div>
                   <div className="listing-body">
-                    <p>● {listing.county}</p>
+                    <p>● {listing.county === "Miami-Dade County" ? <a href="/counties/miami-dade">Miami-Dade County liquor licenses for sale</a> : listing.county}</p>
                     <h3>{listing.priceLabel}</h3>
                     <div><span>★ License Only</span><span>⇄ Transferable</span></div>
                     {listing.href ? <a className="homepage-listing-action" href={listing.href}>View License <span aria-hidden="true">›</span></a> : null}
