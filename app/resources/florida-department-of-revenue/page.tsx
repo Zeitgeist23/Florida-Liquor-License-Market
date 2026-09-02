@@ -197,7 +197,11 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
           <strong>Florida Department of Revenue</strong>
           <span>PO Box 8045</span>
           <span>Tallahassee, Florida 32314-8045</span>
-          <small>Published fax: 850-922-5254</small>
+          <span className="fdor-contact-line">
+            <b>Taxpayer Assistance:</b>
+            <a href="tel:+18504886800">850-488-6800</a>
+          </span>
+          <small>Tax-clearance request fax: 850-922-5254</small>
           <a
             href="https://floridarevenue.com/taxes/compliance/Pages/tax_clearance.aspx"
             target="_blank"
@@ -219,7 +223,7 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
           professional review. Confirm the current form, submission method, and required supporting
           documents directly with FDOR before filing.
         </p>
-        <small>Official resource links reviewed July 30, 2026.</small>
+        <small>Official resource links reviewed September 2, 2026.</small>
       </section>
 
       <footer className="abt-forms-footer">
