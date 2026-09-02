@@ -8,7 +8,7 @@ export type ListingPaymentDetails = {
 export function listingPaymentDetails(
   message: string | null | undefined,
 ): ListingPaymentDetails {
-  if (message?.includes("Listing option: Featured Broker Listing")) {
+  if (message?.includes("Listing option: Featured")) {
     return {
       tier: "featured",
       tierLabel: "Featured Listing",
