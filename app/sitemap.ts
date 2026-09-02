@@ -19,6 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/es/tipos-de-licencias`, lastModified, changeFrequency: "monthly", priority: 0.78, alternates: { languages: { en: `${siteUrl}/resources/florida-liquor-license-types`, es: `${siteUrl}/es/tipos-de-licencias` } } },
     { url: `${siteUrl}/es/leyes`, lastModified, changeFrequency: "monthly", priority: 0.72, alternates: { languages: { en: `${siteUrl}/resources/florida-liquor-license-laws`, es: `${siteUrl}/es/leyes` } } },
     { url: `${siteUrl}/listings`, lastModified, changeFrequency: "daily", priority: 1 },
+    { url: `${siteUrl}/exchange`, lastModified, changeFrequency: "daily", priority: 0.98 },
     { url: `${siteUrl}/buy-florida-liquor-license`, lastModified, changeFrequency: "daily", priority: 0.98 },
     { url: `${siteUrl}/free-guide`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/how-to-buy-florida-liquor-license`, lastModified, changeFrequency: "monthly", priority: 0.95 },
