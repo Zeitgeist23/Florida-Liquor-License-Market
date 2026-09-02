@@ -30,8 +30,28 @@ type RequestBody = {
   seller_certification?: boolean | string;
   fee_agreement?: boolean | string;
   sale_method?: string;
+  listing_tier?: string;
   honey?: string;
 };
+
+const selfDirectedListingOptions = {
+  standard: {
+    label: "Standard Self-Directed Listing",
+    unitAmount: 1495,
+    description:
+      "Standard self-directed marketplace publication after FLLM review.",
+    paymentLink: "https://buy.stripe.com/5kQ7sD8vb8nHcWVdTvebu00",
+  },
+  featured: {
+    label: "Featured Self-Directed Listing",
+    unitAmount: 2495,
+    description:
+      "Featured badge and 30 days of priority marketplace placement after publication, followed by continued Standard listing status until sold or withdrawn.",
+    paymentLink:
+      process.env.STRIPE_FEATURED_LISTING_PAYMENT_LINK ||
+      "https://buy.stripe.com/5kQ00bdPv5bv4qpbLnebu05",
+  },
+} as const;
 
 function accepted(value: boolean | string | undefined) {
   return (
@@ -71,6 +91,18 @@ export async function POST(request: Request) {
       );
     }
 
+    const listingTierKey = body.listing_tier === "featured" ? "featured" : "standard";
+    const listingTier = selfDirectedListingOptions[listingTierKey];
+    const sellerMessage = brokerAssisted
+      ? body.message
+      : [
+          `Listing option: ${listingTier.label} — $${(listingTier.unitAmount / 100).toFixed(2)}`,
+          `Marketplace treatment: ${listingTier.description}`,
+          body.message || "",
+        ]
+          .filter(Boolean)
+          .join("\n\n");
+
     const submissionInput = {
       fullName: body.name ?? "",
       email: body.email ?? "",
@@ -80,7 +112,7 @@ export async function POST(request: Request) {
       askingPriceText: body.asking_price,
       licenseStatus: body.license_status ?? "",
       preferredTiming: body.preferred_timing,
-      message: body.message,
+      message: sellerMessage,
       requiresPayment: !brokerAssisted,
     };
 
@@ -146,10 +178,13 @@ export async function POST(request: Request) {
       request.url,
       "/sell-your-license?payment=cancelled",
       {
-        paymentLink: databaseSaved
-          ? "https://buy.stripe.com/5kQ7sD8vb8nHcWVdTvebu00"
-          : undefined,
+        unitAmount: listingTier.unitAmount,
+        productName: `FLLM ${listingTier.label}`,
+        productDescription: listingTier.description,
+        paymentLink: databaseSaved ? listingTier.paymentLink : undefined,
         metadata: {
+          listing_tier: listingTierKey,
+          listing_price: String(listingTier.unitAmount),
           recovery_version: "self_v1",
           database_saved: String(databaseSaved),
           full_name: submissionInput.fullName.slice(0, 500),
