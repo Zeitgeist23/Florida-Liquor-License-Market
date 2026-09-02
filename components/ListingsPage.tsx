@@ -324,7 +324,11 @@ export default function ListingsPage({
             <Link href="/florida-3ps-liquor-license-for-sale">
               Florida 3PS licenses for sale
             </Link>{" "}
-            · <Link href="/counties">All 67 county markets</Link>.
+            · <Link href="/counties">All 67 county markets</Link>{" "}
+            ·{" "}
+            <Link href="/counties/miami-dade">
+              Miami-Dade County liquor licenses for sale
+            </Link>.
           </div>
           <div className="results-summary">
             <span>
