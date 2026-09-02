@@ -221,6 +221,22 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
+          <div className="fdor-map-card">
+            <div>
+              <strong>FDOR Jacksonville Taxpayer Service Center</strong>
+              <span>921 N Davis Street, Suite 250A, Jacksonville, FL 32209-6829</span>
+              <a className="fdor-office-phone" href="tel:+19043596070">
+                Jacksonville office: 904-359-6070
+              </a>
+              <span>Open 8 a.m.–5 p.m. Eastern Time</span>
+            </div>
+            <iframe
+              title="Map of the Florida Department of Revenue Jacksonville Taxpayer Service Center"
+              src="https://www.google.com/maps?q=Florida+Department+of+Revenue,+921+N+Davis+Street,+Suite+250A,+Jacksonville,+FL+32209-6829&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
       </section>
 
