@@ -28,6 +28,7 @@ const navMenus: NavMenu[] = [
     label: "Buy",
     menuClassName: "native-nav-menu-standard",
     links: [
+      { href: "/exchange", label: "FLLM Exchange — Confidential Offers" },
       { href: "/listings", label: "View Listings" },
       { href: "/buy-florida-liquor-license", label: "Buy a Florida Liquor License" },
       { href: "/license-alerts", label: "Get a License Alert" },
