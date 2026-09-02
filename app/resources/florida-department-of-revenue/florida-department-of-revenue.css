@@ -304,6 +304,119 @@
   margin-top: 12px;
 }
 
+.fdor-hardcopy {
+  align-items: start;
+}
+
+.fdor-hardcopy-copy {
+  min-width: 0;
+}
+
+.fdor-clean-title-guide {
+  display: grid;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.fdor-guide-intro,
+.fdor-clean-title-guide article,
+.fdor-guide-checklist {
+  padding: 18px;
+  border: 1px solid #3f586a;
+  border-radius: 6px;
+  background: #06131e;
+}
+
+.fdor-guide-intro {
+  border-left: 4px solid #f6a700;
+  background: linear-gradient(135deg, rgba(246, 167, 0, .09), #06131e 65%);
+}
+
+.fdor-guide-intro > strong,
+.fdor-guide-checklist > strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.fdor-hardcopy .fdor-guide-intro p,
+.fdor-hardcopy .fdor-guide-checklist p {
+  margin: 0;
+  color: #c6d1d7;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.fdor-clean-title-guide article {
+  border-top: 3px solid #f6a700;
+}
+
+.fdor-clean-title-guide article > span {
+  display: block;
+  color: #f6a700;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.fdor-clean-title-guide h3 {
+  margin: 6px 0 9px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  line-height: 1.15;
+}
+
+.fdor-hardcopy .fdor-clean-title-guide article p {
+  margin: 0;
+  color: #c6d1d7;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.fdor-clean-title-guide ul {
+  display: grid;
+  gap: 7px;
+  margin: 13px 0 0;
+  padding: 0;
+  list-style: none;
+  color: #d6dfe4;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.fdor-clean-title-guide li {
+  position: relative;
+  padding-left: 17px;
+}
+
+.fdor-clean-title-guide li::before {
+  content: "";
+  position: absolute;
+  top: .56em;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f6a700;
+}
+
+.fdor-guide-checklist {
+  border-color: #665326;
+  background: #0b1821;
+}
+
+.fdor-clean-title-guide aside {
+  padding: 14px 16px;
+  border-left: 3px solid #f6a700;
+  color: #aebbc4;
+  background: #0c1217;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 .fdor-process-copy .btn {
   min-height: 42px;
   margin-top: 19px;
