@@ -115,7 +115,7 @@
 .fdor-hardcopy p {
   margin: 0;
   color: #aebbc4;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 1.72;
 }
 
@@ -307,7 +307,7 @@
 .fdor-process-copy .btn {
   min-height: 42px;
   margin-top: 19px;
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .fdor-process-steps {
@@ -339,7 +339,7 @@
 
 .fdor-process-steps span {
   color: #d0dbe1;
-  font-size: 9px;
+  font-size: 13px;
   line-height: 1.5;
 }
 
@@ -356,25 +356,46 @@
 .fdor-mailing-card strong {
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 17px;
+  font-size: 20px;
 }
 
 .fdor-mailing-card span,
 .fdor-mailing-card small {
   color: #b8c5cc;
-  font-size: 10px;
+  font-size: 14px;
 }
 
 .fdor-mailing-card small {
   margin-top: 7px;
-  color: #8b9da8;
+  color: #aebbc4;
+  font-size: 13px;
 }
 
 .fdor-mailing-card a {
   margin-top: 8px;
   color: #f6a700;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 900;
+}
+
+.fdor-contact-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.fdor-contact-line b {
+  color: #fff;
+  font-size: 14px;
+}
+
+.fdor-contact-line a {
+  margin-top: 0;
+  font-size: 15px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .fdor-disclosure {
@@ -390,20 +411,20 @@
 .fdor-disclosure > strong {
   display: block;
   color: #f6a700;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: .1em;
   text-transform: uppercase;
 }
 
 .fdor-disclosure p {
-  margin: 8px 0;
-  font-size: 10px;
+  margin: 10px 0;
+  font-size: 13px;
   line-height: 1.7;
 }
 
 .fdor-disclosure small {
-  color: #7f909b;
-  font-size: 9px;
+  color: #9aabb5;
+  font-size: 11px;
 }
 
 @media (max-width: 850px) {
