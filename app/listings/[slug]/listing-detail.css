@@ -129,7 +129,7 @@
 /* On broker listings, align the complete broker panel with the four listing
    fact boxes rather than with the section heading above them. */
 .marketplace-listing-page .marketplace-listing-aside-broker {
-  margin-top: 70px;
+  margin-top: 76px;
 }
 
 .marketplace-listing-page .marketplace-listing-facts div {
