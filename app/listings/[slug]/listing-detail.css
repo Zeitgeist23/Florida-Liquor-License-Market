@@ -149,8 +149,10 @@
   }
 
   .results-page.marketplace-listing-page > .results-header .seller-brand img {
-    width: 190px !important;
-    height: 72px !important;
+    width: 65% !important;
+    max-width: 290px !important;
+    height: auto !important;
+    max-height: 116px !important;
     object-fit: contain !important;
     object-position: center !important;
     transform: none !important;
