@@ -435,7 +435,7 @@
 }
 
 .marketplace-listing-broker-inquiry textarea {
-  min-height: 96px;
+  min-height: 160px;
   padding: 10px 11px;
   resize: vertical;
 }

@@ -82,7 +82,7 @@ export default function ListingBrokerInquiryForm({
       </label>
       <label>
         <span>Message</span>
-        <textarea name="message" placeholder="Message" rows={3} required />
+        <textarea name="message" placeholder="Message" rows={6} required />
       </label>
       <button type="submit" disabled={status === "submitting"}>
         {status === "submitting" ? "Sending…" : "Send Inquiry"}
