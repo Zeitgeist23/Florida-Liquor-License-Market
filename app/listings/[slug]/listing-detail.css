@@ -711,11 +711,8 @@
 
 /* Appraisal conversion card beneath broker inquiry form. */
 .marketplace-listing-appraisal-card {
-  display: grid;
-  grid-template-columns: 112px minmax(0, 1fr);
-  gap: 18px;
   margin-top: 22px;
-  padding: 20px;
+  overflow: hidden;
   border: 1px solid rgba(197, 140, 18, .62);
   border-radius: 8px;
   background:
@@ -726,22 +723,21 @@
 
 .marketplace-listing-appraisal-card > img {
   display: block;
-  width: 112px;
-  height: 145px;
+  width: 100%;
+  aspect-ratio: 16 / 8.5;
   object-fit: cover;
-  object-position: top center;
-  border: 1px solid rgba(241, 166, 0, .72);
+  object-position: center;
+  border-bottom: 1px solid rgba(241, 166, 0, .72);
   background: #fff;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, .32);
 }
 
 .marketplace-listing-appraisal-card > div {
-  min-width: 0;
+  padding: 20px 22px 22px;
 }
 
 .marketplace-listing-appraisal-card span {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   color: #f1a600;
   font-size: 11px;
   font-weight: 900;
@@ -752,14 +748,14 @@
 .marketplace-listing-appraisal-card h2 {
   margin: 0;
   color: #fff;
-  font: 700 23px/1.08 Georgia, "Times New Roman", serif;
+  font: 700 22px/1.18 Georgia, "Times New Roman", serif;
 }
 
 .marketplace-listing-appraisal-card p {
-  margin: 9px 0 14px;
+  margin: 10px 0 16px;
   color: #d1dce4;
   font-size: 13px;
-  line-height: 1.48;
+  line-height: 1.5;
 }
 
 .marketplace-listing-appraisal-button,
@@ -773,13 +769,13 @@
 }
 
 .marketplace-listing-appraisal-button {
-  min-height: 42px;
-  padding: 9px 12px;
+  min-height: 46px;
+  padding: 10px 14px;
   border: 1px solid #ffc44d;
   border-radius: 4px;
   color: #071522;
   background: #f1a600;
-  font-size: 12px;
+  font-size: 13px;
   transition: transform .2s ease, background .2s ease;
 }
 
@@ -789,8 +785,8 @@
 }
 
 .marketplace-listing-heat-map-link {
-  margin-top: 11px;
-  color: #fff;
+  margin-top: 13px;
+  color: #dbe5eb;
   font-size: 12px;
 }
 
@@ -798,19 +794,3 @@
   color: #f1a600;
 }
 
-@media (max-width: 520px) {
-  .marketplace-listing-appraisal-card {
-    grid-template-columns: 1fr;
-  }
-
-  .marketplace-listing-appraisal-card > img {
-    width: 128px;
-    height: 166px;
-    margin: 0 auto;
-  }
-
-  .marketplace-listing-appraisal-card h2,
-  .marketplace-listing-appraisal-card span {
-    text-align: center;
-  }
-}
