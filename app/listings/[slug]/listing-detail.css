@@ -59,6 +59,10 @@
   display: block;
 }
 
+.marketplace-listing-title-line + .marketplace-listing-title-line {
+  margin-top: 4px;
+}
+
 .marketplace-listing-title-type {
   color: inherit;
   font-size: .84em;
