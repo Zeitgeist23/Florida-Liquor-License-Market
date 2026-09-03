@@ -428,7 +428,7 @@ export default async function Page({ params }: PageProps) {
                   <div className="marketplace-listing-broker-contact">
                     {listingBrokerage && <strong>{listingBrokerage}</strong>}
                     <a href={`mailto:${exchangeSubmission?.email}`}>{exchangeSubmission?.email}</a>
-                    <a href={`tel:${exchangeSubmission?.phone.replace(/[^\\d+]/g, "")}`}>{exchangeSubmission?.phone}</a>
+                    <a href={`tel:${exchangeSubmission?.phone.replace(/[^\d+]/g, "")}`}>{exchangeSubmission?.phone}</a>
                     <small>Independent listing broker representing the seller. FLLM is the marketplace, not the seller&apos;s broker.</small>
                   </div>
                 )}
