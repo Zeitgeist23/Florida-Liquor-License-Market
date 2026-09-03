@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ListingBrokerInquiryForm from "@/components/ListingBrokerInquiryForm";
 import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 
@@ -477,26 +478,22 @@ export default async function Page({ params }: PageProps) {
             <aside className={`marketplace-listing-aside${isThirdPartyBrokerListing ? " marketplace-listing-aside-broker" : ""}`}>
               <div className="marketplace-listing-action-card">
                 <span>{isThirdPartyBrokerListing ? "Independent Listing Broker" : "Interested in This Exact License?"}</span>
-                <h2>{isThirdPartyBrokerListing ? listingBrokerName : `Use Reference ${selectedReference}`}</h2>
-                {isThirdPartyBrokerListing && verifiedBroker && (
-                  <a className="marketplace-listing-broker-photo" href={verifiedBroker.profileUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${verifiedBroker.name}'s broker profile`}>
-                    <img src={verifiedBroker.photo} alt={`${verifiedBroker.name}, listing broker`} />
-                  </a>
-                )}
                 {isThirdPartyBrokerListing && (
-                  <div className="marketplace-listing-broker-contact">
-                    {listingBrokerage && <strong>{listingBrokerage}</strong>}
-                    {listingBrokerPhone && (
-                      <a href={`tel:${listingBrokerPhone.replace(/[^\d+]/g, "")}`}>
-                        {listingBrokerPhone}
-                        {verifiedBroker?.phoneNote && <small>{verifiedBroker.phoneNote}</small>}
+                  <div className="marketplace-listing-broker-summary">
+                    {verifiedBroker && (
+                      <a className="marketplace-listing-broker-photo" href={verifiedBroker.profileUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${verifiedBroker.name}'s broker profile`}>
+                        <img src={verifiedBroker.photo} alt={`${verifiedBroker.name}, listing broker`} />
                       </a>
                     )}
-                    {listingBrokerEmail && <a href={`mailto:${listingBrokerEmail}`}>{listingBrokerEmail}</a>}
-                    {verifiedBroker?.license && <span className="marketplace-listing-broker-license">{verifiedBroker.license}</span>}
-                    <small>{listingBrokerName} and {listingBrokerage || "the listing brokerage"} represent the seller. FLLM is the advertising marketplace and does not represent either party.</small>
+                    <div className="marketplace-listing-broker-contact">
+                      <h2>{listingBrokerName}</h2>
+                      {listingBrokerage && <strong>{listingBrokerage}</strong>}
+                      {listingBrokerPhone && <a href={`tel:${listingBrokerPhone.replace(/[^\d+]/g, "")}`}>☎ {listingBrokerPhone}</a>}
+                      {listingBrokerEmail && <a href={`mailto:${listingBrokerEmail}`}>✉ {listingBrokerEmail}</a>}
+                    </div>
                   </div>
                 )}
+                {!isThirdPartyBrokerListing && <h2>Use Reference {selectedReference}</h2>}
                 {!isThirdPartyBrokerListing && (
                   <ol>
                     <li>Confirm the license reference, category, county, and current availability.</li>
@@ -515,15 +512,28 @@ export default async function Page({ params }: PageProps) {
                 ) : (
                   <Link className="marketplace-listing-text-link" href={offerHref}>Submit an offer for this license →</Link>
                 )}
-                <Link className="marketplace-listing-text-link" href={countyHref}>Compare {selected.county} liquor-license prices and inventory →</Link>
-                <Link className="marketplace-listing-text-link" href={statewideListingsHref}>Browse all Florida liquor licenses for sale →</Link>
+                {isThirdPartyBrokerListing && (
+                  <ListingBrokerInquiryForm
+                    listingReference={selectedReference}
+                    listingRequested={`${selected.county} ${selected.type}`}
+                    listingCounty={selected.county}
+                    licenseType={selected.type}
+                    askingPrice={selected.priceLabel}
+                    listingStatus={statusLabel}
+                    listingUrl={canonicalPath}
+                  />
+                )}
+                {!isThirdPartyBrokerListing && <Link className="marketplace-listing-text-link" href={countyHref}>Compare {selected.county} liquor-license prices and inventory →</Link>}
+                {!isThirdPartyBrokerListing && <Link className="marketplace-listing-text-link" href={statewideListingsHref}>Browse all Florida liquor licenses for sale →</Link>}
               </div>
 
-              <div className="marketplace-listing-reference">
-                <span>Individual Listing Page</span>
-                <strong>{selectedReference}</strong>
-                <p>The URL and page content identify this license separately from the statewide inventory.</p>
-              </div>
+              {!isThirdPartyBrokerListing && (
+                <div className="marketplace-listing-reference">
+                  <span>Individual Listing Page</span>
+                  <strong>{selectedReference}</strong>
+                  <p>The URL and page content identify this license separately from the statewide inventory.</p>
+                </div>
+              )}
             </aside>
           </div>
 
