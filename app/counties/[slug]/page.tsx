@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import CountyMarketDataPanel from "@/components/CountyMarketDataPanel";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
+import MarketplaceListingCard from "@/components/MarketplaceListingCard";
 import { countyValuationGuideHref, isCountyValuationGuide } from "@/data/county-valuation-guides";
 import { getCountyBySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
 import {
   countyListingDescription,
-  sellerReportedStatusLabel,
 } from "@/lib/county-listing-descriptions";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
@@ -21,6 +20,7 @@ import "../../listings/listings-map-size.css";
 import "../../listings/listings-county-links.css";
 import "../../listings/listings-conversion-cards.css";
 import "../../listings/listings-card-overlap-fix.css";
+import "../../listings/listings-view-button-edge-fix.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 
@@ -160,26 +160,6 @@ function absoluteImageUrl(image: string | undefined) {
 
 function listingKey(listing: Listing) {
   return listing.sourceRef ?? `${listing.county}-${listing.type}-${listing.priceLabel}`;
-}
-
-function compactCardDescription(description: string) {
-  const clean = description.trim();
-  const maxCharacters = 122;
-  if (clean.length <= maxCharacters) return clean;
-  const tentative = clean.slice(0, maxCharacters + 1);
-  const lastSpace = tentative.lastIndexOf(" ");
-  const cutoff = lastSpace >= 92 ? lastSpace : maxCharacters;
-  const clipped = clean.slice(0, cutoff).replace(/[,:;.!?\s]+$/g, "");
-  return `${clipped}…`;
-}
-
-function ListingDescription({ listing }: { listing: Listing }) {
-  const description = countyListingDescription(listing.county);
-  return (
-    <div className="result-description">
-      <p title={description}>{compactCardDescription(description)}</p>
-    </div>
-  );
 }
 
 export const dynamic = "force-dynamic";
@@ -388,31 +368,11 @@ export default async function CountyPage({ params }: PageProps) {
             <div className="results-page county-market-results">
               <div className="results-grid">
                 {available.map((listing) => (
-                  <article className="result-card result-card-available" id={listing.sourceRef} key={listingKey(listing)}>
-                    <span className="result-type-badge">{listing.type}</span>
-                    <div className="result-photo">
-                      <Image
-                        className="florida-county-map"
-                        src={`/api/county-map?county=${encodeURIComponent(listing.county)}`}
-                        alt={`Florida map with ${listing.county} highlighted in gold`}
-                        width={560}
-                        height={300}
-                        loading="lazy"
-                        unoptimized
-                      />
-                    </div>
-                    <div className="result-body">
-                      <p className="result-county-row"><span className="result-pin" aria-hidden="true">●</span><Link className="result-county-link" href={`/counties/${county.slug}`}>{listing.county}</Link></p>
-                      <h2><Link href={listingPageHref(listing)} aria-label={`View ${listing.county} ${listing.type} offered at ${listing.priceLabel}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
-                      <div className="result-facts">
-                        <span className="availability-pill" title={listing.licenseStatus ? sellerReportedStatusLabel(listing.licenseStatus) : "Status to confirm"}><span className="availability-dot" aria-hidden="true" />Available</span>
-                      </div>
-                      <ListingDescription listing={listing} />
-                      <div className="result-actions">
-                        <Link className="btn btn-gold result-view-button" href={listingPageHref(listing)}>View {listing.type} Details <span aria-hidden="true">›</span></Link>
-                      </div>
-                    </div>
-                  </article>
+                  <MarketplaceListingCard
+                    key={listingKey(listing)}
+                    listing={listing}
+                    id={listing.sourceRef}
+                  />
                 ))}
               </div>
             </div>

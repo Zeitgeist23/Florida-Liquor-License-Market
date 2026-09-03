@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import FloridaCountyMap from "@/components/FloridaCountyMap";
-import { countySlug, indexableCounties } from "@/data/florida-counties";
-import type { Listing } from "@/data/listings";
-import {
-  countyListingDescription,
-  sellerReportedStatusLabel,
-} from "@/lib/county-listing-descriptions";
+import MarketplaceListingCard from "@/components/MarketplaceListingCard";
+import { indexableCounties } from "@/data/florida-counties";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import "../listings/listings-premium.css";
@@ -61,27 +56,6 @@ function median(values: number[]) {
   return sorted.length % 2
     ? sorted[middle]
     : Math.round((sorted[middle - 1] + sorted[middle]) / 2);
-}
-
-function compactCardDescription(description: string) {
-  const clean = description.trim();
-  const maxCharacters = 122;
-  if (clean.length <= maxCharacters) return clean;
-
-  const tentative = clean.slice(0, maxCharacters + 1);
-  const lastSpace = tentative.lastIndexOf(" ");
-  const cutoff = lastSpace >= 92 ? lastSpace : maxCharacters;
-  const clipped = clean.slice(0, cutoff).replace(/[,:;.!?\s]+$/g, "");
-  return `${clipped}…`;
-}
-
-function ListingDescription({ listing }: { listing: Listing }) {
-  const fullDescription = countyListingDescription(listing.county);
-  return (
-    <div className="result-description">
-      <p title={fullDescription}>{compactCardDescription(fullDescription)}</p>
-    </div>
-  );
 }
 
 export default async function Florida4CopLiquorLicenseForSalePage() {
@@ -273,21 +247,11 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
           <div className="results-page seo-market-preview-results">
             <div className="results-grid">
               {previewListings.map((listing) => (
-                <article className="result-card result-card-available" key={listing.sourceRef ?? `${listing.county}-${listing.price}`}>
-                  <span className="result-type-badge">{listing.type}</span>
-                  <div className="result-photo"><FloridaCountyMap county={listing.county} enlarged /></div>
-                  <div className="result-body">
-                    <p className="result-county-row"><span className="result-pin" aria-hidden="true">●</span><Link className="result-county-link" href={`/counties/${countySlug(listing.county)}`}>{listing.county}</Link></p>
-                    <h2><Link href={listingPageHref(listing)} aria-label={`View ${listing.type} listing in ${listing.county}`} style={{ color: "inherit", textDecoration: "none" }}>{listing.priceLabel}</Link></h2>
-                    <div className="result-facts">
-                      <span className="availability-pill" title={listing.licenseStatus ? sellerReportedStatusLabel(listing.licenseStatus) : "Status to confirm"}><span className="availability-dot" aria-hidden="true" />Available</span>
-                    </div>
-                    <ListingDescription listing={listing} />
-                    <div className="result-actions">
-                      <Link className="btn btn-gold result-view-button" href={listingPageHref(listing)}>View License <span aria-hidden="true">›</span></Link>
-                    </div>
-                  </div>
-                </article>
+                <MarketplaceListingCard
+                  key={listing.sourceRef ?? `${listing.county}-${listing.price}`}
+                  listing={listing}
+                  id={listing.sourceRef}
+                />
               ))}
             </div>
           </div>
