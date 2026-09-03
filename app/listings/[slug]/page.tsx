@@ -107,11 +107,15 @@ function shortLicenseType(type: Listing["type"]) {
 }
 
 function marketplaceTitle(listing: Listing) {
-  return `${listing.county} ${shortLicenseType(listing.type)} for Sale | ${listing.priceLabel}`;
+  return `${listing.county} ${shortLicenseType(listing.type)} for Sale | ${formattedListingPrice(listing)}`;
 }
 
 function marketplaceDescription(listing: Listing) {
-  return `${listing.county} ${shortLicenseType(listing.type)} offered at ${listing.priceLabel}. Review quota-license privileges, availability, marketplace reference, county market data, and inquiry options.`;
+  return `View this ${listing.county} ${shortLicenseType(listing.type)} for sale. The asking price is ${formattedListingPrice(listing)}. Review license privileges, availability, county market data, and inquiry options.`;
+}
+
+function formattedListingPrice(listing: Pick<Listing, "price" | "priceLabel">) {
+  return listing.price === null ? listing.priceLabel : priceLabel(listing.price);
 }
 
 function absoluteImageUrl(image: string | undefined) {
