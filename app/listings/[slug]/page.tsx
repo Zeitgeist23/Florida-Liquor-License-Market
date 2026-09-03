@@ -55,7 +55,6 @@ const verifiedBrokerProfiles: Record<string, {
   license?: string;
   photo: string;
   profileUrl: string;
-  sourceUrl: string;
 }> = {
   "FLLM-022": {
     name: "Lawrence Moore",
@@ -66,7 +65,6 @@ const verifiedBrokerProfiles: Record<string, {
     license: "Florida Broker License BK3458688",
     photo: "/assets/brokers/lawrence-moore.webp",
     profileUrl: "https://gai.services/broker/lawrence-moore/",
-    sourceUrl: "https://www.bizbuysell.com/business-asset/4cop-quota-liquor-license/2480306/",
   },
 };
 
@@ -437,7 +435,7 @@ export default async function Page({ params }: PageProps) {
                 <p><Link href={filteredCountyHref}>Compare current {selected.county} 4COP and 3PS liquor-license listings →</Link></p>
               </section>
 
-              {selected.sourceName && (
+              {selected.sourceName && !isThirdPartyBrokerListing && (
                 <section className="marketplace-listing-section marketplace-listing-source-section">
                   <h2>Listing Source</h2>
                   <p>The marketplace record identifies the source as <strong>{selected.sourceName}</strong>. Price and availability remain subject to confirmation.</p>
@@ -485,7 +483,7 @@ export default async function Page({ params }: PageProps) {
                   <Link className="marketplace-listing-primary" href={inquiryHref}>Request Confidential Details</Link>
                 )}
                 {isThirdPartyBrokerListing && verifiedBroker ? (
-                  <a className="marketplace-listing-text-link" href={verifiedBroker.sourceUrl} target="_blank" rel="noopener noreferrer">View Original BizBuySell Listing →</a>
+                  <a className="marketplace-listing-text-link" href={verifiedBroker.profileUrl} target="_blank" rel="noopener noreferrer">Visit Listing Broker Website →</a>
                 ) : (
                   <Link className="marketplace-listing-text-link" href={offerHref}>Submit an offer for this license →</Link>
                 )}
