@@ -34,6 +34,7 @@ import "@/app/listings/listings-card-overlap-fix.css";
 import "@/app/listings/listings-masthead-darker.css";
 import "@/app/listings/listings-mobile-header-fix.css";
 import "@/app/listings/listings-focused-card.css";
+import "@/app/listings/listings-view-button-edge-fix.css";
 import "./listing-detail.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
