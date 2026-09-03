@@ -561,6 +561,19 @@ export default async function Page({ params }: PageProps) {
                 {!isThirdPartyBrokerListing && <Link className="marketplace-listing-text-link" href={statewideListingsHref}>Browse all Florida liquor licenses for sale →</Link>}
               </div>
 
+              {isThirdPartyBrokerListing && (
+                <section className="marketplace-listing-appraisal-card" aria-labelledby="listing-appraisal-promo-title">
+                  <img src="/assets/fllm-formal-appraisal-preview-v1.webp" alt="Sample FLLM formal liquor license appraisal report" />
+                  <div>
+                    <span>License Value Research</span>
+                    <h2 id="listing-appraisal-promo-title">What Is This License Worth?</h2>
+                    <p>Order an FLLM liquor-license appraisal using current county listings, market evidence, and regulatory context.</p>
+                    <Link className="marketplace-listing-appraisal-button" href="/florida-liquor-license-appraisal#order-form">Order an FLLM Appraisal</Link>
+                    <Link className="marketplace-listing-heat-map-link" href="/#market-data">View Florida License Heat Map →</Link>
+                  </div>
+                </section>
+              )}
+
               {!isThirdPartyBrokerListing && (
                 <div className="marketplace-listing-reference">
                   <span>Individual Listing Page</span>
