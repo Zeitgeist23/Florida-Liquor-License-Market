@@ -270,7 +270,7 @@ export default async function Page({ params }: PageProps) {
   const listingBrokerName = verifiedBroker?.name || exchangeSubmission?.fullName || "Independent Listing Broker";
   const listingBrokerPhone = verifiedBroker?.phone || exchangeSubmission?.phone || null;
   const listingBrokerEmail = verifiedBroker?.email || exchangeSubmission?.email || null;
-  const countyName = selected.county.replace(/\\s+County$/i, "");
+  const countyName = selected.county.replace(/\s+County$/i, "");
   const countyPopulation = FLORIDA_COUNTY_POPULATIONS_2025[countyName] ?? null;
   const drawingCountyName = countyName === "Miami-Dade" ? "Dade" : countyName;
   const currentDrawingLicenses = QUOTA_DRAWING_2026.counties.find(
