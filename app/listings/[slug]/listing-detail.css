@@ -267,18 +267,21 @@
   text-transform: uppercase;
 }
 
-.marketplace-listing-broker-summary {
-  display: grid;
-  grid-template-columns: 39% minmax(0, 1fr);
-  align-items: start;
-  gap: 14px;
-  margin: 8px 0 12px;
+.marketplace-listing-broker-profile {
+  margin: 8px 0 14px;
+}
+
+.marketplace-listing-broker-profile > h2 {
+  margin: 0 0 14px !important;
+  font-size: 31px !important;
+  line-height: 1.08 !important;
+  white-space: nowrap;
 }
 
 .marketplace-listing-broker-photo {
   display: block;
-  width: 100%;
-  margin: 0;
+  width: 70%;
+  margin: 0 auto 16px;
   transform: none;
   overflow: hidden;
   border: 1px solid rgba(241, 166, 0, .78);
@@ -309,15 +312,12 @@
 .marketplace-listing-broker-contact {
   display: grid;
   align-content: start;
-  gap: 7px;
+  gap: 8px;
   min-width: 0;
-}
-
-.marketplace-listing-broker-contact h2 {
-  margin: -2px 0 0 !important;
-  font-size: 22px !important;
-  line-height: 1.08 !important;
-  white-space: nowrap;
+  padding: 15px;
+  border: 1px solid rgba(241, 166, 0, .34);
+  border-radius: 7px;
+  background: rgba(3, 13, 23, .52);
 }
 
 .marketplace-listing-broker-contact a {
@@ -597,14 +597,14 @@
     transform: none;
   }
 
-  .marketplace-listing-broker-summary {
-    grid-template-columns: 120px minmax(0, 1fr);
+  .marketplace-listing-broker-profile > h2 {
+    white-space: normal;
   }
 }
 
 @media (max-width: 700px) {
-  .marketplace-listing-broker-summary {
-    grid-template-columns: 105px minmax(0, 1fr);
+  .marketplace-listing-broker-photo {
+    width: min(70%, 260px);
   }
   .marketplace-listing-highlight-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
