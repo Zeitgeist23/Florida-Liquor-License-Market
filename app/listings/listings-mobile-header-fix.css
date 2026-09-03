@@ -20,14 +20,14 @@
     grid-column: 1 !important;
     grid-row: 1 !important;
     width: 100% !important;
-    height: 68px !important;
+    height: 118px !important;
     justify-content: center !important;
     overflow: visible !important;
   }
 
   .results-page > .results-header .seller-brand img {
-    width: 190px !important;
-    height: 66px !important;
+    width: 290px !important;
+    height: 119px !important;
     object-fit: contain !important;
     object-position: center !important;
     transform: none !important;
@@ -48,7 +48,7 @@
     flex-wrap: wrap !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 5px 14px !important;
+    gap: 6px 18px !important;
     padding: 0 !important;
     border: 0 !important;
     background: transparent !important;
@@ -73,20 +73,20 @@
   .results-page > .results-header nav.listings-primary-nav .native-nav-trigger,
   .results-page > .results-header nav.listings-primary-nav > .native-nav-direct-link {
     width: auto !important;
-    min-height: 25px !important;
+    min-height: 32px !important;
     padding: 0 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     color: #fff !important;
-    font-size: 9px !important;
+    font-size: 11px !important;
     line-height: 1.2 !important;
     white-space: nowrap !important;
   }
 
   .results-page > .results-header nav.listings-primary-nav .native-nav-trigger .nav-chevron {
-    width: 7px !important;
-    height: 5px !important;
+    width: 8px !important;
+    height: 6px !important;
   }
 
   /* Opening a compact mobile menu must not increase the header height or push
@@ -106,12 +106,13 @@
 
   .results-page > .results-header nav.listings-primary-nav > a.listings-header-list-license {
     flex: 0 0 100% !important;
-    width: min(280px, 100%) !important;
-    max-width: 280px !important;
+    width: min(320px, 100%) !important;
+    max-width: 320px !important;
     min-width: 0 !important;
-    height: 38px !important;
-    min-height: 38px !important;
-    margin: 3px auto 0 !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    margin: 6px auto 1px !important;
+    font-size: 12px !important;
   }
 }
 
@@ -122,20 +123,20 @@
   }
 
   .results-page > .results-header .seller-brand {
-    height: 62px !important;
+    height: 112px !important;
   }
 
   .results-page > .results-header .seller-brand img {
-    width: 180px !important;
-    height: 60px !important;
+    width: 280px !important;
+    height: 115px !important;
   }
 
   .results-page > .results-header nav.listings-primary-nav {
-    gap: 4px 11px !important;
+    gap: 5px 14px !important;
   }
 
   .results-page > .results-header nav.listings-primary-nav .native-nav-trigger,
   .results-page > .results-header nav.listings-primary-nav > .native-nav-direct-link {
-    font-size: 8.5px !important;
+    font-size: 11px !important;
   }
 }
