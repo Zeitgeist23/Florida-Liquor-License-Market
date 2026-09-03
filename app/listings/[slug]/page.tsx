@@ -366,9 +366,9 @@ export default async function Page({ params }: PageProps) {
                 : "Individual Florida Marketplace Listing"}
             </span>
             <h1>
-              {selected.county}{" "}
-              <span className="marketplace-listing-title-type">{shortLicenseType(selected.type)}</span>{" "}
-              for Sale
+              <span className="marketplace-listing-title-line">{selected.county}</span>
+              <span className="marketplace-listing-title-line marketplace-listing-title-type">{shortLicenseType(selected.type)}</span>
+              <span className="marketplace-listing-title-line">for Sale</span>
             </h1>
             <p className="marketplace-listing-price">{selected.priceLabel}</p>
             <div className="marketplace-listing-availability">
