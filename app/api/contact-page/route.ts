@@ -1,3 +1,6 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+
 export const dynamic = "force-dynamic";
 
 const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v2">
@@ -166,15 +169,11 @@ export async function GET(request: Request) {
   try {
     const requestUrl = new URL(request.url);
     const careersMode = requestUrl.searchParams.get("careers") === "1";
-    const sourceUrl = new URL("/contact/index.html", request.url);
-    sourceUrl.searchParams.set("source", "1");
-
-    const sourceResponse = await fetch(sourceUrl, { cache: "no-store" });
-    if (!sourceResponse.ok) {
-      throw new Error(`Static contact page returned ${sourceResponse.status}`);
-    }
-
-    let html = addContactEnhancements(await sourceResponse.text());
+    // Read the existing static contact document directly. Fetching its public URL
+    // can be normalized back to /contact by the host and recursively re-enter
+    // this handler, which leaves listing inquiry navigation waiting indefinitely.
+    const sourcePath = path.join(process.cwd(), "public", "contact", "index.html");
+    let html = addContactEnhancements(await readFile(sourcePath, "utf8"));
     html = careersMode ? applyCareersMode(html) : addCareersEntryPoint(html);
 
     return new Response(html, {
