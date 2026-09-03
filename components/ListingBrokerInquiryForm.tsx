@@ -31,6 +31,7 @@ export default function ListingBrokerInquiryForm({
   listingUrl,
 }: Props) {
   const [status, setStatus] = useState<SubmitState>("idle");
+  const [phone, setPhone] = useState("");
 
   async function submitInquiry(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -44,6 +45,7 @@ export default function ListingBrokerInquiryForm({
     if (formData.get("_honey")) {
       setStatus("sent");
       form.reset();
+      setPhone("");
       return;
     }
 
@@ -59,6 +61,7 @@ export default function ListingBrokerInquiryForm({
 
       setStatus("sent");
       form.reset();
+      setPhone("");
     } catch {
       setStatus("error");
     }
@@ -97,9 +100,8 @@ export default function ListingBrokerInquiryForm({
             autoComplete="tel-national"
             inputMode="tel"
             maxLength={13}
-            onInput={(event) => {
-              event.currentTarget.value = formatPhoneNumber(event.currentTarget.value);
-            }}
+            value={phone}
+            onChange={(event) => setPhone(formatPhoneNumber(event.target.value))}
             required
           />
         </label>
