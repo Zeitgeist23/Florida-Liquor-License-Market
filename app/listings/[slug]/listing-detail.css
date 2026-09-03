@@ -140,6 +140,15 @@
   fill: #0b2a45;
 }
 
+.marketplace-listing-page .marketplace-listing-map > span {
+  max-width: 94%;
+  color: #edf3f7;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.55;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .7);
+}
+
 /* Listing-detail visual system: layered FLLM navy surfaces with restrained
    gold definition, replacing the flat black utility boxes. */
 .marketplace-listing-page .marketplace-listing-grid {
