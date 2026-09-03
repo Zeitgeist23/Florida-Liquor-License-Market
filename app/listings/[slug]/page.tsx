@@ -408,11 +408,35 @@ export default async function Page({ params }: PageProps) {
                 <div><span>Marketplace Status</span><strong>{statusLabel}</strong></div>
               </div>
 
-              <div className="marketplace-listing-reference marketplace-listing-reference-inline">
-                <span>Exact Marketplace Reference</span>
-                <strong>{selectedReference}</strong>
-                <p>This page is the individual detail page for this specific listed license.</p>
-              </div>
+              {isThirdPartyBrokerListing ? (
+                <section className="marketplace-listing-highlights" aria-labelledby="license-highlights-heading">
+                  <h3 id="license-highlights-heading">License Highlights</h3>
+                  <div className="marketplace-listing-highlight-grid">
+                    <div>
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M11 42h13V18H11zM15 18V8h5v10M11 26h13M29 25h12l-2 9a5 5 0 0 1-4 3.5A5 5 0 0 1 31 34zM35 37.5V42M30 42h10" /></svg>
+                      <strong>Full-liquor<br />privileges</strong>
+                    </div>
+                    <div>
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" /></svg>
+                      <strong>On- or<br />off-premises use</strong>
+                    </div>
+                    <div>
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" /></svg>
+                      <strong>Transfer subject<br />to DBPR approval</strong>
+                    </div>
+                    <div>
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="14" r="7" /><circle cx="10" cy="22" r="5" /><circle cx="38" cy="22" r="5" /><path d="M13 42v-6c0-7 5-12 11-12s11 5 11 12v6zM2 42v-5c0-5 4-9 9-9 2 0 4 1 6 2M46 42v-5c0-5-4-9-9-9-2 0-4 1-6 2" /></svg>
+                      <strong>Limited {selected.county.replace(" County", "")}<br />County quota supply</strong>
+                    </div>
+                  </div>
+                </section>
+              ) : (
+                <div className="marketplace-listing-reference marketplace-listing-reference-inline">
+                  <span>Exact Marketplace Reference</span>
+                  <strong>{selectedReference}</strong>
+                  <p>This page is the individual detail page for this specific listed license.</p>
+                </div>
+              )}
 
               {selected.note && (
                 <div className="marketplace-listing-note">
