@@ -208,6 +208,7 @@
   display: block;
   width: 60%;
   margin: 14px auto 18px;
+  transform: translateX(-10px);
   overflow: hidden;
   border: 1px solid rgba(241, 166, 0, .78);
   border-radius: 7px;
@@ -379,6 +380,10 @@
 @media (max-width: 900px) {
   .marketplace-listing-page .marketplace-listing-aside-broker {
     margin-top: 0;
+  }
+
+  .marketplace-listing-broker-photo {
+    transform: none;
   }
 }
 
