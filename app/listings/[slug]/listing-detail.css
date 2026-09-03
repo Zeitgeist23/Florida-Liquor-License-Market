@@ -222,14 +222,14 @@
    pages only). Scoped to .marketplace-listing-related so the approved
    /listings cards are unaffected. */
 @media (min-width: 1121px) {
-  .marketplace-listing-related .result-actions {
+  .results-page.marketplace-listing-page .marketplace-listing-related .result-actions {
     width: min(268px, calc(100% - 14px)) !important;
     margin-right: 14px !important;
   }
 }
 
 @media (min-width: 761px) and (max-width: 1120px) {
-  .marketplace-listing-related .result-actions {
+  .results-page.marketplace-listing-page .marketplace-listing-related .result-actions {
     width: min(248px, calc(100% - 14px)) !important;
     margin-right: 14px !important;
   }
