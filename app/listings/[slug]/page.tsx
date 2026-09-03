@@ -448,7 +448,7 @@ export default async function Page({ params }: PageProps) {
               )}
             </article>
 
-            <aside className="marketplace-listing-aside">
+            <aside className={`marketplace-listing-aside${isThirdPartyBrokerListing ? " marketplace-listing-aside-broker" : ""}`}>
               <div className="marketplace-listing-action-card">
                 <span>{isThirdPartyBrokerListing ? "Independent Listing Broker" : "Interested in This Exact License?"}</span>
                 <h2>{isThirdPartyBrokerListing ? listingBrokerName : `Use Reference ${selectedReference}`}</h2>

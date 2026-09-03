@@ -126,6 +126,12 @@
   gap: 30px;
 }
 
+/* On broker listings, align the complete broker panel with the four listing
+   fact boxes rather than with the section heading above them. */
+.marketplace-listing-page .marketplace-listing-aside-broker {
+  margin-top: 93px;
+}
+
 .marketplace-listing-page .marketplace-listing-facts div {
   border-color: rgba(197, 140, 18, .62);
   border-radius: 7px;
@@ -367,6 +373,12 @@
   .results-page.marketplace-listing-page .marketplace-listing-summary {
     font-size: 16px !important;
     line-height: 1.65 !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .marketplace-listing-page .marketplace-listing-aside-broker {
+    margin-top: 0;
   }
 }
 
