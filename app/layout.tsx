@@ -80,7 +80,6 @@ export default function RootLayout({
         <SeoAuthorityEnhancements />
         <NationalMarketplaceFooterLink />
 
-        <Script src="/assets/fllm-exchange-listing.js?v=3" strategy="afterInteractive" />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
           strategy="afterInteractive"
