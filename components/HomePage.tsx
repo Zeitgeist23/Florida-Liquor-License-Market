@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { Listing as MarketplaceListing } from "@/data/listings";
+import { countySlug } from "@/data/florida-counties";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import HomeMarketInsightsMap from "./HomeMarketInsightsMap";
 import HeaderNavMenus from "./HeaderNavMenus";
@@ -228,7 +229,7 @@ export default function Home({ marketListings }: { marketListings: MarketplaceLi
                     </button>
                   </div>
                   <div className="listing-body">
-                    <p>● {listing.county === "Miami-Dade County" ? <a href="/counties/miami-dade">Miami-Dade County liquor licenses for sale</a> : listing.county}</p>
+                    <p>● <a href={`/counties/${countySlug(listing.county)}`}>{listing.county} liquor licenses for sale</a></p>
                     <h3>{listing.priceLabel}</h3>
                     <div><span>★ License Only</span><span>⇄ Transferable</span></div>
                     {listing.href ? <a className="homepage-listing-action" href={listing.href}>View License <span aria-hidden="true">›</span></a> : null}
