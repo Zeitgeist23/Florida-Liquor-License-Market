@@ -452,14 +452,14 @@ export default async function Page({ params }: PageProps) {
             </aside>
           </div>
 
-          {exchangeSubmission && (
+          {exchangeSubmission && !isThirdPartyBrokerListing && (
             <FllmExchangePanel
               listingRef={selectedReference}
               askingPrice={exchangeAskingPrice}
             />
           )}
 
-          {related.length > 0 && (
+          {!isThirdPartyBrokerListing && related.length > 0 && (
             <section className="marketplace-listing-related">
               <div className="marketplace-listing-heading">
                 <span>More in This County</span>
