@@ -1,6 +1,6 @@
 (() => {
-  if (window.__FLLM_CONTACT_LISTING_CONTEXT_V3__) return;
-  window.__FLLM_CONTACT_LISTING_CONTEXT_V3__ = true;
+  if (window.__FLLM_CONTACT_LISTING_CONTEXT_V4__) return;
+  window.__FLLM_CONTACT_LISTING_CONTEXT_V4__ = true;
 
   const params = new URLSearchParams(window.location.search);
   const context = {
@@ -136,6 +136,23 @@
     return panel;
   }
 
+  function syncListingFields(form) {
+    const listingSummary = selectedLicenseSummary();
+    ensureHidden(form, "listing_reference", context.reference);
+    ensureHidden(form, "listing_requested", context.listing || listingSummary);
+    ensureHidden(form, "listing_county", context.county);
+    ensureHidden(form, "license_type", context.licenseType);
+    ensureHidden(form, "asking_price", context.askingPrice);
+    ensureHidden(form, "listing_status", context.status);
+    ensureHidden(form, "listing_url", listingPath);
+  }
+
+  function installSubmitSync(form) {
+    if (form.dataset.fllmListingSubmitSync === "true") return;
+    form.dataset.fllmListingSubmitSync = "true";
+    form.addEventListener("submit", () => syncListingFields(form), true);
+  }
+
   function applyContext() {
     if (applying) return false;
     applying = true;
@@ -157,14 +174,8 @@
         else form.prepend(panel);
       }
 
-      const listingSummary = selectedLicenseSummary();
-      ensureHidden(form, "listing_reference", context.reference);
-      ensureHidden(form, "listing_requested", context.listing || listingSummary);
-      ensureHidden(form, "listing_county", context.county);
-      ensureHidden(form, "license_type", context.licenseType);
-      ensureHidden(form, "asking_price", context.askingPrice);
-      ensureHidden(form, "listing_status", context.status);
-      ensureHidden(form, "listing_url", listingPath);
+      syncListingFields(form);
+      installSubmitSync(form);
 
       const subject = form.querySelector('input[name="_subject"]');
       const subjectValue = context.reference
