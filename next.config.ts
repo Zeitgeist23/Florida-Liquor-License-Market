@@ -9,6 +9,9 @@ const mirroredRoutes = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  outputFileTracingIncludes: {
+    "/api/contact-page": ["./public/contact/index.html"],
+  },
   async redirects() {
     return [
       {
