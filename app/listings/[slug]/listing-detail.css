@@ -200,20 +200,23 @@
 
 .marketplace-listing-broker-photo {
   display: block;
-  width: calc(100% + 44px);
-  margin: -22px -22px 18px;
+  width: 60%;
+  margin: 14px auto 18px;
+  padding: 6px;
   overflow: hidden;
-  border-bottom: 1px solid rgba(241, 166, 0, .62);
-  border-radius: 8px 8px 0 0;
-  background: #061725;
+  border: 1px solid rgba(241, 166, 0, .78);
+  border-radius: 7px;
+  background: #041321;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .28);
 }
 
 .marketplace-listing-broker-photo img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center 24%;
+  border-radius: 3px;
   transition: transform .25s ease, filter .25s ease;
 }
 
