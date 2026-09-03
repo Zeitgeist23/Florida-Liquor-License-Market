@@ -159,31 +159,48 @@
     background: transparent !important;
   }
 
+  .results-page .featured-listing-badge {
+    top: 10px !important;
+    min-height: 28px !important;
+    padding: 0 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
   .results-page .result-type-badge {
-    top: 14px !important;
-    right: auto !important;
-    left: 50% !important;
-    min-height: 36px !important;
-    padding: 0 18px !important;
-    transform: translateX(-50%) !important;
-    font-size: 13px !important;
+    top: 10px !important;
+    right: 14px !important;
+    left: auto !important;
+    min-height: 28px !important;
+    padding: 0 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: none !important;
+    font-size: 12px !important;
     line-height: 1 !important;
-    letter-spacing: .035em !important;
+    letter-spacing: .03em !important;
     text-align: center !important;
     white-space: nowrap !important;
   }
 
   .results-page .result-body > .result-county-row,
-  .results-page .result-body > p.result-county-row {
-    margin-top: 52px !important;
-  }
-
-  .results-page .result-card-featured .result-type-badge {
-    top: 50px !important;
-  }
-
+  .results-page .result-body > p.result-county-row,
   .results-page .result-card-featured .result-body > .result-county-row,
   .results-page .result-card-featured .result-body > p.result-county-row {
-    margin-top: 78px !important;
+    margin-top: 32px !important;
+  }
+
+  @media (max-width: 400px) {
+    .results-page .featured-listing-badge {
+      left: 18px !important;
+    }
+
+    .results-page .result-type-badge {
+      right: 10px !important;
+      padding: 0 8px !important;
+      font-size: 11px !important;
+    }
   }
 }
