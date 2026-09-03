@@ -71,7 +71,7 @@
       <p class="fllm-exchange-legal">FLLM Exchange is a confidential negotiation and price-discovery feature. Buyer bids, counters, acceptances and price matches are not displayed publicly and do not themselves create a binding purchase agreement or guarantee DBPR transfer approval.</p>`;
 
     const firstGrid = bodyShell.querySelector(".marketplace-listing-grid");
-    if (firstGrid) firstGrid.insertAdjacentElement("beforebegin", section);
+    if (firstGrid) firstGrid.insertAdjacentElement("afterend", section);
     else bodyShell.prepend(section);
 
     const form = section.querySelector("form");
