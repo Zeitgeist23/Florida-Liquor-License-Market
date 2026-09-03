@@ -368,7 +368,11 @@ export default async function Page({ params }: PageProps) {
             </span>
             <h1>
               <span className="marketplace-listing-title-line">{selected.county}</span>
-              <span className="marketplace-listing-title-line marketplace-listing-title-type">{shortLicenseType(selected.type)}</span>
+              <span className="marketplace-listing-title-line marketplace-listing-title-type">
+                {selected.type === "4COP Quota" ? (
+                  <><span className="marketplace-license-series">4COP</span> Quota Liquor License</>
+                ) : shortLicenseType(selected.type)}
+              </span>
               <span className="marketplace-listing-title-line">for Sale</span>
             </h1>
             <p className="marketplace-listing-price">{selected.priceLabel}</p>
@@ -403,7 +407,9 @@ export default async function Page({ params }: PageProps) {
             <article className="marketplace-listing-main">
               <div className="marketplace-listing-heading">
                 <span>Specific License Details</span>
-                <h2>{selected.type} in {selected.county}</h2>
+                <h2>
+                  {selected.type === "4COP Quota" ? <><span className="marketplace-license-series">4COP</span> Quota</> : selected.type} in {selected.county}
+                </h2>
               </div>
 
               <div className="marketplace-listing-facts" aria-label="Specific listing details">

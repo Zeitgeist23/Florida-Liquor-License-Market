@@ -69,6 +69,12 @@
   white-space: nowrap;
 }
 
+.marketplace-license-series {
+  font-family: 'Times New Roman', Times, serif;
+  font-variant-numeric: lining-nums;
+  font-feature-settings: 'lnum' 1;
+}
+
 .marketplace-listing-availability .availability-pill {
   display: inline-flex;
   align-items: center;
