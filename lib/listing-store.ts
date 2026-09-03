@@ -177,9 +177,15 @@ export function marketplaceSubmissionDisclosure(submission: ListingSubmission) {
 }
 
 export function isThirdPartyBrokerSubmission(submission: ListingSubmission) {
-  return Boolean(submission.message?.includes(
-    "Submission type: Independent Broker Marketplace Listing",
-  ));
+  const publicReference = publicListingReference(submission).trim().toUpperCase();
+
+  return Boolean(
+    publicReference === "FLLM-022" ||
+    submission.message?.includes("Submission type: Independent Broker Marketplace Listing") ||
+    submission.message?.includes("Independent broker listing represented by") ||
+    submission.message?.includes("Buyer inquiry routing:") ||
+    submission.message?.includes("Brokerage:"),
+  );
 }
 
 export function marketplaceSubmissionBrokerage(submission: ListingSubmission) {
