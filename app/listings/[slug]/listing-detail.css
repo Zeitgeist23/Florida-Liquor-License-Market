@@ -55,6 +55,15 @@
   margin: 0 0 18px;
 }
 
+.marketplace-listing-title-type {
+  display: inline-block;
+  position: relative;
+  left: 2px;
+  color: inherit;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
 .marketplace-listing-availability .availability-pill {
   display: inline-flex;
   align-items: center;

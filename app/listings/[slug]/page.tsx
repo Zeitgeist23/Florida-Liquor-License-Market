@@ -365,7 +365,11 @@ export default async function Page({ params }: PageProps) {
                 ? "Featured Third-Party Broker Listing"
                 : "Individual Florida Marketplace Listing"}
             </span>
-            <h1>{selected.county} {shortLicenseType(selected.type)} for Sale</h1>
+            <h1>
+              {selected.county}{" "}
+              <span className="marketplace-listing-title-type">{shortLicenseType(selected.type)}</span>{" "}
+              for Sale
+            </h1>
             <p className="marketplace-listing-price">{selected.priceLabel}</p>
             <div className="marketplace-listing-availability">
               <span className="availability-pill" title={statusLabel}>
