@@ -90,6 +90,13 @@ function money(value: number) {
   }).format(value);
 }
 
+function searchDescriptionMoney(value: number) {
+  return `$${Math.round(value).toLocaleString("en-US", {
+    maximumFractionDigits: 0,
+    useGrouping: true,
+  })}`;
+}
+
 function median(values: number[]) {
   if (!values.length) return null;
   const sorted = [...values].sort((a, b) => a - b);
@@ -146,8 +153,8 @@ function countyMarketDescription(
   }
 
   const priceSummary = snapshot.lowest === snapshot.highest
-    ? `Disclosed ask: ${money(snapshot.lowest)}.`
-    : `Asks range ${money(snapshot.lowest)}–${money(snapshot.highest)}${snapshot.medianPrice === null ? "." : `; median ${money(snapshot.medianPrice)}.`}`;
+    ? `The disclosed asking price is ${searchDescriptionMoney(snapshot.lowest)}.`
+    : `Asking prices range from ${searchDescriptionMoney(snapshot.lowest)} to ${searchDescriptionMoney(snapshot.highest)}${snapshot.medianPrice === null ? "." : `, with a median of ${searchDescriptionMoney(snapshot.medianPrice)}.`}`;
 
   return `Compare ${snapshot.available.length} active ${marketName} quota-license listing${snapshot.available.length === 1 ? "" : "s"}. ${priceSummary} Browse 4COP and 3PS.`;
 }
