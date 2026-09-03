@@ -139,10 +139,12 @@ function approvedSubmissionToListing(
     price,
     priceLabel,
     sourceRef: publicListingReference(submission),
-    sourceName: "Florida Liquor License Market",
+    sourceName: isThirdPartyBrokerSubmission(submission)
+      ? marketplaceSubmissionBrokerage(submission) || "Independent Listing Broker"
+      : "Florida Liquor License Market",
     note: marketplaceSubmissionDisclosure(submission),
     image: "/assets/license-market/license-01.png",
-    inventoryClass: "direct_seller",
+    inventoryClass: isThirdPartyBrokerSubmission(submission) ? "market" : "direct_seller",
     licenseStatus: submission.licenseStatus || undefined,
     preferredTiming: submission.preferredTiming || undefined,
     publishedAt: submission.approvedAt || undefined,
@@ -163,19 +165,25 @@ function submissionMessageValue(message: string | null, label: string) {
 }
 
 export function marketplaceSubmissionDisclosure(submission: ListingSubmission) {
-  const isBrokerListing = submission.message?.includes(
-    "Submission type: Independent Broker Marketplace Listing",
-  );
+  const isBrokerListing = isThirdPartyBrokerSubmission(submission);
 
   if (!isBrokerListing) {
     return "Direct seller listing submitted to Florida Liquor License Market. Availability, license status, price and transfer terms remain subject to confirmation.";
   }
 
-  const brokerage =
-    submissionMessageValue(submission.message, "Brokerage") ||
-    "an independent brokerage";
+  const brokerage = marketplaceSubmissionBrokerage(submission) || "an independent brokerage";
 
-  return `Broker-listed license submitted to Florida Liquor License Market by ${submission.fullName} of ${brokerage}. Availability, license status, price and transfer terms remain subject to confirmation with the listing broker.`;
+  return `Featured third-party broker listing submitted to Florida Liquor License Market by ${submission.fullName} of ${brokerage}. The seller is represented by the identified independent listing broker. Florida Liquor License Market is a marketplace and is not acting as the seller's broker or transaction representative. Availability, license status, price and transfer terms remain subject to confirmation with the listing broker.`;
+}
+
+export function isThirdPartyBrokerSubmission(submission: ListingSubmission) {
+  return Boolean(submission.message?.includes(
+    "Submission type: Independent Broker Marketplace Listing",
+  ));
+}
+
+export function marketplaceSubmissionBrokerage(submission: ListingSubmission) {
+  return submissionMessageValue(submission.message, "Brokerage");
 }
 
 type ApprovedListingDetailsRow = {
