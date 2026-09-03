@@ -451,12 +451,12 @@ export default async function Page({ params }: PageProps) {
             <aside className="marketplace-listing-aside">
               <div className="marketplace-listing-action-card">
                 <span>{isThirdPartyBrokerListing ? "Independent Listing Broker" : "Interested in This Exact License?"}</span>
+                <h2>{isThirdPartyBrokerListing ? listingBrokerName : `Use Reference ${selectedReference}`}</h2>
                 {isThirdPartyBrokerListing && verifiedBroker && (
                   <a className="marketplace-listing-broker-photo" href={verifiedBroker.profileUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${verifiedBroker.name}'s broker profile`}>
                     <img src={verifiedBroker.photo} alt={`${verifiedBroker.name}, listing broker`} />
                   </a>
                 )}
-                <h2>{isThirdPartyBrokerListing ? listingBrokerName : `Use Reference ${selectedReference}`}</h2>
                 {isThirdPartyBrokerListing && (
                   <div className="marketplace-listing-broker-contact">
                     {listingBrokerage && <strong>{listingBrokerage}</strong>}
