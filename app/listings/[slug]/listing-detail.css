@@ -206,9 +206,9 @@
 
 .marketplace-listing-broker-photo {
   display: block;
-  width: 60%;
+  width: 66%;
   margin: 14px auto 18px;
-  transform: translateX(-10px);
+  transform: translateX(-15px);
   overflow: hidden;
   border: 1px solid rgba(241, 166, 0, .78);
   border-radius: 7px;
