@@ -224,6 +224,7 @@
 @media (min-width: 1121px) {
   .results-page.marketplace-listing-page .marketplace-listing-related .result-actions {
     width: min(268px, calc(100% - 14px)) !important;
+    max-width: calc(100% - 14px) !important;
     margin-right: 14px !important;
   }
 }
@@ -231,6 +232,7 @@
 @media (min-width: 761px) and (max-width: 1120px) {
   .results-page.marketplace-listing-page .marketplace-listing-related .result-actions {
     width: min(248px, calc(100% - 14px)) !important;
+    max-width: calc(100% - 14px) !important;
     margin-right: 14px !important;
   }
 }
