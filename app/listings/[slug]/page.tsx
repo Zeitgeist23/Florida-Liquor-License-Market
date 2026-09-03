@@ -46,6 +46,30 @@ import "./listing-detail.css";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const statewideListingsHref = "/listings";
 
+const verifiedBrokerProfiles: Record<string, {
+  name: string;
+  brokerage: string;
+  phone: string;
+  phoneNote?: string;
+  email?: string;
+  license?: string;
+  photo: string;
+  profileUrl: string;
+  sourceUrl: string;
+}> = {
+  "FLLM-022": {
+    name: "Lawrence Moore",
+    brokerage: "GAI: Gibson and Associates, Inc.",
+    phone: "(850) 990-2328",
+    phoneNote: "Voice only — no SMS",
+    email: "lawrence@gai.services",
+    license: "Florida Broker License BK3458688",
+    photo: "/assets/brokers/lawrence-moore.webp",
+    profileUrl: "https://gai.services/broker/lawrence-moore/",
+    sourceUrl: "https://www.bizbuysell.com/business-asset/4cop-quota-liquor-license/2480306/",
+  },
+};
+
 export const dynamic = "force-dynamic";
 
 type PageProps = {
@@ -224,15 +248,19 @@ export default async function Page({ params }: PageProps) {
   const inquiryHref = `/contact?${inquiryParams.toString()}`;
   const offerHref = `/submit-offer?listing=${encodeURIComponent(`${selected.county} ${selected.type}`)}&ref=${encodeURIComponent(selectedReference)}`;
   const exchangeSubmission = await loadPaidListing(selectedReference);
+  const verifiedBroker = verifiedBrokerProfiles[selectedReference.trim().toUpperCase()] ?? null;
   const exchangeAskingPrice = exchangeSubmission
     ? exchangeSubmission.approvedAskingPrice ?? exchangeSubmission.askingPrice
     : null;
-  const isThirdPartyBrokerListing = exchangeSubmission
-    ? isThirdPartyBrokerSubmission(exchangeSubmission)
-    : false;
-  const listingBrokerage = exchangeSubmission
+  const isThirdPartyBrokerListing = Boolean(
+    verifiedBroker || (exchangeSubmission && isThirdPartyBrokerSubmission(exchangeSubmission)),
+  );
+  const listingBrokerage = verifiedBroker?.brokerage || (exchangeSubmission
     ? marketplaceSubmissionBrokerage(exchangeSubmission)
-    : null;
+    : null);
+  const listingBrokerName = verifiedBroker?.name || exchangeSubmission?.fullName || "Independent Listing Broker";
+  const listingBrokerPhone = verifiedBroker?.phone || exchangeSubmission?.phone || null;
+  const listingBrokerEmail = verifiedBroker?.email || exchangeSubmission?.email || null;
   const related = listings
     .filter((listing) =>
       Boolean(listing.sourceRef) &&
@@ -422,24 +450,45 @@ export default async function Page({ params }: PageProps) {
 
             <aside className="marketplace-listing-aside">
               <div className="marketplace-listing-action-card">
-                <span>{isThirdPartyBrokerListing ? "Contact the Listing Broker" : "Interested in This Exact License?"}</span>
-                <h2>{isThirdPartyBrokerListing ? exchangeSubmission?.fullName : `Use Reference ${selectedReference}`}</h2>
+                <span>{isThirdPartyBrokerListing ? "Independent Listing Broker" : "Interested in This Exact License?"}</span>
+                {isThirdPartyBrokerListing && verifiedBroker && (
+                  <a className="marketplace-listing-broker-photo" href={verifiedBroker.profileUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${verifiedBroker.name}'s broker profile`}>
+                    <img src={verifiedBroker.photo} alt={`${verifiedBroker.name}, listing broker`} />
+                  </a>
+                )}
+                <h2>{isThirdPartyBrokerListing ? listingBrokerName : `Use Reference ${selectedReference}`}</h2>
                 {isThirdPartyBrokerListing && (
                   <div className="marketplace-listing-broker-contact">
                     {listingBrokerage && <strong>{listingBrokerage}</strong>}
-                    <a href={`mailto:${exchangeSubmission?.email}`}>{exchangeSubmission?.email}</a>
-                    <a href={`tel:${exchangeSubmission?.phone.replace(/[^\d+]/g, "")}`}>{exchangeSubmission?.phone}</a>
-                    <small>Independent listing broker representing the seller. FLLM is the marketplace, not the seller&apos;s broker.</small>
+                    {listingBrokerPhone && (
+                      <a href={`tel:${listingBrokerPhone.replace(/[^\d+]/g, "")}`}>
+                        {listingBrokerPhone}
+                        {verifiedBroker?.phoneNote && <small>{verifiedBroker.phoneNote}</small>}
+                      </a>
+                    )}
+                    {listingBrokerEmail && <a href={`mailto:${listingBrokerEmail}`}>{listingBrokerEmail}</a>}
+                    {verifiedBroker?.license && <span className="marketplace-listing-broker-license">{verifiedBroker.license}</span>}
+                    <small>{listingBrokerName} and {listingBrokerage || "the listing brokerage"} represent the seller. FLLM is the advertising marketplace and does not represent either party.</small>
                   </div>
                 )}
-                <ol>
-                  <li>Confirm the license reference, category, county, and current availability.</li>
-                  <li>Review the asking price and proposed transaction terms.</li>
-                  <li>Verify the intended premises, local approvals, liens, and transfer requirements.</li>
-                  <li>Use independent legal, tax, and financial professionals before closing.</li>
-                </ol>
-                <Link className="marketplace-listing-primary" href={inquiryHref}>{isThirdPartyBrokerListing ? "Contact Listing Broker" : "Request Confidential Details"}</Link>
-                <Link className="marketplace-listing-text-link" href={offerHref}>Submit an offer for this license →</Link>
+                {!isThirdPartyBrokerListing && (
+                  <ol>
+                    <li>Confirm the license reference, category, county, and current availability.</li>
+                    <li>Review the asking price and proposed transaction terms.</li>
+                    <li>Verify the intended premises, local approvals, liens, and transfer requirements.</li>
+                    <li>Use independent legal, tax, and financial professionals before closing.</li>
+                  </ol>
+                )}
+                {isThirdPartyBrokerListing && listingBrokerPhone ? (
+                  <a className="marketplace-listing-primary" href={`tel:${listingBrokerPhone.replace(/[^\d+]/g, "")}`}>Call Listing Broker</a>
+                ) : (
+                  <Link className="marketplace-listing-primary" href={inquiryHref}>Request Confidential Details</Link>
+                )}
+                {isThirdPartyBrokerListing && verifiedBroker ? (
+                  <a className="marketplace-listing-text-link" href={verifiedBroker.sourceUrl} target="_blank" rel="noopener noreferrer">View Original BizBuySell Listing →</a>
+                ) : (
+                  <Link className="marketplace-listing-text-link" href={offerHref}>Submit an offer for this license →</Link>
+                )}
                 <Link className="marketplace-listing-text-link" href={countyHref}>Compare {selected.county} liquor-license prices and inventory →</Link>
                 <Link className="marketplace-listing-text-link" href={statewideListingsHref}>Browse all Florida liquor licenses for sale →</Link>
               </div>
