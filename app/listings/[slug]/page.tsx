@@ -429,7 +429,6 @@ export default async function Page({ params }: PageProps) {
                 {related.map((listing) => (
                   <MarketplaceListingCard
                     listing={listing}
-                    actionLabel="View License Details"
                     key={listing.sourceRef ?? `${listing.county}-${listing.type}-${listing.priceLabel}`}
                   />
                 ))}
