@@ -50,6 +50,21 @@ const countyBuyerResources: Record<string, CountyBuyerResource> = {
       },
     ],
   },
+  lee: {
+    title: "Fort Myers, Cape Coral, and Lee County premises review",
+    description:
+      "A Lee County quota liquor license may be transferred to an eligible location in Fort Myers, Cape Coral, or elsewhere in Lee County, but the license does not by itself approve a particular premises. Buyers should identify the city or unincorporated-county jurisdiction and confirm zoning, local alcoholic-beverage requirements, permitted use, and the separate DBPR transfer or change-of-location process before closing.",
+    links: [
+      {
+        href: "https://www.leegov.com/dcd/zoning",
+        label: "Lee County zoning",
+      },
+      {
+        href: "https://www.capecoral.gov/departments/development_services/city_planning_division/zoning.php",
+        label: "City of Cape Coral zoning and ABT sign-off",
+      },
+    ],
+  },
   "miami-dade": {
     title: "Miami-Dade County and City of Miami premises review",
     description:
@@ -142,6 +157,10 @@ function countyMetadataTitle(county: NonNullable<ReturnType<typeof getCountyBySl
     return "Alachua County Liquor License for Sale | Gainesville 4COP & 3PS";
   }
 
+  if (county.slug === "lee") {
+    return "Lee County Liquor License for Sale | Fort Myers 4COP & 3PS";
+  }
+
   if (county.slug === "miami-dade") {
     return "Miami-Dade County Liquor License for Sale | 4COP & 3PS";
   }
@@ -177,6 +196,22 @@ function countyMarketDescription(
       : `Asking prices range from ${searchDescriptionMoney(snapshot.lowest)} to ${searchDescriptionMoney(snapshot.highest)}.`;
 
     return `Compare ${snapshot.available.length} active Alachua County liquor license${snapshot.available.length === 1 ? "" : "s"} for sale in Gainesville. ${alachuaPriceSummary} Browse 4COP and 3PS inventory.`;
+  }
+
+  if (county.slug === "lee") {
+    if (!snapshot.available.length) {
+      return "Find Lee County liquor licenses for sale in Fort Myers and Cape Coral. Compare current 4COP and 3PS quota-license opportunities, availability, and market data.";
+    }
+
+    if (snapshot.lowest === null || snapshot.highest === null) {
+      return `Compare ${snapshot.available.length} active Lee County liquor license${snapshot.available.length === 1 ? "" : "s"} for sale in Fort Myers and Cape Coral, including current 4COP and 3PS inventory.`;
+    }
+
+    const leePriceSummary = snapshot.lowest === snapshot.highest
+      ? `The disclosed asking price is ${searchDescriptionMoney(snapshot.lowest)}.`
+      : `Asking prices range from ${searchDescriptionMoney(snapshot.lowest)} to ${searchDescriptionMoney(snapshot.highest)}.`;
+
+    return `Compare ${snapshot.available.length} active Lee County liquor license${snapshot.available.length === 1 ? "" : "s"} for sale in Fort Myers and Cape Coral. ${leePriceSummary} Browse 4COP and 3PS inventory.`;
   }
 
   if (!snapshot.available.length) {
@@ -283,6 +318,10 @@ export default async function CountyPage({ params }: PageProps) {
     ...(county.slug === "alachua" ? [{
       question: "Can an Alachua County quota liquor license be used in Gainesville?",
       answer: "An Alachua County quota license may be transferred to an eligible Gainesville premises, subject to the license category, City of Gainesville zoning and local requirements, and approval by the Florida Division of Alcoholic Beverages and Tobacco. Buyers should verify the proposed address and use before committing to the license or premises.",
+    }] : []),
+    ...(county.slug === "lee" ? [{
+      question: "Can a Lee County quota liquor license be used in Fort Myers or Cape Coral?",
+      answer: "A Lee County quota license may be transferred to an eligible premises in Fort Myers, Cape Coral, or another Lee County location, subject to the license category, the applicable city or county zoning and local requirements, and approval by the Florida Division of Alcoholic Beverages and Tobacco. Buyers should verify the proposed address and use before committing to the license or premises.",
     }] : []),
   ];
 
@@ -440,6 +479,11 @@ export default async function CountyPage({ params }: PageProps) {
           {county.slug === "alachua" ? (
             <p>
               Buyers searching for an Alachua County liquor license for sale typically focus on Gainesville, including restaurant, bar, hospitality, and package-store locations serving the University of Florida and the broader county market. Current inventory may include 4COP quota licenses for on-premises or package sales and 3PS quota licenses for package-store sales; the exact privileges depend on the license record and approved premises.
+            </p>
+          ) : null}
+          {county.slug === "lee" ? (
+            <p>
+              Buyers searching for a Lee County liquor license for sale commonly focus on Fort Myers and Cape Coral, as well as hospitality and package-store locations across the county. Current inventory may include 4COP quota licenses for on-premises or package sales and 3PS quota licenses for package-store sales; the exact privileges depend on the license record and approved premises.
             </p>
           ) : null}
           <p>A quota license is county-specific. A buyer should confirm that the license category fits the proposed use and should separately evaluate the intended premises, zoning, local approvals, liens, purchase documents, and the state transfer process.</p>
