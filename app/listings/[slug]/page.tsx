@@ -9,7 +9,13 @@ import FllmExchangePanel from "@/components/FllmExchangePanel";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
 import MarketplaceListingCard from "@/components/MarketplaceListingCard";
 import { countySlug, getCountyBySlug } from "@/data/florida-counties";
+import {
+  FLORIDA_COUNTY_POPULATIONS_2025,
+  FLORIDA_POPULATION_ESTIMATE_DATE,
+  FLORIDA_POPULATION_SOURCE_URL,
+} from "@/data/florida-county-populations-2025";
 import type { Listing } from "@/data/listings";
+import { QUOTA_DRAWING_2026 } from "@/data/quota-drawing-2026";
 import {
   marketplaceListingDescriptionParts,
   sellerReportedStatusLabel,
@@ -264,6 +270,12 @@ export default async function Page({ params }: PageProps) {
   const listingBrokerName = verifiedBroker?.name || exchangeSubmission?.fullName || "Independent Listing Broker";
   const listingBrokerPhone = verifiedBroker?.phone || exchangeSubmission?.phone || null;
   const listingBrokerEmail = verifiedBroker?.email || exchangeSubmission?.email || null;
+  const countyName = selected.county.replace(/\\s+County$/i, "");
+  const countyPopulation = FLORIDA_COUNTY_POPULATIONS_2025[countyName] ?? null;
+  const drawingCountyName = countyName === "Miami-Dade" ? "Dade" : countyName;
+  const currentDrawingLicenses = QUOTA_DRAWING_2026.counties.find(
+    (entry) => entry.county === drawingCountyName,
+  )?.licenses ?? 0;
   const related = listings
     .filter((listing) =>
       Boolean(listing.sourceRef) &&
@@ -469,6 +481,18 @@ export default async function Page({ params }: PageProps) {
 
               <section className="marketplace-listing-section">
                 <h2>{selected.county} Market Context</h2>
+                <div className="marketplace-county-snapshot" aria-label={`${selected.county} population and quota drawing data`}>
+                  <article>
+                    <span>{FLORIDA_POPULATION_ESTIMATE_DATE} population estimate</span>
+                    <strong>{countyPopulation?.toLocaleString("en-US") ?? "Not available"}</strong>
+                    <a href={FLORIDA_POPULATION_SOURCE_URL} target="_blank" rel="noopener noreferrer">Official Florida estimate ↗</a>
+                  </article>
+                  <article>
+                    <span>{QUOTA_DRAWING_2026.year} DBPR quota drawing</span>
+                    <strong>{currentDrawingLicenses} new {currentDrawingLicenses === 1 ? "license" : "licenses"}</strong>
+                    <a href={QUOTA_DRAWING_2026.sourceNoticeUrl} target="_blank" rel="noopener noreferrer">Official DBPR notice ↗</a>
+                  </article>
+                </div>
                 <p>{county?.marketOverview ?? descriptionParts.county}</p>
                 {descriptionParts.cities && <p>{descriptionParts.cities}</p>}
                 <p><Link href={filteredCountyHref}>Compare current {selected.county} 4COP and 3PS liquor-license listings →</Link></p>
