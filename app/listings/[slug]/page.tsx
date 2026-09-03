@@ -4,6 +4,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 
 import FloridaCountyMap from "@/components/FloridaCountyMap";
+import FllmExchangePanel from "@/components/FllmExchangePanel";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
 import MarketplaceListingCard from "@/components/MarketplaceListingCard";
 import { countySlug, getCountyBySlug } from "@/data/florida-counties";
@@ -216,6 +217,10 @@ export default async function Page({ params }: PageProps) {
   });
   const inquiryHref = `/contact?${inquiryParams.toString()}`;
   const offerHref = `/submit-offer?listing=${encodeURIComponent(`${selected.county} ${selected.type}`)}&ref=${encodeURIComponent(selectedReference)}`;
+  const exchangeSubmission = await loadPaidListing(selectedReference);
+  const exchangeAskingPrice = exchangeSubmission
+    ? exchangeSubmission.approvedAskingPrice ?? exchangeSubmission.askingPrice
+    : null;
   const related = listings
     .filter((listing) =>
       Boolean(listing.sourceRef) &&
@@ -419,6 +424,13 @@ export default async function Page({ params }: PageProps) {
               </div>
             </aside>
           </div>
+
+          {exchangeSubmission && (
+            <FllmExchangePanel
+              listingRef={selectedReference}
+              askingPrice={exchangeAskingPrice}
+            />
+          )}
 
           {related.length > 0 && (
             <section className="marketplace-listing-related">
