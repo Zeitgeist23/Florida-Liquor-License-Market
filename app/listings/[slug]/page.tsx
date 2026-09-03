@@ -102,7 +102,7 @@ function priceLabel(value: number | null) {
 }
 
 function shortLicenseType(type: Listing["type"]) {
-  return type === "4COP Quota" ? "4COP Liquor License" : "3PS Liquor License";
+  return type === "4COP Quota" ? "4COP Quota Liquor License" : "3PS Liquor License";
 }
 
 function marketplaceTitle(listing: Listing) {
