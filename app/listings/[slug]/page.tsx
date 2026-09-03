@@ -16,7 +16,7 @@ import {
 import { prepareListingsForDisplay } from "@/lib/listing-display";
 import type { ListingWithInventoryClass } from "@/lib/listing-inventory-class";
 import { indexableListingPages, listingPageHref } from "@/lib/listing-page-urls";
-import { getMarketplaceListings } from "@/lib/listing-store";
+import { getMarketplaceListings, marketplaceSubmissionDisclosure } from "@/lib/listing-store";
 import { getApprovedSubmissionByPublicRef } from "@/lib/listing-submission-store";
 import { publicListingReference } from "@/lib/public-listing-reference";
 
@@ -104,8 +104,7 @@ function paidSubmissionAsListing(
     priceLabel: priceLabel(submission.approvedAskingPrice),
     sourceRef: publicListingReference(submission),
     sourceName: "Florida Liquor License Market",
-    note:
-      "Direct seller listing submitted to Florida Liquor License Market. Availability, license status, price and transfer terms remain subject to confirmation.",
+    note: marketplaceSubmissionDisclosure(submission),
     licenseStatus: submission.licenseStatus || undefined,
     preferredTiming: submission.preferredTiming || undefined,
     image: "/assets/license-market/license-01.png",
