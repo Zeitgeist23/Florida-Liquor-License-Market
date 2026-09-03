@@ -81,6 +81,7 @@ const countyContent: Record<string, CountyContent> = {
   escambia: {
     primaryCities: ["Pensacola"],
     introduction: "Escambia County is Florida's westernmost county and home to Pensacola, with military activity, Gulf Coast tourism, education, healthcare, restaurants, nightlife, and regional commerce.",
+    marketOverview: "Escambia County is Florida's westernmost county and home to Pensacola, with quota-license demand supported by military activity, Gulf Coast tourism, education, healthcare, restaurants, nightlife, and regional commerce. Buyers comparing Escambia County 4COP and 3PS opportunities should evaluate asking price and availability while separately confirming the proposed premises, zoning, transfer eligibility, liens, seller terms, and regulatory timing.",
   },
   gulf: {
     primaryCities: ["Port St. Joe", "Wewahitchka"],
@@ -257,11 +258,3 @@ export const floridaCounties: FloridaCounty[] = countyNames.map((name) => {
 
 export const indexableCounties = floridaCounties.filter((county) => county.indexable);
 export const featuredCounties = floridaCounties.filter((county) => county.featured);
-
-export function getCountyBySlug(slug: string) {
-  return floridaCounties.find((county) => county.slug === slug);
-}
-
-export function getCountyByName(name: string) {
-  return floridaCounties.find((county) => county.name === name);
-}
