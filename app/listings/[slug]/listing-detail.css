@@ -217,24 +217,3 @@
 .paid-listing-description .paid-listing-cities{color:#707b88;font-size:14px;line-height:1.55}
 
 
-/* Keep related-card action borders fully enclosed on listing detail pages. */
-.marketplace-listing-related .result-actions .result-view-button {
-  position: relative !important;
-  z-index: 8 !important;
-  overflow: visible !important;
-  border: 2px solid #efaa10 !important;
-  border-right: 2px solid #efaa10 !important;
-  box-shadow: inset -1px 0 0 #efaa10, 0 5px 15px rgba(228, 148, 0, .18) !important;
-}
-
-.marketplace-listing-related .result-actions .result-view-button::after {
-  inset: 0 !important;
-  border: 2px solid #efaa10 !important;
-  border-radius: inherit !important;
-}
-
-.marketplace-listing-related .result-actions .result-view-button-closing-edge {
-  right: 0 !important;
-  width: 2px !important;
-  background: #efaa10 !important;
-}
