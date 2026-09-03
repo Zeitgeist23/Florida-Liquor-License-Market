@@ -16,7 +16,12 @@ import {
 import { prepareListingsForDisplay } from "@/lib/listing-display";
 import type { ListingWithInventoryClass } from "@/lib/listing-inventory-class";
 import { indexableListingPages, listingPageHref } from "@/lib/listing-page-urls";
-import { getMarketplaceListings, marketplaceSubmissionDisclosure } from "@/lib/listing-store";
+import {
+  getMarketplaceListings,
+  isThirdPartyBrokerSubmission,
+  marketplaceSubmissionBrokerage,
+  marketplaceSubmissionDisclosure,
+} from "@/lib/listing-store";
 import { getApprovedSubmissionByPublicRef } from "@/lib/listing-submission-store";
 import { publicListingReference } from "@/lib/public-listing-reference";
 
@@ -103,7 +108,9 @@ function paidSubmissionAsListing(
     price: submission.approvedAskingPrice,
     priceLabel: priceLabel(submission.approvedAskingPrice),
     sourceRef: publicListingReference(submission),
-    sourceName: "Florida Liquor License Market",
+    sourceName: isThirdPartyBrokerSubmission(submission)
+      ? marketplaceSubmissionBrokerage(submission) || "Independent Listing Broker"
+      : "Florida Liquor License Market",
     note: marketplaceSubmissionDisclosure(submission),
     licenseStatus: submission.licenseStatus || undefined,
     preferredTiming: submission.preferredTiming || undefined,
@@ -220,6 +227,12 @@ export default async function Page({ params }: PageProps) {
   const exchangeAskingPrice = exchangeSubmission
     ? exchangeSubmission.approvedAskingPrice ?? exchangeSubmission.askingPrice
     : null;
+  const isThirdPartyBrokerListing = exchangeSubmission
+    ? isThirdPartyBrokerSubmission(exchangeSubmission)
+    : false;
+  const listingBrokerage = exchangeSubmission
+    ? marketplaceSubmissionBrokerage(exchangeSubmission)
+    : null;
   const related = listings
     .filter((listing) =>
       Boolean(listing.sourceRef) &&
@@ -321,7 +334,11 @@ export default async function Page({ params }: PageProps) {
               <span>›</span>
               <strong>{selectedReference}</strong>
             </div>
-            <span className="marketplace-listing-kicker">Individual Florida Marketplace Listing</span>
+            <span className="marketplace-listing-kicker">
+              {isThirdPartyBrokerListing
+                ? "Featured Third-Party Broker Listing"
+                : "Individual Florida Marketplace Listing"}
+            </span>
             <h1>{selected.county} {shortLicenseType(selected.type)} for Sale</h1>
             <p className="marketplace-listing-price">{selected.priceLabel}</p>
             <div className="marketplace-listing-availability">
@@ -330,6 +347,9 @@ export default async function Page({ params }: PageProps) {
                 Available
               </span>
               <span className="marketplace-listing-hero-reference">Listing {selectedReference}</span>
+              {isThirdPartyBrokerListing && (
+                <span className="marketplace-listing-broker-badge">Featured · Third-Party Broker</span>
+              )}
             </div>
             <p className="marketplace-listing-summary">{descriptionParts.license}</p>
             <div className="marketplace-listing-actions">
@@ -370,7 +390,7 @@ export default async function Page({ params }: PageProps) {
 
               {selected.note && (
                 <div className="marketplace-listing-note">
-                  <strong>Listing note</strong>
+                  <strong>{isThirdPartyBrokerListing ? "Third-party broker disclosure" : "Listing note"}</strong>
                   <p>{selected.note}</p>
                 </div>
               )}
@@ -402,15 +422,23 @@ export default async function Page({ params }: PageProps) {
 
             <aside className="marketplace-listing-aside">
               <div className="marketplace-listing-action-card">
-                <span>Interested in This Exact License?</span>
-                <h2>Use Reference {selectedReference}</h2>
+                <span>{isThirdPartyBrokerListing ? "Contact the Listing Broker" : "Interested in This Exact License?"}</span>
+                <h2>{isThirdPartyBrokerListing ? exchangeSubmission?.fullName : `Use Reference ${selectedReference}`}</h2>
+                {isThirdPartyBrokerListing && (
+                  <div className="marketplace-listing-broker-contact">
+                    {listingBrokerage && <strong>{listingBrokerage}</strong>}
+                    <a href={`mailto:${exchangeSubmission?.email}`}>{exchangeSubmission?.email}</a>
+                    <a href={`tel:${exchangeSubmission?.phone.replace(/[^\\d+]/g, "")}`}>{exchangeSubmission?.phone}</a>
+                    <small>Independent listing broker representing the seller. FLLM is the marketplace, not the seller&apos;s broker.</small>
+                  </div>
+                )}
                 <ol>
                   <li>Confirm the license reference, category, county, and current availability.</li>
                   <li>Review the asking price and proposed transaction terms.</li>
                   <li>Verify the intended premises, local approvals, liens, and transfer requirements.</li>
                   <li>Use independent legal, tax, and financial professionals before closing.</li>
                 </ol>
-                <Link className="marketplace-listing-primary" href={inquiryHref}>Request Confidential Details</Link>
+                <Link className="marketplace-listing-primary" href={inquiryHref}>{isThirdPartyBrokerListing ? "Contact Listing Broker" : "Request Confidential Details"}</Link>
                 <Link className="marketplace-listing-text-link" href={offerHref}>Submit an offer for this license →</Link>
                 <Link className="marketplace-listing-text-link" href={countyHref}>Compare {selected.county} liquor-license prices and inventory →</Link>
                 <Link className="marketplace-listing-text-link" href={statewideListingsHref}>Browse all Florida liquor licenses for sale →</Link>
