@@ -97,6 +97,23 @@
   color: #fff;
 }
 
+/* Carry the approved Listings-card navy into the detail-page information
+   panels so the copy has a clearer, more readable surface against the black
+   page background. */
+.marketplace-listing-page .marketplace-listing-note,
+.marketplace-listing-page .marketplace-listing-section {
+  background: linear-gradient(
+    145deg,
+    #0b263b 0%,
+    #071d2e 56%,
+    #061725 100%
+  );
+}
+
+.marketplace-listing-page .marketplace-listing-section {
+  border-color: rgba(183, 123, 0, .46);
+}
+
 .marketplace-listing-related .listing-detail-related-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
 }
