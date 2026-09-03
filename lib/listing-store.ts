@@ -140,8 +140,7 @@ function approvedSubmissionToListing(
     priceLabel,
     sourceRef: publicListingReference(submission),
     sourceName: "Florida Liquor License Market",
-    note:
-      "Direct seller listing submitted to Florida Liquor License Market. Availability, license status, price and transfer terms remain subject to confirmation.",
+    note: marketplaceSubmissionDisclosure(submission),
     image: "/assets/license-market/license-01.png",
     inventoryClass: "direct_seller",
     licenseStatus: submission.licenseStatus || undefined,
@@ -155,6 +154,28 @@ function approvedSubmissionToListing(
       approved_at: submission.approvedAt,
     }),
   });
+}
+
+function submissionMessageValue(message: string | null, label: string) {
+  if (!message) return null;
+  const line = message.split("\n").find((entry) => entry.startsWith(`${label}:`));
+  return line?.slice(label.length + 1).trim() || null;
+}
+
+export function marketplaceSubmissionDisclosure(submission: ListingSubmission) {
+  const isBrokerListing = submission.message?.includes(
+    "Submission type: Independent Broker Marketplace Listing",
+  );
+
+  if (!isBrokerListing) {
+    return "Direct seller listing submitted to Florida Liquor License Market. Availability, license status, price and transfer terms remain subject to confirmation.";
+  }
+
+  const brokerage =
+    submissionMessageValue(submission.message, "Brokerage") ||
+    "an independent brokerage";
+
+  return `Broker-listed license submitted to Florida Liquor License Market by ${submission.fullName} of ${brokerage}. Availability, license status, price and transfer terms remain subject to confirmation with the listing broker.`;
 }
 
 type ApprovedListingDetailsRow = {
