@@ -35,6 +35,21 @@ type CountyBuyerResource = {
 };
 
 const countyBuyerResources: Record<string, CountyBuyerResource> = {
+  alachua: {
+    title: "Gainesville and Alachua County premises review",
+    description:
+      "An Alachua County quota liquor license may be transferred to an eligible location in Gainesville or elsewhere in Alachua County, but the license does not by itself approve a particular premises. Buyers should confirm whether the address is inside Gainesville or unincorporated Alachua County, then verify zoning, local alcoholic-beverage requirements, permitted use, and the separate DBPR transfer or change-of-location process before closing.",
+    links: [
+      {
+        href: "https://www.gainesvillefl.gov/Government-Pages/Government/Departments/Sustainable-Development/Planning-Division/Planning-Forms",
+        label: "City of Gainesville planning and alcohol forms",
+      },
+      {
+        href: "https://growth-management.alachuacounty.us/zoning",
+        label: "Alachua County zoning districts and uses",
+      },
+    ],
+  },
   "miami-dade": {
     title: "Miami-Dade County and City of Miami premises review",
     description:
@@ -123,6 +138,10 @@ const getCountyListingSnapshot = cache(async (countyName: string) => {
 });
 
 function countyMetadataTitle(county: NonNullable<ReturnType<typeof getCountyBySlug>>) {
+  if (county.slug === "alachua") {
+    return "Alachua County Liquor License for Sale | Gainesville 4COP & 3PS";
+  }
+
   if (county.slug === "miami-dade") {
     return "Miami-Dade County Liquor License for Sale | 4COP & 3PS";
   }
@@ -143,6 +162,22 @@ function countyMarketDescription(
 ) {
   const primaryCity = county.primaryCities[0];
   const marketName = primaryCity ? `${primaryCity} and ${county.name}` : county.name;
+
+  if (county.slug === "alachua") {
+    if (!snapshot.available.length) {
+      return "Find Alachua County liquor licenses for sale in Gainesville. Compare current 4COP and 3PS quota-license opportunities, availability, and market data.";
+    }
+
+    if (snapshot.lowest === null || snapshot.highest === null) {
+      return `Compare ${snapshot.available.length} active Alachua County liquor license${snapshot.available.length === 1 ? "" : "s"} for sale in the Gainesville market, including current 4COP and 3PS inventory.`;
+    }
+
+    const alachuaPriceSummary = snapshot.lowest === snapshot.highest
+      ? `The disclosed asking price is ${searchDescriptionMoney(snapshot.lowest)}.`
+      : `Asking prices range from ${searchDescriptionMoney(snapshot.lowest)} to ${searchDescriptionMoney(snapshot.highest)}.`;
+
+    return `Compare ${snapshot.available.length} active Alachua County liquor license${snapshot.available.length === 1 ? "" : "s"} for sale in Gainesville. ${alachuaPriceSummary} Browse 4COP and 3PS inventory.`;
+  }
 
   if (!snapshot.available.length) {
     return `Browse current ${marketName} 4COP and 3PS quota liquor-license opportunities, asking prices, availability, and county market data.`;
@@ -245,6 +280,10 @@ export default async function CountyPage({ params }: PageProps) {
       question: `Does a license listing include a business or real estate?`,
       answer: `No, not unless a listing expressly says otherwise. The marketplace generally presents liquor-license interests separately from any operating business, leasehold, equipment, inventory, or real estate.`,
     },
+    ...(county.slug === "alachua" ? [{
+      question: "Can an Alachua County quota liquor license be used in Gainesville?",
+      answer: "An Alachua County quota license may be transferred to an eligible Gainesville premises, subject to the license category, City of Gainesville zoning and local requirements, and approval by the Florida Division of Alcoholic Beverages and Tobacco. Buyers should verify the proposed address and use before committing to the license or premises.",
+    }] : []),
   ];
 
   const structuredData = [
@@ -398,6 +437,11 @@ export default async function CountyPage({ params }: PageProps) {
           <span>County Market Overview</span>
           <h2>Understanding the {county.name} License Market</h2>
           <p>{county.marketOverview}</p>
+          {county.slug === "alachua" ? (
+            <p>
+              Buyers searching for an Alachua County liquor license for sale typically focus on Gainesville, including restaurant, bar, hospitality, and package-store locations serving the University of Florida and the broader county market. Current inventory may include 4COP quota licenses for on-premises or package sales and 3PS quota licenses for package-store sales; the exact privileges depend on the license record and approved premises.
+            </p>
+          ) : null}
           <p>A quota license is county-specific. A buyer should confirm that the license category fits the proposed use and should separately evaluate the intended premises, zoning, local approvals, liens, purchase documents, and the state transfer process.</p>
           {county.slug === "orange" ? (
             <p>
