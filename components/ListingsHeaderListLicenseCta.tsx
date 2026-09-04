@@ -72,12 +72,12 @@ export default function ListingsHeaderListLicenseCta() {
           right: 0 !important;
           z-index: 30000 !important;
           display: none !important;
-          width: 350px !important;
-          padding: 7px !important;
+          width: 230px !important;
+          padding: 6px !important;
           border: 1px solid #f6a700 !important;
           border-radius: 7px !important;
           background: #061728 !important;
-          box-shadow: 0 20px 50px rgba(0,0,0,.45) !important;
+          box-shadow: 0 18px 42px rgba(0,0,0,.42) !important;
           text-transform: none !important;
         }
 
@@ -98,30 +98,17 @@ export default function ListingsHeaderListLicenseCta() {
         }
 
         .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a {
-          display: flex !important;
-          flex-direction: column !important;
-          gap: 4px !important;
+          display: block !important;
           width: 100% !important;
           padding: 11px 12px !important;
           border-radius: 4px !important;
           color: #fff !important;
-          text-decoration: none !important;
-          text-transform: none !important;
-          white-space: normal !important;
-        }
-
-        .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a strong {
-          color: #f6a700 !important;
-          font-size: 13.5px !important;
+          font-size: 13px !important;
           font-weight: 800 !important;
           line-height: 1.2 !important;
-        }
-
-        .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a span {
-          color: #d4dde5 !important;
-          font-size: 12px !important;
-          font-weight: 500 !important;
-          line-height: 1.35 !important;
+          text-decoration: none !important;
+          text-transform: none !important;
+          white-space: nowrap !important;
         }
 
         .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a:hover,
@@ -129,13 +116,6 @@ export default function ListingsHeaderListLicenseCta() {
           background: #f6a700 !important;
           color: #061728 !important;
           outline: none !important;
-        }
-
-        .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a:hover strong,
-        .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a:hover span,
-        .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a:focus-visible strong,
-        .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a:focus-visible span {
-          color: #061728 !important;
         }
 
         @media (max-width: 1050px) and (min-width: 900px) {
@@ -190,18 +170,9 @@ export default function ListingsHeaderListLicenseCta() {
                 List Your License
               </button>
               <div className="listings-header-list-license-menu" role="menu" aria-label="List your license options">
-                <a href={SELF_DIRECTED_PATH} role="menuitem">
-                  <strong>Self-Directed Seller</strong>
-                  <span>List your own license and manage buyer inquiries directly through FLLM.</span>
-                </a>
-                <a href={BROKER_LISTING_PATH} role="menuitem">
-                  <strong>Broker Listing</strong>
-                  <span>For brokers listing a client&apos;s Florida liquor license.</span>
-                </a>
-                <a href={BROKER_ASSISTANCE_PATH} role="menuitem">
-                  <strong>Request Broker Help</strong>
-                  <span>For sellers who want assistance from an independent broker.</span>
-                </a>
+                <a href={SELF_DIRECTED_PATH} role="menuitem">Self-Directed Seller</a>
+                <a href={BROKER_LISTING_PATH} role="menuitem">Broker Listing</a>
+                <a href={BROKER_ASSISTANCE_PATH} role="menuitem">Request Broker Help</a>
               </div>
             </div>,
             target,
