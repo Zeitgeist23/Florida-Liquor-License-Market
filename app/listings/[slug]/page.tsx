@@ -601,8 +601,8 @@ export default async function Page({ params }: PageProps) {
                     </svg>
                   </div>
                   <span>Liquor License Purchase Financing</span>
-                  <h2 id="listing-financing-promo-title">Finance a Florida Liquor License</h2>
-                  <p>Request financing consideration through the FLLM Private Lender Network for a qualifying liquor-license purchase.</p>
+                  <h2 id="listing-financing-promo-title">Finance This License</h2>
+                  <p>Request financing consideration through the FLLM Private Lender Network.</p>
                   <Link className="marketplace-listing-finance-button" href="/financing#request-financing">Request Financing</Link>
                   <small>All financing is subject to independent lender review, underwriting, and approval.</small>
                 </section>
