@@ -1,20 +1,5 @@
 export const dynamic = "force-dynamic";
 
-const SELF_DIRECTED_PATH = "/sell-your-license?method=self#listing-options";
-const BROKER_ASSISTANCE_PATH = "/sell-your-license#broker-assistance";
-const BROKER_LISTING_PATH = "/brokers/list-your-license";
-
-const marker = 'data-home-list-license-menu="true"';
-
-const menuMarkup = `<div class="home-list-license-wrap" data-home-list-license-menu="true">
-  <button class="btn btn-gold home-list-license-trigger" type="button" aria-haspopup="menu" aria-label="List your license options">List Your License</button>
-  <div class="home-list-license-menu" role="menu" aria-label="List your license options">
-    <a href="${SELF_DIRECTED_PATH}" role="menuitem">Self-Directed Seller</a>
-    <a href="${BROKER_ASSISTANCE_PATH}" role="menuitem">Request Broker Help</a>
-    <a href="${BROKER_LISTING_PATH}" role="menuitem">Broker Listing</a>
-  </div>
-</div>`;
-
 const menuStyles = `<style id="home-list-license-menu-styles">
 .site-header,.site-header .header-actions{overflow:visible!important}
 .header-actions .home-list-license-wrap{position:relative;display:inline-flex;align-items:center;flex:0 0 auto}
@@ -27,22 +12,81 @@ const menuStyles = `<style id="home-list-license-menu-styles">
 @media(max-width:899px){.header-actions .home-list-license-menu{right:50%;width:min(230px,calc(100vw - 28px));transform:translateX(50%)}}
 </style>`;
 
-function injectListLicenseMenu(html: string) {
-  let updated = html;
+const installerScript = `<script id="home-list-license-menu-installer">
+(function(){
+  var SELF='/sell-your-license?method=self#listing-options';
+  var HELP='/sell-your-license#broker-assistance';
+  var BROKER='/brokers/list-your-license';
 
-  if (!updated.includes(marker)) {
-    // Remove the homepage header's existing direct List Your License link and
-    // replace it with a non-navigating trigger plus the three listing paths.
-    // Do not depend on the link's current href because the upstream homepage
-    // renderer may rewrite #sell to /sell-your-license.
-    const buttonPattern = /<a\b(?=[^>]*class="[^"]*\bbtn\b[^"]*\bbtn-gold\b[^"]*")[^>]*>\s*List Your License\s*<\/a>/i;
-    updated = updated.replace(buttonPattern, menuMarkup);
+  function text(el){return (el&&el.textContent||'').replace(/\\s+/g,' ').trim().toLowerCase();}
+
+  function makeLink(label,href){
+    var a=document.createElement('a');
+    a.href=href;
+    a.textContent=label;
+    a.setAttribute('role','menuitem');
+    return a;
   }
 
+  function install(){
+    var actions=document.querySelector('.site-header .header-actions');
+    if(!actions)return;
+
+    if(actions.querySelector('.home-list-license-wrap'))return;
+
+    var oldLink=Array.prototype.find.call(actions.querySelectorAll('a'),function(a){
+      return text(a)==='list your license';
+    });
+    if(!oldLink)return;
+
+    var wrap=document.createElement('div');
+    wrap.className='home-list-license-wrap';
+
+    var button=document.createElement('button');
+    button.type='button';
+    button.className='btn btn-gold home-list-license-trigger';
+    button.textContent='List Your License';
+    button.setAttribute('aria-haspopup','menu');
+    button.setAttribute('aria-label','List your license options');
+
+    var menu=document.createElement('div');
+    menu.className='home-list-license-menu';
+    menu.setAttribute('role','menu');
+    menu.setAttribute('aria-label','List your license options');
+    menu.appendChild(makeLink('Self-Directed Seller',SELF));
+    menu.appendChild(makeLink('Request Broker Help',HELP));
+    menu.appendChild(makeLink('Broker Listing',BROKER));
+
+    wrap.appendChild(button);
+    wrap.appendChild(menu);
+    oldLink.replaceWith(wrap);
+  }
+
+  function start(){
+    install();
+    setTimeout(install,100);
+    setTimeout(install,500);
+    setTimeout(install,1200);
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
+  else start();
+
+  window.addEventListener('load',start);
+  window.addEventListener('pageshow',start);
+
+  new MutationObserver(function(){install();}).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>`;
+
+function injectEnhancement(html: string) {
+  let updated = html;
   if (!updated.includes('id="home-list-license-menu-styles"')) {
     updated = updated.replace("</head>", `${menuStyles}</head>`);
   }
-
+  if (!updated.includes('id="home-list-license-menu-installer"')) {
+    updated = updated.replace("</body>", `${installerScript}</body>`);
+  }
   return updated;
 }
 
@@ -62,7 +106,7 @@ export async function GET(request: Request) {
     });
   }
 
-  return new Response(injectListLicenseMenu(sourceHtml), {
+  return new Response(injectEnhancement(sourceHtml), {
     status: 200,
     headers: {
       "Content-Type": "text/html; charset=utf-8",
