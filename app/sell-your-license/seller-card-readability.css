@@ -1,0 +1,51 @@
+/* Readability pass for the Step 1 self-directed / broker-assisted benefit cards. */
+.seller-preview-page .seller-path-card > small {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #a9bac4;
+}
+
+.seller-preview-page .seller-path-card ul {
+  gap: 11px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #e2e9ed;
+}
+
+.seller-preview-page .seller-path-card li {
+  padding-left: 20px;
+}
+
+.seller-preview-page .seller-path-resources {
+  gap: 6px;
+  padding: 14px 15px;
+  font-size: 13px;
+  line-height: 1.52;
+}
+
+.seller-preview-page .seller-path-resources b {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.seller-preview-page .seller-path-resources small {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #cfdae0;
+}
+
+@media (max-width: 760px) {
+  .seller-preview-page .seller-path-card > small {
+    font-size: 14px;
+  }
+
+  .seller-preview-page .seller-path-card ul {
+    font-size: 13.5px;
+  }
+
+  .seller-preview-page .seller-path-resources,
+  .seller-preview-page .seller-path-resources b,
+  .seller-preview-page .seller-path-resources small {
+    font-size: 12.5px;
+  }
+}
