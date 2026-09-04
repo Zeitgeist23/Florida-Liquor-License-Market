@@ -42,7 +42,7 @@ export default function SampleBrokerListingDetail({ featured }: { featured: bool
             <p>Orange County is one of Florida&apos;s largest hospitality and tourism markets. FLLM detail pages connect buyers to county-level market information, current listings, valuation resources and financing pathways.</p>
           </section>
         </div>
-        <aside className={styles.rail}>
+        <aside className={`${styles.rail} ${!featured ? styles.railStandard : ""}`}>
           <div className={styles.ad}><b>FLLM Appraisal</b><strong>Know the market value before you transact</strong><p>Order a Florida liquor-license appraisal using FLLM market data and comparable listings.</p><Link href="/appraisal">View Appraisal Options</Link></div>
           <div className={styles.ad}><b>FLLM Financing</b><strong>Explore liquor-license financing</strong><p>Review private-lender and other financing options for qualified purchases.</p><Link href="/financing">Explore Financing</Link></div>
           {featured ? <div className={styles.broker}><small>Featured Broker Profile</small><h3>Alex Morgan</h3><img src="/assets/brokers/sample-broker.svg" alt="Fictitious sample broker Alex Morgan" /><p>Sample Florida Brokerage</p><div className={styles.brokerMeta}><a href="tel:+14075550148">(407) 555-0148</a><a href="#">alex@example-broker.test</a><a href="#">Visit Sample Broker Website</a></div><p>Fictitious broker profile shown only to demonstrate the premium Featured detail-page treatment.</p></div> : null}
