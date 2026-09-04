@@ -1,7 +1,6 @@
 import HomePage from "@/components/HomePage";
 import HomeLicenseTypesDropdown from "@/components/HomeLicenseTypesDropdown";
 import HomeCarouselAvailableColorFix from "@/components/HomeCarouselAvailableColorFix";
-import ListYourLicenseLinkFix from "@/components/ListYourLicenseLinkFix";
 import MarketReportAudioPortal from "@/components/MarketReportAudioPortal";
 import CareersFooterLink from "@/components/CareersFooterLink";
 import { getMarketplaceListings } from "@/lib/listing-store";
@@ -16,7 +15,6 @@ export default async function Page() {
     <>
       <HomePage marketListings={marketplaceListings} />
       <HomeLicenseTypesDropdown />
-      <ListYourLicenseLinkFix />
       <HomeCarouselAvailableColorFix />
       <MarketReportAudioPortal />
       <CareersFooterLink />
