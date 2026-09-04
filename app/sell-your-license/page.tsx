@@ -4,6 +4,7 @@ import Link from "next/link";
 import ListYourLicenseMockup from "@/components/ListYourLicenseMockup";
 import "@/app/resources/forms/abt-forms.css";
 import "@/app/sell-your-license-preview/list-your-license-preview.css";
+import "./seller-card-readability.css";
 
 export const metadata: Metadata = {
   title: "List Your Florida Liquor License for Sale | FLLM",
