@@ -60,7 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/resources/forms`, lastModified, changeFrequency: "weekly", priority: 0.82 },
     { url: `${siteUrl}/resources/application-center`, lastModified, changeFrequency: "weekly", priority: 0.76 },
     { url: `${siteUrl}/resources/quota-transfer-fee-calculator`, lastModified, changeFrequency: "monthly", priority: 0.65 },
-    { url: `${siteUrl}/resources/liquor-license-attorneys`, lastModified, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteUrl}/resources/liquor-license-attorneys`, lastModified, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/resources/florida-liquor-license-property-or-privilege`, lastModified, changeFrequency: "monthly", priority: 0.68 },
     { url: `${siteUrl}/resources/liquor-license-attorneys/apply`, lastModified, changeFrequency: "monthly", priority: 0.4 },
     { url: `${siteUrl}/resources/florida-department-of-revenue`, lastModified, changeFrequency: "monthly", priority: 0.58 },
