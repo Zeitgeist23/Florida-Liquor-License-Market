@@ -16,6 +16,10 @@ export type LicenseTypeExplainerProps = {
   relatedHref?: string;
   relatedLabel?: string;
   researchLinks?: Array<{ href: string; label: string; description: string }>;
+  ruleUpdateLinks?: Array<{ href: string; label: string; description: string }>;
+  requirementCards?: Array<{ label: string; value: string; detail: string }>;
+  requirementsText?: string;
+  requirementsCaution?: string;
   seriesClarification?: string;
   investmentNote?: string;
   imageSrc?: string;
@@ -50,6 +54,17 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-card h2{margin:0 0 14px;color:#fff;font-size:19px}
         .lt-card ul{margin:0;padding-left:20px;color:#dbe5ed;font-size:15px;line-height:1.65}
         .lt-card li+li{margin-top:7px}
+        .lt-requirements{padding:4px 0 30px}
+        .lt-requirements-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:end;margin-bottom:16px}
+        .lt-requirements-head span,.lt-rule-updates>span{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+        .lt-requirements-head h2,.lt-rule-updates h2{margin:7px 0 0;color:#fff;font:700 29px/1.15 Georgia,serif}
+        .lt-requirements-head p{margin:0;color:var(--muted);font-size:15px;line-height:1.7}
+        .lt-requirement-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+        .lt-requirement-card{min-height:178px;padding:20px;border:1px solid rgba(246,167,0,.38);border-radius:11px;background:linear-gradient(150deg,#0b263d,#071a2a);box-shadow:0 12px 30px rgba(0,0,0,.16)}
+        .lt-requirement-card span{display:block;color:#aebdcc;font-size:11px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
+        .lt-requirement-card strong{display:block;margin:10px 0 8px;color:var(--gold);font:700 21px/1.15 Georgia,serif}
+        .lt-requirement-card p{margin:0;color:#d7e1e9;font-size:13px;line-height:1.58}
+        .lt-requirement-caution{margin:14px 0 0;padding:15px 17px;border-left:3px solid var(--gold);background:rgba(246,167,0,.07);color:#cbd8e2;font-size:13px;line-height:1.65}
         .lt-band{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;padding:0 0 28px}
         .lt-panel{padding:24px;border-radius:12px;background:#0a2136;border:1px solid rgba(255,255,255,.08)}
         .lt-panel h2{margin:0 0 10px;color:var(--gold);font-size:20px}
@@ -65,6 +80,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-extra h2{margin:0 0 10px;color:#fff;font-size:21px}
         .lt-extra p{margin:0;color:#d7e1e9;font-size:15px;line-height:1.72}
         .lt-extra a{display:inline-block;margin-top:12px;color:var(--gold);font-size:12px;font-weight:900;text-decoration:none}
+        .lt-rule-updates{padding:0 0 34px}.lt-rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.lt-rule-grid a{display:flex;flex-direction:column;padding:20px;border:1px solid rgba(246,167,0,.48);border-radius:10px;background:linear-gradient(145deg,#0b263b,#061725);color:inherit;text-decoration:none}.lt-rule-grid a:hover,.lt-rule-grid a:focus-visible{border-color:var(--gold);transform:translateY(-2px);outline:none}.lt-rule-grid strong{color:#fff;font-size:16px;line-height:1.35}.lt-rule-grid p{margin:8px 0 12px;color:var(--muted);font-size:13px;line-height:1.55}.lt-rule-grid small{margin-top:auto;color:var(--gold);font-weight:900;text-transform:uppercase}
         .lt-research{padding:0 0 34px}.lt-research>span{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.lt-research h2{margin:8px 0 16px;color:#fff;font:700 28px/1.15 Georgia,serif}.lt-research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.lt-research-grid a{display:flex;flex-direction:column;min-height:150px;padding:19px;border:1px solid rgba(246,167,0,.38);border-radius:10px;background:#081e31;color:inherit;text-decoration:none;transition:transform .18s ease,border-color .18s ease}.lt-research-grid a:hover,.lt-research-grid a:focus-visible{transform:translateY(-3px);border-color:var(--gold);outline:none}.lt-research-grid strong{color:#fff;font-size:17px;line-height:1.3}.lt-research-grid p{margin:9px 0 13px;color:var(--muted);font-size:13px;line-height:1.55}.lt-research-grid small{margin-top:auto;color:var(--gold);font-weight:900;text-transform:uppercase}
         .lt-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 0 42px;border-top:1px solid rgba(246,167,0,.25)}
         .lt-cta p{margin:0;color:#cbd7e1;line-height:1.6}
@@ -73,7 +89,9 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-button.gold{background:var(--gold);color:#061728}
         .lt-button.outline{border:1px solid var(--gold);color:#fff}
         .lt-disclaimer{padding:18px 0 34px;color:#97a9b8;font-size:12px;line-height:1.6}
-        @media(max-width:850px){.lt-header{align-items:flex-start}.lt-header nav{display:none}.lt-grid,.lt-extra,.lt-research-grid{grid-template-columns:1fr}.lt-research-grid a{min-height:0}.lt-band{grid-template-columns:1fr}.lt-business-image img{max-height:none;aspect-ratio:4/3}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
+        @media(max-width:900px){.lt-requirement-grid{grid-template-columns:1fr 1fr}.lt-requirements-head{grid-template-columns:1fr}}
+        @media(max-width:850px){.lt-header{align-items:flex-start}.lt-header nav{display:none}.lt-grid,.lt-extra,.lt-research-grid,.lt-rule-grid{grid-template-columns:1fr}.lt-research-grid a{min-height:0}.lt-band{grid-template-columns:1fr}.lt-business-image img{max-height:none;aspect-ratio:4/3}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
+        @media(max-width:560px){.lt-requirement-grid{grid-template-columns:1fr}}
       `}</style>
 
       <header className="lt-header lt-shell">
@@ -117,6 +135,28 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         </article>
       </section>
 
+      {props.requirementCards && props.requirementCards.length > 0 ? (
+        <section className="lt-shell lt-requirements" aria-labelledby={`${props.code.replace(/[^a-z0-9]/gi, "-")}-requirements`}>
+          <div className="lt-requirements-head">
+            <div>
+              <span>Key requirements &amp; benefits</span>
+              <h2 id={`${props.code.replace(/[^a-z0-9]/gi, "-")}-requirements`}>{props.code} practical requirements</h2>
+            </div>
+            {props.requirementsText ? <p>{props.requirementsText}</p> : null}
+          </div>
+          <div className="lt-requirement-grid">
+            {props.requirementCards.map((card) => (
+              <article className="lt-requirement-card" key={`${card.label}-${card.value}`}>
+                <span>{card.label}</span>
+                <strong>{card.value}</strong>
+                <p>{card.detail}</p>
+              </article>
+            ))}
+          </div>
+          {props.requirementsCaution ? <p className="lt-requirement-caution">{props.requirementsCaution}</p> : null}
+        </section>
+      ) : null}
+
       <section className="lt-shell lt-band">
         <article className="lt-panel">
           <h2>Quota or non-quota?</h2>
@@ -157,6 +197,22 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
               <Link href="/resources/florida-liquor-license-system#investment-ownership">Read about inactive and escrow ownership →</Link>
             </article>
           ) : null}
+        </section>
+      ) : null}
+
+      {props.ruleUpdateLinks && props.ruleUpdateLinks.length > 0 ? (
+        <section className="lt-shell lt-rule-updates" aria-labelledby="rule-updates-title">
+          <span>Related FLLM Rule Updates</span>
+          <h2 id="rule-updates-title">Current rule changes and operating guidance</h2>
+          <div className="lt-rule-grid">
+            {props.ruleUpdateLinks.map((item) => (
+              <Link href={item.href} key={item.href}>
+                <strong>{item.label}</strong>
+                <p>{item.description}</p>
+                <small>Read the FLLM update ›</small>
+              </Link>
+            ))}
+          </div>
         </section>
       ) : null}
 
