@@ -479,6 +479,24 @@ export default async function Page({ params }: PageProps) {
                 <p>Unless an individual listing expressly states otherwise, the offering concerns a liquor-license interest only and does not include an operating business, leasehold, equipment, inventory, or real estate.</p>
               </section>
 
+              {selectedReference.trim().toUpperCase() === "FLLM-022" && (
+                <section className="marketplace-listing-section marketplace-listing-seller-details">
+                  <h2>Additional Seller Details</h2>
+                  <p>A rare opportunity in Escambia County, Florida: a transferable 4COP quota liquor license covering beer, wine, and spirits is now available for sale.</p>
+                  <p>This premium quota license provides versatile options for launching or expanding a bar, restaurant, nightclub, hospitality venue, or even a standalone liquor or package store.</p>
+                  <h3>Key benefits</h3>
+                  <ul>
+                    <li><strong>Full alcohol sales:</strong> unrestricted on-premises and off-premises sales, including sealed-container and package sales.</li>
+                    <li><strong>Transferable:</strong> available to qualified buyers, subject to Florida DBPR requirements and county quota rules.</li>
+                    <li><strong>Flexible use:</strong> suitable for high-volume bars, restaurants without food-sales restrictions, or dedicated liquor retail stores.</li>
+                    <li><strong>Strong market demand:</strong> full-liquor licenses are limited in Northwest Florida, especially in the growing Pensacola market.</li>
+                  </ul>
+                  <p>Suitable for entrepreneurs, bar and restaurant operators, or investors seeking to secure a highly sought-after, multi-use asset.</p>
+                  <p className="marketplace-listing-seller-footnote"><strong>*</strong> A change of series must be filed with the Florida DBPR to convert the license from 4COP to 3PS for package-store use.</p>
+                  <p className="marketplace-listing-seller-disclosure">This description was supplied by the seller or listing broker. Buyers should independently confirm all permitted uses, transfer requirements, availability, and regulatory approvals.</p>
+                </section>
+              )}
+
               <section className="marketplace-listing-section">
                 <h2>{selected.county} Market Context</h2>
                 <div className="marketplace-county-snapshot" aria-label={`${selected.county} population and quota drawing data`}>
