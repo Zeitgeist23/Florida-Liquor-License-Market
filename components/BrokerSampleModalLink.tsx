@@ -6,7 +6,7 @@ import styles from "./BrokerSampleModalLink.module.css";
 type Tier = "standard" | "featured";
 
 const STANDARD_SAMPLE_PAGE = "/brokers/sample-standard-listing";
-const FEATURED_SAMPLE_IMAGE = "/assets/brokers/fllm-featured-broker-sample.webp";
+const FEATURED_SAMPLE_IMAGE = "/assets/brokers/fllm-featured-broker-sample.webp?v=20260904-1744";
 
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
@@ -65,7 +65,7 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
               </div>
             )}
 
-            <p className={styles.caption}>{featured ? "This is a sample Featured listing preview." : "This is a sample preview. Scroll inside the Standard preview to see the complete page."}</p>
+            <p className={styles.caption}>{featured ? "This is a sample Featured listing preview image." : "This is a sample preview. Scroll inside the Standard preview to see the complete page."}</p>
           </div>
         </div>
       ) : null}
