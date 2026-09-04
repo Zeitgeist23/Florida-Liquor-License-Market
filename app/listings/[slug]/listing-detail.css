@@ -443,7 +443,7 @@
 
 .marketplace-listing-broker-inquiry-row {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 9px;
 }
 
@@ -476,8 +476,9 @@
 }
 
 .marketplace-listing-broker-inquiry input {
-  height: 42px;
-  padding: 0 11px;
+  height: 46px;
+  padding: 0 13px;
+  font-size: 15px;
 }
 
 .marketplace-listing-broker-inquiry textarea {
