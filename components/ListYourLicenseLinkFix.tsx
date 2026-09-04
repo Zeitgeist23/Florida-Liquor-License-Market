@@ -49,7 +49,7 @@ export default function ListYourLicenseLinkFix() {
       if (!menu) return;
 
       const rect = control.getBoundingClientRect();
-      const menuWidth = Math.min(230, window.innerWidth - 28);
+      const menuWidth = Math.min(290, window.innerWidth - 28);
       const left = Math.max(14, Math.min(rect.right - menuWidth, window.innerWidth - menuWidth - 14));
 
       menu.style.top = `${Math.round(rect.bottom + 7)}px`;
@@ -166,7 +166,7 @@ export default function ListYourLicenseLinkFix() {
           display: "none",
           gridTemplateColumns: "1fr",
           gap: 2,
-          width: 230,
+          width: 290,
           padding: 6,
           border: "1px solid #f6a700",
           borderRadius: 7,
@@ -191,4 +191,5 @@ const itemStyle = {
   fontWeight: 800,
   lineHeight: 1.25,
   textDecoration: "none",
+  whiteSpace: "nowrap" as const,
 };
