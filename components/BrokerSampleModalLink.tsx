@@ -51,13 +51,13 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
                 className={`${styles.frame} ${featured ? "" : styles.standardFrame}`}
                 src={samplePage}
                 title={`${featured ? "Featured" : "Standard"} broker listing detail page sample`}
-                tabIndex={-1}
+                tabIndex={featured ? -1 : 0}
                 loading="eager"
               />
-              <div className={styles.shield} aria-hidden="true" />
+              {featured ? <div className={styles.shield} aria-hidden="true" /> : null}
             </div>
 
-            <p className={styles.caption}>This is a non-interactive sample preview. Close it to continue choosing your listing option.</p>
+            <p className={styles.caption}>This is a sample preview. Scroll inside the Standard preview to see the complete page.</p>
           </div>
         </div>
       ) : null}
