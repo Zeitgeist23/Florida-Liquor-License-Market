@@ -102,6 +102,7 @@
   height:1240px;
   transform:scale(.65);
   transform-origin:top center;
+  pointer-events:auto;
 }
 .shield{position:absolute;inset:0;z-index:2;cursor:default}
 .imageViewport{
