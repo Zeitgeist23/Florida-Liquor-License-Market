@@ -833,6 +833,8 @@
 
 
 .marketplace-listing-finance-promo {
+  box-sizing: border-box;
+  min-height: 325px;
   display: flex;
   flex-direction: column;
   justify-content: center;
