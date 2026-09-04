@@ -5,11 +5,11 @@ const menuStyles = `<style id="home-list-license-menu-styles">
 .header-actions .home-list-license-wrap{position:relative;display:inline-flex;align-items:center;flex:0 0 auto}
 .header-actions .home-list-license-wrap::after{content:"";position:absolute;top:100%;right:0;width:100%;height:10px}
 .header-actions .home-list-license-trigger{appearance:none;-webkit-appearance:none;font-family:inherit;cursor:default}
-.header-actions .home-list-license-menu{position:absolute;top:calc(100% + 7px);right:0;z-index:50000;display:none;width:230px;padding:6px;border:1px solid #f6a700;border-radius:7px;background:#061728;box-shadow:0 18px 42px rgba(0,0,0,.42)}
+.header-actions .home-list-license-menu{position:absolute;top:calc(100% + 7px);right:0;z-index:50000;display:none;width:290px;padding:6px;border:1px solid #f6a700;border-radius:7px;background:#061728;box-shadow:0 18px 42px rgba(0,0,0,.42)}
 .header-actions .home-list-license-wrap:hover .home-list-license-menu,.header-actions .home-list-license-wrap:focus-within .home-list-license-menu{display:grid;gap:2px}
-.header-actions .home-list-license-menu a{display:block;width:100%;padding:11px 12px;border-radius:4px;color:#f6a700!important;font:800 13.5px/1.25 Arial,Helvetica,sans-serif;text-decoration:none!important;text-transform:none!important;white-space:normal}
+.header-actions .home-list-license-menu a{display:block;width:100%;padding:11px 12px;border-radius:4px;color:#f6a700!important;font:800 13.5px/1.25 Arial,Helvetica,sans-serif;text-decoration:none!important;text-transform:none!important;white-space:nowrap}
 .header-actions .home-list-license-menu a:hover,.header-actions .home-list-license-menu a:focus-visible{background:#f6a700;color:#061728!important;outline:none}
-@media(max-width:899px){.header-actions .home-list-license-menu{right:50%;width:min(230px,calc(100vw - 28px));transform:translateX(50%)}}
+@media(max-width:899px){.header-actions .home-list-license-menu{right:50%;width:min(290px,calc(100vw - 28px));transform:translateX(50%)}.header-actions .home-list-license-menu a{white-space:normal}}
 </style>`;
 
 const installerScript = `<script id="home-list-license-menu-installer">
