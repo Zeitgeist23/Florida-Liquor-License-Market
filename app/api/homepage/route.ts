@@ -349,7 +349,7 @@ export async function GET(request: Request) {
       '<script defer src="/assets/completed-sales-logo-size.js"></script>',
       '<script defer src="/assets/market-insights-popup-size.js"></script>',
       '<script defer src="/assets/homepage-listing-search.js"></script>',
-      '<script defer src="/assets/market-data-dropdown.js?v=10"></script>',
+      '<script defer src="/assets/market-data-dropdown.js?v=11"></script>',
       '<script defer src="/assets/market-heat-map-fit-v4.js?v=7"></script>',
       '<script defer src="/assets/market-heat-map.js?v=5"></script>',
       '<script defer src="/assets/market-heat-map-popup-cards-v3.js?v=4"></script>',
