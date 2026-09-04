@@ -176,6 +176,18 @@ export default function BrokerListYourLicensePage() {
           background: rgba(246,167,0,.11);
           box-shadow: 0 10px 24px rgba(0,0,0,.24), 0 0 18px rgba(246,167,0,.12);
         }
+        .${styles.page}:has(#featured-listing-option:target) .${styles.heroPlans} > div:first-child {
+          border-color: rgba(255,255,255,.13) !important;
+          background: rgba(255,255,255,.045) !important;
+          box-shadow: none !important;
+          transform: none !important;
+        }
+        .${styles.page}:has(#featured-listing-option:target) .${styles.heroPlans} > div:nth-child(2),
+        .${styles.page}:has(#standard-listing-option:target) .${styles.heroPlans} > div:first-child {
+          border-color: rgba(246,167,0,.82) !important;
+          background: rgba(246,167,0,.10) !important;
+          box-shadow: 0 10px 24px rgba(0,0,0,.24), 0 0 18px rgba(246,167,0,.12) !important;
+        }
         #standard-listing-option,
         #featured-listing-option {
           scroll-margin-top: 105px;
