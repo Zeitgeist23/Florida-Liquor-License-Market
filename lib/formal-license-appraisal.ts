@@ -6,8 +6,8 @@ import { floridaCounties } from "@/data/florida-counties";
 import { sendFllmEmail } from "@/lib/fllm-email";
 import type { ListingSubmission } from "@/lib/listing-submission-store";
 
-export const FORMAL_LICENSE_APPRAISAL_PRICE_CENTS = 99_500;
-export const FORMAL_LICENSE_APPRAISAL_PRICE_LABEL = "$995";
+export const FORMAL_LICENSE_APPRAISAL_PRICE_CENTS = 49_500;
+export const FORMAL_LICENSE_APPRAISAL_PRICE_LABEL = "$495";
 
 export type FormalLicenseAppraisalOrder = {
   id: string;
