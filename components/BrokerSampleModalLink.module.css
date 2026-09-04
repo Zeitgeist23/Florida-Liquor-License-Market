@@ -1,0 +1,96 @@
+.trigger{
+  width:100%;
+  min-height:38px;
+  margin-top:10px;
+  border:1px solid rgba(241,166,0,.62);
+  border-radius:6px;
+  color:#f6a700;
+  background:rgba(4,20,33,.72);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.02em;
+  cursor:pointer;
+  transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease;
+}
+.trigger:hover,.trigger:focus-visible{
+  transform:translateY(-1px);
+  border-color:#f6a700;
+  background:rgba(246,167,0,.10);
+  box-shadow:0 8px 20px rgba(0,0,0,.22),0 0 0 1px rgba(246,167,0,.06);
+  outline:none;
+}
+.icon{margin-right:8px;font-size:12px}
+.backdrop{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:grid;
+  place-items:center;
+  padding:22px;
+  background:rgba(0,5,10,.88);
+  backdrop-filter:blur(4px);
+}
+.modal{
+  width:min(1180px,96vw);
+  max-height:92vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border:1px solid rgba(241,166,0,.78);
+  border-radius:10px;
+  background:#03101a;
+  box-shadow:0 28px 80px rgba(0,0,0,.6);
+}
+.modalBar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:13px 16px;
+  border-bottom:1px solid rgba(241,166,0,.36);
+  background:#061725;
+}
+.modalBar strong{display:block;color:#fff;font:700 18px/1.15 Georgia,"Times New Roman",serif}
+.modalBar span{display:block;margin-top:3px;color:#aebdca;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.close{
+  flex:0 0 38px;
+  width:38px;
+  height:38px;
+  border:1px solid rgba(241,166,0,.55);
+  border-radius:50%;
+  color:#fff;
+  background:#091f31;
+  font-size:25px;
+  line-height:1;
+  cursor:pointer;
+}
+.close:hover,.close:focus-visible{border-color:#f6a700;color:#f6a700;outline:none}
+.viewport{
+  position:relative;
+  height:min(76vh,800px);
+  overflow:hidden;
+  background:#02090f;
+}
+.frame{
+  width:100%;
+  height:100%;
+  border:0;
+  background:#050607;
+  pointer-events:none;
+}
+.shield{position:absolute;inset:0;z-index:2;cursor:default}
+.caption{
+  margin:0;
+  padding:9px 14px 11px;
+  color:#aebdca;
+  background:#041321;
+  font-size:10px;
+  line-height:1.4;
+  text-align:center;
+}
+@media(max-width:760px){
+  .backdrop{padding:8px}
+  .modal{width:98vw;max-height:95vh}
+  .viewport{height:80vh}
+  .modalBar strong{font-size:15px}
+}
