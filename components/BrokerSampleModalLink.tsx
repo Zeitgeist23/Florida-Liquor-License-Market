@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { standardBrokerPreviewImage } from "./standardBrokerPreviewImage";
 import styles from "./BrokerSampleModalLink.module.css";
 
 type Tier = "standard" | "featured";
@@ -8,12 +9,10 @@ type Tier = "standard" | "featured";
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
   const featured = tier === "featured";
-  const href = featured
-    ? "/brokers/sample-featured-listing"
-    : "/brokers/sample-standard-listing";
+  const href = "/brokers/sample-featured-listing";
   const label = featured
     ? "Preview Featured Ad Detail Page"
-    : "Preview Standard Ad Detail Page";
+    : "View Sample Standard Listing Page";
 
   useEffect(() => {
     if (!open) return;
@@ -40,7 +39,7 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
 
       {open ? (
         <div className={styles.backdrop} role="dialog" aria-modal="true" aria-label={label} onMouseDown={() => setOpen(false)}>
-          <div className={styles.modal} onMouseDown={(event) => event.stopPropagation()}>
+          <div className={`${styles.modal} ${featured ? "" : styles.standardModal}`} onMouseDown={(event) => event.stopPropagation()}>
             <div className={styles.modalBar}>
               <div>
                 <strong>{featured ? "Featured" : "Standard"} Broker Listing Detail Page</strong>
@@ -48,16 +47,26 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
               </div>
               <button className={styles.close} type="button" onClick={() => setOpen(false)} aria-label="Close sample preview">×</button>
             </div>
-            <div className={styles.viewport}>
-              <iframe
-                className={styles.frame}
-                src={href}
-                title={`${featured ? "Featured" : "Standard"} broker listing detail page sample`}
-                tabIndex={-1}
-                loading="lazy"
-              />
-              <div className={styles.shield} aria-hidden="true" />
-            </div>
+            {featured ? (
+              <div className={styles.viewport}>
+                <iframe
+                  className={styles.frame}
+                  src={href}
+                  title="Featured broker listing detail page sample"
+                  tabIndex={-1}
+                  loading="lazy"
+                />
+                <div className={styles.shield} aria-hidden="true" />
+              </div>
+            ) : (
+              <div className={styles.imageViewport}>
+                <img
+                  className={styles.sampleImage}
+                  src={standardBrokerPreviewImage}
+                  alt="Approved sample Standard broker listing detail page"
+                />
+              </div>
+            )}
             <p className={styles.caption}>
               This is a non-interactive sample preview. Close it to continue choosing your listing option.
             </p>
