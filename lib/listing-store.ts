@@ -54,13 +54,29 @@ function listingKey(listing: ListingWithInventoryClass) {
 export function dedupeListings(
   input: ListingWithInventoryClass[],
 ): ClassifiedListing[] {
-  return Array.from(
-    new Map(
-      input
-        .map(normalizeListing)
-        .map((listing) => [listingKey(listing), listing]),
-    ).values(),
-  );
+  const deduped: ClassifiedListing[] = [];
+  const keyToIndex = new Map<string, number>();
+
+  input.map(normalizeListing).forEach((listing) => {
+    const keys = identityKeys(listing);
+    const existingIndex = keys
+      .map((key) => keyToIndex.get(key))
+      .find((index): index is number => index !== undefined);
+
+    if (existingIndex === undefined) {
+      const index = deduped.push(listing) - 1;
+      keys.forEach((key) => keyToIndex.set(key, index));
+      return;
+    }
+
+    const existingKeys = identityKeys(deduped[existingIndex]);
+    deduped[existingIndex] = listing;
+    [...existingKeys, ...keys].forEach((key) =>
+      keyToIndex.set(key, existingIndex),
+    );
+  });
+
+  return deduped;
 }
 
 function databaseConfigured() {
@@ -256,14 +272,16 @@ function identityKeys(
   >,
 ): string[] {
   const county = canonicalFloridaCountyName(listing.county).toLowerCase();
-  const keys = [
-    `signature:${county}|${listing.type}|${listing.price ?? listing.priceLabel}`,
-  ];
+  const keys: string[] = [];
   if (listing.sourceRef)
     keys.push(`ref:${listing.sourceRef.trim().toLowerCase()}`);
   if (listing.sourceUrl)
     keys.push(
       `url:${listing.sourceUrl.trim().toLowerCase().replace(/\/+$/, "")}`,
+    );
+  if (keys.length === 0)
+    keys.push(
+      `signature:${county}|${listing.type}|${listing.price ?? listing.priceLabel}`,
     );
   return keys;
 }
