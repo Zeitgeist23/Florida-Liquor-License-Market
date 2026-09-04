@@ -9,6 +9,8 @@ export default function BrokerHeroSelectionFix() {
 
     if (!standard || !featured) return;
 
+    let selectedCard: HTMLElement | null = null;
+
     const neutral = (card: HTMLElement) => {
       card.style.setProperty("border-color", "rgba(255,255,255,.13)", "important");
       card.style.setProperty("background", "rgba(255,255,255,.045)", "important");
@@ -21,6 +23,18 @@ export default function BrokerHeroSelectionFix() {
       card.style.setProperty("background", "rgba(246,167,0,.10)", "important");
       card.style.setProperty("box-shadow", "0 10px 24px rgba(0,0,0,.24), 0 0 18px rgba(246,167,0,.12)", "important");
       card.style.setProperty("transform", "translateY(-2px)", "important");
+    };
+
+    const hovered = (card: HTMLElement) => {
+      card.style.setProperty("border-color", "#f6a700", "important");
+      card.style.setProperty("background", "rgba(246,167,0,.14)", "important");
+      card.style.setProperty("box-shadow", "0 14px 30px rgba(0,0,0,.32), 0 0 22px rgba(246,167,0,.22)", "important");
+      card.style.setProperty("transform", "translateY(-4px)", "important");
+    };
+
+    const restore = (card: HTMLElement) => {
+      if (selectedCard === card) selected(card);
+      else neutral(card);
     };
 
     neutral(standard);
@@ -37,12 +51,30 @@ export default function BrokerHeroSelectionFix() {
       neutral(standard);
       neutral(featured);
 
-      if (link.getAttribute("href") === "#standard-listing-option") selected(standard);
-      if (link.getAttribute("href") === "#featured-listing-option") selected(featured);
+      if (link.getAttribute("href") === "#standard-listing-option") selectedCard = standard;
+      if (link.getAttribute("href") === "#featured-listing-option") selectedCard = featured;
+
+      if (selectedCard) selected(selectedCard);
     };
 
+    const handleStandardEnter = () => hovered(standard);
+    const handleFeaturedEnter = () => hovered(featured);
+    const handleStandardLeave = () => restore(standard);
+    const handleFeaturedLeave = () => restore(featured);
+
+    standard.addEventListener("mouseenter", handleStandardEnter);
+    featured.addEventListener("mouseenter", handleFeaturedEnter);
+    standard.addEventListener("mouseleave", handleStandardLeave);
+    featured.addEventListener("mouseleave", handleFeaturedLeave);
     document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
+
+    return () => {
+      standard.removeEventListener("mouseenter", handleStandardEnter);
+      featured.removeEventListener("mouseenter", handleFeaturedEnter);
+      standard.removeEventListener("mouseleave", handleStandardLeave);
+      featured.removeEventListener("mouseleave", handleFeaturedLeave);
+      document.removeEventListener("click", handleClick);
+    };
   }, []);
 
   return null;
