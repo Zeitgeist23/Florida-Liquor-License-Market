@@ -151,6 +151,8 @@ export default function BrokerListingForm() {
         </legend>
         <div className={styles.tierGrid}>
           <label
+            id="broker-tier-standard"
+            style={{ scrollMarginTop: 110 }}
             className={
               listingTier === "standard"
                 ? styles.tierSelected
@@ -182,6 +184,8 @@ export default function BrokerListingForm() {
             </span>
           </label>
           <label
+            id="broker-tier-featured"
+            style={{ scrollMarginTop: 110 }}
             className={
               listingTier === "featured"
                 ? styles.tierSelected
@@ -218,130 +222,58 @@ export default function BrokerListingForm() {
           <b>2</b>
           <span>
             Broker and brokerage information
-            <small>
-              This information identifies the independent listing
-              representative.
-            </small>
+            <small>Enter the contact details buyers should see and use.</small>
           </span>
         </legend>
         <div className={styles.fields}>
           <label>
-            <span>Broker&apos;s full name *</span>
-            <input name="name" required autoComplete="name" maxLength={160} />
+            <span>Broker name *</span>
+            <input name="broker_name" required autoComplete="name" />
           </label>
           <label>
-            <span>Brokerage or company *</span>
-            <input
-              name="brokerage_name"
-              required
-              autoComplete="organization"
-              maxLength={180}
-            />
+            <span>Brokerage *</span>
+            <input name="brokerage" required autoComplete="organization" />
           </label>
           <label>
-            <span>Business email *</span>
-            <input
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              maxLength={254}
-            />
+            <span>Email *</span>
+            <input name="email" type="email" required autoComplete="email" />
           </label>
           <label>
-            <span>Business phone *</span>
+            <span>Phone *</span>
             <input
               name="phone"
-              type="tel"
               required
+              inputMode="tel"
               autoComplete="tel"
               value={phone}
               onChange={(event) => setPhone(formatPhone(event.target.value))}
             />
           </label>
-          <label>
-            <span>Broker or registration number</span>
-            <input
-              name="broker_license_number"
-              maxLength={100}
-              placeholder="If applicable"
-            />
-          </label>
-          <label>
-            <span>Brokerage website</span>
-            <input
-              name="brokerage_website"
-              type="url"
-              maxLength={300}
-              placeholder="https://"
-            />
-          </label>
-          <div className={`${styles.fullField} ${styles.inquiryRouting}`}>
-            <span>Buyer inquiry routing *</span>
-            <small>
-              Select every method buyers may use to reach you. All methods are
-              included by default.
-            </small>
-            <div className={styles.inquiryOptions}>
-              <label className={styles.includeAllOption}>
-                <input
-                  type="checkbox"
-                  checked={inquiryRoutes.length === allInquiryRoutes.length}
-                  onChange={(event) =>
-                    setInquiryRoutes(
-                      event.target.checked ? [...allInquiryRoutes] : [],
-                    )
-                  }
-                />
-                <span>Include all inquiry methods</span>
-              </label>
-              {allInquiryRoutes.map((route, index) => (
-                <label key={route}>
-                  <input
-                    type="checkbox"
-                    name="contact_preference"
-                    value={route}
-                    checked={inquiryRoutes.includes(route)}
-                    required={index === 0 && inquiryRoutes.length === 0}
-                    onChange={(event) =>
-                      toggleInquiryRoute(route, event.target.checked)
-                    }
-                  />
-                  <span>{route}</span>
-                </label>
-              ))}
-            </div>
-          </div>
         </div>
       </fieldset>
       <fieldset>
         <legend>
           <b>3</b>
           <span>
-            Client license information
-            <small>FLLM reviews these details before publication.</small>
+            License information
+            <small>Provide the details buyers need to evaluate the opportunity.</small>
           </span>
         </legend>
         <div className={styles.fields}>
           <label>
-            <span>Florida county *</span>
+            <span>County *</span>
             <select name="county" required defaultValue="">
-              <option value="" disabled>
-                Select county
-              </option>
+              <option value="" disabled>Select county</option>
               {floridaCounties.map((county) => (
-                <option key={county.slug}>{county.name}</option>
+                <option key={county.name} value={county.name}>{county.name}</option>
               ))}
             </select>
           </label>
           <label>
             <span>License type *</span>
-            <select name="license_type" required defaultValue="">
-              <option value="" disabled>
-                Select license type
-              </option>
-              <option>4COP Quota</option>
-              <option>3PS Quota / Package Store</option>
+            <select name="license_type" required defaultValue="4COP Quota">
+              <option value="4COP Quota">4COP Quota</option>
+              <option value="3PS Quota / Package Store">3PS Quota / Package Store</option>
             </select>
           </label>
           <label>
@@ -350,64 +282,18 @@ export default function BrokerListingForm() {
               name="asking_price"
               required
               inputMode="numeric"
-              value={askingPrice ? `$${askingPrice}` : ""}
-              onChange={(event) =>
-                setAskingPrice(formatCurrency(event.target.value))
-              }
-              placeholder="$0"
+              value={askingPrice}
+              onChange={(event) => setAskingPrice(formatCurrency(event.target.value))}
+              placeholder="435,000"
             />
-          </label>
-          <label>
-            <span>License status *</span>
-            <select name="license_status" required defaultValue="">
-              <option value="" disabled>
-                Select current status
-              </option>
-              <option>Active</option>
-              <option>Inactive / Escrowed</option>
-              <option>Pending transfer</option>
-              <option>Status being confirmed</option>
-            </select>
           </label>
           <label>
             <span>License number</span>
-            <input
-              name="license_number"
-              maxLength={100}
-              placeholder="Optional; kept private unless authorized"
-            />
-          </label>
-          <label>
-            <span>Preferred sale timing *</span>
-            <select name="preferred_timing" required defaultValue="">
-              <option value="" disabled>
-                Select timing
-              </option>
-              <option>Immediately</option>
-              <option>Within 30 days</option>
-              <option>Within 60–90 days</option>
-              <option>Flexible</option>
-            </select>
+            <input name="license_number" placeholder="Optional / may be kept private" />
           </label>
           <label className={styles.fullField}>
-            <span>Public license-number preference *</span>
-            <select
-              name="license_number_visibility"
-              required
-              defaultValue="Keep license number private"
-            >
-              <option>Keep license number private</option>
-              <option>Display license number after FLLM review</option>
-            </select>
-          </label>
-          <label className={styles.fullField}>
-            <span>Listing description and confidential notes</span>
-            <textarea
-              name="message"
-              rows={5}
-              maxLength={3500}
-              placeholder="Describe the license, availability, transaction considerations, or information FLLM should know."
-            />
+            <span>Listing notes</span>
+            <textarea name="notes" rows={4} />
           </label>
         </div>
       </fieldset>
@@ -415,106 +301,72 @@ export default function BrokerListingForm() {
         <legend>
           <b>4</b>
           <span>
-            Optional supporting document
-            <small>
-              Used privately by FLLM for review; never published automatically.
-            </small>
+            Buyer inquiry routing
+            <small>Choose how buyer inquiries should reach you.</small>
+          </span>
+        </legend>
+        <div className={styles.inquiryRouting}>
+          <span>Inquiry methods</span>
+          <small>Select one or more.</small>
+          <div className={styles.inquiryOptions}>
+            {allInquiryRoutes.map((route) => (
+              <label key={route}>
+                <input
+                  type="checkbox"
+                  name="inquiry_routes"
+                  value={route}
+                  checked={inquiryRoutes.includes(route)}
+                  onChange={(event) => toggleInquiryRoute(route, event.target.checked)}
+                />
+                <span>{route}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>
+          <b>5</b>
+          <span>
+            Supporting document
+            <small>Optional proof of authority or listing documentation.</small>
           </span>
         </legend>
         <label className={styles.fileField}>
           <input
-            name="supporting_document"
             type="file"
-            accept="application/pdf,image/jpeg,image/png"
-            onChange={(event) =>
-              setDocumentName(event.target.files?.[0]?.name || "")
-            }
+            name="supporting_document"
+            accept=".pdf,.png,.jpg,.jpeg,.webp"
+            onChange={(event) => setDocumentName(event.target.files?.[0]?.name || "")}
           />
           <span>
-            <b>{documentName || "Choose a PDF, JPG or PNG"}</b>
-            <small>
-              Optional license record or authorization document · Maximum 4 MB
-            </small>
+            <b>{documentName || "Choose a file"}</b>
+            <small>PDF, PNG, JPG or WEBP</small>
           </span>
         </label>
       </fieldset>
       <div className={styles.certifications}>
         <label>
-          <input
-            type="checkbox"
-            name="authority_certification"
-            required
-            value="Accepted"
-          />
-          <span>
-            I certify that I am authorized by the license owner to advertise
-            this license and provide the submitted information to FLLM.
-          </span>
+          <input type="checkbox" name="authority_confirmed" required />
+          <span>I am authorized to advertise this license and the submitted information is accurate to the best of my knowledge.</span>
         </label>
         <label>
-          <input
-            type="checkbox"
-            name="accuracy_certification"
-            required
-            value="Accepted"
-          />
-          <span>
-            I certify that the information is accurate to the best of my
-            knowledge and will promptly report material changes in price, status
-            or availability.
-          </span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            name="marketplace_acknowledgment"
-            required
-            value="Accepted"
-          />
-          <span>
-            I understand this is an advertising-only marketplace submission.
-            FLLM does not become my client&apos;s broker, participate in the
-            transaction or receive any portion of my commission.
-          </span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            name="fee_agreement"
-            required
-            value="Accepted"
-          />
-          <span>
-            I understand the selected{" "}
-            {listingTier === "featured" ? "$24.95 Featured" : "$14.95 Standard"}{" "}
-            fee is a one-time listing-submission fee. Payment does not guarantee
-            publication, and rejected submissions are eligible for a refund.
-          </span>
+          <input type="checkbox" name="terms_confirmed" required />
+          <span>I understand FLLM provides marketplace advertising and inquiry routing and does not become my client&apos;s broker through this listing submission.</span>
         </label>
       </div>
       <div className={styles.formFooter}>
         <div>
-          <strong>
-            {listingTier === "featured"
-              ? "Featured Listing — $24.95"
-              : "Standard Listing — $14.95"}
-          </strong>
-          <span>One-time fee · Secure payment through Stripe</span>
+          <strong>{listingTier === "featured" ? "$24.95 Featured" : "$14.95 Standard"}</strong>
+          <small>One-time listing fee</small>
         </div>
-        <button type="submit" disabled={submitting} aria-busy={submitting}>
-          {submitting
-            ? "Opening Secure Checkout…"
-            : `Continue to Payment — ${listingTier === "featured" ? "$24.95" : "$14.95"}`}
-          <i>›</i>
+        <button type="submit" disabled={submitting}>
+          {submitting ? "Opening checkout…" : "Continue to Secure Checkout"}
         </button>
       </div>
-      <p
-        className={isError ? styles.errorStatus : styles.formStatus}
-        role="status"
-        aria-live="polite"
-      >
-        {status}
-      </p>
+      {status ? (
+        <p className={isError ? styles.formError : styles.formStatus} role="status">{status}</p>
+      ) : null}
     </form>
   );
 }
