@@ -55,7 +55,7 @@ const installerScript = `<script id="home-list-license-menu-installer">
     menu.setAttribute('aria-label','List your license options');
     menu.appendChild(makeLink('Self-Directed Seller',SELF));
     menu.appendChild(makeLink('Request Broker Help',HELP));
-    menu.appendChild(makeLink('Broker Listing',BROKER));
+    menu.appendChild(makeLink('For Brokers — List a Client License',BROKER));
 
     wrap.appendChild(button);
     wrap.appendChild(menu);
