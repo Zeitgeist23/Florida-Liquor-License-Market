@@ -18,7 +18,7 @@
 }
 
 .broker-link-kit-brand img {
-  width: min(350px, 44vw);
+  width: min(140px, 17.6vw);
   height: auto;
 }
 
@@ -247,6 +247,6 @@
   }
 
   .broker-link-kit-brand img {
-    width: min(340px, 86vw);
+    width: min(136px, 34.4vw);
   }
 }
