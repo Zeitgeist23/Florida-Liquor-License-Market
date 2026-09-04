@@ -35,16 +35,27 @@ export default function ListingPreviewSelector({
   const previewListing = tier === "featured" ? featuredPreviewListing : standardPreviewListing;
 
   function chooseListing() {
+    // Remove any old preview hash first so the browser cannot snap back to
+    // #standard-listing-option / #featured-listing-option after React updates.
+    if (window.location.hash) {
+      window.history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}${window.location.search}`,
+      );
+    }
+
     window.dispatchEvent(
       new CustomEvent("fllm:select-broker-listing-tier", {
         detail: { tier },
       }),
     );
-    window.setTimeout(() => {
+
+    window.requestAnimationFrame(() => {
       document
         .getElementById(`broker-tier-${tier}`)
         ?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 0);
+    });
   }
 
   function handleClickCapture(event: MouseEvent<HTMLDivElement>) {
@@ -53,12 +64,14 @@ export default function ListingPreviewSelector({
 
   function handleClick(event: MouseEvent<HTMLDivElement>) {
     event.preventDefault();
+    event.stopPropagation();
     chooseListing();
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
+    event.stopPropagation();
     chooseListing();
   }
 
