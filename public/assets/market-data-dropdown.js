@@ -278,6 +278,15 @@
     window.setTimeout(bindTrigger, 300);
     window.setTimeout(bindTrigger, 1000);
     window.setTimeout(bindTrigger, 2200);
+
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("open") === "heat-map") {
+      window.setTimeout(() => {
+        openHeatMap();
+        url.searchParams.delete("open");
+        window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+      }, 350);
+    }
   }
 
   if (document.readyState === "loading") {
