@@ -498,6 +498,42 @@ export default async function Page({ params }: PageProps) {
                 <p><Link href={filteredCountyHref}>Compare current {selected.county} 4COP and 3PS liquor-license listings →</Link></p>
               </section>
 
+              {isThirdPartyBrokerListing && (
+                <div className="marketplace-listing-support-grid">
+                  <section className="marketplace-listing-support-card marketplace-listing-paid-details">
+                    <span>Paid Broker Advertisement</span>
+                    <h2>Broker-Submitted Listing Details</h2>
+                    <div className="marketplace-listing-paid-facts">
+                      <div><small>Asking price</small><strong>{selected.priceLabel}</strong></div>
+                      <div><small>License type</small><strong>{exchangeSubmission?.approvedLicenseType || selected.type}</strong></div>
+                      <div><small>License status</small><strong>{exchangeSubmission?.licenseStatus || statusLabel}</strong></div>
+                      <div><small>Preferred timing</small><strong>{exchangeSubmission?.preferredTiming || "Contact broker"}</strong></div>
+                    </div>
+                    {exchangeSubmission?.message && (
+                      <div className="marketplace-listing-broker-description">
+                        <small>Broker-submitted description</small>
+                        <p>{exchangeSubmission.message}</p>
+                      </div>
+                    )}
+                    <p className="marketplace-listing-paid-note">Submitted through FLLM and presented under marketplace reference {selectedReference}. Details remain subject to broker and seller confirmation.</p>
+                  </section>
+
+                  <section className="marketplace-listing-support-card marketplace-listing-financing-card">
+                    <span>Purchase Financing</span>
+                    <h2>FLLM Private Lender Network</h2>
+                    <p>Qualified buyers may request introductions to private lenders familiar with Florida quota-liquor-license acquisitions and refinances.</p>
+                    <ul>
+                      <li>License-purchase financing</li>
+                      <li>Private capital introductions</li>
+                      <li>County-specific collateral review</li>
+                    </ul>
+                    <Link className="marketplace-listing-financing-button" href="/financing#request-financing">Request Financing</Link>
+                    <Link className="marketplace-listing-financing-link" href="/private-liquor-license-lenders">Learn about the Private Lender Network →</Link>
+                    <small>Financing is independently underwritten, subject to lender approval, and not guaranteed by FLLM.</small>
+                  </section>
+                </div>
+              )}
+
               {selected.sourceName && !isThirdPartyBrokerListing && (
                 <section className="marketplace-listing-section marketplace-listing-source-section">
                   <h2>Listing Source</h2>
