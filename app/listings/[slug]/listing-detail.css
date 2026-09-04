@@ -796,3 +796,175 @@
   color: #f1a600;
 }
 
+
+
+/* Paid broker details and financing cards fill the main-column space beneath county context. */
+.marketplace-listing-support-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 4px;
+}
+
+.marketplace-listing-support-card {
+  display: flex;
+  min-width: 0;
+  min-height: 390px;
+  flex-direction: column;
+  padding: 24px;
+  border: 1px solid rgba(197, 140, 18, .62);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 92% 7%, rgba(25, 67, 101, .22), transparent 38%),
+    linear-gradient(145deg, #0a2237 0%, #071a2b 66%, #051522 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035), 0 12px 28px rgba(0, 0, 0, .22);
+}
+
+.marketplace-listing-support-card > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #f1a600;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.marketplace-listing-support-card h2 {
+  margin: 0 0 16px;
+  color: #fff;
+  font: 700 24px/1.16 Georgia, "Times New Roman", serif;
+}
+
+.marketplace-listing-paid-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.marketplace-listing-paid-facts > div {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(171, 193, 209, .22);
+  background: rgba(3, 13, 23, .48);
+}
+
+.marketplace-listing-paid-facts small,
+.marketplace-listing-broker-description > small {
+  display: block;
+  margin-bottom: 5px;
+  color: #aebdca;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.marketplace-listing-paid-facts strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.marketplace-listing-broker-description {
+  margin-top: 14px;
+  padding: 14px;
+  border-left: 3px solid #f1a600;
+  background: rgba(3, 13, 23, .48);
+}
+
+.marketplace-listing-broker-description p {
+  margin: 0;
+  color: #d5dfe6;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+.marketplace-listing-paid-note {
+  margin: auto 0 0;
+  padding-top: 16px;
+  color: #aebdca;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.marketplace-listing-financing-card > p {
+  margin: 0 0 14px;
+  color: #d5dfe6;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.marketplace-listing-financing-card ul {
+  margin: 0 0 20px;
+  padding-left: 19px;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.marketplace-listing-financing-card li + li {
+  margin-top: 6px;
+}
+
+.marketplace-listing-financing-button,
+.marketplace-listing-financing-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.marketplace-listing-financing-button {
+  min-height: 46px;
+  margin-top: auto;
+  padding: 10px 14px;
+  border: 1px solid #ffc44d;
+  border-radius: 4px;
+  color: #071522;
+  background: #f1a600;
+  font-size: 13px;
+}
+
+.marketplace-listing-financing-button:hover {
+  background: #ffc23c;
+}
+
+.marketplace-listing-financing-link {
+  margin-top: 12px;
+  color: #fff;
+  font-size: 12px;
+}
+
+.marketplace-listing-financing-link:hover {
+  color: #f1a600;
+}
+
+.marketplace-listing-financing-card > small {
+  display: block;
+  margin-top: 14px;
+  color: #9facb6;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+  .marketplace-listing-support-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .marketplace-listing-support-card {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .marketplace-listing-paid-facts {
+    grid-template-columns: 1fr;
+  }
+}
