@@ -171,8 +171,8 @@ export default function ListingsHeaderListLicenseCta() {
               </button>
               <div className="listings-header-list-license-menu" role="menu" aria-label="List your license options">
                 <a href={SELF_DIRECTED_PATH} role="menuitem">Self-Directed Seller</a>
-                <a href={BROKER_LISTING_PATH} role="menuitem">Broker Listing</a>
                 <a href={BROKER_ASSISTANCE_PATH} role="menuitem">Request Broker Help</a>
+                <a href={BROKER_LISTING_PATH} role="menuitem">Broker Listing</a>
               </div>
             </div>,
             target,
