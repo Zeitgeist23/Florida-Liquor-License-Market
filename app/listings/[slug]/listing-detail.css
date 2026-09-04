@@ -1,5 +1,29 @@
 @import "./marketplace-listing-detail.css";
 
+html:has(.marketplace-listing-page),
+body:has(.marketplace-listing-page) {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.results-page.marketplace-listing-page {
+  position: relative;
+  inline-size: 100%;
+  max-inline-size: 100%;
+}
+
+.results-page.marketplace-listing-page > .results-header,
+.marketplace-listing-page .marketplace-listing-hero,
+.marketplace-listing-page .marketplace-listing-body {
+  inline-size: 100%;
+  max-inline-size: 100%;
+}
+
+.results-page.marketplace-listing-page > .results-header {
+  margin-inline: auto;
+}
+
 .results-page.marketplace-listing-page {
   width: 100%;
   max-width: 100%;
