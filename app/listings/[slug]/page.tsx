@@ -476,6 +476,9 @@ export default async function Page({ params }: PageProps) {
                 <h2>About This License Listing</h2>
                 <p>This individual marketplace page represents the specific {selected.type} liquor-license interest identified as {selectedReference} in {selected.county}. The displayed asking price is {selected.priceLabel}. Availability, price, license status, transferability, liens, and transaction terms should be confirmed before reliance or commitment.</p>
                 <p>A Florida quota license may generally be changed between the 3PS Quota series and the 4COP Quota series through a DBPR-approved change of license series. Approval is subject to applicable premises, zoning, applicant, and regulatory requirements.</p>
+                {selected.type === "4COP Quota" && (
+                  <p><strong>Food-sales requirement:</strong> A 4COP quota license generally does not require the establishment to meet the restaurant food-sales percentage applicable to an SFS license. The premises, intended use, zoning, and all licensing requirements remain subject to DBPR and local approval.</p>
+                )}
                 <p>Unless an individual listing expressly states otherwise, the offering concerns a liquor-license interest only and does not include an operating business, leasehold, equipment, inventory, or real estate.</p>
               </section>
 
