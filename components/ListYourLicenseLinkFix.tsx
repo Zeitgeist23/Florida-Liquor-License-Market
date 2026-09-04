@@ -1,184 +1,167 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const SELF_DIRECTED_PATH = "/sell-your-license?method=self#listing-options";
-const BROKER_LISTING_PATH = "/brokers/list-your-license";
 const BROKER_ASSISTANCE_PATH = "/sell-your-license#broker-assistance";
+const BROKER_LISTING_PATH = "/brokers/list-your-license";
 
-function isHeaderListButton(link: HTMLAnchorElement) {
-  if (!link.closest(".header-actions")) return false;
-  const label = (link.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
-  return label === "list your license";
-}
+type MenuPosition = { top: number; right: number } | null;
 
-function createMenuLink(label: string, href: string) {
-  const link = document.createElement("a");
-  link.href = href;
-  link.textContent = label;
-  link.setAttribute("role", "menuitem");
-  return link;
-}
+function isHeaderListButton(element: Element) {
+  const control = element.closest("a,button");
+  if (!(control instanceof HTMLElement)) return null;
+  if (!control.closest(".header-actions")) return null;
 
-function buildMenu() {
-  const menu = document.createElement("div");
-  menu.className = "fllm-list-license-hover-menu";
-  menu.setAttribute("role", "menu");
-  menu.setAttribute("aria-label", "List your license options");
-  menu.append(
-    createMenuLink("Self-Directed Seller", SELF_DIRECTED_PATH),
-    createMenuLink("Request Broker Help", BROKER_ASSISTANCE_PATH),
-    createMenuLink("Broker Listing", BROKER_LISTING_PATH),
-  );
-  return menu;
-}
-
-function ensureMenuForLink(link: HTMLAnchorElement) {
-  link.setAttribute("href", SELF_DIRECTED_PATH);
-  link.setAttribute("aria-haspopup", "menu");
-  link.querySelectorAll("[data-list-chevron]").forEach((node) => node.remove());
-
-  const existingWrap = link.closest<HTMLElement>(".fllm-list-license-wrap");
-  if (existingWrap) {
-    let menu = existingWrap.querySelector<HTMLElement>(":scope > .fllm-list-license-hover-menu");
-    if (!menu) {
-      menu = buildMenu();
-      existingWrap.appendChild(menu);
-    }
-    return;
-  }
-
-  const parent = link.parentElement;
-  if (!parent) return;
-
-  const wrap = document.createElement("div");
-  wrap.className = "fllm-list-license-wrap";
-  parent.insertBefore(wrap, link);
-  wrap.append(link, buildMenu());
-}
-
-function installMenu() {
-  document.querySelectorAll<HTMLAnchorElement>(".header-actions a").forEach((link) => {
-    if (isHeaderListButton(link)) ensureMenuForLink(link);
-  });
-
-  document.querySelectorAll<HTMLElement>(".header-actions .fllm-list-license-wrap").forEach((wrap) => {
-    const button = Array.from(wrap.children).find(
-      (child): child is HTMLAnchorElement =>
-        child instanceof HTMLAnchorElement &&
-        (child.textContent || "").replace(/\s+/g, " ").trim().toLowerCase() === "list your license",
-    );
-    if (button) ensureMenuForLink(button);
-  });
+  const label = (control.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+  return label === "list your license" ? control : null;
 }
 
 export default function ListYourLicenseLinkFix() {
-  useEffect(() => {
-    let repairTimer: ReturnType<typeof setTimeout> | null = null;
+  const [open, setOpen] = useState(false);
+  const [position, setPosition] = useState<MenuPosition>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    const repair = () => {
-      window.requestAnimationFrame(installMenu);
-      if (repairTimer) clearTimeout(repairTimer);
-      repairTimer = setTimeout(installMenu, 80);
-    };
+  function cancelClose() {
+    if (!closeTimer.current) return;
+    clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+  }
 
-    installMenu();
+  function scheduleClose() {
+    cancelClose();
+    closeTimer.current = setTimeout(() => setOpen(false), 180);
+  }
 
-    const observer = new MutationObserver(repair);
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ["href", "class"],
+  function openFor(control: HTMLElement) {
+    cancelClose();
+    const rect = control.getBoundingClientRect();
+    setPosition({
+      top: rect.bottom + 7,
+      right: Math.max(14, window.innerWidth - rect.right),
     });
+    setOpen(true);
+  }
 
-    const pageshowHandler = () => repair();
-    const popstateHandler = () => repair();
-    const focusHandler = () => repair();
-    const visibilityHandler = () => {
-      if (document.visibilityState === "visible") repair();
+  useEffect(() => {
+    const pointerOverHandler = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const control = isHeaderListButton(target);
+      if (control) openFor(control);
     };
 
-    window.addEventListener("pageshow", pageshowHandler);
-    window.addEventListener("popstate", popstateHandler);
-    window.addEventListener("focus", focusHandler);
-    document.addEventListener("visibilitychange", visibilityHandler);
+    const pointerOutHandler = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const control = isHeaderListButton(target);
+      if (!control) return;
+
+      const related = event.relatedTarget;
+      if (related instanceof Node && control.contains(related)) return;
+      scheduleClose();
+    };
+
+    const focusInHandler = (event: FocusEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const control = isHeaderListButton(target);
+      if (control) openFor(control);
+    };
+
+    const clickHandler = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const control = isHeaderListButton(target);
+      if (!control) return;
+      event.preventDefault();
+      event.stopPropagation();
+      openFor(control);
+    };
+
+    const restoreHandler = () => {
+      cancelClose();
+      setOpen(false);
+      setPosition(null);
+    };
+
+    const resizeHandler = () => restoreHandler();
+
+    document.addEventListener("pointerover", pointerOverHandler, true);
+    document.addEventListener("pointerout", pointerOutHandler, true);
+    document.addEventListener("focusin", focusInHandler, true);
+    document.addEventListener("click", clickHandler, true);
+    window.addEventListener("pageshow", restoreHandler);
+    window.addEventListener("popstate", restoreHandler);
+    window.addEventListener("resize", resizeHandler);
 
     return () => {
-      if (repairTimer) clearTimeout(repairTimer);
-      observer.disconnect();
-      window.removeEventListener("pageshow", pageshowHandler);
-      window.removeEventListener("popstate", popstateHandler);
-      window.removeEventListener("focus", focusHandler);
-      document.removeEventListener("visibilitychange", visibilityHandler);
+      cancelClose();
+      document.removeEventListener("pointerover", pointerOverHandler, true);
+      document.removeEventListener("pointerout", pointerOutHandler, true);
+      document.removeEventListener("focusin", focusInHandler, true);
+      document.removeEventListener("click", clickHandler, true);
+      window.removeEventListener("pageshow", restoreHandler);
+      window.removeEventListener("popstate", restoreHandler);
+      window.removeEventListener("resize", resizeHandler);
     };
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const keyHandler = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", keyHandler);
+    return () => document.removeEventListener("keydown", keyHandler);
+  }, [open]);
+
+  if (!open || !position) return null;
+
   return (
-    <style>{`
-      .header-actions .fllm-list-license-wrap {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        flex: 0 0 auto;
-      }
-
-      .header-actions .fllm-list-license-wrap::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        right: 0;
-        width: 100%;
-        height: 10px;
-      }
-
-      .header-actions .fllm-list-license-hover-menu {
-        position: absolute;
-        top: calc(100% + 7px);
-        right: 0;
-        z-index: 30000;
-        display: none;
-        width: 230px;
-        padding: 6px;
-        border: 1px solid #f6a700;
-        border-radius: 7px;
-        background: #061728;
-        box-shadow: 0 18px 42px rgba(0,0,0,.42);
-      }
-
-      .header-actions .fllm-list-license-wrap:hover .fllm-list-license-hover-menu,
-      .header-actions .fllm-list-license-wrap:focus-within .fllm-list-license-hover-menu {
-        display: grid;
-        gap: 2px;
-      }
-
-      .header-actions .fllm-list-license-hover-menu a {
-        display: block;
-        padding: 11px 12px;
-        border-radius: 4px;
-        color: #f6a700;
-        font-size: 13.5px;
-        font-weight: 800;
-        line-height: 1.25;
-        text-decoration: none;
-        text-transform: none;
-        white-space: normal;
-      }
-
-      .header-actions .fllm-list-license-hover-menu a:hover,
-      .header-actions .fllm-list-license-hover-menu a:focus-visible {
-        background: #f6a700;
-        color: #061728;
-        outline: none;
-      }
-
-      @media (max-width: 899px) {
-        .header-actions .fllm-list-license-hover-menu {
-          right: 50%;
-          width: min(230px, calc(100vw - 28px));
-          transform: translateX(50%);
+    <>
+      <style>{`
+        .fllm-list-license-hover-menu a:hover,
+        .fllm-list-license-hover-menu a:focus-visible {
+          background: #f6a700 !important;
+          color: #061728 !important;
+          outline: none !important;
         }
-      }
-    `}</style>
+      `}</style>
+      <div
+        className="fllm-list-license-hover-menu"
+        role="menu"
+        aria-label="List your license options"
+        onPointerEnter={cancelClose}
+        onPointerLeave={scheduleClose}
+        style={{
+          position: "fixed",
+          top: position.top,
+          right: position.right,
+          zIndex: 50000,
+          width: "min(230px, calc(100vw - 28px))",
+          padding: 6,
+          border: "1px solid #f6a700",
+          borderRadius: 7,
+          background: "#061728",
+          boxShadow: "0 18px 42px rgba(0,0,0,.42)",
+        }}
+      >
+        <a href={SELF_DIRECTED_PATH} style={itemStyle} role="menuitem">Self-Directed Seller</a>
+        <a href={BROKER_ASSISTANCE_PATH} style={itemStyle} role="menuitem">Request Broker Help</a>
+        <a href={BROKER_LISTING_PATH} style={itemStyle} role="menuitem">Broker Listing</a>
+      </div>
+    </>
   );
 }
+
+const itemStyle = {
+  display: "block",
+  padding: "11px 12px",
+  borderRadius: 4,
+  color: "#f6a700",
+  fontSize: 13.5,
+  fontWeight: 800,
+  lineHeight: 1.25,
+  textDecoration: "none",
+};
