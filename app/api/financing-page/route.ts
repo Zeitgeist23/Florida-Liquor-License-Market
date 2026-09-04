@@ -18,7 +18,75 @@ const FINANCING_PAGE_STYLES = `<style id="financing-logo-match-investment-v1">
     margin-top: auto !important;
     margin-bottom: auto !important;
   }
+  .fllm-financing-appraisal-card {
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:18px;
+    align-items:center;
+    margin:22px 0 18px;
+    padding:18px;
+    border:1px solid rgba(241,166,0,.58);
+    border-radius:10px;
+    background:linear-gradient(145deg,#0a2237,#04111c);
+    box-shadow:0 12px 28px rgba(0,0,0,.2);
+  }
+  .fllm-financing-appraisal-card img {
+    display:block;
+    width:100%;
+    border:1px solid rgba(241,166,0,.45);
+    border-radius:7px;
+    box-shadow:0 8px 18px rgba(0,0,0,.28);
+  }
+  .fllm-financing-appraisal-card span {
+    display:block;
+    margin-bottom:5px;
+    color:#f6a700;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  .fllm-financing-appraisal-card h2 {
+    margin:0 0 8px;
+    color:#fff;
+    font-size:24px;
+    line-height:1.15;
+  }
+  .fllm-financing-appraisal-card p {
+    margin:0 0 13px;
+    color:#d5e0e8;
+    font-size:13px;
+    line-height:1.6;
+  }
+  .fllm-financing-appraisal-card a {
+    display:inline-flex;
+    align-items:center;
+    min-height:42px;
+    padding:0 15px;
+    border:1px solid #f6a700;
+    border-radius:5px;
+    color:#07111a;
+    background:linear-gradient(145deg,#ffbd21,#ef9000);
+    font-size:11px;
+    font-weight:900;
+    text-decoration:none;
+    text-transform:uppercase;
+  }
+  @media(max-width:760px){
+    .fllm-financing-appraisal-card{grid-template-columns:92px 1fr;gap:12px;padding:14px}
+    .fllm-financing-appraisal-card h2{font-size:20px}
+  }
 </style>`;
+
+const APPRAISAL_CARD = `<section class="fllm-financing-appraisal-card" aria-label="FLLM formal liquor license appraisal">
+  <img src="/assets/fllm-formal-appraisal-preview-v1.webp" alt="Sample FLLM formal Florida quota liquor license appraisal report" />
+  <div>
+    <span>Professional License Valuation</span>
+    <h2>Need a lender-ready value?</h2>
+    <p>Order a formal FLLM liquor license appraisal supported by county market evidence, comparable listings and regulatory research. The one-time appraisal fee is $495.</p>
+    <a href="/florida-liquor-license-appraisal#order-form">Order Appraisal — $495</a>
+  </div>
+</section>`;
 
 function optimizeFinancingHtml(input: string): string {
   let html = input;
@@ -64,6 +132,9 @@ function optimizeFinancingHtml(input: string): string {
     '<article><h2>Access to Private Lenders</h2>',
     '<article id="private-lenders"><h2>Access to Private Lenders</h2>'
   );
+  if (!html.includes("fllm-financing-appraisal-card")) {
+    html = html.replace('<div class="seller-trust">', `${APPRAISAL_CARD}<div class="seller-trust">`);
+  }
   html = html.replace(
     '<form class="seller-form financing-form">',
     '<form class="seller-form financing-form" id="request-financing">'
