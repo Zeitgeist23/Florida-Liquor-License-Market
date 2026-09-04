@@ -15,15 +15,15 @@ const canonicalUrl = `${siteUrl}/exchange`;
 export const metadata: Metadata = {
   title: "FLLM Exchange | Confidential Florida Liquor License Offers",
   description:
-    "Explore Florida 4COP Quota and 3PS licenses accepting confidential offers through FLLM Exchange. Buyers submit private offers and sellers decide how to respond.",
+    "Use FLLM Exchange to review eligible Florida 4COP Quota and 3PS liquor licenses and submit confidential online offers. Buyers keep proposed terms private while sellers control the response.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "FLLM Exchange | Florida Liquor License Opportunities",
+    title: "FLLM Exchange | Confidential Florida Liquor License Offers",
     description:
-      "A private offer-submission marketplace for eligible Florida 4COP Quota and 3PS liquor license opportunities.",
+      "Florida Liquor License Market’s online confidential-offer marketplace for eligible 4COP Quota and 3PS liquor license opportunities.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -34,7 +34,22 @@ const faqs = [
   {
     question: "What is FLLM Exchange?",
     answer:
-      "FLLM Exchange is Florida Liquor License Market’s private offer-submission marketplace for eligible 4COP Quota and 3PS liquor license listings. It gives buyers a structured way to review an opportunity and send a confidential offer or inquiry to the listing party.",
+      "FLLM Exchange is Florida Liquor License Market’s online confidential-offer marketplace for eligible 4COP Quota and 3PS liquor license listings. It gives buyers a structured way to review an opportunity and privately submit proposed purchase terms to the listing party without publishing the offer amount to the market.",
+  },
+  {
+    question: "Can I use FLLM Exchange entirely online?",
+    answer:
+      "Yes. Buyers can review eligible FLLM Exchange opportunities online and submit confidential offer terms through the listing page. Seller review and counteroffer communications can also begin through the Exchange workflow, while any binding purchase agreement, escrow, financing, due diligence and state transfer process remain separate steps.",
+  },
+  {
+    question: "What does it cost to use FLLM Exchange?",
+    answer:
+      "FLLM Exchange is part of the Florida Liquor License Market platform. Transaction costs can vary depending on the listing path and the services used. A completed liquor-license transaction may separately involve seller listing fees, appraisal or financing costs, legal or escrow expenses, state transfer fees, lien or payoff costs and other transaction-specific expenses. Review the applicable FLLM listing, appraisal, financing and transfer resources before relying on a total transaction cost.",
+  },
+  {
+    question: "What are the requirements to submit a confidential offer?",
+    answer:
+      "A buyer should identify the eligible listing, provide current contact information, state a proposed purchase price, disclose cash or financing status, provide target timing and identify material conditions or contingencies. A complete submission helps the seller evaluate whether the inquiry is serious and transaction-ready.",
   },
   {
     question: "Is FLLM Exchange an auction?",
@@ -44,7 +59,7 @@ const faqs = [
   {
     question: "Are offer amounts displayed publicly?",
     answer:
-      "No. Offer amounts and buyer contact details submitted through the Exchange are not displayed on the public listing page. They are used to route the confidential inquiry to the appropriate listing party and maintain an FLLM transaction record.",
+      "No. Offer amounts, bid counts, bid/ask spreads and buyer contact details submitted through FLLM Exchange are not displayed publicly. They are used to route the confidential inquiry to the appropriate listing party and maintain the Exchange transaction record.",
   },
   {
     question: "Is an Exchange submission a binding purchase agreement?",
@@ -60,6 +75,11 @@ const faqs = [
     question: "Which licenses can appear on FLLM Exchange?",
     answer:
       "The Exchange is intended for eligible direct-seller or FLLM-authorized Florida 4COP Quota and 3PS license opportunities. General market-data listings may remain visible elsewhere on FLLM without accepting offers through the Exchange.",
+  },
+  {
+    question: "How do I contact FLLM about an Exchange opportunity?",
+    answer:
+      "The best starting point is the individual Exchange listing, where a buyer can submit a confidential offer or inquiry tied to that specific license. General questions can also be sent through the FLLM Contact page so the request remains connected to Florida Liquor License Market rather than an unrelated outside exchange or broker.",
   },
 ];
 
@@ -84,10 +104,10 @@ export default async function ExchangePage() {
       name: "FLLM Exchange",
       headline: "Confidential Florida Liquor License Offers",
       description:
-        "A private offer-submission marketplace for eligible Florida 4COP Quota and 3PS liquor license opportunities.",
+        "Florida Liquor License Market’s online confidential-offer marketplace for eligible Florida 4COP Quota and 3PS liquor license opportunities.",
       url: canonicalUrl,
       datePublished: "2026-09-02",
-      dateModified: "2026-09-02",
+      dateModified: "2026-09-04",
       isPartOf: {
         "@type": "WebSite",
         name: "Florida Liquor License Market",
@@ -95,9 +115,11 @@ export default async function ExchangePage() {
       },
       about: [
         { "@type": "Thing", name: "Florida liquor licenses" },
+        { "@type": "Thing", name: "Online liquor license marketplace" },
         { "@type": "Thing", name: "4COP Quota licenses" },
         { "@type": "Thing", name: "3PS liquor licenses" },
         { "@type": "Thing", name: "Confidential purchase offers" },
+        { "@type": "Thing", name: "Private buyer and seller negotiations" },
       ],
     },
     {
@@ -149,11 +171,18 @@ export default async function ExchangePage() {
           </nav>
           <div className="exchange-hero-grid">
             <div>
-              <span className="exchange-eyebrow">Florida’s private license-offer marketplace</span>
+              <span className="exchange-eyebrow">Confidential Florida liquor-license offers</span>
               <h1>FLLM <em>Exchange</em></h1>
               <p>
-                Review eligible Florida 4COP Quota and 3PS liquor license opportunities and submit
-                a confidential offer directly through Florida Liquor License Market.
+                FLLM Exchange is Florida Liquor License Market’s online exchange marketplace for
+                confidential purchase offers on eligible 4COP Quota and 3PS liquor licenses. Buyers
+                can review a current opportunity, submit proposed terms privately, and keep their
+                negotiating position off the public listing page.
+              </p>
+              <p>
+                Unlike a public auction or open bid board, FLLM Exchange keeps buyer offer amounts,
+                bid counts and bid/ask spreads confidential while the seller retains control over
+                whether to respond, negotiate, counter or decline.
               </p>
               <div className="exchange-actions">
                 <a className="exchange-button exchange-button-gold" href="#exchange-opportunities">View Exchange Opportunities</a>
@@ -177,7 +206,7 @@ export default async function ExchangePage() {
         <div className="exchange-section-heading">
           <div>
             <span>Eligible Inventory</span>
-            <h2 id="exchange-inventory-title">Licenses accepting confidential offers</h2>
+            <h2 id="exchange-inventory-title">Florida liquor licenses accepting confidential offers</h2>
           </div>
           <Link href="/listings">View all Florida listings →</Link>
         </div>
@@ -193,7 +222,7 @@ export default async function ExchangePage() {
                 <h3>{listing.county}</h3>
                 <p>{listing.type}</p>
                 <strong className="exchange-price">{listing.priceLabel}</strong>
-                <Link href={listingPageHref(listing)}>View License &amp; Submit Offer →</Link>
+                <Link href={listingPageHref(listing)}>View License &amp; Submit Confidential Offer →</Link>
               </article>
             ))}
           </div>
@@ -213,8 +242,8 @@ export default async function ExchangePage() {
         <div className="page-shell">
           <div className="exchange-section-heading">
             <div>
-              <span>How It Works</span>
-              <h2>A private path from opportunity to seller review</h2>
+              <span>How It Works Online</span>
+              <h2>A private path from Florida liquor-license opportunity to seller review</h2>
             </div>
           </div>
           <div className="exchange-step-grid">
@@ -231,9 +260,9 @@ export default async function ExchangePage() {
           <span>For Buyers</span>
           <h2>Make a serious offer without publishing your position</h2>
           <p>
-            Use FLLM Exchange to approach an eligible seller with a proposed price and transaction
-            information. A complete inquiry helps the seller distinguish a qualified buyer from a
-            casual expression of interest.
+            Use FLLM Exchange to approach an eligible Florida liquor-license seller with a proposed
+            price and transaction information. A complete inquiry helps the seller distinguish a
+            qualified buyer from a casual expression of interest while keeping proposed terms private.
           </p>
           <ul>
             <li>Identify the county and license series</li>
@@ -241,15 +270,15 @@ export default async function ExchangePage() {
             <li>Disclose cash or financing status</li>
             <li>Include timing and material conditions</li>
           </ul>
-          <Link href="#exchange-opportunities">View Exchange Opportunities</Link>
+          <Link href="#exchange-opportunities">View Confidential-Offer Opportunities</Link>
         </article>
         <article>
           <span>For Sellers &amp; Brokers</span>
           <h2>Invite private offers while controlling the response</h2>
           <p>
             Publish an eligible direct-seller or broker-assisted listing, establish the asking
-            price, and receive buyer inquiries without displaying confidential offer amounts to
-            the public.
+            price, and receive structured buyer inquiries without displaying confidential offer
+            amounts to the public.
           </p>
           <ul>
             <li>State the license type and county clearly</li>
@@ -257,7 +286,7 @@ export default async function ExchangePage() {
             <li>Receive structured buyer information</li>
             <li>Decide independently whether to negotiate</li>
           </ul>
-          <Link href="/sell-your-license">List a License on FLLM</Link>
+          <Link href="/sell-your-license">List a Florida Liquor License on FLLM</Link>
         </article>
       </section>
 
@@ -272,10 +301,12 @@ export default async function ExchangePage() {
               definitive agreements, and DBPR/ABT transfer approval.
             </p>
             <div className="exchange-diligence-links">
-              <Link href="/financing">Review Financing</Link>
-              <Link href="/florida-liquor-license-appraisal">Order an Appraisal</Link>
-              <Link href="/resources/florida-department-of-revenue">FDOR Resources</Link>
-              <Link href="/dbpr-abt-6002">ABT-6002 Transfer Form</Link>
+              <Link href="/financing">Florida Liquor License Financing</Link>
+              <Link href="/florida-liquor-license-appraisal">Florida Liquor License Appraisal</Link>
+              <Link href="/resources/florida-department-of-revenue">FDOR Transfer Resources</Link>
+              <Link href="/dbpr-abt-6002">FLLM ABT-6002 Transfer Guide</Link>
+              <Link href="/resources/florida-liquor-license-types">Compare Florida License Types</Link>
+              <Link href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License</Link>
             </div>
           </div>
           <aside>
@@ -294,7 +325,7 @@ export default async function ExchangePage() {
         <div className="exchange-section-heading">
           <div>
             <span>Exchange Questions</span>
-            <h2 id="exchange-faq-title">How confidential offers work</h2>
+            <h2 id="exchange-faq-title">Online confidential-offer questions buyers and sellers ask</h2>
           </div>
         </div>
         <div className="exchange-faq-list">
@@ -311,10 +342,11 @@ export default async function ExchangePage() {
         <div className="page-shell">
           <span>Ready to participate?</span>
           <h2>Enter the FLLM Exchange</h2>
-          <p>Review eligible opportunities or publish a Florida quota license for qualified buyer attention.</p>
+          <p>Review eligible Florida quota-license opportunities or publish a license for confidential buyer offers.</p>
           <div className="exchange-actions">
-            <a className="exchange-button exchange-button-gold" href="#exchange-opportunities">View Opportunities</a>
+            <a className="exchange-button exchange-button-gold" href="#exchange-opportunities">View Confidential Offers</a>
             <Link className="exchange-button exchange-button-dark" href="/sell-your-license">List Your License</Link>
+            <Link className="exchange-button exchange-button-dark" href="/contact">Contact FLLM</Link>
           </div>
         </div>
       </section>
@@ -322,7 +354,7 @@ export default async function ExchangePage() {
       <footer className="abt-forms-footer">
         <div className="page-shell">
           <img src="/assets/brand-footer.svg" alt="Florida Liquor License Market" />
-          <span>Florida’s marketplace for buying, selling, financing, and valuing liquor licenses.</span>
+          <span>Florida’s marketplace for buying, selling, financing, valuing and submitting confidential liquor-license offers.</span>
           <Link href="/">Return to Florida Liquor License Market</Link>
         </div>
       </footer>
