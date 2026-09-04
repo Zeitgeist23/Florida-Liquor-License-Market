@@ -445,11 +445,11 @@ export default async function Page({ params }: PageProps) {
                     </div>
                     <div>
                       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" /></svg>
-                      <strong>Generally no SFS<br />food-sales percentage</strong>
+                      <strong>On- or<br />off-premises use</strong>
                     </div>
                     <div>
                       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" /></svg>
-                      <strong>Transfer subject<br />to DBPR approval</strong>
+                      <strong>Generally no SFS<br />food-sales percentage</strong>
                     </div>
                     <div>
                       <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="14" r="7" /><circle cx="10" cy="22" r="5" /><circle cx="38" cy="22" r="5" /><path d="M13 42v-6c0-7 5-12 11-12s11 5 11 12v6zM2 42v-5c0-5 4-9 9-9 2 0 4 1 6 2M46 42v-5c0-5-4-9-9-9-2 0-4 1-6 2" /></svg>
