@@ -592,6 +592,22 @@ export default async function Page({ params }: PageProps) {
                 </section>
               )}
 
+              {isThirdPartyBrokerListing && (
+                <section className="marketplace-listing-finance-promo" aria-labelledby="listing-financing-promo-title">
+                  <div className="marketplace-listing-finance-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64">
+                      <path d="M8 24h48M14 24v25M25 24v25M39 24v25M50 24v25M8 49h48M5 55h54M32 7 7 19h50L32 7Z" />
+                      <path d="M32 31v12M27 34c0-3 2-5 5-5s5 2 5 4-2 3-5 4-5 2-5 4 2 4 5 4 5-2 5-5" />
+                    </svg>
+                  </div>
+                  <span>Liquor License Purchase Financing</span>
+                  <h2 id="listing-financing-promo-title">Finance a Florida Liquor License</h2>
+                  <p>Request financing consideration through the FLLM Private Lender Network for a qualifying liquor-license purchase.</p>
+                  <Link className="marketplace-listing-finance-button" href="/financing#request-financing">Request Financing</Link>
+                  <small>All financing is subject to independent lender review, underwriting, and approval.</small>
+                </section>
+              )}
+
               {!isThirdPartyBrokerListing && (
                 <div className="marketplace-listing-reference">
                   <span>Individual Listing Page</span>
