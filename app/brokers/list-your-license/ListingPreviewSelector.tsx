@@ -12,12 +12,13 @@ const standardPreviewListing: Listing = {
   type: "4COP Quota",
   price: 435000,
   priceLabel: "$435,000",
-  sourceRef: "FLLM-005",
+  sourceRef: "FLLM-DEMO-STANDARD",
   image: "/assets/inventory/07.png",
 };
 
 const featuredPreviewListing: Listing = {
   ...standardPreviewListing,
+  sourceRef: "FLLM-DEMO-FEATURED",
   featuredUntil: "2099-12-31T23:59:59.000Z",
 };
 
@@ -39,9 +40,15 @@ export default function ListingPreviewSelector({
         detail: { tier },
       }),
     );
-    document
-      .getElementById("broker-listing-form")
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.setTimeout(() => {
+      document
+        .getElementById(`broker-tier-${tier}`)
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 0);
+  }
+
+  function handleClickCapture(event: MouseEvent<HTMLDivElement>) {
+    event.preventDefault();
   }
 
   function handleClick(event: MouseEvent<HTMLDivElement>) {
@@ -61,7 +68,8 @@ export default function ListingPreviewSelector({
       className={className}
       role="button"
       tabIndex={0}
-      aria-label={`Choose the ${tier} listing and continue to the broker submission form`}
+      aria-label={`Choose the ${tier} listing option`}
+      onClickCapture={handleClickCapture}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
     >
@@ -71,6 +79,14 @@ export default function ListingPreviewSelector({
       >
         <MarketplaceListingCard listing={previewListing} />
       </div>
+      <style jsx global>{`
+        .broker-marketplace-card-preview a {
+          pointer-events: none !important;
+        }
+        .broker-marketplace-card-preview .result-card {
+          cursor: pointer;
+        }
+      `}</style>
     </div>
   );
 }
