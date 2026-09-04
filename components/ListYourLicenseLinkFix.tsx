@@ -20,57 +20,97 @@ function createMenuLink(label: string, href: string) {
   return link;
 }
 
+function buildMenu() {
+  const menu = document.createElement("div");
+  menu.className = "fllm-list-license-hover-menu";
+  menu.setAttribute("role", "menu");
+  menu.setAttribute("aria-label", "List your license options");
+  menu.append(
+    createMenuLink("Self-Directed Seller", SELF_DIRECTED_PATH),
+    createMenuLink("Request Broker Help", BROKER_ASSISTANCE_PATH),
+    createMenuLink("Broker Listing", BROKER_LISTING_PATH),
+  );
+  return menu;
+}
+
+function ensureMenuForLink(link: HTMLAnchorElement) {
+  link.setAttribute("href", SELF_DIRECTED_PATH);
+  link.setAttribute("aria-haspopup", "menu");
+  link.querySelectorAll("[data-list-chevron]").forEach((node) => node.remove());
+
+  const existingWrap = link.closest<HTMLElement>(".fllm-list-license-wrap");
+  if (existingWrap) {
+    let menu = existingWrap.querySelector<HTMLElement>(":scope > .fllm-list-license-hover-menu");
+    if (!menu) {
+      menu = buildMenu();
+      existingWrap.appendChild(menu);
+    }
+    return;
+  }
+
+  const parent = link.parentElement;
+  if (!parent) return;
+
+  const wrap = document.createElement("div");
+  wrap.className = "fllm-list-license-wrap";
+  parent.insertBefore(wrap, link);
+  wrap.append(link, buildMenu());
+}
+
 function installMenu() {
   document.querySelectorAll<HTMLAnchorElement>(".header-actions a").forEach((link) => {
-    if (!isHeaderListButton(link)) return;
+    if (isHeaderListButton(link)) ensureMenuForLink(link);
+  });
 
-    link.setAttribute("href", SELF_DIRECTED_PATH);
-    link.setAttribute("aria-haspopup", "menu");
-    link.querySelectorAll("[data-list-chevron]").forEach((node) => node.remove());
-
-    const existingWrap = link.closest<HTMLElement>(".fllm-list-license-wrap");
-    if (existingWrap) return;
-
-    const parent = link.parentElement;
-    if (!parent) return;
-
-    const wrap = document.createElement("div");
-    wrap.className = "fllm-list-license-wrap";
-
-    const menu = document.createElement("div");
-    menu.className = "fllm-list-license-hover-menu";
-    menu.setAttribute("role", "menu");
-    menu.setAttribute("aria-label", "List your license options");
-    menu.append(
-      createMenuLink("Self-Directed Seller", SELF_DIRECTED_PATH),
-      createMenuLink("Request Broker Help", BROKER_ASSISTANCE_PATH),
-      createMenuLink("Broker Listing", BROKER_LISTING_PATH),
+  document.querySelectorAll<HTMLElement>(".header-actions .fllm-list-license-wrap").forEach((wrap) => {
+    const button = Array.from(wrap.children).find(
+      (child): child is HTMLAnchorElement =>
+        child instanceof HTMLAnchorElement &&
+        (child.textContent || "").replace(/\s+/g, " ").trim().toLowerCase() === "list your license",
     );
-
-    parent.insertBefore(wrap, link);
-    wrap.append(link, menu);
+    if (button) ensureMenuForLink(button);
   });
 }
 
 export default function ListYourLicenseLinkFix() {
   useEffect(() => {
-    installMenu();
+    let repairTimer: ReturnType<typeof setTimeout> | null = null;
 
-    const observer = new MutationObserver(installMenu);
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    const restoreHandler = () => {
+    const repair = () => {
       window.requestAnimationFrame(installMenu);
-      window.setTimeout(installMenu, 50);
+      if (repairTimer) clearTimeout(repairTimer);
+      repairTimer = setTimeout(installMenu, 80);
     };
 
-    window.addEventListener("pageshow", restoreHandler);
-    window.addEventListener("popstate", restoreHandler);
+    installMenu();
+
+    const observer = new MutationObserver(repair);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["href", "class"],
+    });
+
+    const pageshowHandler = () => repair();
+    const popstateHandler = () => repair();
+    const focusHandler = () => repair();
+    const visibilityHandler = () => {
+      if (document.visibilityState === "visible") repair();
+    };
+
+    window.addEventListener("pageshow", pageshowHandler);
+    window.addEventListener("popstate", popstateHandler);
+    window.addEventListener("focus", focusHandler);
+    document.addEventListener("visibilitychange", visibilityHandler);
 
     return () => {
+      if (repairTimer) clearTimeout(repairTimer);
       observer.disconnect();
-      window.removeEventListener("pageshow", restoreHandler);
-      window.removeEventListener("popstate", restoreHandler);
+      window.removeEventListener("pageshow", pageshowHandler);
+      window.removeEventListener("popstate", popstateHandler);
+      window.removeEventListener("focus", focusHandler);
+      document.removeEventListener("visibilitychange", visibilityHandler);
     };
   }, []);
 
