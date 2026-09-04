@@ -2,6 +2,7 @@
 
 import type { KeyboardEvent, MouseEvent, ReactNode } from "react";
 
+import BrokerDetailPreview from "@/components/BrokerDetailPreview";
 import MarketplaceListingCard from "@/components/MarketplaceListingCard";
 import type { Listing } from "@/data/listings";
 
@@ -35,8 +36,6 @@ export default function ListingPreviewSelector({
   const previewListing = tier === "featured" ? featuredPreviewListing : standardPreviewListing;
 
   function chooseListing() {
-    // Remove any old preview hash first so the browser cannot snap back to
-    // #standard-listing-option / #featured-listing-option after React updates.
     if (window.location.hash) {
       window.history.replaceState(
         null,
@@ -76,22 +75,25 @@ export default function ListingPreviewSelector({
   }
 
   return (
-    <div
-      id={id}
-      className={className}
-      role="button"
-      tabIndex={0}
-      aria-label={`Choose the ${tier} listing option`}
-      onClickCapture={handleClickCapture}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
-    >
+    <div id={id} className={className}>
       <div
-        className="results-page broker-marketplace-card-preview"
-        style={{ minHeight: "auto", background: "transparent", padding: 0 }}
+        role="button"
+        tabIndex={0}
+        aria-label={`Choose the ${tier} listing option`}
+        onClickCapture={handleClickCapture}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
       >
-        <MarketplaceListingCard listing={previewListing} />
+        <div
+          className="results-page broker-marketplace-card-preview"
+          style={{ minHeight: "auto", background: "transparent", padding: 0 }}
+        >
+          <MarketplaceListingCard listing={previewListing} />
+        </div>
       </div>
+
+      <BrokerDetailPreview tier={tier} />
+
       <style jsx global>{`
         .broker-marketplace-card-preview a {
           pointer-events: none !important;
