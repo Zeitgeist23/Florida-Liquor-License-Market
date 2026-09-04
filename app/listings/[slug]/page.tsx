@@ -513,7 +513,13 @@ export default async function Page({ params }: PageProps) {
                 </div>
                 <p>{county?.marketOverview ?? descriptionParts.county}</p>
                 {descriptionParts.cities && <p>{descriptionParts.cities}</p>}
-                <p><Link href={filteredCountyHref}>Compare current {selected.county} 4COP and 3PS liquor-license listings →</Link></p>
+                <p>
+                  {isThirdPartyBrokerListing ? (
+                    <Link href={countyHref}>View the {selected.county} liquor license market →</Link>
+                  ) : (
+                    <Link href={filteredCountyHref}>Compare current {selected.county} 4COP and 3PS liquor-license listings →</Link>
+                  )}
+                </p>
               </section>
 
               {selected.sourceName && !isThirdPartyBrokerListing && (
