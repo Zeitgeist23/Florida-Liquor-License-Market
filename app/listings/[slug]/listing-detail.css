@@ -712,7 +712,7 @@
 
 /* Appraisal conversion card beneath broker inquiry form. */
 .marketplace-listing-appraisal-card {
-  margin-top: -6px;
+  margin-top: 2px;
   overflow: hidden;
   border: 1px solid rgba(197, 140, 18, .62);
   border-radius: 8px;
