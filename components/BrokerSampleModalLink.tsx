@@ -5,18 +5,18 @@ import styles from "./BrokerSampleModalLink.module.css";
 
 type Tier = "standard" | "featured";
 
-const APPROVED_BROKER_DETAIL_PAGE = "/listings/FLLM-022";
 const FEATURED_SAMPLE_PAGE = "/brokers/sample-featured-listing";
+const STANDARD_SAMPLE_IMAGE = "/assets/broker-standard-listing-approved.webp";
 
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
   const featured = tier === "featured";
   const label = featured
     ? "Preview Featured Ad Detail Page"
-    : "View Approved Broker Listing Page";
+    : "View Sample Standard Listing Page";
 
   useEffect(() => {
-    if (!featured || !open) return;
+    if (!open) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
@@ -29,16 +29,7 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", closeOnEscape);
     };
-  }, [featured, open]);
-
-  if (!featured) {
-    return (
-      <a className={styles.trigger} href={APPROVED_BROKER_DETAIL_PAGE}>
-        <span className={styles.icon} aria-hidden="true">▣</span>
-        {label}
-      </a>
-    );
-  }
+  }, [open]);
 
   return (
     <>
@@ -49,24 +40,36 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
 
       {open ? (
         <div className={styles.backdrop} role="dialog" aria-modal="true" aria-label={label} onMouseDown={() => setOpen(false)}>
-          <div className={styles.modal} onMouseDown={(event) => event.stopPropagation()}>
+          <div className={`${styles.modal} ${featured ? "" : styles.standardModal}`} onMouseDown={(event) => event.stopPropagation()}>
             <div className={styles.modalBar}>
               <div>
-                <strong>Featured Broker Listing Detail Page</strong>
+                <strong>{featured ? "Featured" : "Standard"} Broker Listing Detail Page</strong>
                 <span>Sample preview — example only</span>
               </div>
               <button className={styles.close} type="button" onClick={() => setOpen(false)} aria-label="Close sample preview">×</button>
             </div>
-            <div className={styles.viewport}>
-              <iframe
-                className={styles.frame}
-                src={FEATURED_SAMPLE_PAGE}
-                title="Featured broker listing detail page sample"
-                tabIndex={-1}
-                loading="lazy"
-              />
-              <div className={styles.shield} aria-hidden="true" />
-            </div>
+
+            {featured ? (
+              <div className={styles.viewport}>
+                <iframe
+                  className={styles.frame}
+                  src={FEATURED_SAMPLE_PAGE}
+                  title="Featured broker listing detail page sample"
+                  tabIndex={-1}
+                  loading="lazy"
+                />
+                <div className={styles.shield} aria-hidden="true" />
+              </div>
+            ) : (
+              <div className={styles.imageViewport}>
+                <img
+                  className={styles.sampleImage}
+                  src={STANDARD_SAMPLE_IMAGE}
+                  alt="Approved sample Standard broker listing detail page"
+                />
+              </div>
+            )}
+
             <p className={styles.caption}>
               This is a non-interactive sample preview. Close it to continue choosing your listing option.
             </p>
