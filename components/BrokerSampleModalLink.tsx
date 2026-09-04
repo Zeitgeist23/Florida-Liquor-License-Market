@@ -5,18 +5,18 @@ import styles from "./BrokerSampleModalLink.module.css";
 
 type Tier = "standard" | "featured";
 
+const APPROVED_BROKER_DETAIL_PAGE = "/listings/FLLM-022";
+const FEATURED_SAMPLE_PAGE = "/brokers/sample-featured-listing";
+
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
   const featured = tier === "featured";
-  const href = featured
-    ? "/brokers/sample-featured-listing"
-    : "/brokers/sample-standard-listing";
   const label = featured
     ? "Preview Featured Ad Detail Page"
-    : "View Sample Standard Listing Page";
+    : "View Approved Broker Listing Page";
 
   useEffect(() => {
-    if (!open) return;
+    if (!featured || !open) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
@@ -29,7 +29,16 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", closeOnEscape);
     };
-  }, [open]);
+  }, [featured, open]);
+
+  if (!featured) {
+    return (
+      <a className={styles.trigger} href={APPROVED_BROKER_DETAIL_PAGE}>
+        <span className={styles.icon} aria-hidden="true">▣</span>
+        {label}
+      </a>
+    );
+  }
 
   return (
     <>
@@ -40,10 +49,10 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
 
       {open ? (
         <div className={styles.backdrop} role="dialog" aria-modal="true" aria-label={label} onMouseDown={() => setOpen(false)}>
-          <div className={`${styles.modal} ${featured ? "" : styles.standardModal}`} onMouseDown={(event) => event.stopPropagation()}>
+          <div className={styles.modal} onMouseDown={(event) => event.stopPropagation()}>
             <div className={styles.modalBar}>
               <div>
-                <strong>{featured ? "Featured" : "Standard"} Broker Listing Detail Page</strong>
+                <strong>Featured Broker Listing Detail Page</strong>
                 <span>Sample preview — example only</span>
               </div>
               <button className={styles.close} type="button" onClick={() => setOpen(false)} aria-label="Close sample preview">×</button>
@@ -51,8 +60,8 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
             <div className={styles.viewport}>
               <iframe
                 className={styles.frame}
-                src={href}
-                title={`${featured ? "Featured" : "Standard"} broker listing detail page sample`}
+                src={FEATURED_SAMPLE_PAGE}
+                title="Featured broker listing detail page sample"
                 tabIndex={-1}
                 loading="lazy"
               />
