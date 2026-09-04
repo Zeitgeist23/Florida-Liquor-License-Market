@@ -65,7 +65,7 @@ export default function SbaSevenALiquorLicenseBusinessFinancingPage() {
       description:
         "A practical explanation of SBA 7(a) financing for operating Florida liquor stores, restaurants, bars and nightclubs holding quota liquor licenses.",
       datePublished: "2026-08-29",
-      dateModified: "2026-08-29",
+      dateModified: "2026-09-04",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market" },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -118,9 +118,16 @@ export default function SbaSevenALiquorLicenseBusinessFinancingPage() {
         .sba-checklist li::before{content:"✓";position:absolute;left:16px;top:15px;color:#d89200;font-weight:900}
         .sba-note{margin-top:22px;padding:18px 20px;border-left:4px solid #f6a700;background:#fff4d9;color:#43535f;font-size:13px;line-height:1.7}
         .sba-source-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}.sba-source-links a{padding:12px 15px;border:1px solid #d89200;border-radius:7px;color:#0a2942;background:#fff;font-weight:800;text-decoration:none}
+        .sba-appraisal-wrap{display:grid;grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr);gap:28px;align-items:center;margin-top:26px;padding:26px;border:1px solid rgba(246,167,0,.48);border-radius:16px;background:linear-gradient(145deg,#071d31,#03111d);box-shadow:0 18px 38px rgba(0,0,0,.2)}
+        .sba-appraisal-image{display:block;width:100%;height:auto;max-width:390px;margin:0 auto;border:1px solid rgba(246,167,0,.5);border-radius:9px;box-shadow:0 14px 30px rgba(0,0,0,.32)}
+        .sba-appraisal-copy>span{display:block;color:#ffb400;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+        .sba-appraisal-copy h3{margin:8px 0 10px;color:#fff;font:700 30px/1.1 Georgia,'Times New Roman',serif}
+        .sba-appraisal-copy p{margin:0 0 17px;color:#d7e0e7;line-height:1.7}
+        .sba-appraisal-copy .seo-market-button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+        .sba-appraisal-copy small{display:block;margin-top:12px;color:#aebdca;font-size:11px;line-height:1.5}
         .sba-finance-page .seo-market-counties{background:radial-gradient(circle at 90% 10%,rgba(246,167,0,.08),transparent 26%),linear-gradient(145deg,#0a2237,#020b12);border-top:1px solid rgba(246,167,0,.38);border-bottom:1px solid rgba(246,167,0,.38)}
         .sba-finance-page .seo-market-counties h2{color:#fff}
-        @media(max-width:820px){.sba-distinction,.sba-grid,.sba-checklist{grid-template-columns:1fr}}
+        @media(max-width:820px){.sba-distinction,.sba-grid,.sba-checklist,.sba-appraisal-wrap{grid-template-columns:1fr}.sba-appraisal-wrap{padding:20px}.sba-appraisal-copy h3{font-size:25px}}
       `}</style>
 
       <div className="abt-header-wrap">
@@ -216,6 +223,27 @@ export default function SbaSevenALiquorLicenseBusinessFinancingPage() {
             <li>Buyer résumé, management experience and ownership structure.</li>
             <li>Sources of borrower equity and post-closing liquidity.</li>
           </ul>
+
+          <div className="sba-appraisal-wrap" aria-label="FLLM formal liquor license appraisal">
+            <div>
+              <Image
+                className="sba-appraisal-image"
+                src="/assets/fllm-formal-appraisal-preview-v1.webp"
+                alt="Sample FLLM formal Florida quota liquor license appraisal report"
+                width={900}
+                height={1200}
+              />
+            </div>
+            <div className="sba-appraisal-copy">
+              <span>Professional License Valuation</span>
+              <h3>Need a lender-ready liquor license value?</h3>
+              <p>
+                Order a formal FLLM liquor license appraisal for one identified Florida 3PS or 4COP quota license. The report is supported by county market evidence, comparable listings, available recent transactions, DBPR research and a reconciled value conclusion for lender and professional review.
+              </p>
+              <Link className="seo-market-button seo-market-button-gold" href="/florida-liquor-license-appraisal#order-form">Order Appraisal — $495</Link>
+              <small>Acceptance and any appraiser-credential requirements are determined by the receiving lender or institution.</small>
+            </div>
+          </div>
         </div>
       </section>
 
