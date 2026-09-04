@@ -19,8 +19,6 @@ const standardPreviewListing: Listing = {
 const featuredPreviewListing: Listing = {
   ...standardPreviewListing,
   featuredUntil: "2099-12-31T23:59:59.000Z",
-  note:
-    "Independent broker listing represented by Alex Morgan · Sample Florida Brokerage · Florida · (407) 555-0148. Buyer inquiry routing through the listing broker.",
 };
 
 export default function ListingPreviewSelector({
