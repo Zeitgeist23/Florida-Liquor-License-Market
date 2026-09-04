@@ -7,10 +7,12 @@ type ListingTier = "standard" | "featured";
 export default function ListingPreviewSelector({
   tier,
   className,
+  id,
   children,
 }: {
   tier: ListingTier;
   className?: string;
+  id?: string;
   children: ReactNode;
 }) {
   function chooseListing() {
@@ -32,6 +34,7 @@ export default function ListingPreviewSelector({
 
   return (
     <div
+      id={id}
       className={className}
       role="button"
       tabIndex={0}
