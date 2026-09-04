@@ -19,6 +19,14 @@ export default function Page() {
     sells={["Beer in sealed containers", "Wine in sealed containers", "Distilled spirits / liquor in sealed containers", "Alcoholic beverages for off-premises consumption within the approved privileges"]}
     businesses={["Liquor stores", "Package stores", "Retail beverage stores focused on sealed alcohol sales", "Other approved package-sales operations"]}
     doesNot={["Allow customers to consume liquor on the licensed premises", "Function as a bar or nightclub license while held in a 3PS package-sales series", "Replace local zoning or premises approval", "Allow the license to be moved freely from one county to another"]}
+    requirementCards={[
+      { label: "Food-sales requirement", value: "No statewide 51% restaurant test", detail: "A 3PS package-store quota license is not qualified through the special restaurant food-revenue test." },
+      { label: "Minimum store size", value: "No SRX 2,000 sq. ft. minimum", detail: "There is no universal statewide 2,000-square-foot requirement merely because the license is a 3PS-family quota license. Local building and retail-use requirements still apply." },
+      { label: "Minimum seating", value: "No restaurant seating test", detail: "A 3PS is designed for package sales for off-premises consumption, so the SRX restaurant seating threshold is not the relevant qualification." },
+      { label: "Core privilege", value: "Sealed beer · wine · spirits", detail: "The license supports full-liquor package sales for off-premises consumption within the approved license and premises rules." }
+    ]}
+    requirementsText="The 3PS-family quota license is a package-sales license, not a special restaurant license. Food-revenue, restaurant square-footage and restaurant seating tests do not define the basic 3PS qualification, but the proposed liquor-store premises still must satisfy state and local requirements."
+    requirementsCaution="Package-store separation, access, zoning, distance, signage, building, fire and other premises rules may apply. Confirm the exact address and series with DBPR and the local jurisdiction before relying on a location."
     quotaNote="3PS-family licenses are part of Florida's county quota system for full-liquor package sales. Florida generally limits quota licenses by county population, which is why transferable quota licenses can have substantial private-market value in counties with limited supply."
     keyPoint="The quota license is the transferable county-limited license interest; 3PS is the package-sales series designation. A 3PS quota license should not be confused with non-quota beer-and-wine package licenses such as 2APS."
     seriesClarification="A 3PS-family quota series and a 4COP-family quota series describe different approved uses of a quota license—package sales versus consumption on premises. DBPR provides a formal change-in-series-or-type process, so a quota license may be presented in one series and later approved in another when the intended use and regulatory requirements support the change. The change is not automatic."
@@ -27,5 +35,24 @@ export default function Page() {
     officialHref="https://www.myfloridalicense.com/intentions2.asp?boardid=400&chBoard=true&professionid=4006"
     relatedHref="/florida-3ps-liquor-license-for-sale"
     relatedLabel="View 3PS Quota Licenses for Sale"
+    ruleUpdateLinks={[
+      {
+        href: "/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs",
+        label: "Florida restaurant-license reform and why it differs from 3PS",
+        description: "See the current special restaurant requirements and why they do not define a package-store quota license."
+      }
+    ]}
+    researchLinks={[
+      {
+        href: "/license-types/4cop-quota",
+        label: "Compare With 4COP Quota",
+        description: "Compare package-store use with a full-liquor consumption-on-premises quota series."
+      },
+      {
+        href: "/resources/florida-liquor-license-laws#current-developments",
+        label: "Florida Liquor License Laws",
+        description: "Review official statutes, DBPR sources and current regulatory developments."
+      }
+    ]}
   />;
 }
