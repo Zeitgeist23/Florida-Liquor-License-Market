@@ -154,6 +154,33 @@ export default function BrokerListYourLicensePage() {
           __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c"),
         }}
       />
+      <style>{`
+        .hero-plan-hit {
+          position: absolute;
+          inset: 0;
+          z-index: 4;
+          border-radius: 7px;
+          cursor: pointer;
+        }
+        .hero-plan-hit:focus-visible {
+          outline: 2px solid #f6a700;
+          outline-offset: 3px;
+        }
+        .${styles.heroPlans} > div {
+          transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+        }
+        .${styles.heroPlans} > div:has(.hero-plan-hit:hover),
+        .${styles.heroPlans} > div:has(.hero-plan-hit:focus-visible) {
+          transform: translateY(-3px);
+          border-color: #f6a700;
+          background: rgba(246,167,0,.11);
+          box-shadow: 0 10px 24px rgba(0,0,0,.24), 0 0 18px rgba(246,167,0,.12);
+        }
+        #standard-listing-option,
+        #featured-listing-option {
+          scroll-margin-top: 105px;
+        }
+      `}</style>
 
       <div className={styles.headerWrap}>
         <FormsSiteHeader
@@ -208,15 +235,25 @@ export default function BrokerListYourLicensePage() {
               <span>Choose Your Exposure</span>
               <div className={styles.heroPlans}>
                 <div>
+                  <a
+                    className="hero-plan-hit"
+                    href="#standard-listing-option"
+                    aria-label="View the Standard broker listing option"
+                  />
                   <em>Default</em>
                   <b>Standard</b>
                   <strong>$14.95</strong>
-                  <small>Marketplace listing</small>
+                  <small>Marketplace listing · Select Standard ↓</small>
                 </div>
                 <div>
+                  <a
+                    className="hero-plan-hit"
+                    href="#featured-listing-option"
+                    aria-label="View the Featured broker listing option"
+                  />
                   <b>Featured</b>
                   <strong>$24.95</strong>
-                  <small>30-day priority placement</small>
+                  <small>30-day priority placement · Select Featured ↓</small>
                 </div>
               </div>
               <ul>
@@ -266,6 +303,7 @@ export default function BrokerListYourLicensePage() {
           </div>
           <div className={styles.previewGrid}>
             <ListingPreviewSelector
+              id="standard-listing-option"
               tier="standard"
               className={styles.previewChoice}
             >
@@ -280,6 +318,7 @@ export default function BrokerListYourLicensePage() {
               </p>
             </ListingPreviewSelector>
             <ListingPreviewSelector
+              id="featured-listing-option"
               tier="featured"
               className={styles.previewChoice}
             >
