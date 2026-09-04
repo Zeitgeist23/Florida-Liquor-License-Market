@@ -6,13 +6,12 @@ import styles from "./BrokerSampleModalLink.module.css";
 type Tier = "standard" | "featured";
 
 const STANDARD_SAMPLE_PAGE = "/brokers/sample-standard-listing";
-const FEATURED_SAMPLE_PAGE = "/brokers/sample-featured-listing";
+const FEATURED_SAMPLE_IMAGE = "/assets/brokers/fllm-featured-broker-sample.webp";
 
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
   const featured = tier === "featured";
-  const label = featured ? "Preview Featured Ad Detail Page" : "View Sample Standard Listing Page";
-  const samplePage = featured ? FEATURED_SAMPLE_PAGE : STANDARD_SAMPLE_PAGE;
+  const label = featured ? "View Sample Featured Listing Page" : "View Sample Standard Listing Page";
 
   useEffect(() => {
     if (!open) return;
@@ -46,18 +45,27 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
               <button className={styles.close} type="button" onClick={() => setOpen(false)} aria-label="Close sample preview">×</button>
             </div>
 
-            <div className={`${styles.viewport} ${featured ? "" : styles.standardViewport}`}>
-              <iframe
-                className={`${styles.frame} ${featured ? "" : styles.standardFrame}`}
-                src={samplePage}
-                title={`${featured ? "Featured" : "Standard"} broker listing detail page sample`}
-                tabIndex={featured ? -1 : 0}
-                loading="eager"
-              />
-              {featured ? <div className={styles.shield} aria-hidden="true" /> : null}
-            </div>
+            {featured ? (
+              <div className={styles.imageViewport}>
+                <img
+                  className={styles.sampleImage}
+                  src={FEATURED_SAMPLE_IMAGE}
+                  alt="Sample Featured broker listing detail page"
+                />
+              </div>
+            ) : (
+              <div className={`${styles.viewport} ${styles.standardViewport}`}>
+                <iframe
+                  className={`${styles.frame} ${styles.standardFrame}`}
+                  src={STANDARD_SAMPLE_PAGE}
+                  title="Standard broker listing detail page sample"
+                  tabIndex={0}
+                  loading="eager"
+                />
+              </div>
+            )}
 
-            <p className={styles.caption}>This is a sample preview. Scroll inside the Standard preview to see the complete page.</p>
+            <p className={styles.caption}>{featured ? "This is a sample Featured listing preview." : "This is a sample preview. Scroll inside the Standard preview to see the complete page."}</p>
           </div>
         </div>
       ) : null}
