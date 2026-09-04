@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-const SELF_DIRECTED_PATH = "/sell-your-license";
+const SELF_DIRECTED_PATH = "/sell-your-license?method=self#listing-options";
 const BROKER_LISTING_PATH = "/brokers/list-your-license";
 const BROKER_ASSISTANCE_PATH = "/sell-your-license#broker-assistance";
 
@@ -102,13 +102,13 @@ export default function ListingsHeaderListLicenseCta() {
           width: 100% !important;
           padding: 11px 12px !important;
           border-radius: 4px !important;
-          color: #fff !important;
-          font-size: 13px !important;
+          color: #f6a700 !important;
+          font-size: 13.5px !important;
           font-weight: 800 !important;
-          line-height: 1.2 !important;
+          line-height: 1.25 !important;
           text-decoration: none !important;
           text-transform: none !important;
-          white-space: nowrap !important;
+          white-space: normal !important;
         }
 
         .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a:hover,
