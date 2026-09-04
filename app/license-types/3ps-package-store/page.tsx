@@ -20,13 +20,19 @@ export default function Page() {
     businesses={["Liquor stores", "Package stores", "Retail beverage stores focused on sealed alcohol sales", "Other approved package-sales operations"]}
     doesNot={["Allow customers to consume liquor on the licensed premises", "Function as a bar or nightclub license while held in a 3PS package-sales series", "Replace local zoning or premises approval", "Allow the license to be moved freely from one county to another"]}
     requirementCards={[
-      { label: "Food-sales requirement", value: "No statewide 51% restaurant test", detail: "A 3PS package-store quota license is not qualified through the special restaurant food-revenue test." },
-      { label: "Minimum store size", value: "No SRX 2,000 sq. ft. minimum", detail: "There is no universal statewide 2,000-square-foot requirement merely because the license is a 3PS-family quota license. Local building and retail-use requirements still apply." },
-      { label: "Minimum seating", value: "No restaurant seating test", detail: "A 3PS is designed for package sales for off-premises consumption, so the SRX restaurant seating threshold is not the relevant qualification." },
-      { label: "Core privilege", value: "Sealed beer · wine · spirits", detail: "The license supports full-liquor package sales for off-premises consumption within the approved license and premises rules." }
+      { label: "Food-sales requirement", value: "No statewide 51% restaurant test", detail: "A 3PS package-store quota license is not qualified through the special restaurant food-revenue test.", href: "https://www2.myfloridalicense.com/abt/rules_statutes/license_types.pdf", linkLabel: "Official ABT license types ↗" },
+      { label: "Minimum store size", value: "No SRX 2,000 sq. ft. minimum", detail: "There is no universal statewide 2,000-square-foot requirement merely because the license is a 3PS-family quota license. Local building and retail-use requirements still apply.", href: "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599%2F0565%2FSections%2F0565.04.html", linkLabel: "Package-store statute ↗" },
+      { label: "Minimum seating", value: "No restaurant seating test", detail: "A 3PS is designed for package sales for off-premises consumption, so the SRX restaurant seating threshold is not the relevant qualification.", href: "/license-types/4cop-sfs-restaurant", linkLabel: "Compare SFS/SRX requirements ›" },
+      { label: "Core privilege", value: "Sealed beer · wine · spirits", detail: "The license supports full-liquor package sales for off-premises consumption within the approved license and premises rules.", href: "https://www2.myfloridalicense.com/abt/rules_statutes/license_types.pdf", linkLabel: "Official ABT license types ↗" }
     ]}
     requirementsText="The 3PS-family quota license is a package-sales license, not a special restaurant license. Food-revenue, restaurant square-footage and restaurant seating tests do not define the basic 3PS qualification, but the proposed liquor-store premises still must satisfy state and local requirements."
     requirementsCaution="Package-store separation, access, zoning, distance, signage, building, fire and other premises rules may apply. Confirm the exact address and series with DBPR and the local jurisdiction before relying on a location."
+    officialResources={[
+      { href: "https://www.myfloridalicense.com/intentions2.asp?boardid=400&chBoard=true&professionid=4006", label: "DBPR / ABT Alcoholic Beverage Licensing", description: "Official DBPR licensing entry point for quota and package-sales alcoholic-beverage applications." },
+      { href: "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599%2F0565%2FSections%2F0565.04.html", label: "Florida Statute §565.04 — Package Stores", description: "Official statutory restrictions governing package-store premises and package liquor sales." },
+      { href: "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599%2F0561%2FSections%2F0561.20.html", label: "Florida Statute §561.20 — Quota System", description: "Read the county quota framework that makes 3PS-family full-liquor licenses supply-limited." },
+      { href: "/dbpr-abt-6002", label: "FLLM ABT-6002 Transfer Guide", description: "Review the principal DBPR transfer application used when ownership of a quota license changes." }
+    ]}
     quotaNote="3PS-family licenses are part of Florida's county quota system for full-liquor package sales. Florida generally limits quota licenses by county population, which is why transferable quota licenses can have substantial private-market value in counties with limited supply."
     keyPoint="The quota license is the transferable county-limited license interest; 3PS is the package-sales series designation. A 3PS quota license should not be confused with non-quota beer-and-wine package licenses such as 2APS."
     seriesClarification="A 3PS-family quota series and a 4COP-family quota series describe different approved uses of a quota license—package sales versus consumption on premises. DBPR provides a formal change-in-series-or-type process, so a quota license may be presented in one series and later approved in another when the intended use and regulatory requirements support the change. The change is not automatic."
@@ -36,23 +42,13 @@ export default function Page() {
     relatedHref="/florida-3ps-liquor-license-for-sale"
     relatedLabel="View 3PS Quota Licenses for Sale"
     ruleUpdateLinks={[
-      {
-        href: "/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs",
-        label: "Florida restaurant-license reform and why it differs from 3PS",
-        description: "See the current special restaurant requirements and why they do not define a package-store quota license."
-      }
+      { href: "/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs", label: "Florida restaurant-license reform and why it differs from 3PS", description: "See the current special restaurant requirements and why they do not define a package-store quota license." },
+      { href: "/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law", label: "Restaurant alcohol-to-go rules vs. package-store privileges", description: "Compare restaurant to-go authority with the separate package-sales privileges of a 3PS-family quota license." }
     ]}
     researchLinks={[
-      {
-        href: "/license-types/4cop-quota",
-        label: "Compare With 4COP Quota",
-        description: "Compare package-store use with a full-liquor consumption-on-premises quota series."
-      },
-      {
-        href: "/resources/florida-liquor-license-laws#current-developments",
-        label: "Florida Liquor License Laws",
-        description: "Review official statutes, DBPR sources and current regulatory developments."
-      }
+      { href: "/license-types/4cop-quota", label: "Compare With 4COP Quota", description: "Compare package-store use with a full-liquor consumption-on-premises quota series." },
+      { href: "/resources/florida-liquor-license-laws#current-developments", label: "Florida Liquor License Laws", description: "Review official statutes, DBPR sources and current regulatory developments." },
+      { href: "/resources/forms", label: "Florida ABT Forms Center", description: "Open FLLM's organized ABT forms and application resources." }
     ]}
   />;
 }
