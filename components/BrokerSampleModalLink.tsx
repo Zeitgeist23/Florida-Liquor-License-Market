@@ -1,17 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { standardBrokerPreviewInline } from "./standardBrokerPreviewInline";
 import styles from "./BrokerSampleModalLink.module.css";
 
 type Tier = "standard" | "featured";
 
+const STANDARD_SAMPLE_PAGE = "/brokers/sample-standard-listing";
 const FEATURED_SAMPLE_PAGE = "/brokers/sample-featured-listing";
 
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
   const featured = tier === "featured";
   const label = featured ? "Preview Featured Ad Detail Page" : "View Sample Standard Listing Page";
+  const samplePage = featured ? FEATURED_SAMPLE_PAGE : STANDARD_SAMPLE_PAGE;
 
   useEffect(() => {
     if (!open) return;
@@ -45,16 +46,10 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
               <button className={styles.close} type="button" onClick={() => setOpen(false)} aria-label="Close sample preview">×</button>
             </div>
 
-            {featured ? (
-              <div className={styles.viewport}>
-                <iframe className={styles.frame} src={FEATURED_SAMPLE_PAGE} title="Featured broker listing detail page sample" tabIndex={-1} loading="lazy" />
-                <div className={styles.shield} aria-hidden="true" />
-              </div>
-            ) : (
-              <div className={styles.imageViewport}>
-                <img className={styles.sampleImage} src={standardBrokerPreviewInline} alt="Approved sample Standard broker listing detail page" />
-              </div>
-            )}
+            <div className={styles.viewport}>
+              <iframe className={styles.frame} src={samplePage} title={`${featured ? "Featured" : "Standard"} broker listing detail page sample`} tabIndex={-1} loading="eager" />
+              <div className={styles.shield} aria-hidden="true" />
+            </div>
 
             <p className={styles.caption}>This is a non-interactive sample preview. Close it to continue choosing your listing option.</p>
           </div>
