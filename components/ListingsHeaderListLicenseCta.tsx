@@ -72,7 +72,7 @@ export default function ListingsHeaderListLicenseCta() {
           right: 0 !important;
           z-index: 30000 !important;
           display: none !important;
-          width: 230px !important;
+          width: 290px !important;
           padding: 6px !important;
           border: 1px solid #f6a700 !important;
           border-radius: 7px !important;
@@ -108,7 +108,7 @@ export default function ListingsHeaderListLicenseCta() {
           line-height: 1.25 !important;
           text-decoration: none !important;
           text-transform: none !important;
-          white-space: normal !important;
+          white-space: nowrap !important;
         }
 
         .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a:hover,
@@ -155,6 +155,10 @@ export default function ListingsHeaderListLicenseCta() {
             position: static !important;
             width: 100% !important;
             margin-top: 5px !important;
+          }
+
+          .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a {
+            white-space: normal !important;
           }
         }
       `}</style>
