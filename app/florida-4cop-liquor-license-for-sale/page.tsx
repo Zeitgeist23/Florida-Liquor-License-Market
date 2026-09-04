@@ -77,7 +77,7 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
       count: availableListings.filter((listing) => listing.county === county.name).length,
     }))
     .filter(({ count }) => count > 0)
-    .sort((a, b) => b.count - a.count || a.county.name.localeCompare(b.county.name));
+    .sort((a, b) => a.county.name.localeCompare(b.county.name));
 
   const previewListings = [...availableListings]
     .sort((a, b) => {
