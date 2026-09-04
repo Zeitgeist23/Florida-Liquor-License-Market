@@ -81,7 +81,7 @@ function ListingPreview({ featured = false }: { featured?: boolean }) {
       aria-label={`${featured ? "Featured" : "Standard"} marketplace listing preview`}
     >
       {featured ? (
-        <span className={styles.previewFeaturedBadge}>Featured</span>
+        <span className={styles.previewFeaturedBadge}>Featured Listing</span>
       ) : null}
       <span className={styles.previewType}>4COP Quota</span>
       <div className={styles.previewCopy}>
@@ -191,6 +191,44 @@ export default function BrokerListYourLicensePage() {
         #standard-listing-option,
         #featured-listing-option {
           scroll-margin-top: 105px;
+        }
+
+        /* Keep the broker comparison faithful to the locked live Listings card treatment. */
+        .${styles.previewCard} {
+          border: 1px solid rgba(232,168,56,.90) !important;
+          box-shadow:
+            0 0 0 1px rgba(105,67,10,.44),
+            3px 4px 0 rgba(1,8,15,.34),
+            0 10px 28px rgba(0,0,0,.28) !important;
+        }
+        .${styles.previewFeatured} {
+          border: 1px solid #9b741d !important;
+          background:
+            linear-gradient(115deg, rgba(255,255,255,.045), transparent 45%),
+            #071827 !important;
+          box-shadow: 0 10px 28px rgba(0,0,0,.28) !important;
+        }
+        .${styles.previewFeatured}:hover {
+          border-color: #e3a314 !important;
+          box-shadow:
+            0 15px 34px rgba(0,0,0,.38),
+            0 0 0 1px rgba(241,166,0,.08) !important;
+        }
+        .${styles.previewFeaturedBadge} {
+          top: 8px !important;
+          left: 33px !important;
+          right: auto !important;
+          padding: 5px 10px !important;
+          border: 1px solid #66e6ff !important;
+          border-radius: 8px 4px 4px 4px !important;
+          color: #fff !important;
+          background: linear-gradient(180deg,#168bb3 0%,#0b6284 100%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.24),
+            0 3px 8px rgba(0,0,0,.24) !important;
+          font-size: 9px !important;
+          line-height: 1 !important;
+          letter-spacing: .06em !important;
         }
       `}</style>
 
@@ -308,9 +346,7 @@ export default function BrokerListYourLicensePage() {
             <span>Listing Appearance</span>
             <h2>See the difference before you choose</h2>
             <p>
-              Both options use the same professional marketplace card. Featured
-              adds a gold badge, stronger border treatment, prominent broker
-              contact information and priority placement for the first 30 days.
+              Both options use the same professional marketplace card treatment used on FLLM&apos;s live Listings page. Featured adds the cyan Featured Listing badge, prominent broker contact information and priority placement for the first 30 days without changing the card into a separate gold-framed design.
             </p>
           </div>
           <div className={styles.previewGrid}>
@@ -340,7 +376,7 @@ export default function BrokerListYourLicensePage() {
               </div>
               <ListingPreview featured />
               <p className={styles.previewCaption}>
-                Receives the Featured badge and priority placement for 30 days,
+                Receives the cyan Featured Listing badge and priority placement for 30 days,
                 displays the broker&apos;s name and phone directly on the card,
                 then continues as a Standard listing.
               </p>
