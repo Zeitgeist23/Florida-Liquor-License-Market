@@ -263,6 +263,41 @@
   border-bottom: 1px solid rgba(241, 166, 0, .28);
 }
 
+.marketplace-listing-seller-details h3 {
+  margin: 22px 0 10px;
+  color: #f1a600;
+  font: 700 18px/1.25 Georgia, "Times New Roman", serif;
+}
+
+.marketplace-listing-seller-details ul {
+  margin: 0 0 20px;
+  padding-left: 23px;
+  color: #e6edf2;
+  line-height: 1.7;
+}
+
+.marketplace-listing-seller-details li + li {
+  margin-top: 8px;
+}
+
+.marketplace-listing-seller-details li::marker,
+.marketplace-listing-seller-details li strong {
+  color: #f1a600;
+}
+
+.marketplace-listing-seller-footnote {
+  padding-top: 14px;
+  border-top: 1px solid rgba(241, 166, 0, .26);
+  font-size: 14px;
+}
+
+.marketplace-listing-seller-disclosure {
+  margin-bottom: 0 !important;
+  color: #aebdca !important;
+  font-size: 12px !important;
+  line-height: 1.55 !important;
+}
+
 .marketplace-county-snapshot {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
