@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const SELF_DIRECTED_PATH = "/sell-your-license";
+const SELF_DIRECTED_PATH = "/sell-your-license?method=self#listing-options";
 const BROKER_LISTING_PATH = "/brokers/list-your-license";
 const BROKER_ASSISTANCE_PATH = "/sell-your-license#broker-assistance";
 
@@ -64,6 +64,7 @@ export default function ListYourLicenseLinkFix() {
       if (!(target instanceof Element)) return;
       const link = target.closest("a");
       if (!(link instanceof HTMLAnchorElement) || !isHeaderListButton(link)) return;
+
       const related = event.relatedTarget;
       if (related instanceof Node && link.contains(related)) return;
       scheduleClose();
@@ -137,7 +138,7 @@ export default function ListYourLicenseLinkFix() {
           top: position.top,
           right: position.right,
           zIndex: 30000,
-          width: "230px",
+          width: "min(230px, calc(100vw - 28px))",
           padding: 6,
           border: "1px solid #f6a700",
           borderRadius: 7,
@@ -157,10 +158,9 @@ const itemStyle = {
   display: "block",
   padding: "11px 12px",
   borderRadius: 4,
-  color: "#ffffff",
-  fontSize: 13,
+  color: "#f6a700",
+  fontSize: 13.5,
   fontWeight: 800,
-  lineHeight: 1.2,
+  lineHeight: 1.25,
   textDecoration: "none",
-  whiteSpace: "nowrap" as const,
 };
