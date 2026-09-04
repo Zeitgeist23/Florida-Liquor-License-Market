@@ -566,7 +566,7 @@ export default async function Page({ params }: PageProps) {
                   <img src="/assets/fllm-formal-appraisal-preview-v1.webp" alt="Sample FLLM formal liquor license appraisal report" />
                   <div>
                     <span>Professional License Valuation</span>
-                    <h2 id="listing-appraisal-promo-title">Order an FLLM Liquor License Appraisal</h2>
+                    <h2 id="listing-appraisal-promo-title">Order a Liquor License Appraisal</h2>
                     <p>Get a license-specific valuation supported by county market evidence and regulatory research.</p>
                     <Link className="marketplace-listing-appraisal-button" href="/florida-liquor-license-appraisal#order-form">Order an Appraisal</Link>
                     <Link className="marketplace-listing-heat-map-link" href="/#market-data">Explore the Florida License Heat Map →</Link>
