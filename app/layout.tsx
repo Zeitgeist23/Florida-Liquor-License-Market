@@ -23,6 +23,7 @@ import "./news-source-readability.css";
 import "./seo-authority-enhancements.css";
 import "./broker-choice-buttons.css";
 import "./listings/[slug]/exchange-panel.css";
+import "./lawrence-moore-premium-badge.css";
 
 /* One authoritative listing-card presentation across every FLLM route. */
 import "./listings/listings-premium.css";
