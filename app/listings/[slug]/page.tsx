@@ -445,7 +445,7 @@ export default async function Page({ params }: PageProps) {
                     </div>
                     <div>
                       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" /></svg>
-                      <strong>On- or<br />off-premises use</strong>
+                      <strong>Generally no SFS<br />food-sales percentage</strong>
                     </div>
                     <div>
                       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" /></svg>
@@ -488,7 +488,7 @@ export default async function Page({ params }: PageProps) {
                   <ul>
                     <li><strong>Full alcohol sales:</strong> unrestricted on-premises and off-premises sales, including sealed-container and package sales.</li>
                     <li><strong>Transferable:</strong> available to qualified buyers, subject to Florida DBPR requirements and county quota rules.</li>
-                    <li><strong>Food-sales flexibility:</strong> generally not subject to the SFS restaurant food-sales percentage; premises, intended use, zoning, and licensing remain subject to DBPR and local approval.</li>
+                    <li><strong>Flexible use:</strong> suitable for high-volume bars, restaurants without food-sales restrictions, or dedicated liquor retail stores.</li>
                     <li><strong>Strong market demand:</strong> full-liquor licenses are limited in Northwest Florida, especially in the growing Pensacola market.</li>
                   </ul>
                   <p>Suitable for entrepreneurs, bar and restaurant operators, or investors seeking to secure a highly sought-after, multi-use asset.</p>
