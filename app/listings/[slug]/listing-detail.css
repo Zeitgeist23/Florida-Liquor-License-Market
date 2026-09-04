@@ -785,7 +785,7 @@
 .marketplace-listing-appraisal-card h2 {
   margin: 0;
   color: #fff;
-  font: 700 21px/1.15 Georgia, "Times New Roman", serif;
+  font: 700 22px/1.18 Georgia, "Times New Roman", serif;
 }
 
 .marketplace-listing-appraisal-card p {
@@ -833,8 +833,12 @@
 
 
 .marketplace-listing-finance-promo {
-  margin-top: 13px;
-  padding: 17px 22px 16px;
+  min-height: 324px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 2px;
+  padding: 20px 22px;
   border: 1px solid rgba(197, 140, 18, .62);
   border-radius: 8px;
   text-align: center;
@@ -844,32 +848,11 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035), 0 12px 28px rgba(0, 0, 0, .22);
 }
 
-.marketplace-listing-finance-icon {
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  margin: 0 auto 9px;
-  border: 1px solid rgba(241, 166, 0, .56);
-  border-radius: 50%;
-  background: rgba(3, 13, 23, .5);
-}
-
-.marketplace-listing-finance-icon svg {
-  width: 30px;
-  height: 30px;
-  fill: none;
-  stroke: #f1a600;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
 .marketplace-listing-finance-promo > span {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   color: #f1a600;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 900;
   letter-spacing: .09em;
   text-transform: uppercase;
@@ -882,14 +865,14 @@
 }
 
 .marketplace-listing-finance-promo p {
-  margin: 8px 0 12px;
+  margin: 10px 0 16px;
   color: #d1dce4;
-  font-size: 12px;
-  line-height: 1.45;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .marketplace-listing-finance-button {
-  min-height: 42px;
+  min-height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
