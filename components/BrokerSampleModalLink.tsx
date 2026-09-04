@@ -46,8 +46,14 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
               <button className={styles.close} type="button" onClick={() => setOpen(false)} aria-label="Close sample preview">×</button>
             </div>
 
-            <div className={styles.viewport}>
-              <iframe className={styles.frame} src={samplePage} title={`${featured ? "Featured" : "Standard"} broker listing detail page sample`} tabIndex={-1} loading="eager" />
+            <div className={`${styles.viewport} ${featured ? "" : styles.standardViewport}`}>
+              <iframe
+                className={`${styles.frame} ${featured ? "" : styles.standardFrame}`}
+                src={samplePage}
+                title={`${featured ? "Featured" : "Standard"} broker listing detail page sample`}
+                tabIndex={-1}
+                loading="eager"
+              />
               <div className={styles.shield} aria-hidden="true" />
             </div>
 
