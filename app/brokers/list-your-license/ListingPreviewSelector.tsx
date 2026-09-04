@@ -2,7 +2,7 @@
 
 import type { KeyboardEvent, MouseEvent, ReactNode } from "react";
 
-import BrokerDetailPreview from "@/components/BrokerDetailPreview";
+import BrokerSampleModalLink from "@/components/BrokerSampleModalLink";
 import MarketplaceListingCard from "@/components/MarketplaceListingCard";
 import type { Listing } from "@/data/listings";
 
@@ -92,7 +92,7 @@ export default function ListingPreviewSelector({
         </div>
       </div>
 
-      <BrokerDetailPreview tier={tier} />
+      <BrokerSampleModalLink tier={tier} />
 
       <style jsx global>{`
         .broker-marketplace-card-preview a {
