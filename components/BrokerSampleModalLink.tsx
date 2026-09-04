@@ -6,7 +6,7 @@ import styles from "./BrokerSampleModalLink.module.css";
 type Tier = "standard" | "featured";
 
 const STANDARD_SAMPLE_PAGE = "/brokers/sample-standard-listing";
-const FEATURED_SAMPLE_IMAGE = "/assets/brokers/fllm-featured-broker-sample-v3.webp";
+const FEATURED_SAMPLE_IMAGE = "/assets/brokers/fllm-featured-broker-sample-v2.webp?v=20260904-1750";
 
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
@@ -36,7 +36,7 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
 
       {open ? (
         <div className={styles.backdrop} role="dialog" aria-modal="true" aria-label={label} onMouseDown={() => setOpen(false)}>
-          <div className={`${styles.modal} ${featured ? "" : styles.standardModal}`} onMouseDown={(event) => event.stopPropagation()}>
+          <div className={`${styles.modal} ${featured ? styles.featuredModal : styles.standardModal}`} onMouseDown={(event) => event.stopPropagation()}>
             <div className={styles.modalBar}>
               <div>
                 <strong>{featured ? "Featured" : "Standard"} Broker Listing Detail Page</strong>
@@ -51,6 +51,7 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
                   className={styles.sampleImage}
                   src={FEATURED_SAMPLE_IMAGE}
                   alt="Sample Featured broker listing detail page"
+                  draggable={false}
                 />
               </div>
             ) : (
