@@ -147,8 +147,8 @@ export default function ListYourLicenseLinkFix() {
         }}
       >
         <a href={SELF_DIRECTED_PATH} style={itemStyle} role="menuitem">Self-Directed Seller</a>
-        <a href={BROKER_LISTING_PATH} style={itemStyle} role="menuitem">Broker Listing</a>
         <a href={BROKER_ASSISTANCE_PATH} style={itemStyle} role="menuitem">Request Broker Help</a>
+        <a href={BROKER_LISTING_PATH} style={itemStyle} role="menuitem">Broker Listing</a>
       </div>
     </>
   );
