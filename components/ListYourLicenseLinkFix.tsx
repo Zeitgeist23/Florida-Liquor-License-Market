@@ -64,7 +64,6 @@ export default function ListYourLicenseLinkFix() {
       if (!(target instanceof Element)) return;
       const link = target.closest("a");
       if (!(link instanceof HTMLAnchorElement) || !isHeaderListButton(link)) return;
-
       const related = event.relatedTarget;
       if (related instanceof Node && link.contains(related)) return;
       scheduleClose();
@@ -126,12 +125,6 @@ export default function ListYourLicenseLinkFix() {
           color: #061728 !important;
           outline: none !important;
         }
-        .fllm-list-license-hover-menu a:hover strong,
-        .fllm-list-license-hover-menu a:focus-visible strong,
-        .fllm-list-license-hover-menu a:hover span,
-        .fllm-list-license-hover-menu a:focus-visible span {
-          color: #061728 !important;
-        }
       `}</style>
       <div
         className="fllm-list-license-hover-menu"
@@ -144,49 +137,30 @@ export default function ListYourLicenseLinkFix() {
           top: position.top,
           right: position.right,
           zIndex: 30000,
-          width: "min(350px, calc(100vw - 28px))",
-          padding: 7,
+          width: "230px",
+          padding: 6,
           border: "1px solid #f6a700",
           borderRadius: 7,
           background: "#061728",
-          boxShadow: "0 20px 50px rgba(0,0,0,.45)",
+          boxShadow: "0 18px 42px rgba(0,0,0,.42)",
         }}
       >
-        <a href={SELF_DIRECTED_PATH} style={itemStyle} role="menuitem">
-          <strong style={titleStyle}>Self-Directed Seller</strong>
-          <span style={copyStyle}>List your own license and manage buyer inquiries directly through FLLM.</span>
-        </a>
-        <a href={BROKER_LISTING_PATH} style={itemStyle} role="menuitem">
-          <strong style={titleStyle}>Broker Listing</strong>
-          <span style={copyStyle}>For brokers listing a client&apos;s Florida liquor license.</span>
-        </a>
-        <a href={BROKER_ASSISTANCE_PATH} style={itemStyle} role="menuitem">
-          <strong style={titleStyle}>Request Broker Help</strong>
-          <span style={copyStyle}>For sellers who want assistance from an independent broker.</span>
-        </a>
+        <a href={SELF_DIRECTED_PATH} style={itemStyle} role="menuitem">Self-Directed Seller</a>
+        <a href={BROKER_LISTING_PATH} style={itemStyle} role="menuitem">Broker Listing</a>
+        <a href={BROKER_ASSISTANCE_PATH} style={itemStyle} role="menuitem">Request Broker Help</a>
       </div>
     </>
   );
 }
 
 const itemStyle = {
-  display: "flex",
-  flexDirection: "column" as const,
-  gap: 4,
+  display: "block",
   padding: "11px 12px",
   borderRadius: 4,
   color: "#ffffff",
-  textDecoration: "none",
-};
-
-const titleStyle = {
-  color: "#f6a700",
-  fontSize: 13.5,
+  fontSize: 13,
   fontWeight: 800,
-};
-
-const copyStyle = {
-  color: "#d4dde5",
-  fontSize: 12,
-  lineHeight: 1.35,
+  lineHeight: 1.2,
+  textDecoration: "none",
+  whiteSpace: "nowrap" as const,
 };
