@@ -240,7 +240,7 @@ export default function SbaSevenALiquorLicenseBusinessFinancingPage() {
               <p>
                 Order a formal FLLM liquor license appraisal for one identified Florida 3PS or 4COP quota license. The report is supported by county market evidence, comparable listings, available recent transactions, DBPR research and a reconciled value conclusion for lender and professional review.
               </p>
-              <Link className="seo-market-button seo-market-button-gold" href="/florida-liquor-license-appraisal#order-form">Order Appraisal — $495</Link>
+              <Link className="seo-market-button seo-market-button-gold" href="/florida-liquor-license-appraisal">Order Appraisal — $495</Link>
               <small>Acceptance and any appraiser-credential requirements are determined by the receiving lender or institution.</small>
             </div>
           </div>
