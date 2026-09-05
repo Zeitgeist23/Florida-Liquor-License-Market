@@ -6,7 +6,7 @@ import styles from "./BrokerSampleModalLink.module.css";
 type Tier = "standard" | "featured";
 
 const STANDARD_SAMPLE_PAGE = "/brokers/sample-standard-listing";
-const FEATURED_SAMPLE_IMAGE = "/assets/brokers/fllm-featured-broker-sample-sharp.webp?v=20260904-1848";
+const FEATURED_SAMPLE_IMAGE = "/assets/brokers/fllm-featured-broker-sample-static.svg";
 
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
