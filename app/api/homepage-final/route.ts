@@ -79,6 +79,23 @@ const installerScript = `<script id="home-list-license-menu-installer">
 })();
 </script>`;
 
+const calculatorLinkFixScript = `<script id="home-finance-calculator-link-fix">
+(function(){
+  var TARGET='/financing/loan-payment-calculator';
+  function fix(){
+    document.querySelectorAll('a').forEach(function(a){
+      var label=(a.textContent||'').replace(/\\s+/g,' ').trim().toLowerCase();
+      if(label==='loan payment calculator') a.setAttribute('href',TARGET);
+    });
+  }
+  function start(){fix();setTimeout(fix,50);setTimeout(fix,200);setTimeout(fix,700);setTimeout(fix,1600);}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+  window.addEventListener('load',start);
+  window.addEventListener('pageshow',start);
+  new MutationObserver(fix).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>`;
+
 function injectEnhancement(html: string) {
   let updated = html;
   if (!updated.includes('id="home-list-license-menu-styles"')) {
@@ -86,6 +103,9 @@ function injectEnhancement(html: string) {
   }
   if (!updated.includes('id="home-list-license-menu-installer"')) {
     updated = updated.replace("</body>", `${installerScript}</body>`);
+  }
+  if (!updated.includes('id="home-finance-calculator-link-fix"')) {
+    updated = updated.replace("</body>", `${calculatorLinkFixScript}</body>`);
   }
   return updated;
 }
