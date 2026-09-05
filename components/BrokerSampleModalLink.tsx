@@ -6,7 +6,7 @@ import styles from "./BrokerSampleModalLink.module.css";
 type Tier = "standard" | "featured";
 
 const STANDARD_SAMPLE_PAGE = "/brokers/sample-standard-listing";
-const FEATURED_SAMPLE_IMAGE = "/assets/brokers/fllm-featured-broker-preview.jpg?v=20260904-2100";
+const FEATURED_SAMPLE_PAGE = "/brokers/sample-featured-listing";
 
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
@@ -46,12 +46,13 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
             </div>
 
             {featured ? (
-              <div className={styles.imageViewport}>
-                <img
-                  className={styles.sampleImage}
-                  src={FEATURED_SAMPLE_IMAGE}
-                  alt="Sample Featured broker listing detail page"
-                  draggable={false}
+              <div className={`${styles.viewport} ${styles.featuredViewport}`}>
+                <iframe
+                  className={`${styles.frame} ${styles.featuredFrame}`}
+                  src={FEATURED_SAMPLE_PAGE}
+                  title="Featured broker listing detail page sample"
+                  tabIndex={0}
+                  loading="eager"
                 />
               </div>
             ) : (
@@ -66,7 +67,7 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
               </div>
             )}
 
-            <p className={styles.caption}>{featured ? "This is a sample Featured listing preview image." : "This is a sample preview. Scroll inside the Standard preview to see the complete page."}</p>
+            <p className={styles.caption}>This is a sample preview. Scroll inside the preview to see the complete {featured ? "Featured" : "Standard"} listing page.</p>
           </div>
         </div>
       ) : null}
