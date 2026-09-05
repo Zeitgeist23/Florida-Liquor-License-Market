@@ -91,6 +91,26 @@ const faqs = [
       "Yes, when the licenses are in the same county and the report explains the series difference. Exact 3PS evidence remains primary for a 3PS subject, but same-county 4COP offerings and verified recent sales may provide relevant secondary quota-market evidence because a series change or increase may be requested through DBPR. The reverse analysis also applies to a 4COP subject.",
   },
   {
+    question: "Can you mortgage a liquor license in Florida?",
+    answer:
+      "Florida law recognizes bona fide mortgages, liens and security interests in qualifying spirituous alcoholic-beverage licenses. Section 561.65 provides a recordation framework for those interests, and DBPR uses Form ABT-6022 for a lien or mortgagee's interest. Recordation does not eliminate licensing, transfer, qualification or enforcement requirements that may apply to the secured party or transaction.",
+  },
+  {
+    question: "How much does a 4COP license cost in Florida?",
+    answer:
+      "There is no single statewide market price for a transferable 4COP quota license. Quota-license markets are county-specific, so asking prices, verified transaction evidence, license status, existing liens and local supply and demand can produce materially different values from one county to another. A formal appraisal evaluates one identified license as of a defined effective date.",
+  },
+  {
+    question: "Can you amortize a liquor license?",
+    answer:
+      "For federal income-tax purposes, an acquired government-granted license or permit may be treated as a Section 197 intangible and generally amortized over 15 years when the statutory requirements apply. The tax basis, acquisition structure, anti-churning rules and other facts can affect treatment, so purchasers should confirm the result with their tax adviser.",
+  },
+  {
+    question: "What are the key differences between a 2COP and a 4COP license in Florida?",
+    answer:
+      "A 2COP license generally authorizes beer and wine for consumption on or off the licensed premises and is not a quota spirituous-liquor license. A 4COP quota license can authorize beer, wine and spirits for consumption on or off premises, subject to the applicable license, premises and regulatory requirements. Because 4COP quota licenses are quota-limited and transferable within their county markets, they can have substantial standalone market value.",
+  },
+  {
     question: "Can a lender or bank use the FLLM formal appraisal?",
     answer:
       "The report is designed for lender and professional review and can be submitted for underwriting or collateral analysis. The receiving institution makes the final decision on acceptance and may require a particular appraiser credential, reliance statement, format or additional scope. Those requirements should be confirmed before ordering whenever possible.",
@@ -121,7 +141,7 @@ export default async function FloridaLiquorLicenseAppraisalPage({ searchParams }
       description:
         "Florida liquor license appraisal and valuation information for 4COP and 3PS quota licenses, including county comparables, DBPR research, transaction evidence and value reconciliation.",
       datePublished: "2026-08-22",
-      dateModified: "2026-08-25",
+      dateModified: "2026-09-04",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
       about: { "@type": "Thing", name: "Florida liquor license appraisal" },
       mainEntityOfPage: canonicalUrl,
@@ -248,6 +268,66 @@ export default async function FloridaLiquorLicenseAppraisalPage({ searchParams }
             <Link href="/counties/orange-county/liquor-license-value">Orange County</Link>
             <Link href="/counties/osceola-county/liquor-license-value">Osceola County</Link>
           </div>
+        </div>
+      </section>
+
+      <section className="appraisal-service-path" aria-labelledby="lender-collateral-title">
+        <div className="seo-market-shell">
+          <span className="seo-market-section-kicker">Lender & Collateral Analysis</span>
+          <h2 id="lender-collateral-title">Can a Florida 4COP quota license be used as loan collateral?</h2>
+          <p className="appraisal-service-path-lead">
+            Florida law recognizes mortgages, liens and security interests in qualifying spirituous alcoholic-beverage licenses. For underwriting, the practical question is not only whether a lien can be recorded, but what the identified 4COP quota license supports as collateral on the appraisal’s effective date.
+          </p>
+          <div className="appraisal-service-path-grid">
+            <article>
+              <h3>Mortgage, lien and security-interest recordation</h3>
+              <p>
+                Section 561.65, Florida Statutes, provides a framework for recording a lien or security interest in a qualifying spirituous alcoholic-beverage license. DBPR Form ABT-6022 is used for lien or mortgagee-interest filings, and the statute generally requires recordation with the Division within 90 days after creation of the lien or security interest.
+              </p>
+              <Link href="/resources/florida-liquor-license-property-or-privilege">How Florida liquor-license security interests work</Link>
+            </article>
+            <article>
+              <h3>Why lenders require a 4COP appraisal</h3>
+              <p>
+                A lender-oriented valuation can identify the subject license, county, series, holder and status; review available lien information; analyze same-county asking prices and verified transaction evidence; and reconcile that evidence into a dated value conclusion for collateral review.
+              </p>
+              <Link href="/how-to-finance-florida-liquor-license">Florida liquor-license financing guide</Link>
+            </article>
+            <article>
+              <h3>There is no single statewide 4COP price</h3>
+              <p>
+                Transferable 4COP quota licenses trade in county-specific markets. Local quota supply, current inventory, verified transactions, license status, liens and transaction conditions can create substantial valuation differences between counties.
+              </p>
+              <Link href="/florida-4cop-liquor-license-for-sale">Florida 4COP quota market</Link>
+            </article>
+          </div>
+          <div className="appraisal-market-examples">
+            <strong>Related market resources:</strong>
+            <Link href="/florida-liquor-license-value">Florida Liquor License Value</Link>
+            <Link href="/resources/florida-liquor-license-types">2COP, 3PS & 4COP License Types</Link>
+            <Link href="/florida-liquor-license-sba-appraisal">SBA Appraisal & Lender Valuation</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="seo-market-intro" aria-labelledby="lender-market-questions-title">
+        <div className="seo-market-shell seo-market-intro-grid">
+          <article>
+            <span className="seo-market-section-kicker">Frequently Searched Lender Questions</span>
+            <h2 id="lender-market-questions-title">How much is a 4COP license worth, and can it be amortized?</h2>
+            <p>
+              A 4COP quota license does not have one statewide market price. Value is established in the subject county using the license series, status, current offerings, verified transaction evidence and other relevant conditions. For federal tax purposes, an acquired government-granted license may also fall within the Section 197 intangible rules and generally be amortized over 15 years when those rules apply; tax treatment should be confirmed with the buyer’s tax adviser.
+            </p>
+          </article>
+          <aside className="seo-market-callout">
+            <strong>2COP versus 4COP</strong>
+            <ul>
+              <li>2COP generally covers beer and wine for on- or off-premises consumption.</li>
+              <li>4COP quota can include beer, wine and spirits and is quota-limited by county.</li>
+              <li>For valuation, confirm the exact license series before comparing market evidence.</li>
+            </ul>
+            <Link href="/resources/florida-liquor-license-types">Compare Florida liquor-license types</Link>
+          </aside>
         </div>
       </section>
 
