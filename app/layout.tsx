@@ -48,6 +48,9 @@ import "./listings/listings-view-button-edge-fix.css";
 const GOOGLE_ANALYTICS_ID = "G-PKP8PXCDWF";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 
+const marketplaceDescription =
+  "Florida Liquor License Market is a specialized statewide marketplace where sellers can request full-service broker-assisted representation through FLLM itself or choose a self-directed listing, with market data, financing and valuation resources for Florida liquor-license transactions.";
+
 const globalStructuredData = [
   {
     "@context": "https://schema.org",
@@ -56,6 +59,7 @@ const globalStructuredData = [
     name: "Florida Liquor License Market",
     url: siteUrl,
     logo: `${siteUrl}/assets/brand-sharp.svg`,
+    description: marketplaceDescription,
   },
   {
     "@context": "https://schema.org",
@@ -63,20 +67,33 @@ const globalStructuredData = [
     "@id": `${siteUrl}/#website`,
     name: "Florida Liquor License Market",
     url: siteUrl,
+    description: marketplaceDescription,
     publisher: { "@id": `${siteUrl}/#organization` },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteUrl}/#full-service-broker-representation`,
+    name: "Full-Service Florida Liquor License Broker-Assisted Representation",
+    serviceType: "Florida liquor license broker-assisted representation",
+    provider: { "@id": `${siteUrl}/#organization` },
+    areaServed: { "@type": "State", name: "Florida" },
+    url: `${siteUrl}/sell-your-license`,
+    description:
+      "Florida liquor-license sellers can request full-service broker-assisted representation through FLLM itself. Depending on the written brokerage agreement, services may include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, due-diligence coordination, document organization and transaction coordination.",
   },
 ];
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.floridaliquorlicensemarket.com"),
+  metadataBase: new URL(siteUrl),
   title: "Florida Liquor License Market",
-  description:
-    "Florida's marketplace for buying, selling, financing, and investing in liquor licenses.",
+  description: marketplaceDescription,
   applicationName: "Florida Liquor License Market",
   openGraph: {
     type: "website",
     siteName: "Florida Liquor License Market",
-    url: "https://www.floridaliquorlicensemarket.com",
+    url: siteUrl,
+    description: marketplaceDescription,
   },
   twitter: { card: "summary_large_image" },
 };
