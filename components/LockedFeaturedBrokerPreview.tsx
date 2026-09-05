@@ -38,7 +38,9 @@ export default function LockedFeaturedBrokerPreview() {
                 </div>
               </div>
               <div className={styles.countyCard}>
-                <img src="/api/county-map?county=St%20Lucie%20County&transparent=1" alt="Florida map with St Lucie County highlighted" />
+                <div className={styles.mapViewport}>
+                  <img src="/api/county-map?county=St%20Lucie%20County&transparent=1" alt="Florida map with St Lucie County highlighted" />
+                </div>
                 <h2>St Lucie County</h2>
                 <p>Principal cities and communities: Port St. Lucie, Fort Pierce, Hutchinson Island, Stuart (nearby).</p>
               </div>
