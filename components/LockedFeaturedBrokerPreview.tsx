@@ -1,7 +1,27 @@
 import Link from "next/link";
 import styles from "./LockedFeaturedBrokerPreview.module.css";
 
-export default function LockedFeaturedBrokerPreview() {
+type BrokerMode = "female" | "male";
+
+const SAMPLE_BROKERS = {
+  female: {
+    name: "Emma Brooks",
+    email: "emma.brooks@listingbroker.com",
+    image: "/assets/brokers/sample-brunette-broker.svg",
+    alt: "Fictitious female independent listing broker",
+  },
+  male: {
+    name: "Evan Brooks",
+    email: "evan.brooks@listingbroker.com",
+    image: "/assets/brokers/sample-broker.svg",
+    alt: "Fictitious male independent listing broker",
+  },
+} as const;
+
+// LOCKED LAYOUT: brokerMode may change only the sample broker identity fields below.
+export default function LockedFeaturedBrokerPreview({ brokerMode = "female" }: { brokerMode?: BrokerMode }) {
+  const broker = SAMPLE_BROKERS[brokerMode];
+
   return (
     <main className={styles.page}>
       <header className={styles.header}>
@@ -103,10 +123,10 @@ export default function LockedFeaturedBrokerPreview() {
           <aside className={styles.rail}>
             <section className={styles.brokerCard}>
               <div className={styles.railKicker}>LISTED BY</div>
-              <h3>Independent Listing Broker</h3>
-              <img className={styles.brokerPortrait} src="/assets/brokers/sample-brunette-broker.svg" alt="Fictitious brunette independent listing broker" />
+              <h3>{broker.name}</h3>
+              <img className={styles.brokerPortrait} src={broker.image} alt={broker.alt} />
               <div className={styles.contactLine}>☎ &nbsp; (555) 555-5555</div>
-              <div className={styles.contactLine}>✉ &nbsp; inquiries@listingbroker.com</div>
+              <div className={styles.contactLine}>✉ &nbsp; {broker.email}</div>
               <button type="button">Call Listing Broker</button>
               <a href="#">Visit Listing Broker Website →</a>
             </section>
