@@ -44,6 +44,16 @@ const lawyerAuthorityPaths = new Set([
   "/dbpr-abt-6002",
 ]);
 
+const brokerListingAuthorityPaths = new Set([
+  "/florida-liquor-license-broker",
+  "/sell-your-license",
+  "/how-to-sell-florida-liquor-license",
+  "/florida-4cop-liquor-license-for-sale",
+  "/florida-3ps-liquor-license-for-sale",
+  "/counties",
+  "/resources/florida-liquor-license-types",
+]);
+
 function isCountyMarketPage(pathname: string) {
   const parts = pathname.split("/").filter(Boolean);
   return parts.length === 2 && parts[0] === "counties";
@@ -55,9 +65,10 @@ export default function SeoAuthorityEnhancements() {
   const showSbaAppraisalLink = sbaAppraisalAuthorityPaths.has(pathname);
   const showLitigationLink = litigationAuthorityPaths.has(pathname);
   const showLawyerLink = lawyerAuthorityPaths.has(pathname);
+  const showBrokerListingLink = brokerListingAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showBrokerKit = pathname === "/brokers/list-your-license" || pathname === "/how-to-sell-florida-liquor-license";
 
-  if (!showAuthorityLinks && !showSbaAppraisalLink && !showLitigationLink && !showLawyerLink && !showBrokerKit) return null;
+  if (!showAuthorityLinks && !showSbaAppraisalLink && !showLitigationLink && !showLawyerLink && !showBrokerListingLink && !showBrokerKit) return null;
 
   return (
     <>
@@ -102,6 +113,17 @@ export default function SeoAuthorityEnhancements() {
             <p>
               <strong>Need legal counsel?</strong>{" "}
               <Link href="/resources/liquor-license-attorneys">Find a Florida Liquor License Lawyer or Florida Liquor License Attorney</Link> for licensing, DBPR / ABT matters, transfers, transactions, litigation, appeals, liens, escrow, and closings through FLLM&apos;s independent attorney directory.
+            </p>
+          </div>
+        </aside>
+      ) : null}
+
+      {showBrokerListingLink ? (
+        <aside className="fllm-authority-links" aria-label="Florida liquor license broker listing marketplace">
+          <div className="fllm-authority-links__inner">
+            <p>
+              <strong>{isCountyMarketPage(pathname) ? "Brokers with a client license in this county:" : "Florida liquor license brokers:"}</strong>{" "}
+              <Link href="/brokers/list-your-license">list and advertise a client&apos;s Florida liquor license on FLLM</Link> while remaining the listing representative and transaction contact. Standard and Featured marketplace listings are one-time fees with no FLLM share of the broker&apos;s commission.
             </p>
           </div>
         </aside>
