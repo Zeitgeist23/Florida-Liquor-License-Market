@@ -24,7 +24,7 @@ export default function LockedFeaturedBrokerPreview() {
               <div className={styles.heroCopy}>
                 <span className={styles.premium}>PREMIUM LISTING</span>
                 <span className={styles.kicker}>FEATURED THIRD-PARTY BROKER LISTING</span>
-                <h1>St Lucie County<br />4COP Quota Liquor License<br />for Sale</h1>
+                <h1>St Lucie County<br /><span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontStyle: "normal", fontWeight: 700 }}>4</span>COP Quota Liquor License<br />for Sale</h1>
                 <div className={styles.price}>$285,000</div>
                 <div className={styles.statusRow}>
                   <span className={styles.available}>● AVAILABLE</span>
