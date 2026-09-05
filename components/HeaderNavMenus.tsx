@@ -50,12 +50,12 @@ const navMenus: NavMenu[] = [
   {
     id: "finance",
     label: "Finance",
-    menuClassName: "native-nav-menu-standard",
+    menuClassName: "native-nav-menu-standard native-nav-finance-menu",
     links: [
-      { href: "/financing", label: "Liquor License Financing" },
-      { href: "/sba-7a-liquor-license-business-financing", label: "SBA 7(a) Business Financing" },
-      { href: "/financing-disclosure", label: "Financing Disclosure" },
-      { href: "/private-lending-disclosure", label: "Private Lending Disclosure" },
+      { href: "/how-to-finance-florida-liquor-license", label: "How to Finance a Florida Liquor License" },
+      { href: "/financing/loan-payment-calculator", label: "Loan Payment Calculator" },
+      { href: "/private-liquor-license-lenders", label: "Private Lenders" },
+      { href: "/financing#request-financing", label: "Request Financing" },
     ],
   },
   {
@@ -261,6 +261,7 @@ export default function HeaderNavMenus({
         .native-nav-dropdown.is-open>.native-nav-menu{display:grid;gap:4px}
         .native-nav-menu::before{content:"";position:absolute;top:-7px;left:50%;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);border-left:1px solid #f6a700;border-top:1px solid #f6a700;background:#061728}
         .native-nav-menu-standard{width:310px}
+        .native-nav-finance-menu{width:350px}
         .native-nav-market-menu{width:300px}
         .native-nav-resources-menu{width:350px}
         .native-license-types-menu{width:320px}
@@ -270,8 +271,6 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{background:transparent!important;box-shadow:none!important;color:#f6a700;outline:none}
         .primary-nav .native-nav-resources-menu a[href="/free-guide"]:hover,.primary-nav .native-nav-resources-menu a[href="/free-guide"]:focus-visible{background:#f6a700!important;color:#061728}
 
-        /* Legacy-menu hard stop: some older page/header code can still inject the
-           former image-card License Types menu. Keep every version text-only. */
         .primary-nav .live-license-types-menu,
         .primary-nav .home-license-types-menu,
         .license-types-header-menu{width:320px!important;padding:6px!important}
