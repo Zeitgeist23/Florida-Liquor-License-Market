@@ -1,0 +1,2 @@
+.previewRoot{display:contents}
+.previewRoot :global([class*="countyCard"]){align-self:start!important}
