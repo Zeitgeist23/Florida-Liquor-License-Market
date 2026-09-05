@@ -1,0 +1,560 @@
+.fllm-loan-calculator-section {
+  width: min(1180px, calc(100% - 36px));
+  margin: 36px auto 58px;
+  font-family: "Montserrat", Arial, sans-serif;
+}
+
+.fllm-loan-calculator {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(111, 240, 255, 0.46);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(70, 210, 229, 0.2), transparent 34%),
+    linear-gradient(180deg, rgba(13, 35, 42, 0.985), rgba(5, 18, 24, 0.995));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 20px 48px rgba(0, 0, 0, 0.3),
+    0 0 48px rgba(70, 210, 229, 0.12);
+  color: #edfaff;
+  padding: 30px;
+}
+
+.fllm-loan-calculator::before {
+  content: "";
+  position: absolute;
+  inset: 0 15% auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(138, 244, 255, 0.95), transparent);
+  box-shadow: 0 0 18px rgba(91, 229, 245, 0.8);
+}
+
+.fllm-loan-calculator * {
+  box-sizing: border-box;
+}
+
+.fllm-loan-calculator a {
+  color: #8af4ff;
+}
+
+.fllm-loan-calculator__header {
+  max-width: 900px;
+  margin-bottom: 25px;
+}
+
+.fllm-loan-calculator__eyebrow,
+.fllm-loan-calculator__caption {
+  display: block;
+  color: #7cefff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.fllm-loan-calculator__header h2,
+.fllm-loan-calculator__tax h3,
+.fllm-loan-calculator__schedule h3 {
+  color: #ffffff;
+}
+
+.fllm-loan-calculator__header h2 {
+  margin: 7px 0 10px;
+  font-size: clamp(27px, 3.2vw, 42px);
+  line-height: 1.08;
+}
+
+.fllm-loan-calculator__header p,
+.fllm-loan-calculator__tax-copy,
+.fllm-loan-calculator__fine-print,
+.fllm-loan-calculator__helper {
+  color: #c4dbe1;
+  line-height: 1.65;
+}
+
+.fllm-loan-calculator__header p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.fllm-loan-calculator__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.fllm-loan-calculator__form,
+.fllm-loan-calculator__result,
+.fllm-loan-calculator__tax,
+.fllm-loan-calculator__schedule {
+  border: 1px solid rgba(111, 240, 255, 0.16);
+  border-radius: 13px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.fllm-loan-calculator__form,
+.fllm-loan-calculator__result {
+  padding: 20px;
+}
+
+.fllm-loan-calculator__segmented {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 18px;
+}
+
+.fllm-loan-calculator__segmented button,
+.fllm-loan-calculator__schedule-tabs button {
+  min-height: 44px;
+  border: 1px solid rgba(124, 239, 255, 0.34);
+  border-radius: 8px;
+  background: rgba(3, 24, 30, 0.9);
+  color: #c9f7fb;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.fllm-loan-calculator__segmented button[aria-pressed="true"],
+.fllm-loan-calculator__schedule-tabs button[aria-pressed="true"] {
+  border-color: #7cefff;
+  background: linear-gradient(180deg, #8af4ff, #49d5e5);
+  color: #062027;
+  box-shadow: 0 0 20px rgba(70, 210, 229, 0.28);
+}
+
+.fllm-loan-calculator__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.fllm-loan-calculator__field,
+.fllm-loan-calculator__readonly {
+  min-width: 0;
+}
+
+.fllm-loan-calculator__field > span,
+.fllm-loan-calculator__readonly > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #dff9fc;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.fllm-loan-calculator__field input,
+.fllm-loan-calculator__field select {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid rgba(124, 239, 255, 0.24);
+  border-radius: 8px;
+  outline: none;
+  background: rgba(1, 17, 22, 0.92);
+  color: #f3feff;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 15px;
+}
+
+.fllm-loan-calculator__field input:focus,
+.fllm-loan-calculator__field select:focus,
+.fllm-loan-calculator button:focus-visible,
+.fllm-loan-calculator a:focus-visible {
+  outline: 2px solid #8af4ff;
+  outline-offset: 2px;
+}
+
+.fllm-loan-calculator__readonly output {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  border: 1px solid rgba(124, 239, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(124, 239, 255, 0.055);
+  color: #8af4ff;
+  padding: 10px 12px;
+  font-family: "Courier New", Consolas, monospace;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.fllm-loan-calculator__helper {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+}
+
+.fllm-loan-calculator__calculate {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 17px;
+  border: 1px solid #8af4ff;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #8af4ff, #49d5e5);
+  color: #062027;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 0 22px rgba(70, 210, 229, 0.22);
+}
+
+.fllm-loan-calculator__error {
+  display: none;
+  margin: 12px 0 0;
+  border: 1px solid rgba(255, 181, 181, 0.45);
+  border-radius: 7px;
+  background: rgba(110, 20, 20, 0.3);
+  color: #ffd7d7;
+  padding: 9px 11px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.fllm-loan-calculator__error.is-visible {
+  display: block;
+}
+
+.fllm-loan-calculator__result {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.fllm-loan-calculator__result::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.015) 0,
+    rgba(255, 255, 255, 0.015) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+.fllm-loan-calculator__payment {
+  position: relative;
+  z-index: 1;
+  padding: 7px 0 21px;
+  text-align: center;
+}
+
+.fllm-loan-calculator__payment-label {
+  display: block;
+  margin-bottom: 12px;
+  color: #7cefff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.fllm-loan-calculator__payment output {
+  display: block;
+  color: #8af4ff;
+  font-family: "Courier New", Consolas, monospace;
+  font-size: clamp(38px, 6vw, 70px);
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1;
+  text-shadow:
+    0 0 8px rgba(123, 237, 250, 0.9),
+    0 0 22px rgba(70, 210, 229, 0.6),
+    0 0 42px rgba(70, 210, 229, 0.28);
+}
+
+.fllm-loan-calculator__payment small {
+  display: block;
+  margin-top: 9px;
+  color: #9cb9bf;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.fllm-loan-calculator__summary {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.fllm-loan-calculator__summary div {
+  border: 1px solid rgba(111, 240, 255, 0.13);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+  padding: 12px;
+}
+
+.fllm-loan-calculator__summary span {
+  display: block;
+  color: #9ab8be;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fllm-loan-calculator__summary strong {
+  display: block;
+  margin-top: 5px;
+  color: #eefeff;
+  font-family: "Courier New", Consolas, monospace;
+  font-size: 18px;
+}
+
+.fllm-loan-calculator__rate-compare {
+  position: relative;
+  z-index: 1;
+  margin-top: 17px;
+  border-top: 1px solid rgba(111, 240, 255, 0.16);
+  padding-top: 15px;
+}
+
+.fllm-loan-calculator__rate-compare h3 {
+  margin: 0 0 9px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.fllm-loan-calculator__rate-compare p {
+  margin: 0 0 10px;
+  color: #9db9bf;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.fllm-loan-calculator__schedule,
+.fllm-loan-calculator__tax {
+  margin-top: 24px;
+  padding: 20px;
+}
+
+.fllm-loan-calculator__section-heading {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.fllm-loan-calculator__section-heading h3 {
+  margin: 5px 0 0;
+  font-size: 23px;
+  line-height: 1.2;
+}
+
+.fllm-loan-calculator__schedule-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(86px, 1fr));
+  gap: 7px;
+}
+
+.fllm-loan-calculator__schedule-tabs button {
+  min-height: 38px;
+  padding: 0 11px;
+  font-size: 10px;
+}
+
+.fllm-loan-calculator__table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid rgba(111, 240, 255, 0.12);
+  border-radius: 9px;
+  background: rgba(1, 13, 18, 0.55);
+}
+
+.fllm-loan-calculator table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  color: #dff8fb;
+  font-size: 11px;
+}
+
+.fllm-loan-calculator th,
+.fllm-loan-calculator td {
+  border-bottom: 1px solid rgba(111, 240, 255, 0.1);
+  padding: 10px 11px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.fllm-loan-calculator th:first-child,
+.fllm-loan-calculator td:first-child,
+.fllm-loan-calculator th:nth-child(2),
+.fllm-loan-calculator td:nth-child(2) {
+  text-align: left;
+}
+
+.fllm-loan-calculator thead th {
+  background: rgba(50, 173, 189, 0.15);
+  color: #8af4ff;
+  font-size: 9px;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.fllm-loan-calculator tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.fllm-loan-calculator__tax {
+  border-color: rgba(124, 239, 255, 0.27);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(70, 210, 229, 0.09), transparent 30%),
+    rgba(0, 0, 0, 0.22);
+}
+
+.fllm-loan-calculator__tax-copy {
+  margin: 0 0 16px;
+  font-size: 12px;
+}
+
+.fllm-loan-calculator__tax-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  margin-bottom: 15px;
+}
+
+.fllm-loan-calculator__tax-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+  margin-bottom: 16px;
+}
+
+.fllm-loan-calculator__tax-summary div {
+  border: 1px solid rgba(111, 240, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.17);
+  padding: 11px;
+}
+
+.fllm-loan-calculator__tax-summary span {
+  display: block;
+  color: #94b4ba;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fllm-loan-calculator__tax-summary strong {
+  display: block;
+  margin-top: 5px;
+  color: #8af4ff;
+  font-family: "Courier New", Consolas, monospace;
+  font-size: 15px;
+}
+
+.fllm-loan-calculator__tax-note {
+  margin: 14px 0 0;
+  border-left: 3px solid #64e5f2;
+  background: rgba(100, 229, 242, 0.065);
+  color: #c5dde2;
+  padding: 11px 12px;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.fllm-loan-calculator__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.fllm-loan-calculator__actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 1px solid rgba(124, 239, 255, 0.42);
+  border-radius: 7px;
+  padding: 0 14px;
+  background: rgba(3, 24, 30, 0.9);
+  color: #dffbfe;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.055em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.fllm-loan-calculator__actions a:first-child {
+  border-color: #8af4ff;
+  background: linear-gradient(180deg, #8af4ff, #49d5e5);
+  color: #062027;
+}
+
+.fllm-loan-calculator__fine-print {
+  margin: 16px 0 0;
+  font-size: 9px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .fllm-loan-calculator__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fllm-loan-calculator__tax-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .fllm-loan-calculator-section {
+    width: min(100% - 20px, 1180px);
+    margin-top: 24px;
+  }
+
+  .fllm-loan-calculator {
+    border-radius: 13px;
+    padding: 18px 14px;
+  }
+
+  .fllm-loan-calculator__header h2 {
+    font-size: 28px;
+  }
+
+  .fllm-loan-calculator__fields,
+  .fllm-loan-calculator__tax-inputs,
+  .fllm-loan-calculator__summary,
+  .fllm-loan-calculator__tax-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .fllm-loan-calculator__section-heading {
+    display: block;
+  }
+
+  .fllm-loan-calculator__schedule-tabs {
+    margin-top: 13px;
+  }
+
+  .fllm-loan-calculator__payment output {
+    font-size: clamp(38px, 13vw, 58px);
+  }
+
+  .fllm-loan-calculator table {
+    font-size: 10px;
+  }
+}
