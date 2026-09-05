@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SampleBrokerListingDetail from "@/components/SampleBrokerListingDetail";
+import LockedFeaturedBrokerPreview from "@/components/LockedFeaturedBrokerPreview";
 
 export const metadata: Metadata = {
   title: "Sample Featured Broker Listing | FLLM",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <SampleBrokerListingDetail featured={true} />;
+  return <LockedFeaturedBrokerPreview />;
 }
