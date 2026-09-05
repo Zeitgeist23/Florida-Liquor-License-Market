@@ -7,13 +7,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function Page({ searchParams }: any) {
-  const params = await Promise.resolve(searchParams ?? {});
-  const brokerMode = params.broker === "male" ? "male" : "female";
-
+export default function Page() {
   return (
     <>
-      <LockedFeaturedBrokerPreview brokerMode={brokerMode} />
+      <LockedFeaturedBrokerPreview brokerMode="female" />
       <style>{`
         a[aria-label="Florida Liquor License Market home"] {
           position: relative;
