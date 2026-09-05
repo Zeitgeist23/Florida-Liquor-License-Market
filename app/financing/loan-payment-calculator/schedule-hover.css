@@ -1,0 +1,14 @@
+.fllm-loan-calculator__schedule tbody tr,
+.fllm-loan-calculator__tax tbody tr {
+  transition: background-color 140ms ease;
+}
+
+.fllm-loan-calculator__schedule tbody tr:hover,
+.fllm-loan-calculator__tax tbody tr:hover {
+  background: rgba(220, 226, 230, 0.18);
+}
+
+.fllm-loan-calculator__schedule tbody tr:hover td,
+.fllm-loan-calculator__tax tbody tr:hover td {
+  color: #ffffff;
+}
