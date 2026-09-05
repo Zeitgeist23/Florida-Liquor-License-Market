@@ -11,7 +11,7 @@ const canonicalUrl = `${siteUrl}/florida-liquor-license-broker-fees`;
 export const metadata: Metadata = {
   title: "Florida Liquor License Broker Fees & Commissions | FLLM",
   description:
-    "How much does a broker charge to sell a Florida liquor license? Learn common broker fee structures, commission illustrations, services that may be included, and how FLLM marketplace listing fees differ from brokerage compensation.",
+    "How much does a broker charge to sell a Florida liquor license? Learn broker fee structures, commission illustrations and full-service broker-assisted representation, plus how FLLM marketplace listing fees differ from brokerage compensation.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Florida Liquor License Broker Fees & Commissions | FLLM",
     description:
-      "A practical guide to Florida liquor license broker compensation, percentage commission examples, flat-fee structures and FLLM marketplace listing fees.",
+      "A practical guide to Florida liquor license broker compensation, full-service representation, percentage commission examples, flat-fee structures and FLLM marketplace listing fees.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -43,6 +43,11 @@ const faqs = [
       "FLLM does not publish or endorse one statewide typical commission because fees can vary materially by broker, license value, county, transaction complexity, marketing scope and services provided. Percentage-based fees are common enough that sellers should compare the dollar impact of several possible rates before signing an agreement.",
   },
   {
+    question: "Does FLLM offer full-service broker-assisted representation?",
+    answer:
+      "Yes. FLLM is not limited to self-service marketplace listings. Florida liquor-license owners can request full-service broker-assisted representation under a separate written brokerage agreement. Depending on the engagement, services may include pricing strategy, confidential or public marketing, buyer outreach and screening, buyer communications, negotiation, transaction coordination, document organization, and coordination with attorneys, accountants, lenders, escrow agents, licensing professionals or other advisers involved in the transfer and closing.",
+  },
+  {
     question: "Are Florida liquor license broker commissions negotiable?",
     answer:
       "Broker compensation is commonly established by agreement between the broker and client. Sellers should review the fee structure, when the fee becomes earned, any minimum fee, exclusivity provisions, reimbursable expenses and post-termination obligations before signing.",
@@ -55,12 +60,12 @@ const faqs = [
   {
     question: "What services may be included in a liquor license broker fee?",
     answer:
-      "Depending on the engagement, services may include pricing strategy, confidential marketing, buyer outreach, inquiry screening, negotiation, transaction coordination, document organization and coordination with attorneys, accountants, lenders or other professionals. The exact scope should be stated in writing.",
+      "Depending on the engagement, full-service broker-assisted representation may include pricing strategy, county-market positioning, confidential or public marketing, buyer outreach, inquiry screening, buyer communications, negotiation, transaction coordination, document organization and coordination with attorneys, accountants, lenders, escrow agents, licensing professionals or other advisers. The exact scope should be stated in writing.",
   },
   {
     question: "Is the FLLM $14.95 or $24.95 marketplace fee a broker commission?",
     answer:
-      "No. FLLM marketplace listing fees are advertising and marketplace-access charges, not a percentage of the license sale price. Independent brokers may list a client license while remaining the listing representative and transaction contact. Any commission between the broker and client is separate from FLLM.",
+      "No. FLLM marketplace listing fees are advertising and marketplace-access charges, not a percentage of the license sale price. Independent brokers may list a client license while remaining the listing representative and transaction contact. Any commission between the broker and client is separate from FLLM. Sellers who want full-service broker-assisted representation use a separate written brokerage agreement rather than the advertising-only listing path.",
   },
   {
     question: "Can an independent broker list a client license on FLLM and keep the broker commission?",
@@ -81,7 +86,7 @@ export default function FloridaLiquorLicenseBrokerFeesPage() {
       "@type": "WebPage",
       name: "Florida Liquor License Broker Fees & Commissions",
       description:
-        "A guide to Florida liquor license broker fee structures, commission examples, negotiable compensation and the difference between brokerage compensation and FLLM marketplace listing fees.",
+        "A guide to Florida liquor license broker fee structures, full-service broker-assisted representation, commission examples, negotiable compensation and the difference between brokerage compensation and FLLM marketplace listing fees.",
       url: canonicalUrl,
       datePublished: "2026-09-05",
       dateModified: "2026-09-05",
@@ -199,8 +204,8 @@ export default function FloridaLiquorLicenseBrokerFeesPage() {
 
       <div className="abt-header-wrap">
         <FormsSiteHeader
-          primaryActionHref="/brokers/list-your-license"
-          primaryActionLabel="List a Client License"
+          primaryActionHref="/sell-your-license"
+          primaryActionLabel="Sell Your License"
         />
       </div>
 
@@ -220,24 +225,24 @@ export default function FloridaLiquorLicenseBrokerFeesPage() {
                 There is no single broker commission that applies to every Florida liquor-license sale. Compensation can vary by broker, license value, county, transaction complexity, marketing scope and the services included in the engagement. The fee should be clearly defined in the written brokerage agreement before work begins.
               </p>
               <div className="seo-market-actions">
-                <Link className="seo-market-button seo-market-button-gold" href="/brokers/list-your-license">
-                  Broker — List a Client License
+                <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">
+                  Seller — Request Full-Service Representation
                 </Link>
-                <Link className="seo-market-button seo-market-button-dark" href="/sell-your-license">
-                  Owner — List Your License
+                <Link className="seo-market-button seo-market-button-dark" href="/brokers/list-your-license">
+                  Broker — List a Client License
                 </Link>
               </div>
               <div className="fee-answer-strip">
-                <strong>Short answer:</strong> Florida liquor-license broker fees may be percentage-based, flat-fee, minimum-fee or otherwise negotiated. FLLM does not publish or endorse one statewide “typical” commission rate. The table below shows how several percentage rates translate into dollars so sellers and brokers can compare fee structures clearly.
+                <strong>Short answer:</strong> Florida liquor-license broker fees may be percentage-based, flat-fee, minimum-fee or otherwise negotiated. FLLM does not publish or endorse one statewide “typical” commission rate. FLLM is also not limited to low-cost self-service listings: sellers can request full-service broker-assisted representation under a separate written brokerage agreement.
               </div>
             </div>
 
             <aside className="seo-market-snapshot" aria-label="Broker fee quick facts">
               <span>Broker Fee Quick Facts</span>
               <div className="seo-market-snapshot-grid">
-                <div><strong>Varies</strong><small>by agreement</small></div>
-                <div><strong>%</strong><small>percentage fees</small></div>
-                <div><strong>$</strong><small>flat or minimum fees</small></div>
+                <div><strong>Full</strong><small>representation available</small></div>
+                <div><strong>Varies</strong><small>compensation by agreement</small></div>
+                <div><strong>% / $</strong><small>multiple fee structures</small></div>
                 <div><strong>FLLM</strong><small>listing fee ≠ commission</small></div>
               </div>
             </aside>
@@ -321,45 +326,47 @@ export default function FloridaLiquorLicenseBrokerFeesPage() {
       <section className="fee-section">
         <div className="fee-shell">
           <div className="fee-heading">
-            <span className="fee-kicker">FLLM Marketplace vs. Brokerage</span>
-            <h2>A marketplace listing fee is not the same thing as a broker commission</h2>
+            <span className="fee-kicker">FLLM Service Levels</span>
+            <h2>Full-service broker representation and marketplace advertising are separate FLLM paths</h2>
             <p>
-              This distinction matters. FLLM provides marketplace advertising paths for license owners and independent brokers, while brokerage representation is a separate service governed by its own written agreement.
+              FLLM is a specialized Florida liquor-license marketplace and transaction-services ecosystem, not merely a low-cost listing board. License owners can request full-service broker-assisted representation, while experienced sellers and independent brokers can also choose advertising-only marketplace paths when that better fits the transaction.
             </p>
           </div>
 
           <div className="comparison-grid">
             <article className="comparison-card highlight">
-              <span>Independent Broker on FLLM</span>
-              <h3>One-time marketplace listing fee</h3>
+              <span>Full-Service Broker-Assisted Representation</span>
+              <h3>Professional representation under a written brokerage agreement</h3>
               <p>
-                An independent broker can advertise a client&apos;s Florida liquor license on FLLM while remaining the listing representative and transaction contact.
+                Sellers who want hands-on professional help can request representation covering the commercial stages agreed in writing.
               </p>
               <ul>
-                <li>Standard broker marketplace listing: $14.95 one time</li>
-                <li>Featured broker listing: $24.95 with priority exposure</li>
-                <li>No recurring marketplace charge</li>
-                <li>No FLLM share of the broker&apos;s commission for an advertising-only listing</li>
+                <li>County-market review, valuation context and pricing strategy</li>
+                <li>Confidential or public marketing and buyer outreach</li>
+                <li>Buyer screening and communications</li>
+                <li>Negotiation of price and other business terms</li>
+                <li>Due-diligence and transaction milestone coordination</li>
+                <li>Coordination with legal, licensing, financing, escrow and closing professionals</li>
               </ul>
             </article>
 
             <article className="comparison-card">
-              <span>Brokerage Representation</span>
-              <h3>Compensation set by written agreement</h3>
+              <span>Marketplace Advertising</span>
+              <h3>Advertising-only listing fees are not brokerage commissions</h3>
               <p>
-                When a seller hires a broker for representation, the broker&apos;s compensation and duties should be defined separately from any marketplace advertising fee.
+                Experienced owners can choose a self-directed listing, and independent brokers can advertise client licenses while remaining the listing representative and transaction contact.
               </p>
               <ul>
-                <li>May be percentage-based, flat-fee or another negotiated structure</li>
-                <li>May include pricing, marketing, buyer communications and negotiation</li>
-                <li>May include exclusivity, term and minimum-fee provisions</li>
-                <li>Should identify when compensation becomes earned and payable</li>
+                <li>Standard marketplace listings begin at $14.95 one time</li>
+                <li>Featured listings are available at $24.95 with priority exposure</li>
+                <li>No recurring marketplace charge</li>
+                <li>No FLLM share of an independent broker&apos;s commission for an advertising-only listing</li>
               </ul>
             </article>
           </div>
 
           <div className="fee-warning">
-            <strong style={{ color: "#fff" }}>Important:</strong> Paying FLLM to advertise a license does not by itself create a brokerage relationship. Independent-broker listings, self-directed owner listings and broker-assisted representation are separate pathways.
+            <strong style={{ color: "#fff" }}>Important:</strong> FLLM is not limited to self-service. Full-service broker-assisted representation is available under a separate written brokerage agreement. Paying a marketplace listing fee alone does not create a brokerage relationship.
           </div>
         </div>
       </section>
@@ -379,7 +386,7 @@ export default function FloridaLiquorLicenseBrokerFeesPage() {
             <article className="question-card"><h3>When is the fee earned?</h3><p>Clarify whether the fee is due only at closing or can become payable after a qualifying buyer is produced or another contractual event occurs.</p></article>
             <article className="question-card"><h3>Is the agreement exclusive?</h3><p>Understand whether the owner can market the license independently, use other brokers or sell to an existing contact during the agreement term.</p></article>
             <article className="question-card"><h3>Are there additional expenses?</h3><p>Ask whether advertising, legal work, filing fees, travel, escrow, appraisals or other third-party costs are included or billed separately.</p></article>
-            <article className="question-card"><h3>What services are actually included?</h3><p>Compare pricing strategy, confidential marketing, buyer screening, negotiation, closing coordination and professional referrals — not just the quoted percentage.</p></article>
+            <article className="question-card"><h3>What full-service work is actually included?</h3><p>Compare pricing strategy, confidential marketing, buyer screening, communications, negotiation, due-diligence coordination and closing support — not just the quoted percentage.</p></article>
             <article className="question-card"><h3>What happens after termination?</h3><p>Review any protection period, tail provision or fee obligation that may survive after the brokerage agreement ends.</p></article>
           </div>
         </div>
@@ -388,18 +395,18 @@ export default function FloridaLiquorLicenseBrokerFeesPage() {
       <section className="broker-fee-cta">
         <div className="broker-fee-cta-shell">
           <article className="cta-card">
+            <h3>Want full-service representation for your license sale?</h3>
+            <p>
+              Request a broker consultation through FLLM for professional help with pricing, marketing, buyer communications, negotiation and transaction coordination under a separate written brokerage agreement.
+            </p>
+            <Link className="gold" href="/sell-your-license">Request Full-Service Representation</Link>
+          </article>
+          <article className="cta-card">
             <h3>Already represent the seller?</h3>
             <p>
               Add your client&apos;s license to the FLLM marketplace while you remain the listing representative and transaction contact.
             </p>
-            <Link className="gold" href="/brokers/list-your-license">List a Client License on FLLM</Link>
-          </article>
-          <article className="cta-card">
-            <h3>Own the license yourself?</h3>
-            <p>
-              Choose a self-directed marketplace listing or request broker-assisted support depending on how much of the transaction you want to manage yourself.
-            </p>
-            <Link className="outline" href="/sell-your-license">Compare Seller Listing Options</Link>
+            <Link className="outline" href="/brokers/list-your-license">List a Client License on FLLM</Link>
           </article>
         </div>
       </section>
@@ -424,6 +431,7 @@ export default function FloridaLiquorLicenseBrokerFeesPage() {
             <h2>Continue your Florida liquor license research</h2>
           </div>
           <nav className="fee-related-links" aria-label="Related Florida liquor license resources">
+            <Link href="/sell-your-license">Full-Service or Self-Directed Selling</Link>
             <Link href="/florida-liquor-license-broker">Florida Liquor License Broker</Link>
             <Link href="/brokers/list-your-license">Broker Marketplace Listings</Link>
             <Link href="/how-to-sell-florida-liquor-license">How to Sell a Florida Liquor License</Link>
@@ -431,10 +439,9 @@ export default function FloridaLiquorLicenseBrokerFeesPage() {
             <Link href="/florida-quota-liquor-license-cost">Florida Quota License Cost</Link>
             <Link href="/florida-liquor-license-appraisal">Florida Liquor License Appraisal</Link>
             <Link href="/listings">Florida Liquor Licenses for Sale</Link>
-            <Link href="/counties">Florida County License Markets</Link>
           </nav>
           <p className="fee-disclaimer">
-            FLLM provides marketplace information and general educational content. This page does not establish a customary commission rate, quote a specific broker&apos;s fee, create a brokerage relationship, or provide legal, tax or accounting advice. Compensation and services should be confirmed in the applicable written agreement.
+            FLLM provides marketplace information and general educational content. Full-service broker-assisted representation, when requested, begins only under a separate written brokerage agreement. This page does not establish a customary commission rate, quote a specific broker&apos;s fee, create a brokerage relationship, or provide legal, tax or accounting advice. Compensation and services should be confirmed in the applicable written agreement.
           </p>
         </div>
       </section>
