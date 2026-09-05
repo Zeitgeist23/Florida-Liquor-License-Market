@@ -38,6 +38,7 @@ const licenseTypesMenuMarkup = `<div class="live-nav-dropdown live-license-types
     <a href="/license-types/3ps-package-store">3PS Quota / Package Store</a>
     <a href="/license-types/2cop-beer-wine">2COP Beer &amp; Wine</a>
     <a href="/license-types/4cop-sfs-restaurant">SRX / 4COP-SFS Restaurant</a>
+    <a href="/license-types/mobile-bars-catered-events">Mobile Liquor License</a>
     <a href="/resources/florida-liquor-license-types#population-rule-title">Quota License Requirements</a>
   </div>
 </div>`;
@@ -66,7 +67,7 @@ const installScript = `<script id="live-nav-dropdown-installer">
     }else if(type==='sell'){
       wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>Sell</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-sell-menu"><a href="/sell-your-license">Sell Your License</a><a href="/brokers/list-your-license">For Brokers — List a Client License</a><a href="/how-to-sell-florida-liquor-license">How to Sell a Florida Liquor License</a><a href="/florida-liquor-license-value">Get a License Valuation</a></div>';
     }else{
-      wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>License Types</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-license-types-menu"><a href="/resources/florida-liquor-license-types">Types of Florida Liquor Licenses</a><a href="/license-types/4cop-quota">4COP Quota License</a><a href="/license-types/3ps-package-store">3PS Quota / Package Store</a><a href="/license-types/2cop-beer-wine">2COP Beer &amp; Wine</a><a href="/license-types/4cop-sfs-restaurant">SRX / 4COP-SFS Restaurant</a><a href="/resources/florida-liquor-license-types#population-rule-title">Quota License Requirements</a></div>';
+      wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>License Types</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-license-types-menu"><a href="/resources/florida-liquor-license-types">Types of Florida Liquor Licenses</a><a href="/license-types/4cop-quota">4COP Quota License</a><a href="/license-types/3ps-package-store">3PS Quota / Package Store</a><a href="/license-types/2cop-beer-wine">2COP Beer &amp; Wine</a><a href="/license-types/4cop-sfs-restaurant">SRX / 4COP-SFS Restaurant</a><a href="/license-types/mobile-bars-catered-events">Mobile Liquor License</a><a href="/resources/florida-liquor-license-types#population-rule-title">Quota License Requirements</a></div>';
     }
     var trigger=wrap.querySelector('.live-nav-trigger');
     trigger.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();wrap.classList.toggle('is-open');});
