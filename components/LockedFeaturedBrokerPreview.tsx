@@ -11,9 +11,9 @@ const SAMPLE_BROKERS = {
     alt: "Fictitious female independent listing broker",
   },
   male: {
-    name: "Evan Brooks",
-    email: "evan.brooks@listingbroker.com",
-    image: "/assets/brokers/sample-broker.svg",
+    name: "Alex Morgan",
+    email: "alex.morgan@listingbroker.com",
+    image: "/assets/brokers/alex-morgan-sample-broker.webp",
     alt: "Fictitious male independent listing broker",
   },
 } as const;
