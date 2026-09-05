@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700" role="img" aria-labelledby="title desc">
+  <title>Fictitious brunette listing broker portrait</title>
+  <desc>Professional fictional brunette broker portrait used only in the FLLM featured listing sample.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dce4e8"/><stop offset=".45" stop-color="#f7f8f7"/><stop offset="1" stop-color="#c8d2d7"/></linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b180f"/><stop offset=".5" stop-color="#4b2a19"/><stop offset="1" stop-color="#1c110c"/></linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2c9a9"/><stop offset="1" stop-color="#dca483"/></linearGradient>
+    <linearGradient id="jacket" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#182330"/><stop offset="1" stop-color="#070b10"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="16"/></filter>
+    <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".24"/></filter>
+  </defs>
+  <rect width="700" height="700" fill="url(#bg)"/>
+  <g opacity=".42" filter="url(#blur)"><rect x="35" y="55" width="170" height="560" rx="18" fill="#8fa2aa"/><rect x="480" y="80" width="170" height="470" rx="20" fill="#879aa3"/><circle cx="555" cy="170" r="78" fill="#739181"/><circle cx="105" cy="515" r="70" fill="#c8b58b"/></g>
+  <g filter="url(#shadow)">
+    <path d="M174 672c18-175 91-256 176-256s158 81 176 256z" fill="url(#jacket)"/>
+    <path d="M273 431l77 103 77-103-22-38H295z" fill="#f8f7f2"/>
+    <path d="M219 374c-30-62-34-155 8-226 37-63 99-92 160-81 74 13 119 75 118 164-1 64-15 117-45 165l-58-37H268z" fill="url(#hair)"/>
+    <ellipse cx="350" cy="274" rx="122" ry="145" fill="url(#skin)"/>
+    <path d="M231 253c4-105 57-169 134-173 79-4 131 54 137 154-39-40-92-61-153-57-47 3-84 27-118 76z" fill="url(#hair)"/>
+    <path d="M230 267c-6 74 13 139 50 181-59-20-91-95-79-169 10-64 47-119 99-148-45 46-68 88-70 136z" fill="#2a170f"/>
+    <path d="M470 266c6 78-13 143-48 184 55-21 88-91 78-166-8-62-39-112-88-146 38 44 56 86 58 128z" fill="#2a170f"/>
+    <path d="M278 256c18-13 41-13 60-1" fill="none" stroke="#5a3828" stroke-width="8" stroke-linecap="round"/>
+    <path d="M365 255c19-13 42-13 60 0" fill="none" stroke="#5a3828" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="307" cy="277" rx="10" ry="7" fill="#273039"/><ellipse cx="397" cy="277" rx="10" ry="7" fill="#273039"/>
+    <circle cx="310" cy="275" r="2.5" fill="#fff"/><circle cx="400" cy="275" r="2.5" fill="#fff"/>
+    <path d="M350 281c-6 29-7 51 4 64 8 6 18 7 27 3" fill="none" stroke="#b47d63" stroke-width="5" stroke-linecap="round"/>
+    <path d="M304 374c27 25 67 29 98 1" fill="none" stroke="#a75855" stroke-width="8" stroke-linecap="round"/>
+    <path d="M314 367c25 9 55 10 80 1" fill="none" stroke="#f7d8cd" stroke-width="3" stroke-linecap="round"/>
+    <path d="M252 439c40 34 74 66 98 103-31-13-62-23-92-26z" fill="#101823"/>
+    <path d="M448 439c-40 34-74 66-98 103 31-13 62-23 92-26z" fill="#101823"/>
+    <circle cx="230" cy="335" r="9" fill="#c79a39"/><circle cx="470" cy="335" r="9" fill="#c79a39"/>
+  </g>
+  <rect x="5" y="5" width="690" height="690" rx="24" fill="none" stroke="#c99017" stroke-width="6"/>
+</svg>
