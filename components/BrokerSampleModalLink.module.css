@@ -88,17 +88,6 @@
   border:0;
   background:#050607;
 }
-.featuredViewport{
-  height:min(82vh,815px);
-  overflow:hidden;
-  background:#050607;
-}
-.featuredFrame{
-  display:block;
-  width:100%;
-  height:100%;
-  pointer-events:auto;
-}
 .standardViewport{
   height:min(82vh,815px);
   display:flex;
@@ -114,6 +103,20 @@
   transform:scale(.65);
   transform-origin:top center;
   pointer-events:auto;
+}
+.imageViewport{
+  max-height:min(82vh,815px);
+  overflow-y:auto;
+  overflow-x:hidden;
+  background:#02090f;
+}
+.sampleImage{
+  display:block;
+  width:100%;
+  height:auto;
+  margin:0 auto;
+  user-select:none;
+  -webkit-user-drag:none;
 }
 .caption{
   margin:0;
@@ -131,8 +134,8 @@
   .backdrop{padding:8px}
   .modal,.standardModal,.featuredModal{width:98vw;max-height:96vh}
   .viewport{height:82vh}
-  .featuredViewport,.standardViewport{height:82vh}
-  .standardViewport{padding-top:4px}
+  .standardViewport{height:82vh;padding-top:4px}
   .standardFrame{width:1180px;height:1240px;transform:scale(.52)}
+  .imageViewport{max-height:82vh}
   .modalBar strong{font-size:15px}
 }
