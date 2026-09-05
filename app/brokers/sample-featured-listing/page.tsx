@@ -8,5 +8,16 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <LockedFeaturedBrokerPreview />;
+  return (
+    <>
+      <LockedFeaturedBrokerPreview />
+      <style>{`
+        img[src*="county-map?county=St%20Lucie%20County"] {
+          transform: scale(1.55);
+          transform-origin: center center;
+          clip-path: inset(17.75% 17.75% 17.75% 17.75%);
+        }
+      `}</style>
+    </>
+  );
 }
