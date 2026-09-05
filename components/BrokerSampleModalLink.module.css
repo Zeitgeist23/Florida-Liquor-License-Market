@@ -49,7 +49,7 @@
   box-shadow:0 28px 80px rgba(0,0,0,.6);
 }
 .featuredModal{
-  width:min(640px,94vw);
+  width:min(390px,94vw);
 }
 .standardModal{
   width:min(1220px,94vw);
@@ -114,14 +114,14 @@
   justify-content:center;
   max-height:82vh;
   overflow:auto;
-  padding:10px;
+  padding:12px;
   background:#02090f;
 }
 .sampleImage{
   display:block;
-  width:auto;
+  width:350px;
   height:auto;
-  max-width:600px;
+  max-width:100%;
   object-fit:contain;
   image-rendering:auto;
   user-select:none;
@@ -138,7 +138,6 @@
 }
 @media(max-width:1000px){
   .standardFrame{transform:scale(.58)}
-  .sampleImage{max-width:100%}
 }
 @media(max-width:760px){
   .backdrop{padding:8px}
@@ -147,6 +146,6 @@
   .standardViewport{height:82vh;padding-top:4px}
   .standardFrame{width:1180px;height:1240px;transform:scale(.52)}
   .imageViewport{max-height:82vh;padding:6px}
-  .sampleImage{max-width:100%}
+  .sampleImage{width:100%;max-width:350px}
   .modalBar strong{font-size:15px}
 }
