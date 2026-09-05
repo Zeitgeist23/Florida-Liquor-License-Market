@@ -10,6 +10,8 @@
     const menu = document.querySelector('[data-core-nav-menu="finance"]');
     if (!(menu instanceof HTMLElement)) return false;
 
+    menu.style.width = `${Math.min(350, window.innerWidth - 24)}px`;
+
     const current = Array.from(menu.querySelectorAll(':scope > a'));
     const alreadyCorrect = current.length === ITEMS.length && ITEMS.every((item, index) => {
       const link = current[index];
@@ -37,6 +39,7 @@
 
   const observer = new MutationObserver(updateFinanceMenu);
   observer.observe(document.documentElement, { childList: true, subtree: true });
+  window.addEventListener('resize', updateFinanceMenu, { passive: true });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initialize, { once: true });
