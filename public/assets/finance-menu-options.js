@@ -1,6 +1,6 @@
 (() => {
   const ITEMS = [
-    { label: "Finance a License", href: "/financing" },
+    { label: "Finance a License", href: "/finance-a-license" },
     { label: "How to Finance a Florida Liquor License", href: "/how-to-finance-florida-liquor-license" },
     { label: "Loan Payment Calculator", href: "/financing/loan-payment-calculator" },
     { label: "Private Lenders", href: "/private-liquor-license-lenders" },
