@@ -13,11 +13,16 @@ export default function FormsSiteHeader({
   primaryActionLabel = "List Your License",
 }: FormsSiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const isBrokerListPage = primaryActionLabel === "List a Client License";
 
   return (
     <header className="site-header forms-site-header page-shell">
       <a className="brand-lockup" href="/" aria-label="Florida Liquor License Market home">
-        <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
+        <img
+          src="/assets/brand-sharp.svg"
+          alt="Florida Liquor License Market"
+          style={isBrokerListPage ? { transform: "translateX(-30px)" } : undefined}
+        />
       </a>
       <button
         className="menu-toggle"
