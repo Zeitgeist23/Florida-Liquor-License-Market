@@ -79,7 +79,7 @@ const FLORIDA_COUNTIES = [
 
 const pathDetails = {
   self: {
-    eyebrow: "Self-Directed Listing",
+    eyebrow: "Self-Directed Marketplace Listing",
     title: "Create and manage your marketplace listing",
     copy:
       "Provide the license details, set your asking price, and receive buyer inquiries directly. You remain responsible for negotiations, professional advice, transfer documents, and closing coordination.",
@@ -87,12 +87,12 @@ const pathDetails = {
     note: "$14.95 one-time listing-submission fee. No brokerage representation is included.",
   },
   broker: {
-    eyebrow: "Broker-Assisted Listing",
-    title: "Request professional marketing and transaction guidance",
+    eyebrow: "Full-Service Broker-Assisted Representation",
+    title: "Request full-service broker-assisted representation",
     copy:
-      "Tell us your goals and an FLLM-affiliated broker can contact you about marketing strategy, buyer communications, negotiations, documentation, and transaction coordination.",
-    button: "Request a Broker Consultation",
-    note: "Brokerage services and compensation require a separate written agreement.",
+      "Tell us your goals and an FLLM-affiliated broker can contact you about pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, documentation, transaction coordination, and coordination with the professionals involved in the transfer and closing.",
+    button: "Request Full-Service Broker Consultation",
+    note: "Representation, scope of services, and compensation begin only under a separate written brokerage agreement.",
   },
 } as const;
 
@@ -157,7 +157,7 @@ export default function ListYourLicenseMockup() {
       <div className="abt-header-wrap">
         <FormsSiteHeader
           primaryActionHref="#listing-options"
-          primaryActionLabel="Start Your Listing"
+          primaryActionLabel="Start Your Sale"
         />
       </div>
 
@@ -166,37 +166,39 @@ export default function ListYourLicenseMockup() {
           <nav className="seller-preview-breadcrumbs" aria-label="Breadcrumb">
             <a href="/">Home</a>
             <span>›</span>
-            <b>List Your License</b>
+            <b>Sell Your License</b>
           </nav>
 
           <div className="seller-preview-hero-grid">
             <div>
-              <span className="seller-preview-eyebrow">Confidential seller intake</span>
-              <h1>Choose how you want to list your Florida liquor license</h1>
+              <span className="seller-preview-eyebrow">Florida liquor license selling options</span>
+              <h1>Sell Your Florida Liquor License Your Way</h1>
               <p>
-                Start with a marketplace listing you manage yourself or request broker-assisted
-                marketing and transaction support. Your selection can be changed before submission.
+                Choose full-service broker-assisted representation for pricing, marketing, buyer
+                communications, negotiation and transaction coordination, or use a self-directed
+                marketplace listing if you prefer to manage the sale yourself.
               </p>
               <div className="seller-preview-assurances" aria-label="Seller assurances">
-                <span>Confidential intake</span>
+                <span>Full-service representation available</span>
+                <span>Self-directed marketplace option</span>
                 <span>All 67 Florida counties</span>
-                <span>Review before publication</span>
               </div>
             </div>
 
             <aside className="seller-preview-hero-note">
-              <span>Not sure which path fits?</span>
-              <strong>Compare the responsibilities before you begin.</strong>
+              <span>Two levels of service</span>
+              <strong>Choose the amount of professional help you want.</strong>
               <p>
-                Self-directed sellers manage buyer communications and the transaction. A
-                broker-assisted listing begins with a consultation and requires a separate written
-                brokerage agreement before representation starts.
+                Full-service broker-assisted representation can include pricing strategy,
+                confidential marketing, buyer communications, negotiation and transaction
+                coordination under a separate written brokerage agreement. Experienced sellers can
+                instead choose a self-directed marketplace listing and retain direct control.
               </p>
               <p className="seller-preview-hero-fee">
-                <strong>Self-Directed Listing:</strong> $14.95 one-time listing-submission fee. No
-                brokerage representation is included.
+                <strong>Full-Service Broker-Assisted Representation:</strong> Scope, exclusivity and
+                compensation are defined in writing before representation begins.
               </p>
-              <a href="#listing-options">Compare Listing Options ↓</a>
+              <a href="#listing-options">Compare Selling Options ↓</a>
             </aside>
           </div>
         </div>
@@ -205,16 +207,47 @@ export default function ListYourLicenseMockup() {
       <section className="seller-preview-content page-shell" id="listing-options">
         <div className="seller-preview-section-heading">
           <div>
-            <span>Step 1 · Select a listing path</span>
-            <h2>How would you like to market your license?</h2>
+            <span>Step 1 · Select your selling path</span>
+            <h2>How much help do you want with the sale?</h2>
           </div>
           <p>
-            Both options begin with a confidential intake. Public listing information is reviewed
-            before it appears on Florida Liquor License Market.
+            Both paths begin with a confidential intake. Choose full-service representation or a
+            seller-managed marketplace listing based on the level of transaction support you want.
           </p>
         </div>
 
         <div className="seller-path-grid" role="radiogroup" aria-label="Listing service">
+          <button
+            className={`seller-path-card seller-path-card-featured ${listingPath === "broker" ? "is-selected" : ""}`}
+            type="button"
+            role="radio"
+            aria-checked={listingPath === "broker"}
+            onClick={() => chooseListingPath("broker")}
+          >
+            <span className="seller-path-number">01</span>
+            <span className="seller-path-badge">Full-service representation</span>
+            <strong>Broker-Assisted Representation</strong>
+            <small>Best for sellers who want professional handling across the transaction.</small>
+            <ul>
+              <li>Pricing strategy and market positioning</li>
+              <li>Confidential or public marketing strategy</li>
+              <li>Buyer screening and communications</li>
+              <li>Negotiation and transaction coordination</li>
+              <li>Coordination with legal, licensing and closing professionals</li>
+              <li>Services begin only after a written agreement</li>
+            </ul>
+            <span className="seller-path-resources">
+              <b>FLLM Market & Transaction Resources</b>
+              <small>
+                Use county market data, value tools, transfer resources, professional directories,
+                financing information and other FLLM resources alongside the broker-assisted sale.
+              </small>
+            </span>
+            <span className="seller-path-select">
+              {listingPath === "broker" ? "Selected" : "Choose Full-Service Representation"}
+            </span>
+          </button>
+
           <button
             className={`seller-path-card ${listingPath === "self" ? "is-selected" : ""}`}
             type="button"
@@ -222,14 +255,15 @@ export default function ListYourLicenseMockup() {
             aria-checked={listingPath === "self"}
             onClick={() => chooseListingPath("self")}
           >
-            <span className="seller-path-number">01</span>
-            <span className="seller-path-badge">Marketplace listing</span>
-            <strong>Self-Directed</strong>
+            <span className="seller-path-number">02</span>
+            <span className="seller-path-badge">Self-directed marketplace</span>
+            <strong>Self-Directed Listing</strong>
             <small>Best for experienced sellers who want direct control.</small>
             <ul>
               <li>You set the asking price and listing details</li>
               <li>Buyer inquiries are directed to you</li>
               <li>You manage negotiations and professional advisors</li>
+              <li>You coordinate transfer documents and closing</li>
               <li>No broker represents you through this option</li>
             </ul>
             <span className="seller-path-resources">
@@ -242,36 +276,6 @@ export default function ListYourLicenseMockup() {
             </span>
             <span className="seller-path-select">
               {listingPath === "self" ? "Selected" : "Choose Self-Directed"}
-            </span>
-          </button>
-
-          <button
-            className={`seller-path-card seller-path-card-featured ${listingPath === "broker" ? "is-selected" : ""}`}
-            type="button"
-            role="radio"
-            aria-checked={listingPath === "broker"}
-            onClick={() => chooseListingPath("broker")}
-          >
-            <span className="seller-path-number">02</span>
-            <span className="seller-path-badge">Consultation requested</span>
-            <strong>Broker-Assisted</strong>
-            <small>Best for sellers who want professional transaction support.</small>
-            <ul>
-              <li>Discuss pricing and marketing strategy</li>
-              <li>Broker can screen and communicate with buyers</li>
-              <li>Negotiation and transaction coordination support</li>
-              <li>Services begin only after a written agreement</li>
-            </ul>
-            <span className="seller-path-resources">
-              <b>Free Resources for Your Transaction</b>
-              <small>
-                Access Florida license-sale and transfer forms, calculators, and professional
-                directories through the Resources menu to help prepare paperwork and navigate the
-                sale and transfer process.
-              </small>
-            </span>
-            <span className="seller-path-select">
-              {listingPath === "broker" ? "Selected" : "Choose Broker-Assisted"}
             </span>
           </button>
         </div>
@@ -466,27 +470,27 @@ export default function ListYourLicenseMockup() {
 
         <section className="seller-preview-comparison" aria-labelledby="seller-comparison-heading">
           <div className="seller-preview-comparison-heading">
-            <span>Responsibilities at a glance</span>
-            <h2 id="seller-comparison-heading">Know what each option includes</h2>
+            <span>Service levels at a glance</span>
+            <h2 id="seller-comparison-heading">Know what each selling option includes</h2>
           </div>
           <div className="seller-comparison-table">
             <div className="seller-comparison-row seller-comparison-header">
               <b>Service or responsibility</b>
+              <b>Broker-Assisted Representation</b>
               <b>Self-Directed</b>
-              <b>Broker-Assisted</b>
             </div>
             {[
               ["Public marketplace exposure", "Included", "Included"],
-              ["Seller controls asking price", "Yes", "With broker guidance"],
-              ["Buyer communications", "Seller", "Broker may manage"],
-              ["Negotiation support", "Not included", "Available by agreement"],
-              ["Transfer and closing coordination", "Seller’s advisors", "Available by agreement"],
-              ["Brokerage compensation", "None", "Disclosed in written agreement"],
-            ].map(([service, self, broker]) => (
+              ["Pricing strategy", "Broker guidance", "Seller"],
+              ["Buyer communications", "Broker may manage", "Seller"],
+              ["Negotiation support", "Available by agreement", "Not included"],
+              ["Transfer and closing coordination", "Available by agreement", "Seller’s advisors"],
+              ["Brokerage compensation", "Disclosed in written agreement", "None"],
+            ].map(([service, broker, self]) => (
               <div className="seller-comparison-row" key={service}>
                 <strong>{service}</strong>
-                <span>{self}</span>
                 <span>{broker}</span>
+                <span>{self}</span>
               </div>
             ))}
           </div>
@@ -495,12 +499,13 @@ export default function ListYourLicenseMockup() {
         <section className="seller-preview-disclosure" aria-label="Listing service disclosure">
           <strong>Important listing and brokerage disclosure</strong>
           <p>
-            Selecting the broker-assisted option is a request for contact and does not itself create
-            a brokerage relationship. Brokerage representation, scope of services, exclusivity, and
-            compensation must be stated in a separate written agreement accepted by the parties.
-            Self-directed listings do not include representation, valuation, negotiation, legal,
-            tax, licensing, or closing services. FLLM may review submitted information before
-            publication and does not guarantee a buyer, sale, transfer approval, or closing.
+            Full-service broker-assisted representation is available only under a separate written
+            brokerage agreement that identifies the representative, scope of services, exclusivity
+            if any, and compensation. Selecting the broker-assisted option is a request for contact
+            and does not itself create a brokerage relationship. Self-directed listings do not
+            include representation, valuation, negotiation, legal, tax, licensing, or closing
+            services. FLLM may review submitted information before publication and does not guarantee
+            a buyer, sale, transfer approval, or closing.
           </p>
         </section>
       </section>
