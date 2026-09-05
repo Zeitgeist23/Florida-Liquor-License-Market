@@ -13,8 +13,8 @@ const SAMPLE_BROKERS = {
   male: {
     name: "Alex Morgan",
     email: "alex.morgan@listingbroker.com",
-    image: "/assets/brokers/alex-morgan-sample-broker.webp",
-    alt: "Fictitious male independent listing broker",
+    image: null,
+    alt: "",
   },
 } as const;
 
@@ -124,7 +124,7 @@ export default function LockedFeaturedBrokerPreview({ brokerMode = "female" }: {
             <section className={styles.brokerCard}>
               <div className={styles.railKicker}>LISTED BY</div>
               <h3>{broker.name}</h3>
-              <img className={styles.brokerPortrait} src={broker.image} alt={broker.alt} />
+              {broker.image ? <img className={styles.brokerPortrait} src={broker.image} alt={broker.alt} /> : null}
               <div className={styles.contactLine}>☎ &nbsp; (555) 555-5555</div>
               <div className={styles.contactLine}>✉ &nbsp; {broker.email}</div>
               <button type="button">Call Listing Broker</button>
