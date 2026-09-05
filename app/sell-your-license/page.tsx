@@ -12,13 +12,19 @@ const canonicalUrl = `${siteUrl}/sell-your-license`;
 const onlineListingFaq = {
   question: "Can I list a Florida liquor license for sale online?",
   answer:
-    "Yes. Florida liquor-license owners can list a quota license for sale online through Florida Liquor License Market. FLLM offers self-directed marketplace listings and separate broker-assisted options for sellers who want additional transaction support.",
+    "Yes. Florida Liquor License Market gives sellers two primary paths: full-service broker-assisted representation under a separate written brokerage agreement, or a self-directed online marketplace listing for sellers who prefer to manage the transaction themselves.",
+};
+
+const fullServiceFaq = {
+  question: "Does FLLM offer full-service broker-assisted representation?",
+  answer:
+    "Yes. Sellers who want professional representation can request a broker consultation through FLLM. Depending on the written engagement, full-service broker-assisted representation may include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, transaction coordination, document organization, and coordination with the legal, licensing, financing, escrow or closing professionals involved in the transaction.",
 };
 
 export const metadata: Metadata = {
-  title: "List Your Florida Liquor License for Sale | FLLM",
+  title: "Sell Your Florida Liquor License | Full-Service or Self-Directed | FLLM",
   description:
-    "List a Florida quota liquor license for sale online through Florida Liquor License Market. Choose a $14.95 Standard self-directed listing, a $24.95 Featured self-directed listing, or request broker-assisted transaction support.",
+    "Sell a Florida liquor license through FLLM with full-service broker-assisted representation for pricing, marketing, buyer communications, negotiation and transaction coordination, or choose a self-directed online marketplace listing.",
   alternates: {
     canonical: canonicalUrl,
   },
@@ -26,9 +32,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "List Your Florida Liquor License for Sale | FLLM",
+    title: "Sell Your Florida Liquor License | Full-Service or Self-Directed | FLLM",
     description:
-      "List a Florida liquor license for sale online with a Standard or Featured self-directed marketplace listing, or request separate broker-assisted transaction support.",
+      "Choose full-service broker-assisted representation or a self-directed Florida liquor-license marketplace listing based on the level of professional help you want.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -38,10 +44,10 @@ export default function SellYourLicensePage() {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "List Your Florida Liquor License for Sale",
+      name: "Sell Your Florida Liquor License",
       url: canonicalUrl,
       description:
-        "List and advertise a Florida quota liquor license for sale online through Florida Liquor License Market.",
+        "Sell a Florida liquor license through FLLM using full-service broker-assisted representation or a self-directed online marketplace listing.",
       publisher: {
         "@type": "Organization",
         name: "Florida Liquor License Market",
@@ -51,23 +57,21 @@ export default function SellYourLicensePage() {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: onlineListingFaq.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: onlineListingFaq.answer,
-          },
+      mainEntity: [onlineListingFaq, fullServiceFaq].map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
         },
-      ],
+      })),
     },
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-        { "@type": "ListItem", position: 2, name: "List Your License", item: canonicalUrl },
+        { "@type": "ListItem", position: 2, name: "Sell Your License", item: canonicalUrl },
       ],
     },
   ];
@@ -82,6 +86,91 @@ export default function SellYourLicensePage() {
       />
 
       <ListYourLicenseMockup />
+
+      <section
+        aria-label="Full-service broker-assisted representation"
+        style={{
+          background: "#071d33",
+          borderTop: "1px solid rgba(237,169,26,.3)",
+          borderBottom: "1px solid rgba(237,169,26,.3)",
+          padding: "54px 20px",
+          color: "#eef3f7",
+        }}
+      >
+        <div
+          style={{
+            width: "min(1120px, 100%)",
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "minmax(0,1.2fr) minmax(280px,.8fr)",
+            gap: 30,
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <strong
+              style={{
+                display: "block",
+                color: "#eda91a",
+                fontSize: 12,
+                fontWeight: 900,
+                letterSpacing: ".09em",
+                textTransform: "uppercase",
+                marginBottom: 8,
+              }}
+            >
+              Full-Service Broker-Assisted Representation
+            </strong>
+            <h2 style={{ margin: "0 0 12px", color: "#fff", fontSize: "clamp(30px,4vw,42px)", lineHeight: 1.1 }}>
+              Want professional help from pricing strategy through transaction coordination?
+            </h2>
+            <p style={{ margin: "0 0 13px", color: "#c5d1da", fontSize: 17, lineHeight: 1.75, maxWidth: 790 }}>
+              FLLM is not limited to self-service listings. Sellers who want hands-on professional representation can request a broker consultation. Depending on the written brokerage agreement, services may include market positioning and pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, transaction coordination, document organization, and coordination with the professionals involved in the transfer and closing.
+            </p>
+            <p style={{ margin: 0, color: "#aebdca", lineHeight: 1.7, maxWidth: 790 }}>
+              Representation, exclusivity, scope of services and compensation are established only in a separate written brokerage agreement. Selecting the broker-assisted path on FLLM is a request for contact and does not by itself create a brokerage relationship.
+            </p>
+          </div>
+          <div style={{ display: "grid", gap: 10 }}>
+            <Link
+              href="/sell-your-license#listing-options"
+              style={{
+                display: "flex",
+                minHeight: 50,
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "0 20px",
+                borderRadius: 8,
+                background: "#eda91a",
+                color: "#061728",
+                fontWeight: 900,
+                textDecoration: "none",
+                textAlign: "center",
+              }}
+            >
+              Request Full-Service Broker Representation
+            </Link>
+            <Link
+              href="/florida-liquor-license-broker"
+              style={{
+                display: "flex",
+                minHeight: 48,
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "0 20px",
+                borderRadius: 8,
+                border: "1px solid rgba(255,255,255,.3)",
+                color: "#fff",
+                fontWeight: 850,
+                textDecoration: "none",
+                textAlign: "center",
+              }}
+            >
+              Review Broker Services
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <section
         aria-label="Featured self-directed listing option"
@@ -117,13 +206,13 @@ export default function SellYourLicensePage() {
                 marginBottom: 10,
               }}
             >
-              Featured Self-Directed Listing
+              Self-Directed Marketplace Alternative
             </strong>
             <h2 style={{ margin: "0 0 8px", color: "#071d33", fontSize: 27 }}>
-              Add 30 days of priority marketplace placement for $24.95
+              Prefer to manage the transaction yourself? Add 30 days of priority placement for $24.95
             </h2>
             <p style={{ margin: 0, color: "#536373", lineHeight: 1.65, maxWidth: 760 }}>
-              Featured self-directed listings receive a Featured badge and priority placement for the first 30 days after publication. Buyer inquiries still go directly to you, there is no FLLM commission, and the listing continues as a Standard listing after the Featured period.
+              Featured self-directed listings are designed for experienced sellers who want marketplace exposure while retaining direct control of buyer communications, negotiation and transaction management. They receive a Featured badge and priority placement for the first 30 days after publication, with no FLLM commission on the sale.
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "stretch" }}>
@@ -143,7 +232,7 @@ export default function SellYourLicensePage() {
                 whiteSpace: "nowrap",
               }}
             >
-              Create Featured Listing — $24.95
+              Create Featured Self-Directed Listing — $24.95
             </Link>
             <span style={{ textAlign: "center", fontSize: 12, color: "#677584" }}>
               One-time fee · Secure Stripe checkout
@@ -176,10 +265,10 @@ export default function SellYourLicensePage() {
               Seller Education
             </strong>
             <h2 style={{ margin: "0 0 8px", color: "#fff", fontSize: 25 }}>
-              Learn how to sell a Florida liquor license before you list
+              Learn how to sell a Florida liquor license before you choose a selling path
             </h2>
             <p style={{ margin: 0, color: "#bdcbd6", lineHeight: 1.65 }}>
-              Review FLLM&apos;s 7-step seller guide covering value, listing strategy, buyer due diligence, negotiation, ABT-6002 transfer preparation and closing.
+              Review FLLM&apos;s 7-step seller guide covering value, full-service broker representation, self-directed listings, buyer due diligence, negotiation, ABT-6002 transfer preparation and closing.
             </p>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
@@ -245,13 +334,13 @@ export default function SellYourLicensePage() {
             Online Florida Marketplace
           </strong>
           <h2 style={{ margin: "0 0 15px", color: "#071d33", fontSize: "clamp(29px,4vw,40px)", lineHeight: 1.12 }}>
-            List a Florida liquor license for sale online
+            Sell a Florida liquor license online with the level of service you choose
           </h2>
           <p style={{ margin: "0 0 13px", color: "#4d6070", fontSize: 17, lineHeight: 1.78 }}>
-            Florida Liquor License Market gives Florida license owners a direct way to advertise a quota liquor license for sale online. A self-directed listing lets the owner set the asking price, publish marketplace details, receive buyer inquiries and manage the transaction. Sellers who want additional help can separately request broker-assisted support.
+            Florida Liquor License Market combines specialized statewide marketplace exposure with two distinct seller paths. Sellers who want professional representation can request full-service broker-assisted help with pricing strategy, marketing, buyer communications, negotiation and transaction coordination under a written brokerage agreement. Sellers who prefer direct control can instead choose a self-directed online marketplace listing.
           </p>
           <p style={{ margin: "0 0 28px", color: "#4d6070", fontSize: 17, lineHeight: 1.78 }}>
-            The online Florida liquor license marketplace is designed for transferable quota-license opportunities, including 4COP-family and 3PS-family licenses, with market information organized by county and license type so buyers can find current opportunities across Florida.
+            FLLM is designed for transferable Florida quota-license opportunities, including 4COP-family and 3PS-family licenses, with market information organized by county and license type so buyers and sellers can evaluate opportunities across Florida.
           </p>
 
           <div
@@ -263,7 +352,7 @@ export default function SellYourLicensePage() {
             }}
           >
             <Link
-              href="/sell-your-license?method=self#listing-options"
+              href="/sell-your-license#listing-options"
               style={{
                 display: "flex",
                 minHeight: 50,
@@ -278,7 +367,7 @@ export default function SellYourLicensePage() {
                 textAlign: "center",
               }}
             >
-              List Your License Online
+              Compare Full-Service & Self-Directed Options
             </Link>
             <Link
               href="/listings"
@@ -301,20 +390,23 @@ export default function SellYourLicensePage() {
             </Link>
           </div>
 
-          <details
-            style={{
-              borderTop: "1px solid #d9d1c4",
-              borderBottom: "1px solid #d9d1c4",
-              padding: "17px 0",
-            }}
-          >
-            <summary style={{ cursor: "pointer", color: "#071d33", fontSize: 18, fontWeight: 900 }}>
-              {onlineListingFaq.question}
-            </summary>
-            <p style={{ margin: "13px 0 0", color: "#536373", lineHeight: 1.72 }}>
-              {onlineListingFaq.answer}
-            </p>
-          </details>
+          {[fullServiceFaq, onlineListingFaq].map((faq) => (
+            <details
+              key={faq.question}
+              style={{
+                borderTop: "1px solid #d9d1c4",
+                borderBottom: "1px solid #d9d1c4",
+                padding: "17px 0",
+              }}
+            >
+              <summary style={{ cursor: "pointer", color: "#071d33", fontSize: 18, fontWeight: 900 }}>
+                {faq.question}
+              </summary>
+              <p style={{ margin: "13px 0 0", color: "#536373", lineHeight: 1.72 }}>
+                {faq.answer}
+              </p>
+            </details>
+          ))}
         </div>
       </section>
     </>
