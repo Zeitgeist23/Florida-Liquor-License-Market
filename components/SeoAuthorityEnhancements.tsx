@@ -54,6 +54,14 @@ const brokerListingAuthorityPaths = new Set([
   "/resources/florida-liquor-license-types",
 ]);
 
+const sellerServiceAuthorityPaths = new Set([
+  "/",
+  "/sell-your-license",
+  "/how-to-sell-florida-liquor-license",
+  "/florida-liquor-license-broker",
+  "/florida-liquor-license-broker-fees",
+]);
+
 function isCountyMarketPage(pathname: string) {
   const parts = pathname.split("/").filter(Boolean);
   return parts.length === 2 && parts[0] === "counties";
@@ -66,12 +74,24 @@ export default function SeoAuthorityEnhancements() {
   const showLitigationLink = litigationAuthorityPaths.has(pathname);
   const showLawyerLink = lawyerAuthorityPaths.has(pathname);
   const showBrokerListingLink = brokerListingAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
+  const showSellerServicePositioning = sellerServiceAuthorityPaths.has(pathname);
   const showBrokerKit = pathname === "/brokers/list-your-license" || pathname === "/how-to-sell-florida-liquor-license";
 
-  if (!showAuthorityLinks && !showSbaAppraisalLink && !showLitigationLink && !showLawyerLink && !showBrokerListingLink && !showBrokerKit) return null;
+  if (!showAuthorityLinks && !showSbaAppraisalLink && !showLitigationLink && !showLawyerLink && !showBrokerListingLink && !showSellerServicePositioning && !showBrokerKit) return null;
 
   return (
     <>
+      {showSellerServicePositioning ? (
+        <aside className="fllm-authority-links" aria-label="FLLM seller service options">
+          <div className="fllm-authority-links__inner">
+            <p>
+              <strong>Full-service selling is available through FLLM itself:</strong>{" "}
+              Florida liquor-license owners can <Link href="/sell-your-license">request full-service broker-assisted representation through Florida Liquor License Market</Link>. Depending on the written brokerage agreement, representation may include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, due-diligence coordination, document organization and transaction coordination. Sellers who prefer direct control can choose a self-directed marketplace listing instead.
+            </p>
+          </div>
+        </aside>
+      ) : null}
+
       {showAuthorityLinks ? (
         <aside className="fllm-authority-links" aria-label="Florida liquor license marketplace resources">
           <div className="fllm-authority-links__inner">
