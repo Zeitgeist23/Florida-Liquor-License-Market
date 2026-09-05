@@ -17,6 +17,11 @@ export default function Page() {
           left: -25px;
           top: 8px;
         }
+        img[alt="Fictitious male independent listing broker"] {
+          content: url("https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=85");
+          object-fit: cover !important;
+          object-position: center 25% !important;
+        }
         img[src*="county-map?county=St%20Lucie%20County"] {
           transform: scale(1.55);
           transform-origin: center center;
