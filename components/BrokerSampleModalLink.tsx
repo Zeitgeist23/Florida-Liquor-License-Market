@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./BrokerSampleModalLink.module.css";
 
 type Tier = "standard" | "featured";
@@ -8,12 +8,11 @@ type Tier = "standard" | "featured";
 const STANDARD_SAMPLE_PAGE = "/brokers/sample-standard-listing";
 const FEATURED_SAMPLE_PAGE = "/brokers/sample-featured-listing";
 const FEATURED_SAMPLE_MALE_PAGE = "/brokers/sample-featured-listing-male";
-const FEATURED_SAMPLE_CLICK_KEY = "fllm-featured-sample-click-count";
 
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
   const [featuredSamplePage, setFeaturedSamplePage] = useState(FEATURED_SAMPLE_PAGE);
-  const [fallbackFeaturedClickCount, setFallbackFeaturedClickCount] = useState(0);
+  const featuredClickCount = useRef(0);
   const featured = tier === "featured";
   const label = featured ? "View Sample Featured Listing Page" : "View Sample Standard Listing Page";
 
@@ -37,16 +36,10 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
       return;
     }
 
-    let nextCount = fallbackFeaturedClickCount + 1;
-    try {
-      const stored = Number.parseInt(window.localStorage.getItem(FEATURED_SAMPLE_CLICK_KEY) ?? "0", 10);
-      nextCount = Number.isFinite(stored) ? stored + 1 : 1;
-      window.localStorage.setItem(FEATURED_SAMPLE_CLICK_KEY, String(nextCount));
-    } catch {
-      setFallbackFeaturedClickCount(nextCount);
-    }
-
+    featuredClickCount.current += 1;
+    const nextCount = featuredClickCount.current;
     const nextPage = nextCount % 4 === 0 ? FEATURED_SAMPLE_MALE_PAGE : FEATURED_SAMPLE_PAGE;
+
     setFeaturedSamplePage(`${nextPage}?sampleClick=${nextCount}`);
     setOpen(true);
   };
@@ -72,6 +65,7 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
             {featured ? (
               <div className={styles.viewport}>
                 <iframe
+                  key={featuredSamplePage}
                   className={styles.frame}
                   src={featuredSamplePage}
                   title="Featured broker listing detail page sample"
