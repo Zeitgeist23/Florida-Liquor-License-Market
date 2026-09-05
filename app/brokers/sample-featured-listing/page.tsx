@@ -13,7 +13,8 @@ export default function Page() {
       <LockedFeaturedBrokerPreview />
       <style>{`
         a[aria-label="Florida Liquor License Market home"] {
-          transform: translateX(-25px);
+          position: relative;
+          left: -25px;
         }
         img[src*="county-map?county=St%20Lucie%20County"] {
           transform: scale(1.55);
