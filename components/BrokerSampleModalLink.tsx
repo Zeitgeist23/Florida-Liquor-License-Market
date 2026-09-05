@@ -7,9 +7,12 @@ type Tier = "standard" | "featured";
 
 const STANDARD_SAMPLE_PAGE = "/brokers/sample-standard-listing";
 const FEATURED_SAMPLE_PAGE = "/brokers/sample-featured-listing";
+const FEATURED_SAMPLE_CLICK_KEY = "fllm-featured-sample-click-count";
 
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
+  const [featuredSamplePage, setFeaturedSamplePage] = useState(`${FEATURED_SAMPLE_PAGE}?broker=female`);
+  const [fallbackFeaturedClickCount, setFallbackFeaturedClickCount] = useState(0);
   const featured = tier === "featured";
   const label = featured ? "View Sample Featured Listing Page" : "View Sample Standard Listing Page";
 
@@ -27,9 +30,29 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
     };
   }, [open]);
 
+  const openSample = () => {
+    if (!featured) {
+      setOpen(true);
+      return;
+    }
+
+    let nextCount = fallbackFeaturedClickCount + 1;
+    try {
+      const stored = Number.parseInt(window.localStorage.getItem(FEATURED_SAMPLE_CLICK_KEY) ?? "0", 10);
+      nextCount = Number.isFinite(stored) ? stored + 1 : 1;
+      window.localStorage.setItem(FEATURED_SAMPLE_CLICK_KEY, String(nextCount));
+    } catch {
+      setFallbackFeaturedClickCount(nextCount);
+    }
+
+    const broker = nextCount % 4 === 0 ? "male" : "female";
+    setFeaturedSamplePage(`${FEATURED_SAMPLE_PAGE}?broker=${broker}&sampleClick=${nextCount}`);
+    setOpen(true);
+  };
+
   return (
     <>
-      <button className={styles.trigger} type="button" onClick={() => setOpen(true)}>
+      <button className={styles.trigger} type="button" onClick={openSample}>
         <span className={styles.icon} aria-hidden="true">▣</span>
         {label}
       </button>
@@ -49,7 +72,7 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
               <div className={styles.viewport}>
                 <iframe
                   className={styles.frame}
-                  src={FEATURED_SAMPLE_PAGE}
+                  src={featuredSamplePage}
                   title="Featured broker listing detail page sample"
                   tabIndex={0}
                   loading="eager"
