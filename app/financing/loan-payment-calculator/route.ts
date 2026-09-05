@@ -2,7 +2,8 @@ export const dynamic = "force-dynamic";
 
 const CALCULATOR_FOCUS_STYLES = `<style id="fllm-calculator-focus-styles">
   html { scroll-behavior: auto !important; }
-  .fllm-loan-calculator-section { scroll-margin-top: 18px; }
+  .financing-page > .seller-hero { display: none !important; }
+  .fllm-loan-calculator-section { scroll-margin-top: 18px; margin-top: 28px !important; }
 </style>`;
 
 const CALCULATOR_FOCUS_SCRIPT = `<script id="fllm-calculator-focus-script">
