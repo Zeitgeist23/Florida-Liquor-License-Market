@@ -11,7 +11,7 @@ const canonicalUrl = `${siteUrl}/how-to-sell-florida-liquor-license`;
 export const metadata: Metadata = {
   title: "How to Sell a Florida Liquor License | 7-Step Seller Guide",
   description:
-    "Learn how to sell a Florida liquor license in 7 steps. Price the license, choose self-directed or broker-assisted selling, prepare the listing, negotiate terms, review ABT-6002 transfer requirements and coordinate closing.",
+    "Learn how to sell a Florida liquor license in 7 steps. Choose full-service broker-assisted representation or self-directed selling, price the license, market it, negotiate terms, review ABT-6002 transfer requirements and coordinate closing.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "How to Sell a Florida Liquor License | 7-Step Seller Guide",
     description:
-      "A practical Florida seller guide covering pricing strategy, self-directed and broker-assisted selling, marketing, buyer inquiries, negotiation, ABT-6002 transfer preparation and closing.",
+      "A practical Florida seller guide covering full-service broker-assisted representation, self-directed selling, pricing strategy, marketing, buyer inquiries, negotiation, ABT-6002 transfer preparation and closing.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -28,12 +28,12 @@ const faqs = [
   {
     question: "How do I sell a Florida liquor license?",
     answer:
-      "Start by confirming the exact license, county, ownership and status, then establish a realistic asking-price range. Decide whether to market the license yourself or use a broker, prepare the listing information, screen and respond to buyer inquiries, negotiate a written agreement, and coordinate the ownership-transfer and closing process with the buyer and appropriate professionals.",
+      "Start by confirming the exact license, county, ownership and status, then establish a realistic asking-price range. Decide whether you want full-service broker-assisted representation or a self-directed sale, prepare the listing information, screen and respond to buyer inquiries, negotiate a written agreement, and coordinate the ownership-transfer and closing process with the buyer and appropriate professionals.",
   },
   {
     question: "Should I use a liquor license broker to sell my Florida license?",
     answer:
-      "That depends on how much transaction support you want. A self-directed seller controls the listing, buyer communications and negotiations. A broker-assisted seller can obtain help with pricing strategy, marketing, buyer communications, negotiation and transaction coordination. Brokerage services and compensation should be confirmed in a separate written agreement before representation begins.",
+      "That depends on how much professional help you want. Full-service broker-assisted representation can include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, transaction coordination and coordination with the professionals involved in the transfer and closing. A self-directed seller keeps direct control of the listing, buyer communications and negotiations. Brokerage services and compensation should be confirmed in a separate written agreement before representation begins.",
   },
   {
     question: "How do I know what my Florida liquor license is worth?",
@@ -43,7 +43,7 @@ const faqs = [
   {
     question: "Can I list my license on FLLM without using a broker?",
     answer:
-      "Yes. FLLM offers a self-directed listing path in which the seller sets the asking price and listing details and manages buyer communications and the transaction. FLLM also offers a broker-assisted consultation path for sellers who want professional transaction support under a separate agreement.",
+      "Yes. FLLM offers a self-directed listing path in which the seller sets the asking price and listing details and manages buyer communications and the transaction. FLLM also offers a full-service broker-assisted representation path for sellers who want professional help under a separate written brokerage agreement.",
   },
   {
     question: "What should I prepare before listing a Florida liquor license for sale?",
@@ -53,12 +53,12 @@ const faqs = [
   {
     question: "What happens after I find a buyer?",
     answer:
-      "The parties typically document the agreed terms in writing, complete transaction-specific due diligence, coordinate deposits and closing conditions, and prepare the materials required for the ownership-transfer process. The buyer and seller should confirm current DBPR requirements and use appropriate legal, tax or licensing professionals when needed.",
+      "The parties typically document the agreed terms in writing, complete transaction-specific due diligence, coordinate deposits and closing conditions, and prepare the materials required for the ownership-transfer process. Florida's Department of Business and Professional Regulation (DBPR), through its Division of Alcoholic Beverages and Tobacco (DABT), administers alcoholic-beverage licensing and transfer approval. The buyer and seller should confirm current DABT/DBPR requirements and use appropriate legal, tax or licensing professionals when needed.",
   },
   {
     question: "Does the seller complete the ABT-6002 when a Florida liquor license is sold?",
     answer:
-      "The seller or transferor generally must complete and sign the seller-side transfer documents required for the transaction, including the applicable transferor information or affidavit. Seller-side paperwork does not replace the buyer or transferee's completed transfer application. The parties should use the current DBPR ABT-6002 checklist and instructions for the actual transaction.",
+      "The seller or transferor generally must complete and sign the seller-side transfer documents required for the transaction, including the applicable transferor information or affidavit. Seller-side paperwork does not replace the buyer or transferee's completed transfer application. The parties should use the current DBPR/DABT ABT-6002 checklist and instructions for the actual transaction.",
   },
 ];
 
@@ -69,9 +69,9 @@ export default function HowToSellFloridaLiquorLicensePage() {
       "@type": "Article",
       headline: "How to Sell a Florida Liquor License: 7-Step Seller Guide",
       description:
-        "A practical guide to selling a Florida liquor license, including pricing strategy, self-directed and broker-assisted marketing, buyer inquiries, negotiation, ABT-6002 transfer preparation and closing.",
+        "A practical guide to selling a Florida liquor license, including full-service broker-assisted representation, self-directed marketing, pricing strategy, buyer inquiries, negotiation, ABT-6002 transfer preparation and closing.",
       datePublished: "2026-08-18",
-      dateModified: "2026-08-31",
+      dateModified: "2026-09-05",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market" },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -147,10 +147,10 @@ export default function HowToSellFloridaLiquorLicensePage() {
               <span className="seo-market-kicker">Florida Liquor License Seller Guide</span>
               <h1>How to Sell a Florida Liquor License</h1>
               <p>
-                Selling a Florida liquor license starts with knowing what you own, what the market may pay, and how much transaction support you want. This guide covers pricing strategy, self-directed and broker-assisted selling, listing preparation, buyer inquiries, negotiation, ABT-6002 transfer preparation and closing.
+                Selling a Florida liquor license starts with knowing what you own, what the market may pay, and how much professional help you want. FLLM supports both full-service broker-assisted representation and self-directed selling. This guide covers pricing strategy, marketing, buyer inquiries, negotiation, ABT-6002 transfer preparation and closing.
               </p>
               <div className="seo-market-actions">
-                <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Sell Your License</Link>
+                <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Compare Selling Options</Link>
                 <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">Check License Value</Link>
                 <Link className="seo-market-button seo-market-button-dark" href="/free-guide">Free Buyer’s & Seller’s Guide</Link>
               </div>
@@ -160,7 +160,7 @@ export default function HowToSellFloridaLiquorLicensePage() {
               <div className="seo-market-snapshot-grid">
                 <div><strong>1</strong><small>verify license</small></div>
                 <div><strong>2</strong><small>estimate value</small></div>
-                <div><strong>3</strong><small>choose selling path</small></div>
+                <div><strong>3</strong><small>choose service level</small></div>
                 <div><strong>4</strong><small>market and close</small></div>
               </div>
             </aside>
@@ -172,12 +172,12 @@ export default function HowToSellFloridaLiquorLicensePage() {
         <div className="seo-market-shell buy-guide-quick">
           <article>
             <span className="seo-market-section-kicker">Quick Answer</span>
-            <h2>You can sell directly or request broker-assisted support</h2>
+            <h2>Choose full-service broker representation or self-directed control</h2>
             <p>
-              A self-directed seller controls the asking price, listing details, buyer communications and negotiation. A broker-assisted seller can request professional help with pricing strategy, marketing, buyer communications, negotiation and transaction coordination under a separate written brokerage agreement.
+              Full-service broker-assisted representation can include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, transaction coordination and coordination with the professionals involved in the transfer and closing. The exact scope and compensation are defined in a separate written brokerage agreement.
             </p>
             <p>
-              In either case, the seller should understand the exact license being sold, disclose issues that may affect the transaction, use a written agreement, and coordinate the ownership-transfer and closing process carefully.
+              Sellers who prefer to manage the process themselves can choose a self-directed marketplace listing and retain direct control of asking price, buyer communications, negotiation and transaction management.
             </p>
           </article>
           <aside className="buy-guide-quick-card">
@@ -194,25 +194,25 @@ export default function HowToSellFloridaLiquorLicensePage() {
           <div className="seo-market-section-heading">
             <div>
               <span className="seo-market-section-kicker">Choose Your Selling Path</span>
-              <h2>Self-directed or broker-assisted?</h2>
+              <h2>Full-service broker representation or self-directed selling?</h2>
             </div>
           </div>
           <div className="seller-guide-paths">
             <article className="seller-guide-path">
               <span>1</span>
-              <h3>Self-Directed Listing</h3>
+              <h3>Full-Service Broker-Assisted Representation</h3>
               <p>
-                Set the asking price and listing details, receive buyer inquiries directly, and manage negotiation, professional advisers, transfer documents and closing coordination yourself. This path is designed for sellers who want direct control of the transaction.
+                Request professional representation for pricing strategy, market positioning, confidential or public marketing, buyer screening and communications, negotiation and transaction coordination. The scope of representation, exclusivity if any, services and compensation begin only under a separate written brokerage agreement.
               </p>
-              <Link href="/sell-your-license">Start a self-directed listing →</Link>
+              <Link href="/sell-your-license">Request full-service broker representation →</Link>
             </article>
             <article className="seller-guide-path">
               <span>2</span>
-              <h3>Broker-Assisted Sale</h3>
+              <h3>Self-Directed Marketplace Listing</h3>
               <p>
-                Request a consultation about pricing, marketing strategy, buyer communications, negotiation and transaction coordination. Brokerage representation and compensation begin only under a separate written agreement that defines the services and fees.
+                Set the asking price and listing details, receive buyer inquiries directly, and manage negotiation, professional advisers, transfer documents and closing coordination yourself. This path is designed for experienced sellers who want direct control of the transaction.
               </p>
-              <Link href="/sell-your-license">Request a broker consultation →</Link>
+              <Link href="/sell-your-license">Start a self-directed listing →</Link>
             </article>
           </div>
         </div>
@@ -246,8 +246,8 @@ export default function HowToSellFloridaLiquorLicensePage() {
             <article className="seller-guide-step">
               <div className="seller-guide-step-number">3</div>
               <div>
-                <h3>Choose self-directed or broker-assisted selling</h3>
-                <p>Decide whether you want to control the buyer communications and negotiation yourself or request professional transaction support. If using a broker, understand the scope of representation, exclusivity if any, compensation and termination terms before signing an agreement.</p>
+                <h3>Choose full-service broker representation or self-directed selling</h3>
+                <p>Decide whether you want professional representation across pricing, marketing, buyer communications, negotiation and transaction coordination, or whether you prefer to manage those responsibilities yourself. If using a broker, understand the scope of representation, exclusivity if any, compensation and termination terms before signing an agreement.</p>
               </div>
             </article>
             <article className="seller-guide-step">
@@ -275,8 +275,8 @@ export default function HowToSellFloridaLiquorLicensePage() {
               <div className="seller-guide-step-number">7</div>
               <div>
                 <h3>Coordinate the ABT-6002 transfer and closing</h3>
-                <p>Work with the buyer and the professionals involved so the purchase agreement, closing funds, transfer materials and any location or ownership changes reflect the actual transaction. Confirm current DBPR requirements before closing and retain records of the completed sale.</p>
-                <p>The seller or transferor generally completes the seller-side transfer information or affidavit required for the transaction. That seller-side document is not a substitute for the buyer or transferee&apos;s completed ABT-6002 transfer application. The current DBPR checklist and instructions should control the filing.</p>
+                <p>Work with the buyer and the professionals involved so the purchase agreement, closing funds, transfer materials and any location or ownership changes reflect the actual transaction. Florida&apos;s Department of Business and Professional Regulation (DBPR), through its Division of Alcoholic Beverages and Tobacco (DABT), administers alcoholic-beverage licensing and transfer approval. Confirm current DABT/DBPR requirements before closing and retain records of the completed sale.</p>
+                <p>The seller or transferor generally completes the seller-side transfer information or affidavit required for the transaction. That seller-side document is not a substitute for the buyer or transferee&apos;s completed ABT-6002 transfer application. The current DBPR/DABT checklist and instructions should control the filing.</p>
                 <p><Link href="/dbpr-abt-6002">Review FLLM&apos;s ABT-6002 transfer guide →</Link></p>
               </div>
             </article>
@@ -296,18 +296,19 @@ export default function HowToSellFloridaLiquorLicensePage() {
       <section className="seo-market-intro" id="fllm-seller-help">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">FLLM Seller Services & Resources</span>
-          <h2>Use FLLM to price, market and prepare your sale</h2>
+          <h2>Use FLLM for full-service representation or self-directed marketplace access</h2>
           <p>
-            Florida Liquor License Market gives sellers both a self-directed marketplace path and access to broker-assisted consultation, together with market and transaction resources that can help before and during a sale.
+            Florida Liquor License Market is not limited to self-service listings. Sellers can request full-service broker-assisted representation under a separate written agreement or choose a self-directed marketplace path, while using FLLM&apos;s market and transaction resources before and during a sale.
           </p>
           <div className="seller-guide-links">
-            <Link href="/sell-your-license">List Your License<span>Choose self-directed selling or request a broker-assisted consultation.</span></Link>
+            <Link href="/sell-your-license">Sell Your License<span>Choose full-service broker-assisted representation or a self-directed marketplace listing.</span></Link>
+            <Link href="/florida-liquor-license-broker">Broker Representation<span>Review the full-service broker-assisted pathway and what representation may include.</span></Link>
             <Link href="/florida-liquor-license-value">License Value<span>Estimate a market-value range using county and license-type data.</span></Link>
             <Link href="/florida-liquor-license-appraisal">Florida Liquor License Appraisal<span>Review the dedicated license-specific appraisal and valuation report page.</span></Link>
             <Link href="/resources/quota-transfer-fee-calculator">Transfer Fee Calculator<span>Estimate the statutory quota transfer-fee component as part of transaction planning.</span></Link>
             <Link href="/dbpr-abt-6002">ABT-6002 Transfer Resources<span>Review the ownership-transfer guide and seller/buyer preparation information.</span></Link>
             <Link href="/free-guide">Free Buyer’s & Seller’s Guide<span>Download FLLM’s comprehensive transaction guide before listing or closing.</span></Link>
-            <Link href="/contact">Seller Assistance<span>Contact FLLM with questions about listing, pricing or broker-assisted options.</span></Link>
+            <Link href="/contact">Seller Assistance<span>Contact FLLM with questions about listing, pricing or full-service broker-assisted representation.</span></Link>
           </div>
         </div>
       </section>
@@ -328,11 +329,11 @@ export default function HowToSellFloridaLiquorLicensePage() {
             <li>Whether the license is active, inactive or in escrow.</li>
             <li>A realistic asking-price range and target net proceeds.</li>
             <li>Preferred sale timing and confidentiality level.</li>
-            <li>Choice of self-directed or broker-assisted selling.</li>
+            <li>Choice of full-service broker-assisted representation or self-directed selling.</li>
             <li>Any existing brokerage or listing agreement.</li>
             <li>Information a buyer may reasonably request for due diligence.</li>
             <li>A plan for legal, tax, licensing and closing support if needed.</li>
-            <li>Current DBPR and ABT-6002 transfer requirements before closing.</li>
+            <li>Current DABT/DBPR and ABT-6002 transfer requirements before closing.</li>
           </ul>
         </div>
       </section>
@@ -370,13 +371,13 @@ export default function HowToSellFloridaLiquorLicensePage() {
         <div className="seo-market-shell seo-market-cta-inner">
           <div>
             <span className="seo-market-section-kicker">Ready to Sell?</span>
-            <h2>Price the license, choose your selling path and reach the market.</h2>
-            <p>Start with a self-directed listing, request broker-assisted support, or estimate the license&apos;s current market range first.</p>
+            <h2>Choose the service level that fits your Florida liquor license sale.</h2>
+            <p>Request full-service broker-assisted representation, use a self-directed marketplace listing, or estimate the license&apos;s current market range first.</p>
           </div>
           <div className="seo-market-actions">
-            <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Sell Your License</Link>
+            <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Compare Selling Options</Link>
+            <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-broker">Full-Service Broker Representation</Link>
             <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">Check License Value</Link>
-            <Link className="seo-market-button seo-market-button-dark" href="/contact">Contact FLLM</Link>
           </div>
         </div>
       </section>
