@@ -32,11 +32,12 @@
     {
       key: "finance",
       label: "Finance",
-      width: 290,
+      width: 350,
       items: [
-        { label: "Liquor License Financing", href: "/financing" },
-        { label: "Financing Disclosure", href: "/financing-disclosure" },
-        { label: "Private Lending Disclosure", href: "/private-lending-disclosure" },
+        { label: "How to Finance a Florida Liquor License", href: "/how-to-finance-florida-liquor-license" },
+        { label: "Loan Payment Calculator", href: "/financing/loan-payment-calculator" },
+        { label: "Private Lenders", href: "/private-liquor-license-lenders" },
+        { label: "Request Financing", href: "/financing#request-financing" },
       ],
     },
     {
@@ -112,7 +113,7 @@
       }
       .primary-nav a[data-core-nav-dropdown-bound="true"]{cursor:pointer}
       @media(max-width:899px){
-        .core-nav-header-menu{width:min(320px,calc(100vw - 24px))!important}
+        .core-nav-header-menu{width:min(350px,calc(100vw - 24px))!important}
       }
     `;
     document.head.appendChild(style);
