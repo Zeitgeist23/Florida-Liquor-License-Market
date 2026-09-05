@@ -11,17 +11,17 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/brokers/list-your-license`;
 
 export const metadata: Metadata = {
-  title: "List a Client’s Florida Liquor License | FLLM for Brokers",
+  title: "List a Florida Liquor License | Broker Listings | FLLM",
   description:
-    "Florida brokers can advertise a client’s quota liquor license on FLLM with Standard and Featured one-time marketplace listing options.",
+    "Florida liquor license brokers can list client 4COP quota and 3PS licenses on FLLM. One-time listings from $14.95, no recurring fees, no FLLM commission.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "FLLM Marketplace Listings for Florida Brokers",
+    title: "List a Florida Liquor License | Broker Listings | FLLM",
     description:
-      "Add a client’s Florida quota liquor license to FLLM while remaining the listing representative and transaction contact.",
+      "Advertise a client’s Florida liquor license on FLLM while remaining the listing representative and transaction contact.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -43,6 +43,21 @@ const steps = [
 ];
 
 const faqs = [
+  {
+    question: "Where can a Florida liquor license broker list a client’s license for sale?",
+    answer:
+      "Florida liquor license brokers can submit client inventory to the FLLM statewide marketplace. Approved listings can be displayed by license type and county while the submitting broker remains the listing representative and transaction contact.",
+  },
+  {
+    question: "Can I list a Florida 4COP quota liquor license on FLLM?",
+    answer:
+      "Yes. Florida 4COP quota licenses are a core part of the FLLM marketplace. Broker-submitted listings are reviewed for authority, accuracy and marketplace fit before publication.",
+  },
+  {
+    question: "Can I advertise a Florida 3PS package-store liquor license on FLLM?",
+    answer:
+      "Yes. FLLM can accept broker-submitted 3PS-family quota-license inventory for marketplace review. The applicable license series, county and transfer status should be identified accurately in the submission.",
+  },
   {
     question: "Does FLLM become my client’s broker?",
     answer:
@@ -71,23 +86,63 @@ const faqs = [
 ];
 
 export default function BrokerListYourLicensePage() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: "FLLM Independent Broker Marketplace Listing",
-    provider: {
-      "@type": "Organization",
-      name: "Florida Liquor License Market",
-      url: siteUrl,
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "List a Florida Liquor License | Broker Listings | FLLM",
+      url: canonicalUrl,
+      description:
+        "Florida liquor license broker marketplace page for listing and advertising client 4COP quota and 3PS licenses for sale.",
+      dateModified: "2026-09-05",
+      publisher: {
+        "@type": "Organization",
+        name: "Florida Liquor License Market",
+        url: siteUrl,
+      },
     },
-    areaServed: { "@type": "State", name: "Florida" },
-    offers: [
-      { "@type": "Offer", name: "Standard Broker Listing", price: "14.95", priceCurrency: "USD" },
-      { "@type": "Offer", name: "Featured Broker Listing", price: "24.95", priceCurrency: "USD" },
-    ],
-    description:
-      "Advertising-only marketplace listing for Florida brokers representing owners of quota liquor licenses.",
-  };
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: "FLLM Independent Broker Marketplace Listing",
+      provider: {
+        "@type": "Organization",
+        name: "Florida Liquor License Market",
+        url: siteUrl,
+      },
+      areaServed: { "@type": "State", name: "Florida" },
+      audience: { "@type": "Audience", audienceType: "Florida liquor license brokers" },
+      offers: [
+        { "@type": "Offer", name: "Standard Broker Listing", price: "14.95", priceCurrency: "USD" },
+        { "@type": "Offer", name: "Featured Broker Listing", price: "24.95", priceCurrency: "USD" },
+      ],
+      description:
+        "Advertising-only marketplace listing for Florida brokers representing owners of quota liquor licenses.",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Florida Liquor License Broker",
+          item: `${siteUrl}/florida-liquor-license-broker`,
+        },
+        { "@type": "ListItem", position: 3, name: "List a Client License", item: canonicalUrl },
+      ],
+    },
+  ];
 
   return (
     <main className={styles.page}>
@@ -165,6 +220,75 @@ export default function BrokerListYourLicensePage() {
           color:#bfcbd3;
           font-size:11px;
           line-height:1.6;
+        }
+        .broker-organic-section {
+          padding:72px 0;
+          background:#071927;
+          border-top:1px solid rgba(246,167,0,.16);
+          border-bottom:1px solid rgba(246,167,0,.16);
+        }
+        .broker-organic-grid {
+          display:grid;
+          grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);
+          gap:40px;
+          align-items:start;
+        }
+        .broker-organic-copy > span {
+          color:#f6a700;
+          font-size:12px;
+          font-weight:900;
+          letter-spacing:.11em;
+          text-transform:uppercase;
+        }
+        .broker-organic-copy h2 {
+          margin:9px 0 17px;
+          color:#fff;
+          font-family:Georgia, "Times New Roman", serif;
+          font-size:clamp(31px,4vw,46px);
+          line-height:1.08;
+        }
+        .broker-organic-copy p {
+          margin:0 0 15px;
+          color:#c5d1da;
+          font-size:16px;
+          line-height:1.78;
+        }
+        .broker-organic-copy a {
+          color:#f6b51f;
+          font-weight:800;
+          text-decoration-thickness:1px;
+          text-underline-offset:3px;
+        }
+        .broker-organic-links {
+          display:grid;
+          gap:10px;
+        }
+        .broker-organic-links a {
+          display:flex;
+          justify-content:space-between;
+          gap:18px;
+          padding:16px 17px;
+          border:1px solid rgba(255,255,255,.11);
+          border-radius:10px;
+          background:#0a2236;
+          color:#fff;
+          font-weight:850;
+          line-height:1.35;
+          text-decoration:none;
+          transition:border-color .18s ease, color .18s ease, transform .18s ease;
+        }
+        .broker-organic-links a:after {
+          content:"→";
+          color:#f6a700;
+        }
+        .broker-organic-links a:hover {
+          border-color:#f6a700;
+          color:#f6b51f;
+          transform:translateY(-1px);
+        }
+        @media(max-width:820px) {
+          .broker-organic-section { padding:56px 0; }
+          .broker-organic-grid { grid-template-columns:1fr; gap:28px; }
         }
       `}</style>
 
@@ -249,6 +373,33 @@ export default function BrokerListYourLicensePage() {
         </div>
       </section>
 
+      <section className="broker-organic-section" aria-labelledby="broker-marketplace-seo-heading">
+        <div className={styles.shell}>
+          <div className="broker-organic-grid">
+            <div className="broker-organic-copy">
+              <span>Florida Liquor License Broker Listings</span>
+              <h2 id="broker-marketplace-seo-heading">Advertise a Florida liquor license for sale while keeping the broker relationship</h2>
+              <p>
+                FLLM gives Florida liquor license brokers a direct way to list and advertise client inventory in a specialized statewide marketplace. The broker remains the identified representative and transaction contact, while buyers can discover the license through FLLM&apos;s marketplace, license-type pages and county market pages.
+              </p>
+              <p>
+                Broker-submitted inventory can include <Link href="/florida-4cop-liquor-license-for-sale">Florida 4COP quota liquor licenses for sale</Link> and <Link href="/florida-3ps-liquor-license-for-sale">Florida 3PS package-store licenses</Link>, subject to FLLM review. Brokers can also use <Link href="/counties">Florida county liquor-license market pages</Link> and the <Link href="/florida-quota-liquor-license-market-report">statewide quota-license market report</Link> to compare current inventory and asking-price evidence before positioning a client listing.
+              </p>
+              <p>
+                The objective is straightforward: give brokers another place to market a Florida liquor license without replacing the broker, taking over the client relationship or claiming a share of the broker&apos;s commission.
+              </p>
+            </div>
+            <nav className="broker-organic-links" aria-label="Florida broker marketplace resources">
+              <Link href="/florida-4cop-liquor-license-for-sale">4COP quota license marketplace</Link>
+              <Link href="/florida-3ps-liquor-license-for-sale">3PS package-store marketplace</Link>
+              <Link href="/counties">Florida county market pages</Link>
+              <Link href="/listings">Current Florida liquor licenses for sale</Link>
+              <Link href="/florida-liquor-license-broker">Florida liquor license broker services</Link>
+            </nav>
+          </div>
+        </div>
+      </section>
+
       <section className={styles.previewSection} id="listing-previews">
         <div className={styles.shell}>
           <div className={styles.sectionHeading}>
@@ -312,7 +463,7 @@ export default function BrokerListYourLicensePage() {
         <div className={styles.shell}>
           <div className={styles.formIntro}>
             <span>Broker Submission</span>
-            <h2>List a client&apos;s quota license</h2>
+            <h2>List a client&apos;s Florida quota liquor license for sale</h2>
             <p>Complete the broker and license information below. You may keep the license number private while still providing it to FLLM for review.</p>
           </div>
           <BrokerListingForm />
