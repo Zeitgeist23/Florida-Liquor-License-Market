@@ -9,17 +9,17 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-broker`;
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Broker | Broker Listings & Seller Representation | FLLM",
+  title: "Florida Liquor License Broker | Full-Service Representation & Broker Listings | FLLM",
   description:
-    "Florida Liquor License Market offers two brokerage pathways: independent brokers can list client licenses on FLLM, and license owners can request broker-assisted representation to sell a Florida liquor license.",
+    "Florida Liquor License Market supports two brokerage pathways: independent brokers can list client licenses on FLLM, and license owners can request full-service broker-assisted representation for pricing, marketing, negotiation and transaction coordination.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Liquor License Broker | FLLM",
+    title: "Florida Liquor License Broker | Full-Service Representation | FLLM",
     description:
-      "Two ways to use FLLM: brokers can advertise client licenses, and sellers can request professional broker representation.",
+      "Independent brokers can advertise client licenses on FLLM, while sellers can request full-service broker-assisted representation under a separate written brokerage agreement.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -33,7 +33,7 @@ const faqs = [
   {
     question: "Can a liquor license owner hire a broker through FLLM?",
     answer:
-      "Yes. A Florida liquor license owner may request broker-assisted representation. Representation begins only after the parties enter into a separate written agreement defining the representative, services, compensation and other material terms.",
+      "Yes. A Florida liquor license owner may request full-service broker-assisted representation through FLLM. Representation begins only after the parties enter into a separate written brokerage agreement defining the representative, scope of services, exclusivity if any, compensation and other material terms.",
   },
   {
     question: "Is every license on FLLM represented by FLLM?",
@@ -41,14 +41,14 @@ const faqs = [
       "No. FLLM includes independent-broker listings, self-directed seller listings and transactions that may be handled under a separate brokerage agreement. The applicable contact and representation should be confirmed for each opportunity.",
   },
   {
-    question: "What can broker-assisted representation include?",
+    question: "What can full-service broker-assisted representation include?",
     answer:
-      "Depending on the written engagement, services may include pricing strategy, confidential marketing, buyer communications, negotiation, transaction coordination and assistance organizing information needed for the Florida liquor-license transfer process.",
+      "Depending on the written engagement, full-service broker-assisted representation may include pricing strategy, county-market positioning, confidential or public marketing, buyer outreach and screening, buyer communications, negotiation, transaction coordination, document organization, and coordination with attorneys, accountants, lenders, escrow agents, licensing professionals or other advisers involved in the transfer and closing.",
   },
   {
     question: "Does a liquor license broker approve the transfer?",
     answer:
-      "No. Florida's Division of Alcoholic Beverages and Tobacco administers alcoholic-beverage licensing and transfer approval. A broker can help coordinate a transaction but cannot guarantee approval, transferability or closing.",
+      "No. Florida's Department of Business and Professional Regulation, through its Division of Alcoholic Beverages and Tobacco, administers alcoholic-beverage licensing and transfer approval. A broker can help coordinate a transaction but cannot guarantee approval, transferability or closing.",
   },
   {
     question: "Can I sell a Florida liquor license without hiring a broker?",
@@ -64,10 +64,10 @@ export default function FloridaLiquorLicenseBrokerPage() {
       "@type": "WebPage",
       name: "Florida Liquor License Broker",
       description:
-        "Two Florida liquor license brokerage pathways: independent brokers may list client licenses on FLLM, and sellers may request professional broker-assisted representation.",
+        "FLLM supports independent-broker marketplace listings and full-service broker-assisted representation for Florida liquor-license owners.",
       url: canonicalUrl,
       datePublished: "2026-08-26",
-      dateModified: "2026-09-01",
+      dateModified: "2026-09-05",
       publisher: {
         "@type": "Organization",
         name: "Florida Liquor License Market",
@@ -111,12 +111,12 @@ export default function FloridaLiquorLicenseBrokerPage() {
         .broker-choice-page{background:#04111d}
         .broker-choice-page .seo-market-hero{padding-bottom:62px}
         .broker-choice-page .seo-market-hero-grid{grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr)}
-        .broker-choice-page .seo-market-hero h1{max-width:850px}
-        .broker-choice-page .seo-market-hero p{max-width:820px}
+        .broker-choice-page .seo-market-hero h1{max-width:900px}
+        .broker-choice-page .seo-market-hero p{max-width:850px}
         .broker-choice-note{margin-top:20px;padding:14px 16px;border-left:3px solid #eda91a;background:rgba(237,169,26,.07);color:#d5dfe7;font-size:13px;line-height:1.65}
         .broker-two-paths{padding:72px 20px;background:#061827}
         .broker-two-paths-shell{width:min(1120px,100%);margin:0 auto}
-        .broker-path-heading{text-align:center;max-width:850px;margin:0 auto 28px}
+        .broker-path-heading{text-align:center;max-width:900px;margin:0 auto 28px}
         .broker-path-heading span{color:#eda91a;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
         .broker-path-heading h2{margin:9px 0 12px;color:#fff;font-size:clamp(30px,4vw,46px);line-height:1.08}
         .broker-path-heading p{margin:0;color:#b9c8d3;line-height:1.75;font-size:17px}
@@ -148,7 +148,7 @@ export default function FloridaLiquorLicenseBrokerPage() {
         .broker-row strong{color:#fff}
         .broker-support{padding:70px 20px;background:#061827}
         .broker-support-shell{width:min(1120px,100%);margin:0 auto}
-        .broker-support-heading{max-width:820px}
+        .broker-support-heading{max-width:860px}
         .broker-support-heading h2{margin:8px 0 12px;color:#fff;font-size:38px}
         .broker-support-heading p{margin:0;color:#bdcad4;line-height:1.75}
         .broker-support-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
@@ -171,7 +171,7 @@ export default function FloridaLiquorLicenseBrokerPage() {
         .broker-faq details p{margin:0;padding:0 0 18px;color:#bdcad4;line-height:1.75}
         .broker-final{padding:60px 20px;text-align:center;background:#071d33;border-top:1px solid rgba(237,169,26,.2)}
         .broker-final h2{margin:0;color:#fff;font-size:34px}
-        .broker-final p{max-width:760px;margin:12px auto 22px;color:#c0ccd5;line-height:1.7}
+        .broker-final p{max-width:800px;margin:12px auto 22px;color:#c0ccd5;line-height:1.7}
         .broker-final-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
         .broker-final-actions a{display:inline-flex;min-height:46px;align-items:center;padding:0 18px;border-radius:8px;font-weight:900;text-decoration:none}
         .broker-final-actions .gold{background:#eda91a;color:#061728}
@@ -183,7 +183,7 @@ export default function FloridaLiquorLicenseBrokerPage() {
       <div className="abt-header-wrap">
         <FormsSiteHeader
           primaryActionHref="/sell-your-license"
-          primaryActionLabel="List Your License"
+          primaryActionLabel="Sell Your License"
         />
       </div>
 
@@ -195,27 +195,27 @@ export default function FloridaLiquorLicenseBrokerPage() {
           <div className="seo-market-hero-grid">
             <div>
               <span className="seo-market-kicker">Florida Liquor License Brokerage</span>
-              <h1>Two Ways to Use a Florida Liquor License Broker Through FLLM</h1>
+              <h1>Florida Liquor License Brokerage: Marketplace Listings and Full-Service Representation</h1>
               <p>
-                Florida Liquor License Market is built for both sides of the brokerage market. Independent brokers can advertise licenses they already represent, while Florida liquor-license owners who want professional help can request broker-assisted representation to market and sell their license.
+                Florida Liquor License Market is built for both sides of the brokerage market. Independent brokers can advertise licenses they already represent while remaining the transaction contact. Florida liquor-license owners who want hands-on professional help can request full-service broker-assisted representation for pricing, marketing, buyer communications, negotiation and transaction coordination.
               </p>
               <div className="seo-market-actions">
-                <Link className="seo-market-button seo-market-button-gold" href="/brokers/list-your-license">
-                  I&apos;m a Broker — List a Client License
+                <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">
+                  Seller — Request Full-Service Representation
                 </Link>
-                <Link className="seo-market-button seo-market-button-dark" href="/sell-your-license">
-                  I&apos;m a Seller — Request Broker Help
+                <Link className="seo-market-button seo-market-button-dark" href="/brokers/list-your-license">
+                  Broker — List a Client License
                 </Link>
               </div>
               <div className="broker-choice-note">
-                Independent-broker marketplace listings and FLLM broker-assisted representation are separate services. The party providing representation, scope of services and compensation should always be identified in writing.
+                Full-service broker-assisted representation, independent-broker marketplace advertising and self-directed owner listings are separate services. Representation, scope, exclusivity and compensation are established only in a written brokerage agreement.
               </div>
             </div>
             <aside className="seo-market-snapshot" aria-label="FLLM broker pathways">
               <span>Choose Your Path</span>
               <div className="seo-market-snapshot-grid">
-                <div><strong>1</strong><small>broker lists a client license</small></div>
-                <div><strong>2</strong><small>seller requests representation</small></div>
+                <div><strong>Full</strong><small>broker-assisted representation</small></div>
+                <div><strong>Broker</strong><small>client marketplace listings</small></div>
                 <div><strong>67</strong><small>Florida counties</small></div>
                 <div><strong>4COP</strong><small>& 3PS quota focus</small></div>
               </div>
@@ -227,16 +227,37 @@ export default function FloridaLiquorLicenseBrokerPage() {
       <section className="broker-two-paths">
         <div className="broker-two-paths-shell">
           <div className="broker-path-heading">
-            <span>Two Brokerage Options</span>
-            <h2>Are you a broker listing a license, or a seller looking for a broker?</h2>
+            <span>Two Brokerage Paths</span>
+            <h2>Are you a seller seeking full-service representation, or a broker listing a client license?</h2>
             <p>
-              FLLM separates these two needs so buyers and sellers know who represents whom and brokers can expand their marketplace exposure without giving up their client relationship.
+              FLLM separates professional representation from marketplace advertising so buyers and sellers know who represents whom and brokers can expand exposure without giving up the client relationship.
             </p>
           </div>
 
           <div className="broker-path-grid">
             <article className="broker-path-card">
               <span className="number">1</span>
+              <span className="eyebrow">For License Owners</span>
+              <h3>Full-Service Broker-Assisted Representation for Your Florida Liquor License Sale</h3>
+              <p>
+                Own a 4COP Quota, 3PS Quota or other transferable Florida liquor license and want professional assistance across the sale? Request full-service broker-assisted representation through FLLM.
+              </p>
+              <ul>
+                <li>County-market review, valuation context and pricing strategy</li>
+                <li>Confidential or public marketing strategy and buyer outreach</li>
+                <li>Prospective-buyer screening and communications</li>
+                <li>Negotiation of price and other business terms</li>
+                <li>Due-diligence and transaction milestone coordination</li>
+                <li>Coordination with legal, licensing, financing, escrow and closing professionals</li>
+              </ul>
+              <div className="broker-card-actions">
+                <Link className="primary" href="/sell-your-license">Request Full-Service Representation</Link>
+                <Link className="secondary" href="/florida-liquor-license-broker-fees">Review Broker Fees</Link>
+              </div>
+            </article>
+
+            <article className="broker-path-card">
+              <span className="number">2</span>
               <span className="eyebrow">For Independent Brokers</span>
               <h3>List Your Client&apos;s Florida Liquor License on FLLM</h3>
               <p>
@@ -254,26 +275,6 @@ export default function FloridaLiquorLicenseBrokerPage() {
                 <Link className="secondary" href="/listings">View Marketplace</Link>
               </div>
             </article>
-
-            <article className="broker-path-card">
-              <span className="number">2</span>
-              <span className="eyebrow">For License Owners</span>
-              <h3>Hire a Florida Liquor License Broker to Help Sell Your License</h3>
-              <p>
-                Own a 4COP Quota, 3PS Quota or other transferable Florida liquor license and want professional assistance? Request a broker consultation through FLLM.
-              </p>
-              <ul>
-                <li>Review county-level market conditions and pricing strategy</li>
-                <li>Develop a confidential or public marketing approach</li>
-                <li>Manage or coordinate prospective-buyer communications</li>
-                <li>Assist with negotiation of price and business terms</li>
-                <li>Coordinate transaction milestones with the professionals involved</li>
-              </ul>
-              <div className="broker-card-actions">
-                <Link className="primary" href="/sell-your-license">Request Broker Assistance</Link>
-                <Link className="secondary" href="/florida-liquor-license-value">Check License Value</Link>
-              </div>
-            </article>
           </div>
         </div>
       </section>
@@ -283,9 +284,9 @@ export default function FloridaLiquorLicenseBrokerPage() {
           <div className="broker-difference-grid">
             <div className="broker-difference-copy">
               <span>Clear Marketplace Roles</span>
-              <h2>The two brokerage paths are not the same service</h2>
+              <h2>Full-service representation is different from marketplace advertising</h2>
               <p>
-                FLLM is designed to make the distinction obvious. An independent broker listing a client&apos;s license remains that client&apos;s representative. A seller requesting broker assistance is seeking a separate professional engagement. FLLM also continues to support owners who prefer a self-directed marketplace listing without brokerage representation.
+                A seller requesting full-service broker-assisted representation is seeking a professional engagement that may cover pricing, marketing, buyer communications, negotiation and transaction coordination. An independent broker listing a client&apos;s license on FLLM remains that client&apos;s representative. FLLM also supports experienced owners who prefer a self-directed marketplace listing without brokerage representation.
               </p>
             </div>
             <div className="broker-table" role="table" aria-label="Comparison of FLLM brokerage paths">
@@ -293,10 +294,10 @@ export default function FloridaLiquorLicenseBrokerPage() {
                 <div>Path</div><div>Who represents the seller?</div><div>Primary purpose</div>
               </div>
               <div className="broker-row" role="row">
-                <div><strong>Independent Broker Listing</strong></div><div>The submitting broker</div><div>Marketplace exposure and inquiry routing</div>
+                <div><strong>Full-Service Broker-Assisted Seller</strong></div><div>As defined in the written brokerage agreement</div><div>Professional representation across marketing, negotiation and transaction coordination</div>
               </div>
               <div className="broker-row" role="row">
-                <div><strong>Broker-Assisted Seller</strong></div><div>As defined in the written brokerage agreement</div><div>Professional marketing and transaction support</div>
+                <div><strong>Independent Broker Listing</strong></div><div>The submitting broker</div><div>Marketplace exposure and inquiry routing</div>
               </div>
               <div className="broker-row" role="row">
                 <div><strong>Self-Directed Seller</strong></div><div>No broker representation through the listing</div><div>Seller-managed marketplace listing</div>
@@ -309,20 +310,20 @@ export default function FloridaLiquorLicenseBrokerPage() {
       <section className="broker-support">
         <div className="broker-support-shell">
           <div className="broker-support-heading">
-            <span className="broker-section-kicker">Broker-Assisted Selling</span>
-            <h2>What a Florida liquor license broker can help coordinate</h2>
+            <span className="broker-section-kicker">Full-Service Broker-Assisted Representation</span>
+            <h2>What full-service Florida liquor license representation can include</h2>
             <p>
-              The exact scope depends on the written engagement, but a Florida liquor license brokerage assignment may involve the following areas.
+              The exact scope depends on the written engagement, but full-service broker-assisted representation can extend across the major commercial stages of a Florida liquor-license sale.
             </p>
           </div>
           <div className="broker-support-grid">
             {[
-              ["1", "Pricing strategy", "Compare county inventory, asking prices and relevant market evidence before setting an asking price."],
-              ["2", "Marketing", "Present the license to qualified prospects using an appropriate public or confidential marketing strategy."],
-              ["3", "Buyer communications", "Organize inquiries, availability questions and transaction discussions within the agreed scope."],
+              ["1", "Pricing strategy", "Compare county inventory, asking prices and relevant market evidence before setting or adjusting the asking price."],
+              ["2", "Marketing strategy", "Develop an appropriate public or confidential marketing plan and present the license to qualified prospects."],
+              ["3", "Buyer screening & communications", "Organize inquiries, qualify prospective buyers and manage transaction discussions within the agreed scope."],
               ["4", "Negotiation", "Help evaluate and negotiate price and other business terms while the client retains final decision authority."],
-              ["5", "Due diligence coordination", "Help organize license details, liens or encumbrances, transfer information and third-party professional involvement."],
-              ["6", "Closing coordination", "Track transaction milestones and help keep the buyer, seller and professional advisers aligned through closing."],
+              ["5", "Due diligence & transfer coordination", "Help organize license details, liens or encumbrances, transfer information and third-party professional involvement."],
+              ["6", "Closing coordination", "Track transaction milestones and help keep the buyer, seller, attorneys, licensing professionals, escrow and other advisers aligned through closing."],
             ].map(([n, title, copy]) => (
               <article className="broker-support-card" key={title}>
                 <b>{n}</b><h3>{title}</h3><p>{copy}</p>
@@ -336,18 +337,19 @@ export default function FloridaLiquorLicenseBrokerPage() {
         <div className="broker-seo-shell">
           <div>
             <span className="broker-section-kicker">Florida Liquor License Brokerage</span>
-            <h2>4COP and 3PS liquor license broker services across Florida</h2>
+            <h2>4COP and 3PS full-service broker representation across Florida</h2>
             <p>
               Florida quota liquor licenses are county-specific, and market values can vary substantially from one county to another. Buyers and sellers commonly evaluate the county, license series, intended use, current inventory, asking prices, transferability and transaction timing before deciding how to proceed.
             </p>
             <p>
-              FLLM&apos;s brokerage marketplace is designed around that specialized market. Independent brokers can add client inventory to a statewide platform, while owners who want professional representation can request broker assistance rather than handling the sale on their own.
+              FLLM&apos;s specialized market infrastructure supports both full-service broker-assisted representation for owners who want professional help and independent-broker marketplace listings for brokers who already represent the seller. Self-directed selling remains available as a separate option for experienced owners who prefer direct control.
             </p>
           </div>
           <nav className="broker-links" aria-label="Florida liquor license broker resources">
-            <Link href="/listings">Browse Florida Liquor Licenses for Sale</Link>
+            <Link href="/sell-your-license">Full-Service or Self-Directed Selling</Link>
+            <Link href="/florida-liquor-license-broker-fees">Florida Liquor License Broker Fees</Link>
             <Link href="/brokers/list-your-license">For Brokers — List a Client License</Link>
-            <Link href="/sell-your-license">Sell or List Your Florida Liquor License</Link>
+            <Link href="/listings">Browse Florida Liquor Licenses for Sale</Link>
             <Link href="/florida-liquor-license-value">Florida Liquor License Value</Link>
             <Link href="/florida-liquor-license-appraisal">Florida Liquor License Appraisals</Link>
             <Link href="/financing">Florida Liquor License Financing</Link>
@@ -372,11 +374,11 @@ export default function FloridaLiquorLicenseBrokerPage() {
       <section className="broker-final">
         <h2>Choose the FLLM brokerage path that fits your transaction</h2>
         <p>
-          Brokers can list client inventory without surrendering the relationship. License owners can request professional broker assistance when they do not want to manage the sale alone.
+          License owners can request full-service broker-assisted representation when they want professional help across pricing, marketing, buyer communications, negotiation and transaction coordination. Independent brokers can list client inventory without surrendering the relationship.
         </p>
         <div className="broker-final-actions">
-          <Link className="gold" href="/brokers/list-your-license">Broker — List a Client License</Link>
-          <Link className="outline" href="/sell-your-license">Seller — Request Broker Assistance</Link>
+          <Link className="gold" href="/sell-your-license">Seller — Request Full-Service Representation</Link>
+          <Link className="outline" href="/brokers/list-your-license">Broker — List a Client License</Link>
         </div>
       </section>
     </main>
