@@ -95,7 +95,7 @@ const navMenus: NavMenu[] = [
       { href: "/license-types/3ps-package-store", label: "3PS Quota / Package Store" },
       { href: "/license-types/2cop-beer-wine", label: "2COP Beer & Wine" },
       { href: "/license-types/4cop-sfs-restaurant", label: "SRX / 4COP-SFS Restaurant" },
-      { href: "/license-types/mobile-bars-catered-events", label: "Mobile Bars & Catered Events (13CT)" },
+      { href: "/license-types/mobile-bars-catered-events", label: "Mobile Liquor License" },
       { href: "/resources/florida-liquor-license-types#population-rule-title", label: "Quota License Requirements" },
     ],
   },
