@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import LicenseTypeExplainerPage from "@/components/LicenseTypeExplainerPage";
 
 export const metadata: Metadata = {
-  title: "Florida Mobile Liquor License & 13CT Caterer Guide | FLLM",
+  title: "Florida Mobile Liquor License & Mobile Bar License | FLLM",
   description:
     "Does Florida have a mobile liquor license? Learn how Florida mobile bars, catered events, and the 13CT caterer license work, including the 51% food rule, statewide event use, and alcohol-storage restrictions.",
   alternates: {
     canonical: "https://www.floridaliquorlicensemarket.com/license-types/mobile-bars-catered-events",
   },
   openGraph: {
-    title: "Florida Mobile Bar & Catered Event Alcohol Licensing | FLLM",
+    title: "Florida Mobile Liquor License & Mobile Bar License | FLLM",
     description:
       "A plain-English guide to Florida mobile bars, catered events, and the 13CT caterer alcoholic-beverage license.",
     type: "article",
@@ -21,8 +21,8 @@ export default function Page() {
   return (
     <LicenseTypeExplainerPage
       code="13CT"
-      title="Florida Mobile Bar & Catered Event Alcohol Licensing"
-      eyebrow="Mobile Bars · Catered Events · 13CT Caterer License"
+      title="Florida Mobile Liquor License & Mobile Bar License"
+      eyebrow="Catering, Events & Mobile Alcohol Service in Florida"
       imageSrc="https://images.pexels.com/photos/18853331/pexels-photo-18853331.jpeg?auto=compress&dpr=1&h=1000&w=1800"
       imageAlt="Elegant catered event bar representing Florida mobile bar and 13CT caterer alcohol service"
       definition="Florida does not issue a general roaming ‘mobile liquor license’ that lets a bar truck, trailer, or portable bar travel from place to place and sell alcohol anywhere. The principal statewide full-liquor caterer license is the 13CT. A qualifying caterer licensed under Chapter 509 may sell or serve beer, wine, and liquor for consumption at a catered event where the licensee is also providing prepared food."
