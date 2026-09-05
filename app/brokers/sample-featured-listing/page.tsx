@@ -17,6 +17,9 @@ export default function Page() {
           transform-origin: center center;
           clip-path: inset(17.75% 17.75% 17.75% 17.75%);
         }
+        div:has(> div > img[src*="county-map?county=St%20Lucie%20County"]) {
+          align-self: start !important;
+        }
       `}</style>
     </>
   );
