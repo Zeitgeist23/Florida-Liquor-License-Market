@@ -7,11 +7,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-type PageProps = {
-  searchParams?: Promise<{ broker?: string }> | { broker?: string };
-};
-
-export default async function Page({ searchParams }: PageProps) {
+export default async function Page({ searchParams }: any) {
   const params = await Promise.resolve(searchParams ?? {});
   const brokerMode = params.broker === "male" ? "male" : "female";
 
