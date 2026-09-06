@@ -70,8 +70,38 @@ export default function Page() {
           [class*="detailGrid"] strong {
             font-size: 13px !important;
           }
+          [class*="highlights"] {
+            padding: 8px 9px !important;
+          }
+          [class*="highlights"] h3 {
+            margin: 0 0 7px !important;
+            padding: 0 0 0 4px !important;
+            border: 0 !important;
+            font-size: 18px !important;
+          }
+          [class*="highlightGrid"] {
+            display: grid !important;
+            grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+            border: 1px solid rgba(201,143,22,.48) !important;
+          }
+          [class*="highlightGrid"] > div {
+            height: 88px !important;
+            min-height: 88px !important;
+            padding: 8px !important;
+            border-right: 1px solid rgba(201,143,22,.42) !important;
+          }
+          [class*="highlightGrid"] > div:nth-child(2) {
+            border-right: 1px solid rgba(201,143,22,.42) !important;
+          }
+          [class*="highlightGrid"] > div:last-child {
+            border-right: 0 !important;
+          }
+          [class*="highlightGrid"] b {
+            font-size: 25px !important;
+            line-height: 1 !important;
+          }
           [class*="highlightGrid"] span {
-            font-size: 12px !important;
+            font-size: 10px !important;
             line-height: 1.35 !important;
           }
           [class*="countyCard"] p {
