@@ -15,7 +15,7 @@ export default function Page() {
         a[aria-label="Florida Liquor License Market home"] {
           position: relative;
           left: -25px;
-          top: -38px;
+          top: -16px;
         }
         img[src*="county-map?county=St%20Lucie%20County"] {
           transform: scale(1.55);
