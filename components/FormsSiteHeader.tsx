@@ -57,11 +57,14 @@ export default function FormsSiteHeader({
               transform: translateY(-50%) !important;
               margin: 0 !important;
             }
-            body:has(.broker-list-site-header) footer img {
+            footer img[alt="Florida Liquor License Market"] {
               display: block !important;
-              margin-left: auto !important;
-              margin-right: auto !important;
-              justify-self: center !important;
+              position: relative !important;
+              left: 50% !important;
+              transform: translateX(-50%) !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
+              justify-self: start !important;
             }
           }
         `}</style>
