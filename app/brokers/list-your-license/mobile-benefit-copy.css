@@ -1,0 +1,7 @@
+@media (max-width: 620px) {
+  main > section:nth-of-type(2) > div > div:first-child > p {
+    font-size: 18px !important;
+    line-height: 1.75 !important;
+    color: #44596a !important;
+  }
+}
