@@ -1,0 +1,8 @@
+@media (max-width: 620px) {
+  [class*="benefitSection"] [class*="sectionHeading"] > span {
+    font-size: 20px !important;
+    line-height: 1.3 !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.08em !important;
+  }
+}
