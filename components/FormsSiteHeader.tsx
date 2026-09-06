@@ -30,11 +30,15 @@ export default function FormsSiteHeader({
               justify-content: center !important;
             }
             .broker-list-site-header .brand-lockup {
+              position: absolute !important;
+              left: 50% !important;
+              top: 50% !important;
+              transform: translate(-50%, -50%) !important;
               flex: 0 0 65% !important;
               width: 65% !important;
               max-width: 300px !important;
               min-width: 0 !important;
-              margin: 0 auto !important;
+              margin: 0 !important;
               justify-content: center !important;
             }
             .broker-list-site-header .brand-lockup img {
