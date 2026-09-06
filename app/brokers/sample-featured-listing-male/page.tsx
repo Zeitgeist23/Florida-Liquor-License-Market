@@ -13,7 +13,9 @@ export default function Page() {
       <LockedFeaturedBrokerPreview brokerMode="male" />
       <style>{`
         img[alt="Fictitious male independent listing broker"] {
-          object-position: center top !important;
+          object-fit: contain !important;
+          object-position: center center !important;
+          background: #0b2233 !important;
         }
         img[src*="county-map?county=St%20Lucie%20County"] {
           transform: scale(1.55);
