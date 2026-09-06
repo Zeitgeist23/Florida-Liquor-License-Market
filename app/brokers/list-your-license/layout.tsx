@@ -18,6 +18,7 @@ import "@/app/listings/listings-mobile-header-fix.css";
 import "@/app/listings/listings-seo-footer.css";
 import "@/app/listings/listings-view-button-edge-fix.css";
 import "./mobile-broker-kicker.css";
+import "./mobile-benefit-copy.css";
 
 export default function BrokerListYourLicenseLayout({ children }: { children: ReactNode }) {
   return (
