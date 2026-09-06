@@ -130,6 +130,11 @@ export default function Page() {
             font-size: 10px !important;
             line-height: 1.4 !important;
           }
+          [class*="appraisalCard"],
+          [class*="financeCard"] {
+            grid-column: 1 / -1 !important;
+            width: 100% !important;
+          }
         }
       `}</style>
     </>
