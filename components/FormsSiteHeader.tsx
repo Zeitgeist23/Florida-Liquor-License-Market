@@ -21,18 +21,21 @@ export default function FormsSiteHeader({
         <style>{`
           @media (max-width: 820px) {
             .broker-list-site-header {
+              position: relative !important;
               min-height: 108px !important;
               height: auto !important;
               padding-top: 10px !important;
               padding-bottom: 10px !important;
               align-items: center !important;
-              justify-content: space-between !important;
+              justify-content: center !important;
             }
             .broker-list-site-header .brand-lockup {
-              flex: 0 1 65% !important;
+              flex: 0 0 65% !important;
               width: 65% !important;
               max-width: 300px !important;
               min-width: 0 !important;
+              margin: 0 auto !important;
+              justify-content: center !important;
             }
             .broker-list-site-header .brand-lockup img {
               display: block !important;
@@ -40,8 +43,15 @@ export default function FormsSiteHeader({
               height: auto !important;
               max-height: 92px !important;
               object-fit: contain !important;
-              object-position: left center !important;
-              transform: translateX(23px) !important;
+              object-position: center center !important;
+              transform: none !important;
+            }
+            .broker-list-site-header .menu-toggle {
+              position: absolute !important;
+              right: 0 !important;
+              top: 50% !important;
+              transform: translateY(-50%) !important;
+              margin: 0 !important;
             }
           }
         `}</style>
