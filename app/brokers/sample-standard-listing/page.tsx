@@ -8,5 +8,22 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <SampleBrokerListingDetail featured={false} />;
+  return (
+    <>
+      <SampleBrokerListingDetail featured={false} />
+      <style>{`
+        [data-standard-preview] {
+          padding: 0 !important;
+          background: #02090f !important;
+        }
+        [data-standard-preview] > div {
+          width: 100% !important;
+          max-width: none !important;
+          margin: 0 !important;
+          border-radius: 0 !important;
+          box-shadow: none !important;
+        }
+      `}</style>
+    </>
+  );
 }
