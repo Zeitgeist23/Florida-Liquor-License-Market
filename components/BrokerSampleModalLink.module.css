@@ -135,7 +135,7 @@
   .modal,.standardModal,.featuredModal{width:98vw;max-height:96vh}
   .viewport{height:82vh}
   .standardViewport{height:82vh;padding-top:4px}
-  .standardFrame{width:1180px;height:1240px;transform:scale(.52)}
+  .standardFrame{width:100%;height:100%;transform:none}
   .imageViewport{max-height:82vh}
   .modalBar strong{font-size:15px}
 }
