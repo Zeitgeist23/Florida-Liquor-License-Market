@@ -41,7 +41,7 @@ export default function FormsSiteHeader({
               max-height: 92px !important;
               object-fit: contain !important;
               object-position: left center !important;
-              transform: none !important;
+              transform: translateX(23px) !important;
             }
           }
         `}</style>
