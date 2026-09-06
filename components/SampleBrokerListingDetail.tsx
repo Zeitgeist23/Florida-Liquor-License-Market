@@ -20,7 +20,7 @@ function StandardSampleListing() {
 
             <section className={styles.standardHero}>
               <div className={styles.heroCopy}>
-                <h1>Orange County<br />4COP Quota Liquor License<br />for Sale</h1>
+                <h1>Orange County<br /><span className={styles.straightFour}>4</span>COP Quota Liquor License<br />for Sale</h1>
                 <div className={styles.standardPrice}>$435,000</div>
                 <div className={styles.statusLine}>
                   <span className={styles.available}>● AVAILABLE</span>
@@ -47,7 +47,7 @@ function StandardSampleListing() {
               <div className={styles.standardMainColumn}>
                 <section className={styles.detailsSection}>
                   <div className={styles.sectionKicker}>SPECIFIC LICENSE DETAILS</div>
-                  <h2>4COP Quota in Orange County</h2>
+                  <h2><span className={styles.straightFour}>4</span>COP Quota in Orange County</h2>
                   <div className={styles.detailCards}>
                     <div><span>ASKING PRICE</span><strong>$435,000</strong></div>
                     <div><span>LICENSE TYPE</span><strong>4COP Quota</strong></div>
