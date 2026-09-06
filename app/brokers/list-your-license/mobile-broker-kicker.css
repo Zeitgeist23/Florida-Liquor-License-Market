@@ -17,4 +17,10 @@
     line-height: 1.55 !important;
     color: #f1f4f6 !important;
   }
+
+  [class*="processSection"] [class*="steps"] article > p {
+    font-size: 18px !important;
+    line-height: 1.65 !important;
+    color: #465967 !important;
+  }
 }
