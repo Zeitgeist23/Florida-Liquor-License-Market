@@ -17,6 +17,14 @@ export default function Page() {
           left: -25px;
           top: 8px;
         }
+        img[alt="Fictitious female independent listing broker"] {
+          content: url('/assets/brokers/fllm-sample-female-ai.jpg') !important;
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+          object-position: center center !important;
+          display: block !important;
+        }
         img[src*="county-map?county=St%20Lucie%20County"] {
           transform: scale(1.55);
           transform-origin: center center;
