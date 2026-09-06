@@ -124,7 +124,7 @@ export default function LockedFeaturedBrokerPreview({ brokerMode = "female" }: {
             <section className={styles.brokerCard}>
               <div className={styles.railKicker}>LISTED BY</div>
               <h3>{broker.name}</h3>
-              {broker.image ? <img className={styles.brokerPortrait} src={broker.image} alt={broker.alt} /> : null}
+              {broker.image ? <div className={styles.brokerPortraitWrap}><img className={styles.brokerPortrait} src={broker.image} alt={broker.alt} /></div> : null}
               <div className={styles.contactLine}>☎ &nbsp; (555) 555-5555</div>
               <div className={styles.contactLine}>✉ &nbsp; {broker.email}</div>
               <button type="button">Call Listing Broker</button>
