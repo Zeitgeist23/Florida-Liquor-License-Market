@@ -56,8 +56,11 @@ export default function Page() {
           header[class*="header"] nav {
             display: none !important;
           }
-          [class*="rail"] {
-            grid-template-columns: 1fr !important;
+          aside[class*="rail"] {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 12px !important;
           }
           [class*="breadcrumb"] {
             font-size: 12px !important;
@@ -140,7 +143,6 @@ export default function Page() {
           }
           [class*="appraisalCard"],
           [class*="financeCard"] {
-            grid-column: 1 / -1 !important;
             width: 100% !important;
           }
         }
