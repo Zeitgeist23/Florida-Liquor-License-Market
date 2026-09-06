@@ -40,7 +40,7 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
     const nextCount = featuredClickCount.current;
     const nextPage = nextCount % 4 === 0 ? FEATURED_SAMPLE_MALE_PAGE : FEATURED_SAMPLE_PAGE;
 
-    setFeaturedSamplePage(`${nextPage}?sampleClick=${nextCount}`);
+    setFeaturedSamplePage(`${nextPage}?sampleClick=${nextCount}&v=${Date.now()}`);
     setOpen(true);
   };
 
