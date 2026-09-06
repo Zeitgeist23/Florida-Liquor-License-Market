@@ -5,13 +5,6 @@ function StandardSampleListing() {
   return (
     <main className={styles.standardPreviewPage} data-standard-preview>
       <div className={styles.standardBrowser}>
-        <div className={styles.browserChrome}>
-          <div className={styles.browserDots} aria-hidden="true"><i /><i /><i /></div>
-          <div className={styles.browserControls} aria-hidden="true">‹ &nbsp; › &nbsp; ↻</div>
-          <div className={styles.addressBar}>🔒&nbsp; floridaliquorlicensemarket.com/listings/orange-county-4cop-quota-fllm-demo-001</div>
-          <div className={styles.browserTools} aria-hidden="true">☆ &nbsp; ⋮</div>
-        </div>
-
         <div className={styles.standardSite}>
           <header className={styles.standardHeader}>
             <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
