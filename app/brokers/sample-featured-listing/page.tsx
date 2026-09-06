@@ -110,40 +110,74 @@ export default function Page() {
             font-size: 12px !important;
             line-height: 1.4 !important;
           }
-          [class*="railKicker"],
-          [class*="appraisalCopy"] > span,
-          [class*="financeCard"] > span {
-            font-size: 10px !important;
+          [class*="railKicker"] {
+            font-size: 12px !important;
           }
           [class*="brokerCard"] h3 {
-            font-size: 15px !important;
+            font-size: 16px !important;
           }
           [class*="contactLine"] {
-            font-size: 12px !important;
-            line-height: 1.4 !important;
+            font-size: 14px !important;
+            line-height: 1.45 !important;
           }
           [class*="inquiryCard"] input,
           [class*="inquiryCard"] textarea {
-            font-size: 14px !important;
+            font-size: 15px !important;
           }
-          [class*="inquiryCard"] small,
-          [class*="financeCard"] small {
-            font-size: 10px !important;
-            line-height: 1.4 !important;
-          }
-          [class*="appraisalCopy"] p,
-          [class*="financeCard"] p {
+          [class*="inquiryCard"] small {
             font-size: 12px !important;
-            line-height: 1.5 !important;
-          }
-          [class*="appraisalCopy"] b,
-          [class*="disclaimer"] {
-            font-size: 10px !important;
-            line-height: 1.4 !important;
+            line-height: 1.45 !important;
           }
           [class*="appraisalCard"],
           [class*="financeCard"] {
             width: 100% !important;
+          }
+          [class*="appraisalCard"] > img {
+            height: 280px !important;
+            object-fit: cover !important;
+          }
+          [class*="appraisalCopy"] {
+            padding: 20px 18px 22px !important;
+          }
+          [class*="financeCard"] {
+            padding: 22px 18px !important;
+          }
+          [class*="appraisalCopy"] > span,
+          [class*="financeCard"] > span {
+            font-size: 12px !important;
+            line-height: 1.35 !important;
+          }
+          [class*="appraisalCopy"] h3,
+          [class*="financeCard"] h3 {
+            font-size: 32px !important;
+            line-height: 1.05 !important;
+            margin: 8px 0 14px !important;
+          }
+          [class*="appraisalCopy"] p,
+          [class*="financeCard"] p {
+            font-size: 15px !important;
+            line-height: 1.55 !important;
+            margin-bottom: 16px !important;
+          }
+          [class*="appraisalCopy"] a,
+          [class*="financeCard"] a {
+            min-height: 54px !important;
+            font-size: 14px !important;
+          }
+          [class*="appraisalCopy"] b {
+            font-size: 13px !important;
+            line-height: 1.45 !important;
+            margin-top: 14px !important;
+          }
+          [class*="financeCard"] small {
+            font-size: 13px !important;
+            line-height: 1.5 !important;
+            margin-top: 14px !important;
+          }
+          [class*="disclaimer"] {
+            font-size: 13px !important;
+            line-height: 1.5 !important;
+            padding: 14px !important;
           }
         }
       `}</style>
