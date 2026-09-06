@@ -99,44 +99,24 @@ export default function BrokerListingForm() {
     <form className={styles.form} onSubmit={submit} encType="multipart/form-data">
       <style>{`
         @media (max-width: 620px) {
-          .${styles.heroCopy} > small,
-          .${styles.heroPlans} small,
-          .${styles.sectionHeading} p,
-          .${styles.previewCaption},
-          .${styles.previewCopy} p,
-          .${styles.distinctionGrid} p,
-          .${styles.steps} p,
-          .${styles.formIntro} p,
-          .${styles.footer} p {
-            font-size: 16px !important;
-            line-height: 1.65 !important;
-          }
-          .${styles.previewFeaturedContact} span,
-          .${styles.previewFeaturedContact} small,
-          .${styles.previewBroker},
-          .${styles.previewAvailable},
-          .${styles.previewCounty} {
-            font-size: 14px !important;
-            line-height: 1.45 !important;
-          }
+          .${styles.sectionHeading} > span { font-size: 16px !important; line-height: 1.35 !important; letter-spacing: .12em !important; }
           .${styles.form} legend > span { font-size: 18px !important; line-height: 1.35 !important; }
           .${styles.form} legend small { font-size: 17px !important; line-height: 1.55 !important; margin-top: 5px !important; color:#44596a !important; }
-          .${styles.tierDescription} { font-size: 16px !important; line-height: 1.55 !important; color:#44596a !important; }
-          .${styles.tierBenefits} { font-size: 16px !important; line-height: 1.85 !important; }
+          .${styles.tierDescription} { font-size: 16px !important; line-height: 1.55 !important; }
+          .${styles.tierBenefits} { font-size: 15px !important; line-height: 1.9 !important; }
           .${styles.fields} label > span,
-          .${styles.inquiryRouting} > span { font-size: 16px !important; }
+          .${styles.inquiryRouting} > span { font-size: 15px !important; }
           .${styles.fields} input,
           .${styles.fields} select,
-          .${styles.fields} textarea { font-size: 17px !important; }
+          .${styles.fields} textarea { font-size: 16px !important; }
           .${styles.inquiryRouting} > small { font-size: 17px !important; line-height: 1.55 !important; color:#44596a !important; }
-          .${styles.inquiryOptions} label > span { font-size: 17px !important; line-height: 1.4 !important; }
-          .${styles.fileField} b { font-size: 18px !important; }
+          .${styles.inquiryOptions} label > span { font-size: 16px !important; line-height: 1.4 !important; }
+          .${styles.fileField} b { font-size: 17px !important; }
           .${styles.fileField} small { font-size: 17px !important; line-height:1.5 !important; color:#44596a !important; }
-          .${styles.certifications} label { font-size: 17px !important; line-height: 1.6 !important; color:#344b5b !important; }
-          .${styles.formFooter} strong { font-size: 20px !important; }
-          .${styles.formFooter} small { font-size: 16px !important; line-height: 1.45 !important; }
-          .${styles.formFooter} button { font-size: 14px !important; }
-          .${styles.faqList} p { font-size: 17px !important; line-height: 1.75 !important; color:#44596a !important; }
+          .${styles.certifications} label { font-size: 16px !important; line-height: 1.6 !important; }
+          .${styles.formFooter} strong { font-size: 19px !important; }
+          .${styles.formFooter} small { font-size: 15px !important; line-height: 1.45 !important; }
+          .${styles.formFooter} button { font-size: 13px !important; }
         }
       `}</style>
       <label className={styles.honeypot} aria-hidden="true">
