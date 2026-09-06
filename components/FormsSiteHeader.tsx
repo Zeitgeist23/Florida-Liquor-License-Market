@@ -57,6 +57,12 @@ export default function FormsSiteHeader({
               transform: translateY(-50%) !important;
               margin: 0 !important;
             }
+            body:has(.broker-list-site-header) footer img {
+              display: block !important;
+              margin-left: auto !important;
+              margin-right: auto !important;
+              justify-self: center !important;
+            }
           }
         `}</style>
       ) : null}
