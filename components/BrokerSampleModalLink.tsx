@@ -11,7 +11,9 @@ const FEATURED_SAMPLE_MALE_PAGE = "/brokers/sample-featured-listing-male";
 
 export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
   const [open, setOpen] = useState(false);
+  const [standardSamplePage, setStandardSamplePage] = useState(STANDARD_SAMPLE_PAGE);
   const [featuredSamplePage, setFeaturedSamplePage] = useState(FEATURED_SAMPLE_PAGE);
+  const standardClickCount = useRef(0);
   const featuredClickCount = useRef(0);
   const featured = tier === "featured";
   const label = featured ? "View Sample Featured Listing Page" : "View Sample Standard Listing Page";
@@ -32,6 +34,9 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
 
   const openSample = () => {
     if (!featured) {
+      standardClickCount.current += 1;
+      const nextCount = standardClickCount.current;
+      setStandardSamplePage(`${STANDARD_SAMPLE_PAGE}?sampleClick=${nextCount}&v=${Date.now()}`);
       setOpen(true);
       return;
     }
@@ -76,8 +81,9 @@ export default function BrokerSampleModalLink({ tier }: { tier: Tier }) {
             ) : (
               <div className={`${styles.viewport} ${styles.standardViewport}`}>
                 <iframe
+                  key={standardSamplePage}
                   className={`${styles.frame} ${styles.standardFrame}`}
-                  src={STANDARD_SAMPLE_PAGE}
+                  src={standardSamplePage}
                   title="Standard broker listing detail page sample"
                   tabIndex={0}
                   loading="eager"
