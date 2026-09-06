@@ -7,7 +7,7 @@ const SAMPLE_BROKERS = {
   female: {
     name: "Emma Brooks",
     email: "emma.brooks@listingbroker.com",
-    image: "/assets/brokers/fllm-featured-broker-sample.jpg",
+    image: "/assets/brokers/sample-brunette-broker.svg",
     alt: "Fictitious female independent listing broker",
   },
   male: {
