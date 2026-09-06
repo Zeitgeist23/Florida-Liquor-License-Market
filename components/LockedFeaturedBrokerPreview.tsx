@@ -13,7 +13,7 @@ const SAMPLE_BROKERS = {
   male: {
     name: "Alex Morgan",
     email: "alex.morgan@listingbroker.com",
-    image: "/assets/brokers/alex-morgan-sample-broker.webp",
+    image: "/assets/brokers/alex-morgan-headroom.jpg",
     alt: "Fictitious male independent listing broker",
   },
 } as const;
