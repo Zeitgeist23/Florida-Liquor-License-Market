@@ -56,6 +56,9 @@ export default function Page() {
           header[class*="header"] nav {
             display: none !important;
           }
+          [class*="rail"] {
+            grid-template-columns: 1fr !important;
+          }
           [class*="breadcrumb"] {
             font-size: 12px !important;
           }
