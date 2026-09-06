@@ -35,4 +35,16 @@
     line-height: 1.55 !important;
     color: #d2dce3 !important;
   }
+
+  [class*="heroCopy"] > small {
+    font-size: 17px !important;
+    line-height: 1.55 !important;
+    color: #d7e0e6 !important;
+  }
+
+  [class*="heroPlans"] small {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    color: #d7e0e6 !important;
+  }
 }
