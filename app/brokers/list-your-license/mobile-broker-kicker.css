@@ -37,13 +37,13 @@
   }
 
   [class*="heroCopy"] > small {
-    font-size: 13.464px !important;
+    font-size: 12.7908px !important;
     line-height: 1.55 !important;
     color: #d7e0e6 !important;
   }
 
   [class*="heroPlans"] small {
-    font-size: 12.672px !important;
+    font-size: 12.0384px !important;
     line-height: 1.5 !important;
     color: #d7e0e6 !important;
   }
