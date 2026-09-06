@@ -66,6 +66,20 @@ export default function FormsSiteHeader({
               margin-right: 0 !important;
               justify-self: start !important;
             }
+            details summary {
+              font-size: 17px !important;
+              line-height: 1.4 !important;
+              padding: 22px 54px 22px 20px !important;
+            }
+            details summary::after {
+              font-size: 28px !important;
+              top: 17px !important;
+            }
+            details > p {
+              font-size: 15px !important;
+              line-height: 1.75 !important;
+              padding: 0 20px 24px !important;
+            }
           }
         `}</style>
       ) : null}
