@@ -12,6 +12,7 @@
     { label: "View All Resources", href: "/resources", internal: true },
     { label: "Alcohol License Application Center", href: "/resources/application-center", internal: true },
     { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup", highlight: true, badge: "LOOKUP" },
+    { label: "Florida Liquor License Value Estimator", href: "/florida-liquor-license-value", internal: true, highlight: true, badge: "VALUE" },
     { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws", internal: true },
     { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" },
     { label: "Florida ABT Forms", href: "/resources/forms", internal: true },
