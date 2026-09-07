@@ -7,6 +7,7 @@ import { listingPageHref } from "@/lib/listing-page-urls";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import heroDataUri from "./hero-data";
 import heatmapDataUri from "./heatmap-data";
+import newsDataUri from "./news-data";
 import styles from "./exchange-board.module.css";
 
 export const dynamic = "force-dynamic";
@@ -202,13 +203,9 @@ export default async function ExchangeBoardPage() {
 
       <section className={styles.newsSection} aria-label="FLLM News market report">
         <img
-          src="/assets/market-report-studio.png"
+          src={newsDataUri}
           alt="FLLM market reporters discussing the Florida liquor license market with a Florida market heat map"
         />
-        <div className={styles.newsCaption}>
-          <b>FLLM NEWS</b>
-          <span>FLORIDA LIQUOR LICENSE MARKET UPDATE · COUNTY PRICE DISCOVERY · ACTIVE ASKING PRICES · MARKET TRANSPARENCY</span>
-        </div>
       </section>
 
       {featuredListing && (
