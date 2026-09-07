@@ -114,6 +114,7 @@ const navMenus: NavMenu[] = [
         target: "_blank",
         rel: "noopener noreferrer",
       },
+      { href: "/florida-liquor-license-value", label: "Florida Liquor License Value Estimator" },
       { href: "/resources/florida-liquor-license-laws", label: "Florida Liquor License Laws" },
       {
         href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
@@ -274,13 +275,17 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;background:transparent!important;box-shadow:none!important;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
         .primary-nav .native-nav-resources-menu a{min-height:50px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025)!important}
         .primary-nav .native-nav-resources-menu a[href="/free-guide"],
+        .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"],
         .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]{border-color:rgba(246,167,0,.52);background:linear-gradient(135deg,rgba(246,167,0,.10),rgba(246,167,0,.025))!important;color:#fff;font-weight:900}
         .primary-nav .native-nav-resources-menu a[href="/free-guide"]::after{content:"FREE PDF";margin-left:auto;color:#f6a700;font-size:9px;letter-spacing:.08em}
+        .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"]::after{content:"VALUE";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
         .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]::after{content:"LOOKUP";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{background:transparent!important;box-shadow:none!important;color:#f6a700;outline:none}
         .primary-nav .native-nav-resources-menu a:hover,.primary-nav .native-nav-resources-menu a:focus-visible{border-color:rgba(246,167,0,.7);background:rgba(246,167,0,.08)!important}
         .primary-nav .native-nav-resources-menu a[href="/free-guide"]:hover,
         .primary-nav .native-nav-resources-menu a[href="/free-guide"]:focus-visible,
+        .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"]:hover,
+        .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"]:focus-visible,
         .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]:hover,
         .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]:focus-visible{background:rgba(246,167,0,.14)!important;color:#f6a700}
 
