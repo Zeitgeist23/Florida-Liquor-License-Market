@@ -9,66 +9,106 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/how-to-buy-florida-liquor-license`;
 
 export const metadata: Metadata = {
-  title: "How to Buy a Florida Liquor License | Step-by-Step Guide",
+  title: "How to Buy a Florida Liquor License | 7-Step Buyer Guide",
   description:
-    "Learn how to buy a Florida liquor license directly, with a broker, through FLLM buyer resources, or through the Florida quota liquor license lottery. Compare license types, county markets, pricing, due diligence, financing and DBPR transfer requirements.",
+    "Learn how to buy a Florida liquor license in 7 steps: choose the license type and county, find available licenses, compare market value and financing, verify the license and seller, negotiate a purchase agreement, prepare ABT-6002, and close the transfer.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "article",
     url: canonicalUrl,
-    title: "How to Buy a Florida Liquor License | Step-by-Step Guide",
+    title: "How to Buy a Florida Liquor License | 7-Step Buyer Guide",
     description:
-      "A practical Florida buyer guide covering direct purchases, broker-assisted acquisitions, FLLM buyer resources, the quota lottery, pricing, due diligence, financing and DBPR transfer requirements.",
+      "A practical 7-step Florida liquor license buyer guide covering license type, county selection, listings, market value, financing, due diligence, purchase agreements, ABT-6002 and closing.",
     siteName: "Florida Liquor License Market",
   },
 };
+
+const steps = [
+  {
+    title: "Choose the license type your business actually needs",
+    text: "Start with the privileges your business needs. A 4COP-family quota license is commonly used for full-liquor on-premises concepts, while a 3PS-family quota license is generally used for package sales. Beer-and-wine and qualifying special restaurant licenses may follow a different application path and may not require buying quota inventory.",
+    href: "/resources/florida-liquor-license-types",
+    link: "Compare Florida liquor license types",
+  },
+  {
+    title: "Choose the Florida county and confirm the proposed location",
+    text: "Florida quota licenses are county-specific. Confirm the county, proposed premises, zoning, right of occupancy and intended use before negotiating for a license. Do not assume a quota license purchased in one county can simply be used in another.",
+    href: "/counties",
+    link: "Compare Florida county markets",
+  },
+  {
+    title: "Find available licenses and compare market value",
+    text: "Search active inventory in the county you need and compare multiple asking prices when possible. Quota-license purchase prices are private-market prices, not fixed government fees, and can vary materially by county, series, status, supply and buyer demand.",
+    href: "/listings",
+    link: "Browse Florida liquor licenses for sale",
+  },
+  {
+    title: "Verify the exact license and seller before you commit",
+    text: "Confirm the license number, series, county, current owner, status and renewal information. Investigate disclosed liens or security interests, active or escrow status, seller authority and any conditions that could affect transfer approval or closing.",
+    href: "/dbpr-abt-6002",
+    link: "Review the FLLM transfer guide",
+  },
+  {
+    title: "Arrange financing and negotiate the purchase agreement",
+    text: "Decide how the purchase will be funded and negotiate a written agreement identifying the license, purchase price, deposit, closing conditions, responsibility for fees, seller cooperation, liens and what happens if required approvals are delayed or denied.",
+    href: "/financing",
+    link: "Explore liquor license financing",
+  },
+  {
+    title: "Prepare the ABT-6002 transfer application and supporting documents",
+    text: "Florida DBPR identifies ABT-6002 as the application used for transfer of ownership of an existing alcoholic beverage license. Depending on the transaction, supporting materials may include applicant and ownership information, fingerprints, fees, zoning or occupancy information and other documents required by the current checklist.",
+    href: "/dbpr-abt-6002",
+    link: "Review ABT-6002 requirements",
+  },
+  {
+    title: "Complete the transfer, closing and post-closing compliance",
+    text: "Coordinate the purchase agreement, funds, transfer filing and any approved location or series changes so they match the actual transaction. After approval, keep the license current and comply with the renewal, ownership, location and operating requirements that apply to the license.",
+    href: "/resources",
+    link: "Use FLLM transfer and compliance resources",
+  },
+];
 
 const faqs = [
   {
     question: "How do I buy a Florida liquor license?",
     answer:
-      "Start by determining the license privileges your business needs and the county where it will operate. If you need a transferable quota license, compare available licenses in that county, decide whether to handle the purchase directly or use a broker or licensing professional, perform due diligence on the specific license and seller, negotiate a purchase agreement with appropriate contingencies, and submit the required transfer application and supporting materials to Florida's Division of Alcoholic Beverages and Tobacco for approval.",
+      "For an existing transferable quota license, first choose the license type and county, find available licenses, compare market pricing and financing, verify the exact license and seller, negotiate a written purchase agreement, prepare the required ABT-6002 transfer filing and supporting materials, and coordinate closing with the required DBPR approval.",
   },
   {
-    question: "Do I have to buy an existing Florida quota liquor license?",
+    question: "How much does it cost to buy a Florida liquor license?",
     answer:
-      "Not always. Beer-and-wine licenses are generally non-quota, and certain businesses may qualify for special full-liquor licenses such as an eligible restaurant license. If your business needs full-liquor privileges and does not qualify for a special license, purchasing an existing quota license from a current holder is often the practical route. Florida also periodically awards newly created quota licenses through a public drawing.",
-  },
-  {
-    question: "Should I use a liquor license broker when buying in Florida?",
-    answer:
-      "A broker or experienced liquor-license professional can be useful when you want help locating inventory, comparing asking prices, contacting sellers, negotiating terms and coordinating a transaction. Buyers should understand who the broker represents, what services are included and what fees or commissions apply before engaging one. FLLM can be used to research inventory and market data and to request buyer assistance or contact the listing party.",
-  },
-  {
-    question: "Can I get a Florida liquor license through the quota lottery?",
-    answer:
-      "Potentially. When county population growth creates new quota licenses, Florida DBPR may conduct an annual quota drawing. An eligible entrant can submit an entry for an available county. Being selected establishes priority to apply for the available quota license; it does not itself issue the license, and the selected applicant must still qualify under Florida Beverage Law.",
-  },
-  {
-    question: "How can Florida Liquor License Market help a buyer?",
-    answer:
-      "FLLM provides current marketplace inventory, county and asking-price comparisons, license-type information, valuation and transfer resources, financing information, access to listing contacts and buyer-assistance requests. Buyers can use those tools for a self-directed purchase or alongside a broker, attorney or other transaction professional.",
+      "The purchase price of a transferable Florida quota liquor license is a private-market price that can vary substantially by county, license type, available inventory, status and demand. Buyers should separate the negotiated purchase price from DBPR fees, quota transfer fees, professional costs, financing costs and other transaction expenses.",
   },
   {
     question: "What is the difference between a 4COP and 3PS liquor license?",
     answer:
-      "A 4COP-family quota license is commonly used for full-liquor consumption on premises, such as bars, lounges, nightclubs and qualifying hospitality concepts, while a 3PS-family quota license is used for package sales of beer, wine and liquor for off-premises consumption. The exact privileges and series should be confirmed for the specific license and business plan.",
+      "A 4COP-family quota license is commonly used for full-liquor on-premises concepts such as bars, lounges and nightclubs, while a 3PS-family quota license is generally used for package sales of beer, wine and spirits for off-premises consumption. Confirm the exact series and approved privileges for the specific license and business plan.",
   },
   {
     question: "Can I buy a Florida liquor license in one county and use it in another?",
     answer:
-      "Florida quota licensing is controlled on a county-by-county basis. Do not assume a quota license purchased in one county can simply be used in another. Buyers should confirm the specific license, county and proposed location with DBPR before committing to a purchase or relocation.",
+      "Florida quota licensing is county-specific. Buyers should not assume a quota license purchased in one county can simply be moved to another. Confirm the specific license, county and proposed location with DBPR before committing to a purchase.",
   },
   {
     question: "What should I check before buying a Florida liquor license?",
     answer:
-      "Verify the license number, series, county, ownership, status, renewal history, disclosed liens or security interests, intended use, location requirements and any escrow or inactive status. Also confirm buyer qualifications, zoning, right of occupancy, Department of Revenue requirements, transfer fees and the documents required for the DBPR application. Transaction-specific legal and licensing advice may be appropriate before closing.",
+      "Verify the license number, series, county, ownership, status, renewal history, disclosed liens or security interests, intended use and any escrow or inactive status. Also confirm buyer qualifications, zoning, right of occupancy, transfer fees and the documents required for the DBPR transfer filing.",
   },
   {
     question: "Which form is used to transfer ownership of a Florida alcoholic beverage license?",
     answer:
-      "Florida DBPR identifies Form ABT-6002 as the application used for a transfer of ownership of an existing alcoholic beverage license. The current checklist and form instructions should be reviewed because the supporting documents and fees can depend on the applicant, license type and transaction.",
+      "Florida DBPR identifies Form ABT-6002 as the application used for transfer of ownership of an existing alcoholic beverage license. Buyers should review the current checklist and instructions because required supporting documents and fees depend on the applicant, license type and transaction.",
+  },
+  {
+    question: "Can I finance the purchase of a Florida liquor license?",
+    answer:
+      "Financing may be available depending on the buyer, license, collateral, transaction structure and lender underwriting. Buyers should evaluate financing before signing a purchase agreement if the closing depends on borrowed funds.",
+  },
+  {
+    question: "Do I have to buy an existing Florida quota liquor license?",
+    answer:
+      "Not always. Some beer-and-wine licenses and qualifying special licenses may be obtained through an application rather than a secondary-market purchase. Florida may also conduct a quota drawing when population growth creates new quota licenses. The correct path depends on the privileges and county your business needs.",
   },
 ];
 
@@ -77,21 +117,14 @@ export default function HowToBuyFloridaLiquorLicensePage() {
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "How to Buy a Florida Liquor License: Step-by-Step Guide",
+      headline: "How to Buy a Florida Liquor License: 7-Step Buyer Guide",
       description:
-        "A practical guide to buying a Florida liquor license directly or with professional help, using FLLM buyer resources, considering the Florida quota lottery, and completing pricing, due diligence and DBPR transfer steps.",
+        "A practical seven-step guide to buying an existing Florida liquor license, from choosing the license type and county through listings, pricing, financing, due diligence, ABT-6002 and closing.",
       datePublished: "2026-08-18",
-      dateModified: "2026-08-18",
+      dateModified: "2026-09-06",
       mainEntityOfPage: canonicalUrl,
-      author: {
-        "@type": "Organization",
-        name: "Florida Liquor License Market",
-      },
-      publisher: {
-        "@type": "Organization",
-        name: "Florida Liquor License Market",
-        url: siteUrl,
-      },
+      author: { "@type": "Organization", name: "Florida Liquor License Market" },
+      publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
       "@context": "https://schema.org",
@@ -107,56 +140,51 @@ export default function HowToBuyFloridaLiquorLicensePage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-        { "@type": "ListItem", position: 2, name: "Buy", item: `${siteUrl}/listings` },
+        { "@type": "ListItem", position: 2, name: "Buy", item: `${siteUrl}/buy-florida-liquor-license` },
         { "@type": "ListItem", position: 3, name: "How to Buy a Florida Liquor License", item: canonicalUrl },
       ],
     },
   ];
 
   return (
-    <main className="seo-market-page">
+    <main className="seo-market-page buyer-guide-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
+
       <style>{`
-        .buy-guide-quick{display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:start}
-        .buy-guide-quick-card{padding:22px;border:1px solid rgba(237,169,26,.3);border-radius:14px;background:#071d33}
-        .buy-guide-quick-card strong{display:block;color:#eda91a;font-size:13px;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
-        .buy-guide-quick-card p{margin:0;color:#d8e1e9;line-height:1.7}
-        .buy-guide-paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
-        .buy-guide-path{padding:23px;border:1px solid rgba(237,169,26,.32);border-radius:13px;background:linear-gradient(145deg,#0a2237,#04111c);box-shadow:0 12px 26px rgba(0,0,0,.16)}
-        .buy-guide-path > span{display:grid;width:38px;height:38px;place-items:center;margin-bottom:15px;border-radius:50%;background:#eda91a;color:#061728;font-weight:900}
-        .buy-guide-path h3{margin:0 0 9px;color:#fff;font-size:20px}
-        .buy-guide-path p{margin:0;color:#c6d2dc;line-height:1.65}
-        .buy-guide-path a{display:inline-block;margin-top:15px;color:#eda91a;font-weight:900;text-decoration:none}
-        .buy-guide-path a:hover{text-decoration:underline}
-        .buy-guide-steps{display:grid;gap:14px;margin-top:24px}
-        .buy-guide-step{display:grid;grid-template-columns:54px 1fr;gap:17px;padding:22px;border:1px solid rgba(255,255,255,.08);border-radius:13px;background:#071d33}
-        .buy-guide-step-number{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#eda91a;color:#061728;font-weight:900;font-size:18px}
-        .buy-guide-step h3{margin:0 0 8px;color:#f6f3ed;font-size:20px}
-        .buy-guide-step p{margin:0;color:#aebdca;line-height:1.72}
-        .buy-guide-step p+p{margin-top:10px}
-        .buy-guide-step a{color:#eda91a;font-weight:800;text-decoration:none}
-        .buy-guide-step a:hover{text-decoration:underline}
-        .buy-guide-table-wrap{overflow-x:auto;margin-top:22px;border:1px solid rgba(237,169,26,.25);border-radius:14px;background:#071d33}
-        .buy-guide-table{width:100%;min-width:820px;border-collapse:collapse;color:#eef3f8}
-        .buy-guide-table th,.buy-guide-table td{padding:14px 15px;border-bottom:1px solid rgba(255,255,255,.07);text-align:left;vertical-align:top;font-size:13px;line-height:1.55}
-        .buy-guide-table thead th{background:#051a2e;color:#eda91a;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
-        .buy-guide-table tbody tr:hover{background:rgba(237,169,26,.05)}
-        .buy-guide-table strong{color:#fff}
-        .buy-guide-checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px;padding:0;list-style:none}
-        .buy-guide-checklist li{position:relative;padding:16px 16px 16px 45px;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:#071d33;color:#cbd6df;line-height:1.55}
-        .buy-guide-checklist li::before{content:"✓";position:absolute;left:16px;top:15px;color:#eda91a;font-weight:900}
-        .buy-guide-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
-        .buy-guide-links a{padding:18px;border:1px solid rgba(237,169,26,.3);border-radius:11px;background:#071d33;color:#f6f3ed;text-decoration:none;font-weight:800;line-height:1.35}
-        .buy-guide-links a span{display:block;margin-top:7px;color:#9fb2c4;font-size:12px;font-weight:500;line-height:1.5}
-        .buy-guide-official{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}
-        .buy-guide-official a{display:block;padding:19px;border:1px solid rgba(255,255,255,.09);border-radius:11px;background:#071d33;color:#f6f3ed;text-decoration:none;font-weight:800}
-        .buy-guide-official a span{display:block;margin-top:6px;color:#9fb2c4;font-size:12px;font-weight:500;line-height:1.5}
-        .buy-guide-disclaimer{margin-top:22px;padding:16px 18px;border-left:3px solid #eda91a;background:rgba(237,169,26,.06);color:#aebdca;font-size:12px;line-height:1.7}
-        @media(max-width:820px){.buy-guide-quick{grid-template-columns:1fr}.buy-guide-paths{grid-template-columns:1fr}.buy-guide-links{grid-template-columns:1fr}.buy-guide-official{grid-template-columns:1fr}.buy-guide-checklist{grid-template-columns:1fr}}
-        @media(max-width:560px){.buy-guide-step{grid-template-columns:1fr}.buy-guide-step-number{width:42px;height:42px}.buy-guide-step h3{font-size:18px}}
+        .buyer-guide-page{background:#04111d}
+        .buyer-quick{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:24px;align-items:start}
+        .buyer-quick-card{padding:22px;border:1px solid rgba(237,169,26,.35);border-radius:14px;background:#071d33}
+        .buyer-quick-card strong{display:block;margin-bottom:9px;color:#eda91a;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+        .buyer-quick-card p{margin:0;color:#d8e1e9;line-height:1.7}
+        .buyer-seven-summary{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:24px}
+        .buyer-seven-summary a{display:flex;flex-direction:column;gap:7px;min-height:98px;padding:13px 11px;border:1px solid rgba(237,169,26,.28);border-radius:9px;background:#071d33;color:#fff;text-decoration:none;line-height:1.3}
+        .buyer-seven-summary b{color:#eda91a;font-size:18px}
+        .buyer-seven-summary span{font-size:12px;font-weight:800}
+        .buyer-seven-summary a:hover{border-color:#eda91a}
+        .buyer-steps{display:grid;gap:14px;margin-top:24px}
+        .buyer-step{display:grid;grid-template-columns:54px 1fr;gap:17px;padding:22px;border:1px solid rgba(255,255,255,.08);border-radius:13px;background:#071d33}
+        .buyer-step-number{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#eda91a;color:#061728;font-weight:900;font-size:18px}
+        .buyer-step h3{margin:0 0 8px;color:#f6f3ed;font-size:20px}
+        .buyer-step p{margin:0;color:#aebdca;line-height:1.72}
+        .buyer-step a{display:inline-block;margin-top:10px;color:#eda91a;font-weight:850;text-decoration:none}
+        .buyer-resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+        .buyer-resource-grid a{padding:18px;border:1px solid rgba(237,169,26,.3);border-radius:11px;background:#071d33;color:#f6f3ed;text-decoration:none;font-weight:850;line-height:1.35}
+        .buyer-resource-grid span{display:block;margin-top:7px;color:#9fb2c4;font-size:12px;font-weight:500;line-height:1.5}
+        .buyer-path-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
+        .buyer-path{padding:23px;border:1px solid rgba(237,169,26,.28);border-radius:13px;background:linear-gradient(145deg,#0a2237,#04111c)}
+        .buyer-path h3{margin:0 0 9px;color:#fff;font-size:20px}
+        .buyer-path p{margin:0;color:#c6d2dc;line-height:1.65}
+        .buyer-path a{display:inline-block;margin-top:14px;color:#eda91a;font-weight:850;text-decoration:none}
+        .buyer-checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px;padding:0;list-style:none}
+        .buyer-checklist li{position:relative;padding:16px 16px 16px 45px;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:#071d33;color:#cbd6df;line-height:1.55}
+        .buyer-checklist li::before{content:"✓";position:absolute;left:16px;top:15px;color:#eda91a;font-weight:900}
+        .buyer-note{margin-top:22px;padding:16px 18px;border-left:3px solid #eda91a;background:rgba(237,169,26,.06);color:#aebdca;font-size:12px;line-height:1.7}
+        @media(max-width:1050px){.buyer-seven-summary{grid-template-columns:repeat(4,minmax(0,1fr))}}
+        @media(max-width:820px){.buyer-quick{grid-template-columns:1fr}.buyer-path-grid,.buyer-resource-grid{grid-template-columns:1fr}.buyer-checklist{grid-template-columns:1fr}.buyer-seven-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+        @media(max-width:560px){.buyer-step{grid-template-columns:1fr}.buyer-step-number{width:42px;height:42px}.buyer-seven-summary{grid-template-columns:1fr}}
       `}</style>
 
       <div className="abt-header-wrap">
@@ -166,28 +194,28 @@ export default function HowToBuyFloridaLiquorLicensePage() {
       <section className="seo-market-hero">
         <div className="seo-market-shell">
           <div className="seo-market-breadcrumbs">
-            <Link href="/">Home</Link><span>›</span><Link href="/listings">Buy</Link><span>›</span><strong>Buyer Guide</strong>
+            <Link href="/">Home</Link><span>›</span><Link href="/buy-florida-liquor-license">Buy</Link><span>›</span><strong>7-Step Buyer Guide</strong>
           </div>
           <div className="seo-market-hero-grid">
             <div>
               <span className="seo-market-kicker">Florida Liquor License Buyer Guide</span>
               <h1>How to Buy a Florida Liquor License</h1>
               <p>
-                Buying a Florida liquor license starts with the right license type and county—not with a price. This guide explains self-directed purchases, broker-assisted acquisitions, FLLM buyer resources, the Florida quota lottery, due diligence, financing and the DBPR transfer process.
+                To buy an existing Florida liquor license, first choose the license type and county, then find available inventory, compare market value and financing, verify the exact license and seller, negotiate a written purchase agreement, prepare the ABT-6002 transfer filing, and coordinate closing with the required DBPR approval. This 7-step guide walks through that purchase process from start to finish.
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/listings">Browse Florida Licenses</Link>
                 <Link className="seo-market-button seo-market-button-dark" href="/counties">Compare County Markets</Link>
-                <Link className="seo-market-button seo-market-button-dark" href="#fllm-buyer-help">FLLM Buyer Help</Link>
+                <Link className="seo-market-button seo-market-button-dark" href="/financing">Explore Financing</Link>
               </div>
             </div>
             <aside className="seo-market-snapshot" aria-label="Florida liquor license buying process">
-              <span>Buying Process at a Glance</span>
+              <span>7-Step Purchase Process</span>
               <div className="seo-market-snapshot-grid">
-                <div><strong>1</strong><small>choose acquisition path</small></div>
-                <div><strong>2</strong><small>choose county</small></div>
-                <div><strong>3</strong><small>verify license</small></div>
-                <div><strong>4</strong><small>transfer or apply</small></div>
+                <div><strong>1</strong><small>license type</small></div>
+                <div><strong>2</strong><small>county</small></div>
+                <div><strong>3</strong><small>inventory & value</small></div>
+                <div><strong>4–7</strong><small>verify, contract, transfer & close</small></div>
               </div>
             </aside>
           </div>
@@ -195,59 +223,27 @@ export default function HowToBuyFloridaLiquorLicensePage() {
       </section>
 
       <section className="seo-market-intro">
-        <div className="seo-market-shell buy-guide-quick">
+        <div className="seo-market-shell buyer-quick">
           <article>
             <span className="seo-market-section-kicker">Quick Answer</span>
-            <h2>There is more than one path to a Florida liquor license</h2>
+            <h2>Buying an existing Florida liquor license in 7 steps</h2>
             <p>
-              If your business only needs beer and wine, or qualifies for a special license such as an eligible restaurant license, you may be able to apply directly through Florida’s Division of Alcoholic Beverages and Tobacco. If your business needs full-liquor privileges that fall under Florida’s quota system, you can pursue an existing quota license on the secondary market or, when new quota licenses are available, enter Florida’s quota drawing.
+              For a transferable quota license, the purchase process is primarily a private-market transaction followed by the required state transfer process. The buyer identifies the correct license type and county, finds a specific license, evaluates price and financing, verifies the license and seller, negotiates the contract, prepares the transfer application and then closes in coordination with the required approval.
             </p>
             <p>
-              Buyers pursuing an existing quota license can handle the search and negotiation themselves, work with a liquor-license broker or other experienced transaction professional, or use FLLM’s inventory, county-market, pricing, financing and transfer resources to support the process.
+              FLLM separates this informational buyer guide from its commercial <Link href="/buy-florida-liquor-license">Buy a Florida Liquor License</Link> page so buyers can first understand the process and then move directly into listings, county market data, valuation, financing and transfer resources.
             </p>
           </article>
-          <aside className="buy-guide-quick-card">
-            <strong>Before shopping</strong>
-            <p>
-              Know the county, the alcoholic beverages you intend to sell, whether customers will consume them on or off premises, and whether your business may qualify for a non-quota or special license. Buying the wrong series can be an expensive mistake.
-            </p>
+          <aside className="buyer-quick-card">
+            <strong>Before you shop</strong>
+            <p>Know the county, the alcohol privileges you need, whether consumption will be on or off premises, and whether your business may qualify for a non-quota or special license instead of purchasing quota inventory.</p>
           </aside>
         </div>
-      </section>
-
-      <section className="seo-market-counties">
         <div className="seo-market-shell">
-          <div className="seo-market-section-heading">
-            <div>
-              <span className="seo-market-section-kicker">Acquisition Paths</span>
-              <h2>Three practical ways to pursue a Florida quota liquor license</h2>
-            </div>
-          </div>
-          <div className="buy-guide-paths">
-            <article className="buy-guide-path">
-              <span>1</span>
-              <h3>Buy directly through the secondary market</h3>
-              <p>
-                Search available licenses in the county you need, contact the seller or listing party, compare pricing, perform due diligence, negotiate the purchase agreement and complete the DBPR transfer process. This is the most self-directed route.
-              </p>
-              <Link href="/listings">Browse current Florida inventory →</Link>
-            </article>
-            <article className="buy-guide-path">
-              <span>2</span>
-              <h3>Use a liquor-license broker or transaction professional</h3>
-              <p>
-                A broker or experienced licensing professional can help locate inventory, contact sellers, compare market pricing, negotiate terms and coordinate the transaction. Before engaging one, confirm who the broker represents, the scope of services and any commission or fee. FLLM can also help buyers reach listing contacts and request buyer assistance.
-              </p>
-              <Link href="/contact">Request FLLM buyer assistance →</Link>
-            </article>
-            <article className="buy-guide-path">
-              <span>3</span>
-              <h3>Enter the Florida quota liquor-license lottery</h3>
-              <p>
-                When population growth creates new quota licenses, DBPR may open an annual drawing for eligible counties. A selected entrant receives priority to apply for an available quota license, but selection is not the same as receiving the license and the applicant must still qualify.
-              </p>
-              <Link href="/florida-liquor-license-lottery">See the Florida quota lottery guide →</Link>
-            </article>
+          <div className="buyer-seven-summary" aria-label="Seven steps to buy a Florida liquor license">
+            {steps.map((step, index) => (
+              <a key={step.title} href={`#buy-step-${index + 1}`}><b>{index + 1}</b><span>{step.title}</span></a>
+            ))}
           </div>
         </div>
       </section>
@@ -257,218 +253,87 @@ export default function HowToBuyFloridaLiquorLicensePage() {
           <div className="seo-market-section-heading">
             <div>
               <span className="seo-market-section-kicker">Step by Step</span>
-              <h2>How to buy an existing Florida liquor license in 7 steps</h2>
+              <h2>How to buy a Florida liquor license in 7 steps</h2>
             </div>
           </div>
-
-          <div className="buy-guide-steps">
-            <article className="buy-guide-step">
-              <div className="buy-guide-step-number">1</div>
-              <div>
-                <h3>Determine which license type your business actually needs</h3>
-                <p>
-                  Start with the privileges, not the listing. A 4COP-family quota license is commonly used for full-liquor on-premises concepts such as bars, lounges and nightclubs. A 3PS-family quota license is generally used for liquor-store package sales. Beer-and-wine licenses such as 2COP and 2APS are not quota licenses, and qualifying restaurants may be eligible for a special full-liquor restaurant license instead of buying a quota license.
-                </p>
-                <p><Link href="/resources/florida-liquor-license-types">Compare Florida liquor license types →</Link></p>
-              </div>
-            </article>
-
-            <article className="buy-guide-step">
-              <div className="buy-guide-step-number">2</div>
-              <div>
-                <h3>Choose the county and confirm the proposed location</h3>
-                <p>
-                  Florida’s quota system is administered county by county. Before negotiating for a license, confirm that the specific license and series fit the county where your business will operate and that your proposed premises can satisfy applicable zoning, right-of-occupancy and location requirements. Do not assume a quota license can simply be moved from one county to another.
-                </p>
-                <p><Link href="/counties">Browse all Florida county markets →</Link></p>
-              </div>
-            </article>
-
-            <article className="buy-guide-step">
-              <div className="buy-guide-step-number">3</div>
-              <div>
-                <h3>Compare available licenses and decide whether to use a broker</h3>
-                <p>
-                  Quota license prices are market prices, not fixed government fees. Asking prices can vary materially by county, license type, status, seller urgency, available inventory and buyer demand. Compare multiple listings in the same county whenever possible and separate the private-market purchase price from DBPR fees, transfer-related costs and professional fees.
-                </p>
-                <p>
-                  A self-directed buyer can contact sellers or listing parties directly. If you want help sourcing inventory, evaluating asking prices or negotiating terms, consider using a liquor-license broker or another experienced transaction professional and confirm representation and fees in advance.
-                </p>
-                <p><Link href="/florida-quota-liquor-license-cost">Compare quota license asking prices by county →</Link></p>
-              </div>
-            </article>
-
-            <article className="buy-guide-step">
-              <div className="buy-guide-step-number">4</div>
-              <div>
-                <h3>Perform due diligence on the exact license before you commit</h3>
-                <p>
-                  Verify the license number, current owner, series, county, status and renewal information. Investigate disclosed liens or security interests, whether the license is active or in escrow, and whether the seller has authority to transfer it. Confirm the transaction structure, the intended location and any conditions that could affect DBPR approval or closing.
-                </p>
-                <p>
-                  A listing card or asking price is not proof that a particular license is free of liens, immediately transferable or suitable for your business. Independent verification matters.
-                </p>
-              </div>
-            </article>
-
-            <article className="buy-guide-step">
-              <div className="buy-guide-step-number">5</div>
-              <div>
-                <h3>Negotiate the purchase agreement and protect the closing</h3>
-                <p>
-                  The agreement should clearly identify the license and purchase price and address deposits, closing conditions, responsibility for fees, seller cooperation, liens and what happens if the transfer is delayed or not approved. Buyers commonly make closing subject to required government approvals and satisfactory due diligence. An attorney, broker or experienced licensing professional can help with transaction-specific issues within the scope of the services they provide.
-                </p>
-              </div>
-            </article>
-
-            <article className="buy-guide-step">
-              <div className="buy-guide-step-number">6</div>
-              <div>
-                <h3>Prepare the DBPR transfer application and supporting documents</h3>
-                <p>
-                  Florida DBPR identifies <strong>ABT-6002</strong> as the application for transfer of ownership of an existing alcoholic beverage license. Depending on the applicant and transaction, the submission may involve fingerprints, applicant and ownership information, fees, zoning or right-of-occupancy information, Department of Revenue clearance and other supporting materials required by the current checklist and form instructions.
-                </p>
-                <p><Link href="/dbpr-abt-6002">Review FLLM’s ABT-6002 transfer form guide →</Link></p>
-              </div>
-            </article>
-
-            <article className="buy-guide-step">
-              <div className="buy-guide-step-number">7</div>
-              <div>
-                <h3>Complete the transfer, closing and post-closing compliance</h3>
-                <p>
-                  The buyer’s ability to operate under the license depends on the transaction structure and DBPR approval. Coordinate the closing documents, funds, transfer application and any location or series changes so they match the actual deal. After approval, keep the license current and comply with renewal, location, ownership and operating requirements that apply to the license.
-                </p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="seo-market-intro" id="fllm-buyer-help">
-        <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">FLLM Buyer Services & Resources</span>
-          <h2>Use FLLM to research, source and structure your license purchase</h2>
-          <p>
-            Florida Liquor License Market is designed to keep the buyer’s research and transaction preparation in one place. Buyers can use FLLM for a self-directed acquisition or alongside a broker, attorney or other professional. FLLM is not the state licensing authority, and transaction-specific professional representation should be confirmed separately.
-          </p>
-          <div className="buy-guide-links">
-            <Link href="/listings">Search Current Inventory<span>Browse Florida licenses for sale and move from statewide inventory into the county and license type you need.</span></Link>
-            <Link href="/counties">Compare County Markets<span>Review county-by-county inventory and market information before choosing where to buy.</span></Link>
-            <Link href="/florida-quota-liquor-license-cost">Compare Asking Prices<span>Use disclosed 4COP and 3PS asking-price information to establish a market reference before negotiating.</span></Link>
-            <Link href="/contact">Buyer Assistance & Listing Contacts<span>Ask FLLM for buyer assistance or help reaching the seller, listing agent or broker associated with an opportunity.</span></Link>
-            <Link href="/financing">Liquor License Financing<span>Review financing options for license acquisitions and refinances before you structure the purchase.</span></Link>
-            <Link href="/dbpr-abt-6002">Transfer & Form Resources<span>Use FLLM’s ABT-6002 transfer guide and related resources to prepare for the ownership-transfer process.</span></Link>
+          <div className="buyer-steps">
+            {steps.map((step, index) => (
+              <article className="buyer-step" id={`buy-step-${index + 1}`} key={step.title}>
+                <div className="buyer-step-number">{index + 1}</div>
+                <div>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                  <Link href={step.href}>{step.link} →</Link>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="seo-market-intro">
         <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">Choose the Right Category</span>
-          <h2>Common Florida licenses buyers compare</h2>
-          <div className="buy-guide-table-wrap">
-            <table className="buy-guide-table">
-              <thead>
-                <tr><th>License</th><th>Typical use</th><th>Alcohol privileges</th><th>Quota?</th><th>Typical acquisition path</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><strong>4COP family</strong></td><td>Bars, lounges, nightclubs, full-liquor hospitality</td><td>Beer, wine and spirits; on-premises privileges with package privileges depending on the series and approval</td><td>Yes</td><td>Buy an existing quota license directly or with broker assistance, or obtain a newly created quota license through the state drawing process</td></tr>
-                <tr><td><strong>3PS family</strong></td><td>Liquor stores / package stores</td><td>Beer, wine and spirits for off-premises consumption</td><td>Yes</td><td>Buy an existing quota license directly or with broker assistance, or obtain a newly created quota license through the state drawing process</td></tr>
-                <tr><td><strong>2COP</strong></td><td>Restaurants, cafés, beer-and-wine venues</td><td>Beer and wine for consumption on premises, subject to approved privileges</td><td>No</td><td>Apply through DBPR rather than buying quota inventory</td></tr>
-                <tr><td><strong>2APS</strong></td><td>Grocery, convenience and specialty retail</td><td>Beer and wine package sales for off-premises consumption</td><td>No</td><td>Apply through DBPR rather than buying quota inventory</td></tr>
-                <tr><td><strong>4COP-SFS / SRX</strong></td><td>Qualifying restaurants</td><td>Full liquor for an eligible restaurant subject to special-license requirements</td><td>Special exception</td><td>Apply if the restaurant satisfies the current statutory and DBPR qualifications</td></tr>
-              </tbody>
-            </table>
+          <span className="seo-market-section-kicker">Buyer Research</span>
+          <h2>Move from the buyer guide into the actual Florida market</h2>
+          <p>Use these FLLM pages after you understand the purchase process. They are designed for commercial search, current inventory, county comparisons, valuation, financing and transaction preparation.</p>
+          <div className="buyer-resource-grid">
+            <Link href="/buy-florida-liquor-license">Buy a Florida Liquor License<span>Commercial buying page for moving from research into active purchase options.</span></Link>
+            <Link href="/listings">Florida Liquor Licenses for Sale<span>Browse current marketplace inventory by county and license type.</span></Link>
+            <Link href="/counties">Florida County Markets<span>Compare supply and market information county by county.</span></Link>
+            <Link href="/florida-quota-liquor-license-cost">Quota License Cost by County<span>Compare disclosed 4COP and 3PS asking-price information.</span></Link>
+            <Link href="/florida-liquor-license-appraisal">Liquor License Appraisal<span>Review license-specific valuation options when a supported opinion of value is needed.</span></Link>
+            <Link href="/financing">Liquor License Financing<span>Explore financing before structuring the purchase agreement.</span></Link>
+            <Link href="/dbpr-abt-6002">ABT-6002 Transfer Guide<span>Prepare for the ownership-transfer process and current checklist requirements.</span></Link>
+            <Link href="/resources/quota-transfer-fee-calculator">Quota Transfer Fee Calculator<span>Estimate the statutory quota transfer-fee component.</span></Link>
+            <Link href="/free-guide">Free Buyer’s & Seller’s Guide<span>Download FLLM’s broader transaction guide for buying, selling, financing and closing.</span></Link>
           </div>
-          <p className="buy-guide-disclaimer">
-            License terminology and privileges can be transaction-specific. Confirm the current DBPR classification, the exact series shown on the license and the requirements for your proposed business before relying on a general description.
-          </p>
         </div>
       </section>
 
       <section className="seo-market-counties">
         <div className="seo-market-shell">
           <div className="seo-market-section-heading">
-            <div>
-              <span className="seo-market-section-kicker">Buyer Due Diligence</span>
-              <h2>Florida liquor license buyer checklist</h2>
-            </div>
+            <div><span className="seo-market-section-kicker">Other Acquisition Paths</span><h2>Not every Florida liquor license has to be bought on the secondary market</h2></div>
           </div>
-          <ul className="buy-guide-checklist">
+          <div className="buyer-path-grid">
+            <article className="buyer-path">
+              <h3>Apply for a non-quota or qualifying special license</h3>
+              <p>Some beer-and-wine licenses and qualifying special restaurant licenses may be obtained through an application rather than by purchasing an existing quota license.</p>
+              <Link href="/resources/florida-liquor-license-types">Compare license types →</Link>
+            </article>
+            <article className="buyer-path">
+              <h3>Enter the Florida quota license drawing</h3>
+              <p>When population growth creates new quota licenses, DBPR may open a drawing for eligible counties. Selection establishes priority to apply; it does not itself issue the license.</p>
+              <Link href="/florida-liquor-license-lottery">Review the quota lottery →</Link>
+            </article>
+            <article className="buyer-path">
+              <h3>Use a broker or transaction professional</h3>
+              <p>A broker or experienced licensing professional may help locate inventory, contact sellers, compare pricing, negotiate terms and coordinate a purchase. Confirm representation and fees before engaging one.</p>
+              <Link href="/contact">Request FLLM buyer assistance →</Link>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="seo-market-intro">
+        <div className="seo-market-shell">
+          <span className="seo-market-section-kicker">Buyer Due Diligence</span>
+          <h2>Florida liquor license buyer checklist</h2>
+          <ul className="buyer-checklist">
             <li>Confirm the exact license number, series and county.</li>
-            <li>Decide whether the purchase will be self-directed or broker-assisted and confirm any representation and fees.</li>
-            <li>Verify the current license owner and seller’s authority to transfer.</li>
-            <li>Check current license status, expiration and renewal information.</li>
-            <li>Review recorded or disclosed liens, mortgages or security interests.</li>
+            <li>Verify the current owner and seller’s authority to transfer.</li>
+            <li>Check current status, expiration and renewal information.</li>
+            <li>Review disclosed liens, mortgages or security interests.</li>
             <li>Confirm whether the license is active, inactive or held in escrow.</li>
-            <li>Confirm your proposed premises and local zoning can support the intended use.</li>
+            <li>Confirm the proposed premises and local zoning support the intended use.</li>
             <li>Confirm buyer ownership, background and qualification requirements.</li>
             <li>Separate the negotiated purchase price from state fees and transfer costs.</li>
-            <li>Determine who is responsible for taxes, fees, broker commissions, professional costs and closing expenses.</li>
-            <li>Use a written agreement that addresses approval, due diligence and closing conditions.</li>
+            <li>Determine responsibility for taxes, fees, commissions and closing expenses.</li>
+            <li>Use a written agreement addressing approvals, due diligence and closing conditions.</li>
             <li>Review the current ABT-6002 instructions and DBPR checklist before filing.</li>
-            <li>Coordinate closing timing with DBPR approval and any location or series changes.</li>
-            <li>If considering the quota lottery, compare the current eligible counties, entry deadline and application path against buying existing inventory.</li>
+            <li>Coordinate closing timing with required approval and any location or series changes.</li>
           </ul>
-        </div>
-      </section>
-
-      <section className="seo-market-intro">
-        <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">Budgeting the Purchase</span>
-          <h2>How much does it cost to buy a Florida liquor license?</h2>
-          <p>
-            For a transferable quota license, the largest cost is often the private-market purchase price negotiated with the seller. That price can vary dramatically by county and market conditions. On top of the purchase price, a buyer should budget for applicable DBPR licensing or transfer fees, possible quota transfer fees, fingerprinting or application costs, legal or brokerage expenses, financing costs, and any zoning, premises or local permitting work required for the business.
-          </p>
-          <p>
-            Do not confuse the <strong>market value of the license</strong> with the <strong>government fee to process or maintain the license</strong>. They are separate costs. A quota drawing entry has a different cost structure and timing than purchasing existing secondary-market inventory.
-          </p>
-          <div className="buy-guide-links">
-            <Link href="/florida-quota-liquor-license-cost">Quota License Cost by County<span>Compare current disclosed 4COP and 3PS asking-price ranges.</span></Link>
-            <Link href="/resources/quota-transfer-fee-calculator">Quota Transfer Fee Calculator<span>Estimate the statutory transfer-fee component using FLLM’s calculator.</span></Link>
-            <Link href="/financing">Liquor License Financing<span>Review financing options for license purchases and refinances.</span></Link>
-            <Link href="/florida-liquor-license-lottery">Florida Quota Lottery<span>Review current drawing availability, entry rules and FLLM’s lottery-entry preparation resources.</span></Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="seo-market-counties">
-        <div className="seo-market-shell">
-          <div className="seo-market-section-heading">
-            <div>
-              <span className="seo-market-section-kicker">Official Florida Sources</span>
-              <h2>Verify the rules before you close</h2>
-            </div>
-          </div>
-          <p>
-            Florida Liquor License Market is a marketplace and information resource, not the licensing authority. Current application requirements should be confirmed with the Florida Division of Alcoholic Beverages and Tobacco and the current Florida Statutes.
-          </p>
-          <div className="buy-guide-official">
-            <a href="/resources/official/florida-abt">Florida Division of Alcoholic Beverages &amp; Tobacco<span>Official DBPR licensing, applications, forms and account access.</span></a>
-            <a href="/resources/official/transfer-of-ownership">DBPR Transfer-of-Ownership Checklist<span>Official checklist for transfer of ownership of an alcoholic beverage license.</span></a>
-            <a href="/resources/official/quota-license-information">DBPR Quota License Information<span>Official quota drawing information and active/inactive quota license resources.</span></a>
-            <a href="/resources/official/statute-561-20">Florida Statute § 561.20<span>Official county quota limitation for applicable alcoholic beverage licenses.</span></a>
-            <a href="/resources/official/statute-561-32">Florida Statute § 561.32<span>Official statutory provisions governing transfer of alcoholic beverage licenses and interests.</span></a>
-            <a href="/resources/official/statute-561-15">Florida Statute § 561.15<span>Official applicant qualification requirements for licenses under the Beverage Law.</span></a>
-          </div>
-        </div>
-      </section>
-
-      <section className="seo-market-intro">
-        <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">Start Shopping</span>
-          <h2>Go from research to a purchase path</h2>
-          <div className="buy-guide-links">
-            <Link href="/listings">Florida Liquor Licenses for Sale<span>Browse current marketplace inventory across Florida.</span></Link>
-            <Link href="/florida-4cop-liquor-license-for-sale">4COP Licenses for Sale<span>Review full-liquor quota opportunities for on-premises concepts.</span></Link>
-            <Link href="/florida-3ps-liquor-license-for-sale">3PS Licenses for Sale<span>Review package-store quota opportunities.</span></Link>
-            <Link href="/counties">Florida County Markets<span>Compare inventory and pricing county by county.</span></Link>
-            <Link href="/resources/florida-liquor-license-types">License Types Guide<span>Compare 4COP, 3PS, 2COP, 2APS and specialty licenses.</span></Link>
-            <Link href="/dbpr-abt-6002">ABT-6002 Transfer Guide<span>Review the state transfer application used for ownership changes.</span></Link>
-            <Link href="/florida-liquor-license-lottery">Florida Liquor License Lottery<span>See current quota drawing availability, entry rules and the FLLM entry-preparation workspace.</span></Link>
-            <Link href="/contact">Request Buyer Assistance<span>Ask FLLM for help navigating inventory, listing contacts or the next step in your search.</span></Link>
-          </div>
+          <p className="buyer-note">This guide is general educational information, not legal, tax, licensing, brokerage or investment advice. Rules, forms, fees and transaction requirements can change. Confirm current requirements and obtain transaction-specific professional advice when appropriate.</p>
         </div>
       </section>
 
@@ -482,23 +347,20 @@ export default function HowToBuyFloridaLiquorLicensePage() {
               <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>
             ))}
           </div>
-          <p className="buy-guide-disclaimer">
-            This guide is general educational information, not legal, tax, licensing or investment advice. Rules, forms, fees and transaction requirements can change. Verify the current requirements with DBPR and appropriate professional advisers for the specific license and transaction.
-          </p>
         </div>
       </section>
 
       <section className="seo-market-cta">
         <div className="seo-market-shell seo-market-cta-inner">
           <div>
-            <span className="seo-market-section-kicker">Ready to Move Forward?</span>
-            <h2>Browse licenses, explore the quota lottery or ask FLLM for buyer help.</h2>
-            <p>Choose the acquisition path that fits your county, timing, budget and need for professional assistance.</p>
+            <span className="seo-market-section-kicker">Ready to Buy?</span>
+            <h2>Move from the 7-step buyer guide into active Florida liquor license opportunities.</h2>
+            <p>Browse current listings, compare county markets, review financing or prepare for the transfer process.</p>
           </div>
           <div className="seo-market-actions">
             <Link className="seo-market-button seo-market-button-gold" href="/listings">Browse Licenses</Link>
-            <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-lottery">Quota Lottery</Link>
-            <Link className="seo-market-button seo-market-button-dark" href="/contact">Contact FLLM</Link>
+            <Link className="seo-market-button seo-market-button-dark" href="/counties">Compare Counties</Link>
+            <Link className="seo-market-button seo-market-button-dark" href="/financing">Explore Financing</Link>
           </div>
         </div>
       </section>
