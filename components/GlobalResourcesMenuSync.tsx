@@ -5,7 +5,7 @@ import { useEffect } from "react";
 const LOOKUP_URL = "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup";
 const DABT_URL = "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/";
 
-// Keep the exact same row-major order used by the approved landing-page Resources menu.
+// Exact row-major order used by the approved landing-page Resources menu.
 const resources = [
   { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide", badge: "FREE PDF" },
   { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: DABT_URL, external: true },
@@ -21,7 +21,7 @@ const resources = [
   { label: "View All Resources", href: "/resources" },
 ];
 
-const SIGNATURE = "fllm-resources-v2";
+const SIGNATURE = "fllm-resources-v3";
 
 function installStyles() {
   if (document.getElementById("global-resources-menu-sync-styles")) return;
@@ -37,8 +37,10 @@ function installStyles() {
       border-radius:8px!important;
       background:#061728!important;
       box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12)!important;
+      overflow:visible!important;
     }
     .native-nav-resources-menu>a{
+      min-width:0!important;
       min-height:48px!important;
       padding:9px 13px!important;
       border:1px solid rgba(255,255,255,.07)!important;
@@ -49,10 +51,19 @@ function installStyles() {
       display:flex!important;
       align-items:center!important;
       justify-content:space-between!important;
+      gap:10px!important;
       font:700 13px/1.25 Arial,Helvetica,sans-serif!important;
       text-decoration:none!important;
+      overflow:hidden!important;
     }
     .native-nav-resources-menu>a::after{content:none!important}
+    .native-nav-resources-menu>a>.global-resource-label{
+      min-width:0!important;
+      white-space:normal!important;
+      overflow-wrap:break-word!important;
+      word-break:normal!important;
+      line-height:1.25!important;
+    }
     .native-nav-resources-menu>a:hover,
     .native-nav-resources-menu>a:focus-visible{
       border-color:#f6a700!important;
@@ -61,26 +72,28 @@ function installStyles() {
       outline:none!important;
     }
     .global-resource-badge{
-      flex:0 0 auto;
-      margin-left:12px;
-      color:#f6a700;
-      font-size:9px;
-      font-weight:900;
-      letter-spacing:.08em;
+      flex:0 0 auto!important;
+      margin-left:auto!important;
+      color:#f6a700!important;
+      font-size:9px!important;
+      font-weight:900!important;
+      letter-spacing:.08em!important;
+      white-space:nowrap!important;
     }
     .native-nav-resources-menu>a[data-global-transaction="true"]{
       grid-column:1/-1!important;
       display:grid!important;
-      grid-template-columns:max-content 1fr max-content!important;
+      grid-template-columns:max-content minmax(0,1fr) max-content!important;
       align-items:center!important;
       column-gap:22px!important;
       min-height:54px!important;
       padding:10px 14px!important;
       border-color:rgba(246,167,0,.34)!important;
       background:rgba(255,255,255,.035)!important;
+      overflow:visible!important;
     }
     .global-transaction-title{white-space:nowrap;color:#fff;font-size:13px;font-weight:800}
-    .global-transaction-copy{justify-self:center;text-align:center;color:#9fb0bf;font-size:11px;font-weight:700;letter-spacing:.01em}
+    .global-transaction-copy{min-width:0;justify-self:center;text-align:center;color:#9fb0bf;font-size:11px;font-weight:700;letter-spacing:.01em;white-space:normal}
     .global-transaction-cta{justify-self:end;white-space:nowrap;color:#9fb0bf;font-size:10px;font-weight:800}
     .native-nav-resources-menu>a[data-global-transaction="true"]:hover .global-transaction-copy,
     .native-nav-resources-menu>a[data-global-transaction="true"]:hover .global-transaction-cta{color:#f6a700}
@@ -88,7 +101,7 @@ function installStyles() {
       .native-nav-resources-menu{grid-template-columns:repeat(2,minmax(0,1fr))!important}
     }
     @media(max-width:760px){
-      .native-nav-resources-menu{grid-template-columns:1fr!important;width:min(360px,calc(100vw - 24px))!important;max-height:70vh;overflow:auto}
+      .native-nav-resources-menu{grid-template-columns:1fr!important;width:min(360px,calc(100vw - 24px))!important;max-height:70vh!important;overflow:auto!important}
       .native-nav-resources-menu>a[data-global-transaction="true"]{display:block!important;grid-column:auto!important}
       .global-transaction-copy,.global-transaction-cta{display:block;margin-top:5px;text-align:left}
       .global-transaction-cta{color:#f6a700}
@@ -110,9 +123,12 @@ function syncMenu(menu: Element) {
       link.target = "_blank";
       link.rel = "noopener noreferrer";
     }
+
     const label = document.createElement("span");
+    label.className = "global-resource-label";
     label.textContent = item.label;
     link.appendChild(label);
+
     if (item.badge) {
       const badge = document.createElement("span");
       badge.className = "global-resource-badge";
@@ -135,7 +151,7 @@ function syncMenu(menu: Element) {
 
 function syncAll() {
   installStyles();
-  // Do not touch the homepage legacy menu. It is already the approved source of truth.
+  // Homepage uses the approved legacy Resources menu and is intentionally untouched.
   document.querySelectorAll(".native-nav-resources-menu").forEach(syncMenu);
 }
 
