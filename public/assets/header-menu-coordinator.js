@@ -22,28 +22,28 @@
       href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
     },
     {
-      label: "Florida Liquor License Value Estimator",
-      href: "/florida-liquor-license-value",
-    },
-    {
       label: "Florida Liquor License Laws",
       href: "/resources/florida-liquor-license-laws",
-    },
-    {
-      label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)",
-      href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
-    },
-    {
-      label: "Florida ABT Forms",
-      href: "/resources/forms",
     },
     {
       label: "License Fees",
       href: "/resources/license-fees",
     },
     {
+      label: "Florida Liquor License Value Estimator",
+      href: "/florida-liquor-license-value",
+    },
+    {
+      label: "Florida ABT Forms",
+      href: "/resources/forms",
+    },
+    {
       label: "Quota License Transfer Fee Calculator",
       href: "/resources/quota-transfer-fee-calculator",
+    },
+    {
+      label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)",
+      href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
     },
     {
       label: "Florida Department of Revenue (FDOR)",
