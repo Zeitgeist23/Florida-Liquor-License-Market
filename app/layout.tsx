@@ -6,6 +6,7 @@ import AbtIncreaseInSeriesSelect from "@/components/AbtIncreaseInSeriesSelect";
 import AbtMoralCharacterQuestion from "@/components/AbtMoralCharacterQuestion";
 import BrokerAssistanceNavigationEnhancement from "@/components/BrokerAssistanceNavigationEnhancement";
 import FinancingAppraisalEnhancement from "@/components/FinancingAppraisalEnhancement";
+import GlobalResourcesMenuSync from "@/components/GlobalResourcesMenuSync";
 import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
 import ListYourLicenseLinkFix from "@/components/ListYourLicenseLinkFix";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
@@ -117,6 +118,7 @@ export default function RootLayout({
         <ListYourLicenseLinkFix />
         <LicenseTypeLogoScale />
         <FinancingAppraisalEnhancement />
+        <GlobalResourcesMenuSync />
         {children}
         <SeoAuthorityEnhancements />
         <NationalMarketplaceFooterLink />
