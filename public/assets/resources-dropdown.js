@@ -7,11 +7,11 @@
   let menu = null;
 
   const resources = [
-    { label: "FLLM Transaction Services", href: "/transaction-services", internal: true, featured: true },
-    { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide", internal: true, badge: "FREE PDF" },
+    { label: "FLLM Transaction Services", href: "/transaction-services", internal: true },
+    { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide", internal: true, highlight: true, badge: "FREE PDF" },
     { label: "View All Resources", href: "/resources", internal: true },
     { label: "Alcohol License Application Center", href: "/resources/application-center", internal: true },
-    { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup" },
+    { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup", highlight: true, badge: "LOOKUP" },
     { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws", internal: true },
     { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" },
     { label: "Florida ABT Forms", href: "/resources/forms", internal: true },
@@ -77,31 +77,21 @@
         font:700 13px/1.28 Arial,Helvetica,sans-serif;
         letter-spacing:.01em;
       }
+      .resources-header-menu a[data-highlight="true"]{
+        border-color:rgba(246,167,0,.58);
+        background:linear-gradient(135deg,rgba(246,167,0,.13),#081d31);
+        box-shadow:inset 3px 0 0 #f6a700;
+      }
+      .resources-header-menu a[data-highlight="true"]::after{
+        color:#f6a700;
+        font-weight:900;
+      }
       .resources-header-menu a:hover,
       .resources-header-menu a:focus-visible{
         border-color:#f6a700;
         background:#0d2841;
         color:#f6a700;
         outline:none;
-      }
-      .resources-header-menu a[data-featured="true"]{
-        grid-column:1/-1;
-        min-height:58px;
-        border-color:#f6a700;
-        background:linear-gradient(145deg,#102d48,#071522);
-        color:#f6a700;
-        font-size:14px;
-        font-weight:900;
-      }
-      .resources-header-menu a[data-featured="true"]::after{
-        content:"NEW";
-        flex:0 0 auto;
-        margin-left:16px;
-        padding:3px 7px;
-        border:1px solid rgba(246,167,0,.7);
-        border-radius:999px;
-        font-size:9px;
-        letter-spacing:.08em;
       }
       .resources-header-menu a[data-badge]::after{
         content:attr(data-badge);
@@ -121,7 +111,6 @@
           overflow:auto;
         }
         .resources-header-menu.is-open{grid-template-columns:1fr}
-        .resources-header-menu a[data-featured="true"]{grid-column:auto}
       }
     `;
     document.head.appendChild(style);
@@ -159,7 +148,7 @@
     menu.setAttribute("role", "menu");
     menu.setAttribute("aria-hidden", "true");
 
-    resources.forEach(({ label, href, internal, featured, badge }) => {
+    resources.forEach(({ label, href, internal, highlight, badge }) => {
       const link = document.createElement("a");
       link.href = href;
       link.setAttribute("role", "menuitem");
@@ -168,7 +157,7 @@
         link.target = "_blank";
         link.rel = "noopener noreferrer";
       }
-      if (featured) link.dataset.featured = "true";
+      if (highlight) link.dataset.highlight = "true";
       if (badge) link.dataset.badge = badge;
       link.addEventListener("click", () => closeMenu());
       menu.appendChild(link);
