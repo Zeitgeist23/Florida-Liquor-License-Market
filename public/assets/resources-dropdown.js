@@ -132,6 +132,28 @@
         background:#f6a700;
         color:#061728;
       }
+      .resources-featured-transaction{
+        margin:0 0 2px;
+        border:1px solid rgba(246,167,0,.72);
+        border-radius:5px;
+        background:linear-gradient(145deg,#0b2238,#071522);
+      }
+      .resources-featured-transaction a{
+        color:#f6a700;
+        font-weight:900;
+      }
+      .resources-featured-transaction a::after{
+        content:"NEW";
+        float:right;
+        margin-left:12px;
+        font-size:9px;
+        letter-spacing:.08em;
+      }
+      .resources-featured-transaction a:hover,
+      .resources-featured-transaction a:focus-visible{
+        background:#f6a700;
+        color:#061728;
+      }
       .primary-nav a[data-resources-dropdown-bound="true"]{cursor:pointer}
       @media(max-width:760px){
         .resources-header-menu{width:min(332px,calc(100vw - 24px))}
@@ -217,6 +239,16 @@
       link.addEventListener("click", () => closeMenu());
       menu.appendChild(link);
     });
+
+    const transactionWrap = document.createElement("div");
+    transactionWrap.className = "resources-featured-transaction";
+    const transactionLink = document.createElement("a");
+    transactionLink.href = "/transaction-services";
+    transactionLink.setAttribute("role", "menuitem");
+    transactionLink.textContent = "FLLM Transaction Services";
+    transactionLink.addEventListener("click", () => closeMenu());
+    transactionWrap.appendChild(transactionLink);
+    menu.insertBefore(transactionWrap, menu.firstChild);
 
     document.body.appendChild(menu);
     return menu;
