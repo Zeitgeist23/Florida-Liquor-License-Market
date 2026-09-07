@@ -1,4 +1,4 @@
-name: Deploy FLLM to Vercel Production
+name: Validate FLLM production build
 
 on:
   push:
@@ -7,16 +7,16 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: fllm-production
+  group: fllm-production-validation
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  verify-and-deploy:
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     steps:
       - name: Checkout current main
         uses: actions/checkout@v4
@@ -32,65 +32,3 @@ jobs:
 
       - name: Verify production build
         run: npm run build
-
-      - name: Verify Vercel deployment credentials
-        shell: bash
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: |
-          missing=0
-          for key in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
-            if [ -z "${!key}" ]; then
-              echo "::error::$key is not configured in GitHub Actions secrets."
-              missing=1
-            fi
-          done
-          if [ "$missing" -ne 0 ]; then
-            echo "Configure the three Vercel secrets in GitHub, then rerun this workflow."
-            exit 1
-          fi
-
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-
-      - name: Pull Vercel production configuration
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
-
-      - name: Build with Vercel production configuration
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: vercel build --prod --token="$VERCEL_TOKEN"
-
-      - name: Deploy verified build to production
-        id: deploy
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: |
-          url=$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")
-          echo "url=$url" >> "$GITHUB_OUTPUT"
-          echo "Production deployment: $url"
-
-      - name: Verify live Transaction Services route
-        shell: bash
-        run: |
-          for attempt in 1 2 3 4 5 6; do
-            code=$(curl -L -s -o /tmp/transaction-services.html -w '%{http_code}' https://www.floridaliquorlicensemarket.com/transaction-services || true)
-            if [ "$code" = "200" ] && grep -qi "Transaction Services" /tmp/transaction-services.html; then
-              echo "Production verification passed."
-              exit 0
-            fi
-            echo "Verification attempt $attempt returned HTTP $code; retrying..."
-            sleep 10
-          done
-          echo "::error::Production domain did not expose the Transaction Services page after deployment."
-          exit 1
