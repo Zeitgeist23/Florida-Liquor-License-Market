@@ -95,26 +95,41 @@
       }
       .resources-header-menu a[data-wide="true"]{
         grid-column:1/-1;
+        display:grid;
+        grid-template-columns:max-content 1fr max-content;
+        align-items:center;
+        column-gap:18px;
         min-height:54px;
         padding:10px 14px;
         border-color:rgba(246,167,0,.34);
         background:rgba(255,255,255,.035);
       }
-      .resources-header-menu a[data-wide="true"]::after{
-        content:"Valuation · Financing · ABT Transfer Support · Closing Resources · Professional Referrals   Explore →";
-        margin-left:auto;
+      .resources-header-menu .resources-transaction-title{white-space:nowrap}
+      .resources-header-menu .resources-transaction-copy{
+        justify-self:center;
+        text-align:center;
         color:#9fb0bf;
         font-size:10px;
         font-weight:700;
         letter-spacing:.01em;
       }
-      .resources-header-menu a[data-wide="true"]:hover::after,
-      .resources-header-menu a[data-wide="true"]:focus-visible::after{color:#f6a700}
+      .resources-header-menu .resources-transaction-cta{
+        justify-self:end;
+        white-space:nowrap;
+        color:#9fb0bf;
+        font-size:10px;
+        font-weight:800;
+      }
+      .resources-header-menu a[data-wide="true"]:hover .resources-transaction-copy,
+      .resources-header-menu a[data-wide="true"]:hover .resources-transaction-cta,
+      .resources-header-menu a[data-wide="true"]:focus-visible .resources-transaction-copy,
+      .resources-header-menu a[data-wide="true"]:focus-visible .resources-transaction-cta{color:#f6a700}
       .primary-nav a[data-resources-dropdown-bound="true"]{cursor:pointer}
       @media(max-width:980px){
         .resources-header-menu.is-open{grid-template-columns:repeat(2,minmax(0,1fr))}
-        .resources-header-menu a[data-wide="true"]{grid-column:1/-1}
-        .resources-header-menu a[data-wide="true"]::after{font-size:9px}
+        .resources-header-menu a[data-wide="true"]{grid-column:1/-1;column-gap:12px}
+        .resources-header-menu .resources-transaction-copy{font-size:9px}
+        .resources-header-menu .resources-transaction-cta{font-size:9px}
       }
       @media(max-width:760px){
         .resources-header-menu{
@@ -124,7 +139,8 @@
         }
         .resources-header-menu.is-open{grid-template-columns:1fr}
         .resources-header-menu a[data-wide="true"]{grid-column:auto;display:block}
-        .resources-header-menu a[data-wide="true"]::after{content:"Explore Transaction Services →";display:block;margin:5px 0 0}
+        .resources-header-menu .resources-transaction-copy{display:block;margin-top:5px;text-align:left}
+        .resources-header-menu .resources-transaction-cta{display:block;margin-top:5px;color:#f6a700}
       }
     `;
     document.head.appendChild(style);
@@ -166,13 +182,17 @@
       const link = document.createElement("a");
       link.href = href;
       link.setAttribute("role", "menuitem");
-      link.textContent = label;
       if (!internal) {
         link.target = "_blank";
         link.rel = "noopener noreferrer";
       }
+      if (wide) {
+        link.dataset.wide = "true";
+        link.innerHTML = `<span class="resources-transaction-title">${label}</span><span class="resources-transaction-copy">Valuation · Financing · ABT Transfer Support · Closing Resources · Professional Referrals</span><span class="resources-transaction-cta">Explore →</span>`;
+      } else {
+        link.textContent = label;
+      }
       if (badge) link.dataset.badge = badge;
-      if (wide) link.dataset.wide = "true";
       link.addEventListener("click", () => closeMenu());
       menu.appendChild(link);
     });
