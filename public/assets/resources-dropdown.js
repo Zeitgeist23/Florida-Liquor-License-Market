@@ -7,59 +7,19 @@
   let menu = null;
 
   const resources = [
-    {
-      label: "Free Buyer’s & Seller’s Guide",
-      href: "/free-guide",
-      internal: true,
-    },
-    {
-      label: "View All Resources",
-      href: "/resources",
-      internal: true,
-    },
-    {
-      label: "Alcohol License Application Center",
-      href: "/resources/application-center",
-      internal: true,
-    },
-    {
-      label: "Florida Liquor License Lookup",
-      href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
-    },
-    {
-      label: "Florida Liquor License Laws",
-      href: "/resources/florida-liquor-license-laws",
-      internal: true,
-    },
-    {
-      label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)",
-      href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
-    },
-    {
-      label: "Florida ABT Forms",
-      href: "/resources/forms",
-      internal: true,
-    },
-    {
-      label: "License Fees",
-      href: "/resources/license-fees",
-      internal: true,
-    },
-    {
-      label: "Quota License Transfer Fee Calculator",
-      href: "/resources/quota-transfer-fee-calculator",
-      internal: true,
-    },
-    {
-      label: "Florida Department of Revenue (FDOR)",
-      href: "/resources/florida-department-of-revenue",
-      internal: true,
-    },
-    {
-      label: "Liquor License Attorneys",
-      href: "/resources/liquor-license-attorneys",
-      internal: true,
-    },
+    { label: "FLLM Transaction Services", href: "/transaction-services", internal: true, featured: true },
+    { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide", internal: true, badge: "FREE PDF" },
+    { label: "View All Resources", href: "/resources", internal: true },
+    { label: "Alcohol License Application Center", href: "/resources/application-center", internal: true },
+    { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup" },
+    { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws", internal: true },
+    { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" },
+    { label: "Florida ABT Forms", href: "/resources/forms", internal: true },
+    { label: "ABT-6002 Transfer Guide", href: "/dbpr-abt-6002", internal: true },
+    { label: "License Fees", href: "/resources/license-fees", internal: true },
+    { label: "Quota License Transfer Fee Calculator", href: "/resources/quota-transfer-fee-calculator", internal: true },
+    { label: "Florida Department of Revenue (FDOR)", href: "/resources/florida-department-of-revenue", internal: true },
+    { label: "Liquor License Attorneys", href: "/resources/liquor-license-attorneys", internal: true },
   ];
 
   function normalizedText(element) {
@@ -68,7 +28,6 @@
 
   function installStyles() {
     if (document.getElementById(STYLE_ID)) return;
-
     const style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
@@ -76,15 +35,19 @@
         position:fixed;
         z-index:10031;
         display:none;
-        width:332px;
-        padding:6px;
+        width:min(920px,calc(100vw - 32px));
+        padding:10px;
         border:1px solid #f6a700;
-        border-radius:6px;
+        border-radius:8px;
         background:#061728;
         box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12);
         font-family:Arial,Helvetica,sans-serif;
       }
-      .resources-header-menu.is-open{display:grid;gap:4px}
+      .resources-header-menu.is-open{
+        display:grid;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:7px;
+      }
       .resources-header-menu::before{
         content:"";
         position:absolute;
@@ -100,63 +63,65 @@
       .resources-header-menu a{
         position:relative;
         z-index:1;
-        display:block;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        min-height:54px;
         width:100%;
-        padding:12px 13px;
-        border-radius:4px;
+        padding:12px 14px;
+        border:1px solid rgba(255,255,255,.07);
+        border-radius:6px;
+        background:#081d31;
         color:#fff;
         text-decoration:none;
-        font:700 13px/1.25 Arial,Helvetica,sans-serif;
+        font:700 13px/1.28 Arial,Helvetica,sans-serif;
         letter-spacing:.01em;
       }
       .resources-header-menu a:hover,
       .resources-header-menu a:focus-visible{
-        background:#f6a700;
-        color:#061728;
+        border-color:#f6a700;
+        background:#0d2841;
+        color:#f6a700;
         outline:none;
       }
-      .resources-header-menu a[href="/free-guide"]{
-        background:transparent;
-        color:#fff;
-        font-weight:900;
-      }
-      .resources-header-menu a[href="/free-guide"]::after{
-        content:"FREE PDF";
-        float:right;
-        margin-left:12px;
-        font-size:9px;
-        letter-spacing:.08em;
-      }
-      .resources-header-menu a[href="/free-guide"]:hover,
-      .resources-header-menu a[href="/free-guide"]:focus-visible{
-        background:#f6a700;
-        color:#061728;
-      }
-      .resources-featured-transaction{
-        margin:0 0 2px;
-        border:1px solid rgba(246,167,0,.72);
-        border-radius:5px;
-        background:linear-gradient(145deg,#0b2238,#071522);
-      }
-      .resources-featured-transaction a{
+      .resources-header-menu a[data-featured="true"]{
+        grid-column:1/-1;
+        min-height:58px;
+        border-color:#f6a700;
+        background:linear-gradient(145deg,#102d48,#071522);
         color:#f6a700;
+        font-size:14px;
         font-weight:900;
       }
-      .resources-featured-transaction a::after{
+      .resources-header-menu a[data-featured="true"]::after{
         content:"NEW";
-        float:right;
-        margin-left:12px;
+        flex:0 0 auto;
+        margin-left:16px;
+        padding:3px 7px;
+        border:1px solid rgba(246,167,0,.7);
+        border-radius:999px;
         font-size:9px;
         letter-spacing:.08em;
       }
-      .resources-featured-transaction a:hover,
-      .resources-featured-transaction a:focus-visible{
-        background:#f6a700;
-        color:#061728;
+      .resources-header-menu a[data-badge]::after{
+        content:attr(data-badge);
+        flex:0 0 auto;
+        margin-left:12px;
+        font-size:9px;
+        letter-spacing:.08em;
       }
       .primary-nav a[data-resources-dropdown-bound="true"]{cursor:pointer}
+      @media(max-width:980px){
+        .resources-header-menu.is-open{grid-template-columns:repeat(2,minmax(0,1fr))}
+      }
       @media(max-width:760px){
-        .resources-header-menu{width:min(332px,calc(100vw - 24px))}
+        .resources-header-menu{
+          width:min(360px,calc(100vw - 24px));
+          max-height:70vh;
+          overflow:auto;
+        }
+        .resources-header-menu.is-open{grid-template-columns:1fr}
+        .resources-header-menu a[data-featured="true"]{grid-column:auto}
       }
     `;
     document.head.appendChild(style);
@@ -165,23 +130,6 @@
   function findResourcesTrigger() {
     return Array.from(document.querySelectorAll(".primary-nav a"))
       .find((link) => /^resources$/i.test(normalizedText(link)));
-  }
-
-  function ensureLicenseTypesLink() {
-    const trigger = findResourcesTrigger();
-    if (!(trigger instanceof HTMLAnchorElement)) return false;
-
-    const navigation = trigger.closest(".primary-nav");
-    if (!(navigation instanceof HTMLElement)) return false;
-    if (navigation.querySelector('a[href="/resources/florida-liquor-license-types"]')) return true;
-
-    const link = document.createElement("a");
-    link.href = "/resources/florida-liquor-license-types";
-    const label = document.createElement("span");
-    label.textContent = "License Types";
-    link.appendChild(label);
-    navigation.insertBefore(link, trigger);
-    return true;
   }
 
   function closeMenu({ restoreFocus = false } = {}) {
@@ -194,12 +142,10 @@
 
   function positionMenu() {
     if (!menu || !activeTrigger) return;
-
     const rect = activeTrigger.getBoundingClientRect();
-    const width = Math.min(332, window.innerWidth - 24);
+    const width = Math.min(window.innerWidth - 32, window.innerWidth >= 980 ? 920 : window.innerWidth >= 760 ? 700 : 360);
     const desiredLeft = rect.left + rect.width / 2 - width / 2;
     const left = Math.max(12, Math.min(desiredLeft, window.innerWidth - width - 12));
-
     menu.style.width = `${width}px`;
     menu.style.left = `${left}px`;
     menu.style.top = `${rect.bottom + 8}px`;
@@ -207,48 +153,26 @@
 
   function ensureMenu() {
     if (menu) return menu;
-
     menu = document.createElement("div");
     menu.id = MENU_ID;
     menu.className = "resources-header-menu";
     menu.setAttribute("role", "menu");
     menu.setAttribute("aria-hidden", "true");
 
-    resources.forEach(({ label, href, internal, newWindow }) => {
+    resources.forEach(({ label, href, internal, featured, badge }) => {
       const link = document.createElement("a");
       link.href = href;
-      if (newWindow || !internal) {
+      link.setAttribute("role", "menuitem");
+      link.textContent = label;
+      if (!internal) {
         link.target = "_blank";
         link.rel = "noopener noreferrer";
       }
-      if (newWindow) {
-        link.addEventListener("click", (event) => {
-          const popup = window.open(
-            href,
-            "fllm-quota-transfer-fee-calculator",
-            "popup=yes,width=1180,height=860,resizable=yes,scrollbars=yes"
-          );
-          if (popup) {
-            event.preventDefault();
-            popup.focus();
-          }
-        });
-      }
-      link.setAttribute("role", "menuitem");
-      link.textContent = label;
+      if (featured) link.dataset.featured = "true";
+      if (badge) link.dataset.badge = badge;
       link.addEventListener("click", () => closeMenu());
       menu.appendChild(link);
     });
-
-    const transactionWrap = document.createElement("div");
-    transactionWrap.className = "resources-featured-transaction";
-    const transactionLink = document.createElement("a");
-    transactionLink.href = "/transaction-services";
-    transactionLink.setAttribute("role", "menuitem");
-    transactionLink.textContent = "FLLM Transaction Services";
-    transactionLink.addEventListener("click", () => closeMenu());
-    transactionWrap.appendChild(transactionLink);
-    menu.insertBefore(transactionWrap, menu.firstChild);
 
     document.body.appendChild(menu);
     return menu;
@@ -276,7 +200,6 @@
     const trigger = findResourcesTrigger();
     if (!(trigger instanceof HTMLAnchorElement)) return false;
     if (trigger.dataset[BOUND_KEY] === "true") return true;
-
     trigger.dataset[BOUND_KEY] = "true";
     trigger.setAttribute("data-resources-dropdown-bound", "true");
     trigger.setAttribute("href", "#resources-menu");
@@ -295,26 +218,19 @@
   document.addEventListener("click", (event) => {
     const target = event.target;
     const trigger = target instanceof Element ? target.closest(".primary-nav a") : null;
-
-    if (
-      trigger instanceof HTMLAnchorElement &&
-      /^resources$/i.test(normalizedText(trigger))
-    ) {
+    if (trigger instanceof HTMLAnchorElement && /^resources$/i.test(normalizedText(trigger))) {
       event.preventDefault();
       event.stopPropagation();
       toggleMenu(trigger);
       return;
     }
-
     if (!menu?.classList.contains("is-open")) return;
     if (target instanceof Node && (menu.contains(target) || activeTrigger?.contains(target))) return;
     closeMenu();
   }, true);
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && menu?.classList.contains("is-open")) {
-      closeMenu({ restoreFocus: true });
-    }
+    if (event.key === "Escape" && menu?.classList.contains("is-open")) closeMenu({ restoreFocus: true });
   });
 
   window.addEventListener("resize", () => {
@@ -325,13 +241,9 @@
   }, { passive: true });
 
   function initialize() {
-    ensureLicenseTypesLink();
     bindTrigger();
-    window.setTimeout(ensureLicenseTypesLink, 300);
     window.setTimeout(bindTrigger, 300);
-    window.setTimeout(ensureLicenseTypesLink, 1000);
     window.setTimeout(bindTrigger, 1000);
-    window.setTimeout(ensureLicenseTypesLink, 2200);
     window.setTimeout(bindTrigger, 2200);
   }
 
