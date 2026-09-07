@@ -116,14 +116,9 @@ const navMenus: NavMenu[] = [
       },
       { href: "/florida-liquor-license-value", label: "Florida Liquor License Value Estimator" },
       { href: "/resources/florida-liquor-license-laws", label: "Florida Liquor License Laws" },
-      {
-        href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
-        label: "Florida Division of Alcoholic Beverages & Tobacco",
-        target: "_blank",
-        rel: "noopener noreferrer",
-      },
+      { href: "/resources/florida-division-alcoholic-beverages-tobacco", label: "Florida Division of Alcoholic Beverages & Tobacco" },
       { href: "/resources/forms", label: "Florida ABT Forms" },
-      { href: "/resources/license-fees", label: "License Fees" },
+      { href: "/resources/license-fees", label: "License Fees & Annual Renewals" },
       { href: "/resources/quota-transfer-fee-calculator", label: "Quota License Transfer Fee Calculator" },
       { href: "/resources/florida-department-of-revenue", label: "Florida Department of Revenue (FDOR)" },
       { href: "/resources/liquor-license-attorneys", label: "Liquor License Attorneys" },
@@ -282,47 +277,6 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]::after{content:"LOOKUP";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{background:transparent!important;box-shadow:none!important;color:#f6a700;outline:none}
         .primary-nav .native-nav-resources-menu a:hover,.primary-nav .native-nav-resources-menu a:focus-visible{border-color:rgba(246,167,0,.7);background:rgba(246,167,0,.08)!important}
-        .primary-nav .native-nav-resources-menu a[href="/free-guide"]:hover,
-        .primary-nav .native-nav-resources-menu a[href="/free-guide"]:focus-visible,
-        .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"]:hover,
-        .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"]:focus-visible,
-        .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]:hover,
-        .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]:focus-visible{background:rgba(246,167,0,.14)!important;color:#f6a700}
-
-        .primary-nav .live-license-types-menu,
-        .primary-nav .home-license-types-menu,
-        .license-types-header-menu{width:320px!important;padding:6px!important}
-        .primary-nav .live-license-types-menu .live-license-card,
-        .primary-nav .home-license-types-menu a,
-        .license-types-header-menu a{display:block!important;width:100%!important;padding:12px 13px!important;background:transparent!important;box-shadow:none!important}
-        .primary-nav .live-license-types-menu .live-license-card:hover,
-        .primary-nav .live-license-types-menu .live-license-card:focus,
-        .primary-nav .home-license-types-menu a:hover,
-        .primary-nav .home-license-types-menu a:focus,
-        .license-types-header-menu a:hover,
-        .license-types-header-menu a:focus{background:transparent!important;box-shadow:none!important;color:#f6a700!important;outline:none}
-        .primary-nav .live-license-types-menu .live-license-card>img,
-        .primary-nav .live-license-types-menu a>img,
-        .primary-nav .home-license-types-menu a>img,
-        .license-types-header-menu a>img,
-        .primary-nav .native-license-types-menu a>img{display:none!important}
-        .primary-nav .live-license-types-menu .live-license-card>span{display:block!important}
-        .primary-nav .live-license-types-menu .live-license-card small{display:none!important}
-
-        @media(max-width:1100px) and (min-width:900px){
-          .native-nav-resources-menu{width:min(720px,calc(100vw - 36px));grid-template-columns:repeat(2,minmax(0,1fr));transform:translateX(-72%)}
-          .native-nav-resources-menu::before{left:72%}
-        }
-
-        @media(max-width:899px){
-          .primary-nav .native-nav-dropdown{width:100%;display:block;padding-bottom:0;margin-bottom:0}
-          .primary-nav .native-nav-trigger{width:100%;min-height:36px;justify-content:center}
-          .primary-nav .native-nav-direct-link{width:100%;min-height:36px;justify-content:center}
-          .native-nav-menu{position:static;left:auto;top:auto;width:100%!important;max-height:58vh;margin:2px 0 8px;transform:none;overflow:auto;box-shadow:none}
-          .native-nav-resources-menu{grid-template-columns:1fr!important;padding:6px}
-          .native-nav-resources-menu::before{display:none}
-          .native-nav-menu::before{display:none}
-        }
       `}</style>
     </>
   );
