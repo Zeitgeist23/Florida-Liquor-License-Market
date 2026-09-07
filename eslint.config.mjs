@@ -13,6 +13,9 @@ const config = [
       // The mirrored production site intentionally contains conventional internal
       // anchors. Keep them functional while still enforcing all other Next rules.
       "@next/next/no-html-link-for-pages": "off",
+      // Existing marketing copy contains ordinary apostrophes in JSX text.
+      // Do not block production builds over typography-only escaping.
+      "react/no-unescaped-entities": "off",
     },
   },
   { ignores: [".next/**", "node_modules/**"] },
