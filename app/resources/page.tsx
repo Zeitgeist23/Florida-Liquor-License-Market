@@ -24,6 +24,7 @@ const resourceGroups = [
   {
     title: "Buying, selling and market guidance",
     items: [
+      { href: "/transaction-services", title: "FLLM Transaction Services", copy: "Connect valuation, financing, FDOR clearance, ABT transfer preparation, closing resources and professional referrals in one transaction workflow." },
       { href: "/how-to-buy-florida-liquor-license", title: "How to Buy a Florida Liquor License", copy: "Compare quota-market purchases, state-issued options and professional brokerage support." },
       { href: "/how-to-sell-florida-liquor-license", title: "How to Sell a Florida Liquor License", copy: "Understand valuation, listing choices, buyer qualification, contracting and transfer preparation." },
       { href: "/florida-liquor-license-value", title: "License Value Estimator", copy: "Review county-level asking-price data and request a more specific valuation or appraisal." },
