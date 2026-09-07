@@ -35,6 +35,7 @@ const resourceGroups = [
     title: "Applications, forms and state agencies",
     items: [
       { href: "/resources/application-center", title: "Alcohol License Application Center", copy: "Start with the right application path and review common preparation requirements." },
+      { href: "/resources/florida-division-alcoholic-beverages-tobacco", title: "Florida DABT Guide", copy: "Understand DBPR/DABT, quota-license issuance, ABT-6001, ABT-6002, transfer approval, applicant qualification and agency contacts." },
       { href: "/resources/forms", title: "Florida ABT Forms", copy: "Locate ABT-6002 and other commonly used Florida alcoholic-beverage forms." },
       { href: "/dbpr-abt-6002", title: "ABT-6002 Transfer Guide", copy: "Review ownership-transfer paperwork, fingerprints and background-screening considerations." },
       { href: "/resources/florida-department-of-revenue", title: "Florida Department of Revenue", copy: "Understand the tax-clearance role and access relevant FDOR resources." },
@@ -45,7 +46,7 @@ const resourceGroups = [
     items: [
       { href: "/resources/florida-liquor-license-types", title: "Florida License Types", copy: "Compare 2APS, 2COP, 3PS, 4COP quota, SFS and other license categories." },
       { href: "/resources/florida-liquor-license-laws", title: "Florida Liquor License Laws", copy: "Browse FLLM’s plain-language statutory and legal reference center." },
-      { href: "/resources/license-fees", title: "License Fees", copy: "Review annual state fee information and county-based license-fee differences." },
+      { href: "/resources/license-fees", title: "License Fees & Annual Renewals", copy: "Review annual state fee information and county-based license-fee differences." },
       { href: "/resources/quota-transfer-fee-calculator", title: "Quota Transfer Fee Calculator", copy: "Estimate Florida’s quota-license transfer surcharge based on the transaction value." },
       { href: "/resources/liquor-license-attorneys", title: "Liquor License Attorneys", copy: "Find independent Florida attorneys who work with alcoholic-beverage licensing matters." },
       { href: "/florida-liquor-license-court-decisions", title: "Court Decisions and Case Law", copy: "Review selected Florida decisions affecting quota licenses and alcoholic-beverage regulation." },
@@ -127,7 +128,7 @@ export default function ResourcesPage() {
             <div>
               <span>Official state agency</span>
               <h2>Florida Division of Alcoholic Beverages &amp; Tobacco</h2>
-              <p>Verify current requirements, license records, application procedures and official notices directly with DBPR/DABT.</p>
+              <p>Use FLLM's DABT guide for a plain-language overview, then verify current requirements, license records, application procedures and official notices directly with DBPR/DABT.</p>
             </div>
             <a href="https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" target="_blank" rel="noopener noreferrer">Visit the DABT website ↗</a>
           </aside>
