@@ -20,11 +20,12 @@ const resources = [
   { label: "View All Resources", href: "/resources" },
 ];
 
-const SIGNATURE = "fllm-resources-v5";
+const SIGNATURE = "fllm-resources-v6";
 
 function installStyles() {
-  const existing = document.getElementById("global-resources-menu-sync-styles");
-  if (existing) existing.remove();
+  // Important: this must be idempotent. Removing/re-adding the style node inside the
+  // MutationObserver callback creates a self-triggering DOM mutation loop and can freeze pages.
+  if (document.getElementById("global-resources-menu-sync-styles")) return;
 
   const style = document.createElement("style");
   style.id = "global-resources-menu-sync-styles";
@@ -195,7 +196,9 @@ function syncAll() {
 export default function GlobalResourcesMenuSync() {
   useEffect(() => {
     syncAll();
-    const observer = new MutationObserver(syncAll);
+    const observer = new MutationObserver(() => {
+      document.querySelectorAll(".native-nav-resources-menu").forEach(syncMenu);
+    });
     observer.observe(document.documentElement, { childList: true, subtree: true });
     window.setTimeout(syncAll, 100);
     window.setTimeout(syncAll, 500);
