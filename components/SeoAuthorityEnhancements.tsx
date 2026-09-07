@@ -20,7 +20,19 @@ const sbaAppraisalAuthorityPaths = new Set([
   "/florida-liquor-license-sba-appraisal",
   "/sba-7a-liquor-license-business-financing",
   "/how-to-finance-florida-liquor-license",
+  "/finance-a-license",
   "/financing",
+]);
+
+const buyerFinancingAppraisalPaths = new Set([
+  "/finance-a-license",
+  "/financing",
+  "/how-to-finance-florida-liquor-license",
+  "/financing/loan-payment-calculator",
+  "/private-liquor-license-lenders",
+  "/sba-7a-liquor-license-business-financing",
+  "/florida-liquor-license-appraisal",
+  "/florida-liquor-license-sba-appraisal",
 ]);
 
 const litigationAuthorityPaths = new Set([
@@ -71,13 +83,14 @@ export default function SeoAuthorityEnhancements() {
   const pathname = usePathname();
   const showAuthorityLinks = exactAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showSbaAppraisalLink = sbaAppraisalAuthorityPaths.has(pathname);
+  const showBuyerFinancingAppraisalLink = buyerFinancingAppraisalPaths.has(pathname);
   const showLitigationLink = litigationAuthorityPaths.has(pathname);
   const showLawyerLink = lawyerAuthorityPaths.has(pathname);
   const showBrokerListingLink = brokerListingAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showSellerServicePositioning = sellerServiceAuthorityPaths.has(pathname);
   const showBrokerKit = pathname === "/brokers/list-your-license" || pathname === "/how-to-sell-florida-liquor-license";
 
-  if (!showAuthorityLinks && !showSbaAppraisalLink && !showLitigationLink && !showLawyerLink && !showBrokerListingLink && !showSellerServicePositioning && !showBrokerKit) return null;
+  if (!showAuthorityLinks && !showSbaAppraisalLink && !showBuyerFinancingAppraisalLink && !showLitigationLink && !showLawyerLink && !showBrokerListingLink && !showSellerServicePositioning && !showBrokerKit) return null;
 
   return (
     <>
@@ -99,6 +112,18 @@ export default function SeoAuthorityEnhancements() {
               <strong>Florida statewide marketplace:</strong>{" "}
               <Link href="/listings">browse current Florida liquor licenses for sale</Link>, including 4COP quota and 3PS package-store opportunities, or review the{" "}
               <Link href="/florida-quota-liquor-license-market-report">Florida Quota Liquor License Market Report</Link> for current statewide inventory and asking-price evidence.
+            </p>
+          </div>
+        </aside>
+      ) : null}
+
+      {showBuyerFinancingAppraisalLink ? (
+        <aside className="fllm-authority-links" aria-label="Current Florida liquor licenses for sale and buyer transaction resources">
+          <div className="fllm-authority-links__inner">
+            <p>
+              <strong>Start with the actual license opportunity:</strong>{" "}
+              <Link href="/listings">browse current Florida liquor licenses for sale</Link> and compare active 4COP quota and 3PS asking prices by county before structuring financing or ordering a valuation. Buyers can also review the{" "}
+              <Link href="/market-data/exchange-board">FLLM Exchange Board</Link> for current asking-price visibility and county market activity, then return to the applicable financing or appraisal resource for the specific transaction.
             </p>
           </div>
         </aside>
