@@ -58,6 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/sell-your-license`, lastModified, changeFrequency: "monthly", priority: 0.82 },
     { url: `${siteUrl}/brokers/list-your-license`, lastModified, changeFrequency: "weekly", priority: 0.98 },
     { url: `${siteUrl}/financing`, lastModified, changeFrequency: "monthly", priority: 0.72 },
+    { url: `${siteUrl}/transaction-services`, lastModified, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/investment-opportunities`, lastModified, changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/careers`, lastModified, changeFrequency: "monthly", priority: 0.45 },
     { url: `${siteUrl}/resources`, lastModified, changeFrequency: "monthly", priority: 0.86 },
