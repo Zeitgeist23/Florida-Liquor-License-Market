@@ -105,27 +105,30 @@ const navMenus: NavMenu[] = [
     label: "Resources",
     menuClassName: "native-nav-menu-standard native-nav-resources-menu",
     links: [
+      { href: "/transaction-services", label: "FLLM Transaction Services" },
       { href: "/free-guide", label: "Free Buyer’s & Seller’s Guide" },
       { href: "/resources", label: "View All Resources" },
+      { href: "/resources/application-center", label: "Alcohol License Application Center" },
+      { href: "/dbpr-abt-6002", label: "ABT-6002 Transfer Guide" },
+      { href: "/resources/forms", label: "Florida ABT Forms" },
+      { href: "/resources/florida-department-of-revenue", label: "Florida Department of Revenue (FDOR)" },
+      { href: "/resources/quota-transfer-fee-calculator", label: "Quota License Transfer Fee Calculator" },
+      { href: "/resources/license-fees", label: "License Fees" },
+      { href: "/resources/liquor-license-attorneys", label: "Liquor License Attorneys" },
+      { href: "/resources/florida-liquor-license-laws", label: "Florida Liquor License Laws" },
+      { href: "/florida-liquor-license-court-decisions", label: "Court Decisions & Case Law" },
       {
         href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
         label: "Florida Liquor License Lookup",
         target: "_blank",
         rel: "noopener noreferrer",
       },
-      { href: "/resources/quota-transfer-fee-calculator", label: "Quota License Transfer Fee Calculator" },
-      { href: "/resources/liquor-license-attorneys", label: "Liquor License Attorneys" },
-      { href: "/florida-liquor-license-court-decisions", label: "Court Decisions & Case Law" },
       {
         href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
-        label: "Florida Division of Alcoholic Beverages",
+        label: "Florida Division of Alcoholic Beverages & Tobacco",
         target: "_blank",
         rel: "noopener noreferrer",
       },
-      { href: "/resources/license-fees", label: "License Fees" },
-      { href: "/resources/application-center", label: "Alcohol License Application Center" },
-      { href: "/resources/forms", label: "Florida ABT Forms" },
-      { href: "/resources/florida-department-of-revenue", label: "Florida Department of Revenue (FDOR)" },
     ],
   },
 ];
@@ -265,13 +268,18 @@ export default function HeaderNavMenus({
         .native-nav-menu-standard{width:310px}
         .native-nav-finance-menu{width:350px}
         .native-nav-market-menu{width:300px}
-        .native-nav-resources-menu{width:350px}
+        .native-nav-resources-menu{width:min(860px,calc(100vw - 48px));grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 10px!important;padding:12px;left:50%;transform:translateX(-68%)}
+        .native-nav-resources-menu::before{left:68%}
         .native-license-types-menu{width:320px}
         .primary-nav .native-nav-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;background:transparent!important;box-shadow:none!important;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
-        .primary-nav .native-nav-resources-menu a[href="/free-guide"]{background:transparent!important;color:#fff;font-weight:900}
-        .primary-nav .native-nav-resources-menu a[href="/free-guide"]::after{content:"FREE PDF";float:right;margin-left:12px;font-size:9px;letter-spacing:.08em}
+        .primary-nav .native-nav-resources-menu a{min-height:50px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025)!important}
+        .primary-nav .native-nav-resources-menu a[href="/transaction-services"]{grid-column:span 2;border-color:rgba(246,167,0,.78);background:linear-gradient(135deg,rgba(246,167,0,.18),rgba(246,167,0,.04))!important;color:#f6a700;font-weight:900}
+        .primary-nav .native-nav-resources-menu a[href="/transaction-services"]::after{content:"NEW";margin-left:auto;padding:3px 6px;border:1px solid rgba(246,167,0,.75);border-radius:999px;color:#f6a700;font-size:8px;letter-spacing:.08em}
+        .primary-nav .native-nav-resources-menu a[href="/free-guide"]{background:rgba(255,255,255,.025)!important;color:#fff;font-weight:900}
+        .primary-nav .native-nav-resources-menu a[href="/free-guide"]::after{content:"FREE PDF";margin-left:auto;font-size:9px;letter-spacing:.08em}
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{background:transparent!important;box-shadow:none!important;color:#f6a700;outline:none}
-        .primary-nav .native-nav-resources-menu a[href="/free-guide"]:hover,.primary-nav .native-nav-resources-menu a[href="/free-guide"]:focus-visible{background:#f6a700!important;color:#061728}
+        .primary-nav .native-nav-resources-menu a:hover,.primary-nav .native-nav-resources-menu a:focus-visible{border-color:rgba(246,167,0,.7);background:rgba(246,167,0,.08)!important}
+        .primary-nav .native-nav-resources-menu a[href="/free-guide"]:hover,.primary-nav .native-nav-resources-menu a[href="/free-guide"]:focus-visible{background:rgba(246,167,0,.08)!important;color:#f6a700}
 
         .primary-nav .live-license-types-menu,
         .primary-nav .home-license-types-menu,
@@ -293,11 +301,19 @@ export default function HeaderNavMenus({
         .primary-nav .live-license-types-menu .live-license-card>span{display:block!important}
         .primary-nav .live-license-types-menu .live-license-card small{display:none!important}
 
+        @media(max-width:1100px) and (min-width:900px){
+          .native-nav-resources-menu{width:min(720px,calc(100vw - 36px));grid-template-columns:repeat(2,minmax(0,1fr));transform:translateX(-72%)}
+          .native-nav-resources-menu::before{left:72%}
+        }
+
         @media(max-width:899px){
           .primary-nav .native-nav-dropdown{width:100%;display:block;padding-bottom:0;margin-bottom:0}
           .primary-nav .native-nav-trigger{width:100%;min-height:36px;justify-content:center}
           .primary-nav .native-nav-direct-link{width:100%;min-height:36px;justify-content:center}
           .native-nav-menu{position:static;left:auto;top:auto;width:100%!important;max-height:58vh;margin:2px 0 8px;transform:none;overflow:auto;box-shadow:none}
+          .native-nav-resources-menu{grid-template-columns:1fr!important;padding:6px}
+          .native-nav-resources-menu::before{display:none}
+          .primary-nav .native-nav-resources-menu a[href="/transaction-services"]{grid-column:auto}
           .native-nav-menu::before{display:none}
         }
       `}</style>
