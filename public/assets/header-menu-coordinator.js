@@ -5,58 +5,19 @@
   ];
 
   const resourcesOrder = [
-    {
-      label: "Free Buyer’s & Seller’s Guide",
-      href: "/free-guide",
-    },
-    {
-      label: "View All Resources",
-      href: "/resources",
-    },
-    {
-      label: "Alcohol License Application Center",
-      href: "/resources/application-center",
-    },
-    {
-      label: "Florida Liquor License Lookup",
-      href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
-    },
-    {
-      label: "Florida Liquor License Laws",
-      href: "/resources/florida-liquor-license-laws",
-    },
-    {
-      label: "License Fees",
-      href: "/resources/license-fees",
-    },
-    {
-      label: "Florida Liquor License Value Estimator",
-      href: "/florida-liquor-license-value",
-    },
-    {
-      label: "Florida ABT Forms",
-      href: "/resources/forms",
-    },
-    {
-      label: "Quota License Transfer Fee Calculator",
-      href: "/resources/quota-transfer-fee-calculator",
-    },
-    {
-      label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)",
-      href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/",
-    },
-    {
-      label: "Florida Department of Revenue (FDOR)",
-      href: "/resources/florida-department-of-revenue",
-    },
-    {
-      label: "Liquor License Attorneys",
-      href: "/resources/liquor-license-attorneys",
-    },
-    {
-      label: "FLLM Transaction Services",
-      href: "/transaction-services",
-    },
+    { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide" },
+    { label: "View All Resources", href: "/resources" },
+    { label: "Alcohol License Application Center", href: "/resources/application-center" },
+    { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup" },
+    { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws" },
+    { label: "License Fees", href: "/resources/license-fees" },
+    { label: "Florida Liquor License Value Estimator", href: "/florida-liquor-license-value" },
+    { label: "Florida ABT Forms", href: "/resources/forms" },
+    { label: "Quota License Transfer Fee Calculator", href: "/resources/quota-transfer-fee-calculator" },
+    { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" },
+    { label: "Florida Department of Revenue (FDOR)", href: "/resources/florida-department-of-revenue" },
+    { label: "Liquor License Attorneys", href: "/resources/liquor-license-attorneys" },
+    { label: "FLLM Transaction Services", href: "/transaction-services" },
   ];
 
   const OPEN_DELAY_MS = 150;
@@ -89,28 +50,27 @@
     if (!(link instanceof HTMLAnchorElement)) return false;
     const rawHref = link.getAttribute("href") || "";
     if (rawHref === expectedHref || link.href === expectedHref) return true;
-
     if (!expectedHref.startsWith("http")) {
-      try {
-        return new URL(link.href, window.location.origin).pathname === expectedHref;
-      } catch {
-        return false;
-      }
+      try { return new URL(link.href, window.location.origin).pathname === expectedHref; }
+      catch { return false; }
     }
-
     return false;
+  }
+
+  function setTransactionMarkup(link) {
+    link.dataset.wide = "true";
+    if (!link.querySelector(".resources-transaction-title")) {
+      link.innerHTML = '<span class="resources-transaction-title">FLLM Transaction Services</span><span class="resources-transaction-copy">Valuation · Financing · ABT Transfer Support · Closing Resources · Professional Referrals</span><span class="resources-transaction-cta">Explore →</span>';
+    }
   }
 
   function normalizeResourcesMenu() {
     if (removeLegacyResourcesMenus()) return true;
-
     const menu = document.querySelector(".resources-header-menu");
     if (!(menu instanceof HTMLElement)) return false;
 
     const desiredNodes = resourcesOrder.map(({ label, href }) => {
-      let link = Array.from(menu.querySelectorAll("a"))
-        .find((item) => hrefMatches(item, href));
-
+      let link = Array.from(menu.querySelectorAll("a")).find((item) => hrefMatches(item, href));
       if (!(link instanceof HTMLAnchorElement)) {
         link = document.createElement("a");
         link.href = href;
@@ -122,32 +82,28 @@
         menu.appendChild(link);
       }
 
-      if (normalizedText(link) !== label) link.textContent = label;
-      if (href === "/transaction-services") link.dataset.wide = "true";
+      if (href === "/transaction-services") {
+        setTransactionMarkup(link);
+      } else if (normalizedText(link) !== label) {
+        link.textContent = label;
+      }
       return link;
     });
 
-    const knownNodesInCurrentOrder = Array.from(menu.querySelectorAll(":scope > a"))
-      .filter((item) => desiredNodes.includes(item));
+    const knownNodesInCurrentOrder = Array.from(menu.querySelectorAll(":scope > a")).filter((item) => desiredNodes.includes(item));
     const orderDiffers = desiredNodes.some((node, index) => knownNodesInCurrentOrder[index] !== node);
-
     if (orderDiffers) desiredNodes.forEach((node) => menu.appendChild(node));
-    Array.from(menu.querySelectorAll(":scope > a"))
-      .filter((item) => !desiredNodes.includes(item))
-      .forEach((item) => item.remove());
+    Array.from(menu.querySelectorAll(":scope > a")).filter((item) => !desiredNodes.includes(item)).forEach((item) => item.remove());
     return true;
   }
 
   function ensureCareersFooterLink() {
     const footer = document.querySelector("footer#resources");
     if (!(footer instanceof HTMLElement)) return false;
-
     const companyColumn = Array.from(footer.querySelectorAll(".footer-grid > div"))
       .find((column) => normalizedText(column.querySelector(":scope > strong")).toLowerCase() === "company");
-
     if (!(companyColumn instanceof HTMLElement)) return false;
     if (companyColumn.querySelector('a[href="/careers"]')) return true;
-
     const link = document.createElement("a");
     link.href = "/careers";
     link.textContent = "Careers";
@@ -158,10 +114,8 @@
   function ensureNationalMarketplaceLinks() {
     const footer = document.querySelector("footer#resources");
     const companyColumn = footer instanceof HTMLElement
-      ? Array.from(footer.querySelectorAll(".footer-grid > div"))
-        .find((column) => normalizedText(column.querySelector(":scope > strong")).toLowerCase() === "company")
+      ? Array.from(footer.querySelectorAll(".footer-grid > div")).find((column) => normalizedText(column.querySelector(":scope > strong")).toLowerCase() === "company")
       : null;
-
     if (companyColumn instanceof HTMLElement && !companyColumn.querySelector('[data-national-marketplace-company-link="true"]')) {
       const link = document.createElement("a");
       link.href = "https://www.liquorlicensemarket.com/";
@@ -170,7 +124,6 @@
       const careersLink = companyColumn.querySelector('a[href="/careers"]');
       companyColumn.insertBefore(link, careersLink);
     }
-
     const cta = document.querySelector(".cta#sell");
     if (cta instanceof HTMLElement && !document.querySelector('[data-national-marketplace-prompt="true"]')) {
       const prompt = document.createElement("aside");
@@ -180,7 +133,6 @@
       prompt.innerHTML = '<span><strong style="display:block;font-size:14px">Looking for a liquor license outside Florida?</strong><small style="display:block;margin-top:3px;color:#4a5864;font-size:10px;line-height:1.4">Explore active markets across the United States on Liquor License Market.</small></span><a href="https://www.liquorlicensemarket.com/" style="color:#8f5f00;font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase">Explore National Markets ›</a>';
       cta.parentElement?.insertBefore(prompt, cta);
     }
-
     return Boolean(companyColumn && cta);
   }
 
@@ -189,108 +141,54 @@
       menu.classList.remove("is-open");
       menu.setAttribute("aria-hidden", "true");
     });
-
     const trigger = findTrigger(label);
     if (trigger) trigger.setAttribute("aria-expanded", "false");
   }
 
-  function closeOtherMenus(activeLabel) {
-    menus.forEach((menu) => {
-      if (menu.label !== activeLabel) closeMenu(menu);
-    });
-  }
-
-  function desktopHoverAvailable() {
-    return window.matchMedia(DESKTOP_HOVER_QUERY).matches;
-  }
-
+  function closeOtherMenus(activeLabel) { menus.forEach((menu) => { if (menu.label !== activeLabel) closeMenu(menu); }); }
+  function desktopHoverAvailable() { return window.matchMedia(DESKTOP_HOVER_QUERY).matches; }
   function menuElement(menuDefinition) {
     if (menuDefinition.label === "Resources" && nativeResourcesMenuPresent()) return null;
     const menu = document.querySelector(menuDefinition.selector);
     return menu instanceof HTMLElement ? menu : null;
   }
-
-  function clearTimer(store, label) {
-    const timer = store.get(label);
-    if (timer) window.clearTimeout(timer);
-    store.delete(label);
-  }
-
-  function clearMenuTimers(label) {
-    clearTimer(openTimers, label);
-    clearTimer(closeTimers, label);
-  }
-
-  function menuIsOpen(menuDefinition, trigger) {
-    const menu = menuElement(menuDefinition);
-    return trigger?.getAttribute("aria-expanded") === "true" || Boolean(menu?.classList.contains("is-open"));
-  }
-
+  function clearTimer(store, label) { const timer = store.get(label); if (timer) window.clearTimeout(timer); store.delete(label); }
+  function clearMenuTimers(label) { clearTimer(openTimers, label); clearTimer(closeTimers, label); }
+  function menuIsOpen(menuDefinition, trigger) { const menu = menuElement(menuDefinition); return trigger?.getAttribute("aria-expanded") === "true" || Boolean(menu?.classList.contains("is-open")); }
   function pointerOrFocusInside(menuDefinition, trigger) {
     const menu = menuElement(menuDefinition);
     const activeElement = document.activeElement;
-    const pointerInside = Boolean(trigger?.matches(":hover")) || Boolean(menu?.matches(":hover"));
-    const focusInside = activeElement instanceof Node && (
-      Boolean(trigger?.contains(activeElement)) || Boolean(menu?.contains(activeElement))
-    );
-    return pointerInside || focusInside;
+    return Boolean(trigger?.matches(":hover")) || Boolean(menu?.matches(":hover")) || (activeElement instanceof Node && (Boolean(trigger?.contains(activeElement)) || Boolean(menu?.contains(activeElement))));
   }
-
   function openMenuFromHover(menuDefinition, attempt = 0) {
-    clearTimer(openTimers, menuDefinition.label);
-    clearTimer(closeTimers, menuDefinition.label);
-
-    if (menuDefinition.label === "Resources" && nativeResourcesMenuPresent()) {
-      removeLegacyResourcesMenus();
-      return;
-    }
-
+    clearTimer(openTimers, menuDefinition.label); clearTimer(closeTimers, menuDefinition.label);
+    if (menuDefinition.label === "Resources" && nativeResourcesMenuPresent()) { removeLegacyResourcesMenus(); return; }
     if (!desktopHoverAvailable()) return;
     const trigger = findTrigger(menuDefinition.label);
     if (!(trigger instanceof HTMLAnchorElement) || !trigger.isConnected) return;
-
-    if (menuIsOpen(menuDefinition, trigger)) {
-      closeOtherMenus(menuDefinition.label);
-      return;
-    }
-
+    if (menuIsOpen(menuDefinition, trigger)) { closeOtherMenus(menuDefinition.label); return; }
     if (trigger.getAttribute("aria-haspopup") !== "menu") {
       const stillEngaged = trigger.matches(":hover") || trigger.matches(":focus-within");
-      if (attempt < 8 && stillEngaged) {
-        const retry = window.setTimeout(() => openMenuFromHover(menuDefinition, attempt + 1), 100);
-        openTimers.set(menuDefinition.label, retry);
-      }
+      if (attempt < 8 && stillEngaged) openTimers.set(menuDefinition.label, window.setTimeout(() => openMenuFromHover(menuDefinition, attempt + 1), 100));
       return;
     }
-
-    closeOtherMenus(menuDefinition.label);
-    trigger.click();
+    closeOtherMenus(menuDefinition.label); trigger.click();
   }
-
   function scheduleOpen(menuDefinition) {
-    if (menuDefinition.label === "Resources" && nativeResourcesMenuPresent()) {
-      removeLegacyResourcesMenus();
-      return;
-    }
+    if (menuDefinition.label === "Resources" && nativeResourcesMenuPresent()) { removeLegacyResourcesMenus(); return; }
     if (!desktopHoverAvailable()) return;
-    clearTimer(closeTimers, menuDefinition.label);
-    clearTimer(openTimers, menuDefinition.label);
-    const timer = window.setTimeout(() => openMenuFromHover(menuDefinition), OPEN_DELAY_MS);
-    openTimers.set(menuDefinition.label, timer);
+    clearTimer(closeTimers, menuDefinition.label); clearTimer(openTimers, menuDefinition.label);
+    openTimers.set(menuDefinition.label, window.setTimeout(() => openMenuFromHover(menuDefinition), OPEN_DELAY_MS));
   }
-
   function scheduleClose(menuDefinition) {
     if (!desktopHoverAvailable()) return;
-    clearTimer(openTimers, menuDefinition.label);
-    clearTimer(closeTimers, menuDefinition.label);
-    const timer = window.setTimeout(() => {
+    clearTimer(openTimers, menuDefinition.label); clearTimer(closeTimers, menuDefinition.label);
+    closeTimers.set(menuDefinition.label, window.setTimeout(() => {
       closeTimers.delete(menuDefinition.label);
       const trigger = findTrigger(menuDefinition.label);
       if (!pointerOrFocusInside(menuDefinition, trigger)) closeMenu(menuDefinition);
-    }, CLOSE_DELAY_MS);
-    closeTimers.set(menuDefinition.label, timer);
+    }, CLOSE_DELAY_MS));
   }
-
   function definitionForTrigger(element) {
     if (!(element instanceof Element)) return null;
     const trigger = element.closest(".primary-nav a");
@@ -298,11 +196,7 @@
     const label = normalizedText(trigger).toLowerCase();
     return menus.find((menu) => menu.label.toLowerCase() === label) || null;
   }
-
-  function definitionForMenu(element) {
-    if (!(element instanceof Element)) return null;
-    return menus.find((menu) => Boolean(element.closest(menu.selector))) || null;
-  }
+  function definitionForMenu(element) { if (!(element instanceof Element)) return null; return menus.find((menu) => Boolean(element.closest(menu.selector))) || null; }
 
   document.addEventListener("click", (event) => {
     const target = event.target;
@@ -311,11 +205,8 @@
       const clickedLabel = normalizedText(navLink).toLowerCase();
       const clickedMenu = menus.find((menu) => menu.label.toLowerCase() === clickedLabel);
       if (clickedMenu) clearMenuTimers(clickedMenu.label);
-      menus.forEach((menu) => {
-        if (clickedLabel !== menu.label.toLowerCase()) closeMenu(menu);
-      });
+      menus.forEach((menu) => { if (clickedLabel !== menu.label.toLowerCase()) closeMenu(menu); });
     }
-
     window.setTimeout(normalizeResourcesMenu, 0);
     window.setTimeout(ensureCareersFooterLink, 0);
     window.setTimeout(ensureNationalMarketplaceLinks, 0);
@@ -325,16 +216,12 @@
     if (!desktopHoverAvailable()) return;
     const target = event.target;
     if (!(target instanceof Element)) return;
-
     const triggerDefinition = definitionForTrigger(target);
     if (triggerDefinition) {
       const trigger = findTrigger(triggerDefinition.label);
-      if (!(event.relatedTarget instanceof Node && trigger?.contains(event.relatedTarget))) {
-        scheduleOpen(triggerDefinition);
-      }
+      if (!(event.relatedTarget instanceof Node && trigger?.contains(event.relatedTarget))) scheduleOpen(triggerDefinition);
       return;
     }
-
     const menuDefinition = definitionForMenu(target);
     if (menuDefinition) clearTimer(closeTimers, menuDefinition.label);
   }, true);
@@ -343,17 +230,14 @@
     if (!desktopHoverAvailable()) return;
     const target = event.target;
     if (!(target instanceof Element)) return;
-
     const triggerDefinition = definitionForTrigger(target);
     if (triggerDefinition) {
       const trigger = findTrigger(triggerDefinition.label);
       const menu = menuElement(triggerDefinition);
       const next = event.relatedTarget;
       if (next instanceof Node && (Boolean(trigger?.contains(next)) || Boolean(menu?.contains(next)))) return;
-      scheduleClose(triggerDefinition);
-      return;
+      scheduleClose(triggerDefinition); return;
     }
-
     const menuDefinition = definitionForMenu(target);
     if (menuDefinition) {
       const trigger = findTrigger(menuDefinition.label);
@@ -364,73 +248,31 @@
     }
   }, true);
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
-    suppressFocusOpenUntil = Date.now() + 600;
-    menus.forEach((menu) => clearMenuTimers(menu.label));
-  }, true);
-
+  document.addEventListener("keydown", (event) => { if (event.key !== "Escape") return; suppressFocusOpenUntil = Date.now() + 600; menus.forEach((menu) => clearMenuTimers(menu.label)); }, true);
   document.addEventListener("focusin", (event) => {
     if (Date.now() < suppressFocusOpenUntil) return;
-    const target = event.target;
-    if (!(target instanceof Element)) return;
-
-    const triggerDefinition = definitionForTrigger(target);
-    if (triggerDefinition) {
-      scheduleOpen(triggerDefinition);
-      return;
-    }
-
-    const menuDefinition = definitionForMenu(target);
-    if (menuDefinition) clearTimer(closeTimers, menuDefinition.label);
+    const target = event.target; if (!(target instanceof Element)) return;
+    const triggerDefinition = definitionForTrigger(target); if (triggerDefinition) { scheduleOpen(triggerDefinition); return; }
+    const menuDefinition = definitionForMenu(target); if (menuDefinition) clearTimer(closeTimers, menuDefinition.label);
   }, true);
-
   document.addEventListener("focusout", (event) => {
-    const target = event.target;
-    if (!(target instanceof Element)) return;
-    const menuDefinition = definitionForMenu(target) || definitionForTrigger(target);
-    if (!menuDefinition) return;
-
-    const trigger = findTrigger(menuDefinition.label);
-    const menu = menuElement(menuDefinition);
-    const next = event.relatedTarget;
+    const target = event.target; if (!(target instanceof Element)) return;
+    const menuDefinition = definitionForMenu(target) || definitionForTrigger(target); if (!menuDefinition) return;
+    const trigger = findTrigger(menuDefinition.label); const menu = menuElement(menuDefinition); const next = event.relatedTarget;
     if (next instanceof Node && (Boolean(trigger?.contains(next)) || Boolean(menu?.contains(next)))) return;
     scheduleClose(menuDefinition);
   }, true);
-
-  window.addEventListener("blur", () => {
-    menus.forEach((menu) => closeMenu(menu));
-  });
+  window.addEventListener("blur", () => { menus.forEach((menu) => closeMenu(menu)); });
 
   const hoverMediaQuery = window.matchMedia(DESKTOP_HOVER_QUERY);
-  const handleCapabilityChange = (event) => {
-    if (event.matches) return;
-    menus.forEach((menu) => closeMenu(menu));
-  };
+  const handleCapabilityChange = (event) => { if (event.matches) return; menus.forEach((menu) => closeMenu(menu)); };
+  if (typeof hoverMediaQuery.addEventListener === "function") hoverMediaQuery.addEventListener("change", handleCapabilityChange);
+  else if (typeof hoverMediaQuery.addListener === "function") hoverMediaQuery.addListener(handleCapabilityChange);
 
-  if (typeof hoverMediaQuery.addEventListener === "function") {
-    hoverMediaQuery.addEventListener("change", handleCapabilityChange);
-  } else if (typeof hoverMediaQuery.addListener === "function") {
-    hoverMediaQuery.addListener(handleCapabilityChange);
-  }
-
-  const observer = new MutationObserver(() => {
-    normalizeResourcesMenu();
-    ensureCareersFooterLink();
-    ensureNationalMarketplaceLinks();
-  });
-
+  const observer = new MutationObserver(() => { normalizeResourcesMenu(); ensureCareersFooterLink(); ensureNationalMarketplaceLinks(); });
   observer.observe(document.documentElement, { childList: true, subtree: true });
-  normalizeResourcesMenu();
-  ensureCareersFooterLink();
-  ensureNationalMarketplaceLinks();
-  window.setTimeout(normalizeResourcesMenu, 100);
-  window.setTimeout(normalizeResourcesMenu, 300);
-  window.setTimeout(normalizeResourcesMenu, 1000);
-  window.setTimeout(ensureCareersFooterLink, 100);
-  window.setTimeout(ensureCareersFooterLink, 500);
-  window.setTimeout(ensureCareersFooterLink, 1500);
-  window.setTimeout(ensureNationalMarketplaceLinks, 100);
-  window.setTimeout(ensureNationalMarketplaceLinks, 500);
-  window.setTimeout(ensureNationalMarketplaceLinks, 1500);
+  normalizeResourcesMenu(); ensureCareersFooterLink(); ensureNationalMarketplaceLinks();
+  window.setTimeout(normalizeResourcesMenu, 100); window.setTimeout(normalizeResourcesMenu, 300); window.setTimeout(normalizeResourcesMenu, 1000);
+  window.setTimeout(ensureCareersFooterLink, 100); window.setTimeout(ensureCareersFooterLink, 500); window.setTimeout(ensureCareersFooterLink, 1500);
+  window.setTimeout(ensureNationalMarketplaceLinks, 100); window.setTimeout(ensureNationalMarketplaceLinks, 500); window.setTimeout(ensureNationalMarketplaceLinks, 1500);
 })();
