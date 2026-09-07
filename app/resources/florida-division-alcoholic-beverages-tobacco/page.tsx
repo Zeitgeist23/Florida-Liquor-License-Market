@@ -7,6 +7,8 @@ import "./dabt.css";
 
 const canonicalUrl =
   "https://www.floridaliquorlicensemarket.com/resources/florida-division-alcoholic-beverages-tobacco";
+const officialDabtImage =
+  "https://www2.myfloridalicense.com/wp-content/uploads/2017/03/alcohol-beverages-and-tobacco-990x304.jpg";
 
 export const metadata: Metadata = {
   title: "Florida DABT Liquor License Guide | DBPR, ABT-6001 & ABT-6002 | FLLM",
@@ -20,6 +22,7 @@ export const metadata: Metadata = {
     title: "Florida Division of Alcoholic Beverages & Tobacco (DABT) | FLLM",
     description:
       "Plain-language guidance to DABT's role in Florida liquor-license issuance, quota drawings, ownership transfers and regulatory approval.",
+    images: [{ url: officialDabtImage, width: 990, height: 304, alt: "Alcoholic Beverages and Tobacco - Florida DBPR" }],
   },
 };
 
@@ -48,19 +51,33 @@ export default function FloridaDabtResourcePage() {
             <span>›</span>
             <b>Florida DABT</b>
           </nav>
-          <span className="dabt-eyebrow">Florida licensing authority · plain-language FLLM guide</span>
-          <h1>Florida Division of Alcoholic Beverages &amp; Tobacco (DABT)</h1>
-          <p>
-            DABT is the division of Florida&apos;s Department of Business and Professional Regulation
-            (DBPR) that licenses and regulates alcoholic-beverage businesses and licensees. For buyers,
-            sellers and applicants, DABT is the agency that ultimately reviews and approves the
-            applicable liquor-license application or ownership-transfer request.
-          </p>
-          <div className="dabt-hero-actions">
-            <a className="btn btn-gold" href="#approval-process">See the approval process</a>
-            <a className="btn btn-outline" href={officialDabtUrl} target="_blank" rel="noreferrer">
-              Official DABT website ↗
-            </a>
+          <div className="dabt-hero-grid">
+            <div className="dabt-hero-copy">
+              <span className="dabt-eyebrow">Florida licensing authority · plain-language FLLM guide</span>
+              <h1>Florida Division of Alcoholic Beverages &amp; Tobacco (DABT)</h1>
+              <p>
+                DABT is the division of Florida&apos;s Department of Business and Professional Regulation
+                (DBPR) that licenses and regulates alcoholic-beverage businesses and licensees. For buyers,
+                sellers and applicants, DABT is the agency that ultimately reviews and approves the
+                applicable liquor-license application or ownership-transfer request.
+              </p>
+              <div className="dabt-hero-actions">
+                <a className="btn btn-gold" href="#approval-process">See the approval process</a>
+                <a className="btn btn-outline" href={officialDabtUrl} target="_blank" rel="noreferrer">
+                  Official DABT website ↗
+                </a>
+              </div>
+            </div>
+            <figure className="dabt-hero-visual">
+              <a href={officialDabtUrl} target="_blank" rel="noreferrer" aria-label="Open the official Florida DABT website">
+                <img
+                  src={officialDabtImage}
+                  alt="Alcoholic beverages image used by the Florida Division of Alcoholic Beverages and Tobacco"
+                  loading="eager"
+                />
+              </a>
+              <figcaption>Official DABT imagery · Florida Department of Business &amp; Professional Regulation</figcaption>
+            </figure>
           </div>
         </div>
       </section>
