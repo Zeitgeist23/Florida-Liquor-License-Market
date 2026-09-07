@@ -45,9 +45,6 @@ function shortType(type: string) {
   return type.startsWith("4COP") ? "4COP" : "3PS";
 }
 
-const people = Array.from({ length: 16 }, (_, index) => index);
-const heatCells = Array.from({ length: 72 }, (_, index) => index);
-
 export default async function ExchangeBoardPage() {
   const rawListings = await getMarketplaceListings();
   const listings = getVisibleAvailableMarketplaceListings(rawListings)
@@ -101,29 +98,20 @@ export default async function ExchangeBoardPage() {
         <FormsSiteHeader primaryActionHref="/sell-your-license" primaryActionLabel="List Your License" />
       </div>
 
-      <section className={styles.exchangeHero} aria-label="FLLM Exchange trading-floor display">
-        <div className={styles.exchangeGlow} />
-        <div className={styles.exchangeScreens}>
-          <div className={styles.sideScreen}>
-            <strong>FLORIDA LIQUOR LICENSES</strong>
-            <span>A MORE TRANSPARENT MARKET.</span>
-          </div>
-          <div className={styles.centerScreen}>
-            <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-            <strong>FLLM EXCHANGE</strong>
-            <span>ADDING TRANSPARENCY TO THE FLORIDA LIQUOR LICENSE MARKET</span>
-          </div>
-          <div className={styles.sideScreen}>
-            <strong>ACTIVE ASKING PRICES</strong>
-            <span>COUNTY PRICE DISCOVERY · MARKET DATA · NEW LISTINGS</span>
-          </div>
-        </div>
-        <div className={styles.exchangeMarquee}>FLORIDA LIQUOR LICENSE MARKET DATA</div>
-        <div className={styles.tradingFloor}>
-          {people.map((person) => (
-            <span className={styles.trader} key={person} aria-hidden="true"><i /><b /></span>
-          ))}
-        </div>
+      <section
+        aria-label="FLLM Exchange trading floor"
+        style={{
+          width: "100%",
+          overflow: "hidden",
+          background: "#020b14",
+          borderBottom: "1px solid rgba(246,167,0,.35)",
+        }}
+      >
+        <img
+          src="/assets/fllm-exchange-board-hero.svg"
+          alt="FLLM Exchange trading floor with market display boards and Florida liquor license market branding"
+          style={{ display: "block", width: "100%", height: "auto" }}
+        />
       </section>
 
       <section className={styles.tickerStack} aria-label="Florida liquor license asking-price tickers">
@@ -155,6 +143,7 @@ export default async function ExchangeBoardPage() {
                 <span>MARKET DATA</span>
                 <span>NEW LISTINGS</span>
                 <span>4COP · 3PS</span>
+                <span>FLORIDA LIQUOR LICENSE NEWS</span>
               </div>
             ))}
           </div>
@@ -164,13 +153,14 @@ export default async function ExchangeBoardPage() {
       <section className={styles.marketGrid}>
         <article className={styles.panel}>
           <div className={styles.panelTitle}><span>FLORIDA MARKET HEAT MAP</span><small>ACTIVE ASKING PRICES BY COUNTY</small></div>
-          <div className={styles.blueMap} aria-hidden="true">
-            <div className={styles.floridaShape}>
-              {Array.from({ length: 42 }, (_, index) => <i key={index} className={index % 7 === 0 || index % 11 === 0 ? styles.hotCell : ""} />)}
-            </div>
+          <div style={{ display: "flex", justifyContent: "center", padding: "10px 14px 14px" }}>
+            <img
+              src="/assets/fllm-exchange-heatmap.svg"
+              alt="Florida liquor license asking-price heat map"
+              style={{ width: "100%", maxWidth: 300, height: "auto", display: "block" }}
+            />
           </div>
-          <div className={styles.legend}><span><i className={styles.legendHigh} />Higher Prices</span><span><i className={styles.legendMid} />Active Market</span><span><i className={styles.legendLow} />Lower Prices</span></div>
-          <Link className={styles.goldButton} href="/#market-data">Explore County Markets</Link>
+          <Link className={styles.goldButton} href="/?open=heat-map">Explore County Markets</Link>
         </article>
 
         <article className={`${styles.panel} ${styles.exchangeBoard}`}>
@@ -213,24 +203,26 @@ export default async function ExchangeBoardPage() {
         </aside>
       </section>
 
-      <section className={styles.newsSection}>
-        <div className={styles.newsDesk}>
-          <div className={styles.newsLogo}>FLLM <span>NEWS</span></div>
-          <div className={styles.anchorRow} aria-hidden="true"><span /><span /><span /></div>
-          <div className={styles.newsLowerThird}><b>FLORIDA LIQUOR LICENSE MARKET</b><span>MARKET DATA · EXPERT INSIGHTS · A MORE TRANSPARENT MARKET.</span></div>
+      <section
+        aria-label="FLLM News market update"
+        style={{
+          width: "min(1280px, calc(100% - 32px))",
+          margin: "0 auto 18px",
+          border: "1px solid rgba(28,184,245,.42)",
+          borderRadius: 8,
+          overflow: "hidden",
+          background: "#041321",
+        }}
+      >
+        <div style={{ padding: "14px 18px 10px", borderBottom: "1px solid rgba(246,181,31,.35)" }}>
+          <strong style={{ color: "#fff", fontFamily: "Georgia, 'Times New Roman', serif", fontSize: 26 }}>FLLM <span style={{ color: "#69ddff" }}>NEWS</span></strong>
+          <span style={{ display: "block", marginTop: 4, color: "#f6b51f", fontSize: 11, fontWeight: 800, letterSpacing: ".08em" }}>MARKET DATA · EXPERT INSIGHTS · A MORE TRANSPARENT MARKET</span>
         </div>
-        <div className={styles.colorHeatPanel}>
-          <div className={styles.colorMap} aria-label="Color-coded Florida market heat-map visualization">
-            {heatCells.map((cell) => <i key={cell} data-tone={cell % 8} />)}
-          </div>
-          <div className={styles.marketUpdate}>
-            <strong>FLORIDA LIQUOR LICENSE MARKET UPDATE</strong>
-            <span>COUNTY PRICE DISCOVERY</span>
-            <span>ACTIVE ASKING PRICES</span>
-            <span>MARKET TRANSPARENCY</span>
-            <span>LATEST LISTINGS &amp; TRENDS</span>
-          </div>
-        </div>
+        <img
+          src="/assets/market-report-studio.png"
+          alt="FLLM market reporters discussing the Florida liquor license market with a Florida market heat map on the studio display"
+          style={{ display: "block", width: "100%", height: "auto" }}
+        />
       </section>
 
       {featuredListing && (
