@@ -8,17 +8,17 @@
 
   const resources = [
     { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide", internal: true, badge: "FREE PDF" },
-    { label: "View All Resources", href: "/resources", internal: true },
-    { label: "Alcohol License Application Center", href: "/resources/application-center", internal: true },
-    { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup", badge: "LOOKUP" },
-    { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws", internal: true },
-    { label: "License Fees", href: "/resources/license-fees", internal: true },
-    { label: "Florida Liquor License Value Estimator", href: "/florida-liquor-license-value", internal: true, badge: "VALUE" },
-    { label: "Florida ABT Forms", href: "/resources/forms", internal: true },
-    { label: "Quota License Transfer Fee Calculator", href: "/resources/quota-transfer-fee-calculator", internal: true },
     { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" },
     { label: "Florida Department of Revenue (FDOR)", href: "/resources/florida-department-of-revenue", internal: true },
+    { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup", badge: "LOOKUP" },
+    { label: "Florida ABT Forms", href: "/resources/forms", internal: true },
+    { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws", internal: true },
+    { label: "Florida Liquor License Value Estimator", href: "/florida-liquor-license-value", internal: true, badge: "VALUE" },
+    { label: "License Fees & Annual Renewals", href: "/resources/license-fees", internal: true },
     { label: "Liquor License Attorneys", href: "/resources/liquor-license-attorneys", internal: true },
+    { label: "Alcohol License Application Center", href: "/resources/application-center", internal: true },
+    { label: "Quota License Transfer Fee Calculator", href: "/resources/quota-transfer-fee-calculator", internal: true },
+    { label: "View All Resources", href: "/resources", internal: true },
     { label: "FLLM Transaction Services", href: "/transaction-services", internal: true, wide: true },
   ];
 
