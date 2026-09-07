@@ -3,12 +3,11 @@
 import { useEffect } from "react";
 
 const LOOKUP_URL = "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup";
-const DABT_URL = "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/";
 
 // Exact row-major order used by the approved landing-page Resources menu.
 const resources = [
   { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide", badge: "FREE PDF" },
-  { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: DABT_URL, external: true },
+  { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: "/resources/florida-division-alcoholic-beverages-tobacco" },
   { label: "Florida Department of Revenue (FDOR)", href: "/resources/florida-department-of-revenue" },
   { label: "Florida Liquor License Lookup", href: LOOKUP_URL, badge: "LOOKUP", external: true },
   { label: "Florida ABT Forms", href: "/resources/forms" },
@@ -21,7 +20,7 @@ const resources = [
   { label: "View All Resources", href: "/resources" },
 ];
 
-const SIGNATURE = "fllm-resources-v4";
+const SIGNATURE = "fllm-resources-v5";
 
 function installStyles() {
   const existing = document.getElementById("global-resources-menu-sync-styles");
@@ -190,7 +189,6 @@ function syncMenu(menu: Element) {
 
 function syncAll() {
   installStyles();
-  // Homepage uses the approved legacy Resources menu and is intentionally untouched.
   document.querySelectorAll(".native-nav-resources-menu").forEach(syncMenu);
 }
 
