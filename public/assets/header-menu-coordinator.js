@@ -6,7 +6,7 @@
 
   const resourcesOrder = [
     { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide" },
-    { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" },
+    { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: "/resources/florida-division-alcoholic-beverages-tobacco" },
     { label: "Florida Department of Revenue (FDOR)", href: "/resources/florida-department-of-revenue" },
     { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup" },
     { label: "Florida ABT Forms", href: "/resources/forms" },
