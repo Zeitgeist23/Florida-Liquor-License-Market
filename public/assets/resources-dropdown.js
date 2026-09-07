@@ -8,7 +8,7 @@
 
   const resources = [
     { label: "FLLM Transaction Services", href: "/transaction-services", internal: true },
-    { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide", internal: true, highlight: true, badge: "FREE PDF" },
+    { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide", internal: true, badge: "FREE PDF" },
     { label: "View All Resources", href: "/resources", internal: true },
     { label: "Alcohol License Application Center", href: "/resources/application-center", internal: true },
     { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup", highlight: true, badge: "LOOKUP" },
@@ -37,7 +37,7 @@
         z-index:10031;
         display:none;
         width:min(920px,calc(100vw - 32px));
-        padding:10px;
+        padding:9px;
         border:1px solid #f6a700;
         border-radius:8px;
         background:#061728;
@@ -47,7 +47,7 @@
       .resources-header-menu.is-open{
         display:grid;
         grid-template-columns:repeat(3,minmax(0,1fr));
-        gap:7px;
+        gap:6px;
       }
       .resources-header-menu::before{
         content:"";
@@ -67,15 +67,15 @@
         display:flex;
         align-items:center;
         justify-content:space-between;
-        min-height:54px;
+        min-height:48px;
         width:100%;
-        padding:12px 14px;
+        padding:9px 13px;
         border:1px solid rgba(255,255,255,.07);
         border-radius:6px;
         background:#081d31;
         color:#fff;
         text-decoration:none;
-        font:700 13px/1.28 Arial,Helvetica,sans-serif;
+        font:700 13px/1.25 Arial,Helvetica,sans-serif;
         letter-spacing:.01em;
       }
       .resources-header-menu a[data-highlight="true"]{
@@ -98,7 +98,9 @@
         content:attr(data-badge);
         flex:0 0 auto;
         margin-left:12px;
+        color:#f6a700;
         font-size:9px;
+        font-weight:900;
         letter-spacing:.08em;
       }
       .primary-nav a[data-resources-dropdown-bound="true"]{cursor:pointer}
