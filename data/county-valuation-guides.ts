@@ -10,6 +10,7 @@ export const countyValuationGuideSlugs = [
   "collier",
   "sarasota",
   "st-johns",
+  "volusia",
 ] as const;
 
 const countyValuationGuideSet = new Set<string>(countyValuationGuideSlugs);
