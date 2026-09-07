@@ -4,6 +4,7 @@ import ListingsHeatMapEnhancement from "@/components/ListingsHeatMapEnhancement"
 import ListingsMarketMenuSync from "@/components/ListingsMarketMenuSync";
 import ListingsPage from "@/components/ListingsPage";
 import ListingsQueryFilterEnhancement from "@/components/ListingsQueryFilterEnhancement";
+import ListingsSeoAuthorityBridge from "@/components/ListingsSeoAuthorityBridge";
 import MonroeMapCompletion from "@/components/MonroeMapCompletion";
 import { countySlug, getCountyBySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
@@ -191,6 +192,7 @@ export default async function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
       <ListingsPage initialListings={marketplaceListings} />
+      <ListingsSeoAuthorityBridge />
       <ListingsHeaderListLicenseCta />
       <ListingsQueryFilterEnhancement />
       <MonroeMapCompletion />
