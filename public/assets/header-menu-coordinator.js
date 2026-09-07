@@ -22,6 +22,10 @@
       href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
     },
     {
+      label: "Florida Liquor License Value Estimator",
+      href: "/florida-liquor-license-value",
+    },
+    {
       label: "Florida Liquor License Laws",
       href: "/resources/florida-liquor-license-laws",
     },
