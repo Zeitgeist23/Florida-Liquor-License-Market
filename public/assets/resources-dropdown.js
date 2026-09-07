@@ -7,7 +7,6 @@
   let menu = null;
 
   const resources = [
-    { label: "FLLM Transaction Services", href: "/transaction-services", internal: true },
     { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide", internal: true, badge: "FREE PDF" },
     { label: "View All Resources", href: "/resources", internal: true },
     { label: "Alcohol License Application Center", href: "/resources/application-center", internal: true },
@@ -16,11 +15,11 @@
     { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws", internal: true },
     { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" },
     { label: "Florida ABT Forms", href: "/resources/forms", internal: true },
-    { label: "ABT-6002 Transfer Guide", href: "/dbpr-abt-6002", internal: true },
     { label: "License Fees", href: "/resources/license-fees", internal: true },
     { label: "Quota License Transfer Fee Calculator", href: "/resources/quota-transfer-fee-calculator", internal: true },
     { label: "Florida Department of Revenue (FDOR)", href: "/resources/florida-department-of-revenue", internal: true },
     { label: "Liquor License Attorneys", href: "/resources/liquor-license-attorneys", internal: true },
+    { label: "FLLM Transaction Services", href: "/transaction-services", internal: true, wide: true },
   ];
 
   function normalizedText(element) {
@@ -94,9 +93,28 @@
         font-weight:900;
         letter-spacing:.08em;
       }
+      .resources-header-menu a[data-wide="true"]{
+        grid-column:1/-1;
+        min-height:54px;
+        padding:10px 14px;
+        border-color:rgba(246,167,0,.34);
+        background:rgba(255,255,255,.035);
+      }
+      .resources-header-menu a[data-wide="true"]::after{
+        content:"Valuation · Financing · ABT Transfer Support · Closing Resources · Professional Referrals   Explore →";
+        margin-left:auto;
+        color:#9fb0bf;
+        font-size:10px;
+        font-weight:700;
+        letter-spacing:.01em;
+      }
+      .resources-header-menu a[data-wide="true"]:hover::after,
+      .resources-header-menu a[data-wide="true"]:focus-visible::after{color:#f6a700}
       .primary-nav a[data-resources-dropdown-bound="true"]{cursor:pointer}
       @media(max-width:980px){
         .resources-header-menu.is-open{grid-template-columns:repeat(2,minmax(0,1fr))}
+        .resources-header-menu a[data-wide="true"]{grid-column:1/-1}
+        .resources-header-menu a[data-wide="true"]::after{font-size:9px}
       }
       @media(max-width:760px){
         .resources-header-menu{
@@ -105,6 +123,8 @@
           overflow:auto;
         }
         .resources-header-menu.is-open{grid-template-columns:1fr}
+        .resources-header-menu a[data-wide="true"]{grid-column:auto;display:block}
+        .resources-header-menu a[data-wide="true"]::after{content:"Explore Transaction Services →";display:block;margin:5px 0 0}
       }
     `;
     document.head.appendChild(style);
@@ -142,7 +162,7 @@
     menu.setAttribute("role", "menu");
     menu.setAttribute("aria-hidden", "true");
 
-    resources.forEach(({ label, href, internal, badge }) => {
+    resources.forEach(({ label, href, internal, badge, wide }) => {
       const link = document.createElement("a");
       link.href = href;
       link.setAttribute("role", "menuitem");
@@ -152,6 +172,7 @@
         link.rel = "noopener noreferrer";
       }
       if (badge) link.dataset.badge = badge;
+      if (wide) link.dataset.wide = "true";
       link.addEventListener("click", () => closeMenu());
       menu.appendChild(link);
     });
