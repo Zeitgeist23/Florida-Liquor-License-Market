@@ -91,6 +91,10 @@
     return true;
   }
 
+  function goToExchangeBoard() {
+    window.location.assign("/market-data/exchange-board");
+  }
+
   function goToRecentTransactions() {
     window.location.assign("/listings?status=sold");
   }
@@ -218,6 +222,7 @@
     menu.setAttribute("role", "menu");
     menu.setAttribute("aria-hidden", "true");
     menu.append(
+      makeOption("FLLM Exchange Board", goToExchangeBoard),
       makeOption("Florida Liquor License Value Estimator", goToLicenseValueEstimator),
       makeOption("Recent Florida Transactions", goToRecentTransactions),
       makeOption("Florida Market Insights", goToMarketInsights),
