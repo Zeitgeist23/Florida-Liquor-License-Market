@@ -6,17 +6,17 @@
 
   const resourcesOrder = [
     { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide" },
-    { label: "View All Resources", href: "/resources" },
-    { label: "Alcohol License Application Center", href: "/resources/application-center" },
-    { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup" },
-    { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws" },
-    { label: "License Fees", href: "/resources/license-fees" },
-    { label: "Florida Liquor License Value Estimator", href: "/florida-liquor-license-value" },
-    { label: "Florida ABT Forms", href: "/resources/forms" },
-    { label: "Quota License Transfer Fee Calculator", href: "/resources/quota-transfer-fee-calculator" },
     { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: "https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" },
     { label: "Florida Department of Revenue (FDOR)", href: "/resources/florida-department-of-revenue" },
+    { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup" },
+    { label: "Florida ABT Forms", href: "/resources/forms" },
+    { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws" },
+    { label: "Florida Liquor License Value Estimator", href: "/florida-liquor-license-value" },
+    { label: "License Fees & Annual Renewals", href: "/resources/license-fees" },
     { label: "Liquor License Attorneys", href: "/resources/liquor-license-attorneys" },
+    { label: "Alcohol License Application Center", href: "/resources/application-center" },
+    { label: "Quota License Transfer Fee Calculator", href: "/resources/quota-transfer-fee-calculator" },
+    { label: "View All Resources", href: "/resources" },
     { label: "FLLM Transaction Services", href: "/transaction-services" },
   ];
 
