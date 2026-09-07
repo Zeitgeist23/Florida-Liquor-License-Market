@@ -53,6 +53,10 @@
       label: "Liquor License Attorneys",
       href: "/resources/liquor-license-attorneys",
     },
+    {
+      label: "FLLM Transaction Services",
+      href: "/transaction-services",
+    },
   ];
 
   const OPEN_DELAY_MS = 150;
@@ -119,6 +123,7 @@
       }
 
       if (normalizedText(link) !== label) link.textContent = label;
+      if (href === "/transaction-services") link.dataset.wide = "true";
       return link;
     });
 
