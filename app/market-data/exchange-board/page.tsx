@@ -6,6 +6,7 @@ import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import heroDataUri from "./hero-data";
+import heatmapDataUri from "./heatmap-data";
 import styles from "./exchange-board.module.css";
 
 export const dynamic = "force-dynamic";
@@ -147,7 +148,7 @@ export default async function ExchangeBoardPage() {
             <small>ACTIVE ASKING PRICES BY COUNTY</small>
           </header>
           <div className={styles.heatMapArt}>
-            <img src="/assets/fllm-exchange-heatmap.svg" alt="Florida liquor license asking-price heat map" />
+            <img src={heatmapDataUri} alt="Florida liquor license asking-price heat map" />
           </div>
           <Link className={styles.goldButton} href="/?open=heat-map">Explore County Markets</Link>
         </article>
