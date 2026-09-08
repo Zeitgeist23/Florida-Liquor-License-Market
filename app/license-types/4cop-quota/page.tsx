@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import LicenseTypeExplainerPage from "@/components/LicenseTypeExplainerPage";
+import LicenseTypeCountyDirectory from "@/components/LicenseTypeCountyDirectory";
 
 export const metadata: Metadata = {
   title: "What Is a Florida 4COP Quota Liquor License? | FLLM",
@@ -8,47 +9,50 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <LicenseTypeExplainerPage
-    code="4COP Quota"
-    title="Florida 4COP Quota Liquor License"
-    eyebrow="Quota Full Liquor · Consumption on Premises"
-    imageSrc="https://images.pexels.com/photos/18675118/pexels-photo-18675118/free-photo-of-interior-of-a-bar.jpeg?auto=compress&dpr=1&h=1000&w=1800"
-    imageAlt="Sharp interior view of a bar and lounge representing businesses that commonly use a Florida 4COP quota liquor license"
-    definition="A Florida 4COP quota license is a county-limited full-liquor quota license recorded in the 4COP consumption-on-premises series. It can authorize beer, wine and distilled spirits for consumption on the licensed premises and, within its approved privileges, package sales for off-premises consumption."
-    plainEnglish="Think of the quota license as the scarce county license interest and 4COP as the operating series used when that quota license is approved for full-liquor consumption on premises. That is why people commonly say they are buying a 4COP, even though the quota status and the 4COP series describe two different aspects of the license."
-    sells={["Beer", "Wine", "Distilled spirits / liquor", "Alcoholic beverages for on-premises consumption", "Package sales within the approved quota-license privileges"]}
-    businesses={["Bars and taverns", "Cocktail lounges", "Nightclubs", "Full-liquor hospitality concepts", "Restaurants that need a transferable quota license instead of a special restaurant license"]}
-    doesNot={["Guarantee zoning approval for the proposed premises", "Allow use in a different county simply because the license is owned", "Replace DBPR transfer, change-of-series, or change-of-location approval", "Turn a 4COP-SFS / SRX special restaurant license into a transferable quota license"]}
-    requirementCards={[
-      { label: "Food-sales requirement", value: "No statewide SRX 51% test", detail: "A quota 4COP is not conditioned on the special restaurant 51% food-and-nonalcoholic-beverage revenue test merely because it is a 4COP quota license.", href: "/resources/florida-liquor-license-laws#current-developments", linkLabel: "Read the FLLM rule explanation ›" },
-      { label: "Minimum service area", value: "No SRX 2,000 sq. ft. minimum", detail: "There is no general statewide 2,000-square-foot restaurant qualification merely to hold a quota 4COP. Local premises, building, fire and zoning rules still apply.", href: "/license-types/4cop-sfs-restaurant", linkLabel: "Compare the SFS/SRX rule ›" },
-      { label: "Minimum seating", value: "No SRX 120-seat minimum", detail: "The special restaurant seating threshold does not define eligibility for a standard transferable quota 4COP. Occupancy and local use approvals remain separate issues.", href: "/license-types/4cop-sfs-restaurant", linkLabel: "Compare the SFS/SRX rule ›" },
-      { label: "Core privilege", value: "Beer · wine · spirits", detail: "Full-liquor consumption-on-premises privileges may be paired with package sales within the approved quota-license series and premises configuration.", href: "/resources/florida-liquor-license-types", linkLabel: "Compare privileges inside FLLM ›" }
-    ]}
-    requirementsText="The 4COP quota license is often more flexible than the special restaurant route because its statewide qualification is not based on the SRX restaurant revenue, square-footage and seating thresholds. That flexibility does not eliminate zoning, premises or DBPR approval requirements."
-    requirementsCaution="Do not confuse a transferable 4COP quota license with a 4COP-SFS / SRX special restaurant license. County or municipal zoning, distance, occupancy, parking, health, fire and premises requirements can still materially affect a proposed location."
-    officialResources={[
-      { href: "/resources/florida-liquor-license-system", label: "FLLM Guide to Florida's Quota-License System", description: "Understand quota status, series designations, inactive ownership, county limits and how 4COP fits into Florida's licensing structure." },
-      { href: "/resources/florida-liquor-license-laws", label: "FLLM Florida Liquor License Laws", description: "Read FLLM's plain-English explanation of the quota statute, premises rules and current beverage-law developments." },
-      { href: "/dbpr-abt-6002", label: "FLLM ABT-6002 Transfer Guide", description: "Use FLLM's explanation of the principal transfer application used when ownership of a quota license changes." },
-      { href: "/resources/forms", label: "FLLM Florida ABT Forms Center", description: "Browse the ABT applications and forms used in Florida liquor-license transactions without leaving FLLM." }
-    ]}
-    quotaNote="The word “quota” is important. Florida generally limits quota licenses to one for each 7,500 county residents, subject to the statutory quota system and exceptions. Existing quota licenses are therefore commonly bought and sold in the private market. The license remains county-specific."
-    keyPoint="A 4COP quota license is not the same thing as a 4COP-SFS / SRX special restaurant license. The quota license is the transferable county-limited asset; 4COP is the consumption-on-premises series designation used for the quota license in the applicable population band."
-    seriesClarification="A buyer should not think of “4COP quota” and “3PS quota” as completely unrelated assets. They are different series or use designations within Florida's quota-license system. DBPR provides a formal change-in-series-or-type process, so a quota license may be approved in a package-sales series or a consumption-on-premises series depending on the intended use, county and regulatory approvals. A change is not automatic."
-    investmentNote="Yes—an eligible purchaser can acquire a transferable quota license without immediately operating a bar, restaurant or nightclub. If no approved operating location is ready, DBPR provides inactive or escrow procedures. The license cannot be used to sell alcoholic beverages while inactive, and Florida's renewal, qualification and active-operation requirements—including applicable waiver or extension procedures—still apply."
-    officialLabel="Beer, Wine and Liquor Consumption on Premises (4COP) — Quota"
-    officialHref="/resources/florida-liquor-license-system"
-    relatedHref="/florida-4cop-liquor-license-for-sale"
-    relatedLabel="View 4COP Quota Licenses for Sale"
-    ruleUpdateLinks={[
-      { href: "/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs", label: "How Florida changed the special restaurant liquor-license requirements", description: "See the statewide reform that reduced the SFS/SRX restaurant size and seating thresholds while preserving the revenue test." },
-      { href: "/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law", label: "Florida cocktails-to-go: current restaurant rules", description: "Review the current food-order, sealing, packaging and delivery rules that can matter to qualifying restaurant operations." }
-    ]}
-    researchLinks={[
-      { href: "/resources/florida-liquor-license-laws#cocktails-to-go", label: "Cocktails-to-Go Statutes Explained by FLLM", description: "Review FLLM's explanation of SB 148, section 565.045 and the related open-container provision." },
-      { href: "/license-types/4cop-sfs-restaurant", label: "Compare 4COP-SFS", description: "Compare the transferable quota license with the qualification-based restaurant license." },
-      { href: "/resources/forms", label: "Florida ABT Forms Center", description: "Open FLLM's organized collection of commonly used Division of Alcoholic Beverages and Tobacco forms." }
-    ]}
-  />;
+  return <>
+    <LicenseTypeExplainerPage
+      code="4COP Quota"
+      title="Florida 4COP Quota Liquor License"
+      eyebrow="Quota Full Liquor · Consumption on Premises"
+      imageSrc="https://images.pexels.com/photos/18675118/pexels-photo-18675118/free-photo-of-interior-of-a-bar.jpeg?auto=compress&dpr=1&h=1000&w=1800"
+      imageAlt="Sharp interior view of a bar and lounge representing businesses that commonly use a Florida 4COP quota liquor license"
+      definition="A Florida 4COP quota license is a county-limited full-liquor quota license recorded in the 4COP consumption-on-premises series. It can authorize beer, wine and distilled spirits for consumption on the licensed premises and, within its approved privileges, package sales for off-premises consumption."
+      plainEnglish="Think of the quota license as the scarce county license interest and 4COP as the operating series used when that quota license is approved for full-liquor consumption on premises. That is why people commonly say they are buying a 4COP, even though the quota status and the 4COP series describe two different aspects of the license."
+      sells={["Beer", "Wine", "Distilled spirits / liquor", "Alcoholic beverages for on-premises consumption", "Package sales within the approved quota-license privileges"]}
+      businesses={["Bars and taverns", "Cocktail lounges", "Nightclubs", "Full-liquor hospitality concepts", "Restaurants that need a transferable quota license instead of a special restaurant license"]}
+      doesNot={["Guarantee zoning approval for the proposed premises", "Allow use in a different county simply because the license is owned", "Replace DBPR transfer, change-of-series, or change-of-location approval", "Turn a 4COP-SFS / SRX special restaurant license into a transferable quota license"]}
+      requirementCards={[
+        { label: "Food-sales requirement", value: "No statewide SRX 51% test", detail: "A quota 4COP is not conditioned on the special restaurant 51% food-and-nonalcoholic-beverage revenue test merely because it is a 4COP quota license.", href: "/resources/florida-liquor-license-laws#current-developments", linkLabel: "Read the FLLM rule explanation ›" },
+        { label: "Minimum service area", value: "No SRX 2,000 sq. ft. minimum", detail: "There is no general statewide 2,000-square-foot restaurant qualification merely to hold a quota 4COP. Local premises, building, fire and zoning rules still apply.", href: "/license-types/4cop-sfs-restaurant", linkLabel: "Compare the SFS/SRX rule ›" },
+        { label: "Minimum seating", value: "No SRX 120-seat minimum", detail: "The special restaurant seating threshold does not define eligibility for a standard transferable quota 4COP. Occupancy and local use approvals remain separate issues.", href: "/license-types/4cop-sfs-restaurant", linkLabel: "Compare the SFS/SRX rule ›" },
+        { label: "Core privilege", value: "Beer · wine · spirits", detail: "Full-liquor consumption-on-premises privileges may be paired with package sales within the approved quota-license series and premises configuration.", href: "/resources/florida-liquor-license-types", linkLabel: "Compare privileges inside FLLM ›" }
+      ]}
+      requirementsText="The 4COP quota license is often more flexible than the special restaurant route because its statewide qualification is not based on the SRX restaurant revenue, square-footage and seating thresholds. That flexibility does not eliminate zoning, premises or DBPR approval requirements."
+      requirementsCaution="Do not confuse a transferable 4COP quota license with a 4COP-SFS / SRX special restaurant license. County or municipal zoning, distance, occupancy, parking, health, fire and premises requirements can still materially affect a proposed location."
+      officialResources={[
+        { href: "/resources/florida-liquor-license-system", label: "FLLM Guide to Florida's Quota-License System", description: "Understand quota status, series designations, inactive ownership, county limits and how 4COP fits into Florida's licensing structure." },
+        { href: "/resources/florida-liquor-license-laws", label: "FLLM Florida Liquor License Laws", description: "Read FLLM's plain-English explanation of the quota statute, premises rules and current beverage-law developments." },
+        { href: "/dbpr-abt-6002", label: "FLLM ABT-6002 Transfer Guide", description: "Use FLLM's explanation of the principal transfer application used when ownership of a quota license changes." },
+        { href: "/resources/forms", label: "FLLM Florida ABT Forms Center", description: "Browse the ABT applications and forms used in Florida liquor-license transactions without leaving FLLM." }
+      ]}
+      quotaNote="The word “quota” is important. Florida generally limits quota licenses to one for each 7,500 county residents, subject to the statutory quota system and exceptions. Existing quota licenses are therefore commonly bought and sold in the private market. The license remains county-specific."
+      keyPoint="A 4COP quota license is not the same thing as a 4COP-SFS / SRX special restaurant license. The quota license is the transferable county-limited asset; 4COP is the consumption-on-premises series designation used for the quota license in the applicable population band."
+      seriesClarification="A buyer should not think of “4COP quota” and “3PS quota” as completely unrelated assets. They are different series or use designations within Florida's quota-license system. DBPR provides a formal change-in-series-or-type process, so a quota license may be approved in a package-sales series or a consumption-on-premises series depending on the intended use, county and regulatory approvals. A change is not automatic."
+      investmentNote="Yes—an eligible purchaser can acquire a transferable quota license without immediately operating a bar, restaurant or nightclub. If no approved operating location is ready, DBPR provides inactive or escrow procedures. The license cannot be used to sell alcoholic beverages while inactive, and Florida's renewal, qualification and active-operation requirements—including applicable waiver or extension procedures—still apply."
+      officialLabel="Beer, Wine and Liquor Consumption on Premises (4COP) — Quota"
+      officialHref="/resources/florida-liquor-license-system"
+      relatedHref="/florida-4cop-liquor-license-for-sale"
+      relatedLabel="View 4COP Quota Licenses for Sale"
+      ruleUpdateLinks={[
+        { href: "/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs", label: "How Florida changed the special restaurant liquor-license requirements", description: "See the statewide reform that reduced the SFS/SRX restaurant size and seating thresholds while preserving the revenue test." },
+        { href: "/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law", label: "Florida cocktails-to-go: current restaurant rules", description: "Review the current food-order, sealing, packaging and delivery rules that can matter to qualifying restaurant operations." }
+      ]}
+      researchLinks={[
+        { href: "/resources/florida-liquor-license-laws#cocktails-to-go", label: "Cocktails-to-Go Statutes Explained by FLLM", description: "Review FLLM's explanation of SB 148, section 565.045 and the related open-container provision." },
+        { href: "/license-types/4cop-sfs-restaurant", label: "Compare 4COP-SFS", description: "Compare the transferable quota license with the qualification-based restaurant license." },
+        { href: "/resources/forms", label: "Florida ABT Forms Center", description: "Open FLLM's organized collection of commonly used Division of Alcoholic Beverages and Tobacco forms." }
+      ]}
+    />
+    <LicenseTypeCountyDirectory licenseType="4COP Quota" />
+  </>;
 }
