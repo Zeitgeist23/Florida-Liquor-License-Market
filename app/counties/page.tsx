@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { countyPopulations2024 } from "@/data/county-populations-2024";
 import { QUOTA_DRAWING_2026 } from "@/data/quota-drawing-2026";
-import { countySlug, floridaCounties, featuredCounties, getCountyBySlug } from "@/data/florida-counties";
+import { floridaCounties, featuredCounties } from "@/data/florida-counties";
+import { buildFloridaMarketIndex, type MarketPriceStats } from "@/lib/florida-market-index";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import "./counties-page.css";
@@ -28,22 +28,6 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-type PriceStats = {
-  count: number;
-  low: number | null;
-  median: number | null;
-  high: number | null;
-};
-
-function canonicalCountyName(value: string) {
-  const normalized = value.replace(/^Saint\s+/i, "St. ");
-  return getCountyBySlug(countySlug(normalized))?.name ?? value;
-}
-
-function dbprCountyName(value: string) {
-  return value === "Dade" ? "Miami-Dade County" : `${value} County`;
-}
-
 function money(value: number) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -52,24 +36,7 @@ function money(value: number) {
   }).format(value);
 }
 
-function priceStats(values: Array<number | null>): PriceStats {
-  const prices = values
-    .filter((value): value is number => typeof value === "number")
-    .sort((a, b) => a - b);
-  if (prices.length === 0) return { count: 0, low: null, median: null, high: null };
-  const middle = Math.floor(prices.length / 2);
-  const median = prices.length % 2 === 1
-    ? prices[middle]
-    : Math.round((prices[middle - 1] + prices[middle]) / 2);
-  return {
-    count: prices.length,
-    low: prices[0],
-    median,
-    high: prices[prices.length - 1],
-  };
-}
-
-function AskingPriceCell({ stats }: { stats: PriceStats }) {
+function AskingPriceCell({ stats }: { stats: MarketPriceStats }) {
   if (stats.median === null) return <span className="market-data-empty">—</span>;
   const range = stats.low !== stats.high && stats.low !== null && stats.high !== null
     ? `${money(stats.low)}–${money(stats.high)}`
@@ -83,42 +50,23 @@ function AskingPriceCell({ stats }: { stats: PriceStats }) {
 }
 
 export default async function CountiesPage() {
-  const listings = getVisibleAvailableMarketplaceListings(await getMarketplaceListings()).map((listing) => ({
-    ...listing,
-    county: canonicalCountyName(listing.county),
-  }));
-  const availableCounts = new Map<string, number>();
-  listings.forEach((listing) => {
-    availableCounts.set(listing.county, (availableCounts.get(listing.county) ?? 0) + 1);
-  });
-
-  const drawingByCounty = new Map<string, number>();
-  QUOTA_DRAWING_2026.counties.forEach((item) => {
-    drawingByCounty.set(dbprCountyName(item.county), item.licenses);
-  });
-
+  const listings = getVisibleAvailableMarketplaceListings(await getMarketplaceListings());
+  const snapshot = buildFloridaMarketIndex(listings);
   const alphabetical = [...floridaCounties].sort((a, b) => a.name.localeCompare(b.name));
+  const snapshotRowsBySlug = new Map(snapshot.countyRows.map((row) => [row.slug, row]));
   const countyRows = alphabetical.map((county) => {
-    const countyListings = listings.filter((listing) => listing.county === county.name);
-    const fourCop = countyListings.filter((listing) => listing.type === "4COP Quota");
-    const threePs = countyListings.filter((listing) => listing.type === "3PS Quota / Package Store");
+    const row = snapshotRowsBySlug.get(county.slug);
     return {
       county,
-      population: countyPopulations2024[county.name] ?? null,
-      listingCount: countyListings.length,
-      fourCop: priceStats(fourCop.map((listing) => listing.price)),
-      threePs: priceStats(threePs.map((listing) => listing.price)),
-      drawingLicenses: drawingByCounty.get(county.name) ?? 0,
+      population: row?.population ?? null,
+      listingCount: row?.activeListings ?? 0,
+      fourCop: row?.fourCop ?? { count: 0, low: null, median: null, high: null },
+      threePs: row?.threePs ?? { count: 0, low: null, median: null, high: null },
+      drawingLicenses: row?.quotaDrawingLicenses ?? 0,
     };
   });
-  const marketsWithInventory = countyRows.filter((row) => row.listingCount > 0).length;
-  const disclosedPrices = listings
-    .map((listing) => listing.price)
-    .filter((value): value is number => typeof value === "number")
-    .sort((a, b) => a - b);
-  const statewideMedian = disclosedPrices.length
-    ? disclosedPrices[Math.floor(disclosedPrices.length / 2)]
-    : null;
+  const availableCounts = new Map(countyRows.map((row) => [row.county.name, row.listingCount]));
+  const statewideMedian = snapshot.statewide.median;
   const snapshotDate = new Intl.DateTimeFormat("en-US", {
     month: "long",
     day: "numeric",
@@ -173,10 +121,10 @@ export default async function CountiesPage() {
       <section className="market-snapshot directory-shell">
         <div className="market-snapshot-heading"><div><span>Live marketplace snapshot</span><h2>Florida quota license market at a glance</h2></div><p>Marketplace snapshot: {snapshotDate}. DBPR drawing data verified {QUOTA_DRAWING_2026.lastVerified}.</p></div>
         <div className="market-stat-grid">
-          <article><strong>{listings.length}</strong><span>Active marketplace listings</span></article>
-          <article><strong>{marketsWithInventory}</strong><span>Counties with active inventory</span></article>
+          <article><strong>{snapshot.activeListings}</strong><span>Active marketplace listings</span></article>
+          <article><strong>{snapshot.countiesWithInventory}</strong><span>Counties with active inventory</span></article>
           <article><strong>{statewideMedian === null ? "—" : money(statewideMedian)}</strong><span>Median disclosed asking price*</span></article>
-          <article><strong>{QUOTA_DRAWING_2026.totalLicenses}</strong><span>2026 DBPR drawing licenses</span></article>
+          <article><strong>{snapshot.quotaDrawingLicenses}</strong><span>2026 DBPR drawing licenses</span></article>
         </div>
         <p className="market-data-caution">*Asking-price data is a current market snapshot. Florida quota licenses are county-specific; asking prices are not appraisals, verified closed-sale prices or guarantees of value.</p>
       </section>
