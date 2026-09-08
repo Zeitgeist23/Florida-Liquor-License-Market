@@ -162,6 +162,12 @@ export default function CountyMarketDataPanel({
         <Link href="/research">Data methodology &amp; citation guide</Link>
       </div>
 
+      <div className="county-data-links" aria-label={`${county.name} liquor license types`}>
+        <Link href="/license-types/4cop-quota">{county.name} 4COP quota liquor license</Link>
+        <Link href="/license-types/3ps-package-store">{county.name} 3PS quota / package store license</Link>
+        <Link href="/resources/florida-liquor-license-types">Florida liquor license types guide</Link>
+      </div>
+
       <p className="county-data-history-note">
         Historical change tracking begins with the FLLM Market Index baseline. FLLM will publish month-over-month changes only after comparable archived snapshots exist; earlier price changes are not inferred from current listings.
       </p>
