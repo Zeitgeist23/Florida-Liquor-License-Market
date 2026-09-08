@@ -10,9 +10,9 @@ export default function ListingsSeoAuthorityBridge() {
           After comparing current <strong>Florida liquor licenses for sale</strong>, buyers can move directly into county market research, valuation and financing resources before making an offer. FLLM connects active marketplace inventory with the tools buyers commonly need to evaluate and structure a purchase.
         </p>
         <div className="listings-authority-grid">
-          <Link href="/market-data/exchange-board">
-            <strong>FLLM Exchange Board</strong>
-            <span>Compare active asking prices, county markets and current Florida liquor-license inventory.</span>
+          <Link href="/exchange">
+            <strong>FLLM Exchange — Confidential Offers</strong>
+            <span>Use FLLM&apos;s Florida liquor-license exchange marketplace to review eligible 4COP and 3PS opportunities and submit confidential purchase terms.</span>
           </Link>
           <Link href="/florida-liquor-license-appraisal">
             <strong>Florida Liquor License Appraisal</strong>
