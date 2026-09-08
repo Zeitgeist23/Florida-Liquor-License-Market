@@ -8,6 +8,7 @@ import BrokerAssistanceNavigationEnhancement from "@/components/BrokerAssistance
 import FinancingAppraisalEnhancement from "@/components/FinancingAppraisalEnhancement";
 import GlobalResourcesMenuSync from "@/components/GlobalResourcesMenuSync";
 import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
+import ListingServiceSeoCluster from "@/components/ListingServiceSeoCluster";
 import ListYourLicenseLinkFix from "@/components/ListYourLicenseLinkFix";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
 import SeoAuthorityEnhancements from "@/components/SeoAuthorityEnhancements";
@@ -120,6 +121,7 @@ export default function RootLayout({
         <FinancingAppraisalEnhancement />
         <GlobalResourcesMenuSync />
         {children}
+        <ListingServiceSeoCluster />
         <SeoAuthorityEnhancements />
         <NationalMarketplaceFooterLink />
 
