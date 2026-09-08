@@ -14,6 +14,7 @@ import {
 } from "@/lib/listing-inventory-class";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import "./listings-premium.css";
 import "./listings-header-position.css";
 import "./listings-map-size.css";
@@ -137,8 +138,9 @@ function preservePaidListingIdentity(input: ListingWithInventoryClass[]): Listin
 }
 
 export default async function Page() {
-  const marketplaceListings = preservePaidListingIdentity(await getMarketplaceListings());
-  const availableListings = marketplaceListings.filter((listing) => Boolean(listing.sourceRef));
+  const rawMarketplaceListings = await getMarketplaceListings();
+  const marketplaceListings = preservePaidListingIdentity(rawMarketplaceListings);
+  const availableListings = getVisibleAvailableMarketplaceListings(rawMarketplaceListings);
 
   const structuredData = [
     {
