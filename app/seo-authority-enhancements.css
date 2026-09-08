@@ -5,7 +5,9 @@
 }
 
 .fllm-authority-links__inner,
-.fllm-broker-link-kit__inner {
+.fllm-broker-link-kit__inner,
+.fllm-listing-service-cluster__inner,
+.fllm-listing-service-faq__inner {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
 }
@@ -87,9 +89,97 @@
   color: #0b2746;
 }
 
+.fllm-listing-service-cluster {
+  border-top: 1px solid rgba(216, 181, 92, 0.45);
+  border-bottom: 1px solid rgba(216, 181, 92, 0.28);
+  background: #081b2d;
+}
+
+.fllm-listing-service-cluster__inner {
+  padding: 17px 0;
+}
+
+.fllm-listing-service-cluster__inner > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #d8b55c;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.fllm-listing-service-cluster p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.fllm-listing-service-cluster a {
+  color: #fff;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: rgba(216, 181, 92, 0.65);
+  text-underline-offset: 3px;
+}
+
+.fllm-listing-service-cluster b {
+  color: #d8b55c;
+}
+
+.fllm-listing-service-faq {
+  padding: 48px 0;
+  border-bottom: 1px solid rgba(202, 163, 72, 0.25);
+  background: #f8f6f0;
+}
+
+.fllm-listing-service-faq__inner > span {
+  color: #a27617;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.fllm-listing-service-faq h2 {
+  margin: 6px 0 18px;
+  color: #0b2746;
+  font-size: clamp(28px, 3.5vw, 40px);
+  line-height: 1.1;
+}
+
+.fllm-listing-service-faq__grid {
+  display: grid;
+  gap: 10px;
+}
+
+.fllm-listing-service-faq details {
+  border: 1px solid #d9d4c7;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.fllm-listing-service-faq summary {
+  padding: 15px 17px;
+  color: #0b2746;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.fllm-listing-service-faq details p {
+  margin: 0;
+  padding: 0 17px 16px;
+  color: #435469;
+  line-height: 1.65;
+}
+
 @media (max-width: 760px) {
   .fllm-authority-links__inner,
-  .fllm-broker-link-kit__inner {
+  .fllm-broker-link-kit__inner,
+  .fllm-listing-service-cluster__inner,
+  .fllm-listing-service-faq__inner {
     width: min(100% - 28px, 1180px);
   }
 
@@ -97,5 +187,15 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 14px;
+  }
+
+  .fllm-listing-service-cluster p {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .fllm-listing-service-cluster b {
+    display: none;
   }
 }
