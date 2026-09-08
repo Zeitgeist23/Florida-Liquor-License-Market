@@ -7,7 +7,8 @@
 .fllm-authority-links__inner,
 .fllm-broker-link-kit__inner,
 .fllm-listing-service-cluster__inner,
-.fllm-listing-service-faq__inner {
+.fllm-listing-service-faq__inner,
+.fllm-online-marketplace-faq__inner {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
 }
@@ -23,12 +24,69 @@
   line-height: 1.65;
 }
 
-.fllm-authority-links a {
+.fllm-authority-links a,
+.fllm-online-marketplace-faq a {
   color: #0b315a;
   font-weight: 700;
   text-decoration: underline;
   text-decoration-color: rgba(180, 139, 47, 0.65);
   text-underline-offset: 3px;
+}
+
+.fllm-online-marketplace-faq {
+  border-top: 1px solid rgba(202, 163, 72, 0.35);
+  border-bottom: 1px solid rgba(202, 163, 72, 0.28);
+  background: #f7f5ef;
+}
+
+.fllm-online-marketplace-faq__inner {
+  padding: 34px 0 38px;
+}
+
+.fllm-online-marketplace-faq__inner > span {
+  display: block;
+  color: #b67b09;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.fllm-online-marketplace-faq h2 {
+  margin: 6px 0 12px;
+  color: #071d33;
+  font: 700 clamp(28px, 4vw, 40px)/1.1 Georgia, "Times New Roman", serif;
+}
+
+.fllm-online-marketplace-faq__inner > p {
+  max-width: 980px;
+  margin: 0;
+  color: #4d6070;
+  font-size: 16px;
+  line-height: 1.72;
+}
+
+.fllm-online-marketplace-faq__items {
+  margin-top: 24px;
+  border-top: 1px solid #d9d1c4;
+}
+
+.fllm-online-marketplace-faq__items details {
+  padding: 15px 0;
+  border-bottom: 1px solid #d9d1c4;
+}
+
+.fllm-online-marketplace-faq__items summary {
+  cursor: pointer;
+  color: #071d33;
+  font-size: 17px;
+  font-weight: 850;
+}
+
+.fllm-online-marketplace-faq__items p {
+  margin: 10px 0 0;
+  color: #536373;
+  line-height: 1.68;
 }
 
 .fllm-broker-link-kit {
@@ -179,7 +237,8 @@
   .fllm-authority-links__inner,
   .fllm-broker-link-kit__inner,
   .fllm-listing-service-cluster__inner,
-  .fllm-listing-service-faq__inner {
+  .fllm-listing-service-faq__inner,
+  .fllm-online-marketplace-faq__inner {
     width: min(100% - 28px, 1180px);
   }
 
@@ -197,5 +256,9 @@
 
   .fllm-listing-service-cluster b {
     display: none;
+  }
+
+  .fllm-online-marketplace-faq__inner {
+    padding: 28px 0 31px;
   }
 }
