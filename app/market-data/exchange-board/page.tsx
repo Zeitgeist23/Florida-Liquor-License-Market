@@ -67,8 +67,8 @@ export default async function ExchangeBoardPage() {
       <style dangerouslySetInnerHTML={{ __html: `
         .exchange-page{min-height:100vh;background:#031321;color:#edf6fb;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
         .exchange-header{background:#020d18;border-bottom:1px solid rgba(246,167,0,.55);position:relative;z-index:20}
-        .hero-shell{background:#020b14;border-bottom:1px solid rgba(42,184,243,.35)}
-        .hero-shell img{display:block;width:100%;height:auto;aspect-ratio:762/261;object-fit:cover;object-position:center}
+        .hero-shell{background:#020b14;border-bottom:1px solid rgba(42,184,243,.35);line-height:0}
+        .hero-shell img{display:block;width:100%;height:auto;object-fit:cover;object-position:center}
         .ticker-shell{background:#03111e;border-bottom:1px solid rgba(44,188,248,.35)}
         .ticker-line{overflow:hidden;white-space:nowrap;border-top:1px solid rgba(66,190,242,.24)}
         .ticker-track{display:flex;width:max-content;animation:fllmTicker 52s linear infinite}
@@ -107,7 +107,9 @@ export default async function ExchangeBoardPage() {
 
       <section className="hero-shell" aria-label="FLLM Exchange trading floor">
         <img
-          src="/assets/fllm-exchange-board-header-live.png?v=2"
+          src="/assets/fllm-exchange-board-header-final.jpg?v=1"
+          width="762"
+          height="261"
           alt="FLLM Exchange trading floor with brokers, market displays and Florida Liquor Licenses Trade Here banner"
         />
       </section>
