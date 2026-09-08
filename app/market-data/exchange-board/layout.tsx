@@ -1,28 +1,36 @@
 import type { ReactNode } from "react";
-import { EXCHANGE_HERO_BASE64 } from "@/lib/exchange-hero-data";
 
 export default function ExchangeBoardLayout({ children }: { children: ReactNode }) {
-  const hero = `data:image/jpeg;base64,${EXCHANGE_HERO_BASE64}`;
-
   return (
     <>
       <style
         dangerouslySetInnerHTML={{
           __html: `
-            .hero-shell{background:#020b14!important;line-height:0!important;min-height:0!important;}
-            .hero-shell img{display:none!important;}
-            .hero-shell::before{
+            /* Exchange Board only. Keep the existing hero footprint, but render
+               the approved Exchange artwork instead of the broken base64 image. */
+            .exchange-page .hero-shell{
+              background:#020b14!important;
+              line-height:0!important;
+              min-height:0!important;
+            }
+            .exchange-page .hero-shell img{
+              display:none!important;
+            }
+            .exchange-page .hero-shell::before{
               content:"";
               display:block;
               width:100%;
-              aspect-ratio:480/164;
-              background-image:url("${hero}");
+              aspect-ratio:560/192;
+              background-image:url('/assets/fllm-exchange-board-header-approved.svg');
               background-position:center;
               background-repeat:no-repeat;
               background-size:cover;
             }
             @media(max-width:700px){
-              .hero-shell::before{aspect-ratio:480/164;background-size:cover;}
+              .exchange-page .hero-shell::before{
+                aspect-ratio:560/192;
+                background-size:cover;
+              }
             }
           `,
         }}
