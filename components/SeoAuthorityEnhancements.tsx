@@ -89,6 +89,20 @@ const onlineMarketplaceAuthorityPaths = new Set([
   "/counties",
 ]);
 
+const howToBuyAuthorityPaths = new Set([
+  "/",
+  "/listings",
+  "/buy-florida-liquor-license",
+  "/florida-4cop-liquor-license-for-sale",
+  "/florida-3ps-liquor-license-for-sale",
+  "/counties",
+  "/financing",
+  "/finance-a-license",
+  "/how-to-finance-florida-liquor-license",
+  "/florida-liquor-license-appraisal",
+  "/dbpr-abt-6002",
+]);
+
 function isCountyMarketPage(pathname: string) {
   const parts = pathname.split("/").filter(Boolean);
   return parts.length === 2 && parts[0] === "counties";
@@ -104,9 +118,11 @@ export default function SeoAuthorityEnhancements() {
   const showBrokerListingLink = brokerListingAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showSellerServicePositioning = sellerServiceAuthorityPaths.has(pathname);
   const showOnlineMarketplaceLink = onlineMarketplaceAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
+  const showHowToBuyGuide = pathname === "/how-to-buy-florida-liquor-license";
+  const showHowToBuyLink = howToBuyAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showBrokerKit = pathname === "/brokers/list-your-license" || pathname === "/how-to-sell-florida-liquor-license";
 
-  if (!showAuthorityLinks && !showSbaAppraisalLink && !showBuyerFinancingAppraisalLink && !showLitigationLink && !showLawyerLink && !showBrokerListingLink && !showSellerServicePositioning && !showOnlineMarketplaceLink && !showBrokerKit) return null;
+  if (!showAuthorityLinks && !showSbaAppraisalLink && !showBuyerFinancingAppraisalLink && !showLitigationLink && !showLawyerLink && !showBrokerListingLink && !showSellerServicePositioning && !showOnlineMarketplaceLink && !showHowToBuyGuide && !showHowToBuyLink && !showBrokerKit) return null;
 
   return (
     <>
@@ -116,6 +132,49 @@ export default function SeoAuthorityEnhancements() {
             <p>
               <strong>Full-service selling is available through FLLM itself:</strong>{" "}
               Florida liquor-license owners can <Link href="/sell-your-license">request full-service broker-assisted representation through Florida Liquor License Market</Link>. Depending on the written brokerage agreement, representation may include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, due-diligence coordination, document organization and transaction coordination. Sellers who prefer direct control can choose a self-directed marketplace listing instead.
+            </p>
+          </div>
+        </aside>
+      ) : null}
+
+      {showHowToBuyGuide ? (
+        <section className="fllm-online-marketplace-faq" aria-labelledby="fllm-how-to-buy-title">
+          <div className="fllm-online-marketplace-faq__inner">
+            <span>Florida Liquor License Buyer Guide</span>
+            <h2 id="fllm-how-to-buy-title">How to Buy a Florida Liquor License in 7 Steps</h2>
+            <p>
+              Buying an existing transferable Florida quota liquor license starts with the correct license type and county, then moves through current inventory, market-value comparison, due diligence, financing and contract terms, the <Link href="/dbpr-abt-6002">DBPR ABT-6002 transfer application</Link>, and closing. Buyers can <Link href="/listings">browse Florida liquor licenses for sale</Link>, compare <Link href="/counties">Florida liquor licenses by county</Link>, review <Link href="/financing">Florida liquor license financing</Link>, and order a <Link href="/florida-liquor-license-appraisal">Florida liquor license appraisal</Link> when valuation support is needed.
+            </p>
+            <div className="fllm-online-marketplace-faq__items">
+              <details>
+                <summary>How do I buy a Florida liquor license?</summary>
+                <p>Choose the license type and county, compare current licenses for sale, verify the exact license and seller, negotiate written purchase terms, arrange financing when needed, prepare the required DBPR transfer filing and supporting documents, and coordinate closing around the transaction conditions and required approvals.</p>
+              </details>
+              <details>
+                <summary>Where can I find a Florida liquor license for sale?</summary>
+                <p>FLLM organizes current 4COP quota and 3PS package-store opportunities in its statewide marketplace and county pages so buyers can compare asking prices, availability and license type before contacting the applicable seller or listing representative.</p>
+              </details>
+              <details>
+                <summary>Can I buy a Florida liquor license online?</summary>
+                <p>You can identify and inquire about Florida quota-license opportunities online through FLLM, but the purchase itself still requires a properly structured transaction and the applicable Florida transfer, applicant, premises, zoning and regulatory approvals.</p>
+              </details>
+              <details>
+                <summary>Do I need a broker to buy a Florida liquor license?</summary>
+                <p>Not every transaction requires a broker. Buyers may purchase from a seller or work with an independent broker or other professionals. Regardless of representation, buyers should verify the license, seller authority, transaction terms, transfer requirements and closing conditions before committing.</p>
+              </details>
+              <details>
+                <summary>How long does a Florida liquor license transfer take?</summary>
+                <p>There is no single guaranteed transfer time. Timing depends on the completeness of the application, applicant and premises requirements, zoning or local approvals when applicable, DBPR processing, transaction conditions and any issues that must be resolved before closing.</p>
+              </details>
+            </div>
+          </div>
+        </section>
+      ) : showHowToBuyLink ? (
+        <aside className="fllm-authority-links" aria-label="How to buy a Florida liquor license">
+          <div className="fllm-authority-links__inner">
+            <p>
+              <strong>Buying guide:</strong>{" "}
+              <Link href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License</Link> explains the 7-step purchase process from choosing the correct license type and county through active listings, pricing and valuation, due diligence, financing, purchase terms, ABT-6002 transfer preparation and closing.
             </p>
           </div>
         </aside>
