@@ -55,7 +55,7 @@ export default function LiveNewsMonitor() {
         if (!cancelled) {
           setData({
             updatedAt: new Date().toISOString(),
-            refreshMinutes: 30,
+            refreshMinutes: 360,
             sources: [],
             items: [],
             error: "The live monitor is temporarily unavailable.",
@@ -67,7 +67,7 @@ export default function LiveNewsMonitor() {
     }
 
     void refresh();
-    const timer = window.setInterval(refresh, 24 * 60 * 60 * 1000);
+    const timer = window.setInterval(refresh, 6 * 60 * 60 * 1000);
     return () => {
       cancelled = true;
       window.clearInterval(timer);
@@ -85,15 +85,15 @@ export default function LiveNewsMonitor() {
         </div>
         <div className="live-news-monitor-status">
           <strong>{loading ? "Scanning sources…" : "Monitor active"}</strong>
-          <small>Daily automated scan</small>
+          <small>Automated scan every 6 hours</small>
         </div>
       </div>
 
       <div className="live-news-monitor-explainer">
         <p>
-          FLLM checks Google News, Bing News and Yahoo News every day, together with Florida publishers including First Coast News, ClickOrlando, WFLA, FOX 13 Tampa Bay, CBS Miami, Miami Herald, Tampa Bay Times and Florida Politics. Stories are scored for Florida liquor-license relevance, classified by topic, checked for Florida context and deduplicated before appearing here.
+          FLLM checks Google News, Bing News and Yahoo News together with Florida local publishers and broadcast outlets, including First Coast News, ClickOrlando, WFLA, FOX 13 Tampa Bay, FOX 4 Now Southwest Florida, NBC2, FOX 35 Orlando, Local 10, WSVN 7News, CBS Miami, Miami Herald, Tampa Bay Times and Florida Politics. It also watches for relevant local-news video reports. Stories are scored for Florida liquor-license relevance, classified by topic, checked for Florida context and deduplicated before appearing here.
         </p>
-        <span>The monitor publishes source-provided headlines and short summaries automatically. FLLM legal briefings remain separately researched and verified against official sources.</span>
+        <span>The monitor publishes source-provided headlines and short summaries automatically and now includes a longer historical backfill window so important enforcement and licensing reports are not lost after six months. FLLM legal briefings remain separately researched and verified against official sources.</span>
       </div>
 
       {data?.error && visibleItems.length === 0 ? (
