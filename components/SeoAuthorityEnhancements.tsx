@@ -74,6 +74,21 @@ const sellerServiceAuthorityPaths = new Set([
   "/florida-liquor-license-broker-fees",
 ]);
 
+const onlineMarketplaceAuthorityPaths = new Set([
+  "/sell-your-license",
+  "/listings",
+  "/buy-florida-liquor-license",
+  "/how-to-buy-florida-liquor-license",
+  "/how-to-sell-florida-liquor-license",
+  "/brokers/list-your-license",
+  "/florida-liquor-license-appraisal",
+  "/financing",
+  "/finance-a-license",
+  "/florida-4cop-liquor-license-for-sale",
+  "/florida-3ps-liquor-license-for-sale",
+  "/counties",
+]);
+
 function isCountyMarketPage(pathname: string) {
   const parts = pathname.split("/").filter(Boolean);
   return parts.length === 2 && parts[0] === "counties";
@@ -88,9 +103,10 @@ export default function SeoAuthorityEnhancements() {
   const showLawyerLink = lawyerAuthorityPaths.has(pathname);
   const showBrokerListingLink = brokerListingAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showSellerServicePositioning = sellerServiceAuthorityPaths.has(pathname);
+  const showOnlineMarketplaceLink = onlineMarketplaceAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showBrokerKit = pathname === "/brokers/list-your-license" || pathname === "/how-to-sell-florida-liquor-license";
 
-  if (!showAuthorityLinks && !showSbaAppraisalLink && !showBuyerFinancingAppraisalLink && !showLitigationLink && !showLawyerLink && !showBrokerListingLink && !showSellerServicePositioning && !showBrokerKit) return null;
+  if (!showAuthorityLinks && !showSbaAppraisalLink && !showBuyerFinancingAppraisalLink && !showLitigationLink && !showLawyerLink && !showBrokerListingLink && !showSellerServicePositioning && !showOnlineMarketplaceLink && !showBrokerKit) return null;
 
   return (
     <>
@@ -100,6 +116,41 @@ export default function SeoAuthorityEnhancements() {
             <p>
               <strong>Full-service selling is available through FLLM itself:</strong>{" "}
               Florida liquor-license owners can <Link href="/sell-your-license">request full-service broker-assisted representation through Florida Liquor License Market</Link>. Depending on the written brokerage agreement, representation may include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, due-diligence coordination, document organization and transaction coordination. Sellers who prefer direct control can choose a self-directed marketplace listing instead.
+            </p>
+          </div>
+        </aside>
+      ) : null}
+
+      {showOnlineMarketplaceLink && pathname === "/sell-your-license" ? (
+        <section className="fllm-online-marketplace-faq" aria-labelledby="fllm-online-marketplace-title">
+          <div className="fllm-online-marketplace-faq__inner">
+            <span>Online Florida Liquor License Marketplace</span>
+            <h2 id="fllm-online-marketplace-title">List a Florida liquor license for sale online</h2>
+            <p>
+              Florida Liquor License Market gives owners a specialized statewide place to advertise transferable 4COP quota and 3PS package-store licenses online. Sellers can choose a self-directed marketplace listing or request full-service broker-assisted representation, while buyers can <Link href="/listings">browse Florida liquor licenses for sale online</Link> by county and license type.
+            </p>
+            <div className="fllm-online-marketplace-faq__items">
+              <details>
+                <summary>Can I list a Florida liquor license for sale online?</summary>
+                <p>Yes. FLLM accepts seller and broker submissions for qualifying Florida quota-license inventory, including 4COP and 3PS-family licenses, subject to review and confirmation of the listing information.</p>
+              </details>
+              <details>
+                <summary>Where can I buy a Florida liquor license online?</summary>
+                <p>Buyers can use the FLLM marketplace to compare current Florida liquor licenses for sale by county, license type, asking price and availability, then contact the applicable seller or listing representative about a specific opportunity.</p>
+              </details>
+              <details>
+                <summary>Can 4COP and 3PS quota licenses be advertised online?</summary>
+                <p>Yes. Transferable 4COP quota and 3PS package-store license interests can be advertised online, but any transaction remains subject to the applicable Florida transfer, applicant, premises, zoning and regulatory requirements.</p>
+              </details>
+            </div>
+          </div>
+        </section>
+      ) : showOnlineMarketplaceLink ? (
+        <aside className="fllm-authority-links" aria-label="Buy or sell a Florida liquor license online">
+          <div className="fllm-authority-links__inner">
+            <p>
+              <strong>Florida liquor licenses online:</strong>{" "}
+              Sellers can <Link href="/sell-your-license">list a Florida liquor license for sale online</Link> through FLLM&apos;s statewide marketplace, while buyers can <Link href="/listings">buy a Florida liquor license online by browsing current 4COP and 3PS marketplace listings</Link> and contacting the seller or listing representative for the specific opportunity.
             </p>
           </div>
         </aside>
