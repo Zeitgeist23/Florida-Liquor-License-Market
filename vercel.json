@@ -10,7 +10,7 @@
     },
     {
       "path": "/api/cron/update-news",
-      "schedule": "30 12 * * *"
+      "schedule": "0 */6 * * *"
     }
   ]
 }
