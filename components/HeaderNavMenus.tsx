@@ -28,7 +28,7 @@ const navMenus: NavMenu[] = [
     label: "Buy",
     menuClassName: "native-nav-menu-standard",
     links: [
-      { href: "/exchange", label: "FLLM Exchange — Confidential Offers" },
+      { href: "/exchange", label: "FLLM Exchange — Confidential Florida License Offers" },
       { href: "/listings", label: "View Listings" },
       { href: "/buy-florida-liquor-license", label: "Buy a Florida Liquor License" },
       { href: "/license-alerts", label: "Get a License Alert" },
@@ -73,7 +73,7 @@ const navMenus: NavMenu[] = [
     label: "Market Data",
     menuClassName: "native-nav-menu-standard native-nav-market-menu",
     links: [
-      { href: "/market-data/exchange-board", label: "FLLM Exchange Board" },
+      { href: "/market-data/exchange-board", label: "Florida Asking Price Board" },
       { href: "/counties", label: "Florida Market Data by County" },
       { href: "/florida-liquor-license-value", label: "Florida Liquor License Value Estimator" },
       { href: "/florida-quota-liquor-license-cost", label: "Florida Liquor License Cost by County" },
