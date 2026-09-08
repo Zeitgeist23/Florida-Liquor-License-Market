@@ -1,7 +1,7 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
-import { getFloridaLiquorLicenseNewsSnapshot } from "@/lib/news-discovery";
+import { getEnhancedFloridaLiquorLicenseNewsSnapshot } from "@/lib/news-monitor-enhanced";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
 
   try {
     revalidateTag("fllm-daily-news");
-    const snapshot = await getFloridaLiquorLicenseNewsSnapshot();
+    const snapshot = await getEnhancedFloridaLiquorLicenseNewsSnapshot();
     revalidatePath("/florida-liquor-license-news");
 
     const providerCounts = snapshot.items.reduce<Record<string, number>>((counts, item) => {
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error("Daily FLLM news update failed", error);
+    console.error("FLLM news update failed", error);
     return NextResponse.json({ ok: false, error: message }, { status: 500 });
   }
 }
