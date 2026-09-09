@@ -31,11 +31,7 @@ const attorneys: Attorney[] = [
     profile: "https://www.spencerfane.com/professionals/hannah-becker/",
     image: "https://www.spencerfane.com/wp-content/uploads/2026/03/becker-h.jpg",
     imageCredit: "Portrait from Spencer Fane",
-    services: [
-      "Alcohol-beverage regulatory and transactional matters",
-      "Licensing and permitting",
-      "Hospitality mergers and acquisitions",
-    ],
+    services: ["Alcohol-beverage regulatory and transactional matters", "Licensing and permitting", "Hospitality mergers and acquisitions"],
   },
   {
     name: "James “Joby” Birr, III",
@@ -45,11 +41,7 @@ const attorneys: Attorney[] = [
     phone: "904-389-0050",
     phoneHref: "tel:+19043890050",
     profile: "https://www.jimersonfirm.com/attorneys/james-joby-birr-iii/",
-    services: [
-      "Alcoholic-beverage and tobacco licensing and compliance",
-      "Administrative law, agency proceedings, and DBPR licensing disputes",
-      "Appeals and judicial review involving adverse agency decisions",
-    ],
+    services: ["Alcoholic-beverage and tobacco licensing and compliance", "Administrative law, agency proceedings, and DBPR licensing disputes", "Appeals and judicial review involving adverse agency decisions"],
     publishedResourceLabel: "Published firm resource",
     publishedResourceTitle: "Alcoholic Beverage and Tobacco Licenses Overview",
     publishedResourceUrl: "/resources/liquor-license-attorneys/articles/alcoholic-beverage-and-tobacco-licenses-overview",
@@ -64,11 +56,7 @@ const attorneys: Attorney[] = [
     profile: "https://carmanlegal.com/attorneys/",
     image: "https://carmanlegal.com/wp-content/uploads/2025/02/deborah.png",
     imageCredit: "Portrait from Carman Law Firm",
-    services: [
-      "Business purchases and sales",
-      "Mergers, acquisitions, and transaction closings",
-      "Liquor-, beer-, and wine-license transfers through the firm",
-    ],
+    services: ["Business purchases and sales", "Mergers, acquisitions, and transaction closings", "Liquor-, beer-, and wine-license transfers through the firm"],
   },
   {
     name: "Ryan Malkin",
@@ -80,11 +68,7 @@ const attorneys: Attorney[] = [
     profile: "https://www.malkinlawfirm.com/",
     image: "https://www.malkinlawfirm.com/wp-content/uploads/sites/1504912/2023/01/Malkin_Ryan_4.jpg",
     imageCredit: "Portrait from Malkin Law",
-    services: [
-      "Alcohol-beverage licensing and regulatory guidance",
-      "Retailer, wholesaler, and supplier matters",
-      "Business and commercial guidance for beverage-industry clients",
-    ],
+    services: ["Alcohol-beverage licensing and regulatory guidance", "Retailer, wholesaler, and supplier matters", "Business and commercial guidance for beverage-industry clients"],
   },
   {
     name: "Alexis Mason",
@@ -96,11 +80,7 @@ const attorneys: Attorney[] = [
     profile: "https://www.spencerfane.com/professionals/alexis-mason/",
     image: "https://www.spencerfane.com/wp-content/uploads/2026/03/Alexis-Mason-Headshot-731x1024.png",
     imageCredit: "Portrait from Spencer Fane",
-    services: [
-      "Alcohol-beverage transactions and regulatory matters",
-      "Purchase agreements, due diligence, and licensing approvals",
-      "Corporate structuring and mergers and acquisitions",
-    ],
+    services: ["Alcohol-beverage transactions and regulatory matters", "Purchase agreements, due diligence, and licensing approvals", "Corporate structuring and mergers and acquisitions"],
   },
   {
     name: "Samuel A. Rubert",
@@ -114,11 +94,7 @@ const attorneys: Attorney[] = [
     profile: "https://www.rubertlaw.com/attorney/rubert-samuel-a/",
     image: "https://www.rubertlaw.com/wp-content/uploads/sites/1303755/2021/05/sam-200x300.jpg",
     imageCredit: "Portrait from Rubert Law",
-    services: [
-      "Alcoholic-beverage transactions",
-      "Liquor-license purchasing, selling, and permitting",
-      "Purchase-agreement, lease, and operational review",
-    ],
+    services: ["Alcoholic-beverage transactions", "Liquor-license purchasing, selling, and permitting", "Purchase-agreement, lease, and operational review"],
   },
   {
     name: "James H. Sutton, Jr., CPA, Esq.",
@@ -130,11 +106,7 @@ const attorneys: Attorney[] = [
     profile: "https://www.floridasalestax.com/staff-profiles/james-h-sutton-jr-cpa-esq-/",
     image: "https://www.floridasalestax.com/cms/thumbnails/34/415x415/images/James-Sutton-Low-Res.1402260810550.jpg",
     imageCredit: "Portrait from Law Offices of Moffa, Sutton & Donnini",
-    services: [
-      "Florida sales-and-use-tax audit defense and protests",
-      "Petitions for reconsideration and Division of Administrative Hearings litigation",
-      "FDOR collections, registration denials, refunds, and voluntary disclosures",
-    ],
+    services: ["Florida sales-and-use-tax audit defense and protests", "Petitions for reconsideration and Division of Administrative Hearings litigation", "FDOR collections, registration denials, refunds, and voluntary disclosures"],
     publishedResourceLabel: "FLLM resource",
     publishedResourceTitle: "Florida DOR Assessment Disputes: Informal Protest vs. DOAH",
     publishedResourceUrl: "/resources/fdor-assessment-disputes",
@@ -149,11 +121,7 @@ const attorneys: Attorney[] = [
     profile: "https://www.schropplaw.com/attorney-profiles/charles-m-schropp/",
     image: "/api/attorney-photo/charles-m-schropp",
     imageCredit: "Portrait from Schropp Law Firm",
-    services: [
-      "Florida liquor-license litigation and appellate matters",
-      "Civil litigation and appeals statewide throughout Florida",
-      "Appellate briefing, issue framing, and preservation strategy",
-    ],
+    services: ["Florida liquor-license litigation and appellate matters", "Civil litigation and appeals statewide throughout Florida", "Appellate briefing, issue framing, and preservation strategy"],
   },
 ];
 
@@ -168,25 +136,16 @@ export default function AttorneyDirectory() {
 
   useEffect(() => {
     if (!selectedAttorney) return;
-
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     closeButtonRef.current?.focus();
-
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelectedAttorney(null);
-    };
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setSelectedAttorney(null); };
     window.addEventListener("keydown", closeOnEscape);
-
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", closeOnEscape);
     };
   }, [selectedAttorney]);
-
-  function openAttorney(attorney: Attorney) {
-    setSelectedAttorney(attorney);
-  }
 
   return (
     <>
@@ -199,49 +158,30 @@ export default function AttorneyDirectory() {
             tabIndex={0}
             aria-haspopup="dialog"
             aria-label={`View details for ${attorney.name}`}
-            onClick={(event) => {
-              if ((event.target as HTMLElement).closest("a,button")) return;
-              openAttorney(attorney);
-            }}
+            onClick={(event) => { if (!(event.target as HTMLElement).closest("a,button")) setSelectedAttorney(attorney); }}
             onKeyDown={(event) => {
               if ((event.key === "Enter" || event.key === " ") && event.target === event.currentTarget) {
                 event.preventDefault();
-                openAttorney(attorney);
+                setSelectedAttorney(attorney);
               }
             }}
           >
             <div className="attorney-card-heading">
               <span aria-hidden="true">{getInitials(attorney.name)}</span>
-              <div>
-                <h2>{attorney.name}</h2>
-                <strong>{attorney.firm}</strong>
-                <small>{attorney.location}</small>
-              </div>
+              <div><h2>{attorney.name}</h2><strong>{attorney.firm}</strong><small>{attorney.location}</small></div>
             </div>
-
             <span className="attorney-practice-badge">{attorney.category}</span>
-
             <ul>{attorney.services.map((service) => <li key={service}>{service}</li>)}</ul>
-
             <div className="attorney-contact" data-nosnippet="">
               <a className="attorney-phone" href={attorney.phoneHref}><span>Call</span><strong>{attorney.phone}</strong></a>
-              {attorney.secondaryPhone && attorney.secondaryPhoneHref && (
-                <a className="attorney-secondary-phone" href={attorney.secondaryPhoneHref}>{attorney.secondaryPhone}</a>
-              )}
+              {attorney.secondaryPhone && attorney.secondaryPhoneHref && <a className="attorney-secondary-phone" href={attorney.secondaryPhoneHref}>{attorney.secondaryPhone}</a>}
             </div>
-
-            <button
-              type="button"
-              className="attorney-profile-link attorney-profile-modal-button"
-              onClick={(event) => { event.stopPropagation(); openAttorney(attorney); }}
-            >
+            <button type="button" className="attorney-profile-link attorney-profile-modal-button" onClick={(event) => { event.stopPropagation(); setSelectedAttorney(attorney); }}>
               View full FLLM profile <span aria-hidden="true">›</span>
             </button>
             {attorney.publishedResourceTitle && attorney.publishedResourceUrl && (
               <a className="attorney-published-resource" href={attorney.publishedResourceUrl}>
-                <span>{attorney.publishedResourceLabel ?? "Published resource"}</span>
-                <strong>{attorney.publishedResourceTitle}</strong>
-                <em aria-hidden="true">›</em>
+                <span>{attorney.publishedResourceLabel ?? "Published resource"}</span><strong>{attorney.publishedResourceTitle}</strong><em aria-hidden="true">›</em>
               </a>
             )}
             <span className="attorney-card-hint">Click the card for full FLLM details</span>
@@ -251,25 +191,23 @@ export default function AttorneyDirectory() {
 
       {selectedAttorney && (
         <div className="attorney-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedAttorney(null); }}>
-          <section
-            className={`attorney-modal${isSutton ? " attorney-modal-sutton" : ""}`}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="attorney-modal-title"
-          >
+          <section className={`attorney-modal${isSutton ? " attorney-modal-sutton" : ""}`} role="dialog" aria-modal="true" aria-labelledby="attorney-modal-title">
             <button ref={closeButtonRef} className="attorney-modal-close" type="button" aria-label="Close attorney details" onClick={() => setSelectedAttorney(null)}>×</button>
 
             <div className="attorney-modal-photo">
               {selectedAttorney.image ? (
                 <>
                   <img src={selectedAttorney.image} alt={`Portrait of ${selectedAttorney.name}`} />
-                  <small>{selectedAttorney.imageCredit ?? "Portrait from attorney or firm website"}</small>
+                  {isSutton ? (
+                    <div className="attorney-modal-sutton-logo-panel">
+                      <img src="/assets/moffa-sutton-donnini-logo.png" alt="Moffa Sutton Donnini — State & Local Tax Law, Business Law & Litigation" />
+                    </div>
+                  ) : (
+                    <small>{selectedAttorney.imageCredit ?? "Portrait from attorney or firm website"}</small>
+                  )}
                 </>
               ) : (
-                <>
-                  <div className="attorney-modal-monogram" aria-hidden="true">{getInitials(selectedAttorney.name)}</div>
-                  <small>Visit the firm profile for attorney information.</small>
-                </>
+                <><div className="attorney-modal-monogram" aria-hidden="true">{getInitials(selectedAttorney.name)}</div><small>Visit the firm profile for attorney information.</small></>
               )}
             </div>
 
@@ -279,139 +217,42 @@ export default function AttorneyDirectory() {
               <strong>{selectedAttorney.firm}</strong>
               <p>{selectedAttorney.location}</p>
               <span className="attorney-modal-practice-badge">{selectedAttorney.category}</span>
-
               <h3>Published practice information</h3>
               <ul>{selectedAttorney.services.map((service) => <li key={service}>{service}</li>)}</ul>
-
               {selectedAttorney.publishedResourceTitle && selectedAttorney.publishedResourceUrl && (
                 <a className="attorney-modal-resource" href={selectedAttorney.publishedResourceUrl}>
-                  <span>{selectedAttorney.publishedResourceLabel ?? "Published resource"}</span>
-                  <strong>{selectedAttorney.publishedResourceTitle}</strong>
-                  <small>Read inside the FLLM resource viewer ›</small>
+                  <span>{selectedAttorney.publishedResourceLabel ?? "Published resource"}</span><strong>{selectedAttorney.publishedResourceTitle}</strong><small>Read inside the FLLM resource viewer ›</small>
                 </a>
               )}
-
               <div className="attorney-modal-actions" data-nosnippet="">
                 <a className="btn btn-gold attorney-modal-call" href={selectedAttorney.phoneHref}><span>Call</span><strong>{selectedAttorney.phone}</strong></a>
                 <a className="btn btn-outline" href={selectedAttorney.profile} target="_blank" rel="noreferrer">Visit Firm Profile ↗</a>
               </div>
-
-              {selectedAttorney.secondaryPhone && selectedAttorney.secondaryPhoneHref && (
-                <a className="attorney-modal-secondary-phone" data-nosnippet="" href={selectedAttorney.secondaryPhoneHref}>{selectedAttorney.secondaryPhone}</a>
-              )}
-
-              <small className="attorney-modal-notice">
-                FLLM does not endorse or guarantee any listed attorney. Practice-focus labels are directory categories, not Florida Bar specialty certifications. Verify credentials, services, fees, and engagement terms independently.
-              </small>
+              {selectedAttorney.secondaryPhone && selectedAttorney.secondaryPhoneHref && <a className="attorney-modal-secondary-phone" data-nosnippet="" href={selectedAttorney.secondaryPhoneHref}>{selectedAttorney.secondaryPhone}</a>}
+              <small className="attorney-modal-notice">FLLM does not endorse or guarantee any listed attorney. Practice-focus labels are directory categories, not Florida Bar specialty certifications. Verify credentials, services, fees, and engagement terms independently.</small>
             </div>
           </section>
         </div>
       )}
 
       <style>{`
-        .attorney-profile-modal-button {
-          width: fit-content;
-          padding: 0;
-          border: 0;
-          background: transparent;
-          font: inherit;
-          text-align: left;
-          cursor: pointer;
-        }
-        .attorney-modal-actions .attorney-modal-call {
-          min-height: 52px;
-          gap: 8px;
-          font-size: 11px !important;
-          font-weight: 900;
-        }
-        .attorney-modal-actions .attorney-modal-call strong {
-          font-size: 16px;
-          line-height: 1;
-          letter-spacing: .025em;
-        }
-        .attorney-modal-secondary-phone {
-          font-size: 14px !important;
-          line-height: 1.45;
-          font-weight: 900 !important;
-        }
-
-        /* Sutton only: enlarge horizontally so the square portrait can be shown whole
-           while the information column becomes shorter. No forced modal height. */
-        .attorney-modal-sutton {
-          width: min(1040px, calc(100vw - 36px));
-          max-height: min(88vh, 760px);
-          grid-template-columns: 430px minmax(0, 1fr);
-          overflow: auto;
-        }
-        .attorney-modal-sutton .attorney-modal-photo {
-          min-height: 0;
-          align-self: start;
-          background: #eef1f4;
-        }
-        .attorney-modal-sutton .attorney-modal-photo img {
-          width: 100%;
-          height: auto;
-          min-height: 0;
-          flex: none;
-          display: block;
-          object-fit: contain;
-          object-position: center top;
-          background: #eef1f4;
-        }
-        .attorney-modal-sutton .attorney-modal-photo small {
-          margin: 0;
-          padding: 11px 13px;
-          background: #020b12;
-          font-size: 10px;
-          line-height: 1.45;
-        }
-        .attorney-modal-sutton .attorney-modal-details {
-          padding: 30px 34px 26px;
-        }
-        .attorney-modal-sutton .attorney-modal-details h2 {
-          font-size: 35px;
-        }
-        .attorney-modal-sutton .attorney-modal-details > p {
-          margin-bottom: 16px;
-          font-size: 13px;
-          line-height: 1.6;
-        }
-        .attorney-modal-sutton .attorney-modal-details ul {
-          margin-bottom: 16px;
-        }
-        .attorney-modal-sutton .attorney-modal-resource span,
-        .attorney-modal-sutton .attorney-modal-resource small {
-          font-size: 11px;
-          line-height: 1.5;
-        }
-        .attorney-modal-sutton .attorney-modal-notice {
-          font-size: 10px;
-          line-height: 1.65;
-        }
-
-        @media (max-width: 860px) {
-          .attorney-modal-sutton {
-            width: min(670px, calc(100vw - 30px));
-            grid-template-columns: 245px minmax(0, 1fr);
-          }
-          .attorney-modal-sutton .attorney-modal-details {
-            padding: 34px 30px 28px;
-          }
-        }
-        @media (max-width: 720px) {
-          .attorney-modal-sutton {
-            grid-template-columns: 1fr;
-            max-height: 88vh;
-          }
-          .attorney-modal-sutton .attorney-modal-photo {
-            max-height: none;
-          }
-          .attorney-modal-sutton .attorney-modal-photo img {
-            width: 100%;
-            height: auto;
-            max-height: none;
-          }
-        }
+        .attorney-profile-modal-button{width:fit-content;padding:0;border:0;background:transparent;font:inherit;text-align:left;cursor:pointer}
+        .attorney-modal-actions .attorney-modal-call{min-height:52px;gap:8px;font-size:11px!important;font-weight:900}
+        .attorney-modal-actions .attorney-modal-call strong{font-size:16px;line-height:1;letter-spacing:.025em}
+        .attorney-modal-secondary-phone{font-size:14px!important;line-height:1.45;font-weight:900!important}
+        .attorney-modal-sutton{width:min(1040px,calc(100vw - 36px));max-height:min(88vh,760px);grid-template-columns:430px minmax(0,1fr);overflow:auto}
+        .attorney-modal-sutton .attorney-modal-photo{min-height:100%;align-self:stretch;display:flex;flex-direction:column;background:#071827}
+        .attorney-modal-sutton .attorney-modal-photo>img{width:100%;height:auto;min-height:0;flex:none;display:block;object-fit:contain;object-position:center top;background:#eef1f4}
+        .attorney-modal-sutton-logo-panel{flex:1 1 auto;min-height:210px;display:flex;align-items:center;justify-content:center;padding:30px 36px;border-top:1px solid #f6a700;background:linear-gradient(180deg,#123550 0%,#09243a 100%)}
+        .attorney-modal-sutton-logo-panel img{display:block;max-width:82%;max-height:170px;width:auto;height:auto;object-fit:contain}
+        .attorney-modal-sutton .attorney-modal-details{padding:30px 34px 26px}
+        .attorney-modal-sutton .attorney-modal-details h2{font-size:35px}
+        .attorney-modal-sutton .attorney-modal-details>p{margin-bottom:16px;font-size:13px;line-height:1.6}
+        .attorney-modal-sutton .attorney-modal-details ul{margin-bottom:16px}
+        .attorney-modal-sutton .attorney-modal-resource span,.attorney-modal-sutton .attorney-modal-resource small{font-size:11px;line-height:1.5}
+        .attorney-modal-sutton .attorney-modal-notice{font-size:10px;line-height:1.65}
+        @media(max-width:860px){.attorney-modal-sutton{width:min(670px,calc(100vw - 30px));grid-template-columns:245px minmax(0,1fr)}.attorney-modal-sutton .attorney-modal-details{padding:34px 30px 28px}.attorney-modal-sutton-logo-panel{min-height:150px;padding:22px}}
+        @media(max-width:720px){.attorney-modal-sutton{grid-template-columns:1fr;max-height:88vh}.attorney-modal-sutton .attorney-modal-photo{min-height:0}.attorney-modal-sutton-logo-panel{min-height:130px}.attorney-modal-sutton .attorney-modal-photo>img{width:100%;height:auto;max-height:none}}
       `}</style>
     </>
   );
