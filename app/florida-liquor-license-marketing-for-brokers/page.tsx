@@ -9,15 +9,15 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-marketing-for-brokers`;
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Marketing for Brokers | FLLM",
+  title: "Broker Advertising for Client Liquor Licenses | FLLM",
   description:
-    "A Florida liquor license marketing guide for brokers. Learn how to advertise client 4COP quota and 3PS licenses through FLLM while keeping the client relationship and commission.",
+    "A marketplace advertising guide for independent brokers listing client 4COP quota and 3PS licenses on FLLM while retaining the client relationship and commission.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "article",
     url: canonicalUrl,
-    title: "Florida Liquor License Marketing for Brokers | FLLM",
+    title: "Broker Advertising for Client Liquor Licenses | FLLM",
     description:
       "How Florida liquor license brokers can market client inventory through a specialized statewide marketplace while remaining the listing representative.",
     siteName: "Florida Liquor License Market",
@@ -57,11 +57,11 @@ export default function FloridaLiquorLicenseMarketingForBrokersPage() {
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "Florida Liquor License Marketing for Brokers",
+      headline: "Broker Advertising for Client Florida Liquor Licenses",
       description:
         "A guide to marketing client 4COP quota and 3PS Florida liquor licenses through a specialized statewide marketplace while the broker remains the listing representative.",
       datePublished: "2026-09-05",
-      dateModified: "2026-09-05",
+      dateModified: "2026-09-09",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market" },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -163,8 +163,8 @@ export default function FloridaLiquorLicenseMarketingForBrokersPage() {
           </div>
           <div className="seo-market-hero-grid">
             <div>
-              <span className="seo-market-kicker">Florida Broker Marketing Guide</span>
-              <h1>Florida Liquor License Marketing for Brokers</h1>
+              <span className="seo-market-kicker">Independent Broker Advertising Guide</span>
+              <h1>Advertise a Client’s Florida Liquor License on FLLM</h1>
               <p>
                 A specialized liquor-license marketplace gives Florida brokers another way to expose client inventory without replacing the broker relationship. FLLM lets an independent broker advertise a client&apos;s 4COP quota or 3PS license while the broker remains the identified representative and transaction contact.
               </p>
