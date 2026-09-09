@@ -187,6 +187,8 @@ export default function AttorneyDirectory() {
     setSelectedAttorney(attorney);
   }
 
+  const isSutton = selectedAttorney?.name === "James H. Sutton, Jr., CPA, Esq.";
+
   return (
     <>
       <section className="attorney-grid page-shell" id="attorney-directory" aria-label="Attorney directory">
@@ -266,7 +268,7 @@ export default function AttorneyDirectory() {
           }}
         >
           <section
-            className="attorney-modal"
+            className={`attorney-modal${isSutton ? " attorney-modal-sutton" : ""}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="attorney-modal-title"
@@ -281,7 +283,7 @@ export default function AttorneyDirectory() {
               ×
             </button>
 
-            <div className="attorney-modal-photo">
+            <div className={`attorney-modal-photo${isSutton ? " attorney-modal-photo-sutton" : ""}`}>
               {selectedAttorney.image ? (
                 <>
                   <img src={selectedAttorney.image} alt={`Portrait of ${selectedAttorney.name}`} />
@@ -352,28 +354,6 @@ export default function AttorneyDirectory() {
           text-align: left;
           cursor: pointer;
         }
-        .attorney-modal {
-          height: min(650px, calc(100vh - 36px));
-          max-height: none !important;
-        }
-        .attorney-modal-photo {
-          min-height: 0 !important;
-          background: linear-gradient(180deg, #f4f6f7 0%, #e5eaed 100%) !important;
-          overflow: hidden;
-        }
-        .attorney-modal-photo img {
-          width: 100% !important;
-          height: calc(100% - 34px) !important;
-          min-height: 0 !important;
-          flex: 1 1 auto !important;
-          object-fit: contain !important;
-          object-position: center top !important;
-          background: linear-gradient(180deg, #f4f6f7 0%, #e5eaed 100%);
-        }
-        .attorney-modal-photo small {
-          margin-top: auto;
-          background: #020b12;
-        }
         .attorney-modal-actions .attorney-modal-call {
           min-height: 52px;
           gap: 8px;
@@ -390,13 +370,37 @@ export default function AttorneyDirectory() {
           line-height: 1.45;
           font-weight: 900 !important;
         }
+        .attorney-modal-sutton {
+          width: min(900px, calc(100vw - 36px));
+          max-height: min(88vh, 720px);
+          grid-template-columns: 360px minmax(0, 1fr);
+          align-items: start;
+          overflow: auto;
+        }
+        .attorney-modal-photo-sutton {
+          min-height: 0;
+          align-self: start;
+          background: #f2f4f6;
+        }
+        .attorney-modal-photo-sutton img {
+          width: 100%;
+          height: auto;
+          min-height: 0;
+          flex: 0 0 auto;
+          object-fit: contain;
+          object-position: center top;
+          background: #f2f4f6;
+        }
+        .attorney-modal-photo-sutton small {
+          background: #020b12;
+        }
         @media (max-width: 720px) {
-          .attorney-modal {
-            height: auto;
-            max-height: 88vh !important;
+          .attorney-modal-sutton {
+            width: min(670px, calc(100vw - 30px));
+            max-height: 88vh;
+            grid-template-columns: 1fr;
           }
-          .attorney-modal-photo img {
-            height: auto !important;
+          .attorney-modal-photo-sutton img {
             max-height: 360px;
           }
         }
