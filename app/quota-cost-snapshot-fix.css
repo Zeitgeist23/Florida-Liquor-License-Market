@@ -34,6 +34,131 @@ body:has(.quota-cost-table-wrap) .seo-market-snapshot-grid > div:nth-child(4) st
   white-space: nowrap;
 }
 
+/* FDOR page readability pass: preserve the FLLM layout, but make the supporting copy easier to read. */
+body:has(.fdor-page) .fdor-breadcrumbs {
+  font-size: 14px;
+}
+
+body:has(.fdor-page) .fdor-eyebrow,
+body:has(.fdor-page) .fdor-intro span,
+body:has(.fdor-page) .fdor-process-copy > span,
+body:has(.fdor-page) .fdor-hardcopy > div:first-child > span {
+  font-size: 14px;
+}
+
+body:has(.fdor-page) .fdor-hero p {
+  max-width: 860px;
+  font-size: 17px;
+  line-height: 1.72;
+}
+
+body:has(.fdor-page) .fdor-hero-actions .btn {
+  font-size: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+body:has(.fdor-page) .fdor-intro p,
+body:has(.fdor-page) .fdor-process p,
+body:has(.fdor-page) .fdor-hardcopy p {
+  font-size: 17px;
+  line-height: 1.72;
+}
+
+body:has(.fdor-page) .fdor-resource-card > p {
+  font-size: 16px;
+  line-height: 1.68;
+}
+
+body:has(.fdor-page) .fdor-resource-card ul,
+body:has(.fdor-page) .fdor-clean-title-guide ul {
+  font-size: 15px;
+  line-height: 1.62;
+}
+
+body:has(.fdor-page) .fdor-card-label span,
+body:has(.fdor-page) .fdor-card-label small {
+  font-size: 13px;
+}
+
+body:has(.fdor-page) .fdor-text-link,
+body:has(.fdor-page) .fdor-browser-note,
+body:has(.fdor-page) .fdor-use-note strong,
+body:has(.fdor-page) .fdor-use-note span {
+  font-size: 14px;
+}
+
+body:has(.fdor-page) .fdor-process-steps span,
+body:has(.fdor-page) .fdor-clean-title-guide aside,
+body:has(.fdor-page) .fdor-map-card > div span {
+  font-size: 15px;
+}
+
+body:has(.fdor-page) .fdor-hardcopy .fdor-guide-intro p,
+body:has(.fdor-page) .fdor-hardcopy .fdor-guide-checklist p,
+body:has(.fdor-page) .fdor-hardcopy .fdor-clean-title-guide article p {
+  font-size: 16px;
+}
+
+/* Make the assessment-dispute article read as a distinct FLLM editorial section. */
+body:has(.fdor-page) #fdor-assessment-disputes {
+  scroll-margin-top: 120px;
+  margin-top: 34px;
+  margin-bottom: 34px;
+  padding: 48px !important;
+  border: 1px solid rgba(246, 167, 0, .52);
+  border-top: 4px solid #f6a700;
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(12, 38, 58, .98), rgba(4, 18, 29, .98));
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .28);
+}
+
+body:has(.fdor-page) #fdor-assessment-disputes:target {
+  box-shadow: 0 0 0 2px rgba(246, 167, 0, .28), 0 28px 70px rgba(0, 0, 0, .36);
+}
+
+body:has(.fdor-page) #fdor-assessment-disputes > div {
+  max-width: 1080px !important;
+}
+
+body:has(.fdor-page) #fdor-assessment-disputes > div > h2 {
+  margin: 10px 0 18px !important;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 4vw, 46px);
+  line-height: 1.08;
+}
+
+body:has(.fdor-page) #fdor-assessment-disputes > div > p {
+  color: #d5dfe5;
+  font-size: 18px !important;
+  line-height: 1.75 !important;
+}
+
+body:has(.fdor-page) #fdor-assessment-disputes .fdor-resource-card h2 {
+  font-size: 30px;
+}
+
+body:has(.fdor-page) #fdor-assessment-disputes .fdor-resource-card > p {
+  font-size: 17px;
+}
+
+body:has(.fdor-page) #fdor-assessment-disputes .fdor-resource-card ul {
+  font-size: 16px;
+}
+
+body:has(.fdor-page) #fdor-assessment-disputes > div > small {
+  color: #bfcbd3;
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  body:has(.fdor-page) #fdor-assessment-disputes {
+    padding: 28px 20px !important;
+    scroll-margin-top: 90px;
+  }
+}
+
 @media (max-width: 640px) {
   body:has(.quota-cost-table-wrap) .seo-market-snapshot-grid > div:nth-child(3) strong {
     font-size: clamp(20px, 6vw, 25px);
