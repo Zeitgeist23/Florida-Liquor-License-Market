@@ -7,7 +7,7 @@ import "./florida-department-of-revenue.css";
 export const metadata: Metadata = {
   title: "Florida Department of Revenue Forms and Tax Clearance | FLLM",
   description:
-    "Access Florida Department of Revenue Form DR-835, tax-clearance requests, certificates of compliance, and alcoholic-beverage license approval guidance.",
+    "Access Florida Department of Revenue Form DR-835, tax-clearance requests, certificates of compliance, alcoholic-beverage license approval guidance, and an overview of FDOR assessment protests and DOAH appeals.",
 };
 
 const clearanceRequestUrl = "https://taxapp.floridarevenue.com/TaxClearanceLetter/";
@@ -30,11 +30,13 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
           <h1>Florida Department of Revenue Forms and Tax Clearance</h1>
           <p>
             Locate the Florida Department of Revenue power-of-attorney form, request a Tax
-            Clearance Letter or Certificate of Compliance, and review the separate FDOR approval
-            process used with alcoholic-beverage license applications.
+            Clearance Letter or Certificate of Compliance, review the separate FDOR approval
+            process used with alcoholic-beverage license applications, and understand the basic
+            paths for challenging an FDOR assessment.
           </p>
           <div className="fdor-hero-actions">
             <a className="btn btn-gold" href="#fdor-forms">View Forms and Requests</a>
+            <a className="btn btn-outline" href="#fdor-assessment-disputes">Assessment Disputes</a>
             <a
               className="btn btn-outline"
               href="https://floridarevenue.com/taxes/compliance/Pages/ablicenseapproval.aspx"
@@ -78,7 +80,7 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
           <div className="fdor-card-actions">
             <a
               className="btn btn-gold"
-                  href="/api/fdor/dr835/pdf?v=complete-3"
+              href="/api/fdor/dr835/pdf?v=complete-3"
               target="_blank"
               rel="noreferrer"
             >
@@ -113,12 +115,7 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
             <strong>Most relevant when:</strong>
             <span>A business or business interest is being bought or sold.</span>
           </div>
-          <a
-            className="btn btn-gold"
-            href={clearanceRequestUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a className="btn btn-gold" href={clearanceRequestUrl} target="_blank" rel="noreferrer">
             Request Certificate Online ↗
           </a>
         </article>
@@ -137,12 +134,7 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
             <strong>Important distinction:</strong>
             <span>Select the request type that matches the intended use on the FDOR form.</span>
           </div>
-          <a
-            className="btn btn-gold"
-            href={clearanceRequestUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a className="btn btn-gold" href={clearanceRequestUrl} target="_blank" rel="noreferrer">
             Request Clearance Letter Online ↗
           </a>
         </article>
@@ -167,18 +159,87 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
           </a>
         </div>
         <div className="fdor-process-steps">
-          <div>
-            <b>1</b>
-            <span>Register for Florida sales and use tax when required.</span>
+          <div><b>1</b><span>Register for Florida sales and use tax when required.</span></div>
+          <div><b>2</b><span>Complete and sign the applicable alcoholic-beverage license application.</span></div>
+          <div><b>3</b><span>Follow FDOR’s current submission and local-service-center instructions.</span></div>
+        </div>
+      </section>
+
+      <section
+        id="fdor-assessment-disputes"
+        className="page-shell"
+        aria-labelledby="fdor-assessment-disputes-heading"
+        style={{ paddingTop: "56px", paddingBottom: "56px" }}
+      >
+        <div style={{ maxWidth: "920px", margin: "0 auto" }}>
+          <span className="fdor-eyebrow">FDOR assessment disputes</span>
+          <h2 id="fdor-assessment-disputes-heading" style={{ marginTop: "10px" }}>
+            Informal protest or formal administrative appeal: know which track applies
+          </h2>
+          <p style={{ fontSize: "17px", lineHeight: 1.7 }}>
+            A Florida tax assessment can create a separate problem from liquor-license transfer or
+            tax-clearance work. When FDOR issues a proposed assessment, taxpayers may have more than
+            one procedural path for challenging it. The correct route depends on the notice,
+            deadline, disputed facts, legal issues, and the taxpayer’s objectives.
+          </p>
+
+          <div className="fdor-resource-grid" style={{ marginTop: "26px" }}>
+            <article className="fdor-resource-card fdor-card-featured">
+              <div className="fdor-card-label"><span>Track 1</span><small>FDOR review</small></div>
+              <h2>The informal protest</h2>
+              <p>
+                An informal protest gives the taxpayer an opportunity to ask FDOR to reconsider a
+                proposed assessment before resorting to a formal administrative proceeding. It is
+                often the first place to organize the factual record, identify errors, present
+                supporting documents, and narrow the issues in dispute.
+              </p>
+              <ul>
+                <li>Review the proposed assessment and the protest deadline immediately.</li>
+                <li>Identify factual, computational, classification, and legal issues separately.</li>
+                <li>Support disputed items with records rather than relying only on argument.</li>
+                <li>Preserve all notices, correspondence, workpapers, and proof of timely filing.</li>
+              </ul>
+            </article>
+
+            <article className="fdor-resource-card">
+              <div className="fdor-card-label"><span>Track 2</span><small>Formal proceeding</small></div>
+              <h2>Formal administrative appeal and DOAH</h2>
+              <p>
+                A contested assessment may proceed through Florida’s formal administrative process.
+                Depending on the posture of the matter, that can involve a petition, agency counsel,
+                discovery, settlement discussions, and an evidentiary hearing before an
+                administrative law judge at the Division of Administrative Hearings (DOAH).
+              </p>
+              <ul>
+                <li>Formal proceedings use procedural rules and filing requirements.</li>
+                <li>Evidence and preservation of the administrative record become especially important.</li>
+                <li>Legal representation may be appropriate where the exposure or legal issues are significant.</li>
+                <li>Do not assume that an informal conference automatically preserves every formal remedy.</li>
+              </ul>
+            </article>
           </div>
-          <div>
-            <b>2</b>
-            <span>Complete and sign the applicable alcoholic-beverage license application.</span>
+
+          <div className="fdor-use-note" style={{ marginTop: "22px" }}>
+            <strong>Deadline warning:</strong>
+            <span>
+              Assessment notices can carry short, legally significant response periods. The exact
+              deadline and available procedure should be confirmed from the notice itself and current
+              Florida law. Missing a deadline can materially limit the available challenge.
+            </span>
           </div>
-          <div>
-            <b>3</b>
-            <span>Follow FDOR’s current submission and local-service-center instructions.</span>
-          </div>
+
+          <p style={{ marginTop: "20px", lineHeight: 1.7 }}>
+            For liquor-license buyers, sellers, and lenders, an unresolved FDOR assessment can also
+            affect transaction diligence, successor-liability analysis, escrow requirements, tax
+            clearance, and closing timing. Treat the assessment dispute and the liquor-license
+            transaction as related workstreams, but do not assume that resolving one automatically
+            resolves the other.
+          </p>
+          <small style={{ display: "block", marginTop: "14px", lineHeight: 1.6 }}>
+            Educational overview only; not legal or tax advice. Procedures vary by tax type, notice,
+            procedural posture, and current law. Consult the applicable FDOR notice, Florida statutes
+            and rules, and qualified counsel or tax professionals when necessary.
+          </small>
         </div>
       </section>
 
@@ -253,45 +314,23 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
           <strong>Florida Department of Revenue</strong>
           <span>PO Box 8045</span>
           <span>Tallahassee, Florida 32314-8045</span>
-          <span className="fdor-contact-line">
-            <b>Taxpayer Assistance:</b>
-            <a href="tel:+18504886800">850-488-6800</a>
-          </span>
+          <span className="fdor-contact-line"><b>Taxpayer Assistance:</b><a href="tel:+18504886800">850-488-6800</a></span>
           <small>Tax-clearance request fax: 850-922-5254</small>
-          <a
-            href="https://floridarevenue.com/taxes/compliance/Pages/tax_clearance.aspx"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href="https://floridarevenue.com/taxes/compliance/Pages/tax_clearance.aspx" target="_blank" rel="noreferrer">
             Verify current instructions with FDOR ↗
           </a>
           <div className="fdor-map-card">
-            <div>
-              <strong>FDOR Tallahassee office</strong>
-              <span>2450 Shumard Oak Boulevard, Tallahassee, FL 32311</span>
-            </div>
-            <iframe
-              title="Map of the Florida Department of Revenue Tallahassee office"
-              src="https://www.google.com/maps?q=Florida+Department+of+Revenue,+2450+Shumard+Oak+Boulevard,+Tallahassee,+FL+32311&output=embed"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+            <div><strong>FDOR Tallahassee office</strong><span>2450 Shumard Oak Boulevard, Tallahassee, FL 32311</span></div>
+            <iframe title="Map of the Florida Department of Revenue Tallahassee office" src="https://www.google.com/maps?q=Florida+Department+of+Revenue,+2450+Shumard+Oak+Boulevard,+Tallahassee,+FL+32311&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
           </div>
           <div className="fdor-map-card">
             <div>
               <strong>FDOR Jacksonville Taxpayer Service Center</strong>
               <span>921 N Davis Street, Suite 250A, Jacksonville, FL 32209-6829</span>
-              <a className="fdor-office-phone" href="tel:+19043596070">
-                Jacksonville office: 904-359-6070
-              </a>
+              <a className="fdor-office-phone" href="tel:+19043596070">Jacksonville office: 904-359-6070</a>
               <span>Open 8 a.m.–5 p.m. Eastern Time</span>
             </div>
-            <iframe
-              title="Map of the Florida Department of Revenue Jacksonville Taxpayer Service Center"
-              src="https://www.google.com/maps?q=Florida+Department+of+Revenue,+921+N+Davis+Street,+Suite+250A,+Jacksonville,+FL+32209-6829&output=embed"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+            <iframe title="Map of the Florida Department of Revenue Jacksonville Taxpayer Service Center" src="https://www.google.com/maps?q=Florida+Department+of+Revenue,+921+N+Davis+Street,+Suite+250A,+Jacksonville,+FL+32209-6829&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
           </div>
         </div>
       </section>
@@ -320,4 +359,3 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
     </main>
   );
 }
-
