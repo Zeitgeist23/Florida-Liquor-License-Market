@@ -107,7 +107,7 @@ export default async function ExchangeBoardPage() {
 
       <section className="hero-shell" aria-label="FLLM Exchange trading floor">
         <img
-          src="/assets/fllm-exchange-board-hero-approved.jpg?v=2"
+          src="/assets/fllm-exchange-board-hero-approved.jpg?v=3"
           width="2048"
           height="682"
           alt="FLLM Exchange trading floor with brokers, market displays and Florida Liquor Licenses Trade Here banner"
