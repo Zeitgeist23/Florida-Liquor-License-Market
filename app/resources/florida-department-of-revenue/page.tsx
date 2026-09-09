@@ -5,6 +5,9 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 import "../forms/abt-forms.css";
 import "./florida-department-of-revenue.css";
 
+const suttonProfile = "https://www.floridasalestax.com/staff-profiles/james-h-sutton-jr-cpa-esq-/";
+const suttonPhoto = "https://www.floridasalestax.com/cms/thumbnails/34/415x415/images/James-Sutton-Low-Res.1402260810550.jpg";
+
 export const metadata: Metadata = {
   title: "Florida Department of Revenue Forms, Tax Clearance and Disputes | FLLM",
   description:
@@ -225,14 +228,39 @@ export default function FloridaDepartmentOfRevenueResourcesPage() {
             </article>
           </div>
         </div>
-        <div className="fdor-mailing-card">
-          <strong>FLLM FDOR Resource Center</strong>
-          <span>DR-835 Power of Attorney</span>
-          <span>Certificate of Compliance</span>
-          <span>Tax Clearance Letter</span>
-          <span>Beverage-License Approval</span>
-          <span>Assessment Disputes and DOAH</span>
-          <small>Use the internal FLLM guides above before leaving the marketplace for filing or professional advice.</small>
+        <div style={{display:"grid", gap:"18px", alignContent:"start"}}>
+          <div className="fdor-mailing-card">
+            <strong>FLLM FDOR Resource Center</strong>
+            <span>DR-835 Power of Attorney</span>
+            <span>Certificate of Compliance</span>
+            <span>Tax Clearance Letter</span>
+            <span>Beverage-License Approval</span>
+            <span>Assessment Disputes and DOAH</span>
+            <small>Use the internal FLLM guides above before leaving the marketplace for filing or professional advice.</small>
+          </div>
+
+          <aside style={{border:"1px solid #415b6d", borderTop:"3px solid #f6a700", borderRadius:"8px", overflow:"hidden", background:"#081722"}} aria-label="Florida tax counsel profile">
+            <div style={{display:"grid", gridTemplateColumns:"118px minmax(0,1fr)", gap:"16px", alignItems:"stretch"}}>
+              <img src={suttonPhoto} alt="James H. Sutton, Jr., CPA, Esq." style={{display:"block", width:"118px", height:"154px", objectFit:"cover", objectPosition:"center top", background:"#eef1f4"}} />
+              <div style={{padding:"16px 16px 12px 0"}}>
+                <span style={{display:"block", color:"#f6a700", fontSize:"10px", fontWeight:900, letterSpacing:".1em", textTransform:"uppercase"}}>Florida tax controversy counsel</span>
+                <h3 style={{margin:"5px 0 3px", color:"#fff", fontFamily:"Georgia, 'Times New Roman', serif", fontSize:"22px", lineHeight:1.08}}>James H. Sutton, Jr., CPA, Esq.</h3>
+                <strong style={{display:"block", color:"#f6a700", fontSize:"12px", lineHeight:1.35}}>Law Offices of Moffa, Sutton &amp; Donnini, P.A.</strong>
+                <small style={{display:"block", marginTop:"4px", color:"#9dadb8"}}>Tampa · Statewide Florida tax matters</small>
+              </div>
+            </div>
+            <div style={{padding:"14px 16px 16px"}}>
+              <p style={{margin:"0 0 12px", color:"#c8d2d9", fontSize:"13px", lineHeight:1.6}}>
+                Mr. Sutton is a Florida State and Local Tax attorney and CPA whose published practice focuses heavily on Florida sales-and-use-tax controversy, including FDOR audits, protests, petitions for reconsideration, administrative hearings, collections, refunds, and related disputes.
+              </p>
+              <div style={{display:"flex", flexWrap:"wrap", gap:"8px"}} data-nosnippet="">
+                <a className="btn btn-gold" href="tel:+18137752131">Call 813-775-2131</a>
+                <a className="btn btn-outline" href={suttonProfile} target="_blank" rel="noreferrer">View Attorney Profile ↗</a>
+                <Link className="btn btn-outline" href="/resources/liquor-license-attorneys">Lawyer Directory</Link>
+              </div>
+              <small style={{display:"block", marginTop:"10px", color:"#7f929f", lineHeight:1.45}}>Profile information is drawn from the attorney&apos;s public firm profile. Inclusion is informational only and is not an endorsement or referral.</small>
+            </div>
+          </aside>
         </div>
       </section>
 
