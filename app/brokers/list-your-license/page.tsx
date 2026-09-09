@@ -11,15 +11,15 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/brokers/list-your-license`;
 
 export const metadata: Metadata = {
-  title: "List a Florida Liquor License | Broker Listings | FLLM",
+  title: "Advertise a Client’s Liquor License | FLLM Broker Marketplace",
   description:
-    "Florida liquor license brokers can list client 4COP quota and 3PS licenses on FLLM. One-time listings from $14.95, no recurring fees, no FLLM commission.",
+    "Independent brokers can advertise client 4COP quota and 3PS licenses on the FLLM marketplace. One-time listings from $14.95 with no recurring fee or FLLM commission share.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "List a Florida Liquor License | Broker Listings | FLLM",
+    title: "Advertise a Client’s Liquor License | FLLM Broker Marketplace",
     description:
       "Advertise a client’s Florida liquor license on FLLM while remaining the listing representative and transaction contact.",
     siteName: "Florida Liquor License Market",
@@ -90,11 +90,11 @@ export default function BrokerListYourLicensePage() {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "List a Florida Liquor License | Broker Listings | FLLM",
+      name: "Advertise a Client’s Liquor License | FLLM Broker Marketplace",
       url: canonicalUrl,
       description:
         "Florida liquor license broker marketplace page for listing and advertising client 4COP quota and 3PS licenses for sale.",
-      dateModified: "2026-09-05",
+      dateModified: "2026-09-09",
       publisher: {
         "@type": "Organization",
         name: "Florida Liquor License Market",
@@ -377,7 +377,7 @@ export default function BrokerListYourLicensePage() {
         <div className={styles.shell}>
           <div className="broker-organic-grid">
             <div className="broker-organic-copy">
-              <span>Florida Liquor License Broker Listings</span>
+              <span>Client Liquor License Advertising</span>
               <h2 id="broker-marketplace-seo-heading">Advertise a Florida liquor license for sale while keeping the broker relationship</h2>
               <p>
                 FLLM gives Florida liquor license brokers a direct way to list and advertise client inventory in a specialized statewide marketplace. The broker remains the identified representative and transaction contact, while buyers can discover the license through FLLM&apos;s marketplace, license-type pages and county market pages.
