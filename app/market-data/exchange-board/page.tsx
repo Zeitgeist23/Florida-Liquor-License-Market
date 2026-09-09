@@ -39,11 +39,24 @@ function licenseType(type: string) {
 
 function getHeroSrc() {
   try {
-    const encoded = readFileSync(
+    const file = readFileSync(
       join(process.cwd(), "public/assets/fllm-exchange-board-header-live.png"),
-      "utf8",
-    ).replace(/\s+/g, "");
-    return `data:image/png;base64,${encoded}`;
+    );
+
+    const pngSignature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+
+    if (file.subarray(0, 8).equals(pngSignature)) {
+      return `data:image/png;base64,${file.toString("base64")}`;
+    }
+
+    const encoded = file.toString("utf8").replace(/\s+/g, "");
+    const decoded = Buffer.from(encoded, "base64");
+
+    if (decoded.subarray(0, 8).equals(pngSignature)) {
+      return `data:image/png;base64,${decoded.toString("base64")}`;
+    }
+
+    return "";
   } catch {
     return "";
   }
