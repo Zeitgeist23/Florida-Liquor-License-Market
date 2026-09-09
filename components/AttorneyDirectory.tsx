@@ -167,13 +167,16 @@ export default function AttorneyDirectory() {
 
   useEffect(() => {
     if (!selectedAttorney) return;
+
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     closeButtonRef.current?.focus();
+
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setSelectedAttorney(null);
     };
     window.addEventListener("keydown", closeOnEscape);
+
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", closeOnEscape);
@@ -188,47 +191,215 @@ export default function AttorneyDirectory() {
     <>
       <section className="attorney-grid page-shell" id="attorney-directory" aria-label="Attorney directory">
         {attorneys.map((attorney) => (
-          <article className="attorney-card" key={attorney.name} role="button" tabIndex={0} aria-haspopup="dialog" aria-label={`View details for ${attorney.name}`} onClick={(event) => { if ((event.target as HTMLElement).closest("a,button")) return; openAttorney(attorney); }} onKeyDown={(event) => { if ((event.key === "Enter" || event.key === " ") && event.target === event.currentTarget) { event.preventDefault(); openAttorney(attorney); } }}>
-            <div className="attorney-card-heading"><span aria-hidden="true">{getInitials(attorney.name)}</span><div><h2>{attorney.name}</h2><strong>{attorney.firm}</strong><small>{attorney.location}</small></div></div>
+          <article
+            className="attorney-card"
+            key={attorney.name}
+            role="button"
+            tabIndex={0}
+            aria-haspopup="dialog"
+            aria-label={`View details for ${attorney.name}`}
+            onClick={(event) => {
+              if ((event.target as HTMLElement).closest("a,button")) return;
+              openAttorney(attorney);
+            }}
+            onKeyDown={(event) => {
+              if ((event.key === "Enter" || event.key === " ") && event.target === event.currentTarget) {
+                event.preventDefault();
+                openAttorney(attorney);
+              }
+            }}
+          >
+            <div className="attorney-card-heading">
+              <span aria-hidden="true">{getInitials(attorney.name)}</span>
+              <div>
+                <h2>{attorney.name}</h2>
+                <strong>{attorney.firm}</strong>
+                <small>{attorney.location}</small>
+              </div>
+            </div>
+
             <span className="attorney-practice-badge">{attorney.category}</span>
-            <ul>{attorney.services.map((service) => <li key={service}>{service}</li>)}</ul>
-            <div className="attorney-contact" data-nosnippet=""><a className="attorney-phone" href={attorney.phoneHref}><span>Call</span><strong>{attorney.phone}</strong></a>{attorney.secondaryPhone && attorney.secondaryPhoneHref && <a className="attorney-secondary-phone" href={attorney.secondaryPhoneHref}>{attorney.secondaryPhone}</a>}</div>
-            <button type="button" className="attorney-profile-link attorney-profile-modal-button" onClick={(event) => { event.stopPropagation(); openAttorney(attorney); }}>View full FLLM profile <span aria-hidden="true">›</span></button>
-            {attorney.publishedResourceTitle && attorney.publishedResourceUrl && <a className="attorney-published-resource" href={attorney.publishedResourceUrl}><span>{attorney.publishedResourceLabel ?? "Published resource"}</span><strong>{attorney.publishedResourceTitle}</strong><em aria-hidden="true">›</em></a>}
+
+            <ul>
+              {attorney.services.map((service) => <li key={service}>{service}</li>)}
+            </ul>
+
+            <div className="attorney-contact" data-nosnippet="">
+              <a className="attorney-phone" href={attorney.phoneHref}>
+                <span>Call</span>
+                <strong>{attorney.phone}</strong>
+              </a>
+              {attorney.secondaryPhone && attorney.secondaryPhoneHref && (
+                <a className="attorney-secondary-phone" href={attorney.secondaryPhoneHref}>
+                  {attorney.secondaryPhone}
+                </a>
+              )}
+            </div>
+
+            <button
+              type="button"
+              className="attorney-profile-link attorney-profile-modal-button"
+              onClick={(event) => {
+                event.stopPropagation();
+                openAttorney(attorney);
+              }}
+            >
+              View full FLLM profile <span aria-hidden="true">›</span>
+            </button>
+            {attorney.publishedResourceTitle && attorney.publishedResourceUrl && (
+              <a className="attorney-published-resource" href={attorney.publishedResourceUrl}>
+                <span>{attorney.publishedResourceLabel ?? "Published resource"}</span>
+                <strong>{attorney.publishedResourceTitle}</strong>
+                <em aria-hidden="true">›</em>
+              </a>
+            )}
             <span className="attorney-card-hint">Click the card for full FLLM details</span>
           </article>
         ))}
       </section>
 
       {selectedAttorney && (
-        <div className="attorney-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedAttorney(null); }}>
-          <section className="attorney-modal" role="dialog" aria-modal="true" aria-labelledby="attorney-modal-title">
-            <button ref={closeButtonRef} className="attorney-modal-close" type="button" aria-label="Close attorney details" onClick={() => setSelectedAttorney(null)}>×</button>
+        <div
+          className="attorney-modal-backdrop"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setSelectedAttorney(null);
+          }}
+        >
+          <section
+            className="attorney-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="attorney-modal-title"
+          >
+            <button
+              ref={closeButtonRef}
+              className="attorney-modal-close"
+              type="button"
+              aria-label="Close attorney details"
+              onClick={() => setSelectedAttorney(null)}
+            >
+              ×
+            </button>
+
             <div className="attorney-modal-photo">
-              {selectedAttorney.image ? <><img src={selectedAttorney.image} alt={`Portrait of ${selectedAttorney.name}`} /><small>{selectedAttorney.imageCredit ?? "Portrait from attorney or firm website"}</small></> : <><div className="attorney-modal-monogram" aria-hidden="true">{getInitials(selectedAttorney.name)}</div><small>Visit the firm profile for attorney information.</small></>}
+              {selectedAttorney.image ? (
+                <>
+                  <img src={selectedAttorney.image} alt={`Portrait of ${selectedAttorney.name}`} />
+                  <small>{selectedAttorney.imageCredit ?? "Portrait from attorney or firm website"}</small>
+                </>
+              ) : (
+                <>
+                  <div className="attorney-modal-monogram" aria-hidden="true">{getInitials(selectedAttorney.name)}</div>
+                  <small>Visit the firm profile for attorney information.</small>
+                </>
+              )}
             </div>
+
             <div className="attorney-modal-details">
               <span className="attorney-modal-eyebrow">Attorney directory profile</span>
               <h2 id="attorney-modal-title">{selectedAttorney.name}</h2>
               <strong>{selectedAttorney.firm}</strong>
               <p>{selectedAttorney.location}</p>
               <span className="attorney-modal-practice-badge">{selectedAttorney.category}</span>
+
               <h3>Published practice information</h3>
-              <ul>{selectedAttorney.services.map((service) => <li key={service}>{service}</li>)}</ul>
-              {selectedAttorney.publishedResourceTitle && selectedAttorney.publishedResourceUrl && <a className="attorney-modal-resource" href={selectedAttorney.publishedResourceUrl}><span>{selectedAttorney.publishedResourceLabel ?? "Published resource"}</span><strong>{selectedAttorney.publishedResourceTitle}</strong><small>Read inside the FLLM resource viewer ›</small></a>}
-              <div className="attorney-modal-actions" data-nosnippet=""><a className="btn btn-gold attorney-modal-call" href={selectedAttorney.phoneHref}><span>Call</span><strong>{selectedAttorney.phone}</strong></a><a className="btn btn-outline" href={selectedAttorney.profile} target="_blank" rel="noreferrer">Visit Firm Profile ↗</a></div>
-              {selectedAttorney.secondaryPhone && selectedAttorney.secondaryPhoneHref && <a className="attorney-modal-secondary-phone" data-nosnippet="" href={selectedAttorney.secondaryPhoneHref}>{selectedAttorney.secondaryPhone}</a>}
-              <small className="attorney-modal-notice">FLLM does not endorse or guarantee any listed attorney. Practice-focus labels are directory categories, not Florida Bar specialty certifications. Verify credentials, services, fees, and engagement terms independently.</small>
+              <ul>
+                {selectedAttorney.services.map((service) => <li key={service}>{service}</li>)}
+              </ul>
+
+              {selectedAttorney.publishedResourceTitle && selectedAttorney.publishedResourceUrl && (
+                <a className="attorney-modal-resource" href={selectedAttorney.publishedResourceUrl}>
+                  <span>{selectedAttorney.publishedResourceLabel ?? "Published resource"}</span>
+                  <strong>{selectedAttorney.publishedResourceTitle}</strong>
+                  <small>Read inside the FLLM resource viewer ›</small>
+                </a>
+              )}
+
+              <div className="attorney-modal-actions" data-nosnippet="">
+                <a className="btn btn-gold attorney-modal-call" href={selectedAttorney.phoneHref}>
+                  <span>Call</span><strong>{selectedAttorney.phone}</strong>
+                </a>
+                <a className="btn btn-outline" href={selectedAttorney.profile} target="_blank" rel="noreferrer">
+                  Visit Firm Profile ↗
+                </a>
+              </div>
+
+              {selectedAttorney.secondaryPhone && selectedAttorney.secondaryPhoneHref && (
+                <a
+                  className="attorney-modal-secondary-phone"
+                  data-nosnippet=""
+                  href={selectedAttorney.secondaryPhoneHref}
+                >
+                  {selectedAttorney.secondaryPhone}
+                </a>
+              )}
+
+              <small className="attorney-modal-notice">
+                FLLM does not endorse or guarantee any listed attorney. Practice-focus labels are directory categories, not Florida Bar specialty certifications. Verify credentials, services, fees, and engagement terms independently.
+              </small>
             </div>
           </section>
         </div>
       )}
 
       <style>{`
-        .attorney-profile-modal-button { width: fit-content; padding: 0; border: 0; background: transparent; font: inherit; text-align: left; cursor: pointer; }
-        .attorney-modal-actions .attorney-modal-call { min-height: 52px; gap: 8px; font-size: 11px !important; font-weight: 900; }
-        .attorney-modal-actions .attorney-modal-call strong { font-size: 16px; line-height: 1; letter-spacing: .025em; }
-        .attorney-modal-secondary-phone { font-size: 14px !important; line-height: 1.45; font-weight: 900 !important; }
+        .attorney-profile-modal-button {
+          width: fit-content;
+          padding: 0;
+          border: 0;
+          background: transparent;
+          font: inherit;
+          text-align: left;
+          cursor: pointer;
+        }
+        .attorney-modal {
+          height: min(650px, calc(100vh - 36px));
+          max-height: none !important;
+        }
+        .attorney-modal-photo {
+          min-height: 0 !important;
+          background: linear-gradient(180deg, #f4f6f7 0%, #e5eaed 100%) !important;
+          overflow: hidden;
+        }
+        .attorney-modal-photo img {
+          width: 100% !important;
+          height: calc(100% - 34px) !important;
+          min-height: 0 !important;
+          flex: 1 1 auto !important;
+          object-fit: contain !important;
+          object-position: center top !important;
+          background: linear-gradient(180deg, #f4f6f7 0%, #e5eaed 100%);
+        }
+        .attorney-modal-photo small {
+          margin-top: auto;
+          background: #020b12;
+        }
+        .attorney-modal-actions .attorney-modal-call {
+          min-height: 52px;
+          gap: 8px;
+          font-size: 11px !important;
+          font-weight: 900;
+        }
+        .attorney-modal-actions .attorney-modal-call strong {
+          font-size: 16px;
+          line-height: 1;
+          letter-spacing: .025em;
+        }
+        .attorney-modal-secondary-phone {
+          font-size: 14px !important;
+          line-height: 1.45;
+          font-weight: 900 !important;
+        }
+        @media (max-width: 720px) {
+          .attorney-modal {
+            height: auto;
+            max-height: 88vh !important;
+          }
+          .attorney-modal-photo img {
+            height: auto !important;
+            max-height: 360px;
+          }
+        }
       `}</style>
     </>
   );
