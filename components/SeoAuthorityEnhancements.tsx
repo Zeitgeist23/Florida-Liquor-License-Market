@@ -72,6 +72,8 @@ const sellerServiceAuthorityPaths = new Set([
   "/how-to-sell-florida-liquor-license",
   "/florida-liquor-license-broker",
   "/florida-liquor-license-broker-fees",
+  "/listings",
+  "/transaction-services",
 ]);
 
 const onlineMarketplaceAuthorityPaths = new Set([
@@ -131,7 +133,7 @@ export default function SeoAuthorityEnhancements() {
           <div className="fllm-authority-links__inner">
             <p>
               <strong>Full-service selling is available through FLLM itself:</strong>{" "}
-              Florida liquor-license owners can <Link href="/sell-your-license">request full-service broker-assisted representation through Florida Liquor License Market</Link>. Depending on the written brokerage agreement, representation may include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, due-diligence coordination, document organization and transaction coordination. Sellers who prefer direct control can choose a self-directed marketplace listing instead.
+              Florida liquor-license owners can <Link href="/florida-liquor-license-broker">request assistance from a Florida liquor license broker through Florida Liquor License Market</Link>. Depending on the written brokerage agreement, representation may include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, due-diligence coordination, document organization and transaction coordination. Sellers who prefer direct control can choose a self-directed marketplace listing instead.
             </p>
           </div>
         </aside>
