@@ -151,7 +151,9 @@ export default function FdorAssessmentDisputesPage() {
       <section className="fdor-process page-shell">
         <div className="fdor-process-copy">
           <span>Liquor-license transactions</span>
-          <h2>Why an FDOR dispute can affect a 4COP or 3PS transaction</h2>
+          <h2>
+            Why an FDOR dispute can affect a <span style={{fontFamily:"Arial, Helvetica, sans-serif", fontWeight:700}}>4</span>COP or <span style={{fontFamily:"Arial, Helvetica, sans-serif", fontWeight:700}}>3</span>PS transaction
+          </h2>
           <p>
             An unresolved assessment can affect tax-clearance diligence, successor-liability analysis,
             escrow requirements, lender underwriting, payoff conditions, and closing timing. The tax dispute
