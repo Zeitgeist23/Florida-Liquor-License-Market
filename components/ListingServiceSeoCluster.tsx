@@ -74,9 +74,11 @@ export default function ListingServiceSeoCluster() {
           <div className="fllm-listing-service-cluster__inner">
             <span>Florida Liquor License Listing Service</span>
             <p>
+              <Link href="/florida-liquor-license-broker">Florida Liquor License Broker Services</Link>
+              <b aria-hidden="true">•</b>
               <Link href="/sell-your-license">List a Florida Liquor License for Sale</Link>
               <b aria-hidden="true">•</b>
-              <Link href="/brokers/list-your-license">Broker Liquor License Listing Service</Link>
+              <Link href="/brokers/list-your-license">Advertise a Client License</Link>
               <b aria-hidden="true">•</b>
               <Link href="/listings">Florida Liquor License Marketplace</Link>
             </p>
