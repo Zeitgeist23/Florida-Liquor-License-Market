@@ -360,7 +360,10 @@ export default function AttorneyDirectory() {
         }
         .attorney-modal-sutton .attorney-modal-photo small {
           margin: 0;
+          padding: 11px 13px;
           background: #020b12;
+          font-size: 10px;
+          line-height: 1.45;
         }
         .attorney-modal-sutton .attorney-modal-details {
           padding: 30px 34px 26px;
@@ -370,9 +373,20 @@ export default function AttorneyDirectory() {
         }
         .attorney-modal-sutton .attorney-modal-details > p {
           margin-bottom: 16px;
+          font-size: 13px;
+          line-height: 1.6;
         }
         .attorney-modal-sutton .attorney-modal-details ul {
           margin-bottom: 16px;
+        }
+        .attorney-modal-sutton .attorney-modal-resource span,
+        .attorney-modal-sutton .attorney-modal-resource small {
+          font-size: 11px;
+          line-height: 1.5;
+        }
+        .attorney-modal-sutton .attorney-modal-notice {
+          font-size: 10px;
+          line-height: 1.65;
         }
 
         @media (max-width: 860px) {
