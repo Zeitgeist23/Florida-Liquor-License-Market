@@ -43,6 +43,9 @@ a { color: inherit; text-decoration: none; }
 .header-actions .btn { min-height: 36px; height: 36px; padding-inline: 8px; border-radius: 5px; font-size: 9px; font-weight: 700; letter-spacing: 0; white-space: nowrap; flex: 0 0 auto; }
 .header-actions .btn-gold { min-width: 100px; }
 .header-actions .btn-outline { min-width: 98px; color: var(--gold); border-color: var(--gold); background: rgba(2,11,18,.55); }
+.market-page .header-actions .btn-outline { transition: color .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.market-page .header-actions .btn-outline:hover,
+.market-page .header-actions .btn-outline:focus-visible { color: #080d12; border-color: var(--gold-bright); background: linear-gradient(145deg, #ffbd21, #ef9000); box-shadow: inset 0 1px rgba(255,255,255,.35), 0 8px 22px rgba(246,167,0,.28); transform: translateY(-1px); outline: none; }
 .contact-phone { display: inline-block; margin-right: 5px; font-size: 14px; line-height: 1; transform: rotate(-12deg); }
 .menu-toggle { display: none; margin-left: auto; width: 44px; height: 40px; border: 1px solid var(--gold); border-radius: 5px; color: var(--gold); background: rgba(2,11,18,.8); font-size: 22px; }
 
