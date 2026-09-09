@@ -5,6 +5,9 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 import "../../forms/abt-forms.css";
 import "../florida-department-of-revenue/florida-department-of-revenue.css";
 
+const suttonProfile = "https://www.floridasalestax.com/staff-profiles/james-h-sutton-jr-cpa-esq-/";
+const suttonPhoto = "https://www.floridasalestax.com/cms/thumbnails/34/415x415/images/James-Sutton-Low-Res.1402260810550.jpg";
+
 export const metadata: Metadata = {
   title: "Florida DOR Assessment Disputes: Informal Protest vs. DOAH | FLLM",
   description:
@@ -33,6 +36,7 @@ export default function FdorAssessmentDisputesPage() {
           <div className="fdor-hero-actions">
             <a className="btn btn-gold" href="#informal-protest">The Informal Protest</a>
             <a className="btn btn-outline" href="#formal-appeal">The Formal Appeal</a>
+            <a className="btn btn-outline" href="#tax-counsel-profile">Tax Counsel Profile</a>
             <Link className="btn btn-outline" href="/resources/florida-department-of-revenue">Back to FDOR Hub</Link>
           </div>
         </div>
@@ -114,6 +118,33 @@ export default function FdorAssessmentDisputesPage() {
             informal conference automatically preserves every formal remedy.
           </span>
           <small>Educational overview only; not legal or tax advice.</small>
+        </div>
+      </section>
+
+      <section id="tax-counsel-profile" className="page-shell" style={{scrollMarginTop:"120px", paddingTop:"34px", paddingBottom:"38px"}}>
+        <div style={{display:"grid", gridTemplateColumns:"minmax(220px,320px) minmax(0,1fr)", gap:"34px", alignItems:"stretch", border:"1px solid #334b5d", borderRadius:"10px", overflow:"hidden", background:"linear-gradient(145deg,#0a2033,#050f19)", boxShadow:"0 20px 48px rgba(0,0,0,.24)"}}>
+          <div style={{background:"#eef1f4", minHeight:"320px"}}>
+            <img src={suttonPhoto} alt="James H. Sutton, Jr., CPA, Esq." style={{display:"block", width:"100%", height:"100%", minHeight:"320px", objectFit:"cover", objectPosition:"center top"}} />
+          </div>
+          <div style={{padding:"28px 30px 30px"}}>
+            <span style={{display:"block", color:"#f6a700", fontSize:"11px", fontWeight:900, letterSpacing:".12em", textTransform:"uppercase"}}>Florida tax counsel profile</span>
+            <h2 style={{margin:"8px 0 4px", color:"#fff", fontFamily:"Georgia, 'Times New Roman', serif", fontSize:"clamp(28px,4vw,42px)", lineHeight:1.08}}>James H. Sutton, Jr., CPA, Esq.</h2>
+            <strong style={{display:"block", color:"#f6a700", fontSize:"14px", marginBottom:"16px"}}>Shareholder · Law Offices of Moffa, Sutton &amp; Donnini, P.A.</strong>
+            <p style={{margin:"0 0 14px", color:"#c8d2d9", fontSize:"14px", lineHeight:1.75}}>
+              Mr. Sutton is a Florida State and Local Tax attorney and CPA whose published practice focuses heavily on Florida sales-and-use-tax controversy. His firm profile states that he has more than 30 years of professional tax experience and represents businesses and individuals in disputes involving the Florida Department of Revenue.
+            </p>
+            <p style={{margin:"0 0 18px", color:"#c8d2d9", fontSize:"14px", lineHeight:1.75}}>
+              Published practice areas include audit defense, protests, petitions for reconsideration, Division of Administrative Hearings litigation, circuit-court litigation, collections, registration denials, voluntary disclosure, refunds, and related Florida sales-tax matters.
+            </p>
+            <div style={{display:"flex", flexWrap:"wrap", gap:"10px", marginBottom:"14px"}} data-nosnippet="">
+              <a className="btn btn-gold" href="tel:+18137752131">Call 813-775-2131</a>
+              <a className="btn btn-outline" href={suttonProfile} target="_blank" rel="noreferrer">View Firm Profile ↗</a>
+              <Link className="btn btn-outline" href="/resources/liquor-license-attorneys">FLLM Lawyer Directory</Link>
+            </div>
+            <small style={{display:"block", color:"#8fa0ac", lineHeight:1.6}}>
+              Profile information and portrait are drawn from the attorney&apos;s public firm profile. Inclusion is informational only and is not an FLLM endorsement or referral.
+            </small>
+          </div>
         </div>
       </section>
 
