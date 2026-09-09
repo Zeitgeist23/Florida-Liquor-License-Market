@@ -1,3 +1,37 @@
+/* Shared snapshot-card containment: prevent prices and labels from clipping on every SEO/resource page. */
+.seo-market-page .seo-market-snapshot {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.seo-market-page .seo-market-snapshot-grid {
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.seo-market-page .seo-market-snapshot-grid > div {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.seo-market-page .seo-market-snapshot-grid strong {
+  min-width: 0;
+  max-width: 100%;
+  font-size: clamp(21px, 1.5vw, 26px);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+
+.seo-market-page .seo-market-snapshot-grid small {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 /* Florida Quota License Cost page only: keep the snapshot stat tiles inside their card. */
 body:has(.quota-cost-table-wrap) .seo-market-snapshot {
   width: 100%;
