@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { getMarketplaceListings } from "@/lib/listing-store";
@@ -37,31 +35,6 @@ function licenseType(type: string) {
   return type.startsWith("4COP") ? "4COP" : "3PS";
 }
 
-function getHeroSrc() {
-  try {
-    const file = readFileSync(
-      join(process.cwd(), "public/assets/fllm-exchange-board-header-live.png"),
-    );
-
-    const pngSignature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
-
-    if (file.subarray(0, 8).equals(pngSignature)) {
-      return `data:image/png;base64,${file.toString("base64")}`;
-    }
-
-    const encoded = file.toString("utf8").replace(/\s+/g, "");
-    const decoded = Buffer.from(encoded, "base64");
-
-    if (decoded.subarray(0, 8).equals(pngSignature)) {
-      return `data:image/png;base64,${decoded.toString("base64")}`;
-    }
-
-    return "";
-  } catch {
-    return "";
-  }
-}
-
 export default async function ExchangeBoardPage() {
   const rawListings = await getMarketplaceListings();
   const listings = getVisibleAvailableMarketplaceListings(rawListings)
@@ -81,7 +54,6 @@ export default async function ExchangeBoardPage() {
   const highest = listings[0]?.price ?? null;
   const lowest = listings.length ? listings[listings.length - 1]?.price ?? null : null;
   const countyCount = new Set(listings.map((listing) => listing.county)).size;
-  const heroSrc = getHeroSrc();
 
   return (
     <main className="exchange-page">
@@ -89,9 +61,7 @@ export default async function ExchangeBoardPage() {
         .exchange-page{min-height:100vh;background:#031321;color:#eef7fc;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
         .exchange-header{background:#020d18;border-bottom:1px solid rgba(246,167,0,.55);position:relative;z-index:20}
         .exchange-hero{background:#020b14;border-bottom:1px solid rgba(42,184,243,.35);line-height:0;overflow:hidden}
-        .exchange-hero img{display:block;width:100%;height:auto;aspect-ratio:975/332;object-fit:cover;object-position:center}
-        .hero-fallback{min-height:330px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 20%,rgba(30,148,219,.28),transparent 35%),linear-gradient(180deg,#061b2e,#020b14);text-align:center;padding:30px}
-        .hero-fallback h1{margin:0;color:#f6b51f;font:700 clamp(42px,7vw,82px)/1 Georgia,serif}.hero-fallback p{margin:14px 0 0;color:#58d9ff;font-size:18px;letter-spacing:.22em;font-weight:900}
+        .exchange-hero img{display:block;width:100%;height:auto;aspect-ratio:2048/682;object-fit:cover;object-position:center}
         .ticker-shell{background:#03111e;border-bottom:1px solid rgba(44,188,248,.35)}
         .ticker-line{overflow:hidden;white-space:nowrap;border-top:1px solid rgba(66,190,242,.24)}
         .ticker-track{display:flex;width:max-content;animation:fllmTicker 54s linear infinite}.ticker-line:nth-child(2) .ticker-track{animation-duration:68s;animation-direction:reverse}
@@ -115,11 +85,12 @@ export default async function ExchangeBoardPage() {
       </div>
 
       <section className="exchange-hero" aria-label="FLLM Exchange trading floor">
-        {heroSrc ? (
-          <img src={heroSrc} width="975" height="332" alt="FLLM Exchange trading floor with brokers, market displays and Florida Liquor Licenses Trade Here banner" />
-        ) : (
-          <div className="hero-fallback"><div><h1>FLLM</h1><p>EXCHANGE</p></div></div>
-        )}
+        <img
+          src="/market-data/exchange-board/hero?v=1"
+          width="2048"
+          height="682"
+          alt="FLLM Exchange trading floor with brokers, market displays and Florida Liquor Licenses Trade Here banner"
+        />
       </section>
 
       <section className="ticker-shell" aria-label="Active Florida liquor license asking prices">
