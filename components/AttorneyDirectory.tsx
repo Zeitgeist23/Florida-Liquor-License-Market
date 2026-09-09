@@ -13,6 +13,8 @@ type Attorney = {
   services: string[];
   image?: string;
   imageCredit?: string;
+  imageFit?: "cover" | "contain";
+  imagePosition?: string;
   secondaryPhone?: string;
   secondaryPhoneHref?: string;
   publishedResourceTitle?: string;
@@ -130,6 +132,8 @@ const attorneys: Attorney[] = [
     profile: "https://www.floridasalestax.com/staff-profiles/james-h-sutton-jr-cpa-esq-/",
     image: "https://www.floridasalestax.com/cms/thumbnails/34/415x415/images/James-Sutton-Low-Res.1402260810550.jpg",
     imageCredit: "Portrait from Law Offices of Moffa, Sutton & Donnini",
+    imageFit: "contain",
+    imagePosition: "center top",
     services: [
       "Florida sales-and-use-tax audit defense and protests",
       "Petitions for reconsideration and Division of Administrative Hearings litigation",
@@ -284,7 +288,14 @@ export default function AttorneyDirectory() {
             <div className="attorney-modal-photo">
               {selectedAttorney.image ? (
                 <>
-                  <img src={selectedAttorney.image} alt={`Portrait of ${selectedAttorney.name}`} />
+                  <img
+                    src={selectedAttorney.image}
+                    alt={`Portrait of ${selectedAttorney.name}`}
+                    style={{
+                      objectFit: selectedAttorney.imageFit ?? "cover",
+                      objectPosition: selectedAttorney.imagePosition ?? "center top",
+                    }}
+                  />
                   <small>{selectedAttorney.imageCredit ?? "Portrait from attorney or firm website"}</small>
                 </>
               ) : (
