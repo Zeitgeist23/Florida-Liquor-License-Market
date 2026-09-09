@@ -199,7 +199,7 @@ export default function AttorneyDirectory() {
             aria-haspopup="dialog"
             aria-label={`View details for ${attorney.name}`}
             onClick={(event) => {
-              if ((event.target as HTMLElement).closest("a")) return;
+              if ((event.target as HTMLElement).closest("a,button")) return;
               openAttorney(attorney);
             }}
             onKeyDown={(event) => {
@@ -236,9 +236,16 @@ export default function AttorneyDirectory() {
               )}
             </div>
 
-            <a className="attorney-profile-link" href={attorney.profile} target="_blank" rel="noreferrer">
-              View attorney or firm profile <span aria-hidden="true">↗</span>
-            </a>
+            <button
+              type="button"
+              className="attorney-profile-link attorney-profile-modal-button"
+              onClick={(event) => {
+                event.stopPropagation();
+                openAttorney(attorney);
+              }}
+            >
+              View full FLLM profile <span aria-hidden="true">›</span>
+            </button>
             {attorney.publishedResourceTitle && attorney.publishedResourceUrl && (
               <a className="attorney-published-resource" href={attorney.publishedResourceUrl}>
                 <span>{attorney.publishedResourceLabel ?? "Published resource"}</span>
@@ -246,7 +253,7 @@ export default function AttorneyDirectory() {
                 <em aria-hidden="true">›</em>
               </a>
             )}
-            <span className="attorney-card-hint">Click anywhere else for full details</span>
+            <span className="attorney-card-hint">Click the card for full FLLM details</span>
           </article>
         ))}
       </section>
@@ -336,6 +343,15 @@ export default function AttorneyDirectory() {
       )}
 
       <style>{`
+        .attorney-profile-modal-button {
+          width: fit-content;
+          padding: 0;
+          border: 0;
+          background: transparent;
+          font: inherit;
+          text-align: left;
+          cursor: pointer;
+        }
         .attorney-modal-actions .attorney-modal-call {
           min-height: 52px;
           gap: 8px;
