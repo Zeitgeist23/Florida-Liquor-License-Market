@@ -164,6 +164,7 @@ function getInitials(name: string) {
 export default function AttorneyDirectory() {
   const [selectedAttorney, setSelectedAttorney] = useState<Attorney | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const isSutton = selectedAttorney?.name === "James H. Sutton, Jr., CPA, Esq.";
 
   useEffect(() => {
     if (!selectedAttorney) return;
@@ -186,8 +187,6 @@ export default function AttorneyDirectory() {
   function openAttorney(attorney: Attorney) {
     setSelectedAttorney(attorney);
   }
-
-  const isSutton = selectedAttorney?.name === "James H. Sutton, Jr., CPA, Esq.";
 
   return (
     <>
@@ -222,29 +221,19 @@ export default function AttorneyDirectory() {
 
             <span className="attorney-practice-badge">{attorney.category}</span>
 
-            <ul>
-              {attorney.services.map((service) => <li key={service}>{service}</li>)}
-            </ul>
+            <ul>{attorney.services.map((service) => <li key={service}>{service}</li>)}</ul>
 
             <div className="attorney-contact" data-nosnippet="">
-              <a className="attorney-phone" href={attorney.phoneHref}>
-                <span>Call</span>
-                <strong>{attorney.phone}</strong>
-              </a>
+              <a className="attorney-phone" href={attorney.phoneHref}><span>Call</span><strong>{attorney.phone}</strong></a>
               {attorney.secondaryPhone && attorney.secondaryPhoneHref && (
-                <a className="attorney-secondary-phone" href={attorney.secondaryPhoneHref}>
-                  {attorney.secondaryPhone}
-                </a>
+                <a className="attorney-secondary-phone" href={attorney.secondaryPhoneHref}>{attorney.secondaryPhone}</a>
               )}
             </div>
 
             <button
               type="button"
               className="attorney-profile-link attorney-profile-modal-button"
-              onClick={(event) => {
-                event.stopPropagation();
-                openAttorney(attorney);
-              }}
+              onClick={(event) => { event.stopPropagation(); openAttorney(attorney); }}
             >
               View full FLLM profile <span aria-hidden="true">›</span>
             </button>
@@ -261,29 +250,16 @@ export default function AttorneyDirectory() {
       </section>
 
       {selectedAttorney && (
-        <div
-          className="attorney-modal-backdrop"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) setSelectedAttorney(null);
-          }}
-        >
+        <div className="attorney-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedAttorney(null); }}>
           <section
             className={`attorney-modal${isSutton ? " attorney-modal-sutton" : ""}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="attorney-modal-title"
           >
-            <button
-              ref={closeButtonRef}
-              className="attorney-modal-close"
-              type="button"
-              aria-label="Close attorney details"
-              onClick={() => setSelectedAttorney(null)}
-            >
-              ×
-            </button>
+            <button ref={closeButtonRef} className="attorney-modal-close" type="button" aria-label="Close attorney details" onClick={() => setSelectedAttorney(null)}>×</button>
 
-            <div className={`attorney-modal-photo${isSutton ? " attorney-modal-photo-sutton" : ""}`}>
+            <div className="attorney-modal-photo">
               {selectedAttorney.image ? (
                 <>
                   <img src={selectedAttorney.image} alt={`Portrait of ${selectedAttorney.name}`} />
@@ -305,9 +281,7 @@ export default function AttorneyDirectory() {
               <span className="attorney-modal-practice-badge">{selectedAttorney.category}</span>
 
               <h3>Published practice information</h3>
-              <ul>
-                {selectedAttorney.services.map((service) => <li key={service}>{service}</li>)}
-              </ul>
+              <ul>{selectedAttorney.services.map((service) => <li key={service}>{service}</li>)}</ul>
 
               {selectedAttorney.publishedResourceTitle && selectedAttorney.publishedResourceUrl && (
                 <a className="attorney-modal-resource" href={selectedAttorney.publishedResourceUrl}>
@@ -318,22 +292,12 @@ export default function AttorneyDirectory() {
               )}
 
               <div className="attorney-modal-actions" data-nosnippet="">
-                <a className="btn btn-gold attorney-modal-call" href={selectedAttorney.phoneHref}>
-                  <span>Call</span><strong>{selectedAttorney.phone}</strong>
-                </a>
-                <a className="btn btn-outline" href={selectedAttorney.profile} target="_blank" rel="noreferrer">
-                  Visit Firm Profile ↗
-                </a>
+                <a className="btn btn-gold attorney-modal-call" href={selectedAttorney.phoneHref}><span>Call</span><strong>{selectedAttorney.phone}</strong></a>
+                <a className="btn btn-outline" href={selectedAttorney.profile} target="_blank" rel="noreferrer">Visit Firm Profile ↗</a>
               </div>
 
               {selectedAttorney.secondaryPhone && selectedAttorney.secondaryPhoneHref && (
-                <a
-                  className="attorney-modal-secondary-phone"
-                  data-nosnippet=""
-                  href={selectedAttorney.secondaryPhoneHref}
-                >
-                  {selectedAttorney.secondaryPhone}
-                </a>
+                <a className="attorney-modal-secondary-phone" data-nosnippet="" href={selectedAttorney.secondaryPhoneHref}>{selectedAttorney.secondaryPhone}</a>
               )}
 
               <small className="attorney-modal-notice">
@@ -370,38 +334,68 @@ export default function AttorneyDirectory() {
           line-height: 1.45;
           font-weight: 900 !important;
         }
+
+        /* Sutton only: enlarge horizontally so the square portrait can be shown whole
+           while the information column becomes shorter. No forced modal height. */
         .attorney-modal-sutton {
-          width: min(900px, calc(100vw - 36px));
-          max-height: min(88vh, 720px);
-          grid-template-columns: 360px minmax(0, 1fr);
-          align-items: start;
+          width: min(1040px, calc(100vw - 36px));
+          max-height: min(88vh, 760px);
+          grid-template-columns: 430px minmax(0, 1fr);
           overflow: auto;
         }
-        .attorney-modal-photo-sutton {
+        .attorney-modal-sutton .attorney-modal-photo {
           min-height: 0;
           align-self: start;
-          background: #f2f4f6;
+          background: #eef1f4;
         }
-        .attorney-modal-photo-sutton img {
+        .attorney-modal-sutton .attorney-modal-photo img {
           width: 100%;
           height: auto;
           min-height: 0;
-          flex: 0 0 auto;
+          flex: none;
+          display: block;
           object-fit: contain;
           object-position: center top;
-          background: #f2f4f6;
+          background: #eef1f4;
         }
-        .attorney-modal-photo-sutton small {
+        .attorney-modal-sutton .attorney-modal-photo small {
+          margin: 0;
           background: #020b12;
+        }
+        .attorney-modal-sutton .attorney-modal-details {
+          padding: 30px 34px 26px;
+        }
+        .attorney-modal-sutton .attorney-modal-details h2 {
+          font-size: 35px;
+        }
+        .attorney-modal-sutton .attorney-modal-details > p {
+          margin-bottom: 16px;
+        }
+        .attorney-modal-sutton .attorney-modal-details ul {
+          margin-bottom: 16px;
+        }
+
+        @media (max-width: 860px) {
+          .attorney-modal-sutton {
+            width: min(670px, calc(100vw - 30px));
+            grid-template-columns: 245px minmax(0, 1fr);
+          }
+          .attorney-modal-sutton .attorney-modal-details {
+            padding: 34px 30px 28px;
+          }
         }
         @media (max-width: 720px) {
           .attorney-modal-sutton {
-            width: min(670px, calc(100vw - 30px));
-            max-height: 88vh;
             grid-template-columns: 1fr;
+            max-height: 88vh;
           }
-          .attorney-modal-photo-sutton img {
-            max-height: 360px;
+          .attorney-modal-sutton .attorney-modal-photo {
+            max-height: none;
+          }
+          .attorney-modal-sutton .attorney-modal-photo img {
+            width: 100%;
+            height: auto;
+            max-height: none;
           }
         }
       `}</style>
