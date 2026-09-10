@@ -1,13 +1,20 @@
+.sutton-popup-left{
+  display:grid!important;
+  grid-template-rows:2fr 1fr!important;
+  min-height:100%!important;
+  background:#173d5b!important;
+}
+
 .sutton-popup-photo-wrap{
   width:100%!important;
-  height:auto!important;
+  height:100%!important;
   min-height:0!important;
-  aspect-ratio:1/1!important;
+  aspect-ratio:auto!important;
   background-color:#eef1f4!important;
   background-image:url('https://www.floridasalestax.com/cms/thumbnails/34/415x415/images/James-Sutton-Low-Res.1402260810550.jpg')!important;
   background-position:center top!important;
   background-repeat:no-repeat!important;
-  background-size:contain!important;
+  background-size:cover!important;
   border-bottom:1px solid rgba(246,167,0,.8)!important;
   overflow:hidden!important;
 }
@@ -17,21 +24,17 @@
 }
 
 .sutton-popup-logo-panel{
-  position:relative!important;
-  flex:1!important;
-  min-height:185px!important;
+  min-height:0!important;
   display:flex!important;
-  flex-direction:column!important;
   align-items:center!important;
   justify-content:center!important;
-  gap:3px!important;
-  padding:24px 28px!important;
+  padding:18px 24px!important;
   text-align:center!important;
   background-color:#173d5b!important;
   background-image:url('/assets/moffa-sutton-donnini-logo-verified.png')!important;
   background-position:center!important;
   background-repeat:no-repeat!important;
-  background-size:min(90%,420px) auto!important;
+  background-size:contain!important;
   overflow:hidden!important;
 }
 
@@ -46,15 +49,15 @@
 }
 
 @media(max-width:760px){
+  .sutton-popup-left{
+    grid-template-rows:2fr 1fr!important;
+  }
   .sutton-popup-photo-wrap{
-    width:100%!important;
-    height:auto!important;
-    min-height:0!important;
-    aspect-ratio:1/1!important;
+    height:100%!important;
   }
   .sutton-popup-logo-panel{
-    min-height:130px!important;
-    padding:18px 20px!important;
-    background-size:min(90%,420px) auto!important;
+    min-height:0!important;
+    padding:16px 18px!important;
+    background-size:contain!important;
   }
 }
