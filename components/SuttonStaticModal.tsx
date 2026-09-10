@@ -12,7 +12,7 @@ type Props = {
 export default function SuttonStaticModal({ closeButtonRef, onClose, phoneHref, profileHref }: Props) {
   return (
     <section className="sutton-static-modal" role="dialog" aria-modal="true" aria-label="James H. Sutton, Jr., CPA, Esq. attorney directory profile">
-      <img className="sutton-static-modal-image" src="/assets/sutton-static-modal.jpg" alt="James H. Sutton, Jr., CPA, Esq. FLLM attorney directory profile" />
+      <img className="sutton-static-modal-image" src="/assets/sutton-static-modal.webp" alt="James H. Sutton, Jr., CPA, Esq. FLLM attorney directory profile" />
       <button ref={closeButtonRef} className="sutton-static-hit sutton-static-close" type="button" aria-label="Close attorney details" onClick={onClose} />
       <a className="sutton-static-hit sutton-static-resource" href="/resources/fdor-assessment-disputes" aria-label="Open Florida DOR Assessment Disputes resource" />
       <a className="sutton-static-hit sutton-static-call" href={phoneHref} aria-label="Call James H. Sutton, Jr." />
