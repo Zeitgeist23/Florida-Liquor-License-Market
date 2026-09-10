@@ -211,7 +211,15 @@ export default function AttorneyDirectory() {
               <button ref={closeButtonRef} className="sutton-popup-close" type="button" aria-label="Close attorney details" onClick={() => setSelectedAttorney(null)}>×</button>
               <div className="sutton-popup-left">
                 <div className="sutton-popup-photo-wrap"><img className="sutton-popup-photo" src={SUTTON_PORTRAIT} alt="James H. Sutton, Jr., CPA, Esq." /></div>
-                <div className="sutton-popup-logo-panel"><img className="sutton-popup-logo" src="/assets/moffa-sutton-donnini-logo-clean.svg" alt="Moffa Sutton Donnini — State & Local Tax Law, Business Law & Litigation" /></div>
+                <div className="sutton-popup-logo-panel" aria-label="Moffa, Sutton & Donnini, P.A. — Attorneys at Law">
+                  <div className="sutton-popup-wordmark">
+                    <span className="sutton-popup-wordmark-rule" aria-hidden="true" />
+                    <strong>Moffa, Sutton</strong>
+                    <strong><em>&amp;</em> Donnini, P.A.</strong>
+                    <span className="sutton-popup-wordmark-rule" aria-hidden="true" />
+                    <small>Attorneys at Law</small>
+                  </div>
+                </div>
               </div>
               <div className="sutton-popup-details"><ModalDetails attorney={selectedAttorney} /></div>
             </section>
@@ -236,11 +244,17 @@ export default function AttorneyDirectory() {
         .sutton-popup-photo-wrap{background:#eef1f4;border-bottom:1px solid rgba(246,167,0,.8);overflow:hidden}
         .sutton-popup-photo{display:block;width:100%;height:auto;object-fit:contain;object-position:center top;background:#eef1f4}
         .sutton-popup-logo-panel{flex:1;display:flex;align-items:center;justify-content:center;min-height:185px;padding:24px 28px;background:#173d5b}
-        .sutton-popup-logo{display:block;width:min(100%,355px);height:auto;object-fit:contain;background:transparent!important;border:0!important;padding:0!important;min-height:0!important;max-height:none!important;flex:none!important}
+        .sutton-popup-wordmark{width:min(100%,340px);display:flex;flex-direction:column;align-items:center;text-align:center;color:#eef3f6;font-family:Georgia,'Times New Roman',serif}
+        .sutton-popup-wordmark-rule{display:block;width:100%;height:2px;margin:5px 0 12px;background:#f6a700}
+        .sutton-popup-wordmark strong{display:block;font-size:clamp(30px,3vw,43px);font-weight:400;line-height:1.05;letter-spacing:-.02em}
+        .sutton-popup-wordmark strong em{color:#f6a700;font-style:normal}
+        .sutton-popup-wordmark strong+strong{margin-top:2px}
+        .sutton-popup-wordmark strong+span{margin-top:14px;margin-bottom:12px}
+        .sutton-popup-wordmark small{font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#d9e2ea}
         .sutton-popup-details{min-width:0;padding:34px 38px 30px}
         .sutton-popup-details h2{font-size:clamp(32px,3.4vw,46px);line-height:1.02;margin-bottom:8px}
         .sutton-popup-details>strong{font-size:16px}.sutton-popup-details>p{font-size:15px;line-height:1.55}.sutton-popup-details h3{font-size:15px;margin-top:22px}.sutton-popup-details ul{font-size:14px;line-height:1.5}.sutton-popup-details .attorney-modal-resource span,.sutton-popup-details .attorney-modal-resource small{font-size:12px;line-height:1.45}.sutton-popup-details .attorney-modal-notice{font-size:11px;line-height:1.55}
-        @media(max-width:760px){.sutton-popup{grid-template-columns:1fr;width:min(620px,calc(100vw - 24px));max-height:90vh}.sutton-popup-photo{max-height:46vh}.sutton-popup-logo-panel{min-height:130px;padding:18px 22px}.sutton-popup-logo{max-width:300px}.sutton-popup-details{padding:28px 24px 26px}.sutton-popup-close{top:9px;right:9px}}
+        @media(max-width:760px){.sutton-popup{grid-template-columns:1fr;width:min(620px,calc(100vw - 24px));max-height:90vh}.sutton-popup-photo{max-height:46vh}.sutton-popup-logo-panel{min-height:130px;padding:18px 22px}.sutton-popup-wordmark{max-width:300px}.sutton-popup-wordmark strong{font-size:32px}.sutton-popup-details{padding:28px 24px 26px}.sutton-popup-close{top:9px;right:9px}}
       `}</style>
     </>
   );
