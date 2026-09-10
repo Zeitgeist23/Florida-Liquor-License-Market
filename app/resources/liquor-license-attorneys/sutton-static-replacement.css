@@ -1,0 +1,47 @@
+.sutton-profile-modal{
+  position:relative!important;
+  width:min(1180px,96vw)!important;
+  aspect-ratio:4/3!important;
+  max-height:92vh!important;
+  display:block!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:12px!important;
+  background:#06131e url('/assets/sutton-static-modal.jpg') center/contain no-repeat!important;
+  box-shadow:0 32px 90px rgba(0,0,0,.72)!important;
+}
+
+.sutton-profile-modal .sutton-profile-visual,
+.sutton-profile-modal .sutton-profile-details{
+  display:none!important;
+}
+
+.sutton-profile-modal .sutton-profile-close{
+  position:absolute!important;
+  z-index:20!important;
+  left:88.4%!important;
+  top:7.5%!important;
+  right:auto!important;
+  width:6%!important;
+  height:8%!important;
+  min-width:0!important;
+  min-height:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:transparent!important;
+  color:transparent!important;
+  font-size:0!important;
+  cursor:pointer!important;
+}
+
+.sutton-profile-modal::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+@media(max-width:720px){
+  .sutton-profile-modal{width:98vw!important;max-height:94vh!important;}
+}
