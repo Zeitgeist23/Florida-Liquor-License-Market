@@ -72,7 +72,8 @@ export default function ListingsHeaderListLicenseCta() {
           right: 0 !important;
           z-index: 30000 !important;
           display: none !important;
-          width: 290px !important;
+          width: 340px !important;
+          max-width: calc(100vw - 24px) !important;
           padding: 6px !important;
           border: 1px solid #f6a700 !important;
           border-radius: 7px !important;
@@ -108,7 +109,8 @@ export default function ListingsHeaderListLicenseCta() {
           line-height: 1.25 !important;
           text-decoration: none !important;
           text-transform: none !important;
-          white-space: nowrap !important;
+          white-space: normal !important;
+          overflow-wrap: anywhere !important;
         }
 
         .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a:hover,
