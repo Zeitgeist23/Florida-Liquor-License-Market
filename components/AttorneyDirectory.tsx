@@ -106,7 +106,7 @@ const attorneys: Attorney[] = [
     phone: "813-775-2131",
     phoneHref: "tel:+18137752131",
     profile: "https://www.floridasalestax.com/staff-profiles/james-h-sutton-jr-cpa-esq-/",
-    image: "https://www.floridasalestax.com/cms/thumbnails/34/415x415/images/James-Sutton-Low-Res.1402260810550.jpg",
+    image: "/assets/james-h-sutton.jpg",
     imageCredit: "Portrait from Law Offices of Moffa, Sutton & Donnini",
     services: ["Florida sales-and-use-tax audit defense and protests", "Petitions for reconsideration and Division of Administrative Hearings litigation", "FDOR collections, registration denials, refunds, and voluntary disclosures"],
     publishedResourceLabel: "FLLM resource",
@@ -163,6 +163,7 @@ function ModalDetails({ attorney }: { attorney: Attorney }) {
 export default function AttorneyDirectory() {
   const [selectedAttorney, setSelectedAttorney] = useState<Attorney | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const isSutton = selectedAttorney?.name === SUTTON_NAME;
 
   useEffect(() => {
     if (!selectedAttorney) return;
@@ -180,63 +181,37 @@ export default function AttorneyDirectory() {
   return (
     <>
       <section className="attorney-grid page-shell" id="attorney-directory" aria-label="Attorney directory">
-        {attorneys.map((attorney) => {
-          const popupEnabled = attorney.name !== SUTTON_NAME;
-          return (
-          <article
-            className={`attorney-card${popupEnabled ? "" : " attorney-card-static"}`}
-            key={attorney.name}
-            role={popupEnabled ? "button" : undefined}
-            tabIndex={popupEnabled ? 0 : undefined}
-            aria-haspopup={popupEnabled ? "dialog" : undefined}
-            aria-label={popupEnabled ? `View details for ${attorney.name}` : undefined}
-            onClick={popupEnabled ? ((event) => { if (!(event.target as HTMLElement).closest("a,button")) setSelectedAttorney(attorney); }) : undefined}
-            onKeyDown={popupEnabled ? ((event) => {
-              if ((event.key === "Enter" || event.key === " ") && event.target === event.currentTarget) {
-                event.preventDefault();
-                setSelectedAttorney(attorney);
-              }
-            }) : undefined}
-          >
-            <div className="attorney-card-heading">
-              <span aria-hidden="true">{getInitials(attorney.name)}</span>
-              <div><h2>{attorney.name}</h2><strong>{attorney.firm}</strong><small>{attorney.location}</small></div>
-            </div>
+        {attorneys.map((attorney) => (
+          <article className="attorney-card" key={attorney.name} role="button" tabIndex={0} aria-haspopup="dialog" aria-label={`View details for ${attorney.name}`} onClick={(event) => { if (!(event.target as HTMLElement).closest("a,button")) setSelectedAttorney(attorney); }} onKeyDown={(event) => { if ((event.key === "Enter" || event.key === " ") && event.target === event.currentTarget) { event.preventDefault(); setSelectedAttorney(attorney); } }}>
+            <div className="attorney-card-heading"><span aria-hidden="true">{getInitials(attorney.name)}</span><div><h2>{attorney.name}</h2><strong>{attorney.firm}</strong><small>{attorney.location}</small></div></div>
             <span className="attorney-practice-badge">{attorney.category}</span>
             <ul>{attorney.services.map((service) => <li key={service}>{service}</li>)}</ul>
-            <div className="attorney-contact" data-nosnippet="">
-              <a className="attorney-phone" href={attorney.phoneHref}><span>Call</span><strong>{attorney.phone}</strong></a>
-              {attorney.secondaryPhone && attorney.secondaryPhoneHref && <a className="attorney-secondary-phone" href={attorney.secondaryPhoneHref}>{attorney.secondaryPhone}</a>}
-            </div>
-            {popupEnabled && (
-              <button type="button" className="attorney-profile-link attorney-profile-modal-button" onClick={(event) => { event.stopPropagation(); setSelectedAttorney(attorney); }}>
-                View full FLLM profile <span aria-hidden="true">›</span>
-              </button>
-            )}
-            {attorney.publishedResourceTitle && attorney.publishedResourceUrl && (
-              <a className="attorney-published-resource" href={attorney.publishedResourceUrl}>
-                <span>{attorney.publishedResourceLabel ?? "Published resource"}</span><strong>{attorney.publishedResourceTitle}</strong><em aria-hidden="true">›</em>
-              </a>
-            )}
-            {popupEnabled && <span className="attorney-card-hint">Click the card for full FLLM details</span>}
+            <div className="attorney-contact" data-nosnippet=""><a className="attorney-phone" href={attorney.phoneHref}><span>Call</span><strong>{attorney.phone}</strong></a>{attorney.secondaryPhone && attorney.secondaryPhoneHref && <a className="attorney-secondary-phone" href={attorney.secondaryPhoneHref}>{attorney.secondaryPhone}</a>}</div>
+            <button type="button" className="attorney-profile-link attorney-profile-modal-button" onClick={(event) => { event.stopPropagation(); setSelectedAttorney(attorney); }}>View full FLLM profile <span aria-hidden="true">›</span></button>
+            {attorney.publishedResourceTitle && attorney.publishedResourceUrl && <a className="attorney-published-resource" href={attorney.publishedResourceUrl}><span>{attorney.publishedResourceLabel ?? "Published resource"}</span><strong>{attorney.publishedResourceTitle}</strong><em aria-hidden="true">›</em></a>}
+            <span className="attorney-card-hint">Click the card for full FLLM details</span>
           </article>
-          );
-        })}
+        ))}
       </section>
 
       {selectedAttorney && (
         <div className="attorney-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedAttorney(null); }}>
-          <section className="attorney-modal" role="dialog" aria-modal="true" aria-labelledby="attorney-modal-title">
-            <button ref={closeButtonRef} className="attorney-modal-close" type="button" aria-label="Close attorney details" onClick={() => setSelectedAttorney(null)}>×</button>
-            <div className="attorney-modal-photo">
-              {selectedAttorney.image ? (
-                <><img src={selectedAttorney.image} alt={`Portrait of ${selectedAttorney.name}`} /><small>{selectedAttorney.imageCredit ?? "Portrait from attorney or firm website"}</small></>
-              ) : (
-                <><div className="attorney-modal-monogram" aria-hidden="true">{getInitials(selectedAttorney.name)}</div><small>Visit the firm profile for attorney information.</small></>
-              )}
-            </div>
-            <div className="attorney-modal-details"><ModalDetails attorney={selectedAttorney} /></div>
-          </section>
+          {isSutton ? (
+            <section className="sutton-popup" role="dialog" aria-modal="true" aria-labelledby="attorney-modal-title">
+              <button ref={closeButtonRef} className="sutton-popup-close" type="button" aria-label="Close attorney details" onClick={() => setSelectedAttorney(null)}>×</button>
+              <div className="sutton-popup-left">
+                <img className="sutton-popup-photo" src="/assets/james-h-sutton.jpg" alt="James H. Sutton, Jr., CPA, Esq." />
+                <div className="sutton-popup-logo-panel"><img className="sutton-popup-logo" src="/assets/moffa-sutton-donnini-logo.png" alt="Moffa Sutton Donnini — State & Local Tax Law, Business Law & Litigation" /></div>
+              </div>
+              <div className="sutton-popup-details"><ModalDetails attorney={selectedAttorney} /></div>
+            </section>
+          ) : (
+            <section className="attorney-modal" role="dialog" aria-modal="true" aria-labelledby="attorney-modal-title">
+              <button ref={closeButtonRef} className="attorney-modal-close" type="button" aria-label="Close attorney details" onClick={() => setSelectedAttorney(null)}>×</button>
+              <div className="attorney-modal-photo">{selectedAttorney.image ? <><img src={selectedAttorney.image} alt={`Portrait of ${selectedAttorney.name}`} /><small>{selectedAttorney.imageCredit ?? "Portrait from attorney or firm website"}</small></> : <><div className="attorney-modal-monogram" aria-hidden="true">{getInitials(selectedAttorney.name)}</div><small>Visit the firm profile for attorney information.</small></>}</div>
+              <div className="attorney-modal-details"><ModalDetails attorney={selectedAttorney} /></div>
+            </section>
+          )}
         </div>
       )}
 
@@ -245,7 +220,16 @@ export default function AttorneyDirectory() {
         .attorney-modal-actions .attorney-modal-call{min-height:52px;gap:8px;font-size:11px!important;font-weight:900}
         .attorney-modal-actions .attorney-modal-call strong{font-size:16px;line-height:1;letter-spacing:.025em}
         .attorney-modal-secondary-phone{font-size:14px!important;line-height:1.45;font-weight:900!important}
-        .attorney-card-static{cursor:default!important}
+        .sutton-popup{position:relative;width:min(1040px,calc(100vw - 36px));max-height:88vh;display:grid;grid-template-columns:38% 62%;overflow:auto;border:1px solid #f6a700;border-top:4px solid #f6a700;border-radius:10px;color:#eef3f6;background:linear-gradient(145deg,#0c263a,#06131e 72%);box-shadow:0 32px 90px rgba(0,0,0,.68)}
+        .sutton-popup-close{position:absolute;z-index:6;top:12px;right:12px;width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(246,167,0,.9);border-radius:50%;color:#061728;background:#f6a700;font-size:27px;line-height:1;cursor:pointer}
+        .sutton-popup-left{display:flex;flex-direction:column;background:#123550;min-height:100%}
+        .sutton-popup-photo{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center top;background:#eef1f4}
+        .sutton-popup-logo-panel{flex:1;display:flex;align-items:center;justify-content:center;min-height:210px;padding:28px 30px;border-top:1px solid rgba(246,167,0,.8);background:#173d5b}
+        .sutton-popup-logo{display:block;width:100%;max-width:330px;height:auto;object-fit:contain}
+        .sutton-popup-details{min-width:0;padding:34px 38px 30px}
+        .sutton-popup-details h2{font-size:clamp(32px,3.4vw,46px);line-height:1.02;margin-bottom:8px}
+        .sutton-popup-details>strong{font-size:16px}.sutton-popup-details>p{font-size:15px;line-height:1.55}.sutton-popup-details h3{font-size:15px;margin-top:22px}.sutton-popup-details ul{font-size:14px;line-height:1.5}.sutton-popup-details .attorney-modal-resource span,.sutton-popup-details .attorney-modal-resource small{font-size:12px;line-height:1.45}.sutton-popup-details .attorney-modal-notice{font-size:11px;line-height:1.55}
+        @media(max-width:760px){.sutton-popup{grid-template-columns:1fr;width:min(620px,calc(100vw - 24px));max-height:90vh}.sutton-popup-photo{aspect-ratio:4/3;object-fit:contain;background:#eef1f4}.sutton-popup-logo-panel{min-height:130px;padding:20px}.sutton-popup-logo{max-width:300px}.sutton-popup-details{padding:28px 24px 26px}.sutton-popup-close{top:9px;right:9px}}
       `}</style>
     </>
   );
