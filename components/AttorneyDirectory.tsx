@@ -20,6 +20,8 @@ type Attorney = {
   publishedResourceLabel?: string;
 };
 
+const SUTTON_NAME = "James H. Sutton, Jr., CPA, Esq.";
+
 const attorneys: Attorney[] = [
   {
     name: "Hannah Becker",
@@ -97,6 +99,21 @@ const attorneys: Attorney[] = [
     services: ["Alcoholic-beverage transactions", "Liquor-license purchasing, selling, and permitting", "Purchase-agreement, lease, and operational review"],
   },
   {
+    name: SUTTON_NAME,
+    firm: "Law Offices of Moffa, Sutton & Donnini, P.A.",
+    location: "Tampa · Statewide Florida tax matters",
+    category: "Liens / Tax / Closing",
+    phone: "813-775-2131",
+    phoneHref: "tel:+18137752131",
+    profile: "https://www.floridasalestax.com/staff-profiles/james-h-sutton-jr-cpa-esq-/",
+    image: "https://www.floridasalestax.com/cms/thumbnails/34/415x415/images/James-Sutton-Low-Res.1402260810550.jpg",
+    imageCredit: "Portrait from Law Offices of Moffa, Sutton & Donnini",
+    services: ["Florida sales-and-use-tax audit defense and protests", "Petitions for reconsideration and Division of Administrative Hearings litigation", "FDOR collections, registration denials, refunds, and voluntary disclosures"],
+    publishedResourceLabel: "FLLM resource",
+    publishedResourceTitle: "Florida DOR Assessment Disputes: Informal Protest vs. DOAH",
+    publishedResourceUrl: "/resources/fdor-assessment-disputes",
+  },
+  {
     name: "Charles M. Schropp",
     firm: "Schropp Law Firm, P.A.",
     location: "Tampa · Statewide appellate matters",
@@ -163,21 +180,23 @@ export default function AttorneyDirectory() {
   return (
     <>
       <section className="attorney-grid page-shell" id="attorney-directory" aria-label="Attorney directory">
-        {attorneys.map((attorney) => (
+        {attorneys.map((attorney) => {
+          const popupEnabled = attorney.name !== SUTTON_NAME;
+          return (
           <article
-            className="attorney-card"
+            className={`attorney-card${popupEnabled ? "" : " attorney-card-static"}`}
             key={attorney.name}
-            role="button"
-            tabIndex={0}
-            aria-haspopup="dialog"
-            aria-label={`View details for ${attorney.name}`}
-            onClick={(event) => { if (!(event.target as HTMLElement).closest("a,button")) setSelectedAttorney(attorney); }}
-            onKeyDown={(event) => {
+            role={popupEnabled ? "button" : undefined}
+            tabIndex={popupEnabled ? 0 : undefined}
+            aria-haspopup={popupEnabled ? "dialog" : undefined}
+            aria-label={popupEnabled ? `View details for ${attorney.name}` : undefined}
+            onClick={popupEnabled ? ((event) => { if (!(event.target as HTMLElement).closest("a,button")) setSelectedAttorney(attorney); }) : undefined}
+            onKeyDown={popupEnabled ? ((event) => {
               if ((event.key === "Enter" || event.key === " ") && event.target === event.currentTarget) {
                 event.preventDefault();
                 setSelectedAttorney(attorney);
               }
-            }}
+            }) : undefined}
           >
             <div className="attorney-card-heading">
               <span aria-hidden="true">{getInitials(attorney.name)}</span>
@@ -189,17 +208,20 @@ export default function AttorneyDirectory() {
               <a className="attorney-phone" href={attorney.phoneHref}><span>Call</span><strong>{attorney.phone}</strong></a>
               {attorney.secondaryPhone && attorney.secondaryPhoneHref && <a className="attorney-secondary-phone" href={attorney.secondaryPhoneHref}>{attorney.secondaryPhone}</a>}
             </div>
-            <button type="button" className="attorney-profile-link attorney-profile-modal-button" onClick={(event) => { event.stopPropagation(); setSelectedAttorney(attorney); }}>
-              View full FLLM profile <span aria-hidden="true">›</span>
-            </button>
+            {popupEnabled && (
+              <button type="button" className="attorney-profile-link attorney-profile-modal-button" onClick={(event) => { event.stopPropagation(); setSelectedAttorney(attorney); }}>
+                View full FLLM profile <span aria-hidden="true">›</span>
+              </button>
+            )}
             {attorney.publishedResourceTitle && attorney.publishedResourceUrl && (
               <a className="attorney-published-resource" href={attorney.publishedResourceUrl}>
                 <span>{attorney.publishedResourceLabel ?? "Published resource"}</span><strong>{attorney.publishedResourceTitle}</strong><em aria-hidden="true">›</em>
               </a>
             )}
-            <span className="attorney-card-hint">Click the card for full FLLM details</span>
+            {popupEnabled && <span className="attorney-card-hint">Click the card for full FLLM details</span>}
           </article>
-        ))}
+          );
+        })}
       </section>
 
       {selectedAttorney && (
@@ -223,6 +245,7 @@ export default function AttorneyDirectory() {
         .attorney-modal-actions .attorney-modal-call{min-height:52px;gap:8px;font-size:11px!important;font-weight:900}
         .attorney-modal-actions .attorney-modal-call strong{font-size:16px;line-height:1;letter-spacing:.025em}
         .attorney-modal-secondary-phone{font-size:14px!important;line-height:1.45;font-weight:900!important}
+        .attorney-card-static{cursor:default!important}
       `}</style>
     </>
   );
