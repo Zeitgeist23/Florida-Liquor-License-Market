@@ -55,6 +55,8 @@ export default function ListingsHeaderListLicenseCta() {
           text-transform: uppercase !important;
           white-space: nowrap !important;
           cursor: pointer !important;
+          transform-origin: center !important;
+          transition: transform .18s ease, background .18s ease, box-shadow .18s ease !important;
         }
 
         .results-page > .results-header nav.listings-primary-nav .listings-header-list-license:hover,
@@ -63,6 +65,7 @@ export default function ListingsHeaderListLicenseCta() {
           background: linear-gradient(145deg, #ffc83f, #f6a700) !important;
           color: #061728 !important;
           box-shadow: 0 7px 17px rgba(246, 167, 0, .2) !important;
+          transform: translateY(-1px) scale(1.03) !important;
           outline: none !important;
         }
 
