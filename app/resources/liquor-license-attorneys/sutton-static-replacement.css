@@ -1,47 +1,68 @@
-.sutton-profile-modal{
-  position:relative!important;
-  width:min(1180px,96vw)!important;
-  aspect-ratio:4/3!important;
-  max-height:92vh!important;
-  display:block!important;
+.sutton-popup-photo-wrap{
+  height:470px!important;
+  min-height:470px!important;
+  background:#eef1f4 url('https://www.floridasalestax.com/images/JHS-Photo-During-Hearing-front-shot%5B1%5D.1404061030550.png') center top / contain no-repeat!important;
+  border-bottom:1px solid rgba(246,167,0,.8)!important;
   overflow:hidden!important;
-  border:0!important;
-  border-radius:12px!important;
-  background:#06131e url('/assets/sutton-static-modal.webp') center/contain no-repeat!important;
-  box-shadow:0 32px 90px rgba(0,0,0,.72)!important;
 }
 
-.sutton-profile-modal .sutton-profile-visual,
-.sutton-profile-modal .sutton-profile-details{
+.sutton-popup-photo{
   display:none!important;
 }
 
-.sutton-profile-modal .sutton-profile-close{
-  position:absolute!important;
-  z-index:20!important;
-  left:88.4%!important;
-  top:7.5%!important;
-  right:auto!important;
-  width:6%!important;
-  height:8%!important;
-  min-width:0!important;
-  min-height:0!important;
-  padding:0!important;
-  border:0!important;
-  border-radius:50%!important;
-  background:transparent!important;
-  color:transparent!important;
-  font-size:0!important;
-  cursor:pointer!important;
+.sutton-popup-logo-panel{
+  position:relative!important;
+  flex:1!important;
+  min-height:185px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:3px!important;
+  padding:24px 28px!important;
+  text-align:center!important;
+  background:#173d5b!important;
+  overflow:hidden!important;
 }
 
-.sutton-profile-modal::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  pointer-events:none;
+.sutton-popup-logo{
+  display:none!important;
 }
 
-@media(max-width:720px){
-  .sutton-profile-modal{width:98vw!important;max-height:94vh!important;}
+.sutton-popup-logo-panel::before{
+  content:'MSD  Moffa Sutton Donnini';
+  display:block;
+  max-width:100%;
+  color:#eef3f6;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:31px;
+  line-height:1.08;
+  font-weight:700;
+  letter-spacing:-.02em;
+  white-space:normal;
+}
+
+.sutton-popup-logo-panel::after{
+  content:'STATE & LOCAL TAX LAW  •  BUSINESS LAW & LITIGATION';
+  display:block;
+  margin-top:10px;
+  color:#cfd7e6;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:10px;
+  line-height:1.35;
+  font-weight:700;
+  letter-spacing:.1em;
+}
+
+@media(max-width:760px){
+  .sutton-popup-photo-wrap{
+    height:420px!important;
+    min-height:420px!important;
+  }
+  .sutton-popup-logo-panel{
+    min-height:130px!important;
+    padding:18px 20px!important;
+  }
+  .sutton-popup-logo-panel::before{font-size:25px;}
+  .sutton-popup-logo-panel::after{font-size:9px;}
 }
