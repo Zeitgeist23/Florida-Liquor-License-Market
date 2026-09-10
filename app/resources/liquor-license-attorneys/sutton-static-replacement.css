@@ -1,6 +1,8 @@
 .sutton-popup-photo-wrap{
-  height:470px!important;
-  min-height:470px!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:1/1!important;
   background-color:#eef1f4!important;
   background-image:url('https://www.floridasalestax.com/cms/thumbnails/34/415x415/images/James-Sutton-Low-Res.1402260810550.jpg')!important;
   background-position:center top!important;
@@ -29,7 +31,7 @@
   background-image:url('/assets/moffa-sutton-donnini-logo-clean.svg')!important;
   background-position:center!important;
   background-repeat:no-repeat!important;
-  background-size:min(82%,355px) auto!important;
+  background-size:min(90%,420px) auto!important;
   overflow:hidden!important;
 }
 
@@ -45,12 +47,14 @@
 
 @media(max-width:760px){
   .sutton-popup-photo-wrap{
-    height:420px!important;
-    min-height:420px!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    aspect-ratio:1/1!important;
   }
   .sutton-popup-logo-panel{
     min-height:130px!important;
     padding:18px 20px!important;
-    background-size:82% auto!important;
+    background-size:min(90%,420px) auto!important;
   }
 }
