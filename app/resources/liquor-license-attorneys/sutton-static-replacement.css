@@ -14,7 +14,7 @@
   max-height:none!important;
   object-fit:contain!important;
   object-position:center top!important;
-  content:url('/api/sutton-portrait')!important;
+  content:url('/assets/james-h-sutton-verified.jpg')!important;
   background:#eef1f4!important;
 }
 
@@ -41,7 +41,7 @@
   max-height:none!important;
   object-fit:contain!important;
   object-position:center!important;
-  content:url('/api/sutton-logo')!important;
+  content:url('/assets/moffa-sutton-donnini-logo-verified.png')!important;
   background:transparent!important;
   border:0!important;
   padding:0!important;
