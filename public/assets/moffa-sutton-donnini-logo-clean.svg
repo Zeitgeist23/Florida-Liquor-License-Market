@@ -1,13 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="560" height="190" viewBox="0 0 560 190" role="img" aria-labelledby="t d">
-  <title id="t">Moffa Sutton Donnini</title>
-  <desc id="d">State and Local Tax Law, Business Law and Litigation</desc>
-  <rect width="560" height="190" rx="8" fill="#173d5b"/>
-  <g fill="#eef3f6">
-    <text x="54" y="94" font-family="Georgia, 'Times New Roman', serif" font-size="84" font-weight="700" fill="#cfd7e6">MSD</text>
-    <text x="168" y="54" font-family="Georgia, 'Times New Roman', serif" font-size="39">Moffa</text>
-    <text x="168" y="96" font-family="Georgia, 'Times New Roman', serif" font-size="39">Sutton</text>
-    <text x="168" y="138" font-family="Georgia, 'Times New Roman', serif" font-size="39">Donnini</text>
-    <text x="168" y="161" font-family="Arial, Helvetica, sans-serif" font-size="16">State &amp; Local Tax Law</text>
-    <text x="168" y="181" font-family="Arial, Helvetica, sans-serif" font-size="16">Business Law &amp; Litigation</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="330" viewBox="0 0 700 330" role="img" aria-labelledby="title desc">
+  <title id="title">Moffa, Sutton &amp; Donnini, P.A.</title>
+  <desc id="desc">Moffa, Sutton and Donnini, P.A. Attorneys at Law</desc>
+  <rect width="700" height="330" fill="#173d5b"/>
+  <line x1="84" y1="54" x2="616" y2="54" stroke="#f6a700" stroke-width="3"/>
+  <line x1="84" y1="249" x2="616" y2="249" stroke="#f6a700" stroke-width="3"/>
+  <text x="350" y="119" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="400" fill="#eef3f6">Moffa, Sutton</text>
+  <text x="350" y="190" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="400" fill="#eef3f6">
+    <tspan fill="#f6a700">&amp;</tspan><tspan> Donnini, P.A.</tspan>
+  </text>
+  <text x="350" y="296" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="500" letter-spacing="9" fill="#dce6ee">ATTORNEYS AT LAW</text>
 </svg>
