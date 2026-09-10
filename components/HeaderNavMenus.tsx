@@ -220,6 +220,7 @@ export default function HeaderNavMenus({
       menu.style.setProperty("--resources-arrow-shift", `${-shift}px`);
     };
 
+    keepMenuInsideViewport();
     const frame = window.requestAnimationFrame(keepMenuInsideViewport);
     window.addEventListener("resize", keepMenuInsideViewport);
 
@@ -287,6 +288,7 @@ export default function HeaderNavMenus({
       </nav>
 
       <style>{`
+        .results-page{overflow-x:clip}
         .primary-nav .native-nav-dropdown{position:relative;display:inline-flex;align-items:center;flex:0 0 auto;padding-bottom:12px;margin-bottom:-12px}
         .primary-nav .native-nav-trigger{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;gap:5px;padding:0;border:0;background:transparent;color:#fff;cursor:pointer;font:600 10px/1 Arial,Helvetica,sans-serif;text-transform:uppercase;white-space:nowrap}
         .primary-nav .native-nav-trigger:hover,.primary-nav .native-nav-trigger:focus-visible,.primary-nav .native-nav-dropdown.is-open>.native-nav-trigger{color:var(--gold,#f6a700);outline:none}
