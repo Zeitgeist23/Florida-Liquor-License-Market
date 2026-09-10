@@ -1,0 +1,1 @@
+Sutton popup now uses the approved static image asset.
