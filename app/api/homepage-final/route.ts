@@ -9,6 +9,8 @@ const menuStyles = `<style id="home-list-license-menu-styles">
 .header-actions .home-list-license-wrap:hover .home-list-license-menu,.header-actions .home-list-license-wrap:focus-within .home-list-license-menu{display:grid;gap:2px}
 .header-actions .home-list-license-menu a{display:block;width:100%;padding:11px 12px;border-radius:4px;color:#f6a700!important;font:800 13.5px/1.25 Arial,Helvetica,sans-serif;text-decoration:none!important;text-transform:none!important;white-space:nowrap}
 .header-actions .home-list-license-menu a:hover,.header-actions .home-list-license-menu a:focus-visible{background:#f6a700;color:#061728!important;outline:none}
+.site-header .header-actions>a.btn-outline{transition:color .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+.site-header .header-actions>a.btn-outline:hover,.site-header .header-actions>a.btn-outline:focus-visible{color:#061728!important;background:#f6a700!important;border-color:#ffb400!important;box-shadow:0 0 0 2px rgba(255,180,0,.18),0 7px 18px rgba(246,167,0,.32);transform:translateY(-1px);outline:none}
 @media(max-width:899px){.header-actions .home-list-license-menu{right:50%;width:min(290px,calc(100vw - 28px));transform:translateX(50%)}.header-actions .home-list-license-menu a{white-space:normal}}
 </style>`;
 
