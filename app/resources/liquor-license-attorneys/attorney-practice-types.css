@@ -337,6 +337,40 @@
   line-height: 1.68;
 }
 
+/* Keep every primary attorney-directory action consistent and visibly interactive. */
+.attorney-hero-actions .btn {
+  transform-origin: center;
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.attorney-hero-actions .btn:hover,
+.attorney-hero-actions .btn:focus-visible {
+  transform: translateY(-2px) scale(1.03);
+  border-color: #ffc02b;
+  box-shadow: 0 8px 22px rgba(246, 167, 0, .22);
+  outline: none;
+}
+
+.attorney-hero-actions .btn-outline:hover,
+.attorney-hero-actions .btn-outline:focus-visible {
+  color: #07131e;
+  background: #f6a700;
+}
+
+/* Increase the directory disclosure slightly for easier reading without changing its hierarchy. */
+.attorney-disclosure > strong {
+  font-size: 11px;
+}
+
+.attorney-disclosure p {
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.attorney-disclosure small {
+  font-size: 10px;
+}
+
 @media (max-width: 1100px) {
   .attorney-practice-types,
   .attorney-litigation-grid {
