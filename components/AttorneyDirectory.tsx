@@ -243,14 +243,15 @@ export default function AttorneyDirectory() {
         .sutton-popup-left{display:flex;flex-direction:column;background:#173d5b;min-height:100%}
         .sutton-popup-photo-wrap{background:#eef1f4;border-bottom:1px solid rgba(246,167,0,.8);overflow:hidden}
         .sutton-popup-photo{display:block;width:100%;height:auto;object-fit:contain;object-position:center top;background:#eef1f4}
-        .sutton-popup-logo-panel{flex:1;display:flex;align-items:center;justify-content:center;min-height:185px;padding:24px 28px;background:#173d5b}
-        .sutton-popup-wordmark{width:min(100%,340px);display:flex;flex-direction:column;align-items:center;text-align:center;color:#eef3f6;font-family:Georgia,'Times New Roman',serif}
-        .sutton-popup-wordmark-rule{display:block;width:100%;height:2px;margin:5px 0 12px;background:#f6a700}
+        .sutton-popup-logo-panel{flex:1;display:flex;align-items:center;justify-content:center;min-height:185px;padding:24px 28px;background:#173d5b;border:0!important;outline:0!important;box-shadow:none!important;overflow:hidden}
+        .sutton-popup-wordmark{width:min(100%,340px);display:flex;flex-direction:column;align-items:center;text-align:center;color:#eef3f6;font-family:Georgia,'Times New Roman',serif;border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important}
+        .sutton-popup-logo-panel:before,.sutton-popup-logo-panel:after,.sutton-popup-wordmark:before,.sutton-popup-wordmark:after{content:none!important;display:none!important}
+        .sutton-popup-wordmark-rule{display:block;width:100%;height:2px;margin:5px 0 12px;background:#f6a700!important;border:0!important;outline:0!important;box-shadow:none!important}
         .sutton-popup-wordmark strong{display:block;font-size:clamp(30px,3vw,43px);font-weight:400;line-height:1.05;letter-spacing:-.02em}
         .sutton-popup-wordmark strong em{color:#f6a700;font-style:normal}
         .sutton-popup-wordmark strong+strong{margin-top:2px}
         .sutton-popup-wordmark strong+span{margin-top:14px;margin-bottom:12px}
-        .sutton-popup-wordmark small{font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#d9e2ea}
+        .sutton-popup-wordmark small{font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#d9e2ea;border:0!important;outline:0!important}
         .sutton-popup-details{min-width:0;padding:34px 38px 30px}
         .sutton-popup-details h2{font-size:clamp(32px,3.4vw,46px);line-height:1.02;margin-bottom:8px}
         .sutton-popup-details>strong{font-size:16px}.sutton-popup-details>p{font-size:15px;line-height:1.55}.sutton-popup-details h3{font-size:15px;margin-top:22px}.sutton-popup-details ul{font-size:14px;line-height:1.5}.sutton-popup-details .attorney-modal-resource span,.sutton-popup-details .attorney-modal-resource small{font-size:12px;line-height:1.45}.sutton-popup-details .attorney-modal-notice{font-size:11px;line-height:1.55}
