@@ -21,6 +21,7 @@ type Attorney = {
 };
 
 const SUTTON_NAME = "James H. Sutton, Jr., CPA, Esq.";
+const SUTTON_PORTRAIT = "https://www.floridasalestax.com/cms/thumbnails/34/415x415/images/James-Sutton-Low-Res.1402260810550.jpg";
 
 const attorneys: Attorney[] = [
   {
@@ -106,7 +107,7 @@ const attorneys: Attorney[] = [
     phone: "813-775-2131",
     phoneHref: "tel:+18137752131",
     profile: "https://www.floridasalestax.com/staff-profiles/james-h-sutton-jr-cpa-esq-/",
-    image: "/assets/james-h-sutton.jpg",
+    image: SUTTON_PORTRAIT,
     imageCredit: "Portrait from Law Offices of Moffa, Sutton & Donnini",
     services: ["Florida sales-and-use-tax audit defense and protests", "Petitions for reconsideration and Division of Administrative Hearings litigation", "FDOR collections, registration denials, refunds, and voluntary disclosures"],
     publishedResourceLabel: "FLLM resource",
@@ -182,7 +183,16 @@ export default function AttorneyDirectory() {
     <>
       <section className="attorney-grid page-shell" id="attorney-directory" aria-label="Attorney directory">
         {attorneys.map((attorney) => (
-          <article className="attorney-card" key={attorney.name} role="button" tabIndex={0} aria-haspopup="dialog" aria-label={`View details for ${attorney.name}`} onClick={(event) => { if (!(event.target as HTMLElement).closest("a,button")) setSelectedAttorney(attorney); }} onKeyDown={(event) => { if ((event.key === "Enter" || event.key === " ") && event.target === event.currentTarget) { event.preventDefault(); setSelectedAttorney(attorney); } }}>
+          <article
+            className="attorney-card"
+            key={attorney.name}
+            role="button"
+            tabIndex={0}
+            aria-haspopup="dialog"
+            aria-label={`View details for ${attorney.name}`}
+            onClick={(event) => { if (!(event.target as HTMLElement).closest("a,button")) setSelectedAttorney(attorney); }}
+            onKeyDown={(event) => { if ((event.key === "Enter" || event.key === " ") && event.target === event.currentTarget) { event.preventDefault(); setSelectedAttorney(attorney); } }}
+          >
             <div className="attorney-card-heading"><span aria-hidden="true">{getInitials(attorney.name)}</span><div><h2>{attorney.name}</h2><strong>{attorney.firm}</strong><small>{attorney.location}</small></div></div>
             <span className="attorney-practice-badge">{attorney.category}</span>
             <ul>{attorney.services.map((service) => <li key={service}>{service}</li>)}</ul>
@@ -200,8 +210,8 @@ export default function AttorneyDirectory() {
             <section className="sutton-popup" role="dialog" aria-modal="true" aria-labelledby="attorney-modal-title">
               <button ref={closeButtonRef} className="sutton-popup-close" type="button" aria-label="Close attorney details" onClick={() => setSelectedAttorney(null)}>×</button>
               <div className="sutton-popup-left">
-                <img className="sutton-popup-photo" src="/assets/james-h-sutton.jpg" alt="James H. Sutton, Jr., CPA, Esq." />
-                <div className="sutton-popup-logo-panel"><img className="sutton-popup-logo" src="/assets/moffa-sutton-donnini-logo.png" alt="Moffa Sutton Donnini — State & Local Tax Law, Business Law & Litigation" /></div>
+                <div className="sutton-popup-photo-wrap"><img className="sutton-popup-photo" src={SUTTON_PORTRAIT} alt="James H. Sutton, Jr., CPA, Esq." /></div>
+                <div className="sutton-popup-logo-panel"><img className="sutton-popup-logo" src="/assets/moffa-sutton-donnini-logo-clean.svg" alt="Moffa Sutton Donnini — State & Local Tax Law, Business Law & Litigation" /></div>
               </div>
               <div className="sutton-popup-details"><ModalDetails attorney={selectedAttorney} /></div>
             </section>
@@ -222,14 +232,15 @@ export default function AttorneyDirectory() {
         .attorney-modal-secondary-phone{font-size:14px!important;line-height:1.45;font-weight:900!important}
         .sutton-popup{position:relative;width:min(1040px,calc(100vw - 36px));max-height:88vh;display:grid;grid-template-columns:38% 62%;overflow:auto;border:1px solid #f6a700;border-top:4px solid #f6a700;border-radius:10px;color:#eef3f6;background:linear-gradient(145deg,#0c263a,#06131e 72%);box-shadow:0 32px 90px rgba(0,0,0,.68)}
         .sutton-popup-close{position:absolute;z-index:6;top:12px;right:12px;width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(246,167,0,.9);border-radius:50%;color:#061728;background:#f6a700;font-size:27px;line-height:1;cursor:pointer}
-        .sutton-popup-left{display:flex;flex-direction:column;background:#123550;min-height:100%}
-        .sutton-popup-photo{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center top;background:#eef1f4}
-        .sutton-popup-logo-panel{flex:1;display:flex;align-items:center;justify-content:center;min-height:210px;padding:28px 30px;border-top:1px solid rgba(246,167,0,.8);background:#173d5b}
-        .sutton-popup-logo{display:block;width:100%;max-width:330px;height:auto;object-fit:contain}
+        .sutton-popup-left{display:flex;flex-direction:column;background:#173d5b;min-height:100%}
+        .sutton-popup-photo-wrap{background:#eef1f4;border-bottom:1px solid rgba(246,167,0,.8);overflow:hidden}
+        .sutton-popup-photo{display:block;width:100%;height:auto;object-fit:contain;object-position:center top;background:#eef1f4}
+        .sutton-popup-logo-panel{flex:1;display:flex;align-items:center;justify-content:center;min-height:185px;padding:24px 28px;background:#173d5b}
+        .sutton-popup-logo{display:block;width:min(100%,355px);height:auto;object-fit:contain;background:transparent!important;border:0!important;padding:0!important;min-height:0!important;max-height:none!important;flex:none!important}
         .sutton-popup-details{min-width:0;padding:34px 38px 30px}
         .sutton-popup-details h2{font-size:clamp(32px,3.4vw,46px);line-height:1.02;margin-bottom:8px}
         .sutton-popup-details>strong{font-size:16px}.sutton-popup-details>p{font-size:15px;line-height:1.55}.sutton-popup-details h3{font-size:15px;margin-top:22px}.sutton-popup-details ul{font-size:14px;line-height:1.5}.sutton-popup-details .attorney-modal-resource span,.sutton-popup-details .attorney-modal-resource small{font-size:12px;line-height:1.45}.sutton-popup-details .attorney-modal-notice{font-size:11px;line-height:1.55}
-        @media(max-width:760px){.sutton-popup{grid-template-columns:1fr;width:min(620px,calc(100vw - 24px));max-height:90vh}.sutton-popup-photo{aspect-ratio:4/3;object-fit:contain;background:#eef1f4}.sutton-popup-logo-panel{min-height:130px;padding:20px}.sutton-popup-logo{max-width:300px}.sutton-popup-details{padding:28px 24px 26px}.sutton-popup-close{top:9px;right:9px}}
+        @media(max-width:760px){.sutton-popup{grid-template-columns:1fr;width:min(620px,calc(100vw - 24px));max-height:90vh}.sutton-popup-photo{max-height:46vh}.sutton-popup-logo-panel{min-height:130px;padding:18px 22px}.sutton-popup-logo{max-width:300px}.sutton-popup-details{padding:28px 24px 26px}.sutton-popup-close{top:9px;right:9px}}
       `}</style>
     </>
   );
