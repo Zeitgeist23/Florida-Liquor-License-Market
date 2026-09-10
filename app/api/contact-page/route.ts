@@ -100,6 +100,90 @@ const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v2">
   .contact-license-context > a:focus-visible {
     text-decoration: underline;
   }
+  .contact-page > .seller-header,
+  .contact-page > .seller-header nav {
+    overflow: visible !important;
+  }
+  .contact-page > .seller-header nav > a[href="/"],
+  .contact-page .contact-list-license-trigger {
+    transition: color .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+    transform-origin: center;
+  }
+  .contact-page > .seller-header nav > a[href="/"]:hover,
+  .contact-page > .seller-header nav > a[href="/"]:focus-visible,
+  .contact-page .contact-list-license-wrap:hover .contact-list-license-trigger,
+  .contact-page .contact-list-license-wrap:focus-within .contact-list-license-trigger,
+  .contact-page .contact-list-license-wrap.is-open .contact-list-license-trigger {
+    color: #061728 !important;
+    background: #f6a700 !important;
+    border-color: #ffb400 !important;
+    box-shadow: 0 0 0 2px rgba(255, 180, 0, .18), 0 7px 18px rgba(246, 167, 0, .32) !important;
+    transform: translateY(-1px) scale(1.03) !important;
+    outline: none;
+  }
+  .contact-list-license-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    z-index: 40;
+  }
+  .contact-list-license-trigger {
+    cursor: pointer;
+  }
+  .contact-list-license-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 50000;
+    display: none;
+    width: 290px;
+    padding: 6px;
+    border: 1px solid #f6a700;
+    border-radius: 7px;
+    background: #061728;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, .42);
+  }
+  .contact-list-license-wrap:hover .contact-list-license-menu,
+  .contact-list-license-wrap:focus-within .contact-list-license-menu,
+  .contact-list-license-wrap.is-open .contact-list-license-menu {
+    display: grid;
+    gap: 2px;
+  }
+  .contact-page > .seller-header nav .contact-list-license-menu a {
+    display: block;
+    width: 100%;
+    min-height: 0;
+    padding: 11px 12px;
+    border: 0;
+    border-radius: 4px;
+    color: #f6a700 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.3;
+    text-align: left;
+    text-decoration: none !important;
+    text-transform: none;
+    transform: none !important;
+    white-space: nowrap;
+  }
+  .contact-page > .seller-header nav .contact-list-license-menu a:hover,
+  .contact-page > .seller-header nav .contact-list-license-menu a:focus-visible {
+    color: #061728 !important;
+    background: #f6a700 !important;
+    outline: none;
+  }
+  @media (max-width: 760px) {
+    .contact-list-license-menu {
+      right: 0;
+      width: min(290px, calc(100vw - 28px));
+    }
+    .contact-page > .seller-header nav .contact-list-license-menu a {
+      white-space: normal;
+    }
+  }
   @media (max-width: 620px) {
     .contact-license-context-grid {
       grid-template-columns: 1fr;
@@ -111,6 +195,102 @@ const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v2">
 </style>`;
 
 const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=4" defer></script>';
+const CONTACT_HEADER_MENU_SCRIPT = `<script id="contact-header-menu-installer">
+(function(){
+  var SELF='/sell-your-license?method=self#listing-options';
+  var HELP='/sell-your-license#broker-assistance';
+  var BROKER='/brokers/list-your-license';
+
+  function normalizedText(el){
+    return (el&&el.textContent||'').replace(/\\s+/g,' ').trim().toLowerCase();
+  }
+
+  function makeLink(label,href){
+    var link=document.createElement('a');
+    link.href=href;
+    link.textContent=label;
+    link.setAttribute('role','menuitem');
+    return link;
+  }
+
+  function install(){
+    var nav=document.querySelector('.contact-page > .seller-header nav');
+    if(!nav||nav.querySelector('.contact-list-license-wrap'))return;
+
+    var oldLink=Array.prototype.find.call(nav.children,function(el){
+      return el.tagName==='A'&&normalizedText(el)==='list your license';
+    });
+    if(!oldLink)return;
+
+    var wrap=document.createElement('div');
+    wrap.className='contact-list-license-wrap';
+
+    oldLink.classList.add('contact-list-license-trigger');
+    oldLink.setAttribute('role','button');
+    oldLink.setAttribute('aria-haspopup','menu');
+    oldLink.setAttribute('aria-expanded','false');
+    oldLink.setAttribute('aria-label','List your license options');
+
+    var menu=document.createElement('div');
+    menu.className='contact-list-license-menu';
+    menu.setAttribute('role','menu');
+    menu.setAttribute('aria-label','List your license options');
+    menu.appendChild(makeLink('Self-Directed Seller',SELF));
+    menu.appendChild(makeLink('Request Broker Help',HELP));
+    menu.appendChild(makeLink('For Brokers — List a Client License',BROKER));
+
+    oldLink.replaceWith(wrap);
+    wrap.appendChild(oldLink);
+    wrap.appendChild(menu);
+
+    function setOpen(open){
+      wrap.classList.toggle('is-open',open);
+      oldLink.setAttribute('aria-expanded',open?'true':'false');
+    }
+
+    oldLink.addEventListener('click',function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      setOpen(!wrap.classList.contains('is-open'));
+    });
+    oldLink.addEventListener('keydown',function(event){
+      if(event.key==='ArrowDown'){
+        event.preventDefault();
+        setOpen(true);
+        var first=menu.querySelector('a');
+        if(first)first.focus();
+      }else if(event.key==='Escape'){
+        setOpen(false);
+        oldLink.focus();
+      }
+    });
+    menu.addEventListener('keydown',function(event){
+      if(event.key==='Escape'){
+        event.preventDefault();
+        setOpen(false);
+        oldLink.focus();
+      }
+    });
+    document.addEventListener('click',function(event){
+      if(!wrap.contains(event.target))setOpen(false);
+    });
+  }
+
+  function start(){
+    install();
+    setTimeout(install,100);
+    setTimeout(install,500);
+    setTimeout(install,1200);
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
+  else start();
+  window.addEventListener('load',start);
+  window.addEventListener('pageshow',start);
+  new MutationObserver(install).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>`;
+
 const CAREERS_ENTRY = '<a class="contact-careers-entry" href="/careers"><span>Interested in joining FLLM?</span><strong>View Careers →</strong></a>';
 
 function addContactEnhancements(html: string) {
@@ -120,6 +300,9 @@ function addContactEnhancements(html: string) {
   }
   if (!enhanced.includes("contact-listing-context.js")) {
     enhanced = enhanced.replace("</head>", `${CONTACT_CONTEXT_SCRIPT}</head>`);
+  }
+  if (!enhanced.includes('id="contact-header-menu-installer"')) {
+    enhanced = enhanced.replace("</body>", `${CONTACT_HEADER_MENU_SCRIPT}</body>`);
   }
   return enhanced;
 }
