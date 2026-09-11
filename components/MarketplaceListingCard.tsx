@@ -39,6 +39,16 @@ function featuredBrokerContact(note: string | undefined) {
   return { name, brokerage, phone };
 }
 
+function isSelfDirectedListing(listing: Listing) {
+  return Boolean(
+    listing.note?.startsWith(
+      "Direct seller listing submitted to Florida Liquor License Market.",
+    ) ||
+      (listing.sourceName === "Florida Liquor License Market" &&
+        listing.sourceRef?.startsWith("FLLM-PAID-")),
+  );
+}
+
 export type MarketplaceListingCardProps = {
   listing: Listing;
   focused?: boolean;
@@ -79,6 +89,8 @@ export default function MarketplaceListingCard({
   const brokerContact = normalizedListing.featuredUntil
     ? featuredBrokerContact(normalizedListing.note)
     : null;
+  const selfDirected =
+    !normalizedListing.featuredUntil && isSelfDirectedListing(normalizedListing);
 
   return (
     <article
@@ -86,6 +98,7 @@ export default function MarketplaceListingCard({
         "result-card",
         available ? "result-card-available" : "result-card-sold",
         normalizedListing.featuredUntil && "result-card-featured",
+        selfDirected && "result-card-self-directed",
         focused && "result-card-focused",
         className,
       )}
@@ -97,6 +110,8 @@ export default function MarketplaceListingCard({
     >
       {normalizedListing.featuredUntil ? (
         <span className="featured-listing-badge">Featured Listing</span>
+      ) : selfDirected ? (
+        <span className="self-directed-listing-badge">FLLM Self-Directed</span>
       ) : null}
       <span className="result-type-badge">{normalizedListing.type}</span>
       <div className="result-photo">
