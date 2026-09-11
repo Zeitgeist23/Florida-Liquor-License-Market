@@ -14,9 +14,11 @@ export default function TrustPurchaserGuideLayout({ children }: { children: Reac
           .trust-real-case{background:#06131e;color:#eef3f6;padding:0 0 64px}
           .trust-real-case-shell{width:min(1180px,calc(100% - 36px));margin:0 auto;padding:30px;border:1px solid rgba(237,169,26,.42);border-top:4px solid #eda91a;border-radius:13px;background:linear-gradient(145deg,#0a2237,#04111c);box-shadow:0 18px 42px rgba(0,0,0,.22)}
           .trust-real-case-kicker{display:block;color:#eda91a;font-size:11px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
-          .trust-real-case h2{max-width:900px;margin:8px 0 12px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:clamp(28px,4vw,42px);line-height:1.1}
+          .trust-real-case h2{max-width:980px;margin:8px 0 12px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:clamp(28px,4vw,42px);line-height:1.1}
           .trust-real-case p{max-width:1000px;margin:0;color:#c3d0d9;font-size:15px;line-height:1.72}
           .trust-real-case p+p{margin-top:13px}
+          .trust-real-case-quote{margin:18px 0 0;padding:18px 20px;border-left:4px solid #eda91a;background:rgba(237,169,26,.065);color:#f2f5f7;font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:1.55}
+          .trust-real-case-quote cite{display:block;margin-top:8px;color:#9fb0bf;font-family:Arial,sans-serif;font-size:11px;font-style:normal;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
           .trust-real-case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:22px}
           .trust-real-case-card{padding:20px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#071d33}
           .trust-real-case-card span{display:block;color:#eda91a;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
@@ -29,16 +31,31 @@ export default function TrustPurchaserGuideLayout({ children }: { children: Reac
           .trust-real-case-actions a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid rgba(237,169,26,.5);border-radius:8px;color:#eda91a;font-weight:900;text-decoration:none}
           .trust-real-case-actions a:hover{background:#eda91a;color:#06131e}
           .trust-real-case-note{margin-top:18px!important;color:#90a3b2!important;font-size:12px!important}
-          @media(max-width:780px){.trust-real-case-grid{grid-template-columns:1fr}.trust-real-case-shell{padding:22px 18px}}
+          @media(max-width:780px){.trust-real-case-grid{grid-template-columns:1fr}.trust-real-case-shell{padding:22px 18px}.trust-real-case-quote{font-size:16px}}
         `}</style>
         <div className="trust-real-case-shell">
           <span className="trust-real-case-kicker">Documented Florida quota-license transaction</span>
-          <h2 id="trust-real-case-heading">Case Study: Park Street Trust, Winn-Dixie and the Named Purchaser</h2>
+          <h2 id="trust-real-case-heading">The Curious Case of the Park Street Revocable Trust and Winn-Dixie</h2>
           <p>
-            In 2025 findings following a non-jury trial in St. Johns County, the circuit court described a quota-license transaction in which the purchase agreement named the Park Street Revocable Trust as buyer. The court found that the Trust had been created for the purpose of obtaining a liquor license that would later be transferred to Winn-Dixie and later characterized the Trust as functioning essentially as a stand-in for Winn-Dixie in the transaction.
+            At the July 14, 2025 non-jury trial in St. Johns County, Park Street trustee H. Timothy Gillis testified that Winn-Dixie was the sole beneficiary of the Park Street Revocable Trust and explained why the trust structure had been created. Gillis testified that sellers could increase asking prices when they learned that Winn-Dixie was the purchaser, so the Trust was used to conceal the purchaser&apos;s identity during the contracting process.
           </p>
+
+          <blockquote className="trust-real-case-quote">
+            “The intent of the Trust was to screen the identity of the potential purchaser...”
+            <cite>H. Timothy Gillis testimony · Trial Transcript Vol. I, p. 95, lines 12-18</cite>
+          </blockquote>
+
           <p>
-            The findings identify Barry B. Rosayn of RealtyMasters as the broker and agent for the transaction and state that RealtyMasters also served as escrow agent. Separately, Rosayn&apos;s published RealtyMasters biography states that, since 2011, he has exclusively represented Winn-Dixie Supermarkets for Florida alcoholic-beverage licensing and acquisitions.
+            Gillis then described Park Street&apos;s role after explaining that the Trust would contract for the license and assign its rights to a Winn-Dixie subsidiary that would ultimately hold the alcoholic-beverage license.
+          </p>
+
+          <blockquote className="trust-real-case-quote">
+            “We were a mere conduit, a functionary, we are their attorneys.”
+            <cite>H. Timothy Gillis testimony · Trial Transcript Vol. I, p. 96, lines 1-3</cite>
+          </blockquote>
+
+          <p>
+            The 2025 circuit-court findings likewise state that the Trust&apos;s sole purpose was to obtain a liquor license that would then be transferred to Winn-Dixie. The findings identify Barry B. Rosayn of RealtyMasters as the broker and agent for the transaction and state that RealtyMasters also served as escrow agent. Separately, Rosayn&apos;s published RealtyMasters biography states that, since 2011, he has exclusively represented Winn-Dixie Supermarkets for Florida alcoholic-beverage licensing and acquisitions.
           </p>
 
           <div className="trust-real-case-grid">
@@ -46,7 +63,7 @@ export default function TrustPurchaserGuideLayout({ children }: { children: Reac
               <span>Named purchaser</span>
               <h3>Park Street Revocable Trust</h3>
               <p>
-                The contract named the Trust as buyer, while the court&apos;s findings described the Trust&apos;s purpose as acquiring the quota-license rights for Winn-Dixie. The findings also state that the Trust would not ultimately retain the license interest because its rights were intended to be assigned to Winn-Dixie.
+                The contract named the Trust as buyer, while Gillis testified that Winn-Dixie was the sole beneficiary and that the Trust was intended to screen the purchaser&apos;s identity. The contemplated structure called for Park Street to assign its rights to Winn-Dixie rather than remain the ultimate license holder.
               </p>
             </article>
             <article className="trust-real-case-card">
@@ -75,7 +92,7 @@ export default function TrustPurchaserGuideLayout({ children }: { children: Reac
           </div>
 
           <p className="trust-real-case-note">
-            FLLM does not suggest that the use of Park Street Trust, Winn-Dixie, RealtyMasters, or a trust-based acquisition structure was unlawful or improper. This case study is presented because the judicial record illustrates why a quota-license seller should identify the relationship among the named purchaser, trustee, broker, funding party, assignee and intended DABT transferee before signing a purchase agreement.
+            FLLM does not suggest that the use of Park Street Trust, Winn-Dixie, RealtyMasters, or a trust-based acquisition structure was unlawful or improper. This case study is presented because the sworn trial testimony and judicial record illustrate why a quota-license seller should identify the relationship among the named purchaser, trustee, broker, funding party, assignee and intended DABT transferee before signing a purchase agreement.
           </p>
         </div>
       </section>
