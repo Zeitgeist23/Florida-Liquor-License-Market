@@ -69,6 +69,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/resources/quota-transfer-fee-calculator`, lastModified, changeFrequency: "monthly", priority: 0.65 },
     { url: `${siteUrl}/resources/liquor-license-attorneys`, lastModified, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/resources/florida-liquor-license-property-or-privilege`, lastModified, changeFrequency: "monthly", priority: 0.68 },
+    { url: `${siteUrl}/resources/florida-liquor-license-age-property-rights`, lastModified, changeFrequency: "monthly", priority: 0.76 },
     { url: `${siteUrl}/resources/liquor-license-attorneys/apply`, lastModified, changeFrequency: "monthly", priority: 0.4 },
     { url: `${siteUrl}/resources/florida-department-of-revenue`, lastModified, changeFrequency: "monthly", priority: 0.58 },
     { url: `${siteUrl}/resources/florida-liquor-license-types`, lastModified, changeFrequency: "monthly", priority: 0.72 },
