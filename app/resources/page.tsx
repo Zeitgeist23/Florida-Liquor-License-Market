@@ -40,6 +40,7 @@ const resourceGroups = [
     items: [
       { href: "/how-to-buy-florida-liquor-license", title: "How to Buy a Florida Liquor License", copy: "Compare quota-market purchases, state-issued options, due diligence, financing and transfer steps." },
       { href: "/how-to-sell-florida-liquor-license", title: "How to Sell a Florida Liquor License", copy: "Understand valuation, listing choices, buyer qualification, contracting and transfer preparation." },
+      { href: "/resources/selling-florida-quota-liquor-license-to-trust", title: "Selling to a Trust: Seller Due Diligence", copy: "What quota-license sellers should verify when a purchase contract names a trust, including trustee authority, assignment rights, indirect interests and the proposed DABT transferee." },
       { href: "/transaction-services", title: "FLLM Transaction Services", copy: "Connect valuation, financing, FDOR clearance, ABT transfer support, closing resources and professional referrals." },
       { href: "/listings", title: "Current License Listings", copy: "Search available Florida 4COP and 3PS licenses by county, price and listing status." },
       { href: "/florida-3ps-liquor-license-for-sale", title: "Florida 3PS Licenses for Sale", copy: "Compare current package-store quota-license inventory across Florida counties." },
@@ -116,89 +117,49 @@ const resourceGroups = [
 export default function ResourcesPage() {
   return (
     <main className="resources-page">
-      <div className="resources-header-wrap">
-        <FormsSiteHeader />
-      </div>
+      <div className="resources-header-wrap"><FormsSiteHeader /></div>
 
       <section className="resources-hero">
         <div className="page-shell resources-hero-inner">
           <div>
             <p className="resources-eyebrow">FLLM guide & resource library</p>
             <h1>Florida Liquor License Resource Center</h1>
-            <p>
-              Browse practical guides, market data, forms, laws, financing, valuation tools, county resources and professional directories for every stage of a Florida liquor-license transaction.
-            </p>
+            <p>Browse practical guides, market data, forms, laws, financing, valuation tools, county resources and professional directories for every stage of a Florida liquor-license transaction.</p>
           </div>
-          <nav aria-label="Resources page sections">
-            <a href="#resource-library">Browse all resources</a>
-            <a href="#featured-guide">Free guide</a>
-          </nav>
+          <nav aria-label="Resources page sections"><a href="#resource-library">Browse all resources</a><a href="#featured-guide">Free guide</a></nav>
         </div>
       </section>
 
       <section className="featured-guide page-shell" id="featured-guide">
-        <div className="featured-guide-cover">
-          <img
-            src="/assets/fllm-buyers-sellers-guide-cover.jpg"
-            alt="The Official Florida Liquor License Market Buyer’s and Seller’s Guide, 2026 Edition"
-          />
-        </div>
+        <div className="featured-guide-cover"><img src="/assets/fllm-buyers-sellers-guide-cover.jpg" alt="The Official Florida Liquor License Market Buyer’s and Seller’s Guide, 2026 Edition" /></div>
         <div className="featured-guide-copy">
           <span className="featured-label">Featured free publication · 48-page PDF</span>
           <h2>The Official FLLM Buyer’s &amp; Seller’s Guide</h2>
-          <p>
-            The downloadable Buyer’s &amp; Seller’s Guide remains one featured resource inside the larger FLLM library. Use the categorized sections below for specific topics such as opening a liquor store, 3PS licensing, financing, valuation, county markets, applications and legal rules.
-          </p>
-          <ul>
-            <li>Buying, selling, applying, financing and investing</li>
-            <li>3PS, 4COP, 2APS, 2COP, SFS and SRX terminology</li>
-            <li>Heat maps, listings, laws, forms and professional directories</li>
-          </ul>
+          <p>The downloadable Buyer’s &amp; Seller’s Guide remains one featured resource inside the larger FLLM library. Use the categorized sections below for specific topics such as opening a liquor store, 3PS licensing, financing, valuation, county markets, applications and legal rules.</p>
+          <ul><li>Buying, selling, applying, financing and investing</li><li>3PS, 4COP, 2APS, 2COP, SFS and SRX terminology</li><li>Heat maps, listings, laws, forms and professional directories</li></ul>
           <Link className="featured-guide-button" href="/free-guide">Download the free guide</Link>
         </div>
       </section>
 
       <section className="resource-library" id="resource-library">
         <div className="page-shell">
-          <div className="resource-library-heading">
-            <p className="resources-eyebrow">Browse by topic</p>
-            <h2>FLLM guides, tools and market resources</h2>
-            <p>Choose the subject that matches what you are trying to do. Each guide links back into FLLM's listings, financing, appraisal, county-market and transaction resources where relevant.</p>
-          </div>
-
+          <div className="resource-library-heading"><p className="resources-eyebrow">Browse by topic</p><h2>FLLM guides, tools and market resources</h2><p>Choose the subject that matches what you are trying to do. Each guide links back into FLLM's listings, financing, appraisal, county-market and transaction resources where relevant.</p></div>
           {resourceGroups.map((group) => (
             <section className="resource-group" key={group.title}>
               <h3>{group.title}</h3>
               <p style={{ maxWidth: "820px", margin: "6px 0 18px", color: "#66717f", lineHeight: 1.65 }}>{group.copy}</p>
               <div className="resource-card-grid">
                 {group.items.map((item) => (
-                  <Link href={item.href} className="resource-card" key={`${group.title}-${item.href}`}>
-                    <strong>{item.title}</strong>
-                    <span>{item.copy}</span>
-                    <em>Open resource →</em>
-                  </Link>
+                  <Link href={item.href} className="resource-card" key={`${group.title}-${item.href}`}><strong>{item.title}</strong><span>{item.copy}</span><em>Open resource →</em></Link>
                 ))}
               </div>
             </section>
           ))}
-
-          <aside className="official-agency-card">
-            <div>
-              <span>Official state agency</span>
-              <h2>Florida Division of Alcoholic Beverages &amp; Tobacco</h2>
-              <p>Use FLLM's DABT guide for a plain-language overview, then verify current requirements, license records, application procedures and official notices directly with DBPR/DABT.</p>
-            </div>
-            <a href="https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" target="_blank" rel="noopener noreferrer">Visit the DABT website ↗</a>
-          </aside>
+          <aside className="official-agency-card"><div><span>Official state agency</span><h2>Florida Division of Alcoholic Beverages &amp; Tobacco</h2><p>Use FLLM's DABT guide for a plain-language overview, then verify current requirements, license records, application procedures and official notices directly with DBPR/DABT.</p></div><a href="https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/" target="_blank" rel="noopener noreferrer">Visit the DABT website ↗</a></aside>
         </div>
       </section>
 
-      <footer className="resources-footer">
-        <div className="page-shell">
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-          <p>FLLM provides market information and transaction resources; it is not the licensing agency. Confirm current requirements with DBPR/DABT and appropriate professional advisers.</p>
-        </div>
-      </footer>
+      <footer className="resources-footer"><div className="page-shell"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /><p>FLLM provides market information and transaction resources; it is not the licensing agency. Confirm current requirements with DBPR/DABT and appropriate professional advisers.</p></div></footer>
     </main>
   );
 }
