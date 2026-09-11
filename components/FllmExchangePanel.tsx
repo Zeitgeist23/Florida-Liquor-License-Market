@@ -49,6 +49,7 @@ export default function FllmExchangePanel(props: {
   const [listingContext, setListingContext] = useState<ListingContext | null>(null);
   const [mainMount, setMainMount] = useState<HTMLElement | null>(null);
   const [asideMount, setAsideMount] = useState<HTMLElement | null>(null);
+  const [highlightMount, setHighlightMount] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -77,12 +78,22 @@ export default function FllmExchangePanel(props: {
     const aside = document.querySelector<HTMLElement>(
       ".marketplace-listing-aside:not(.marketplace-listing-aside-broker)",
     );
-    if (!main || !aside) return;
+    const facts = main?.querySelector<HTMLElement>(".marketplace-listing-facts");
+    if (!main || !aside || !facts) return;
 
+    let highlightSlot = main.querySelector<HTMLElement>(".fllm-selfdirected-highlight-slot");
     let mainSlot = main.querySelector<HTMLElement>(".fllm-selfdirected-main-slot");
     let asideSlot = aside.querySelector<HTMLElement>(".fllm-selfdirected-aside-slot");
+    let createdHighlight = false;
     let createdMain = false;
     let createdAside = false;
+
+    if (!highlightSlot) {
+      highlightSlot = document.createElement("div");
+      highlightSlot.className = "fllm-selfdirected-highlight-slot";
+      facts.insertAdjacentElement("afterend", highlightSlot);
+      createdHighlight = true;
+    }
 
     if (!mainSlot) {
       mainSlot = document.createElement("div");
@@ -98,12 +109,15 @@ export default function FllmExchangePanel(props: {
       createdAside = true;
     }
 
+    setHighlightMount(highlightSlot);
     setMainMount(mainSlot);
     setAsideMount(asideSlot);
 
     return () => {
+      setHighlightMount(null);
       setMainMount(null);
       setAsideMount(null);
+      if (createdHighlight && highlightSlot?.parentElement === main) main.removeChild(highlightSlot);
       if (createdMain && mainSlot?.parentElement === main) main.removeChild(mainSlot);
       if (createdAside && asideSlot?.parentElement === aside) aside.removeChild(asideSlot);
     };
@@ -148,6 +162,36 @@ export default function FllmExchangePanel(props: {
       setMessage(error instanceof Error ? error.message : "Unable to submit bid.");
     }
   }
+
+  const is3ps = /3PS/i.test(listingContext?.licenseType || "");
+  const countyShort = (listingContext?.county || "").replace(/\s+County$/i, "") || "County";
+
+  const highlightPortal = highlightMount
+    ? createPortal(
+        <section className="marketplace-listing-highlights" aria-labelledby={`self-license-highlights-${props.listingRef}`}>
+          <h3 id={`self-license-highlights-${props.listingRef}`}>License Highlights</h3>
+          <div className="marketplace-listing-highlight-grid">
+            <div>
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M11 42h13V18H11zM15 18V8h5v10M11 26h13M29 25h12l-2 9a5 5 0 0 1-4 3.5A5 5 0 0 1 31 34zM35 37.5V42M30 42h10" /></svg>
+              <strong>{is3ps ? <>Full-liquor<br />package sales</> : <>Full-liquor<br />privileges</>}</strong>
+            </div>
+            <div>
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" /></svg>
+              <strong>{is3ps ? <>Off-premises<br />package use</> : <>On- or<br />off-premises use</>}</strong>
+            </div>
+            <div>
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" /></svg>
+              <strong>{is3ps ? <>Transferable quota<br />license series</> : <>Generally no SFS<br />food-sales percentage</>}</strong>
+            </div>
+            <div>
+              <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="14" r="7" /><circle cx="10" cy="22" r="5" /><circle cx="38" cy="22" r="5" /><path d="M13 42v-6c0-7 5-12 11-12s11 5 11 12v6zM2 42v-5c0-5 4-9 9-9 2 0 4 1 6 2M46 42v-5c0-5-4-9-9-9-2 0-4 1-6 2" /></svg>
+              <strong>Limited {countyShort}<br />County quota supply</strong>
+            </div>
+          </div>
+        </section>,
+        highlightMount,
+      )
+    : null;
 
   const sellerDetailsPortal = mainMount
     ? createPortal(
@@ -241,6 +285,7 @@ export default function FllmExchangePanel(props: {
 
   return (
     <>
+      {highlightPortal}
       {sellerDetailsPortal}
       {asidePortal}
 
@@ -294,9 +339,18 @@ export default function FllmExchangePanel(props: {
       </section>
 
       <style>{`
+        .fllm-selfdirected-highlight-slot,
         .fllm-selfdirected-main-slot,
         .fllm-selfdirected-aside-slot {
           width: 100%;
+        }
+
+        .fllm-selfdirected-highlight-slot {
+          margin-top: 22px;
+        }
+
+        .fllm-selfdirected-highlight-slot .marketplace-listing-highlights {
+          margin: 0;
         }
 
         .fllm-selfdirected-main-slot {
@@ -354,6 +408,7 @@ export default function FllmExchangePanel(props: {
         }
 
         @media (max-width: 900px) {
+          .fllm-selfdirected-highlight-slot,
           .fllm-selfdirected-main-slot,
           .fllm-selfdirected-aside-slot {
             margin-top: 16px;
