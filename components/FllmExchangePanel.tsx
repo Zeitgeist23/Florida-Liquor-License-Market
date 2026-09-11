@@ -362,8 +362,12 @@ export default function FllmExchangePanel(props: {
           margin-top: 22px;
         }
 
+        .marketplace-listing-aside:has(.fllm-selfdirected-aside-slot) {
+          gap: 16px;
+        }
+
         .fllm-selfdirected-aside-slot {
-          margin-top: 18px;
+          margin-top: 0;
         }
 
         .fllm-selfdirected-seller-details {
@@ -414,8 +418,7 @@ export default function FllmExchangePanel(props: {
 
         @media (max-width: 900px) {
           .fllm-selfdirected-highlight-slot,
-          .fllm-selfdirected-main-slot,
-          .fllm-selfdirected-aside-slot {
+          .fllm-selfdirected-main-slot {
             margin-top: 16px;
           }
         }
