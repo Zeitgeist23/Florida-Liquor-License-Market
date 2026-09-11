@@ -1,22 +1,10 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-
 export const dynamic = "force-dynamic";
 
-export async function GET() {
-  try {
-    const file = readFileSync(
-      join(process.cwd(), "public/assets/fllm-exchange-board-hero-approved.jpg"),
-    );
+export async function GET(request: Request) {
+  const heroUrl = new URL(
+    "/assets/fllm-exchange-board-hero-approved.jpg",
+    request.url,
+  );
 
-    return new Response(file, {
-      status: 200,
-      headers: {
-        "Content-Type": "image/jpeg",
-        "Cache-Control": "no-store, max-age=0",
-      },
-    });
-  } catch {
-    return new Response("Hero image unavailable", { status: 404 });
-  }
+  return Response.redirect(heroUrl, 307);
 }
