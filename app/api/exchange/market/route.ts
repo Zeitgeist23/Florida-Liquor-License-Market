@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getApprovedSubmissionByPublicRef } from "@/lib/listing-submission-store";
+import { publicListingReference } from "@/lib/public-listing-reference";
 
 export const dynamic = "force-dynamic";
 
@@ -45,9 +46,20 @@ export async function GET(request: Request) {
     const seller = await getApprovedSubmissionByPublicRef(listingRef);
     if (!seller) return NextResponse.json({ enabled: false, askingPrice: null });
 
+    const licenseType = seller.approvedLicenseType || seller.licenseType;
+    const reference = publicListingReference(seller);
+
     return NextResponse.json({
       enabled: true,
       askingPrice: seller.approvedAskingPrice ?? seller.askingPrice,
+      listing: {
+        reference,
+        title: cleanField(seller.listingTitle) || `${seller.county} ${licenseType}`,
+        county: cleanField(seller.county),
+        licenseType: cleanField(licenseType),
+        status: cleanField(seller.licenseStatus),
+        url: cleanField(seller.liveListingUrl) || `/listings/${reference}`,
+      },
       sellerDetails: {
         saleMethod: "FLLM Self-Directed Seller",
         licenseStatus: cleanField(seller.licenseStatus),
