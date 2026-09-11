@@ -1,5 +1,6 @@
 import "server-only";
 
+import { recordBuyerInquiry } from "@/lib/buyer-inquiry-lead";
 import { emailShell, sendFllmEmail } from "@/lib/fllm-email";
 import type { ListingSubmission } from "@/lib/listing-submission-store";
 import { publicListingReference } from "@/lib/public-listing-reference";
@@ -38,6 +39,12 @@ export async function sendBuyerInquiryToApprovedSeller(input: {
   const { submission } = input;
   if (!submission.email) {
     throw new Error("The approved listing is missing the seller email address.");
+  }
+
+  try {
+    await recordBuyerInquiry(input);
+  } catch (leadError) {
+    console.error("Buyer inquiry could not be recorded in Supabase", leadError);
   }
 
   const reference = publicListingReference(submission);
