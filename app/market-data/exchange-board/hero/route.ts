@@ -6,13 +6,13 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     const file = readFileSync(
-      join(process.cwd(), "public/assets/fllm-exchange-board-header-live.png"),
+      join(process.cwd(), "public/assets/fllm-exchange-board-hero-approved.jpg"),
     );
 
     return new Response(file, {
       status: 200,
       headers: {
-        "Content-Type": "image/png",
+        "Content-Type": "image/jpeg",
         "Cache-Control": "public, max-age=3600, s-maxage=3600",
       },
     });
