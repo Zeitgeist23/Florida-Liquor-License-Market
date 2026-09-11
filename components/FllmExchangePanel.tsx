@@ -251,7 +251,7 @@ export default function FllmExchangePanel(props: {
 
           <section
             className="marketplace-listing-appraisal-card"
-            style={{ transform: "translateY(15px)" }}
+            style={{ transform: "translateY(-5px)" }}
             aria-labelledby={`self-appraisal-${props.listingRef}`}
           >
             <img
