@@ -19,6 +19,7 @@ type Props = {
   askingPrice: string;
   listingStatus: string;
   listingUrl: string;
+  recipientKind?: "broker" | "seller";
 };
 
 export default function ListingBrokerInquiryForm({
@@ -29,9 +30,11 @@ export default function ListingBrokerInquiryForm({
   askingPrice,
   listingStatus,
   listingUrl,
+  recipientKind = "broker",
 }: Props) {
   const [status, setStatus] = useState<SubmitState>("idle");
   const [phone, setPhone] = useState("");
+  const isSeller = recipientKind === "seller";
 
   async function submitInquiry(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -69,8 +72,17 @@ export default function ListingBrokerInquiryForm({
 
   return (
     <form className="marketplace-listing-broker-inquiry" onSubmit={submitInquiry}>
-      <h3>Request Information</h3>
-      <input type="hidden" name="inquiry_type" value="Third-Party Broker Listing Inquiry" />
+      <h3>{isSeller ? "Buyer Message & Contact Center" : "Request Information"}</h3>
+      {isSeller && (
+        <p className="marketplace-listing-inquiry-intro">
+          Send your contact information and message directly to the seller through FLLM.
+        </p>
+      )}
+      <input
+        type="hidden"
+        name="inquiry_type"
+        value={isSeller ? "Self-Directed Seller Listing Inquiry" : "Third-Party Broker Listing Inquiry"}
+      />
       <input type="hidden" name="listing_reference" value={listingReference} />
       <input type="hidden" name="listing_requested" value={listingRequested} />
       <input type="hidden" name="listing_county" value={listingCounty} />
@@ -112,14 +124,35 @@ export default function ListingBrokerInquiryForm({
       </div>
       <label>
         <span>Message</span>
-        <textarea name="message" placeholder="Message" rows={6} required />
+        <textarea
+          name="message"
+          placeholder={isSeller ? "Message to the seller" : "Message"}
+          rows={6}
+          required
+        />
       </label>
       <button type="submit" disabled={status === "submitting"}>
-        {status === "submitting" ? "Sending…" : "Send Inquiry"}
+        {status === "submitting" ? "Sending…" : isSeller ? "Send Message to Seller" : "Send Inquiry"}
       </button>
-      {status === "sent" && <p className="marketplace-listing-inquiry-status success" role="status">Your inquiry was sent to FLLM and the listing broker.</p>}
-      {status === "error" && <p className="marketplace-listing-inquiry-status error" role="alert">The inquiry could not be sent. Please call the listing broker.</p>}
-      <small>By submitting this form, you agree to be contacted by FLLM and the listing broker regarding this license.</small>
+      {status === "sent" && (
+        <p className="marketplace-listing-inquiry-status success" role="status">
+          {isSeller
+            ? "Your contact information and message were sent to the seller and recorded by FLLM."
+            : "Your inquiry was sent to FLLM and the listing broker."}
+        </p>
+      )}
+      {status === "error" && (
+        <p className="marketplace-listing-inquiry-status error" role="alert">
+          {isSeller
+            ? "The message could not be sent. Please try again."
+            : "The inquiry could not be sent. Please call the listing broker."}
+        </p>
+      )}
+      <small>
+        {isSeller
+          ? "By submitting this form, you agree to be contacted by the seller and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking."
+          : "By submitting this form, you agree to be contacted by FLLM and the listing broker regarding this license."}
+      </small>
     </form>
   );
 }
