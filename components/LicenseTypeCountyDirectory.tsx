@@ -1,6 +1,17 @@
 import Link from "next/link";
 import { indexableCounties } from "@/data/florida-counties";
 
+function LicenseTypeLabel({ licenseType }: { licenseType: string }) {
+  if (!licenseType.startsWith("4")) return <>{licenseType}</>;
+
+  return (
+    <>
+      <span style={{ fontFamily: "Arial, Helvetica, sans-serif", fontStyle: "normal" }}>4</span>
+      {licenseType.slice(1)}
+    </>
+  );
+}
+
 export default function LicenseTypeCountyDirectory({ licenseType }: { licenseType: string }) {
   return (
     <section
@@ -48,7 +59,7 @@ export default function LicenseTypeCountyDirectory({ licenseType }: { licenseTyp
             font: "700 29px/1.15 Georgia,serif",
           }}
         >
-          {licenseType} liquor licenses by Florida county
+          <LicenseTypeLabel licenseType={licenseType} /> liquor licenses by Florida county
         </h2>
         <p style={{ margin: "0 0 18px", color: "#c4d1dc", fontSize: 15, lineHeight: 1.7 }}>
           Browse FLLM's county market pages to compare local license availability, market information, listings, valuation resources and nearby Florida markets.
@@ -78,7 +89,7 @@ export default function LicenseTypeCountyDirectory({ licenseType }: { licenseTyp
                 fontWeight: 700,
               }}
             >
-              {county.name} {licenseType}
+              {county.name} <LicenseTypeLabel licenseType={licenseType} />
             </Link>
           ))}
         </nav>
