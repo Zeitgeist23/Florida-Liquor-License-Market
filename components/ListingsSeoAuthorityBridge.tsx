@@ -30,6 +30,10 @@ export default function ListingsSeoAuthorityBridge() {
             <strong>Florida County Market Data</strong>
             <span>Compare available listings and asking-price context across Florida county markets.</span>
           </Link>
+          <Link href="/counties/hillsborough">
+            <strong>Tampa Liquor Licenses for Sale</strong>
+            <span>Compare current Tampa-area 4COP and 3PS quota-license inventory in the Hillsborough County market.</span>
+          </Link>
           <Link href="/how-to-buy-florida-liquor-license">
             <strong>7-Step Buyer Guide</strong>
             <span>Follow the FLLM process for selecting, evaluating, financing and transferring a Florida liquor license.</span>
