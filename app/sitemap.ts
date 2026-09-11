@@ -25,6 +25,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/free-guide`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/how-to-buy-florida-liquor-license`, lastModified, changeFrequency: "monthly", priority: 0.95 },
     { url: `${siteUrl}/how-to-sell-florida-liquor-license`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${siteUrl}/florida-liquor-store-license`, lastModified, changeFrequency: "monthly", priority: 0.93 },
+    { url: `${siteUrl}/how-to-open-a-liquor-store-in-florida`, lastModified, changeFrequency: "monthly", priority: 0.91 },
     { url: `${siteUrl}/florida-liquor-license-broker`, lastModified, changeFrequency: "weekly", priority: 0.98 },
     { url: `${siteUrl}/florida-liquor-license-broker-fees`, lastModified, changeFrequency: "monthly", priority: 0.93 },
     { url: `${siteUrl}/florida-liquor-license-marketing-for-brokers`, lastModified, changeFrequency: "weekly", priority: 0.88 },
