@@ -378,3 +378,17 @@ nextjs-portal { display: none !important; }
   color: #fff;
   text-decoration: underline;
 }
+
+/* Florida Liquor Store License guide jump buttons */
+.liquor-store-hub .intent-nav a {
+  transition: background .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.liquor-store-hub .intent-nav a:hover,
+.liquor-store-hub .intent-nav a:focus-visible {
+  background: linear-gradient(145deg, #ffbd21, #ef9000);
+  color: #071827;
+  border-color: #ffc12d;
+  box-shadow: 0 8px 20px rgba(246,167,0,.26);
+  transform: translateY(-1px) scale(1.03);
+  outline: none;
+}
