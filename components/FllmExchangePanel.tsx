@@ -1,11 +1,25 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 function money(value: number | null) {
   if (value === null) return "Undisclosed";
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 }
+
+type SellerDetails = {
+  saleMethod?: string | null;
+  licenseStatus?: string | null;
+  preferredTiming?: string | null;
+  contactPreference?: string | null;
+  negotiable?: boolean;
+  licenseOnly?: boolean;
+  sellerFinancing?: boolean;
+  buyerQualification?: boolean;
+  noBroker?: boolean;
+  directBuyersOnly?: boolean;
+  transferApproval?: boolean;
+};
 
 export default function FllmExchangePanel(props: {
   listingRef: string;
@@ -15,6 +29,24 @@ export default function FllmExchangePanel(props: {
 }) {
   const [status, setStatus] = useState<"idle"|"submitting"|"success"|"matched"|"error">("idle");
   const [message, setMessage] = useState("");
+  const [sellerDetails, setSellerDetails] = useState<SellerDetails | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    fetch(`/api/exchange/market?listingRef=${encodeURIComponent(props.listingRef)}`, {
+      cache: "no-store",
+    })
+      .then((response) => response.json())
+      .then((result: { sellerDetails?: SellerDetails }) => {
+        if (active) setSellerDetails(result.sellerDetails ?? null);
+      })
+      .catch(() => {
+        if (active) setSellerDetails(null);
+      });
+    return () => {
+      active = false;
+    };
+  }, [props.listingRef]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -50,25 +82,47 @@ export default function FllmExchangePanel(props: {
 
   return (
     <>
-      <div className="fllm-selfdirected-promos" aria-label="FLLM valuation and financing resources">
-        <section className="marketplace-listing-appraisal-card" aria-labelledby={`self-appraisal-${props.listingRef}`}>
-          <img src="/assets/fllm-formal-appraisal-preview-v1.webp" alt="Sample FLLM formal liquor license appraisal report" />
-          <div>
-            <span>Professional License Valuation</span>
-            <h2 id={`self-appraisal-${props.listingRef}`}>Order a Liquor License Appraisal</h2>
-            <p>Get a license-specific valuation supported by county market evidence and regulatory research.</p>
-            <a className="marketplace-listing-appraisal-button" href="/florida-liquor-license-appraisal#order-form">Order an Appraisal</a>
-            <a className="marketplace-listing-heat-map-link" href="/?open=heat-map">Explore the Florida License Heat Map →</a>
-          </div>
+      <div className="fllm-selfdirected-extension">
+        <section className="marketplace-listing-section marketplace-listing-seller-details fllm-selfdirected-seller-details" aria-labelledby={`seller-details-${props.listingRef}`}>
+          <h2 id={`seller-details-${props.listingRef}`}>Additional Seller Details</h2>
+          <p>This is an approved FLLM self-directed seller listing. The following transaction details are drawn from the seller&apos;s approved listing submission.</p>
+          <h3>Seller-provided transaction details</h3>
+          <ul>
+            <li><strong>Sale method:</strong> {sellerDetails?.saleMethod || "FLLM Self-Directed Seller"}</li>
+            {sellerDetails?.licenseStatus && <li><strong>License status:</strong> {sellerDetails.licenseStatus}</li>}
+            {sellerDetails?.preferredTiming && <li><strong>Preferred sale timing:</strong> {sellerDetails.preferredTiming}</li>}
+            <li><strong>Asking price:</strong> {props.askingPrice === null ? "Undisclosed" : money(props.askingPrice)}{sellerDetails?.negotiable ? " — negotiable" : ""}</li>
+            {sellerDetails?.contactPreference && <li><strong>Preferred buyer contact:</strong> {sellerDetails.contactPreference}</li>}
+            {sellerDetails?.licenseOnly && <li><strong>Transaction scope:</strong> License only — no operating business or real estate is included.</li>}
+            {sellerDetails?.sellerFinancing && <li><strong>Seller financing:</strong> May be available to a qualified buyer, subject to acceptable down payment and terms.</li>}
+            {sellerDetails?.buyerQualification && <li><strong>Buyer qualification:</strong> Proof of funds and/or financial qualification may be requested.</li>}
+            {sellerDetails?.transferApproval && <li><strong>Transfer:</strong> Subject to Florida DBPR/ABT approval and applicable transfer requirements.</li>}
+            {sellerDetails?.directBuyersOnly && <li><strong>Buyer audience:</strong> Principals / direct buyers only.</li>}
+            {sellerDetails?.noBroker && <li><strong>Broker policy:</strong> For sale by owner — no broker solicitation.</li>}
+          </ul>
+          <p className="marketplace-listing-seller-disclosure">Seller-provided terms remain subject to confirmation. FLLM does not independently guarantee availability, financing, transfer approval, price, or transaction terms.</p>
         </section>
 
-        <section className="marketplace-listing-finance-promo" aria-labelledby={`self-financing-${props.listingRef}`}>
-          <span>Liquor License Purchase Financing</span>
-          <h2 id={`self-financing-${props.listingRef}`}>Finance This License</h2>
-          <p>Request financing consideration through the FLLM Private Lender Network.</p>
-          <a className="marketplace-listing-finance-button" href="/financing#request-financing">Request Financing</a>
-          <small>All financing is subject to independent lender review, underwriting, and approval.</small>
-        </section>
+        <div className="fllm-selfdirected-promo-stack" aria-label="FLLM valuation and financing resources">
+          <section className="marketplace-listing-appraisal-card" aria-labelledby={`self-appraisal-${props.listingRef}`}>
+            <img src="/assets/fllm-formal-appraisal-preview-v1.webp" alt="Sample FLLM formal liquor license appraisal report" />
+            <div>
+              <span>Professional License Valuation</span>
+              <h2 id={`self-appraisal-${props.listingRef}`}>Order a Liquor License Appraisal</h2>
+              <p>Get a license-specific valuation supported by county market evidence and regulatory research.</p>
+              <a className="marketplace-listing-appraisal-button" href="/florida-liquor-license-appraisal#order-form">Order an Appraisal</a>
+              <a className="marketplace-listing-heat-map-link" href="/?open=heat-map">Explore the Florida License Heat Map →</a>
+            </div>
+          </section>
+
+          <section className="marketplace-listing-finance-promo" aria-labelledby={`self-financing-${props.listingRef}`}>
+            <span>Liquor License Purchase Financing</span>
+            <h2 id={`self-financing-${props.listingRef}`}>Finance This License</h2>
+            <p>Request financing consideration through the FLLM Private Lender Network.</p>
+            <a className="marketplace-listing-finance-button" href="/financing#request-financing">Request Financing</a>
+            <small>All financing is subject to independent lender review, underwriting, and approval.</small>
+          </section>
+        </div>
       </div>
 
       <section className="fllm-exchange" aria-labelledby={`exchange-${props.listingRef}`}>
@@ -104,45 +158,34 @@ export default function FllmExchangePanel(props: {
       </section>
 
       <style>{`
-        .marketplace-listing-page:has(.fllm-exchange) .marketplace-listing-body > .marketplace-listing-shell {
-          position: relative;
+        .fllm-selfdirected-extension {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) 340px;
+          gap: 30px;
+          align-items: start;
+          margin: 28px 0 32px;
         }
 
-        .marketplace-listing-page:has(.fllm-exchange) .marketplace-listing-aside:not(.marketplace-listing-aside-broker) {
-          anchor-name: --fllm-self-directed-aside;
+        .fllm-selfdirected-seller-details {
+          margin: 0 !important;
+          min-height: 100%;
         }
 
-        .fllm-selfdirected-promos {
+        .fllm-selfdirected-promo-stack {
           display: grid;
           gap: 14px;
-          margin: 18px 0 24px;
+          align-content: start;
         }
 
-        @media (min-width: 901px) {
-          .fllm-selfdirected-promos {
-            position: absolute;
-            z-index: 3;
-            right: 0;
-            top: 720px;
-            width: 340px;
-            margin: 0;
-          }
-
-          @supports (anchor-name: --fllm-self-directed-aside) {
-            .fllm-selfdirected-promos {
-              position-anchor: --fllm-self-directed-aside;
-              top: calc(anchor(bottom) + 14px);
-              left: anchor(left);
-              right: auto;
-              width: anchor-size(width);
-            }
-          }
+        .fllm-selfdirected-promo-stack .marketplace-listing-appraisal-card,
+        .fllm-selfdirected-promo-stack .marketplace-listing-finance-promo {
+          margin: 0;
         }
 
         @media (max-width: 900px) {
-          .fllm-selfdirected-promos {
-            position: static;
-            width: auto;
+          .fllm-selfdirected-extension {
+            grid-template-columns: 1fr;
+            gap: 18px;
           }
         }
       `}</style>
