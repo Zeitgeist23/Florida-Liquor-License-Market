@@ -1,6 +1,9 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+
+import ListingBrokerInquiryForm from "@/components/ListingBrokerInquiryForm";
 
 function money(value: number | null) {
   if (value === null) return "Undisclosed";
@@ -21,6 +24,15 @@ type SellerDetails = {
   transferApproval?: boolean;
 };
 
+type ListingContext = {
+  reference?: string | null;
+  title?: string | null;
+  county?: string | null;
+  licenseType?: string | null;
+  status?: string | null;
+  url?: string | null;
+};
+
 export default function FllmExchangePanel(props: {
   listingRef: string;
   askingPrice: number | null;
@@ -30,6 +42,8 @@ export default function FllmExchangePanel(props: {
   const [status, setStatus] = useState<"idle"|"submitting"|"success"|"matched"|"error">("idle");
   const [message, setMessage] = useState("");
   const [sellerDetails, setSellerDetails] = useState<SellerDetails | null>(null);
+  const [listingContext, setListingContext] = useState<ListingContext | null>(null);
+  const [contactMount, setContactMount] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -37,16 +51,42 @@ export default function FllmExchangePanel(props: {
       cache: "no-store",
     })
       .then((response) => response.json())
-      .then((result: { sellerDetails?: SellerDetails }) => {
-        if (active) setSellerDetails(result.sellerDetails ?? null);
+      .then((result: { sellerDetails?: SellerDetails; listing?: ListingContext }) => {
+        if (!active) return;
+        setSellerDetails(result.sellerDetails ?? null);
+        setListingContext(result.listing ?? null);
       })
       .catch(() => {
-        if (active) setSellerDetails(null);
+        if (!active) return;
+        setSellerDetails(null);
+        setListingContext(null);
       });
     return () => {
       active = false;
     };
   }, [props.listingRef]);
+
+  useEffect(() => {
+    const aside = document.querySelector<HTMLElement>(
+      ".marketplace-listing-aside:not(.marketplace-listing-aside-broker)",
+    );
+    if (!aside) return;
+
+    let mount = aside.querySelector<HTMLElement>(".fllm-selfdirected-contact-center");
+    let created = false;
+    if (!mount) {
+      mount = document.createElement("div");
+      mount.className = "fllm-selfdirected-contact-center";
+      aside.appendChild(mount);
+      created = true;
+    }
+    setContactMount(mount);
+
+    return () => {
+      setContactMount(null);
+      if (created && mount?.parentElement === aside) aside.removeChild(mount);
+    };
+  }, []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -80,8 +120,26 @@ export default function FllmExchangePanel(props: {
     }
   }
 
+  const contactCenter = contactMount
+    ? createPortal(
+        <ListingBrokerInquiryForm
+          listingReference={listingContext?.reference || props.listingRef}
+          listingRequested={listingContext?.title || props.listingRef}
+          listingCounty={listingContext?.county || ""}
+          licenseType={listingContext?.licenseType || ""}
+          askingPrice={props.askingPrice === null ? "Price not disclosed" : money(props.askingPrice)}
+          listingStatus={listingContext?.status || "Available"}
+          listingUrl={listingContext?.url || `/listings/${props.listingRef}`}
+          recipientKind="seller"
+        />,
+        contactMount,
+      )
+    : null;
+
   return (
     <>
+      {contactCenter}
+
       <div className="fllm-selfdirected-extension">
         <section className="marketplace-listing-section marketplace-listing-seller-details fllm-selfdirected-seller-details" aria-labelledby={`seller-details-${props.listingRef}`}>
           <h2 id={`seller-details-${props.listingRef}`}>Additional Seller Details</h2>
@@ -158,6 +216,21 @@ export default function FllmExchangePanel(props: {
       </section>
 
       <style>{`
+        .fllm-selfdirected-contact-center {
+          margin-top: 18px;
+        }
+
+        .fllm-selfdirected-contact-center .marketplace-listing-broker-inquiry {
+          margin-top: 0;
+        }
+
+        .marketplace-listing-inquiry-intro {
+          margin: -2px 0 4px;
+          color: #c9d6df;
+          font-size: 12px;
+          line-height: 1.5;
+        }
+
         .fllm-selfdirected-extension {
           display: grid;
           grid-template-columns: minmax(0, 1fr) 340px;
