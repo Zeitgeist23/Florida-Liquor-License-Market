@@ -7,6 +7,20 @@ export default function LicenseTypeCountyDirectory({ licenseType }: { licenseTyp
       aria-labelledby="license-type-county-directory"
       style={{ width: "min(1180px,calc(100% - 40px))", margin: "0 auto", padding: "0 0 34px" }}
     >
+      <style>{`
+        .license-type-county-link {
+          transition: background .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease, transform .18s ease;
+        }
+        .license-type-county-link:hover,
+        .license-type-county-link:focus-visible {
+          background: linear-gradient(145deg,#ffbd21,#ef9000) !important;
+          border-color: #ffc12d !important;
+          color: #07111a !important;
+          box-shadow: 0 8px 20px rgba(246,167,0,.24);
+          transform: translateY(-2px) scale(1.02);
+          outline: none;
+        }
+      `}</style>
       <div
         style={{
           border: "1px solid rgba(246,167,0,.42)",
@@ -51,6 +65,7 @@ export default function LicenseTypeCountyDirectory({ licenseType }: { licenseTyp
             <Link
               key={county.slug}
               href={`/counties/${county.slug}`}
+              className="license-type-county-link"
               style={{
                 display: "block",
                 padding: "9px 11px",
