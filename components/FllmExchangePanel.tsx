@@ -81,6 +81,11 @@ export default function FllmExchangePanel(props: {
     const facts = main?.querySelector<HTMLElement>(".marketplace-listing-facts");
     if (!main || !aside || !facts) return;
 
+    const redundantListingBox = Array.from(
+      aside.querySelectorAll<HTMLElement>(".marketplace-listing-reference"),
+    ).find((element) => element.textContent?.includes("Individual Listing Page"));
+    redundantListingBox?.remove();
+
     let highlightSlot = main.querySelector<HTMLElement>(".fllm-selfdirected-highlight-slot");
     let mainSlot = main.querySelector<HTMLElement>(".fllm-selfdirected-main-slot");
     let asideSlot = aside.querySelector<HTMLElement>(".fllm-selfdirected-aside-slot");
