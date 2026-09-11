@@ -97,6 +97,7 @@ const resourceGroups = [
       { href: "/license-types/4cop-quota", title: "4COP Quota License Guide", copy: "Understand transferable full-liquor quota privileges, county limits and operating considerations." },
       { href: "/license-types/3ps-package-store", title: "3PS Package-Store License Guide", copy: "Understand the full-liquor package-store license used by liquor retailers." },
       { href: "/resources/florida-liquor-license-laws", title: "Florida Liquor License Laws", copy: "Browse FLLM's plain-language statutory and legal reference center." },
+      { href: "/resources/florida-liquor-license-age-property-rights", title: "Age & Quota License Property Rights", copy: "Learn the age-21 licensing rule and how Florida cases distinguish DABT transfer status from private property, contract and creditor rights." },
       { href: "/florida-liquor-license-court-decisions", title: "Court Decisions and Case Law", copy: "Review selected Florida decisions affecting quota licenses and alcoholic-beverage regulation." },
       { href: "/resources/liquor-license-attorneys", title: "Liquor License Attorneys", copy: "Find independent Florida attorneys who work with alcoholic-beverage licensing matters." },
     ],
