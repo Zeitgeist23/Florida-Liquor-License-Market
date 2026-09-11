@@ -236,16 +236,18 @@ export default function FllmExchangePanel(props: {
   const asidePortal = asideMount
     ? createPortal(
         <div className="fllm-selfdirected-aside-stack">
-          <ListingBrokerInquiryForm
-            listingReference={listingContext?.reference || props.listingRef}
-            listingRequested={listingContext?.title || props.listingRef}
-            listingCounty={listingContext?.county || ""}
-            licenseType={listingContext?.licenseType || ""}
-            askingPrice={props.askingPrice === null ? "Price not disclosed" : money(props.askingPrice)}
-            listingStatus={listingContext?.status || "Available"}
-            listingUrl={listingContext?.url || `/listings/${props.listingRef}`}
-            recipientKind="seller"
-          />
+          <div style={{ transform: "translateY(-18px)" }}>
+            <ListingBrokerInquiryForm
+              listingReference={listingContext?.reference || props.listingRef}
+              listingRequested={listingContext?.title || props.listingRef}
+              listingCounty={listingContext?.county || ""}
+              licenseType={listingContext?.licenseType || ""}
+              askingPrice={props.askingPrice === null ? "Price not disclosed" : money(props.askingPrice)}
+              listingStatus={listingContext?.status || "Available"}
+              listingUrl={listingContext?.url || `/listings/${props.listingRef}`}
+              recipientKind="seller"
+            />
+          </div>
 
           <section
             className="marketplace-listing-appraisal-card"
