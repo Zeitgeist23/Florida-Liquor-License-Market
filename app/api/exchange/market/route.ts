@@ -9,24 +9,23 @@ function cleanField(value: string | null | undefined) {
   return cleaned || null;
 }
 
-function messageField(message: string, labels: string[]) {
-  for (const label of labels) {
-    const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const match = message.match(new RegExp(`${escaped}\\s*([^\\n]+)`, "i"));
-    if (match?.[1]) return cleanField(match[1]);
-  }
-  return null;
+function contactPreferenceFromMessage(messageValue: string | null | undefined) {
+  const message = messageValue ?? "";
+  const match = message.match(
+    /Preferred (?:buyer )?contact method:\s*(Either phone or email|Phone|Email)\b/i,
+  );
+  if (!match?.[1]) return null;
+  const value = match[1].toLowerCase();
+  if (value === "phone") return "Phone";
+  if (value === "email") return "Email";
+  return "Either phone or email";
 }
 
 function selfDirectedSellerDetails(messageValue: string | null | undefined) {
   const message = messageValue ?? "";
-  const contactPreference = messageField(message, [
-    "Preferred buyer contact method:",
-    "Preferred contact method:",
-  ]);
 
   return {
-    contactPreference,
+    contactPreference: contactPreferenceFromMessage(message),
     negotiable: /\bnegotiable\b/i.test(message),
     licenseOnly: /license only|not tied to the sale of a business|no business purchase required|no business or real estate/i.test(message),
     sellerFinancing: /seller financing/i.test(message),
