@@ -85,7 +85,7 @@ export default function FllmExchangePanel(props: {
       <div className="fllm-selfdirected-extension">
         <section className="marketplace-listing-section marketplace-listing-seller-details fllm-selfdirected-seller-details" aria-labelledby={`seller-details-${props.listingRef}`}>
           <h2 id={`seller-details-${props.listingRef}`}>Additional Seller Details</h2>
-          <p>This is an approved FLLM self-directed seller listing. The following transaction details are drawn from the seller&apos;s approved listing submission.</p>
+          <p className="fllm-selfdirected-intro">Seller-provided terms from the approved FLLM self-directed listing submission.</p>
           <h3>Seller-provided transaction details</h3>
           <ul>
             <li><strong>Sale method:</strong> {sellerDetails?.saleMethod || "FLLM Self-Directed Seller"}</li>
@@ -168,7 +168,18 @@ export default function FllmExchangePanel(props: {
 
         .fllm-selfdirected-seller-details {
           margin: 0 !important;
-          min-height: 100%;
+        }
+
+        .fllm-selfdirected-intro {
+          margin-bottom: 14px !important;
+        }
+
+        .fllm-selfdirected-seller-details ul {
+          margin-bottom: 18px;
+        }
+
+        .fllm-selfdirected-seller-details li {
+          margin: 0;
         }
 
         .fllm-selfdirected-promo-stack {
@@ -180,6 +191,16 @@ export default function FllmExchangePanel(props: {
         .fllm-selfdirected-promo-stack .marketplace-listing-appraisal-card,
         .fllm-selfdirected-promo-stack .marketplace-listing-finance-promo {
           margin: 0;
+        }
+
+        @media (min-width: 1100px) {
+          .fllm-selfdirected-seller-details ul {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 28px;
+            row-gap: 12px;
+            padding-left: 22px;
+          }
         }
 
         @media (max-width: 900px) {
