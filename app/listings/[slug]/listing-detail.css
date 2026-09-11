@@ -948,3 +948,34 @@ body:has(.marketplace-listing-page) {
   font-size: 10px;
   line-height: 1.35;
 }
+
+/* AUTOMATIC SELF-DIRECTED DETAIL-PAGE BADGE
+   FllmExchangePanel only renders for approved paid submissions that are not
+   third-party broker listings. Using :has(.fllm-exchange) therefore keeps the
+   badge automatic for every current and future FLLM self-directed listing
+   detail page without affecting broker or ordinary market-inventory pages. */
+.marketplace-listing-page:has(.fllm-exchange) .marketplace-listing-kicker::after {
+  content: "FLLM SELF-DIRECTED";
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  margin-left: 12px;
+  padding: 0 10px;
+  border: 1px solid #7de3ac;
+  border-radius: 7px 4px 4px 4px;
+  color: #ffffff;
+  background: linear-gradient(180deg, #168a5b 0%, #0d6845 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.20), 0 3px 8px rgba(0,0,0,.22);
+  font: 900 9px/1 Arial, Helvetica, sans-serif;
+  letter-spacing: .06em;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+@media (max-width: 620px) {
+  .marketplace-listing-page:has(.fllm-exchange) .marketplace-listing-kicker::after {
+    margin: 8px 0 0;
+    display: flex;
+    width: fit-content;
+  }
+}
