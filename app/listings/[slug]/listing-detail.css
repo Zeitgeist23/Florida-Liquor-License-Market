@@ -328,3 +328,10 @@ body:has(.marketplace-listing-page) {
   text-transform: uppercase;
 }
 @media (max-width:620px){.marketplace-listing-page:has(.fllm-exchange) .marketplace-listing-kicker::after{margin:8px 0 0;display:flex;width:fit-content}}
+
+/* SELF-DIRECTED LISTING SPACING REFINEMENTS */
+@media (min-width:901px){
+  .marketplace-listing-page:has(.fllm-exchange) .fllm-selfdirected-main-slot{margin-top:4px !important;}
+  .marketplace-listing-page:has(.fllm-exchange) .fllm-selfdirected-aside-stack .marketplace-listing-appraisal-card{margin-top:-12px !important;}
+  .marketplace-listing-page:has(.fllm-exchange) .fllm-selfdirected-seller-details{margin-bottom:10px !important;}
+}
