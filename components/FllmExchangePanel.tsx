@@ -350,7 +350,7 @@ export default function FllmExchangePanel(props: {
         }
 
         .fllm-selfdirected-highlight-slot .marketplace-listing-highlights {
-          margin: 0;
+          margin: 0 0 22px;
         }
 
         .fllm-selfdirected-main-slot {
