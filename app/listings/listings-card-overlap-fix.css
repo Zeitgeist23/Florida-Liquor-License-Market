@@ -93,7 +93,6 @@
   }
 }
 
-
 /* Keep primary actions visible when browser history restores the listings viewport. */
 @media (min-width: 1121px) {
   .results-page .result-card {
@@ -165,6 +164,30 @@
   background: linear-gradient(180deg, #168bb3 0%, #0b6284 100%) !important;
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.24),
+    0 3px 8px rgba(0,0,0,.24) !important;
+  font-size: 9px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+}
+
+/* Standard self-directed seller listings keep the standard FLLM card frame, but use
+   a distinct green badge so buyers can tell them apart from cyan Featured/Broker cards. */
+.results-page .self-directed-listing-badge {
+  position: absolute !important;
+  top: 8px !important;
+  left: 33px !important;
+  right: auto !important;
+  z-index: 5 !important;
+  margin: 0 !important;
+  padding: 5px 10px !important;
+  border: 1px solid #83e2bf !important;
+  border-radius: 8px 4px 4px 4px !important;
+  color: #ffffff !important;
+  background: linear-gradient(180deg, #2d8f6d 0%, #195e49 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
     0 3px 8px rgba(0,0,0,.24) !important;
   font-size: 9px !important;
   font-weight: 900 !important;
