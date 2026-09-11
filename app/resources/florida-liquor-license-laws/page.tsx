@@ -9,34 +9,55 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/resources/florida-liquor-license-laws`;
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Laws | Quota Statutes & ABT Rules | FLLM",
+  title: "Florida Liquor License Laws | Quota Statutes, Property Rights & Case Law | FLLM",
   description:
-    "Florida liquor license laws cited by FLLM, including quota limits, transfers, liens, cocktails-to-go, restaurant licensing, enforcement, inactive status, and ABT administrative rules.",
+    "Florida liquor license laws cited by FLLM, including quota limits, age and applicant qualifications, transfers, property rights, liens, case law, cocktails-to-go, enforcement, inactive status, and ABT administrative rules.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
 };
 
 const statutes = [
   {
+    citation: "F.S. § 561.15",
+    title: "Age and applicant qualifications",
+    summary:
+      "Establishes the qualification rules for issuance of Florida alcoholic-beverage licenses. A natural-person applicant must be at least 21 years old; the statute also contains qualification requirements applicable to corporate officers and other applicants.",
+    href: "https://www.flsenate.gov/Laws/Statutes/2026/561.15",
+  },
+  {
+    citation: "F.S. § 561.17",
+    title: "Applications; direct and indirect interests",
+    summary:
+      "Contains core application and ownership-disclosure requirements and reaches persons with direct or indirect interests in the licensed business. Qualification questions can therefore extend beyond the name appearing on the license itself.",
+    href: "https://www.flsenate.gov/Laws/Statutes/2026/561.17",
+  },
+  {
+    citation: "F.S. § 561.32",
+    title: "Transfer of licenses; transfer of interests",
+    summary:
+      "Governs regulatory transfers of alcoholic-beverage licenses and changes in ownership or financial interests. It also recognizes judicial enforcement of certain liens and treats a person with a security interest in a license as indirectly interested for Beverage Law qualification purposes.",
+    href: "https://www.flsenate.gov/Laws/Statutes/2026/561.32",
+  },
+  {
+    citation: "F.S. § 561.65",
+    title: "Mortgage, lien and security interests",
+    summary:
+      "Provides Florida's specialized statutory framework for recording and protecting bona fide mortgages, liens, and security interests affecting spirituous alcoholic-beverage licenses.",
+    href: "https://www.flsenate.gov/Laws/Statutes/2026/561.65",
+  },
+  {
+    citation: "F.S. § 743.07",
+    title: "Age of majority — Beverage Law exception",
+    summary:
+      "Florida generally removes the disability of nonage at 18, but section 743.07 expressly preserves exceptions contained in the Beverage Law. That exception is important when separating ordinary contract capacity from qualification to hold or acquire regulated liquor-license interests.",
+    href: "https://www.flsenate.gov/Laws/Statutes/2026/743.07",
+  },
+  {
     citation: "F.S. § 561.20",
     title: "Limitation upon number of licenses issued",
     summary:
       "The core quota-license statute. It generally limits licenses under section 565.02(1)(a)-(f) to one for each 7,500 county residents and governs population-based creation of additional quota licenses.",
     href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.20.html",
-  },
-  {
-    citation: "F.S. § 561.32",
-    title: "Transfer of licenses; change of officers or directors; transfer of interest",
-    summary:
-      "Governs transfers of alcoholic-beverage licenses and changes in ownership or financial interests, and includes transfer-fee provisions used in quota-license transactions.",
-    href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.32.html",
-  },
-  {
-    citation: "F.S. § 561.17",
-    title: "License and registration applications; approved person",
-    summary:
-      "Contains core application requirements, including applicant and ownership disclosures and premises-related requirements used by the Division of Alcoholic Beverages and Tobacco.",
-    href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.17.html",
   },
   {
     citation: "F.S. § 562.45",
@@ -93,6 +114,118 @@ const statutes = [
     summary:
       "Provides that alcoholic beverages sealed and transported under the identified Beverage Law provisions are not open containers under Florida's vehicle open-container statute.",
     href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0300-0399/0316/Sections/0316.1936.html",
+  },
+];
+
+type CaseItem = {
+  name: string;
+  citation: string;
+  court: string;
+  year: string;
+  summary: string;
+  why: string;
+  href: string;
+};
+
+const propertyRightsCases: CaseItem[] = [
+  {
+    name: "House v. Cotton",
+    citation: "52 So. 2d 340 (Fla. 1951)",
+    court: "Florida Supreme Court",
+    year: "1951",
+    summary:
+      "The Court recognized that, although a liquor license is a privilege in the regulatory relationship with government, quota limits and transferability give it the quality of property and substantial pecuniary value. A covenant requiring reassignment of the license could be specifically enforced.",
+    why:
+      "Foundational Florida authority for the proposition that valuable private rights may exist around a liquor license even though the state controls whether the license may be issued and used.",
+    href: "https://law.justia.com/cases/florida/supreme-court/1951/52-so-2d-340-0.html",
+  },
+  {
+    name: "Kline v. State Beverage Department",
+    citation: "77 So. 2d 872 (Fla. 1955)",
+    court: "Florida Supreme Court",
+    year: "1955",
+    summary:
+      "The Court again described a liquor license as having the quality of property and discussed procedural protection before revocation, while emphasizing that an unapproved private transfer does not automatically establish rights against the state.",
+    why:
+      "Shows the two-track nature of Florida liquor-license law: private economic rights may exist while regulatory recognition and approved transfer status remain separate questions.",
+    href: "https://law.justia.com/cases/florida/supreme-court/1955/77-so-2d-872-0.html",
+  },
+  {
+    name: "Rosamond v. Mann",
+    citation: "80 So. 2d 317 (Fla. 1955)",
+    court: "Florida Supreme Court",
+    year: "1955",
+    summary:
+      "Relying on House v. Cotton, the Court allowed enforcement of contractual restrictions concerning transfer and removal of a liquor license after a hold-over tenancy.",
+    why:
+      "Reinforces that contractual rights connected to a liquor license can be legally meaningful even though the Division controls regulatory transfer and use.",
+    href: "https://law.justia.com/cases/florida/supreme-court/1955/80-so-2d-317-0.html",
+  },
+  {
+    name: "Harnish v. Carbonell",
+    citation: "328 So. 2d 489 (Fla. 3d DCA 1976)",
+    court: "Florida Third District Court of Appeal",
+    year: "1976",
+    summary:
+      "The Third District affirmed specific performance and damages arising from a trust agreement requiring reassignment and retransfer of an alcoholic-beverage license.",
+    why:
+      "Useful when evaluating whether a private agreement concerning later reassignment of a license can be enforceable rather than automatically void as contrary to public policy.",
+    href: "https://law.justia.com/cases/florida/district-courts-of-appeal/1976/328-so-2d-489.html",
+  },
+  {
+    name: "Wright v. Cade",
+    citation: "349 So. 2d 833 (Fla. 1st DCA 1977)",
+    court: "Florida First District Court of Appeal",
+    year: "1977",
+    summary:
+      "The court expressly distinguished a statutory transfer recorded with the Beverage Department from a transfer of private property rights. Section 561.32 did not, by itself, vest property title in the purchaser of a business.",
+    why:
+      "Central to the property-rights analysis because it demonstrates that DABT's regulatory record and private title are not necessarily the same thing. The case does not decide whether an under-21 person may acquire those private rights.",
+    href: "https://law.justia.com/cases/florida/district-courts-of-appeal/1977/349-so-2d-833.html",
+  },
+  {
+    name: "Concannon v. St. John",
+    citation: "384 So. 2d 903 (Fla. 5th DCA 1980)",
+    court: "Florida Fifth District Court of Appeal",
+    year: "1980",
+    summary:
+      "Following Wright, the Fifth District held that a statutory transfer made to satisfy Beverage Department records is not necessarily a transfer of private property rights, particularly where the usual incidents of a true sale such as consideration are absent.",
+    why:
+      "Reinforces that private ownership questions are resolved from the underlying transaction, not simply from the name appearing on the state license record.",
+    href: "https://law.justia.com/cases/florida/district-courts-of-appeal/1980/384-so-2d-903.html",
+  },
+  {
+    name: "Howard v. Metcalf",
+    citation: "487 So. 2d 43 (Fla. 2d DCA 1986)",
+    court: "Florida Second District Court of Appeal",
+    year: "1986",
+    summary:
+      "The court stated that the Division's transfer of a liquor license neither transfers private property rights nor vests title in the purchaser. The regulatory transfer serves to maintain ownership and management records used to regulate the liquor business.",
+    why:
+      "One of the clearest Florida appellate statements separating DABT transfer status from the underlying private transaction and title dispute.",
+    href: "https://law.justia.com/cases/florida/district-courts-of-appeal/1986/487-so-2d-43.html",
+  },
+  {
+    name: "United States v. McGurn",
+    citation: "596 So. 2d 1038 (Fla. 1992)",
+    court: "Florida Supreme Court",
+    year: "1992",
+    summary:
+      "The Court held that Florida's specialized statutory system governs perfection of a security interest in a spirituous alcoholic-beverage license for the issue before it, recognizing the license as an asset capable of supporting a security interest.",
+    why:
+      "Demonstrates that Florida law recognizes economic and creditor interests in a liquor license while still subjecting those interests to specialized Beverage Law requirements.",
+    href: "https://law.justia.com/cases/florida/supreme-court/1992/77390-0.html",
+  },
+  {
+    name: "Walling Enterprises, Inc. v. Mathias",
+    citation: "636 So. 2d 1294 (Fla. 1994)",
+    court: "Florida Supreme Court",
+    year: "1994",
+    summary:
+      "The Court explained that a liquor license is not property in the constitutional sense against the state, yet has property-like characteristics and is a general intangible rather than ordinary tangible property kept on the premises.",
+    why:
+      "Supplies the modern vocabulary for the distinction: regulatory privilege against the state, but a valuable general intangible capable of transfer and creditor claims in private commercial settings.",
+    href: "https://law.justia.com/cases/florida/supreme-court/1994/81126-0.html",
   },
 ];
 
@@ -214,6 +347,13 @@ const styles = `
   .law-card h3{margin:12px 0 9px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.18}
   .law-card p{margin:0;color:#b9c9d2;font-size:13px;line-height:1.65}
   .law-card-action{margin-top:auto;padding-top:18px;color:#f6a700;font-size:11px;font-weight:900;text-transform:uppercase}
+  .laws-case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .laws-case-card{display:flex;flex-direction:column;min-height:300px;padding:23px;border:1px solid #38566a;border-top:3px solid #f6a700;border-radius:8px;background:linear-gradient(145deg,#0a2639,#04131f);color:inherit;text-decoration:none;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+  .laws-case-card:hover,.laws-case-card:focus-visible{transform:translateY(-4px);border-color:#f6a700;box-shadow:0 16px 34px rgba(0,0,0,.34),0 0 0 1px rgba(246,167,0,.18);outline:none}
+  .laws-case-meta{display:flex;justify-content:space-between;gap:12px;color:#91a7b5;font-size:10px;font-weight:800;text-transform:uppercase}.laws-case-meta b{color:#f6a700}
+  .laws-case-card h3{margin:12px 0 6px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:23px;line-height:1.18}.laws-case-card>strong{color:#f6c453;font-size:12px}.laws-case-card>p{margin:12px 0 0;color:#b9c9d2;font-size:13px;line-height:1.63}
+  .laws-case-why{margin-top:14px;padding:13px 14px;border-left:3px solid #f6a700;background:rgba(246,167,0,.06)}.laws-case-why b{display:block;color:#f6a700;font-size:10px;text-transform:uppercase}.laws-case-why p{margin:5px 0 0;color:#aebfc9;font-size:12px;line-height:1.58}.laws-case-action{margin-top:auto;padding-top:17px;color:#f6a700;font-size:11px;font-weight:900;text-transform:uppercase}
+  .laws-age-callout{margin-top:22px;padding:22px 24px;border:1px solid rgba(246,167,0,.45);border-left:5px solid #f6a700;border-radius:8px;background:#071b2d}.laws-age-callout span{display:block;color:#f6a700;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.laws-age-callout h3{margin:8px 0;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:25px}.laws-age-callout p{margin:0;color:#c6d3da;font-size:13px;line-height:1.68}.laws-age-callout a{display:inline-block;margin-top:13px;color:#f6a700;font-size:11px;font-weight:900;text-decoration:none;text-transform:uppercase}
   .official-source-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
   .official-source-card{display:flex;flex-direction:column;min-height:142px;padding:18px;border:1px solid #36566a;border-radius:7px;background:#071a27;color:inherit;appearance:none;text-align:left;font:inherit;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease}
   .official-source-card:hover{transform:translateY(-4px);border-color:#f6a700;background:linear-gradient(145deg,#0b2b40,#071a27);box-shadow:0 14px 30px rgba(0,0,0,.32),0 0 0 1px rgba(246,167,0,.16)}
@@ -239,7 +379,7 @@ const styles = `
   .laws-development-card h3{margin:12px 0 9px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.2}
   .laws-development-card p{margin:0;color:#b9c9d2;font-size:13px;line-height:1.62}
   .laws-development-card b{margin-top:auto;padding-top:18px;color:#f6a700;font-size:11px;text-transform:uppercase}
-  @media(max-width:820px){.laws-heading,.laws-grid,.official-source-grid,.laws-development-grid{grid-template-columns:1fr}.laws-heading{gap:8px}.laws-development-card{min-height:0}.law-modal-backdrop{padding:8px}.law-modal{width:100%;height:94vh}.law-modal-brand img{height:36px}.law-modal-footer{display:block}.law-modal-footer span{display:block}.law-modal-footer span+span{margin-top:4px}}
+  @media(max-width:820px){.laws-heading,.laws-grid,.laws-case-grid,.official-source-grid,.laws-development-grid{grid-template-columns:1fr}.laws-heading{gap:8px}.laws-case-card,.laws-development-card{min-height:0}.law-modal-backdrop{padding:8px}.law-modal{width:100%;height:94vh}.law-modal-brand img{height:36px}.law-modal-footer{display:block}.law-modal-footer span{display:block}.law-modal-footer span+span{margin-top:4px}}
 `;
 
 export default function FloridaLiquorLicenseLawsPage() {
@@ -253,9 +393,9 @@ export default function FloridaLiquorLicenseLawsPage() {
           <nav className="laws-breadcrumbs" aria-label="Breadcrumb">
             <Link href="/">Home</Link><span>›</span><Link href="/resources/forms">Resources</Link><span>›</span><strong>Florida Liquor License Laws</strong>
           </nav>
-          <span className="laws-eyebrow">Florida Statutes · ABT Rules · Official Sources</span>
+          <span className="laws-eyebrow">Florida Statutes · Case Law · ABT Rules · Official Sources</span>
           <h1>Florida Liquor License Laws</h1>
-          <p>{"A centralized reference to the Florida statutes cited across FLLM for quota liquor licenses, together with key Division of Alcoholic Beverages and Tobacco administrative rules."}</p>
+          <p>{"A centralized FLLM reference to Florida quota-license statutes, age and qualification rules, property-rights and transfer decisions, and key Division of Alcoholic Beverages and Tobacco administrative rules."}</p>
         </div>
       </section>
 
@@ -270,10 +410,39 @@ export default function FloridaLiquorLicenseLawsPage() {
             actionLabel="View Statute in FLLM"
             sourceName="Official Florida Legislature statute"
           />
+          <aside className="laws-age-callout">
+            <span>Age &amp; property-rights question</span>
+            <h3>21 to hold the license; private property rights require a separate analysis.</h3>
+            <p>
+              Section 561.15 establishes the age-21 qualification rule for issuance. Florida appellate decisions also distinguish the Division&apos;s regulatory transfer record from private contractual and property rights surrounding a quota license. No reported Florida appellate decision identified by FLLM establishes a separate lower minimum age, such as 18, for acquiring present title to those private rights free of Beverage Law qualification requirements.
+            </p>
+            <Link href="/resources/florida-liquor-license-age-property-rights">Read the full FLLM age &amp; property-rights guide →</Link>
+          </aside>
         </div>
       </section>
 
-      <section className="laws-section">
+      <section className="laws-section" id="property-rights-case-law">
+        <div className="page-shell">
+          <div className="laws-heading">
+            <div><span>Florida Appellate Decisions</span><h2>Property rights, transfers &amp; quota-license case law</h2></div>
+            <p>These FLLM summaries focus on the distinction between regulatory privileges, private contractual rights, title, liens, and security interests. Each card links to the complete published opinion.</p>
+          </div>
+          <div className="laws-case-grid">
+            {propertyRightsCases.map((item) => (
+              <a className="laws-case-card" href={item.href} target="_blank" rel="noopener noreferrer" key={item.citation}>
+                <div className="laws-case-meta"><span>{item.court}</span><b>{item.year}</b></div>
+                <h3><em>{item.name}</em></h3>
+                <strong>{item.citation}</strong>
+                <p>{item.summary}</p>
+                <div className="laws-case-why"><b>Why it matters</b><p>{item.why}</p></div>
+                <span className="laws-case-action">Read Full Published Opinion ↗</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="laws-section alt">
         <div className="page-shell">
           <div className="laws-heading">
             <div><span>Division of Alcoholic Beverages and Tobacco</span><h2>ABT administrative rules</h2></div>
@@ -293,7 +462,7 @@ export default function FloridaLiquorLicenseLawsPage() {
         </div>
       </section>
 
-      <section className="laws-section alt" id="current-developments">
+      <section className="laws-section" id="current-developments">
         <div className="page-shell">
           <div className="laws-heading">
             <div><span>Law Connected to Market Context</span><h2>Current and historical developments</h2></div>
@@ -330,7 +499,7 @@ export default function FloridaLiquorLicenseLawsPage() {
 
       <section className="laws-notice page-shell">
         <strong>Legal reference, not legal advice</strong>
-        <p>{"Statutes, administrative rules, agency forms, and interpretations can change. Confirm the current official source and obtain qualified legal or licensing advice for a specific transaction, applicant, or premises."}</p>
+        <p>{"Statutes, administrative rules, agency forms, court decisions, and interpretations can change or depend on specific facts. Confirm the current official source and obtain qualified legal or licensing advice for a specific transaction, applicant, or premises."}</p>
       </section>
     </main>
   );
