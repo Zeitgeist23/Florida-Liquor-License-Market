@@ -7,7 +7,11 @@ import ListingBrokerInquiryForm from "@/components/ListingBrokerInquiryForm";
 
 function money(value: number | null) {
   if (value === null) return "Undisclosed";
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(value);
 }
 
 type SellerDetails = {
@@ -39,11 +43,12 @@ export default function FllmExchangePanel(props: {
   initialBestBid?: number | null;
   initialBidCount?: number;
 }) {
-  const [status, setStatus] = useState<"idle"|"submitting"|"success"|"matched"|"error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "matched" | "error">("idle");
   const [message, setMessage] = useState("");
   const [sellerDetails, setSellerDetails] = useState<SellerDetails | null>(null);
   const [listingContext, setListingContext] = useState<ListingContext | null>(null);
-  const [contactMount, setContactMount] = useState<HTMLElement | null>(null);
+  const [mainMount, setMainMount] = useState<HTMLElement | null>(null);
+  const [asideMount, setAsideMount] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -61,30 +66,46 @@ export default function FllmExchangePanel(props: {
         setSellerDetails(null);
         setListingContext(null);
       });
+
     return () => {
       active = false;
     };
   }, [props.listingRef]);
 
   useEffect(() => {
+    const main = document.querySelector<HTMLElement>(".marketplace-listing-main");
     const aside = document.querySelector<HTMLElement>(
       ".marketplace-listing-aside:not(.marketplace-listing-aside-broker)",
     );
-    if (!aside) return;
+    if (!main || !aside) return;
 
-    let mount = aside.querySelector<HTMLElement>(".fllm-selfdirected-contact-center");
-    let created = false;
-    if (!mount) {
-      mount = document.createElement("div");
-      mount.className = "fllm-selfdirected-contact-center";
-      aside.appendChild(mount);
-      created = true;
+    let mainSlot = main.querySelector<HTMLElement>(".fllm-selfdirected-main-slot");
+    let asideSlot = aside.querySelector<HTMLElement>(".fllm-selfdirected-aside-slot");
+    let createdMain = false;
+    let createdAside = false;
+
+    if (!mainSlot) {
+      mainSlot = document.createElement("div");
+      mainSlot.className = "fllm-selfdirected-main-slot";
+      main.appendChild(mainSlot);
+      createdMain = true;
     }
-    setContactMount(mount);
+
+    if (!asideSlot) {
+      asideSlot = document.createElement("div");
+      asideSlot.className = "fllm-selfdirected-aside-slot";
+      aside.appendChild(asideSlot);
+      createdAside = true;
+    }
+
+    setMainMount(mainSlot);
+    setAsideMount(asideSlot);
 
     return () => {
-      setContactMount(null);
-      if (created && mount?.parentElement === aside) aside.removeChild(mount);
+      setMainMount(null);
+      setAsideMount(null);
+      if (createdMain && mainSlot?.parentElement === main) main.removeChild(mainSlot);
+      if (createdAside && asideSlot?.parentElement === aside) aside.removeChild(asideSlot);
     };
   }, []);
 
@@ -94,6 +115,7 @@ export default function FllmExchangePanel(props: {
     const data = new FormData(form);
     setStatus("submitting");
     setMessage("");
+
     try {
       const response = await fetch("/api/exchange/bid", {
         method: "POST",
@@ -107,12 +129,19 @@ export default function FllmExchangePanel(props: {
           acknowledgment: data.get("acknowledgment") === "on",
         }),
       });
-      const result = await response.json() as { error?: string; matched?: boolean; transactionRef?: string|null };
+      const result = (await response.json()) as {
+        error?: string;
+        matched?: boolean;
+        transactionRef?: string | null;
+      };
       if (!response.ok) throw new Error(result.error || "Unable to submit bid.");
+
       setStatus(result.matched ? "matched" : "success");
-      setMessage(result.matched
-        ? `PRICE MATCH REACHED. FLLM recorded a non-binding price match. ${result.transactionRef ? `Transaction ${result.transactionRef} has been opened.` : ""}`
-        : "Your bid has been recorded and the seller has been notified securely.");
+      setMessage(
+        result.matched
+          ? `PRICE MATCH REACHED. FLLM recorded a non-binding price match. ${result.transactionRef ? `Transaction ${result.transactionRef} has been opened.` : ""}`
+          : "Your bid has been recorded and the seller has been notified securely.",
+      );
       form.reset();
     } catch (error) {
       setStatus("error");
@@ -120,36 +149,25 @@ export default function FllmExchangePanel(props: {
     }
   }
 
-  const contactCenter = contactMount
+  const sellerDetailsPortal = mainMount
     ? createPortal(
-        <ListingBrokerInquiryForm
-          listingReference={listingContext?.reference || props.listingRef}
-          listingRequested={listingContext?.title || props.listingRef}
-          listingCounty={listingContext?.county || ""}
-          licenseType={listingContext?.licenseType || ""}
-          askingPrice={props.askingPrice === null ? "Price not disclosed" : money(props.askingPrice)}
-          listingStatus={listingContext?.status || "Available"}
-          listingUrl={listingContext?.url || `/listings/${props.listingRef}`}
-          recipientKind="seller"
-        />,
-        contactMount,
-      )
-    : null;
-
-  return (
-    <>
-      {contactCenter}
-
-      <div className="fllm-selfdirected-extension">
-        <section className="marketplace-listing-section marketplace-listing-seller-details fllm-selfdirected-seller-details" aria-labelledby={`seller-details-${props.listingRef}`}>
+        <section
+          className="marketplace-listing-section marketplace-listing-seller-details fllm-selfdirected-seller-details"
+          aria-labelledby={`seller-details-${props.listingRef}`}
+        >
           <h2 id={`seller-details-${props.listingRef}`}>Additional Seller Details</h2>
-          <p className="fllm-selfdirected-intro">Seller-provided terms from the approved FLLM self-directed listing submission.</p>
+          <p className="fllm-selfdirected-intro">
+            Seller-provided terms from the approved FLLM self-directed listing submission.
+          </p>
           <h3>Seller-provided transaction details</h3>
           <ul>
             <li><strong>Sale method:</strong> {sellerDetails?.saleMethod || "FLLM Self-Directed Seller"}</li>
             {sellerDetails?.licenseStatus && <li><strong>License status:</strong> {sellerDetails.licenseStatus}</li>}
             {sellerDetails?.preferredTiming && <li><strong>Preferred sale timing:</strong> {sellerDetails.preferredTiming}</li>}
-            <li><strong>Asking price:</strong> {props.askingPrice === null ? "Undisclosed" : money(props.askingPrice)}{sellerDetails?.negotiable ? " — negotiable" : ""}</li>
+            <li>
+              <strong>Asking price:</strong> {props.askingPrice === null ? "Undisclosed" : money(props.askingPrice)}
+              {sellerDetails?.negotiable ? " — negotiable" : ""}
+            </li>
             {sellerDetails?.contactPreference && <li><strong>Preferred buyer contact:</strong> {sellerDetails.contactPreference}</li>}
             {sellerDetails?.licenseOnly && <li><strong>Transaction scope:</strong> License only — no operating business or real estate is included.</li>}
             {sellerDetails?.sellerFinancing && <li><strong>Seller financing:</strong> May be available to a qualified buyer, subject to acceptable down payment and terms.</li>}
@@ -158,85 +176,135 @@ export default function FllmExchangePanel(props: {
             {sellerDetails?.directBuyersOnly && <li><strong>Buyer audience:</strong> Principals / direct buyers only.</li>}
             {sellerDetails?.noBroker && <li><strong>Broker policy:</strong> For sale by owner — no broker solicitation.</li>}
           </ul>
-          <p className="marketplace-listing-seller-disclosure">Seller-provided terms remain subject to confirmation. FLLM does not independently guarantee availability, financing, transfer approval, price, or transaction terms.</p>
-        </section>
+          <p className="marketplace-listing-seller-disclosure">
+            Seller-provided terms remain subject to confirmation. FLLM does not independently guarantee availability, financing, transfer approval, price, or transaction terms.
+          </p>
+        </section>,
+        mainMount,
+      )
+    : null;
 
-        <div className="fllm-selfdirected-promo-stack" aria-label="FLLM valuation and financing resources">
-          <section className="marketplace-listing-appraisal-card" aria-labelledby={`self-appraisal-${props.listingRef}`}>
-            <img src="/assets/fllm-formal-appraisal-preview-v1.webp" alt="Sample FLLM formal liquor license appraisal report" />
+  const asidePortal = asideMount
+    ? createPortal(
+        <div className="fllm-selfdirected-aside-stack">
+          <ListingBrokerInquiryForm
+            listingReference={listingContext?.reference || props.listingRef}
+            listingRequested={listingContext?.title || props.listingRef}
+            listingCounty={listingContext?.county || ""}
+            licenseType={listingContext?.licenseType || ""}
+            askingPrice={props.askingPrice === null ? "Price not disclosed" : money(props.askingPrice)}
+            listingStatus={listingContext?.status || "Available"}
+            listingUrl={listingContext?.url || `/listings/${props.listingRef}`}
+            recipientKind="seller"
+          />
+
+          <section
+            className="marketplace-listing-appraisal-card"
+            aria-labelledby={`self-appraisal-${props.listingRef}`}
+          >
+            <img
+              src="/assets/fllm-formal-appraisal-preview-v1.webp"
+              alt="Sample FLLM formal liquor license appraisal report"
+            />
             <div>
               <span>Professional License Valuation</span>
               <h2 id={`self-appraisal-${props.listingRef}`}>Order a Liquor License Appraisal</h2>
               <p>Get a license-specific valuation supported by county market evidence and regulatory research.</p>
-              <a className="marketplace-listing-appraisal-button" href="/florida-liquor-license-appraisal#order-form">Order an Appraisal</a>
-              <a className="marketplace-listing-heat-map-link" href="/?open=heat-map">Explore the Florida License Heat Map →</a>
+              <a
+                className="marketplace-listing-appraisal-button"
+                href="/florida-liquor-license-appraisal#order-form"
+              >
+                Order an Appraisal
+              </a>
+              <a className="marketplace-listing-heat-map-link" href="/?open=heat-map">
+                Explore the Florida License Heat Map →
+              </a>
             </div>
           </section>
 
-          <section className="marketplace-listing-finance-promo" aria-labelledby={`self-financing-${props.listingRef}`}>
+          <section
+            className="marketplace-listing-finance-promo"
+            aria-labelledby={`self-financing-${props.listingRef}`}
+          >
             <span>Liquor License Purchase Financing</span>
             <h2 id={`self-financing-${props.listingRef}`}>Finance This License</h2>
             <p>Request financing consideration through the FLLM Private Lender Network.</p>
-            <a className="marketplace-listing-finance-button" href="/financing#request-financing">Request Financing</a>
+            <a className="marketplace-listing-finance-button" href="/financing#request-financing">
+              Request Financing
+            </a>
             <small>All financing is subject to independent lender review, underwriting, and approval.</small>
           </section>
-        </div>
-      </div>
+        </div>,
+        asideMount,
+      )
+    : null;
+
+  return (
+    <>
+      {sellerDetailsPortal}
+      {asidePortal}
 
       <section className="fllm-exchange" aria-labelledby={`exchange-${props.listingRef}`}>
         <div className="fllm-exchange-header">
           <div>
             <span>FLLM Exchange</span>
             <h2 id={`exchange-${props.listingRef}`}>Confidential Bid / Ask Exchange</h2>
-            <p>Submit a confidential buyer bid. Buyer bids, bid counts, and bid/ask spreads are not displayed publicly. The seller can accept or counter through a secure FLLM link.</p>
+            <p>
+              Submit a confidential buyer bid. Buyer bids, bid counts, and bid/ask spreads are not displayed publicly. The seller can accept or counter through a secure FLLM link.
+            </p>
           </div>
           <div className="fllm-exchange-badge">PRICE DISCOVERY</div>
         </div>
 
         <div className="fllm-exchange-tape" role="group" aria-label="Seller asking price">
-          <div><span>SELLER ASK</span><strong>{props.askingPrice === null ? "Undisclosed" : money(props.askingPrice)}</strong></div>
+          <div>
+            <span>SELLER ASK</span>
+            <strong>{props.askingPrice === null ? "Undisclosed" : money(props.askingPrice)}</strong>
+          </div>
         </div>
 
         {props.askingPrice !== null ? (
           <form className="fllm-exchange-form" onSubmit={submit}>
-            <div className="fllm-exchange-form-heading"><strong>Place a Bid</strong><span>Listing {props.listingRef}</span></div>
+            <div className="fllm-exchange-form-heading">
+              <strong>Place a Bid</strong>
+              <span>Listing {props.listingRef}</span>
+            </div>
             <label><span>Buyer Name *</span><input name="name" required autoComplete="name" /></label>
             <label><span>Email *</span><input name="email" type="email" required autoComplete="email" /></label>
             <label><span>Phone *</span><input name="phone" type="tel" required autoComplete="tel" /></label>
             <label><span>Bid Price *</span><input name="price" inputMode="numeric" placeholder="$500,000" required /></label>
-            <label className="fllm-exchange-ack"><input name="acknowledgment" type="checkbox" required /><span>I understand this bid and any FLLM price match are non-binding until final transaction terms are separately accepted.</span></label>
-            <button type="submit" disabled={status === "submitting"}>{status === "submitting" ? "Submitting Bid…" : "Submit Buyer Bid"}</button>
+            <label className="fllm-exchange-ack">
+              <input name="acknowledgment" type="checkbox" required />
+              <span>I understand this bid and any FLLM price match are non-binding until final transaction terms are separately accepted.</span>
+            </label>
+            <button type="submit" disabled={status === "submitting"}>
+              {status === "submitting" ? "Submitting Bid…" : "Submit Buyer Bid"}
+            </button>
             {message && <p className={`fllm-exchange-status ${status}`} role="status">{message}</p>}
           </form>
         ) : (
-          <p className="fllm-exchange-unavailable">Exchange bidding will open when the seller publishes an asking price.</p>
+          <p className="fllm-exchange-unavailable">
+            Exchange bidding will open when the seller publishes an asking price.
+          </p>
         )}
 
-        <p className="fllm-exchange-legal">FLLM Exchange is a confidential negotiation and price-discovery feature. Buyer bids, counters, acceptances and price matches are not displayed publicly and do not themselves create a binding purchase agreement or guarantee DBPR transfer approval.</p>
+        <p className="fllm-exchange-legal">
+          FLLM Exchange is a confidential negotiation and price-discovery feature. Buyer bids, counters, acceptances and price matches are not displayed publicly and do not themselves create a binding purchase agreement or guarantee DBPR transfer approval.
+        </p>
       </section>
 
       <style>{`
-        .fllm-selfdirected-contact-center {
+        .fllm-selfdirected-main-slot,
+        .fllm-selfdirected-aside-slot {
+          width: 100%;
+        }
+
+        .fllm-selfdirected-main-slot {
+          margin-top: 22px;
+        }
+
+        .fllm-selfdirected-aside-slot {
           margin-top: 18px;
-        }
-
-        .fllm-selfdirected-contact-center .marketplace-listing-broker-inquiry {
-          margin-top: 0;
-        }
-
-        .marketplace-listing-inquiry-intro {
-          margin: -2px 0 4px;
-          color: #c9d6df;
-          font-size: 12px;
-          line-height: 1.5;
-        }
-
-        .fllm-selfdirected-extension {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr) 340px;
-          gap: 30px;
-          align-items: start;
-          margin: 28px 0 32px;
         }
 
         .fllm-selfdirected-seller-details {
@@ -255,15 +323,24 @@ export default function FllmExchangePanel(props: {
           margin: 0;
         }
 
-        .fllm-selfdirected-promo-stack {
+        .fllm-selfdirected-aside-stack {
           display: grid;
-          gap: 14px;
+          gap: 16px;
           align-content: start;
         }
 
-        .fllm-selfdirected-promo-stack .marketplace-listing-appraisal-card,
-        .fllm-selfdirected-promo-stack .marketplace-listing-finance-promo {
-          margin: 0;
+        .fllm-selfdirected-aside-stack .marketplace-listing-broker-inquiry,
+        .fllm-selfdirected-aside-stack .marketplace-listing-appraisal-card,
+        .fllm-selfdirected-aside-stack .marketplace-listing-finance-promo {
+          margin: 0 !important;
+          width: 100%;
+        }
+
+        .marketplace-listing-inquiry-intro {
+          margin: -2px 0 4px;
+          color: #c9d6df;
+          font-size: 12px;
+          line-height: 1.5;
         }
 
         @media (min-width: 1100px) {
@@ -277,9 +354,9 @@ export default function FllmExchangePanel(props: {
         }
 
         @media (max-width: 900px) {
-          .fllm-selfdirected-extension {
-            grid-template-columns: 1fr;
-            gap: 18px;
+          .fllm-selfdirected-main-slot,
+          .fllm-selfdirected-aside-slot {
+            margin-top: 16px;
           }
         }
       `}</style>
