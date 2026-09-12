@@ -67,8 +67,12 @@ export default async function ExchangeBoardPage() {
       <style dangerouslySetInnerHTML={{ __html: `
         .exchange-page{min-height:100vh;background:#031321;color:#edf6fb;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
         .exchange-header{background:#020d18;border-bottom:1px solid rgba(246,167,0,.55);position:relative;z-index:20}
-        .hero-shell{background:#020b14;border-bottom:1px solid rgba(42,184,243,.35)}
-        .hero-shell img{display:block;position:static!important;width:100%!important;height:auto!important;aspect-ratio:560/192;object-fit:cover!important;object-position:center;opacity:1!important}
+        .hero-shell{position:relative;min-height:260px;aspect-ratio:auto;background:#020b14;border-bottom:1px solid rgba(42,184,243,.35);overflow:hidden}
+        .hero-shell img{display:block;position:absolute!important;inset:0;width:100%!important;height:100%!important;aspect-ratio:auto;object-fit:cover!important;object-position:center 48%;opacity:.58!important}
+        .hero-shell:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,11,20,.72),rgba(2,11,20,.08) 38%,rgba(2,11,20,.08) 62%,rgba(2,11,20,.72)),linear-gradient(180deg,rgba(2,11,20,.08),rgba(2,11,20,.72))}
+        .hero-copy{position:absolute;z-index:2;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center;text-shadow:0 3px 18px #000}
+        .hero-copy strong{color:#fff;font:700 clamp(30px,4.2vw,64px)/1 Georgia,serif;letter-spacing:.07em}
+        .hero-copy span{margin-top:12px;padding:8px 15px;border-top:1px solid rgba(246,181,31,.8);border-bottom:1px solid rgba(246,181,31,.8);color:#f6b51f;font-size:clamp(11px,1.4vw,18px);font-weight:900;letter-spacing:.16em;text-transform:uppercase}
         .ticker-shell{background:#03111e;border-bottom:1px solid rgba(44,188,248,.35)}
         .ticker-line{overflow:hidden;white-space:nowrap;border-top:1px solid rgba(66,190,242,.24)}
         .ticker-track{display:flex;width:max-content;animation:fllmTicker 52s linear infinite}
@@ -95,7 +99,7 @@ export default async function ExchangeBoardPage() {
         .disclosure{padding:16px 18px 24px;color:#91a8b6;font-size:9px;line-height:1.55;border-top:1px solid rgba(255,255,255,.06)}
         @keyframes fllmTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
         @media(max-width:1000px){.market-grid{grid-template-columns:1fr 1.3fr}.market-grid>aside{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:12px}.action-grid{grid-template-columns:1fr 1fr}}
-        @media(max-width:700px){.exchange-content{width:min(100% - 16px,680px)}.market-grid{grid-template-columns:1fr}.market-grid>aside{grid-column:auto;display:block}.board-head,.board-row{grid-template-columns:1fr .72fr 1fr}.board-head span:last-child,.board-row em{display:none}.news-bar{grid-template-columns:1fr;align-items:start}.news-bar span{text-align:left}.action-grid{grid-template-columns:1fr}.transparency-values{grid-template-columns:1fr}}
+        @media(max-width:700px){.hero-shell{min-height:210px}.hero-copy{padding:20px}.exchange-content{width:min(100% - 16px,680px)}.market-grid{grid-template-columns:1fr}.market-grid>aside{grid-column:auto;display:block}.board-head,.board-row{grid-template-columns:1fr .72fr 1fr}.board-head span:last-child,.board-row em{display:none}.news-bar{grid-template-columns:1fr;align-items:start}.news-bar span{text-align:left}.action-grid{grid-template-columns:1fr}.transparency-values{grid-template-columns:1fr}}
       `}} />
 
       <div className="exchange-header">
@@ -107,9 +111,13 @@ export default async function ExchangeBoardPage() {
 
       <section className="hero-shell" aria-label="FLLM Exchange trading floor">
         <img
-          src="/assets/fllm-exchange-board-header-approved.svg?v=2"
-          alt="FLLM Exchange trading floor with brokers, market displays and Florida Liquor Licenses Trade Here banner"
+          src="/assets/market-report-studio.png"
+          alt="FLLM Florida liquor license market studio"
         />
+        <div className="hero-copy">
+          <strong>FLLM EXCHANGE</strong>
+          <span>Florida Liquor Licenses Trade Here</span>
+        </div>
       </section>
 
       <section className="ticker-shell" aria-label="Active Florida liquor license asking prices">
