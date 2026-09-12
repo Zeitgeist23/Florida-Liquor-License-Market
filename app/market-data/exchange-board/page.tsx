@@ -39,7 +39,7 @@ const marketTools = [
 ] as const;
 
 const listingArtwork = [
-  "/assets/fllm-exchange-board-hero-approved.jpg",
+  "/assets/fllm-exchange-official-hero.webp",
   "/assets/hero-skyline-clean.png",
   "/assets/market-report-studio.png",
   "/assets/fllm-formal-appraisal-preview-v1.webp",
