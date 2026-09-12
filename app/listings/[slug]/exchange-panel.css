@@ -41,58 +41,61 @@
   box-shadow:0 0 0 2px rgba(56,214,244,.16),inset 0 1px 5px rgba(0,0,0,.42)!important;
 }
 
-/* APPROVED COMPACT EXCHANGE HEADER — MATCHES THE LOCKED MOCKUP */
+/* APPROVED EXCHANGE HEADER — FULL-SIZE TYPOGRAPHY AND LOCKED MOCKUP PROPORTIONS */
 body .marketplace-listing-page .fllm-exchange .fllm-exchange-header{
   position:relative!important;
   overflow:hidden!important;
-  min-height:108px!important;
+  min-height:132px!important;
   margin:0 0 14px!important;
-  padding:12px 15px 11px!important;
+  padding:17px 20px 15px!important;
   border:1px solid #118ab6!important;
   border-radius:10px!important;
   background:
-    linear-gradient(132deg,rgba(10,88,142,.00) 0 67%,rgba(12,96,157,.28) 67% 79%,rgba(5,57,99,.12) 79% 100%),
+    linear-gradient(132deg,rgba(10,88,142,0) 0 64%,rgba(12,96,157,.30) 64% 77%,rgba(5,57,99,.14) 77% 100%),
     linear-gradient(180deg,#072743 0%,#051e34 100%)!important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;
 }
 body .marketplace-listing-page .fllm-exchange .fllm-exchange-header>div:first-child{
   position:relative!important;
   z-index:2!important;
-  max-width:72%!important;
+  max-width:69%!important;
 }
 body .marketplace-listing-page .fllm-exchange .fllm-exchange-header>div:first-child>span{
-  margin:0 0 2px!important;
+  margin:0 0 3px!important;
   color:#31d4f5!important;
-  font:900 13px/1 Arial,Helvetica,sans-serif!important;
+  font:900 22px/1 Arial,Helvetica,sans-serif!important;
   letter-spacing:.08em!important;
 }
 body .marketplace-listing-page .fllm-exchange .fllm-exchange-header h2{
-  margin:2px 0 5px!important;
+  margin:2px 0 7px!important;
   color:#fff!important;
-  font:700 17px/1.06 Georgia,'Times New Roman',serif!important;
+  font:700 28px/1.05 Georgia,'Times New Roman',serif!important;
 }
 body .marketplace-listing-page .fllm-exchange .fllm-exchange-header p{
   margin:0!important;
-  max-width:690px!important;
+  max-width:760px!important;
   color:#edf5fa!important;
-  font-size:10.5px!important;
-  line-height:1.45!important;
+  font-size:13px!important;
+  line-height:1.5!important;
 }
 body .marketplace-listing-page .fllm-exchange .fllm-exchange-market-pills{
   position:absolute!important;
-  top:11px!important;
-  right:13px!important;
+  top:15px!important;
+  right:16px!important;
   z-index:3!important;
-  gap:7px!important;
+  gap:8px!important;
 }
 body .marketplace-listing-page .fllm-exchange .fllm-exchange-market-pills span{
-  min-width:38px!important;
-  height:22px!important;
-  padding:0 9px!important;
-  font:900 9px/1 Arial,Helvetica,sans-serif!important;
+  min-width:44px!important;
+  height:24px!important;
+  padding:0 10px!important;
+  font:900 10px/1 Arial,Helvetica,sans-serif!important;
 }
 @media(max-width:720px){
-  body .marketplace-listing-page .fllm-exchange .fllm-exchange-header{min-height:126px!important;padding:12px!important}
+  body .marketplace-listing-page .fllm-exchange .fllm-exchange-header{min-height:150px!important;padding:14px!important}
   body .marketplace-listing-page .fllm-exchange .fllm-exchange-header>div:first-child{max-width:100%!important;padding-right:0!important}
-  body .marketplace-listing-page .fllm-exchange .fllm-exchange-market-pills{position:static!important;justify-content:flex-start!important;margin-top:8px!important}
+  body .marketplace-listing-page .fllm-exchange .fllm-exchange-header>div:first-child>span{font-size:18px!important}
+  body .marketplace-listing-page .fllm-exchange .fllm-exchange-header h2{font-size:24px!important}
+  body .marketplace-listing-page .fllm-exchange .fllm-exchange-header p{font-size:12px!important}
+  body .marketplace-listing-page .fllm-exchange .fllm-exchange-market-pills{position:static!important;justify-content:flex-start!important;margin-top:10px!important}
 }
