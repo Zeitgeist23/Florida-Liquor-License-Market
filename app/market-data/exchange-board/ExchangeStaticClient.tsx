@@ -31,11 +31,10 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
         .exchange-live-menu .primary-nav{display:flex;flex:1;align-items:center;justify-content:center;gap:clamp(11px,1.18vw,22px);min-width:0}
         .exchange-live-menu .primary-nav .native-nav-trigger,.exchange-live-menu .primary-nav .native-nav-direct-link{font-size:clamp(9px,.58vw,11px)}
         .exchange-live-menu .exchange-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
-        .exchange-live-menu .exchange-actions a{display:inline-flex;align-items:center;justify-content:center;height:clamp(38px,3vw,57px);padding:0 clamp(13px,1vw,19px);border-radius:5px;text-transform:uppercase;font-size:clamp(9px,.58vw,11px);font-weight:900;white-space:nowrap}
+        .exchange-live-menu .exchange-actions a{display:inline-flex;align-items:center;justify-content:center;height:clamp(32px,2.55vw,48px);padding:0 clamp(11px,.85vw,16px);border-radius:5px;text-transform:uppercase;font-size:clamp(9px,.58vw,11px);font-weight:900;white-space:nowrap}
         .exchange-live-menu .list-action{color:#07111b;background:linear-gradient(145deg,#ffd15b,#f0a20b);border:1px solid #ffd464}
         .exchange-live-menu .contact-action{color:#f6b51f;background:#020d18;border:1px solid #f6b51f}
         .exchange-search{display:grid;place-items:center;width:32px;height:42px;color:#fff;font-size:29px;line-height:1;transform:rotate(-18deg)}
-        .exchange-tagline{flex:0 0 clamp(170px,11.4vw,217px);margin:0;color:#f6f7f8;font-size:clamp(9px,.67vw,13px);font-weight:900;line-height:1.15;text-transform:uppercase}.exchange-tagline strong{color:#f6b51f}
         .exchange-menu-toggle{display:none;margin-left:auto;width:44px;height:40px;border:1px solid #f6b51f;border-radius:5px;color:#f6b51f;background:#020d18;font-size:22px}
         .exchange-live-hero{position:relative;width:100%;aspect-ratio:1024/244;overflow:hidden;background-color:#020d18;background-image:url('/assets/fllm-exchange-landing-page-approved-design.png?v=20260912-1');background-repeat:no-repeat;background-size:100% auto;background-position:center -4.4921875vw}
         .exchange-tickers{position:relative;z-index:5;width:100%;background:#031421;border-top:1px solid #176387;border-bottom:1px solid #176387}
@@ -50,7 +49,7 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
         .approved-footer-logo{position:absolute;z-index:2;bottom:.704%;left:1.75%;width:auto;height:3.9%}
         @keyframes exchangeTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
         @media(prefers-reduced-motion:reduce){.exchange-ticker-track{animation-play-state:paused}}
-        @media(max-width:1150px){.exchange-tagline,.exchange-search{display:none}.exchange-live-menu .exchange-logo{flex-basis:185px}.exchange-live-menu .primary-nav{gap:12px}}
+        @media(max-width:1150px){.exchange-search{display:none}.exchange-live-menu .exchange-logo{flex-basis:185px}.exchange-live-menu .primary-nav{gap:12px}}
         @media(max-width:820px){.exchange-live-menu{height:72px}.exchange-live-menu .exchange-logo{flex-basis:190px}.exchange-menu-toggle{display:block}.exchange-live-menu .primary-nav{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;padding:10px;background:#06131f;border:1px solid #34495b}.exchange-live-menu .primary-nav.is-open{display:flex}.exchange-live-menu .primary-nav a,.exchange-live-menu .primary-nav button{width:100%;padding:12px;text-align:center}.exchange-live-menu .exchange-actions{display:none}.exchange-live-hero{background-position:center -72px;min-height:172px;aspect-ratio:auto;background-size:auto 244px}}
       `}</style>
 
@@ -65,7 +64,6 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
           <a className="contact-action" href="/contact">Contact Us</a>
         </div>
         <a className="exchange-search" href="/listings" aria-label="Search listings">⌕</a>
-        <p className="exchange-tagline">Real opportunity.<br />Real information.<br /><strong>A more transparent market.</strong></p>
       </header>
 
       <section className="exchange-live-hero" aria-label="FLLM Exchange trading floor" />
