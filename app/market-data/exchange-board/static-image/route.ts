@@ -1,32 +1,29 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-
 export const dynamic = "force-dynamic";
 
+const RAW_BASE =
+  "https://raw.githubusercontent.com/Zeitgeist23/Florida-Liquor-License-Market/main/public/assets";
+
 export async function GET() {
-  const names = [
-    "fllm-static-b64-00.txt",
-    "fllm-static-b64-01.txt",
-    "fllm-static-b64-02.txt",
-    "fllm-static-b64-03.txt",
-    "fllm-static-b64-04.txt",
-    "fllm-static-b64-05.txt",
-    "fllm-static-b64-06.txt",
-    "fllm-static-b64-07.txt",
-  ];
+  const names = Array.from({ length: 8 }, (_, index) =>
+    `fllm-static-b64-${String(index).padStart(2, "0")}.txt`,
+  );
 
-  const encoded = names
-    .map((name) =>
-      readFileSync(join(process.cwd(), "public", "assets", name), "utf8").trim(),
-    )
-    .join("");
+  const parts: string[] = [];
 
-  const bytes = Buffer.from(encoded, "base64");
+  for (const name of names) {
+    const response = await fetch(`${RAW_BASE}/${name}`, { cache: "no-store" });
+    if (!response.ok) {
+      return new Response(`Missing Exchange asset: ${name}`, { status: 500 });
+    }
+    parts.push((await response.text()).trim());
+  }
+
+  const bytes = Buffer.from(parts.join(""), "base64");
 
   return new Response(bytes, {
     headers: {
       "Content-Type": "image/webp",
-      "Cache-Control": "public, max-age=31536000, immutable",
+      "Cache-Control": "public, max-age=3600",
     },
   });
 }
