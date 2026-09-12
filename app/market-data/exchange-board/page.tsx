@@ -79,7 +79,7 @@ export default async function ExchangeBoardPage() {
         .exchange-page{min-height:100vh;background:#031321;color:#edf6fb;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
         .exchange-header{background:#020d18;border-bottom:1px solid rgba(246,167,0,.55);position:relative;z-index:20}
         .hero-shell{position:relative;aspect-ratio:1438/315;background:#020b14;border-bottom:1px solid rgba(42,184,243,.35);overflow:hidden}
-        .hero-shell img{display:block;position:absolute!important;inset:0;width:100%!important;height:100%!important;aspect-ratio:auto;object-fit:cover!important;object-position:center;opacity:1!important}
+        .hero-shell img{display:block;position:absolute!important;inset:0;width:100%!important;height:100%!important;aspect-ratio:auto;object-fit:contain!important;object-position:center;opacity:1!important}
         .ticker-shell{background:#03111e;border-bottom:1px solid rgba(44,188,248,.35)}
         .ticker-line{overflow:hidden;white-space:nowrap;border-top:1px solid rgba(66,190,242,.24)}
         .ticker-track{display:flex;width:max-content;animation:fllmTicker 52s linear infinite}
@@ -106,7 +106,7 @@ export default async function ExchangeBoardPage() {
         .disclosure{padding:16px 18px 24px;color:#91a8b6;font-size:9px;line-height:1.55;border-top:1px solid rgba(255,255,255,.06)}
         @keyframes fllmTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
         @media(max-width:1000px){.market-grid{grid-template-columns:1fr 1.3fr}.market-grid>aside{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:12px}.action-grid{grid-template-columns:repeat(3,1fr)}}
-        @media(max-width:700px){.hero-shell{aspect-ratio:2/1}.exchange-content{width:min(100% - 16px,680px)}.market-grid{grid-template-columns:1fr}.market-grid>aside{grid-column:auto;display:block}.board-head,.board-row{grid-template-columns:1fr .72fr 1fr}.board-head span:last-child,.board-row em{display:none}.news-bar{grid-template-columns:1fr;align-items:start}.news-bar span{text-align:left}.action-grid{grid-template-columns:1fr 1fr}.action-card{justify-content:flex-start;padding-left:24px}.transparency-values{grid-template-columns:1fr}}
+        @media(max-width:700px){.exchange-content{width:min(100% - 16px,680px)}.market-grid{grid-template-columns:1fr}.market-grid>aside{grid-column:auto;display:block}.board-head,.board-row{grid-template-columns:1fr .72fr 1fr}.board-head span:last-child,.board-row em{display:none}.news-bar{grid-template-columns:1fr;align-items:start}.news-bar span{text-align:left}.action-grid{grid-template-columns:1fr 1fr}.action-card{justify-content:flex-start;padding-left:24px}.transparency-values{grid-template-columns:1fr}}
       `}} />
 
       <div className="exchange-header">
