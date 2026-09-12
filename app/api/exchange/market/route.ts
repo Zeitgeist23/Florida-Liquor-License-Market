@@ -5,9 +5,36 @@ import { publicListingReference } from "@/lib/public-listing-reference";
 
 export const dynamic = "force-dynamic";
 
+const ALLOWED_LICENSE_STATUSES = new Set([
+  "Active and current",
+  "Inactive",
+  "In escrow (DBPR/ABT)",
+  "Transfer pending",
+  "Not sure",
+]);
+
+const ALLOWED_SALE_TIMINGS = new Set([
+  "Immediately",
+  "Within 30 days",
+  "Within 31–60 days",
+  "Within 31-60 days",
+  "Within 61–90 days",
+  "Within 61-90 days",
+  "Flexible",
+]);
+
 function cleanField(value: string | null | undefined) {
   const cleaned = (value ?? "").trim().replace(/\s+/g, " ");
   return cleaned || null;
+}
+
+function allowedField(
+  value: string | null | undefined,
+  allowed: Set<string>,
+) {
+  const cleaned = cleanField(value);
+  if (!cleaned) return null;
+  return allowed.has(cleaned) ? cleaned.replace("31-60", "31–60").replace("61-90", "61–90") : null;
 }
 
 function contactPreferenceFromMessage(messageValue: string | null | undefined) {
@@ -22,6 +49,12 @@ function contactPreferenceFromMessage(messageValue: string | null | undefined) {
   return "Either phone or email";
 }
 
+/**
+ * Locked self-directed listing detail schema.
+ * Public self-directed ads may only expose the same seller-detail choices used by
+ * the approved FLLM-975102 template. Free-form seller notes remain private and
+ * cannot create new public-facing seller-detail rows.
+ */
 function selfDirectedSellerDetails(messageValue: string | null | undefined) {
   const message = messageValue ?? "";
 
@@ -48,6 +81,8 @@ export async function GET(request: Request) {
 
     const licenseType = seller.approvedLicenseType || seller.licenseType;
     const reference = publicListingReference(seller);
+    const lockedLicenseStatus = allowedField(seller.licenseStatus, ALLOWED_LICENSE_STATUSES);
+    const lockedPreferredTiming = allowedField(seller.preferredTiming, ALLOWED_SALE_TIMINGS);
 
     return NextResponse.json({
       enabled: true,
@@ -57,13 +92,13 @@ export async function GET(request: Request) {
         title: cleanField(seller.listingTitle) || `${seller.county} ${licenseType}`,
         county: cleanField(seller.county),
         licenseType: cleanField(licenseType),
-        status: cleanField(seller.licenseStatus),
+        status: lockedLicenseStatus,
         url: cleanField(seller.liveListingUrl) || `/listings/${reference}`,
       },
       sellerDetails: {
         saleMethod: "FLLM Self-Directed Seller",
-        licenseStatus: cleanField(seller.licenseStatus),
-        preferredTiming: cleanField(seller.preferredTiming),
+        licenseStatus: lockedLicenseStatus,
+        preferredTiming: lockedPreferredTiming,
         ...selfDirectedSellerDetails(seller.message),
       },
     });
