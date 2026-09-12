@@ -39,7 +39,11 @@ function shortType(type: string) {
 export default async function ExchangeBoardPage() {
   const rawListings = await getMarketplaceListings();
   const listings = getVisibleAvailableMarketplaceListings(rawListings)
-    .filter((listing) => listing.price !== null)
+    .filter(
+      (listing) =>
+        listing.price !== null &&
+        (listing.type.startsWith("4COP") || listing.type.startsWith("3PS")),
+    )
     .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
 
   const newest = [...listings]
@@ -56,9 +60,16 @@ export default async function ExchangeBoardPage() {
     ? listings.slice(10, 20)
     : listings.slice(0, 10);
 
-  const highest = listings[0]?.price ?? null;
   const lowest = listings.length
     ? listings[listings.length - 1]?.price ?? null
+    : null;
+  const fourCopPrices = listings
+    .filter((listing) => listing.type.startsWith("4COP"))
+    .map((listing) => listing.price)
+    .filter((price): price is number => price !== null);
+  const averageFourCop = fourCopPrices.length
+    ? fourCopPrices.reduce((sum, price) => sum + price, 0) /
+      fourCopPrices.length
     : null;
   const countyCount = new Set(listings.map((listing) => listing.county)).size;
 
@@ -67,12 +78,8 @@ export default async function ExchangeBoardPage() {
       <style dangerouslySetInnerHTML={{ __html: `
         .exchange-page{min-height:100vh;background:#031321;color:#edf6fb;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
         .exchange-header{background:#020d18;border-bottom:1px solid rgba(246,167,0,.55);position:relative;z-index:20}
-        .hero-shell{position:relative;min-height:260px;aspect-ratio:auto;background:#020b14;border-bottom:1px solid rgba(42,184,243,.35);overflow:hidden}
-        .hero-shell img{display:block;position:absolute!important;inset:0;width:100%!important;height:100%!important;aspect-ratio:auto;object-fit:cover!important;object-position:center 48%;opacity:.58!important}
-        .hero-shell:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,11,20,.72),rgba(2,11,20,.08) 38%,rgba(2,11,20,.08) 62%,rgba(2,11,20,.72)),linear-gradient(180deg,rgba(2,11,20,.08),rgba(2,11,20,.72))}
-        .hero-copy{position:absolute;z-index:2;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center;text-shadow:0 3px 18px #000}
-        .hero-copy strong{color:#fff;font:700 clamp(30px,4.2vw,64px)/1 Georgia,serif;letter-spacing:.07em}
-        .hero-copy span{margin-top:12px;padding:8px 15px;border-top:1px solid rgba(246,181,31,.8);border-bottom:1px solid rgba(246,181,31,.8);color:#f6b51f;font-size:clamp(11px,1.4vw,18px);font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+        .hero-shell{position:relative;aspect-ratio:1438/315;background:#020b14;border-bottom:1px solid rgba(42,184,243,.35);overflow:hidden}
+        .hero-shell img{display:block;position:absolute!important;inset:0;width:100%!important;height:100%!important;aspect-ratio:auto;object-fit:cover!important;object-position:center;opacity:1!important}
         .ticker-shell{background:#03111e;border-bottom:1px solid rgba(44,188,248,.35)}
         .ticker-line{overflow:hidden;white-space:nowrap;border-top:1px solid rgba(66,190,242,.24)}
         .ticker-track{display:flex;width:max-content;animation:fllmTicker 52s linear infinite}
@@ -94,12 +101,12 @@ export default async function ExchangeBoardPage() {
         .snapshot-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 12px 12px}.snapshot-grid div{padding:12px 7px;border:1px solid rgba(72,186,236,.36);background:#061728;text-align:center}.snapshot-grid strong{display:block;color:#63dcff;font-size:21px}.snapshot-grid span{display:block;margin-top:4px;color:#d5e2e9;font-size:8px;text-transform:uppercase}
         .newest-box{margin-top:10px}.newest-list{padding:0 12px 8px}.newest-list a{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:7px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.08);color:#fff;text-decoration:none;font-size:9px}.newest-list b{padding:2px 4px;border-radius:2px;background:#f6b51f;color:#06111b;font-size:7px}.newest-list i{color:#b7c7d0;font-style:normal}.newest-list strong{color:#59d8ff}
         .news-section{margin-top:12px;border:1px solid #176a90;background:#041321;overflow:hidden}.news-section img{display:block;width:100%;height:auto;max-height:420px;object-fit:cover}.news-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;padding:10px 14px;border-top:1px solid rgba(52,184,239,.28);background:#04111d}.news-bar b{font-size:13px;color:#fff}.news-bar span{text-align:center;color:#d0dce4;font-size:10px}.news-bar em{color:#f6b51f;font-style:normal;font-weight:900}
-        .action-grid{display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid #176a90}.action-card{padding:18px 14px 16px;text-align:center;border-right:1px solid #176a90;border-bottom:1px solid #176a90;background:#07192b}.action-card h2{margin:6px 0;color:#f6b51f;font-size:15px}.action-card p{min-height:34px;max-width:210px;margin:0 auto;color:#d6e2e8;font-size:10px;line-height:1.45}.action-card .gold-button{margin-top:11px}
+        .action-grid{display:grid;grid-template-columns:repeat(5,1fr);margin:0;border-top:1px solid rgba(45,161,210,.24);border-bottom:1px solid rgba(45,161,210,.24);background:#020f1b}.action-card{display:flex;align-items:center;justify-content:center;gap:12px;min-height:74px;padding:12px;border-right:1px solid rgba(255,255,255,.24);color:#fff;text-decoration:none}.action-card:last-child{border-right:0}.action-icon{color:#fff;font-size:31px;line-height:1}.action-card span:last-child{max-width:105px;font-size:11px;font-weight:800;line-height:1.22;text-transform:uppercase}.action-card:hover{background:#07243a;color:#f6b51f}
         .transparency-band{padding:24px 18px 26px;border:1px solid rgba(246,181,31,.32);background:linear-gradient(rgba(3,17,29,.56),rgba(3,17,29,.70)),url('/assets/hero-skyline-clean.png') center 62%/cover no-repeat;text-align:center}.transparency-band h2{margin:0;color:#f6b51f;font-size:18px;letter-spacing:.055em}.transparency-values{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:720px;margin:17px auto 0}.transparency-values div{padding:12px 10px;background:rgba(3,20,34,.76);border:1px solid rgba(68,188,241,.22)}.transparency-values strong{display:block;color:#fff;font-size:10px}.transparency-values span{display:block;margin-top:4px;color:#b8cbd7;font-size:9px}
         .disclosure{padding:16px 18px 24px;color:#91a8b6;font-size:9px;line-height:1.55;border-top:1px solid rgba(255,255,255,.06)}
         @keyframes fllmTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-        @media(max-width:1000px){.market-grid{grid-template-columns:1fr 1.3fr}.market-grid>aside{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:12px}.action-grid{grid-template-columns:1fr 1fr}}
-        @media(max-width:700px){.hero-shell{min-height:210px}.hero-copy{padding:20px}.exchange-content{width:min(100% - 16px,680px)}.market-grid{grid-template-columns:1fr}.market-grid>aside{grid-column:auto;display:block}.board-head,.board-row{grid-template-columns:1fr .72fr 1fr}.board-head span:last-child,.board-row em{display:none}.news-bar{grid-template-columns:1fr;align-items:start}.news-bar span{text-align:left}.action-grid{grid-template-columns:1fr}.transparency-values{grid-template-columns:1fr}}
+        @media(max-width:1000px){.market-grid{grid-template-columns:1fr 1.3fr}.market-grid>aside{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:12px}.action-grid{grid-template-columns:repeat(3,1fr)}}
+        @media(max-width:700px){.hero-shell{aspect-ratio:2/1}.exchange-content{width:min(100% - 16px,680px)}.market-grid{grid-template-columns:1fr}.market-grid>aside{grid-column:auto;display:block}.board-head,.board-row{grid-template-columns:1fr .72fr 1fr}.board-head span:last-child,.board-row em{display:none}.news-bar{grid-template-columns:1fr;align-items:start}.news-bar span{text-align:left}.action-grid{grid-template-columns:1fr 1fr}.action-card{justify-content:flex-start;padding-left:24px}.transparency-values{grid-template-columns:1fr}}
       `}} />
 
       <div className="exchange-header">
@@ -111,13 +118,9 @@ export default async function ExchangeBoardPage() {
 
       <section className="hero-shell" aria-label="FLLM Exchange trading floor">
         <img
-          src="/assets/market-report-studio.png"
-          alt="FLLM Florida liquor license market studio"
+          src="/assets/fllm-exchange-official-hero.webp"
+          alt="FLLM Exchange trading floor — Florida liquor licenses trade here"
         />
-        <div className="hero-copy">
-          <strong>FLLM EXCHANGE</strong>
-          <span>Florida Liquor Licenses Trade Here</span>
-        </div>
       </section>
 
       <section className="ticker-shell" aria-label="Active Florida liquor license asking prices">
@@ -154,7 +157,7 @@ export default async function ExchangeBoardPage() {
               <img src="/assets/fllm-exchange-heatmap.svg" alt="Florida liquor license market heat map" />
             </div>
             <div className="panel-action">
-              <Link className="gold-button" href="/?open=heat-map">Explore County Markets</Link>
+              <Link className="gold-button" href="/?open=heat-map">View Full Market Data</Link>
             </div>
           </article>
 
@@ -190,8 +193,11 @@ export default async function ExchangeBoardPage() {
               <div className="snapshot-grid">
                 <div><strong>{listings.length}</strong><span>Active Listings</span></div>
                 <div><strong>{countyCount}</strong><span>Counties</span></div>
-                <div><strong>{money(highest,"—")}</strong><span>Highest Ask</span></div>
-                <div><strong>{money(lowest,"—")}</strong><span>Lowest Ask</span></div>
+                <div><strong>{money(averageFourCop,"—")}</strong><span>Average Asking Price (4COP)</span></div>
+                <div><strong>{money(lowest,"—")}</strong><span>Lowest Asking Price (All Types)</span></div>
+              </div>
+              <div className="panel-action" style={{textAlign:"center"}}>
+                <Link className="gold-button" href="/florida-liquor-license-market-index">View Market Analysis</Link>
               </div>
             </article>
 
@@ -223,11 +229,12 @@ export default async function ExchangeBoardPage() {
           </div>
         </section>
 
-        <section className="action-grid">
-          <article className="action-card"><h2>FOR BUYERS</h2><p>Find available liquor licenses by county and license type.</p><Link className="gold-button" href="/listings">Browse Licenses</Link></article>
-          <article className="action-card"><h2>FOR SELLERS</h2><p>List your Florida liquor license and reach qualified buyers.</p><Link className="gold-button" href="/sell-your-license">List Your License</Link></article>
-          <article className="action-card"><h2>FOR BROKERS</h2><p>Market your client inventory while remaining the listing representative.</p><Link className="gold-button" href="/brokers/list-your-license">Broker Options</Link></article>
-          <article className="action-card"><h2>MARKET DATA</h2><p>Explore pricing, trends and county market information.</p><Link className="gold-button" href="/#market-data">View Market Data</Link></article>
+        <section className="action-grid" aria-label="Exchange Board services">
+          <Link className="action-card" href="/listings"><span className="action-icon">⌕</span><span>Browse Active Listings</span></Link>
+          <Link className="action-card" href="/sell-your-license"><span className="action-icon">▤</span><span>List Your License</span></Link>
+          <Link className="action-card" href="/florida-liquor-license-appraisal"><span className="action-icon">▥</span><span>Get a Valuation</span></Link>
+          <Link className="action-card" href="/financing"><span className="action-icon">▰</span><span>Explore Financing</span></Link>
+          <Link className="action-card" href="/resources/liquor-license-attorneys"><span className="action-icon">⚖</span><span>Find a License Attorney</span></Link>
         </section>
 
         <section className="transparency-band">
