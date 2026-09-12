@@ -149,8 +149,8 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
               <a href="/counties">ALL LICENSE TYPES</a>
               <a href="/license-types/4cop-quota">4COP QUOTA</a>
               <a href="/license-types/3ps-package-store">3PS</a>
-              <a href="/license-types/2cop-beer-wine">2PS</a>
-              <a href="/resources/florida-liquor-license-types">COP</a>
+              <a href="/license-types/2cop-beer-wine">2COP</a>
+              <a href="/license-types/4cop-sfs-restaurant">4COP SFS</a>
               <a href="/counties">COUNTY DATA</a>
             </nav>
             <div className="heat-map-art" aria-hidden="true"><img src="/assets/fllm-exchange-heatmap.svg" alt="" /></div>
