@@ -103,6 +103,6 @@ body .marketplace-listing-page .fllm-exchange .fllm-exchange-market-pills span{
 /* LOCKED MOCKUP HEADER BACKGROUND */
 body .marketplace-listing-page .fllm-exchange .fllm-exchange-header{
   background:
-    linear-gradient(130deg,rgba(0,0,0,0) 0 57%,rgba(8,82,137,.72) 57% 68%,rgba(5,61,105,.52) 68% 79%,rgba(0,0,0,0) 79% 100%),
-    linear-gradient(180deg,#062641 0%,#041d33 100%)!important;
+    radial-gradient(ellipse 48% 145% at 58% 18%,rgba(0,88,154,.82) 0%,rgba(0,74,132,.72) 28%,rgba(0,55,103,.40) 56%,rgba(0,0,0,0) 78%),
+    linear-gradient(118deg,#041b31 0%,#05243f 43%,#06365d 58%,#052845 74%,#031a2f 100%)!important;
 }
