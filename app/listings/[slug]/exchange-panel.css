@@ -106,3 +106,34 @@ body .marketplace-listing-page .fllm-exchange .fllm-exchange-header{
     radial-gradient(ellipse 48% 145% at 58% 18%,rgba(0,88,154,.82) 0%,rgba(0,74,132,.72) 28%,rgba(0,55,103,.40) 56%,rgba(0,0,0,0) 78%),
     linear-gradient(118deg,#041b31 0%,#05243f 43%,#06365d 58%,#052845 74%,#031a2f 100%)!important;
 }
+
+/* AUTHORITATIVE ACKNOWLEDGMENT CHECKBOX FIX */
+body .marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form .fllm-exchange-ack{
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  min-height:0!important;
+  padding:10px 12px!important;
+}
+body .marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form .fllm-exchange-ack input[type="checkbox"]{
+  appearance:auto!important;
+  -webkit-appearance:checkbox!important;
+  width:16px!important;
+  min-width:16px!important;
+  max-width:16px!important;
+  height:16px!important;
+  min-height:16px!important;
+  max-height:16px!important;
+  padding:0!important;
+  margin:0!important;
+  flex:0 0 16px!important;
+  border:initial!important;
+  border-radius:2px!important;
+  background:initial!important;
+  box-shadow:none!important;
+}
+body .marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form .fllm-exchange-ack>span{
+  display:block!important;
+  margin:0!important;
+  line-height:1.45!important;
+}
