@@ -7,3 +7,36 @@
 /* Prevent duplicate BID / ASK pills on self-directed detail pages. The React panel renders the authoritative pair. */
 .marketplace-listing-page .fllm-exchange-header::before,
 .marketplace-listing-page .fllm-exchange-header::after{content:none!important;display:none!important}
+
+/* Keep exchange acknowledgment checkboxes compact and aligned with their text. */
+.marketplace-listing-page .fllm-exchange-qualified-form .fllm-exchange-ack{
+  display:flex!important;
+  align-items:flex-start!important;
+  gap:10px!important;
+  min-height:auto!important;
+  padding:10px 12px!important;
+}
+.marketplace-listing-page .fllm-exchange-qualified-form .fllm-exchange-ack input[type="checkbox"]{
+  width:16px!important;
+  min-width:16px!important;
+  max-width:16px!important;
+  height:16px!important;
+  min-height:16px!important;
+  max-height:16px!important;
+  flex:0 0 16px!important;
+  padding:0!important;
+  margin:2px 0 0!important;
+  border:1px solid #8aa6b6!important;
+  border-radius:2px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  accent-color:#11b9de;
+}
+.marketplace-listing-page .fllm-exchange-qualified-form .fllm-exchange-ack>span{
+  flex:1 1 auto!important;
+  min-width:0!important;
+  margin:0!important;
+  color:#eef6fb!important;
+  font-size:11px!important;
+  line-height:1.5!important;
+}
