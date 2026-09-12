@@ -40,8 +40,8 @@ export default function ExchangeStaticClient() {
             position: "absolute",
             top: 0,
             left: "1.25%",
-            width: "13.5%",
-            height: "auto",
+            width: "auto",
+            height: "3.05%",
             zIndex: 2,
           }}
         />
@@ -53,8 +53,8 @@ export default function ExchangeStaticClient() {
             position: "absolute",
             bottom: "0.45%",
             left: "1.7%",
-            width: "13.5%",
-            height: "auto",
+            width: "auto",
+            height: "3.05%",
             zIndex: 2,
           }}
         />
