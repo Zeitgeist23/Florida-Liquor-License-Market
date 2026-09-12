@@ -8,67 +8,91 @@
 .marketplace-listing-page .fllm-exchange-header::before,
 .marketplace-listing-page .fllm-exchange-header::after{content:none!important;display:none!important}
 
-/* APPROVED FLLM EXCHANGE MOCKUP TREATMENT */
+/* APPROVED FLLM EXCHANGE DARK-NAVY FORM TREATMENT */
 .marketplace-listing-page .fllm-exchange{
-  background:radial-gradient(circle at 78% 0%,rgba(0,110,170,.14),transparent 34%),linear-gradient(145deg,#041f35 0%,#031a2d 54%,#021522 100%)!important;
+  background:radial-gradient(circle at 77% 0%,rgba(0,118,180,.18),transparent 33%),linear-gradient(145deg,#07314f 0%,#062945 54%,#041d33 100%)!important;
 }
 .marketplace-listing-page .fllm-exchange .fllm-exchange-header{
-  background:linear-gradient(135deg,#03223a 0%,#021a2d 72%,#021522 100%)!important;
+  background:linear-gradient(135deg,rgba(5,45,76,.72),rgba(4,31,55,.28))!important;
   border-radius:10px!important;
   padding:4px 0 2px!important;
 }
 .marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form{
-  background:linear-gradient(180deg,#062b47 0%,#05243b 100%)!important;
-}
-.marketplace-listing-page .fllm-exchange .fllm-exchange-tape{
-  background:linear-gradient(180deg,#02182a 0%,#011321 100%)!important;
+  background:linear-gradient(180deg,#082e4b 0%,#06263f 100%)!important;
 }
 .marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form input:not([type=checkbox]),
 .marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form select{
-  background:linear-gradient(180deg,#021a2d 0%,#011523 100%)!important;
+  background:linear-gradient(180deg,#041a2e 0%,#031425 100%)!important;
   color:#eef7fb!important;
-  border:1px solid #13a8d5!important;
-  box-shadow:inset 0 1px 5px rgba(0,0,0,.46)!important;
+  border:1px solid #1497c5!important;
+  box-shadow:inset 0 1px 5px rgba(0,0,0,.42)!important;
 }
 .marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form input:not([type=checkbox])::placeholder{
   color:#a9bdc9!important;
   opacity:1!important;
 }
 .marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form select option{
-  background:#021a2d!important;
+  background:#041a2e!important;
   color:#eef7fb!important;
 }
 .marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form input:not([type=checkbox]):focus,
 .marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form select:focus{
   border-color:#38d6f4!important;
-  box-shadow:0 0 0 2px rgba(56,214,244,.16),inset 0 1px 5px rgba(0,0,0,.46)!important;
+  box-shadow:0 0 0 2px rgba(56,214,244,.16),inset 0 1px 5px rgba(0,0,0,.42)!important;
 }
-.marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form .fllm-exchange-ack{
-  display:flex!important;
-  align-items:center!important;
-  gap:10px!important;
-  min-height:42px!important;
-  padding:9px 12px!important;
+
+/* APPROVED COMPACT EXCHANGE HEADER — MATCHES THE LOCKED MOCKUP */
+body .marketplace-listing-page .fllm-exchange .fllm-exchange-header{
+  position:relative!important;
+  overflow:hidden!important;
+  min-height:108px!important;
+  margin:0 0 14px!important;
+  padding:12px 15px 11px!important;
+  border:1px solid #118ab6!important;
+  border-radius:10px!important;
+  background:
+    linear-gradient(132deg,rgba(10,88,142,.00) 0 67%,rgba(12,96,157,.28) 67% 79%,rgba(5,57,99,.12) 79% 100%),
+    linear-gradient(180deg,#072743 0%,#051e34 100%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;
 }
-.marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form .fllm-exchange-ack input[type=checkbox]{
-  appearance:auto!important;
-  -webkit-appearance:checkbox!important;
-  flex:0 0 16px!important;
-  width:16px!important;
-  height:16px!important;
-  min-width:16px!important;
-  min-height:16px!important;
-  max-width:16px!important;
-  max-height:16px!important;
-  padding:0!important;
+body .marketplace-listing-page .fllm-exchange .fllm-exchange-header>div:first-child{
+  position:relative!important;
+  z-index:2!important;
+  max-width:72%!important;
+}
+body .marketplace-listing-page .fllm-exchange .fllm-exchange-header>div:first-child>span{
+  margin:0 0 2px!important;
+  color:#31d4f5!important;
+  font:900 13px/1 Arial,Helvetica,sans-serif!important;
+  letter-spacing:.08em!important;
+}
+body .marketplace-listing-page .fllm-exchange .fllm-exchange-header h2{
+  margin:2px 0 5px!important;
+  color:#fff!important;
+  font:700 17px/1.06 Georgia,'Times New Roman',serif!important;
+}
+body .marketplace-listing-page .fllm-exchange .fllm-exchange-header p{
   margin:0!important;
-  border:0!important;
-  border-radius:2px!important;
-  background:#fff!important;
-  box-shadow:none!important;
-}
-.marketplace-listing-page .fllm-exchange .fllm-exchange-qualified-form .fllm-exchange-ack span{
-  flex:1 1 auto!important;
-  margin:0!important;
+  max-width:690px!important;
+  color:#edf5fa!important;
+  font-size:10.5px!important;
   line-height:1.45!important;
+}
+body .marketplace-listing-page .fllm-exchange .fllm-exchange-market-pills{
+  position:absolute!important;
+  top:11px!important;
+  right:13px!important;
+  z-index:3!important;
+  gap:7px!important;
+}
+body .marketplace-listing-page .fllm-exchange .fllm-exchange-market-pills span{
+  min-width:38px!important;
+  height:22px!important;
+  padding:0 9px!important;
+  font:900 9px/1 Arial,Helvetica,sans-serif!important;
+}
+@media(max-width:720px){
+  body .marketplace-listing-page .fllm-exchange .fllm-exchange-header{min-height:126px!important;padding:12px!important}
+  body .marketplace-listing-page .fllm-exchange .fllm-exchange-header>div:first-child{max-width:100%!important;padding-right:0!important}
+  body .marketplace-listing-page .fllm-exchange .fllm-exchange-market-pills{position:static!important;justify-content:flex-start!important;margin-top:8px!important}
 }
