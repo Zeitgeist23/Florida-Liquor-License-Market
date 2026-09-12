@@ -71,7 +71,7 @@ export default function ExchangeStaticClient() {
           }}
         />
         <img
-          src="/assets/brand-sharp.svg"
+          src="/assets/brand-transparent.svg"
           alt=""
           aria-hidden="true"
           style={{
@@ -80,8 +80,6 @@ export default function ExchangeStaticClient() {
             left: "1.75%",
             width: "auto",
             height: "3.05%",
-            mixBlendMode: "screen",
-            clipPath: "inset(0 0 14% 0)",
             zIndex: 2,
           }}
         />

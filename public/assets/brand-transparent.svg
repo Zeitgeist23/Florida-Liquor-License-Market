@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="148" viewBox="0 0 180 74">
+  <defs>
+    <filter id="transparent-dark" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceGraphic" type="luminanceToAlpha" result="luminance" />
+      <feComponentTransfer in="luminance" result="mask">
+        <feFuncA type="linear" slope="2.25" intercept="-0.22" />
+      </feComponentTransfer>
+      <feComposite in="SourceGraphic" in2="mask" operator="in" />
+    </filter>
+  </defs>
+  <image href="/assets/brand-sharp.svg" width="180" height="74" filter="url(#transparent-dark)" />
+</svg>
