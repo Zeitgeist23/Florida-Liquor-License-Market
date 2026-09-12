@@ -71,7 +71,7 @@ export default function ExchangeStaticClient() {
           }}
         />
         <img
-          src="/assets/brand-transparent.svg"
+          src="/assets/brand-footer-transparent.png"
           alt=""
           aria-hidden="true"
           style={{
