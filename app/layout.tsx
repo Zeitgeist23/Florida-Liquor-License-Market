@@ -11,6 +11,7 @@ import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
 import ListingServiceSeoCluster from "@/components/ListingServiceSeoCluster";
 import ListYourLicenseLinkFix from "@/components/ListYourLicenseLinkFix";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
+import QuotaLicenseSeoLinks from "@/components/QuotaLicenseSeoLinks";
 import SeoAuthorityEnhancements from "@/components/SeoAuthorityEnhancements";
 
 import "./globals.css";
@@ -123,6 +124,7 @@ export default function RootLayout({
         {children}
         <ListingServiceSeoCluster />
         <SeoAuthorityEnhancements />
+        <QuotaLicenseSeoLinks />
         <NationalMarketplaceFooterLink />
 
         <Script
