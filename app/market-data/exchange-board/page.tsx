@@ -24,18 +24,25 @@ function shortCounty(county: string) { return county.replace(/\s+County$/i, "");
 function shortType(type: string) { return type.startsWith("4COP") ? "4COP" : "3PS"; }
 
 const marketTools = [
-  ["List Your License", "Reach qualified buyers on Florida's largest marketplace.", "/sell-your-license", "/assets/inventory/01.png", "LIST YOUR LICENSE"],
-  ["Seller Self-Directed Listing", "List your license directly. Full control. More exposure.", "/sell-your-license", "/assets/listing-miami.png", "GET STARTED"],
+  ["List Your License", "Reach qualified buyers on Florida's largest marketplace.", "/sell-your-license", "/assets/service-sell.png", "LIST YOUR LICENSE"],
+  ["Seller Self-Directed Listing", "List your license directly. Full control. More exposure.", "/sell-your-license", "/assets/hero-skyline-clean.png", "GET STARTED"],
   ["Market Data", "Live market data, historical trends, and pricing insights.", "/florida-liquor-license-market-index", "/assets/hero-bar-clean.png", "VIEW MARKET DATA"],
   ["County Heat Maps", "Explore license availability and market activity by county.", "/counties", "/assets/florida-map-clean.png", "VIEW COUNTY MAPS"],
   ["Appraisals & Valuation", "Get a professional liquor-license valuation.", "/florida-liquor-license-appraisal", "/assets/fllm-formal-appraisal-preview-v1.webp", "GET A VALUATION"],
-  ["License Types", "Learn about 4COP, 3PS and more.", "/resources/florida-liquor-license-types", "/assets/sutton-attorney-modal.webp", "BROWSE LICENSE TYPES"],
+  ["License Types", "Learn about 4COP, 3PS and more.", "/resources/florida-liquor-license-types", "/assets/license-types-4cop.svg", "BROWSE LICENSE TYPES"],
   ["Financing a License", "Explore financing options and connect with lenders.", "/financing", "/assets/service-financing.png", "VIEW FINANCING"],
   ["FLLM News", "Market trends, analysis, and industry updates.", "/florida-liquor-license-news", "/assets/market-report-studio.png", "VIEW NEWS"],
-  ["Featured Broker Listings", "Hand-selected broker opportunities.", "/listings", "/assets/broker-standard-listing-approved-fixed.webp", "VIEW BROKER LISTINGS"],
-  ["Attorney Directory", "Find experienced Florida liquor-license attorneys.", "/resources/liquor-license-attorneys", "/assets/sutton-attorney-modal.webp", "FIND AN ATTORNEY"],
-  ["Resources & Guides", "Regulations, transfer process, FAQs and education.", "/resources", "/assets/sutton-attorney-modal.webp", "VIEW RESOURCES"],
+  ["Featured Broker Listings", "Hand-selected broker opportunities.", "/listings", "/assets/service-browse.png", "VIEW BROKER LISTINGS"],
+  ["Attorney Directory", "Find experienced Florida liquor-license attorneys.", "/resources/liquor-license-attorneys", "/assets/james-h-sutton.jpg", "FIND AN ATTORNEY"],
+  ["Resources & Guides", "Regulations, transfer process, FAQs and education.", "/resources", "/assets/fllm-buyers-sellers-guide-cover.jpg", "VIEW RESOURCES"],
   ["Investment Opportunities", "Explore high-growth markets and investment insights.", "/investment-opportunities", "/assets/service-investment.png", "VIEW OPPORTUNITIES"],
+] as const;
+
+const listingArtwork = [
+  "/assets/fllm-exchange-board-hero-approved.jpg",
+  "/assets/hero-skyline-clean.png",
+  "/assets/market-report-studio.png",
+  "/assets/fllm-formal-appraisal-preview-v1.webp",
 ] as const;
 
 export default async function ExchangeBoardPage() {
@@ -98,7 +105,7 @@ export default async function ExchangeBoardPage() {
         <section className="news-block"><div className="news-copy"><h2>FLLM NEWS BROADCAST</h2><p>Expert analysis. Market trends. Legislative updates. Insights that drive the Florida liquor license market.</p><Link className="gold-button" href="/florida-liquor-license-news">Watch All Episodes →</Link></div><div className="news-image"><img src="/assets/market-report-studio.png" alt="FLLM News broadcast studio" /></div><aside className="headlines"><h3>LATEST HEADLINES</h3><Link href="/florida-liquor-license-news">Florida Liquor License Prices Show Strong Market Activity</Link><Link href="/florida-liquor-license-news">New Legislation Could Impact License Transfers</Link><Link href="/florida-liquor-license-news">South Florida Leads New Listings</Link></aside></section>
 
         <div className="section-heading"><h2>FEATURED LICENSE LISTINGS</h2><Link href="/listings">VIEW ALL LISTINGS →</Link></div>
-        <section className="featured-grid">{featured.map((listing) => <article className="listing-card" key={`featured-${listing.sourceRef}`}><div className="listing-photo"><img src={listing.image} alt="" /></div><div className="listing-info"><span>{shortType(listing.type)} {listing.type.startsWith("4COP") ? "Quota" : "Liquor Store"}</span><span>{listing.county}</span><b>{money(listing.price, listing.priceLabel)}</b><em>● Available &nbsp; # {listing.sourceRef}</em><Link href={listingPageHref(listing)}>VIEW LISTING →</Link></div></article>)}</section>
+        <section className="featured-grid">{featured.map((listing, index) => <article className="listing-card" key={`featured-${listing.sourceRef}`}><div className="listing-photo"><img src={listingArtwork[index % listingArtwork.length]} alt="" /></div><div className="listing-info"><span>{shortType(listing.type)} {listing.type.startsWith("4COP") ? "Quota" : "Liquor Store"}</span><span>{listing.county}</span><b>{money(listing.price, listing.priceLabel)}</b><em>● Available &nbsp; # {listing.sourceRef}</em><Link href={listingPageHref(listing)}>VIEW LISTING →</Link></div></article>)}</section>
 
         <div className="section-heading"><h2>MARKET TOOLS &amp; RESOURCES</h2><span>EVERYTHING YOU NEED TO BUY, SELL AND INVEST IN FLORIDA LIQUOR LICENSES.</span></div>
         <section className="tools-grid">{marketTools.map(([title, description, href, image, action]) => <article className="tool-card" key={title}><img src={image} alt="" /><div><b>{title}</b><p>{description}</p><Link href={href}>{action} →</Link></div></article>)}</section>
