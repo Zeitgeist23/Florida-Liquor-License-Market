@@ -19,8 +19,16 @@ export default function ListingsSeoAuthorityBridge() {
             <span>Review license-specific valuation and appraisal options when a supported market value is needed.</span>
           </Link>
           <Link href="/financing">
+            <strong>Florida Liquor License Financing</strong>
+            <span>Explore purchase and refinance financing options for qualifying Florida 4COP and 3PS liquor-license transactions.</span>
+          </Link>
+          <Link href="/finance-a-license">
             <strong>Finance a Florida Liquor License</strong>
-            <span>Explore purchase and refinance financing options for qualified Florida liquor-license transactions.</span>
+            <span>Review purchase financing, down-payment considerations, refinance paths and the steps used to request lender consideration.</span>
+          </Link>
+          <Link href="/how-to-finance-florida-liquor-license">
+            <strong>How to Finance a Florida Liquor License</strong>
+            <span>Use the FLLM financing guide to understand collateral value, underwriting factors and common transaction structures.</span>
           </Link>
           <Link href="/financing/loan-payment-calculator">
             <strong>Loan Payment Calculator</strong>
