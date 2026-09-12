@@ -11,20 +11,54 @@ export default function ExchangeStaticClient() {
         overflowX: "hidden",
       }}
     >
-      <img
-        src="/assets/fllm-exchange-landing-page-approved-design.png?v=20260912-1"
-        alt="FLLM Exchange Board — Florida Liquor License Market"
-        width={1024}
-        height={1536}
+      <div
         style={{
-          display: "block",
+          position: "relative",
           width: "100%",
-          maxWidth: "none",
-          height: "auto",
-          margin: 0,
-          padding: 0,
+          lineHeight: 0,
         }}
-      />
+      >
+        <img
+          src="/assets/fllm-exchange-landing-page-approved-design.png?v=20260912-1"
+          alt="FLLM Exchange Board — Florida Liquor License Market"
+          width={1024}
+          height={1536}
+          style={{
+            display: "block",
+            width: "100%",
+            maxWidth: "none",
+            height: "auto",
+            margin: 0,
+            padding: 0,
+          }}
+        />
+        <img
+          src="/assets/brand-sharp.svg"
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: "1.25%",
+            width: "13.5%",
+            height: "auto",
+            zIndex: 2,
+          }}
+        />
+        <img
+          src="/assets/brand-sharp.svg"
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            bottom: "0.45%",
+            left: "1.7%",
+            width: "13.5%",
+            height: "auto",
+            zIndex: 2,
+          }}
+        />
+      </div>
     </main>
   );
 }
