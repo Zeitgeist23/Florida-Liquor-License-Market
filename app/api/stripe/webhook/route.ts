@@ -16,6 +16,7 @@ import {
   markSubmissionPaid,
   recoverListingSubmission,
 } from "@/lib/listing-submission-store";
+import { notifyAdminOfPaidSelfDirectedListing } from "@/lib/paid-listing-admin-notification";
 import {
   type StripeCheckoutSession,
   verifyStripeWebhookSignature,
@@ -116,25 +117,31 @@ async function processPaidCheckout(session: StripeCheckoutSession) {
   });
 
   const claimed = await claimPaymentEmail(submission.id);
-  if (!claimed) return;
-
-  try {
-    if (isFormalLicenseAppraisalOrder(claimed)) {
-      await sendFormalLicenseAppraisalPaymentEmails(claimed);
-    } else if (isPreliminaryMarketReportOrder(claimed)) {
-      await sendPreliminaryMarketReportPaymentEmails(claimed);
-    } else {
-      await sendPaymentReceivedEmail(claimed);
+  if (claimed) {
+    try {
+      if (isFormalLicenseAppraisalOrder(claimed)) {
+        await sendFormalLicenseAppraisalPaymentEmails(claimed);
+      } else if (isPreliminaryMarketReportOrder(claimed)) {
+        await sendPreliminaryMarketReportPaymentEmails(claimed);
+      } else {
+        await sendPaymentReceivedEmail(claimed);
+      }
+      await finishPaymentEmail(claimed.id, true);
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Payment confirmation email failed.";
+      await finishPaymentEmail(claimed.id, false, message);
+      console.error("Payment confirmation email failed", error);
     }
-    await finishPaymentEmail(claimed.id, true);
-  } catch (error) {
-    const message =
-      error instanceof Error
-        ? error.message
-        : "Payment confirmation email failed.";
-    await finishPaymentEmail(claimed.id, false, message);
-    console.error("Payment confirmation email failed", error);
   }
+
+  // A paid self-directed listing now triggers a separate internal alert to
+  // listings@floridaliquorlicensemarket.com with a direct link to the admin
+  // approval queue. The notification helper uses its own idempotency ledger,
+  // so Stripe webhook retries do not create duplicate admin emails.
+  await notifyAdminOfPaidSelfDirectedListing(submission);
 }
 
 export async function POST(request: Request) {
