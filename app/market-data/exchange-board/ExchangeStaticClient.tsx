@@ -30,11 +30,12 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
   ];
   const liveFeaturedCards = tickerListings.map((listing, index) => {
     const slug = listing.href.match(/\/listings\/([^/?#]+)/)?.[1];
+    const publicReference = slug?.toUpperCase().match(/FLLM-\d{3,}/)?.[0];
     return {
       type: listing.type === "3PS" ? "3PS Liquor Store" : listing.type === "4COP" ? "4COP Quota" : listing.type,
       county: / County$/i.test(listing.county) ? listing.county : `${listing.county} County`,
       price: listing.price,
-      reference: slug ? slug.toUpperCase() : `LIVE-${String(index + 1).padStart(3, "0")}`,
+      reference: publicReference ?? `LIVE-${String(index + 1).padStart(3, "0")}`,
       href: listing.href,
       artLeft: "",
     };
