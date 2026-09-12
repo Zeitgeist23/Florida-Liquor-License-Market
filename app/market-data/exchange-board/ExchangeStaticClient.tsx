@@ -80,7 +80,7 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
         .exchange-live-menu .exchange-logo img{display:block;width:100%;height:100%;object-fit:contain;object-position:left center}
         .exchange-live-menu .primary-nav{position:absolute;left:50%;display:flex;align-items:center;justify-content:center;gap:clamp(11px,1.18vw,22px);min-width:0;transform:translateX(-50%)}
         .exchange-live-menu .primary-nav .native-nav-trigger,.exchange-live-menu .primary-nav .native-nav-direct-link{font-size:clamp(10px,.67vw,13px)}
-        .exchange-live-menu .exchange-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+        .exchange-live-menu .exchange-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto;margin-left:auto}
         .exchange-live-menu .exchange-actions a{display:inline-flex;align-items:center;justify-content:center;height:clamp(32px,2.55vw,48px);padding:0 clamp(11px,.85vw,16px);border-radius:5px;text-transform:uppercase;font-size:clamp(9px,.58vw,11px);font-weight:900;white-space:nowrap}
         .exchange-live-menu .list-action{color:#07111b;background:linear-gradient(145deg,#ffd15b,#f0a20b);border:1px solid #ffd464}
         .exchange-live-menu .contact-action{color:#f6b51f;background:#020d18;border:1px solid #f6b51f}
