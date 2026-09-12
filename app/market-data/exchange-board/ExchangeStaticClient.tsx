@@ -19,9 +19,9 @@ export default function ExchangeStaticClient() {
         style={{
           display: "block",
           width: "100%",
-          maxWidth: "1024px",
+          maxWidth: "none",
           height: "auto",
-          margin: "0 auto",
+          margin: 0,
           padding: 0,
         }}
       />

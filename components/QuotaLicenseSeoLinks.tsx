@@ -12,7 +12,6 @@ const exactPaths = new Set([
   "/florida-liquor-license-appraisal",
   "/financing",
   "/finance-a-license",
-  "/market-data/exchange-board",
   "/resources/florida-liquor-license-types",
   "/license-types/4cop-quota",
 ]);
