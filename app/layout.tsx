@@ -7,6 +7,7 @@ import AbtMoralCharacterQuestion from "@/components/AbtMoralCharacterQuestion";
 import BrokerAssistanceNavigationEnhancement from "@/components/BrokerAssistanceNavigationEnhancement";
 import FinancingAppraisalEnhancement from "@/components/FinancingAppraisalEnhancement";
 import GlobalResourcesMenuSync from "@/components/GlobalResourcesMenuSync";
+import JacksonvilleDuvalSeoEnhancement from "@/components/JacksonvilleDuvalSeoEnhancement";
 import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
 import ListingServiceSeoCluster from "@/components/ListingServiceSeoCluster";
 import ListYourLicenseLinkFix from "@/components/ListYourLicenseLinkFix";
@@ -122,6 +123,7 @@ export default function RootLayout({
         <FinancingAppraisalEnhancement />
         <GlobalResourcesMenuSync />
         {children}
+        <JacksonvilleDuvalSeoEnhancement />
         <ListingServiceSeoCluster />
         <SeoAuthorityEnhancements />
         <QuotaLicenseSeoLinks />
