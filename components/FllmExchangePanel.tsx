@@ -270,12 +270,12 @@ export default function FllmExchangePanel(props: {
             <label><span>State *</span><select name="state" required defaultValue="" autoComplete="address-level1"><option value="" disabled>Select state</option>{US_STATES.map((state) => <option key={state} value={state}>{state}</option>)}</select></label>
             <label><span>ZIP Code *</span><input name="zip" required autoComplete="postal-code" inputMode="numeric" /></label>
             <div className="fllm-exchange-section-title">Bid & financial qualification</div>
-            <label><span>Bid Price *</span><input name="price" inputMode="numeric" placeholder="$500,000" required /></label>
-            <label><span>Proposed Down Payment *</span><input name="downPayment" inputMode="numeric" placeholder="$150,000" required /></label>
-            <label><span>Funds Available for Purchase *</span><input name="fundsAvailable" inputMode="numeric" placeholder="$200,000" required /></label>
+            <label><span>Bid Price *</span><input name="price" inputMode="numeric" placeholder="Enter bid amount" required /></label>
+            <label><span>Proposed Down Payment *</span><input name="downPayment" inputMode="numeric" placeholder="Enter down payment" required /></label>
+            <label><span>Funds Available for Purchase *</span><input name="fundsAvailable" inputMode="numeric" placeholder="Enter available funds" required /></label>
             <label><span>Purchase Method *</span><select name="purchaseMethod" required defaultValue=""><option value="" disabled>Select purchase method</option><option>Cash</option><option>Bank financing</option><option>Seller financing</option><option>Combination of cash and financing</option></select></label>
             <label><span>Seller Financing Requested? *</span><select name="sellerFinancing" required defaultValue=""><option value="" disabled>Select</option><option>No</option><option>Yes</option></select></label>
-            <label><span>Seller Financing Amount</span><input name="sellerFinancingAmount" inputMode="numeric" placeholder="$0" /></label>
+            <label><span>Seller Financing Amount</span><input name="sellerFinancingAmount" inputMode="numeric" placeholder="Enter amount if requested" /></label>
             <label><span>Proof of Funds *</span><select name="proofFunds" required defaultValue=""><option value="" disabled>Select status</option><option>Available now</option><option>Available on request</option><option>Not yet available</option></select></label>
             <label><span>Intended Use *</span><select name="intendedUse" required defaultValue=""><option value="" disabled>Select intended use</option><option>Liquor store / package store</option><option>Restaurant</option><option>Bar / lounge</option><option>Other licensed premises</option></select></label>
             <label><span>Target Closing *</span><select name="targetClosing" required defaultValue=""><option value="" disabled>Select timeframe</option><option>Within 30 days</option><option>31–60 days</option><option>61–90 days</option><option>More than 90 days</option><option>Flexible</option></select></label>
