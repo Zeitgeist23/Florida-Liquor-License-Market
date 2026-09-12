@@ -141,10 +141,24 @@ export default function FllmExchangePanel(props: {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           listingRef: props.listingRef,
-          name: data.get("name"),
+          firstName: data.get("firstName"),
+          lastName: data.get("lastName"),
           email: data.get("email"),
           phone: data.get("phone"),
+          street: data.get("street"),
+          city: data.get("city"),
+          state: data.get("state"),
+          zip: data.get("zip"),
           price: Number(String(data.get("price") || "").replace(/[^0-9.]/g, "")),
+          downPayment: Number(String(data.get("downPayment") || "").replace(/[^0-9.]/g, "")),
+          fundsAvailable: Number(String(data.get("fundsAvailable") || "").replace(/[^0-9.]/g, "")),
+          purchaseMethod: data.get("purchaseMethod"),
+          sellerFinancing: data.get("sellerFinancing"),
+          sellerFinancingAmount: Number(String(data.get("sellerFinancingAmount") || "").replace(/[^0-9.]/g, "")) || 0,
+          proofFunds: data.get("proofFunds"),
+          intendedUse: data.get("intendedUse"),
+          targetClosing: data.get("targetClosing"),
+          accuracy: data.get("accuracy") === "on",
           acknowledgment: data.get("acknowledgment") === "on",
         }),
       });
@@ -159,7 +173,7 @@ export default function FllmExchangePanel(props: {
       setMessage(
         result.matched
           ? `PRICE MATCH REACHED. FLLM recorded a non-binding price match. ${result.transactionRef ? `Transaction ${result.transactionRef} has been opened.` : ""}`
-          : "Your bid has been recorded and the seller has been notified securely.",
+          : "Your qualified buyer bid has been recorded and the seller has been notified securely.",
       );
       form.reset();
     } catch (error) {
@@ -200,23 +214,15 @@ export default function FllmExchangePanel(props: {
 
   const sellerDetailsPortal = mainMount
     ? createPortal(
-        <section
-          className="marketplace-listing-section marketplace-listing-seller-details fllm-selfdirected-seller-details"
-          aria-labelledby={`seller-details-${props.listingRef}`}
-        >
+        <section className="marketplace-listing-section marketplace-listing-seller-details fllm-selfdirected-seller-details" aria-labelledby={`seller-details-${props.listingRef}`}>
           <h2 id={`seller-details-${props.listingRef}`}>Additional Seller Details</h2>
-          <p className="fllm-selfdirected-intro">
-            Seller-provided terms from the approved FLLM self-directed listing submission.
-          </p>
+          <p className="fllm-selfdirected-intro">Seller-provided terms from the approved FLLM self-directed listing submission.</p>
           <h3>Seller-provided transaction details</h3>
           <ul>
             <li><strong>Sale method:</strong> {sellerDetails?.saleMethod || "FLLM Self-Directed Seller"}</li>
             {sellerDetails?.licenseStatus && <li><strong>License status:</strong> {sellerDetails.licenseStatus}</li>}
             {sellerDetails?.preferredTiming && <li><strong>Preferred sale timing:</strong> {sellerDetails.preferredTiming}</li>}
-            <li>
-              <strong>Asking price:</strong> {props.askingPrice === null ? "Undisclosed" : money(props.askingPrice)}
-              {sellerDetails?.negotiable ? " — negotiable" : ""}
-            </li>
+            <li><strong>Asking price:</strong> {props.askingPrice === null ? "Undisclosed" : money(props.askingPrice)}{sellerDetails?.negotiable ? " — negotiable" : ""}</li>
             {sellerDetails?.contactPreference && <li><strong>Preferred buyer contact:</strong> {sellerDetails.contactPreference}</li>}
             {sellerDetails?.licenseOnly && <li><strong>Transaction scope:</strong> License only — no operating business or real estate is included.</li>}
             {sellerDetails?.sellerFinancing && <li><strong>Seller financing:</strong> May be available to a qualified buyer, subject to acceptable down payment and terms.</li>}
@@ -225,9 +231,7 @@ export default function FllmExchangePanel(props: {
             {sellerDetails?.directBuyersOnly && <li><strong>Buyer audience:</strong> Principals / direct buyers only.</li>}
             {sellerDetails?.noBroker && <li><strong>Broker policy:</strong> For sale by owner — no broker solicitation.</li>}
           </ul>
-          <p className="marketplace-listing-seller-disclosure">
-            Seller-provided terms remain subject to confirmation. FLLM does not independently guarantee availability, financing, transfer approval, price, or transaction terms.
-          </p>
+          <p className="marketplace-listing-seller-disclosure">Seller-provided terms remain subject to confirmation. FLLM does not independently guarantee availability, financing, transfer approval, price, or transaction terms.</p>
         </section>,
         mainMount,
       )
@@ -249,41 +253,22 @@ export default function FllmExchangePanel(props: {
             />
           </div>
 
-          <section
-            className="marketplace-listing-appraisal-card"
-            style={{ transform: "translateY(-2px)" }}
-            aria-labelledby={`self-appraisal-${props.listingRef}`}
-          >
-            <img
-              src="/assets/fllm-formal-appraisal-preview-v1.webp"
-              alt="Sample FLLM formal liquor license appraisal report"
-            />
+          <section className="marketplace-listing-appraisal-card" style={{ transform: "translateY(-2px)" }} aria-labelledby={`self-appraisal-${props.listingRef}`}>
+            <img src="/assets/fllm-formal-appraisal-preview-v1.webp" alt="Sample FLLM formal liquor license appraisal report" />
             <div>
               <span>Professional License Valuation</span>
               <h2 id={`self-appraisal-${props.listingRef}`}>Order a Liquor License Appraisal</h2>
               <p>Get a license-specific valuation supported by county market evidence and regulatory research.</p>
-              <a
-                className="marketplace-listing-appraisal-button"
-                href="/florida-liquor-license-appraisal#order-form"
-              >
-                Order an Appraisal
-              </a>
-              <a className="marketplace-listing-heat-map-link" href="/?open=heat-map">
-                Explore the Florida License Heat Map →
-              </a>
+              <a className="marketplace-listing-appraisal-button" href="/florida-liquor-license-appraisal#order-form">Order an Appraisal</a>
+              <a className="marketplace-listing-heat-map-link" href="/?open=heat-map">Explore the Florida License Heat Map →</a>
             </div>
           </section>
 
-          <section
-            className="marketplace-listing-finance-promo"
-            aria-labelledby={`self-financing-${props.listingRef}`}
-          >
+          <section className="marketplace-listing-finance-promo" aria-labelledby={`self-financing-${props.listingRef}`}>
             <span>Liquor License Purchase Financing</span>
             <h2 id={`self-financing-${props.listingRef}`}>Finance This License</h2>
             <p>Request financing consideration through the FLLM Private Lender Network.</p>
-            <a className="marketplace-listing-finance-button" href="/financing#request-financing">
-              Request Financing
-            </a>
+            <a className="marketplace-listing-finance-button" href="/financing#request-financing">Request Financing</a>
             <small>All financing is subject to independent lender review, underwriting, and approval.</small>
           </section>
         </div>,
@@ -302,126 +287,61 @@ export default function FllmExchangePanel(props: {
           <div>
             <span>FLLM Exchange</span>
             <h2 id={`exchange-${props.listingRef}`}>Confidential Bid / Ask Exchange</h2>
-            <p>
-              Submit a confidential buyer bid. Buyer bids, bid counts, and bid/ask spreads are not displayed publicly. The seller can accept or counter through a secure FLLM link.
-            </p>
+            <p>Submit a confidential, qualified buyer bid. Buyer bids, bid counts, and bid/ask spreads are not displayed publicly. The seller can accept or counter through a secure FLLM link.</p>
           </div>
           <div className="fllm-exchange-badge">PRICE DISCOVERY</div>
         </div>
 
         <div className="fllm-exchange-tape" role="group" aria-label="Seller asking price">
-          <div>
-            <span>SELLER ASK</span>
-            <strong>{props.askingPrice === null ? "Undisclosed" : money(props.askingPrice)}</strong>
-          </div>
+          <div><span>SELLER ASK</span><strong>{props.askingPrice === null ? "Undisclosed" : money(props.askingPrice)}</strong></div>
         </div>
 
         {props.askingPrice !== null ? (
-          <form className="fllm-exchange-form" onSubmit={submit}>
+          <form className="fllm-exchange-form fllm-exchange-qualified-form" onSubmit={submit}>
             <div className="fllm-exchange-form-heading">
-              <strong>Place a Bid</strong>
+              <strong>Qualified Buyer Registration & Bid</strong>
               <span>Listing {props.listingRef}</span>
             </div>
-            <label><span>Buyer Name *</span><input name="name" required autoComplete="name" /></label>
+            <p className="fllm-exchange-form-note">FLLM requires complete buyer information before a bid is submitted. This information creates a qualified buyer lead tied to this listing.</p>
+
+            <div className="fllm-exchange-section-title">Buyer identity</div>
+            <label><span>First Name *</span><input name="firstName" required autoComplete="given-name" /></label>
+            <label><span>Last Name *</span><input name="lastName" required autoComplete="family-name" /></label>
             <label><span>Email *</span><input name="email" type="email" required autoComplete="email" /></label>
             <label><span>Phone *</span><input name="phone" type="tel" required autoComplete="tel" /></label>
+            <label className="fllm-exchange-wide"><span>Street Address *</span><input name="street" required autoComplete="street-address" /></label>
+            <label><span>City *</span><input name="city" required autoComplete="address-level2" /></label>
+            <label><span>State *</span><input name="state" required autoComplete="address-level1" maxLength={2} placeholder="FL" /></label>
+            <label><span>ZIP Code *</span><input name="zip" required autoComplete="postal-code" inputMode="numeric" /></label>
+
+            <div className="fllm-exchange-section-title">Bid & financial qualification</div>
             <label><span>Bid Price *</span><input name="price" inputMode="numeric" placeholder="$500,000" required /></label>
-            <label className="fllm-exchange-ack">
-              <input name="acknowledgment" type="checkbox" required />
-              <span>I understand this bid and any FLLM price match are non-binding until final transaction terms are separately accepted.</span>
-            </label>
-            <button type="submit" disabled={status === "submitting"}>
-              {status === "submitting" ? "Submitting Bid…" : "Submit Buyer Bid"}
-            </button>
+            <label><span>Proposed Down Payment *</span><input name="downPayment" inputMode="numeric" placeholder="$150,000" required /></label>
+            <label><span>Funds Available for Purchase *</span><input name="fundsAvailable" inputMode="numeric" placeholder="$200,000" required /></label>
+            <label><span>Purchase Method *</span><select name="purchaseMethod" required defaultValue=""><option value="" disabled>Select purchase method</option><option>Cash</option><option>Bank financing</option><option>Seller financing</option><option>Combination of cash and financing</option></select></label>
+            <label><span>Seller Financing Requested? *</span><select name="sellerFinancing" required defaultValue=""><option value="" disabled>Select</option><option>No</option><option>Yes</option></select></label>
+            <label><span>Seller Financing Amount</span><input name="sellerFinancingAmount" inputMode="numeric" placeholder="$0" /></label>
+            <label><span>Proof of Funds *</span><select name="proofFunds" required defaultValue=""><option value="" disabled>Select status</option><option>Available now</option><option>Available on request</option><option>Not yet available</option></select></label>
+            <label><span>Intended Use *</span><select name="intendedUse" required defaultValue=""><option value="" disabled>Select intended use</option><option>Liquor store / package store</option><option>Restaurant</option><option>Bar / lounge</option><option>Other licensed premises</option></select></label>
+            <label><span>Target Closing *</span><select name="targetClosing" required defaultValue=""><option value="" disabled>Select timeframe</option><option>Within 30 days</option><option>31–60 days</option><option>61–90 days</option><option>More than 90 days</option><option>Flexible</option></select></label>
+
+            <label className="fllm-exchange-ack fllm-exchange-wide"><input name="accuracy" type="checkbox" required /><span>I certify that the buyer and financial information provided above is accurate to the best of my knowledge and may be retained by FLLM as a buyer lead associated with this listing.</span></label>
+            <label className="fllm-exchange-ack fllm-exchange-wide"><input name="acknowledgment" type="checkbox" required /><span>I understand this bid and any FLLM price match are non-binding until final transaction terms are separately accepted.</span></label>
+            <button type="submit" disabled={status === "submitting"}>{status === "submitting" ? "Submitting Qualified Bid…" : "Submit Qualified Buyer Bid"}</button>
             {message && <p className={`fllm-exchange-status ${status}`} role="status">{message}</p>}
           </form>
         ) : (
-          <p className="fllm-exchange-unavailable">
-            Exchange bidding will open when the seller publishes an asking price.
-          </p>
+          <p className="fllm-exchange-unavailable">Exchange bidding will open when the seller publishes an asking price.</p>
         )}
 
-        <p className="fllm-exchange-legal">
-          FLLM Exchange is a confidential negotiation and price-discovery feature. Buyer bids, counters, acceptances and price matches are not displayed publicly and do not themselves create a binding purchase agreement or guarantee DBPR transfer approval.
-        </p>
+        <p className="fllm-exchange-legal">FLLM Exchange is a confidential negotiation and price-discovery feature. Buyer qualification information is retained for marketplace lead tracking and transaction review. Buyer bids, counters, acceptances and price matches are not displayed publicly and do not themselves create a binding purchase agreement or guarantee DBPR transfer approval.</p>
       </section>
 
       <style>{`
-        .fllm-selfdirected-highlight-slot,
-        .fllm-selfdirected-main-slot,
-        .fllm-selfdirected-aside-slot {
-          width: 100%;
-        }
-
-        .fllm-selfdirected-highlight-slot {
-          margin-top: 22px;
-        }
-
-        .fllm-selfdirected-highlight-slot .marketplace-listing-highlights {
-          margin: 0 0 22px;
-        }
-
-        .fllm-selfdirected-main-slot {
-          margin-top: 22px;
-        }
-
-        .fllm-selfdirected-aside-slot {
-          margin-top: 18px;
-        }
-
-        .fllm-selfdirected-seller-details {
-          margin: 0 !important;
-        }
-
-        .fllm-selfdirected-intro {
-          margin-bottom: 14px !important;
-        }
-
-        .fllm-selfdirected-seller-details ul {
-          margin-bottom: 18px;
-        }
-
-        .fllm-selfdirected-seller-details li {
-          margin: 0;
-        }
-
-        .fllm-selfdirected-aside-stack {
-          display: grid;
-          gap: 16px;
-          align-content: start;
-        }
-
-        .fllm-selfdirected-aside-stack .marketplace-listing-broker-inquiry,
-        .fllm-selfdirected-aside-stack .marketplace-listing-appraisal-card,
-        .fllm-selfdirected-aside-stack .marketplace-listing-finance-promo {
-          margin: 0 !important;
-          width: 100%;
-        }
-
-        .marketplace-listing-inquiry-intro {
-          margin: -2px 0 4px;
-          color: #c9d6df;
-          font-size: 12px;
-          line-height: 1.5;
-        }
-
-        @media (min-width: 1100px) {
-          .fllm-selfdirected-seller-details ul {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            column-gap: 28px;
-            row-gap: 12px;
-            padding-left: 22px;
-          }
-        }
-
-        @media (max-width: 900px) {
-          .fllm-selfdirected-highlight-slot,
-          .fllm-selfdirected-main-slot,
-          .fllm-selfdirected-aside-slot {
-            margin-top: 16px;
-          }
-        }
+        .fllm-selfdirected-highlight-slot,.fllm-selfdirected-main-slot,.fllm-selfdirected-aside-slot{width:100%}.fllm-selfdirected-highlight-slot{margin-top:22px}.fllm-selfdirected-highlight-slot .marketplace-listing-highlights{margin:0 0 22px}.fllm-selfdirected-main-slot{margin-top:22px}.fllm-selfdirected-aside-slot{margin-top:18px}.fllm-selfdirected-seller-details{margin:0!important}.fllm-selfdirected-intro{margin-bottom:14px!important}.fllm-selfdirected-seller-details ul{margin-bottom:18px}.fllm-selfdirected-seller-details li{margin:0}.fllm-selfdirected-aside-stack{display:grid;gap:16px;align-content:start}.fllm-selfdirected-aside-stack .marketplace-listing-broker-inquiry,.fllm-selfdirected-aside-stack .marketplace-listing-appraisal-card,.fllm-selfdirected-aside-stack .marketplace-listing-finance-promo{margin:0!important;width:100%}.marketplace-listing-inquiry-intro{margin:-2px 0 4px;color:#c9d6df;font-size:12px;line-height:1.5}
+        .fllm-exchange-qualified-form select{width:100%;min-height:46px;padding:0 14px;border:1px solid rgba(171,193,209,.45);border-radius:3px;background:#fff;color:#122033;font:inherit}.fllm-exchange-form-note{grid-column:1/-1;margin:0 0 4px;color:#c7d6e2;font-size:12px;line-height:1.55}.fllm-exchange-section-title{grid-column:1/-1;margin-top:8px;padding-top:10px;border-top:1px solid rgba(241,166,0,.28);color:#f1a600;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.fllm-exchange-wide{grid-column:1/-1}.fllm-exchange-qualified-form>button,.fllm-exchange-qualified-form>.fllm-exchange-status{grid-column:1/-1}
+        @media (min-width:1100px){.fllm-selfdirected-seller-details ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;row-gap:12px;padding-left:22px}}
+        @media (max-width:900px){.fllm-selfdirected-highlight-slot,.fllm-selfdirected-main-slot,.fllm-selfdirected-aside-slot{margin-top:16px}.fllm-exchange-wide,.fllm-exchange-section-title,.fllm-exchange-form-note{grid-column:1}.fllm-exchange-qualified-form>button,.fllm-exchange-qualified-form>.fllm-exchange-status{grid-column:1}}
       `}</style>
     </>
   );
