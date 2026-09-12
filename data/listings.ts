@@ -393,18 +393,6 @@ export const listings: Listing[] = [
     image: "/assets/listing-palm-beach.png",
   },
   {
-    county: "Pinellas County",
-    type: "4COP Quota",
-    price: 505000,
-    priceLabel: "$505,000",
-    sourceRef: "FLLM-037",
-    sourceName: "BizBuySell — Four-License Portfolio",
-    sourceUrl:
-      "https://www.bizbuysell.com/business-asset/4cop-quota-licenses-for-sale-throughout-florida/2356535/",
-    note: "Four-license portfolio; primary availability in Pinellas, Hillsborough, and Sarasota counties. Price and availability subject to confirmation.",
-    image: "/assets/listing-miami.png",
-  },
-  {
     county: "Polk County",
     type: "4COP Quota",
     price: 200000,
