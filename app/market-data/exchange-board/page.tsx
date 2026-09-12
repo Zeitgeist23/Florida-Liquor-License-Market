@@ -23,15 +23,16 @@ export default function ExchangeBoardStaticPage() {
       }}
     >
       <img
-        src="/assets/fllm-exchange-static.jpg?v=20260911"
+        src="/market-data/exchange-board/static-image?v=20260911-2"
         alt="FLLM Exchange Board — Florida Liquor License Market"
         width={1024}
         height={1536}
         style={{
           display: "block",
           width: "100%",
+          maxWidth: "1024px",
           height: "auto",
-          margin: 0,
+          margin: "0 auto",
           padding: 0,
         }}
       />
