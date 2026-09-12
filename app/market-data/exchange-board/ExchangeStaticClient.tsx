@@ -57,6 +57,33 @@ export default function ExchangeStaticClient() {
             zIndex: 2,
           }}
         />
+        <span
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            width: "15.2%",
+            height: "4.35%",
+            background:
+              "linear-gradient(90deg, rgb(1 15 32) 0%, rgb(1 20 35) 100%)",
+            zIndex: 1,
+          }}
+        />
+        <img
+          src="/assets/brand-sharp.svg"
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            bottom: "0.55%",
+            left: "1.75%",
+            width: "auto",
+            height: "3.05%",
+            mixBlendMode: "screen",
+            zIndex: 2,
+          }}
+        />
       </div>
     </main>
   );
