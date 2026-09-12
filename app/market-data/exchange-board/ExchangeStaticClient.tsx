@@ -32,6 +32,18 @@ export default function ExchangeStaticClient() {
             padding: 0,
           }}
         />
+        <span
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "15.5%",
+            height: "3.05%",
+            background: "#020d18",
+            zIndex: 1,
+          }}
+        />
         <img
           src="/assets/brand-sharp.svg"
           alt=""
@@ -43,6 +55,18 @@ export default function ExchangeStaticClient() {
             width: "auto",
             height: "3.05%",
             zIndex: 2,
+          }}
+        />
+        <span
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            bottom: "0.45%",
+            left: 0,
+            width: "15.5%",
+            height: "3.05%",
+            background: "#020d18",
+            zIndex: 1,
           }}
         />
         <img
