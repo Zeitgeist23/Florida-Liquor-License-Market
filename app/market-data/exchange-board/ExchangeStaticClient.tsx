@@ -23,6 +23,7 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
   const secondRow = tickerListings.slice(16, 32).length
     ? tickerListings.slice(16, 32)
     : [...firstRow].reverse();
+  const approvedArtOffsets = ["-2.15vw", "-26.37vw", "-50.78vw", "-74.7vw"];
   const approvedFeaturedCards = [
     { type: "4COP Quota", county: "Monroe County", price: "$1,300,000", reference: "FL-3021", href: "/listings/fllm-098", artLeft: "-2.15vw" },
     { type: "3PS Liquor Store", county: "Miami-Dade County", price: "$950,000", reference: "FL-1024", href: "/listings?county=Miami-Dade%20County", artLeft: "-26.37vw" },
@@ -38,18 +39,17 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
       price: listing.price,
       reference: publicReference ?? `LIVE-${String(index + 1).padStart(3, "0")}`,
       href: listing.href,
-      artLeft: "",
+      artLeft: approvedArtOffsets[index % approvedArtOffsets.length],
     };
   });
   const carouselPool = [
     ...approvedFeaturedCards,
     ...liveFeaturedCards.filter((listing) => !approvedFeaturedCards.some((approved) => approved.county === listing.county && approved.price === listing.price)),
   ];
-  const artOffsets = ["-2.15vw", "-26.37vw", "-50.78vw", "-74.7vw"];
-  const visibleFeaturedCards = Array.from({ length: Math.min(4, carouselPool.length) }, (_, offset) => ({
-    ...carouselPool[(carouselIndex + offset) % carouselPool.length],
-    artLeft: artOffsets[offset],
-  }));
+  const visibleFeaturedCards = Array.from(
+    { length: Math.min(4, carouselPool.length) },
+    (_, offset) => carouselPool[(carouselIndex + offset) % carouselPool.length],
+  );
   const toolCards = [
     { title: "List Your License", description: "Reach qualified buyers on Florida's largest marketplace.", action: "LIST YOUR LICENSE →", href: "/sell-your-license", artLeft: "-2.4vw", artTop: "-99.12vw" },
     { title: "Seller Self-Directed Listing", description: "List your license directly. Full control. More exposure.", action: "GET STARTED →", href: "/sell-your-license", artLeft: "-17.93vw", artTop: "-99.12vw" },
