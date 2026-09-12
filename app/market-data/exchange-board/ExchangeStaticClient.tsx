@@ -81,6 +81,7 @@ export default function ExchangeStaticClient() {
             width: "auto",
             height: "3.05%",
             mixBlendMode: "screen",
+            clipPath: "inset(0 0 14% 0)",
             zIndex: 2,
           }}
         />
