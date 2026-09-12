@@ -236,7 +236,7 @@ export default function FllmExchangePanel(props: {
   const asidePortal = asideMount
     ? createPortal(
         <div className="fllm-selfdirected-aside-stack">
-          <div style={{ transform: "translateY(-18px)" }}>
+          <div style={{ transform: "translateY(-16px)" }}>
             <ListingBrokerInquiryForm
               listingReference={listingContext?.reference || props.listingRef}
               listingRequested={listingContext?.title || props.listingRef}
