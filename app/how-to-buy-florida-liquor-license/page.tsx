@@ -191,6 +191,12 @@ export default function HowToBuyFloridaLiquorLicensePage() {
         .buyer-checklist li{position:relative;padding:16px 16px 16px 45px;border:1px solid rgba(237,169,26,.26);border-radius:11px;background:#123d65;color:#fff;line-height:1.55}
         .buyer-checklist li::before{content:"✓";position:absolute;left:16px;top:15px;color:#eda91a;font-weight:900}
         .seo-market-page .buyer-due-diligence-section .buyer-note{margin-top:22px;padding:18px 20px;border-left:3px solid #eda91a;background:#123d65;color:#fff;font-size:15px;line-height:1.65}
+        .buyer-final-cta{padding:48px 0 52px;background:#071d33}
+        .buyer-final-cta .seo-market-cta-inner{display:grid;grid-template-columns:1fr;gap:22px}
+        .seo-market-page .buyer-final-cta h2,.seo-market-page .buyer-final-cta p{color:#fff}
+        .buyer-final-cta .seo-market-actions{display:flex;flex-wrap:wrap;gap:14px;margin:0}
+        .buyer-final-cta .seo-market-button{min-height:48px;padding:0 26px;font-size:16px;box-shadow:0 7px 16px rgba(237,169,26,.18)}
+        @media(max-width:560px){.buyer-final-cta .seo-market-actions{display:grid}.buyer-final-cta .seo-market-button{width:100%}}
         @media(max-width:1050px){.buyer-seven-summary{grid-template-columns:repeat(4,minmax(0,1fr))}}
         @media(max-width:820px){.buyer-quick{grid-template-columns:1fr}.buyer-path-grid,.buyer-resource-grid{grid-template-columns:1fr}.buyer-checklist{grid-template-columns:1fr}.buyer-seven-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
         @media(max-width:560px){.buyer-step{grid-template-columns:1fr}.buyer-step-number{width:42px;height:42px}.buyer-seven-summary{grid-template-columns:1fr}}
@@ -359,7 +365,7 @@ export default function HowToBuyFloridaLiquorLicensePage() {
         </div>
       </section>
 
-      <section className="seo-market-cta">
+      <section className="seo-market-cta buyer-final-cta">
         <div className="seo-market-shell seo-market-cta-inner">
           <div>
             <span className="seo-market-section-kicker">Ready to Buy?</span>
