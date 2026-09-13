@@ -136,7 +136,7 @@
 .market-data-hero-actions a + a { background: #123d65; color: #fff; }
 .market-data-hero-actions a:hover { filter: brightness(1.08); transform: translateY(-1px); }
 
-.market-snapshot { padding: 58px 0 64px; background: #0d3152; }
+.market-snapshot { padding: 58px 0 45px; background: #0d3152; }
 .market-snapshot-heading {
   display: flex;
   align-items: end;
@@ -249,7 +249,7 @@
 .directory-heading > a:hover { color: #ffc23c; }
 
 .directory-featured {
-  padding: 62px 0 67px;
+  padding: 43px 0 67px;
   border-top: 1px solid #263b48;
   border-bottom: 1px solid #4d3c19;
   background: linear-gradient(180deg, #0d3152, #0a2947);
