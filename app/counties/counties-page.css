@@ -39,8 +39,8 @@
   }
 
   .county-directory-page .forms-site-header .primary-nav {
-    justify-content: space-between;
-    gap: 12px;
+    justify-content: center;
+    gap: 42px;
   }
 
   .county-directory-page .forms-site-header .header-actions {
