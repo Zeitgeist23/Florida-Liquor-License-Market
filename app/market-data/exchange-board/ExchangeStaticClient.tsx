@@ -17,6 +17,7 @@ type ExchangeStaticClientProps = {
 export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticClientProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
+  const [boardIndex, setBoardIndex] = useState(0);
   const [carouselPaused, setCarouselPaused] = useState(false);
   const [bidSubmitted, setBidSubmitted] = useState(false);
   const firstRow = tickerListings.slice(0, Math.min(16, tickerListings.length));
@@ -50,6 +51,10 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
     { length: Math.min(4, carouselPool.length) },
     (_, offset) => carouselPool[(carouselIndex + offset) % carouselPool.length],
   );
+  const visibleBoardListings = Array.from(
+    { length: Math.min(10, tickerListings.length) },
+    (_, offset) => tickerListings[(boardIndex + offset) % tickerListings.length],
+  );
   const toolCards = [
     { title: "List Your License", description: "Reach qualified buyers on Florida's largest marketplace.", action: "LIST YOUR LICENSE →", href: "/sell-your-license", artLeft: "-2.4vw", artTop: "-99.12vw" },
     { title: "Seller Self-Directed Listing", description: "List your license directly. Full control. More exposure.", action: "GET STARTED →", href: "/sell-your-license", artLeft: "-17.93vw", artTop: "-99.12vw" },
@@ -70,6 +75,15 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
     const rotation = window.setInterval(() => setCarouselIndex((current) => (current + 1) % carouselPool.length), 10000);
     return () => window.clearInterval(rotation);
   }, [carouselPaused, carouselPool.length]);
+
+  useEffect(() => {
+    if (tickerListings.length <= 10 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const rotation = window.setInterval(
+      () => setBoardIndex((current) => (current - 1 + tickerListings.length) % tickerListings.length),
+      10000,
+    );
+    return () => window.clearInterval(rotation);
+  }, [tickerListings.length]);
 
   return (
     <main className="exchange-static-page">
@@ -121,8 +135,9 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
         .exchange-footer-social{position:absolute;z-index:2;left:62.7%;top:9%;display:flex;align-items:center;gap:.8vw;height:34%;padding:0 .25vw;background:#031526}.exchange-footer-social span{display:grid;place-items:center;width:2.2vw;height:2.2vw;min-width:29px;min-height:29px;border-radius:5px;color:#fff;font-weight:950;line-height:1}.exchange-footer-social .linkedin{background:#0876cf;font-size:clamp(18px,1.55vw,29px);font-family:Arial,sans-serif}.exchange-footer-social .xmark{background:#020205;border:1px solid #1d2228;font-size:clamp(17px,1.55vw,29px)}.exchange-footer-social .youtube{background:#f20b1d;font-size:clamp(14px,1.2vw,23px)}
         .exchange-footer-updates{position:absolute;z-index:2;right:2.65%;top:9%;display:flex;align-items:center;justify-content:center;gap:.65vw;width:13.9%;height:32%;min-height:31px;border:2px solid #c79a1a;border-radius:4px;background:#031526;color:#ffbd22;text-decoration:none;font-weight:950;text-transform:uppercase;white-space:nowrap}.exchange-footer-updates i{font-size:1.25em;font-style:normal}
         .exchange-footer-copyright{position:absolute;z-index:2;right:2.65%;bottom:17%;margin:0;padding:.2vw .35vw;background:#031526;color:#dce5ea;font-weight:600;white-space:nowrap}
-        @keyframes exchangeTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}@keyframes featuredCardTurn{from{opacity:.55;transform:translateX(1.2%)}to{opacity:1;transform:translateX(0)}}
-        @media(prefers-reduced-motion:reduce){.exchange-ticker-track{animation-play-state:paused}.featured-card{animation:none}}
+        .board-rows{animation:boardRowsDown .45s ease both}.board-row{position:relative;transition:transform .16s ease,background .16s ease,color .16s ease;transform-origin:center}.board-row:hover,.board-row:focus-visible{z-index:3;background:#0b3c5d;color:#fff;outline:none;transform:scale(1.02)}
+        @keyframes exchangeTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}@keyframes featuredCardTurn{from{opacity:.55;transform:translateX(1.2%)}to{opacity:1;transform:translateX(0)}}@keyframes boardRowsDown{from{opacity:.5;transform:translateY(-1.55vw)}to{opacity:1;transform:translateY(0)}}
+        @media(prefers-reduced-motion:reduce){.exchange-ticker-track{animation-play-state:paused}.featured-card,.board-rows{animation:none}}
         @media(max-width:1150px){.exchange-search{display:none}.exchange-live-menu .exchange-logo{flex-basis:185px}.exchange-live-menu .primary-nav{gap:12px}}
         @media(max-width:820px){.exchange-live-menu{height:72px}.exchange-live-menu .exchange-logo{flex-basis:190px}.exchange-menu-toggle{display:block}.exchange-live-menu .primary-nav{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;padding:10px;background:#06131f;border:1px solid #34495b;transform:none}.exchange-live-menu .primary-nav.is-open{display:flex}.exchange-live-menu .primary-nav a,.exchange-live-menu .primary-nav button{width:100%;padding:12px;text-align:center}.exchange-live-menu .exchange-actions{display:none}.exchange-live-hero{background-position:center -72px;min-height:172px;aspect-ratio:auto;background-size:auto 244px}.market-panels{grid-template-columns:1fr;min-height:0;padding:6px}.market-panel{min-height:320px}.exchange-service-strip{grid-template-columns:1fr 1fr;min-height:0}.exchange-service-strip a{min-height:62px}.exchange-service-strip a:last-child{grid-column:1/-1}.exchange-news-row{grid-template-columns:1fr;height:auto;min-height:0}.news-copy-panel,.news-art-crop,.news-headlines{min-height:220px}.news-art-crop img{left:-44.86%;top:-344%;width:191.4%}.featured-html{height:auto;padding:8px}.featured-heading{height:34px}.featured-cards{display:flex;height:230px;overflow-x:auto;scroll-snap-type:x mandatory}.featured-card{min-width:78vw;scroll-snap-align:start}.featured-card-art{bottom:44px}.featured-card-art img{top:-81.84vw}.featured-card-details{top:62px}.featured-card-button{height:34px}.featured-arrow{display:none}.tools-html{height:auto;padding:8px}.tools-heading{height:auto;align-items:flex-start;flex-direction:column;padding:8px}.tools-grid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(6,210px)}.tool-card-art{height:105px}.exchange-html{grid-template-columns:1fr;height:auto;margin:8px}.exchange-bid-side{grid-template-columns:1fr;grid-template-rows:auto auto auto;border-right:0;border-bottom:1px solid #a98212}.exchange-bid-heading{grid-template-columns:1fr}.exchange-bid-form{grid-template-columns:1fr}.exchange-bid-form h3,.exchange-bid-check,.exchange-bid-form button{grid-column:1}.exchange-bid-form input[type=text],.exchange-bid-form input[type=email],.exchange-bid-form input[type=tel]{height:34px}.exchange-bid-form button{height:42px;margin-bottom:10px}.exchange-explainer{min-height:330px;padding:24px 20px 65px 90px}.exchange-live-footer{min-height:92px}.exchange-footer-tagline,.exchange-footer-nav,.exchange-footer-social{display:none}.exchange-footer-brand{left:3%;width:39%}.exchange-footer-updates{right:3%;top:12%;width:48%;height:34%}.exchange-footer-copyright{right:3%;bottom:16%;font-size:8px}}
       `}</style>
@@ -177,18 +192,16 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
             <h1>FLLM EXCHANGE BOARD</h1>
             <div className="board-table">
               <div className="board-head"><span>County</span><span>Active Listings</span><span>Last Asking Price</span><span>Status</span></div>
-              {[
-                ["Miami-Dade", "3PS Liquor Store", "$950,000"],
-                ["Monroe", "4COP Quota", "$1,300,000"],
-                ["Broward", "3PS Liquor Store", "$875,000"],
-                ["Palm Beach", "4COP Quota", "$1,150,000"],
-                ["Sarasota", "3PS Liquor Store", "$700,000"],
-                ["Orange", "4COP Quota", "$925,000"],
-                ["Duval", "3PS Liquor Store", "$850,000"],
-                ["Lee", "4COP Quota", "$1,250,000"],
-                ["St. Johns", "3PS Liquor Store", "$425,000"],
-                ["Hillsborough", "4COP Quota", "$1,625,000"],
-              ].map(([county, type, price]) => <a className="board-row" href="/listings" key={`${county}-${type}`}><span>{county}</span><span>{type}</span><strong>{price}</strong><em>AVAILABLE</em></a>)}
+              <div className="board-rows" key={boardIndex}>
+                {visibleBoardListings.map((listing, offset) => (
+                  <a className="board-row" href={listing.href} key={`${listing.href}-${boardIndex}-${offset}`}>
+                    <span>{listing.county}</span>
+                    <span>{listing.type === "3PS" ? "3PS Liquor Store" : listing.type === "4COP" ? "4COP Quota" : listing.type}</span>
+                    <strong>{listing.price}</strong>
+                    <em>AVAILABLE</em>
+                  </a>
+                ))}
+              </div>
             </div>
             <div className="board-action"><a className="outline-button" href="/listings">VIEW ALL LISTINGS&nbsp; →</a></div>
           </article>
