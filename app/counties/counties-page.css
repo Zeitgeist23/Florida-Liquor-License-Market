@@ -717,12 +717,57 @@
   text-decoration-color: currentColor;
 }
 
-.directory-footer { padding: 24px 0; border-top: 1px solid #6e531d; background: #071f36; }
-.directory-footer > div { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.directory-footer {
+  padding: 20px 0 0;
+  border-top: 1px solid #6e531d;
+  background: #071f36;
+}
+
+.directory-footer > .directory-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+}
+
+.directory-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.directory-footer-brand > a {
+  display: block;
+  line-height: 0;
+}
+
+.directory-footer-brand img {
+  display: block;
+  width: 130px;
+  height: auto;
+}
+
 .directory-footer span { color: #e4eef5; font-size: 12px; }
 .directory-footer nav { display: flex; flex-wrap: wrap; gap: 20px; }
 .directory-footer a { color: #f3f7fa; font-size: 12px; font-weight: 800; }
 .directory-footer a:hover { color: #f1a600; }
+
+.directory-footer > .national-marketplace-footer-link {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 14px max(20px, calc((100% - 1240px) / 2)) 16px;
+  border-top: 1px solid #263f55;
+  background: #0a2947;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: #dce8f0;
+  font-size: 11px;
+  text-align: left;
+}
 
 @media (max-width: 980px) {
   .market-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -778,6 +823,11 @@
     border-top: 1px solid rgba(241, 166, 0, .65);
     border-left: 0;
   }
-  .directory-footer > div { flex-direction: column; }
+  .directory-footer > .directory-shell,
+  .directory-footer > .national-marketplace-footer-link {
+    flex-direction: column;
+    text-align: center;
+  }
+  .directory-footer-brand { flex-direction: column; gap: 9px; }
   .directory-footer nav { justify-content: center; }
 }
