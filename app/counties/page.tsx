@@ -122,7 +122,7 @@ export default async function CountiesPage() {
         <div className="market-stat-grid">
           <article><strong>{snapshot.activeListings}</strong><span>Active marketplace listings</span></article>
           <article><strong>{snapshot.countiesWithInventory}</strong><span>Counties with active inventory</span></article>
-          <article><strong>{statewideMedian === null ? "—" : <><span className="market-stat-currency">$</span>{money(statewideMedian).slice(1)}</>}</strong><span>Median disclosed asking price*</span></article>
+          <article><strong>{statewideMedian === null ? "—" : money(statewideMedian)}</strong><span>Median disclosed asking price*</span></article>
           <article><strong>{snapshot.quotaDrawingLicenses}</strong><span>2026 DBPR drawing licenses</span></article>
         </div>
         <p className="market-data-caution">*Asking-price data is a current market snapshot. Florida quota licenses are county-specific; asking prices are not appraisals, verified closed-sale prices or guarantees of value.</p>
