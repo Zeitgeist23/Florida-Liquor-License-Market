@@ -1,7 +1,7 @@
 /* Shared FLLM visual system for buyer-guide-linked SEO/resource pages. */
 
 /* Core SEO pages linked from the Buyer Guide: quota cost, ABT-6002, 4COP, 3PS and related market pages. */
-.seo-market-page {
+.seo-market-page.seo-market-page {
   background: #0d3152;
   color: #fff;
 }
