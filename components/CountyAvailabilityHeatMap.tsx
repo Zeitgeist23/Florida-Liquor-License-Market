@@ -30,9 +30,9 @@ const PRICE_LEGEND = [
   { color: "#75c9ff", label: "Under $200K" },
   { color: "#38a8df", label: "$200K–$299K" },
   { color: "#6366e8", label: "$300K–$449K" },
-  { color: "#9b4ddb", label: "$450K–$649K" },
-  { color: "#d946b4", label: "$650K–$799K" },
-  { color: "#ef4b52", label: "$800K+" },
+  { color: "#8b5cf6", label: "$450K–$649K" },
+  { color: "#f05a32", label: "$650K–$799K" },
+  { color: "#dc2626", label: "$800K+" },
 ];
 
 function countyKey(value: string) {
@@ -50,9 +50,9 @@ function inventoryColor(count: number) {
 
 function priceColor(value: number | null) {
   if (value === null) return "#193552";
-  if (value >= 800_000) return "#ef4b52";
-  if (value >= 650_000) return "#d946b4";
-  if (value >= 450_000) return "#9b4ddb";
+  if (value >= 800_000) return "#dc2626";
+  if (value >= 650_000) return "#f05a32";
+  if (value >= 450_000) return "#8b5cf6";
   if (value >= 300_000) return "#6366e8";
   if (value >= 200_000) return "#38a8df";
   return "#75c9ff";
