@@ -6,6 +6,7 @@ import { floridaCounties, featuredCounties } from "@/data/florida-counties";
 import { buildFloridaMarketIndex, type MarketPriceStats } from "@/lib/florida-market-index";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 import "./counties-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -104,10 +105,7 @@ export default async function CountiesPage() {
   return (
     <main className="county-directory-page market-data-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }} />
-      <header className="directory-header directory-shell">
-        <Link className="directory-brand" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /></Link>
-        <nav><Link href="/listings">Licenses for Sale</Link><Link href="/florida-liquor-license-value">Value Estimator</Link><Link href="/florida-liquor-license-lottery">Quota Lottery</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact</Link></nav>
-      </header>
+      <FormsSiteHeader />
 
       <section className="directory-hero market-data-hero">
         <div className="directory-shell">
