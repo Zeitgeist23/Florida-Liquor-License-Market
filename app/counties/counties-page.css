@@ -65,8 +65,8 @@
   border-top: 1px solid #8a6412;
   border-bottom: 1px solid #b77b00;
   background:
-    radial-gradient(circle at 75% 18%, rgba(246,167,0,.18), transparent 30%),
-    linear-gradient(135deg, #0a2947 0%, #0d3152 58%, #164872 100%);
+    radial-gradient(circle at 78% 22%, rgba(246, 167, 0, .15), transparent 34%),
+    linear-gradient(135deg, #03131f 0%, #061f35 56%, #173649 100%);
 }
 
 .directory-hero::after {
