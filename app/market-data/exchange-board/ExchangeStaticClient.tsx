@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
 
 export type ExchangeTickerListing = {
@@ -33,11 +34,17 @@ export default function ExchangeStaticClient({ marketSnapshot, tickerListings }:
   const secondRow = tickerListings.slice(16, 32).length
     ? tickerListings.slice(16, 32)
     : [...firstRow].reverse();
+  const featuredImages = [
+    "https://images.pexels.com/photos/18675118/pexels-photo-18675118/free-photo-of-interior-of-a-bar.jpeg?auto=compress&dpr=1&h=1000&w=1800",
+    "https://images.pexels.com/photos/35474950/pexels-photo-35474950/free-photo-of-cozy-wine-shop-display-with-variety.jpeg?auto=compress&dpr=1&h=1000&w=1800",
+    "https://images.pexels.com/photos/12387901/pexels-photo-12387901.jpeg?auto=compress&dpr=1&h=1000&w=1800",
+    "https://images.pexels.com/photos/6309831/pexels-photo-6309831.jpeg?auto=compress&dpr=1&h=1000&w=1800",
+  ];
   const approvedFeaturedCards = [
-    { type: "4COP Quota", county: "Monroe County", price: "$1,300,000", reference: "FL-3021", href: "/listings/fllm-098" },
-    { type: "3PS Liquor Store", county: "Miami-Dade County", price: "$950,000", reference: "FL-1024", href: "/listings?county=Miami-Dade%20County" },
-    { type: "4COP Quota", county: "Broward County", price: "$1,150,000", reference: "FL-2876", href: "/listings?county=Broward%20County" },
-    { type: "3PS Liquor Store", county: "Palm Beach County", price: "$875,000", reference: "FL-119B", href: "/listings?county=Palm%20Beach%20County" },
+    { type: "4COP Quota", county: "Monroe County", price: "$1,300,000", reference: "FL-3021", href: "/listings/fllm-098", image: featuredImages[0] },
+    { type: "3PS Liquor Store", county: "Miami-Dade County", price: "$950,000", reference: "FL-1024", href: "/listings?county=Miami-Dade%20County", image: featuredImages[1] },
+    { type: "4COP Quota", county: "Broward County", price: "$1,150,000", reference: "FL-2876", href: "/listings?county=Broward%20County", image: featuredImages[2] },
+    { type: "3PS Liquor Store", county: "Palm Beach County", price: "$875,000", reference: "FL-119B", href: "/listings?county=Palm%20Beach%20County", image: featuredImages[3] },
   ];
   const liveFeaturedCards = tickerListings.map((listing, index) => {
     const slug = listing.href.match(/\/listings\/([^/?#]+)/)?.[1];
@@ -48,6 +55,7 @@ export default function ExchangeStaticClient({ marketSnapshot, tickerListings }:
       price: listing.price,
       reference: publicReference ?? `LIVE-${String(index + 1).padStart(3, "0")}`,
       href: listing.href,
+      image: featuredImages[index % featuredImages.length],
     };
   });
   const carouselPool = [
@@ -166,13 +174,11 @@ export default function ExchangeStaticClient({ marketSnapshot, tickerListings }:
         .board-rows{animation:boardRowsDown .45s ease both}.board-row{position:relative;transition:transform .16s ease,background .16s ease,color .16s ease;transform-origin:center}.board-row:hover,.board-row:focus-visible{z-index:3;background:#0b3c5d;color:#fff;outline:none;transform:scale(1.02)}
         .featured-card-details{display:flex;flex-direction:column;justify-content:center}.featured-card-meta{font-size:clamp(9px,.65vw,12px)}
         .featured-cards{--featured-gap:.65vw;--featured-card-width:calc((100% - 1.95vw)/4);--featured-step:calc(var(--featured-card-width) + var(--featured-gap));display:block;position:relative;overflow:hidden}.featured-track{display:flex;gap:var(--featured-gap);height:100%;transform:translate3d(calc(-1 * var(--featured-step)),0,0);will-change:transform}.featured-track.is-next{transform:translate3d(calc(-2 * var(--featured-step)),0,0);transition:transform .62s cubic-bezier(.22,.61,.36,1)}.featured-track.is-previous{transform:translate3d(0,0,0);transition:transform .62s cubic-bezier(.22,.61,.36,1)}.featured-card{flex:0 0 var(--featured-card-width);animation:none}.featured-card-art img{image-rendering:auto}
-        .featured-card{grid-template-columns:38% minmax(0,62%)}.featured-card-art{border-right:0}.featured-card-details{padding:clamp(10px,.82vw,16px);transform:translateY(1px)}
-        .license-asset-art{isolation:isolate;display:flex;align-self:stretch;flex-direction:column;align-items:center;justify-content:center;margin:clamp(7px,.5vw,10px) clamp(5px,.32vw,7px);padding:clamp(10px,.72vw,14px);background:radial-gradient(circle at 50% 42%,rgba(20,122,173,.34),transparent 48%),linear-gradient(145deg,#0a2e4a,#031523 72%);color:#eef7fb;text-align:center}.license-asset-art::before{content:'';position:absolute;z-index:-1;inset:clamp(6px,.42vw,8px);border:1px solid rgba(246,181,31,.78);border-radius:3px;box-shadow:inset 0 0 18px rgba(40,196,255,.12)}.license-asset-art::after{content:'FL';position:absolute;z-index:-2;color:rgba(35,199,255,.1);font:900 clamp(52px,4.7vw,90px)/1 Georgia,serif;letter-spacing:-.12em;transform:translateX(-.05em)}.license-asset-art.is-3ps{background:radial-gradient(circle at 50% 42%,rgba(19,151,170,.32),transparent 48%),linear-gradient(145deg,#083143,#031523 72%)}.license-document-kicker{position:relative;z-index:1;margin-bottom:.45vw;color:#ffbd22;font-size:clamp(8px,.55vw,11px);font-weight:900;letter-spacing:.11em}.license-asset-art b{position:relative;z-index:1;font:800 clamp(9px,.64vw,13px)/1.22 Georgia,serif;letter-spacing:.035em}.license-asset-art strong{position:relative;z-index:1;margin:.55vw 0 .35vw;color:#28d7ff;font-size:clamp(28px,2.25vw,43px);line-height:1;text-shadow:0 0 14px rgba(40,215,255,.25)}.license-county{position:relative;z-index:1;margin-bottom:.38vw;color:#ffbd22;font-size:clamp(7px,.48vw,9px);font-weight:900;letter-spacing:.06em;line-height:1.15;text-transform:uppercase}.license-asset-art small{position:relative;z-index:1;color:#dbe8ee;font-size:clamp(7px,.48vw,10px);font-weight:800;letter-spacing:.065em;line-height:1.2}
         @keyframes exchangeTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}@keyframes featuredCardTurn{from{opacity:.55;transform:translateX(1.2%)}to{opacity:1;transform:translateX(0)}}@keyframes boardRowsDown{from{opacity:.5;transform:translateY(-1.55vw)}to{opacity:1;transform:translateY(0)}}
         @media(prefers-reduced-motion:reduce){.exchange-ticker-track{animation-play-state:paused}.featured-card,.board-rows{animation:none}.featured-track{transition:none!important}}
         @media(max-width:1150px){.exchange-search{display:none}.exchange-live-menu .exchange-logo{flex-basis:185px}.exchange-live-menu .primary-nav{gap:12px}}
         @media(max-width:820px){.exchange-live-menu{height:72px}.exchange-live-menu .exchange-logo{flex-basis:190px}.exchange-menu-toggle{display:block}.exchange-live-menu .primary-nav{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;padding:10px;background:#06131f;border:1px solid #34495b;transform:none}.exchange-live-menu .primary-nav.is-open{display:flex}.exchange-live-menu .primary-nav a,.exchange-live-menu .primary-nav button{width:100%;padding:12px;text-align:center}.exchange-live-menu .exchange-actions{display:none}.exchange-live-hero{background-position:center -72px;min-height:172px;aspect-ratio:auto;background-size:auto 244px}.market-panels{grid-template-columns:1fr;min-height:0;padding:6px}.market-panel{min-height:320px}.exchange-service-strip{grid-template-columns:1fr 1fr;min-height:0}.exchange-service-strip a{min-height:62px}.exchange-service-strip a:last-child{grid-column:1/-1}.exchange-news-row{grid-template-columns:1fr;height:auto;min-height:0}.news-copy-panel,.news-art-crop,.news-headlines{min-height:220px}.news-art-crop img{left:-44.86%;top:-344%;width:191.4%}.featured-html{height:auto;padding:8px}.featured-heading{height:34px}.featured-cards{display:flex;height:230px;overflow-x:auto;scroll-snap-type:x mandatory}.featured-card{min-width:78vw;scroll-snap-align:start}.featured-card-art{bottom:44px}.featured-card-art img{top:-81.84vw}.featured-card-details{top:62px}.featured-card-button{height:34px}.featured-arrow{display:none}.tools-html{height:auto;padding:8px}.tools-heading{height:auto;align-items:flex-start;flex-direction:column;padding:8px}.tools-grid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(6,210px)}.tool-card-art{height:105px}.exchange-html{grid-template-columns:1fr;height:auto;margin:8px}.exchange-bid-side{grid-template-columns:1fr;grid-template-rows:auto auto auto;border-right:0;border-bottom:1px solid #a98212}.exchange-bid-heading{grid-template-columns:1fr}.exchange-bid-form{grid-template-columns:1fr}.exchange-bid-form h3,.exchange-bid-check,.exchange-bid-form button{grid-column:1}.exchange-bid-form input[type=text],.exchange-bid-form input[type=email],.exchange-bid-form input[type=tel]{height:34px}.exchange-bid-form button{height:42px;margin-bottom:10px}.exchange-explainer{min-height:330px;padding:24px 20px 65px 90px}.exchange-live-footer{min-height:92px}.exchange-footer-tagline,.exchange-footer-nav,.exchange-footer-social{display:none}.exchange-footer-brand{left:3%;width:39%}.exchange-footer-updates{right:3%;top:12%;width:48%;height:34%}.exchange-footer-copyright{right:3%;bottom:16%;font-size:8px}}
-        @media(max-width:820px){.exchange-news-row{grid-template-columns:minmax(0,1fr);padding:8px}.news-copy-panel,.news-art-crop,.news-headlines{grid-column:1;min-height:220px}.news-copy-panel{padding:24px}.news-copy-panel p{margin:18px 0 24px}.news-art-crop{min-height:0;aspect-ratio:584/190}.news-art-crop .news-studio-art{left:0;top:0;width:100%;height:79.4737%}.news-art-crop .news-lower-third-art{left:0;top:auto;width:100%;height:20.5263%}.news-headlines{padding:16px}.news-headlines header{margin-bottom:8px}.news-headlines>a{grid-template-columns:24px minmax(0,1fr);gap:14px;padding:10px 6px;font-size:14px}.featured-html{padding:8px}.featured-heading{height:38px}.featured-heading h2{font-size:18px}.featured-heading a{font-size:11px}.featured-cards{--featured-gap:10px;--featured-card-width:min(86vw,430px);--featured-step:calc(var(--featured-card-width) + var(--featured-gap));display:block;overflow:hidden;scroll-snap-type:none}.featured-card{grid-template-columns:38% minmax(0,62%);grid-template-rows:minmax(0,1fr) 42px;min-width:0;scroll-snap-align:none}.featured-card-art{bottom:auto}.featured-card-details{top:auto;padding:12px}.featured-card-details strong{margin:6px 0;font-size:22px}.featured-card-button{height:auto;margin:5px 6px 6px}.featured-card-meta small{margin-left:0;width:100%}}
+        @media(max-width:820px){.exchange-news-row{grid-template-columns:minmax(0,1fr);padding:8px}.news-copy-panel,.news-art-crop,.news-headlines{grid-column:1;min-height:220px}.news-copy-panel{padding:24px}.news-copy-panel p{margin:18px 0 24px}.news-art-crop{min-height:0;aspect-ratio:584/190}.news-art-crop .news-studio-art{left:0;top:0;width:100%;height:79.4737%}.news-art-crop .news-lower-third-art{left:0;top:auto;width:100%;height:20.5263%}.news-headlines{padding:16px}.news-headlines header{margin-bottom:8px}.news-headlines>a{grid-template-columns:24px minmax(0,1fr);gap:14px;padding:10px 6px;font-size:14px}.featured-html{padding:8px}.featured-heading{height:38px}.featured-heading h2{font-size:18px}.featured-heading a{font-size:11px}.featured-cards{--featured-gap:10px;--featured-card-width:min(86vw,430px);--featured-step:calc(var(--featured-card-width) + var(--featured-gap));display:block;overflow:hidden;scroll-snap-type:none}.featured-card{grid-template-columns:42% minmax(0,58%);grid-template-rows:minmax(0,1fr) 42px;min-width:0;scroll-snap-align:none}.featured-card-art{bottom:auto}.featured-card-details{top:auto;padding:12px}.featured-card-details strong{margin:6px 0;font-size:22px}.featured-card-button{height:auto;margin:5px 6px 6px}.featured-card-meta small{margin-left:0;width:100%}}
       `}</style>
 
       <header className="exchange-live-menu">
@@ -273,13 +279,7 @@ export default function ExchangeStaticClient({ marketSnapshot, tickerListings }:
           <div className="featured-cards">
             <div className={`featured-track${carouselDirection ? ` is-${carouselDirection}` : ""}`} onTransitionEnd={finishCarouselSlide}>
               {carouselTrackCards.map((card, position) => <article className="featured-card" key={`${carouselIndex}-${position}-${card.reference}`}>
-                <div className={`featured-card-art license-asset-art ${card.type.startsWith("3PS") ? "is-3ps" : "is-4cop"}`} role="img" aria-label={`${card.type} Florida liquor license`}>
-                  <span className="license-document-kicker">STATE OF FLORIDA</span>
-                  <b>ALCOHOLIC BEVERAGE<br />LICENSE</b>
-                  <strong>{card.type.startsWith("3PS") ? "3PS" : "4COP"}</strong>
-                  <span className="license-county">{card.county}</span>
-                  <small>TRANSFERABLE LICENSE ASSET</small>
-                </div>
+                <div className="featured-card-art"><Image src={card.image} alt={`${card.type} opportunity in ${card.county}`} fill sizes="(max-width: 820px) 70vw, 24vw" /></div>
                 <div className="featured-card-details"><b>{card.type}</b><span>{card.county}</span><strong>{card.price}</strong><div className="featured-card-meta"><em>Available</em><small># {card.reference}</small></div></div>
                 <a className="featured-card-button" href={card.href}>VIEW LISTING&nbsp; →</a>
               </article>)}
