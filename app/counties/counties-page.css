@@ -314,10 +314,10 @@
 }
 
 .market-table-heading > p {
-  max-width: 450px;
+  max-width: 480px;
   margin: 0;
-  color: #d7e3ec;
-  font-size: 11px;
+  color: #eef4f8;
+  font-size: 13px;
   line-height: 1.6;
   text-align: right;
 }
@@ -341,7 +341,7 @@
   padding: 15px 14px;
   border-bottom: 1px solid #b67a00;
   color: #f1a600;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 900;
   letter-spacing: .07em;
   text-align: left;
@@ -359,7 +359,7 @@
   padding: 14px;
   border-bottom: 1px solid #315b7e;
   color: #ffffff;
-  font-size: 11px;
+  font-size: 13px;
   vertical-align: middle;
 }
 
@@ -368,8 +368,8 @@
 .market-data-table tbody tr:last-child td { border-bottom: 0; }
 .market-data-table td:first-child { min-width: 195px; }
 .market-data-table td:first-child a { display: grid; gap: 5px; }
-.market-data-table td:first-child strong { color: #fff; font-size: 12px; }
-.market-data-table td:first-child small { color: #c8d8e4; font-size: 9px; }
+.market-data-table td:first-child strong { color: #fff; font-size: 14px; }
+.market-data-table td:first-child small { color: #e4eef5; font-size: 11px; line-height: 1.4; }
 .market-data-table td:first-child a:hover strong { color: #f1a600; }
 
 .market-count-link,
@@ -390,8 +390,8 @@
 .drawing-count { border-color: #a57715; color: #f1a600; background: rgba(241,166,0,.07); }
 
 .market-price-cell { display: grid; gap: 4px; min-width: 175px; }
-.market-price-cell strong { color: #fff; font-family: Georgia, 'Times New Roman', serif; font-size: 15px; }
-.market-price-cell small { color: #c8d8e4; font-size: 9px; line-height: 1.35; }
+.market-price-cell strong { color: #fff; font-family: Georgia, 'Times New Roman', serif; font-size: 17px; }
+.market-price-cell small { color: #e4eef5; font-size: 11px; line-height: 1.4; }
 .market-data-empty { color: #a9bdcb; }
 .market-table-footnote { margin-top: 13px; }
 
