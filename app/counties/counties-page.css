@@ -249,7 +249,7 @@
 .directory-heading > a:hover { color: #ffc23c; }
 
 .directory-featured {
-  padding: 43px 0 48px;
+  padding: 43px 0 36px;
   border-top: 1px solid #263b48;
   border-bottom: 1px solid #4d3c19;
   background: linear-gradient(180deg, #0d3152, #0a2947);
@@ -362,7 +362,7 @@
 .market-leader-metrics b { display: block; margin-top: 4px; color: #f1a600; font-size: 12px; }
 
 .county-market-data {
-  padding: 49px 0 74px;
+  padding: 37px 0 74px;
   background: #0d3152;
 }
 
