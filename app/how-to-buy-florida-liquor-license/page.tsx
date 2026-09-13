@@ -185,10 +185,12 @@ export default function HowToBuyFloridaLiquorLicensePage() {
         .buyer-path h3{margin:0 0 9px;color:#fff;font-size:20px}
         .buyer-path p{margin:0;color:#c6d2dc;line-height:1.65}
         .buyer-path a{display:inline-block;margin-top:14px;color:#eda91a;font-weight:850;text-decoration:none}
+        .buyer-due-diligence-section{background:#0d3152}
+        .buyer-due-diligence-section h2{color:#fff}
         .buyer-checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px;padding:0;list-style:none}
-        .buyer-checklist li{position:relative;padding:16px 16px 16px 45px;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:#071d33;color:#cbd6df;line-height:1.55}
+        .buyer-checklist li{position:relative;padding:16px 16px 16px 45px;border:1px solid rgba(237,169,26,.26);border-radius:11px;background:#123d65;color:#fff;line-height:1.55}
         .buyer-checklist li::before{content:"✓";position:absolute;left:16px;top:15px;color:#eda91a;font-weight:900}
-        .buyer-note{margin-top:22px;padding:16px 18px;border-left:3px solid #eda91a;background:rgba(237,169,26,.06);color:#aebdca;font-size:12px;line-height:1.7}
+        .buyer-note{margin-top:22px;padding:18px 20px;border-left:3px solid #eda91a;background:#123d65;color:#fff;font-size:15px;line-height:1.65}
         @media(max-width:1050px){.buyer-seven-summary{grid-template-columns:repeat(4,minmax(0,1fr))}}
         @media(max-width:820px){.buyer-quick{grid-template-columns:1fr}.buyer-path-grid,.buyer-resource-grid{grid-template-columns:1fr}.buyer-checklist{grid-template-columns:1fr}.buyer-seven-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
         @media(max-width:560px){.buyer-step{grid-template-columns:1fr}.buyer-step-number{width:42px;height:42px}.buyer-seven-summary{grid-template-columns:1fr}}
@@ -322,7 +324,7 @@ export default function HowToBuyFloridaLiquorLicensePage() {
         </div>
       </section>
 
-      <section className="seo-market-intro">
+      <section className="seo-market-intro buyer-due-diligence-section">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">Buyer Due Diligence</span>
           <h2>Florida liquor license buyer checklist</h2>
