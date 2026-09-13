@@ -115,11 +115,6 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
 
   return (
     <article className={`county-heatmap-module county-heatmap-module--${mode}`}>
-      <header className="county-heatmap-module-heading">
-        <span>{isInventory ? "Availability Concentration" : "Asking-Price Concentration"}</span>
-        <h3>{isInventory ? "Active listings by county" : "Median 4COP asking price"}</h3>
-      </header>
-
       <div className="county-heatmap-module-grid">
         <div className="county-availability-map-stage" ref={stageRef}>
           <svg
@@ -231,22 +226,49 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
 }
 
 export default function CountyAvailabilityHeatMap({ rows }: { rows: CountyAvailabilityHeatMapRow[] }) {
+  const [mode, setMode] = useState<MapMode>("inventory");
+  const isInventory = mode === "inventory";
+
   return (
     <section className="county-availability-map-section" aria-labelledby="county-availability-map-title">
       <div className="directory-shell">
         <div className="directory-heading county-availability-map-heading">
           <div>
             <span>Statewide Market Distribution</span>
-            <h2 id="county-availability-map-title">Florida liquor license market heat maps</h2>
+            <h2 id="county-availability-map-title">Florida liquor license market heat map</h2>
           </div>
           <p>
-            Compare active marketplace inventory with median disclosed 4COP asking prices across Florida counties.
+            Switch between active marketplace inventory and median disclosed 4COP asking prices across Florida counties.
           </p>
         </div>
 
+        <div className="county-heatmap-toolbar">
+          <div className="county-heatmap-current-metric" aria-live="polite">
+            <span>{isInventory ? "Availability Concentration" : "Asking-Price Concentration"}</span>
+            <h3>{isInventory ? "Active listings by county" : "Median 4COP asking price"}</h3>
+          </div>
+          <div className="county-heatmap-switch" role="group" aria-label="Select county heat map metric">
+            <button
+              type="button"
+              className={isInventory ? "is-active" : ""}
+              aria-pressed={isInventory}
+              onClick={() => setMode("inventory")}
+            >
+              Active Listings
+            </button>
+            <button
+              type="button"
+              className={!isInventory ? "is-active" : ""}
+              aria-pressed={!isInventory}
+              onClick={() => setMode("price")}
+            >
+              Median 4COP Price
+            </button>
+          </div>
+        </div>
+
         <div className="county-availability-map-layout">
-          <InteractiveCountyMap rows={rows} mode="inventory" />
-          <InteractiveCountyMap rows={rows} mode="price" />
+          <InteractiveCountyMap rows={rows} mode={mode} />
         </div>
       </div>
     </section>
