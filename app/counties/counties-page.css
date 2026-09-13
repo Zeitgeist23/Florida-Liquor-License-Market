@@ -517,7 +517,32 @@
 
 .directory-cta { padding: 68px 0; background: linear-gradient(135deg, #0a2947, #164872); }
 .directory-cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-.directory-cta-grid > div { padding: 31px; border: 1px solid rgba(210,146,0,.72); border-radius: 6px; background: #123d65; }
+.directory-cta-grid > div {
+  position: relative;
+  padding: 31px;
+  border: 1px solid rgba(241, 166, 0, .78);
+  border-radius: 7px;
+  background: linear-gradient(145deg, #194f7c 0%, #123d65 58%, #0d3152 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 211, 108, .28),
+    inset 0 -1px 0 rgba(4, 18, 30, .48),
+    0 11px 24px rgba(3, 17, 29, .28),
+    0 0 0 1px rgba(241, 166, 0, .07);
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease;
+}
+.directory-cta-grid > div:hover,
+.directory-cta-grid > div:focus-within {
+  transform: translateY(-4px);
+  border-color: #ffc13b;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 222, 145, .4),
+    inset 0 -1px 0 rgba(4, 18, 30, .5),
+    0 18px 34px rgba(3, 17, 29, .38),
+    0 0 18px rgba(241, 166, 0, .18);
+}
 .directory-cta h2 { margin: 8px 0 10px; color: #fff; font-family: Georgia, 'Times New Roman', serif; font-size: 31px; }
 .directory-cta p { margin: 0 0 20px; color: #f0f5f8; font-size: 15px; line-height: 1.65; }
 .directory-cta a {
