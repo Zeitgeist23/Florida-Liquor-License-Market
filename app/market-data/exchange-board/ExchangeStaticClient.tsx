@@ -10,11 +10,19 @@ export type ExchangeTickerListing = {
   type: string;
 };
 
+export type ExchangeMarketSnapshot = {
+  activeListings: number;
+  counties: number;
+  averageAskingPrice: string;
+  averageFourCopPrice: string;
+};
+
 type ExchangeStaticClientProps = {
+  marketSnapshot: ExchangeMarketSnapshot;
   tickerListings: ExchangeTickerListing[];
 };
 
-export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticClientProps) {
+export default function ExchangeStaticClient({ marketSnapshot, tickerListings }: ExchangeStaticClientProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [boardIndex, setBoardIndex] = useState(0);
@@ -210,10 +218,10 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
           <article className="market-panel snapshot-panel">
             <div className="snapshot-heading"><h2>MARKET<br />SNAPSHOT</h2><small>FLORIDA LIQUOR LICENSE<br />MARKET</small></div>
             <div className="snapshot-stats">
-              <div><strong>188</strong><span>ACTIVE LISTINGS</span></div>
-              <div><strong>67</strong><span>COUNTIES</span></div>
-              <div><strong>$742,500</strong><span>AVG. ASKING PRICE<br />(ALL TYPES)</span></div>
-              <div><strong>$1,125,000</strong><span>AVG. LISTING PRICE<br />(4COP TYPES)</span></div>
+              <div><strong>{marketSnapshot.activeListings}</strong><span>ACTIVE LISTINGS</span></div>
+              <div><strong>{marketSnapshot.counties}</strong><span>COUNTIES</span></div>
+              <div><strong>{marketSnapshot.averageAskingPrice}</strong><span>AVG. ASKING PRICE<br />(ALL TYPES)</span></div>
+              <div><strong>{marketSnapshot.averageFourCopPrice}</strong><span>AVG. LISTING PRICE<br />(4COP TYPES)</span></div>
             </div>
             <div className="board-action"><a className="outline-button" href="/florida-liquor-license-market-index">VIEW MARKET ANALYSIS&nbsp; →</a></div>
           </article>
