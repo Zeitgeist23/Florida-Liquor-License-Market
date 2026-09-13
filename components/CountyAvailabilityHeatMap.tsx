@@ -89,9 +89,6 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
     maximum,
     mode === "inventory" ? row.listingCount : row.fourCopMedian ?? 0,
   ), 0);
-  const totalListings = rows.reduce((total, row) => total + row.listingCount, 0);
-  const activeCounties = rows.reduce((total, row) => total + (row.listingCount > 0 ? 1 : 0), 0);
-
   function positionTooltip(clientX: number, clientY: number) {
     const stage = stageRef.current;
     const tooltip = tooltipRef.current;
@@ -206,13 +203,6 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
               <li key={item.label}><i style={{ background: item.color }} />{item.label}</li>
             ))}
           </ul>
-
-          {isInventory ? (
-            <div className="county-availability-map-summary">
-              <div><strong>{totalListings}</strong><small>active listings</small></div>
-              <div><strong>{activeCounties}</strong><small>active counties</small></div>
-            </div>
-          ) : null}
 
           <div className="county-heatmap-ranking">
             <strong>{isInventory ? "Most active counties" : "Highest median asks"}</strong>
