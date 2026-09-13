@@ -467,6 +467,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
+  margin-inline: 28px;
 }
 
 .methodology-grid article {
@@ -815,6 +816,7 @@
 @media (max-width: 650px) {
   .directory-shell { width: min(calc(100% - 24px), 1240px); }
   .market-methodology > .directory-heading { padding-left: 12px; }
+  .methodology-grid { margin-inline: 12px; }
   .directory-header { display: block; text-align: center; }
   .directory-brand { height: 74px; justify-content: center; }
   .directory-brand img { width: 182px; height: 58px; }
