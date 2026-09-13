@@ -155,6 +155,11 @@ export default function HowToBuyFloridaLiquorLicensePage() {
 
       <style>{`
         .buyer-guide-page{background:#04111d}
+        .buyer-guide-quick-section{background:#0d3152}
+        .buyer-guide-quick-section .buyer-quick h2,.buyer-guide-quick-section .buyer-quick p{color:#fff}
+        .buyer-guide-quick-section .buyer-quick a{color:#fff;text-decoration-color:rgba(255,255,255,.55)}
+        .buyer-guide-quick-section .buyer-quick-card{background:#123d65}
+        .buyer-guide-quick-section .buyer-seven-summary a{background:#123d65}
         .buyer-quick{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:24px;align-items:start}
         .buyer-quick-card{padding:22px;border:1px solid rgba(237,169,26,.35);border-radius:14px;background:#071d33}
         .buyer-quick-card strong{display:block;margin-bottom:9px;color:#eda91a;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
@@ -222,7 +227,7 @@ export default function HowToBuyFloridaLiquorLicensePage() {
         </div>
       </section>
 
-      <section className="seo-market-intro">
+      <section className="seo-market-intro buyer-guide-quick-section">
         <div className="seo-market-shell buyer-quick">
           <article>
             <span className="seo-market-section-kicker">Quick Answer</span>
