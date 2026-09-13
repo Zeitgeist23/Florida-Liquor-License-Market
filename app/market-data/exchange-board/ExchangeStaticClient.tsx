@@ -168,7 +168,7 @@ export default function ExchangeStaticClient({ marketSnapshot, tickerListings }:
             <div className="list-action-menu" role="menu" aria-label="List your license options">
               <a href="/sell-your-license?method=self#listing-options" role="menuitem">Self-Directed Seller</a>
               <a href="/sell-your-license#broker-assistance" role="menuitem">Request Broker Help</a>
-              <a href="/brokers/list-your-license" role="menuitem">Broker Listing</a>
+              <a href="/brokers/list-your-license" role="menuitem">For Brokers — List a Client License</a>
             </div>
           </div>
           <a className="contact-action" href="/contact">Contact Us</a>
