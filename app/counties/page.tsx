@@ -7,6 +7,7 @@ import { buildFloridaMarketIndex, type MarketPriceStats } from "@/lib/florida-ma
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import CopyLinkField from "@/components/CopyLinkField";
 import "./counties-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -74,7 +75,6 @@ export default async function CountiesPage() {
     year: "numeric",
     timeZone: "America/New_York",
   }).format(new Date());
-  const citationHtml = `<a href="${canonicalUrl}">Florida liquor license market data by county</a>`;
 
   const structuredData = [
     {
@@ -176,7 +176,7 @@ export default async function CountiesPage() {
       <section className="market-citation-band">
         <div className="directory-shell market-citation-grid">
           <div><span>Researchers, attorneys, brokers & journalists</span><h2>Cite or link to this market data</h2><p>This page is designed as a continuously updated reference for Florida quota liquor-license research. Link to this page so readers can review the current market snapshot, county data and methodology.</p></div>
-          <aside><strong>Suggested citation</strong><p>{`Florida Liquor License Market, “Florida Liquor License Market Data by County,” accessed ${snapshotDate}.`}</p><code>{citationHtml}</code></aside>
+          <aside><strong>Suggested citation</strong><p>{`Florida Liquor License Market, “Florida Liquor License Market Data by County,” accessed ${snapshotDate}.`}</p><CopyLinkField value={canonicalUrl} /></aside>
         </div>
       </section>
 
