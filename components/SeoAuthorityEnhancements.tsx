@@ -120,7 +120,7 @@ export default function SeoAuthorityEnhancements() {
   const showBrokerListingLink = brokerListingAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showSellerServicePositioning = sellerServiceAuthorityPaths.has(pathname);
   const showOnlineMarketplaceLink = onlineMarketplaceAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
-  const showHowToBuyGuide = pathname === "/how-to-buy-florida-liquor-license";
+  const showHowToBuyGuide = false;
   const showHowToBuyLink = howToBuyAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showBrokerKit = pathname === "/brokers/list-your-license" || pathname === "/how-to-sell-florida-liquor-license";
 
