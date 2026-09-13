@@ -78,7 +78,7 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
         .exchange-live-menu{position:relative;z-index:20;display:flex;align-items:center;width:100%;height:clamp(62px,4.49vw,86px);padding:0 clamp(16px,1.25vw,24px);gap:clamp(12px,1.45vw,28px);background:#020d18;border-bottom:1px solid rgba(246,167,0,.35)}
         .exchange-live-menu .exchange-logo{display:flex;align-items:center;align-self:stretch;flex:0 0 clamp(158px,11.25vw,214px)}
         .exchange-live-menu .exchange-logo img{display:block;width:100%;height:100%;object-fit:contain;object-position:left center}
-        .exchange-live-menu .primary-nav{position:absolute;left:50%;display:flex;width:max-content;align-items:center;justify-content:center;gap:clamp(11px,1.18vw,22px);min-width:0;transform:translateX(-50%)}
+        .exchange-live-menu .primary-nav{position:absolute;left:calc(50% + 5px);display:flex;width:max-content;align-items:center;justify-content:center;gap:clamp(11px,1.18vw,22px);min-width:0;transform:translateX(-50%)}
         .exchange-live-menu .primary-nav .native-nav-trigger,.exchange-live-menu .primary-nav .native-nav-direct-link{font-size:clamp(10px,.67vw,13px)}
         .exchange-live-menu .exchange-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto;margin-left:auto}
         .exchange-live-menu .exchange-actions>a,.exchange-live-menu .list-action-wrap>button{display:inline-flex;align-items:center;justify-content:center;height:clamp(28px,2.24vw,42px);padding:0 clamp(10px,.75vw,14px);border-radius:5px;text-transform:uppercase;font-size:clamp(9px,.58vw,11px);font-weight:900;line-height:1;white-space:nowrap;transition:transform .16s ease,background .16s ease,color .16s ease,border-color .16s ease;transform-origin:center}
