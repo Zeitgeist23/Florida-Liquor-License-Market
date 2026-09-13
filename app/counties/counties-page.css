@@ -682,6 +682,7 @@
 }
 
 .county-authority-grid aside {
+  position: relative;
   min-width: 0;
   padding: 21px 22px;
   border: 1px solid rgba(241, 166, 0, .56);
@@ -690,6 +691,23 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 211, 108, .18),
     0 10px 22px rgba(3, 17, 29, .24);
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    background .18s ease,
+    box-shadow .18s ease;
+}
+
+.county-authority-grid aside:hover,
+.county-authority-grid aside:focus-within {
+  transform: translateY(-4px);
+  border-color: #ffc13b;
+  background: linear-gradient(145deg, #1b527e 0%, #164872 60%, #0d3152 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 222, 145, .36),
+    inset 0 -1px 0 rgba(4, 18, 30, .42),
+    0 18px 34px rgba(3, 17, 29, .38),
+    0 0 18px rgba(241, 166, 0, .16);
 }
 
 .county-authority-grid strong {
