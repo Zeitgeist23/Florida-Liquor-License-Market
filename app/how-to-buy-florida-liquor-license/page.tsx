@@ -190,7 +190,7 @@ export default function HowToBuyFloridaLiquorLicensePage() {
         .buyer-checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px;padding:0;list-style:none}
         .buyer-checklist li{position:relative;padding:16px 16px 16px 45px;border:1px solid rgba(237,169,26,.26);border-radius:11px;background:#123d65;color:#fff;line-height:1.55}
         .buyer-checklist li::before{content:"✓";position:absolute;left:16px;top:15px;color:#eda91a;font-weight:900}
-        .buyer-note{margin-top:22px;padding:18px 20px;border-left:3px solid #eda91a;background:#123d65;color:#fff;font-size:15px;line-height:1.65}
+        .seo-market-page .buyer-due-diligence-section .buyer-note{margin-top:22px;padding:18px 20px;border-left:3px solid #eda91a;background:#123d65;color:#fff;font-size:15px;line-height:1.65}
         @media(max-width:1050px){.buyer-seven-summary{grid-template-columns:repeat(4,minmax(0,1fr))}}
         @media(max-width:820px){.buyer-quick{grid-template-columns:1fr}.buyer-path-grid,.buyer-resource-grid{grid-template-columns:1fr}.buyer-checklist{grid-template-columns:1fr}.buyer-seven-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
         @media(max-width:560px){.buyer-step{grid-template-columns:1fr}.buyer-step-number{width:42px;height:42px}.buyer-seven-summary{grid-template-columns:1fr}}
