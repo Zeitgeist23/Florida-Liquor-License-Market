@@ -273,7 +273,7 @@ export default function ExchangeStaticClient({ marketSnapshot, tickerListings }:
             <div className={`featured-track${carouselDirection ? ` is-${carouselDirection}` : ""}`} onTransitionEnd={finishCarouselSlide}>
               {carouselTrackCards.map((card, position) => <article className="featured-card" key={`${carouselIndex}-${position}-${card.reference}`}>
                 <div className={`featured-card-art license-card-art ${card.type.startsWith("3PS") ? "is-3ps" : "is-4cop"}`} role="img" aria-label={`${card.type} available as a license-only asset`}>
-                  <span className="license-art-state">STATE OF FLORIDA</span>
+                  <span className="license-art-state">{card.county}</span>
                   <strong>{card.type.startsWith("3PS") ? "3PS" : "4COP"}</strong>
                   <span className="license-only-badge">LICENSE ONLY</span>
                 </div>
