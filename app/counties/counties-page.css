@@ -342,7 +342,19 @@
   border-collapse: collapse;
 }
 
-.market-data-table thead { background: #0a2947; }
+@media (min-width: 981px) {
+  .market-table-wrap { overflow: visible; }
+}
+
+.market-data-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  background: #0a2947;
+  box-shadow:
+    0 2px 0 #b67a00,
+    0 8px 18px rgba(3, 17, 29, .34);
+}
 .market-data-table th {
   padding: 15px 14px;
   border-bottom: 1px solid #b67a00;
