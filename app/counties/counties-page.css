@@ -18,7 +18,7 @@
 }
 
 .directory-brand { display: flex; align-items: center; height: 100%; }
-.directory-brand img { display: block; width: 193px; height: 67px; object-fit: contain; object-position: left center; }
+.directory-brand img { display: block; width: 205px; height: 71px; object-fit: contain; object-position: left center; }
 .directory-header nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 24px; }
 .directory-header nav a { color: #fff; font-size: 11px; font-weight: 800; }
 .directory-header nav a:hover { color: #f1a600; }
@@ -515,7 +515,7 @@
   .directory-shell { width: min(calc(100% - 24px), 1240px); }
   .directory-header { display: block; text-align: center; }
   .directory-brand { height: 74px; justify-content: center; }
-  .directory-brand img { width: 172px; height: 55px; }
+  .directory-brand img { width: 182px; height: 58px; }
   .directory-header nav { justify-content: center; }
   .directory-header nav a { font-size: 10px; }
   .directory-hero { padding: 44px 0 50px; }
