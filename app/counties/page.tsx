@@ -9,6 +9,7 @@ import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import CopyLinkField from "@/components/CopyLinkField";
+import CountyAvailabilityHeatMap from "@/components/CountyAvailabilityHeatMap";
 import "./counties-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -69,6 +70,15 @@ export default async function CountiesPage() {
     };
   });
   const availableCounts = new Map(countyRows.map((row) => [row.county.name, row.listingCount]));
+  const heatMapRows = countyRows.map((row) => ({
+    name: row.county.name,
+    slug: row.county.slug,
+    listingCount: row.listingCount,
+    population: row.population,
+    fourCopMedian: row.fourCop.median,
+    threePsMedian: row.threePs.median,
+    drawingLicenses: row.drawingLicenses,
+  }));
   const statewideMedian = snapshot.statewide.median;
   const snapshotDate = new Intl.DateTimeFormat("en-US", {
     month: "long",
@@ -139,6 +149,8 @@ export default async function CountiesPage() {
           ))}
         </div>
       </section>
+
+      <CountyAvailabilityHeatMap rows={heatMapRows} />
 
       <section className="county-market-data" id="county-market-table">
         <div className="directory-shell">
