@@ -455,12 +455,19 @@
   margin: 0 auto;
 }
 
-.county-heatmap-module-grid { display: grid; grid-template-columns: 1fr; }
+.county-heatmap-module-grid {
+  display: grid;
+  grid-template-columns: minmax(235px, 270px) minmax(0, 1fr);
+  gap: 34px;
+  align-items: center;
+}
 
 .county-availability-map-stage {
   position: relative;
+  grid-column: 2;
+  grid-row: 1;
   min-width: 0;
-  min-height: 525px;
+  min-height: 540px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -488,8 +495,8 @@
   z-index: 1;
   display: block;
   width: 100%;
-  max-width: 960px;
-  height: 515px;
+  max-width: 835px;
+  height: 525px;
   overflow: visible;
   filter: drop-shadow(0 18px 25px rgba(2, 14, 25, .36));
 }
@@ -541,71 +548,87 @@
 
 .county-availability-map-legend {
   position: relative;
+  grid-column: 1;
+  grid-row: 1;
   min-width: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(310px, .7fr);
-  grid-template-rows: auto auto auto auto;
-  column-gap: 32px;
-  align-content: start;
-  padding: 20px 4px 0;
-  border: 0;
-  border-top: 1px solid rgba(241, 166, 0, .68);
-  background: transparent;
-  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  padding: 25px 23px;
+  border: 1px solid rgba(241, 166, 0, .72);
+  border-radius: 8px;
+  background: linear-gradient(145deg, rgba(18, 61, 101, .96), rgba(7, 31, 54, .96));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 219, 132, .18),
+    inset 0 -1px 0 rgba(2, 14, 25, .55),
+    0 16px 34px rgba(2, 14, 25, .3),
+    0 0 22px rgba(27, 187, 208, .07);
 }
 
 .county-availability-map-legend > span {
-  grid-column: 1;
   display: block;
   color: #ffc13b;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: .08em;
+  line-height: 1.3;
   text-transform: uppercase;
 }
 
 .county-availability-map-legend h4 {
-  grid-column: 1;
-  margin: 6px 0 14px;
+  margin: 7px 0 18px;
   color: #fff;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 22px;
-  line-height: 1.08;
+  font-size: 27px;
+  line-height: 1.06;
 }
 
 .county-availability-map-legend ul {
-  grid-column: 1;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 9px 14px;
+  grid-template-columns: 1fr;
+  gap: 11px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.county-availability-map-legend li { display: flex; align-items: center; gap: 8px; min-width: 0; color: #edf6fb; font-size: 11px; font-weight: 800; line-height: 1.2; }
-.county-availability-map-legend li i { width: 31px; height: 14px; flex: 0 0 31px; border: 1px solid rgba(220, 245, 255, .58); border-radius: 3px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16); }
-
-.county-heatmap-ranking {
-  grid-column: 2;
-  grid-row: 1 / span 3;
-  margin: 0;
-  padding: 0 0 0 30px;
-  border-top: 0;
-  border-left: 1px solid rgba(98, 211, 255, .22);
+.county-availability-map-legend li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+  color: #f4f8fb;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.county-availability-map-legend li i {
+  width: 38px;
+  height: 17px;
+  flex: 0 0 38px;
+  border: 1px solid rgba(220, 245, 255, .68);
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 2px 6px rgba(0, 0, 0, .18);
 }
 
-.county-heatmap-ranking > strong { display: block; margin-bottom: 11px; color: #ffc13b; font-size: 10px; letter-spacing: .05em; text-transform: uppercase; }
-.county-heatmap-ranking ol { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
-.county-heatmap-ranking li > span { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 4px; font-size: 10px; font-weight: 800; }
+.county-heatmap-ranking {
+  margin: 23px 0 0;
+  padding: 19px 0 0;
+  border-top: 1px solid rgba(98, 211, 255, .24);
+  border-left: 0;
+}
+
+.county-heatmap-ranking > strong { display: block; margin-bottom: 13px; color: #ffc13b; font-size: 12px; letter-spacing: .05em; line-height: 1.3; text-transform: uppercase; }
+.county-heatmap-ranking ol { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.county-heatmap-ranking li > span { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; font-size: 12px; font-weight: 800; }
 .county-heatmap-ranking li a { min-width: 0; overflow: hidden; color: #eaf4fa; text-overflow: ellipsis; white-space: nowrap; }
 .county-heatmap-ranking li a:hover { color: #ffc13b; }
 .county-heatmap-ranking li b { flex: 0 0 auto; color: #fff; }
-.county-heatmap-ranking li > i { display: block; height: 7px; overflow: hidden; border-radius: 999px; background: rgba(102, 137, 163, .22); }
+.county-heatmap-ranking li > i { display: block; height: 9px; overflow: hidden; border: 1px solid rgba(155, 205, 233, .35); border-radius: 999px; background: rgba(102, 137, 163, .22); }
 .county-heatmap-ranking li > i > em { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #167ea8, #1bbbd0, #7357e8); }
-.county-heatmap-module--price .county-heatmap-ranking li > i > em { background: linear-gradient(90deg, #6366e8, #d946b4, #ef4b52); }
+.county-heatmap-module--price .county-heatmap-ranking li > i > em { background: linear-gradient(90deg, #38a8df 0%, #8b5cf6 42%, #f05a32 70%, #dc2626 100%); }
 
-.county-availability-map-note { grid-column: 1; display: block; margin-top: 16px; color: #a9bdcb; font-size: 10px; line-height: 1.45; }
+.county-availability-map-note { display: block; margin-top: 19px; color: #c4d4df; font-size: 12px; line-height: 1.5; }
 
 .county-market-data {
   padding: 37px 0 74px;
@@ -1130,4 +1153,33 @@
   }
   .directory-footer-brand { flex-direction: column; gap: 9px; }
   .directory-footer nav { justify-content: center; }
+}
+
+
+@media (max-width: 760px) {
+  .county-heatmap-module-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .county-availability-map-stage {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .county-availability-map-legend {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 22px;
+  }
+
+  .county-availability-map-legend ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 440px) {
+  .county-availability-map-legend ul {
+    grid-template-columns: 1fr;
+  }
 }
