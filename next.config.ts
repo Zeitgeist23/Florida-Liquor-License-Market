@@ -9,15 +9,6 @@ const mirroredRoutes = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.pexels.com",
-        pathname: "/photos/**",
-      },
-    ],
-  },
   outputFileTracingIncludes: {
     "/api/contact-page": ["./public/contact/index.html"],
   },

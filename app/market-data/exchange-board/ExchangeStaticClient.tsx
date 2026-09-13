@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
 
 export type ExchangeTickerListing = {
@@ -34,28 +33,21 @@ export default function ExchangeStaticClient({ marketSnapshot, tickerListings }:
   const secondRow = tickerListings.slice(16, 32).length
     ? tickerListings.slice(16, 32)
     : [...firstRow].reverse();
-  const featuredImages = [
-    "https://images.pexels.com/photos/18675118/pexels-photo-18675118/free-photo-of-interior-of-a-bar.jpeg?auto=compress&dpr=1&h=1000&w=1800",
-    "https://images.pexels.com/photos/35474950/pexels-photo-35474950/free-photo-of-cozy-wine-shop-display-with-variety.jpeg?auto=compress&dpr=1&h=1000&w=1800",
-    "https://images.pexels.com/photos/12387901/pexels-photo-12387901.jpeg?auto=compress&dpr=1&h=1000&w=1800",
-    "https://images.pexels.com/photos/6309831/pexels-photo-6309831.jpeg?auto=compress&dpr=1&h=1000&w=1800",
-  ];
   const approvedFeaturedCards = [
-    { type: "4COP Quota", county: "Monroe County", price: "$1,300,000", reference: "FL-3021", href: "/listings/fllm-098", image: featuredImages[0] },
-    { type: "3PS Liquor Store", county: "Miami-Dade County", price: "$950,000", reference: "FL-1024", href: "/listings?county=Miami-Dade%20County", image: featuredImages[1] },
-    { type: "4COP Quota", county: "Broward County", price: "$1,150,000", reference: "FL-2876", href: "/listings?county=Broward%20County", image: featuredImages[2] },
-    { type: "3PS Liquor Store", county: "Palm Beach County", price: "$875,000", reference: "FL-119B", href: "/listings?county=Palm%20Beach%20County", image: featuredImages[3] },
+    { type: "4COP Quota License", county: "Monroe County", price: "$1,300,000", reference: "FL-3021", href: "/listings/fllm-098" },
+    { type: "3PS Package Store License", county: "Miami-Dade County", price: "$950,000", reference: "FL-1024", href: "/listings?county=Miami-Dade%20County" },
+    { type: "4COP Quota License", county: "Broward County", price: "$1,150,000", reference: "FL-2876", href: "/listings?county=Broward%20County" },
+    { type: "3PS Package Store License", county: "Palm Beach County", price: "$875,000", reference: "FL-119B", href: "/listings?county=Palm%20Beach%20County" },
   ];
   const liveFeaturedCards = tickerListings.map((listing, index) => {
     const slug = listing.href.match(/\/listings\/([^/?#]+)/)?.[1];
     const publicReference = slug?.toUpperCase().match(/FLLM-\d{3,}/)?.[0];
     return {
-      type: listing.type === "3PS" ? "3PS Liquor Store" : listing.type === "4COP" ? "4COP Quota" : listing.type,
+      type: listing.type === "3PS" ? "3PS Package Store License" : listing.type === "4COP" ? "4COP Quota License" : `${listing.type} License`,
       county: / County$/i.test(listing.county) ? listing.county : `${listing.county} County`,
       price: listing.price,
       reference: publicReference ?? `LIVE-${String(index + 1).padStart(3, "0")}`,
       href: listing.href,
-      image: featuredImages[index % featuredImages.length],
     };
   });
   const carouselPool = [
@@ -174,6 +166,7 @@ export default function ExchangeStaticClient({ marketSnapshot, tickerListings }:
         .board-rows{animation:boardRowsDown .45s ease both}.board-row{position:relative;transition:transform .16s ease,background .16s ease,color .16s ease;transform-origin:center}.board-row:hover,.board-row:focus-visible{z-index:3;background:#0b3c5d;color:#fff;outline:none;transform:scale(1.02)}
         .featured-card-details{display:flex;flex-direction:column;justify-content:center}.featured-card-meta{font-size:clamp(9px,.65vw,12px)}
         .featured-html{box-sizing:border-box;height:max(300px,17.2vw);padding:0 .35vw .7vw}.featured-heading{box-sizing:border-box;height:2.05vw;min-height:32px;padding:0 .45vw}.featured-cards{--featured-gap:.65vw;--featured-card-width:calc((100% - 1.95vw)/4);--featured-step:calc(var(--featured-card-width) + var(--featured-gap));display:block;position:relative;height:calc(100% - max(2.05vw,32px));overflow:hidden}.featured-track{display:flex;gap:var(--featured-gap);height:100%;transform:translate3d(calc(-1 * var(--featured-step)),0,0);will-change:transform}.featured-track.is-next{transform:translate3d(calc(-2 * var(--featured-step)),0,0);transition:transform .62s cubic-bezier(.22,.61,.36,1)}.featured-track.is-previous{transform:translate3d(0,0,0);transition:transform .62s cubic-bezier(.22,.61,.36,1)}.featured-card{flex:0 0 var(--featured-card-width);animation:none}.featured-card-art{z-index:1;grid-column:1/-1;grid-row:1;border-right:0}.featured-card-art img{image-rendering:auto}.featured-card-details{z-index:2;grid-column:2;grid-row:1;align-self:stretch;margin-top:3.55vw}
+        .license-card-art{isolation:isolate;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:clamp(14px,1.15vw,22px);background:radial-gradient(circle at 28% 46%,rgba(23,182,231,.3),transparent 30%),linear-gradient(135deg,#0a3854 0%,#042033 52%,#020e19 100%);color:#fff}.license-card-art::before{content:'';position:absolute;z-index:-1;inset:clamp(7px,.52vw,10px);border:1px solid rgba(255,189,34,.82);background:repeating-linear-gradient(125deg,transparent 0 11px,rgba(48,209,255,.035) 11px 12px);box-shadow:inset 0 0 24px rgba(25,192,240,.1)}.license-card-art::after{content:'FL';position:absolute;z-index:-2;left:6%;top:47%;color:rgba(37,207,255,.09);font:900 clamp(74px,7vw,132px)/1 Georgia,serif;letter-spacing:-.13em;transform:translateY(-50%)}.license-art-state{margin-bottom:.25vw;color:#ffbd22;font-size:clamp(8px,.54vw,11px);font-weight:900;letter-spacing:.13em}.license-card-art strong{color:#27d5ff;font-size:clamp(34px,3vw,58px);line-height:.95;text-shadow:0 0 16px rgba(39,213,255,.22)}.license-art-class{margin-top:.22vw;font-size:clamp(8px,.65vw,13px);font-weight:900;letter-spacing:.08em}.license-only-badge{margin-top:.55vw;padding:.2vw .48vw;border:1px solid #ffbd22;border-radius:2px;background:rgba(3,20,34,.9);color:#ffbd22;font-size:clamp(8px,.56vw,11px);font-weight:950;letter-spacing:.08em}.license-scope{margin-top:.42vw;color:#ffbd22!important;font-size:clamp(7px,.48vw,10px)!important;font-weight:900;letter-spacing:.035em;line-height:1.15!important;text-transform:uppercase}
         @keyframes exchangeTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}@keyframes featuredCardTurn{from{opacity:.55;transform:translateX(1.2%)}to{opacity:1;transform:translateX(0)}}@keyframes boardRowsDown{from{opacity:.5;transform:translateY(-1.55vw)}to{opacity:1;transform:translateY(0)}}
         @media(prefers-reduced-motion:reduce){.exchange-ticker-track{animation-play-state:paused}.featured-card,.board-rows{animation:none}.featured-track{transition:none!important}}
         @media(max-width:1150px){.exchange-search{display:none}.exchange-live-menu .exchange-logo{flex-basis:185px}.exchange-live-menu .primary-nav{gap:12px}}
@@ -279,9 +272,14 @@ export default function ExchangeStaticClient({ marketSnapshot, tickerListings }:
           <div className="featured-cards">
             <div className={`featured-track${carouselDirection ? ` is-${carouselDirection}` : ""}`} onTransitionEnd={finishCarouselSlide}>
               {carouselTrackCards.map((card, position) => <article className="featured-card" key={`${carouselIndex}-${position}-${card.reference}`}>
-                <div className="featured-card-art"><Image src={card.image} alt={`${card.type} opportunity in ${card.county}`} fill sizes="(max-width: 820px) 70vw, 24vw" /></div>
-                <div className="featured-card-details"><b>{card.type}</b><span>{card.county}</span><strong>{card.price}</strong><div className="featured-card-meta"><em>Available</em><small># {card.reference}</small></div></div>
-                <a className="featured-card-button" href={card.href}>VIEW LISTING&nbsp; →</a>
+                <div className={`featured-card-art license-card-art ${card.type.startsWith("3PS") ? "is-3ps" : "is-4cop"}`} role="img" aria-label={`${card.type} available as a license-only asset`}>
+                  <span className="license-art-state">STATE OF FLORIDA</span>
+                  <strong>{card.type.startsWith("3PS") ? "3PS" : "4COP"}</strong>
+                  <span className="license-art-class">{card.type.startsWith("3PS") ? "PACKAGE STORE LICENSE" : "QUOTA LIQUOR LICENSE"}</span>
+                  <span className="license-only-badge">LICENSE ONLY</span>
+                </div>
+                <div className="featured-card-details"><b>{card.type}</b><span>{card.county}</span><small className="license-scope">No business or real estate included</small><strong>{card.price}</strong><div className="featured-card-meta"><em>Available</em><small># {card.reference}</small></div></div>
+                <a className="featured-card-button" href={card.href}>VIEW LICENSE&nbsp; →</a>
               </article>)}
             </div>
           </div>
