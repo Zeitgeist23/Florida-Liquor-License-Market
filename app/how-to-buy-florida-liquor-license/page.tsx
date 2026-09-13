@@ -175,9 +175,9 @@ export default function HowToBuyFloridaLiquorLicensePage() {
         .buyer-step h3{margin:0 0 8px;color:#f6f3ed;font-size:20px}
         .buyer-step p{margin:0;color:#aebdca;line-height:1.72}
         .buyer-step a{display:inline-block;margin-top:10px;color:#eda91a;font-weight:850;text-decoration:none}
-        .buyer-resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
-        .buyer-resource-grid a{padding:18px;border:1px solid rgba(237,169,26,.3);border-radius:11px;background:#071d33;color:#f6f3ed;text-decoration:none;font-weight:850;line-height:1.35}
-        .buyer-resource-grid span{display:block;margin-top:7px;color:#9fb2c4;font-size:12px;font-weight:500;line-height:1.5}
+        .buyer-research-section{background:#0d3152}\n        .buyer-research-section h2,.buyer-research-section>div>p{color:#fff}\n        .buyer-resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+        .buyer-resource-grid a{padding:20px;border:1px solid rgba(237,169,26,.38);border-radius:11px;background:#123d65;color:#fff;text-decoration:none;font-weight:850;line-height:1.35}
+        .buyer-resource-grid span{display:block;margin-top:9px;color:#fff;font-size:15px;font-weight:500;line-height:1.55}
         .buyer-path-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
         .buyer-path{padding:23px;border:1px solid rgba(237,169,26,.28);border-radius:13px;background:linear-gradient(145deg,#0a2237,#04111c)}
         .buyer-path h3{margin:0 0 9px;color:#fff;font-size:20px}
