@@ -23,6 +23,27 @@
 .directory-header nav a { color: #fff; font-size: 11px; font-weight: 800; }
 .directory-header nav a:hover { color: #f1a600; }
 
+@media (min-width: 981px) {
+  .county-directory-page .forms-site-header.page-shell {
+    width: min(1240px, calc(100% - 40px));
+    gap: 18px;
+  }
+
+  .county-directory-page .forms-site-header .brand-lockup {
+    flex: 0 0 184px;
+  }
+
+  .county-directory-page .forms-site-header .brand-lockup img {
+    width: 165px;
+    height: 67px;
+  }
+
+  .county-directory-page .forms-site-header .primary-nav {
+    justify-content: space-between;
+    gap: 12px;
+  }
+}
+
 .directory-hero {
   position: relative;
   overflow: hidden;
