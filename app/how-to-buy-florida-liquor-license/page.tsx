@@ -175,7 +175,9 @@ export default function HowToBuyFloridaLiquorLicensePage() {
         .buyer-step h3{margin:0 0 8px;color:#f6f3ed;font-size:20px}
         .buyer-step p{margin:0;color:#aebdca;line-height:1.72}
         .buyer-step a{display:inline-block;margin-top:10px;color:#eda91a;font-weight:850;text-decoration:none}
-        .buyer-research-section{background:#0d3152}\n        .buyer-research-section h2,.buyer-research-section>div>p{color:#fff}\n        .buyer-resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+        .buyer-research-section{background:#0d3152}
+        .buyer-research-section h2,.buyer-research-section .seo-market-shell>p{color:#fff}
+        .buyer-resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
         .buyer-resource-grid a{padding:20px;border:1px solid rgba(237,169,26,.38);border-radius:11px;background:#123d65;color:#fff;text-decoration:none;font-weight:850;line-height:1.35}
         .buyer-resource-grid span{display:block;margin-top:9px;color:#fff;font-size:15px;font-weight:500;line-height:1.55}
         .buyer-path-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
@@ -276,7 +278,7 @@ export default function HowToBuyFloridaLiquorLicensePage() {
         </div>
       </section>
 
-      <section className="seo-market-intro">
+      <section className="seo-market-intro buyer-research-section">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">Buyer Research</span>
           <h2>Move from the buyer guide into the actual Florida market</h2>
