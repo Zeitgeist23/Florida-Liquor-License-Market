@@ -198,6 +198,8 @@
   color: #f1a600;
   font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(31px, 4vw, 45px);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
   line-height: 1;
 }
 
@@ -213,20 +215,6 @@
   font-weight: 800;
   line-height: 1.35;
   text-transform: uppercase;
-}
-
-.market-stat-grid strong .market-stat-currency {
-  width: auto;
-  min-height: 0;
-  display: inline-block;
-  margin: 0 .02em 0 0;
-  color: inherit;
-  font: inherit;
-  font-size: .72em;
-  font-weight: inherit;
-  line-height: 1;
-  text-transform: none;
-  vertical-align: baseline;
 }
 
 .market-data-caution,
