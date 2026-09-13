@@ -43,6 +43,7 @@ const countyContent: Record<string, CountyContent> = {
   brevard: {
     primaryCities: ["Melbourne", "Cocoa Beach", "Titusville"],
     introduction: "Brevard County spans Florida's Space Coast, combining aerospace employers, Atlantic beaches, cruise traffic, growing communities, restaurants, and tourism-oriented hospitality demand.",
+    featured: true,
   },
   broward: {
     primaryCities: ["Fort Lauderdale", "Hollywood", "Pompano Beach"],
@@ -66,6 +67,7 @@ const countyContent: Record<string, CountyContent> = {
   collier: {
     primaryCities: ["Naples", "Marco Island"],
     introduction: "Collier County is home to Naples and Marco Island, with affluent communities, luxury tourism, golf, boating, resorts, fine dining, and access to the Everglades.",
+    featured: true,
   },
   desoto: {
     primaryCities: ["Arcadia"],
