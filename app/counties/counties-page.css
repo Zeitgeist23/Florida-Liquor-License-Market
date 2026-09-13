@@ -215,6 +215,20 @@
   text-transform: uppercase;
 }
 
+.market-stat-grid strong .market-stat-currency {
+  width: auto;
+  min-height: 0;
+  display: inline-block;
+  margin: 0 .02em 0 0;
+  color: inherit;
+  font: inherit;
+  font-size: .72em;
+  font-weight: inherit;
+  line-height: 1;
+  text-transform: none;
+  vertical-align: baseline;
+}
+
 .market-data-caution,
 .directory-note,
 .market-table-footnote {
