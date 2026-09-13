@@ -187,6 +187,32 @@ export default async function CountiesPage() {
         </div>
       </section>
 
+      <section className="county-authority-resources" aria-labelledby="county-authority-title">
+        <div className="directory-shell">
+          <div className="directory-heading">
+            <div><span>Continue Your Research</span><h2 id="county-authority-title">Florida liquor license resources</h2></div>
+          </div>
+          <div className="county-authority-grid">
+            <aside>
+              <strong>Buying guide</strong>
+              <p><Link href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License</Link> explains the 7-step purchase process from choosing the correct license type and county through pricing, due diligence, financing, transfer preparation and closing.</p>
+            </aside>
+            <aside>
+              <strong>Online marketplace</strong>
+              <p>Sellers can <Link href="/sell-your-license">list a Florida liquor license for sale online</Link>, while buyers can <Link href="/listings">browse current 4COP and 3PS marketplace listings</Link> and contact the seller or listing representative.</p>
+            </aside>
+            <aside>
+              <strong>Statewide market data</strong>
+              <p><Link href="/listings">Browse current Florida liquor licenses for sale</Link>, or review the <Link href="/florida-quota-liquor-license-market-report">Florida Quota Liquor License Market Report</Link> for statewide inventory and asking-price evidence.</p>
+            </aside>
+            <aside>
+              <strong>Broker resources</strong>
+              <p>Florida liquor license brokers can <Link href="/brokers/list-your-license">list and advertise a client&apos;s license on FLLM</Link> while remaining the listing representative and transaction contact.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
       <footer className="directory-footer"><div className="directory-shell"><span>© Florida Liquor License Market</span><nav><Link href="/">Home</Link><Link href="/florida-4cop-liquor-license-for-sale">4COP</Link><Link href="/florida-3ps-liquor-license-for-sale">3PS</Link><Link href="/listings">Listings</Link><Link href="/contact">Contact</Link></nav></div></footer>
     </main>
   );
