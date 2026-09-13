@@ -279,7 +279,7 @@ export default function ExchangeStaticClient({ marketSnapshot, tickerListings }:
           <div className="featured-cards">
             <div className={`featured-track${carouselDirection ? ` is-${carouselDirection}` : ""}`} onTransitionEnd={finishCarouselSlide}>
               {carouselTrackCards.map((card, position) => <article className="featured-card" key={`${carouselIndex}-${position}-${card.reference}`}>
-                <div className="featured-card-art"><Image src={card.image} alt={`${card.type} opportunity in ${card.county}`} fill sizes="(max-width: 820px) 38vw, 11vw" /></div>
+                <div className="featured-card-art"><Image src={card.image} alt={`${card.type} opportunity in ${card.county}`} fill sizes="(max-width: 820px) 70vw, 24vw" /></div>
                 <div className="featured-card-details"><b>{card.type}</b><span>{card.county}</span><strong>{card.price}</strong><div className="featured-card-meta"><em>Available</em><small># {card.reference}</small></div></div>
                 <a className="featured-card-button" href={card.href}>VIEW LISTING&nbsp; →</a>
               </article>)}
