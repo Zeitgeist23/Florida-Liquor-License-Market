@@ -364,6 +364,8 @@
 .county-availability-map-section {
   padding: 50px 0 56px;
   border-top: 1px solid #253f56;
+  font-variant-numeric: lining-nums;
+  font-feature-settings: "lnum" 1;
   border-bottom: 1px solid #4d3c19;
   background:
     radial-gradient(circle at 50% 44%, rgba(27, 187, 208, .12), transparent 32%),
@@ -498,6 +500,7 @@
   max-width: 835px;
   height: 525px;
   overflow: visible;
+  transform: translate(-72px, -38px);
   filter: drop-shadow(0 18px 25px rgba(2, 14, 25, .36));
 }
 
@@ -554,7 +557,7 @@
   display: flex;
   flex-direction: column;
   align-self: center;
-  padding: 25px 23px;
+  padding: 25px 23px 18px;
   border: 1px solid rgba(241, 166, 0, .72);
   border-radius: 8px;
   background: linear-gradient(145deg, rgba(18, 61, 101, .96), rgba(7, 31, 54, .96));
@@ -1165,6 +1168,10 @@
   .county-availability-map-stage {
     grid-column: 1;
     grid-row: 1;
+  }
+
+  .county-availability-map-svg {
+    transform: none;
   }
 
   .county-availability-map-legend {
