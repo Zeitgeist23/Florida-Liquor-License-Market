@@ -362,20 +362,19 @@
 .market-leader-metrics b { display: block; margin-top: 4px; color: #f1a600; font-size: 12px; }
 
 .county-availability-map-section {
-  padding: 52px 0 54px;
+  padding: 52px 0 58px;
   border-top: 1px solid #253f56;
   border-bottom: 1px solid #4d3c19;
   background:
-    radial-gradient(circle at 78% 35%, rgba(115, 87, 232, .13), transparent 34%),
+    radial-gradient(circle at 24% 43%, rgba(27, 187, 208, .11), transparent 29%),
+    radial-gradient(circle at 77% 43%, rgba(239, 75, 82, .08), transparent 30%),
     linear-gradient(180deg, #0a2947 0%, #0f365b 52%, #0a2947 100%);
 }
 
-.county-availability-map-heading {
-  align-items: flex-end;
-}
+.county-availability-map-heading { align-items: flex-end; }
 
 .county-availability-map-heading > p {
-  max-width: 450px;
+  max-width: 500px;
   margin: 0;
   color: #d7e3ec;
   font-size: 13px;
@@ -385,18 +384,49 @@
 
 .county-availability-map-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.72fr) minmax(290px, .58fr);
-  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  align-items: start;
+}
+
+.county-heatmap-module { min-width: 0; }
+
+.county-heatmap-module-heading {
+  min-height: 62px;
+  margin-bottom: 12px;
+}
+
+.county-heatmap-module-heading > span {
+  display: block;
+  color: #ffc13b;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.county-heatmap-module-heading h3 {
+  margin: 6px 0 0;
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 24px;
+  line-height: 1.12;
+}
+
+.county-heatmap-module-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(178px, .42fr);
+  gap: 10px;
   align-items: stretch;
 }
 
 .county-availability-map-stage {
   position: relative;
   min-width: 0;
-  min-height: 535px;
+  min-height: 430px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: visible;
   padding: 0;
 }
@@ -404,13 +434,17 @@
 .county-availability-map-stage::before {
   content: "";
   position: absolute;
-  width: 78%;
+  left: 2%;
+  width: 94%;
   height: 78%;
   border-radius: 50%;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse at 48% 47%, rgba(27, 187, 208, .18) 0%, rgba(115, 87, 232, .12) 38%, transparent 72%);
-  filter: blur(16px);
+  background: radial-gradient(ellipse at 47% 48%, rgba(27, 187, 208, .16) 0%, rgba(115, 87, 232, .1) 39%, transparent 72%);
+  filter: blur(15px);
+}
+
+.county-heatmap-module--price .county-availability-map-stage::before {
+  background: radial-gradient(ellipse at 47% 48%, rgba(99, 102, 232, .14) 0%, rgba(239, 75, 82, .09) 42%, transparent 72%);
 }
 
 .county-availability-map-svg {
@@ -419,9 +453,9 @@
   display: block;
   width: 108%;
   max-width: none;
-  height: 525px;
+  height: 420px;
   overflow: visible;
-  filter: drop-shadow(0 18px 24px rgba(2, 14, 25, .34));
+  filter: drop-shadow(0 16px 22px rgba(2, 14, 25, .34));
 }
 
 .county-availability-map-svg path {
@@ -429,17 +463,13 @@
   stroke-width: .68;
   vector-effect: non-scaling-stroke;
   cursor: pointer;
-  transition:
-    filter .16s ease,
-    opacity .16s ease,
-    stroke .16s ease,
-    stroke-width .16s ease;
+  transition: filter .16s ease, opacity .16s ease, stroke .16s ease, stroke-width .16s ease;
 }
 
 .county-availability-map-svg a:hover path,
 .county-availability-map-svg a:focus path {
   filter: brightness(1.24) drop-shadow(0 0 4px rgba(104, 224, 255, .72));
-  stroke: #ffffff;
+  stroke: #fff;
   stroke-width: 1.8;
   outline: none;
 }
@@ -447,30 +477,30 @@
 .county-availability-tooltip {
   position: absolute;
   z-index: 4;
-  width: min(270px, calc(100% - 24px));
-  padding: 15px 16px;
+  width: min(250px, calc(100% - 20px));
+  padding: 14px 15px;
   border: 1px solid #58d7ff;
   border-radius: 7px;
   pointer-events: none;
   opacity: 0;
   transform: translateY(5px);
   background: linear-gradient(145deg, rgba(7, 24, 42, .98), rgba(18, 49, 83, .98));
-  box-shadow:
-    0 17px 38px rgba(0, 0, 0, .42),
-    0 0 20px rgba(115, 87, 232, .2);
+  box-shadow: 0 17px 38px rgba(0, 0, 0, .42), 0 0 20px rgba(115, 87, 232, .2);
   transition: opacity .14s ease, transform .14s ease;
 }
 
-.county-availability-tooltip.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.county-heatmap-module--price .county-availability-tooltip {
+  border-color: #f06a74;
+  box-shadow: 0 17px 38px rgba(0, 0, 0, .42), 0 0 20px rgba(239, 75, 82, .18);
 }
+
+.county-availability-tooltip.is-visible { opacity: 1; transform: translateY(0); }
 
 .county-availability-tooltip > span,
 .county-availability-map-legend > span {
   display: block;
   color: #ffc13b;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 900;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -481,73 +511,47 @@
   margin-top: 5px;
   color: #fff;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.2;
 }
 
 .county-availability-tooltip dl {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px 12px;
-  margin: 12px 0 10px;
+  gap: 8px 10px;
+  margin: 11px 0 9px;
 }
 
-.county-availability-tooltip dl > div {
-  min-width: 0;
-}
-
-.county-availability-tooltip dt {
-  color: #9eb8cc;
-  font-size: 9px;
-  line-height: 1.25;
-  text-transform: uppercase;
-}
-
-.county-availability-tooltip dd {
-  margin: 3px 0 0;
-  color: #dff7ff;
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.county-availability-tooltip > small {
-  color: #69d6ff;
-  font-size: 10px;
-  font-weight: 800;
-}
+.county-availability-tooltip dl > div { min-width: 0; }
+.county-availability-tooltip dt { color: #9eb8cc; font-size: 8px; line-height: 1.25; text-transform: uppercase; }
+.county-availability-tooltip dd { margin: 3px 0 0; color: #dff7ff; font-size: 11px; font-weight: 800; }
+.county-availability-tooltip > small { color: #69d6ff; font-size: 9px; font-weight: 800; }
 
 .county-availability-map-legend {
   position: relative;
   min-width: 0;
-  padding: 27px 26px;
+  padding: 17px 15px;
   border: 1px solid rgba(241, 166, 0, .82);
-  border-radius: 9px;
+  border-radius: 8px;
   background: linear-gradient(145deg, #123f68 0%, #0c2f51 54%, #0b2343 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 220, 139, .32),
     inset 0 -2px 0 rgba(3, 15, 26, .52),
-    0 18px 36px rgba(2, 14, 25, .4),
-    0 0 24px rgba(241, 166, 0, .12);
+    0 16px 32px rgba(2, 14, 25, .38),
+    0 0 21px rgba(241, 166, 0, .1);
 }
 
-.county-availability-map-legend h3 {
-  margin: 8px 0 0;
+.county-availability-map-legend h4 {
+  margin: 6px 0 13px;
   color: #fff;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 25px;
-  line-height: 1.12;
-}
-
-.county-availability-map-legend > p {
-  margin: 13px 0 20px;
-  color: #d7e3ec;
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 18px;
+  line-height: 1.08;
 }
 
 .county-availability-map-legend ul {
   display: grid;
-  gap: 8px;
+  gap: 5px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -556,16 +560,17 @@
 .county-availability-map-legend li {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
   color: #edf6fb;
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 800;
+  line-height: 1.2;
 }
 
 .county-availability-map-legend li i {
-  width: 30px;
-  height: 15px;
-  flex: 0 0 30px;
+  width: 24px;
+  height: 11px;
+  flex: 0 0 24px;
   border: 1px solid rgba(220, 245, 255, .55);
   border-radius: 3px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14);
@@ -574,14 +579,14 @@
 .county-availability-map-summary {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 9px;
-  margin-top: 21px;
+  gap: 6px;
+  margin-top: 14px;
 }
 
 .county-availability-map-summary > div {
-  padding: 12px;
+  padding: 8px;
   border: 1px solid rgba(98, 211, 255, .22);
-  border-radius: 6px;
+  border-radius: 5px;
   background: rgba(5, 22, 38, .42);
 }
 
@@ -589,26 +594,50 @@
   display: block;
   color: #69d6ff;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 24px;
+  font-size: 19px;
   line-height: 1;
 }
 
 .county-availability-map-summary small {
   display: block;
-  margin-top: 5px;
+  margin-top: 4px;
   color: #d2e1eb;
-  font-size: 9px;
+  font-size: 7px;
   font-weight: 800;
-  line-height: 1.3;
+  line-height: 1.25;
   text-transform: uppercase;
 }
 
+.county-heatmap-ranking {
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(98, 211, 255, .2);
+}
+
+.county-heatmap-ranking > strong {
+  display: block;
+  margin-bottom: 9px;
+  color: #ffc13b;
+  font-size: 9px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.county-heatmap-ranking ol { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.county-heatmap-ranking li > span { display: flex; justify-content: space-between; gap: 6px; margin-bottom: 3px; font-size: 8px; font-weight: 800; }
+.county-heatmap-ranking li a { min-width: 0; overflow: hidden; color: #eaf4fa; text-overflow: ellipsis; white-space: nowrap; }
+.county-heatmap-ranking li a:hover { color: #ffc13b; }
+.county-heatmap-ranking li b { flex: 0 0 auto; color: #fff; }
+.county-heatmap-ranking li > i { display: block; height: 5px; overflow: hidden; border-radius: 999px; background: rgba(102, 137, 163, .22); }
+.county-heatmap-ranking li > i > em { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #167ea8, #1bbbd0, #7357e8); }
+.county-heatmap-module--price .county-heatmap-ranking li > i > em { background: linear-gradient(90deg, #6366e8, #d946b4, #ef4b52); }
+
 .county-availability-map-note {
   display: block;
-  margin-top: 17px;
+  margin-top: 13px;
   color: #9eb2c1;
-  font-size: 10px;
-  line-height: 1.5;
+  font-size: 8px;
+  line-height: 1.45;
 }
 
 .county-market-data {
@@ -1049,10 +1078,10 @@
   .directory-featured-grid,
   .market-leader-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .methodology-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .county-availability-map-layout { grid-template-columns: 1fr; }
+  .county-availability-map-layout { grid-template-columns: 1fr; gap: 38px; }
+  .county-heatmap-module-grid { grid-template-columns: minmax(0, 1fr) minmax(210px, .38fr); }
   .county-availability-map-stage { min-height: 440px; }
-  .county-availability-map-svg { width: 100%; height: 430px; }
-  .county-availability-map-legend ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .county-availability-map-svg { width: 105%; height: 430px; }
   .directory-header { height: auto; padding: 12px 0; }
   .directory-header nav { gap: 15px; }
 }
@@ -1063,6 +1092,11 @@
   .market-snapshot-heading > p,
   .market-table-heading > p { margin-top: 12px; max-width: none; text-align: left; }
   .county-availability-map-heading > p { margin-top: 12px; max-width: none; text-align: left; }
+  .county-heatmap-module-heading { min-height: 0; }
+  .county-heatmap-module-grid { grid-template-columns: 1fr; }
+  .county-availability-map-stage { min-height: 380px; }
+  .county-availability-map-svg { width: 100%; height: 370px; }
+  .county-availability-map-legend ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .market-citation-grid { grid-template-columns: 1fr; gap: 24px; }
   .directory-cta-grid,
   .county-authority-grid { grid-template-columns: 1fr; }
