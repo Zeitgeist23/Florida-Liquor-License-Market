@@ -1,8 +1,6 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import type { FocusEvent as ReactFocusEvent, PointerEvent as ReactPointerEvent } from "react";
-
 import { FLORIDA_COUNTY_PATHS } from "@/components/FloridaCountyMap";
 
 export type CountyAvailabilityHeatMapRow = {
@@ -83,21 +81,9 @@ export default function CountyAvailabilityHeatMap({
     tooltip.style.top = `${top}px`;
   }
 
-  function handlePointerEnter(
-    row: CountyAvailabilityHeatMapRow,
-    event: ReactPointerEvent<SVGAElement>,
-  ) {
+  function activateCounty(row: CountyAvailabilityHeatMapRow, clientX: number, clientY: number) {
     setActiveSlug(row.slug);
-    positionTooltip(event.clientX, event.clientY);
-  }
-
-  function handleFocus(
-    row: CountyAvailabilityHeatMapRow,
-    event: ReactFocusEvent<SVGAElement>,
-  ) {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    setActiveSlug(row.slug);
-    positionTooltip(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+    positionTooltip(clientX, clientY);
   }
 
   return (
@@ -134,10 +120,14 @@ export default function CountyAvailabilityHeatMap({
                       key={county.id}
                       href={row ? `/counties/${row.slug}` : "/counties"}
                       aria-label={label}
-                      onPointerEnter={(event) => row && handlePointerEnter(row, event)}
+                      onPointerEnter={(event) => row && activateCounty(row, event.clientX, event.clientY)}
                       onPointerMove={(event) => positionTooltip(event.clientX, event.clientY)}
                       onPointerLeave={() => setActiveSlug(null)}
-                      onFocus={(event) => row && handleFocus(row, event)}
+                      onFocus={(event) => {
+                        if (!row) return;
+                        const bounds = event.currentTarget.getBoundingClientRect();
+                        activateCounty(row, bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+                      }}
                       onBlur={() => setActiveSlug(null)}
                     >
                       <path
