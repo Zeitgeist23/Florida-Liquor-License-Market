@@ -112,6 +112,11 @@ function isCountyMarketPage(pathname: string) {
 
 export default function SeoAuthorityEnhancements() {
   const pathname = usePathname();
+
+  // The county directory renders these resources inside its own themed page,
+  // immediately above the local footer, so the footer remains the final element.
+  if (pathname === "/counties") return null;
+
   const showAuthorityLinks = exactAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showSbaAppraisalLink = sbaAppraisalAuthorityPaths.has(pathname);
   const showBuyerFinancingAppraisalLink = buyerFinancingAppraisalPaths.has(pathname);
