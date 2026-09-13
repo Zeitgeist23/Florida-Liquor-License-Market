@@ -34,13 +34,27 @@
   }
 
   .county-directory-page .forms-site-header .brand-lockup img {
-    width: 165px;
-    height: 67px;
+    width: 168.7125px;
+    height: 68.5075px;
   }
 
   .county-directory-page .forms-site-header .primary-nav {
     justify-content: space-between;
     gap: 12px;
+  }
+
+  .county-directory-page .forms-site-header .header-actions {
+    transform: translateX(5px);
+  }
+
+  .county-directory-page .forms-site-header .header-actions .btn-outline:hover,
+  .county-directory-page .forms-site-header .header-actions .btn-outline:focus-visible {
+    border-color: #ffc13b;
+    background: linear-gradient(145deg, #ffc13b, #e69a00);
+    color: #07101a;
+    box-shadow:
+      0 0 0 1px rgba(255, 193, 59, .28),
+      0 0 18px rgba(241, 166, 0, .5);
   }
 }
 
