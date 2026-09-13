@@ -196,10 +196,8 @@
   align-items: center;
   justify-content: center;
   color: #f1a600;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(31px, 4vw, 45px);
-  font-variant-numeric: lining-nums tabular-nums;
-  font-weight: 900;
   line-height: 1;
 }
 
