@@ -158,9 +158,7 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
                       data-listing-count={listingCount}
                       data-price={price ?? ""}
                       data-county={row?.name ?? `${county.name} County`}
-                    >
-                      <title>{label}</title>
-                    </path>
+                    />
                   </a>
                 );
               })}
