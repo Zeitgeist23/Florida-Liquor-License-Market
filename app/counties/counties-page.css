@@ -738,7 +738,7 @@
 .directory-footer {
   padding: 20px 0 0;
   border-top: 1px solid #6e531d;
-  background: #071f36;
+  background: linear-gradient(90deg, #071f36 0%, #0c3558 50%, #071f36 100%);
 }
 
 .directory-footer > .directory-shell {
