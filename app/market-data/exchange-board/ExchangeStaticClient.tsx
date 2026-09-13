@@ -94,6 +94,7 @@ export default function ExchangeStaticClient({ tickerListings }: ExchangeStaticC
         .exchange-live-menu .list-action-menu a:hover,.exchange-live-menu .list-action-menu a:focus-visible{color:#07111b;background:#f6b51f;outline:none}
         .exchange-search{display:grid;place-items:center;width:32px;height:42px;color:#fff;font-size:29px;line-height:1;transform:rotate(-18deg)}
         .exchange-menu-toggle{display:none;margin-left:auto;width:44px;height:40px;border:1px solid #f6b51f;border-radius:5px;color:#f6b51f;background:#020d18;font-size:22px}
+        .heat-filters a{transition:transform .16s ease,background .16s ease,color .16s ease,border-color .16s ease;transform-origin:left center}.heat-filters a:hover,.heat-filters a:focus-visible{z-index:4;background:#1598d3;color:#fff;border-color:#54d5ff;outline:none;transform:scale(1.03)}
         .exchange-live-hero{position:relative;width:100%;aspect-ratio:1024/244;overflow:hidden;background-color:#020d18;background-image:url('/assets/fllm-exchange-landing-page-approved-design.png?v=20260912-1');background-repeat:no-repeat;background-size:100% auto;background-position:center -4.4921875vw}
         .exchange-tickers{position:relative;z-index:5;width:100%;background:#031421;border-top:1px solid #176387;border-bottom:1px solid #176387}
         .exchange-ticker-row{height:clamp(28px,2.15vw,41px);overflow:hidden;white-space:nowrap;border-bottom:1px solid rgba(52,184,232,.38)}.exchange-ticker-row:last-child{border-bottom:0}
