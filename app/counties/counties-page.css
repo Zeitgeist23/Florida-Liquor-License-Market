@@ -87,7 +87,7 @@
 .market-citation-grid > div > span {
   display: block;
   color: #f1a600;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -579,7 +579,7 @@
   .market-snapshot-heading span,
   .directory-heading span,
   .directory-hero span,
-  .market-citation-grid > div > span { font-size: 12px; }
+  .market-citation-grid > div > span { font-size: 13px; }
   .market-data-caution,
   .market-table-footnote,
   .market-table-heading > p,
