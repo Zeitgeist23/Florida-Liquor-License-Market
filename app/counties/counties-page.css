@@ -385,47 +385,43 @@
 
 .county-availability-map-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(270px, .62fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 1.72fr) minmax(290px, .58fr);
+  gap: 12px;
   align-items: stretch;
 }
 
-.county-availability-map-stage,
-.county-availability-map-legend {
+.county-availability-map-stage {
   position: relative;
   min-width: 0;
-  border: 1px solid rgba(98, 211, 255, .45);
-  border-radius: 9px;
-  background: linear-gradient(145deg, #071c30 0%, #0b2945 58%, #111f45 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(201, 241, 255, .12),
-    0 18px 38px rgba(3, 17, 29, .3);
-}
-
-.county-availability-map-stage {
-  min-height: 430px;
+  min-height: 535px;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  padding: 18px;
+  overflow: visible;
+  padding: 0;
 }
 
-.county-availability-map-stage::after {
+.county-availability-map-stage::before {
   content: "";
   position: absolute;
-  inset: 0;
+  width: 78%;
+  height: 78%;
+  border-radius: 50%;
   pointer-events: none;
-  background: linear-gradient(115deg, rgba(73, 203, 255, .04), transparent 38%, rgba(151, 86, 255, .06));
+  background:
+    radial-gradient(ellipse at 48% 47%, rgba(27, 187, 208, .18) 0%, rgba(115, 87, 232, .12) 38%, transparent 72%);
+  filter: blur(16px);
 }
 
 .county-availability-map-svg {
   position: relative;
   z-index: 1;
   display: block;
-  width: 100%;
-  height: 394px;
+  width: 108%;
+  max-width: none;
+  height: 525px;
   overflow: visible;
+  filter: drop-shadow(0 18px 24px rgba(2, 14, 25, .34));
 }
 
 .county-availability-map-svg path {
@@ -521,8 +517,17 @@
 }
 
 .county-availability-map-legend {
+  position: relative;
+  min-width: 0;
   padding: 27px 26px;
-  border-color: rgba(241, 166, 0, .62);
+  border: 1px solid rgba(241, 166, 0, .82);
+  border-radius: 9px;
+  background: linear-gradient(145deg, #123f68 0%, #0c2f51 54%, #0b2343 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 220, 139, .32),
+    inset 0 -2px 0 rgba(3, 15, 26, .52),
+    0 18px 36px rgba(2, 14, 25, .4),
+    0 0 24px rgba(241, 166, 0, .12);
 }
 
 .county-availability-map-legend h3 {
@@ -1045,8 +1050,8 @@
   .market-leader-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .methodology-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .county-availability-map-layout { grid-template-columns: 1fr; }
-  .county-availability-map-stage { min-height: 390px; }
-  .county-availability-map-svg { height: 350px; }
+  .county-availability-map-stage { min-height: 440px; }
+  .county-availability-map-svg { width: 100%; height: 430px; }
   .county-availability-map-legend ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .directory-header { height: auto; padding: 12px 0; }
   .directory-header nav { gap: 15px; }
@@ -1074,8 +1079,8 @@
   .directory-header nav a { font-size: 10px; }
   .directory-hero { padding: 44px 0 50px; }
   .county-availability-map-section { padding: 42px 0 44px; }
-  .county-availability-map-stage { min-height: 320px; padding: 10px; }
-  .county-availability-map-svg { height: 300px; }
+  .county-availability-map-stage { min-height: 350px; padding: 0; }
+  .county-availability-map-svg { width: 106%; height: 340px; }
   .county-availability-map-legend { padding: 21px 18px; }
   .county-availability-map-legend ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .county-availability-tooltip { display: none; }
