@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { buildFloridaMarketIndex } from "@/lib/florida-market-index";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
+import "../fllm-official-template.css";
 import "./market-report.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -122,23 +125,13 @@ export default async function FloridaQuotaLiquorLicenseMarketReportPage() {
   ];
 
   return (
-    <main className="quota-market-report">
+    <main className="quota-market-report fllm-official-page" data-fllm-template="county-v1">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
 
-      <header className="quota-report-header quota-report-shell">
-        <Link className="quota-report-brand" href="/" aria-label="Florida Liquor License Market home">
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-        </Link>
-        <nav aria-label="Market report navigation">
-          <Link href="/listings">Licenses for Sale</Link>
-          <Link href="/counties">County Data</Link>
-          <Link href="/florida-liquor-license-market-index">Market Index</Link>
-          <Link className="quota-report-nav-cta" href="/research">Research</Link>
-        </nav>
-      </header>
+      <FormsSiteHeader />
 
       <section className="quota-report-hero">
         <div className="quota-report-shell quota-report-hero-grid">
@@ -254,8 +247,13 @@ export default async function FloridaQuotaLiquorLicenseMarketReportPage() {
 
       <footer className="quota-report-footer">
         <div className="quota-report-shell">
-          <p>Florida Liquor License Market · Statewide marketplace and market-data reference.</p>
-          <nav><Link href="/listings">Florida liquor licenses for sale</Link><Link href="/florida-liquor-license-market-index">Market Index</Link><Link href="/research">Research</Link><Link href="/contact">Contact</Link></nav>
+          <div className="quota-report-footer-brand">
+            <Link href="/" aria-label="Florida Liquor License Market home">
+              <Image src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width={130} height={53} />
+            </Link>
+            <span>© Florida Liquor License Market</span>
+          </div>
+          <nav><Link href="/">Home</Link><Link href="/florida-4cop-liquor-license-for-sale">4COP</Link><Link href="/florida-3ps-liquor-license-for-sale">3PS</Link><Link href="/listings">Listings</Link><Link href="/contact">Contact</Link></nav>
         </div>
       </footer>
     </main>
