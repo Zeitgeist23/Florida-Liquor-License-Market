@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const resourceGroups = [
@@ -41,6 +42,7 @@ const resourceGroups = [
 
 export default function ListingsSeoAuthorityBridge() {
   return (
+    <>
     <section className="listings-authority-bridge" aria-labelledby="listings-authority-title">
       <div className="page-shell">
         <span className="listings-authority-kicker">Related Marketplace Resources</span>
@@ -80,9 +82,41 @@ export default function ListingsSeoAuthorityBridge() {
         .listings-authority-links a:hover,.listings-authority-links a:focus-visible{color:#ffd36b;text-decoration:underline;text-underline-offset:3px;outline:none}
         .listings-authority-links a span{font:700 19px/1 Georgia,"Times New Roman",serif;transition:transform .16s ease}
         .listings-authority-links a:hover span{transform:translateX(2px)}
+
+        .listings-directory-footer{padding:20px 0 0;border-top:1px solid #6e531d;background:linear-gradient(90deg,#071f36 0%,#0c3558 50%,#071f36 100%)}
+        .listings-directory-shell{box-sizing:border-box;width:min(1240px,calc(100% - 40px));margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;padding-bottom:18px}
+        .listings-directory-footer-brand{display:flex;align-items:center;gap:14px}
+        .listings-directory-footer-brand>a{display:block;line-height:0}
+        .listings-directory-footer-brand img{display:block;width:130px;height:auto}
+        .listings-directory-footer span{color:#e4eef5;font-size:12px}
+        .listings-directory-footer nav{display:flex;flex-wrap:wrap;gap:20px}
+        .listings-directory-footer a{color:#f3f7fa;font-size:12px;font-weight:800;text-decoration:none}
+        .listings-directory-footer a:hover,.listings-directory-footer a:focus-visible{color:#f1a600}
+        .listings-directory-footer>.national-marketplace-footer-link{box-sizing:border-box;width:100%;margin:0;padding:14px max(20px,calc((100% - 1240px)/2)) 16px;border-top:1px solid #263f55;background:#0a2947;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#dce8f0;font-size:11px;text-align:left}
+        .listings-directory-footer>.national-marketplace-footer-link a{color:#f3f7fa;font-size:11px;font-weight:800}
+        .listings-directory-footer>.national-marketplace-footer-link a:hover,.listings-directory-footer>.national-marketplace-footer-link a:focus-visible{color:#f1a600}
         @media(max-width:760px){.listings-authority-bridge{padding:38px 0 42px}.listings-authority-bridge .page-shell{width:min(100% - 28px,1180px)}.listings-authority-grid{grid-template-columns:1fr}.listings-authority-grid article{padding:19px}.listings-authority-bridge>div>p{font-size:14px}}
+        @media(max-width:650px){.listings-directory-shell{width:min(calc(100% - 24px),1240px)}.listings-directory-footer>.listings-directory-shell,.listings-directory-footer>.national-marketplace-footer-link{flex-direction:column;text-align:center}.listings-directory-footer-brand{flex-direction:column;gap:9px}.listings-directory-footer nav{justify-content:center}}
         @media(prefers-reduced-motion:reduce){.listings-authority-grid article,.listings-authority-links a span{transition:none}}
       `}</style>
     </section>
+    <footer className="listings-directory-footer">
+      <div className="listings-directory-shell">
+        <div className="listings-directory-footer-brand">
+          <Link href="/" aria-label="Florida Liquor License Market home">
+            <Image src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width={130} height={53} />
+          </Link>
+          <span>© Florida Liquor License Market</span>
+        </div>
+        <nav aria-label="Footer navigation">
+          <Link href="/">Home</Link>
+          <Link href="/florida-4cop-liquor-license-for-sale">4COP</Link>
+          <Link href="/florida-3ps-liquor-license-for-sale">3PS</Link>
+          <Link href="/listings">Listings</Link>
+          <Link href="/contact">Contact</Link>
+        </nav>
+      </div>
+    </footer>
+  </>
   );
 }
