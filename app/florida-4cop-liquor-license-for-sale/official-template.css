@@ -6,6 +6,8 @@
 .seo-market-page.fllm-official-page {
   background: var(--fllm-page-blue);
   color: var(--fllm-white);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
 }
 
 .seo-market-page .seo-market-shell,
@@ -207,14 +209,23 @@
 }
 
 .seo-market-page .seo-market-snapshot-grid strong {
+  width: 100%;
+  min-width: 0;
   color: var(--fllm-white);
-  font-size: 28px;
+  font-size: clamp(21px, 1.45vw, 25px);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+  letter-spacing: -.025em;
+  line-height: 1.05;
+  white-space: nowrap;
 }
 
 .seo-market-page .seo-market-snapshot-grid small {
   color: #eef4f8;
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 12px;
+  line-height: 1.38;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .seo-market-page .seo-market-intro,
