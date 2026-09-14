@@ -57,7 +57,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
     serviceType: "Administrative retirement-account setup and transfer coordination",
     provider: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
     description:
-      "Flat-fee administrative assistance identifying possible self-directed IRA custodians or administrators that permit private-note investments and coordinating account setup and transfer or rollover paperwork. FLLM does not recommend or select a custodian or investment and does not act as custodian, trustee, investment adviser, broker-dealer, tax adviser, or law firm.",
+      "Flat-fee administrative assistance identifying possible self-directed IRA custodians or administrators that permit private-note investments, coordinating account setup and transfer or rollover paperwork, and coordinating access to independent attorneys experienced in Florida liquor-license transactions. FLLM does not recommend or select a custodian, attorney, or investment and does not act as custodian, trustee, investment adviser, broker-dealer, tax adviser, or law firm.",
     offers: {
       "@type": "Offer",
       price: "495.00",
@@ -121,6 +121,13 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
             <article className="ira-card"><h3>Third-party borrower</h3><p>The borrower should be an unrelated party who is not a disqualified person with respect to the IRA. The transaction must be evaluated for direct and indirect prohibited-transaction concerns.</p></article>
             <article className="ira-card"><h3>Interest returns to the IRA</h3><p>Loan payments are generally directed to the retirement account through the custodian or administrator. The IRA owner should not personally receive the borrower’s interest or principal payments.</p></article>
           </div>
+
+          <div className="ira-platform-note">
+            <h3>Why a specialized self-directed custodian may be necessary</h3>
+            <p>
+              Conventional retail IRA, SEP IRA and brokerage platforms—including standard accounts offered through firms such as Morgan Stanley and Charles Schwab—typically focus on publicly traded securities and firm-approved investments. Conventional bank or affiliated brokerage platforms such as Bank of America/Merrill, Chase and BMO likewise should not be assumed to accept custody of a client-originated private note secured by a Florida liquor license. Some of these institutions offer selected alternative investments or private-credit funds to qualifying clients, but that is different from allowing an IRA or SEP IRA to originate and hold an individually negotiated 4COP Quota or 3PS liquor-license note. Policies, account eligibility and asset-acceptance standards vary and must be confirmed directly with the institution.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -129,7 +136,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
           <span className="seo-market-section-kicker">Optional Administrative Service</span>
           <h2>Self-Directed IRA Setup Assistance</h2>
           <p className="ira-setup-lead">
-            FLLM charges a flat $495 administrative fee to identify possible self-directed IRA custodians or administrators that state they permit private-note investments and to help coordinate account setup and transfer or rollover paperwork from a client’s existing Traditional IRA. The client independently evaluates and selects the custodian. The account and retirement assets are established, held and transferred by the selected providers — not by FLLM.
+            FLLM charges a flat $495 administrative fee to identify possible self-directed IRA custodians or administrators that state they permit private-note investments, help coordinate account setup and transfer or rollover paperwork from a client’s existing Traditional IRA, and coordinate access to independent attorneys experienced in Florida liquor-license transactions. The client independently evaluates and selects every custodian and attorney. The account and retirement assets are established, held and transferred by the selected providers — not by FLLM.
           </p>
 
           <div className="ira-setup-service">
@@ -143,19 +150,20 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
                 <li>Help coordinate transfer or direct-rollover paperwork from an existing Traditional IRA with the existing provider and receiving custodian.</li>
                 <li>Track administrative follow-up, missing items and status updates while the self-directed account is opened and funded.</li>
                 <li>Prepare an administrative checklist for a future 4COP Quota or 3PS private-note investment request.</li>
+                <li>At the client’s request, identify and coordinate communications with independent attorneys experienced in Florida liquor-license transactions. Attorney engagement, legal advice and legal fees are separate and are not included in the $495 FLLM fee unless expressly stated in a written agreement.</li>
               </ul>
             </div>
 
             <aside className="ira-setup-price" aria-label="Self-Directed IRA Setup Assistance price">
               <span>Flat administrative fee</span>
               <strong>$495</strong>
-              <small>One-time fee for custodian identification, account-setup coordination and transfer or rollover support. This is not an investment-management, brokerage or success fee.</small>
+              <small>One-time fee for custodian identification, account-setup and transfer or rollover coordination, and coordination with independent Florida liquor-license counsel. Attorney fees are separate. This is not an investment-management, brokerage or success fee.</small>
               <a className="seo-market-button seo-market-button-gold" href="https://buy.stripe.com/5kQ4gr5iZ47r9KJ2aNebu03">Pay Securely with Stripe — $495</a>
             </aside>
           </div>
 
           <div className="ira-admin-boundary">
-            <strong>Administrative scope only.</strong> FLLM may identify possible custodians or administrators and help coordinate paperwork, but FLLM does not endorse, recommend, select or guarantee any custodian, account, rollover or investment. FLLM does not choose tax elections, draft customized legal or loan documents, provide legal, tax or investment advice, handle retirement funds, sign forms, determine prohibited-transaction compliance, or guarantee that a provider will accept a proposed investment. The client reviews and approves all elections and signs all required documents. Any movement of retirement assets is handled by the existing provider and receiving custodian or trustee under their procedures.
+            <strong>Administrative scope only.</strong> FLLM may identify possible custodians or administrators, coordinate paperwork, and facilitate introductions to independent Florida liquor-license attorneys, but FLLM does not endorse, recommend, select or guarantee any custodian, attorney, account, rollover or investment. FLLM is not a law firm and does not supervise the attorney, establish an attorney-client relationship, include the attorney’s legal fees in the $495 service fee unless expressly agreed in writing, choose tax elections, draft customized legal or loan documents, provide legal, tax or investment advice, handle retirement funds, sign forms, determine prohibited-transaction compliance, or guarantee that a provider will accept a proposed investment. The client independently retains counsel, reviews and approves all elections, and signs all required documents. Any movement of retirement assets is handled by the existing provider and receiving custodian or trustee under their procedures.
           </div>
 
           <div className="ira-disclosure-grid" aria-label="Investment and registration disclosures">
