@@ -94,7 +94,8 @@ export default function ListingsSeoAuthorityBridge() {
         </div>
       </div>
       <style>{`
-        .results-page .listings-seo-footer{padding-bottom:32px!important}
+        .results-page .results-content{padding-bottom:28px!important}
+        .results-page .listings-seo-footer{margin-top:0!important;padding-top:32px!important;padding-bottom:32px!important}
         .listings-supporting-copy{padding:24px 0 18px;border-top:1px solid rgba(246,167,0,.34);background:linear-gradient(180deg,#061827 0%,#0b2c49 100%)}
         .listings-supporting-copy__inner{box-sizing:border-box;width:min(1180px,calc(100% - 40px));margin:0 auto;overflow:hidden;border:1px solid rgba(246,167,0,.38);border-radius:9px;background:#0a2943;box-shadow:0 12px 28px rgba(0,0,0,.2)}
         .listings-supporting-copy .fllm-authority-links{margin:0!important;padding:0!important;border:0!important;background:transparent!important}
@@ -133,7 +134,7 @@ export default function ListingsSeoAuthorityBridge() {
         .listings-directory-footer>.national-marketplace-footer-link{box-sizing:border-box;width:100%;margin:0;padding:14px max(20px,calc((100% - 1240px)/2)) 16px;border-top:1px solid #263f55;background:#0a2947;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#dce8f0;font-size:11px;text-align:left}
         .listings-directory-footer>.national-marketplace-footer-link a{color:#f3f7fa;font-size:11px;font-weight:800}
         .listings-directory-footer>.national-marketplace-footer-link a:hover,.listings-directory-footer>.national-marketplace-footer-link a:focus-visible{color:#f1a600}
-        @media(max-width:760px){.results-page .listings-seo-footer{padding-bottom:26px!important}.listings-supporting-copy{padding:18px 0 14px}.listings-supporting-copy__inner{width:min(100% - 28px,1180px)}.listings-supporting-copy .fllm-authority-links__inner{padding:14px 16px!important}.listings-supporting-copy p{font-size:13px!important}.listings-authority-bridge{padding:38px 0 42px}.listings-authority-bridge .page-shell{width:min(100% - 28px,1180px)}.listings-authority-grid{grid-template-columns:1fr}.listings-authority-grid article{padding:19px}.listings-authority-bridge>div>p{font-size:14px}}
+        @media(max-width:760px){.results-page .results-content{padding-bottom:22px!important}.results-page .listings-seo-footer{margin-top:0!important;padding-top:26px!important;padding-bottom:26px!important}.listings-supporting-copy{padding:18px 0 14px}.listings-supporting-copy__inner{width:min(100% - 28px,1180px)}.listings-supporting-copy .fllm-authority-links__inner{padding:14px 16px!important}.listings-supporting-copy p{font-size:13px!important}.listings-authority-bridge{padding:38px 0 42px}.listings-authority-bridge .page-shell{width:min(100% - 28px,1180px)}.listings-authority-grid{grid-template-columns:1fr}.listings-authority-grid article{padding:19px}.listings-authority-bridge>div>p{font-size:14px}}
         @media(max-width:650px){.listings-directory-shell{width:min(calc(100% - 24px),1240px)}.listings-directory-footer>.listings-directory-shell,.listings-directory-footer>.national-marketplace-footer-link{flex-direction:column;text-align:center}.listings-directory-footer-brand{flex-direction:column;gap:9px}.listings-directory-footer nav{justify-content:center}}
         @media(prefers-reduced-motion:reduce){.listings-authority-grid article,.listings-authority-links a span{transition:none}}
       `}</style>
