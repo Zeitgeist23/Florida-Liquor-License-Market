@@ -103,10 +103,10 @@ export default function FormsSiteHeader({
         </button>
         <HeaderNavMenus className={menuOpen ? "primary-nav is-open" : "primary-nav"} />
         <div className="header-actions">
-          <a className="btn btn-gold" href={primaryActionHref}>{primaryActionLabel}</a>
-          <a className="btn btn-outline" href="/contact">
+          <a className="btn btn-outline fllm-header-contact-cta" href="/contact">
             <span className="contact-phone" aria-hidden="true">☎</span>Contact Us
           </a>
+          <a className="btn btn-gold fllm-header-list-cta" href={primaryActionHref}>{primaryActionLabel}</a>
         </div>
       </header>
     </>
