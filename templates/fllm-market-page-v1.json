@@ -1,0 +1,48 @@
+{
+  "id": "fllm-market-page-v1",
+  "name": "FLLM Market Page Template v1",
+  "status": "locked",
+  "approvedOn": "2026-09-14",
+  "canonicalRoute": "/florida-4cop-liquor-license-for-sale",
+  "canonicalUrl": "https://www.floridaliquorlicensemarket.com/florida-4cop-liquor-license-for-sale",
+  "root": {
+    "className": "seo-market-page fllm-official-page",
+    "dataAttribute": {
+      "data-fllm-template": "market-page-v1"
+    }
+  },
+  "requiredImports": [
+    "app/fllm-official-template.css",
+    "app/fllm-market-page-template.css"
+  ],
+  "requiredComponents": [
+    "components/FormsSiteHeader.tsx",
+    "components/HeaderNavMenus.tsx"
+  ],
+  "canonicalStructure": "app/florida-4cop-liquor-license-for-sale/page.tsx",
+  "compatibilityEntry": "app/florida-4cop-liquor-license-for-sale/official-template.css",
+  "documentation": "docs/FLLM_MARKET_PAGE_TEMPLATE_V1.md",
+  "lockedDomains": [
+    "design tokens",
+    "fonts",
+    "font sizes",
+    "line heights",
+    "shell widths",
+    "spacing",
+    "section backgrounds",
+    "gradients",
+    "borders",
+    "radii",
+    "shadows",
+    "buttons",
+    "cards",
+    "tables",
+    "sticky table header",
+    "hover and focus states",
+    "header geometry",
+    "navigation menus",
+    "footer appearance",
+    "responsive behavior"
+  ],
+  "changePolicy": "Do not override or fork locked rules for a page using market-page-v1. Explicit approval requires a new version."
+}
