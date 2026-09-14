@@ -96,7 +96,7 @@ export default function ListingsSeoAuthorityBridge() {
       <style>{`
         .results-page .results-content{padding-bottom:28px!important}
         .results-page .listings-seo-footer{margin-top:0!important;padding-top:32px!important;padding-bottom:32px!important}
-        .listings-supporting-copy{padding:24px 0 18px;border-top:1px solid rgba(246,167,0,.34);background:linear-gradient(180deg,#061827 0%,#0b2c49 100%)}
+        .listings-supporting-copy{padding:24px 0 18px;border-top:1px solid rgba(246,167,0,.34);background:#061728}
         .listings-supporting-copy__inner{box-sizing:border-box;width:min(1180px,calc(100% - 40px));margin:0 auto;overflow:hidden;border:1px solid rgba(246,167,0,.38);border-radius:9px;background:#0a2943;box-shadow:0 12px 28px rgba(0,0,0,.2)}
         .listings-supporting-copy .fllm-authority-links{margin:0!important;padding:0!important;border:0!important;background:transparent!important}
         .listings-supporting-copy .fllm-authority-links+.fllm-authority-links{border-top:1px solid rgba(246,167,0,.28)!important}
@@ -105,7 +105,7 @@ export default function ListingsSeoAuthorityBridge() {
         .listings-supporting-copy p strong{color:#fff!important}
         .listings-supporting-copy a{color:#f6b51f!important;font-weight:800;text-decoration:none!important}
         .listings-supporting-copy a:hover,.listings-supporting-copy a:focus-visible{color:#ffd36b!important;text-decoration:underline!important;text-underline-offset:3px;outline:none}
-        .listings-authority-bridge{padding:46px 0 50px;background:linear-gradient(180deg,#0b2c49 0%,#061827 100%);border-top:1px solid rgba(246,167,0,.34);border-bottom:1px solid rgba(246,167,0,.38)}
+        .listings-authority-bridge{padding:46px 0 50px;background:#061728;border-top:1px solid rgba(246,167,0,.34);border-bottom:1px solid rgba(246,167,0,.38)}
         .listings-authority-bridge .page-shell{width:min(1180px,calc(100% - 40px));margin:0 auto}
         .listings-authority-kicker{display:block;color:#f6a700;font-size:12px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
         .listings-authority-bridge h2{margin:7px 0 10px;color:#fff;font:700 clamp(28px,3.6vw,40px)/1.1 Georgia,"Times New Roman",serif}
