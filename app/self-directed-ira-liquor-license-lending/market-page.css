@@ -104,7 +104,17 @@
 }
 
 .ira-lending-guide-page .ira-chattel-guide p + p {
-  margin-top: 11px;
+  margin-top: 14px;
+}
+
+.ira-lending-guide-page .ira-chattel-guide > div > p {
+  font-size: 16px;
+  line-height: 1.72;
+}
+
+.ira-lending-guide-page .ira-chattel-guide > div > h3 {
+  font-size: 26px;
+  line-height: 1.2;
 }
 
 .ira-lending-guide-page .ira-card strong,
@@ -230,7 +240,7 @@
 .ira-lending-guide-page .ira-chattel-example > span {
   display: block;
   color: var(--fllm-gold);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -240,14 +250,14 @@
   margin: 7px 0 9px;
   color: var(--fllm-white);
   font-family: var(--fllm-serif);
-  font-size: 19px;
+  font-size: 22px;
   line-height: 1.3;
 }
 
 .ira-lending-guide-page .ira-chattel-example p {
   color: var(--fllm-text-muted);
-  font-size: 13px;
-  line-height: 1.65;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 .ira-lending-guide-page .ira-chattel-links,
@@ -262,12 +272,12 @@
 .ira-lending-guide-page .ira-source-links a {
   display: inline-flex;
   align-items: center;
-  min-height: 39px;
-  padding: 8px 13px;
+  min-height: 44px;
+  padding: 10px 15px;
   border: 1px solid var(--fllm-gold-border);
   border-radius: 4px;
   color: var(--fllm-gold-bright);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 900;
   line-height: 1.35;
   transition: transform .18s ease, background .18s ease, border-color .18s ease;
