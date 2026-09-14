@@ -389,6 +389,7 @@
 
 /* Every substantial content box responds consistently with the locked template. */
 .ira-lending-guide-page .ira-hero-snapshot,
+.ira-lending-guide-page .ira-platform-note,
 .ira-lending-guide-page .ira-example,
 .ira-lending-guide-page .ira-chattel-guide,
 .ira-lending-guide-page .ira-setup-service,
@@ -404,6 +405,7 @@
 
 .ira-lending-guide-page .ira-hero-snapshot:hover,
 .ira-lending-guide-page .ira-hero-snapshot:focus-within,
+.ira-lending-guide-page .ira-platform-note:hover,
 .ira-lending-guide-page .ira-example:hover,
 .ira-lending-guide-page .ira-example:focus-within,
 .ira-lending-guide-page .ira-chattel-guide:hover,
@@ -439,6 +441,32 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .18),
     0 15px 30px rgba(3, 17, 29, .34);
+}
+
+.ira-lending-guide-page .ira-platform-note {
+  margin-top: 16px;
+  padding: 21px 23px;
+  border: 1px solid var(--fllm-cyan-border);
+  border-radius: var(--fllm-radius);
+  background: linear-gradient(145deg, #174b76, var(--fllm-card-blue));
+  box-shadow:
+    inset 0 1px 0 rgba(105, 214, 255, .1),
+    var(--fllm-shadow);
+}
+
+.ira-lending-guide-page .ira-platform-note h3 {
+  margin: 0 0 8px;
+  color: var(--fllm-gold-bright);
+  font-family: var(--fllm-serif);
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.ira-lending-guide-page .ira-platform-note p {
+  margin: 0;
+  color: var(--fllm-text-muted);
+  font-size: 13px;
+  line-height: 1.65;
 }
 
 .ira-lending-guide-page .ira-disclosure-grid {
@@ -498,6 +526,7 @@
 @media (prefers-reduced-motion: reduce) {
   .ira-lending-guide-page .ira-card,
   .ira-lending-guide-page .ira-hero-snapshot,
+  .ira-lending-guide-page .ira-platform-note,
   .ira-lending-guide-page .ira-example,
   .ira-lending-guide-page .ira-chattel-guide,
   .ira-lending-guide-page .ira-chattel-example,
