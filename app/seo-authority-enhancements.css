@@ -4,6 +4,25 @@
   background: #f8f6f0;
 }
 
+.fllm-authority-links--listing-detail {
+  border-top-color: rgba(246, 167, 0, 0.48);
+  border-bottom-color: rgba(246, 167, 0, 0.28);
+  background: #020608;
+}
+
+.fllm-authority-links--listing-detail p {
+  color: #c7d4de;
+}
+
+.fllm-authority-links--listing-detail p strong {
+  color: #ffffff;
+}
+
+.fllm-authority-links--listing-detail a {
+  color: #f6b51f;
+  text-decoration-color: rgba(246, 181, 31, 0.72);
+}
+
 .fllm-authority-links__inner,
 .fllm-broker-link-kit__inner,
 .fllm-listing-service-cluster__inner,
