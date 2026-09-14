@@ -12,6 +12,7 @@ type NavLink = {
   label: string;
   target?: "_blank";
   rel?: string;
+  group?: "Start Here" | "Quota Licenses" | "Other License Types";
 };
 
 type NavMenu = {
@@ -90,14 +91,14 @@ const navMenus: NavMenu[] = [
     menuClassName: "native-license-types-menu",
     wrapperClassName: "native-nav-license-types",
     links: [
-      { href: "/resources/florida-liquor-license-types", label: "Types of Florida Liquor Licenses" },
-      { href: "/resources/florida-liquor-license-system", label: "How Florida Liquor Licensing Works" },
-      { href: "/license-types/4cop-quota", label: "4COP Quota License" },
-      { href: "/license-types/3ps-package-store", label: "3PS Quota / Package Store" },
-      { href: "/license-types/2cop-beer-wine", label: "2COP Beer & Wine" },
-      { href: "/license-types/4cop-sfs-restaurant", label: "SRX / 4COP-SFS Restaurant" },
-      { href: "/license-types/mobile-bars-catered-events", label: "Mobile Liquor License" },
-      { href: "/resources/florida-liquor-license-types#population-rule-title", label: "Quota License Requirements" },
+      { href: "/resources/florida-liquor-license-types", label: "Types of Florida Liquor Licenses", group: "Start Here" },
+      { href: "/resources/florida-liquor-license-system", label: "How Florida Liquor Licensing Works", group: "Start Here" },
+      { href: "/resources/florida-liquor-license-types#population-rule-title", label: "Quota License Requirements", group: "Start Here" },
+      { href: "/license-types/4cop-quota", label: "4COP Quota License", group: "Quota Licenses" },
+      { href: "/license-types/3ps-package-store", label: "3PS Quota / Package Store", group: "Quota Licenses" },
+      { href: "/license-types/2cop-beer-wine", label: "2COP Beer & Wine", group: "Other License Types" },
+      { href: "/license-types/4cop-sfs-restaurant", label: "SRX / 4COP-SFS Restaurant", group: "Other License Types" },
+      { href: "/license-types/mobile-bars-catered-events", label: "Mobile Liquor License", group: "Other License Types" },
     ],
   },
   {
@@ -267,18 +268,36 @@ export default function HeaderNavMenus({
                 onMouseEnter={clearCloseTimer}
                 onMouseLeave={scheduleClose}
               >
-                {menu.links.map((link) => (
-                  <a
-                    href={link.href}
-                    key={`${menu.id}-${link.label}`}
-                    target={link.target}
-                    rel={link.rel}
-                    role="menuitem"
-                    onClick={closeImmediately}
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {menu.id === "license-types" ? (
+                  (["Start Here", "Quota Licenses", "Other License Types"] as const).map((group) => (
+                    <div className="native-license-types-column" key={group} role="presentation">
+                      <strong>{group}</strong>
+                      {menu.links.filter((link) => link.group === group).map((link) => (
+                        <a
+                          href={link.href}
+                          key={`${menu.id}-${link.label}`}
+                          role="menuitem"
+                          onClick={closeImmediately}
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  ))
+                ) : (
+                  menu.links.map((link) => (
+                    <a
+                      href={link.href}
+                      key={`${menu.id}-${link.label}`}
+                      target={link.target}
+                      rel={link.rel}
+                      role="menuitem"
+                      onClick={closeImmediately}
+                    >
+                      {link.label}
+                    </a>
+                  ))
+                )}
               </div>
             </div>
           );
@@ -304,7 +323,11 @@ export default function HeaderNavMenus({
         .native-nav-market-menu{width:300px}
         .native-nav-resources-menu{width:min(860px,calc(100vw - 48px));grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 10px!important;padding:12px;left:50%;transform:translateX(-68%);margin-left:var(--resources-viewport-shift,0px)}
         .native-nav-resources-menu::before{left:calc(68% + var(--resources-arrow-shift,0px))}
-        .native-license-types-menu{width:320px}
+        .native-license-types-menu{width:min(760px,calc(100vw - 48px));grid-template-columns:repeat(3,minmax(0,1fr));gap:10px!important;padding:12px}
+        .native-license-types-column{min-width:0;display:flex;flex-direction:column;gap:5px;padding:5px;border:1px solid rgba(255,255,255,.08);border-radius:5px;background:rgba(255,255,255,.022)}
+        .native-license-types-column>strong{display:block;padding:7px 9px 8px;border-bottom:1px solid rgba(246,167,0,.34);color:#f6a700;font:900 10px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.09em;text-transform:uppercase}
+        .primary-nav .native-license-types-menu a{min-height:43px;display:flex;align-items:center;padding:10px 9px;border:1px solid transparent}
+        .primary-nav .native-license-types-menu a:hover,.primary-nav .native-license-types-menu a:focus-visible{border-color:rgba(246,167,0,.48);background:rgba(246,167,0,.07)!important}
         .primary-nav .native-nav-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;background:transparent!important;box-shadow:none!important;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
         .primary-nav .native-nav-resources-menu a{min-height:50px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025)!important}
         .primary-nav .native-nav-resources-menu a[href="/free-guide"],
@@ -315,6 +338,7 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]::after{content:"LOOKUP";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{background:transparent!important;box-shadow:none!important;color:#f6a700;outline:none}
         .primary-nav .native-nav-resources-menu a:hover,.primary-nav .native-nav-resources-menu a:focus-visible{border-color:rgba(246,167,0,.7);background:rgba(246,167,0,.08)!important}
+        @media(max-width:760px){.native-license-types-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-column{padding:4px}.primary-nav .native-license-types-menu a{min-height:39px}}
       `}</style>
     </>
   );
