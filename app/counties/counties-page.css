@@ -633,7 +633,48 @@
   border-left: 0;
 }
 
-.county-heatmap-ranking > strong { display: block; margin-bottom: 13px; color: #ffc13b; font-size: 12px; letter-spacing: .05em; line-height: 1.3; text-transform: uppercase; }
+.county-heatmap-ranking-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 13px;
+}
+
+.county-heatmap-ranking-heading > strong {
+  color: #ffc13b;
+  font-size: 12px;
+  letter-spacing: .05em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.county-heatmap-ranking-heading > button {
+  width: 29px;
+  height: 25px;
+  flex: 0 0 29px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(241, 166, 0, .82);
+  border-radius: 5px;
+  background: rgba(241, 166, 0, .08);
+  box-shadow: inset 0 1px 0 rgba(255, 219, 132, .14);
+  color: #ffc13b;
+  cursor: pointer;
+  font: 900 17px/1 Arial, Helvetica, sans-serif;
+  transition: background .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+.county-heatmap-ranking-heading > button:hover,
+.county-heatmap-ranking-heading > button:focus-visible {
+  background: linear-gradient(145deg, #ffd56b, #e69a00);
+  box-shadow: 0 0 13px rgba(241, 166, 0, .25);
+  color: #07101a;
+  transform: translateY(-1px);
+  outline: none;
+}
+
 .county-heatmap-ranking ol { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .county-heatmap-ranking li > span { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; font-size: 12px; font-weight: 800; }
 .county-heatmap-ranking li a { min-width: 0; overflow: hidden; color: #eaf4fa; text-overflow: ellipsis; white-space: nowrap; }
