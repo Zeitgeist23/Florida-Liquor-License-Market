@@ -54,9 +54,12 @@ function floridaDateLabel(date = new Date()) {
   }).format(date);
 }
 
+async function getAvailableMarketplaceListings() {
+  return getVisibleAvailableMarketplaceListings(await getMarketplaceListings());
+}
+
 async function getFourCopListings() {
-  const marketplaceListings = await getMarketplaceListings();
-  return getVisibleAvailableMarketplaceListings(marketplaceListings).filter(
+  return (await getAvailableMarketplaceListings()).filter(
     (listing) => listing.type === "4COP Quota",
   );
 }
@@ -98,7 +101,22 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Florida4CopLiquorLicenseForSalePage() {
-  const availableListings = await getFourCopListings();
+  const marketplaceListings = await getAvailableMarketplaceListings();
+  const availableListings = marketplaceListings.filter(
+    (listing) => listing.type === "4COP Quota",
+  );
+  const marketplaceDisclosedPrices = marketplaceListings
+    .map((listing) => listing.price)
+    .filter((value): value is number => Number.isFinite(value));
+  const marketplaceCountyNames = new Set(marketplaceListings.map((listing) => listing.county));
+  const marketplaceLowestPrice = marketplaceDisclosedPrices.length
+    ? Math.min(...marketplaceDisclosedPrices)
+    : null;
+  const marketplaceMedianPrice = median(marketplaceDisclosedPrices);
+  const marketplaceHighestPrice = marketplaceDisclosedPrices.length
+    ? Math.max(...marketplaceDisclosedPrices)
+    : null;
+
   const disclosedPrices = availableListings
     .map((listing) => listing.price)
     .filter((value): value is number => Number.isFinite(value));
@@ -300,24 +318,24 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
 
             <aside
               className="seo-market-snapshot"
-              aria-label="Current Florida 4COP quota marketplace snapshot"
+              aria-label="Current Florida marketplace snapshot"
             >
-              <span>Current Florida 4COP Snapshot</span>
+              <span>Current Florida Marketplace Snapshot</span>
               <div className="seo-market-snapshot-grid">
                 <div>
-                  <strong>{availableListings.length}</strong>
-                  <small>active 4COP listings</small>
+                  <strong>{marketplaceListings.length}</strong>
+                  <small>active marketplace listings</small>
                 </div>
                 <div>
-                  <strong>{activeCountyNames.size}</strong>
+                  <strong>{marketplaceCountyNames.size}</strong>
                   <small>counties with inventory</small>
                 </div>
                 <div>
-                  <strong>{lowestPrice === null ? "—" : money(lowestPrice)}</strong>
+                  <strong>{marketplaceLowestPrice === null ? "—" : money(marketplaceLowestPrice)}</strong>
                   <small>lowest disclosed ask</small>
                 </div>
                 <div>
-                  <strong>{medianPrice === null ? "—" : money(medianPrice)}</strong>
+                  <strong>{marketplaceMedianPrice === null ? "—" : money(marketplaceMedianPrice)}</strong>
                   <small>median disclosed ask</small>
                 </div>
               </div>
@@ -491,13 +509,13 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
             </div>
           </article>
           <aside className="seo-market-callout">
-            <strong>Current statewide disclosed 4COP asking-price snapshot</strong>
+            <strong>Current statewide marketplace asking-price snapshot</strong>
             <ul>
-              <li>Active listings: {availableListings.length}</li>
-              <li>Counties with active inventory: {activeCountyNames.size}</li>
-              <li>Lowest disclosed ask: {lowestPrice === null ? "Varies" : money(lowestPrice)}</li>
-              <li>Median disclosed ask: {medianPrice === null ? "Varies" : money(medianPrice)}</li>
-              <li>Highest disclosed ask: {highestPrice === null ? "Varies" : money(highestPrice)}</li>
+              <li>Active listings: {marketplaceListings.length}</li>
+              <li>Counties with active inventory: {marketplaceCountyNames.size}</li>
+              <li>Lowest disclosed ask: {marketplaceLowestPrice === null ? "Varies" : money(marketplaceLowestPrice)}</li>
+              <li>Median disclosed ask: {marketplaceMedianPrice === null ? "Varies" : money(marketplaceMedianPrice)}</li>
+              <li>Highest disclosed ask: {marketplaceHighestPrice === null ? "Varies" : money(marketplaceHighestPrice)}</li>
             </ul>
           </aside>
         </div>
