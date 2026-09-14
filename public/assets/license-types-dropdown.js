@@ -6,13 +6,14 @@
   const DESKTOP_HOVER_QUERY = "(hover: hover) and (pointer: fine) and (min-width: 900px)";
 
   const items = [
+    { label: "How Florida Liquor Licensing Works", href: "/resources/florida-liquor-license-system" },
     { label: "Types of Florida Liquor Licenses", href: "/resources/florida-liquor-license-types" },
+    { label: "Quota License Requirements", href: "/resources/florida-liquor-license-types#population-rule-title" },
     { label: "4COP Quota License", href: "/license-types/4cop-quota" },
     { label: "3PS Quota / Package Store", href: "/license-types/3ps-package-store" },
     { label: "2COP Beer & Wine", href: "/license-types/2cop-beer-wine" },
     { label: "SRX / 4COP-SFS Restaurant", href: "/license-types/4cop-sfs-restaurant" },
     { label: "Mobile Liquor License", href: "/license-types/mobile-bars-catered-events" },
-    { label: "Quota License Requirements", href: "/resources/florida-liquor-license-types#population-rule-title" },
   ];
 
   let openTimer = null;
