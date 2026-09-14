@@ -59,7 +59,7 @@ export default function ListingsSeoAuthorityBridge() {
         .listings-authority-grid a{display:block;padding:19px 20px;border:1px solid rgba(246,167,0,.28);border-radius:10px;background:#071f34;color:#fff;text-decoration:none;transition:border-color .18s ease,transform .18s ease,background .18s ease}
         .listings-authority-grid a:hover{transform:translateY(-2px);border-color:#f6a700;background:#092842}
         .listings-authority-grid strong{display:block;margin-bottom:7px;color:#f6b51f;font-size:15px}
-        .listings-authority-grid span{display:block;color:#b9c8d3;font-size:12px;line-height:1.55}
+        .listings-authority-grid span{display:block;color:#b9c8d3;font-size:14px;line-height:1.55}
         @media(max-width:880px){.listings-authority-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
         @media(max-width:600px){.listings-authority-bridge{padding:46px 0}.listings-authority-bridge .page-shell{width:min(100% - 28px,1180px)}.listings-authority-grid{grid-template-columns:1fr}}
       `}</style>
