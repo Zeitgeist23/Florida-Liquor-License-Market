@@ -13,6 +13,15 @@
   },
   "requiredImports": [
     "app/fllm-official-template.css",
+    "app/listings/listings-premium.css",
+    "app/listings/listings-map-size.css",
+    "app/listings/listings-county-links.css",
+    "app/listings/listings-navy-refresh.css",
+    "app/listings/listings-card-gold-borders.css",
+    "app/listings/listings-regression-fix.css",
+    "app/listings/listings-conversion-cards.css",
+    "app/listings/listings-card-overlap-fix.css",
+    "app/florida-liquor-licenses-for-sale/seo-market.css",
     "app/fllm-market-page-template.css"
   ],
   "requiredComponents": [
@@ -44,5 +53,15 @@
     "footer appearance",
     "responsive behavior"
   ],
-  "changePolicy": "Do not override or fork locked rules for a page using market-page-v1. Explicit approval requires a new version."
+  "changePolicy": "Do not override or fork locked rules for a page using market-page-v1. Explicit approval requires a new version.",
+  "runtimeVerified": {
+    "desktopShell": "1240px",
+    "heroTitle": "69px Georgia at desktop reference width",
+    "actionButtonMinHeight": "48px",
+    "radius": "7px cards",
+    "primaryMenus": 7,
+    "tableHeader": "sticky with blue-to-teal gradient",
+    "footer": "three-tone navy gradient",
+    "horizontalPageOverflow": false
+  }
 }
