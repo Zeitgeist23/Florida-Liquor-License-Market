@@ -92,22 +92,18 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
     maximum,
     mode === "inventory" ? row.listingCount : row.fourCopMedian ?? 0,
   ), 0);
-  function positionTooltip(target: SVGElement, clientY: number) {
+  function positionTooltip(target: Element, clientY: number) {
     const stage = stageRef.current;
     const tooltip = tooltipRef.current;
-    if (!stage || !tooltip) return;
+    const stateOutline = stage?.querySelector(".county-availability-map-svg > g");
+    if (!stage || !tooltip || !stateOutline) return;
 
     const stageBounds = stage.getBoundingClientRect();
+    const stateBounds = stateOutline.getBoundingClientRect();
     const countyBounds = target.getBoundingClientRect();
-    const pathBounds = Array.from(
-      stage.querySelectorAll<SVGPathElement>(".county-availability-map-svg path"),
-      (path) => path.getBoundingClientRect(),
-    );
-    if (!pathBounds.length) return;
-
-    const stateLeft = Math.min(...pathBounds.map((bounds) => bounds.left));
-    const stateRight = Math.max(...pathBounds.map((bounds) => bounds.right));
-    const stateCenter = (stateLeft + stateRight) / 2;
+    const stateLeft = stateBounds.left;
+    const stateRight = stateBounds.right;
+    const stateCenter = stateBounds.left + stateBounds.width / 2;
     const countyCenter = countyBounds.left + countyBounds.width / 2;
     const tooltipWidth = tooltip.offsetWidth || 270;
     const tooltipHeight = tooltip.offsetHeight || 190;
@@ -130,7 +126,7 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
     tooltip.style.bottom = "auto";
   }
 
-  function activateCounty(row: CountyAvailabilityHeatMapRow, target: SVGElement, clientY: number) {
+  function activateCounty(row: CountyAvailabilityHeatMapRow, target: Element, clientY: number) {
     setActiveSlug(row.name);
     requestAnimationFrame(() => positionTooltip(target, clientY));
   }
