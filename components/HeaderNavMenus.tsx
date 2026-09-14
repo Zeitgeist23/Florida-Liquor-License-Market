@@ -30,12 +30,12 @@ const navMenus: NavMenu[] = [
     label: "Buy",
     menuClassName: "native-nav-menu-standard",
     links: [
-      { href: "/exchange", label: "FLLM Exchange — Confidential Florida License Offers" },
-      { href: "/listings", label: "View Listings" },
       { href: "/buy-florida-liquor-license", label: "Buy a Florida Liquor License" },
-      { href: "/license-alerts", label: "Get a License Alert" },
       { href: "/how-to-buy-florida-liquor-license", label: "How to Buy a Florida Liquor License" },
       { href: "/counties", label: "Florida County Markets" },
+      { href: "/listings", label: "View Listings" },
+      { href: "/license-alerts", label: "Get a License Alert" },
+      { href: "/exchange", label: "FLLM Exchange — Confidential Florida License Offers" },
     ],
   },
   {
