@@ -31,6 +31,7 @@ import "./listings-masthead-darker.css";
 import "./listings-mobile-header-fix.css";
 import "./listings-seo-footer.css";
 import "./listings-view-button-edge-fix.css";
+import "./listings-header-black-integration.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const listingsUrl = `${siteUrl}/listings`;
