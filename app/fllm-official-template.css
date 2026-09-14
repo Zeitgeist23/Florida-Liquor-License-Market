@@ -1,11 +1,11 @@
 /*
- * FLLM Official Page Template — County v1
- * Approved reference: /counties
+ * FLLM Official Foundation Template v1 — LOCKED
+ * Approved references: /counties and /florida-4cop-liquor-license-for-sale
  *
  * Add "fllm-official-page" to a page root and import this file before the
- * page-specific stylesheet. Use the component classes below for new/adapted
- * sections. Page-specific CSS may control layout content, but should not
- * redefine these design tokens.
+ * applicable locked template stylesheet. These tokens and shared header
+ * primitives are canonical and must not be redefined by page-specific CSS
+ * without approval of a new template version.
  */
 
 .fllm-official-page {
