@@ -12,11 +12,13 @@ This is the approved design system for long-form FLLM market, pricing, inventory
 Use these files together:
 
 1. `app/fllm-official-template.css` — global FLLM tokens, header geometry and shared primitives.
-2. `app/fllm-market-page-template.css` — complete market-page layout, component, interaction, table and footer rules.
-3. `components/FormsSiteHeader.tsx` — approved logo, primary actions and mobile header.
-4. `components/HeaderNavMenus.tsx` — approved navigation labels, menu contents, dimensions and menu behavior.
-5. `app/florida-4cop-liquor-license-for-sale/page.tsx` — canonical section order and markup reference.
-6. `templates/fllm-market-page-v1.json` — machine-readable lock manifest.
+2. The approved listing-card stylesheet stack recorded below and in the manifest.
+3. `app/florida-liquor-licenses-for-sale/seo-market.css` — base market-page layout primitives.
+4. `app/fllm-market-page-template.css` — final locked overrides, components, interactions, tables and footer.
+5. `components/FormsSiteHeader.tsx` — approved logo, primary actions and mobile header.
+6. `components/HeaderNavMenus.tsx` — approved navigation labels, menu contents, dimensions and menu behavior.
+7. `app/florida-4cop-liquor-license-for-sale/page.tsx` — canonical section order and markup reference.
+8. `templates/fllm-market-page-v1.json` — machine-readable lock manifest.
 
 The legacy file `app/florida-4cop-liquor-license-for-sale/official-template.css` is only a compatibility entry point and imports the canonical stylesheet.
 
@@ -26,6 +28,15 @@ Every page using this template must:
 
 ```tsx
 import "../fllm-official-template.css";
+import "../listings/listings-premium.css";
+import "../listings/listings-map-size.css";
+import "../listings/listings-county-links.css";
+import "../listings/listings-navy-refresh.css";
+import "../listings/listings-card-gold-borders.css";
+import "../listings/listings-regression-fix.css";
+import "../listings/listings-conversion-cards.css";
+import "../listings/listings-card-overlap-fix.css";
+import "../florida-liquor-licenses-for-sale/seo-market.css";
 import "../fllm-market-page-template.css";
 
 <main
@@ -70,7 +81,7 @@ The CSS files—not this summary—are authoritative for every opacity, shadow l
 - Section headings: Georgia, `clamp(30px, 3.8vw, 46px)`, line-height `1.05`.
 - Body copy: approved 14–16px hierarchy with the exact line heights in the stylesheet.
 - Standard major sections: `64px` vertical padding; mobile `48px`.
-- Gold buttons: minimum height `43px`, `4px` radius, uppercase 12px/900 text, layered gold gradient and dimensional inset/exterior shadows.
+- Gold buttons: rendered minimum height `48px`, `4px` radius, uppercase 12px/900 text, layered gold gradient and dimensional inset/exterior shadows.
 - Cards: `7px` radius with approved cyan or gold borders, blue gradients and layered depth.
 - Footer: approved three-tone navy gradient, 130px logo, 12px navigation, gold upper border and separate national-marketplace band.
 
@@ -124,7 +135,7 @@ Fonts, type scale, dimensions, spacing rhythm, shell width, colors, gradients, s
 ## Adoption checklist
 
 1. Start from the canonical page structure.
-2. Import the two template stylesheets in the required order.
+2. Import the complete stylesheet stack in the required order.
 3. Use `FormsSiteHeader` and `HeaderNavMenus`.
 4. Apply the required root class and `data-fllm-template` marker.
 5. Replace content and data only.
