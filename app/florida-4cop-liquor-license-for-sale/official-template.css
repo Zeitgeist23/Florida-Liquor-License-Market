@@ -458,6 +458,7 @@
 }
 
 .seo-market-page .seo-market-callout {
+  margin-top: 32px;
   padding: 24px;
   border: 1px solid var(--fllm-gold-border);
   border-radius: var(--fllm-radius);
@@ -682,6 +683,10 @@
 
   .seo-market-page .seo-market-snapshot {
     max-width: 620px;
+  }
+
+  .seo-market-page .seo-market-callout {
+    margin-top: 0;
   }
 }
 
