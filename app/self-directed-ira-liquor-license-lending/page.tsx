@@ -94,7 +94,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/investment-opportunities">View Investment Opportunities</Link>
-                <Link className="seo-market-button seo-market-button-dark" href="#ira-setup-assistance">IRA Setup Assistance — $495</Link>
+                <Link className="seo-market-button seo-market-button-dark" href="/contact">Request a Free Consultation</Link>
               </div>
             </div>
 
