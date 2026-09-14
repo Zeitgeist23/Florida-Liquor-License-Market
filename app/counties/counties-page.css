@@ -570,7 +570,7 @@
   display: flex;
   flex-direction: column;
   align-self: center;
-  padding: 25px 23px 18px;
+  padding: 21px 20px 14px;
   border: 1px solid rgba(241, 166, 0, .72);
   border-radius: 8px;
   background: linear-gradient(145deg, rgba(18, 61, 101, .96), rgba(7, 31, 54, .96));
@@ -592,7 +592,7 @@
 }
 
 .county-availability-map-legend h4 {
-  margin: 7px 0 18px;
+  margin: 6px 0 14px;
   color: #fff;
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 27px;
@@ -602,7 +602,7 @@
 .county-availability-map-legend ul {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 11px;
+  gap: 8px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -628,8 +628,8 @@
 }
 
 .county-heatmap-ranking {
-  margin: 23px 0 0;
-  padding: 19px 0 0;
+  margin: 17px 0 0;
+  padding: 14px 0 0;
   border-top: 1px solid rgba(98, 211, 255, .24);
   border-left: 0;
 }
@@ -639,7 +639,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 13px;
+  margin-bottom: 10px;
 }
 
 .county-heatmap-ranking-heading > strong {
@@ -676,7 +676,7 @@
   outline: none;
 }
 
-.county-heatmap-ranking ol { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.county-heatmap-ranking ol { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
 .county-heatmap-ranking li > span { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; font-size: 12px; font-weight: 800; }
 .county-heatmap-ranking li a { min-width: 0; overflow: hidden; color: #eaf4fa; text-overflow: ellipsis; white-space: nowrap; }
 .county-heatmap-ranking li a:hover { color: #ffc13b; }
@@ -685,7 +685,7 @@
 .county-heatmap-ranking li > i > em { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #167ea8, #1bbbd0, #7357e8); }
 .county-heatmap-module--price .county-heatmap-ranking li > i > em { background: linear-gradient(90deg, #38a8df 0%, #8b5cf6 42%, #f05a32 70%, #dc2626 100%); }
 
-.county-availability-map-note { display: block; margin-top: 19px; color: #c4d4df; font-size: 12px; line-height: 1.5; }
+.county-availability-map-note { display: block; margin-top: 12px; color: #c4d4df; font-size: 10px; line-height: 1.4; }
 
 .county-market-data {
   padding: 37px 0 74px;
