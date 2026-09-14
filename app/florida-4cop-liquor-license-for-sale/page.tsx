@@ -503,11 +503,11 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
           <aside className="seo-market-callout">
             <strong>Current statewide marketplace asking-price snapshot</strong>
             <ul>
-              <li>Active listings: {marketplaceListings.length}</li>
-              <li>Counties with active inventory: {marketplaceCountyNames.size}</li>
-              <li>Lowest disclosed ask: {marketplaceLowestPrice === null ? "Varies" : money(marketplaceLowestPrice)}</li>
-              <li>Median disclosed ask: {marketplaceMedianPrice === null ? "Varies" : money(marketplaceMedianPrice)}</li>
-              <li>Highest disclosed ask: {marketplaceHighestPrice === null ? "Varies" : money(marketplaceHighestPrice)}</li>
+              <li><span>Active listings</span><strong>{marketplaceListings.length}</strong></li>
+              <li><span>Counties with active inventory</span><strong>{marketplaceCountyNames.size}</strong></li>
+              <li><span>Lowest disclosed ask</span><strong>{marketplaceLowestPrice === null ? "Varies" : money(marketplaceLowestPrice)}</strong></li>
+              <li><span>Median disclosed ask</span><strong>{marketplaceMedianPrice === null ? "Varies" : money(marketplaceMedianPrice)}</strong></li>
+              <li><span>Highest disclosed ask</span><strong>{marketplaceHighestPrice === null ? "Varies" : money(marketplaceHighestPrice)}</strong></li>
             </ul>
           </aside>
         </div>
