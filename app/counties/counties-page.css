@@ -399,7 +399,7 @@
   justify-content: space-between;
   gap: 24px;
   max-width: 1120px;
-  margin: 0 auto 6px;
+  margin: 0 auto 18px;
 }
 
 .county-heatmap-current-metric > span {
@@ -412,7 +412,7 @@
 }
 
 .county-heatmap-current-metric h3 {
-  margin: 6px 0 0;
+  margin: 14px 0 0;
   color: #fff;
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 27px;
@@ -596,7 +596,7 @@
   color: #fff;
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 27px;
-  line-height: 1.06;
+  line-height: 1.12;
 }
 
 .county-availability-map-legend ul {
