@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { Listing } from "@/data/listings";
-import HeaderNavMenus from "./HeaderNavMenus";
+import FormsSiteHeader from "./FormsSiteHeader";
 import ListingsHoverSelect, {
   type ListingsHoverSelectOption,
 } from "./ListingsHoverSelect";
@@ -227,22 +227,7 @@ export default function ListingsPage({
 
   return (
     <main className="results-page">
-      <header className="results-header page-shell">
-        <Link
-          className="seller-brand"
-          href="/"
-          aria-label="Florida Liquor License Market home"
-        >
-          <img
-            src="/assets/brand-sharp.svg"
-            alt="Florida Liquor License Market"
-          />
-        </Link>
-        <HeaderNavMenus
-          className="primary-nav listings-primary-nav"
-          showContactLink
-        />
-      </header>
+      <FormsSiteHeader />
       <section className="results-intro">
         <div className="page-shell">
           <span>Florida Marketplace Inventory</span>
