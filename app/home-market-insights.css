@@ -70,8 +70,8 @@
   overflow: hidden;
   border: 1px solid rgba(200, 154, 47, .65);
   border-radius: 18px;
-  background: #fff;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, .38);
+  background: #071f34;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .48), 0 0 0 1px rgba(241, 166, 0, .08);
 }
 
 .market-list-modal > header {
@@ -128,9 +128,9 @@
   grid-template-columns: 58px minmax(260px, 1fr) 160px 92px;
   gap: 16px;
   padding: 12px 24px;
-  border-bottom: 1px solid #dce3e8;
-  color: #53606a;
-  background: #f4f7f9;
+  border-bottom: 1px solid rgba(183, 123, 0, .65);
+  color: #f1a600;
+  background: #061827;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .08em;
@@ -150,16 +150,16 @@
   align-items: center;
   gap: 16px;
   padding: 13px 24px;
-  border-bottom: 1px solid #e6ebef;
-  background: #fff;
+  border-bottom: 1px solid rgba(183, 123, 0, .48);
+  background: linear-gradient(145deg, #123b5a, #0b2e49 58%, #071f34);
 }
 
 .market-list-row:nth-child(even) {
-  background: #f9fbfc;
+  background: linear-gradient(145deg, #103754, #092943 58%, #061c30);
 }
 
 .market-list-row:hover {
-  background: #fff8e8;
+  background: linear-gradient(145deg, #184d70, #103b5a 58%, #0a2942);
 }
 
 .market-list-rank {
@@ -184,18 +184,18 @@
 }
 
 .market-list-row > div strong {
-  color: #102c40;
+  color: #f7f5ef;
   font-size: 15px;
 }
 
 .market-list-row > div small {
   margin-top: 3px;
-  color: #66737c;
+  color: #c7d1d8;
   font-size: 12px;
 }
 
 .market-list-price {
-  color: #9c6b00;
+  color: #f1a600;
   font-size: 17px;
   text-align: right;
 }
@@ -207,15 +207,17 @@
   min-height: 36px;
   padding: 8px 12px;
   border-radius: 6px;
-  color: #071a2b;
-  background: #d6a83f;
+  border: 1px solid #d89400;
+  color: #f7f5ef;
+  background: #061827;
   font-size: 12px;
   font-weight: 800;
   text-decoration: none;
 }
 
 .market-list-row > a:hover {
-  background: #e2ba5d;
+  color: #071a2b;
+  background: #f1a600;
 }
 
 .market-list-modal > footer {
@@ -224,14 +226,14 @@
   justify-content: space-between;
   gap: 18px;
   padding: 16px 24px;
-  border-top: 1px solid #d9e0e5;
-  color: #5d6971;
-  background: #f4f7f9;
+  border-top: 1px solid #b77b00;
+  color: #cdd1d4;
+  background: #041522;
   font-size: 12px;
 }
 
 .market-list-modal > footer a {
-  color: #0c2d45;
+  color: #f1a600;
   font-weight: 800;
   text-decoration: none;
 }
