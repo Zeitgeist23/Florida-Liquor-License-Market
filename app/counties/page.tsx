@@ -128,7 +128,7 @@ export default async function CountiesPage() {
       </section>
 
       <section className="market-snapshot directory-shell">
-        <div className="market-snapshot-heading"><div><span>Live marketplace snapshot</span><h2>Florida quota license market at a glance</h2></div><p>Marketplace snapshot: {snapshotDate}. DBPR drawing data verified {QUOTA_DRAWING_2026.lastVerified}.</p></div>
+        <div className="market-snapshot-heading"><div><span>Live marketplace snapshot</span><h2>Florida quota license market at a glance</h2></div><p>Marketplace and DBPR drawing data verified {QUOTA_DRAWING_2026.lastVerified}.</p></div>
         <div className="market-stat-grid">
           <article><strong>{snapshot.activeListings}</strong><span>Active marketplace listings</span></article>
           <article><strong>{snapshot.countiesWithInventory}</strong><span>Counties with active inventory</span></article>
