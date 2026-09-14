@@ -117,14 +117,6 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
     ? Math.max(...marketplaceDisclosedPrices)
     : null;
 
-  const disclosedPrices = availableListings
-    .map((listing) => listing.price)
-    .filter((value): value is number => Number.isFinite(value));
-
-  const lowestPrice = disclosedPrices.length ? Math.min(...disclosedPrices) : null;
-  const medianPrice = median(disclosedPrices);
-  const highestPrice = disclosedPrices.length ? Math.max(...disclosedPrices) : null;
-  const activeCountyNames = new Set(availableListings.map((listing) => listing.county));
   const updatedLabel = floridaDateLabel();
 
   const countyStats = indexableCounties
