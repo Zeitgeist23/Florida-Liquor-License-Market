@@ -328,7 +328,10 @@
 }
 
 .seo-market-page .four-cop-market-table-wrap {
-  overflow-x: auto;
+  max-height: min(68vh, 620px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   margin-top: 24px;
   border: 1px solid #6b531e;
   border-radius: var(--fllm-radius);
@@ -343,14 +346,21 @@
 }
 
 .seo-market-page .four-cop-market-table th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
   padding: 15px 14px;
-  border-bottom: 1px solid #b67a00;
-  background: var(--fllm-navy);
-  color: var(--fllm-gold);
+  border-bottom: 1px solid #e3a619;
+  background: linear-gradient(180deg, #236f98 0%, #174f79 52%, #0d3659 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .13),
+    0 5px 12px rgba(3, 17, 29, .38);
+  color: var(--fllm-gold-bright);
   font-size: 11px;
   font-weight: 900;
   letter-spacing: .07em;
   text-align: left;
+  text-shadow: 0 1px 0 rgba(3, 17, 29, .45);
   text-transform: uppercase;
 }
 
