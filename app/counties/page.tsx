@@ -141,12 +141,20 @@ export default async function CountiesPage() {
       <section className="directory-featured directory-shell">
         <div className="directory-heading"><div><span>High-Interest Markets</span><h2>Featured Florida Counties</h2></div><Link href="/listings">Florida liquor licenses for sale ›</Link></div>
         <div className="directory-featured-grid">
-          {featuredCounties.map((county) => (
-            <Link key={county.slug} href={`/counties/${county.slug}`}>
-              <div><strong>{county.name}</strong><span>{county.primaryCities.join(" · ")}</span></div>
-              <em>{availableCounts.get(county.name) ?? 0} available</em>
-            </Link>
-          ))}
+          {featuredCounties.map((county) => {
+            const availability = availableCounts.get(county.name) ?? 0;
+            const availabilityTier = availability >= 8 ? "high" : availability >= 4 ? "medium" : "low";
+            return (
+              <Link
+                key={county.slug}
+                href={`/counties/${county.slug}`}
+                data-availability-tier={availabilityTier}
+              >
+                <div><strong>{county.name}</strong><span>{county.primaryCities.join(" · ")}</span></div>
+                <em>{availability} available</em>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
