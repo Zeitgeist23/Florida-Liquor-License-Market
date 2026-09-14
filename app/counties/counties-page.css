@@ -525,11 +525,39 @@
 }
 
 .county-availability-map-svg a:hover path,
-.county-availability-map-svg a:focus path {
+.county-availability-map-svg a:focus path,
+.county-availability-map-svg a.is-active path {
   filter: brightness(1.24) drop-shadow(0 0 4px rgba(104, 224, 255, .72));
   stroke: #fff;
   stroke-width: 1.8;
   outline: none;
+}
+
+.county-map-pin-marker {
+  pointer-events: none;
+  transform-origin: center bottom;
+  filter: drop-shadow(0 2px 3px rgba(2, 14, 25, .72));
+  animation: county-map-pin-drop .2s cubic-bezier(.2, .78, .32, 1.18) both;
+}
+
+.county-map-pin-marker line {
+  stroke: #f5fbff;
+  stroke-width: 1.8;
+  vector-effect: non-scaling-stroke;
+}
+
+.county-map-pin-tip {
+  stroke: #f5fbff;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.county-map-pin-shine { fill: rgba(255, 255, 255, .82); }
+.county-map-pin-point { stroke: #f5fbff; stroke-width: 1; vector-effect: non-scaling-stroke; }
+
+@keyframes county-map-pin-drop {
+  from { opacity: 0; transform: translateY(-14px) scale(.82); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .county-availability-tooltip {
@@ -687,7 +715,20 @@
 .county-heatmap-ranking ol { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
 .county-heatmap-ranking li > span { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; font-size: 12px; font-weight: 800; }
 .county-heatmap-ranking li a { min-width: 0; overflow: hidden; color: #eaf4fa; text-overflow: ellipsis; white-space: nowrap; }
-.county-heatmap-ranking li a:hover { color: #ffc13b; }
+.county-heatmap-ranking li a {
+  transition: color .15s ease, text-shadow .15s ease;
+}
+
+.county-heatmap-ranking li a:hover,
+.county-heatmap-ranking li.is-map-active a {
+  color: #69d6ff;
+  text-shadow: 0 0 10px rgba(105, 214, 255, .32);
+}
+
+.county-heatmap-module--price .county-heatmap-ranking li.is-map-active a {
+  color: #ffc13b;
+  text-shadow: 0 0 10px rgba(241, 166, 0, .28);
+}
 .county-heatmap-ranking li b { flex: 0 0 auto; color: #fff; }
 .county-heatmap-ranking li > i { display: block; height: 9px; overflow: hidden; border: 1px solid rgba(155, 205, 233, .35); border-radius: 999px; background: rgba(102, 137, 163, .22); }
 .county-heatmap-ranking li > i > em { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #167ea8, #1bbbd0, #7357e8); }
