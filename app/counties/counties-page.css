@@ -156,12 +156,14 @@
 }
 
 .market-snapshot-heading > p {
-  max-width: 440px;
+  flex: 0 0 auto;
+  max-width: none;
   margin: 0;
   color: #d7e3ec;
   font-size: 11px;
   line-height: 1.55;
   text-align: right;
+  white-space: nowrap;
 }
 
 .market-stat-grid {
