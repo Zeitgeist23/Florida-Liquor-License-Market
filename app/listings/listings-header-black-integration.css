@@ -19,6 +19,14 @@
   background: transparent;
 }
 
+.results-page .listings-header-band .forms-site-header .header-actions .btn-outline {
+  order: 1;
+}
+
+.results-page .listings-header-band .forms-site-header .header-actions .btn-gold {
+  order: 2;
+}
+
 @media (min-width: 981px) {
   .results-page .listings-header-band .forms-site-header.page-shell {
     width: min(1400px, calc(100% - 24px));
