@@ -340,6 +340,7 @@
 
 .ira-lending-guide-page .ira-setup-price {
   align-self: start;
+  margin-top: 58px;
   padding: 21px;
   border: 1px solid var(--fllm-gold-border);
   border-radius: var(--fllm-radius);
@@ -520,6 +521,10 @@
   .ira-lending-guide-page .ira-setup-service,
   .ira-lending-guide-page .ira-chattel-guide {
     padding: 20px;
+  }
+
+  .ira-lending-guide-page .ira-setup-price {
+    margin-top: 0;
   }
 }
 
