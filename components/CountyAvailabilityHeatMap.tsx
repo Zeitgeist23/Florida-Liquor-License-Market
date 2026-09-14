@@ -192,8 +192,8 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
         </div>
 
         <aside className="county-availability-map-legend">
-          <span>{isInventory ? "Active Inventory" : "Median Disclosed Ask"}</span>
-          <h4>{isInventory ? "Marketplace listings" : "4COP asking prices"}</h4>
+          <span>{isInventory ? "Listing Scale" : "Price Scale"}</span>
+          <h4>{isInventory ? "Marketplace availability" : "Disclosed asking ranges"}</h4>
           <ul aria-label={isInventory ? "Active listings color scale" : "Median 4COP asking-price color scale"}>
             {legend.map((item) => (
               <li key={item.label}><i style={{ background: item.color }} />{item.label}</li>
@@ -263,8 +263,8 @@ export default function CountyAvailabilityHeatMap({ rows }: { rows: CountyAvaila
 
         <div className="county-heatmap-toolbar">
           <div className="county-heatmap-current-metric" aria-live="polite">
-            <span>{isInventory ? "Availability Concentration" : "Asking-Price Concentration"}</span>
-            <h3>{isInventory ? "Active listings by county" : "Median 4COP asking price"}</h3>
+            <span>{isInventory ? "Inventory View" : "Price View"}</span>
+            <h3>{isInventory ? "Active listings by county" : "County median 4COP prices"}</h3>
           </div>
           <div className="county-heatmap-switch" role="group" aria-label="Select county heat map metric">
             <button
