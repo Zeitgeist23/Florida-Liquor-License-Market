@@ -20,7 +20,7 @@ import "../listings/listings-regression-fix.css";
 import "../listings/listings-conversion-cards.css";
 import "../listings/listings-card-overlap-fix.css";
 import "../florida-liquor-licenses-for-sale/seo-market.css";
-import "./official-template.css";
+import "../fllm-market-page-template.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-4cop-liquor-license-for-sale`;
@@ -257,7 +257,7 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
   ];
 
   return (
-    <main className="seo-market-page fllm-official-page" data-fllm-template="county-v1">
+    <main className="seo-market-page fllm-official-page" data-fllm-template="market-page-v1">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
