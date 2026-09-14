@@ -8,7 +8,6 @@ const clusterPaths = new Set([
   "/sell-your-license",
   "/florida-liquor-license-broker",
   "/how-to-sell-florida-liquor-license",
-  "/listings",
   "/florida-liquor-license-appraisal",
   "/financing",
 ]);
