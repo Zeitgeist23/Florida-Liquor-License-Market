@@ -458,7 +458,7 @@
   max-width: 1020px;
   margin: 14px 0 0;
   color: var(--fllm-text-muted);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.66;
 }
 
@@ -503,7 +503,7 @@
   border: 1px solid var(--fllm-gold-border);
   border-radius: 999px;
   color: var(--fllm-gold-bright);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: .09em;
   text-transform: uppercase;
@@ -520,7 +520,7 @@
 .ira-lending-guide-page .ira-interest-comparison p,
 .ira-lending-guide-page .ira-interest-comparison li {
   color: var(--fllm-text-muted);
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.62;
 }
 
@@ -575,14 +575,14 @@
   display: block;
   margin-bottom: 7px;
   color: var(--fllm-white);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
 }
 
 .ira-lending-guide-page .ira-statute-grid p {
   margin: 0;
   color: var(--fllm-text-muted);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.55;
 }
 
@@ -608,25 +608,25 @@
 
 .ira-lending-guide-page .ira-qualification-warning strong {
   color: var(--fllm-gold-bright);
-  font-size: 14px;
+  font-size: 15px;
   white-space: nowrap;
 }
 
 .ira-lending-guide-page .ira-qualification-warning p {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.62;
 }
 
 .ira-lending-guide-page .ira-qualification-warning a {
   display: inline-flex;
   align-items: center;
-  min-height: 38px;
-  padding: 8px 12px;
+  min-height: 40px;
+  padding: 8px 13px;
   border: 1px solid var(--fllm-gold-border);
   border-radius: 4px;
   color: var(--fllm-gold-bright);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 900;
   white-space: nowrap;
   transition: transform .18s ease, background .18s ease;
