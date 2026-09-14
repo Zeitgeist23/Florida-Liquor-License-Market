@@ -274,6 +274,7 @@
   color: var(--report-gold-bright);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 44px;
+  font-variant-numeric: tabular-nums lining-nums;
   line-height: 1;
 }
 
@@ -290,7 +291,13 @@
 .quota-report-snapshot dt,
 .quota-report-snapshot dd { margin: 0; }
 .quota-report-snapshot dt { color: #d7e3ec; }
-.quota-report-snapshot dd { color: #fff; font-weight: 900; }
+.quota-report-snapshot dd {
+  min-width: 4ch;
+  color: #fff;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums lining-nums;
+  text-align: right;
+}
 
 .quota-report-types {
   display: grid;
@@ -307,6 +314,7 @@
   color: var(--report-gold-bright);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 38px;
+  font-variant-numeric: tabular-nums lining-nums;
   line-height: 1.05;
 }
 
@@ -380,6 +388,12 @@
   text-transform: uppercase;
 }
 
+.quota-report-table-wrap th:not(:first-child),
+.quota-report-table-wrap td:not(:first-child) {
+  font-variant-numeric: tabular-nums lining-nums;
+  text-align: right;
+}
+
 .quota-report-table-wrap td { color: #e8f1f7; }
 .quota-report-table-wrap tbody tr { transition: background .16s ease; }
 .quota-report-table-wrap tbody tr:hover { background: rgba(25, 79, 124, .42); }
@@ -419,6 +433,7 @@
   margin-top: 7px;
   color: var(--report-gold-bright);
   font-size: 24px;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .quota-report-market-grid a small {
