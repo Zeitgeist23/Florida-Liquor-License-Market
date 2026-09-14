@@ -143,12 +143,10 @@ export default async function CountiesPage() {
         <div className="directory-featured-grid">
           {featuredCounties.map((county) => {
             const availability = availableCounts.get(county.name) ?? 0;
-            const availabilityTier = availability >= 8 ? "high" : availability >= 4 ? "medium" : "low";
             return (
               <Link
                 key={county.slug}
                 href={`/counties/${county.slug}`}
-                data-availability-tier={availabilityTier}
               >
                 <div><strong>{county.name}</strong><span>{county.primaryCities.join(" · ")}</span></div>
                 <em>{availability} available</em>
