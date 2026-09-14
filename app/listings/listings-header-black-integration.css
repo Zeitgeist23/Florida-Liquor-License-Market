@@ -21,7 +21,7 @@
 
 @media (min-width: 981px) {
   .results-page .listings-header-band .forms-site-header.page-shell {
-    width: min(1280px, calc(100% - 32px));
+    width: min(1400px, calc(100% - 24px));
     min-height: 82px;
     height: 82px;
     gap: 16px;
@@ -40,16 +40,21 @@
     gap: 42px;
   }
 
+  .results-page .results-intro {
+    padding-top: 54px;
+    padding-bottom: 52px;
+  }
+
   .results-page .listings-header-band .forms-site-header .header-actions {
     gap: 10px;
     transform: none;
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn {
-    height: 36px;
-    min-height: 36px;
+    height: 33px;
+    min-height: 33px;
     border-radius: 5px;
-    font-size: 9.5px;
+    font-size: 9px;
     font-weight: 900;
     letter-spacing: .02em;
     line-height: 1;
@@ -65,9 +70,9 @@
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn-gold {
-    width: 128px;
-    min-width: 128px;
-    padding: 0 11px;
+    width: 116px;
+    min-width: 116px;
+    padding: 0 9px;
     border: 1px solid #ffbd2e;
     background: linear-gradient(145deg, #f8b72f 0%, #e99a00 58%, #cf7800 100%);
     box-shadow:
@@ -78,9 +83,9 @@
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn-outline {
-    width: 110px;
-    min-width: 110px;
-    padding: 0 10px;
+    width: 100px;
+    min-width: 100px;
+    padding: 0 8px;
     border: 1px solid #e8a000;
     background: linear-gradient(145deg, rgba(7, 22, 34, .96), rgba(1, 8, 15, .98));
     box-shadow:
@@ -91,7 +96,7 @@
 
   .results-page .listings-header-band .forms-site-header .header-actions .contact-phone {
     margin-right: 4px;
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn:hover,
@@ -130,13 +135,13 @@
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn-gold {
-    width: 120px;
-    min-width: 120px;
+    width: 110px;
+    min-width: 110px;
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn-outline {
-    width: 104px;
-    min-width: 104px;
+    width: 96px;
+    min-width: 96px;
   }
 }
 
