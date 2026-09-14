@@ -43,7 +43,9 @@ const resourceGroups = [
 export default function ListingsSeoAuthorityBridge() {
   return (
     <>
-    <aside className="fllm-authority-links" aria-label="FLLM seller service options">
+    <section className="listings-supporting-copy" aria-label="Florida liquor license marketplace information">
+      <div className="listings-supporting-copy__inner">
+        <aside className="fllm-authority-links" aria-label="FLLM seller service options">
       <div className="fllm-authority-links__inner">
         <p>
           <strong>Full-service selling is available through FLLM itself:</strong>{" "}
@@ -66,7 +68,9 @@ export default function ListingsSeoAuthorityBridge() {
           Sellers can <Link href="/sell-your-license">list a Florida liquor license for sale online</Link> through FLLM&apos;s statewide marketplace, while buyers can <Link href="/listings">buy a Florida liquor license online by browsing current 4COP and 3PS marketplace listings</Link> and contacting the seller or listing representative for the specific opportunity.
         </p>
       </div>
-    </aside>
+        </aside>
+      </div>
+    </section>
     <section className="listings-authority-bridge" aria-labelledby="listings-authority-title">
       <div className="page-shell">
         <span className="listings-authority-kicker">Related Marketplace Resources</span>
@@ -90,6 +94,16 @@ export default function ListingsSeoAuthorityBridge() {
         </div>
       </div>
       <style>{`
+        .results-page .listings-seo-footer{padding-bottom:32px!important}
+        .listings-supporting-copy{padding:24px 0 18px;border-top:1px solid rgba(246,167,0,.34);background:linear-gradient(180deg,#061827 0%,#0b2c49 100%)}
+        .listings-supporting-copy__inner{box-sizing:border-box;width:min(1180px,calc(100% - 40px));margin:0 auto;overflow:hidden;border:1px solid rgba(246,167,0,.38);border-radius:9px;background:#0a2943;box-shadow:0 12px 28px rgba(0,0,0,.2)}
+        .listings-supporting-copy .fllm-authority-links{margin:0!important;padding:0!important;border:0!important;background:transparent!important}
+        .listings-supporting-copy .fllm-authority-links+.fllm-authority-links{border-top:1px solid rgba(246,167,0,.28)!important}
+        .listings-supporting-copy .fllm-authority-links__inner{box-sizing:border-box;width:100%!important;max-width:none!important;margin:0!important;padding:15px 20px!important;background:linear-gradient(90deg,rgba(21,77,120,.78),rgba(9,41,66,.9))!important}
+        .listings-supporting-copy p{margin:0!important;color:#d6e1e9!important;font-size:14px!important;line-height:1.62!important}
+        .listings-supporting-copy p strong{color:#fff!important}
+        .listings-supporting-copy a{color:#f6b51f!important;font-weight:800;text-decoration:none!important}
+        .listings-supporting-copy a:hover,.listings-supporting-copy a:focus-visible{color:#ffd36b!important;text-decoration:underline!important;text-underline-offset:3px;outline:none}
         .listings-authority-bridge{padding:46px 0 50px;background:linear-gradient(180deg,#0b2c49 0%,#061827 100%);border-top:1px solid rgba(246,167,0,.34);border-bottom:1px solid rgba(246,167,0,.38)}
         .listings-authority-bridge .page-shell{width:min(1180px,calc(100% - 40px));margin:0 auto}
         .listings-authority-kicker{display:block;color:#f6a700;font-size:12px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
@@ -119,7 +133,7 @@ export default function ListingsSeoAuthorityBridge() {
         .listings-directory-footer>.national-marketplace-footer-link{box-sizing:border-box;width:100%;margin:0;padding:14px max(20px,calc((100% - 1240px)/2)) 16px;border-top:1px solid #263f55;background:#0a2947;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#dce8f0;font-size:11px;text-align:left}
         .listings-directory-footer>.national-marketplace-footer-link a{color:#f3f7fa;font-size:11px;font-weight:800}
         .listings-directory-footer>.national-marketplace-footer-link a:hover,.listings-directory-footer>.national-marketplace-footer-link a:focus-visible{color:#f1a600}
-        @media(max-width:760px){.listings-authority-bridge{padding:38px 0 42px}.listings-authority-bridge .page-shell{width:min(100% - 28px,1180px)}.listings-authority-grid{grid-template-columns:1fr}.listings-authority-grid article{padding:19px}.listings-authority-bridge>div>p{font-size:14px}}
+        @media(max-width:760px){.results-page .listings-seo-footer{padding-bottom:26px!important}.listings-supporting-copy{padding:18px 0 14px}.listings-supporting-copy__inner{width:min(100% - 28px,1180px)}.listings-supporting-copy .fllm-authority-links__inner{padding:14px 16px!important}.listings-supporting-copy p{font-size:13px!important}.listings-authority-bridge{padding:38px 0 42px}.listings-authority-bridge .page-shell{width:min(100% - 28px,1180px)}.listings-authority-grid{grid-template-columns:1fr}.listings-authority-grid article{padding:19px}.listings-authority-bridge>div>p{font-size:14px}}
         @media(max-width:650px){.listings-directory-shell{width:min(calc(100% - 24px),1240px)}.listings-directory-footer>.listings-directory-shell,.listings-directory-footer>.national-marketplace-footer-link{flex-direction:column;text-align:center}.listings-directory-footer-brand{flex-direction:column;gap:9px}.listings-directory-footer nav{justify-content:center}}
         @media(prefers-reduced-motion:reduce){.listings-authority-grid article,.listings-authority-links a span{transition:none}}
       `}</style>
