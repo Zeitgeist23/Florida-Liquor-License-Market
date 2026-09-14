@@ -9,10 +9,10 @@ const buyMenuMarkup = `<div class="live-nav-dropdown live-buy-dropdown" data-liv
   </button>
   <div class="live-nav-menu live-buy-menu">
     <a href="/buy-florida-liquor-license">Buy a Florida Liquor License</a>
-    <a href="/listings">Florida Liquor Licenses for Sale</a>
-    <a href="/license-alerts">Get a License Alert</a>
     <a href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License</a>
     <a href="/counties">Florida County Markets</a>
+    <a href="/listings">Florida Liquor Licenses for Sale</a>
+    <a href="/license-alerts">Get a License Alert</a>
   </div>
 </div>`;
 
