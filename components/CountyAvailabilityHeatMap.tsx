@@ -69,6 +69,7 @@ function money(value: number | null) {
 
 function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapRow[]; mode: MapMode }) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [priceOrder, setPriceOrder] = useState<"highest" | "lowest">("highest");
   const stageRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLElement>(null);
 
@@ -80,11 +81,13 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
   const ranking = useMemo(() => {
     const eligible = rows.filter((row) => mode === "inventory" ? row.listingCount > 0 : row.fourCopMedian !== null);
     return [...eligible]
-      .sort((a, b) => mode === "inventory"
-        ? b.listingCount - a.listingCount
-        : (b.fourCopMedian ?? 0) - (a.fourCopMedian ?? 0))
+      .sort((a, b) => {
+        if (mode === "inventory") return b.listingCount - a.listingCount;
+        const difference = (b.fourCopMedian ?? 0) - (a.fourCopMedian ?? 0);
+        return priceOrder === "highest" ? difference : -difference;
+      })
       .slice(0, 5);
-  }, [mode, rows]);
+  }, [mode, priceOrder, rows]);
   const maxRankingValue = ranking.reduce((maximum, row) => Math.max(
     maximum,
     mode === "inventory" ? row.listingCount : row.fourCopMedian ?? 0,
@@ -198,7 +201,25 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
           </ul>
 
           <div className="county-heatmap-ranking">
-            <strong>{isInventory ? "Most active counties" : "Highest median asks"}</strong>
+            <div className="county-heatmap-ranking-heading">
+              <strong>{isInventory
+                ? "Most active counties"
+                : priceOrder === "highest" ? "Highest median asks" : "Lowest median asks"}</strong>
+              {!isInventory ? (
+                <button
+                  type="button"
+                  aria-label={priceOrder === "highest"
+                    ? "Show lowest median asking-price counties"
+                    : "Show highest median asking-price counties"}
+                  title={priceOrder === "highest"
+                    ? "Show lowest median asks"
+                    : "Show highest median asks"}
+                  onClick={() => setPriceOrder((current) => current === "highest" ? "lowest" : "highest")}
+                >
+                  <span aria-hidden="true">{priceOrder === "highest" ? "↓" : "↑"}</span>
+                </button>
+              ) : null}
+            </div>
             <ol>
               {ranking.map((row) => {
                 const value = isInventory ? row.listingCount : row.fourCopMedian ?? 0;
