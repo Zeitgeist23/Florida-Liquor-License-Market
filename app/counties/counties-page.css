@@ -730,9 +730,26 @@
   text-shadow: 0 0 10px rgba(241, 166, 0, .28);
 }
 .county-heatmap-ranking li b { flex: 0 0 auto; color: #fff; }
-.county-heatmap-ranking li > i { display: block; height: 9px; overflow: hidden; border: 1px solid rgba(155, 205, 233, .35); border-radius: 999px; background: rgba(102, 137, 163, .22); }
-.county-heatmap-ranking li > i > em { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #167ea8, #1bbbd0, #7357e8); }
-.county-heatmap-module--price .county-heatmap-ranking li > i > em { background: linear-gradient(90deg, #38a8df 0%, #8b5cf6 42%, #f05a32 70%, #dc2626 100%); }
+.county-heatmap-ranking li > i {
+  display: block;
+  height: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(173, 149, 255, .42);
+  border-radius: 999px;
+  background: rgba(115, 87, 232, .14);
+  box-shadow: inset 0 1px 2px rgba(3, 17, 29, .32);
+}
+.county-heatmap-ranking li > i > em {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1bbbd0 0%, #7357e8 38%, #a855f7 100%);
+  box-shadow: 0 0 6px rgba(168, 85, 247, .34);
+}
+.county-heatmap-module--price .county-heatmap-ranking li > i > em {
+  background: linear-gradient(90deg, #38a8df 0%, #8b5cf6 42%, #f05a32 70%, #dc2626 100%);
+  box-shadow: 0 0 6px rgba(239, 75, 82, .24);
+}
 
 .county-availability-map-note { display: block; margin-top: 12px; color: #c4d4df; font-size: 10px; line-height: 1.4; }
 
