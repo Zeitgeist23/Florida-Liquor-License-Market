@@ -36,6 +36,10 @@ export const metadata: Metadata = {
   },
 };
 
+// DESIGN LOCK — approved September 14, 2026.
+// This page is the official FLLM self-directed IRA lending design. Preserve its
+// market-page-v1 typography, spacing, cards, hovers, colors, header, and footer
+// unless the owner expressly requests a new revision.
 export default function SelfDirectedIraLiquorLicenseLendingPage() {
   const structuredData = {
     "@context": "https://schema.org",
@@ -67,7 +71,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
   };
 
   return (
-    <main className="seo-market-page fllm-official-page ira-lending-guide-page" data-fllm-template="market-page-v1">
+    <main className="seo-market-page fllm-official-page ira-lending-guide-page" data-fllm-template="market-page-v1" data-page-design-status="locked">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
