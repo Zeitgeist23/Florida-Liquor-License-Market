@@ -70,6 +70,7 @@ function money(value: number | null) {
 function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapRow[]; mode: MapMode }) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [priceOrder, setPriceOrder] = useState<"highest" | "lowest">("highest");
+  const stageRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLElement>(null);
 
   const rowsByCounty = useMemo(
@@ -91,19 +92,47 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
     maximum,
     mode === "inventory" ? row.listingCount : row.fourCopMedian ?? 0,
   ), 0);
-  function positionTooltip() {
+  function positionTooltip(target: SVGElement, clientY: number) {
+    const stage = stageRef.current;
     const tooltip = tooltipRef.current;
-    if (!tooltip) return;
+    if (!stage || !tooltip) return;
 
-    tooltip.style.left = "18px";
+    const stageBounds = stage.getBoundingClientRect();
+    const countyBounds = target.getBoundingClientRect();
+    const pathBounds = Array.from(
+      stage.querySelectorAll<SVGPathElement>(".county-availability-map-svg path"),
+      (path) => path.getBoundingClientRect(),
+    );
+    if (!pathBounds.length) return;
+
+    const stateLeft = Math.min(...pathBounds.map((bounds) => bounds.left));
+    const stateRight = Math.max(...pathBounds.map((bounds) => bounds.right));
+    const stateCenter = (stateLeft + stateRight) / 2;
+    const countyCenter = countyBounds.left + countyBounds.width / 2;
+    const tooltipWidth = tooltip.offsetWidth || 270;
+    const tooltipHeight = tooltip.offsetHeight || 190;
+    const gap = 14;
+    const desiredLeft = countyCenter < stateCenter
+      ? stateLeft - tooltipWidth - gap
+      : stateRight + gap;
+    const viewportLeft = Math.min(
+      Math.max(12, desiredLeft),
+      window.innerWidth - tooltipWidth - 12,
+    );
+    const top = Math.min(
+      Math.max(10, clientY - stageBounds.top - tooltipHeight / 2),
+      Math.max(10, stageBounds.height - tooltipHeight - 10),
+    );
+
+    tooltip.style.left = `${viewportLeft - stageBounds.left}px`;
     tooltip.style.right = "auto";
-    tooltip.style.top = "auto";
-    tooltip.style.bottom = "18px";
+    tooltip.style.top = `${top}px`;
+    tooltip.style.bottom = "auto";
   }
 
-  function activateCounty(row: CountyAvailabilityHeatMapRow) {
+  function activateCounty(row: CountyAvailabilityHeatMapRow, target: SVGElement, clientY: number) {
     setActiveSlug(row.name);
-    positionTooltip();
+    requestAnimationFrame(() => positionTooltip(target, clientY));
   }
 
   const isInventory = mode === "inventory";
@@ -112,7 +141,7 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
   return (
     <article className={`county-heatmap-module county-heatmap-module--${mode}`}>
       <div className="county-heatmap-module-grid">
-        <div className="county-availability-map-stage">
+        <div className="county-availability-map-stage" ref={stageRef}>
           <svg
             className="county-availability-map-svg"
             viewBox="135 10 295 275"
@@ -138,11 +167,13 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
                     key={county.id}
                     href={row ? `/counties/${row.slug}` : "/counties"}
                     aria-label={label}
-                    onPointerEnter={() => row && activateCounty(row)}
+                    onPointerEnter={(event) => row && activateCounty(row, event.currentTarget, event.clientY)}
+                    onPointerMove={(event) => positionTooltip(event.currentTarget, event.clientY)}
                     onPointerLeave={() => setActiveSlug(null)}
-                    onFocus={() => {
+                    onFocus={(event) => {
                       if (!row) return;
-                      activateCounty(row);
+                      const bounds = event.currentTarget.getBoundingClientRect();
+                      activateCounty(row, event.currentTarget, bounds.top + bounds.height / 2);
                     }}
                     onBlur={() => setActiveSlug(null)}
                   >
