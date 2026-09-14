@@ -767,6 +767,13 @@
   text-align: right;
 }
 
+@media (min-width: 981px) {
+  .market-table-heading > p {
+    max-width: none;
+    white-space: nowrap;
+  }
+}
+
 .market-table-wrap {
   overflow-x: auto;
   border: 1px solid #6b531e;
