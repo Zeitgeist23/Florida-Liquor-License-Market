@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
-import "../resources/forms/abt-forms.css";
+
+import "../fllm-official-template.css";
+import "../listings/listings-premium.css";
+import "../listings/listings-map-size.css";
+import "../listings/listings-county-links.css";
+import "../listings/listings-navy-refresh.css";
+import "../listings/listings-card-gold-borders.css";
+import "../listings/listings-regression-fix.css";
+import "../listings/listings-conversion-cards.css";
+import "../listings/listings-card-overlap-fix.css";
 import "../florida-liquor-licenses-for-sale/seo-market.css";
+import "../fllm-market-page-template.css";
+import "./market-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/self-directed-ira-liquor-license-lending`;
@@ -55,7 +67,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
   };
 
   return (
-    <main className="seo-market-page ira-lending-guide-page">
+    <main className="seo-market-page fllm-official-page ira-lending-guide-page" data-fllm-template="market-page-v1">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
@@ -64,59 +76,9 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceStructuredData).replaceAll("<", "\\u003c") }}
       />
-      <style>{`
-        .ira-lending-guide-page{background:#f7f7f5;color:#111820}
-        .ira-lending-guide-page .seo-market-hero{background:radial-gradient(circle at 84% 16%,rgba(246,167,0,.18),transparent 30%),linear-gradient(135deg,#020b12 0%,#061728 55%,#0a2237 100%);border-top:1px solid rgba(246,167,0,.38);border-bottom:1px solid rgba(246,167,0,.46)}
-        .ira-lending-guide-page .seo-market-breadcrumbs,.ira-lending-guide-page .seo-market-hero p{color:#dce5ec}
-        .ira-lending-guide-page .seo-market-breadcrumbs a,.ira-lending-guide-page .seo-market-kicker,.ira-lending-guide-page .seo-market-section-kicker{color:#f6a700}
-        .ira-lending-guide-page .seo-market-hero h1{color:#fff}
-        .ira-lending-guide-page .seo-market-button{min-height:48px;padding:0 20px;border-radius:5px;font-size:12px;font-weight:900;text-transform:uppercase;transition:transform .18s ease,filter .18s ease}
-        .ira-lending-guide-page .seo-market-button-gold,.ira-lending-guide-page .seo-market-button-dark{border:1px solid #ffc12d;background:linear-gradient(145deg,#ffbd21 0%,#ef9000 100%);color:#07111a;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 8px 22px rgba(246,167,0,.24)}
-        .ira-lending-guide-page .seo-market-button:hover{transform:translateY(-2px);filter:brightness(1.08)}
-        .ira-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px}
-        .ira-card{padding:24px;border:1px solid rgba(246,167,0,.32);border-radius:13px;background:linear-gradient(145deg,#0a2237,#04111c);color:#d9e2ec;box-shadow:0 12px 26px rgba(0,0,0,.16)}
-        .ira-card h3{margin:0 0 10px;color:#fff;font-size:22px;line-height:1.25;font-weight:700}
-        .ira-card p{margin:0;color:#d9e2ec;font-size:17px;line-height:1.7;font-weight:500}
-        .ira-card strong{color:#ffb400}
-        .ira-steps{display:grid;gap:14px;margin:24px 0 0;padding:0;list-style:none;counter-reset:ira-step}
-        .ira-steps li{counter-increment:ira-step;position:relative;padding:20px 20px 20px 66px;border:1px solid rgba(246,167,0,.18);border-radius:11px;background:#fff;color:#334255;line-height:1.65;box-shadow:0 8px 20px rgba(7,26,58,.06)}
-        .ira-steps li::before{content:counter(ira-step);position:absolute;left:18px;top:17px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#f6a700;color:#071a3a;font-weight:900}
-        .ira-rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px;padding:0;list-style:none}
-        .ira-rules li{position:relative;padding:16px 16px 16px 44px;border:1px solid rgba(246,167,0,.18);border-radius:11px;background:linear-gradient(145deg,#0a2237,#061728);color:#dce5ec;line-height:1.6}
-        .ira-rules li::before{content:"•";position:absolute;left:17px;top:12px;color:#ffb400;font-size:28px;line-height:1;font-weight:900}
-        .ira-example{margin-top:24px;padding:24px;border:1px solid rgba(246,167,0,.3);border-radius:13px;background:#fff;box-shadow:0 10px 24px rgba(7,26,58,.08)}
-        .ira-example h3{margin:0 0 10px;color:#071a3a;font-size:22px}.ira-example p{margin:0;color:#465669;font-size:16px;line-height:1.7}
-        .ira-chattel-guide{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:18px;margin-top:24px;padding:26px;border:1px solid rgba(246,167,0,.38);border-radius:14px;background:linear-gradient(145deg,#0a2237,#04111c);box-shadow:0 14px 30px rgba(7,26,58,.15)}
-        .ira-chattel-guide h3{margin:0 0 10px;color:#fff;font-size:24px;line-height:1.25}.ira-chattel-guide p{margin:0;color:#dce5ec;font-size:16px;line-height:1.72}.ira-chattel-guide p+p{margin-top:11px}.ira-chattel-guide strong{color:#ffb400}
-        .ira-chattel-example{align-self:start;padding:20px;border:1px solid rgba(246,167,0,.52);border-radius:11px;background:rgba(255,255,255,.06)}
-        .ira-chattel-example>span{display:block;color:#f6a700;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.ira-chattel-example h4{margin:7px 0 9px;color:#fff;font-size:19px;line-height:1.3}.ira-chattel-example p{color:#d7e0e7;font-size:14px;line-height:1.65}
-        .ira-chattel-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.ira-chattel-links a{display:inline-flex;align-items:center;min-height:42px;padding:0 15px;border:1px solid rgba(246,167,0,.52);border-radius:5px;color:#ffbd21;font-size:12px;font-weight:900;text-decoration:none}.ira-chattel-links a:hover{border-color:#ffbd21;background:rgba(246,167,0,.08)}
-        .ira-warning{margin-top:24px;padding:22px 24px;border-left:4px solid #f6a700;border-radius:0 10px 10px 0;background:rgba(255,255,255,.08);color:#e7edf3!important;font-size:17px;line-height:1.75;font-weight:500;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
-        .ira-warning strong{color:#ffbf2f!important;font-weight:800}
-        .ira-source-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
-        .ira-source-links a{font-weight:800;color:#0a4d83;text-decoration:underline;text-underline-offset:3px}
-        .ira-setup-lead{max-width:850px;color:#465669;font-size:17px;line-height:1.75}
-        .ira-setup-service{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(260px,.55fr);gap:24px;margin-top:24px;padding:28px;border:1px solid rgba(246,167,0,.42);border-radius:15px;background:linear-gradient(145deg,#0a2237 0%,#04111c 78%);box-shadow:0 16px 34px rgba(7,26,58,.16)}
-        .ira-setup-service h3{margin:0 0 10px;color:#fff;font-size:24px;line-height:1.25}
-        .ira-setup-service p{margin:0;color:#dce5ec;font-size:16px;line-height:1.7}
-        .ira-setup-list{display:grid;gap:11px;margin:20px 0 0;padding:0;list-style:none}
-        .ira-setup-list li{position:relative;padding-left:30px;color:#e7edf3;font-size:15px;line-height:1.55}
-        .ira-setup-list li::before{content:"✓";position:absolute;left:0;top:0;color:#ffb400;font-weight:900;font-size:18px}
-        .ira-setup-price{align-self:start;padding:22px;border:1px solid rgba(246,167,0,.55);border-radius:12px;background:rgba(255,255,255,.06);text-align:center}
-        .ira-setup-price>span{display:block;color:#f6a700;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-        .ira-setup-price>strong{display:block;margin:8px 0 2px;color:#fff;font-size:48px;line-height:1;font-weight:900}
-        .ira-setup-price>small{display:block;margin-bottom:18px;color:#c9d5df;font-size:13px;line-height:1.5}
-        .ira-setup-price .seo-market-button{width:100%;justify-content:center}
-        .ira-admin-boundary{margin-top:16px;padding:18px 20px;border-left:4px solid #f6a700;border-radius:0 10px 10px 0;background:#fff;color:#465669;font-size:14px;line-height:1.7;box-shadow:0 8px 18px rgba(7,26,58,.06)}
-        .ira-admin-boundary strong{color:#071a3a}
-        .ira-lending-guide-page .seo-market-counties{background:linear-gradient(145deg,#0a2237 0%,#020b12 74%);border-top:1px solid rgba(246,167,0,.38);border-bottom:1px solid rgba(246,167,0,.38)}
-        .ira-lending-guide-page .seo-market-counties h2{color:#fff}
-        @media(max-width:820px){.ira-grid,.ira-rules,.ira-setup-service,.ira-chattel-guide{grid-template-columns:1fr}.ira-card h3{font-size:20px}.ira-card p{font-size:16px}.ira-steps li{padding-left:60px}.ira-warning{padding:18px;font-size:15px;line-height:1.7}.ira-setup-service,.ira-chattel-guide{padding:20px}.ira-setup-price>strong{font-size:42px}}
-      `}</style>
+      
 
-      <div className="abt-header-wrap">
-        <FormsSiteHeader primaryActionHref="/investment-opportunities" primaryActionLabel="View Opportunities" />
-      </div>
+      <FormsSiteHeader />
 
       <section className="seo-market-hero">
         <div className="seo-market-shell">
@@ -135,6 +97,16 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
                 <Link className="seo-market-button seo-market-button-dark" href="#ira-setup-assistance">IRA Setup Assistance — $495</Link>
               </div>
             </div>
+
+            <aside className="seo-market-snapshot ira-hero-snapshot" aria-label="Self-directed IRA lending essentials">
+              <span>IRA Lending Essentials</span>
+              <ul className="ira-hero-points">
+                <li>The IRA account owns the private note.</li>
+                <li>The borrower must be an unrelated third party.</li>
+                <li>Custodian eligibility should be confirmed first.</li>
+                <li>Principal and interest return to the IRA.</li>
+              </ul>
+            </aside>
           </div>
         </div>
       </section>
@@ -152,7 +124,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
         </div>
       </section>
 
-      <section className="seo-market-intro" id="ira-setup-assistance">
+      <section className="seo-market-guide" id="ira-setup-assistance">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">Optional Administrative Service</span>
           <h2>Self-Directed IRA Setup Assistance</h2>
@@ -281,7 +253,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
         </div>
       </section>
 
-      <section className="seo-market-cta">
+      <section className="seo-market-final-cta">
         <div className="seo-market-shell seo-market-cta-inner">
           <div>
             <span className="seo-market-section-kicker">Explore Private Lending</span>
@@ -294,6 +266,27 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
           </div>
         </div>
       </section>
+      <footer className="directory-footer">
+        <div className="seo-market-shell">
+          <div className="directory-footer-brand">
+            <Link href="/" aria-label="Florida Liquor License Market home">
+              <Image src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width={130} height={53} />
+            </Link>
+            <span>© Florida Liquor License Market</span>
+          </div>
+          <nav aria-label="Footer navigation">
+            <Link href="/">Home</Link>
+            <Link href="/florida-4cop-liquor-license-for-sale">4COP</Link>
+            <Link href="/florida-3ps-liquor-license-for-sale">3PS</Link>
+            <Link href="/listings">Listings</Link>
+            <Link href="/contact">Contact</Link>
+          </nav>
+        </div>
+        <div className="national-marketplace-footer-link">
+          <span>Looking for a liquor license outside Florida?</span>
+          <a href="https://liquorlicensemarket.com" target="_blank" rel="noreferrer">Visit Liquor License Market — The National Marketplace.</a>
+        </div>
+      </footer>
     </main>
   );
 }
