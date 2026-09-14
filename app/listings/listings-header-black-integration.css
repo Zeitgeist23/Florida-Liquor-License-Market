@@ -126,13 +126,14 @@
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn-outline:hover,
   .results-page .listings-header-band .forms-site-header .header-actions .btn-outline:focus-visible {
-    border-color: #ffc13b;
-    background: linear-gradient(145deg, #152b3d, #07121d);
-    color: #ffc13b;
+    border-color: #ffd069;
+    background: linear-gradient(145deg, #ffc64a 0%, #f1a600 58%, #dc8500 100%);
+    color: #07101a;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, .08),
-      0 7px 15px rgba(0, 0, 0, .31),
-      0 0 11px rgba(241, 166, 0, .18);
+      inset 0 1px 0 rgba(255, 247, 218, .7),
+      inset 0 -2px 0 rgba(95, 51, 0, .22),
+      0 8px 17px rgba(0, 0, 0, .33),
+      0 0 12px rgba(241, 166, 0, .28);
   }
 }
 
