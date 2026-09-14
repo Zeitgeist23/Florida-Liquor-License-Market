@@ -1,7 +1,7 @@
 /*
  * Listings header refinement.
- * Keeps the approved shared header structure while restoring the stronger
- * near-black marketplace band and integrated action controls.
+ * Keeps the approved shared header structure while using the compact,
+ * near-black marketplace treatment approved for the listings page.
  */
 
 .listings-header-band {
@@ -10,9 +10,9 @@
   width: 100%;
   border-bottom: 1px solid #765613;
   background:
-    radial-gradient(circle at 82% 35%, rgba(19, 54, 77, .24), transparent 30%),
+    radial-gradient(circle at 82% 35%, rgba(19, 54, 77, .2), transparent 30%),
     linear-gradient(90deg, #010810 0%, #020c14 48%, #061522 100%);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, .24);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .22);
 }
 
 .results-page .listings-header-band .forms-site-header {
@@ -20,22 +20,38 @@
 }
 
 @media (min-width: 981px) {
+  .results-page .listings-header-band .forms-site-header.page-shell {
+    width: min(1280px, calc(100% - 32px));
+    min-height: 82px;
+    height: 82px;
+    gap: 16px;
+  }
+
+  .results-page .listings-header-band .forms-site-header .brand-lockup {
+    flex: 0 0 160px;
+  }
+
+  .results-page .listings-header-band .forms-site-header .brand-lockup img {
+    width: 150px;
+    height: 61px;
+  }
+
   .results-page .listings-header-band .forms-site-header .primary-nav {
-    gap: 30px;
+    gap: 42px;
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions {
-    gap: 11px;
+    gap: 10px;
     transform: none;
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn {
-    height: 42px;
-    min-height: 42px;
+    height: 36px;
+    min-height: 36px;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 900;
-    letter-spacing: .025em;
+    letter-spacing: .02em;
     line-height: 1;
     white-space: nowrap;
     transform-origin: center;
@@ -49,28 +65,33 @@
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn-gold {
-    width: 146px;
-    min-width: 146px;
-    padding: 0 14px;
+    width: 128px;
+    min-width: 128px;
+    padding: 0 11px;
     border: 1px solid #ffbd2e;
     background: linear-gradient(145deg, #f8b72f 0%, #e99a00 58%, #cf7800 100%);
     box-shadow:
-      inset 0 1px 0 rgba(255, 237, 182, .58),
-      inset 0 -2px 0 rgba(95, 51, 0, .3),
-      0 6px 14px rgba(0, 0, 0, .3);
+      inset 0 1px 0 rgba(255, 237, 182, .55),
+      inset 0 -2px 0 rgba(95, 51, 0, .28),
+      0 5px 12px rgba(0, 0, 0, .27);
     color: #07101a;
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn-outline {
-    width: 124px;
-    min-width: 124px;
-    padding: 0 13px;
+    width: 110px;
+    min-width: 110px;
+    padding: 0 10px;
     border: 1px solid #e8a000;
     background: linear-gradient(145deg, rgba(7, 22, 34, .96), rgba(1, 8, 15, .98));
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, .05),
-      0 5px 13px rgba(0, 0, 0, .24);
+      0 4px 11px rgba(0, 0, 0, .22);
     color: #f6b21a;
+  }
+
+  .results-page .listings-header-band .forms-site-header .header-actions .contact-phone {
+    margin-right: 4px;
+    font-size: 11px;
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn:hover,
@@ -85,10 +106,10 @@
     background: linear-gradient(145deg, #ffc64a 0%, #f1a600 58%, #dc8500 100%);
     color: #07101a;
     box-shadow:
-      inset 0 1px 0 rgba(255, 247, 218, .72),
-      inset 0 -2px 0 rgba(95, 51, 0, .24),
-      0 9px 19px rgba(0, 0, 0, .36),
-      0 0 14px rgba(241, 166, 0, .25);
+      inset 0 1px 0 rgba(255, 247, 218, .7),
+      inset 0 -2px 0 rgba(95, 51, 0, .22),
+      0 8px 17px rgba(0, 0, 0, .33),
+      0 0 12px rgba(241, 166, 0, .22);
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn-outline:hover,
@@ -98,24 +119,24 @@
     color: #ffc13b;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, .08),
-      0 8px 17px rgba(0, 0, 0, .34),
-      0 0 12px rgba(241, 166, 0, .2);
+      0 7px 15px rgba(0, 0, 0, .31),
+      0 0 11px rgba(241, 166, 0, .18);
   }
 }
 
 @media (min-width: 981px) and (max-width: 1180px) {
   .results-page .listings-header-band .forms-site-header .primary-nav {
-    gap: 20px;
+    gap: 27px;
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn-gold {
-    width: 134px;
-    min-width: 134px;
+    width: 120px;
+    min-width: 120px;
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions .btn-outline {
-    width: 116px;
-    min-width: 116px;
+    width: 104px;
+    min-width: 104px;
   }
 }
 
