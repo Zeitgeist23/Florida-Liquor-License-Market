@@ -659,7 +659,7 @@
   gap: 10px;
 }
 
-.county-heatmap-module--inventory .county-availability-map-legend li i {
+.county-heatmap-module--inventory .county-availability-map-legend > ul li i {
   height: 23px;
 }
 
