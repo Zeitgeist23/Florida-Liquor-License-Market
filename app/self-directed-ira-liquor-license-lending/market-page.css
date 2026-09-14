@@ -228,6 +228,20 @@
   line-height: 1.75;
 }
 
+/* Tighten the transition from loan documents to IRS rules and the example. */
+.ira-lending-guide-page #license-backed-collateral-documents {
+  padding-bottom: 38px;
+}
+
+.ira-lending-guide-page #license-backed-collateral-documents + .seo-market-intro {
+  padding-top: 38px;
+  padding-bottom: 38px;
+}
+
+.ira-lending-guide-page #license-backed-collateral-documents + .seo-market-intro + .seo-market-intro {
+  padding-top: 38px;
+}
+
 .ira-lending-guide-page .ira-chattel-guide {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
