@@ -316,19 +316,19 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
               <div className="seo-market-snapshot-grid">
                 <div>
                   <strong>{marketplaceListings.length}</strong>
-                  <small>active listings</small>
+                  <small>Active listings</small>
                 </div>
                 <div>
                   <strong>{marketplaceCountyNames.size}</strong>
-                  <small>counties represented</small>
+                  <small>Counties represented</small>
                 </div>
                 <div>
                   <strong>{marketplaceLowestPrice === null ? "—" : money(marketplaceLowestPrice)}</strong>
-                  <small>lowest asking price</small>
+                  <small>Lowest asking price</small>
                 </div>
                 <div>
                   <strong>{marketplaceMedianPrice === null ? "—" : money(marketplaceMedianPrice)}</strong>
-                  <small>median asking price</small>
+                  <small>Median asking price</small>
                 </div>
               </div>
             </aside>
