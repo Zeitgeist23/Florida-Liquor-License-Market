@@ -49,10 +49,6 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         body{margin:0;background:#081d31;color:var(--text);font-family:Arial,Helvetica,sans-serif}
         .license-explainer-page{min-height:100vh;background:linear-gradient(180deg,#0b2942 0,#0d314d 36%,#09243a 72%,#081d31 100%)}
         .lt-shell{width:min(1180px,calc(100% - 40px));margin:0 auto}
-        .lt-header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 0;border-bottom:1px solid rgba(246,167,0,.38)}
-        .lt-brand img{width:210px;height:auto;display:block}
-        .lt-header nav{display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-        .lt-header nav a{color:#fff;text-decoration:none;font-size:13px;font-weight:700}.lt-header nav a:hover{color:var(--gold)}
         .lt-back{display:inline-flex;align-items:center;gap:7px;margin-top:28px;color:#e0e9f0;text-decoration:none;font-size:13px;font-weight:700}.lt-back:hover{color:var(--gold)}
         .lt-hero{padding:34px 0 28px}.lt-eyebrow{display:inline-block;color:var(--gold);font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
         .lt-hero h1{margin:0;color:#fff;font:700 clamp(34px,5vw,60px)/1.02 Georgia,serif;max-width:930px}
@@ -79,23 +75,10 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-research{padding:0 0 34px}.lt-research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.lt-research-grid a{display:flex;flex-direction:column;min-height:150px;padding:19px;border:1px solid rgba(246,167,0,.4);border-radius:10px;background:#10314b;color:inherit;text-decoration:none;transition:transform .18s ease,border-color .18s ease}.lt-research-grid a:hover,.lt-research-grid a:focus-visible{transform:translateY(-3px);border-color:var(--gold);outline:none}.lt-research-grid strong{color:#fff;font-size:17px;line-height:1.3}.lt-research-grid p{margin:9px 0 13px;color:var(--muted);font-size:13px;line-height:1.55}.lt-research-grid small{margin-top:auto;color:var(--gold);font-weight:900;text-transform:uppercase}
         .lt-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 0 42px;border-top:1px solid rgba(246,167,0,.3)}.lt-cta p{margin:0;color:#d3dfe7;line-height:1.6}.lt-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.lt-button{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:7px;text-decoration:none;font-size:13px;font-weight:900}.lt-button.gold{background:var(--gold);color:#061728}.lt-button.outline{border:1px solid var(--gold);color:#fff}.lt-disclaimer{padding:18px 0 34px;color:#aebfcc;font-size:12px;line-height:1.6}
         @media(max-width:900px){.lt-requirement-grid{grid-template-columns:1fr 1fr}.lt-requirements-head{grid-template-columns:1fr}}
-        @media(max-width:850px){.lt-header{align-items:flex-start}.lt-header nav{display:none}.lt-grid,.lt-extra,.lt-research-grid,.lt-rule-grid,.lt-official-grid{grid-template-columns:1fr}.lt-research-grid a,.lt-official-grid a{min-height:0}.lt-band{grid-template-columns:1fr}.lt-business-image img{max-height:none;aspect-ratio:4/3}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
+        @media(max-width:850px){.lt-grid,.lt-extra,.lt-research-grid,.lt-rule-grid,.lt-official-grid{grid-template-columns:1fr}.lt-research-grid a,.lt-official-grid a{min-height:0}.lt-band{grid-template-columns:1fr}.lt-business-image img{max-height:none;aspect-ratio:4/3}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
         @media(max-width:560px){.lt-requirement-grid{grid-template-columns:1fr}}
       `}</style>
 
-      <header className="lt-header lt-shell">
-        <Link className="lt-brand" href="/" aria-label="Florida Liquor License Market home">
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-        </Link>
-        <nav aria-label="License type navigation">
-          <Link href="/resources/florida-liquor-license-types">All License Types</Link>
-          <Link href="/resources/florida-liquor-license-system">How Florida Licensing Works</Link>
-          <Link href="/florida-liquor-license-news">FLLM News</Link>
-          <Link href="/resources/forms">ABT Forms</Link>
-          <Link href="/listings">Licenses for Sale</Link>
-          <Link href="/contact">Contact</Link>
-        </nav>
-      </header>
 
       <section className="lt-shell lt-hero">
         <Link className="lt-back" href="/resources/florida-liquor-license-types">← All Florida liquor license types</Link>
