@@ -7,8 +7,8 @@ const LOOKUP_URL = "https://florida-liquor-license-market.jwigg023.chatgpt.site/
 // Exact row-major order used by the approved landing-page Resources menu.
 const resources = [
   { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide", badge: "FREE PDF" },
-  { label: "Florida Division of Alcoholic Beverages & Tobacco (DABT)", href: "/resources/florida-division-alcoholic-beverages-tobacco" },
-  { label: "Florida Department of Revenue (FDOR)", href: "/resources/florida-department-of-revenue" },
+  { label: "Florida Division of Alcoholic Beverages & Tobacco", href: "/resources/florida-division-alcoholic-beverages-tobacco", badge: "DABT" },
+  { label: "Florida Department of Revenue", href: "/resources/florida-department-of-revenue", badge: "FDOR" },
   { label: "Florida Liquor License Lookup", href: LOOKUP_URL, badge: "LOOKUP", external: true },
   { label: "Florida ABT Forms", href: "/resources/forms" },
   { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws" },
@@ -20,7 +20,7 @@ const resources = [
   { label: "View All Resources", href: "/resources" },
 ];
 
-const SIGNATURE = "fllm-resources-v6";
+const SIGNATURE = "fllm-resources-v7";
 
 function installStyles() {
   // Important: this must be idempotent. Removing/re-adding the style node inside the
