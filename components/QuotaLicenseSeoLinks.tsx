@@ -28,6 +28,7 @@ function isListingDetailPage(pathname: string) {
 
 export default function QuotaLicenseSeoLinks() {
   const pathname = usePathname();
+  const listingDetailPage = isListingDetailPage(pathname);
 
   if (
     pathname === "/florida-4cop-liquor-license-for-sale" ||
@@ -37,7 +38,10 @@ export default function QuotaLicenseSeoLinks() {
   }
 
   return (
-    <aside className="fllm-authority-links" aria-label="Florida quota liquor licenses for sale">
+    <aside
+      className={`fllm-authority-links${listingDetailPage ? " fllm-authority-links--listing-detail" : ""}`}
+      aria-label="Florida quota liquor licenses for sale"
+    >
       <div className="fllm-authority-links__inner">
         <p>
           <strong>Statewide quota inventory:</strong>{" "}
