@@ -20,7 +20,7 @@
         position:fixed;
         z-index:10030;
         display:none;
-        width:278px;
+        width:min(660px,calc(100vw - 32px));
         padding:6px;
         border:1px solid #f6a700;
         border-radius:6px;
@@ -28,7 +28,7 @@
         box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12);
         font-family:Arial,Helvetica,sans-serif;
       }
-      .market-data-header-menu.is-open{display:grid;gap:4px}
+      .market-data-header-menu.is-open{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
       .market-data-header-menu::before{
         content:"";
         position:absolute;
@@ -45,29 +45,42 @@
         position:relative;
         z-index:1;
         width:100%;
-        padding:12px 13px;
-        border:0;
-        border-radius:4px;
-        background:transparent;
+        min-height:52px;
+        padding:11px 14px;
+        border:1px solid rgba(255,255,255,.08);
+        border-radius:6px;
+        background:#081d31;
         color:#fff;
         cursor:pointer;
         text-align:left;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
         font:700 13px/1.25 Arial,Helvetica,sans-serif;
         letter-spacing:.01em;
       }
       .market-data-header-menu button:hover,
       .market-data-header-menu button:focus-visible{
-        background:#f6a700;
-        color:#061728;
+        border-color:#f6a700;
+        background:#0d2841;
+        color:#f6a700;
         outline:none;
       }
+      .market-data-header-menu button:last-child{grid-column:1/-1}
+      .market-data-option-label{min-width:0;overflow-wrap:anywhere}
+      .market-data-option-badge{flex:0 0 auto;margin-left:auto;color:#f6a700;font-size:9px;font-weight:900;letter-spacing:.08em;white-space:nowrap}
       .primary-nav a[data-market-data-dropdown-bound="true"]{
         cursor:pointer;
       }
       @media(max-width:760px){
         .market-data-header-menu{
-          width:min(300px,calc(100vw - 24px));
+          width:min(360px,calc(100vw - 24px));
+          max-height:70vh;
+          overflow:auto;
         }
+        .market-data-header-menu.is-open{grid-template-columns:1fr}
+        .market-data-header-menu button:last-child{grid-column:auto}
       }
     `;
     document.head.appendChild(style);
@@ -174,7 +187,7 @@
     if (!menu || !activeTrigger) return;
 
     const rect = activeTrigger.getBoundingClientRect();
-    const width = Math.min(278, window.innerWidth - 24);
+    const width = Math.min(660, window.innerWidth - 24);
     const desiredLeft = rect.left + rect.width / 2 - width / 2;
     const left = Math.max(12, Math.min(desiredLeft, window.innerWidth - width - 12));
 
@@ -201,11 +214,20 @@
     openMenu(trigger);
   }
 
-  function makeOption(label, action) {
+  function makeOption(label, action, badge = "") {
     const button = document.createElement("button");
     button.type = "button";
     button.setAttribute("role", "menuitem");
-    button.textContent = label;
+    const labelSpan = document.createElement("span");
+    labelSpan.className = "market-data-option-label";
+    labelSpan.textContent = label;
+    button.appendChild(labelSpan);
+    if (badge) {
+      const badgeSpan = document.createElement("span");
+      badgeSpan.className = "market-data-option-badge";
+      badgeSpan.textContent = badge;
+      button.appendChild(badgeSpan);
+    }
     button.addEventListener("click", () => {
       closeMenu();
       window.setTimeout(action, 20);
@@ -222,13 +244,13 @@
     menu.setAttribute("role", "menu");
     menu.setAttribute("aria-hidden", "true");
     menu.append(
-      makeOption("FLLM Exchange Board", goToExchangeBoard),
-      makeOption("Florida Liquor License Value Estimator", goToLicenseValueEstimator),
-      makeOption("Recent Florida Transactions", goToRecentTransactions),
+      makeOption("FLLM Exchange Board", goToExchangeBoard, "EXCHANGE"),
+      makeOption("Florida Liquor License Value Estimator", goToLicenseValueEstimator, "VALUE"),
+      makeOption("Recent Florida Transactions", goToRecentTransactions, "SALES"),
       makeOption("Florida Market Insights", goToMarketInsights),
-      makeOption("Quota Lottery Entry", goToQuotaLottery),
+      makeOption("Quota Lottery Entry", goToQuotaLottery, "LOTTERY"),
       makeOption("News & Insights", goToNewsInsights),
-      makeOption("Heat Map", openHeatMap),
+      makeOption("Heat Map", openHeatMap, "MAP"),
     );
     document.body.appendChild(menu);
     return menu;
