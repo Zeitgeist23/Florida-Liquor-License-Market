@@ -690,8 +690,7 @@
 
 @media (max-width: 760px) {
   .seo-market-page .seo-market-section-heading,
-  .seo-market-page .seo-market-final-cta .seo-market-shell,
-  .seo-market-page .directory-footer > .seo-market-shell {
+  .seo-market-page .seo-market-final-cta .seo-market-shell {
     display: block;
   }
 
