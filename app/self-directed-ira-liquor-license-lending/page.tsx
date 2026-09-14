@@ -131,6 +131,83 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
         </div>
       </section>
 
+      <section className="seo-market-counties" id="direct-vs-indirect-ira-interest">
+        <div className="seo-market-shell">
+          <div className="seo-market-section-heading">
+            <div>
+              <span className="seo-market-section-kicker">Florida Beverage-Law Interests</span>
+              <h2>Direct ownership and license-secured lending are not the same</h2>
+            </div>
+          </div>
+          <p className="ira-interest-lead">
+            A Self-Directed IRA may be able to pursue either structure, but qualification of the IRA owner alone is not enough. The proposed titleholder, ownership chain, custodian, interested parties, transaction documents, licensed premises, and DBPR Division of Alcoholic Beverages and Tobacco approval requirements must all be evaluated before retirement assets are committed.
+          </p>
+
+          <div className="ira-interest-comparison">
+            <article>
+              <span>Direct interest</span>
+              <h3>Purchasing an ownership interest</h3>
+              <p>
+                In a potential direct-investment structure, the Self-Directed IRA’s custodian for the benefit of the IRA—or an IRA-owned legal entity—would seek to acquire an ownership interest in the license or licensed business. This structure is not automatically permissible merely because the IRA owner is personally qualified.
+              </p>
+              <ul>
+                <li>The custodian must accept the asset and proposed ownership structure.</li>
+                <li>DBPR must accept and approve the applicant, titleholder, ownership chain, and transfer.</li>
+                <li>All required direct and indirect interested persons and entities must be disclosed.</li>
+                <li>Applicable individuals and entity officers must satisfy age, moral-character, and conviction qualifications.</li>
+                <li>Federal IRA prohibited-transaction, self-dealing, tax, and operational restrictions require independent review.</li>
+              </ul>
+            </article>
+
+            <article>
+              <span>Indirect interest</span>
+              <h3>Funding and holding a secured note</h3>
+              <p>
+                In a lending structure, the Self-Directed IRA lends funds to an unrelated third-party buyer and owns the promissory note. The borrower—not the IRA owner—uses the proceeds to finance part of a Florida 4COP Quota or 3PS liquor-license purchase.
+              </p>
+              <ul>
+                <li>If the note is secured by the liquor license, §561.32(1)(b) deems the secured party indirectly interested in the license.</li>
+                <li>The security interest must be disclosed, and Beverage Law qualifications apply before it can be enforced.</li>
+                <li>Section 561.65 governs Division recording, continuation, and judicial enforcement of a license lien or security interest.</li>
+                <li>Even an unsecured or contractual lending arrangement may require disclosure or DBPR review based on its actual terms.</li>
+                <li>Principal and interest must return to the Self-Directed IRA through the custodian.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div className="ira-statute-grid" aria-label="Florida alcoholic beverage interest statutes">
+            <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.15.html" target="_blank" rel="noreferrer">
+              <span>§561.15</span>
+              <strong>Licenses; qualifications required</strong>
+              <p>Good moral character, minimum age, and specified conviction restrictions for license applicants and relevant entity officers.</p>
+            </a>
+            <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.17.html" target="_blank" rel="noreferrer">
+              <span>§561.17</span>
+              <strong>Applications and interested parties</strong>
+              <p>Requires the application and disclosure of relevant direct and indirect interests and authorizes denial when an interested party is unqualified.</p>
+            </a>
+            <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.32.html" target="_blank" rel="noreferrer">
+              <span>§561.32</span>
+              <strong>Transfers and security interests</strong>
+              <p>Classifies a person holding a security interest in an alcoholic-beverage license as indirectly interested in that license.</p>
+            </a>
+            <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0561/Sections/0561.65.html" target="_blank" rel="noreferrer">
+              <span>§561.65</span>
+              <strong>Mortgagee’s interest in license</strong>
+              <p>Addresses Division recording, notice, duration, foreclosure, and enforcement of qualifying license liens and security interests.</p>
+            </a>
+          </div>
+
+          <div className="ira-qualification-warning">
+            <strong>Moral character and disclosure.</strong>
+            <p>
+              Florida Statutes §§561.15 and 561.17 and Florida Administrative Code Rule 61A-1.017 apply to qualification and moral-character review. DBPR Form ABT-6002 instructs applicants to disclose direct and indirect interests and the complete ownership structure. No direct purchase or secured-loan structure should be treated as approved until the custodian and DBPR have reviewed the actual parties and documents.
+            </p>
+            <a href="https://www2.myfloridalicense.com/abt/forms/documents/abt-6002TransferAppPack.pdf" target="_blank" rel="noreferrer">Review DBPR Form ABT-6002</a>
+          </div>
+        </div>
+      </section>
+
       <section className="seo-market-guide" id="ira-setup-assistance">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">Optional Administrative Service</span>
