@@ -174,7 +174,9 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
 
         <section className="directory-cta"><div className="directory-shell directory-cta-grid"><div><span>For Buyers</span><h2>Compare current Florida 3PS opportunities</h2><p>Search live package-store inventory by county and disclosed asking price.</p><Link href={listingsHref}>Browse Active 3PS Listings</Link></div><div><span>Need a Specific County?</span><h2>Create a license alert</h2><p>Tell FLLM which county and license type you need so you can follow new market opportunities.</p><Link href="/license-alerts">Create a License Alert</Link></div></div></section>
 
-        <footer className="directory-footer"><div className="directory-shell"><span>© Florida Liquor License Market</span><nav><Link href="/">Home</Link><Link href="/florida-4cop-liquor-license-for-sale">4COP</Link><Link href="/florida-3ps-liquor-license-for-sale">3PS</Link><Link href="/listings">Listings</Link><Link href="/contact">Contact</Link></nav></div></footer>
+        <footer className="county-footer">
+          <div className="directory-shell"><span>© Florida Liquor License Market</span><nav><Link href="/listings">Listings</Link><Link href="/counties">Counties</Link><Link href="/financing">Financing</Link><Link href="/contact">Contact</Link></nav></div>
+        </footer>
       </main>
     </>
   );
