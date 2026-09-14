@@ -517,6 +517,43 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
         </div>
       </section>
 
+      <section className="four-cop-footer-resources" aria-labelledby="four-cop-footer-resources-title">
+        <div className="seo-market-shell">
+          <span className="seo-market-section-kicker">Related Florida Market Resources</span>
+          <h2 id="four-cop-footer-resources-title">Continue your license research</h2>
+          <div className="four-cop-footer-resource-grid">
+            <article>
+              <h3>Buying guide</h3>
+              <p>
+                Follow the purchase process from choosing the correct license type and county through pricing, due diligence, financing, transfer preparation and closing.
+              </p>
+              <Link href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License ›</Link>
+            </article>
+            <article>
+              <h3>Online marketplace</h3>
+              <p>
+                Compare current 4COP quota and 3PS marketplace listings, or advertise a qualifying Florida liquor license for sale.
+              </p>
+              <Link href="/listings">Browse Florida liquor licenses online ›</Link>
+            </article>
+            <article>
+              <h3>Statewide market report</h3>
+              <p>
+                Review current statewide inventory and asking-price evidence across Florida quota-license markets.
+              </p>
+              <Link href="/florida-quota-liquor-license-market-report">Open the Florida market report ›</Link>
+            </article>
+            <article>
+              <h3>Broker listing service</h3>
+              <p>
+                Brokers can advertise a client&apos;s license on FLLM while remaining the listing representative and transaction contact.
+              </p>
+              <Link href="/brokers/list-your-license">List a client&apos;s Florida license ›</Link>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section className="seo-market-final-cta">
         <div className="seo-market-shell">
           <div>
