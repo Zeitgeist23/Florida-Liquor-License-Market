@@ -601,21 +601,73 @@
   color: #07101a;
 }
 
-.seo-market-page .seo-market-footer {
-  padding: 20px 0;
+.seo-market-page .directory-footer {
+  padding: 20px 0 0;
   border-top: 1px solid #6e531d;
   background: linear-gradient(90deg, #071f36 0%, #0c3558 50%, #071f36 100%);
-  color: #e4eef5;
+  color: var(--fllm-white);
 }
 
-.seo-market-page .seo-market-footer a {
-  color: var(--fllm-text);
+.seo-market-page .directory-footer > .seo-market-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+}
+
+.seo-market-page .directory-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.seo-market-page .directory-footer-brand > a {
+  display: block;
+  line-height: 0;
+}
+
+.seo-market-page .directory-footer-brand img {
+  display: block;
+  width: 130px;
+  height: auto;
+}
+
+.seo-market-page .directory-footer span {
+  color: #e4eef5;
+  font-size: 12px;
+}
+
+.seo-market-page .directory-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.seo-market-page .directory-footer a {
+  color: #f3f7fa;
   font-size: 12px;
   font-weight: 800;
 }
 
-.seo-market-page .seo-market-footer a:hover {
+.seo-market-page .directory-footer a:hover {
   color: var(--fllm-gold);
+}
+
+.seo-market-page .directory-footer > .national-marketplace-footer-link {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 14px max(20px, calc((100% - 1240px) / 2)) 16px;
+  border-top: 1px solid #263f55;
+  background: #0a2947;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: #dce8f0;
+  font-size: 11px;
+  text-align: left;
 }
 
 @media (max-width: 980px) {
@@ -639,7 +691,7 @@
 @media (max-width: 760px) {
   .seo-market-page .seo-market-section-heading,
   .seo-market-page .seo-market-final-cta .seo-market-shell,
-  .seo-market-page .seo-market-footer .seo-market-shell {
+  .seo-market-page .directory-footer > .seo-market-shell {
     display: block;
   }
 
@@ -684,11 +736,18 @@
     padding: 48px 0;
   }
 
-  .seo-market-page .seo-market-footer .seo-market-shell {
+  .seo-market-page .directory-footer > .seo-market-shell,
+  .seo-market-page .directory-footer > .national-marketplace-footer-link {
+    flex-direction: column;
     text-align: center;
   }
 
-  .seo-market-page .seo-market-footer nav {
+  .seo-market-page .directory-footer-brand {
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .seo-market-page .directory-footer nav {
     justify-content: center;
     margin-top: 14px;
   }
