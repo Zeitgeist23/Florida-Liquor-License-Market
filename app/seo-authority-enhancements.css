@@ -10,15 +10,15 @@
   background: #020608;
 }
 
-.fllm-authority-links--listing-detail p {
+.fllm-authority-links.fllm-authority-links--listing-detail p {
   color: #c7d4de;
 }
 
-.fllm-authority-links--listing-detail p strong {
+.fllm-authority-links.fllm-authority-links--listing-detail p strong {
   color: #ffffff;
 }
 
-.fllm-authority-links--listing-detail a {
+.fllm-authority-links.fllm-authority-links--listing-detail a {
   color: #f6b51f;
   text-decoration-color: rgba(246, 181, 31, 0.72);
 }
