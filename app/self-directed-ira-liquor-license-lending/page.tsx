@@ -282,10 +282,6 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
             <Link href="/contact">Contact</Link>
           </nav>
         </div>
-        <div className="national-marketplace-footer-link">
-          <span>Looking for a liquor license outside Florida?</span>
-          <a href="https://liquorlicensemarket.com" target="_blank" rel="noreferrer">Visit Liquor License Market — The National Marketplace.</a>
-        </div>
       </footer>
     </main>
   );
