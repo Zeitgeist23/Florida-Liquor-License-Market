@@ -1218,6 +1218,7 @@
   .directory-heading { display: block; }
   .market-snapshot-heading > p,
   .market-table-heading > p { margin-top: 12px; max-width: none; text-align: left; }
+  .market-snapshot-heading > p { white-space: normal; }
   .county-availability-map-heading > p { margin-top: 12px; max-width: none; text-align: left; }
   .county-heatmap-toolbar { display: block; }
   .county-heatmap-switch { margin-top: 17px; }
