@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const exactPaths = new Set([
-  "/listings",
   "/buy-florida-liquor-license",
   "/how-to-buy-florida-liquor-license",
   "/florida-quota-liquor-license-cost",
