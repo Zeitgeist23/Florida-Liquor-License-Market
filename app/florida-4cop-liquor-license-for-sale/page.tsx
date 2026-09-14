@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import FormsSiteHeader from "@/components/FormsSiteHeader";
+
 import MarketplaceListingCard from "@/components/MarketplaceListingCard";
 import { indexableCounties } from "@/data/florida-counties";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
+import "../fllm-official-template.css";
 import "../listings/listings-premium.css";
 import "../listings/listings-map-size.css";
 import "../listings/listings-county-links.css";
@@ -16,6 +19,7 @@ import "../listings/listings-regression-fix.css";
 import "../listings/listings-conversion-cards.css";
 import "../listings/listings-card-overlap-fix.css";
 import "../florida-liquor-licenses-for-sale/seo-market.css";
+import "./official-template.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-4cop-liquor-license-for-sale`;
@@ -242,7 +246,7 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
   ];
 
   return (
-    <main className="seo-market-page">
+    <main className="seo-market-page fllm-official-page" data-fllm-template="county-v1">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -250,48 +254,8 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
         }}
       />
 
-      <style>{`
-        .seo-market-listings-shell { width: min(1480px, calc(100% - 60px)); }
-        .seo-market-preview-results { min-height: 0 !important; background: transparent !important; color: inherit !important; }
-        .four-cop-updated { margin: 14px 0 0; color: #9aa7b0; font-size: 12px; }
-        .four-cop-jump-nav { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px; }
-        .four-cop-jump-nav a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border: 1px solid rgba(246,167,0,.48); border-radius: 999px; color: #f6a700; background: rgba(2,11,18,.5); font-size: 11px; font-weight: 900; text-decoration: none; }
-        .four-cop-jump-nav a:hover { background: #f6a700; color: #061728; }
-        .four-cop-market-table-wrap { overflow-x: auto; margin-top: 24px; border: 1px solid #d7d1c3; border-radius: 10px; background: #fff; box-shadow: 0 16px 34px rgba(16,24,32,.08); }
-        .four-cop-market-table { width: 100%; min-width: 760px; border-collapse: collapse; }
-        .four-cop-market-table th { padding: 13px 15px; color: #071827; background: #f3ead8; border-bottom: 1px solid #d7d1c3; font-size: 11px; font-weight: 900; letter-spacing: .06em; text-align: left; text-transform: uppercase; }
-        .four-cop-market-table td { padding: 13px 15px; border-bottom: 1px solid #ece7dd; color: #394752; font-size: 13px; }
-        .four-cop-market-table tr:last-child td { border-bottom: 0; }
-        .four-cop-market-table a { color: #815600; font-weight: 900; text-decoration: none; }
-        .four-cop-market-table strong { color: #071827; }
-        .four-cop-authority-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
-        .four-cop-authority-card { padding: 24px; border: 1px solid #d8d1c3; border-top: 3px solid #f6a700; border-radius: 9px; background: #fff; box-shadow: 0 14px 30px rgba(16,24,32,.07); }
-        .four-cop-authority-card h3 { margin: 0 0 10px; color: #071827; font-family: Georgia, 'Times New Roman', serif; font-size: 24px; }
-        .four-cop-authority-card p { margin: 0 0 10px; color: #53616c; font-size: 13px; line-height: 1.7; }
-        .four-cop-authority-card a { color: #8d5e00; font-weight: 900; }
-        .four-cop-methodology { margin-top: 24px; padding: 18px 20px; border-left: 3px solid #f6a700; background: #efe9dd; color: #53616c; font-size: 12px; line-height: 1.7; }
-        .four-cop-methodology strong { color: #071827; }
-        @media (max-width: 820px) { .four-cop-authority-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 720px) { .seo-market-listings-shell { width: min(100% - 24px, 1480px); } }
-      `}</style>
 
-      <header className="seo-market-header seo-market-shell">
-        <Link
-          className="seo-market-brand"
-          href="/"
-          aria-label="Florida Liquor License Market home"
-        >
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-        </Link>
-        <nav aria-label="Marketplace navigation">
-          <Link href="/listings">Licenses for Sale</Link>
-          <Link href="/counties">County Markets</Link>
-          <Link href="/florida-quota-liquor-license-cost">4COP Prices</Link>
-          <Link className="seo-market-nav-cta" href="/sell-your-license">
-            List Your License
-          </Link>
-        </nav>
-      </header>
+      <FormsSiteHeader />
 
       <section className="seo-market-hero">
         <div className="seo-market-shell">
