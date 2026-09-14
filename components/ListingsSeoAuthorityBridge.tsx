@@ -43,6 +43,30 @@ const resourceGroups = [
 export default function ListingsSeoAuthorityBridge() {
   return (
     <>
+    <aside className="fllm-authority-links" aria-label="FLLM seller service options">
+      <div className="fllm-authority-links__inner">
+        <p>
+          <strong>Full-service selling is available through FLLM itself:</strong>{" "}
+          Florida liquor-license owners can <Link href="/florida-liquor-license-broker">request assistance from a Florida liquor license broker through Florida Liquor License Market</Link>. Depending on the written brokerage agreement, representation may include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, due-diligence coordination, document organization and transaction coordination. Sellers who prefer direct control can choose a self-directed marketplace listing instead.
+        </p>
+      </div>
+    </aside>
+    <aside className="fllm-authority-links" aria-label="How to buy a Florida liquor license">
+      <div className="fllm-authority-links__inner">
+        <p>
+          <strong>Buying guide:</strong>{" "}
+          <Link href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License</Link> explains the 7-step purchase process from choosing the correct license type and county through active listings, pricing and valuation, due diligence, financing, purchase terms, ABT-6002 transfer preparation and closing.
+        </p>
+      </div>
+    </aside>
+    <aside className="fllm-authority-links" aria-label="Buy or sell a Florida liquor license online">
+      <div className="fllm-authority-links__inner">
+        <p>
+          <strong>Florida liquor licenses online:</strong>{" "}
+          Sellers can <Link href="/sell-your-license">list a Florida liquor license for sale online</Link> through FLLM&apos;s statewide marketplace, while buyers can <Link href="/listings">buy a Florida liquor license online by browsing current 4COP and 3PS marketplace listings</Link> and contacting the seller or listing representative for the specific opportunity.
+        </p>
+      </div>
+    </aside>
     <section className="listings-authority-bridge" aria-labelledby="listings-authority-title">
       <div className="page-shell">
         <span className="listings-authority-kicker">Related Marketplace Resources</span>
