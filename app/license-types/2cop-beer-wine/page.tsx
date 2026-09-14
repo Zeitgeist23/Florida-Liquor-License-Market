@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import LicenseTypeExplainerPage from "@/components/LicenseTypeExplainerPage";
-import LicenseTypeCountyDirectory from "@/components/LicenseTypeCountyDirectory";
 
 export const metadata: Metadata = {
   title: "What Is a Florida 2COP Beer & Wine License? | FLLM",
@@ -52,6 +51,5 @@ export default function Page() {
         { href: "/resources/forms", label: "Florida ABT Forms Center", description: "Open FLLM's organized ABT application and licensing resources." }
       ]}
     />
-    <LicenseTypeCountyDirectory licenseType="2COP" />
   </>;
 }
