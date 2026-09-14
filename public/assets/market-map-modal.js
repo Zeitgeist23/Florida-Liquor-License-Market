@@ -1,5 +1,5 @@
 (() => {
-  const STYLE_ID = "market-list-modal-styles-v5";
+  const STYLE_ID = "market-list-modal-styles-v6";
   const BACKDROP_CLASS = "market-list-modal-backdrop";
   const MODAL_CLASS = "market-map-popup market-list-popup";
   const BODY_CLASS = "market-list-modal-open";
@@ -30,7 +30,7 @@
     style.textContent = `
       body.${BODY_CLASS}{overflow:hidden!important}
       .${BACKDROP_CLASS}{position:fixed;inset:0;z-index:12998;background:radial-gradient(circle at 50% 20%,rgba(16,38,58,.54) 0%,rgba(3,18,31,.9) 45%,rgba(0,3,5,.96) 100%);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
-      .market-list-popup{position:fixed;top:50%;left:50%;z-index:12999;width:min(92vw,1100px)!important;height:min(86vh,900px)!important;min-width:0!important;min-height:0!important;max-width:1100px!important;max-height:900px!important;transform:translate(-50%,-50%);display:flex;flex-direction:column;overflow:hidden;isolation:isolate;border:1px solid #b77b00;border-radius:4px;background:radial-gradient(circle at 50% 0%,#0b0d0e 0%,#050607 44%,#020303 100%);color:#f6f6f3;box-shadow:0 35px 110px rgba(0,0,0,.8),0 0 0 1px rgba(241,166,0,.12);font-family:Arial,Helvetica,sans-serif}
+      .market-list-popup{position:fixed;top:50%;left:50%;z-index:12999;width:min(92vw,1100px)!important;height:min(86vh,900px)!important;min-width:0!important;min-height:0!important;max-width:1100px!important;max-height:900px!important;transform:translate(-50%,-50%);display:flex;flex-direction:column;overflow:hidden;isolation:isolate;border:1px solid #b77b00;border-radius:4px;background:radial-gradient(circle at 50% 0%,#123b5a 0%,#092943 46%,#051a2c 100%);color:#f6f6f3;box-shadow:0 35px 110px rgba(0,0,0,.8),0 0 0 1px rgba(241,166,0,.12);font-family:Arial,Helvetica,sans-serif}
       .market-list-popup::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(rgba(241,166,0,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(241,166,0,.02) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.65),transparent 72%)}
       .market-list-popup-header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 24px 15px;border-bottom:1px solid #b77b00;background:radial-gradient(circle at 57% 30%,#10263a 0%,#071a2b 44%,#03121f 100%);color:#fff}
       .market-list-header-brand{display:flex;align-items:center;gap:20px;min-width:0}
@@ -42,22 +42,22 @@
       .market-list-popup-close{flex:0 0 42px;width:42px;height:42px;display:grid;place-items:center;border:1px solid #d89400;border-radius:3px;background:#090b0c;color:#f1a600;cursor:pointer;font:700 27px/1 Arial,sans-serif;box-shadow:0 8px 20px rgba(0,0,0,.35)}
       .market-list-popup-close:hover,.market-list-popup-close:focus-visible{background:#f1a600;color:#070809;outline:none}
       .market-list-column-headings,.market-list-row{display:grid;grid-template-columns:60px minmax(240px,1fr) 180px 110px;align-items:center;gap:14px}
-      .market-list-column-headings{padding:12px 22px;border-bottom:1px solid rgba(177,123,0,.62);background:#090b0c;color:#f1a600;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-      .market-list-scroll{flex:1;overflow:auto;overscroll-behavior:contain;padding:12px 14px 16px;background:radial-gradient(circle at 50% 0%,#0b0d0e 0%,#050607 44%,#020303 100%);scrollbar-color:#8a6412 #070809;scrollbar-width:thin}
-      .market-list-scroll::-webkit-scrollbar{width:10px}.market-list-scroll::-webkit-scrollbar-track{background:#070809}.market-list-scroll::-webkit-scrollbar-thumb{border:2px solid #070809;border-radius:8px;background:#8a6412}.market-list-scroll::-webkit-scrollbar-thumb:hover{background:#f1a600}
-      .market-list-row{min-height:72px;margin:0 0 10px;padding:11px 18px;border:1px solid #806322;border-radius:3px;background:linear-gradient(145deg,#111415 0%,#090b0c 58%,#050607 100%);box-shadow:0 10px 28px rgba(0,0,0,.28);transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease}
-      .market-list-row:hover{border-color:#d39200;box-shadow:0 14px 34px rgba(0,0,0,.42),0 0 0 1px rgba(241,166,0,.08);transform:translateY(-1px)}
-      .market-list-rank{display:grid;place-items:center;width:34px;height:34px;border:1px solid #d69200;border-radius:3px;background:#090b0c;color:#f1a600;font-weight:900}
+      .market-list-column-headings{padding:12px 22px;border-bottom:1px solid rgba(177,123,0,.62);background:#061827;color:#f1a600;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+      .market-list-scroll{flex:1;overflow:auto;overscroll-behavior:contain;padding:12px 14px 16px;background:radial-gradient(circle at 50% 0%,#0d304b 0%,#08253c 48%,#051a2c 100%);scrollbar-color:#b77b00 #061827;scrollbar-width:thin}
+      .market-list-scroll::-webkit-scrollbar{width:10px}.market-list-scroll::-webkit-scrollbar-track{background:#061827}.market-list-scroll::-webkit-scrollbar-thumb{border:2px solid #061827;border-radius:8px;background:#9b7118}.market-list-scroll::-webkit-scrollbar-thumb:hover{background:#f1a600}
+      .market-list-row{min-height:72px;margin:0 0 10px;padding:11px 18px;border:1px solid rgba(183,123,0,.68);border-radius:3px;background:linear-gradient(145deg,#123b5a 0%,#0b2e49 58%,#071f34 100%);box-shadow:0 10px 28px rgba(0,0,0,.28);transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease}
+      .market-list-row:hover{border-color:#e2a512;background:linear-gradient(145deg,#184d70 0%,#103b5a 58%,#0a2942 100%);box-shadow:0 14px 34px rgba(0,0,0,.42),0 0 0 1px rgba(241,166,0,.12);transform:translateY(-1px)}
+      .market-list-rank{display:grid;place-items:center;width:34px;height:34px;border:1px solid #d69200;border-radius:3px;background:#061827;color:#f1a600;font-weight:900}
       .market-list-description{min-width:0}
       .market-list-description strong{display:block;color:#f5f5f2;font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.1}
       .market-list-description small{display:block;margin-top:5px;color:#c7cbcd;font-size:11px}
       .market-list-description small::after{content:"  •  Available";color:#58c94f;font-weight:700}
       .market-list-price{color:#f1a600;font-size:20px;line-height:1;white-space:nowrap}
-      .market-list-inquire{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 14px;border:1px solid #d89400;border-radius:3px;background:#090b0c;color:#f4f4f1!important;text-decoration:none!important;font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+      .market-list-inquire{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 14px;border:1px solid #d89400;border-radius:3px;background:#061827;color:#f4f4f1!important;text-decoration:none!important;font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
       .market-list-inquire:hover,.market-list-inquire:focus-visible{background:#f1a600;color:#070809!important;outline:none}
-      .market-list-popup-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 22px;border-top:1px solid #b77b00;background:#020405;color:#cdd1d4;font-size:11px}
+      .market-list-popup-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 22px;border-top:1px solid #b77b00;background:#041522;color:#cdd1d4;font-size:11px}
       .market-list-popup-footer a{color:#f1a600;font-weight:900;text-decoration:none}.market-list-popup-footer a:hover{color:#fff}
-      .market-list-loading,.market-list-error{display:grid;place-items:center;min-height:260px;padding:30px;border:1px solid rgba(177,122,0,.5);border-left:3px solid #f1a600;background:rgba(12,14,15,.78);color:#cdd1d4;text-align:center;font-weight:700}
+      .market-list-loading,.market-list-error{display:grid;place-items:center;min-height:260px;padding:30px;border:1px solid rgba(177,122,0,.5);border-left:3px solid #f1a600;background:rgba(8,37,60,.88);color:#cdd1d4;text-align:center;font-weight:700}
       .map-panel[data-market-list-bound="true"]{cursor:pointer}
       @media(max-width:720px){
         .market-list-popup{width:96vw!important;height:90vh!important}
