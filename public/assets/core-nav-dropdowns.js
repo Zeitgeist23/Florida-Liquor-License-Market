@@ -12,10 +12,10 @@
       width: 310,
       items: [
         { label: "Buy a Florida Liquor License", href: "/buy-florida-liquor-license" },
-        { label: "View Listings", href: "/listings" },
-        { label: "Get a License Alert", href: "/license-alerts" },
         { label: "How to Buy a Florida Liquor License", href: "/how-to-buy-florida-liquor-license" },
         { label: "Florida County Markets", href: "/counties" },
+        { label: "View Listings", href: "/listings" },
+        { label: "Get a License Alert", href: "/license-alerts" },
       ],
     },
     {
