@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import ListingsHeaderListLicenseCta from "@/components/ListingsHeaderListLicenseCta";
 import ListingsHeatMapEnhancement from "@/components/ListingsHeatMapEnhancement";
 import ListingsMarketMenuSync from "@/components/ListingsMarketMenuSync";
 import ListingsPage from "@/components/ListingsPage";
@@ -15,6 +14,7 @@ import {
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
+import "../fllm-official-template.css";
 import "./listings-premium.css";
 import "./listings-header-position.css";
 import "./listings-map-size.css";
@@ -195,7 +195,6 @@ export default async function Page() {
       />
       <ListingsPage initialListings={marketplaceListings} />
       <ListingsSeoAuthorityBridge />
-      <ListingsHeaderListLicenseCta />
       <ListingsQueryFilterEnhancement />
       <MonroeMapCompletion />
       <ListingsHeatMapEnhancement />
