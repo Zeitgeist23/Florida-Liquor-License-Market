@@ -207,29 +207,45 @@
 
 .seo-market-page .seo-market-snapshot-grid div {
   min-height: 118px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 17px 14px;
   border: 1px solid rgba(88, 200, 238, .26);
   border-radius: var(--fllm-radius);
   background: rgba(7, 31, 54, .72);
   box-shadow: inset 0 1px 0 rgba(105, 214, 255, .05);
+  text-align: center;
 }
 
 .seo-market-page .seo-market-snapshot-grid strong {
   width: 100%;
   min-width: 0;
+  margin: 0 0 9px;
   color: var(--fllm-white);
-  font-size: clamp(21px, 1.45vw, 25px);
+  font-size: clamp(24px, 1.65vw, 28px);
   font-variant-numeric: lining-nums tabular-nums;
   font-feature-settings: "lnum" 1, "tnum" 1;
   letter-spacing: -.025em;
-  line-height: 1.05;
+  line-height: 1;
+  text-align: center;
   white-space: nowrap;
 }
 
 .seo-market-page .seo-market-snapshot-grid small {
-  color: #eef4f8;
-  font-size: 12px;
-  line-height: 1.38;
+  width: 100%;
+  min-height: 35px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  color: #dceaf3;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .035em;
+  line-height: 1.35;
+  text-align: center;
+  text-transform: uppercase;
   overflow-wrap: normal;
   word-break: normal;
 }
