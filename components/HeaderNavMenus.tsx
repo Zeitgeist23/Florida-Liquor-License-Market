@@ -92,8 +92,8 @@ const navMenus: NavMenu[] = [
     menuClassName: "native-license-types-menu",
     wrapperClassName: "native-nav-license-types",
     links: [
-      { href: "/resources/florida-liquor-license-types", label: "Types of Florida Liquor Licenses", group: "Start Here" },
       { href: "/resources/florida-liquor-license-system", label: "How Florida Liquor Licensing Works", group: "Start Here" },
+      { href: "/resources/florida-liquor-license-types", label: "Types of Florida Liquor Licenses", group: "Start Here" },
       { href: "/resources/florida-liquor-license-types#population-rule-title", label: "Quota License Requirements", group: "Start Here" },
       { href: "/license-types/4cop-quota", label: "4COP Quota License", group: "Quota Licenses" },
       { href: "/license-types/3ps-package-store", label: "3PS Quota / Package Store", group: "Quota Licenses" },
