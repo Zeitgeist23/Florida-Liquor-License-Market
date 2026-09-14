@@ -328,10 +328,7 @@
 }
 
 .seo-market-page .four-cop-market-table-wrap {
-  max-height: min(68vh, 620px);
-  overflow: auto;
-  overscroll-behavior: contain;
-  scrollbar-gutter: stable;
+  overflow: visible;
   margin-top: 24px;
   border: 1px solid #6b531e;
   border-radius: var(--fllm-radius);
@@ -766,6 +763,10 @@
 }
 
 @media (max-width: 760px) {
+  .seo-market-page .four-cop-market-table-wrap {
+    overflow-x: auto;
+  }
+
   .seo-market-page .seo-market-section-heading,
   .seo-market-page .seo-market-final-cta .seo-market-shell {
     display: block;
