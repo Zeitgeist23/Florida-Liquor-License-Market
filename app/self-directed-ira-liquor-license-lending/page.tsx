@@ -162,6 +162,48 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
             </aside>
           </div>
 
+          <div className="ira-funding-flow" aria-labelledby="ira-funding-flow-title">
+            <div className="ira-flow-heading">
+              <span>Illustrative Funding Structure</span>
+              <h3 id="ira-funding-flow-title">From a Traditional IRA to an IRA-owned liquor-license note</h3>
+              <p>This example shows the movement of retirement assets and loan proceeds. It is not a recommendation, guarantee, or substitute for custodian, legal, tax, and investment review.</p>
+            </div>
+
+            <ol className="ira-flow-track">
+              <li>
+                <span>1</span>
+                <strong>Existing Traditional IRA</strong>
+                <p>Retirement assets are held at the client’s current brokerage, bank, or retirement-plan provider.</p>
+              </li>
+              <li>
+                <span>2</span>
+                <strong>Direct transfer or rollover</strong>
+                <p>The existing provider sends eligible assets to the receiving self-directed IRA custodian under provider procedures.</p>
+              </li>
+              <li>
+                <span>3</span>
+                <strong>Self-Directed IRA</strong>
+                <p>The specialized custodian establishes and administers the account and must approve the proposed private-note asset.</p>
+              </li>
+              <li>
+                <span>4</span>
+                <strong>IRA funds and holds the note</strong>
+                <p>The Self-Directed IRA, not the account owner personally, lends funds and becomes the owner of the promissory note.</p>
+              </li>
+              <li>
+                <span>5</span>
+                <strong>Unrelated liquor-license buyer</strong>
+                <p>The borrower uses the loan proceeds to finance part of the purchase price of a Florida 4COP Quota or 3PS liquor license.</p>
+              </li>
+            </ol>
+
+            <div className="ira-flow-return">
+              <span aria-hidden="true">↶</span>
+              <strong>Repayment path:</strong>
+              <p>The borrower’s principal and interest payments return directly to the Self-Directed IRA through the custodian—not to the IRA owner personally.</p>
+            </div>
+          </div>
+
           <div className="ira-admin-boundary">
             <strong>Administrative scope only.</strong> FLLM may identify possible custodians or administrators, coordinate paperwork, and facilitate introductions to independent Florida liquor-license attorneys, but FLLM does not endorse, recommend, select or guarantee any custodian, attorney, account, rollover or investment. FLLM is not a law firm and does not supervise the attorney, establish an attorney-client relationship, include the attorney’s legal fees in the $495 service fee unless expressly agreed in writing, choose tax elections, draft customized legal or loan documents, provide legal, tax or investment advice, handle retirement funds, sign forms, determine prohibited-transaction compliance, or guarantee that a provider will accept a proposed investment. The client independently retains counsel, reviews and approves all elections, and signs all required documents. Any movement of retirement assets is handled by the existing provider and receiving custodian or trustee under their procedures.
           </div>
