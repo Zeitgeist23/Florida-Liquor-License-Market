@@ -41,8 +41,7 @@
   }
 
   .results-page .results-intro {
-    padding-top: 54px;
-    padding-bottom: 52px;
+    padding: 54px 0 52px !important;
   }
 
   .results-page .listings-header-band .forms-site-header .header-actions {
