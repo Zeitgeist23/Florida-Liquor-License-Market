@@ -454,7 +454,7 @@
     0 15px 30px rgba(3, 17, 29, .34);
 }
 
-.ira-lending-guide-page .seo-market-guide p.ira-interest-lead {
+.ira-lending-guide-page .ira-interest-lead.ira-interest-lead {
   max-width: 1020px;
   margin: 14px 0 0;
   color: var(--fllm-text-muted);
