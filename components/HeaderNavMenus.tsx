@@ -80,7 +80,7 @@ const navMenus: NavMenu[] = [
       { href: "/florida-liquor-license-value", label: "Florida Liquor License Value Estimator", badge: "VALUE" },
       { href: "/florida-quota-liquor-license-cost", label: "Florida Liquor License Cost by County" },
       { href: "/listings?status=sold", label: "Recent Florida Transactions", badge: "SALES" },
-      { href: "/#market-data", label: "Florida Market Insights" },
+      { href: "/florida-quota-liquor-license-market-report", label: "Florida Market Insights" },
       { href: "/florida-liquor-license-lottery", label: "Quota Lottery Entry", badge: "LOTTERY" },
       { href: "/florida-liquor-license-news", label: "News & Insights" },
       { href: "/#market-data", label: "Florida Market Heat Map", badge: "MAP" },

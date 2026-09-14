@@ -38,7 +38,7 @@ const MARKET_DATA_ITEMS = [
   },
   {
     label: "Florida Market Insights",
-    href: "/#market-data",
+    href: "/florida-quota-liquor-license-market-report",
   },
 ] as const;
 
