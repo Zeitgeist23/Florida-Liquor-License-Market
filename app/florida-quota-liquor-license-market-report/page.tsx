@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import CopyLinkField from "@/components/CopyLinkField";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { buildFloridaMarketIndex } from "@/lib/florida-market-index";
 import { getMarketplaceListings } from "@/lib/listing-store";
@@ -240,7 +241,7 @@ export default async function FloridaQuotaLiquorLicenseMarketReportPage() {
           <aside>
             <strong>Suggested citation</strong>
             <p>{`Florida Liquor License Market, “Florida Quota Liquor License Market Report — ${snapshot.snapshotLabel},” accessed ${currentDate}.`}</p>
-            <code>{canonicalUrl}</code>
+            <CopyLinkField value={canonicalUrl} />
           </aside>
         </div>
       </section>
