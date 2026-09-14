@@ -227,7 +227,7 @@ export default function ListingsPage({
 
   return (
     <main className="results-page fllm-official-page" data-fllm-template="county-v1">
-      <FormsSiteHeader />
+      <div className="listings-header-band"><FormsSiteHeader /></div>
       <section className="results-intro">
         <div className="page-shell">
           <span>Florida Marketplace Inventory</span>
