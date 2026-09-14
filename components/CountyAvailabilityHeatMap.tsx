@@ -140,7 +140,7 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
                     aria-label={label}
                     onPointerEnter={() => row && activateCounty(row)}
                     onPointerLeave={() => setActiveSlug(null)}
-                    onFocus={(event) => {
+                    onFocus={() => {
                       if (!row) return;
                       activateCounty(row);
                     }}
