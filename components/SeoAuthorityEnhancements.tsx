@@ -70,13 +70,11 @@ const sellerServiceAuthorityPaths = new Set([
   "/how-to-sell-florida-liquor-license",
   "/florida-liquor-license-broker",
   "/florida-liquor-license-broker-fees",
-  "/listings",
   "/transaction-services",
 ]);
 
 const onlineMarketplaceAuthorityPaths = new Set([
   "/sell-your-license",
-  "/listings",
   "/buy-florida-liquor-license",
   "/how-to-buy-florida-liquor-license",
   "/how-to-sell-florida-liquor-license",
@@ -90,7 +88,6 @@ const onlineMarketplaceAuthorityPaths = new Set([
 
 const howToBuyAuthorityPaths = new Set([
   "/",
-  "/listings",
   "/buy-florida-liquor-license",
   "/florida-4cop-liquor-license-for-sale",
   "/counties",
