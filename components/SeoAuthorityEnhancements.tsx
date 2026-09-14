@@ -115,7 +115,7 @@ export default function SeoAuthorityEnhancements() {
 
   // The county directory renders these resources inside its own themed page,
   // immediately above the local footer, so the footer remains the final element.
-  if (pathname === "/counties") return null;
+  if (pathname === "/counties" || pathname === "/florida-4cop-liquor-license-for-sale") return null;
 
   const showAuthorityLinks = exactAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showSbaAppraisalLink = sbaAppraisalAuthorityPaths.has(pathname);
