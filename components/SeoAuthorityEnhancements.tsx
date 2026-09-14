@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 const exactAuthorityPaths = new Set([
   "/",
   "/florida-4cop-liquor-license-for-sale",
-  "/florida-3ps-liquor-license-for-sale",
   "/florida-quota-liquor-license-cost",
   "/florida-liquor-license-value",
   "/buy-florida-liquor-license",
@@ -61,7 +60,6 @@ const brokerListingAuthorityPaths = new Set([
   "/sell-your-license",
   "/how-to-sell-florida-liquor-license",
   "/florida-4cop-liquor-license-for-sale",
-  "/florida-3ps-liquor-license-for-sale",
   "/counties",
   "/resources/florida-liquor-license-types",
 ]);
@@ -87,7 +85,6 @@ const onlineMarketplaceAuthorityPaths = new Set([
   "/financing",
   "/finance-a-license",
   "/florida-4cop-liquor-license-for-sale",
-  "/florida-3ps-liquor-license-for-sale",
   "/counties",
 ]);
 
@@ -96,7 +93,6 @@ const howToBuyAuthorityPaths = new Set([
   "/listings",
   "/buy-florida-liquor-license",
   "/florida-4cop-liquor-license-for-sale",
-  "/florida-3ps-liquor-license-for-sale",
   "/counties",
   "/financing",
   "/finance-a-license",
@@ -112,15 +108,6 @@ function isCountyMarketPage(pathname: string) {
 
 export default function SeoAuthorityEnhancements() {
   const pathname = usePathname();
-
-  // These pages render their own consolidated, themed resource sections so
-  // the approved footer remains the final element without duplicate SEO strips.
-  if (
-    pathname === "/listings" ||
-    pathname === "/counties" ||
-    pathname === "/florida-4cop-liquor-license-for-sale"
-  ) return null;
-
   const showAuthorityLinks = exactAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showSbaAppraisalLink = sbaAppraisalAuthorityPaths.has(pathname);
   const showBuyerFinancingAppraisalLink = buyerFinancingAppraisalPaths.has(pathname);
