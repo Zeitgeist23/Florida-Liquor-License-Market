@@ -69,6 +69,7 @@ function money(value: number | null) {
 
 function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapRow[]; mode: MapMode }) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [mapPin, setMapPin] = useState<{ x: number; y: number; color: string } | null>(null);
   const [priceOrder, setPriceOrder] = useState<"highest" | "lowest">("highest");
   const stageRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLElement>(null);
@@ -92,6 +93,8 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
     maximum,
     mode === "inventory" ? row.listingCount : row.fourCopMedian ?? 0,
   ), 0);
+  const isInventory = mode === "inventory";
+
   function positionTooltip(target: Element, clientY: number) {
     const stage = stageRef.current;
     const tooltip = tooltipRef.current;
@@ -127,11 +130,39 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
   }
 
   function activateCounty(row: CountyAvailabilityHeatMapRow, target: Element, clientY: number) {
+    const countyPath = target.matches("path")
+      ? target
+      : target.querySelector("path");
+
     setActiveSlug(row.name);
+    if (countyPath instanceof SVGGraphicsElement) {
+      const bounds = countyPath.getBBox();
+      setMapPin({
+        x: bounds.x + bounds.width / 2,
+        y: bounds.y + bounds.height / 2,
+        color: isInventory ? inventoryColor(row.listingCount) : priceColor(row.fourCopMedian),
+      });
+    }
     requestAnimationFrame(() => positionTooltip(target, clientY));
   }
 
-  const isInventory = mode === "inventory";
+  function activateRankedCounty(row: CountyAvailabilityHeatMapRow) {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const countyPath = Array.from(
+      stage.querySelectorAll<SVGPathElement>(".county-availability-map-svg path"),
+    ).find((path) => path.dataset.county === row.name);
+    const countyLink = countyPath?.closest("a");
+    if (!countyPath || !countyLink) return;
+    const bounds = countyPath.getBoundingClientRect();
+    activateCounty(row, countyLink, bounds.top + bounds.height / 2);
+  }
+
+  function deactivateCounty() {
+    setActiveSlug(null);
+    setMapPin(null);
+  }
+
   const legend = isInventory ? INVENTORY_LEGEND : PRICE_LEGEND;
 
   return (
@@ -162,16 +193,17 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
                   <a
                     key={county.id}
                     href={row ? `/counties/${row.slug}` : "/counties"}
+                    className={row && activeSlug === row.name ? "is-active" : undefined}
                     aria-label={label}
                     onPointerEnter={(event) => row && activateCounty(row, event.currentTarget, event.clientY)}
                     onPointerMove={(event) => positionTooltip(event.currentTarget, event.clientY)}
-                    onPointerLeave={() => setActiveSlug(null)}
+                    onPointerLeave={deactivateCounty}
                     onFocus={(event) => {
                       if (!row) return;
                       const bounds = event.currentTarget.getBoundingClientRect();
                       activateCounty(row, event.currentTarget, bounds.top + bounds.height / 2);
                     }}
-                    onBlur={() => setActiveSlug(null)}
+                    onBlur={deactivateCounty}
                   >
                     <path
                       d={county.path}
@@ -184,6 +216,16 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
                 );
               })}
             </g>
+            {mapPin ? (
+              <g transform={`translate(${mapPin.x} ${mapPin.y})`} aria-hidden="true">
+                <g className="county-map-pin-marker">
+                  <line x1="0" y1="-25" x2="0" y2="-3" />
+                  <circle className="county-map-pin-tip" cx="0" cy="-29" r="5.5" fill={mapPin.color} />
+                  <circle className="county-map-pin-shine" cx="-1.6" cy="-30.7" r="1.25" />
+                  <circle className="county-map-pin-point" cx="0" cy="0" r="1.8" fill={mapPin.color} />
+                </g>
+              </g>
+            ) : null}
           </svg>
 
           <aside
@@ -242,7 +284,14 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
               {ranking.map((row) => {
                 const value = isInventory ? row.listingCount : row.fourCopMedian ?? 0;
                 return (
-                  <li key={row.slug}>
+                  <li
+                    key={row.slug}
+                    className={activeSlug === row.name ? "is-map-active" : undefined}
+                    onPointerEnter={() => activateRankedCounty(row)}
+                    onPointerLeave={deactivateCounty}
+                    onFocus={() => activateRankedCounty(row)}
+                    onBlur={deactivateCounty}
+                  >
                     <span><a href={`/counties/${row.slug}`}>{row.name.replace(/ County$/i, "")}</a><b>{isInventory ? value : money(value)}</b></span>
                     <i><em style={{ width: `${Math.max(8, (value / maxRankingValue) * 100)}%` }} /></i>
                   </li>
