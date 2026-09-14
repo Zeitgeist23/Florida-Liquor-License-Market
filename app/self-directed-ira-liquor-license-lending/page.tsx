@@ -44,7 +44,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
     description:
       "An educational guide to self-directed IRA private lending, security agreements, and collateral protection for unrelated third-party Florida 4COP and 3PS quota-license transactions.",
     datePublished: "2026-08-19",
-    dateModified: "2026-08-25",
+    dateModified: "2026-09-14",
     mainEntityOfPage: canonicalUrl,
     author: { "@type": "Organization", name: "Florida Liquor License Market" },
     publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -57,7 +57,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
     serviceType: "Administrative retirement-account setup and transfer coordination",
     provider: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
     description:
-      "Flat-fee administrative assistance organizing a customer's self-directed IRA custodian onboarding materials, transfer or rollover paperwork, document checklist, and follow-up. FLLM does not act as custodian, trustee, investment adviser, broker-dealer, tax adviser, or law firm.",
+      "Flat-fee administrative assistance identifying possible self-directed IRA custodians or administrators that permit private-note investments and coordinating account setup and transfer or rollover paperwork. FLLM does not recommend or select a custodian or investment and does not act as custodian, trustee, investment adviser, broker-dealer, tax adviser, or law firm.",
     offers: {
       "@type": "Offer",
       price: "495.00",
@@ -90,7 +90,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
               <span className="seo-market-kicker">Retirement-Account Private Lending</span>
               <h1>Use a Self-Directed IRA to Explore Liquor License Lending</h1>
               <p>
-                Some self-directed IRA custodians permit private-debt investments. In an eligible, properly structured transaction, a Traditional or Roth IRA may hold a loan made to an unrelated third-party borrower who is purchasing or refinancing a transferable Florida 4COP Quota or 3PS quota liquor license. Interest and principal payments are directed back to the IRA account rather than paid personally to the IRA owner.
+                A conventional custodian-limited IRA generally cannot hold this type of private note unless the account is administered as a self-directed IRA by a custodian or administrator that permits the asset. A self-directed IRA—whether tax-classified as Traditional or Roth—may, subject to custodian acceptance and applicable rules, lend to an unrelated third-party borrower purchasing or refinancing a transferable Florida 4COP Quota or 3PS Florida liquor license. The IRA account, not the owner personally, funds and owns the note, and principal and interest return to the IRA.
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/investment-opportunities">View Investment Opportunities</Link>
@@ -114,10 +114,10 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
       <section className="seo-market-intro">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">The Basic Structure</span>
-          <h2>The IRA is the investor — not the IRA owner personally</h2>
+          <h2>A Self-Directed IRA is the investor — not the account owner personally</h2>
           <div className="ira-grid">
-            <article className="ira-card"><h3>Traditional IRA</h3><p>A qualifying self-directed Traditional IRA may be able to hold a private note when the custodian permits the investment and the transaction complies with applicable retirement-account rules.</p></article>
-            <article className="ira-card"><h3>Roth IRA</h3><p>A qualifying self-directed Roth IRA may also be able to hold private debt. Tax treatment depends on the account and the investor’s circumstances; FLLM does not provide tax advice.</p></article>
+            <article className="ira-card"><h3>Self-Directed IRA required</h3><p>The account must be administered as a self-directed IRA by a custodian or administrator willing to hold private notes. A conventional brokerage or bank IRA should not be assumed to permit this investment.</p></article>
+            <article className="ira-card"><h3>Traditional or Roth tax status</h3><p>“Self-directed” describes how the account may hold alternative assets; it is not a separate tax classification. The underlying IRA may be Traditional or Roth, subject to custodian procedures and independent tax and legal review.</p></article>
             <article className="ira-card"><h3>Third-party borrower</h3><p>The borrower should be an unrelated party who is not a disqualified person with respect to the IRA. The transaction must be evaluated for direct and indirect prohibited-transaction concerns.</p></article>
             <article className="ira-card"><h3>Interest returns to the IRA</h3><p>Loan payments are generally directed to the retirement account through the custodian or administrator. The IRA owner should not personally receive the borrower’s interest or principal payments.</p></article>
           </div>
@@ -129,32 +129,48 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
           <span className="seo-market-section-kicker">Optional Administrative Service</span>
           <h2>Self-Directed IRA Setup Assistance</h2>
           <p className="ira-setup-lead">
-            Want help getting a self-directed IRA administratively ready? FLLM offers a flat-fee concierge service that helps organize the paperwork and follow-up required by the custodian you select. The IRA itself is established and held by the customer’s chosen IRA custodian or trustee — not by FLLM.
+            FLLM charges a flat $495 administrative fee to identify possible self-directed IRA custodians or administrators that state they permit private-note investments and to help coordinate account setup and transfer or rollover paperwork from a client’s existing Traditional IRA. The client independently evaluates and selects the custodian. The account and retirement assets are established, held and transferred by the selected providers — not by FLLM.
           </p>
 
           <div className="ira-setup-service">
             <div>
               <h3>Administrative setup & transfer coordination</h3>
-              <p>We help keep the process organized while you remain in control of the custodian, account elections, signatures and investment decisions.</p>
+              <p>We help keep the administrative process organized while you remain in control of the custodian, account elections, signatures and every investment decision.</p>
               <ul className="ira-setup-list">
-                <li>Organize the account-opening materials required by your selected self-directed IRA custodian or administrator.</li>
-                <li>Help assemble factual information and supporting documents requested by the custodian, using information supplied or approved by you.</li>
-                <li>Help coordinate the custodian’s transfer or rollover paperwork with your existing IRA provider or retirement-plan administrator.</li>
-                <li>Track administrative follow-up, missing items and status updates while the new account is being opened and funded.</li>
-                <li>Prepare an administrative checklist for a future private-lending investment request once the account is established.</li>
+                <li>Identify one or more possible self-directed IRA custodians or administrators that state they permit private-note investments.</li>
+                <li>Organize account-opening materials required by the custodian or administrator you independently select.</li>
+                <li>Help assemble factual information and supporting documents requested by the selected provider, using information supplied or approved by you.</li>
+                <li>Help coordinate transfer or direct-rollover paperwork from an existing Traditional IRA with the existing provider and receiving custodian.</li>
+                <li>Track administrative follow-up, missing items and status updates while the self-directed account is opened and funded.</li>
+                <li>Prepare an administrative checklist for a future 4COP Quota or 3PS private-note investment request.</li>
               </ul>
             </div>
 
             <aside className="ira-setup-price" aria-label="Self-Directed IRA Setup Assistance price">
               <span>Flat administrative fee</span>
               <strong>$495</strong>
-              <small>One-time setup-assistance fee. Not based on the IRA balance, amount transferred, loan size or whether any investment closes.</small>
+              <small>One-time fee for custodian identification, account-setup coordination and transfer or rollover support. This is not an investment-management, brokerage or success fee.</small>
               <a className="seo-market-button seo-market-button-gold" href="https://buy.stripe.com/5kQ4gr5iZ47r9KJ2aNebu03">Pay Securely with Stripe — $495</a>
             </aside>
           </div>
 
           <div className="ira-admin-boundary">
-            <strong>Administrative scope only.</strong> FLLM does not select your custodian, recommend whether you should make a rollover, transfer or Roth conversion, choose tax elections, draft customized legal or loan documents, provide legal, tax or investment advice, handle retirement funds, sign forms for you, determine prohibited-transaction compliance, or guarantee that a custodian will accept a proposed investment. You review and approve all elections and sign all required documents. Any actual movement of retirement assets is handled by the existing plan or IRA provider and the receiving custodian or trustee under their procedures.
+            <strong>Administrative scope only.</strong> FLLM may identify possible custodians or administrators and help coordinate paperwork, but FLLM does not endorse, recommend, select or guarantee any custodian, account, rollover or investment. FLLM does not choose tax elections, draft customized legal or loan documents, provide legal, tax or investment advice, handle retirement funds, sign forms, determine prohibited-transaction compliance, or guarantee that a provider will accept a proposed investment. The client reviews and approves all elections and signs all required documents. Any movement of retirement assets is handled by the existing provider and receiving custodian or trustee under their procedures.
+          </div>
+
+          <div className="ira-disclosure-grid" aria-label="Investment and registration disclosures">
+            <article>
+              <strong>No investment advice or securities registration</strong>
+              <p>FLLM is not registered as an investment adviser with the SEC or any state securities authority and is not a FINRA-registered broker-dealer. FLLM does not provide investment advice or recommend any borrower, lender, custodian, note or transaction.</p>
+            </article>
+            <article>
+              <strong>Possible loss of capital</strong>
+              <p>Private loans connected with liquor-license transactions involve substantial risk. A borrower may default, collateral value and liquidity may decline, enforcement may be delayed or unsuccessful, and an investor may lose some or all principal.</p>
+            </article>
+            <article>
+              <strong>Not FDIC insured or guaranteed</strong>
+              <p>A private note is an investment, not a bank deposit. It is not FDIC insured, is not guaranteed by FLLM, any custodian or any government agency, and may lose value.</p>
+            </article>
           </div>
         </div>
       </section>
@@ -248,7 +264,7 @@ export default function SelfDirectedIraLiquorLicenseLendingPage() {
             <li>Use independent legal, tax and retirement-account professionals before funding.</li>
           </ul>
           <div className="ira-warning">
-            <strong>Important:</strong> FLLM is an information and marketplace platform. FLLM is not an IRA custodian or trustee, investment adviser, broker-dealer, tax adviser or law firm. FLLM does not guarantee that any proposed transaction qualifies for IRA investment treatment, does not guarantee repayment or return, and does not determine whether a transaction is a prohibited transaction. Investors and borrowers should obtain independent professional advice before entering any transaction.
+            <strong>Important:</strong> FLLM is an information and marketplace platform, not an IRA custodian or trustee, registered investment adviser, FINRA-registered broker-dealer, tax adviser or law firm. Private notes are not FDIC insured or guaranteed and may result in the loss of some or all invested capital. FLLM does not determine IRA eligibility or prohibited-transaction compliance and does not guarantee repayment, return, collateral value or liquidity. Investors and borrowers should obtain independent legal, tax, investment and retirement-account advice before entering any transaction.
           </div>
         </div>
       </section>
