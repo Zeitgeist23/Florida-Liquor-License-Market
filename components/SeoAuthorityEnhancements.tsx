@@ -113,9 +113,13 @@ function isCountyMarketPage(pathname: string) {
 export default function SeoAuthorityEnhancements() {
   const pathname = usePathname();
 
-  // The county directory renders these resources inside its own themed page,
-  // immediately above the local footer, so the footer remains the final element.
-  if (pathname === "/counties" || pathname === "/florida-4cop-liquor-license-for-sale") return null;
+  // These pages render their own consolidated, themed resource sections so
+  // the approved footer remains the final element without duplicate SEO strips.
+  if (
+    pathname === "/listings" ||
+    pathname === "/counties" ||
+    pathname === "/florida-4cop-liquor-license-for-sale"
+  ) return null;
 
   const showAuthorityLinks = exactAuthorityPaths.has(pathname) || isCountyMarketPage(pathname);
   const showSbaAppraisalLink = sbaAppraisalAuthorityPaths.has(pathname);
