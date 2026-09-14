@@ -70,7 +70,6 @@ function money(value: number | null) {
 function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapRow[]; mode: MapMode }) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [priceOrder, setPriceOrder] = useState<"highest" | "lowest">("highest");
-  const stageRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLElement>(null);
 
   const rowsByCounty = useMemo(
@@ -92,25 +91,19 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
     maximum,
     mode === "inventory" ? row.listingCount : row.fourCopMedian ?? 0,
   ), 0);
-  function positionTooltip(clientX: number, clientY: number) {
-    const stage = stageRef.current;
+  function positionTooltip() {
     const tooltip = tooltipRef.current;
-    if (!stage || !tooltip) return;
+    if (!tooltip) return;
 
-    const bounds = stage.getBoundingClientRect();
-    const tooltipWidth = Math.min(250, Math.max(210, bounds.width - 20));
-    const maxLeft = Math.max(10, bounds.width - tooltipWidth - 10);
-    const maxTop = Math.max(10, bounds.height - 190);
-    const left = Math.min(Math.max(10, clientX - bounds.left + 14), maxLeft);
-    const top = Math.min(Math.max(10, clientY - bounds.top - 52), maxTop);
-
-    tooltip.style.left = `${left}px`;
-    tooltip.style.top = `${top}px`;
+    tooltip.style.left = "18px";
+    tooltip.style.right = "auto";
+    tooltip.style.top = "auto";
+    tooltip.style.bottom = "18px";
   }
 
-  function activateCounty(row: CountyAvailabilityHeatMapRow, clientX: number, clientY: number) {
+  function activateCounty(row: CountyAvailabilityHeatMapRow) {
     setActiveSlug(row.name);
-    positionTooltip(clientX, clientY);
+    positionTooltip();
   }
 
   const isInventory = mode === "inventory";
@@ -119,7 +112,7 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
   return (
     <article className={`county-heatmap-module county-heatmap-module--${mode}`}>
       <div className="county-heatmap-module-grid">
-        <div className="county-availability-map-stage" ref={stageRef}>
+        <div className="county-availability-map-stage">
           <svg
             className="county-availability-map-svg"
             viewBox="135 10 295 275"
@@ -145,13 +138,11 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
                     key={county.id}
                     href={row ? `/counties/${row.slug}` : "/counties"}
                     aria-label={label}
-                    onPointerEnter={(event) => row && activateCounty(row, event.clientX, event.clientY)}
-                    onPointerMove={(event) => positionTooltip(event.clientX, event.clientY)}
+                    onPointerEnter={() => row && activateCounty(row)}
                     onPointerLeave={() => setActiveSlug(null)}
                     onFocus={(event) => {
                       if (!row) return;
-                      const bounds = event.currentTarget.getBoundingClientRect();
-                      activateCounty(row, bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+                      activateCounty(row);
                     }}
                     onBlur={() => setActiveSlug(null)}
                   >
