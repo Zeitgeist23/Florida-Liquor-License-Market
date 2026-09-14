@@ -18,7 +18,126 @@
   margin-inline: auto;
 }
 
-.quota-market-report > .forms-site-header { background: var(--report-ink); }
+.quota-report-header-band {
+  position: relative;
+  z-index: 120;
+  width: 100%;
+  border-bottom: 1px solid #765613;
+  background:
+    radial-gradient(circle at 82% 35%, rgba(19, 54, 77, .2), transparent 30%),
+    linear-gradient(90deg, #010810 0%, #020c14 48%, #061522 100%);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .22);
+}
+
+.quota-report-header-band .forms-site-header { background: transparent; }
+.quota-report-header-band .forms-site-header .header-actions .btn-outline { order: 1; }
+.quota-report-header-band .forms-site-header .header-actions .btn-gold { order: 2; }
+
+@media (min-width: 981px) {
+  .quota-market-report .quota-report-header-band .forms-site-header.page-shell {
+    width: min(1400px, calc(100% - 24px));
+    min-height: 82px;
+    height: 82px;
+    gap: 16px;
+  }
+
+  .quota-market-report .quota-report-header-band .forms-site-header .brand-lockup {
+    flex: 0 0 160px;
+  }
+
+  .quota-market-report .quota-report-header-band .forms-site-header .brand-lockup img {
+    width: 150px;
+    height: 61px;
+  }
+
+  .quota-market-report .quota-report-header-band .forms-site-header .primary-nav {
+    gap: 42px;
+  }
+
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions {
+    gap: 10px;
+    transform: none;
+  }
+
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .btn {
+    height: 33px;
+    min-height: 33px;
+    border-radius: 5px;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: .02em;
+    line-height: 1;
+    white-space: nowrap;
+    transform-origin: center;
+    transition:
+      transform .18s ease,
+      border-color .18s ease,
+      background .18s ease,
+      color .18s ease,
+      box-shadow .18s ease,
+      filter .18s ease;
+  }
+
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .btn-gold {
+    width: 116px;
+    min-width: 116px;
+    padding: 0 9px;
+    border: 1px solid #ffbd2e;
+    background: linear-gradient(145deg, #f8b72f 0%, #e99a00 58%, #cf7800 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 237, 182, .55),
+      inset 0 -2px 0 rgba(95, 51, 0, .28),
+      0 5px 12px rgba(0, 0, 0, .27);
+    color: #07101a;
+  }
+
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .btn-outline {
+    width: 100px;
+    min-width: 100px;
+    padding: 0 8px;
+    border: 1px solid #e8a000;
+    background: linear-gradient(145deg, rgba(7, 22, 34, .96), rgba(1, 8, 15, .98));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .05),
+      0 4px 11px rgba(0, 0, 0, .22);
+    color: #f6b21a;
+  }
+
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .contact-phone {
+    margin-right: 4px;
+    font-size: 10px;
+  }
+
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .btn:hover,
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .btn:focus-visible {
+    transform: translateY(-1px) scale(1.03);
+    outline: none;
+  }
+
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .btn-gold:hover,
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .btn-gold:focus-visible,
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .btn-outline:hover,
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .btn-outline:focus-visible {
+    border-color: #ffd069;
+    background: linear-gradient(145deg, #ffc64a 0%, #f1a600 58%, #dc8500 100%);
+    color: #07101a;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 247, 218, .7),
+      inset 0 -2px 0 rgba(95, 51, 0, .22),
+      0 8px 17px rgba(0, 0, 0, .33),
+      0 0 12px rgba(241, 166, 0, .28);
+  }
+}
+
+@media (min-width: 981px) and (max-width: 1180px) {
+  .quota-market-report .quota-report-header-band .forms-site-header .primary-nav { gap: 27px; }
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .btn-gold { width: 110px; min-width: 110px; }
+  .quota-market-report .quota-report-header-band .forms-site-header .header-actions .btn-outline { width: 96px; min-width: 96px; }
+}
+
+@media (max-width: 980px) {
+  .quota-report-header-band { background: #020b13; }
+}
 
 .quota-report-hero {
   position: relative;
@@ -352,44 +471,67 @@
 
 .quota-report-footer {
   padding-top: 20px;
-  border-top: 1px solid #9a6a05;
-  background: linear-gradient(90deg, #071f36, #0c3558 50%, #071f36);
+  border-top: 1px solid #6e531d;
+  background: linear-gradient(90deg, #071f36 0%, #0c3558 50%, #071f36 100%);
 }
 
-.quota-report-footer .quota-report-shell {
-  min-height: 76px;
+.quota-report-footer .directory-shell {
+  width: min(1240px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.quota-report-footer > .directory-shell {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  padding-bottom: 20px;
+  gap: 20px;
+  padding-bottom: 18px;
 }
 
-.quota-report-footer-brand {
+.quota-report-footer .directory-footer-brand {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.quota-report-footer-brand img {
+.quota-report-footer .directory-footer-brand > a {
   display: block;
-  width: 130px;
-  height: 53px;
-  object-fit: contain;
+  line-height: 0;
 }
 
-.quota-report-footer-brand span { color: #fff; font-size: 12px; }
+.quota-report-footer .directory-footer-brand img {
+  display: block;
+  width: 130px;
+  height: auto;
+}
+
+.quota-report-footer .directory-footer-brand span { color: #e4eef5; font-size: 12px; }
 
 .quota-report-footer nav {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
 
-.quota-report-footer nav a { color: #fff; font-size: 12px; font-weight: 900; }
+.quota-report-footer nav a { color: #f3f7fa; font-size: 12px; font-weight: 800; }
 .quota-report-footer nav a:hover,
-.quota-report-footer nav a:focus-visible { color: var(--report-gold-bright); }
+.quota-report-footer nav a:focus-visible { color: var(--report-gold); }
+
+.quota-report-footer > .national-marketplace-footer-link {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 14px max(20px, calc((100% - 1240px) / 2)) 16px;
+  border-top: 1px solid #263f55;
+  background: #0a2947;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: #dce8f0;
+  font-size: 11px;
+  text-align: left;
+}
 
 @media (max-width: 980px) {
   .quota-report-hero-grid,
@@ -414,7 +556,13 @@
   .quota-report-types { padding-top: 32px; }
   .quota-report-methodology,
   .quota-report-citation { padding-block: 42px; }
-  .quota-report-footer .quota-report-shell { align-items: flex-start; flex-direction: column; }
+  .quota-report-footer > .directory-shell,
+  .quota-report-footer > .national-marketplace-footer-link {
+    flex-direction: column;
+    text-align: center;
+  }
+  .quota-report-footer .directory-footer-brand { flex-direction: column; gap: 9px; }
+  .quota-report-footer nav { justify-content: center; }
 }
 
 @media (max-width: 480px) {
@@ -422,6 +570,5 @@
   .quota-report-types article > strong { font-size: 32px; }
   .quota-report-table-wrap th,
   .quota-report-table-wrap td { padding: 12px; white-space: nowrap; }
-  .quota-report-footer-brand { align-items: flex-start; flex-direction: column; }
   .quota-report-footer nav { gap: 16px; }
 }

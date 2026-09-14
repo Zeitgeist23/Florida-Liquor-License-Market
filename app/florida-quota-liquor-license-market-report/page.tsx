@@ -131,7 +131,7 @@ export default async function FloridaQuotaLiquorLicenseMarketReportPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
 
-      <FormsSiteHeader />
+      <div className="quota-report-header-band"><FormsSiteHeader /></div>
 
       <section className="quota-report-hero">
         <div className="quota-report-shell quota-report-hero-grid">
@@ -245,9 +245,9 @@ export default async function FloridaQuotaLiquorLicenseMarketReportPage() {
         </div>
       </section>
 
-      <footer className="quota-report-footer">
-        <div className="quota-report-shell">
-          <div className="quota-report-footer-brand">
+      <footer className="directory-footer quota-report-footer">
+        <div className="directory-shell">
+          <div className="directory-footer-brand">
             <Link href="/" aria-label="Florida Liquor License Market home">
               <Image src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width={130} height={53} />
             </Link>
