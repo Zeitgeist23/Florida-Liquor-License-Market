@@ -1,6 +1,14 @@
 .resources-page{min-height:100vh;color:#071a2c;background:#f5f6f4;font-family:Arial,Helvetica,sans-serif}
 .resources-header-wrap{position:relative;z-index:30;border-bottom:1px solid rgba(246,167,0,.55);background:#020b12}
 .resources-header-wrap .site-header{margin-inline:auto}
+@media(min-width:981px){
+.resources-header-wrap .forms-site-header.page-shell{width:min(1240px,calc(100% - 40px));gap:18px}
+.resources-header-wrap .forms-site-header .brand-lockup{flex:0 0 184px}
+.resources-header-wrap .forms-site-header .brand-lockup img{width:168.7125px;height:68.5075px}
+.resources-header-wrap .forms-site-header .primary-nav{justify-content:center;gap:42px}
+.resources-header-wrap .forms-site-header .header-actions{transform:translateX(5px)}
+.resources-header-wrap .forms-site-header .header-actions .btn-outline:hover,.resources-header-wrap .forms-site-header .header-actions .btn-outline:focus-visible{border-color:#ffc13b;background:linear-gradient(145deg,#ffc13b,#e69a00);color:#07101a;box-shadow:0 0 0 1px rgba(255,193,59,.28),0 0 18px rgba(241,166,0,.5)}
+}
 .resources-hero{padding:54px 0 50px;color:#fff;background:radial-gradient(circle at 86% 25%,rgba(246,167,0,.16),transparent 26%),linear-gradient(125deg,#020b13,#0a2335 64%,#03101a)}
 .resources-hero-inner{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
 .resources-eyebrow{margin:0 0 11px;color:#f6a700;font-size:13px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
