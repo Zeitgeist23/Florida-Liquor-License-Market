@@ -1,4 +1,13 @@
 /* Route-only shell: applies the locked FLLM header/footer to the 3PS market page. */
+.three-ps-official-shell > .abt-header-wrap {
+  border-bottom-color: rgba(246, 167, 0, .55);
+  background: #020b12;
+}
+
+.three-ps-official-shell > .abt-header-wrap .forms-site-header .brand-lockup img {
+  left: 0;
+}
+
 .three-ps-official-shell .three-ps-page > .directory-header,
 .three-ps-official-shell .three-ps-page > .county-footer {
   display: none !important;
