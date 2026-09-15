@@ -5,7 +5,9 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { indexableCounties } from "@/data/florida-counties";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import "../resources/forms/abt-forms.css";
+import "../fllm-official-template.css";
 import "../florida-liquor-licenses-for-sale/seo-market.css";
+import "./header-footer-standard.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-quota-liquor-license-cost`;
@@ -123,7 +125,7 @@ export default async function FloridaQuotaLiquorLicenseCostPage() {
   ];
 
   return (
-    <main className="seo-market-page">
+    <main className="seo-market-page fllm-official-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
