@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 const officialFooterPaths = new Set([
   "/sell-your-license",
+  "/brokers/list-your-license",
   "/florida-quota-liquor-license-cost",
   "/florida-liquor-license-news",
   "/resources",
