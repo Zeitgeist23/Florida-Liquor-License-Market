@@ -2,14 +2,15 @@
 
 import { useEffect } from "react";
 
-const LOOKUP_URL = "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup";
+const LOOKUP_URL = "/license-lookup";
+const LEGACY_LOOKUP_URL = "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup";
 
 // Exact row-major order used by the approved landing-page Resources menu.
 const resources = [
   { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide", badge: "FREE PDF" },
   { label: "Florida Division of Alcoholic Beverages & Tobacco", href: "/resources/florida-division-alcoholic-beverages-tobacco", badge: "DABT" },
   { label: "Florida Department of Revenue", href: "/resources/florida-department-of-revenue", badge: "FDOR" },
-  { label: "Florida Liquor License Lookup", href: LOOKUP_URL, badge: "LOOKUP", external: true },
+  { label: "Florida Liquor License Lookup", href: LOOKUP_URL, badge: "LOOKUP" },
   { label: "Florida ABT Forms", href: "/resources/forms" },
   { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws" },
   { label: "Florida Liquor License Value Estimator", href: "/florida-liquor-license-value", badge: "VALUE" },
@@ -20,7 +21,7 @@ const resources = [
   { label: "View All Resources", href: "/resources" },
 ];
 
-const SIGNATURE = "fllm-resources-v7";
+const SIGNATURE = "fllm-resources-v8";
 
 function installStyles() {
   // Important: this must be idempotent. Removing/re-adding the style node inside the
@@ -149,6 +150,14 @@ function installStyles() {
   document.head.appendChild(style);
 }
 
+function rewriteLegacyLookupLinks() {
+  document.querySelectorAll<HTMLAnchorElement>(`a[href^="${LEGACY_LOOKUP_URL}"]`).forEach((link) => {
+    link.href = LOOKUP_URL;
+    link.removeAttribute("target");
+    link.removeAttribute("rel");
+  });
+}
+
 function syncMenu(menu: Element) {
   if (!(menu instanceof HTMLElement)) return;
   if (menu.dataset.globalResourcesSignature === SIGNATURE) return;
@@ -158,10 +167,6 @@ function syncMenu(menu: Element) {
     const link = document.createElement("a");
     link.href = item.href;
     link.setAttribute("role", "menuitem");
-    if (item.external) {
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-    }
 
     const label = document.createElement("span");
     label.className = "global-resource-label";
@@ -191,6 +196,7 @@ function syncMenu(menu: Element) {
 function syncAll() {
   installStyles();
   document.querySelectorAll(".native-nav-resources-menu").forEach(syncMenu);
+  rewriteLegacyLookupLinks();
 }
 
 export default function GlobalResourcesMenuSync() {
@@ -198,6 +204,7 @@ export default function GlobalResourcesMenuSync() {
     syncAll();
     const observer = new MutationObserver(() => {
       document.querySelectorAll(".native-nav-resources-menu").forEach(syncMenu);
+      rewriteLegacyLookupLinks();
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
     window.setTimeout(syncAll, 100);
