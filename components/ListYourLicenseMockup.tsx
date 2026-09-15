@@ -153,12 +153,9 @@ export default function ListYourLicenseMockup() {
   }
 
   return (
-    <main className="seller-preview-page">
+    <main className="seller-preview-page fllm-official-page">
       <div className="abt-header-wrap">
-        <FormsSiteHeader
-          primaryActionHref="#listing-options"
-          primaryActionLabel="Start Your Sale"
-        />
+        <FormsSiteHeader />
       </div>
 
       <section className="seller-preview-hero">
@@ -510,13 +507,6 @@ export default function ListYourLicenseMockup() {
         </section>
       </section>
 
-      <footer className="abt-forms-footer">
-        <div className="page-shell">
-          <img src="/assets/brand-footer.svg" alt="Florida Liquor License Market" />
-          <span>Florida’s marketplace for buying, selling and financing liquor licenses.</span>
-          <a href="/">Return to Florida Liquor License Market</a>
-        </div>
-      </footer>
     </main>
   );
 }
