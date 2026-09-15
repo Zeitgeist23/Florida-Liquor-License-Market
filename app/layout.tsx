@@ -12,6 +12,7 @@ import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
 import ListingServiceSeoCluster from "@/components/ListingServiceSeoCluster";
 import ListYourLicenseLinkFix from "@/components/ListYourLicenseLinkFix";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
+import SellPageOfficialFooter from "@/components/SellPageOfficialFooter";
 
 import "./globals.css";
 import "./buyer-guide-theme.css";
@@ -124,6 +125,7 @@ export default function RootLayout({
         {children}
         <JacksonvilleDuvalSeoEnhancement />
         <ListingServiceSeoCluster />
+        <SellPageOfficialFooter />
         <NationalMarketplaceFooterLink />
 
         <Script
