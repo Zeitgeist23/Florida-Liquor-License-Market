@@ -1,3 +1,7 @@
+.seo-market-page > .abt-header-wrap .forms-site-header .brand-lockup img {
+  content: url('/assets/brand-transparent.svg');
+}
+
 .seo-market-section {
   padding: 64px 0;
   background: #f6f4ef;
