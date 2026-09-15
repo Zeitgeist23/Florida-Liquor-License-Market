@@ -1,0 +1,164 @@
+/* County market-data readability refinement: larger, centered boxed content. */
+
+.county-data-grid article {
+  display: flex;
+  min-height: 132px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.county-data-grid span {
+  width: 100%;
+  font-size: 13px !important;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.county-data-grid strong {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 27px !important;
+  line-height: 1.08;
+  text-align: center;
+}
+
+.county-data-grid .county-data-range {
+  font-size: 22px !important;
+}
+
+.county-data-grid small {
+  width: 100%;
+  margin-top: 8px;
+  font-size: 13px !important;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.county-data-type-grid > article > div {
+  align-items: center;
+}
+
+.county-data-type-grid > article > div > span {
+  font-size: 14px !important;
+  line-height: 1.25;
+}
+
+.county-data-type-grid > article > div > strong {
+  font-size: 15px !important;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.county-data-type-grid dl div {
+  display: flex;
+  min-height: 82px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.county-data-type-grid dt {
+  width: 100%;
+  font-size: 12px !important;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.county-data-type-grid dd {
+  width: 100%;
+  margin-top: 7px;
+  font-size: 15px !important;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.county-data-evidence-grid > a {
+  display: flex;
+  min-height: 112px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 12px !important;
+  text-align: center;
+}
+
+.county-data-evidence-grid span {
+  width: 100%;
+  font-size: 12px !important;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.county-data-evidence-grid strong {
+  width: 100%;
+  margin-top: 7px;
+  font-size: 14px !important;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.county-data-evidence-grid b {
+  width: 100%;
+  margin-top: 8px;
+  font-size: 16px !important;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.county-data-links a {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 16px !important;
+  font-size: 12px !important;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.county-data-history-note {
+  padding: 15px 18px !important;
+  font-size: 13px !important;
+  line-height: 1.55;
+  text-align: center;
+}
+
+@media (max-width: 980px) {
+  .county-data-grid article {
+    min-height: 124px;
+  }
+
+  .county-data-grid strong {
+    font-size: 25px !important;
+  }
+
+  .county-data-grid .county-data-range {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .county-data-grid span,
+  .county-data-grid small {
+    font-size: 12px !important;
+  }
+
+  .county-data-grid strong {
+    font-size: 23px !important;
+  }
+
+  .county-data-grid .county-data-range {
+    font-size: 18px !important;
+  }
+
+  .county-data-type-grid > article > div {
+    align-items: flex-start;
+  }
+
+  .county-data-links a {
+    width: 100%;
+  }
+}
