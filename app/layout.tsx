@@ -16,6 +16,7 @@ import ListingDetailOfficialHeader from "@/components/ListingDetailOfficialHeade
 import ListingServiceSeoCluster from "@/components/ListingServiceSeoCluster";
 import ListYourLicenseLinkFix from "@/components/ListYourLicenseLinkFix";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
+import NewsOfficialShellEnhancement from "@/components/NewsOfficialShellEnhancement";
 import SellPageOfficialFooter from "@/components/SellPageOfficialFooter";
 
 import "./globals.css";
@@ -132,6 +133,7 @@ export default function RootLayout({
         <GlobalResourcesMenuSync />
         <ListingDetailOfficialHeader />
         {children}
+        <NewsOfficialShellEnhancement />
         <ListingDetailLicenseHighlightsEnhancement />
         <ListingDetailAppraisalEnhancement />
         <JacksonvilleDuvalSeoEnhancement />
