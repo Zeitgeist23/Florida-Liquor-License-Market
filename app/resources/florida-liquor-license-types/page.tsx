@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import QuotaSiteRequirementCards from "@/components/QuotaSiteRequirementCards";
@@ -482,11 +484,15 @@ export default function FloridaLiquorLicenseTypesPage() {
         <small>Official DBPR license materials reviewed August 9, 2026.</small>
       </section>
 
-      <footer className="abt-forms-footer">
-        <div className="page-shell">
-          <img src="/assets/brand-footer.svg" alt="Florida Liquor License Market" />
-          <span>Florida’s marketplace for buying, selling and financing liquor licenses.</span>
-          <a href="/">Return to Florida Liquor License Market</a>
+      <footer className="directory-footer">
+        <div className="directory-shell">
+          <div className="directory-footer-brand">
+            <Link href="/" aria-label="Florida Liquor License Market home">
+              <Image src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width={130} height={53} />
+            </Link>
+            <span>© Florida Liquor License Market</span>
+          </div>
+          <nav><Link href="/">Home</Link><Link href="/florida-4cop-liquor-license-for-sale">4COP</Link><Link href="/florida-3ps-liquor-license-for-sale">3PS</Link><Link href="/listings">Listings</Link><Link href="/contact">Contact</Link></nav>
         </div>
       </footer>
     </main>
