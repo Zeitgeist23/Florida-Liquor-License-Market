@@ -18,6 +18,15 @@ body:has(.listing-detail-official-header) .marketplace-listing-page > .results-h
 }
 
 @media (min-width: 981px) {
+  /* Pull the outer header groups inward so they sit closer to the navigation. */
+  .listing-detail-official-header .forms-site-header .brand-lockup {
+    transform: translateX(52px);
+  }
+
+  .listing-detail-official-header .forms-site-header .header-actions {
+    transform: translateX(-52px) !important;
+  }
+
   .listing-detail-official-header .forms-site-header .header-actions .btn-gold {
     color: #07101a;
   }
