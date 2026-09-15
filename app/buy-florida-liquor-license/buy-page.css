@@ -63,6 +63,116 @@
   font-size: 15px;
 }
 
+/* Page-specific depth and hover treatment for every card surface. */
+.seo-market-page .seo-market-snapshot,
+.seo-market-page .seo-market-snapshot-grid > div,
+.seo-market-page .buy-license-card,
+.seo-market-page .buy-platform-card,
+.seo-market-page .buy-license-step,
+.seo-market-page .buy-license-callout,
+.seo-market-page .buy-license-free-guide,
+.seo-market-page .buy-license-guide-inline,
+.seo-market-page .buy-license-links > a,
+.seo-market-page .seo-market-faqs details {
+  box-shadow:
+    0 12px 24px rgba(3, 16, 29, 0.12),
+    0 3px 8px rgba(3, 16, 29, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.seo-market-page .seo-market-snapshot:hover,
+.seo-market-page .seo-market-snapshot-grid > div:hover,
+.seo-market-page .buy-license-card:hover,
+.seo-market-page .buy-platform-card:hover,
+.seo-market-page .buy-license-step:hover,
+.seo-market-page .buy-license-callout:hover,
+.seo-market-page .buy-license-free-guide:hover,
+.seo-market-page .buy-license-guide-inline:hover,
+.seo-market-page .buy-license-links > a:hover,
+.seo-market-page .seo-market-faqs details:hover {
+  transform: translateY(-4px);
+  border-color: rgba(237, 169, 26, 0.72);
+  box-shadow:
+    0 20px 36px rgba(3, 16, 29, 0.20),
+    0 7px 16px rgba(3, 16, 29, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
+}
+
+/* Buttons lift slightly and gain a stronger dimensional shadow on hover. */
+.seo-market-page .seo-market-button,
+.seo-market-page .buy-license-callout a,
+.seo-market-page .buy-license-free-guide a {
+  box-shadow:
+    0 8px 15px rgba(3, 16, 29, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.16);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease,
+    border-color 160ms ease;
+}
+
+.seo-market-page .seo-market-button:hover,
+.seo-market-page .seo-market-button:focus-visible,
+.seo-market-page .buy-license-callout a:hover,
+.seo-market-page .buy-license-callout a:focus-visible,
+.seo-market-page .buy-license-free-guide a:hover,
+.seo-market-page .buy-license-free-guide a:focus-visible {
+  transform: translateY(-3px) scale(1.025);
+  filter: brightness(1.06);
+  box-shadow:
+    0 14px 24px rgba(3, 16, 29, 0.28),
+    0 0 0 1px rgba(237, 169, 26, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.13);
+}
+
+.seo-market-page .seo-market-button:active,
+.seo-market-page .buy-license-callout a:active,
+.seo-market-page .buy-license-free-guide a:active {
+  transform: translateY(-1px) scale(1.01);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seo-market-page .seo-market-snapshot,
+  .seo-market-page .seo-market-snapshot-grid > div,
+  .seo-market-page .buy-license-card,
+  .seo-market-page .buy-platform-card,
+  .seo-market-page .buy-license-step,
+  .seo-market-page .buy-license-callout,
+  .seo-market-page .buy-license-free-guide,
+  .seo-market-page .buy-license-guide-inline,
+  .seo-market-page .buy-license-links > a,
+  .seo-market-page .seo-market-faqs details,
+  .seo-market-page .seo-market-button,
+  .seo-market-page .buy-license-callout a,
+  .seo-market-page .buy-license-free-guide a {
+    transition: none;
+  }
+
+  .seo-market-page .seo-market-snapshot:hover,
+  .seo-market-page .seo-market-snapshot-grid > div:hover,
+  .seo-market-page .buy-license-card:hover,
+  .seo-market-page .buy-platform-card:hover,
+  .seo-market-page .buy-license-step:hover,
+  .seo-market-page .buy-license-callout:hover,
+  .seo-market-page .buy-license-free-guide:hover,
+  .seo-market-page .buy-license-guide-inline:hover,
+  .seo-market-page .buy-license-links > a:hover,
+  .seo-market-page .seo-market-faqs details:hover,
+  .seo-market-page .seo-market-button:hover,
+  .seo-market-page .buy-license-callout a:hover,
+  .seo-market-page .buy-license-free-guide a:hover {
+    transform: none;
+  }
+}
+
 @media (max-width: 640px) {
   .seo-market-section {
     padding: 50px 0;
