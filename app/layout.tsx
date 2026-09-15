@@ -9,6 +9,7 @@ import FinancingAppraisalEnhancement from "@/components/FinancingAppraisalEnhanc
 import GlobalResourcesMenuSync from "@/components/GlobalResourcesMenuSync";
 import JacksonvilleDuvalSeoEnhancement from "@/components/JacksonvilleDuvalSeoEnhancement";
 import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
+import ListingDetailOfficialHeader from "@/components/ListingDetailOfficialHeader";
 import ListingServiceSeoCluster from "@/components/ListingServiceSeoCluster";
 import ListYourLicenseLinkFix from "@/components/ListYourLicenseLinkFix";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
@@ -20,6 +21,7 @@ import "./buyer-guide-buttons.css";
 import "./buyer-guide-logo.css";
 import "./seller-guide-theme.css";
 import "./fllm-seo-theme.css";
+import "./fllm-official-template.css";
 import "./listings-header-fix.css";
 import "./quota-cost-snapshot-fix.css";
 import "./license-types-navy-refresh.css";
@@ -28,6 +30,8 @@ import "./news-source-readability.css";
 import "./seo-authority-enhancements.css";
 import "./broker-choice-buttons.css";
 import "./listings/[slug]/exchange-panel.css";
+import "./listings/[slug]/official-shell.css";
+import "./florida-quota-liquor-license-cost/header-footer-standard.css";
 import "./lawrence-moore-premium-badge.css";
 
 /* One authoritative listing-card presentation across every FLLM route. */
@@ -122,6 +126,7 @@ export default function RootLayout({
         <LicenseTypeLogoScale />
         <FinancingAppraisalEnhancement />
         <GlobalResourcesMenuSync />
+        <ListingDetailOfficialHeader />
         {children}
         <JacksonvilleDuvalSeoEnhancement />
         <ListingServiceSeoCluster />
