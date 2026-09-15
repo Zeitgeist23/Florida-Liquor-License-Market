@@ -13,6 +13,7 @@ const officialFooterPaths = new Set([
   "/market-data/exchange-board",
   "/buy-florida-liquor-license",
   "/how-to-buy-florida-liquor-license",
+  "/how-to-sell-florida-liquor-license",
   "/license-lookup",
   "/license-alerts",
   "/exchange",
