@@ -1,0 +1,98 @@
+/* County pages: approved FLLM navy refinement.
+   Preserve the existing county-page layout while reducing lower-panel saturation by ~8–12%. */
+
+.county-market-page .county-inventory {
+  background: linear-gradient(180deg, #0b2c49 0%, #08243e 100%) !important;
+}
+
+.county-market-page .county-stats {
+  background: linear-gradient(145deg, #15466f 0%, #103653 58%, #0a2947 100%) !important;
+}
+
+.county-market-page .county-stats div:hover {
+  background: #133f65 !important;
+}
+
+.county-market-page .county-guide article,
+.county-market-page .county-guide aside,
+.county-market-page .county-local-authority article,
+.county-market-page .county-local-authority aside,
+.county-market-page .county-cta-grid > div,
+.county-market-page .county-faq details,
+.county-market-page .county-sold-grid > div,
+.county-market-page .county-nearby-links a,
+.county-market-page .county-empty {
+  background: linear-gradient(145deg, #103653 0%, #08243e 100%) !important;
+}
+
+.county-market-page .county-guide article:hover,
+.county-market-page .county-guide aside:hover,
+.county-market-page .county-local-authority article:hover,
+.county-market-page .county-local-authority aside:hover,
+.county-market-page .county-faq details:hover,
+.county-market-page .county-sold-grid > div:hover,
+.county-market-page .county-nearby-links a:hover {
+  background: linear-gradient(145deg, #133f65 0%, #0b2c49 100%) !important;
+}
+
+.county-market-page .county-disclaimer {
+  background: #103653 !important;
+}
+
+.county-market-page .county-cta {
+  background: linear-gradient(135deg, #08243e 0%, #103653 100%) !important;
+}
+
+.county-market-page .county-listing-card {
+  background: #103653 !important;
+}
+
+.county-market-page .county-listing-map {
+  background: #051b2f !important;
+}
+
+.county-market-page .county-data-panel {
+  background: linear-gradient(145deg, #08243e 0%, #051b2f 100%) !important;
+}
+
+.county-market-page .county-data-grid article {
+  background: linear-gradient(145deg, #15466f 0%, #103653 72%) !important;
+}
+
+.county-market-page .county-data-grid article:hover {
+  background: linear-gradient(145deg, #133f65 0%, #103653 100%) !important;
+}
+
+.county-market-page .county-data-type-grid > article,
+.county-market-page .county-data-context-grid article,
+.county-market-page .county-data-context-grid aside,
+.county-market-page .county-data-evidence {
+  background: #08243e !important;
+}
+
+.county-market-page .county-data-type-grid > article:hover,
+.county-market-page .county-data-context-grid article:hover,
+.county-market-page .county-data-context-grid aside:hover,
+.county-market-page .county-data-evidence:hover {
+  background: #103653 !important;
+}
+
+.county-market-page .county-data-type-grid dl div,
+.county-market-page .county-data-evidence-grid > a {
+  background: #103653 !important;
+}
+
+.county-market-page .county-data-evidence-grid > a:hover,
+.county-market-page .county-data-evidence-grid > a:focus-visible {
+  background: #133f65 !important;
+}
+
+.county-market-page .county-data-links a {
+  background: #08243e !important;
+}
+
+.county-market-page .county-data-links a:hover,
+.county-market-page .county-data-links a:focus-visible {
+  background: linear-gradient(145deg, #ffc13b, #e69a00) !important;
+  color: #07101a !important;
+}
