@@ -121,7 +121,7 @@ export default function HowToBuyFloridaLiquorLicensePage() {
       description:
         "A practical seven-step guide to buying an existing Florida liquor license, from choosing the license type and county through listings, pricing, financing, due diligence, ABT-6002 and closing.",
       datePublished: "2026-08-18",
-      dateModified: "2026-09-06",
+      dateModified: "2026-09-15",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market" },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -370,12 +370,13 @@ export default function HowToBuyFloridaLiquorLicensePage() {
           <div>
             <span className="seo-market-section-kicker">Ready to Buy?</span>
             <h2>Move from the 7-step buyer guide into active Florida liquor license opportunities.</h2>
-            <p>Browse current listings, compare county markets, review financing or prepare for the transfer process.</p>
+            <p>Browse current inventory, enter the buyer marketplace, or create a license alert for the county and license type you need.</p>
           </div>
           <div className="seo-market-actions">
-            <Link className="seo-market-button seo-market-button-gold" href="/listings">Browse Licenses</Link>
+            <Link className="seo-market-button seo-market-button-gold" href="/buy-florida-liquor-license">Buy a Florida Liquor License</Link>
+            <Link className="seo-market-button seo-market-button-dark" href="/listings">Browse Licenses</Link>
+            <Link className="seo-market-button seo-market-button-dark" href="/license-alerts">Create a License Alert</Link>
             <Link className="seo-market-button seo-market-button-dark" href="/counties">Compare Counties</Link>
-            <Link className="seo-market-button seo-market-button-dark" href="/financing">Explore Financing</Link>
           </div>
         </div>
       </section>
