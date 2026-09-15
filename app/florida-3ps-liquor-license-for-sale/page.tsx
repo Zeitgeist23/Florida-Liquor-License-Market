@@ -160,9 +160,9 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
         </div></section>
 
         <section className="three-ps-buying" id="buying-process"><div className="directory-shell">
-          <span className="three-ps-section-kicker">Buyer Process</span><h2>How to buy a Florida 3PS liquor license</h2><p>Begin with the county where the license will be used, compare current inventory, and verify the specific license and proposed premises before committing funds.</p>
+          <span className="three-ps-section-kicker">Buyer Process</span><h2>How to buy a Florida 3PS liquor license</h2><p>Begin with the county where the license will be used, compare current inventory, and verify the specific license and proposed premises before committing funds. For the full statewide purchase workflow, see <Link href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License</Link>.</p>
           <div className="three-ps-step-grid"><article><span>1</span><h3>Choose the county</h3><p>Florida quota licenses are county-specific, so start in the county where the proposed package store will operate.</p></article><article><span>2</span><h3>Compare license-only inventory</h3><p>Review active listings, asking prices, source information, license status and seller-specific terms.</p></article><article><span>3</span><h3>Verify the transfer</h3><p>Confirm ownership, liens, tax clearance, premises, zoning, application documents and required state or local approvals.</p></article></div>
-          <div className="three-ps-actions"><Link className="three-ps-button three-ps-button-gold" href={listingsHref}>Search Florida 3PS Licenses</Link><Link className="three-ps-button three-ps-button-outline" href="/dbpr-abt-6002">Review the ABT-6002 Transfer Guide</Link></div>
+          <div className="three-ps-actions"><Link className="three-ps-button three-ps-button-gold" href={listingsHref}>Search Florida 3PS Licenses</Link><Link className="three-ps-button three-ps-button-outline" href="/buy-florida-liquor-license">Buy a Florida Liquor License</Link><Link className="three-ps-button three-ps-button-outline" href="/dbpr-abt-6002">Review the ABT-6002 Transfer Guide</Link></div>
         </div></section>
 
         <section className="three-ps-value"><div className="directory-shell three-ps-value-grid">
