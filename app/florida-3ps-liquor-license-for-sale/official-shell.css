@@ -1,0 +1,26 @@
+/* Route-only shell: applies the locked FLLM header/footer to the 3PS market page. */
+.three-ps-official-shell .three-ps-page > .directory-header,
+.three-ps-official-shell .three-ps-page > .county-footer {
+  display: none !important;
+}
+
+.three-ps-official-shell .three-ps-page {
+  margin: 0;
+}
+
+/* Keep 3PS/4COP figures on the normal cap-height baseline throughout this page. */
+.three-ps-official-shell,
+.three-ps-official-shell .three-ps-page,
+.three-ps-official-shell .three-ps-page h1,
+.three-ps-official-shell .three-ps-page h2,
+.three-ps-official-shell .three-ps-page h3,
+.three-ps-official-shell .three-ps-page strong,
+.three-ps-official-shell .three-ps-page b,
+.three-ps-official-shell .three-ps-page a,
+.three-ps-official-shell .three-ps-page span,
+.three-ps-official-shell .three-ps-page p,
+.three-ps-official-shell .three-ps-page th,
+.three-ps-official-shell .three-ps-page td {
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+}
