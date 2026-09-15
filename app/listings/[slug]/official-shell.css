@@ -50,6 +50,12 @@ body:has(.listing-detail-official-header)
 
 body:has(.listing-detail-official-header)
   .marketplace-listing-section:has(> p:last-child > a[href^="/listings?county="])
+  > p:nth-last-child(2) {
+  margin-bottom: 9px !important;
+}
+
+body:has(.listing-detail-official-header)
+  .marketplace-listing-section:has(> p:last-child > a[href^="/listings?county="])
   > p:last-child > a {
   font-size: 13px !important;
   line-height: 1.35 !important;
