@@ -713,3 +713,100 @@
   }
 }
 
+
+/* Approved county-page footer at the true end of /sell-your-license. */
+.sell-license-page-footer .directory-shell {
+  width: min(1240px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.sell-license-page-footer {
+  padding: 20px 0 0;
+  border-top: 1px solid #6e531d;
+  background: linear-gradient(90deg, #071f36 0%, #0c3558 50%, #071f36 100%);
+}
+
+.sell-license-page-footer > .directory-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+}
+
+.sell-license-page-footer .directory-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sell-license-page-footer .directory-footer-brand > a {
+  display: block;
+  line-height: 0;
+}
+
+.sell-license-page-footer .directory-footer-brand img {
+  display: block;
+  width: 130px;
+  height: auto;
+}
+
+.sell-license-page-footer span {
+  color: #e4eef5;
+  font-size: 12px;
+}
+
+.sell-license-page-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.sell-license-page-footer a {
+  color: #f3f7fa;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.sell-license-page-footer a:hover,
+.sell-license-page-footer a:focus-visible {
+  color: #f1a600;
+}
+
+.sell-license-page-footer > .national-marketplace-footer-link {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 14px max(20px, calc((100% - 1240px) / 2)) 16px;
+  border-top: 1px solid #263f55;
+  background: #0a2947;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: #dce8f0;
+  font-size: 11px;
+  text-align: left;
+}
+
+@media (max-width: 650px) {
+  .sell-license-page-footer .directory-shell {
+    width: min(calc(100% - 24px), 1240px);
+  }
+
+  .sell-license-page-footer > .directory-shell,
+  .sell-license-page-footer > .national-marketplace-footer-link {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sell-license-page-footer .directory-footer-brand {
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .sell-license-page-footer nav {
+    justify-content: center;
+  }
+}
