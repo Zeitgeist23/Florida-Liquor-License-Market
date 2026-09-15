@@ -2,3 +2,8 @@
   border-bottom-color: rgba(246, 167, 0, .55);
   background: #020b12;
 }
+
+/* Keep this page's standardized header logo inside the shared header shell. */
+.seo-market-page > .abt-header-wrap .forms-site-header .brand-lockup img {
+  left: 0;
+}
