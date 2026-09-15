@@ -18,13 +18,40 @@ body:has(.listing-detail-official-header) .marketplace-listing-page > .results-h
 }
 
 @media (min-width: 981px) {
-  /* Pull the outer header groups inward so they sit closer to the navigation. */
+  /*
+   * Listing-detail header geometry:
+   * keep the logo, menu and action buttons as one centered cluster instead of
+   * letting the navigation flex-grow and create large empty gaps on each side.
+   */
+  .listing-detail-official-header .forms-site-header.page-shell {
+    width: min(1480px, calc(100% - 40px)) !important;
+    justify-content: center !important;
+    gap: 18px !important;
+  }
+
   .listing-detail-official-header .forms-site-header .brand-lockup {
-    transform: translateX(52px);
+    flex: 0 0 170px !important;
+    width: 170px !important;
+    transform: none !important;
+  }
+
+  .listing-detail-official-header .forms-site-header .brand-lockup img {
+    width: 168.7125px !important;
+    height: 68.5075px !important;
+  }
+
+  .listing-detail-official-header .forms-site-header .primary-nav {
+    flex: 0 0 auto !important;
+    justify-content: center !important;
+    gap: 42px !important;
+    margin: 0 !important;
   }
 
   .listing-detail-official-header .forms-site-header .header-actions {
-    transform: translateX(-52px) !important;
+    flex: 0 0 auto !important;
+    gap: 10px !important;
+    margin: 0 !important;
+    transform: none !important;
   }
 
   .listing-detail-official-header .forms-site-header .header-actions .btn-gold {
