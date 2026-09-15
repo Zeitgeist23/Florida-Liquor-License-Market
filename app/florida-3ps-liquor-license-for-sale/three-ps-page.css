@@ -172,6 +172,7 @@
 
 .three-ps-value h2 { margin-bottom: 11px; }
 .three-ps-value article > p { margin: 0 0 12px; }
+.three-ps-value aside { margin-top: 58px; }
 .three-ps-value aside > strong { display: block; color: #f1a600; font-size: 13px; text-transform: uppercase; }
 .three-ps-value ul { margin: 10px 0 0; padding-left: 18px; color: #f3f7fa; font-size: 13px; line-height: 1.75; }
 
@@ -207,6 +208,7 @@
   .three-ps-authority-grid,
   .three-ps-value-grid,
   .three-ps-faq-grid { grid-template-columns: 1fr; }
+  .three-ps-value aside { margin-top: 0; }
 }
 
 @media (max-width: 650px) {
