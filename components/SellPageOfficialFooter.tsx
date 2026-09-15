@@ -11,8 +11,9 @@ const officialFooterPaths = new Set([
 
 export default function SellPageOfficialFooter() {
   const pathname = usePathname();
+  const isListingDetail = pathname.startsWith("/listings/") && pathname !== "/listings";
 
-  if (!officialFooterPaths.has(pathname)) return null;
+  if (!officialFooterPaths.has(pathname) && !isListingDetail) return null;
 
   return (
     <footer className="directory-footer sell-license-page-footer official-directory-footer">
