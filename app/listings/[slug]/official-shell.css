@@ -26,7 +26,7 @@ body:has(.listing-detail-official-header) .marketplace-listing-page > .results-h
   .listing-detail-official-header .forms-site-header.page-shell {
     width: min(1480px, calc(100% - 40px)) !important;
     justify-content: center !important;
-    gap: 4px !important;
+    gap: 10px !important;
   }
 
   .listing-detail-official-header .forms-site-header .brand-lockup {
@@ -44,14 +44,14 @@ body:has(.listing-detail-official-header) .marketplace-listing-page > .results-h
   .listing-detail-official-header .forms-site-header .primary-nav {
     flex: 0 0 auto !important;
     justify-content: center !important;
-    gap: 36px !important;
+    gap: 39px !important;
     margin: 0 !important;
     padding-inline: 0 !important;
   }
 
   .listing-detail-official-header .forms-site-header .header-actions {
     flex: 0 0 auto !important;
-    gap: 8px !important;
+    gap: 9px !important;
     margin: 0 !important;
     transform: none !important;
   }
