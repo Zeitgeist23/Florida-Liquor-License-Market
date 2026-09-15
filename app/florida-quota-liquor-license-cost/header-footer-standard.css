@@ -7,6 +7,20 @@
   left: 0;
 }
 
+.seo-market-page > .seo-market-cta {
+  padding: 38px 0 46px;
+}
+
+.seo-market-page > .seo-market-cta .seo-market-actions {
+  margin-top: 22px;
+}
+
+.seo-market-page > .seo-market-cta .seo-market-button {
+  min-height: 42px;
+  padding: 0 16px;
+  font-size: 13px;
+}
+
 .official-directory-footer .directory-shell {
   width: min(1240px, calc(100% - 40px));
   margin: 0 auto;
@@ -83,6 +97,10 @@
 }
 
 @media (max-width: 650px) {
+  .seo-market-page > .seo-market-cta {
+    padding: 32px 0 40px;
+  }
+
   .official-directory-footer .directory-shell {
     width: min(calc(100% - 24px), 1240px);
   }
