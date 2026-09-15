@@ -10,6 +10,7 @@ import GlobalResourcesMenuSync from "@/components/GlobalResourcesMenuSync";
 import JacksonvilleDuvalSeoEnhancement from "@/components/JacksonvilleDuvalSeoEnhancement";
 import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
 import ListingDetailAppraisalEnhancement from "@/components/ListingDetailAppraisalEnhancement";
+import ListingDetailLicenseHighlightsEnhancement from "@/components/ListingDetailLicenseHighlightsEnhancement";
 import ListingDetailOfficialHeader from "@/components/ListingDetailOfficialHeader";
 import ListingServiceSeoCluster from "@/components/ListingServiceSeoCluster";
 import ListYourLicenseLinkFix from "@/components/ListYourLicenseLinkFix";
@@ -129,6 +130,7 @@ export default function RootLayout({
         <GlobalResourcesMenuSync />
         <ListingDetailOfficialHeader />
         {children}
+        <ListingDetailLicenseHighlightsEnhancement />
         <ListingDetailAppraisalEnhancement />
         <JacksonvilleDuvalSeoEnhancement />
         <ListingServiceSeoCluster />
