@@ -11,7 +11,6 @@ const officialFooterPaths = new Set([
   "/resources",
   "/market-data/exchange-board",
   "/buy-florida-liquor-license",
-  "/counties/hillsborough",
 ]);
 
 export default function SellPageOfficialFooter() {
