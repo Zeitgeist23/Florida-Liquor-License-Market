@@ -43,7 +43,7 @@
 }
 
 .three-ps-empty strong { color: #fff; font-size: 16px; }
-.three-ps-empty p { color: #eef4f8; font-size: 13px; line-height: 1.67; }
+.three-ps-empty p { color: #eef4f8; font-size: 14px; line-height: 1.7; }
 
 .three-ps-section-kicker {
   display: block;
@@ -80,6 +80,27 @@
   border: 1px solid #354d5b;
   border-radius: 7px;
   background: #123d65;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    filter 180ms ease;
+}
+
+.three-ps-authority-grid article:hover,
+.three-ps-authority-grid article:focus-within,
+.three-ps-step-grid article:hover,
+.three-ps-step-grid article:focus-within,
+.three-ps-value aside:hover,
+.three-ps-value aside:focus-within,
+.three-ps-faq details:hover,
+.three-ps-faq details:focus-within {
+  transform: translateY(-4px);
+  border-color: #69d6ff;
+  background: #164872;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .22), 0 0 0 1px rgba(105, 214, 255, .12);
+  filter: brightness(1.035);
 }
 
 .three-ps-authority-grid b {
@@ -92,13 +113,13 @@
 .three-ps-authority-grid p,
 .three-ps-value p {
   color: #eef4f8;
-  font-size: 13px;
-  line-height: 1.67;
+  font-size: 14px;
+  line-height: 1.72;
 }
 
 .three-ps-authority-grid a {
   color: #ffc13b;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 900;
 }
 
@@ -136,8 +157,8 @@
 .three-ps-step-grid p {
   margin: 0;
   color: #eef4f8;
-  font-size: 13px;
-  line-height: 1.67;
+  font-size: 14px;
+  line-height: 1.72;
 }
 
 .three-ps-actions {
@@ -173,13 +194,33 @@
 .three-ps-value h2 { margin-bottom: 11px; }
 .three-ps-value article > p { margin: 0 0 12px; }
 .three-ps-value aside { margin-top: 58px; }
-.three-ps-value aside > strong { display: block; color: #f1a600; font-size: 13px; text-transform: uppercase; }
-.three-ps-value ul { margin: 10px 0 0; padding-left: 18px; color: #f3f7fa; font-size: 13px; line-height: 1.75; }
+.three-ps-value aside > strong { display: block; color: #f1a600; font-size: 14px; text-transform: uppercase; }
+.three-ps-value ul { margin: 10px 0 0; padding-left: 18px; color: #f3f7fa; font-size: 14px; line-height: 1.75; }
 
 .three-ps-faq { background: #0a2947; }
 .three-ps-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 23px; }
-.three-ps-faq summary { cursor: pointer; color: #fff; font-size: 14px; font-weight: 900; line-height: 1.45; }
-.three-ps-faq details p { margin: 12px 0 0; color: #eef4f8; font-size: 13px; line-height: 1.67; }
+.three-ps-faq summary { cursor: pointer; color: #fff; font-size: 15px; font-weight: 900; line-height: 1.45; }
+.three-ps-faq details p { margin: 12px 0 0; color: #eef4f8; font-size: 14px; line-height: 1.72; }
+
+@media (prefers-reduced-motion: reduce) {
+  .three-ps-authority-grid article,
+  .three-ps-step-grid article,
+  .three-ps-value aside,
+  .three-ps-faq details {
+    transition: none;
+  }
+
+  .three-ps-authority-grid article:hover,
+  .three-ps-authority-grid article:focus-within,
+  .three-ps-step-grid article:hover,
+  .three-ps-step-grid article:focus-within,
+  .three-ps-value aside:hover,
+  .three-ps-value aside:focus-within,
+  .three-ps-faq details:hover,
+  .three-ps-faq details:focus-within {
+    transform: none;
+  }
+}
 
 /* Exact locked footer treatment from the individual county-market pages. */
 .three-ps-page .county-footer {
