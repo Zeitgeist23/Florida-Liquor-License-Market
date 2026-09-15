@@ -10,6 +10,7 @@ const officialFooterPaths = new Set([
   "/florida-liquor-license-news",
   "/resources",
   "/market-data/exchange-board",
+  "/buy-florida-liquor-license",
 ]);
 
 export default function SellPageOfficialFooter() {
