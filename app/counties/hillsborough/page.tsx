@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 import CountyPage from "../[slug]/page";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -21,5 +23,69 @@ export const metadata: Metadata = {
 };
 
 export default async function HillsboroughCountyPage() {
-  return CountyPage({ params: Promise.resolve({ slug: "hillsborough" }) });
+  const countyPage = await CountyPage({ params: Promise.resolve({ slug: "hillsborough" }) });
+
+  return (
+    <>
+      <style>{`
+        .hillsborough-official-page > .hillsborough-official-header-wrap {
+          position: relative;
+          z-index: 30;
+          border-bottom: 1px solid rgba(246, 167, 0, .55);
+          background: #020b12;
+        }
+
+        .hillsborough-official-page > .hillsborough-official-header-wrap .forms-site-header {
+          margin-inline: auto;
+        }
+
+        .hillsborough-official-page .county-market-page > .county-header,
+        .hillsborough-official-page .county-market-page > .county-footer {
+          display: none !important;
+        }
+
+        @media (min-width: 981px) {
+          .hillsborough-official-page .forms-site-header.page-shell {
+            width: min(1240px, calc(100% - 40px));
+            gap: 18px;
+          }
+
+          .hillsborough-official-page .forms-site-header .brand-lockup {
+            flex: 0 0 184px;
+          }
+
+          .hillsborough-official-page .forms-site-header .brand-lockup img {
+            width: 168.7125px;
+            height: 68.5075px;
+          }
+
+          .hillsborough-official-page .forms-site-header .primary-nav {
+            justify-content: center;
+            gap: 42px;
+          }
+
+          .hillsborough-official-page .forms-site-header .header-actions {
+            transform: translateX(5px);
+          }
+
+          .hillsborough-official-page .forms-site-header .header-actions .btn-outline:hover,
+          .hillsborough-official-page .forms-site-header .header-actions .btn-outline:focus-visible {
+            border-color: #ffc13b;
+            background: linear-gradient(145deg, #ffc13b, #e69a00);
+            color: #07101a;
+            box-shadow:
+              0 0 0 1px rgba(255, 193, 59, .28),
+              0 0 18px rgba(241, 166, 0, .5);
+          }
+        }
+      `}</style>
+
+      <div className="hillsborough-official-page">
+        <div className="hillsborough-official-header-wrap">
+          <FormsSiteHeader />
+        </div>
+        {countyPage}
+      </div>
+    </>
+  );
 }
