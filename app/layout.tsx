@@ -9,6 +9,7 @@ import FinancingAppraisalEnhancement from "@/components/FinancingAppraisalEnhanc
 import GlobalResourcesMenuSync from "@/components/GlobalResourcesMenuSync";
 import JacksonvilleDuvalSeoEnhancement from "@/components/JacksonvilleDuvalSeoEnhancement";
 import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
+import LicenseTypesMenuLabelFix from "@/components/LicenseTypesMenuLabelFix";
 import ListingDetailAppraisalEnhancement from "@/components/ListingDetailAppraisalEnhancement";
 import ListingDetailLicenseHighlightsEnhancement from "@/components/ListingDetailLicenseHighlightsEnhancement";
 import ListingDetailOfficialHeader from "@/components/ListingDetailOfficialHeader";
@@ -126,6 +127,7 @@ export default function RootLayout({
         <BrokerAssistanceNavigationEnhancement />
         <ListYourLicenseLinkFix />
         <LicenseTypeLogoScale />
+        <LicenseTypesMenuLabelFix />
         <FinancingAppraisalEnhancement />
         <GlobalResourcesMenuSync />
         <ListingDetailOfficialHeader />
