@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import UprightFourCopText from "@/components/UprightFourCopText";
 import { useEffect, useRef, useState } from "react";
 
 import { floridaCounties } from "@/data/florida-counties";
@@ -424,12 +425,12 @@ export default function LiquorLicenseValueEstimator() {
                 <div>
                   <span>You selected</span>
                   <strong>{county}</strong>
-                  <small>{licenseType}</small>
+                  <small><UprightFourCopText text={licenseType} /></small>
                 </div>
                 <div className={styles.recordedDetails}>
                   <span>DBPR record</span>
                   <strong>{dbprWarning.record.county} County</strong>
-                  <small>{dbprWarning.expectedLicenseType ?? `Series ${dbprWarning.record.series}`}</small>
+                  <small><UprightFourCopText text={dbprWarning.expectedLicenseType ?? `Series ${dbprWarning.record.series}`} /></small>
                 </div>
               </div>
             ) : null}
@@ -460,7 +461,7 @@ export default function LiquorLicenseValueEstimator() {
         <div className={styles.results} aria-live="polite">
           <div ref={resultTitleRef} className={styles.resultTitle}>
             <span>Your current market snapshot</span>
-            <h3>{guidance.county} · {guidance.licenseType}</h3>
+            <h3>{guidance.county} · <UprightFourCopText text={guidance.licenseType} /></h3>
             <p>Based on active FLLM marketplace listings with disclosed asking prices. Status and timing are recorded for follow-up; they do not create an unsupported automatic price adjustment.</p>
           </div>
 
@@ -551,7 +552,7 @@ export default function LiquorLicenseValueEstimator() {
                               <span className={interactionStyles.viewCue} aria-hidden="true">View listing <b>→</b></span>
                             </Link>
                           </td>
-                          <td>{listing.licenseType}</td>
+                          <td><UprightFourCopText text={listing.licenseType} /></td>
                           <td>{listing.status}</td>
                           <td><strong>{currency(listing.askingPrice)}</strong></td>
                         </tr>
@@ -575,7 +576,7 @@ export default function LiquorLicenseValueEstimator() {
           ) : (
             <div className={styles.empty}>
               <strong>No disclosed active asking-price comparables are currently available for this exact county/type combination.</strong>
-              <p>That does not mean the license has no market value. FLLM has {guidance.statewide.count} disclosed active {guidance.licenseType} asking-price comparables statewide, with a median of {currency(guidance.statewide.median)}. Statewide data is context only because quota-license markets are county-specific.</p>
+              <p>That does not mean the license has no market value. FLLM has {guidance.statewide.count} disclosed active <UprightFourCopText text={guidance.licenseType} /> asking-price comparables statewide, with a median of {currency(guidance.statewide.median)}. Statewide data is context only because quota-license markets are county-specific.</p>
             </div>
           )}
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import LiquorLicenseValueEstimator from "@/components/LiquorLicenseValueEstimator";
+import UprightFourCopText from "@/components/UprightFourCopText";
 import { countyValuationGuideHref, countyValuationGuideSlugs } from "@/data/county-valuation-guides";
 import { getCountyBySlug } from "@/data/florida-counties";
 import "@/app/resources/forms/abt-forms.css";
@@ -108,22 +109,22 @@ export default function FloridaLiquorLicenseValuePage() {
             FLLM compares current disclosed asking prices by county and license type. Asking prices are marketplace evidence, not verified closing prices, and the result is guidance rather than a guaranteed valuation.
           </p>
           <p>
-            Buying rather than valuing a specific license? Compare <Link href="/florida-quota-liquor-license-cost">Florida liquor license cost by county</Link> using current disclosed 4COP and 3PS asking-price data.
+            Buying rather than valuing a specific license? Compare <Link href="/florida-quota-liquor-license-cost">Florida liquor license cost by county</Link> using current disclosed <UprightFourCopText text="4COP" /> and 3PS asking-price data.
           </p>
         </article>
         <aside>
           <strong>Need a lender-oriented formal appraisal?</strong>
-          <p>The separate $995 FLLM appraisal covers one identified license, same-county 3PS and 4COP market evidence, available verified recent transactions, conversion analysis and supporting exhibits.</p>
+          <p>The separate $995 FLLM appraisal covers one identified license, same-county 3PS and <UprightFourCopText text="4COP" /> market evidence, available verified recent transactions, conversion analysis and supporting exhibits.</p>
           <Link href="/florida-liquor-license-appraisal#order-form">Review or order the formal appraisal →</Link>
         </aside>
       </section>
 
       <section className="value-factors page-shell" aria-labelledby="four-cop-valuation-title">
         <div className="value-heading">
-          <span>4COP Valuation Guide</span>
-          <h2 id="four-cop-valuation-title">How to value a Florida 4COP quota liquor license</h2>
+          <span><UprightFourCopText text="4COP Valuation Guide" /></span>
+          <h2 id="four-cop-valuation-title"><UprightFourCopText text="How to value a Florida 4COP quota liquor license" /></h2>
           <p className="value-fourcop-summary">
-            A Florida 4COP quota liquor license is valued primarily within its county market. A defensible analysis considers current supply and buyer demand, disclosed same-county asking-price comparables, available verified closed transactions, license status and transferability, liens or other encumbrances, transaction terms, and relevant population or hospitality-market trends. Because Florida liquor-license sales occur in a <strong>thin privately negotiated market</strong>, asking prices are useful market evidence but are not verified closing prices unless independently confirmed.
+            A Florida <UprightFourCopText text="4COP" /> quota liquor license is valued primarily within its county market. A defensible analysis considers current supply and buyer demand, disclosed same-county asking-price comparables, available verified closed transactions, license status and transferability, liens or other encumbrances, transaction terms, and relevant population or hospitality-market trends. Because Florida liquor-license sales occur in a <strong>thin privately negotiated market</strong>, asking prices are useful market evidence but are not verified closing prices unless independently confirmed.
           </p>
         </div>
         <div className="value-factor-grid">
@@ -156,7 +157,7 @@ export default function FloridaLiquorLicenseValuePage() {
           <h2>Compare current Florida liquor-license opportunities</h2>
           <div className="value-link-grid">
             <Link href="/listings"><strong>Florida Liquor Licenses for Sale</strong><small>Browse current statewide marketplace inventory</small></Link>
-            <Link href="/florida-4cop-liquor-license-for-sale"><strong>Florida 4COP Licenses for Sale</strong><small>Compare current 4COP opportunities</small></Link>
+            <Link href="/florida-4cop-liquor-license-for-sale"><strong><UprightFourCopText text="Florida 4COP Licenses for Sale" /></strong><small><UprightFourCopText text="Compare current 4COP opportunities" /></small></Link>
             <Link href="/florida-3ps-liquor-license-for-sale"><strong>Florida 3PS Licenses for Sale</strong><small>Compare current package-store opportunities</small></Link>
             <Link href="/counties"><strong>Florida Liquor Licenses by County</strong><small>Browse all 67 county markets and current data</small></Link>
             <Link href="/florida-liquor-license-appraisal"><strong>Formal Appraisal — $995</strong><small>Order a separate lender-oriented, license-specific valuation</small></Link>
@@ -184,7 +185,7 @@ export default function FloridaLiquorLicenseValuePage() {
       <section className="value-faq page-shell">
         <div className="value-heading"><span>Market Value Questions</span><h2>Florida liquor-license value FAQs</h2></div>
         <div className="value-faq-grid">
-          {faqs.map((faq) => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}
+          {faqs.map((faq) => <details key={faq.question}><summary><UprightFourCopText text={faq.question} /></summary><p><UprightFourCopText text={faq.answer} /></p></details>)}
         </div>
       </section>
 
@@ -203,7 +204,7 @@ export default function FloridaLiquorLicenseValuePage() {
             </Link>
             <span>© Florida Liquor License Market</span>
           </div>
-          <nav aria-label="Footer navigation"><Link href="/">Home</Link><Link href="/florida-4cop-liquor-license-for-sale">4COP</Link><Link href="/florida-3ps-liquor-license-for-sale">3PS</Link><Link href="/listings">Listings</Link><Link href="/contact">Contact</Link></nav>
+          <nav aria-label="Footer navigation"><Link href="/">Home</Link><Link href="/florida-4cop-liquor-license-for-sale"><UprightFourCopText text="4COP" /></Link><Link href="/florida-3ps-liquor-license-for-sale">3PS</Link><Link href="/listings">Listings</Link><Link href="/contact">Contact</Link></nav>
         </div>
       </footer>
     </main>

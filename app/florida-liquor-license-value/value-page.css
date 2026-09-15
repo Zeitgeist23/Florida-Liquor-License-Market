@@ -323,8 +323,16 @@
 .value-link-grid a:hover::before,
 .value-link-grid a:focus-visible::before { left: 118%; }
 .value-link-grid a > * { position: relative; z-index: 1; }
-.value-link-grid strong { color: #fff; font-size: 15px; line-height: 1.35; }
-.value-link-grid small { color: #c4d4de; font-size: 12px; line-height: 1.5; }
+.value-link-grid strong { color: #ffc13b; font-size: 19px; line-height: 1.35; }
+.value-link-grid small { color: #d6e1e8; font-size: 15px; line-height: 1.5; }
+
+.license-value-page .upright-four-cop {
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: inherit;
+  line-height: 1;
+}
 
 .value-faq-grid {
   display: grid;
@@ -468,8 +476,8 @@
   .value-final-cta p { font-size: 15px; }
   .value-factor-grid p,
   .value-faq details p { font-size: 14px; }
-  .value-link-grid strong { font-size: 15px; }
-  .value-link-grid small { font-size: 13px; }
+  .value-link-grid strong { font-size: 18px; }
+  .value-link-grid small { font-size: 14px; }
   .value-factor-grid,
   .value-link-grid { grid-template-columns: 1fr; }
   .value-link-grid a:last-child { grid-column: auto; }
