@@ -42,3 +42,4 @@
 .resources-footer p{max-width:790px;margin:0;color:#aebbc4;font-size:13px;line-height:1.55}
 @media(max-width:940px){.resources-hero-inner{align-items:flex-start;flex-direction:column}.featured-guide{grid-template-columns:250px 1fr;gap:36px}.resource-card-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:680px){.resources-hero{padding:38px 0}.resources-hero nav{width:100%;flex-direction:column}.resources-hero nav a{justify-content:center}.featured-guide{grid-template-columns:1fr;margin-top:28px;padding:21px}.featured-guide-cover{max-width:340px;margin:auto}.resource-library{padding-top:38px}.resource-card-grid{grid-template-columns:1fr}.official-agency-card{grid-template-columns:1fr;padding:23px}.official-agency-card>a{justify-content:center}.resources-footer .page-shell{align-items:flex-start;flex-direction:column}.resources-footer img{width:205px}.resources-header-wrap .header-actions{display:none}}
+.resources-footer{display:none!important}
