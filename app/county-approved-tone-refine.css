@@ -96,3 +96,32 @@
   background: linear-gradient(145deg, #ffc13b, #e69a00) !important;
   color: #07101a !important;
 }
+
+/* Increase readability of the 4COP / 3PS mini-stat boxes without changing layout. */
+.county-market-page .county-data-type-grid dl div {
+  min-height: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 14px 12px !important;
+}
+
+.county-market-page .county-data-type-grid dt {
+  font-size: 13px !important;
+  line-height: 1.25;
+  letter-spacing: .01em;
+}
+
+.county-market-page .county-data-type-grid dd {
+  margin-top: 8px !important;
+  font-size: 16px !important;
+  line-height: 1.2;
+}
+
+.county-market-page .county-data-type-grid dd,
+.county-market-page .county-data-type-grid dt {
+  width: 100%;
+  text-align: center;
+}
