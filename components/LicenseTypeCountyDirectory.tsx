@@ -16,7 +16,7 @@ export default function LicenseTypeCountyDirectory({ licenseType }: { licenseTyp
   return (
     <section
       aria-labelledby="license-type-county-directory"
-      style={{ width: "min(1180px,calc(100% - 40px))", margin: "0 auto", padding: "0 0 34px" }}
+      style={{ width: "min(1180px,calc(100% - 40px))", margin: "14px auto 0", padding: "0 0 34px" }}
     >
       <style>{`
         .license-type-county-link {
