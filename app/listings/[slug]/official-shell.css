@@ -17,6 +17,14 @@ body:has(.listing-detail-official-header) .marketplace-listing-page > .results-h
   display: none !important;
 }
 
+/* On desktop, align the self-directed action sidebar with the top of the four detail cards. */
+@media (min-width: 901px) {
+  body:has(.listing-detail-official-header)
+    .marketplace-listing-aside:not(.marketplace-listing-aside-broker) {
+    margin-top: 94px !important;
+  }
+}
+
 @media (min-width: 981px) {
   /*
    * Match the listing-detail header edges to the 1180px content shell below:
