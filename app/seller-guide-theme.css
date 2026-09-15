@@ -29,6 +29,78 @@ body:has(.seller-guide-page) .seo-market-snapshot-grid > div small {
   text-align: center !important;
 }
 
+/* Give every seller-guide card the same dimensional hover behavior. */
+body:has(.seller-guide-page) .buy-guide-quick-card,
+body:has(.seller-guide-page) .seo-market-snapshot,
+body:has(.seller-guide-page) .seo-market-snapshot-grid > div,
+body:has(.seller-guide-page) .seller-guide-path,
+body:has(.seller-guide-page) .seller-guide-step,
+body:has(.seller-guide-page) .seller-guide-links > a,
+body:has(.seller-guide-page) .seller-guide-checklist > li,
+body:has(.seller-guide-page) .seller-guide-free,
+body:has(.seller-guide-page) .seo-market-faqs details {
+  box-shadow:
+    0 10px 24px rgba(3, 16, 29, .14),
+    0 3px 8px rgba(3, 16, 29, .10),
+    inset 0 1px 0 rgba(255, 255, 255, .06);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+body:has(.seller-guide-page) .buy-guide-quick-card:hover,
+body:has(.seller-guide-page) .seo-market-snapshot:hover,
+body:has(.seller-guide-page) .seo-market-snapshot-grid > div:hover,
+body:has(.seller-guide-page) .seller-guide-path:hover,
+body:has(.seller-guide-page) .seller-guide-step:hover,
+body:has(.seller-guide-page) .seller-guide-links > a:hover,
+body:has(.seller-guide-page) .seller-guide-links > a:focus-visible,
+body:has(.seller-guide-page) .seller-guide-checklist > li:hover,
+body:has(.seller-guide-page) .seller-guide-free:hover,
+body:has(.seller-guide-page) .seo-market-faqs details:hover {
+  transform: translateY(-4px);
+  border-color: rgba(237, 169, 26, .72) !important;
+  box-shadow:
+    0 20px 38px rgba(3, 16, 29, .22),
+    0 7px 16px rgba(3, 16, 29, .14),
+    0 0 0 1px rgba(237, 169, 26, .08),
+    inset 0 1px 0 rgba(255, 255, 255, .11);
+}
+
+body:has(.seller-guide-page) .seller-guide-links > a:hover,
+body:has(.seller-guide-page) .seller-guide-links > a:focus-visible {
+  background: linear-gradient(145deg, #0a2944, #071d33);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:has(.seller-guide-page) .buy-guide-quick-card,
+  body:has(.seller-guide-page) .seo-market-snapshot,
+  body:has(.seller-guide-page) .seo-market-snapshot-grid > div,
+  body:has(.seller-guide-page) .seller-guide-path,
+  body:has(.seller-guide-page) .seller-guide-step,
+  body:has(.seller-guide-page) .seller-guide-links > a,
+  body:has(.seller-guide-page) .seller-guide-checklist > li,
+  body:has(.seller-guide-page) .seller-guide-free,
+  body:has(.seller-guide-page) .seo-market-faqs details {
+    transition: none;
+  }
+
+  body:has(.seller-guide-page) .buy-guide-quick-card:hover,
+  body:has(.seller-guide-page) .seo-market-snapshot:hover,
+  body:has(.seller-guide-page) .seo-market-snapshot-grid > div:hover,
+  body:has(.seller-guide-page) .seller-guide-path:hover,
+  body:has(.seller-guide-page) .seller-guide-step:hover,
+  body:has(.seller-guide-page) .seller-guide-links > a:hover,
+  body:has(.seller-guide-page) .seller-guide-checklist > li:hover,
+  body:has(.seller-guide-page) .seller-guide-free:hover,
+  body:has(.seller-guide-page) .seo-market-faqs details:hover {
+    transform: none;
+  }
+}
+
 @media (max-width: 820px) {
   body:has(.seller-guide-page) .buy-guide-quick {
     grid-template-columns: 1fr;
