@@ -1,0 +1,24 @@
+/* Official FLLM header/footer shell for every individual listing detail page. */
+.listing-detail-official-header.fllm-official-page {
+  min-height: 0;
+  overflow: visible;
+  background: #020b12;
+}
+
+.listing-detail-official-header > .abt-header-wrap {
+  position: relative;
+  z-index: 80;
+  border-bottom: 1px solid rgba(246, 167, 0, .55);
+  background: #020b12;
+}
+
+/* The route used a legacy listings header. Keep only the locked FormsSiteHeader. */
+body:has(.listing-detail-official-header) .marketplace-listing-page > .results-header {
+  display: none !important;
+}
+
+@media (min-width: 981px) {
+  .listing-detail-official-header .forms-site-header .header-actions .btn-gold {
+    color: #07101a;
+  }
+}
