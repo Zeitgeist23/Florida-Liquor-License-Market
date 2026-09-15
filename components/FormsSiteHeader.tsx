@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
 
 type FormsSiteHeaderProps = {
@@ -13,7 +14,11 @@ export default function FormsSiteHeader({
   primaryActionLabel = "List Your License",
 }: FormsSiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const isBrokerListPage = primaryActionLabel === "List a Client License";
+  const pathname = usePathname();
+  const isNewsRoute = pathname === "/florida-liquor-license-news" || pathname.startsWith("/florida-liquor-license-news/");
+  const effectivePrimaryActionHref = isNewsRoute ? "/sell-your-license" : primaryActionHref;
+  const effectivePrimaryActionLabel = isNewsRoute ? "List Your License" : primaryActionLabel;
+  const isBrokerListPage = effectivePrimaryActionLabel === "List a Client License";
 
   return (
     <>
@@ -106,7 +111,7 @@ export default function FormsSiteHeader({
           <a className="btn btn-outline fllm-header-contact-cta" href="/contact">
             <span className="contact-phone" aria-hidden="true">☎</span>Contact Us
           </a>
-          <a className="btn btn-gold fllm-header-list-cta" href={primaryActionHref}>{primaryActionLabel}</a>
+          <a className="btn btn-gold fllm-header-list-cta" href={effectivePrimaryActionHref}>{effectivePrimaryActionLabel}</a>
         </div>
       </header>
     </>
