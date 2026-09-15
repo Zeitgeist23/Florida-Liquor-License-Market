@@ -88,7 +88,18 @@ def add_checkbox(form, name: str, px_left: float, px_top: float, size_px: float 
 
 def page_one_fields(form):
     # Section 1 - Taxpayer information
-    add_text_field(form, "taxpayer_name_and_address", 65, 232, 472, 324, multiline=True)
+    # Expanded to use almost the full taxpayer box, with a smaller fixed font so
+    # four lines (entity, DBA, street, city/state/ZIP) and longer line entries fit cleanly.
+    add_text_field(
+        form,
+        "taxpayer_name_and_address",
+        61,
+        229,
+        478,
+        326,
+        font_size=6.5,
+        multiline=True,
+    )
     add_text_field(form, "federal_identification_numbers", 484, 232, 695, 260)
     add_text_field(form, "florida_tax_registration_numbers", 707, 232, 955, 260)
     add_text_field(form, "taxpayer_contact_person", 484, 278, 695, 324)
@@ -261,4 +272,3 @@ if __name__ == "__main__":
     print(OUTPUT)
     print(PUBLIC_OUTPUT)
     print(GENERATED_MODULE)
-
