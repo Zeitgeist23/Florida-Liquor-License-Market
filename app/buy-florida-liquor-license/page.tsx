@@ -9,17 +9,17 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/buy-florida-liquor-license`;
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Platform | Buy 4COP & 3PS Licenses",
+  title: "Buy a Florida Liquor License | 4COP & 3PS Marketplace",
   description:
-    "Florida Liquor License Market is a statewide platform to buy and sell 4COP quota and 3PS liquor licenses, compare county prices, review financing and prepare for Florida DBPR transfers.",
+    "Buy a Florida liquor license through FLLM's statewide marketplace. Browse current 4COP quota and 3PS licenses by county, compare asking prices, create alerts, review financing and prepare for DBPR transfer.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Liquor License Platform | Buy 4COP & 3PS Licenses",
+    title: "Buy a Florida Liquor License | 4COP & 3PS Marketplace",
     description:
-      "Use Florida Liquor License Market’s statewide platform to browse 4COP and 3PS licenses, compare county markets, review financing and prepare for DBPR transfers.",
+      "Browse current Florida 4COP quota and 3PS liquor licenses by county, compare asking prices, create buyer alerts, review financing and prepare for DBPR transfer.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -106,20 +106,20 @@ export default function BuyFloridaLiquorLicensePage() {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "Florida Liquor License Platform",
-      headline: "Florida Liquor License Platform for 4COP and 3PS Licenses",
+      name: "Buy a Florida Liquor License",
+      headline: "Buy a Florida Liquor License — 4COP and 3PS Marketplace",
       description:
-        "A statewide Florida liquor license marketplace platform with current listings, 4COP and 3PS resources, county market data, financing guidance and DBPR transfer information.",
+        "A statewide Florida liquor license marketplace for buyers to browse current 4COP and 3PS listings, compare county market data, create alerts, review financing and prepare for DBPR transfer.",
       url: canonicalUrl,
       datePublished: "2026-08-31",
-      dateModified: "2026-09-02",
+      dateModified: "2026-09-15",
       isPartOf: {
         "@type": "WebSite",
         name: "Florida Liquor License Market",
         url: siteUrl,
       },
       about: [
-        { "@type": "Thing", name: "Florida liquor license platform" },
+        { "@type": "Thing", name: "buy Florida liquor license" },
         { "@type": "Thing", name: "Florida liquor license marketplace" },
         { "@type": "Thing", name: "Florida liquor licenses" },
         { "@type": "Thing", name: "4COP quota licenses" },
@@ -206,10 +206,10 @@ export default function BuyFloridaLiquorLicensePage() {
           </div>
           <div className="seo-market-hero-grid">
             <div>
-              <span className="seo-market-kicker">Statewide Marketplace and Transaction Resources</span>
-              <h1>Florida Liquor License Platform for Buyers</h1>
+              <span className="seo-market-kicker">Florida Liquor License Marketplace</span>
+              <h1>Buy a Florida Liquor License</h1>
               <p>
-                Buy a Florida liquor license through a statewide platform built around current 4COP quota and 3PS listings. Search by county and license type, compare asking prices, review financing resources, and prepare for the Florida DBPR transfer process.
+                Browse current Florida liquor licenses for sale through a statewide marketplace built around 4COP quota and 3PS inventory. Search by county and license type, compare asking prices, create buyer alerts, review financing resources, and prepare for the Florida DBPR transfer process.
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/listings">Browse Licenses for Sale</Link>
@@ -233,12 +233,11 @@ export default function BuyFloridaLiquorLicensePage() {
       <section className="seo-market-section seo-market-section-alt" aria-labelledby="platform-heading">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">Florida Liquor License Platform</span>
-          <h2 id="platform-heading">A statewide marketplace for buying, selling, valuing, and financing quota licenses</h2>
+          <h2 id="platform-heading">A statewide marketplace for buying, valuing, financing and transferring quota licenses</h2>
           <p>
             Florida Liquor License Market brings the principal parts of a 4COP Quota or 3PS
-            transaction into one platform. Buyers can find available licenses and compare county
-            markets; sellers and brokers can publish listings; lenders and transaction
-            professionals can review valuation, financing, and transfer resources.
+            purchase into one platform. Buyers can find available licenses and compare county
+            markets; then use buyer guidance, valuation, financing and transfer resources to move toward a transaction.
           </p>
           <div className="buy-platform-grid">
             <article className="buy-platform-card">
@@ -247,9 +246,9 @@ export default function BuyFloridaLiquorLicensePage() {
               <Link href="/listings">Browse listings →</Link>
             </article>
             <article className="buy-platform-card">
-              <strong>Sell a license</strong>
-              <p>Submit a stand-alone quota license for statewide buyer visibility and direct inquiries.</p>
-              <Link href="/list-your-license">List a license →</Link>
+              <strong>Buyer guide</strong>
+              <p>Follow the purchase process from choosing the correct county and license type through due diligence, transfer preparation and closing.</p>
+              <Link href="/how-to-buy-florida-liquor-license">How to buy a Florida liquor license →</Link>
             </article>
             <article className="buy-platform-card">
               <strong>Compare value</strong>
