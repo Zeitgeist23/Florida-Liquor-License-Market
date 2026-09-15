@@ -181,13 +181,13 @@
 }
 
 .value-estimator-wrap {
-  padding: 18px 0 68px;
+  padding: 18px 0 34px;
 }
 
 .value-factors,
 .value-faq,
 .value-county-guides {
-  padding: 66px 0;
+  padding: 48px 0;
 }
 
 .value-factors {
@@ -251,7 +251,7 @@
   background: #0d3152;
 }
 
-.value-market-links .page-shell { padding: 62px 0; }
+.value-market-links .page-shell { padding: 44px 0; }
 
 .value-link-grid {
   display: grid;
