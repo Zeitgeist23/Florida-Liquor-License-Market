@@ -17,6 +17,12 @@ body:has(.listing-detail-official-header) .marketplace-listing-page > .results-h
   display: none !important;
 }
 
+/* Remove the redundant "Individual Listing Page" reference card from the sidebar. */
+body:has(.listing-detail-official-header)
+  .marketplace-listing-aside > .marketplace-listing-reference {
+  display: none !important;
+}
+
 /* On desktop, align the self-directed action sidebar with the top of the four detail cards. */
 @media (min-width: 901px) {
   body:has(.listing-detail-official-header)
