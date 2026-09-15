@@ -40,6 +40,10 @@ function ExternalOrInternalLink({ href, children, className }: { href: string; c
   return <Link className={className} href={href}>{children}</Link>;
 }
 
+function LicenseTypeTitle({ title }: { title: string }) {
+  return <>{title.split(/(4(?=COP))/g).map((part, index) => part === "4" ? <span className="lt-straight-four" key={`${part}-${index}`}>4</span> : part)}</>;
+}
+
 export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProps) {
   return (
     <main className="license-explainer-page">
@@ -51,19 +55,19 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-shell{width:min(1180px,calc(100% - 40px));margin:0 auto}
         .lt-back{display:inline-flex;align-items:center;gap:7px;margin-top:28px;color:#e0e9f0;text-decoration:none;font-size:13px;font-weight:700}.lt-back:hover{color:var(--gold)}
         .lt-hero{padding:34px 0 28px}.lt-eyebrow{display:inline-block;color:var(--gold);font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
-        .lt-hero h1{margin:0;color:#fff;font:700 clamp(34px,5vw,60px)/1.02 Georgia,serif;max-width:930px}
+        .lt-hero h1{margin:0;color:#fff;font:700 clamp(34px,5vw,60px)/1.02 Georgia,serif;max-width:930px}.lt-straight-four{display:inline-block;font-family:Arial,Helvetica,sans-serif;font-style:normal;font-weight:700;line-height:1;vertical-align:baseline}
         .lt-definition{margin:24px 0 0;padding:26px 28px;border:1px solid rgba(246,167,0,.6);border-left:5px solid var(--gold);border-radius:10px;background:rgba(255,255,255,.065);max-width:1050px}
         .lt-definition h2{margin:0 0 12px;color:var(--gold);font-size:20px}.lt-definition p{margin:0;color:#fff;font-size:21px;line-height:1.55;font-weight:600}
         .lt-plain{margin:18px 0 0;color:var(--muted);font-size:17px;line-height:1.7;max-width:1000px}
         .lt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:18px 0 26px}
-        .lt-card{background:#10314b;border:1px solid rgba(246,167,0,.32);border-radius:12px;padding:22px;box-shadow:0 15px 35px rgba(0,0,0,.14)}
+        .lt-card{background:#10314b;border:1px solid rgba(246,167,0,.32);border-radius:12px;padding:22px;box-shadow:0 15px 35px rgba(0,0,0,.14);transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease}.lt-card:hover,.lt-card:focus-within{background:#16425f;border-color:#f6a700;box-shadow:0 18px 36px rgba(0,0,0,.25),0 0 15px rgba(246,167,0,.12);transform:translateY(-3px)}
         .lt-card h2{margin:0 0 14px;color:#fff;font-size:19px}.lt-card ul{margin:0;padding-left:20px;color:#e1eaf0;font-size:15px;line-height:1.65}.lt-card li+li{margin-top:7px}
         .lt-requirements{padding:4px 0 30px}.lt-requirements-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:end;margin-bottom:16px}
         .lt-requirements-head span,.lt-rule-updates>span,.lt-official>span,.lt-research>span{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
         .lt-requirements-head h2,.lt-rule-updates h2,.lt-official h2,.lt-research h2{margin:7px 0 0;color:#fff;font:700 29px/1.15 Georgia,serif}
         .lt-requirements-head p{margin:0;color:var(--muted);font-size:15px;line-height:1.7}
         .lt-requirement-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-        .lt-requirement-card{min-height:190px;padding:20px;border:1px solid rgba(246,167,0,.42);border-radius:11px;background:linear-gradient(150deg,#123956,#0d2c45);box-shadow:0 12px 30px rgba(0,0,0,.13)}
+        .lt-requirement-card{min-height:190px;padding:20px;border:1px solid rgba(246,167,0,.42);border-radius:11px;background:linear-gradient(150deg,#123956,#0d2c45);box-shadow:0 12px 30px rgba(0,0,0,.13);transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease}.lt-requirement-card:hover,.lt-requirement-card:focus-within{border-color:#f6a700;background:linear-gradient(150deg,#184866,#103650);box-shadow:0 18px 36px rgba(0,0,0,.25),0 0 15px rgba(246,167,0,.12);transform:translateY(-3px)}
         .lt-requirement-card span{display:block;color:#bed0dc;font-size:11px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}.lt-requirement-card strong{display:block;margin:10px 0 8px;color:var(--gold);font:700 21px/1.15 Georgia,serif}
         .lt-requirement-card p{margin:0;color:#e1e9ef;font-size:13px;line-height:1.58}.lt-requirement-source{display:inline-block;margin-top:13px;color:#ffbd34!important;font-size:12px!important;font-weight:900!important;letter-spacing:0!important;text-transform:none!important;text-decoration:none}.lt-requirement-source:hover{text-decoration:underline}
         .lt-requirement-caution{margin:14px 0 0;padding:15px 17px;border-left:3px solid var(--gold);background:rgba(246,167,0,.09);color:#d6e1e8;font-size:13px;line-height:1.65}
@@ -73,7 +77,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-extra{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:0 0 28px}.lt-extra article{padding:25px;border:1px solid rgba(246,167,0,.4);border-radius:12px;background:linear-gradient(145deg,#123751,#0d2d46)}.lt-extra article:last-child{border-left:4px solid var(--gold)}.lt-extra h2{margin:0 0 10px;color:#fff;font-size:21px}.lt-extra p{margin:0;color:#e0e8ee;font-size:15px;line-height:1.72}.lt-extra a{display:inline-block;margin-top:12px;color:var(--gold);font-size:12px;font-weight:900;text-decoration:none}
         .lt-rule-updates{padding:0 0 34px}.lt-rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.lt-rule-grid a{display:flex;flex-direction:column;padding:20px;border:1px solid rgba(246,167,0,.5);border-radius:10px;background:linear-gradient(145deg,#123b58,#0c2b43);color:inherit;text-decoration:none;transition:transform .18s ease,border-color .18s ease}.lt-rule-grid a:hover,.lt-rule-grid a:focus-visible{border-color:var(--gold);transform:translateY(-2px);outline:none}.lt-rule-grid strong{color:#fff;font-size:16px;line-height:1.35}.lt-rule-grid p{margin:8px 0 12px;color:var(--muted);font-size:13px;line-height:1.55}.lt-rule-grid small{margin-top:auto;color:var(--gold);font-weight:900;text-transform:uppercase}
         .lt-research{padding:0 0 34px}.lt-research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.lt-research-grid a{display:flex;flex-direction:column;min-height:150px;padding:19px;border:1px solid rgba(246,167,0,.4);border-radius:10px;background:#10314b;color:inherit;text-decoration:none;transition:transform .18s ease,border-color .18s ease}.lt-research-grid a:hover,.lt-research-grid a:focus-visible{transform:translateY(-3px);border-color:var(--gold);outline:none}.lt-research-grid strong{color:#fff;font-size:17px;line-height:1.3}.lt-research-grid p{margin:9px 0 13px;color:var(--muted);font-size:13px;line-height:1.55}.lt-research-grid small{margin-top:auto;color:var(--gold);font-weight:900;text-transform:uppercase}
-        .lt-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 0 42px;border-top:1px solid rgba(246,167,0,.3)}.lt-cta p{margin:0;color:#d3dfe7;line-height:1.6}.lt-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.lt-button{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:7px;text-decoration:none;font-size:13px;font-weight:900}.lt-button.gold{background:var(--gold);color:#061728}.lt-button.outline{border:1px solid var(--gold);color:#fff}.lt-disclaimer{padding:18px 0 34px;color:#aebfcc;font-size:12px;line-height:1.6}
+        .lt-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 0 42px;border-top:1px solid rgba(246,167,0,.3)}.lt-cta p{margin:0;color:#d3dfe7;line-height:1.6}.lt-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.lt-button{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:7px;text-decoration:none;font-size:13px;font-weight:900;transform-origin:center;transition:transform .18s ease,border-color .18s ease,background .18s ease,color .18s ease,box-shadow .18s ease}.lt-button.gold{border:1px solid #ffc13b;background:linear-gradient(145deg,#ffc13b,#e69a00);box-shadow:0 6px 13px rgba(0,0,0,.2);color:#061728}.lt-button.outline{border:1px solid var(--gold);background:#071a2b;color:#fff}.lt-button:hover,.lt-button:focus-visible{border-color:#ffd66e;background:linear-gradient(145deg,#ffca4d,#f1a600);box-shadow:0 9px 18px rgba(0,0,0,.28),0 0 13px rgba(246,167,0,.2);color:#061728;transform:translateY(-1px) scale(1.03);outline:none}.lt-disclaimer{padding:18px 0 34px;color:#aebfcc;font-size:12px;line-height:1.6}
         @media(max-width:900px){.lt-requirement-grid{grid-template-columns:1fr 1fr}.lt-requirements-head{grid-template-columns:1fr}}
         @media(max-width:850px){.lt-grid,.lt-extra,.lt-research-grid,.lt-rule-grid,.lt-official-grid{grid-template-columns:1fr}.lt-research-grid a,.lt-official-grid a{min-height:0}.lt-band{grid-template-columns:1fr}.lt-business-image img{max-height:none;aspect-ratio:4/3}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
         @media(max-width:560px){.lt-requirement-grid{grid-template-columns:1fr}}
@@ -82,7 +86,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
 
       <section className="lt-shell lt-hero">
         <Link className="lt-back" href="/resources/florida-liquor-license-types">← All Florida liquor license types</Link>
-        <div style={{marginTop:24}}><span className="lt-eyebrow">{props.eyebrow}</span><h1>{props.title}</h1></div>
+        <div style={{marginTop:24}}><span className="lt-eyebrow">{props.eyebrow}</span><h1><LicenseTypeTitle title={props.title} /></h1></div>
         <div className="lt-definition"><h2>What is a {props.code} license?</h2><p>{props.definition}</p></div>
         <p className="lt-plain"><strong>In plain English:</strong> {props.plainEnglish}</p>
       </section>
