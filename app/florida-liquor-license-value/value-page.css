@@ -140,7 +140,7 @@
 
 .value-explainer {
   display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(260px, .8fr);
+  grid-template-columns: minmax(0, 1fr) 432px;
   gap: 28px;
   align-items: start;
   padding: 62px 0 38px;
@@ -165,20 +165,61 @@
   line-height: 1.75;
 }
 
+.value-explainer p { font-size: 16px; }
+
 .value-explainer aside {
-  padding: 22px;
-  border: 1px solid rgba(246, 167, 0, .52);
-  border-radius: 8px;
-  background: #123d65;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 440px;
+  padding: 28px 30px 30px;
+  border: 1px solid rgba(241, 166, 0, .9);
+  border-radius: 7px;
+  background: linear-gradient(145deg, #194f7c 0%, #123d65 58%, #0d3152 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 211, 108, .28),
+    inset 0 -1px 0 rgba(4, 18, 30, .48),
+    0 16px 34px rgba(3, 17, 29, .32);
 }
 
 .value-explainer aside strong {
   display: block;
-  margin-bottom: 8px;
-  color: #f6a700;
-  font-size: 12px;
+  margin-bottom: 22px;
+  color: #ffc13b;
+  font-size: 17px;
+  line-height: 1.25;
+  letter-spacing: .1em;
   text-transform: uppercase;
 }
+
+.value-appraisal-snapshot-panel {
+  min-height: 292px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  border: 1px solid rgba(105, 214, 255, .42);
+  border-radius: 7px;
+  background: linear-gradient(145deg, #15466f 0%, #0b3153 46%, #071f36 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .16),
+    inset 0 -2px 0 rgba(2, 11, 18, .42),
+    0 9px 18px rgba(2, 12, 22, .28),
+    0 0 0 1px rgba(105, 214, 255, .04);
+}
+
+.value-appraisal-snapshot-panel p { color: #d6e5ee; }
+
+.value-appraisal-snapshot-panel a {
+  display: inline-block;
+  margin-top: 14px;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.value-appraisal-snapshot-panel a:hover,
+.value-appraisal-snapshot-panel a:focus-visible { color: #ffc13b; }
 
 .value-estimator-wrap {
   padding: 18px 0 34px;
@@ -461,6 +502,8 @@
   .value-link-grid a:last-child { grid-column: 1 / -1; }
   .value-faq-grid { grid-template-columns: 1fr; }
   .value-final-cta .page-shell > a { width: 100%; }
+  .value-explainer aside { min-height: 0; }
+  .value-appraisal-snapshot-panel { min-height: 240px; }
 }
 
 @media (max-width: 650px) {
