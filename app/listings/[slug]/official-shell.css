@@ -21,7 +21,7 @@ body:has(.listing-detail-official-header) .marketplace-listing-page > .results-h
 @media (min-width: 901px) {
   body:has(.listing-detail-official-header)
     .marketplace-listing-aside:not(.marketplace-listing-aside-broker) {
-    margin-top: 94px !important;
+    margin-top: 70px !important;
   }
 }
 
