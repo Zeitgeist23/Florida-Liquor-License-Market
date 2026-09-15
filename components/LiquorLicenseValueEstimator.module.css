@@ -810,6 +810,44 @@
   box-shadow: 0 13px 28px rgba(246, 167, 0, .28);
 }
 
+.form button,
+.warningActions .warningPrimary,
+.paidChoice a,
+.actions .primary,
+.leadForm button {
+  border-color: #ffd468;
+  border-radius: 4px;
+  background: linear-gradient(145deg, #ffd56b 0%, #ffc13b 42%, #e69a00 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .48),
+    inset 0 -2px 0 rgba(120, 72, 0, .28),
+    0 6px 12px rgba(3, 17, 29, .3),
+    0 0 0 1px rgba(241, 166, 0, .08);
+  transform-origin: center;
+  transition: transform .18s ease, filter .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.form button:hover:not(:disabled),
+.form button:focus-visible:not(:disabled),
+.warningActions .warningPrimary:hover,
+.warningActions .warningPrimary:focus-visible,
+.paidChoice a:hover,
+.paidChoice a:focus-visible,
+.actions .primary:hover,
+.actions .primary:focus-visible,
+.leadForm button:hover:not(:disabled),
+.leadForm button:focus-visible:not(:disabled) {
+  border-color: #ffe29a;
+  filter: brightness(1.08);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .62),
+    inset 0 -2px 0 rgba(120, 72, 0, .22),
+    0 10px 20px rgba(3, 17, 29, .38),
+    0 0 17px rgba(241, 166, 0, .32);
+  outline: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .conversionChoice,
   .conversionChoice a {
