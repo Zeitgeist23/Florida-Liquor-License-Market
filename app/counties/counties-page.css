@@ -9,6 +9,11 @@
 .county-directory-page a { text-decoration: none; }
 .directory-shell { width: min(1240px, calc(100% - 40px)); margin: 0 auto; }
 
+.county-directory-page .abt-header-wrap {
+  border-bottom-color: rgba(246, 167, 0, .55);
+  background: #020b12;
+}
+
 .directory-header {
   min-height: 96px;
   display: flex;

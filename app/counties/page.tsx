@@ -10,8 +10,8 @@ import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplac
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import CopyLinkField from "@/components/CopyLinkField";
 import CountyAvailabilityHeatMap from "@/components/CountyAvailabilityHeatMap";
+import "../resources/forms/abt-forms.css";
 import "../fllm-official-template.css";
-import "../listings/listings-header-black-integration.css";
 import "./counties-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -116,9 +116,9 @@ export default async function CountiesPage() {
   ];
 
   return (
-    <main className="county-directory-page market-data-page results-page fllm-official-page" data-fllm-template="county-v1">
+    <main className="county-directory-page market-data-page fllm-official-page" data-fllm-template="county-v1">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }} />
-      <div className="listings-header-band"><FormsSiteHeader /></div>
+      <div className="abt-header-wrap"><FormsSiteHeader /></div>
 
       <section className="directory-hero market-data-hero">
         <div className="directory-shell">
