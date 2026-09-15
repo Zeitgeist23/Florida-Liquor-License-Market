@@ -22,6 +22,11 @@ export default function ExchangeLayout({ children }: { children: ReactNode }) {
           display: none !important;
         }
 
+        /* Hide the obsolete route-specific Exchange footer so only the official shared FLLM footer remains. */
+        .exchange-official-shell > main.exchange-page > .abt-forms-footer {
+          display: none !important;
+        }
+
         @media (min-width: 981px) {
           .exchange-official-shell .forms-site-header.page-shell {
             width: min(1240px, calc(100% - 40px));
