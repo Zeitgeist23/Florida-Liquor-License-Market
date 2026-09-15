@@ -19,20 +19,24 @@ body:has(.listing-detail-official-header) .marketplace-listing-page > .results-h
 
 @media (min-width: 981px) {
   /*
-   * Listing-detail header geometry:
-   * keep the logo, menu and action buttons as one centered cluster instead of
-   * letting the navigation flex-grow and create large empty gaps on each side.
+   * Match the listing-detail header edges to the 1180px content shell below:
+   * logo aligns to the left content edge, action buttons to the right edge,
+   * while the menu stays centered between them.
    */
   .listing-detail-official-header .forms-site-header.page-shell {
-    width: min(1480px, calc(100% - 40px)) !important;
-    justify-content: center !important;
-    gap: 10px !important;
+    width: min(1180px, calc(100% - 48px)) !important;
+    display: grid !important;
+    grid-template-columns: 170px minmax(0, 1fr) 225px !important;
+    align-items: center !important;
+    column-gap: 16px !important;
+    margin-inline: auto !important;
   }
 
   .listing-detail-official-header .forms-site-header .brand-lockup {
-    flex: 0 0 170px !important;
     width: 170px !important;
-    margin-right: 0 !important;
+    min-width: 170px !important;
+    margin: 0 !important;
+    justify-self: start !important;
     transform: none !important;
   }
 
@@ -42,15 +46,18 @@ body:has(.listing-detail-official-header) .marketplace-listing-page > .results-h
   }
 
   .listing-detail-official-header .forms-site-header .primary-nav {
-    flex: 0 0 auto !important;
+    min-width: 0 !important;
+    justify-self: center !important;
     justify-content: center !important;
-    gap: 39px !important;
+    gap: 34px !important;
     margin: 0 !important;
     padding-inline: 0 !important;
   }
 
   .listing-detail-official-header .forms-site-header .header-actions {
-    flex: 0 0 auto !important;
+    width: 225px !important;
+    justify-self: end !important;
+    justify-content: flex-end !important;
     gap: 9px !important;
     margin: 0 !important;
     transform: none !important;
