@@ -135,7 +135,7 @@ export default async function FloridaQuotaLiquorLicenseCostPage() {
         .quota-cost-table{width:100%;min-width:860px;border-collapse:collapse;color:#eef3f8}
         .quota-cost-table th,.quota-cost-table td{padding:13px 14px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right;font-size:13px}
         .quota-cost-table th:first-child,.quota-cost-table td:first-child{text-align:left}
-        .quota-cost-table thead th{color:#eda91a;background:#051a2e;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+        .quota-cost-table thead th{position:sticky;top:0;z-index:5;color:#eda91a;background:#051a2e;font-size:11px;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 2px 0 rgba(237,169,26,.28),0 8px 16px rgba(1,10,18,.32)}\n        .quota-cost-table thead th:first-child{border-top-left-radius:13px}\n        .quota-cost-table thead th:last-child{border-top-right-radius:13px}
         .quota-cost-table tbody tr:hover{background:rgba(237,169,26,.055)}
         .quota-cost-table a{color:#f6f3ed;font-weight:800;text-decoration:none}.quota-cost-table a:hover{color:#eda91a}
         .quota-cost-empty{color:#8297aa;font-size:12px}
@@ -143,7 +143,7 @@ export default async function FloridaQuotaLiquorLicenseCostPage() {
         .quota-cost-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
         .quota-cost-links a{padding:18px;border:1px solid rgba(237,169,26,.3);border-radius:11px;background:#071d33;color:#f6f3ed;text-decoration:none;font-weight:800}
         .quota-cost-links a span{display:block;margin-top:6px;color:#9fb2c4;font-size:12px;font-weight:500;line-height:1.45}
-        @media(max-width:760px){.quota-cost-links{grid-template-columns:1fr}}
+        @media(min-width:861px){.quota-cost-table-wrap{overflow:visible}}\n        @media(max-width:760px){.quota-cost-links{grid-template-columns:1fr}}
       `}</style>
 
       <div className="abt-header-wrap"><FormsSiteHeader /></div>
