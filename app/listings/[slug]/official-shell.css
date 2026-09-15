@@ -42,6 +42,19 @@ body:has(.listing-detail-official-header)
   transform: none !important;
 }
 
+/* Tighten the county-market context card so its bottom aligns with the appraisal card. */
+body:has(.listing-detail-official-header)
+  .marketplace-listing-section:has(> p:last-child > a[href^="/listings?county="]) {
+  padding-bottom: 15px !important;
+}
+
+body:has(.listing-detail-official-header)
+  .marketplace-listing-section:has(> p:last-child > a[href^="/listings?county="])
+  > p:last-child > a {
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+}
+
 /* On desktop, align the self-directed action sidebar with the top of the four detail cards. */
 @media (min-width: 901px) {
   body:has(.listing-detail-official-header)
