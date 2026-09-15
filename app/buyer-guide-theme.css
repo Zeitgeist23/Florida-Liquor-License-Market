@@ -114,6 +114,11 @@ body:has(.buy-guide-quick) .seo-market-faq p {
   color: #425364;
 }
 
+/* Buyer guide quick-answer section: vertically center the right-hand callout against the full text block. */
+body:has(.buyer-guide-page) .buy-guide-quick {
+  align-items: center !important;
+}
+
 body:has(.buy-guide-quick) .buy-guide-quick-card {
   border: 1px solid rgba(246, 167, 0, .55);
   background: linear-gradient(145deg, #0a2237 0%, #04111c 100%);
@@ -271,6 +276,10 @@ body:has(.buy-guide-quick) .seo-market-cta p {
 }
 
 @media (max-width: 760px) {
+  body:has(.buyer-guide-page) .buy-guide-quick {
+    align-items: start !important;
+  }
+
   body:has(.buy-guide-quick) .seo-market-cta-inner {
     align-items: flex-start;
     flex-direction: column;
