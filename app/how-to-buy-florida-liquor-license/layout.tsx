@@ -53,10 +53,23 @@ export default function HowToBuyFloridaLiquorLicenseLayout({ children }: { child
           margin-left: auto !important;
           margin-right: auto !important;
           text-align: center !important;
+          font-family: Georgia, "Times New Roman", serif !important;
         }
 
         .how-to-buy-official-shell .buyer-guide-page .seo-market-snapshot-grid > div strong {
-          margin-bottom: 8px !important;
+          margin-bottom: 9px !important;
+          font-size: 29px !important;
+          line-height: 1 !important;
+          font-weight: 700 !important;
+          letter-spacing: 0 !important;
+        }
+
+        .how-to-buy-official-shell .buyer-guide-page .seo-market-snapshot-grid > div small {
+          font-size: 17px !important;
+          line-height: 1.34 !important;
+          font-weight: 500 !important;
+          letter-spacing: .005em !important;
+          color: #f2f5f7 !important;
         }
 
         .how-to-buy-official-shell .buyer-guide-page .seo-market-snapshot-grid > div:hover {
