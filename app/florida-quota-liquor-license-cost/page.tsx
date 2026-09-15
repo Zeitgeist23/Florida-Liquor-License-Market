@@ -134,7 +134,7 @@ export default async function FloridaQuotaLiquorLicenseCostPage() {
         .quota-cost-table-wrap{overflow-x:auto;border:1px solid rgba(237,169,26,.28);border-radius:14px;background:#071d33}
         .quota-cost-table{width:100%;min-width:860px;border-collapse:collapse;color:#eef3f8}
         .quota-cost-table th,.quota-cost-table td{padding:13px 14px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right;font-size:13px}
-        .quota-cost-table th:first-child,.quota-cost-table td:first-child{text-align:left}
+        .quota-cost-table th:first-child,.quota-cost-table td:first-child{text-align:left}\n        .quota-cost-table th:nth-child(2),.quota-cost-table th:nth-child(3),.quota-cost-table td:nth-child(2),.quota-cost-table td:nth-child(3){text-align:center}
         .quota-cost-table thead th{position:sticky;top:0;z-index:5;color:#eda91a;background:#051a2e;font-size:11px;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 2px 0 rgba(237,169,26,.28),0 8px 16px rgba(1,10,18,.32)}\n        .quota-cost-table thead th:first-child{border-top-left-radius:13px}\n        .quota-cost-table thead th:last-child{border-top-right-radius:13px}
         .quota-cost-table tbody tr:hover{background:rgba(237,169,26,.055)}
         .quota-cost-table a{color:#f6f3ed;font-weight:800;text-decoration:none}.quota-cost-table a:hover{color:#eda91a}
