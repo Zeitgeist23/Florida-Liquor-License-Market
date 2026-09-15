@@ -9,6 +9,11 @@
   background: #020b12;
 }
 
+.license-value-page .directory-shell {
+  width: min(1240px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
 .value-hero {
   position: relative;
   overflow: hidden;
@@ -290,6 +295,65 @@
 .value-final-cta h2 { margin-bottom: 8px; font-size: clamp(28px, 3.4vw, 40px); }
 .value-final-cta .page-shell > a { flex: none; }
 
+.license-value-page .directory-footer {
+  padding: 20px 0 0;
+  border-top: 1px solid #6e531d;
+  background: linear-gradient(90deg, #071f36 0%, #0c3558 50%, #071f36 100%);
+}
+
+.license-value-page .directory-footer > .directory-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+}
+
+.license-value-page .directory-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.license-value-page .directory-footer-brand > a {
+  display: block;
+  line-height: 0;
+}
+
+.license-value-page .directory-footer-brand img {
+  display: block;
+  width: 130px;
+  height: auto;
+}
+
+.license-value-page .directory-footer span { color: #e4eef5; font-size: 12px; }
+.license-value-page .directory-footer nav { display: flex; flex-wrap: wrap; gap: 20px; }
+.license-value-page .directory-footer a { color: #f3f7fa; font-size: 12px; font-weight: 800; }
+.license-value-page .directory-footer a:hover,
+.license-value-page .directory-footer a:focus-visible { color: #f1a600; }
+
+.license-value-page .directory-footer > .national-marketplace-footer-link {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 14px max(20px, calc((100% - 1240px) / 2)) 16px;
+  border-top: 1px solid #263f55;
+  background: #0a2947;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: #dce8f0;
+  font-size: 11px;
+  text-align: left;
+}
+
+.license-value-page .directory-footer > .national-marketplace-footer-link a {
+  color: #f3f7fa;
+  font-size: 11px;
+  font-weight: 800;
+}
+
 @media (max-width: 850px) {
   .value-explainer,
   .value-final-cta .page-shell { grid-template-columns: 1fr; display: grid; }
@@ -297,6 +361,17 @@
   .value-link-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .value-faq-grid { grid-template-columns: 1fr; }
   .value-final-cta .page-shell > a { width: 100%; }
+}
+
+@media (max-width: 650px) {
+  .license-value-page .directory-shell { width: min(calc(100% - 24px), 1240px); }
+  .license-value-page .directory-footer > .directory-shell,
+  .license-value-page .directory-footer > .national-marketplace-footer-link {
+    flex-direction: column;
+    text-align: center;
+  }
+  .license-value-page .directory-footer-brand { flex-direction: column; gap: 9px; }
+  .license-value-page .directory-footer nav { justify-content: center; }
 }
 
 @media (max-width: 540px) {

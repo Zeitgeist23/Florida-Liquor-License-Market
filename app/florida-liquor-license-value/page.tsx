@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
@@ -6,6 +7,7 @@ import LiquorLicenseValueEstimator from "@/components/LiquorLicenseValueEstimato
 import { countyValuationGuideHref, countyValuationGuideSlugs } from "@/data/county-valuation-guides";
 import { getCountyBySlug } from "@/data/florida-counties";
 import "@/app/resources/forms/abt-forms.css";
+import "@/app/fllm-official-template.css";
 import "./value-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -74,7 +76,7 @@ export default function FloridaLiquorLicenseValuePage() {
   ];
 
   return (
-    <main className="license-value-page">
+    <main className="license-value-page fllm-official-page" data-fllm-template="county-v1">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }} />
 
       <div className="abt-header-wrap">
@@ -192,6 +194,18 @@ export default function FloridaLiquorLicenseValuePage() {
           <Link href="/sell-your-license">List My Florida Liquor License</Link>
         </div>
       </section>
+
+      <footer className="directory-footer">
+        <div className="directory-shell">
+          <div className="directory-footer-brand">
+            <Link href="/" aria-label="Florida Liquor License Market home">
+              <Image src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width={130} height={53} />
+            </Link>
+            <span>© Florida Liquor License Market</span>
+          </div>
+          <nav aria-label="Footer navigation"><Link href="/">Home</Link><Link href="/florida-4cop-liquor-license-for-sale">4COP</Link><Link href="/florida-3ps-liquor-license-for-sale">3PS</Link><Link href="/listings">Listings</Link><Link href="/contact">Contact</Link></nav>
+        </div>
+      </footer>
     </main>
   );
 }
