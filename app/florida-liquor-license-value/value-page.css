@@ -166,10 +166,29 @@
 }
 
 .value-explainer aside {
+  position: relative;
+  overflow: hidden;
   padding: 22px;
-  border: 1px solid rgba(246, 167, 0, .52);
-  border-radius: 8px;
-  background: #123d65;
+  border: 1px solid rgba(241, 166, 0, .78);
+  border-radius: 7px;
+  background: linear-gradient(145deg, #194f7c 0%, #123d65 58%, #0a2947 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 211, 108, .28),
+    inset 0 -1px 0 rgba(4, 18, 30, .48),
+    0 11px 24px rgba(3, 17, 29, .28),
+    0 0 0 1px rgba(241, 166, 0, .07);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.value-explainer aside:hover,
+.value-explainer aside:focus-within {
+  border-color: #ffc13b;
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 222, 145, .4),
+    inset 0 -1px 0 rgba(4, 18, 30, .5),
+    0 18px 34px rgba(3, 17, 29, .38),
+    0 0 18px rgba(241, 166, 0, .18);
 }
 
 .value-explainer aside strong {
@@ -178,6 +197,36 @@
   color: #f6a700;
   font-size: 12px;
   text-transform: uppercase;
+}
+
+.value-appraisal-callout-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 112px;
+  gap: 14px;
+  align-items: start;
+}
+
+.value-appraisal-callout-body a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.value-appraisal-callout-body a:hover,
+.value-appraisal-callout-body a:focus-visible { color: #ffc13b; }
+
+.value-appraisal-callout-image {
+  display: block;
+  width: 112px;
+  height: 84px;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid rgba(216, 235, 246, .72);
+  border-radius: 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .22), 0 8px 18px rgba(2, 15, 27, .32);
 }
 
 .value-estimator-wrap {
@@ -461,6 +510,8 @@
   .value-link-grid a:last-child { grid-column: 1 / -1; }
   .value-faq-grid { grid-template-columns: 1fr; }
   .value-final-cta .page-shell > a { width: 100%; }
+  .value-appraisal-callout-body { grid-template-columns: minmax(0, 1fr) 160px; }
+  .value-appraisal-callout-image { width: 160px; height: 106px; }
 }
 
 @media (max-width: 650px) {
@@ -498,4 +549,6 @@
   .value-link-grid a:last-child { grid-column: auto; }
   .value-hero-actions { flex-direction: column; }
   .value-hero-actions a { width: 100%; }
+  .value-appraisal-callout-body { grid-template-columns: 1fr; }
+  .value-appraisal-callout-image { width: 150px; height: 100px; }
 }
