@@ -61,6 +61,13 @@ body:has(.listing-detail-official-header)
   line-height: 1.35 !important;
 }
 
+/* Nudge appraisal cards up exactly one pixel on listing-detail pages. */
+body:has(.listing-detail-official-header)
+  .marketplace-listing-aside .marketplace-listing-appraisal-card {
+  position: relative;
+  top: -1px;
+}
+
 /* On desktop, align the self-directed action sidebar with the top of the four detail cards. */
 @media (min-width: 901px) {
   body:has(.listing-detail-official-header)
