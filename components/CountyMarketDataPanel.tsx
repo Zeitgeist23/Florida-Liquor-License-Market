@@ -9,6 +9,7 @@ import { marketPriceStats } from "@/lib/florida-market-index";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import "./CountyMarketDataPanel.css";
 import "@/app/county-approved-tone-refine.css";
+import "./CountyMarketDataPanel-readability.css";
 
 function money(value: number | null) {
   if (value === null) return "—";
