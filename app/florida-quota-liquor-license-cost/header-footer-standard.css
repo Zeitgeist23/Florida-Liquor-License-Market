@@ -96,6 +96,11 @@
   text-align: left;
 }
 
+/* The Exchange Board now uses the shared official FLLM footer rendered by RootLayout. */
+.exchange-static-page .exchange-footer {
+  display: none !important;
+}
+
 @media (max-width: 650px) {
   .seo-market-page > .seo-market-cta {
     padding: 32px 0 40px;
