@@ -23,6 +23,25 @@ body:has(.listing-detail-official-header)
   display: none !important;
 }
 
+/* Put the appraisal card directly into the open self-directed sidebar space. */
+body:has(.listing-detail-official-header) .fllm-selfdirected-aside-stack {
+  display: grid !important;
+  gap: 16px !important;
+}
+
+body:has(.listing-detail-official-header)
+  .fllm-selfdirected-aside-stack .marketplace-listing-appraisal-card {
+  order: -2 !important;
+  margin-top: 0 !important;
+  transform: none !important;
+}
+
+body:has(.listing-detail-official-header)
+  .fllm-selfdirected-aside-stack > div:first-child {
+  order: -1 !important;
+  transform: none !important;
+}
+
 /* On desktop, align the self-directed action sidebar with the top of the four detail cards. */
 @media (min-width: 901px) {
   body:has(.listing-detail-official-header)
