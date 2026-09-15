@@ -17,6 +17,30 @@ export default function SellPageOfficialFooter() {
   const pathname = usePathname();
   const isListingDetail = pathname.startsWith("/listings/") && pathname !== "/listings";
   const isBuyPage = pathname === "/buy-florida-liquor-license";
+  const isHillsboroughPage = pathname === "/counties/hillsborough";
+
+  if (isHillsboroughPage) {
+    return (
+      <style>{`
+        .hillsborough-official-page .county-market-page,
+        .hillsborough-official-page .county-market-page * {
+          font-variant-numeric: lining-nums tabular-nums !important;
+          font-feature-settings: "lnum" 1, "tnum" 1 !important;
+        }
+
+        .hillsborough-official-page .county-stats strong,
+        .hillsborough-official-page .county-data-grid strong,
+        .hillsborough-official-page .county-data-type-grid dd,
+        .hillsborough-official-page .county-data-evidence-grid b,
+        .hillsborough-official-page .county-sold-grid strong {
+          font-family: "Times New Roman", Times, serif !important;
+          font-variant-numeric: lining-nums tabular-nums !important;
+          font-feature-settings: "lnum" 1, "tnum" 1 !important;
+          letter-spacing: 0 !important;
+        }
+      `}</style>
+    );
+  }
 
   if (!officialFooterPaths.has(pathname) && !isListingDetail) return null;
 
