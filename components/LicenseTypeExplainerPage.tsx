@@ -41,7 +41,7 @@ function ExternalOrInternalLink({ href, children, className }: { href: string; c
 }
 
 function LicenseTypeTitle({ title }: { title: string }) {
-  return <>{title.split(/(4(?=COP))/g).map((part, index) => part === "4" ? <span className="lt-straight-four" key={`${part}-${index}`}>4</span> : part)}</>;
+  return <>{title.split(/([34](?=(?:PS|COP)))/g).map((part, index) => /^[34]$/.test(part) ? <span className="lt-straight-numeral" key={`${part}-${index}`}>{part}</span> : part)}</>;
 }
 
 export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProps) {
@@ -55,7 +55,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-shell{width:min(1180px,calc(100% - 40px));margin:0 auto}
         .lt-back{display:inline-flex;align-items:center;gap:7px;margin-top:28px;color:#e0e9f0;text-decoration:none;font-size:13px;font-weight:700}.lt-back:hover{color:var(--gold)}
         .lt-hero{padding:34px 0 28px}.lt-eyebrow{display:inline-block;color:var(--gold);font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
-        .lt-hero h1{margin:0;color:#fff;font:700 clamp(34px,5vw,60px)/1.02 Georgia,serif;max-width:930px}.lt-straight-four{display:inline-block;font-family:Arial,Helvetica,sans-serif;font-style:normal;font-weight:700;line-height:1;vertical-align:baseline}
+        .lt-hero h1{margin:0;color:#fff;font:700 clamp(34px,5vw,60px)/1.02 Georgia,serif;max-width:930px}.lt-straight-numeral{display:inline-block;font-family:Arial,Helvetica,sans-serif;font-style:normal;font-weight:700;line-height:1;vertical-align:baseline}
         .lt-definition{margin:24px 0 0;padding:26px 28px;border:1px solid rgba(246,167,0,.6);border-left:5px solid var(--gold);border-radius:10px;background:rgba(255,255,255,.065);max-width:1050px}
         .lt-definition h2{margin:0 0 12px;color:var(--gold);font-size:20px}.lt-definition p{margin:0;color:#fff;font-size:21px;line-height:1.55;font-weight:600}
         .lt-plain{margin:18px 0 0;color:var(--muted);font-size:17px;line-height:1.7;max-width:1000px}
