@@ -10,6 +10,7 @@ import { getCountyBySlug } from "@/data/florida-counties";
 import "@/app/resources/forms/abt-forms.css";
 import "@/app/fllm-official-template.css";
 import "./value-page.css";
+import "./value-explainer-enhancement.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-value`;
@@ -115,6 +116,13 @@ export default function FloridaLiquorLicenseValuePage() {
         <aside className="value-appraisal-snapshot">
           <strong>Need a lender-oriented formal appraisal?</strong>
           <div className="value-appraisal-snapshot-panel">
+            <Image
+              className="value-appraisal-books"
+              src="/assets/fllm-formal-appraisal-preview-v1.webp"
+              alt="FLLM formal Florida quota liquor license appraisal books"
+              width={560}
+              height={360}
+            />
             <p>The separate $995 FLLM appraisal covers one identified license, same-county 3PS and <UprightFourCopText text="4COP" /> market evidence, available verified recent transactions, conversion analysis and supporting exhibits.</p>
             <Link href="/florida-liquor-license-appraisal#order-form">Review or order the formal appraisal →</Link>
           </div>
