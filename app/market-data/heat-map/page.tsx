@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import UnifiedMarketHeatMap from "@/components/UnifiedMarketHeatMap";
+import UnifiedHeatMapPriceScaleInteraction from "@/components/UnifiedHeatMapPriceScaleInteraction";
 import { buildFloridaMarketIndex } from "@/lib/florida-market-index";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
@@ -103,6 +104,7 @@ export default async function HeatMapPage() {
 
       <div className="market-heat-map-shell">
         <UnifiedMarketHeatMap rows={rows} />
+        <UnifiedHeatMapPriceScaleInteraction />
       </div>
 
       <section className="market-heat-map-note">
