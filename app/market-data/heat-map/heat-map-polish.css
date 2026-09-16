@@ -18,64 +18,25 @@
   line-height: 1.02 !important;
 }
 
-.unified-heat-map-legend ul {
-  gap: 8px !important;
-}
-
-.unified-heat-map-legend li {
-  gap: 10px !important;
-  font-size: 12px !important;
-}
-
-.unified-heat-map-legend li i {
-  width: 32px !important;
-  height: 20px !important;
-  flex-basis: 32px !important;
-}
-
-.unified-heat-map-ranking {
-  margin-top: 15px !important;
-  padding-top: 14px !important;
-}
-
-.unified-heat-map-ranking > strong {
-  margin-bottom: 9px !important;
-  font-size: 10px !important;
-}
-
-.unified-heat-map-ranking ol {
-  gap: 7px !important;
-}
-
+.unified-heat-map-legend ul { gap: 8px !important; }
+.unified-heat-map-legend li { gap: 10px !important; font-size: 12px !important; }
+.unified-heat-map-legend li i { width: 32px !important; height: 20px !important; flex-basis: 32px !important; }
+.unified-heat-map-ranking { margin-top: 15px !important; padding-top: 14px !important; }
+.unified-heat-map-ranking > strong { margin-bottom: 9px !important; font-size: 10px !important; }
+.unified-heat-map-ranking ol { gap: 7px !important; }
 .unified-heat-map-ranking a,
-.unified-heat-map-ranking b {
-  font-size: 12px !important;
-}
+.unified-heat-map-ranking b { font-size: 12px !important; }
+.unified-heat-map-legend > small { margin-top: 13px !important; font-size: 9px !important; line-height: 1.4 !important; }
 
-.unified-heat-map-legend > small {
-  margin-top: 13px !important;
-  font-size: 9px !important;
-  line-height: 1.4 !important;
-}
-
-/* Keep the toolbar, controls and map geometry fixed so toggling metrics/series never shifts the map. */
+/* Keep toolbar/control footprint fixed so metric and series toggles never move the map. */
 .unified-heat-map-toolbar {
   min-height: 104px !important;
   align-items: flex-start !important;
 }
-
-.unified-heat-map-toolbar > div:first-child {
-  min-height: 76px !important;
-}
-
-.unified-heat-map-toolbar h2 {
-  min-height: 35px !important;
-}
-
-.unified-heat-map-controls {
-  min-height: 91px !important;
-  align-content: start;
-}
+.unified-heat-map-toolbar > div:first-child { min-height: 76px !important; }
+.unified-heat-map-toolbar h2 { min-height: 35px !important; }
+.unified-heat-map-controls { min-height: 91px !important; align-content: start; }
+.unified-heat-map-series-switch.is-placeholder { visibility: hidden !important; pointer-events: none !important; }
 
 .unified-heat-map-stage {
   position: relative;
@@ -102,13 +63,12 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 48%, rgba(27, 187, 208, .19) 0%, rgba(115, 87, 232, .105) 44%, transparent 74%);
+  background: radial-gradient(ellipse at 50% 48%, rgba(27,187,208,.19) 0%, rgba(115,87,232,.105) 44%, transparent 74%);
   filter: blur(18px);
 }
-
 .unified-heat-map--median .unified-heat-map-stage::before,
 .unified-heat-map--highest .unified-heat-map-stage::before {
-  background: radial-gradient(ellipse at 50% 48%, rgba(99, 102, 232, .18) 0%, rgba(27, 187, 208, .1) 46%, transparent 74%);
+  background: radial-gradient(ellipse at 50% 48%, rgba(99,102,232,.18) 0%, rgba(27,187,208,.1) 46%, transparent 74%);
 }
 
 .unified-heat-map-stage svg {
@@ -123,106 +83,91 @@
   overflow: visible !important;
   transform: none !important;
   transform-origin: center center;
-  filter: drop-shadow(0 18px 25px rgba(2, 14, 25, .34));
+  filter: drop-shadow(0 18px 25px rgba(2,14,25,.34));
 }
 
 .unified-heat-map-stage path {
-  stroke: rgba(204, 239, 255, .8) !important;
+  stroke: rgba(204,239,255,.8) !important;
   stroke-width: .7 !important;
   vector-effect: non-scaling-stroke;
   cursor: pointer;
   transition: fill .2s ease, filter .16s ease, opacity .16s ease, stroke .16s ease, stroke-width .16s ease;
 }
-
 .unified-heat-map-stage a:hover path,
 .unified-heat-map-stage a:focus path,
 .unified-heat-map-stage a.is-active path {
-  filter: brightness(1.24) drop-shadow(0 0 5px rgba(104, 224, 255, .78));
+  filter: brightness(1.24) drop-shadow(0 0 5px rgba(104,224,255,.78));
   stroke: #fff !important;
   stroke-width: 1.75 !important;
   outline: none;
 }
 
-/* Compact lottery-map style county popup. */
+/* Compact lottery-map style county popup. JS positions it outside the Florida SVG. */
 .unified-heat-map-detail {
   position: fixed !important;
   z-index: 14020 !important;
   right: auto !important;
   bottom: auto !important;
-  width: min(286px, calc(100vw - 24px)) !important;
-  max-height: calc(100vh - 24px);
-  padding: 13px 16px 12px !important;
+  width: min(238px, calc(100vw - 20px)) !important;
+  max-height: calc(100vh - 20px);
+  padding: 11px 14px 10px !important;
   overflow: auto;
   border: 1px solid #66d9f1 !important;
-  border-radius: 10px !important;
-  background: rgba(2, 15, 24, .955) !important;
-  box-shadow: 0 14px 30px rgba(0,0,0,.46), 0 0 16px rgba(36,191,221,.13) !important;
+  border-radius: 9px !important;
+  background: rgba(2,15,24,.965) !important;
+  box-shadow: 0 12px 26px rgba(0,0,0,.43), 0 0 14px rgba(36,191,221,.12) !important;
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
 }
-
 .unified-heat-map--median .unified-heat-map-detail,
-.unified-heat-map--highest .unified-heat-map-detail {
-  border-color: #66d9f1 !important;
-}
-
+.unified-heat-map--highest .unified-heat-map-detail { border-color: #66d9f1 !important; }
 .unified-heat-map-detail > span {
   display: block !important;
-  margin: 0 0 5px !important;
+  margin: 0 0 4px !important;
   color: #63e4ff !important;
-  font: 800 14px/1.2 Arial, Helvetica, sans-serif !important;
+  font: 800 13px/1.2 Arial,Helvetica,sans-serif !important;
   letter-spacing: 0 !important;
   text-transform: none !important;
 }
-
 .unified-heat-map-detail > strong {
   display: block !important;
-  margin: 0 0 8px !important;
+  margin: 0 0 7px !important;
   color: #fff !important;
-  font: 800 17px/1.2 Arial, Helvetica, sans-serif !important;
+  font: 800 15px/1.2 Arial,Helvetica,sans-serif !important;
 }
-
-.unified-heat-map-detail dl {
-  display: block !important;
-  margin: 0 !important;
-}
-
+.unified-heat-map-detail dl { display: block !important; margin: 0 !important; }
 .unified-heat-map-detail dl > div {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 14px !important;
-  min-height: 30px !important;
-  padding: 6px 0 !important;
+  gap: 12px !important;
+  min-height: 27px !important;
+  padding: 5px 0 !important;
   border: 0 !important;
   border-top: 1px solid rgba(102,217,241,.16) !important;
   border-radius: 0 !important;
   background: transparent !important;
 }
-
 .unified-heat-map-detail dt {
   color: #a7c4d2 !important;
-  font: 500 10px/1.25 Arial, Helvetica, sans-serif !important;
+  font: 500 9px/1.2 Arial,Helvetica,sans-serif !important;
   letter-spacing: 0 !important;
   text-transform: uppercase !important;
 }
-
 .unified-heat-map-detail dd {
   margin: 0 !important;
   color: #fff !important;
-  font: 800 13px/1.2 Arial, Helvetica, sans-serif !important;
+  font: 800 12px/1.2 Arial,Helvetica,sans-serif !important;
   text-align: right !important;
 }
-
 .unified-heat-map-detail > a {
   display: inline-block !important;
-  margin-top: 9px !important;
+  margin-top: 8px !important;
   color: #63e4ff !important;
-  font: 800 10px/1.2 Arial, Helvetica, sans-serif !important;
+  font: 800 9px/1.2 Arial,Helvetica,sans-serif !important;
   letter-spacing: .03em !important;
   text-transform: uppercase !important;
 }
-
 .unified-heat-map-detail > a:hover,
 .unified-heat-map-detail > a:focus-visible {
   color: #fff !important;
@@ -232,9 +177,9 @@
 
 .heat-map-series-code {
   display: inline-block;
-  font-family: Arial, Helvetica, sans-serif !important;
+  font-family: Arial,Helvetica,sans-serif !important;
   font-variant-numeric: lining-nums tabular-nums !important;
-  font-feature-settings: "lnum" 1, "tnum" 1 !important;
+  font-feature-settings: "lnum" 1,"tnum" 1 !important;
   font-weight: 900 !important;
   font-style: normal !important;
   letter-spacing: 0 !important;
@@ -242,43 +187,30 @@
   vertical-align: baseline !important;
   transform: none !important;
 }
-
-.heat-map-series-code--button {
-  font-size: 1em !important;
-}
-
+.heat-map-series-code--button { font-size: 1em !important; }
 .unified-heat-map-toolbar h2,
 .unified-heat-map-legend h3,
 .unified-heat-map-detail,
 .unified-heat-map-detail * {
   font-variant-numeric: lining-nums tabular-nums;
-  font-feature-settings: "lnum" 1, "tnum" 1;
+  font-feature-settings: "lnum" 1,"tnum" 1;
 }
-
 .unified-heat-map-detail dt,
-.unified-heat-map-detail strong {
-  font-family: Arial, Helvetica, sans-serif !important;
-}
+.unified-heat-map-detail strong { font-family: Arial,Helvetica,sans-serif !important; }
 
-/* Cyan illuminated controls replace the old gold selected state. */
-.unified-heat-map-controls {
-  display: grid;
-  justify-items: end;
-  gap: 9px;
-}
-
+/* Cyan illuminated controls. */
+.unified-heat-map-controls { display: grid; justify-items: end; gap: 9px; }
 .unified-heat-map-switch,
 .unified-heat-map-series-switch {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 4px;
   padding: 4px;
-  border: 1px solid rgba(88, 215, 255, .72) !important;
+  border: 1px solid rgba(88,215,255,.72) !important;
   border-radius: 7px;
   background: #061728 !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 0 0 1px rgba(27,187,208,.04);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035),0 0 0 1px rgba(27,187,208,.04);
 }
-
 .unified-heat-map-switch button,
 .unified-heat-map-series-switch button {
   min-height: 42px;
@@ -288,181 +220,72 @@
   background: transparent !important;
   color: #f5fbff !important;
   cursor: pointer;
-  font: 900 10px/1 Arial, Helvetica, sans-serif;
+  font: 900 10px/1 Arial,Helvetica,sans-serif;
   text-transform: uppercase;
-  transition: transform .18s ease, color .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease, filter .18s ease;
+  transition: transform .18s ease,color .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease,filter .18s ease;
 }
-
-.unified-heat-map-series-switch {
-  border-radius: 999px;
-}
-
-.unified-heat-map-series-switch button {
-  min-width: 76px;
-  min-height: 34px;
-  padding: 0 15px;
-  border-radius: 999px;
-}
-
+.unified-heat-map-series-switch { border-radius: 999px; }
+.unified-heat-map-series-switch button { min-width: 76px; min-height: 34px; padding: 0 15px; border-radius: 999px; }
 .unified-heat-map-switch button:hover,
 .unified-heat-map-switch button:focus-visible,
 .unified-heat-map-series-switch button:hover,
 .unified-heat-map-series-switch button:focus-visible {
   color: #e8fdff !important;
-  border-color: rgba(126, 239, 255, .68) !important;
-  background: rgba(27, 187, 208, .13) !important;
-  box-shadow: 0 0 16px rgba(27, 187, 208, .28), inset 0 0 12px rgba(105, 214, 255, .05) !important;
+  border-color: rgba(126,239,255,.68) !important;
+  background: rgba(27,187,208,.13) !important;
+  box-shadow: 0 0 16px rgba(27,187,208,.28),inset 0 0 12px rgba(105,214,255,.05) !important;
   transform: translateY(-1px) scale(1.02);
   outline: none !important;
 }
-
 .unified-heat-map-switch button.is-active,
 .unified-heat-map-series-switch button.is-active {
   color: #03131f !important;
   border-color: #aaf7ff !important;
-  background: linear-gradient(145deg, #a9f7ff 0%, #58dfff 42%, #1bbbd0 100%) !important;
+  background: linear-gradient(145deg,#a9f7ff 0%,#58dfff 42%,#1bbbd0 100%) !important;
   filter: none !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.75),
-    inset 0 -2px 0 rgba(1, 86, 106, .2),
-    0 0 0 1px rgba(105,214,255,.24),
-    0 0 22px rgba(27,187,208,.48),
-    0 8px 18px rgba(0,0,0,.28) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75),inset 0 -2px 0 rgba(1,86,106,.2),0 0 0 1px rgba(105,214,255,.24),0 0 22px rgba(27,187,208,.48),0 8px 18px rgba(0,0,0,.28) !important;
   transform: translateY(-1px);
 }
-
 .unified-heat-map-switch button.is-active:hover,
 .unified-heat-map-series-switch button.is-active:hover {
   filter: brightness(1.08) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.85),
-    0 0 0 1px rgba(150,244,255,.36),
-    0 0 28px rgba(27,187,208,.62),
-    0 10px 20px rgba(0,0,0,.3) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.85),0 0 0 1px rgba(150,244,255,.36),0 0 28px rgba(27,187,208,.62),0 10px 20px rgba(0,0,0,.3) !important;
   transform: translateY(-2px) scale(1.025);
 }
 
 /* Drop a physical map pin when a county or ranking row is hovered/focused. */
-.unified-heat-map-pin {
-  pointer-events: none;
-  filter: drop-shadow(0 3px 5px rgba(0,0,0,.68));
-  animation: unified-heat-map-pin-drop .2s cubic-bezier(.2,.85,.35,1);
-}
-
-.unified-heat-map-pin line {
-  stroke: #fff;
-  stroke-width: 1.5;
-  vector-effect: non-scaling-stroke;
-}
-
-.unified-heat-map-pin-head {
-  stroke: #fff;
-  stroke-width: 1.3;
-  vector-effect: non-scaling-stroke;
-}
-
-.unified-heat-map-pin-shine {
-  fill: #fff;
-  opacity: .9;
-}
-
-.unified-heat-map-pin-point {
-  stroke: #fff;
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-
-@keyframes unified-heat-map-pin-drop {
-  from { opacity: 0; transform: translateY(-12px) scale(.82); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.unified-heat-map-ranking li {
-  padding: 3px 4px;
-  margin-inline: -4px;
-  transition: background .16s ease, box-shadow .16s ease, transform .16s ease;
-}
-
+.unified-heat-map-pin { pointer-events: none; filter: drop-shadow(0 3px 5px rgba(0,0,0,.68)); animation: unified-heat-map-pin-drop .2s cubic-bezier(.2,.85,.35,1); }
+.unified-heat-map-pin line { stroke: #fff; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.unified-heat-map-pin-head { stroke: #fff; stroke-width: 1.3; vector-effect: non-scaling-stroke; }
+.unified-heat-map-pin-shine { fill: #fff; opacity: .9; }
+.unified-heat-map-pin-point { stroke: #fff; stroke-width: 1; vector-effect: non-scaling-stroke; }
+@keyframes unified-heat-map-pin-drop { from { opacity: 0; transform: translateY(-12px) scale(.82); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.unified-heat-map-ranking li { padding: 3px 4px; margin-inline: -4px; transition: background .16s ease,box-shadow .16s ease,transform .16s ease; }
 .unified-heat-map-ranking li:hover,
-.unified-heat-map-ranking li:focus-within {
-  border-radius: 5px;
-  background: rgba(105, 214, 255, .09);
-  box-shadow: 0 0 0 1px rgba(105, 214, 255, .12), 0 0 14px rgba(27,187,208,.12);
-  transform: translateX(2px);
+.unified-heat-map-ranking li:focus-within { border-radius: 5px; background: rgba(105,214,255,.09); box-shadow: 0 0 0 1px rgba(105,214,255,.12),0 0 14px rgba(27,187,208,.12); transform: translateX(2px); }
+
+@media (max-width:1100px) {
+  .unified-heat-map-grid { grid-template-columns: 235px minmax(0,1fr) !important; gap: 18px !important; }
+  .unified-heat-map-stage { height: 580px !important; min-height: 580px !important; max-height: 580px !important; }
+  .unified-heat-map-stage svg { width: min(92%,760px) !important; max-width: 760px !important; max-height: 560px !important; }
 }
 
-@media (max-width: 1100px) {
-  .unified-heat-map-grid {
-    grid-template-columns: 235px minmax(0,1fr) !important;
-    gap: 18px !important;
-  }
-  .unified-heat-map-stage {
-    height: 580px !important;
-    min-height: 580px !important;
-    max-height: 580px !important;
-  }
-  .unified-heat-map-stage svg {
-    width: min(92%, 760px) !important;
-    max-width: 760px !important;
-    max-height: 560px !important;
-  }
+@media (max-width:900px) {
+  .unified-heat-map-grid { grid-template-columns: 1fr !important; align-items: stretch !important; }
+  .unified-heat-map-toolbar { display: block !important; min-height: 188px !important; }
+  .unified-heat-map-controls { justify-items: start; margin-top: 18px; }
+  .unified-heat-map-legend { width: min(100%,420px); }
+  .unified-heat-map-stage { height: 520px !important; min-height: 520px !important; max-height: 520px !important; padding: 12px 0 24px !important; }
+  .unified-heat-map-stage svg { width: min(96%,700px) !important; max-width: 700px !important; max-height: 500px !important; }
 }
 
-@media (max-width: 900px) {
-  .unified-heat-map-grid {
-    grid-template-columns: 1fr !important;
-    align-items: stretch !important;
-  }
-  .unified-heat-map-toolbar {
-    display: block !important;
-    min-height: 0 !important;
-  }
-  .unified-heat-map-controls {
-    min-height: 0 !important;
-    justify-items: start;
-    margin-top: 18px;
-  }
-  .unified-heat-map-legend {
-    width: min(100%, 420px);
-  }
-  .unified-heat-map-stage {
-    height: 520px !important;
-    min-height: 520px !important;
-    max-height: 520px !important;
-    padding: 12px 0 24px !important;
-  }
-  .unified-heat-map-stage svg {
-    width: min(96%, 700px) !important;
-    max-width: 700px !important;
-    max-height: 500px !important;
-  }
-}
-
-@media (max-width: 620px) {
+@media (max-width:620px) {
   .unified-heat-map-controls,
   .unified-heat-map-switch,
-  .unified-heat-map-series-switch {
-    width: 100%;
-  }
-  .unified-heat-map-switch {
-    display: grid !important;
-    grid-template-columns: 1fr;
-  }
-  .unified-heat-map-series-switch button {
-    flex: 1 1 0;
-  }
-  .unified-heat-map-stage {
-    height: 400px !important;
-    min-height: 400px !important;
-    max-height: 400px !important;
-    padding: 8px 0 18px !important;
-  }
-  .unified-heat-map-stage svg {
-    width: 100% !important;
-    max-width: 470px !important;
-    max-height: 395px !important;
-  }
-  .unified-heat-map-detail {
-    width: min(270px, calc(100vw - 20px)) !important;
-  }
+  .unified-heat-map-series-switch { width: 100%; }
+  .unified-heat-map-switch { display: grid !important; grid-template-columns: 1fr; }
+  .unified-heat-map-series-switch button { flex: 1 1 0; }
+  .unified-heat-map-stage { height: 400px !important; min-height: 400px !important; max-height: 400px !important; padding: 8px 0 18px !important; }
+  .unified-heat-map-stage svg { width: 100% !important; max-width: 470px !important; max-height: 395px !important; }
+  .unified-heat-map-detail { width: min(220px,calc(100vw - 16px)) !important; }
 }
