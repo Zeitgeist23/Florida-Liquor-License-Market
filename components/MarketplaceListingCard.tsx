@@ -80,9 +80,9 @@ export default function MarketplaceListingCard({
   const isAntezzaListing =
     normalizedListing.sourceRef?.trim().toUpperCase() === "FLLM-ANTEZZA";
 
-  // Keep county-facing marketplace cards uniform. Listing-specific conditions
-  // belong on the individual detail page; only a compact badge flags the
-  // Antezza business-purchase requirement here.
+  // Keep county-facing marketplace cards uniform. Listing-specific transaction
+  // conditions belong on the detail page; Alessandro's card gets only a quiet
+  // one-line condition note beneath the standard county description.
   const fullDescription = countyListingDescription(county);
   const statusTitle = normalizedListing.licenseStatus
     ? sellerReportedStatusLabel(normalizedListing.licenseStatus)
@@ -161,33 +161,27 @@ export default function MarketplaceListingCard({
           ) : (
             <span className="sold-status-inline">Sold</span>
           )}
-          {isAntezzaListing ? (
-            <span
-              aria-label="Business purchase required"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                minHeight: 24,
-                padding: "0 9px",
-                border: "1px solid rgba(239,170,16,.78)",
-                borderRadius: 999,
-                color: "#f1b53a",
-                background: "rgba(239,170,16,.06)",
-                fontSize: 9,
-                fontWeight: 900,
-                letterSpacing: ".045em",
-                textTransform: "uppercase",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Business Purchase Required
-            </span>
-          ) : null}
         </div>
         <div className="result-description">
           <p title={fullDescription}>
             {compactCardDescription(fullDescription)}
           </p>
+          {isAntezzaListing ? (
+            <span
+              aria-label="Business purchase required"
+              style={{
+                display: "block",
+                marginTop: 5,
+                color: "#e8a619",
+                fontSize: 10,
+                fontWeight: 800,
+                letterSpacing: ".035em",
+                textTransform: "uppercase",
+              }}
+            >
+              Business purchase required
+            </span>
+          ) : null}
         </div>
         {brokerContact ? (
           <address className="featured-broker-contact">
