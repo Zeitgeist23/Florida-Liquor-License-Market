@@ -79,34 +79,37 @@
   outline: none;
 }
 
-/* Call buttons show the normal label at rest. Hover/focus replaces that text
-   with the broker's phone number in the same centered position. */
+/* Restore the compact CALL treatment. The phone number is absolutely overlaid,
+   so it cannot make either gold button wider or taller. */
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button {
-  display: grid !important;
-  place-items: center;
+  position: relative;
   overflow: hidden;
-}
-
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-label,
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-phone {
-  grid-area: 1 / 1;
-  display: block;
-  margin: 0;
-  padding: 0;
-  line-height: inherit;
-  white-space: nowrap;
-  transition: opacity .16s ease;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-label {
+  display: block;
   opacity: 1;
+  line-height: inherit;
+  white-space: nowrap;
+  transition: opacity .14s ease;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-phone {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
   color: inherit;
   font: inherit;
+  line-height: inherit;
+  white-space: nowrap;
   pointer-events: none;
+  transition: opacity .14s ease;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button:hover .antezza-call-broker-label,
