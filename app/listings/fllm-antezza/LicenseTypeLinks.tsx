@@ -36,7 +36,7 @@ function installChangeOfSeriesLinks() {
   if (!paragraph || paragraph.querySelector(".antezza-license-type-link")) return;
 
   const source = paragraph.textContent ?? "";
-  const pattern = /(4COP\s+Quota|3PS)/g;
+  const pattern = /(4COP\s+Quota|3PS\s+Quota)/g;
   const fragment = document.createDocumentFragment();
   let cursor = 0;
   let match: RegExpExecArray | null;
@@ -46,7 +46,7 @@ function installChangeOfSeriesLinks() {
       fragment.appendChild(document.createTextNode(source.slice(cursor, match.index)));
     }
 
-    const isThreePs = match[0] === "3PS";
+    const isThreePs = /^3PS/i.test(match[0]);
     fragment.appendChild(
       buildLicenseLink(match[0], isThreePs ? "3ps" : "4cop"),
     );
