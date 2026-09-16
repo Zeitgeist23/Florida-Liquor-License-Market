@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 const brokerListingUrl =
   "https://sunshineagle.com/deal-listing/upscale-cocktail-lounge-with-4cop-quota-license/?back=https%3A%2F%2Fsunshineagle.com%2Fpremium-listings%2F&source&listing_button_text=Inquire%20About%20This%20Listing&listing_button_color&css_source=7799&json_url=https://sunshineagle.dealrelations.com/listings/upscale-cocktail-lounge-with-4cop-quota-license.json?item_id=5534";
+const brokerPhone = "(941) 416-4580";
 
 function linkDisclosureBrokerName() {
   const paragraph = document.querySelector<HTMLParagraphElement>(
@@ -42,6 +43,36 @@ function linkDisclosureBrokerName() {
   return null;
 }
 
+function enhanceCallBrokerButtons() {
+  const root = document.querySelector<HTMLElement>(
+    '.results-page[data-featured-broker-listing="FLLM-ANTEZZA"]'
+  );
+  if (!root) return;
+
+  root
+    .querySelectorAll<HTMLAnchorElement>('.marketplace-listing-primary[href^="tel:"]')
+    .forEach((button) => {
+      if (button.classList.contains("antezza-call-broker-button")) return;
+
+      button.classList.add("antezza-call-broker-button");
+      button.setAttribute(
+        "aria-label",
+        `Call listing broker Alessandro Antezza at ${brokerPhone}`,
+      );
+
+      const label = document.createElement("span");
+      label.className = "antezza-call-broker-label";
+      label.textContent = "Call Listing Broker";
+
+      const phone = document.createElement("span");
+      phone.className = "antezza-call-broker-phone";
+      phone.textContent = brokerPhone;
+      phone.setAttribute("aria-hidden", "true");
+
+      button.replaceChildren(label, phone);
+    });
+}
+
 export default function BrokerListingLinkFix() {
   useEffect(() => {
     const sidebarLink = document.querySelector<HTMLAnchorElement>(
@@ -53,6 +84,8 @@ export default function BrokerListingLinkFix() {
       sidebarLink.target = "_blank";
       sidebarLink.rel = "noopener noreferrer";
     }
+
+    enhanceCallBrokerButtons();
 
     const disclosureLink = linkDisclosureBrokerName();
     if (!disclosureLink) return;
