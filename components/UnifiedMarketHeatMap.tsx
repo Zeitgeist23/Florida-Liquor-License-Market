@@ -18,18 +18,32 @@ type Series = "4cop" | "3ps";
 type MapPin = { x: number; y: number; color: string } | null;
 
 const INVENTORY_LEGEND = [
-  ["#193552", "0 listings"], ["#195b86", "1–2 listings"], ["#167ea8", "3–5 listings"],
-  ["#1bbbd0", "6–8 listings"], ["#7357e8", "9–11 listings"], ["#a855f7", "12+ listings"],
+  ["#193552", "0 listings"],
+  ["#195b86", "1–2 listings"],
+  ["#167ea8", "3–5 listings"],
+  ["#1bbbd0", "6–8 listings"],
+  ["#7357e8", "9–11 listings"],
+  ["#a855f7", "12+ listings"],
 ] as const;
 
 const MEDIAN_LEGEND = [
-  ["#193552", "No disclosed price"], ["#75c9ff", "Under $200K"], ["#38a8df", "$200K–$299K"],
-  ["#6366e8", "$300K–$449K"], ["#8b5cf6", "$450K–$649K"], ["#f05a32", "$650K–$799K"], ["#dc2626", "$800K+"],
+  ["#193552", "No disclosed price"],
+  ["#75c9ff", "Under $200K"],
+  ["#38a8df", "$200K–$299K"],
+  ["#6366e8", "$300K–$449K"],
+  ["#8b5cf6", "$450K–$649K"],
+  ["#f05a32", "$650K–$799K"],
+  ["#dc2626", "$800K+"],
 ] as const;
 
 const HIGH_LEGEND = [
-  ["#24323b", "No current listings"], ["#8797a2", "Price undisclosed"], ["#439848", "Under $300,000"],
-  ["#a9a92b", "$300,000–$449,999"], ["#f5ad1f", "$450,000–$599,999"], ["#f37b20", "$600,000–$749,999"], ["#ef4327", "$750,000+"],
+  ["#24323b", "No current listings"],
+  ["#8797a2", "Price undisclosed"],
+  ["#439848", "Under $300,000"],
+  ["#a9a92b", "$300,000–$449,999"],
+  ["#f5ad1f", "$450,000–$599,999"],
+  ["#f37b20", "$600,000–$749,999"],
+  ["#ef4327", "$750,000+"],
 ] as const;
 
 function key(value: string) {
@@ -38,7 +52,11 @@ function key(value: string) {
 
 function money(value: number | null) {
   if (value === null) return "—";
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(value);
 }
 
 function inventoryColor(count: number) {
@@ -87,56 +105,87 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
   const [inventoryLegendBand, setInventoryLegendBand] = useState<number | null>(null);
   const detailRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const byCounty = useMemo(() => new Map(rows.map((row) => [key(row.name), row])), [rows]);
+
+  const byCounty = useMemo(
+    () => new Map(rows.map((row) => [key(row.name), row])),
+    [rows],
+  );
 
   const seriesLabel = series === "4cop" ? "4COP" : "3PS";
-  const medianValue = (row: UnifiedHeatMapRow) => series === "4cop" ? row.fourCopMedian : row.threePsMedian;
-  const highValue = (row: UnifiedHeatMapRow) => series === "4cop" ? row.fourCopHigh : row.threePsHigh;
-  const metric = (row: UnifiedHeatMapRow) => mode === "inventory" ? row.listingCount : mode === "median" ? medianValue(row) ?? 0 : highValue(row) ?? 0;
+  const medianValue = (row: UnifiedHeatMapRow) =>
+    series === "4cop" ? row.fourCopMedian : row.threePsMedian;
+  const highValue = (row: UnifiedHeatMapRow) =>
+    series === "4cop" ? row.fourCopHigh : row.threePsHigh;
+  const metric = (row: UnifiedHeatMapRow) =>
+    mode === "inventory"
+      ? row.listingCount
+      : mode === "median"
+        ? medianValue(row) ?? 0
+        : highValue(row) ?? 0;
 
   const ranking = useMemo(() => {
     const selectedValue = (row: UnifiedHeatMapRow): number | null => {
       if (mode === "inventory") return row.listingCount;
-      if (mode === "median") return series === "4cop" ? row.fourCopMedian : row.threePsMedian;
+      if (mode === "median") {
+        return series === "4cop" ? row.fourCopMedian : row.threePsMedian;
+      }
       return series === "4cop" ? row.fourCopHigh : row.threePsHigh;
     };
 
     return rows
       .map((row) => ({ row, value: selectedValue(row) }))
-      .filter((item): item is { row: UnifiedHeatMapRow; value: number } => typeof item.value === "number" && Number.isFinite(item.value) && item.value > 0)
+      .filter(
+        (item): item is { row: UnifiedHeatMapRow; value: number } =>
+          typeof item.value === "number" && Number.isFinite(item.value) && item.value > 0,
+      )
       .sort((a, b) => (b.value - a.value) || a.row.name.localeCompare(b.row.name))
       .slice(0, 5)
       .map((item) => item.row);
   }, [rows, mode, series]);
-  const max = Math.max(1, ...ranking.map(metric));
 
-  const legend = mode === "inventory" ? INVENTORY_LEGEND : mode === "median" ? MEDIAN_LEGEND : HIGH_LEGEND;
-  const titleText = mode === "inventory"
-    ? "Active listings by county"
-    : mode === "median"
-      ? `County median ${seriesLabel} prices`
-      : `Highest current ${seriesLabel} asking price`;
+  const max = Math.max(1, ...ranking.map(metric));
+  const legend =
+    mode === "inventory"
+      ? INVENTORY_LEGEND
+      : mode === "median"
+        ? MEDIAN_LEGEND
+        : HIGH_LEGEND;
+
+  const titleText =
+    mode === "inventory"
+      ? "Active listings by county"
+      : mode === "median"
+        ? `County median ${seriesLabel} prices`
+        : `Highest current ${seriesLabel} asking price`;
+
   const kicker = mode === "inventory" ? "Inventory View" : "Price View";
 
-  function rowFill(row: UnifiedHeatMapRow | undefined) {
-    if (mode === "inventory") {
-      const count = row?.listingCount ?? 0;
-      if (inventoryLegendBand !== null && !inventoryBandMatches(count, inventoryLegendBand)) {
-        return INVENTORY_LEGEND[0][0];
-      }
-      return inventoryColor(count);
-    }
+  function baseRowFill(row: UnifiedHeatMapRow | undefined) {
+    if (mode === "inventory") return inventoryColor(row?.listingCount ?? 0);
     if (mode === "median") return medianColor(row ? medianValue(row) : null);
     return highestColor(row ? highValue(row) : null, Boolean(row && row.listingCount > 0));
   }
 
+  function visibleRowFill(row: UnifiedHeatMapRow | undefined) {
+    if (mode !== "inventory" || inventoryLegendBand === null) return baseRowFill(row);
+    const count = row?.listingCount ?? 0;
+    return inventoryBandMatches(count, inventoryLegendBand)
+      ? inventoryColor(count)
+      : INVENTORY_LEGEND[0][0];
+  }
+
   function getCountyPath(row: UnifiedHeatMapRow) {
-    return Array.from(stageRef.current?.querySelectorAll<SVGPathElement>("[data-heat-map-county]") ?? [])
-      .find((candidate) => candidate.dataset.heatMapCounty === row.name) ?? null;
+    return (
+      Array.from(
+        stageRef.current?.querySelectorAll<SVGPathElement>("[data-heat-map-county]") ?? [],
+      ).find((candidate) => candidate.dataset.heatMapCounty === row.name) ?? null
+    );
   }
 
   function getMapScreenBounds() {
-    const paths = Array.from(stageRef.current?.querySelectorAll<SVGPathElement>("[data-heat-map-county]") ?? []);
+    const paths = Array.from(
+      stageRef.current?.querySelectorAll<SVGPathElement>("[data-heat-map-county]") ?? [],
+    );
     if (!paths.length) return null;
 
     let left = Number.POSITIVE_INFINITY;
@@ -158,11 +207,19 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
   }
 
   function getMapHorizontalBoundsForSpan(screenTop: number, screenBottom: number) {
-    const paths = Array.from(stageRef.current?.querySelectorAll<SVGPathElement>("[data-heat-map-county]") ?? []);
+    const paths = Array.from(
+      stageRef.current?.querySelectorAll<SVGPathElement>("[data-heat-map-county]") ?? [],
+    );
     const buffer = 10;
     const crossing = paths
       .map((path) => path.getBoundingClientRect())
-      .filter((bounds) => bounds.width > 0 && bounds.height > 0 && bounds.bottom >= screenTop - buffer && bounds.top <= screenBottom + buffer);
+      .filter(
+        (bounds) =>
+          bounds.width > 0 &&
+          bounds.height > 0 &&
+          bounds.bottom >= screenTop - buffer &&
+          bounds.top <= screenBottom + buffer,
+      );
 
     if (!crossing.length) return getMapScreenBounds();
 
@@ -189,17 +246,25 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
     let top = countyCenterY - height / 2;
     top = Math.max(8, Math.min(top, window.innerHeight - height - 8));
 
-    const localMapBounds = getMapHorizontalBoundsForSpan(top, top + height) ?? globalMapBounds;
+    const localMapBounds =
+      getMapHorizontalBoundsForSpan(top, top + height) ?? globalMapBounds;
     const globalMapCenterX = (globalMapBounds.left + globalMapBounds.right) / 2;
     const eastSide = countyCenterX >= globalMapCenterX;
     const gap = 18;
 
-    let left = eastSide ? localMapBounds.right + gap : localMapBounds.left - width - gap;
-    const opposite = eastSide ? localMapBounds.left - width - gap : localMapBounds.right + gap;
+    let left = eastSide
+      ? localMapBounds.right + gap
+      : localMapBounds.left - width - gap;
+    const opposite = eastSide
+      ? localMapBounds.left - width - gap
+      : localMapBounds.right + gap;
 
     if (left < 8 || left + width > window.innerWidth - 8) {
-      if (opposite >= 8 && opposite + width <= window.innerWidth - 8) left = opposite;
-      else left = Math.max(8, Math.min(left, window.innerWidth - width - 8));
+      if (opposite >= 8 && opposite + width <= window.innerWidth - 8) {
+        left = opposite;
+      } else {
+        left = Math.max(8, Math.min(left, window.innerWidth - width - 8));
+      }
     }
 
     detail.style.position = "fixed";
@@ -214,7 +279,7 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
     setPin({
       x: bounds.x + bounds.width / 2,
       y: bounds.y + bounds.height / 2,
-      color: rowFill(row),
+      color: baseRowFill(row),
     });
   }
 
@@ -231,10 +296,6 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
     window.requestAnimationFrame(() => positionDetail(row));
   }
 
-  function activateFromElement(row: UnifiedHeatMapRow, target: Element) {
-    activate(row, target);
-  }
-
   function deactivate() {
     setActive(null);
     setPin(null);
@@ -248,134 +309,283 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
     });
   }
 
-  function clearInventoryBand() {
-    setInventoryLegendBand(null);
+  function setBand(index: number | null) {
+    setActive(null);
+    setPin(null);
+    setInventoryLegendBand(index);
   }
 
-  const titleNode = mode === "inventory"
-    ? titleText
-    : <>{mode === "median" ? "County median " : "Highest current "}<span className="heat-map-series-code">{seriesLabel}</span>{mode === "median" ? " prices" : " asking price"}</>;
-  const legendTitleNode = mode === "inventory"
-    ? "Marketplace availability"
-    : <>{mode === "median" ? "Median " : "Highest "}<span className="heat-map-series-code">{seriesLabel}</span>{mode === "median" ? " asking ranges" : " asking price"}</>;
+  const titleNode =
+    mode === "inventory" ? (
+      titleText
+    ) : (
+      <>
+        {mode === "median" ? "County median " : "Highest current "}
+        <span className="heat-map-series-code">{seriesLabel}</span>
+        {mode === "median" ? " prices" : " asking price"}
+      </>
+    );
 
-  return <section className={`unified-heat-map unified-heat-map--${mode} unified-heat-map--${series}`}>
-    <div className="unified-heat-map-toolbar">
-      <div><span>{kicker}</span><h2>{titleNode}</h2></div>
-      <div className="unified-heat-map-controls">
-        <div className="unified-heat-map-switch" role="group" aria-label="Choose heat map metric">
-          <button className={mode === "inventory" ? "is-active" : ""} onClick={() => { setMode("inventory"); clearInventoryBand(); deactivate(); }}>Active Listings</button>
-          <button className={mode === "median" ? "is-active" : ""} onClick={() => { setMode("median"); clearInventoryBand(); deactivate(); }}>Median Ask</button>
-          <button className={mode === "highest" ? "is-active" : ""} onClick={() => { setMode("highest"); clearInventoryBand(); deactivate(); }}>Highest Current Ask</button>
-        </div>
-        <div className={`unified-heat-map-series-switch ${mode === "inventory" ? "is-placeholder" : ""}`} role="group" aria-label="Choose liquor license series" aria-hidden={mode === "inventory"}>
-          <button tabIndex={mode === "inventory" ? -1 : 0} className={series === "4cop" ? "is-active" : ""} onClick={() => { setSeries("4cop"); clearInventoryBand(); deactivate(); }}><span className="heat-map-series-code">4COP</span></button>
-          <button tabIndex={mode === "inventory" ? -1 : 0} className={series === "3ps" ? "is-active" : ""} onClick={() => { setSeries("3ps"); clearInventoryBand(); deactivate(); }}><span className="heat-map-series-code">3PS</span></button>
-        </div>
-      </div>
-    </div>
+  const legendTitleNode =
+    mode === "inventory" ? (
+      "Marketplace availability"
+    ) : (
+      <>
+        {mode === "median" ? "Median " : "Highest "}
+        <span className="heat-map-series-code">{seriesLabel}</span>
+        {mode === "median" ? " asking ranges" : " asking price"}
+      </>
+    );
 
-    <div className="unified-heat-map-grid">
-      <aside className="unified-heat-map-legend">
-        <span>{mode === "inventory" ? "Listing Scale" : "Price Scale"}</span>
-        <h3>{legendTitleNode}</h3>
-        <ul>{legend.map(([color, label], index) => {
-          const isInventoryScale = mode === "inventory";
-          const isSelectedBand = isInventoryScale && inventoryLegendBand === index;
-          return <li
-            key={label}
-            tabIndex={isInventoryScale ? 0 : -1}
-            className={isSelectedBand ? "is-filter-active" : undefined}
-            onPointerEnter={() => {
-              if (!isInventoryScale) return;
-              setActive(null);
-              setPin(null);
-              setInventoryLegendBand(index);
-            }}
-            onPointerLeave={() => isInventoryScale && setInventoryLegendBand(null)}
-            onFocus={() => {
-              if (!isInventoryScale) return;
-              setActive(null);
-              setPin(null);
-              setInventoryLegendBand(index);
-            }}
-            onBlur={() => isInventoryScale && setInventoryLegendBand(null)}
-            style={isInventoryScale ? {
-              cursor: "pointer",
-              filter: isSelectedBand ? "brightness(1.2)" : undefined,
-              textShadow: isSelectedBand ? "0 0 12px rgba(99,228,255,.7)" : undefined,
-            } : undefined}
-          ><i style={{ background: color }} />{label}</li>;
-        })}</ul>
-        <div className="unified-heat-map-ranking">
-          <strong>{mode === "inventory" ? "Most active counties" : mode === "median" ? `Highest ${seriesLabel} median asks` : `Highest ${seriesLabel} asks`}</strong>
-          <ol>{ranking.map((row) => <li
-            key={`${mode}-${series}-${row.slug}-${metric(row)}`}
-            onPointerEnter={() => highlightFromLegend(row)}
-            onPointerMove={() => active?.slug === row.slug && positionDetail(row)}
-            onPointerLeave={deactivate}
-            onFocus={() => highlightFromLegend(row)}
-            onBlur={deactivate}
-          >
-            <a href={`/counties/${row.slug}`}>{row.name.replace(/ County$/i, "")}</a>
-            <b>{mode === "inventory" ? row.listingCount : money(metric(row))}</b>
-            <em><span style={{ width: `${Math.max(8, metric(row) / max * 100)}%` }} /></em>
-          </li>)}</ol>
+  return (
+    <section className={`unified-heat-map unified-heat-map--${mode} unified-heat-map--${series}`}>
+      <div className="unified-heat-map-toolbar">
+        <div>
+          <span>{kicker}</span>
+          <h2>{titleNode}</h2>
         </div>
-        <small>Current FLLM marketplace inventory. Asking prices are not appraisals or verified closed-sale values.</small>
-      </aside>
-
-      <div className="unified-heat-map-stage" ref={stageRef}>
-        <svg viewBox="135 10 295 275" role="img" aria-label={`Florida liquor license heat map: ${titleText}`}>
-          <g>{FLORIDA_COUNTY_PATHS.map((county) => {
-            const row = byCounty.get(key(county.name));
-            const count = row?.listingCount ?? 0;
-            const isLegendMatch = mode === "inventory" && inventoryLegendBand !== null && inventoryBandMatches(count, inventoryLegendBand);
-            const label = row
-              ? `${row.name}: ${mode === "inventory" ? `${row.listingCount} active listings` : `${money(mode === "median" ? medianValue(row) : highValue(row))} ${seriesLabel} ${mode === "median" ? "median ask" : "highest current ask"}`}`
-              : county.name;
-            return <a
-              key={county.id}
-              href={row ? `/counties/${row.slug}` : "/counties"}
-              aria-label={label}
-              className={row && active?.slug === row.slug ? "is-active" : undefined}
-              onPointerEnter={(event) => row && activate(row, event.currentTarget)}
-              onPointerMove={() => row && active?.slug === row.slug && positionDetail(row)}
-              onPointerLeave={deactivate}
-              onFocus={(event) => row && activateFromElement(row, event.currentTarget)}
-              onBlur={deactivate}
+        <div className="unified-heat-map-controls">
+          <div className="unified-heat-map-switch" role="group" aria-label="Choose heat map metric">
+            <button
+              className={mode === "inventory" ? "is-active" : ""}
+              onClick={() => {
+                setMode("inventory");
+                setBand(null);
+              }}
             >
-              <path
-                data-heat-map-county={row?.name ?? `${county.name} County`}
-                d={county.path}
-                fill={rowFill(row)}
-                style={isLegendMatch ? {
-                  filter: "brightness(1.32) drop-shadow(0 0 5px rgba(105,214,255,.92))",
-                  opacity: 1,
-                } : undefined}
-              />
-            </a>;
-          })}</g>
-          {pin ? <g transform={`translate(${pin.x} ${pin.y})`} aria-hidden="true" className="unified-heat-map-pin">
-            <line x1="0" y1="-23" x2="0" y2="-3" />
-            <circle className="unified-heat-map-pin-head" cx="0" cy="-27" r="5.4" fill={pin.color} />
-            <circle className="unified-heat-map-pin-shine" cx="-1.5" cy="-28.5" r="1.2" />
-            <circle className="unified-heat-map-pin-point" cx="0" cy="0" r="1.8" fill={pin.color} />
-          </g> : null}
-        </svg>
-        {active ? <aside ref={detailRef} className="unified-heat-map-detail">
-          <span>{active.name}</span>
-          <strong>{mode === "inventory" ? `${active.listingCount} active listing${active.listingCount === 1 ? "" : "s"}` : `${money(mode === "median" ? medianValue(active) : highValue(active))} ${seriesLabel} ${mode === "median" ? "median ask" : "highest current ask"}`}</strong>
-          <dl>
-            <div><dt>4COP median</dt><dd>{money(active.fourCopMedian)}</dd></div>
-            <div><dt>3PS median</dt><dd>{money(active.threePsMedian)}</dd></div>
-            <div><dt>4COP high</dt><dd>{money(active.fourCopHigh)}</dd></div>
-            <div><dt>3PS high</dt><dd>{money(active.threePsHigh)}</dd></div>
-            <div><dt>Active listings</dt><dd>{active.listingCount}</dd></div>
-          </dl>
-          <span className="unified-heat-map-detail-action">Click county to open market →</span>
-        </aside> : null}
+              Active Listings
+            </button>
+            <button
+              className={mode === "median" ? "is-active" : ""}
+              onClick={() => {
+                setMode("median");
+                setBand(null);
+              }}
+            >
+              Median Ask
+            </button>
+            <button
+              className={mode === "highest" ? "is-active" : ""}
+              onClick={() => {
+                setMode("highest");
+                setBand(null);
+              }}
+            >
+              Highest Current Ask
+            </button>
+          </div>
+          <div
+            className={`unified-heat-map-series-switch ${mode === "inventory" ? "is-placeholder" : ""}`}
+            role="group"
+            aria-label="Choose liquor license series"
+            aria-hidden={mode === "inventory"}
+          >
+            <button
+              tabIndex={mode === "inventory" ? -1 : 0}
+              className={series === "4cop" ? "is-active" : ""}
+              onClick={() => {
+                setSeries("4cop");
+                setBand(null);
+              }}
+            >
+              <span className="heat-map-series-code">4COP</span>
+            </button>
+            <button
+              tabIndex={mode === "inventory" ? -1 : 0}
+              className={series === "3ps" ? "is-active" : ""}
+              onClick={() => {
+                setSeries("3ps");
+                setBand(null);
+              }}
+            >
+              <span className="heat-map-series-code">3PS</span>
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>;
+
+      <div className="unified-heat-map-grid">
+        <aside className="unified-heat-map-legend">
+          <span>{mode === "inventory" ? "Listing Scale" : "Price Scale"}</span>
+          <h3>{legendTitleNode}</h3>
+          <ul>
+            {legend.map(([color, label], index) => {
+              const interactive = mode === "inventory";
+              const selected = interactive && inventoryLegendBand === index;
+              return (
+                <li key={label} className={selected ? "is-filter-active" : undefined}>
+                  {interactive ? (
+                    <button
+                      type="button"
+                      aria-label={`Highlight counties with ${label}`}
+                      onPointerEnter={() => setBand(index)}
+                      onPointerLeave={() => setBand(null)}
+                      onMouseEnter={() => setBand(index)}
+                      onMouseLeave={() => setBand(null)}
+                      onFocus={() => setBand(index)}
+                      onBlur={() => setBand(null)}
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        border: 0,
+                        padding: 0,
+                        background: "transparent",
+                        color: "inherit",
+                        font: "inherit",
+                        fontWeight: "inherit",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        filter: selected ? "brightness(1.22)" : undefined,
+                        textShadow: selected ? "0 0 12px rgba(99,228,255,.75)" : undefined,
+                      }}
+                    >
+                      <i style={{ background: color }} />
+                      <span>{label}</span>
+                    </button>
+                  ) : (
+                    <>
+                      <i style={{ background: color }} />
+                      {label}
+                    </>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="unified-heat-map-ranking">
+            <strong>
+              {mode === "inventory"
+                ? "Most active counties"
+                : mode === "median"
+                  ? `Highest ${seriesLabel} median asks`
+                  : `Highest ${seriesLabel} asks`}
+            </strong>
+            <ol>
+              {ranking.map((row) => (
+                <li
+                  key={`${mode}-${series}-${row.slug}-${metric(row)}`}
+                  onPointerEnter={() => highlightFromLegend(row)}
+                  onPointerMove={() => active?.slug === row.slug && positionDetail(row)}
+                  onPointerLeave={deactivate}
+                  onFocus={() => highlightFromLegend(row)}
+                  onBlur={deactivate}
+                >
+                  <a href={`/counties/${row.slug}`}>{row.name.replace(/ County$/i, "")}</a>
+                  <b>{mode === "inventory" ? row.listingCount : money(metric(row))}</b>
+                  <em>
+                    <span style={{ width: `${Math.max(8, (metric(row) / max) * 100)}%` }} />
+                  </em>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <small>
+            Current FLLM marketplace inventory. Asking prices are not appraisals or verified closed-sale values.
+          </small>
+        </aside>
+
+        <div className="unified-heat-map-stage" ref={stageRef}>
+          <svg viewBox="135 10 295 275" role="img" aria-label={`Florida liquor license heat map: ${titleText}`}>
+            <g>
+              {FLORIDA_COUNTY_PATHS.map((county) => {
+                const row = byCounty.get(key(county.name));
+                const count = row?.listingCount ?? 0;
+                const bandIsActive = mode === "inventory" && inventoryLegendBand !== null;
+                const bandMatch =
+                  bandIsActive && inventoryBandMatches(count, inventoryLegendBand as number);
+                const label = row
+                  ? `${row.name}: ${
+                      mode === "inventory"
+                        ? `${row.listingCount} active listings`
+                        : `${money(mode === "median" ? medianValue(row) : highValue(row))} ${seriesLabel} ${
+                            mode === "median" ? "median ask" : "highest current ask"
+                          }`
+                    }`
+                  : county.name;
+
+                return (
+                  <a
+                    key={county.id}
+                    href={row ? `/counties/${row.slug}` : "/counties"}
+                    aria-label={label}
+                    className={row && active?.slug === row.slug ? "is-active" : undefined}
+                    onPointerEnter={(event) => row && activate(row, event.currentTarget)}
+                    onPointerMove={() => row && active?.slug === row.slug && positionDetail(row)}
+                    onPointerLeave={deactivate}
+                    onFocus={(event) => row && activate(row, event.currentTarget)}
+                    onBlur={deactivate}
+                  >
+                    <path
+                      data-heat-map-county={row?.name ?? `${county.name} County`}
+                      d={county.path}
+                      fill={visibleRowFill(row)}
+                      style={
+                        bandMatch
+                          ? {
+                              filter:
+                                "brightness(1.42) saturate(1.16) drop-shadow(0 0 7px rgba(105,214,255,.98))",
+                              opacity: 1,
+                            }
+                          : bandIsActive
+                            ? { opacity: 0.82 }
+                            : undefined
+                      }
+                    />
+                  </a>
+                );
+              })}
+            </g>
+
+            {pin ? (
+              <g transform={`translate(${pin.x} ${pin.y})`} aria-hidden="true" className="unified-heat-map-pin">
+                <line x1="0" y1="-23" x2="0" y2="-3" />
+                <circle className="unified-heat-map-pin-head" cx="0" cy="-27" r="5.4" fill={pin.color} />
+                <circle className="unified-heat-map-pin-shine" cx="-1.5" cy="-28.5" r="1.2" />
+                <circle className="unified-heat-map-pin-point" cx="0" cy="0" r="1.8" fill={pin.color} />
+              </g>
+            ) : null}
+          </svg>
+
+          {active ? (
+            <aside ref={detailRef} className="unified-heat-map-detail">
+              <span>{active.name}</span>
+              <strong>
+                {mode === "inventory"
+                  ? `${active.listingCount} active listing${active.listingCount === 1 ? "" : "s"}`
+                  : `${money(mode === "median" ? medianValue(active) : highValue(active))} ${seriesLabel} ${
+                      mode === "median" ? "median ask" : "highest current ask"
+                    }`}
+              </strong>
+              <dl>
+                <div>
+                  <dt>4COP median</dt>
+                  <dd>{money(active.fourCopMedian)}</dd>
+                </div>
+                <div>
+                  <dt>3PS median</dt>
+                  <dd>{money(active.threePsMedian)}</dd>
+                </div>
+                <div>
+                  <dt>4COP high</dt>
+                  <dd>{money(active.fourCopHigh)}</dd>
+                </div>
+                <div>
+                  <dt>3PS high</dt>
+                  <dd>{money(active.threePsHigh)}</dd>
+                </div>
+                <div>
+                  <dt>Active listings</dt>
+                  <dd>{active.listingCount}</dd>
+                </div>
+              </dl>
+              <span className="unified-heat-map-detail-action">Click county to open market →</span>
+            </aside>
+          ) : null}
+        </div>
+      </div>
+    </section>
+  );
 }
