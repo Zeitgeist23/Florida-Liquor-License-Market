@@ -94,16 +94,45 @@ export default function FinancingAppraisalEnhancement() {
       .fllm-finance-appraisal-inner a {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         min-height: 44px;
         padding: 0 16px;
         border: 1px solid #f6a700;
         border-radius: 5px;
         color: #07111a;
         background: linear-gradient(145deg, #ffbd21, #ef9000);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.42),
+          inset 0 -1px 0 rgba(132,76,0,.24),
+          0 7px 16px rgba(0,0,0,.22),
+          0 0 0 1px rgba(246,167,0,.08);
         font-size: 11px;
         font-weight: 900;
         text-decoration: none;
         text-transform: uppercase;
+        transform-origin: center;
+        transition:
+          transform .18s ease,
+          filter .18s ease,
+          border-color .18s ease,
+          box-shadow .18s ease,
+          background .18s ease;
+      }
+      .fllm-finance-appraisal-inner a:hover,
+      .fllm-finance-appraisal-inner a:focus-visible {
+        border-color: #ffe29a;
+        background: linear-gradient(145deg, #ffc93f, #f6a700);
+        filter: brightness(1.08);
+        transform: translateY(-2px) scale(1.03);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.62),
+          inset 0 -1px 0 rgba(132,76,0,.18),
+          0 11px 24px rgba(0,0,0,.30),
+          0 0 20px rgba(246,167,0,.34);
+        outline: none;
+      }
+      .fllm-finance-appraisal-inner a:active {
+        transform: translateY(0) scale(.99);
       }
       @media (max-width: 760px) {
         .fllm-finance-appraisal-inner {
@@ -113,6 +142,9 @@ export default function FinancingAppraisalEnhancement() {
         }
         .fllm-finance-appraisal-inner h2 { font-size: 21px; }
         .fllm-finance-appraisal-inner p { font-size: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .fllm-finance-appraisal-inner a { transition: none; }
       }
     `}</style>
   );
