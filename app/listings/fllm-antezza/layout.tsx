@@ -6,6 +6,7 @@ import "./featured-detail-badge.css";
 import "./card-depth.css";
 import "./interactive-effects.css";
 import "./license-type-links.css";
+import "./business-purchase-accent.css";
 
 export default function AntezzaListingLayout({ children }: { children: ReactNode }) {
   return (
