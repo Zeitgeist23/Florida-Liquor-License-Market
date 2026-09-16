@@ -131,12 +131,12 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
     return { left, right, top, bottom };
   }
 
-  function getLocalMapHorizontalBounds(screenY: number) {
+  function getMapHorizontalBoundsForSpan(screenTop: number, screenBottom: number) {
     const paths = Array.from(stageRef.current?.querySelectorAll<SVGPathElement>("[data-heat-map-county]") ?? []);
-    const band = 10;
+    const buffer = 10;
     const crossing = paths
       .map((path) => path.getBoundingClientRect())
-      .filter((bounds) => bounds.width > 0 && bounds.height > 0 && bounds.top <= screenY + band && bounds.bottom >= screenY - band);
+      .filter((bounds) => bounds.width > 0 && bounds.height > 0 && bounds.bottom >= screenTop - buffer && bounds.top <= screenBottom + buffer);
 
     if (!crossing.length) return getMapScreenBounds();
 
@@ -150,31 +150,31 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
 
   function positionDetail(row: UnifiedHeatMapRow) {
     const detail = detailRef.current;
-    const stage = stageRef.current;
     const path = getCountyPath(row);
     const globalMapBounds = getMapScreenBounds();
-    if (!detail || !stage || !path || !globalMapBounds) return;
+    if (!detail || !path || !globalMapBounds) return;
 
     const pathBounds = path.getBoundingClientRect();
-    const stageBounds = stage.getBoundingClientRect();
     const width = detail.offsetWidth || 214;
     const height = detail.offsetHeight || 178;
     const countyCenterX = pathBounds.left + pathBounds.width / 2;
     const countyCenterY = pathBounds.top + pathBounds.height / 2;
-    const localMapBounds = getLocalMapHorizontalBounds(countyCenterY) ?? globalMapBounds;
-    const localMapCenterX = (localMapBounds.left + localMapBounds.right) / 2;
-    const eastSide = countyCenterX >= localMapCenterX;
-    const gap = 8;
-
-    let left = eastSide ? localMapBounds.right + gap : localMapBounds.left - width - gap;
-    const minLeft = Math.max(8, stageBounds.left + 6);
-    const maxLeft = Math.min(window.innerWidth - width - 8, stageBounds.right - width - 6);
-    left = Math.max(minLeft, Math.min(left, maxLeft));
 
     let top = countyCenterY - height / 2;
-    const minTop = Math.max(8, stageBounds.top + 4);
-    const maxTop = Math.min(window.innerHeight - height - 8, stageBounds.bottom - height - 4);
-    top = Math.max(minTop, Math.min(top, maxTop));
+    top = Math.max(8, Math.min(top, window.innerHeight - height - 8));
+
+    const localMapBounds = getMapHorizontalBoundsForSpan(top, top + height) ?? globalMapBounds;
+    const globalMapCenterX = (globalMapBounds.left + globalMapBounds.right) / 2;
+    const eastSide = countyCenterX >= globalMapCenterX;
+    const gap = 18;
+
+    let left = eastSide ? localMapBounds.right + gap : localMapBounds.left - width - gap;
+    const opposite = eastSide ? localMapBounds.left - width - gap : localMapBounds.right + gap;
+
+    if (left < 8 || left + width > window.innerWidth - 8) {
+      if (opposite >= 8 && opposite + width <= window.innerWidth - 8) left = opposite;
+      else left = Math.max(8, Math.min(left, window.innerWidth - width - 8));
+    }
 
     detail.style.position = "fixed";
     detail.style.left = `${left}px`;
@@ -214,6 +214,11 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
     setPin(null);
   }
 
+  function highlightFromLegend(row: UnifiedHeatMapRow) {
+    setActive(null);
+    setPinFromRow(row);
+  }
+
   const titleNode = mode === "inventory"
     ? titleText
     : <>{mode === "median" ? "County median " : "Highest current "}<span className="heat-map-series-code">{seriesLabel}</span>{mode === "median" ? " prices" : " asking price"}</>;
@@ -246,11 +251,10 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
           <strong>{mode === "inventory" ? "Most active counties" : mode === "median" ? `Highest ${seriesLabel} median asks` : `Highest ${seriesLabel} asks`}</strong>
           <ol>{ranking.map((row) => <li
             key={row.slug}
-            onPointerEnter={(event) => activate(row, event.currentTarget)}
-            onPointerMove={() => active?.slug === row.slug && positionDetail(row)}
-            onPointerLeave={deactivate}
-            onFocus={(event) => activateFromElement(row, event.currentTarget)}
-            onBlur={deactivate}
+            onPointerEnter={() => highlightFromLegend(row)}
+            onPointerLeave={() => setPin(null)}
+            onFocus={() => highlightFromLegend(row)}
+            onBlur={() => setPin(null)}
           >
             <a href={`/counties/${row.slug}`}>{row.name.replace(/ County$/i, "")}</a>
             <b>{mode === "inventory" ? row.listingCount : money(metric(row))}</b>
@@ -298,7 +302,7 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
             <div><dt>3PS high</dt><dd>{money(active.threePsHigh)}</dd></div>
             <div><dt>Active listings</dt><dd>{active.listingCount}</dd></div>
           </dl>
-          <a href={`/counties/${active.slug}`}>Open county market →</a>
+          <span className="unified-heat-map-detail-hint">Click county to open market →</span>
         </aside> : null}
       </div>
     </div>
