@@ -1,0 +1,22 @@
+/*
+  OFFICIAL FLLM STANDARD — THIRD-PARTY BROKER + BUSINESS PACKAGE LISTINGS
+  Locked 2026-09-16 from the approved Alessandro Antezza / FLLM-ANTEZZA page.
+
+  Any future featured third-party broker listing where purchase of an operating
+  business is required with the liquor license should import this file and use
+  the same structural classes and interaction behavior as FLLM-ANTEZZA.
+
+  Do not create listing-specific replacements for these visual systems unless
+  the standard itself is intentionally revised:
+  - featured detail badge / broker rail presentation
+  - dimensional facts and highlight cards
+  - business-detail card treatment
+  - hover depth / inner light effects
+  - license-type link treatments
+  - business-purchase-required accent treatment
+*/
+@import "./fllm-antezza/featured-detail-badge.css";
+@import "./fllm-antezza/card-depth.css";
+@import "./fllm-antezza/interactive-effects.css";
+@import "./fllm-antezza/license-type-links.css";
+@import "./fllm-antezza/business-purchase-accent.css";
