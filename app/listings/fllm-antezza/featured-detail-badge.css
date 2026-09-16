@@ -119,6 +119,19 @@
   background: transparent;
 }
 
+/* Center the broker identity block above the portrait; keep contact details left-aligned. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-action-card > span,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-broker-profile > h2 {
+  display: block;
+  width: 100%;
+  text-align: center !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-broker-profile > h2 {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div,
   .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div {
