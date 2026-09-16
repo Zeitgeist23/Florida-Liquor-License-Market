@@ -24,8 +24,15 @@
   text-align: center;
 }
 
-.county-data-grid .county-data-range {
-  font-size: 22px !important;
+/* Long asking-price ranges need a slightly tighter scale than single values.
+   Match the county-page specificity so this wins over the shared tone rules. */
+.county-market-page .county-data-grid .county-data-range {
+  max-width: 100%;
+  padding-inline: 4px;
+  font-size: 19px !important;
+  line-height: 1.05;
+  letter-spacing: -0.02em !important;
+  white-space: nowrap;
 }
 
 .county-data-grid small {
@@ -135,8 +142,8 @@
     font-size: 25px !important;
   }
 
-  .county-data-grid .county-data-range {
-    font-size: 20px !important;
+  .county-market-page .county-data-grid .county-data-range {
+    font-size: 18px !important;
   }
 }
 
@@ -150,8 +157,10 @@
     font-size: 23px !important;
   }
 
-  .county-data-grid .county-data-range {
-    font-size: 18px !important;
+  .county-market-page .county-data-grid .county-data-range {
+    font-size: 17px !important;
+    letter-spacing: -0.01em !important;
+    white-space: normal;
   }
 
   .county-data-type-grid > article > div {
