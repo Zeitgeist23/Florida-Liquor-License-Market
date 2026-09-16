@@ -31,10 +31,10 @@ const navMenus: NavMenu[] = [
     menuClassName: "native-nav-menu-standard native-nav-buy-menu",
     links: [
       { href: "/buy-florida-liquor-license", label: "Buy a Florida Liquor License" },
-      { href: "/how-to-buy-florida-liquor-license", label: "How to Buy a Florida Liquor License" },
-      { href: "/license-alerts", label: "Get a License Alert" },
       { href: "/listings", label: "View Listings" },
+      { href: "/how-to-buy-florida-liquor-license", label: "How to Buy a Florida Liquor License" },
       { href: "/counties", label: "Florida County Markets" },
+      { href: "/license-alerts", label: "Get a License Alert" },
       { href: "/exchange", label: "FLLM Exchange — Confidential Florida License Offers" },
     ],
   },
@@ -325,14 +325,11 @@ export default function HeaderNavMenus({
         .native-nav-dropdown.is-open>.native-nav-menu{display:grid;gap:4px}
         .native-nav-menu::before{content:"";position:absolute;top:-7px;left:50%;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);border-left:1px solid #f6a700;border-top:1px solid #f6a700;background:#061728}
         .native-nav-menu-standard{width:310px}
-        .native-nav-buy-menu{width:min(820px,calc(100vw - 48px));grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 12px!important;padding:12px}
-        .primary-nav .native-nav-buy-menu a{min-height:55px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:11px 14px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025)!important}
-        .primary-nav .native-nav-buy-menu a:nth-child(-n+3){min-height:75px;border-bottom-color:rgba(246,167,0,.24)}
-        .primary-nav .native-nav-buy-menu a:nth-child(-n+3)::before{display:block;margin-bottom:7px;color:#f6a700;font:900 9px/1.1 Arial,Helvetica,sans-serif;letter-spacing:.11em;text-transform:uppercase}
-        .primary-nav .native-nav-buy-menu a:nth-child(1)::before{content:"Buy a License"}
-        .primary-nav .native-nav-buy-menu a:nth-child(2)::before{content:"Research"}
-        .primary-nav .native-nav-buy-menu a:nth-child(3)::before{content:"Marketplace Tools"}
-        .primary-nav .native-nav-buy-menu a:hover,.primary-nav .native-nav-buy-menu a:focus-visible{border-color:rgba(246,167,0,.72);background:rgba(246,167,0,.075)!important;color:#f6a700}
+        .native-nav-buy-menu{width:min(540px,calc(100vw - 48px));grid-template-columns:repeat(2,minmax(0,1fr));gap:0!important;padding:9px 10px}
+        .primary-nav .native-nav-buy-menu a{min-height:48px;display:flex;align-items:center;padding:11px 13px;border-radius:3px;background:transparent!important}
+        .primary-nav .native-nav-buy-menu a:nth-child(odd){border-right:1px solid rgba(255,255,255,.10)}
+        .primary-nav .native-nav-buy-menu a:nth-child(-n+4){border-bottom:1px solid rgba(255,255,255,.08)}
+        .primary-nav .native-nav-buy-menu a:hover,.primary-nav .native-nav-buy-menu a:focus-visible{background:rgba(246,167,0,.075)!important;color:#f6a700}
         .native-nav-finance-menu{width:350px}
         .native-nav-market-menu{width:min(660px,calc(100vw - 48px));grid-template-columns:repeat(2,minmax(0,1fr));gap:7px!important;padding:10px}
         .native-nav-resources-menu{width:min(860px,calc(100vw - 48px));grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 10px!important;padding:12px;left:50%;transform:translateX(-68%);margin-left:var(--resources-viewport-shift,0px)}
@@ -357,7 +354,7 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]::after{content:"LOOKUP";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{background:transparent!important;box-shadow:none!important;color:#f6a700;outline:none}
         .primary-nav .native-nav-resources-menu a:hover,.primary-nav .native-nav-resources-menu a:focus-visible{border-color:rgba(246,167,0,.7);background:rgba(246,167,0,.08)!important}
-        @media(max-width:760px){.native-nav-buy-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-buy-menu a{min-height:43px}.primary-nav .native-nav-buy-menu a:nth-child(-n+3){min-height:43px}.primary-nav .native-nav-buy-menu a:nth-child(-n+3)::before{display:none}.primary-nav .native-nav-buy-menu a:nth-child(1){order:1}.primary-nav .native-nav-buy-menu a:nth-child(4){order:2}.primary-nav .native-nav-buy-menu a:nth-child(2){order:3}.primary-nav .native-nav-buy-menu a:nth-child(5){order:4}.primary-nav .native-nav-buy-menu a:nth-child(3){order:5}.primary-nav .native-nav-buy-menu a:nth-child(6){order:6}.native-nav-market-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-market-menu a:last-child{grid-column:auto}.native-license-types-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-column{padding:4px}.primary-nav .native-license-types-menu a{min-height:39px}}
+        @media(max-width:760px){.native-nav-buy-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-buy-menu a{min-height:43px;border-right:0!important;border-bottom:1px solid rgba(255,255,255,.08)!important}.primary-nav .native-nav-buy-menu a:last-child{border-bottom:0!important}.native-nav-market-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-market-menu a:last-child{grid-column:auto}.native-license-types-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-column{padding:4px}.primary-nav .native-license-types-menu a{min-height:39px}}
       `}</style>
     </>
   );
