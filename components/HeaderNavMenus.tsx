@@ -197,43 +197,6 @@ export default function HeaderNavMenus({
     };
   }, []);
 
-  useEffect(() => {
-    if (openMenu !== "resources") return;
-
-    const menu = navRef.current?.querySelector<HTMLElement>(".native-nav-resources-menu");
-    if (!menu) return;
-
-    const keepMenuInsideViewport = () => {
-      menu.style.setProperty("--resources-viewport-shift", "0px");
-      menu.style.setProperty("--resources-arrow-shift", "0px");
-
-      const bounds = menu.getBoundingClientRect();
-      const gutter = 16;
-      let shift = 0;
-
-      if (bounds.right > window.innerWidth - gutter) {
-        shift = window.innerWidth - gutter - bounds.right;
-      }
-      if (bounds.left + shift < gutter) {
-        shift += gutter - (bounds.left + shift);
-      }
-
-      menu.style.setProperty("--resources-viewport-shift", `${shift}px`);
-      menu.style.setProperty("--resources-arrow-shift", `${-shift}px`);
-    };
-
-    keepMenuInsideViewport();
-    const frame = window.requestAnimationFrame(keepMenuInsideViewport);
-    window.addEventListener("resize", keepMenuInsideViewport);
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", keepMenuInsideViewport);
-      menu.style.removeProperty("--resources-viewport-shift");
-      menu.style.removeProperty("--resources-arrow-shift");
-    };
-  }, [openMenu]);
-
   return (
     <>
       <nav ref={navRef} className={className} aria-label="Primary navigation">
@@ -328,8 +291,8 @@ export default function HeaderNavMenus({
         .native-nav-buy-menu{width:min(540px,calc(100vw - 48px));grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 8px!important;padding:10px}
         .native-nav-finance-menu{width:350px}
         .native-nav-market-menu{width:min(660px,calc(100vw - 48px));grid-template-columns:repeat(2,minmax(0,1fr));gap:7px!important;padding:10px}
-        .native-nav-resources-menu{width:min(860px,calc(100vw - 48px));grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 10px!important;padding:12px;left:50%;transform:translateX(-68%);margin-left:var(--resources-viewport-shift,0px)}
-        .native-nav-resources-menu::before{left:calc(68% + var(--resources-arrow-shift,0px))}
+        .native-nav-resources-menu{width:min(860px,calc(100vw - 48px));grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 10px!important;padding:12px;left:auto;right:-18px;transform:none;margin-left:0}
+        .native-nav-resources-menu::before{left:auto;right:46px;transform:rotate(45deg)}
         .native-license-types-menu{width:min(760px,calc(100vw - 48px));grid-template-columns:repeat(3,minmax(0,1fr));gap:10px!important;padding:12px}
         .native-license-types-column{min-width:0;display:flex;flex-direction:column;gap:6px;padding:0;border:0;background:transparent}
         .native-license-types-column>strong{display:block;padding:7px 9px 8px;border-bottom:1px solid rgba(246,167,0,.34);color:#f6a700;font:900 10px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.09em;text-transform:uppercase}
@@ -348,7 +311,7 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-resources-menu a[href="/free-guide"]::after{content:"FREE PDF";margin-left:auto;color:#f6a700;font-size:9px;letter-spacing:.08em}
         .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"]::after{content:"VALUE";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
         .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]::after{content:"LOOKUP";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
-        @media(max-width:760px){.native-nav-buy-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-buy-menu a{min-height:43px}.native-nav-market-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-market-menu a:last-child{grid-column:auto}.native-license-types-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-column{padding:0}.primary-nav .native-license-types-menu a{min-height:43px}}
+        @media(max-width:760px){.native-nav-buy-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-buy-menu a{min-height:43px}.native-nav-market-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-market-menu a:last-child{grid-column:auto}.native-nav-resources-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;right:-10px;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-column{padding:0}.primary-nav .native-license-types-menu a{min-height:43px}}
       `}</style>
     </>
   );
