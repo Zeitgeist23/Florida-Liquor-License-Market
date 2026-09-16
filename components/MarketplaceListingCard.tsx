@@ -78,12 +78,12 @@ export default function MarketplaceListingCard({
   const countyMarketHref =
     dedicatedCountySalePages[county] || `/counties/${countySlug(county)}`;
   const isAntezzaPackage =
-    normalizedListing.sourceRef?.trim().toUpperCase() === "FLLM-203";
+    normalizedListing.sourceRef?.trim().toUpperCase() === "FLLM-ANTEZZA";
 
   // County-facing copy is deliberately generated from the exact same canonical
   // county key used for the visible label, map, link, and detail-page route.
   // Do not accept an independent description override here: that can allow one
-  // listing card to display another county's market copy. FLLM-203 is an explicit
+  // listing card to display another county's market copy. FLLM-ANTEZZA is an explicit
   // business-plus-license package and therefore receives package-specific copy.
   const fullDescription = isAntezzaPackage
     ? "Upscale Pinellas County cocktail lounge package including a 4COP quota license valued at $495,000."
