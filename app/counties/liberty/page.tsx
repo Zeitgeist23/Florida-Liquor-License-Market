@@ -53,6 +53,13 @@ export default async function LibertyCountyPage() {
           fill: #061728 !important;
         }
 
+        .liberty-official-page .county-map-card > span {
+          margin-top: 6px;
+          font-size: 15px !important;
+          font-weight: 700 !important;
+          letter-spacing: .01em;
+        }
+
         @media (min-width: 981px) {
           .liberty-official-page .forms-site-header.page-shell {
             width: min(1240px, calc(100% - 40px));
