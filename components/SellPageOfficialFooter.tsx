@@ -15,6 +15,7 @@ const officialFooterPaths = new Set([
   "/how-to-buy-florida-liquor-license",
   "/how-to-sell-florida-liquor-license",
   "/how-to-finance-florida-liquor-license",
+  "/financing",
   "/financing/loan-payment-calculator",
   "/private-liquor-license-lenders",
   "/license-lookup",
