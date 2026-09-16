@@ -8,6 +8,25 @@ import "./official-shell.css";
 export default function FloridaLiquorLicenseSystemLayout({ children }: { children: ReactNode }) {
   return (
     <div className="fllm-official-page license-system-route">
+      <style>{`
+        .license-system-route,
+        .license-system-route h1,
+        .license-system-route h2,
+        .license-system-route h3,
+        .license-system-route h4,
+        .license-system-route strong,
+        .license-system-route b,
+        .license-system-route p,
+        .license-system-route a,
+        .license-system-route span,
+        .license-system-route li,
+        .license-system-route th,
+        .license-system-route td {
+          font-variant-numeric: lining-nums;
+          font-feature-settings: "lnum" 1;
+        }
+      `}</style>
+
       {children}
 
       <footer className="license-system-footer" aria-label="Florida Liquor License Market footer">
