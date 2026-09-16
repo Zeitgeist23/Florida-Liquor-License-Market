@@ -82,21 +82,16 @@ export default function MarketplaceListingCard({
 
   // County-facing copy is deliberately generated from the exact same canonical
   // county key used for the visible label, map, link, and detail-page route.
-  // The Antezza listing retains a short condition notice because the associated
-  // business purchase is required, but otherwise uses the standard featured card.
+  // Alessandro's package requirement stays visible in the short description,
+  // while the card itself follows the same layout as every other featured card.
   const fullDescription = isAntezzaListing
-    ? "Business purchase required. Pinellas County 4COP quota license included with associated cocktail lounge; total package $1,100,000."
+    ? "Business purchase required. 4COP license included with associated cocktail lounge; total package $1.1M."
     : countyListingDescription(county);
   const statusTitle = normalizedListing.licenseStatus
     ? sellerReportedStatusLabel(normalizedListing.licenseStatus)
     : "Status to confirm";
-  const brokerContact = isAntezzaListing
-    ? {
-        name: "Alessandro Antezza",
-        brokerage: "SUNSHINEAGLE LLC",
-        phone: "(941) 416-4580",
-      }
-    : normalizedListing.featuredUntil
+  const brokerContact =
+    normalizedListing.featuredUntil && !isAntezzaListing
       ? featuredBrokerContact(normalizedListing.note)
       : null;
   const selfDirected =
