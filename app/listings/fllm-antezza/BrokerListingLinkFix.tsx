@@ -62,7 +62,7 @@ function enhanceCallBrokerButtons() {
 
       const label = document.createElement("span");
       label.className = "antezza-call-broker-label";
-      label.textContent = "Call Listing Broker";
+      label.textContent = "CALL";
 
       const phone = document.createElement("span");
       phone.className = "antezza-call-broker-phone";
