@@ -77,20 +77,38 @@ export default function MarketplaceListingCard({
   };
   const countyMarketHref =
     dedicatedCountySalePages[county] || `/counties/${countySlug(county)}`;
+  const isAntezzaPackage =
+    normalizedListing.sourceRef?.trim().toUpperCase() === "FLLM-203";
 
   // County-facing copy is deliberately generated from the exact same canonical
   // county key used for the visible label, map, link, and detail-page route.
   // Do not accept an independent description override here: that can allow one
-  // listing card to display another county's market copy.
-  const fullDescription = countyListingDescription(county);
+  // listing card to display another county's market copy. FLLM-203 is an explicit
+  // business-plus-license package and therefore receives package-specific copy.
+  const fullDescription = isAntezzaPackage
+    ? "Upscale Pinellas County cocktail lounge package including a 4COP quota license valued at $495,000."
+    : countyListingDescription(county);
   const statusTitle = normalizedListing.licenseStatus
     ? sellerReportedStatusLabel(normalizedListing.licenseStatus)
     : "Status to confirm";
-  const brokerContact = normalizedListing.featuredUntil
-    ? featuredBrokerContact(normalizedListing.note)
-    : null;
+  const brokerContact = isAntezzaPackage
+    ? {
+        name: "Alessandro Antezza",
+        brokerage: "SUNSHINEAGLE LLC",
+        phone: "(941) 416-4580",
+      }
+    : normalizedListing.featuredUntil
+      ? featuredBrokerContact(normalizedListing.note)
+      : null;
   const selfDirected =
     !normalizedListing.featuredUntil && isSelfDirectedListing(normalizedListing);
+  const displayPriceLabel = isAntezzaPackage
+    ? "$1,100,000 Package"
+    : normalizedListing.priceLabel;
+  const displayType = isAntezzaPackage
+    ? "Cocktail Lounge + 4COP"
+    : normalizedListing.type;
+  const displayActionLabel = isAntezzaPackage ? "View Package" : actionLabel;
 
   return (
     <article
@@ -113,7 +131,7 @@ export default function MarketplaceListingCard({
       ) : selfDirected ? (
         <span className="self-directed-listing-badge">FLLM Self-Directed</span>
       ) : null}
-      <span className="result-type-badge">{normalizedListing.type}</span>
+      <span className="result-type-badge">{displayType}</span>
       <div className="result-photo">
         <img
           className="florida-county-map"
@@ -141,13 +159,17 @@ export default function MarketplaceListingCard({
           {href ? (
             <Link
               href={href}
-              aria-label={`View ${normalizedListing.type} listing in ${county}`}
+              aria-label={
+                isAntezzaPackage
+                  ? `View featured cocktail lounge package in ${county}`
+                  : `View ${normalizedListing.type} listing in ${county}`
+              }
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              {normalizedListing.priceLabel}
+              {displayPriceLabel}
             </Link>
           ) : (
-            normalizedListing.priceLabel
+            displayPriceLabel
           )}
         </h2>
         <div className="result-facts">
@@ -184,7 +206,7 @@ export default function MarketplaceListingCard({
               href={href}
               style={{ position: "relative", boxSizing: "border-box" }}
             >
-              {actionLabel} <span aria-hidden="true">›</span>
+              {displayActionLabel} <span aria-hidden="true">›</span>
               <span
                 className="result-view-button-closing-edge"
                 aria-hidden="true"
