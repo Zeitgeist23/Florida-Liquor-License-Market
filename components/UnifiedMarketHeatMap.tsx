@@ -84,10 +84,20 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
   const highValue = (row: UnifiedHeatMapRow) => series === "4cop" ? row.fourCopHigh : row.threePsHigh;
   const metric = (row: UnifiedHeatMapRow) => mode === "inventory" ? row.listingCount : mode === "median" ? medianValue(row) ?? 0 : highValue(row) ?? 0;
 
-  const ranking = useMemo(() => [...rows]
-    .filter((row) => mode === "inventory" ? row.listingCount > 0 : mode === "median" ? medianValue(row) !== null : highValue(row) !== null)
-    .sort((a, b) => metric(b) - metric(a))
-    .slice(0, 5), [rows, mode, series]);
+  const ranking = useMemo(() => {
+    const selectedValue = (row: UnifiedHeatMapRow): number | null => {
+      if (mode === "inventory") return row.listingCount;
+      if (mode === "median") return series === "4cop" ? row.fourCopMedian : row.threePsMedian;
+      return series === "4cop" ? row.fourCopHigh : row.threePsHigh;
+    };
+
+    return rows
+      .map((row) => ({ row, value: selectedValue(row) }))
+      .filter((item): item is { row: UnifiedHeatMapRow; value: number } => typeof item.value === "number" && Number.isFinite(item.value) && item.value > 0)
+      .sort((a, b) => (b.value - a.value) || a.row.name.localeCompare(b.row.name))
+      .slice(0, 5)
+      .map((item) => item.row);
+  }, [rows, mode, series]);
   const max = Math.max(1, ...ranking.map(metric));
 
   const legend = mode === "inventory" ? INVENTORY_LEGEND : mode === "median" ? MEDIAN_LEGEND : HIGH_LEGEND;
@@ -253,7 +263,7 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
         <div className="unified-heat-map-ranking">
           <strong>{mode === "inventory" ? "Most active counties" : mode === "median" ? `Highest ${seriesLabel} median asks` : `Highest ${seriesLabel} asks`}</strong>
           <ol>{ranking.map((row) => <li
-            key={row.slug}
+            key={`${mode}-${series}-${row.slug}-${metric(row)}`}
             onPointerEnter={() => highlightFromLegend(row)}
             onPointerMove={() => active?.slug === row.slug && positionDetail(row)}
             onPointerLeave={deactivate}
