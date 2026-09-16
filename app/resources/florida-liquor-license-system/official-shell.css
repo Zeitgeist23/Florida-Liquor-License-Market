@@ -248,3 +248,78 @@
     transition: none;
   }
 }
+
+/* Match the license-system cards to the deeper finance-guide card treatment. */
+.license-system-route main section article {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(246, 167, 0, .38) !important;
+  border-top-width: 1px !important;
+  border-radius: 13px !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(62, 155, 214, .09), transparent 58%),
+    linear-gradient(145deg, #0b2940 0%, #071a29 54%, #04111c 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .05),
+    inset 0 -1px 0 rgba(0, 0, 0, .32),
+    0 12px 26px rgba(0, 0, 0, .18),
+    0 0 0 1px rgba(52, 134, 184, .03) !important;
+  color: #c9d5df;
+}
+
+.license-system-route main section article::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(135deg, rgba(105, 214, 255, .10), transparent 42%, rgba(246, 167, 0, .07));
+  transition: opacity .18s ease;
+}
+
+.license-system-route main section article > * {
+  position: relative;
+  z-index: 1;
+}
+
+.license-system-route main section article h3 {
+  color: #fff !important;
+}
+
+.license-system-route main section article p {
+  color: #d7e0e7 !important;
+}
+
+.license-system-route main section article:hover,
+.license-system-route main section article:focus-within {
+  transform: translateY(-5px) scale(1.012);
+  filter: brightness(1.06);
+  border-color: rgba(255, 193, 59, .92) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(75, 186, 239, .16), transparent 58%),
+    linear-gradient(145deg, #103550 0%, #0a2338 54%, #051621 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    inset 0 -1px 0 rgba(0, 0, 0, .38),
+    0 20px 36px rgba(0, 0, 0, .30),
+    0 0 20px rgba(91, 200, 239, .16),
+    0 0 16px rgba(246, 167, 0, .13) !important;
+}
+
+.license-system-route main section article:hover::after,
+.license-system-route main section article:focus-within::after {
+  opacity: 1;
+}
+
+.license-system-route main section article:hover h3,
+.license-system-route main section article:focus-within h3 {
+  text-shadow: 0 0 12px rgba(105, 214, 255, .12);
+}
+
+.license-system-route main section article:hover strong,
+.license-system-route main section article:focus-within strong,
+.license-system-route main section article:hover a,
+.license-system-route main section article:focus-within a {
+  color: #ffc13b !important;
+  text-shadow: 0 0 11px rgba(246, 167, 0, .20);
+}
