@@ -12,7 +12,7 @@ export default function LoanCalculatorLayout({ children }: { children: ReactNode
         strategy="afterInteractive"
       />
       <Script
-        src="/assets/financing-loan-calculator-reset-failsafe.js?v=1"
+        src="/assets/financing-loan-calculator-reset-failsafe.js?v=2"
         strategy="afterInteractive"
       />
       <style>{`
