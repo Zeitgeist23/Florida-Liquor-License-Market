@@ -1,0 +1,151 @@
+.lottery-official-route {
+  min-height: 100vh;
+  background: #07131e;
+}
+
+.lottery-official-route .abt-header-wrap {
+  position: relative;
+  z-index: 500;
+  border-bottom: 1px solid rgba(241, 166, 0, .62);
+  background: #020b12;
+}
+
+@media (min-width: 981px) {
+  .lottery-official-route .forms-site-header.page-shell {
+    width: min(1240px, calc(100% - 40px));
+    gap: 18px;
+  }
+
+  .lottery-official-route .forms-site-header .brand-lockup {
+    flex: 0 0 184px;
+  }
+
+  .lottery-official-route .forms-site-header .brand-lockup img {
+    width: 168.7125px;
+    height: 68.5075px;
+  }
+
+  .lottery-official-route .forms-site-header .primary-nav {
+    justify-content: center;
+    gap: 42px;
+  }
+
+  .lottery-official-route .forms-site-header .header-actions {
+    transform: translateX(5px);
+    gap: 10px;
+  }
+
+  .lottery-official-route .forms-site-header .header-actions a {
+    white-space: nowrap;
+  }
+}
+
+.lottery-official-footer {
+  border-top: 1px solid #6e531d;
+  background: linear-gradient(90deg, #071f36 0%, #0c3558 50%, #071f36 100%);
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.lottery-official-footer-main {
+  box-sizing: border-box;
+  width: min(1240px, calc(100% - 40px));
+  min-height: 112px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.lottery-official-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.lottery-official-footer-brand > a {
+  display: block;
+  line-height: 0;
+}
+
+.lottery-official-footer-brand img {
+  display: block;
+  width: 130px;
+  height: auto;
+}
+
+.lottery-official-footer-brand span {
+  color: #e4eef5;
+  font-size: 12px;
+}
+
+.lottery-official-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+}
+
+.lottery-official-footer nav a {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: color .16s ease, transform .16s ease;
+}
+
+.lottery-official-footer nav a:hover,
+.lottery-official-footer nav a:focus-visible {
+  color: #f6a700;
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.lottery-official-footer-national {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 20px;
+  border-top: 1px solid rgba(255, 255, 255, .18);
+  background: #0b2e4d;
+  text-align: center;
+}
+
+.lottery-official-footer-national span {
+  color: #d8e3ec;
+  font-size: 12px;
+}
+
+.lottery-official-footer-national a {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.lottery-official-footer-national a:hover,
+.lottery-official-footer-national a:focus-visible {
+  color: #f6a700;
+  outline: none;
+}
+
+@media (max-width: 760px) {
+  .lottery-official-footer-main {
+    width: min(100% - 24px, 1240px);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 0;
+  }
+
+  .lottery-official-footer nav {
+    gap: 16px;
+  }
+
+  .lottery-official-footer-national {
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 20px;
+  }
+}
