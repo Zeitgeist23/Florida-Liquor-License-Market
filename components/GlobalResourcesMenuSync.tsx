@@ -4,9 +4,9 @@ import { useEffect } from "react";
 
 /**
  * Resources remains rendered by HeaderNavMenus, but desktop hover is handled
- * with CSS only. Blocking React's synthetic hover/focus events for this one
- * dropdown prevents the Resources hover path from triggering repeated state
- * updates while preserving the approved visual menu.
+ * with CSS only. The positioning code below centers the panel under the
+ * Resources trigger, then clamps it only as much as necessary to keep it in
+ * the viewport. It does not rewrite menu DOM or use a MutationObserver.
  */
 export default function GlobalResourcesMenuSync() {
   useEffect(() => {
@@ -15,11 +15,32 @@ export default function GlobalResourcesMenuSync() {
       const style = document.createElement("style");
       style.id = styleId;
       style.textContent = `
+        .primary-nav .native-nav-resources-menu {
+          left: var(--resources-menu-left, 50%) !important;
+          right: auto !important;
+          transform: none !important;
+          margin-left: 0 !important;
+        }
+        .primary-nav .native-nav-resources-menu::before {
+          left: var(--resources-arrow-left, 50%) !important;
+          right: auto !important;
+          transform: translateX(-50%) rotate(45deg) !important;
+        }
         @media (hover:hover) and (pointer:fine) {
           .primary-nav .native-nav-dropdown:has(> .native-nav-resources-menu):hover > .native-nav-resources-menu,
           .primary-nav .native-nav-dropdown:has(> .native-nav-resources-menu):focus-within > .native-nav-resources-menu {
             display:grid!important;
             gap:6px!important;
+          }
+        }
+        @media (max-width:760px) {
+          .primary-nav .native-nav-resources-menu {
+            left:50%!important;
+            right:auto!important;
+            transform:translateX(-50%)!important;
+          }
+          .primary-nav .native-nav-resources-menu::before {
+            left:50%!important;
           }
         }
       `;
@@ -31,6 +52,33 @@ export default function GlobalResourcesMenuSync() {
       if (!(target instanceof Element)) return false;
       const dropdown = target.closest(".native-nav-dropdown");
       return Boolean(dropdown?.querySelector(":scope > .native-nav-resources-menu"));
+    };
+
+    const positionResourcesMenus = () => {
+      if (window.innerWidth <= 760) return;
+      document.querySelectorAll<HTMLElement>(".native-nav-resources-menu").forEach((menu) => {
+        const dropdown = menu.parentElement;
+        const trigger = dropdown?.querySelector<HTMLElement>(".native-nav-trigger");
+        if (!(dropdown instanceof HTMLElement) || !trigger) return;
+
+        const triggerRect = trigger.getBoundingClientRect();
+        const dropdownRect = dropdown.getBoundingClientRect();
+        const computedWidth = Number.parseFloat(window.getComputedStyle(menu).width) || 860;
+        const menuWidth = Math.min(computedWidth, window.innerWidth - 24);
+        const triggerCenter = triggerRect.left + triggerRect.width / 2;
+        const desiredViewportLeft = triggerCenter - menuWidth / 2;
+        const viewportLeft = Math.max(12, Math.min(desiredViewportLeft, window.innerWidth - menuWidth - 12));
+        const localLeft = viewportLeft - dropdownRect.left;
+        const arrowLeft = triggerCenter - viewportLeft;
+
+        menu.style.setProperty("--resources-menu-left", `${localLeft}px`);
+        menu.style.setProperty("--resources-arrow-left", `${arrowLeft}px`);
+      });
+    };
+
+    const positionOnResourcesHover = (event: Event) => {
+      if (!desktopHover() || !isResourcesEvent(event.target)) return;
+      window.requestAnimationFrame(positionResourcesMenus);
     };
 
     const blockResourcesSyntheticHover = (event: Event) => {
@@ -46,6 +94,9 @@ export default function GlobalResourcesMenuSync() {
       event.stopPropagation();
     };
 
+    positionResourcesMenus();
+    window.addEventListener("resize", positionResourcesMenus, { passive: true });
+    document.addEventListener("pointerover", positionOnResourcesHover, true);
     document.addEventListener("mouseover", blockResourcesSyntheticHover, true);
     document.addEventListener("mouseout", blockResourcesSyntheticHover, true);
     document.addEventListener("pointerover", blockResourcesSyntheticHover, true);
@@ -55,6 +106,8 @@ export default function GlobalResourcesMenuSync() {
     document.addEventListener("click", blockResourcesDesktopClick, true);
 
     return () => {
+      window.removeEventListener("resize", positionResourcesMenus);
+      document.removeEventListener("pointerover", positionOnResourcesHover, true);
       document.removeEventListener("mouseover", blockResourcesSyntheticHover, true);
       document.removeEventListener("mouseout", blockResourcesSyntheticHover, true);
       document.removeEventListener("pointerover", blockResourcesSyntheticHover, true);
