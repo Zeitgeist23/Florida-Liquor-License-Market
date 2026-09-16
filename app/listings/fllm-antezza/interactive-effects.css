@@ -79,6 +79,62 @@
   outline: none;
 }
 
+/* Keep the existing gold call-button footprint stable. On hover/focus the
+   broker number fades up beneath the label; touch devices show it all the time. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  line-height: 1.05;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-label {
+  display: block;
+  transform: translateY(0);
+  transition: transform .18s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-phone {
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  transform: translate(-50%, 7px);
+  opacity: 0;
+  color: #07101a;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  transition: opacity .18s ease, transform .18s ease;
+  pointer-events: none;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button:hover .antezza-call-broker-label,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button:focus-visible .antezza-call-broker-label {
+  transform: translateY(-7px);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button:hover .antezza-call-broker-phone,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button:focus-visible .antezza-call-broker-phone {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-label {
+    transform: translateY(-7px);
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-phone {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
 @keyframes sunshineagleGoldSweep {
   0% { background-position: 100% 0; }
   11% { background-position: 0% 0; }
@@ -96,5 +152,10 @@
     background: none !important;
     color: #f1a600 !important;
     -webkit-text-fill-color: #f1a600 !important;
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-label,
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-phone {
+    transition: none !important;
   }
 }
