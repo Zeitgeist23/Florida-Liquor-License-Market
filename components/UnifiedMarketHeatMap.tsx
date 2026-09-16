@@ -50,6 +50,15 @@ function inventoryColor(count: number) {
   return "#193552";
 }
 
+function inventoryBandMatches(count: number, band: number) {
+  if (band === 0) return count === 0;
+  if (band === 1) return count >= 1 && count <= 2;
+  if (band === 2) return count >= 3 && count <= 5;
+  if (band === 3) return count >= 6 && count <= 8;
+  if (band === 4) return count >= 9 && count <= 11;
+  return count >= 12;
+}
+
 function medianColor(value: number | null) {
   if (value === null) return "#193552";
   if (value >= 800000) return "#dc2626";
@@ -75,6 +84,7 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
   const [series, setSeries] = useState<Series>("4cop");
   const [active, setActive] = useState<UnifiedHeatMapRow | null>(null);
   const [pin, setPin] = useState<MapPin>(null);
+  const [inventoryLegendBand, setInventoryLegendBand] = useState<number | null>(null);
   const detailRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const byCounty = useMemo(() => new Map(rows.map((row) => [key(row.name), row])), [rows]);
@@ -109,7 +119,13 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
   const kicker = mode === "inventory" ? "Inventory View" : "Price View";
 
   function rowFill(row: UnifiedHeatMapRow | undefined) {
-    if (mode === "inventory") return inventoryColor(row?.listingCount ?? 0);
+    if (mode === "inventory") {
+      const count = row?.listingCount ?? 0;
+      if (inventoryLegendBand !== null && !inventoryBandMatches(count, inventoryLegendBand)) {
+        return INVENTORY_LEGEND[0][0];
+      }
+      return inventoryColor(count);
+    }
     if (mode === "median") return medianColor(row ? medianValue(row) : null);
     return highestColor(row ? highValue(row) : null, Boolean(row && row.listingCount > 0));
   }
@@ -232,6 +248,10 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
     });
   }
 
+  function clearInventoryBand() {
+    setInventoryLegendBand(null);
+  }
+
   const titleNode = mode === "inventory"
     ? titleText
     : <>{mode === "median" ? "County median " : "Highest current "}<span className="heat-map-series-code">{seriesLabel}</span>{mode === "median" ? " prices" : " asking price"}</>;
@@ -244,13 +264,13 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
       <div><span>{kicker}</span><h2>{titleNode}</h2></div>
       <div className="unified-heat-map-controls">
         <div className="unified-heat-map-switch" role="group" aria-label="Choose heat map metric">
-          <button className={mode === "inventory" ? "is-active" : ""} onClick={() => { setMode("inventory"); deactivate(); }}>Active Listings</button>
-          <button className={mode === "median" ? "is-active" : ""} onClick={() => { setMode("median"); deactivate(); }}>Median Ask</button>
-          <button className={mode === "highest" ? "is-active" : ""} onClick={() => { setMode("highest"); deactivate(); }}>Highest Current Ask</button>
+          <button className={mode === "inventory" ? "is-active" : ""} onClick={() => { setMode("inventory"); clearInventoryBand(); deactivate(); }}>Active Listings</button>
+          <button className={mode === "median" ? "is-active" : ""} onClick={() => { setMode("median"); clearInventoryBand(); deactivate(); }}>Median Ask</button>
+          <button className={mode === "highest" ? "is-active" : ""} onClick={() => { setMode("highest"); clearInventoryBand(); deactivate(); }}>Highest Current Ask</button>
         </div>
         <div className={`unified-heat-map-series-switch ${mode === "inventory" ? "is-placeholder" : ""}`} role="group" aria-label="Choose liquor license series" aria-hidden={mode === "inventory"}>
-          <button tabIndex={mode === "inventory" ? -1 : 0} className={series === "4cop" ? "is-active" : ""} onClick={() => { setSeries("4cop"); deactivate(); }}><span className="heat-map-series-code">4COP</span></button>
-          <button tabIndex={mode === "inventory" ? -1 : 0} className={series === "3ps" ? "is-active" : ""} onClick={() => { setSeries("3ps"); deactivate(); }}><span className="heat-map-series-code">3PS</span></button>
+          <button tabIndex={mode === "inventory" ? -1 : 0} className={series === "4cop" ? "is-active" : ""} onClick={() => { setSeries("4cop"); clearInventoryBand(); deactivate(); }}><span className="heat-map-series-code">4COP</span></button>
+          <button tabIndex={mode === "inventory" ? -1 : 0} className={series === "3ps" ? "is-active" : ""} onClick={() => { setSeries("3ps"); clearInventoryBand(); deactivate(); }}><span className="heat-map-series-code">3PS</span></button>
         </div>
       </div>
     </div>
@@ -259,7 +279,34 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
       <aside className="unified-heat-map-legend">
         <span>{mode === "inventory" ? "Listing Scale" : "Price Scale"}</span>
         <h3>{legendTitleNode}</h3>
-        <ul>{legend.map(([color, label]) => <li key={label}><i style={{ background: color }} />{label}</li>)}</ul>
+        <ul>{legend.map(([color, label], index) => {
+          const isInventoryScale = mode === "inventory";
+          const isSelectedBand = isInventoryScale && inventoryLegendBand === index;
+          return <li
+            key={label}
+            tabIndex={isInventoryScale ? 0 : -1}
+            className={isSelectedBand ? "is-filter-active" : undefined}
+            onPointerEnter={() => {
+              if (!isInventoryScale) return;
+              setActive(null);
+              setPin(null);
+              setInventoryLegendBand(index);
+            }}
+            onPointerLeave={() => isInventoryScale && setInventoryLegendBand(null)}
+            onFocus={() => {
+              if (!isInventoryScale) return;
+              setActive(null);
+              setPin(null);
+              setInventoryLegendBand(index);
+            }}
+            onBlur={() => isInventoryScale && setInventoryLegendBand(null)}
+            style={isInventoryScale ? {
+              cursor: "pointer",
+              filter: isSelectedBand ? "brightness(1.2)" : undefined,
+              textShadow: isSelectedBand ? "0 0 12px rgba(99,228,255,.7)" : undefined,
+            } : undefined}
+          ><i style={{ background: color }} />{label}</li>;
+        })}</ul>
         <div className="unified-heat-map-ranking">
           <strong>{mode === "inventory" ? "Most active counties" : mode === "median" ? `Highest ${seriesLabel} median asks` : `Highest ${seriesLabel} asks`}</strong>
           <ol>{ranking.map((row) => <li
@@ -282,6 +329,8 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
         <svg viewBox="135 10 295 275" role="img" aria-label={`Florida liquor license heat map: ${titleText}`}>
           <g>{FLORIDA_COUNTY_PATHS.map((county) => {
             const row = byCounty.get(key(county.name));
+            const count = row?.listingCount ?? 0;
+            const isLegendMatch = mode === "inventory" && inventoryLegendBand !== null && inventoryBandMatches(count, inventoryLegendBand);
             const label = row
               ? `${row.name}: ${mode === "inventory" ? `${row.listingCount} active listings` : `${money(mode === "median" ? medianValue(row) : highValue(row))} ${seriesLabel} ${mode === "median" ? "median ask" : "highest current ask"}`}`
               : county.name;
@@ -296,7 +345,15 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
               onFocus={(event) => row && activateFromElement(row, event.currentTarget)}
               onBlur={deactivate}
             >
-              <path data-heat-map-county={row?.name ?? `${county.name} County`} d={county.path} fill={rowFill(row)} />
+              <path
+                data-heat-map-county={row?.name ?? `${county.name} County`}
+                d={county.path}
+                fill={rowFill(row)}
+                style={isLegendMatch ? {
+                  filter: "brightness(1.32) drop-shadow(0 0 5px rgba(105,214,255,.92))",
+                  opacity: 1,
+                } : undefined}
+              />
             </a>;
           })}</g>
           {pin ? <g transform={`translate(${pin.x} ${pin.y})`} aria-hidden="true" className="unified-heat-map-pin">
