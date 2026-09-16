@@ -26,12 +26,29 @@ export default function FinanceGuideBehaviorFixes() {
       title.style.setProperty("right", "0", "important");
     };
 
+    const ensureQuestionLabel = (summary: HTMLElement) => {
+      let label = summary.querySelector<HTMLElement>(":scope > .finance-faq-question-text");
+      if (label) return label;
+
+      const text = summary.textContent?.trim() || "";
+      summary.textContent = "";
+      label = document.createElement("span");
+      label.className = "finance-faq-question-text";
+      label.textContent = text;
+      summary.appendChild(label);
+      return label;
+    };
+
     const syncFaqState = (details: HTMLDetailsElement) => {
       const summary = details.querySelector<HTMLElement>(":scope > summary");
       if (!summary) return;
+      const label = ensureQuestionLabel(summary);
 
       if (details.open) {
         summary.style.setProperty("color", "#ffc13b", "important");
+        summary.style.setProperty("-webkit-text-fill-color", "#ffc13b", "important");
+        label.style.setProperty("color", "#ffc13b", "important");
+        label.style.setProperty("-webkit-text-fill-color", "#ffc13b", "important");
         summary.style.setProperty(
           "text-shadow",
           "0 0 12px rgba(246, 167, 0, .22)",
@@ -49,7 +66,10 @@ export default function FinanceGuideBehaviorFixes() {
         );
       } else {
         summary.style.removeProperty("color");
+        summary.style.removeProperty("-webkit-text-fill-color");
         summary.style.removeProperty("text-shadow");
+        label.style.removeProperty("color");
+        label.style.removeProperty("-webkit-text-fill-color");
         details.style.removeProperty("border-color");
         details.style.removeProperty("box-shadow");
       }
@@ -61,6 +81,8 @@ export default function FinanceGuideBehaviorFixes() {
           ".finance-guide-page .seo-market-faq-list details"
         )
         .forEach((details) => {
+          const summary = details.querySelector<HTMLElement>(":scope > summary");
+          if (summary) ensureQuestionLabel(summary);
           syncFaqState(details);
           if (details.dataset.financeFaqWired === "true") return;
           details.dataset.financeFaqWired = "true";
@@ -84,8 +106,10 @@ export default function FinanceGuideBehaviorFixes() {
   return (
     <style jsx global>{`
       .finance-guide-page .seo-market-faq-list details[open] > summary,
-      .finance-guide-page .seo-market-faq-list details[open] > summary::marker {
+      .finance-guide-page .seo-market-faq-list details[open] > summary::marker,
+      .finance-guide-page .seo-market-faq-list details[open] > summary > .finance-faq-question-text {
         color: #ffc13b !important;
+        -webkit-text-fill-color: #ffc13b !important;
       }
     `}</style>
   );
