@@ -7,6 +7,7 @@ import AbtMoralCharacterQuestion from "@/components/AbtMoralCharacterQuestion";
 import BrokerAssistanceNavigationEnhancement from "@/components/BrokerAssistanceNavigationEnhancement";
 import FinancingAppraisalEnhancement from "@/components/FinancingAppraisalEnhancement";
 import GlobalResourcesMenuSync from "@/components/GlobalResourcesMenuSync";
+import HeatMapLinkNormalizer from "@/components/HeatMapLinkNormalizer";
 import JacksonvilleDuvalSeoEnhancement from "@/components/JacksonvilleDuvalSeoEnhancement";
 import LicenseTypeLogoScale from "@/components/LicenseTypeLogoScale";
 import LicenseTypesMenuLabelFix from "@/components/LicenseTypesMenuLabelFix";
@@ -132,6 +133,7 @@ export default function RootLayout({
         <LicenseTypesMenuLabelFix />
         <FinancingAppraisalEnhancement />
         <GlobalResourcesMenuSync />
+        <HeatMapLinkNormalizer />
         <ListingDetailOfficialHeader />
         {children}
         <NewsOfficialShellEnhancement />
