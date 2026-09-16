@@ -41,12 +41,6 @@
   white-space: nowrap;
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-package-badge::after {
-  content: " ·";
-  color: #d7e2e8;
-  font-weight: 500;
-}
-
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-package-alert > span:last-child {
   font-weight: 500;
 }
