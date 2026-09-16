@@ -1,0 +1,31 @@
+/* Final map sizing/position adjustment requested for the dedicated heat-map page. */
+.unified-heat-map-stage svg {
+  width: min(94%, 936px) !important;
+  max-width: 936px !important;
+  transform: translate(-15px, -8px) !important;
+  transform-origin: center center !important;
+}
+
+@media (max-width: 1100px) {
+  .unified-heat-map-stage svg {
+    width: min(96%, 790px) !important;
+    max-width: 790px !important;
+    transform: translate(-12px, -6px) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .unified-heat-map-stage svg {
+    width: min(100%, 728px) !important;
+    max-width: 728px !important;
+    transform: translate(-8px, -4px) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .unified-heat-map-stage svg {
+    width: 100% !important;
+    max-width: 488px !important;
+    transform: translate(-4px, -2px) !important;
+  }
+}
