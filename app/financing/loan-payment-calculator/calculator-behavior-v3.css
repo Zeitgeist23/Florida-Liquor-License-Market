@@ -52,10 +52,23 @@
   font-variant-numeric: tabular-nums lining-nums;
 }
 
-/* Amount financed: permanent deep-blue depth and interior illumination. */
+/* Amount financed starts with the same dark treatment as the editable fields. */
 .fllm-loan-calculator__readonly output {
-  position: relative;
-  overflow: hidden;
+  border: 1px solid rgba(124, 239, 255, .24) !important;
+  background: rgba(1, 17, 22, .92) !important;
+  color: #f3feff !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    text-shadow 180ms ease;
+}
+
+/* After Calculate / Update Payment is pressed, highlight the financed amount. */
+.fllm-loan-calculator__readonly output.is-calculated {
   border-color: rgba(91, 205, 255, .62) !important;
   background:
     radial-gradient(circle at 18% 14%, rgba(52, 161, 255, .30), transparent 42%),
@@ -63,7 +76,7 @@
   color: #7cefff !important;
   text-shadow:
     0 0 5px rgba(118, 239, 255, .72),
-    0 0 14px rgba(43, 154, 255, .48);
+    0 0 14px rgba(43, 154, 255, .48) !important;
   box-shadow:
     inset 0 1px 0 rgba(210, 249, 255, .20),
     inset 0 0 24px rgba(31, 132, 239, .28),
@@ -73,55 +86,27 @@
     0 0 24px rgba(35, 126, 255, .25) !important;
 }
 
-/* Reset state: replace the monthly-payment number with a luminous blue orb. */
-.fllm-loan-calculator__payment.is-reset output {
-  min-height: 76px;
-  color: transparent !important;
-  text-shadow: none !important;
-}
-
+/* Reset state uses a simple $0.00 payment — no orb. */
 .fllm-loan-calculator__payment.is-reset::before {
-  content: "";
-  position: absolute;
-  z-index: 4;
-  top: 55px;
-  left: 50%;
-  width: 62px;
-  height: 62px;
-  border: 1px solid rgba(155, 242, 255, .72);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 34% 28%, rgba(225, 253, 255, .98) 0 5%, rgba(124, 241, 255, .96) 10%, rgba(47, 178, 255, .96) 29%, rgba(20, 103, 214, .98) 52%, rgba(8, 47, 112, .99) 73%, rgba(2, 18, 51, 1) 100%);
-  transform: translateX(-50%);
-  box-shadow:
-    inset 5px 5px 11px rgba(223, 253, 255, .28),
-    inset -12px -15px 22px rgba(0, 6, 34, .72),
-    0 0 12px rgba(113, 237, 255, .72),
-    0 0 29px rgba(45, 161, 255, .62),
-    0 0 58px rgba(23, 91, 230, .42);
-  pointer-events: none;
-  animation: fllm-payment-orb-pulse 2.5s ease-in-out infinite;
+  display: none !important;
+  content: none !important;
+  animation: none !important;
 }
 
-@keyframes fllm-payment-orb-pulse {
-  0%, 100% {
-    filter: brightness(.94);
-    box-shadow:
-      inset 5px 5px 11px rgba(223, 253, 255, .28),
-      inset -12px -15px 22px rgba(0, 6, 34, .72),
-      0 0 12px rgba(113, 237, 255, .66),
-      0 0 27px rgba(45, 161, 255, .54),
-      0 0 52px rgba(23, 91, 230, .34);
-  }
-  50% {
-    filter: brightness(1.10);
-    box-shadow:
-      inset 5px 5px 12px rgba(232, 254, 255, .34),
-      inset -12px -15px 22px rgba(0, 6, 34, .68),
-      0 0 16px rgba(137, 245, 255, .78),
-      0 0 36px rgba(52, 174, 255, .68),
-      0 0 68px rgba(28, 103, 242, .48);
-  }
+.fllm-loan-calculator__payment.is-reset output {
+  min-height: 0;
+  color: #8af4ff !important;
+  text-shadow:
+    0 0 4px rgba(123, 237, 250, .45),
+    0 0 12px rgba(70, 210, 229, .22) !important;
+}
+
+/* Center the year/index columns in both amortization tables. */
+.fllm-loan-calculator__schedule table th:first-child,
+.fllm-loan-calculator__schedule table td:first-child,
+.fllm-loan-calculator__tax table th:first-child,
+.fllm-loan-calculator__tax table td:first-child {
+  text-align: center !important;
 }
 
 @media (max-width: 620px) {
@@ -131,11 +116,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fllm-loan-calculator__reset {
+  .fllm-loan-calculator__reset,
+  .fllm-loan-calculator__readonly output {
     transition: none;
-  }
-
-  .fllm-loan-calculator__payment.is-reset::before {
-    animation: none;
   }
 }
