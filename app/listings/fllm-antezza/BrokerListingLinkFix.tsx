@@ -6,6 +6,18 @@ const brokerListingUrl =
   "https://sunshineagle.com/deal-listing/upscale-cocktail-lounge-with-4cop-quota-license/?back=https%3A%2F%2Fsunshineagle.com%2Fpremium-listings%2F&source&listing_button_text=Inquire%20About%20This%20Listing&listing_button_color&css_source=7799&json_url=https://sunshineagle.dealrelations.com/listings/upscale-cocktail-lounge-with-4cop-quota-license.json?item_id=5534";
 const brokerPhone = "(941) 416-4580";
 
+const inquiryParams = new URLSearchParams({
+  source: "specific-license",
+  listing: "FLLM-ANTEZZA — Pinellas County — 4COP Quota — $495,000",
+  ref: "FLLM-ANTEZZA",
+  county: "Pinellas County",
+  license_type: "4COP Quota",
+  asking_price: "$495,000",
+  listing_status: "Available / Broker confirmation required",
+  listing_url: "/listings/fllm-antezza",
+});
+const inquiryHref = `/contact?${inquiryParams.toString()}`;
+
 function linkDisclosureBrokerName() {
   const paragraph = document.querySelector<HTMLParagraphElement>(
     '.results-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-note p',
@@ -44,24 +56,19 @@ function linkDisclosureBrokerName() {
 }
 
 function configureListingButtons(root: HTMLElement) {
-  const inquiryForm = root.querySelector<HTMLFormElement>(
-    ".marketplace-listing-broker-inquiry",
-  );
-  if (inquiryForm) inquiryForm.id = "antezza-inquiry";
-
   const inquiryButton = root.querySelector<HTMLAnchorElement>(
     ".marketplace-listing-actions .marketplace-listing-primary",
   );
 
   if (inquiryButton) {
     inquiryButton.classList.remove("antezza-call-broker-button");
-    inquiryButton.href = "#antezza-inquiry";
+    inquiryButton.href = inquiryHref;
     if (inquiryButton.textContent?.trim() !== "Inquire About This License") {
       inquiryButton.textContent = "Inquire About This License";
     }
     inquiryButton.setAttribute(
       "aria-label",
-      "Inquire about this Pinellas County 4COP quota liquor license",
+      "Open the FLLM inquiry screen for this Pinellas County 4COP quota liquor license",
     );
   }
 
