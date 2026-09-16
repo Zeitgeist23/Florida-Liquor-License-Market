@@ -48,7 +48,7 @@ export default function FinancingAppraisalEnhancement() {
     <style jsx global>{`
       .fllm-finance-appraisal-promo {
         padding: 28px 20px;
-        background: #f7f7f5;
+        background: #e7e9ec;
       }
       .fllm-finance-appraisal-inner {
         width: min(1180px, 100%);
