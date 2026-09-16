@@ -1,0 +1,18 @@
+.finance-guide-lining-numerals .finance-guide-page .seo-market-faq-list details summary {
+  transition: color .18s ease, text-shadow .18s ease, background .18s ease;
+}
+
+.finance-guide-lining-numerals .finance-guide-page .seo-market-faq-list details[open] > summary {
+  color: #ffc13b !important;
+  text-shadow: 0 0 12px rgba(246, 167, 0, .2);
+}
+
+.finance-guide-lining-numerals .finance-guide-page .seo-market-faq-list details[open] > summary::marker,
+.finance-guide-lining-numerals .finance-guide-page .seo-market-faq-list details[open] > summary::-webkit-details-marker {
+  color: #ffc13b !important;
+}
+
+.finance-guide-lining-numerals .finance-guide-page .seo-market-faq-list details[open] {
+  border-color: rgba(255, 193, 59, .85) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .18), 0 0 14px rgba(246, 167, 0, .08);
+}
