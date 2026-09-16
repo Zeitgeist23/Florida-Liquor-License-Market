@@ -91,11 +91,88 @@
   gap: 10px !important;
 }
 
+/* Broker-reported business metrics: use the quieter county-card language rather
+   than the glossier license-detail treatment above. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid {
+  gap: 14px !important;
+  margin: 18px 0 24px !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div {
+  position: relative;
+  padding: 18px 18px 17px !important;
+  border: 1px solid rgba(241,166,0,.38) !important;
+  border-radius: 8px !important;
+  background: linear-gradient(145deg, #0d2439 0%, #081a2b 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.045),
+    inset 0 -2px 0 rgba(0,0,0,.24),
+    0 8px 18px rgba(0,0,0,.20),
+    0 1px 0 rgba(255,193,59,.05) !important;
+  transform: translateY(0);
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,193,59,.72) !important;
+  background: linear-gradient(145deg, #12304a 0%, #0a2135 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 -2px 0 rgba(0,0,0,.24),
+    0 16px 28px rgba(0,0,0,.28),
+    0 0 14px rgba(241,166,0,.10) !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div > span {
+  display: block !important;
+  margin-bottom: 7px !important;
+  color: #9fb0bd !important;
+  font-size: 10.5px !important;
+  font-weight: 900 !important;
+  letter-spacing: .065em !important;
+  text-transform: uppercase !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div > strong {
+  display: block !important;
+  margin-top: 0 !important;
+  color: #fff !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  line-height: 1.25 !important;
+}
+
+/* Keep the metrics section dominant while making the growth heading a quieter cue. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-seller-details > h3:first-of-type {
+  color: #f1a600 !important;
+  font-size: 20px !important;
+  line-height: 1.2 !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-seller-details > h3:nth-of-type(2) {
+  color: #d6a33b !important;
+  font-size: 17px !important;
+  line-height: 1.25 !important;
+  margin-top: 22px !important;
+}
+
+/* Important transaction qualifier: gold label, normal body copy. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-confidential > strong {
+  color: #f1a600 !important;
+  font-weight: 900 !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div,
   .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div,
   .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div::after,
-  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div::after {
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div::after,
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div {
     transition: none !important;
   }
 }
