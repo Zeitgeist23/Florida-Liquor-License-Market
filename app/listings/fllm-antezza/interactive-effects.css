@@ -4,6 +4,10 @@
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div {
   position: relative;
   overflow: hidden;
+  background: linear-gradient(145deg, #0d2739 0%, #071722 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(217, 242, 255, .055),
+    0 12px 28px rgba(0, 0, 0, .20) !important;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div::before {
@@ -14,8 +18,8 @@
   pointer-events: none;
   opacity: 0;
   background:
-    radial-gradient(circle at 50% -18%, rgba(217, 242, 255, .22), transparent 48%),
-    linear-gradient(180deg, rgba(105, 214, 255, .055), transparent 58%);
+    radial-gradient(circle at 50% -16%, rgba(225, 247, 255, .30), transparent 46%),
+    linear-gradient(180deg, rgba(105, 214, 255, .095), rgba(105, 214, 255, .025) 38%, transparent 68%);
   transition: opacity .18s ease;
 }
 
@@ -26,12 +30,12 @@
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div:hover {
-  background: linear-gradient(145deg, #0d2638, #07141d) !important;
+  background: linear-gradient(145deg, #123148 0%, #0a1d2a 100%) !important;
   box-shadow:
-    inset 0 1px 0 rgba(217, 242, 255, .20),
-    inset 0 0 30px rgba(105, 214, 255, .075),
-    0 20px 38px rgba(0, 0, 0, .32),
-    0 0 0 1px rgba(105, 214, 255, .12) !important;
+    inset 0 1px 0 rgba(232, 250, 255, .30),
+    inset 0 0 36px rgba(105, 214, 255, .105),
+    0 20px 38px rgba(0, 0, 0, .34),
+    0 0 0 1px rgba(105, 214, 255, .16) !important;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div:hover::before {
