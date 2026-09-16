@@ -4,6 +4,7 @@ import "./lining-numerals.css";
 import "./financing-snapshot-cards.css";
 import "./rates-terms-card-hover.css";
 import "./finance-guide-link-cards.css";
+import "./finance-guide-table-hover.css";
 import "./faq-open-gold.css";
 import "./disclaimer-contrast.css";
 
