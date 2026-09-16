@@ -44,6 +44,40 @@ export default function GlobalResourcesMenuSync() {
         .primary-nav .native-nav-resources-menu > a:nth-child(14) { order: 14; }
         .primary-nav .native-nav-resources-menu > a:nth-child(15) { order: 15; }
 
+        /* Restore the approved agency badges without mutating React-owned DOM. */
+        .primary-nav .native-nav-resources-menu > a[href="/resources/florida-division-alcoholic-beverages-tobacco"]::after {
+          content:"DABT";
+          flex:0 0 auto;
+          margin-left:auto;
+          color:#f6a700;
+          font-size:9px;
+          font-weight:900;
+          letter-spacing:.08em;
+          white-space:nowrap;
+        }
+        .primary-nav .native-nav-resources-menu > a[href="/resources/florida-department-of-revenue"] {
+          font-size:0!important;
+        }
+        .primary-nav .native-nav-resources-menu > a[href="/resources/florida-department-of-revenue"]::before {
+          content:"Florida Department of Revenue";
+          flex:1 1 auto;
+          min-width:0;
+          color:inherit;
+          font:700 13px/1.3 Arial,Helvetica,sans-serif;
+          letter-spacing:.01em;
+          white-space:normal;
+        }
+        .primary-nav .native-nav-resources-menu > a[href="/resources/florida-department-of-revenue"]::after {
+          content:"FDOR";
+          flex:0 0 auto;
+          margin-left:auto;
+          color:#f6a700;
+          font-size:9px;
+          font-weight:900;
+          letter-spacing:.08em;
+          white-space:nowrap;
+        }
+
         @media (hover:hover) and (pointer:fine) {
           .primary-nav .native-nav-dropdown:has(> .native-nav-resources-menu):hover > .native-nav-resources-menu,
           .primary-nav .native-nav-dropdown:has(> .native-nav-resources-menu):focus-within > .native-nav-resources-menu {
