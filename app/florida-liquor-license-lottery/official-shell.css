@@ -38,6 +38,14 @@
   .lottery-official-route .forms-site-header .header-actions a {
     white-space: nowrap;
   }
+
+  /* The lottery CTA uses a longer label than the standard List Your License
+     action, so give it enough room without changing the shared FLLM header. */
+  .lottery-official-route .forms-site-header .header-actions .fllm-header-list-cta {
+    width: 144px !important;
+    min-width: 144px !important;
+    padding-inline: 10px !important;
+  }
 }
 
 .lottery-official-footer {
