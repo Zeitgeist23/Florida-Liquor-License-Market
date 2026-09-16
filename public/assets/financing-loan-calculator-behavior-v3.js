@@ -6,8 +6,6 @@
     const existingForm = root.querySelector("#fllm-loan-calculator-form");
     if (!(existingForm instanceof HTMLFormElement)) return;
 
-    // Prevent the legacy calculator from attaching any further behavior, then clone
-    // the form so all legacy anonymous input/change listeners are removed.
     root.dataset.calculatorReady = "true";
     const form = existingForm.cloneNode(true);
     if (!(form instanceof HTMLFormElement)) return;
@@ -54,6 +52,9 @@
     const taxStartLabel = form.querySelector("#fllm-tax-start-label");
     const errorBox = form.querySelector("#fllm-loan-calculator-error");
     const calculateButton = form.querySelector(".fllm-loan-calculator__calculate");
+    const paymentPanel = monthlyOutput instanceof HTMLElement
+      ? monthlyOutput.closest(".fllm-loan-calculator__payment")
+      : null;
 
     const transactionButtons = Array.from(form.querySelectorAll("[data-transaction]"));
     const scheduleButtons = Array.from(form.querySelectorAll("[data-schedule-mode]"));
@@ -363,6 +364,29 @@
       }
     }
 
+    function clearCalculatedResults() {
+      latestLoanRows = [];
+      if (monthlyOutput instanceof HTMLElement) monthlyOutput.textContent = "";
+      if (paymentPanel instanceof HTMLElement) paymentPanel.classList.add("is-reset");
+      if (annualDebtOutput instanceof HTMLElement) annualDebtOutput.textContent = "—";
+      if (totalInterestOutput instanceof HTMLElement) totalInterestOutput.textContent = "—";
+      if (totalPaymentsOutput instanceof HTMLElement) totalPaymentsOutput.textContent = "—";
+      if (termSummaryOutput instanceof HTMLElement) termSummaryOutput.textContent = "—";
+      if (rateComparisonBody instanceof HTMLElement) {
+        rateComparisonBody.innerHTML = '<tr><td colspan="4">Press Calculate / Update Payment to compare rates.</td></tr>';
+      }
+      if (loanTableBody instanceof HTMLElement) {
+        loanTableBody.innerHTML = '<tr><td colspan="7">Press Calculate / Update Payment to generate the amortization schedule.</td></tr>';
+      }
+      if (taxBasisOutput instanceof HTMLElement) taxBasisOutput.textContent = "—";
+      if (taxMonthlyOutput instanceof HTMLElement) taxMonthlyOutput.textContent = "—";
+      if (taxAnnualOutput instanceof HTMLElement) taxAnnualOutput.textContent = "—";
+      if (taxRemainingOutput instanceof HTMLElement) taxRemainingOutput.textContent = "—";
+      if (taxTableBody instanceof HTMLElement) {
+        taxTableBody.innerHTML = '<tr><td colspan="5">Press Calculate / Update Payment to generate the Section 197 schedule.</td></tr>';
+      }
+    }
+
     function calculate() {
       clearError();
       const validation = validateLoan();
@@ -372,6 +396,8 @@
       }
 
       currencyInputs.forEach(formatCurrencyInput);
+      if (paymentPanel instanceof HTMLElement) paymentPanel.classList.remove("is-reset");
+
       const principal = currentPrincipal();
       const apr = Number.parseFloat(rateInput.value);
       const years = Number.parseInt(termInput.value, 10);
@@ -408,7 +434,6 @@
         formatCurrencyInput(taxBasisInput);
       }
       updateTaxCopy();
-      // Deliberately do not calculate here. Results remain from the last submitted scenario.
     }
 
     function setScheduleMode(next) {
@@ -434,12 +459,15 @@
       taxBasisDirty = false;
       transaction = "purchase";
       scheduleMode = "annual";
-      latestLoanRows = [];
       currencyInputs.forEach(formatCurrencyInput);
       setTransaction("purchase");
       setScheduleMode("annual");
       clearError();
-      calculate();
+
+      if (principalOutput instanceof HTMLElement) {
+        principalOutput.textContent = integerMoney.format(currentPrincipal());
+      }
+      clearCalculatedResults();
     }
 
     if (!firstPaymentInput.value) {
@@ -493,8 +521,6 @@
       buttonRow.appendChild(resetButton);
     }
 
-    // Preserve the initial default calculation once. Subsequent field edits do not
-    // change the payment or schedules until Calculate / Update Payment is pressed.
     calculate();
   };
 
