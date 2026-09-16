@@ -57,12 +57,32 @@
     });
   }
 
+  function ensureFiveToEightCopLink() {
+    document.querySelectorAll('.live-license-types-menu').forEach((menu) => {
+      if (!(menu instanceof HTMLElement)) return;
+      if (menu.querySelector('a[data-five-to-eight-cop="true"]')) return;
+
+      const link = document.createElement('a');
+      link.href = '/resources/florida-liquor-license-types#common-license-chart';
+      link.textContent = '5COP-8COP Quota Licenses';
+      link.dataset.fiveToEightCop = 'true';
+
+      const threePs = Array.from(menu.querySelectorAll('a')).find((item) =>
+        (item.textContent || '').replace(/\s+/g, ' ').trim() === '3PS Quota / Package Store'
+      );
+      if (threePs?.nextSibling) menu.insertBefore(link, threePs.nextSibling);
+      else if (threePs) threePs.insertAdjacentElement('afterend', link);
+      else menu.appendChild(link);
+    });
+  }
+
   function rewrite() {
     document.querySelectorAll('a[href^="' + LEGACY + '"]').forEach((link) => {
       link.setAttribute('href', NATIVE);
       link.removeAttribute('target');
       link.removeAttribute('rel');
     });
+    ensureFiveToEightCopLink();
     positionResourcesMenus();
   }
 
