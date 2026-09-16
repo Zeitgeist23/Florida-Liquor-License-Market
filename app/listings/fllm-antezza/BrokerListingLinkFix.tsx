@@ -116,6 +116,21 @@ function installEmailCopyButton(root: HTMLElement) {
   );
   if (!emailLink || root.querySelector(".antezza-copy-email-button")) return;
 
+  const row = document.createElement("span");
+  row.className = "antezza-email-copy-row";
+  Object.assign(row.style, {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "5px",
+    width: "fit-content",
+    maxWidth: "100%",
+  });
+
+  const parent = emailLink.parentNode;
+  if (!parent) return;
+  parent.insertBefore(row, emailLink);
+  row.appendChild(emailLink);
+
   const button = document.createElement("button");
   button.type = "button";
   button.className = "antezza-copy-email-button";
@@ -126,20 +141,21 @@ function installEmailCopyButton(root: HTMLElement) {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    width: "22px",
-    height: "22px",
-    marginLeft: "7px",
+    flex: "0 0 auto",
+    width: "16px",
+    height: "16px",
+    margin: "0",
     padding: "0",
-    border: "1px solid rgba(241,166,0,.72)",
-    borderRadius: "4px",
-    background: "rgba(241,166,0,.08)",
+    border: "0",
+    borderRadius: "0",
+    background: "transparent",
     color: "#f1a600",
-    fontSize: "14px",
+    fontSize: "13px",
     fontWeight: "900",
     lineHeight: "1",
-    verticalAlign: "middle",
     cursor: "pointer",
-    boxShadow: "inset 0 1px 0 rgba(255,255,255,.06)",
+    boxShadow: "none",
+    appearance: "none",
   });
 
   const copyEmail = async () => {
@@ -175,7 +191,7 @@ function installEmailCopyButton(root: HTMLElement) {
   };
 
   button.addEventListener("click", copyEmail);
-  emailLink.insertAdjacentElement("afterend", button);
+  row.appendChild(button);
 }
 
 export default function BrokerListingLinkFix() {
@@ -195,9 +211,6 @@ export default function BrokerListingLinkFix() {
       sidebarLink.rel = "noopener noreferrer";
     }
 
-    // Configure once after hydration. Do not observe the page and rewrite these
-    // elements continuously; that created a self-triggering DOM mutation loop
-    // that could peg the main thread and make Chrome report the page unresponsive.
     configureListingButtons(root);
     installEmailCopyButton(root);
 
