@@ -1,6 +1,12 @@
 /* FLLM News Desk readability standard.
    Scope every rule to news pages so other FLLM sections retain their existing layout. */
 
+/* Match the locked official FLLM header band used on the approved county pages. */
+.news-insights-page .news-header-wrap {
+  border-bottom-color: rgba(246, 167, 0, .55);
+  background: #020b12;
+}
+
 /* Use the locked official FLLM desktop header geometry on News pages. */
 @media (min-width: 981px) {
   .news-insights-page .news-header-wrap .forms-site-header.page-shell {
@@ -30,6 +36,16 @@
 
   .news-insights-page .news-header-wrap .forms-site-header .header-actions {
     transform: translateX(5px);
+  }
+
+  .news-insights-page .news-header-wrap .forms-site-header .header-actions .btn-outline:hover,
+  .news-insights-page .news-header-wrap .forms-site-header .header-actions .btn-outline:focus-visible {
+    border-color: #ffc13b;
+    background: linear-gradient(145deg, #ffc13b, #e69a00);
+    color: #07101a;
+    box-shadow:
+      0 0 0 1px rgba(255, 193, 59, .28),
+      0 0 18px rgba(241, 166, 0, .5);
   }
 }
 
