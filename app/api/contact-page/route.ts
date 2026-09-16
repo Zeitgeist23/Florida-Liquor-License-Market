@@ -3,369 +3,86 @@ import path from "node:path";
 
 export const dynamic = "force-dynamic";
 
-const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v2">
-  .contact-page > .seller-header > .seller-brand img {
-    width: 71.25% !important;
-    height: auto !important;
-  }
-  .contact-careers-entry {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    width: fit-content;
-    margin-top: 12px;
-    color: #d7e2ea;
-    font-size: 14px;
-    line-height: 1.4;
-    text-decoration: none;
-  }
-  .contact-careers-entry strong {
-    color: #f5a400;
-    font-weight: 800;
-  }
-  .contact-careers-entry:hover strong,
-  .contact-careers-entry:focus-visible strong {
-    text-decoration: underline;
-  }
-  .contact-license-context {
-    margin: 2px 0 20px;
-    padding: 18px;
-    border: 1px solid rgba(246, 167, 0, .72);
-    border-left: 4px solid #f6a700;
-    border-radius: 6px;
-    color: #f8fafc;
-    background: linear-gradient(145deg, rgba(10, 34, 55, .98), rgba(4, 18, 30, .98));
-    box-shadow: 0 12px 30px rgba(0, 0, 0, .22);
-  }
-  .contact-license-context-heading > span {
-    display: block;
-    margin-bottom: 6px;
-    color: #f6a700;
-    font-size: 10px;
-    font-weight: 900;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-  }
-  .contact-license-context-heading h3 {
-    margin: 0;
-    color: #fff;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 22px;
-    line-height: 1.2;
-  }
-  .contact-license-context-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-top: 15px;
-  }
-  .contact-license-context-grid > div {
-    min-width: 0;
-    padding: 10px 11px;
-    border: 1px solid rgba(255, 255, 255, .12);
-    border-radius: 4px;
-    background: rgba(2, 11, 18, .62);
-  }
-  .contact-license-context-grid span {
-    display: block;
-    margin-bottom: 5px;
-    color: #aebbc5;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-  }
-  .contact-license-context-grid strong {
-    display: block;
-    color: #fff;
-    font-size: 13px;
-    line-height: 1.35;
-    overflow-wrap: anywhere;
-  }
-  .contact-license-context p {
-    margin: 14px 0 0;
-    color: #cbd5dc;
-    font-size: 12px;
-    line-height: 1.55;
-  }
-  .contact-license-context > a {
-    display: inline-flex;
-    margin-top: 11px;
-    color: #f6a700;
-    font-size: 11px;
-    font-weight: 900;
-    text-decoration: none;
-  }
-  .contact-license-context > a:hover,
-  .contact-license-context > a:focus-visible {
-    text-decoration: underline;
-  }
-  .contact-page > .seller-header,
-  .contact-page > .seller-header nav {
-    overflow: visible !important;
-  }
-  .contact-page > .seller-header nav > a[href="/"],
-  .contact-page .contact-list-license-trigger {
-    transition: color .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
-    transform-origin: center;
-  }
-  .contact-page > .seller-header nav > a[href="/"]:hover,
-  .contact-page > .seller-header nav > a[href="/"]:focus-visible,
-  .contact-page .contact-list-license-wrap:hover .contact-list-license-trigger,
-  .contact-page .contact-list-license-wrap:focus-within .contact-list-license-trigger,
-  .contact-page .contact-list-license-wrap.is-open .contact-list-license-trigger {
-    color: #061728 !important;
-    background: #f6a700 !important;
-    border-color: #ffb400 !important;
-    box-shadow: 0 0 0 2px rgba(255, 180, 0, .18), 0 7px 18px rgba(246, 167, 0, .32) !important;
-    transform: translateY(-1px) scale(1.03) !important;
-    outline: none;
-  }
-  .contact-list-license-wrap {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    flex: 0 0 auto;
-    z-index: 40;
-  }
-  .contact-list-license-trigger {
-    cursor: pointer;
-  }
-  .contact-list-license-menu {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    z-index: 50000;
-    display: none;
-    width: 290px;
-    padding: 6px;
-    border: 1px solid #f6a700;
-    border-radius: 7px;
-    background: #061728;
-    box-shadow: 0 18px 42px rgba(0, 0, 0, .42);
-  }
-  .contact-list-license-wrap:hover .contact-list-license-menu,
-  .contact-list-license-wrap:focus-within .contact-list-license-menu,
-  .contact-list-license-wrap.is-open .contact-list-license-menu {
-    display: grid;
-    gap: 2px;
-  }
-  .contact-page > .seller-header nav .contact-list-license-menu a {
-    display: block;
-    width: 100%;
-    min-height: 0;
-    padding: 11px 12px;
-    border: 0;
-    border-radius: 4px;
-    color: #f6a700 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    font-size: 13px;
-    font-weight: 800;
-    line-height: 1.3;
-    text-align: left;
-    text-decoration: none !important;
-    text-transform: none;
-    transform: none !important;
-    white-space: nowrap;
-  }
-  .contact-page > .seller-header nav .contact-list-license-menu a:hover,
-  .contact-page > .seller-header nav .contact-list-license-menu a:focus-visible {
-    color: #061728 !important;
-    background: #f6a700 !important;
-    outline: none;
-  }
-  @media (max-width: 760px) {
-    .contact-list-license-menu {
-      right: 0;
-      width: min(290px, calc(100vw - 28px));
-    }
-    .contact-page > .seller-header nav .contact-list-license-menu a {
-      white-space: normal;
-    }
-  }
-  @media (max-width: 620px) {
-    .contact-license-context-grid {
-      grid-template-columns: 1fr;
-    }
-    .contact-license-context-heading h3 {
-      font-size: 19px;
-    }
-  }
+const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v3">
+  .contact-careers-entry{display:inline-flex;align-items:center;gap:8px;width:fit-content;margin-top:12px;color:#d7e2ea;font-size:14px;line-height:1.4;text-decoration:none}
+  .contact-careers-entry strong{color:#f5a400;font-weight:800}
+  .contact-careers-entry:hover strong,.contact-careers-entry:focus-visible strong{text-decoration:underline}
+  .contact-license-context{margin:2px 0 20px;padding:18px;border:1px solid rgba(246,167,0,.72);border-left:4px solid #f6a700;border-radius:6px;color:#f8fafc;background:linear-gradient(145deg,rgba(10,34,55,.98),rgba(4,18,30,.98));box-shadow:0 12px 30px rgba(0,0,0,.22)}
+  .contact-license-context-heading>span{display:block;margin-bottom:6px;color:#f6a700;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+  .contact-license-context-heading h3{margin:0;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:1.2}
+  .contact-license-context-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}
+  .contact-license-context-grid>div{min-width:0;padding:10px 11px;border:1px solid rgba(255,255,255,.12);border-radius:4px;background:rgba(2,11,18,.62)}
+  .contact-license-context-grid span{display:block;margin-bottom:5px;color:#aebbc5;font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+  .contact-license-context-grid strong{display:block;color:#fff;font-size:13px;line-height:1.35;overflow-wrap:anywhere}
+  .contact-license-context p{margin:14px 0 0;color:#cbd5dc;font-size:12px;line-height:1.55}
+  .contact-license-context>a{display:inline-flex;margin-top:11px;color:#f6a700;font-size:11px;font-weight:900;text-decoration:none}
+  .contact-license-context>a:hover,.contact-license-context>a:focus-visible{text-decoration:underline}
+  @media(max-width:620px){.contact-license-context-grid{grid-template-columns:1fr}.contact-license-context-heading h3{font-size:19px}}
 </style>`;
 
 const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=4" defer></script>';
-const CONTACT_HEADER_MENU_SCRIPT = `<script id="contact-header-menu-installer">
-(function(){
-  var SELF='/sell-your-license?method=self#listing-options';
-  var HELP='/sell-your-license#broker-assistance';
-  var BROKER='/brokers/list-your-license';
+const OFFICIAL_SHELL_STYLES = '<link rel="stylesheet" href="/assets/contact-official-shell.css?v=1"/>';
+const OFFICIAL_SHELL_SCRIPT = '<script src="/assets/contact-official-shell.js?v=1" defer></script>';
 
-  function normalizedText(el){
-    return (el&&el.textContent||'').replace(/\\s+/g,' ').trim().toLowerCase();
-  }
+const OFFICIAL_HEADER = `<header class="site-header forms-site-header page-shell fllm-official-contact-header">
+  <a class="brand-lockup" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market"/></a>
+  <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  <nav class="primary-nav" aria-label="Primary navigation">
+    <div class="native-nav-dropdown" data-nav-menu="buy"><button class="native-nav-trigger" type="button" aria-haspopup="menu" aria-expanded="false"><span>Buy</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"/></button><div class="native-nav-menu native-nav-menu-standard native-nav-buy-menu" role="menu" aria-label="Buy menu"><a href="/buy-florida-liquor-license" role="menuitem">Buy a Florida Liquor License</a><a href="/listings" role="menuitem">View Listings</a><a href="/how-to-buy-florida-liquor-license" role="menuitem">How to Buy a Florida Liquor License</a><a href="/counties" role="menuitem">Florida County Markets</a><a href="/license-alerts" role="menuitem">Get a License Alert</a><a href="/exchange" role="menuitem">FLLM Exchange — Confidential Florida License Offers</a></div></div>
+    <div class="native-nav-dropdown" data-nav-menu="sell"><button class="native-nav-trigger" type="button" aria-haspopup="menu" aria-expanded="false"><span>Sell</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"/></button><div class="native-nav-menu native-nav-menu-standard" role="menu" aria-label="Sell menu"><a href="/brokers/list-your-license" role="menuitem">BROKERS — Advertise a Client License</a><a href="/sell-your-license" role="menuitem">Sell Your License</a><a href="/how-to-sell-florida-liquor-license" role="menuitem">How to Sell a Florida Liquor License</a><a href="/florida-liquor-license-value" role="menuitem">Get a License Valuation</a></div></div>
+    <div class="native-nav-dropdown" data-nav-menu="finance"><button class="native-nav-trigger" type="button" aria-haspopup="menu" aria-expanded="false"><span>Finance</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"/></button><div class="native-nav-menu native-nav-menu-standard native-nav-finance-menu" role="menu" aria-label="Finance menu"><a href="/how-to-finance-florida-liquor-license" role="menuitem">How to Finance a Florida Liquor License</a><a href="/financing/loan-payment-calculator" role="menuitem">Loan Payment Calculator</a><a href="/private-liquor-license-lenders" role="menuitem">Private Lenders</a><a href="/financing#request-financing" role="menuitem">Request Financing</a></div></div>
+    <div class="native-nav-dropdown" data-nav-menu="invest"><button class="native-nav-trigger" type="button" aria-haspopup="menu" aria-expanded="false"><span>Invest</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"/></button><div class="native-nav-menu native-nav-menu-standard" role="menu" aria-label="Invest menu"><a href="/investment-opportunities" role="menuitem">Investment Opportunities</a><a href="/resources/florida-liquor-license-system" role="menuitem">Quota License Ownership &amp; Investing</a><a href="/self-directed-ira-liquor-license-lending" role="menuitem">Self-Directed IRA Lending</a></div></div>
+    <div class="native-nav-dropdown" data-nav-menu="market-data"><button class="native-nav-trigger" type="button" aria-haspopup="menu" aria-expanded="false"><span>Market Data</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"/></button><div class="native-nav-menu native-nav-menu-standard native-nav-market-menu" role="menu" aria-label="Market Data menu"><a href="/market-data/exchange-board"><span class="native-market-label">FLLM Exchange Board</span><span class="native-market-badge">EXCHANGE</span></a><a href="/counties"><span class="native-market-label">Florida Market Data by County</span></a><a href="/florida-liquor-license-value"><span class="native-market-label">Florida Liquor License Value Estimator</span><span class="native-market-badge">VALUE</span></a><a href="/florida-quota-liquor-license-cost"><span class="native-market-label">Florida Liquor License Cost by County</span></a><a href="/listings?status=sold"><span class="native-market-label">Recent Florida Transactions</span><span class="native-market-badge">SALES</span></a><a href="/florida-quota-liquor-license-market-report"><span class="native-market-label">Florida Market Insights</span></a><a href="/florida-liquor-license-lottery"><span class="native-market-label">Quota Lottery Entry</span><span class="native-market-badge">LOTTERY</span></a><a href="/florida-liquor-license-news"><span class="native-market-label">News &amp; Insights</span></a><a href="/#market-data"><span class="native-market-label">Florida Market Heat Map</span><span class="native-market-badge">MAP</span></a></div></div>
+    <div class="native-nav-dropdown native-nav-license-types" data-nav-menu="license-types"><button class="native-nav-trigger" type="button" aria-haspopup="menu" aria-expanded="false"><span>License Types</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"/></button><div class="native-nav-menu native-license-types-menu" role="menu" aria-label="License Types menu"><div class="native-license-types-column"><strong>Start Here</strong><a href="/resources/florida-liquor-license-system">How Florida Liquor Licensing Works</a><a href="/resources/florida-liquor-license-types">Types of Florida Liquor Licenses</a><a href="/resources/florida-liquor-license-types#population-rule-title">Quota License Requirements</a></div><div class="native-license-types-column"><strong>Quota Licenses</strong><a href="/license-types/4cop-quota">4COP Quota License</a><a href="/license-types/3ps-package-store">3PS Quota / Package Store</a></div><div class="native-license-types-column"><strong>Other License Types</strong><a href="/license-types/2cop-beer-wine">2COP Beer &amp; Wine</a><a href="/license-types/4cop-sfs-restaurant">SRX / 4COP-SFS Restaurant</a><a href="/license-types/mobile-bars-catered-events">Mobile Liquor License</a></div></div></div>
+    <div class="native-nav-dropdown" data-nav-menu="resources"><button class="native-nav-trigger" type="button" aria-haspopup="menu" aria-expanded="false"><span>Resources</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"/></button><div class="native-nav-menu native-nav-menu-standard native-nav-resources-menu" role="menu" aria-label="Resources menu"><a href="/free-guide">Free Buyer’s &amp; Seller’s Guide</a><a href="/resources">View All Resources</a><a href="/resources/application-center">Alcohol License Application Center</a><a href="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup" target="_blank" rel="noopener noreferrer">Florida Liquor License Lookup</a><a href="/florida-liquor-license-value">Florida Liquor License Value Estimator</a><a href="/resources/florida-liquor-license-laws">Florida Liquor License Laws</a><a href="/resources/florida-division-alcoholic-beverages-tobacco">Florida Division of Alcoholic Beverages &amp; Tobacco</a><a href="/resources/forms">Florida ABT Forms</a><a href="/resources/license-fees">License Fees &amp; Annual Renewals</a><a href="/resources/quota-transfer-fee-calculator">Quota License Transfer Fee Calculator</a><a href="/resources/florida-department-of-revenue">Florida Department of Revenue (FDOR)</a><a href="/resources/liquor-license-attorneys">Liquor License Attorneys</a><a href="/dbpr-abt-6002">ABT-6002 Transfer Guide</a><a href="/transaction-services">FLLM Transaction Services</a><a href="/florida-liquor-license-court-decisions">Court Decisions &amp; Case Law</a></div></div>
+  </nav>
+  <div class="header-actions"><a class="btn btn-outline fllm-header-contact-cta" href="/contact"><span class="contact-phone" aria-hidden="true">☎</span>Contact Us</a><div class="fllm-contact-list-wrap"><a class="btn btn-gold fllm-header-list-cta" href="/sell-your-license">List Your License</a><div class="fllm-contact-list-menu" aria-label="List your license options"><a href="/sell-your-license?method=self#listing-options">Self-Directed Seller</a><a href="/sell-your-license#broker-assistance">Request Broker Help</a><a href="/brokers/list-your-license">For Brokers — List a Client License</a></div></div></div>
+</header>`;
 
-  function makeLink(label,href){
-    var link=document.createElement('a');
-    link.href=href;
-    link.textContent=label;
-    link.setAttribute('role','menuitem');
-    return link;
-  }
-
-  function install(){
-    var nav=document.querySelector('.contact-page > .seller-header nav');
-    if(!nav||nav.querySelector('.contact-list-license-wrap'))return;
-
-    var oldLink=Array.prototype.find.call(nav.children,function(el){
-      return el.tagName==='A'&&normalizedText(el)==='list your license';
-    });
-    if(!oldLink)return;
-
-    var wrap=document.createElement('div');
-    wrap.className='contact-list-license-wrap';
-
-    oldLink.classList.add('contact-list-license-trigger');
-    oldLink.setAttribute('role','button');
-    oldLink.setAttribute('aria-haspopup','menu');
-    oldLink.setAttribute('aria-expanded','false');
-    oldLink.setAttribute('aria-label','List your license options');
-
-    var menu=document.createElement('div');
-    menu.className='contact-list-license-menu';
-    menu.setAttribute('role','menu');
-    menu.setAttribute('aria-label','List your license options');
-    menu.appendChild(makeLink('Self-Directed Seller',SELF));
-    menu.appendChild(makeLink('Request Broker Help',HELP));
-    menu.appendChild(makeLink('For Brokers — List a Client License',BROKER));
-
-    oldLink.replaceWith(wrap);
-    wrap.appendChild(oldLink);
-    wrap.appendChild(menu);
-
-    function setOpen(open){
-      wrap.classList.toggle('is-open',open);
-      oldLink.setAttribute('aria-expanded',open?'true':'false');
-    }
-
-    oldLink.addEventListener('click',function(event){
-      event.preventDefault();
-      event.stopPropagation();
-      setOpen(!wrap.classList.contains('is-open'));
-    });
-    oldLink.addEventListener('keydown',function(event){
-      if(event.key==='ArrowDown'){
-        event.preventDefault();
-        setOpen(true);
-        var first=menu.querySelector('a');
-        if(first)first.focus();
-      }else if(event.key==='Escape'){
-        setOpen(false);
-        oldLink.focus();
-      }
-    });
-    menu.addEventListener('keydown',function(event){
-      if(event.key==='Escape'){
-        event.preventDefault();
-        setOpen(false);
-        oldLink.focus();
-      }
-    });
-    document.addEventListener('click',function(event){
-      if(!wrap.contains(event.target))setOpen(false);
-    });
-  }
-
-  function start(){
-    install();
-    setTimeout(install,100);
-    setTimeout(install,500);
-    setTimeout(install,1200);
-  }
-
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
-  else start();
-  window.addEventListener('load',start);
-  window.addEventListener('pageshow',start);
-  new MutationObserver(install).observe(document.documentElement,{childList:true,subtree:true});
-})();
-</script>`;
+const OFFICIAL_FOOTER = `<footer id="resources" class="fllm-official-contact-footer"><div class="page-shell footer-grid"><div class="footer-brand"><img src="/assets/brand-footer.svg" alt="Florida Liquor License Market"/><p>Florida’s marketplace for buying, selling &amp; financing liquor licenses.</p><b>Buy · Sell · Finance · Invest</b></div><div><strong>Marketplace</strong><a href="/listings">Browse Licenses</a><a href="/sell-your-license">Sell Your License</a><a href="/brokers/list-your-license">For Brokers</a><a href="/financing">Financing Solutions</a><a href="/investment-opportunities">Investment Opportunities</a></div><div><strong>Resources</strong><a href="/free-guide">Free Buyer’s &amp; Seller’s Guide</a><a href="/resources">Resource Center</a><a href="/resources/application-center">Application Center</a><a href="/resources/forms">Florida ABT Forms</a><a href="/resources/florida-liquor-license-laws">Florida Liquor License Laws</a></div><div><strong>Market Data</strong><a href="/counties">County Markets</a><a href="/florida-liquor-license-value">License Value Estimator</a><a href="/florida-quota-liquor-license-market-report">Market Insights</a><a href="/florida-liquor-license-news">News &amp; Insights</a><a href="/contact">Contact Us</a></div></div><div class="page-shell footer-legal">Florida Liquor License Market provides marketplace information and transaction resources. Availability, pricing, licensing eligibility and transaction terms should be independently confirmed. See our <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms-of-use">Terms of Use</a>.</div><div class="page-shell copyright">© 2026 Florida Liquor License Market. All rights reserved.</div></footer>`;
 
 const CAREERS_ENTRY = '<a class="contact-careers-entry" href="/careers"><span>Interested in joining FLLM?</span><strong>View Careers →</strong></a>';
 
-function addContactEnhancements(html: string) {
+function applyOfficialShell(html: string) {
   let enhanced = html;
-  if (!enhanced.includes('id="contact-page-enhancements-v2"')) {
-    enhanced = enhanced.replace("</head>", `${CONTACT_PAGE_STYLES}</head>`);
+  enhanced = enhanced.replace(/<header class="seller-header page-shell">[\s\S]*?<\/header>/, OFFICIAL_HEADER);
+  if (!enhanced.includes('class="fllm-official-contact-footer"')) {
+    enhanced = enhanced.replace("</main>", `</main>${OFFICIAL_FOOTER}`);
   }
-  if (!enhanced.includes("contact-listing-context.js")) {
-    enhanced = enhanced.replace("</head>", `${CONTACT_CONTEXT_SCRIPT}</head>`);
-  }
-  if (!enhanced.includes('id="contact-header-menu-installer"')) {
-    enhanced = enhanced.replace("</body>", `${CONTACT_HEADER_MENU_SCRIPT}</body>`);
-  }
+  if (!enhanced.includes("contact-official-shell.css")) enhanced = enhanced.replace("</head>", `${OFFICIAL_SHELL_STYLES}</head>`);
+  if (!enhanced.includes('id="contact-page-enhancements-v3"')) enhanced = enhanced.replace("</head>", `${CONTACT_PAGE_STYLES}</head>`);
+  if (!enhanced.includes("contact-listing-context.js")) enhanced = enhanced.replace("</head>", `${CONTACT_CONTEXT_SCRIPT}</head>`);
+  if (!enhanced.includes("contact-official-shell.js")) enhanced = enhanced.replace("</body>", `${OFFICIAL_SHELL_SCRIPT}</body>`);
   return enhanced;
 }
 
 function addCareersEntryPoint(html: string) {
   if (html.includes('class="contact-careers-entry"')) return html;
-
   const marker = '<span class="contact-direct-link">Use the secure form to contact us directly.</span>';
   return html.replace(marker, `${marker}${CAREERS_ENTRY}`);
 }
 
 function applyCareersMode(html: string) {
   return html
-    .replace(
-      "<h1>Contact Florida Liquor License Market</h1>",
-      "<h1>Apply to Join Florida Liquor License Market</h1>",
-    )
-    .replace(
-      "Whether you are buying, selling, financing, investing, or simply exploring your options, tell us how we can help. A marketplace representative will follow up directly.",
-      "Tell us about your sales or business-development background, the Florida counties or markets you know best, and how you would like to contribute to the FLLM marketplace.",
-    )
-    .replace(
-      "Use the secure form to contact us directly.",
-      "Use the secure form to submit your FLLM application.",
-    )
+    .replace("<h1>Contact Florida Liquor License Market</h1>", "<h1>Apply to Join Florida Liquor License Market</h1>")
+    .replace("Whether you are buying, selling, financing, investing, or simply exploring your options, tell us how we can help. A marketplace representative will follow up directly.", "Tell us about your sales or business-development background, the Florida counties or markets you know best, and how you would like to contribute to the FLLM marketplace.")
+    .replace("Use the secure form to contact us directly.", "Use the secure form to submit your FLLM application.")
     .replace("<h2>How Can We Help?</h2>", "<h2>FLLM Careers Application</h2>")
-    .replace(
-      'name="_subject" value="Florida Liquor License Market — New Contact Inquiry"',
-      'name="_subject" value="FLLM Careers — Marketplace Representative Application"',
-    )
-    .replace(
-      '<option value="" disabled="" selected="">Select an option</option>',
-      '<option value="" disabled="">Select an option</option><option selected="">Careers / Join FLLM</option>',
-    )
+    .replace('name="_subject" value="Florida Liquor License Market — New Contact Inquiry"', 'name="_subject" value="FLLM Careers — Marketplace Representative Application"')
+    .replace('<option value="" disabled="" selected="">Select an option</option>', '<option value="" disabled="">Select an option</option><option selected="">Careers / Join FLLM</option>')
     .replace("<span>Preferred County</span>", "<span>Florida County / Market You Know Best</span>")
-    .replace(
-      "<span>How can we help? *</span>",
-      "<span>Tell us about your sales or business-development background *</span>",
-    )
-    .replace(
-      "Submit Confidential Inquiry",
-      "Submit FLLM Application",
-    );
+    .replace("<span>How can we help? *</span>", "<span>Tell us about your sales or business-development background *</span>")
+    .replace("Submit Confidential Inquiry", "Submit FLLM Application");
 }
 
 export async function GET(request: Request) {
   try {
     const requestUrl = new URL(request.url);
     const careersMode = requestUrl.searchParams.get("careers") === "1";
-    // Read the existing static contact document directly. Fetching its public URL
-    // can be normalized back to /contact by the host and recursively re-enter
-    // this handler, which leaves listing inquiry navigation waiting indefinitely.
     const sourcePath = path.join(process.cwd(), "public", "contact", "index.html");
-    let html = addContactEnhancements(await readFile(sourcePath, "utf8"));
+    let html = applyOfficialShell(await readFile(sourcePath, "utf8"));
     html = careersMode ? applyCareersMode(html) : addCareersEntryPoint(html);
-
-    return new Response(html, {
-      headers: {
-        "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "no-store, max-age=0",
-        "X-Content-Type-Options": "nosniff",
-      },
-    });
+    return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store, max-age=0", "X-Content-Type-Options": "nosniff" } });
   } catch (error) {
     console.error("Contact page enhancement failed", error);
     return Response.redirect(new URL("/contact/index.html", request.url), 307);
