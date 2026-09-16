@@ -12,3 +12,39 @@
 .fllm-loan-calculator__tax tbody tr:hover td {
   color: #ffffff;
 }
+
+/* Loan calculator: use the locked FLLM official header geometry exactly. */
+@media (min-width: 981px) {
+  .loan-calculator-page .forms-site-header.page-shell {
+    width: min(1240px, calc(100% - 40px));
+    gap: 18px;
+  }
+
+  .loan-calculator-page .forms-site-header .brand-lockup {
+    flex: 0 0 184px;
+  }
+
+  .loan-calculator-page .forms-site-header .brand-lockup img {
+    width: 168.7125px;
+    height: 68.5075px;
+  }
+
+  .loan-calculator-page .forms-site-header .primary-nav {
+    justify-content: center;
+    gap: 42px;
+  }
+
+  .loan-calculator-page .forms-site-header .header-actions {
+    transform: translateX(5px);
+  }
+
+  .loan-calculator-page .forms-site-header .header-actions .btn-outline:hover,
+  .loan-calculator-page .forms-site-header .header-actions .btn-outline:focus-visible {
+    border-color: #ffc13b;
+    background: linear-gradient(145deg, #ffc13b, #e69a00);
+    color: #07101a;
+    box-shadow:
+      0 0 0 1px rgba(255, 193, 59, 0.28),
+      0 0 18px rgba(241, 166, 0, 0.5);
+  }
+}
