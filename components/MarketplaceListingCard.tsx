@@ -80,13 +80,10 @@ export default function MarketplaceListingCard({
   const isAntezzaListing =
     normalizedListing.sourceRef?.trim().toUpperCase() === "FLLM-ANTEZZA";
 
-  // County-facing copy is deliberately generated from the exact same canonical
-  // county key used for the visible label, map, link, and detail-page route.
-  // Alessandro's package requirement stays visible in the short description,
-  // while the card itself follows the same layout as every other featured card.
-  const fullDescription = isAntezzaListing
-    ? "Business purchase required. 4COP license included with associated cocktail lounge; total package $1.1M."
-    : countyListingDescription(county);
+  // Keep county-facing marketplace cards uniform. Listing-specific conditions
+  // belong on the individual detail page; only a compact badge flags the
+  // Antezza business-purchase requirement here.
+  const fullDescription = countyListingDescription(county);
   const statusTitle = normalizedListing.licenseStatus
     ? sellerReportedStatusLabel(normalizedListing.licenseStatus)
     : "Status to confirm";
@@ -164,6 +161,28 @@ export default function MarketplaceListingCard({
           ) : (
             <span className="sold-status-inline">Sold</span>
           )}
+          {isAntezzaListing ? (
+            <span
+              aria-label="Business purchase required"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                minHeight: 24,
+                padding: "0 9px",
+                border: "1px solid rgba(239,170,16,.78)",
+                borderRadius: 999,
+                color: "#f1b53a",
+                background: "rgba(239,170,16,.06)",
+                fontSize: 9,
+                fontWeight: 900,
+                letterSpacing: ".045em",
+                textTransform: "uppercase",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Business Purchase Required
+            </span>
+          ) : null}
         </div>
         <div className="result-description">
           <p title={fullDescription}>
