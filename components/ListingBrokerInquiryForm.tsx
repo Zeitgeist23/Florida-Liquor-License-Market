@@ -138,7 +138,7 @@ export default function ListingBrokerInquiryForm({
         <p className="marketplace-listing-inquiry-status success" role="status">
           {isSeller
             ? "Your contact information and message were sent to the seller and recorded by FLLM."
-            : "Your inquiry was sent to FLLM and the listing broker."}
+            : "Your inquiry was sent to the listing broker and recorded by FLLM."}
         </p>
       )}
       {status === "error" && (
@@ -151,7 +151,7 @@ export default function ListingBrokerInquiryForm({
       <small>
         {isSeller
           ? "By submitting this form, you agree to be contacted by the seller and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking."
-          : "By submitting this form, you agree to be contacted by FLLM and the listing broker regarding this license."}
+          : "By submitting this form, you agree to be contacted by the listing broker and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking."}
       </small>
     </form>
   );
