@@ -1,0 +1,65 @@
+/* Self-Directed IRA page: use the locked official FLLM header presentation. */
+.ira-lending-guide-page > .forms-site-header {
+  position: relative;
+  z-index: 200;
+  height: 94px;
+  background: transparent;
+}
+
+.ira-lending-guide-page > .forms-site-header::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-bottom: 1px solid rgba(246, 167, 0, .58);
+  background: #020b12;
+  pointer-events: none;
+}
+
+@media (min-width: 981px) {
+  .ira-lending-guide-page > .forms-site-header.page-shell {
+    width: min(1240px, calc(100% - 40px));
+    gap: 18px;
+  }
+
+  .ira-lending-guide-page > .forms-site-header .brand-lockup {
+    flex: 0 0 184px;
+  }
+
+  .ira-lending-guide-page > .forms-site-header .brand-lockup img {
+    display: block;
+    width: 168.7125px;
+    height: 68.5075px;
+    object-fit: contain;
+  }
+
+  .ira-lending-guide-page > .forms-site-header .primary-nav {
+    justify-content: center;
+    gap: 42px;
+  }
+
+  .ira-lending-guide-page > .forms-site-header .header-actions {
+    transform: translateX(5px);
+  }
+
+  .ira-lending-guide-page > .forms-site-header .header-actions .btn-outline:hover,
+  .ira-lending-guide-page > .forms-site-header .header-actions .btn-outline:focus-visible {
+    border-color: #ffc13b;
+    background: linear-gradient(145deg, #ffc13b, #e69a00);
+    color: #07101a;
+    box-shadow:
+      0 0 0 1px rgba(255, 193, 59, .28),
+      0 0 18px rgba(241, 166, 0, .5);
+  }
+}
+
+@media (max-width: 980px) {
+  .ira-lending-guide-page > .forms-site-header {
+    height: auto;
+    min-height: 94px;
+  }
+}
