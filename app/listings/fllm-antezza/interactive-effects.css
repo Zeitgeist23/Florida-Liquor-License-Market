@@ -4,10 +4,10 @@
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(145deg, #0d2739 0%, #071722 100%) !important;
+  background: linear-gradient(145deg, #0d2537, #07131d) !important;
   box-shadow:
-    inset 0 1px 0 rgba(217, 242, 255, .055),
-    0 12px 28px rgba(0, 0, 0, .20) !important;
+    inset 0 1px 0 rgba(217, 242, 255, .07),
+    0 12px 28px rgba(0, 0, 0, .19) !important;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div::before {
@@ -18,8 +18,8 @@
   pointer-events: none;
   opacity: 0;
   background:
-    radial-gradient(circle at 50% -16%, rgba(225, 247, 255, .30), transparent 46%),
-    linear-gradient(180deg, rgba(105, 214, 255, .095), rgba(105, 214, 255, .025) 38%, transparent 68%);
+    radial-gradient(circle at 50% -16%, rgba(230, 248, 255, .31), transparent 44%),
+    linear-gradient(180deg, rgba(105, 214, 255, .085), rgba(105, 214, 255, .018) 42%, transparent 66%);
   transition: opacity .18s ease;
 }
 
@@ -30,12 +30,12 @@
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div:hover {
-  background: linear-gradient(145deg, #123148 0%, #0a1d2a 100%) !important;
+  background: linear-gradient(145deg, #102c41, #081824) !important;
   box-shadow:
-    inset 0 1px 0 rgba(232, 250, 255, .30),
-    inset 0 0 36px rgba(105, 214, 255, .105),
-    0 20px 38px rgba(0, 0, 0, .34),
-    0 0 0 1px rgba(105, 214, 255, .16) !important;
+    inset 0 1px 0 rgba(230, 248, 255, .28),
+    inset 0 0 34px rgba(105, 214, 255, .11),
+    0 20px 38px rgba(0, 0, 0, .32),
+    0 0 0 1px rgba(105, 214, 255, .14) !important;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div:hover::before {
@@ -79,6 +79,102 @@
   outline: none;
 }
 
+/* Keep the broker contact block useful on desktop without changing the CTA text.
+   The contact/inquiry card follows the listing while the appraisal and financing
+   cards remain in normal flow below it. */
+@media (min-width: 1000px) {
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-aside-broker {
+    align-self: stretch;
+    position: relative;
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-aside-broker > .marketplace-listing-action-card {
+    position: sticky;
+    top: 92px;
+    z-index: 3;
+    max-height: calc(100vh - 116px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(105, 214, 255, .32) transparent;
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-aside-broker > .marketplace-listing-action-card::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-aside-broker > .marketplace-listing-action-card::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(105, 214, 255, .28);
+  }
+}
+
+/* Email stays a normal mailto link; the small control beside it copies the
+   address and briefly confirms success without navigating away. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .broker-email-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .broker-email-row > a {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .broker-email-copy {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 25px;
+  padding: 3px 6px;
+  border: 1px solid rgba(105, 214, 255, .34);
+  border-radius: 5px;
+  color: #9bdfff;
+  background: rgba(7, 26, 43, .86);
+  font: 800 9px/1 Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  transition: border-color .16s ease, color .16s ease, background .16s ease, transform .16s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .broker-email-copy svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .broker-email-copy:hover,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .broker-email-copy:focus-visible {
+  border-color: #d9f2ff;
+  color: #d9f2ff;
+  background: rgba(13, 45, 68, .96);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .broker-email-copy.is-copied {
+  border-color: rgba(241, 166, 0, .72);
+  color: #ffc13b;
+  background: rgba(86, 57, 3, .24);
+}
+
+@media (max-width: 520px) {
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .broker-email-copy-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
 @keyframes sunshineagleGoldSweep {
   0% { background-position: 100% 0; }
   11% { background-position: 0% 0; }
@@ -96,5 +192,9 @@
     background: none !important;
     color: #f1a600 !important;
     -webkit-text-fill-color: #f1a600 !important;
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .broker-email-copy {
+    transition: none !important;
   }
 }
