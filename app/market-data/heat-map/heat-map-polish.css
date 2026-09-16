@@ -58,10 +58,31 @@
   line-height: 1.4 !important;
 }
 
+/* Keep the toolbar, controls and map geometry fixed so toggling metrics/series never shifts the map. */
+.unified-heat-map-toolbar {
+  min-height: 104px !important;
+  align-items: flex-start !important;
+}
+
+.unified-heat-map-toolbar > div:first-child {
+  min-height: 76px !important;
+}
+
+.unified-heat-map-toolbar h2 {
+  min-height: 35px !important;
+}
+
+.unified-heat-map-controls {
+  min-height: 91px !important;
+  align-content: start;
+}
+
 .unified-heat-map-stage {
   position: relative;
   isolation: isolate;
+  height: 650px !important;
   min-height: 650px !important;
+  max-height: 650px !important;
   overflow: visible !important;
   padding: 12px 4px 24px !important;
   border: 0 !important;
@@ -98,6 +119,7 @@
   max-width: 900px !important;
   height: auto !important;
   max-height: 630px !important;
+  margin: 0 auto !important;
   overflow: visible !important;
   transform: none !important;
   transform-origin: center center;
@@ -121,25 +143,91 @@
   outline: none;
 }
 
+/* Compact lottery-map style county popup. */
 .unified-heat-map-detail {
   position: fixed !important;
   z-index: 14020 !important;
   right: auto !important;
   bottom: auto !important;
-  width: min(320px, calc(100vw - 24px));
+  width: min(286px, calc(100vw - 24px)) !important;
   max-height: calc(100vh - 24px);
+  padding: 13px 16px 12px !important;
   overflow: auto;
-  border: 1px solid rgba(88, 215, 255, .95) !important;
-  border-radius: 8px !important;
-  background: linear-gradient(145deg, rgba(7, 24, 42, .99), rgba(18, 49, 83, .99)) !important;
-  box-shadow: 0 18px 42px rgba(0, 0, 0, .5), 0 0 22px rgba(27, 187, 208, .2) !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #66d9f1 !important;
+  border-radius: 10px !important;
+  background: rgba(2, 15, 24, .955) !important;
+  box-shadow: 0 14px 30px rgba(0,0,0,.46), 0 0 16px rgba(36,191,221,.13) !important;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
 }
 
 .unified-heat-map--median .unified-heat-map-detail,
 .unified-heat-map--highest .unified-heat-map-detail {
-  border-color: rgba(88, 215, 255, .95) !important;
+  border-color: #66d9f1 !important;
+}
+
+.unified-heat-map-detail > span {
+  display: block !important;
+  margin: 0 0 5px !important;
+  color: #63e4ff !important;
+  font: 800 14px/1.2 Arial, Helvetica, sans-serif !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+.unified-heat-map-detail > strong {
+  display: block !important;
+  margin: 0 0 8px !important;
+  color: #fff !important;
+  font: 800 17px/1.2 Arial, Helvetica, sans-serif !important;
+}
+
+.unified-heat-map-detail dl {
+  display: block !important;
+  margin: 0 !important;
+}
+
+.unified-heat-map-detail dl > div {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 14px !important;
+  min-height: 30px !important;
+  padding: 6px 0 !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(102,217,241,.16) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.unified-heat-map-detail dt {
+  color: #a7c4d2 !important;
+  font: 500 10px/1.25 Arial, Helvetica, sans-serif !important;
+  letter-spacing: 0 !important;
+  text-transform: uppercase !important;
+}
+
+.unified-heat-map-detail dd {
+  margin: 0 !important;
+  color: #fff !important;
+  font: 800 13px/1.2 Arial, Helvetica, sans-serif !important;
+  text-align: right !important;
+}
+
+.unified-heat-map-detail > a {
+  display: inline-block !important;
+  margin-top: 9px !important;
+  color: #63e4ff !important;
+  font: 800 10px/1.2 Arial, Helvetica, sans-serif !important;
+  letter-spacing: .03em !important;
+  text-transform: uppercase !important;
+}
+
+.unified-heat-map-detail > a:hover,
+.unified-heat-map-detail > a:focus-visible {
+  color: #fff !important;
+  text-shadow: 0 0 10px rgba(99,228,255,.65);
+  outline: none !important;
 }
 
 .heat-map-series-code {
@@ -309,7 +397,9 @@
     gap: 18px !important;
   }
   .unified-heat-map-stage {
+    height: 580px !important;
     min-height: 580px !important;
+    max-height: 580px !important;
   }
   .unified-heat-map-stage svg {
     width: min(92%, 760px) !important;
@@ -325,8 +415,10 @@
   }
   .unified-heat-map-toolbar {
     display: block !important;
+    min-height: 0 !important;
   }
   .unified-heat-map-controls {
+    min-height: 0 !important;
     justify-items: start;
     margin-top: 18px;
   }
@@ -334,7 +426,9 @@
     width: min(100%, 420px);
   }
   .unified-heat-map-stage {
+    height: 520px !important;
     min-height: 520px !important;
+    max-height: 520px !important;
     padding: 12px 0 24px !important;
   }
   .unified-heat-map-stage svg {
@@ -358,7 +452,9 @@
     flex: 1 1 0;
   }
   .unified-heat-map-stage {
+    height: 400px !important;
     min-height: 400px !important;
+    max-height: 400px !important;
     padding: 8px 0 18px !important;
   }
   .unified-heat-map-stage svg {
@@ -367,6 +463,6 @@
     max-height: 395px !important;
   }
   .unified-heat-map-detail {
-    width: min(300px, calc(100vw - 20px));
+    width: min(270px, calc(100vw - 20px)) !important;
   }
 }
