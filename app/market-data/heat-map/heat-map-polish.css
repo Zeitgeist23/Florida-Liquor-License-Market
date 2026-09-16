@@ -1,5 +1,7 @@
 /* Dedicated market heat-map polish: mirror the approved /counties map treatment. */
 .unified-heat-map-grid {
+  grid-template-columns: 255px minmax(0,1fr) !important;
+  gap: 22px !important;
   align-items: start !important;
 }
 
@@ -7,14 +9,61 @@
   align-self: start !important;
   height: auto !important;
   min-height: 0 !important;
+  padding: 18px 18px 16px !important;
+}
+
+.unified-heat-map-legend h3 {
+  margin: 7px 0 14px !important;
+  font-size: 25px !important;
+  line-height: 1.02 !important;
+}
+
+.unified-heat-map-legend ul {
+  gap: 8px !important;
+}
+
+.unified-heat-map-legend li {
+  gap: 10px !important;
+  font-size: 12px !important;
+}
+
+.unified-heat-map-legend li i {
+  width: 32px !important;
+  height: 20px !important;
+  flex-basis: 32px !important;
+}
+
+.unified-heat-map-ranking {
+  margin-top: 15px !important;
+  padding-top: 14px !important;
+}
+
+.unified-heat-map-ranking > strong {
+  margin-bottom: 9px !important;
+  font-size: 10px !important;
+}
+
+.unified-heat-map-ranking ol {
+  gap: 7px !important;
+}
+
+.unified-heat-map-ranking a,
+.unified-heat-map-ranking b {
+  font-size: 12px !important;
+}
+
+.unified-heat-map-legend > small {
+  margin-top: 13px !important;
+  font-size: 9px !important;
+  line-height: 1.4 !important;
 }
 
 .unified-heat-map-stage {
   position: relative;
   isolation: isolate;
-  min-height: 620px !important;
+  min-height: 650px !important;
   overflow: visible !important;
-  padding: 28px 22px 38px !important;
+  padding: 12px 4px 24px !important;
   border: 0 !important;
   border-radius: 0 !important;
   background: transparent !important;
@@ -27,8 +76,8 @@
   z-index: 0;
   left: 50%;
   top: 50%;
-  width: 72%;
-  height: 74%;
+  width: 86%;
+  height: 82%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   pointer-events: none;
@@ -45,10 +94,10 @@
   position: relative;
   z-index: 1;
   display: block;
-  width: min(66%, 650px) !important;
-  max-width: 650px !important;
+  width: min(90%, 900px) !important;
+  max-width: 900px !important;
   height: auto !important;
-  max-height: 555px !important;
+  max-height: 630px !important;
   overflow: visible !important;
   transform: none !important;
   transform-origin: center center;
@@ -241,8 +290,8 @@
 }
 
 .unified-heat-map-ranking li {
-  padding: 4px 5px;
-  margin-inline: -5px;
+  padding: 3px 4px;
+  margin-inline: -4px;
   transition: background .16s ease, box-shadow .16s ease, transform .16s ease;
 }
 
@@ -255,18 +304,23 @@
 }
 
 @media (max-width: 1100px) {
+  .unified-heat-map-grid {
+    grid-template-columns: 235px minmax(0,1fr) !important;
+    gap: 18px !important;
+  }
   .unified-heat-map-stage {
-    min-height: 570px !important;
+    min-height: 580px !important;
   }
   .unified-heat-map-stage svg {
-    width: min(76%, 610px) !important;
-    max-width: 610px !important;
-    max-height: 525px !important;
+    width: min(92%, 760px) !important;
+    max-width: 760px !important;
+    max-height: 560px !important;
   }
 }
 
 @media (max-width: 900px) {
   .unified-heat-map-grid {
+    grid-template-columns: 1fr !important;
     align-items: stretch !important;
   }
   .unified-heat-map-toolbar {
@@ -276,14 +330,17 @@
     justify-items: start;
     margin-top: 18px;
   }
+  .unified-heat-map-legend {
+    width: min(100%, 420px);
+  }
   .unified-heat-map-stage {
     min-height: 520px !important;
-    padding: 18px 10px 28px !important;
+    padding: 12px 0 24px !important;
   }
   .unified-heat-map-stage svg {
-    width: min(86%, 590px) !important;
-    max-width: 590px !important;
-    max-height: 490px !important;
+    width: min(96%, 700px) !important;
+    max-width: 700px !important;
+    max-height: 500px !important;
   }
 }
 
@@ -302,12 +359,12 @@
   }
   .unified-heat-map-stage {
     min-height: 400px !important;
-    padding: 10px 0 20px !important;
+    padding: 8px 0 18px !important;
   }
   .unified-heat-map-stage svg {
-    width: 96% !important;
-    max-width: 430px !important;
-    max-height: 385px !important;
+    width: 100% !important;
+    max-width: 470px !important;
+    max-height: 395px !important;
   }
   .unified-heat-map-detail {
     width: min(300px, calc(100vw - 20px));
