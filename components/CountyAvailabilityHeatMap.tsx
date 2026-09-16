@@ -48,6 +48,15 @@ function inventoryColor(count: number) {
   return "#193552";
 }
 
+function inventoryBandMatches(count: number, band: number) {
+  if (band === 0) return count === 0;
+  if (band === 1) return count >= 1 && count <= 2;
+  if (band === 2) return count >= 3 && count <= 5;
+  if (band === 3) return count >= 6 && count <= 8;
+  if (band === 4) return count >= 9 && count <= 11;
+  return count >= 12;
+}
+
 function priceColor(value: number | null) {
   if (value === null) return "#193552";
   if (value >= 800_000) return "#dc2626";
@@ -71,6 +80,7 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [mapPin, setMapPin] = useState<{ x: number; y: number; color: string } | null>(null);
   const [priceOrder, setPriceOrder] = useState<"highest" | "lowest">("highest");
+  const [inventoryBand, setInventoryBand] = useState<number | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLElement>(null);
 
@@ -163,6 +173,12 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
     setMapPin(null);
   }
 
+  function setBand(index: number | null) {
+    setInventoryBand(index);
+    setActiveSlug(null);
+    setMapPin(null);
+  }
+
   const legend = isInventory ? INVENTORY_LEGEND : PRICE_LEGEND;
 
   return (
@@ -182,12 +198,17 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
                 const row = rowsByCounty.get(countyKey(county.name));
                 const listingCount = row?.listingCount ?? 0;
                 const price = row?.fourCopMedian ?? null;
+                const bandActive = isInventory && inventoryBand !== null;
+                const bandMatch = bandActive && inventoryBandMatches(listingCount, inventoryBand as number);
                 const metricLabel = isInventory
                   ? `${listingCount} active marketplace listing${listingCount === 1 ? "" : "s"}`
                   : price === null ? "no disclosed 4COP asking price" : `${money(price)} median disclosed 4COP asking price`;
                 const label = row
                   ? `${row.name}: ${metricLabel}; open county market page`
                   : `${county.name} County: no current market data`;
+                const fill = isInventory
+                  ? bandActive && !bandMatch ? INVENTORY_LEGEND[0].color : inventoryColor(listingCount)
+                  : priceColor(price);
 
                 return (
                   <a
@@ -207,7 +228,11 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
                   >
                     <path
                       d={county.path}
-                      fill={isInventory ? inventoryColor(listingCount) : priceColor(price)}
+                      fill={fill}
+                      style={bandMatch ? {
+                        filter: "brightness(1.45) saturate(1.18) drop-shadow(0 0 7px rgba(105,214,255,.98))",
+                        opacity: 1,
+                      } : bandActive ? { opacity: 0.82 } : undefined}
                       data-listing-count={listingCount}
                       data-price={price ?? ""}
                       data-county={row?.name ?? `${county.name} County`}
@@ -255,8 +280,42 @@ function InteractiveCountyMap({ rows, mode }: { rows: CountyAvailabilityHeatMapR
           <span>{isInventory ? "Listing Scale" : "Price Scale"}</span>
           <h4>{isInventory ? "Marketplace availability" : "Disclosed asking ranges"}</h4>
           <ul aria-label={isInventory ? "Active listings color scale" : "Median 4COP asking-price color scale"}>
-            {legend.map((item) => (
-              <li key={item.label}><i style={{ background: item.color }} />{item.label}</li>
+            {legend.map((item, index) => (
+              <li key={item.label} className={isInventory && inventoryBand === index ? "is-filter-active" : undefined}>
+                {isInventory ? (
+                  <button
+                    type="button"
+                    aria-label={`Highlight counties with ${item.label}`}
+                    onPointerEnter={() => setBand(index)}
+                    onPointerLeave={() => setBand(null)}
+                    onMouseEnter={() => setBand(index)}
+                    onMouseLeave={() => setBand(null)}
+                    onFocus={() => setBand(index)}
+                    onBlur={() => setBand(null)}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 10,
+                      padding: 0,
+                      border: 0,
+                      background: "transparent",
+                      color: "inherit",
+                      font: "inherit",
+                      fontWeight: "inherit",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      filter: inventoryBand === index ? "brightness(1.25)" : undefined,
+                      textShadow: inventoryBand === index ? "0 0 12px rgba(99,228,255,.75)" : undefined,
+                    }}
+                  >
+                    <i style={{ background: item.color }} />
+                    <span>{item.label}</span>
+                  </button>
+                ) : (
+                  <><i style={{ background: item.color }} />{item.label}</>
+                )}
+              </li>
             ))}
           </ul>
 
