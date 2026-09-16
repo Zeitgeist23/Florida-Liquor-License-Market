@@ -171,10 +171,10 @@ export default function MarketplaceListingCard({
               aria-label="Business purchase required"
               style={{
                 display: "block",
-                marginTop: 5,
+                marginTop: 10,
                 color: "#e8a619",
                 fontSize: 10,
-                fontWeight: 800,
+                fontWeight: 400,
                 letterSpacing: ".035em",
                 textTransform: "uppercase",
               }}
