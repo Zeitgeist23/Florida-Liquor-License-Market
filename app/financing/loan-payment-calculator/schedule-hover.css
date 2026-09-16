@@ -122,16 +122,18 @@
     0 0 22px rgba(88, 218, 245, .18);
 }
 
+/* Keep the four Section 197 summary cards visibly blue-lit even before hover. */
 .fllm-loan-calculator__tax-summary div {
-  border-color: rgba(105, 214, 255, .25);
+  border-color: rgba(113, 224, 255, .44);
   background:
-    radial-gradient(circle at 18% 0%, rgba(54, 174, 220, .12), transparent 62%),
-    linear-gradient(145deg, rgba(6, 38, 52, .88), rgba(1, 14, 20, .92));
+    radial-gradient(circle at 18% 0%, rgba(77, 205, 250, .24), transparent 66%),
+    linear-gradient(145deg, rgba(9, 55, 76, .96), rgba(2, 21, 31, .97));
   box-shadow:
-    inset 0 1px 0 rgba(190, 244, 255, .08),
-    inset 0 0 18px rgba(53, 170, 216, .07),
-    inset 0 -7px 15px rgba(0, 0, 0, .22),
-    0 8px 18px rgba(0, 0, 0, .22);
+    inset 0 1px 0 rgba(218, 251, 255, .17),
+    inset 0 0 23px rgba(68, 194, 239, .16),
+    inset 0 -8px 17px rgba(0, 0, 0, .24),
+    0 9px 20px rgba(0, 0, 0, .25),
+    0 0 15px rgba(75, 205, 241, .14);
   transition:
     transform 160ms ease,
     border-color 160ms ease,
@@ -139,18 +141,25 @@
     background 160ms ease;
 }
 
+.fllm-loan-calculator__tax-summary div strong {
+  color: #72efff;
+  text-shadow:
+    0 0 5px rgba(114, 239, 255, .38),
+    0 0 12px rgba(70, 210, 229, .20);
+}
+
 .fllm-loan-calculator__tax-summary div:hover {
   transform: translateY(-2px);
-  border-color: rgba(138, 244, 255, .48);
+  border-color: rgba(174, 249, 255, .72);
   background:
-    radial-gradient(circle at 18% 0%, rgba(66, 195, 237, .17), transparent 64%),
-    linear-gradient(145deg, rgba(8, 47, 64, .92), rgba(2, 18, 25, .94));
+    radial-gradient(circle at 18% 0%, rgba(94, 221, 255, .31), transparent 67%),
+    linear-gradient(145deg, rgba(12, 67, 91, .98), rgba(3, 26, 37, .98));
   box-shadow:
-    inset 0 1px 0 rgba(211, 249, 255, .12),
-    inset 0 0 21px rgba(65, 190, 233, .10),
-    inset 0 -7px 15px rgba(0, 0, 0, .22),
-    0 11px 22px rgba(0, 0, 0, .28),
-    0 0 16px rgba(72, 202, 237, .09);
+    inset 0 1px 0 rgba(235, 254, 255, .22),
+    inset 0 0 27px rgba(78, 211, 250, .21),
+    inset 0 -8px 17px rgba(0, 0, 0, .22),
+    0 12px 24px rgba(0, 0, 0, .30),
+    0 0 23px rgba(89, 221, 250, .20);
 }
 
 @media (prefers-reduced-motion: reduce) {
