@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { FLORIDA_COUNTY_PATHS } from "@/components/FloridaCountyMap";
 
 export type UnifiedHeatMapRow = {
@@ -71,6 +71,7 @@ function highestColor(row: UnifiedHeatMapRow | undefined) {
 export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow[] }) {
   const [mode, setMode] = useState<Mode>("inventory");
   const [active, setActive] = useState<UnifiedHeatMapRow | null>(null);
+  const detailRef = useRef<HTMLElement>(null);
   const byCounty = useMemo(() => new Map(rows.map((row) => [key(row.name), row])), [rows]);
 
   const metric = (row: UnifiedHeatMapRow) => mode === "inventory" ? row.listingCount : mode === "median" ? row.fourCopMedian ?? 0 : row.highestAsk ?? 0;
@@ -80,16 +81,56 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
   const max = Math.max(1, ...ranking.map(metric));
 
   const legend = mode === "inventory" ? INVENTORY_LEGEND : mode === "median" ? MEDIAN_LEGEND : HIGH_LEGEND;
-  const title = mode === "inventory" ? "Active listings by county" : mode === "median" ? "County median 4COP prices" : "Highest current asking price";
+  const titleText = mode === "inventory" ? "Active listings by county" : mode === "median" ? "County median 4COP prices" : "Highest current asking price";
   const kicker = mode === "inventory" ? "Inventory View" : "Price View";
-  const legendTitle = mode === "inventory" ? "Marketplace availability" : mode === "median" ? "Median 4COP asking ranges" : "Highest asking price";
 
-  return <section className="unified-heat-map">
+  function positionDetail(target: Element, clientX: number, clientY: number) {
+    const detail = detailRef.current;
+    if (!detail) return;
+    const bounds = target.getBoundingClientRect();
+    const width = detail.offsetWidth || 320;
+    const height = detail.offsetHeight || 220;
+    const anchorX = Number.isFinite(clientX) ? clientX : bounds.left + bounds.width / 2;
+    const anchorY = Number.isFinite(clientY) ? clientY : bounds.top + bounds.height / 2;
+    const gap = 16;
+
+    let left = anchorX + gap;
+    if (left + width > window.innerWidth - 12) left = anchorX - width - gap;
+    left = Math.max(12, Math.min(left, window.innerWidth - width - 12));
+
+    let top = anchorY - height / 2;
+    top = Math.max(12, Math.min(top, window.innerHeight - height - 12));
+
+    detail.style.position = "fixed";
+    detail.style.left = `${left}px`;
+    detail.style.top = `${top}px`;
+    detail.style.right = "auto";
+    detail.style.bottom = "auto";
+  }
+
+  function activate(row: UnifiedHeatMapRow, target: Element, clientX: number, clientY: number) {
+    setActive(row);
+    window.requestAnimationFrame(() => positionDetail(target, clientX, clientY));
+  }
+
+  function activateFromElement(row: UnifiedHeatMapRow, target: Element) {
+    const bounds = target.getBoundingClientRect();
+    activate(row, target, bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+  }
+
+  const titleNode = mode === "median"
+    ? <>County median <span className="heat-map-series-code">4COP</span> prices</>
+    : titleText;
+  const legendTitleNode = mode === "median"
+    ? <>Median <span className="heat-map-series-code">4COP</span> asking ranges</>
+    : mode === "inventory" ? "Marketplace availability" : "Highest asking price";
+
+  return <section className={`unified-heat-map unified-heat-map--${mode}`}>
     <div className="unified-heat-map-toolbar">
-      <div><span>{kicker}</span><h2>{title}</h2></div>
+      <div><span>{kicker}</span><h2>{titleNode}</h2></div>
       <div className="unified-heat-map-switch" role="group" aria-label="Choose heat map metric">
         <button className={mode === "inventory" ? "is-active" : ""} onClick={() => setMode("inventory")}>Active Listings</button>
-        <button className={mode === "median" ? "is-active" : ""} onClick={() => setMode("median")}>Median 4COP Ask</button>
+        <button className={mode === "median" ? "is-active" : ""} onClick={() => setMode("median")}>Median <span className="heat-map-series-code heat-map-series-code--button">4COP</span> Ask</button>
         <button className={mode === "highest" ? "is-active" : ""} onClick={() => setMode("highest")}>Highest Current Ask</button>
       </div>
     </div>
@@ -97,11 +138,18 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
     <div className="unified-heat-map-grid">
       <aside className="unified-heat-map-legend">
         <span>{mode === "inventory" ? "Listing Scale" : "Price Scale"}</span>
-        <h3>{legendTitle}</h3>
+        <h3>{legendTitleNode}</h3>
         <ul>{legend.map(([color, label]) => <li key={label}><i style={{ background: color }} />{label}</li>)}</ul>
         <div className="unified-heat-map-ranking">
           <strong>{mode === "inventory" ? "Most active counties" : mode === "median" ? "Highest median asks" : "Highest current asks"}</strong>
-          <ol>{ranking.map((row) => <li key={row.slug} onMouseEnter={() => setActive(row)} onMouseLeave={() => setActive(null)}>
+          <ol>{ranking.map((row) => <li
+            key={row.slug}
+            onPointerEnter={(event) => activate(row, event.currentTarget, event.clientX, event.clientY)}
+            onPointerMove={(event) => active?.slug === row.slug && positionDetail(event.currentTarget, event.clientX, event.clientY)}
+            onPointerLeave={() => setActive(null)}
+            onFocus={(event) => activateFromElement(row, event.currentTarget)}
+            onBlur={() => setActive(null)}
+          >
             <a href={`/counties/${row.slug}`}>{row.name.replace(/ County$/i, "")}</a>
             <b>{mode === "inventory" ? row.listingCount : money(metric(row))}</b>
             <em><span style={{ width: `${Math.max(8, metric(row) / max * 100)}%` }} /></em>
@@ -111,17 +159,25 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
       </aside>
 
       <div className="unified-heat-map-stage">
-        <svg viewBox="135 10 295 275" role="img" aria-label={`Florida liquor license heat map: ${title}`}>
+        <svg viewBox="135 10 295 275" role="img" aria-label={`Florida liquor license heat map: ${titleText}`}>
           <g>{FLORIDA_COUNTY_PATHS.map((county) => {
             const row = byCounty.get(key(county.name));
             const fill = mode === "inventory" ? inventoryColor(row?.listingCount ?? 0) : mode === "median" ? medianColor(row?.fourCopMedian ?? null) : highestColor(row);
-            return <a key={county.id} href={row ? `/counties/${row.slug}` : "/counties"}
-              onMouseEnter={() => row && setActive(row)} onMouseLeave={() => setActive(null)} onFocus={() => row && setActive(row)} onBlur={() => setActive(null)}>
+            return <a
+              key={county.id}
+              href={row ? `/counties/${row.slug}` : "/counties"}
+              className={row && active?.slug === row.slug ? "is-active" : undefined}
+              onPointerEnter={(event) => row && activate(row, event.currentTarget, event.clientX, event.clientY)}
+              onPointerMove={(event) => row && positionDetail(event.currentTarget, event.clientX, event.clientY)}
+              onPointerLeave={() => setActive(null)}
+              onFocus={(event) => row && activateFromElement(row, event.currentTarget)}
+              onBlur={() => setActive(null)}
+            >
               <path d={county.path} fill={fill}><title>{row ? `${row.name}: ${mode === "inventory" ? `${row.listingCount} active listings` : mode === "median" ? `${money(row.fourCopMedian)} median 4COP ask` : `${money(row.highestAsk)} highest current ask`}` : county.name}</title></path>
             </a>;
           })}</g>
         </svg>
-        {active ? <aside className="unified-heat-map-detail">
+        {active ? <aside ref={detailRef} className="unified-heat-map-detail">
           <span>{active.name}</span>
           <strong>{mode === "inventory" ? `${active.listingCount} active listing${active.listingCount === 1 ? "" : "s"}` : mode === "median" ? `${money(active.fourCopMedian)} median 4COP ask` : `${money(active.highestAsk)} highest current ask`}</strong>
           <dl><div><dt>4COP median</dt><dd>{money(active.fourCopMedian)}</dd></div><div><dt>3PS median</dt><dd>{money(active.threePsMedian)}</dd></div><div><dt>Highest ask</dt><dd>{money(active.highestAsk)}</dd></div><div><dt>Active listings</dt><dd>{active.listingCount}</dd></div></dl>
