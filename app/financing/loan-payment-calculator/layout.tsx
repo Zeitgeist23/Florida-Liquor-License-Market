@@ -1,10 +1,16 @@
 import type { ReactNode } from "react";
+import Script from "next/script";
 import "./schedule-hover.css";
+import "./calculator-behavior-v3.css";
 
 export default function LoanCalculatorLayout({ children }: { children: ReactNode }) {
   return (
     <>
       {children}
+      <Script
+        src="/assets/financing-loan-calculator-behavior-v3.js?v=1"
+        strategy="afterInteractive"
+      />
       <style>{`
         .loan-calculator-page .fllm-loan-calculator__header h1{
           margin:7px 0 10px;
