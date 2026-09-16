@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 
 import { sendBuyerInquiryToApprovedSeller } from "@/lib/buyer-inquiry-email";
 import {
+  resolveFeaturedBrokerRecipient,
+  sendFeaturedBrokerInquiry,
+} from "@/lib/featured-broker-inquiry";
+import {
   notifyFllmOfBuyerOffer,
   sendApprovedSellerContactToBuyer,
   sendFllmEmail,
@@ -14,7 +18,6 @@ import { publicListingReference } from "@/lib/public-listing-reference";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-
 
 function value(formData: FormData, name: string, maxLength = 5000) {
   return String(formData.get(name) || "").trim().slice(0, maxLength);
@@ -103,6 +106,10 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     ? approvedSellerSubmission.licenseStatus
     : submittedListingStatus;
   const resolvedListingUrl = approvedSellerSubmission?.liveListingUrl || listingUrl;
+  const featuredBrokerRecipient = resolveFeaturedBrokerRecipient(
+    resolvedListingReference || listingReference,
+    approvedSellerSubmission,
+  );
 
   const subject = resolvedListingReference
     ? `Specific License Inquiry — ${resolvedListingReference} — ${listingCounty || listingRequested}`
@@ -145,6 +152,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   </body></html>`;
 
   let fllmNotificationFailed = false;
+  let brokerDeliveryFailed = false;
   let sellerDeliveryFailed = false;
   let buyerDeliveryFailed = false;
 
@@ -161,7 +169,29 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     console.error("Contact inquiry notification failed", notificationError);
   }
 
-  if (approvedSellerSubmission) {
+  if (featuredBrokerRecipient) {
+    try {
+      await sendFeaturedBrokerInquiry({
+        recipient: featuredBrokerRecipient,
+        submission: approvedSellerSubmission,
+        inquiry: {
+          buyerName: fullName,
+          buyerEmail: email,
+          buyerPhone: phone,
+          inquiryType,
+          message,
+          listingRequested,
+          listingCounty,
+          licenseType,
+          askingPrice,
+          listingUrl: resolvedListingUrl,
+        },
+      });
+    } catch (brokerDeliveryError) {
+      brokerDeliveryFailed = true;
+      console.error("Buyer inquiry delivery to featured listing broker failed", brokerDeliveryError);
+    }
+  } else if (approvedSellerSubmission) {
     try {
       await sendBuyerInquiryToApprovedSeller({
         buyerName: fullName,
@@ -189,18 +219,34 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   }
 
   const browserFallbackCc = Array.from(new Set([
+    ...(brokerDeliveryFailed && featuredBrokerRecipient?.email
+      ? [featuredBrokerRecipient.email]
+      : []),
     ...(sellerDeliveryFailed && approvedSellerSubmission?.email
       ? [approvedSellerSubmission.email]
       : []),
     ...(buyerDeliveryFailed ? [email] : []),
   ]));
-  const browserFallbackSellerContact = approvedSellerSubmission
+  const browserFallbackSellerContact = featuredBrokerRecipient
     ? {
-        name: approvedSellerSubmission.fullName,
-        email: approvedSellerSubmission.email,
-        phone: approvedSellerSubmission.phone,
+        name: featuredBrokerRecipient.brokerName,
+        email: featuredBrokerRecipient.email,
+        phone: featuredBrokerRecipient.phone || "",
       }
-    : null;
+    : approvedSellerSubmission
+      ? {
+          name: approvedSellerSubmission.fullName,
+          email: approvedSellerSubmission.email,
+          phone: approvedSellerSubmission.phone,
+        }
+      : null;
+
+  if (brokerDeliveryFailed) {
+    return NextResponse.json(
+      { error: "Your inquiry was received by FLLM, but the listing broker notification could not be delivered. Please try again.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
+      { status: 502 },
+    );
+  }
 
   if (sellerDeliveryFailed) {
     return NextResponse.json(
@@ -227,8 +273,10 @@ async function submitContactInquiry(request: Request, formData: FormData) {
 
   return NextResponse.json({
     ok: true,
-    sellerNotified: Boolean(approvedSellerSubmission),
-    sellerContactDelivered: Boolean(approvedSellerSubmission),
+    brokerNotified: Boolean(featuredBrokerRecipient),
+    sellerNotified: Boolean(approvedSellerSubmission && !featuredBrokerRecipient),
+    sellerContactDelivered: Boolean(approvedSellerSubmission && !featuredBrokerRecipient),
+    fllmCopied: true,
     deliveryMode: "primary",
   });
 }
