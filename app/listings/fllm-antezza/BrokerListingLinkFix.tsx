@@ -56,7 +56,9 @@ function configureListingButtons(root: HTMLElement) {
   if (inquiryButton) {
     inquiryButton.classList.remove("antezza-call-broker-button");
     inquiryButton.href = "#antezza-inquiry";
-    inquiryButton.replaceChildren(document.createTextNode("Inquire About This License"));
+    if (inquiryButton.textContent?.trim() !== "Inquire About This License") {
+      inquiryButton.textContent = "Inquire About This License";
+    }
     inquiryButton.setAttribute(
       "aria-label",
       "Inquire about this Pinellas County 4COP quota liquor license",
@@ -117,12 +119,10 @@ export default function BrokerListingLinkFix() {
       sidebarLink.rel = "noopener noreferrer";
     }
 
+    // Configure once after hydration. Do not observe the page and rewrite these
+    // elements continuously; that created a self-triggering DOM mutation loop
+    // that could peg the main thread and make Chrome report the page unresponsive.
     configureListingButtons(root);
-
-    const mutationObserver = new MutationObserver(() => {
-      configureListingButtons(root);
-    });
-    mutationObserver.observe(root, { childList: true, subtree: true });
 
     const disclosureLink = linkDisclosureBrokerName();
     let intersectionObserver: IntersectionObserver | null = null;
@@ -140,7 +140,6 @@ export default function BrokerListingLinkFix() {
     }
 
     return () => {
-      mutationObserver.disconnect();
       intersectionObserver?.disconnect();
     };
   }, []);
