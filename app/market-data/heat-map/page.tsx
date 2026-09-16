@@ -17,15 +17,15 @@ const canonicalUrl = `${siteUrl}/market-data/heat-map`;
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Heat Map | Inventory & Asking Prices",
-  description: "Explore Florida liquor-license market data by county with interactive heat maps for active listings, median 4COP asking prices and highest current asking prices.",
+  title: "Florida Liquor License Heat Map | 4COP & 3PS Asking Prices",
+  description: "Explore Florida liquor-license market data by county with interactive heat maps for active listings and separate 4COP and 3PS median and highest current asking-price views.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
     title: "Florida Liquor License Heat Map",
-    description: "Interactive Florida county heat maps for current liquor-license inventory and asking-price data.",
+    description: "Interactive Florida county heat maps for current liquor-license inventory plus 4COP and 3PS asking-price data.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -39,7 +39,8 @@ export default async function HeatMapPage() {
     listingCount: row.activeListings,
     fourCopMedian: row.fourCop.median,
     threePsMedian: row.threePs.median,
-    highestAsk: row.all.high,
+    fourCopHigh: row.fourCop.high,
+    threePsHigh: row.threePs.high,
   }));
 
   const structuredData = {
@@ -47,10 +48,16 @@ export default async function HeatMapPage() {
     "@type": "Dataset",
     name: "Florida Liquor License Market Heat Map",
     url: canonicalUrl,
-    description: "Interactive county-level Florida liquor-license marketplace inventory and asking-price heat map.",
+    description: "Interactive county-level Florida liquor-license marketplace inventory and 4COP/3PS asking-price heat maps.",
     spatialCoverage: { "@type": "Place", name: "Florida, United States" },
     creator: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
-    variableMeasured: ["Active liquor license listings", "Median 4COP asking price", "Highest current asking price"],
+    variableMeasured: [
+      "Active liquor license listings",
+      "Median 4COP asking price",
+      "Highest current 4COP asking price",
+      "Median 3PS asking price",
+      "Highest current 3PS asking price",
+    ],
   };
 
   return (
@@ -62,7 +69,7 @@ export default async function HeatMapPage() {
         <div className="market-heat-map-shell">
           <span>FLLM Florida Market Data</span>
           <h1>Florida Liquor License Market Heat Map</h1>
-          <p>Use one statewide interactive map to compare current marketplace inventory, median disclosed 4COP asking prices and the highest current asking price in each Florida county. Select any county to open its dedicated market page.</p>
+          <p>Use one statewide interactive map to compare current marketplace inventory and switch between 4COP and 3PS median or highest current asking-price views by Florida county. Select any county to open its dedicated market page.</p>
         </div>
       </section>
 
