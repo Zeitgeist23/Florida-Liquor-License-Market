@@ -9,11 +9,21 @@ export default function FinanceGuideBehaviorFixes() {
         ".finance-guide-page .seo-market-snapshot > span"
       );
       if (!title) return;
-      title.style.setProperty("display", "block", "important");
+
+      title.style.setProperty("display", "flex", "important");
+      title.style.setProperty("align-items", "center", "important");
+      title.style.setProperty("justify-content", "center", "important");
       title.style.setProperty("width", "100%", "important");
+      title.style.setProperty("max-width", "none", "important");
+      title.style.setProperty("box-sizing", "border-box", "important");
       title.style.setProperty("text-align", "center", "important");
       title.style.setProperty("margin-left", "0", "important");
       title.style.setProperty("margin-right", "0", "important");
+      title.style.setProperty("padding-left", "0", "important");
+      title.style.setProperty("padding-right", "0", "important");
+      title.style.setProperty("position", "relative", "important");
+      title.style.setProperty("left", "0", "important");
+      title.style.setProperty("right", "0", "important");
     };
 
     const syncFaqState = (details: HTMLDetailsElement) => {
