@@ -1,0 +1,101 @@
+/* Stronger dimensional treatment for the Antezza detail cards.
+   This intentionally sits after featured-detail-badge.css so it can deepen
+   the approved county-card language without changing shared marketplace CSS. */
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(245, 178, 20, .72) !important;
+  border-radius: 7px !important;
+  background:
+    radial-gradient(circle at 22% 5%, rgba(255,255,255,.075), transparent 34%),
+    linear-gradient(155deg, #173653 0%, #0d2942 46%, #071b2d 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 1px 0 0 rgba(255,255,255,.025),
+    inset 0 -8px 16px rgba(0,0,0,.22),
+    0 2px 0 rgba(137, 91, 9, .92),
+    0 6px 0 rgba(1, 9, 16, .86),
+    0 14px 26px rgba(0,0,0,.46),
+    0 0 18px rgba(241,166,0,.08) !important;
+  transform: translate3d(0,0,0);
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease,
+    filter .18s ease !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div::before,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,.045), transparent 36%, rgba(0,0,0,.10) 100%);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div::after,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -8px;
+  height: 14px;
+  z-index: -2;
+  pointer-events: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,.38);
+  filter: blur(8px);
+  opacity: .8;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div:hover,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div:hover {
+  transform: translateY(-5px) scale(1.012);
+  border-color: #ffd05b !important;
+  background:
+    radial-gradient(circle at 22% 5%, rgba(255,255,255,.11), transparent 35%),
+    linear-gradient(155deg, #1b4265 0%, #12334f 46%, #0a2237 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 -8px 16px rgba(0,0,0,.18),
+    0 2px 0 rgba(190,128,8,.95),
+    0 8px 0 rgba(1,9,16,.80),
+    0 24px 38px rgba(0,0,0,.54),
+    0 0 24px rgba(241,166,0,.24) !important;
+  filter: brightness(1.045);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div:hover::after,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div:hover::after {
+  opacity: 1;
+  transform: translateY(5px) scaleX(1.04);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlights {
+  border-color: rgba(241,166,0,.56) !important;
+  background: linear-gradient(145deg, rgba(10,31,50,.96), rgba(4,18,30,.98)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.045),
+    0 12px 26px rgba(0,0,0,.30) !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid {
+  gap: 10px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div,
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div,
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div::after,
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div::after {
+    transition: none !important;
+  }
+}
