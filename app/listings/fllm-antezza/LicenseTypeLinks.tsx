@@ -29,13 +29,16 @@ function installChangeOfSeriesLinks() {
     root.querySelectorAll<HTMLParagraphElement>(".marketplace-listing-section p"),
   ).find((entry) =>
     (entry.textContent ?? "").includes(
-      "A Florida quota license may generally be changed between the 3PS Quota series and the 4COP Quota series",
+      "A Florida quota license may generally be changed between the",
     ),
   );
 
   if (!paragraph || paragraph.querySelector(".antezza-license-type-link")) return;
 
-  const source = paragraph.textContent ?? "";
+  const source = (paragraph.textContent ?? "").replace(
+    "between the 3PS Quota series and the 4COP Quota series",
+    "between the 4COP Quota series and the 3PS Quota series",
+  );
   const pattern = /(4COP\s+Quota|3PS\s+Quota)/g;
   const fragment = document.createDocumentFragment();
   let cursor = 0;
