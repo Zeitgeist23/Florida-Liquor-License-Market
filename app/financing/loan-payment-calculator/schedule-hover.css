@@ -77,11 +77,90 @@
   transform: translateY(0) scale(.99);
 }
 
+/* Give the Section 197 inputs and summary fields layered depth with a restrained blue interior light. */
+.fllm-loan-calculator__tax .fllm-loan-calculator__field input,
+.fllm-loan-calculator__tax .fllm-loan-calculator__field select {
+  border-color: rgba(105, 214, 255, .34);
+  background:
+    linear-gradient(180deg, rgba(14, 55, 72, .34), rgba(1, 16, 23, .96) 58%),
+    rgba(1, 17, 22, .96);
+  box-shadow:
+    inset 0 1px 0 rgba(180, 244, 255, .10),
+    inset 0 0 18px rgba(57, 176, 224, .10),
+    inset 0 -8px 18px rgba(0, 0, 0, .26),
+    0 7px 16px rgba(0, 0, 0, .24),
+    0 0 13px rgba(67, 190, 231, .06);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.fllm-loan-calculator__tax .fllm-loan-calculator__field input:hover,
+.fllm-loan-calculator__tax .fllm-loan-calculator__field select:hover {
+  border-color: rgba(138, 244, 255, .58);
+  background:
+    linear-gradient(180deg, rgba(20, 70, 91, .42), rgba(2, 19, 27, .97) 60%),
+    rgba(2, 20, 27, .97);
+  box-shadow:
+    inset 0 1px 0 rgba(205, 250, 255, .15),
+    inset 0 0 22px rgba(64, 190, 233, .14),
+    inset 0 -8px 18px rgba(0, 0, 0, .25),
+    0 9px 20px rgba(0, 0, 0, .27),
+    0 0 18px rgba(72, 204, 239, .10);
+}
+
+.fllm-loan-calculator__tax .fllm-loan-calculator__field input:focus,
+.fllm-loan-calculator__tax .fllm-loan-calculator__field select:focus {
+  border-color: #8af4ff;
+  box-shadow:
+    inset 0 1px 0 rgba(225, 253, 255, .18),
+    inset 0 0 25px rgba(78, 205, 244, .17),
+    inset 0 -8px 18px rgba(0, 0, 0, .22),
+    0 9px 22px rgba(0, 0, 0, .28),
+    0 0 0 2px rgba(138, 244, 255, .10),
+    0 0 22px rgba(88, 218, 245, .18);
+}
+
+.fllm-loan-calculator__tax-summary div {
+  border-color: rgba(105, 214, 255, .25);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(54, 174, 220, .12), transparent 62%),
+    linear-gradient(145deg, rgba(6, 38, 52, .88), rgba(1, 14, 20, .92));
+  box-shadow:
+    inset 0 1px 0 rgba(190, 244, 255, .08),
+    inset 0 0 18px rgba(53, 170, 216, .07),
+    inset 0 -7px 15px rgba(0, 0, 0, .22),
+    0 8px 18px rgba(0, 0, 0, .22);
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.fllm-loan-calculator__tax-summary div:hover {
+  transform: translateY(-2px);
+  border-color: rgba(138, 244, 255, .48);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(66, 195, 237, .17), transparent 64%),
+    linear-gradient(145deg, rgba(8, 47, 64, .92), rgba(2, 18, 25, .94));
+  box-shadow:
+    inset 0 1px 0 rgba(211, 249, 255, .12),
+    inset 0 0 21px rgba(65, 190, 233, .10),
+    inset 0 -7px 15px rgba(0, 0, 0, .22),
+    0 11px 22px rgba(0, 0, 0, .28),
+    0 0 16px rgba(72, 202, 237, .09);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .fllm-loan-calculator__segmented button,
   .fllm-loan-calculator__schedule-tabs button,
   .fllm-loan-calculator__calculate,
-  .fllm-loan-calculator__actions a {
+  .fllm-loan-calculator__actions a,
+  .fllm-loan-calculator__tax .fllm-loan-calculator__field input,
+  .fllm-loan-calculator__tax .fllm-loan-calculator__field select,
+  .fllm-loan-calculator__tax-summary div {
     transition: none;
   }
 }
