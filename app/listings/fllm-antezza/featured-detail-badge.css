@@ -81,6 +81,51 @@
   letter-spacing: .01em;
 }
 
+/* Match the approved county-page dimensional card language on this featured listing. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div {
+  border: 1px solid rgba(241, 166, 0, .48) !important;
+  border-radius: 6px !important;
+  background: linear-gradient(145deg, #0d2439 0%, #081a2b 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .045),
+    inset 0 -2px 0 rgba(0, 0, 0, .26),
+    0 10px 24px rgba(3, 17, 29, .28),
+    0 1px 0 rgba(255, 193, 59, .06) !important;
+  transform: translateY(0);
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div:hover,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div:hover {
+  transform: translateY(-3px);
+  border-color: #ffc13b !important;
+  background: linear-gradient(145deg, #12324f 0%, #0b2236 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .065),
+    inset 0 -2px 0 rgba(0, 0, 0, .26),
+    0 18px 34px rgba(3, 17, 29, .36),
+    0 0 16px rgba(241, 166, 0, .14) !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid {
+  overflow: visible;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div,
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div {
+    transition: none !important;
+  }
+}
+
 @media (max-width: 760px) {
   .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-package-alert {
     align-items: flex-start;
