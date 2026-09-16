@@ -132,6 +132,50 @@
   margin-right: auto !important;
 }
 
+/* Soften the broker-package link and carry the same blue accent through the package price. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-seller-details > p:nth-of-type(2) > strong {
+  color: #eef4f8;
+  font-size: 0;
+  font-weight: 400;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-seller-details > p:nth-of-type(2) > strong::before {
+  content: "The total asking price for the ";
+  color: #eef4f8;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-listing-link {
+  color: #70c7dc !important;
+  border-bottom: 1px solid transparent !important;
+  font-size: 15px;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+  transition: color .16s ease, border-color .16s ease !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-listing-link::after {
+  content: " is $1,100,000" !important;
+  color: #70c7dc;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-listing-link:hover,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-listing-link:focus-visible {
+  color: #93d9e8 !important;
+  border-bottom-color: rgba(147, 217, 232, .72) !important;
+  text-shadow: none !important;
+  outline: none;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-listing-link:hover::after,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-listing-link:focus-visible::after {
+  color: #93d9e8;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div,
   .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div {
