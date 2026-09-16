@@ -1,0 +1,6 @@
+/* Keep all figures on a normal cap-height baseline throughout the financing guide. */
+.finance-guide-lining-numerals,
+.finance-guide-lining-numerals * {
+  font-variant-numeric: lining-nums tabular-nums !important;
+  font-feature-settings: "lnum" 1, "tnum" 1 !important;
+}
