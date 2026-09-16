@@ -21,11 +21,9 @@ const resources = [
   { label: "View All Resources", href: "/resources" },
 ];
 
-const SIGNATURE = "fllm-resources-v8";
+const SIGNATURE = "fllm-resources-v9";
 
 function installStyles() {
-  // Important: this must be idempotent. Removing/re-adding the style node inside the
-  // MutationObserver callback creates a self-triggering DOM mutation loop and can freeze pages.
   if (document.getElementById("global-resources-menu-sync-styles")) return;
 
   const style = document.createElement("style");
@@ -34,6 +32,10 @@ function installStyles() {
     .native-nav-resources-menu{
       width:min(1120px,calc(100vw - 48px))!important;
       max-width:none!important;
+      left:auto!important;
+      right:-18px!important;
+      transform:none!important;
+      margin-left:0!important;
       grid-template-columns:repeat(3,minmax(0,1fr))!important;
       gap:6px 10px!important;
       padding:10px!important;
@@ -42,6 +44,11 @@ function installStyles() {
       background:#061728!important;
       box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12)!important;
       overflow:visible!important;
+    }
+    .native-nav-resources-menu::before{
+      left:auto!important;
+      right:48px!important;
+      transform:rotate(45deg)!important;
     }
     .native-nav-resources-menu>a{
       box-sizing:border-box!important;
@@ -134,14 +141,14 @@ function installStyles() {
     .native-nav-resources-menu>a[data-global-transaction="true"]:hover .global-transaction-copy,
     .native-nav-resources-menu>a[data-global-transaction="true"]:hover .global-transaction-cta{color:#f6a700!important}
     @media(max-width:1180px) and (min-width:901px){
-      .native-nav-resources-menu{width:min(1040px,calc(100vw - 32px))!important}
+      .native-nav-resources-menu{width:min(1040px,calc(100vw - 32px))!important;right:-8px!important}
       .native-nav-resources-menu>a{font-size:12.5px!important}
     }
     @media(max-width:900px){
-      .native-nav-resources-menu{width:min(720px,calc(100vw - 32px))!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+      .native-nav-resources-menu{width:min(720px,calc(100vw - 32px))!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;right:0!important}
     }
     @media(max-width:760px){
-      .native-nav-resources-menu{grid-template-columns:1fr!important;width:min(360px,calc(100vw - 24px))!important;max-height:70vh!important;overflow:auto!important}
+      .native-nav-resources-menu{grid-template-columns:1fr!important;width:min(360px,calc(100vw - 24px))!important;max-height:70vh!important;overflow:auto!important;right:0!important}
       .native-nav-resources-menu>a[data-global-transaction="true"]{display:block!important;grid-column:auto!important}
       .global-transaction-copy,.global-transaction-cta{display:block!important;margin-top:5px!important;text-align:left!important}
       .global-transaction-cta{color:#f6a700!important}
