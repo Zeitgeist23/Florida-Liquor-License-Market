@@ -6,6 +6,18 @@ const brokerListingUrl =
   "https://sunshineagle.com/deal-listing/upscale-cocktail-lounge-with-4cop-quota-license/?back=https%3A%2F%2Fsunshineagle.com%2Fpremium-listings%2F&source&listing_button_text=Inquire%20About%20This%20Listing&listing_button_color&css_source=7799&json_url=https://sunshineagle.dealrelations.com/listings/upscale-cocktail-lounge-with-4cop-quota-license.json?item_id=5534";
 const brokerPhone = "(941) 416-4580";
 
+const inquiryParams = new URLSearchParams({
+  source: "specific-license",
+  listing: "FLLM-ANTEZZA — Pinellas County — 4COP Quota — $495,000",
+  ref: "FLLM-ANTEZZA",
+  county: "Pinellas County",
+  license_type: "4COP Quota",
+  asking_price: "$495,000",
+  listing_status: "Available / Broker confirmation required",
+  listing_url: "/listings/fllm-antezza",
+});
+const inquiryHref = `/contact?${inquiryParams.toString()}`;
+
 function linkDisclosureBrokerName() {
   const paragraph = document.querySelector<HTMLParagraphElement>(
     '.results-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-note p'
@@ -43,34 +55,48 @@ function linkDisclosureBrokerName() {
   return null;
 }
 
-function enhanceCallBrokerButtons() {
+function configureListingButtons() {
   const root = document.querySelector<HTMLElement>(
     '.results-page[data-featured-broker-listing="FLLM-ANTEZZA"]'
   );
   if (!root) return;
 
-  root
-    .querySelectorAll<HTMLAnchorElement>('.marketplace-listing-primary[href^="tel:"]')
-    .forEach((button) => {
-      if (button.classList.contains("antezza-call-broker-button")) return;
+  const inquiryButton = root.querySelector<HTMLAnchorElement>(
+    ".marketplace-listing-actions .marketplace-listing-primary"
+  );
 
-      button.classList.add("antezza-call-broker-button");
-      button.setAttribute(
-        "aria-label",
-        `Call listing broker Alessandro Antezza at ${brokerPhone}`,
-      );
+  if (inquiryButton) {
+    inquiryButton.classList.remove("antezza-call-broker-button");
+    inquiryButton.href = inquiryHref;
+    inquiryButton.textContent = "Inquire About This License";
+    inquiryButton.setAttribute(
+      "aria-label",
+      "Inquire about the Pinellas County 4COP quota liquor license",
+    );
+  }
 
-      const label = document.createElement("span");
-      label.className = "antezza-call-broker-label";
-      label.textContent = "Call Broker";
+  const callButton = root.querySelector<HTMLAnchorElement>(
+    '.marketplace-listing-aside-broker .marketplace-listing-primary[href^="tel:"]'
+  );
 
-      const phone = document.createElement("span");
-      phone.className = "antezza-call-broker-phone";
-      phone.textContent = brokerPhone;
-      phone.setAttribute("aria-hidden", "true");
+  if (callButton && !callButton.classList.contains("antezza-call-broker-button")) {
+    callButton.classList.add("antezza-call-broker-button");
+    callButton.setAttribute(
+      "aria-label",
+      `Call listing broker Alessandro Antezza at ${brokerPhone}`,
+    );
 
-      button.replaceChildren(label, phone);
-    });
+    const label = document.createElement("span");
+    label.className = "antezza-call-broker-label";
+    label.textContent = "Call Listing Broker";
+
+    const phone = document.createElement("span");
+    phone.className = "antezza-call-broker-phone";
+    phone.textContent = brokerPhone;
+    phone.setAttribute("aria-hidden", "true");
+
+    callButton.replaceChildren(label, phone);
+  }
 }
 
 export default function BrokerListingLinkFix() {
@@ -85,7 +111,7 @@ export default function BrokerListingLinkFix() {
       sidebarLink.rel = "noopener noreferrer";
     }
 
-    enhanceCallBrokerButtons();
+    configureListingButtons();
 
     const disclosureLink = linkDisclosureBrokerName();
     if (!disclosureLink) return;
