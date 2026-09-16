@@ -52,6 +52,78 @@
   font-variant-numeric: tabular-nums lining-nums;
 }
 
+/* Amount financed: permanent deep-blue depth and interior illumination. */
+.fllm-loan-calculator__readonly output {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(91, 205, 255, .62) !important;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(52, 161, 255, .30), transparent 42%),
+    linear-gradient(145deg, #0b3559 0%, #082846 48%, #041725 100%) !important;
+  color: #7cefff !important;
+  text-shadow:
+    0 0 5px rgba(118, 239, 255, .72),
+    0 0 14px rgba(43, 154, 255, .48);
+  box-shadow:
+    inset 0 1px 0 rgba(210, 249, 255, .20),
+    inset 0 0 24px rgba(31, 132, 239, .28),
+    inset 0 -10px 20px rgba(0, 8, 24, .42),
+    0 9px 20px rgba(0, 0, 0, .30),
+    0 0 0 1px rgba(50, 143, 255, .10),
+    0 0 24px rgba(35, 126, 255, .25) !important;
+}
+
+/* Reset state: replace the monthly-payment number with a luminous blue orb. */
+.fllm-loan-calculator__payment.is-reset output {
+  min-height: 76px;
+  color: transparent !important;
+  text-shadow: none !important;
+}
+
+.fllm-loan-calculator__payment.is-reset::before {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  top: 55px;
+  left: 50%;
+  width: 62px;
+  height: 62px;
+  border: 1px solid rgba(155, 242, 255, .72);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(225, 253, 255, .98) 0 5%, rgba(124, 241, 255, .96) 10%, rgba(47, 178, 255, .96) 29%, rgba(20, 103, 214, .98) 52%, rgba(8, 47, 112, .99) 73%, rgba(2, 18, 51, 1) 100%);
+  transform: translateX(-50%);
+  box-shadow:
+    inset 5px 5px 11px rgba(223, 253, 255, .28),
+    inset -12px -15px 22px rgba(0, 6, 34, .72),
+    0 0 12px rgba(113, 237, 255, .72),
+    0 0 29px rgba(45, 161, 255, .62),
+    0 0 58px rgba(23, 91, 230, .42);
+  pointer-events: none;
+  animation: fllm-payment-orb-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes fllm-payment-orb-pulse {
+  0%, 100% {
+    filter: brightness(.94);
+    box-shadow:
+      inset 5px 5px 11px rgba(223, 253, 255, .28),
+      inset -12px -15px 22px rgba(0, 6, 34, .72),
+      0 0 12px rgba(113, 237, 255, .66),
+      0 0 27px rgba(45, 161, 255, .54),
+      0 0 52px rgba(23, 91, 230, .34);
+  }
+  50% {
+    filter: brightness(1.10);
+    box-shadow:
+      inset 5px 5px 12px rgba(232, 254, 255, .34),
+      inset -12px -15px 22px rgba(0, 6, 34, .68),
+      0 0 16px rgba(137, 245, 255, .78),
+      0 0 36px rgba(52, 174, 255, .68),
+      0 0 68px rgba(28, 103, 242, .48);
+  }
+}
+
 @media (max-width: 620px) {
   .fllm-loan-calculator__button-row {
     grid-template-columns: 1fr;
@@ -61,5 +133,9 @@
 @media (prefers-reduced-motion: reduce) {
   .fllm-loan-calculator__reset {
     transition: none;
+  }
+
+  .fllm-loan-calculator__payment.is-reset::before {
+    animation: none;
   }
 }
