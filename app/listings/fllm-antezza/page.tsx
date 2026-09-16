@@ -85,6 +85,26 @@ export default function AlessandroAntezzaFeaturedListingPage() {
               <span>›</span>
               <strong>{listingReference}</strong>
             </div>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                minHeight: 27,
+                marginBottom: 10,
+                padding: "0 11px",
+                border: "1px solid #79ddff",
+                borderRadius: 5,
+                color: "#ffffff",
+                background: "linear-gradient(180deg,#22bde9,#087ba5)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,.35),0 5px 14px rgba(0,160,210,.18)",
+                fontSize: 10,
+                fontWeight: 900,
+                letterSpacing: ".065em",
+                textTransform: "uppercase",
+              }}
+            >
+              Featured Listing
+            </span>
             <span className="marketplace-listing-kicker">Featured Third-Party Broker Listing</span>
             <h1>
               <span className="marketplace-listing-title-line">Pinellas County</span>
