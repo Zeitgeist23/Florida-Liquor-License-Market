@@ -15,10 +15,9 @@ export default function NewsOfficialShellEnhancement() {
     const headerWrap = page.querySelector<HTMLElement>(":scope > .abt-header-wrap");
     if (!headerWrap) return;
 
-    // Remove the news-only header geometry so this route inherits the locked
-    // official FormsSiteHeader presentation used across FLLM.
-    headerWrap.classList.remove("news-header-wrap");
-
+    // Keep the news-header-wrap class intact. The News page now uses that class
+    // to apply the locked official FLLM header geometry on first paint and after
+    // React hydration, preventing the menu from flickering back to the legacy look.
     const primaryAction = headerWrap.querySelector<HTMLAnchorElement>(".fllm-header-list-cta");
     if (primaryAction) {
       primaryAction.textContent = "List Your License";
