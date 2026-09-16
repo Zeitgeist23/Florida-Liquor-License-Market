@@ -321,34 +321,40 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-direct-link:hover,.primary-nav .native-nav-direct-link:focus-visible{color:var(--gold,#f6a700);outline:none}
         .primary-nav .native-nav-language-link{padding:4px 7px;border:1px solid rgba(255,255,255,.42);border-radius:999px;font-weight:900;letter-spacing:.08em}
         .primary-nav .native-nav-language-link:hover,.primary-nav .native-nav-language-link:focus-visible{border-color:var(--gold,#f6a700)}
-        .native-nav-menu{position:absolute;top:100%;left:50%;z-index:10080;display:none;transform:translateX(-50%);padding:10px;border:1px solid #f6a700;border-radius:7px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12);font-family:Arial,Helvetica,sans-serif}
-        .native-nav-dropdown.is-open>.native-nav-menu{display:grid;gap:6px}
+        .native-nav-menu{position:absolute;top:100%;left:50%;z-index:10080;display:none;transform:translateX(-50%);padding:6px;border:1px solid #f6a700;border-radius:7px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12);font-family:Arial,Helvetica,sans-serif}
+        .native-nav-dropdown.is-open>.native-nav-menu{display:grid;gap:4px}
         .native-nav-menu::before{content:"";position:absolute;top:-7px;left:50%;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);border-left:1px solid #f6a700;border-top:1px solid #f6a700;background:#061728}
         .native-nav-menu-standard{width:310px}
-        .native-nav-buy-menu{width:min(540px,calc(100vw - 48px));grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 8px!important;padding:10px}
+        .native-nav-buy-menu{width:min(540px,calc(100vw - 48px));grid-template-columns:repeat(2,minmax(0,1fr));gap:0!important;padding:9px 10px}
+        .primary-nav .native-nav-buy-menu a{min-height:48px;display:flex;align-items:center;padding:11px 13px;border-radius:3px;background:transparent!important}
+        .primary-nav .native-nav-buy-menu a:nth-child(odd){border-right:1px solid rgba(255,255,255,.10)}
+        .primary-nav .native-nav-buy-menu a:nth-child(-n+4){border-bottom:1px solid rgba(255,255,255,.08)}
+        .primary-nav .native-nav-buy-menu a:hover,.primary-nav .native-nav-buy-menu a:focus-visible{background:rgba(246,167,0,.075)!important;color:#f6a700}
         .native-nav-finance-menu{width:350px}
         .native-nav-market-menu{width:min(660px,calc(100vw - 48px));grid-template-columns:repeat(2,minmax(0,1fr));gap:7px!important;padding:10px}
         .native-nav-resources-menu{width:min(860px,calc(100vw - 48px));grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 10px!important;padding:12px;left:50%;transform:translateX(-68%);margin-left:var(--resources-viewport-shift,0px)}
         .native-nav-resources-menu::before{left:calc(68% + var(--resources-arrow-shift,0px))}
         .native-license-types-menu{width:min(760px,calc(100vw - 48px));grid-template-columns:repeat(3,minmax(0,1fr));gap:10px!important;padding:12px}
-        .native-license-types-column{min-width:0;display:flex;flex-direction:column;gap:6px;padding:0;border:0;background:transparent}
+        .native-license-types-column{min-width:0;display:flex;flex-direction:column;gap:5px;padding:5px;border:1px solid rgba(255,255,255,.08);border-radius:5px;background:rgba(255,255,255,.022)}
         .native-license-types-column>strong{display:block;padding:7px 9px 8px;border-bottom:1px solid rgba(246,167,0,.34);color:#f6a700;font:900 10px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.09em;text-transform:uppercase}
-        .primary-nav .native-nav-menu a{position:relative;z-index:1;display:flex;width:100%;min-height:50px;align-items:center;padding:12px 13px;border:1px solid rgba(255,255,255,.08);border-radius:7px;background:rgba(255,255,255,.025)!important;box-shadow:none!important;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em;transition:border-color .16s ease,background .16s ease,color .16s ease,transform .16s ease}
-        .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{border-color:rgba(246,167,0,.7);background:rgba(246,167,0,.08)!important;box-shadow:none!important;color:#f6a700;outline:none;transform:translateY(-1px)}
-        .primary-nav .native-nav-buy-menu a{min-height:50px}
-        .primary-nav .native-nav-market-menu a{min-height:52px;justify-content:space-between;gap:12px;overflow:hidden}
+        .primary-nav .native-license-types-menu a{min-height:43px;display:flex;align-items:center;padding:10px 9px;border:1px solid transparent}
+        .primary-nav .native-license-types-menu a:hover,.primary-nav .native-license-types-menu a:focus-visible{border-color:rgba(246,167,0,.48);background:rgba(246,167,0,.07)!important}
+        .primary-nav .native-nav-menu a{position:relative;z-index:1;display:block;width:100%;padding:12px 13px;border-radius:4px;background:transparent!important;box-shadow:none!important;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
+        .primary-nav .native-nav-market-menu a{min-height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(255,255,255,.08);background:#081d31!important;overflow:hidden}
         .primary-nav .native-nav-market-menu a:last-child{grid-column:1/-1}
         .native-market-label{min-width:0;overflow-wrap:anywhere}
         .native-market-badge{flex:0 0 auto;margin-left:auto;color:#f6a700;font-size:9px;font-weight:900;letter-spacing:.08em;white-space:nowrap}
-        .primary-nav .native-license-types-menu a{min-height:50px;padding:10px 9px}
-        .primary-nav .native-nav-resources-menu a{min-height:50px}
+        .primary-nav .native-nav-market-menu a:hover,.primary-nav .native-nav-market-menu a:focus-visible{border-color:rgba(246,167,0,.7);background:#0d2841!important}
+        .primary-nav .native-nav-resources-menu a{min-height:50px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025)!important}
         .primary-nav .native-nav-resources-menu a[href="/free-guide"],
         .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"],
         .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]{border-color:rgba(246,167,0,.52);background:linear-gradient(135deg,rgba(246,167,0,.10),rgba(246,167,0,.025))!important;color:#fff;font-weight:900}
         .primary-nav .native-nav-resources-menu a[href="/free-guide"]::after{content:"FREE PDF";margin-left:auto;color:#f6a700;font-size:9px;letter-spacing:.08em}
         .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"]::after{content:"VALUE";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
         .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]::after{content:"LOOKUP";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
-        @media(max-width:760px){.native-nav-buy-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-buy-menu a{min-height:43px}.native-nav-market-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-market-menu a:last-child{grid-column:auto}.native-license-types-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-column{padding:0}.primary-nav .native-license-types-menu a{min-height:43px}}
+        .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{background:transparent!important;box-shadow:none!important;color:#f6a700;outline:none}
+        .primary-nav .native-nav-resources-menu a:hover,.primary-nav .native-nav-resources-menu a:focus-visible{border-color:rgba(246,167,0,.7);background:rgba(246,167,0,.08)!important}
+        @media(max-width:760px){.native-nav-buy-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-buy-menu a{min-height:43px;border-right:0!important;border-bottom:1px solid rgba(255,255,255,.08)!important}.primary-nav .native-nav-buy-menu a:last-child{border-bottom:0!important}.native-nav-market-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-market-menu a:last-child{grid-column:auto}.native-license-types-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-column{padding:4px}.primary-nav .native-license-types-menu a{min-height:39px}}
       `}</style>
     </>
   );
