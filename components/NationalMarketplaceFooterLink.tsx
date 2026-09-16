@@ -4,9 +4,21 @@ import { useEffect } from "react";
 
 const NATIONAL_MARKETPLACE_URL = "https://liquorlicensemarket.com/";
 
+function footerAlreadyHasNationalMarketplaceLink(footer: HTMLElement) {
+  if (footer.querySelector("[data-national-marketplace-footer-link]")) return true;
+
+  const existingNationalLink = footer.querySelector<HTMLAnchorElement>(
+    'a[href^="https://liquorlicensemarket.com"], a[href^="https://www.liquorlicensemarket.com"]',
+  );
+
+  if (existingNationalLink) return true;
+
+  return footer.textContent?.includes("Looking for a liquor license outside Florida?") ?? false;
+}
+
 function installNationalMarketplaceFooterLink() {
   document.querySelectorAll<HTMLElement>("footer").forEach((footer) => {
-    if (footer.querySelector("[data-national-marketplace-footer-link]")) return;
+    if (footerAlreadyHasNationalMarketplaceLink(footer)) return;
 
     const row = document.createElement("div");
     row.className = "national-marketplace-footer-link";
