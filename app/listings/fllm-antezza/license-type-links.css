@@ -1,0 +1,36 @@
+/* License-type references on the Antezza listing are informative internal links.
+   Keep them unbolded so the color carries the emphasis rather than font weight. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link {
+  font-weight: 400 !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid transparent;
+  transition: color .16s ease, border-color .16s ease, text-shadow .16s ease, filter .16s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link--4cop {
+  color: #69d6ff !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link--3ps {
+  color: #5cff9d !important;
+  text-shadow: 0 0 7px rgba(92, 255, 157, .16);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link:hover,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link:focus-visible {
+  border-bottom-color: currentColor;
+  filter: brightness(1.12);
+  outline: none;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link--4cop:hover,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link--4cop:focus-visible {
+  color: #9ce7ff !important;
+  text-shadow: 0 0 8px rgba(105, 214, 255, .18);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link--3ps:hover,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link--3ps:focus-visible {
+  color: #8dffba !important;
+  text-shadow: 0 0 9px rgba(92, 255, 157, .28);
+}
