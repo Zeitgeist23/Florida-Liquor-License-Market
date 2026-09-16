@@ -51,13 +51,22 @@ export function listingPageSlug(
 ) {
   if (!listing.sourceRef) return null;
 
+  const normalizedReference = listing.sourceRef.trim().toUpperCase();
+
+  // FLLM-ANTEZZA has a dedicated featured third-party broker page. Keep the
+  // Listings-page card, structured data, and every internal link pointed at
+  // that canonical page instead of creating a second generated-market route.
+  if (normalizedReference === "FLLM-ANTEZZA") {
+    return "fllm-antezza";
+  }
+
   // Paid seller listings already use their public submission reference as the
   // canonical route. Keep that URL stable rather than creating a second page.
   if (
     listing.inventoryClass === "direct_seller" ||
     isDirectSellerReference(listing.sourceRef)
   ) {
-    return listing.sourceRef.trim().toUpperCase();
+    return normalizedReference;
   }
 
   const reference = slugPart(listing.sourceRef).slice(0, 34) || "listing";
