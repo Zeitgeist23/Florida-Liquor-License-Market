@@ -2,12 +2,12 @@ import type { ReactNode } from "react";
 
 import BrokerListingLinkFix from "./BrokerListingLinkFix";
 import LicenseTypeLinks from "./LicenseTypeLinks";
-import "./featured-detail-badge.css";
-import "./card-depth.css";
-import "./interactive-effects.css";
-import "./license-type-links.css";
-import "./business-purchase-accent.css";
+import "../third-party-business-listing-standard.css";
 
+// OFFICIAL LOCKED REFERENCE: FLLM-ANTEZZA is the canonical FLLM layout for
+// featured third-party broker listings where the liquor license is sold only
+// with an operating business. Future qualifying listings should inherit the
+// shared standard stylesheet and mirror this page's structure/interactions.
 export default function AntezzaListingLayout({ children }: { children: ReactNode }) {
   return (
     <>
