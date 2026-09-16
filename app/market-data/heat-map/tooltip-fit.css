@@ -1,0 +1,11 @@
+/* Keep county detail cards tight to the Florida outline without covering the state. */
+@media (min-width: 901px) {
+  .unified-heat-map-detail {
+    width: min(214px, calc(100vw - 20px)) !important;
+  }
+
+  .unified-heat-map-stage svg {
+    width: min(86%, 860px) !important;
+    max-width: 860px !important;
+  }
+}
