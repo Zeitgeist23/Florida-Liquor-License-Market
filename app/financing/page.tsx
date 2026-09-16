@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import FinancingRequestForm from "./FinancingRequestForm";
 
+import "../fllm-official-template.css";
 import "../resources/forms/abt-forms.css";
 import "./financing-native.css";
 
@@ -38,7 +39,7 @@ export default function FinancingPage() {
   };
 
   return (
-    <main className="financing-native-page">
+    <main className="financing-native-page fllm-official-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
