@@ -3,8 +3,8 @@
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link {
   font-weight: 400 !important;
   text-decoration: none !important;
-  border-bottom: 1px solid transparent;
-  transition: color .16s ease, border-color .16s ease, text-shadow .16s ease, filter .16s ease;
+  border-bottom: 0 !important;
+  transition: color .16s ease, text-shadow .16s ease, filter .16s ease;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link--4cop {
@@ -18,7 +18,8 @@
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link:hover,
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-license-type-link:focus-visible {
-  border-bottom-color: currentColor;
+  text-decoration: none !important;
+  border-bottom: 0 !important;
   filter: brightness(1.12);
   outline: none;
 }
