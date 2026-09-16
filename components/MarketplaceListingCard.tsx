@@ -197,7 +197,7 @@ export default function MarketplaceListingCard({
         ) : null}
         <div className="result-actions">
           {href ? (
-            <Link
+            <a
               className="btn btn-gold result-view-button"
               href={href}
               style={{ position: "relative", boxSizing: "border-box" }}
@@ -217,7 +217,7 @@ export default function MarketplaceListingCard({
                   zIndex: 3,
                 }}
               />
-            </Link>
+            </a>
           ) : (
             <span className="sold-status">SOLD</span>
           )}
