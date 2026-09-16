@@ -215,8 +215,11 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
   }
 
   function highlightFromLegend(row: UnifiedHeatMapRow) {
-    setActive(null);
+    setActive(row);
     setPinFromRow(row);
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => positionDetail(row));
+    });
   }
 
   const titleNode = mode === "inventory"
@@ -252,9 +255,10 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
           <ol>{ranking.map((row) => <li
             key={row.slug}
             onPointerEnter={() => highlightFromLegend(row)}
-            onPointerLeave={() => setPin(null)}
+            onPointerMove={() => active?.slug === row.slug && positionDetail(row)}
+            onPointerLeave={deactivate}
             onFocus={() => highlightFromLegend(row)}
-            onBlur={() => setPin(null)}
+            onBlur={deactivate}
           >
             <a href={`/counties/${row.slug}`}>{row.name.replace(/ County$/i, "")}</a>
             <b>{mode === "inventory" ? row.listingCount : money(metric(row))}</b>
@@ -302,7 +306,7 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
             <div><dt>3PS high</dt><dd>{money(active.threePsHigh)}</dd></div>
             <div><dt>Active listings</dt><dd>{active.listingCount}</dd></div>
           </dl>
-          <span className="unified-heat-map-detail-hint">Click county to open market →</span>
+          <span className="unified-heat-map-detail-action">Click county to open market →</span>
         </aside> : null}
       </div>
     </div>
