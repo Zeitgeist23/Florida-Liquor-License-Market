@@ -47,12 +47,12 @@ const styles = `<style id="live-nav-dropdown-styles">
 .primary-nav .live-nav-dropdown{position:relative;display:inline-flex;align-items:center;flex:0 0 auto}
 .primary-nav .live-nav-trigger{display:inline-flex;align-items:center;gap:5px;margin:0;padding:0;border:0;background:transparent;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:10px;font-weight:600;line-height:1;text-transform:uppercase;white-space:nowrap;cursor:pointer}
 .primary-nav .live-nav-trigger:hover,.primary-nav .live-nav-trigger:focus-visible{color:#f6a700;outline:none}
-.primary-nav .live-nav-menu{position:absolute;top:100%;left:50%;z-index:10050;display:none;width:310px;transform:translateX(-50%);padding:6px;border:1px solid #f6a700;border-radius:6px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48)}
+.primary-nav .live-nav-menu{position:absolute;top:100%;left:50%;z-index:10050;display:none;width:310px;transform:translateX(-50%);padding:10px;border:1px solid #f6a700;border-radius:8px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12)}
 .primary-nav .live-sell-menu{width:330px}
 .primary-nav .live-license-types-menu{width:320px}
-.primary-nav .live-nav-dropdown:hover .live-nav-menu,.primary-nav .live-nav-dropdown:focus-within .live-nav-menu,.primary-nav .live-nav-dropdown.is-open .live-nav-menu{display:grid;gap:4px}
-.primary-nav .live-nav-menu a{display:block;width:100%;padding:12px 13px;border-radius:4px;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em}
-.primary-nav .live-nav-menu a:hover,.primary-nav .live-nav-menu a:focus-visible{background:#f6a700;color:#061728;outline:none}
+.primary-nav .live-nav-dropdown:hover .live-nav-menu,.primary-nav .live-nav-dropdown:focus-within .live-nav-menu,.primary-nav .live-nav-dropdown.is-open .live-nav-menu{display:grid;gap:6px}
+.primary-nav .live-nav-menu a,.core-nav-header-menu a,.buy-header-menu a{display:flex!important;width:100%!important;min-height:52px!important;align-items:center!important;padding:10px 14px!important;border:1px solid rgba(255,255,255,.07)!important;border-radius:6px!important;background:#081d31!important;color:#fff!important;text-decoration:none!important;text-transform:none!important;white-space:normal!important;font:700 13px/1.25 Arial,Helvetica,sans-serif!important;letter-spacing:.01em!important;box-shadow:none!important}
+.primary-nav .live-nav-menu a:hover,.primary-nav .live-nav-menu a:focus-visible,.core-nav-header-menu a:hover,.core-nav-header-menu a:focus-visible,.buy-header-menu a:hover,.buy-header-menu a:focus-visible{border-color:#f6a700!important;background:#0d2841!important;color:#f6a700!important;outline:none!important}
 @media(max-width:820px){.primary-nav .live-nav-dropdown{width:100%;justify-content:center}.primary-nav .live-nav-trigger{width:100%;justify-content:center;padding:12px}.primary-nav .live-nav-menu,.primary-nav .live-sell-menu,.primary-nav .live-license-types-menu{top:100%;width:min(330px,calc(100vw - 24px))}}
 </style>`;
 
