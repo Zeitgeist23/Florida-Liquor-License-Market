@@ -1,3 +1,11 @@
+.finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot > span {
+  display: block;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 .finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot-grid div {
   min-height: 124px;
   display: flex;
