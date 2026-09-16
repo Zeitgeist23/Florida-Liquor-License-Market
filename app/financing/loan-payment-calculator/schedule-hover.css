@@ -13,6 +13,79 @@
   color: #ffffff;
 }
 
+/* Calculator controls: brighten, glow and lift when hovered/focused. */
+.fllm-loan-calculator__segmented button,
+.fllm-loan-calculator__schedule-tabs button,
+.fllm-loan-calculator__calculate,
+.fllm-loan-calculator__actions a {
+  transform-origin: center;
+  transition:
+    transform 160ms ease,
+    filter 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.fllm-loan-calculator__segmented button:hover,
+.fllm-loan-calculator__segmented button:focus-visible,
+.fllm-loan-calculator__schedule-tabs button:hover,
+.fllm-loan-calculator__schedule-tabs button:focus-visible {
+  border-color: #bafaff;
+  background: linear-gradient(180deg, #9af7ff 0%, #59deeb 100%);
+  color: #041a20;
+  filter: brightness(1.08);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.48),
+    0 8px 18px rgba(0,0,0,.24),
+    0 0 22px rgba(92,226,241,.48);
+  outline: none;
+}
+
+.fllm-loan-calculator__segmented button[aria-pressed="true"]:hover,
+.fllm-loan-calculator__segmented button[aria-pressed="true"]:focus-visible,
+.fllm-loan-calculator__schedule-tabs button[aria-pressed="true"]:hover,
+.fllm-loan-calculator__schedule-tabs button[aria-pressed="true"]:focus-visible {
+  border-color: #dcfdff;
+  background: linear-gradient(180deg, #b8fbff 0%, #63e3ee 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.68),
+    0 10px 22px rgba(0,0,0,.25),
+    0 0 28px rgba(92,226,241,.62);
+}
+
+.fllm-loan-calculator__calculate:hover,
+.fllm-loan-calculator__calculate:focus-visible,
+.fllm-loan-calculator__actions a:hover,
+.fllm-loan-calculator__actions a:focus-visible {
+  border-color: #dcfdff;
+  filter: brightness(1.1);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.68),
+    0 10px 24px rgba(0,0,0,.28),
+    0 0 28px rgba(92,226,241,.58);
+  outline: none;
+}
+
+.fllm-loan-calculator__segmented button:active,
+.fllm-loan-calculator__schedule-tabs button:active,
+.fllm-loan-calculator__calculate:active,
+.fllm-loan-calculator__actions a:active {
+  transform: translateY(0) scale(.99);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fllm-loan-calculator__segmented button,
+  .fllm-loan-calculator__schedule-tabs button,
+  .fllm-loan-calculator__calculate,
+  .fllm-loan-calculator__actions a {
+    transition: none;
+  }
+}
+
 /* Loan calculator: use the locked FLLM official header geometry exactly. */
 @media (min-width: 981px) {
   .loan-calculator-page .forms-site-header.page-shell {
