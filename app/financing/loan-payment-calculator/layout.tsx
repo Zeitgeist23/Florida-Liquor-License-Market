@@ -8,7 +8,11 @@ export default function LoanCalculatorLayout({ children }: { children: ReactNode
     <>
       {children}
       <Script
-        src="/assets/financing-loan-calculator-behavior-v3.js?v=2"
+        src="/assets/financing-loan-calculator-behavior-v3.js?v=3"
+        strategy="afterInteractive"
+      />
+      <Script
+        src="/assets/financing-loan-calculator-reset-failsafe.js?v=1"
         strategy="afterInteractive"
       />
       <style>{`
