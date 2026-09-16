@@ -20,18 +20,24 @@ function isListingsHeatMapControl(element: Element | null) {
 }
 
 function rewriteLinks() {
+  const isHomePage = window.location.pathname === "/";
+
   document.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
     const label = textOf(link);
     const href = link.getAttribute("href") || "";
 
-    if (
+    // Keep the landing-page Heat Map control available as a quick-preview modal.
+    // Everywhere else, Heat Map opens the dedicated three-mode market-data page.
+    if (!isHomePage && (
       label === "florida market heat map" ||
       label === "heat map" ||
       (label.includes("heat map") && href === "/#market-data")
-    ) {
+    )) {
       if (link.getAttribute("href") !== TARGET) link.setAttribute("href", TARGET);
     }
 
+    // The landing-page modal remains a quick preview; its full-page action opens
+    // the new canonical Heat Map page instead of dropping users into Listings.
     if (link.closest(".fllm-heat-map-footer") && /open full listings page/i.test(link.textContent || "")) {
       if (link.getAttribute("href") !== TARGET) link.setAttribute("href", TARGET);
       if (link.textContent !== "Open Full Heat Map Page ›") link.textContent = "Open Full Heat Map Page ›";
