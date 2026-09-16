@@ -106,6 +106,21 @@ export default function GlobalResourcesMenuSync() {
       return Boolean(dropdown?.querySelector(":scope > .native-nav-resources-menu"));
     };
 
+    const ensureFiveToEightCopLink = () => {
+      document.querySelectorAll<HTMLElement>(".native-license-types-column").forEach((column) => {
+        const heading = column.querySelector("strong");
+        if (heading?.textContent?.trim() !== "Quota Licenses") return;
+        if (column.querySelector('a[data-five-to-eight-cop="true"]')) return;
+
+        const link = document.createElement("a");
+        link.href = "/resources/florida-liquor-license-types#common-license-chart";
+        link.textContent = "5COP-8COP Quota Licenses";
+        link.setAttribute("role", "menuitem");
+        link.dataset.fiveToEightCop = "true";
+        column.appendChild(link);
+      });
+    };
+
     const positionResourcesMenus = () => {
       if (window.innerWidth <= 760) return;
       document.querySelectorAll<HTMLElement>(".native-nav-resources-menu").forEach((menu) => {
@@ -146,6 +161,8 @@ export default function GlobalResourcesMenuSync() {
       event.stopPropagation();
     };
 
+    ensureFiveToEightCopLink();
+    const quotaLinkTimers = [100, 400, 1000].map((delay) => window.setTimeout(ensureFiveToEightCopLink, delay));
     positionResourcesMenus();
     window.addEventListener("resize", positionResourcesMenus, { passive: true });
     document.addEventListener("pointerover", positionOnResourcesHover, true);
@@ -158,6 +175,7 @@ export default function GlobalResourcesMenuSync() {
     document.addEventListener("click", blockResourcesDesktopClick, true);
 
     return () => {
+      quotaLinkTimers.forEach((timer) => window.clearTimeout(timer));
       window.removeEventListener("resize", positionResourcesMenus);
       document.removeEventListener("pointerover", positionOnResourcesHover, true);
       document.removeEventListener("mouseover", blockResourcesSyntheticHover, true);
