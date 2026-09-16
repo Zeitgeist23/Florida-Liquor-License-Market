@@ -153,12 +153,29 @@ export default function GlobalResourcesMenuSync() {
       event.stopPropagation();
     };
 
+    const closeResourcesOnPointerExit = (event: PointerEvent) => {
+      if (!desktopHover() || !isResourcesEvent(event.target)) return;
+      const target = event.target instanceof Element ? event.target : null;
+      const dropdown = target?.closest<HTMLElement>(".native-nav-dropdown");
+      if (!dropdown) return;
+
+      const nextTarget = event.relatedTarget;
+      if (nextTarget instanceof Node && dropdown.contains(nextTarget)) return;
+
+      const activeElement = document.activeElement;
+      if (activeElement instanceof HTMLElement && dropdown.contains(activeElement)) {
+        activeElement.blur();
+      }
+    };
+
     const blockResourcesDesktopClick = (event: MouseEvent) => {
       if (!desktopHover() || !isResourcesEvent(event.target)) return;
       const target = event.target instanceof Element ? event.target : null;
-      if (!target?.closest(".native-nav-trigger")) return;
+      const trigger = target?.closest<HTMLElement>(".native-nav-trigger");
+      if (!trigger) return;
       event.preventDefault();
       event.stopPropagation();
+      trigger.blur();
     };
 
     ensureFiveToEightCopLink();
@@ -167,9 +184,8 @@ export default function GlobalResourcesMenuSync() {
     window.addEventListener("resize", positionResourcesMenus, { passive: true });
     document.addEventListener("pointerover", positionOnResourcesHover, true);
     document.addEventListener("mouseover", blockResourcesSyntheticHover, true);
-    document.addEventListener("mouseout", blockResourcesSyntheticHover, true);
     document.addEventListener("pointerover", blockResourcesSyntheticHover, true);
-    document.addEventListener("pointerout", blockResourcesSyntheticHover, true);
+    document.addEventListener("pointerout", closeResourcesOnPointerExit, true);
     document.addEventListener("focusin", blockResourcesSyntheticHover, true);
     document.addEventListener("focusout", blockResourcesSyntheticHover, true);
     document.addEventListener("click", blockResourcesDesktopClick, true);
@@ -179,9 +195,8 @@ export default function GlobalResourcesMenuSync() {
       window.removeEventListener("resize", positionResourcesMenus);
       document.removeEventListener("pointerover", positionOnResourcesHover, true);
       document.removeEventListener("mouseover", blockResourcesSyntheticHover, true);
-      document.removeEventListener("mouseout", blockResourcesSyntheticHover, true);
       document.removeEventListener("pointerover", blockResourcesSyntheticHover, true);
-      document.removeEventListener("pointerout", blockResourcesSyntheticHover, true);
+      document.removeEventListener("pointerout", closeResourcesOnPointerExit, true);
       document.removeEventListener("focusin", blockResourcesSyntheticHover, true);
       document.removeEventListener("focusout", blockResourcesSyntheticHover, true);
       document.removeEventListener("click", blockResourcesDesktopClick, true);
