@@ -79,49 +79,12 @@
   outline: none;
 }
 
-/* Compact CALL buttons mirror the official List Your License CTA: restrained
-   footprint, dimensional gold gradient, inner highlight, lower edge and lift. */
+/* Keep the same CALL-button geometry and visual language as the Lawrence Moore
+   listing. Only the text swap on hover/focus is custom to this page. */
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button {
   position: relative;
   overflow: hidden;
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  width: 116px !important;
-  min-width: 116px !important;
-  height: 33px !important;
-  min-height: 33px !important;
-  padding: 0 8px !important;
-  border: 1px solid #ffbd2e !important;
-  border-radius: 5px !important;
-  background: linear-gradient(145deg, #f8b72f 0%, #e99a00 58%, #cf7800 100%) !important;
-  color: #07101a !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 237, 182, .55),
-    inset 0 -2px 0 rgba(95, 51, 0, .28),
-    0 5px 12px rgba(0, 0, 0, .27) !important;
-  font-size: 10px !important;
-  font-weight: 900 !important;
-  line-height: 1 !important;
-  letter-spacing: .02em !important;
-  text-transform: uppercase;
-  transform-origin: center;
-  transition:
-    transform .18s ease,
-    border-color .18s ease,
-    background .18s ease,
-    box-shadow .18s ease !important;
-}
-
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-aside-broker .antezza-call-broker-button {
-  display: flex !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-actions .antezza-call-broker-button {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 7px 18px rgba(0,0,0,.28);
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-label {
@@ -140,26 +103,11 @@
   justify-content: center;
   opacity: 0;
   color: inherit;
-  font-size: 9px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: .01em;
+  font: inherit;
+  line-height: inherit;
   white-space: nowrap;
   pointer-events: none;
   transition: opacity .14s ease;
-}
-
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button:hover,
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button:focus-visible {
-  border-color: #ffd069 !important;
-  background: linear-gradient(145deg, #ffc64a 0%, #f1a600 58%, #dc8500 100%) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 247, 218, .7),
-    inset 0 -2px 0 rgba(95, 51, 0, .22),
-    0 8px 17px rgba(0, 0, 0, .33),
-    0 0 12px rgba(241, 166, 0, .28) !important;
-  transform: translateY(-1px) scale(1.03) !important;
-  outline: none !important;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button:hover .antezza-call-broker-label,
@@ -191,7 +139,6 @@
     -webkit-text-fill-color: #f1a600 !important;
   }
 
-  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-button,
   .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-label,
   .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .antezza-call-broker-phone {
     transition: none !important;
