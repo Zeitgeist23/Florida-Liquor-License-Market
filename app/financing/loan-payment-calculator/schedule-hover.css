@@ -162,6 +162,32 @@
     0 0 23px rgba(89, 221, 250, .20);
 }
 
+/* Center all numeric schedule columns and keep table headers visible while the page scrolls. */
+.fllm-loan-calculator__schedule th,
+.fllm-loan-calculator__schedule td,
+.fllm-loan-calculator__tax th,
+.fllm-loan-calculator__tax td {
+  text-align: center !important;
+}
+
+.fllm-loan-calculator__schedule thead th,
+.fllm-loan-calculator__tax thead th {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  background: #0b303a !important;
+  box-shadow:
+    0 1px 0 rgba(111, 240, 255, .24),
+    0 8px 14px rgba(0, 0, 0, .24);
+}
+
+@media (min-width: 761px) {
+  .fllm-loan-calculator__schedule .fllm-loan-calculator__table-wrap,
+  .fllm-loan-calculator__tax .fllm-loan-calculator__table-wrap {
+    overflow: visible;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .fllm-loan-calculator__segmented button,
   .fllm-loan-calculator__schedule-tabs button,
