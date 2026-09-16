@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import FinanceGuideBehaviorFixes from "./FinanceGuideBehaviorFixes";
 import "./lining-numerals.css";
 import "./financing-snapshot-cards.css";
-import "./financing-terms-cards.css";
+import "./rates-terms-card-hover.css";
 import "./finance-guide-link-cards.css";
 import "./faq-open-gold.css";
 import "./disclaimer-contrast.css";
