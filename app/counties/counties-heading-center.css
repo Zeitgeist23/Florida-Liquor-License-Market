@@ -1,5 +1,18 @@
-.county-availability-map-heading > div > span {
-  display: block;
-  width: 100%;
-  text-align: center;
+/* Align the statewide kicker with the left-hand Listing Scale card below. */
+@media (min-width: 761px) {
+  .county-availability-map-heading > div > span {
+    display: block;
+    width: 270px;
+    margin-left: clamp(0px, calc((100vw - 1160px) / 2), 60px);
+    text-align: center;
+  }
+}
+
+@media (max-width: 760px) {
+  .county-availability-map-heading > div > span {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+  }
 }
