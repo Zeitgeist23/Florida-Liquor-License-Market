@@ -33,7 +33,6 @@ const nextConfig: NextConfig = {
         { source: "/assets/fllm-email-logo.png", destination: "/api/email-logo" },
         { source: "/", destination: "/api/homepage-final" },
         { source: "/contact", destination: "/api/contact-page" },
-        { source: "/investment-opportunities", destination: "/api/investment-page" },
         ...mirroredRoutes.map((route) => ({
           source: `/${route}`,
           destination: `/${route}/index.html`,
