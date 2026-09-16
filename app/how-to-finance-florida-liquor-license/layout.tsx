@@ -5,6 +5,7 @@ import "./financing-snapshot-cards.css";
 import "./financing-terms-cards.css";
 import "./finance-guide-link-cards.css";
 import "./faq-open-gold.css";
+import "./disclaimer-contrast.css";
 
 export default function HowToFinanceLayout({ children }: { children: ReactNode }) {
   return (
