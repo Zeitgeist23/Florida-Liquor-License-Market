@@ -27,7 +27,7 @@ export default function GlobalResourcesMenuSync() {
           transform: translateX(-50%) rotate(45deg) !important;
         }
 
-        /* Keep the approved Resources menu row order without rewriting DOM. */
+        /* Approved Resources menu order, laid out row-by-row across 3 columns. */
         .primary-nav .native-nav-resources-menu > a:nth-child(1) { order: 1; }
         .primary-nav .native-nav-resources-menu > a:nth-child(7) { order: 2; }
         .primary-nav .native-nav-resources-menu > a:nth-child(11) { order: 3; }
@@ -36,13 +36,13 @@ export default function GlobalResourcesMenuSync() {
         .primary-nav .native-nav-resources-menu > a:nth-child(6) { order: 6; }
         .primary-nav .native-nav-resources-menu > a:nth-child(5) { order: 7; }
         .primary-nav .native-nav-resources-menu > a:nth-child(9) { order: 8; }
-        .primary-nav .native-nav-resources-menu > a:nth-child(12) { order: 9; }
+        .primary-nav .native-nav-resources-menu > a:nth-child(15) { order: 9; }
         .primary-nav .native-nav-resources-menu > a:nth-child(3) { order: 10; }
         .primary-nav .native-nav-resources-menu > a:nth-child(10) { order: 11; }
-        .primary-nav .native-nav-resources-menu > a:nth-child(2) { order: 12; }
+        .primary-nav .native-nav-resources-menu > a:nth-child(12) { order: 12; }
         .primary-nav .native-nav-resources-menu > a:nth-child(13) { order: 13; }
         .primary-nav .native-nav-resources-menu > a:nth-child(14) { order: 14; }
-        .primary-nav .native-nav-resources-menu > a:nth-child(15) { order: 15; }
+        .primary-nav .native-nav-resources-menu > a:nth-child(2) { order: 15; }
 
         /* Restore the approved agency badges without mutating React-owned DOM. */
         .primary-nav .native-nav-resources-menu > a[href="/resources/florida-division-alcoholic-beverages-tobacco"]::after {
