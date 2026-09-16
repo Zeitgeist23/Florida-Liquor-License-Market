@@ -1,14 +1,17 @@
 import type { ReactNode } from "react";
 
 import BrokerListingLinkFix from "./BrokerListingLinkFix";
+import LicenseTypeLinks from "./LicenseTypeLinks";
 import "./featured-detail-badge.css";
 import "./card-depth.css";
 import "./interactive-effects.css";
+import "./license-type-links.css";
 
 export default function AntezzaListingLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <BrokerListingLinkFix />
+      <LicenseTypeLinks />
       {children}
       <script
         dangerouslySetInnerHTML={{
