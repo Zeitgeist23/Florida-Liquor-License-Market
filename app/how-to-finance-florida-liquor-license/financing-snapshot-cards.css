@@ -1,0 +1,77 @@
+.finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot-grid div {
+  min-height: 124px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px 14px;
+  border: 1px solid rgba(246, 167, 0, .34);
+  border-radius: 11px;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(54, 146, 205, .16), transparent 58%),
+    linear-gradient(145deg, #123a5d 0%, #0a2c49 55%, #071d31 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .08),
+    inset 0 -10px 22px rgba(0, 0, 0, .16),
+    0 10px 22px rgba(0, 0, 0, .24),
+    0 0 0 1px rgba(246, 167, 0, .05);
+  transform-origin: center;
+  transition:
+    transform .18s ease,
+    filter .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease;
+}
+
+.finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot-grid div > strong,
+.finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot-grid div > small {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot-grid div > strong {
+  display: block;
+  margin-bottom: 7px;
+  line-height: 1.05;
+  text-shadow: 0 2px 9px rgba(0, 0, 0, .3);
+}
+
+.finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot-grid div > small {
+  display: block;
+  max-width: 128px;
+  line-height: 1.45;
+}
+
+.finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot-grid div:hover,
+.finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot-grid div:focus-within {
+  transform: translateY(-4px) scale(1.025);
+  filter: brightness(1.08);
+  border-color: #ffc13b;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(88, 200, 238, .26), transparent 60%),
+    linear-gradient(145deg, #174b75 0%, #0d3558 56%, #08233a 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .14),
+    inset 0 -10px 22px rgba(0, 0, 0, .14),
+    0 16px 30px rgba(0, 0, 0, .32),
+    0 0 20px rgba(88, 200, 238, .16),
+    0 0 14px rgba(246, 167, 0, .14);
+}
+
+.finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot-grid div:hover > strong,
+.finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot-grid div:focus-within > strong {
+  color: #ffffff;
+  text-shadow:
+    0 0 12px rgba(105, 214, 255, .18),
+    0 2px 9px rgba(0, 0, 0, .28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .finance-guide-lining-numerals .finance-guide-page .seo-market-snapshot-grid div {
+    transition: none;
+  }
+}
