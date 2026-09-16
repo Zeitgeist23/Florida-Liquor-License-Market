@@ -91,40 +91,54 @@
   gap: 10px !important;
 }
 
-/* Broker-reported business metrics: add moderate depth without competing
-   with the primary license-detail cards above. */
+/* Broker-reported business metrics: mirror the restrained Featured Counties card language. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid {
+  gap: 14px !important;
+}
+
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(241,166,0,.42) !important;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.035), transparent 34%),
-    linear-gradient(145deg, #0c263d 0%, #071b2c 100%) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.07),
-    inset 0 -4px 10px rgba(0,0,0,.16),
-    0 2px 0 rgba(107,74,14,.72),
-    0 6px 14px rgba(0,0,0,.26) !important;
+  min-width: 0;
+  min-height: 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 21px !important;
+  border: 1px solid rgba(88, 200, 238, .38) !important;
+  border-radius: 7px !important;
+  background: linear-gradient(145deg, #0b2130, #061018) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .18) !important;
   transform: translateY(0);
   transition:
     transform .18s ease,
     border-color .18s ease,
-    box-shadow .18s ease,
-    background .18s ease !important;
+    box-shadow .18s ease !important;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255,193,59,.72) !important;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.05), transparent 34%),
-    linear-gradient(145deg, #10304a 0%, #092136 100%) !important;
+  transform: translateY(-4px);
+  border-color: #d9f2ff !important;
+  background: linear-gradient(145deg, #0b2130, #061018) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.09),
-    inset 0 -4px 10px rgba(0,0,0,.14),
-    0 2px 0 rgba(151,101,13,.78),
-    0 12px 22px rgba(0,0,0,.34),
-    0 0 14px rgba(241,166,0,.10) !important;
+    0 20px 38px rgba(0, 0, 0, .32),
+    0 0 0 1px rgba(105, 214, 255, .12) !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div > span {
+  margin: 0 !important;
+  color: #69d6ff !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+  letter-spacing: .045em !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div > strong {
+  margin: 0 !important;
+  color: #fff !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
 }
 
 /* Give the confidentiality label a clear FLLM warning/accent treatment while
