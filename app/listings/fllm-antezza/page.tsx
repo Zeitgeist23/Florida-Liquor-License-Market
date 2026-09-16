@@ -28,8 +28,8 @@ const canonicalUrl = `${siteUrl}${canonicalPath}`;
 const listingReference = "FLLM-ANTEZZA";
 const county = "Pinellas County";
 const countyHref = "/counties/pinellas";
+const askingPrice = "$495,000";
 const packagePrice = "$1,100,000";
-const licenseValue = "$495,000";
 const brokerPhone = "(941) 416-4580";
 const brokerEmail = "info@sunshineagle.com";
 const brokerWebsite = "https://sunshineagle.com/";
@@ -38,22 +38,22 @@ const brokerPhoto = "https://ap.rdcpix.com/3ca5d1e195f67fc572abd959304eafb5a-e16
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Pinellas County Cocktail Lounge with 4COP Quota License for Sale | $1.1M",
+  title: "Pinellas County 4COP Quota Liquor License for Sale | $495,000",
   description:
-    "Featured Pinellas County cocktail lounge business package offered at $1.1 million, including a Florida 4COP quota liquor license with a stated value of $495,000. Contact listing broker Alessandro Antezza of SUNSHINEAGLE LLC.",
+    "Featured Pinellas County 4COP quota liquor license listing at $495,000. Business purchase required: the license is included with an associated upscale cocktail lounge offered as a $1.1 million total package. Contact listing broker Alessandro Antezza of SUNSHINEAGLE LLC.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Upscale Pinellas Cocktail Lounge + 4COP Quota License | $1.1M",
+    title: "Pinellas County 4COP Quota Liquor License | $495,000",
     description:
-      "Featured third-party broker listing: established cocktail lounge package in Pinellas County with a 4COP quota liquor license included.",
+      "Featured third-party broker listing. Business purchase required; associated cocktail lounge and license package offered at $1.1 million total.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pinellas Cocktail Lounge + 4COP Quota License | $1.1M",
+    title: "Pinellas County 4COP Quota Liquor License | $495,000",
     description:
       "Featured third-party broker listing represented by Alessandro Antezza of SUNSHINEAGLE LLC.",
   },
@@ -65,7 +65,7 @@ export default function AlessandroAntezzaFeaturedListingPage() {
   return (
     <main className="results-page marketplace-listing-page" data-featured-broker-listing={listingReference}>
       <style>{`
-        .package-price-note{margin:8px 0 0;color:#d7e2e8;font-size:15px;font-weight:750;line-height:1.45}.package-price-note strong{color:#f1b53a}.package-business-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0}.package-business-grid div{padding:16px;border:1px solid rgba(226,165,30,.25);border-radius:8px;background:rgba(4,23,39,.72)}.package-business-grid span{display:block;color:#95a9b8;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.package-business-grid strong{display:block;margin-top:6px;color:#fff;font-size:15px}.package-license-value{margin-top:18px;padding:16px 18px;border-left:4px solid #efa916;background:rgba(239,169,22,.07);color:#cbd6dd;line-height:1.7}.package-license-value strong{color:#f1b53a}.marketplace-listing-broker-license{display:block;margin-top:4px;color:#9fb0bd;font-size:11px;font-weight:750}.marketplace-listing-broker-photo img{object-fit:cover}.package-confidential{font-size:12px;color:#9eb0be;line-height:1.6}.package-source-disclosure{font-size:11px;color:#8398a8;line-height:1.6}@media(max-width:760px){.package-business-grid{grid-template-columns:1fr}}
+        .antezza-package-alert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;color:#d7e2e8;font-size:14px;font-weight:750;line-height:1.45}.antezza-package-badge{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border:1px solid #efaa10;border-radius:4px;color:#071a3a;background:#efaa10;font-size:10px;font-weight:950;letter-spacing:.075em;text-transform:uppercase}.antezza-package-alert strong{color:#f1b53a}.package-business-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0}.package-business-grid div{padding:16px;border:1px solid rgba(226,165,30,.25);border-radius:8px;background:rgba(4,23,39,.72)}.package-business-grid span{display:block;color:#95a9b8;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.package-business-grid strong{display:block;margin-top:6px;color:#fff;font-size:15px}.package-total{margin:18px 0;padding:16px 18px;border-left:4px solid #efa916;background:rgba(239,169,22,.07);color:#cbd6dd;line-height:1.7}.package-total strong{color:#f1b53a}.marketplace-listing-broker-license{display:block;margin-top:4px;color:#9fb0bd;font-size:11px;font-weight:750}.marketplace-listing-broker-photo img{object-fit:cover}.package-confidential{font-size:12px;color:#9eb0be;line-height:1.6}.package-source-disclosure{font-size:11px;color:#8398a8;line-height:1.6}@media(max-width:760px){.package-business-grid{grid-template-columns:1fr}}
       `}</style>
 
       <header className="results-header page-shell">
@@ -88,11 +88,16 @@ export default function AlessandroAntezzaFeaturedListingPage() {
             <span className="marketplace-listing-kicker">Featured Third-Party Broker Listing</span>
             <h1>
               <span className="marketplace-listing-title-line">Pinellas County</span>
-              <span className="marketplace-listing-title-line marketplace-listing-title-type">Upscale Cocktail Lounge</span>
-              <span className="marketplace-listing-title-line">with <span className="marketplace-license-series">4COP</span> Quota License</span>
+              <span className="marketplace-listing-title-line marketplace-listing-title-type">
+                <span className="marketplace-license-series">4COP</span> Quota Liquor License
+              </span>
+              <span className="marketplace-listing-title-line">for Sale</span>
             </h1>
-            <p className="marketplace-listing-price">{packagePrice}</p>
-            <p className="package-price-note">Total business package · included <strong>4COP license value {licenseValue}</strong></p>
+            <p className="marketplace-listing-price">{askingPrice}</p>
+            <div className="antezza-package-alert">
+              <span className="antezza-package-badge">Business Purchase Required</span>
+              <span>License included with associated cocktail lounge · <strong>Total package {packagePrice}</strong></span>
+            </div>
             <div className="marketplace-listing-availability">
               <span className="availability-pill" title={statusLabel}>
                 <span className="availability-dot" aria-hidden="true" />
@@ -102,7 +107,7 @@ export default function AlessandroAntezzaFeaturedListingPage() {
               <span className="marketplace-listing-broker-badge">Featured · Third-Party Broker</span>
             </div>
             <p className="marketplace-listing-summary">
-              Established upscale cocktail-lounge opportunity in Pinellas County offered as a turnkey business package with its Florida 4COP quota liquor license included.
+              Pinellas County 4COP quota liquor license offered in connection with the acquisition of an established upscale cocktail lounge. The license is not currently offered separately.
             </p>
             <div className="marketplace-listing-actions">
               <a className="marketplace-listing-primary" href={`tel:${brokerPhone.replace(/[^\d+]/g, "")}`}>Call Listing Broker</a>
@@ -123,37 +128,61 @@ export default function AlessandroAntezzaFeaturedListingPage() {
           <div className="marketplace-listing-grid">
             <article className="marketplace-listing-main">
               <div className="marketplace-listing-heading">
-                <span>Business + License Package</span>
-                <h2>Upscale Cocktail Lounge with 4COP Quota License</h2>
+                <span>Specific License Details</span>
+                <h2><span className="marketplace-license-series">4COP</span> Quota in Pinellas County</h2>
               </div>
 
-              <div className="marketplace-listing-facts" aria-label="Featured package listing details">
-                <div><span>Total Package Price</span><strong>{packagePrice}</strong></div>
-                <div><span>4COP License Value</span><strong>{licenseValue}</strong></div>
+              <div className="marketplace-listing-facts" aria-label="Specific listing details">
+                <div><span>Asking Price</span><strong>{askingPrice}</strong></div>
                 <div><span>License Type</span><strong>4COP Quota</strong></div>
                 <div><span>County</span><strong>Pinellas County</strong></div>
+                <div><span>Marketplace Status</span><strong>{statusLabel}</strong></div>
               </div>
 
-              <section className="marketplace-listing-highlights" aria-labelledby="package-highlights-heading">
-                <h3 id="package-highlights-heading">Package Highlights</h3>
+              <section className="marketplace-listing-highlights" aria-labelledby="license-highlights-heading">
+                <h3 id="license-highlights-heading">License Highlights</h3>
                 <div className="marketplace-listing-highlight-grid">
-                  <div><strong>4COP quota<br />license included</strong></div>
-                  <div><strong>Turnkey lounge<br />operation</strong></div>
-                  <div><strong>2,600 SF<br />leased premises</strong></div>
-                  <div><strong>Established team<br />8 employees</strong></div>
+                  <div>
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M11 42h13V18H11zM15 18V8h5v10M11 26h13M29 25h12l-2 9a5 5 0 0 1-4 3.5A5 5 0 0 1 31 34zM35 37.5V42M30 42h10" /></svg>
+                    <strong>Full-liquor<br />privileges</strong>
+                  </div>
+                  <div>
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" /></svg>
+                    <strong>On- or<br />off-premises use</strong>
+                  </div>
+                  <div>
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" /></svg>
+                    <strong>Generally no SFS<br />food-sales percentage</strong>
+                  </div>
+                  <div>
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="14" r="7" /><circle cx="10" cy="22" r="5" /><circle cx="38" cy="22" r="5" /><path d="M13 42v-6c0-7 5-12 11-12s11 5 11 12v6zM2 42v-5c0-5 4-9 9-9 2 0 4 1 6 2M46 42v-5c0-5-4-9-9-9-2 0-4 1-6 2" /></svg>
+                    <strong>Limited Pinellas<br />County quota supply</strong>
+                  </div>
                 </div>
               </section>
 
               <div className="marketplace-listing-note">
                 <strong>Third-party broker disclosure</strong>
-                <p>This featured listing is represented by Alessandro Antezza of SUNSHINEAGLE LLC. Florida Liquor License Market is providing marketplace exposure and is not acting as the seller&apos;s broker or transaction representative. All business, financial, license, lease, transfer, and transaction information should be confirmed directly with the listing broker.</p>
+                <p>This featured listing is represented by Alessandro Antezza of SUNSHINEAGLE LLC. Florida Liquor License Market is providing marketplace exposure and is not acting as the seller&apos;s broker or transaction representative. Availability, package terms, license status, transferability, and all transaction information should be confirmed directly with the listing broker.</p>
               </div>
 
-              <section className="marketplace-listing-section marketplace-listing-seller-details">
-                <h2>About the Business Opportunity</h2>
-                <p>Rare opportunity to acquire an established upscale cocktail lounge in Pinellas County. The offering is presented as a turnkey operating-business package and includes the associated Florida 4COP quota liquor license.</p>
-                <p>The lounge includes its established concept, leasehold improvements, furniture, fixtures and equipment, selected inventory, branding and business goodwill, subject to the definitive transaction documents and broker confirmation.</p>
+              <section className="marketplace-listing-section">
+                <h2>About This License Listing</h2>
+                <p>This individual marketplace page represents the Pinellas County 4COP quota liquor-license interest identified as {listingReference}. The displayed license asking price is {askingPrice}.</p>
+                <p><strong>Business purchase required:</strong> the license is being offered only in connection with the acquisition of the associated upscale cocktail lounge. The liquor license is not currently offered as a standalone sale.</p>
+                <p>A Florida quota license may generally be changed between the 3PS Quota series and the 4COP Quota series through a DBPR-approved change of license series, subject to applicable premises, zoning, applicant, and regulatory requirements.</p>
+              </section>
 
+              <section className="marketplace-listing-section marketplace-listing-seller-details">
+                <h2>Additional Seller Details</h2>
+                <p>Rare opportunity to acquire an established upscale cocktail lounge in Pinellas County together with its associated Florida 4COP quota liquor license.</p>
+                <p>The <strong>total asking price for the business and license package is {packagePrice}</strong>. The package includes the operating cocktail-lounge business, the 4COP quota liquor license, leasehold improvements, furniture, fixtures and equipment, selected inventory, branding and business goodwill, subject to definitive transaction documents and broker confirmation.</p>
+
+                <div className="package-total">
+                  <strong>Business + license package: {packagePrice}.</strong> The 4COP quota liquor license is displayed on FLLM at {askingPrice}. Purchase of the associated business is required, and the license is not currently being offered separately.
+                </div>
+
+                <h3>Broker-reported business details</h3>
                 <div className="package-business-grid" aria-label="Broker-reported business metrics">
                   <div><span>Gross Revenue</span><strong>$897,270</strong></div>
                   <div><span>Seller Discretionary Earnings</span><strong>$224,862</strong></div>
@@ -165,10 +194,6 @@ export default function AlessandroAntezzaFeaturedListingPage() {
                   <div><span>Monthly Rent</span><strong>$10,000</strong></div>
                   <div><span>Lease Expiration</span><strong>April 15, 2028</strong></div>
                   <div><span>Employees</span><strong>2 full-time · 6 part-time</strong></div>
-                </div>
-
-                <div className="package-license-value">
-                  <strong>4COP license value: {licenseValue}.</strong> This figure is the stated value assigned to the liquor-license component within the {packagePrice} total business package. The license is not represented on this page as a separate standalone offering unless the listing broker confirms otherwise.
                 </div>
 
                 <h3>Growth opportunities identified by the listing broker</h3>
@@ -184,7 +209,7 @@ export default function AlessandroAntezzaFeaturedListingPage() {
               </section>
 
               <section className="marketplace-listing-section">
-                <h2>Pinellas County License Context</h2>
+                <h2>Pinellas County Market Context</h2>
                 <p>Pinellas County supports a dense restaurant, nightlife, hospitality, tourism, and entertainment market across St. Petersburg, Clearwater, Largo, the Gulf Beaches, and surrounding communities. Quota-license values can vary materially based on supply, seller terms, intended premises, timing, and transaction structure.</p>
                 <p><Link href={countyHref}>View the Pinellas County liquor license market →</Link></p>
                 <p><Link href="/counties/pinellas/liquor-license-value">Review current Pinellas County liquor license values →</Link></p>
@@ -210,10 +235,10 @@ export default function AlessandroAntezzaFeaturedListingPage() {
                 <a className="marketplace-listing-text-link" href={brokerWebsite} target="_blank" rel="noopener noreferrer">Visit Listing Broker Website →</a>
                 <ListingBrokerInquiryForm
                   listingReference={listingReference}
-                  listingRequested="Upscale Cocktail Lounge with 4COP Quota License"
+                  listingRequested="Pinellas County 4COP Quota Liquor License — Business Purchase Required"
                   listingCounty={county}
                   licenseType="4COP Quota"
-                  askingPrice={`${packagePrice} total package; ${licenseValue} stated license value`}
+                  askingPrice={`${askingPrice} license asking price; ${packagePrice} total business package`}
                   listingStatus={statusLabel}
                   listingUrl={canonicalPath}
                 />
@@ -241,7 +266,7 @@ export default function AlessandroAntezzaFeaturedListingPage() {
           </div>
 
           <div className="marketplace-listing-disclaimer">
-            Marketplace information is provided for informational purposes and remains subject to seller or broker confirmation. Florida Liquor License Market does not guarantee business performance, license status, availability, transfer approval, package value, license value, price, lease terms, or transaction terms. Independent legal, tax, financial, licensing, zoning, and regulatory review is recommended.
+            Marketplace information is provided for informational purposes and remains subject to seller or broker confirmation. Florida Liquor License Market does not guarantee business performance, license status, availability, transfer approval, package price, license price, lease terms, or transaction terms. Independent legal, tax, financial, licensing, zoning, and regulatory review is recommended.
           </div>
         </div>
       </section>
