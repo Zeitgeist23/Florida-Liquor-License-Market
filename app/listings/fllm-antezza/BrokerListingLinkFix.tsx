@@ -6,23 +6,11 @@ const brokerListingUrl =
   "https://sunshineagle.com/deal-listing/upscale-cocktail-lounge-with-4cop-quota-license/?back=https%3A%2F%2Fsunshineagle.com%2Fpremium-listings%2F&source&listing_button_text=Inquire%20About%20This%20Listing&listing_button_color&css_source=7799&json_url=https://sunshineagle.dealrelations.com/listings/upscale-cocktail-lounge-with-4cop-quota-license.json?item_id=5534";
 const brokerPhone = "(941) 416-4580";
 
-const inquiryParams = new URLSearchParams({
-  source: "specific-license",
-  listing: "FLLM-ANTEZZA — Pinellas County — 4COP Quota — $495,000",
-  ref: "FLLM-ANTEZZA",
-  county: "Pinellas County",
-  license_type: "4COP Quota",
-  asking_price: "$495,000",
-  listing_status: "Available / Broker confirmation required",
-  listing_url: "/listings/fllm-antezza",
-});
-const inquiryHref = `/contact?${inquiryParams.toString()}`;
-
 function linkDisclosureBrokerName() {
   const paragraph = document.querySelector<HTMLParagraphElement>(
-    '.results-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-note p'
+    '.results-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-note p',
   );
-  if (!paragraph || paragraph.querySelector('.sunshineagle-disclosure-link')) return null;
+  if (!paragraph || paragraph.querySelector(".sunshineagle-disclosure-link")) return null;
 
   const targetText = "SUNSHINEAGLE LLC";
   const walker = document.createTreeWalker(paragraph, NodeFilter.SHOW_TEXT);
@@ -55,54 +43,72 @@ function linkDisclosureBrokerName() {
   return null;
 }
 
-function configureListingButtons() {
-  const root = document.querySelector<HTMLElement>(
-    '.results-page[data-featured-broker-listing="FLLM-ANTEZZA"]'
+function configureListingButtons(root: HTMLElement) {
+  const inquiryForm = root.querySelector<HTMLFormElement>(
+    ".marketplace-listing-broker-inquiry",
   );
-  if (!root) return;
+  if (inquiryForm) inquiryForm.id = "antezza-inquiry";
 
   const inquiryButton = root.querySelector<HTMLAnchorElement>(
-    ".marketplace-listing-actions .marketplace-listing-primary"
+    ".marketplace-listing-actions .marketplace-listing-primary",
   );
 
   if (inquiryButton) {
     inquiryButton.classList.remove("antezza-call-broker-button");
-    inquiryButton.href = inquiryHref;
-    inquiryButton.textContent = "Inquire About This License";
+    inquiryButton.href = "#antezza-inquiry";
+    inquiryButton.replaceChildren(document.createTextNode("Inquire About This License"));
     inquiryButton.setAttribute(
       "aria-label",
-      "Inquire about the Pinellas County 4COP quota liquor license",
+      "Inquire about this Pinellas County 4COP quota liquor license",
     );
   }
 
   const callButton = root.querySelector<HTMLAnchorElement>(
-    '.marketplace-listing-aside-broker .marketplace-listing-primary[href^="tel:"]'
+    '.marketplace-listing-aside-broker .marketplace-listing-primary[href^="tel:"]',
   );
 
-  if (callButton && !callButton.classList.contains("antezza-call-broker-button")) {
-    callButton.classList.add("antezza-call-broker-button");
-    callButton.setAttribute(
-      "aria-label",
-      `Call listing broker Alessandro Antezza at ${brokerPhone}`,
-    );
+  if (!callButton) return;
 
-    const label = document.createElement("span");
-    label.className = "antezza-call-broker-label";
-    label.textContent = "Call Listing Broker";
+  callButton.classList.add("antezza-call-broker-button");
+  callButton.setAttribute(
+    "aria-label",
+    `Call listing broker Alessandro Antezza at ${brokerPhone}`,
+  );
 
-    const phone = document.createElement("span");
-    phone.className = "antezza-call-broker-phone";
-    phone.textContent = brokerPhone;
-    phone.setAttribute("aria-hidden", "true");
+  const existingLabel = callButton.querySelector<HTMLElement>(
+    ".antezza-call-broker-label",
+  );
+  const existingPhone = callButton.querySelector<HTMLElement>(
+    ".antezza-call-broker-phone",
+  );
 
-    callButton.replaceChildren(label, phone);
+  if (existingLabel && existingPhone) {
+    existingLabel.textContent = "Call Listing Broker";
+    existingPhone.textContent = brokerPhone;
+    return;
   }
+
+  const label = document.createElement("span");
+  label.className = "antezza-call-broker-label";
+  label.textContent = "Call Listing Broker";
+
+  const phone = document.createElement("span");
+  phone.className = "antezza-call-broker-phone";
+  phone.textContent = brokerPhone;
+  phone.setAttribute("aria-hidden", "true");
+
+  callButton.replaceChildren(label, phone);
 }
 
 export default function BrokerListingLinkFix() {
   useEffect(() => {
-    const sidebarLink = document.querySelector<HTMLAnchorElement>(
-      '.marketplace-listing-aside-broker .marketplace-listing-text-link'
+    const root = document.querySelector<HTMLElement>(
+      '.results-page[data-featured-broker-listing="FLLM-ANTEZZA"]',
+    );
+    if (!root) return;
+
+    const sidebarLink = root.querySelector<HTMLAnchorElement>(
+      ".marketplace-listing-aside-broker .marketplace-listing-text-link",
     );
 
     if (sidebarLink) {
@@ -111,22 +117,32 @@ export default function BrokerListingLinkFix() {
       sidebarLink.rel = "noopener noreferrer";
     }
 
-    configureListingButtons();
+    configureListingButtons(root);
+
+    const mutationObserver = new MutationObserver(() => {
+      configureListingButtons(root);
+    });
+    mutationObserver.observe(root, { childList: true, subtree: true });
 
     const disclosureLink = linkDisclosureBrokerName();
-    if (!disclosureLink) return;
+    let intersectionObserver: IntersectionObserver | null = null;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          disclosureLink.classList.toggle("is-visible", entry.isIntersecting);
-        });
-      },
-      { threshold: 0.35 }
-    );
+    if (disclosureLink) {
+      intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            disclosureLink.classList.toggle("is-visible", entry.isIntersecting);
+          });
+        },
+        { threshold: 0.35 },
+      );
+      intersectionObserver.observe(disclosureLink);
+    }
 
-    observer.observe(disclosureLink);
-    return () => observer.disconnect();
+    return () => {
+      mutationObserver.disconnect();
+      intersectionObserver?.disconnect();
+    };
   }, []);
 
   return null;
