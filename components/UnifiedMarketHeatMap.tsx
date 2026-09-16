@@ -109,33 +109,54 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
       .find((candidate) => candidate.dataset.heatMapCounty === row.name) ?? null;
   }
 
+  function getMapScreenBounds() {
+    const paths = Array.from(stageRef.current?.querySelectorAll<SVGPathElement>("[data-heat-map-county]") ?? []);
+    if (!paths.length) return null;
+
+    let left = Number.POSITIVE_INFINITY;
+    let right = Number.NEGATIVE_INFINITY;
+    let top = Number.POSITIVE_INFINITY;
+    let bottom = Number.NEGATIVE_INFINITY;
+
+    for (const path of paths) {
+      const bounds = path.getBoundingClientRect();
+      if (!bounds.width && !bounds.height) continue;
+      left = Math.min(left, bounds.left);
+      right = Math.max(right, bounds.right);
+      top = Math.min(top, bounds.top);
+      bottom = Math.max(bottom, bounds.bottom);
+    }
+
+    if (![left, right, top, bottom].every(Number.isFinite)) return null;
+    return { left, right, top, bottom };
+  }
+
   function positionDetail(row: UnifiedHeatMapRow) {
     const detail = detailRef.current;
     const stage = stageRef.current;
     const path = getCountyPath(row);
-    const svg = stage?.querySelector("svg");
-    if (!detail || !stage || !path || !svg) return;
+    const mapBounds = getMapScreenBounds();
+    if (!detail || !stage || !path || !mapBounds) return;
 
     const pathBounds = path.getBoundingClientRect();
-    const svgBounds = svg.getBoundingClientRect();
-    const width = detail.offsetWidth || 238;
-    const height = detail.offsetHeight || 190;
+    const stageBounds = stage.getBoundingClientRect();
+    const width = detail.offsetWidth || 214;
+    const height = detail.offsetHeight || 178;
     const countyCenterX = pathBounds.left + pathBounds.width / 2;
     const countyCenterY = pathBounds.top + pathBounds.height / 2;
-    const mapCenterX = svgBounds.left + svgBounds.width / 2;
+    const mapCenterX = (mapBounds.left + mapBounds.right) / 2;
     const eastSide = countyCenterX >= mapCenterX;
-    const gap = 14;
+    const gap = 10;
 
-    let left = eastSide ? svgBounds.right + gap : svgBounds.left - width - gap;
-    const alternate = eastSide ? svgBounds.left - width - gap : svgBounds.right + gap;
-
-    if (left < 10 || left + width > window.innerWidth - 10) {
-      if (alternate >= 10 && alternate + width <= window.innerWidth - 10) left = alternate;
-      else left = Math.max(10, Math.min(left, window.innerWidth - width - 10));
-    }
+    let left = eastSide ? mapBounds.right + gap : mapBounds.left - width - gap;
+    const minLeft = Math.max(8, stageBounds.left + 4);
+    const maxLeft = Math.min(window.innerWidth - width - 8, stageBounds.right - width - 4);
+    left = Math.max(minLeft, Math.min(left, maxLeft));
 
     let top = countyCenterY - height / 2;
-    top = Math.max(10, Math.min(top, window.innerHeight - height - 10));
+    const minTop = Math.max(8, stageBounds.top + 4);
+    const maxTop = Math.min(window.innerHeight - height - 8, stageBounds.bottom - height - 4);
+    top = Math.max(minTop, Math.min(top, maxTop));
 
     detail.style.position = "fixed";
     detail.style.left = `${left}px`;
