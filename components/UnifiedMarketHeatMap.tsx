@@ -131,12 +131,29 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
     return { left, right, top, bottom };
   }
 
+  function getLocalMapHorizontalBounds(screenY: number) {
+    const paths = Array.from(stageRef.current?.querySelectorAll<SVGPathElement>("[data-heat-map-county]") ?? []);
+    const band = 10;
+    const crossing = paths
+      .map((path) => path.getBoundingClientRect())
+      .filter((bounds) => bounds.width > 0 && bounds.height > 0 && bounds.top <= screenY + band && bounds.bottom >= screenY - band);
+
+    if (!crossing.length) return getMapScreenBounds();
+
+    return {
+      left: Math.min(...crossing.map((bounds) => bounds.left)),
+      right: Math.max(...crossing.map((bounds) => bounds.right)),
+      top: Math.min(...crossing.map((bounds) => bounds.top)),
+      bottom: Math.max(...crossing.map((bounds) => bounds.bottom)),
+    };
+  }
+
   function positionDetail(row: UnifiedHeatMapRow) {
     const detail = detailRef.current;
     const stage = stageRef.current;
     const path = getCountyPath(row);
-    const mapBounds = getMapScreenBounds();
-    if (!detail || !stage || !path || !mapBounds) return;
+    const globalMapBounds = getMapScreenBounds();
+    if (!detail || !stage || !path || !globalMapBounds) return;
 
     const pathBounds = path.getBoundingClientRect();
     const stageBounds = stage.getBoundingClientRect();
@@ -144,13 +161,14 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
     const height = detail.offsetHeight || 178;
     const countyCenterX = pathBounds.left + pathBounds.width / 2;
     const countyCenterY = pathBounds.top + pathBounds.height / 2;
-    const mapCenterX = (mapBounds.left + mapBounds.right) / 2;
-    const eastSide = countyCenterX >= mapCenterX;
-    const gap = 10;
+    const localMapBounds = getLocalMapHorizontalBounds(countyCenterY) ?? globalMapBounds;
+    const localMapCenterX = (localMapBounds.left + localMapBounds.right) / 2;
+    const eastSide = countyCenterX >= localMapCenterX;
+    const gap = 8;
 
-    let left = eastSide ? mapBounds.right + gap : mapBounds.left - width - gap;
-    const minLeft = Math.max(8, stageBounds.left + 4);
-    const maxLeft = Math.min(window.innerWidth - width - 8, stageBounds.right - width - 4);
+    let left = eastSide ? localMapBounds.right + gap : localMapBounds.left - width - gap;
+    const minLeft = Math.max(8, stageBounds.left + 6);
+    const maxLeft = Math.min(window.innerWidth - width - 8, stageBounds.right - width - 6);
     left = Math.max(minLeft, Math.min(left, maxLeft));
 
     let top = countyCenterY - height / 2;
