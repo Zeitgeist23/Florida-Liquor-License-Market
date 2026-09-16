@@ -1,0 +1,13 @@
+/* Keep the county info card from stealing pointer hover from the SVG county beneath it. */
+.unified-heat-map-detail {
+  pointer-events: none !important;
+}
+
+.unified-heat-map-detail-hint {
+  display: inline-block !important;
+  margin-top: 8px !important;
+  color: #63e4ff !important;
+  font: 800 9px/1.2 Arial, Helvetica, sans-serif !important;
+  letter-spacing: .03em !important;
+  text-transform: uppercase !important;
+}
