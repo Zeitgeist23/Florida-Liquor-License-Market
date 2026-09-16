@@ -5,6 +5,7 @@ import { useEffect } from "react";
 const brokerListingUrl =
   "https://sunshineagle.com/deal-listing/upscale-cocktail-lounge-with-4cop-quota-license/?back=https%3A%2F%2Fsunshineagle.com%2Fpremium-listings%2F&source&listing_button_text=Inquire%20About%20This%20Listing&listing_button_color&css_source=7799&json_url=https://sunshineagle.dealrelations.com/listings/upscale-cocktail-lounge-with-4cop-quota-license.json?item_id=5534";
 const brokerPhone = "(941) 416-4580";
+const brokerEmail = "info@sunshineagle.com";
 
 const inquiryParams = new URLSearchParams({
   source: "specific-license",
@@ -109,6 +110,74 @@ function configureListingButtons(root: HTMLElement) {
   callButton.replaceChildren(label, phone);
 }
 
+function installEmailCopyButton(root: HTMLElement) {
+  const emailLink = root.querySelector<HTMLAnchorElement>(
+    '.marketplace-listing-aside-broker a[href^="mailto:"]',
+  );
+  if (!emailLink || root.querySelector(".antezza-copy-email-button")) return;
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "antezza-copy-email-button";
+  button.textContent = "⧉";
+  button.title = "Copy broker email";
+  button.setAttribute("aria-label", `Copy broker email address ${brokerEmail}`);
+  Object.assign(button.style, {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "22px",
+    height: "22px",
+    marginLeft: "7px",
+    padding: "0",
+    border: "1px solid rgba(241,166,0,.72)",
+    borderRadius: "4px",
+    background: "rgba(241,166,0,.08)",
+    color: "#f1a600",
+    fontSize: "14px",
+    fontWeight: "900",
+    lineHeight: "1",
+    verticalAlign: "middle",
+    cursor: "pointer",
+    boxShadow: "inset 0 1px 0 rgba(255,255,255,.06)",
+  });
+
+  const copyEmail = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(brokerEmail);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = brokerEmail;
+        textarea.setAttribute("readonly", "true");
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      button.textContent = "✓";
+      button.title = "Copied";
+      window.setTimeout(() => {
+        button.textContent = "⧉";
+        button.title = "Copy broker email";
+      }, 1400);
+    } catch {
+      button.textContent = "!";
+      button.title = "Copy failed";
+      window.setTimeout(() => {
+        button.textContent = "⧉";
+        button.title = "Copy broker email";
+      }, 1400);
+    }
+  };
+
+  button.addEventListener("click", copyEmail);
+  emailLink.insertAdjacentElement("afterend", button);
+}
+
 export default function BrokerListingLinkFix() {
   useEffect(() => {
     const root = document.querySelector<HTMLElement>(
@@ -130,6 +199,7 @@ export default function BrokerListingLinkFix() {
     // elements continuously; that created a self-triggering DOM mutation loop
     // that could peg the main thread and make Chrome report the page unresponsive.
     configureListingButtons(root);
+    installEmailCopyButton(root);
 
     const disclosureLink = linkDisclosureBrokerName();
     let intersectionObserver: IntersectionObserver | null = null;
