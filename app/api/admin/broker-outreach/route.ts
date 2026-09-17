@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import {
-  buildBrokerOutreachMessage,
   createBrokerProspect,
   generateWeeklyBrokerCampaign,
   listBrokerOutreachData,
@@ -11,7 +10,6 @@ import {
   sendBrokerMessage,
   updateBrokerProspect,
   type BrokerListingKind,
-  type BrokerProspect,
   type BrokerTemplateMode,
 } from "@/lib/broker-outreach";
 
@@ -26,48 +24,12 @@ function bad(error: unknown, status = 400) {
   );
 }
 
-function sampleProspect(mode: BrokerTemplateMode): BrokerProspect {
-  const now = new Date().toISOString();
-  return {
-    id: `sample-${mode}`,
-    full_name: "Sample Broker",
-    email: "broker@example.com",
-    phone: "(555) 555-5555",
-    brokerage: "Independent Florida Brokerage",
-    website_url: null,
-    source_platform: "Broker website",
-    source_url: null,
-    listing_title: "Established Florida hospitality business with 4COP quota liquor license",
-    listing_url: null,
-    county: "St Lucie County",
-    license_type: "4COP Quota",
-    listing_kind: "business_with_license",
-    languages: ["English"],
-    outreach_template: mode,
-    template_basis: "preview",
-    status: "preview",
-    do_not_contact: false,
-    last_contacted_at: null,
-    next_contact_at: null,
-    notes: null,
-    created_at: now,
-    updated_at: now,
-  };
-}
-
 export async function GET() {
   if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    const data = await listBrokerOutreachData();
-    const templatePreviews = Object.fromEntries(
-      (["female", "male", "neutral"] as BrokerTemplateMode[]).map((mode) => {
-        const message = buildBrokerOutreachMessage(sampleProspect(mode));
-        return [mode, { subject: message.subject, html: message.html, text: message.text }];
-      }),
-    );
-    return NextResponse.json({ ...data, template_previews: templatePreviews });
+    return NextResponse.json(await listBrokerOutreachData());
   } catch (error) {
     return bad(error, 500);
   }
