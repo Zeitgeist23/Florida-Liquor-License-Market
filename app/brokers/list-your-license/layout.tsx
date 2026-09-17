@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import BrokerHeroSelectionFix from "./BrokerHeroSelectionFix";
+import BrokerFormInteractionEnhancer from "./BrokerFormInteractionEnhancer";
 
 import "@/app/listings/listings-premium.css";
 import "@/app/listings/listings-header-position.css";
@@ -26,6 +27,7 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
   return (
     <>
       <BrokerHeroSelectionFix />
+      <BrokerFormInteractionEnhancer />
 
       <style>{`
         .broker-official-shell > .broker-official-header-wrap {
@@ -52,6 +54,69 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
 
         .broker-official-shell main [class*="priceCard"] > span {
           font-size: 11px !important;
+        }
+
+        /* Give broker form controls more depth and a clearer interactive state. */
+        .broker-official-shell main [class*="fields"] input,
+        .broker-official-shell main [class*="fields"] select,
+        .broker-official-shell main [class*="fields"] textarea {
+          border-color: #b9c6cd !important;
+          background: linear-gradient(180deg, #ffffff 0%, #fbfdfe 100%) !important;
+          box-shadow:
+            inset 0 1px 2px rgba(7,24,39,.06),
+            0 6px 14px rgba(7,24,39,.07) !important;
+          transition:
+            transform .18s ease,
+            border-color .18s ease,
+            box-shadow .18s ease,
+            background .18s ease !important;
+        }
+
+        .broker-official-shell main [class*="fields"] input:hover,
+        .broker-official-shell main [class*="fields"] select:hover,
+        .broker-official-shell main [class*="fields"] textarea:hover {
+          transform: translateY(-1px);
+          border-color: #8fb9c8 !important;
+          background: #fff !important;
+          box-shadow:
+            inset 0 1px 2px rgba(7,24,39,.04),
+            0 9px 20px rgba(7,24,39,.11) !important;
+        }
+
+        .broker-official-shell main [class*="fields"] input:focus,
+        .broker-official-shell main [class*="fields"] select:focus,
+        .broker-official-shell main [class*="fields"] textarea:focus {
+          transform: translateY(-1px);
+          border-color: #d69a14 !important;
+          background: #fff !important;
+          box-shadow:
+            0 0 0 3px rgba(246,167,0,.13),
+            0 10px 22px rgba(7,24,39,.12) !important;
+        }
+
+        .broker-official-shell main [class*="fields"] select {
+          cursor: pointer;
+        }
+
+        .broker-official-shell main [class*="fields"] label:has(input[name="asking_price"]) {
+          position: relative;
+        }
+
+        .broker-official-shell main [class*="fields"] label:has(input[name="asking_price"])::after {
+          content: "$";
+          position: absolute;
+          z-index: 2;
+          left: 14px;
+          bottom: 13px;
+          color: #334b5a;
+          font-size: 16px;
+          font-weight: 700;
+          pointer-events: none;
+        }
+
+        .broker-official-shell main input[name="asking_price"] {
+          padding-left: 30px !important;
+          font-variant-numeric: tabular-nums;
         }
 
         /* Larger, aligned process cards with cyan numbered circles and stronger depth. */
@@ -316,6 +381,10 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
           .broker-official-shell main [class*="tierSelected"] {
             min-height: 0 !important;
             padding: 24px !important;
+          }
+
+          .broker-official-shell main [class*="fields"] label:has(input[name="asking_price"])::after {
+            bottom: 14px;
           }
         }
       `}</style>
