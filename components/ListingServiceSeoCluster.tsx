@@ -78,13 +78,22 @@ export default function ListingServiceSeoCluster() {
     let animationFrame = 0;
     let hoveredItem: HTMLDetailsElement | null = null;
     let scrollActivated = false;
+    let activeIndex = -1;
+    let lastAutoChangeAt = 0;
 
     // Always begin with the broker FAQ cluster fully collapsed, including
     // when the browser restores a previous scroll position after refresh.
     for (const item of items) item.open = false;
 
+    const closeAll = () => {
+      for (const item of items) item.open = false;
+      activeIndex = -1;
+    };
+
     const openOnly = (target: HTMLDetailsElement) => {
+      const index = items.indexOf(target);
       for (const item of items) item.open = item === target;
+      if (index >= 0) activeIndex = index;
     };
 
     const updateOpenQuestion = () => {
@@ -95,26 +104,48 @@ export default function ListingServiceSeoCluster() {
       const sectionRect = section.getBoundingClientRect();
 
       if (sectionRect.top > viewportHeight * 0.92 || sectionRect.bottom < viewportHeight * 0.08) {
+        closeAll();
         return;
       }
 
       const focusLine = viewportHeight * 0.5;
-      let closestItem: HTMLDetailsElement | null = null;
+      let candidateIndex = -1;
       let closestDistance = Number.POSITIVE_INFINITY;
 
-      for (const item of items) {
-        const rect = item.getBoundingClientRect();
-        if (rect.bottom < 0 || rect.top > viewportHeight) continue;
+      // Use the summary row rather than the expanded details height. This keeps
+      // the activation order stable even while the previous answer is open.
+      items.forEach((item, index) => {
+        const summary = item.querySelector("summary");
+        const rect = summary?.getBoundingClientRect() ?? item.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > viewportHeight) return;
 
-        const itemCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(itemCenter - focusLine);
+        const rowCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(rowCenter - focusLine);
         if (distance < closestDistance) {
           closestDistance = distance;
-          closestItem = item;
+          candidateIndex = index;
         }
+      });
+
+      if (candidateIndex < 0) return;
+
+      // Never skip over a question. If the geometry moves by more than one item
+      // while an answer expands/collapses, advance only one FAQ at a time.
+      let nextIndex = candidateIndex;
+      if (activeIndex >= 0) {
+        if (candidateIndex > activeIndex + 1) nextIndex = activeIndex + 1;
+        if (candidateIndex < activeIndex - 1) nextIndex = activeIndex - 1;
       }
 
-      if (closestItem) openOnly(closestItem);
+      const now = performance.now();
+      if (activeIndex >= 0 && nextIndex !== activeIndex && now - lastAutoChangeAt < 220) {
+        return;
+      }
+
+      if (nextIndex !== activeIndex) {
+        openOnly(items[nextIndex]);
+        lastAutoChangeAt = now;
+      }
     };
 
     const scheduleUpdate = () => {
