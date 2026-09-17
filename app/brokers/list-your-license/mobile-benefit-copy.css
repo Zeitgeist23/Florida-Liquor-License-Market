@@ -215,6 +215,54 @@
   transform: translateY(-1px) scale(.995);
 }
 
+/* Give the six broker benefit cards stronger depth without changing the approved layout. */
+.broker-official-shell main [class*="benefitGrid"] article {
+  position: relative;
+  overflow: hidden;
+  border-color: #cfd8dd !important;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #fbfcfd 68%, #f5f8fa 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.98),
+    inset 0 -5px 12px rgba(7,24,39,.025),
+    0 9px 18px rgba(7,24,39,.08),
+    0 20px 34px rgba(7,24,39,.08) !important;
+  transform: translateY(0);
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease,
+    background .2s ease;
+}
+
+.broker-official-shell main [class*="benefitGrid"] article::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.34), transparent 36%),
+    radial-gradient(circle at 12% 12%, rgba(246,167,0,.045), transparent 34%);
+}
+
+.broker-official-shell main [class*="benefitGrid"] article > * {
+  position: relative;
+  z-index: 1;
+}
+
+.broker-official-shell main [class*="benefitGrid"] article:hover {
+  transform: translateY(-4px);
+  border-color: rgba(246,167,0,.48) !important;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(246,167,0,.055), transparent 38%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbfd 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 0 18px rgba(82,203,244,.035),
+    0 14px 25px rgba(7,24,39,.12),
+    0 26px 42px rgba(7,24,39,.10) !important;
+}
+
 /* Trim only the excess navy air beneath the desktop broker hero by about 10%. */
 @media (min-width: 901px) {
   .broker-official-shell main > section[class*="hero"] {
