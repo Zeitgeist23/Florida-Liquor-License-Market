@@ -4,9 +4,9 @@
 
 /* Improve readability of the broker FAQ answer copy without changing the question headings. */
 .broker-official-shell main [class*="faqList"] details p {
-  font-size: 17px !important;
-  line-height: 1.75 !important;
-  color: #526574 !important;
+  font-size: 18px !important;
+  line-height: 1.78 !important;
+  color: #44596a !important;
 }
 
 @media (max-width: 820px) {
@@ -23,7 +23,7 @@
   }
 
   .broker-official-shell main [class*="faqList"] details p {
-    font-size: 17px !important;
-    line-height: 1.75 !important;
+    font-size: 18px !important;
+    line-height: 1.78 !important;
   }
 }
