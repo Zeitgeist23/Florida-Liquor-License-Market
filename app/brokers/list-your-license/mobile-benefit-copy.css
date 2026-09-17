@@ -148,6 +148,13 @@
     0 0 24px rgba(74, 219, 255, .18) !important;
 }
 
+/* Trim only the excess navy air beneath the desktop broker hero by about 10%. */
+@media (min-width: 901px) {
+  .broker-official-shell main > section[class*="hero"] {
+    min-height: 580px !important;
+  }
+}
+
 @media (max-width: 820px) {
   .broker-organic-links {
     margin-top: 0;
