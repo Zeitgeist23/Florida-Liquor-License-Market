@@ -169,11 +169,11 @@ export default function ListingPreviewSelector({
         }
         .broker-google-proof {
           display: flex;
-          min-height: 335px;
+          min-height: 370px;
           flex-direction: column;
           box-sizing: border-box;
           margin-top: 20px;
-          padding: 20px;
+          padding: 24px;
           border: 1px solid rgba(246,167,0,.48);
           border-radius: 10px;
           background:
@@ -189,32 +189,32 @@ export default function ListingPreviewSelector({
           align-items: center;
           justify-content: space-between;
           gap: 14px;
-          margin-bottom: 13px;
+          margin-bottom: 15px;
         }
         .broker-google-proof-head span {
           color: #f6a700;
-          font-size: 9px;
+          font-size: 10px;
           font-weight: 900;
           letter-spacing: .1em;
         }
         .broker-google-proof-head strong {
           color: #95aebe;
-          font-size: 9px;
+          font-size: 10px;
           font-weight: 800;
           white-space: nowrap;
         }
         .broker-google-proof h4 {
-          max-width: 560px;
-          margin: 0 0 9px;
+          max-width: 580px;
+          margin: 0 0 11px;
           color: #fff;
-          font: 700 21px/1.18 Georgia, "Times New Roman", serif;
+          font: 700 23px/1.2 Georgia, "Times New Roman", serif;
         }
         .broker-google-proof-intro {
-          max-width: 590px;
+          max-width: 610px;
           margin: 0;
           color: #c8d5de;
-          font-size: 12px;
-          line-height: 1.58;
+          font-size: 13px;
+          line-height: 1.64;
         }
         .broker-google-proof-intro b {
           color: #fff;
@@ -222,14 +222,14 @@ export default function ListingPreviewSelector({
         .broker-google-proof-facts {
           display: grid;
           grid-template-columns: repeat(2,minmax(0,1fr));
-          gap: 10px;
-          margin-top: 17px;
+          gap: 12px;
+          margin-top: 19px;
         }
         .broker-google-proof-facts article {
           min-width: 0;
-          min-height: 92px;
+          min-height: 108px;
           box-sizing: border-box;
-          padding: 13px 14px;
+          padding: 16px 17px;
           border: 1px solid rgba(101,205,241,.23);
           border-radius: 8px;
           background: rgba(3,17,29,.55);
@@ -237,28 +237,28 @@ export default function ListingPreviewSelector({
         }
         .broker-google-proof-facts article > span {
           display: block;
-          margin-bottom: 7px;
+          margin-bottom: 8px;
           color: #69d6ff;
-          font-size: 8px;
+          font-size: 9px;
           font-weight: 900;
           letter-spacing: .09em;
         }
         .broker-google-proof-facts article > strong {
           display: block;
           color: #fff;
-          font-size: 12px;
-          line-height: 1.38;
+          font-size: 13px;
+          line-height: 1.45;
         }
         .broker-google-proof-actions {
           display: grid;
-          gap: 7px;
+          gap: 8px;
           margin-top: auto;
-          padding-top: 17px;
+          padding-top: 20px;
         }
         .broker-google-proof-actions > a {
           width: fit-content;
           color: #f6b51f;
-          font-size: 11px;
+          font-size: 12px;
           font-weight: 900;
           text-decoration: none;
         }
@@ -269,13 +269,14 @@ export default function ListingPreviewSelector({
           text-underline-offset: 3px;
         }
         .broker-google-proof-actions > small {
-          color: #8399a8;
-          font-size: 8px;
-          line-height: 1.45;
+          color: #8da2b0;
+          font-size: 9px;
+          line-height: 1.5;
         }
         @media (max-width: 720px) {
           .broker-google-proof {
             min-height: 0;
+            padding: 21px;
           }
           .broker-google-proof-head {
             align-items: flex-start;
