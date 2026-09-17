@@ -1,3 +1,50 @@
+/* Tighten the desktop/tablet vertical rhythm on the broker listing page so sections
+   connect more deliberately without the large bands of unused space between them. */
+@media (min-width: 621px) {
+  .broker-official-shell main > section[class*="hero"] {
+    min-height: 545px !important;
+  }
+
+  .broker-official-shell main [class*="heroGrid"] {
+    min-height: 460px !important;
+  }
+
+  .broker-official-shell main [class*="benefitSection"] {
+    padding-top: 52px !important;
+    padding-bottom: 52px !important;
+  }
+
+  .broker-official-shell main .broker-organic-section {
+    padding-top: 52px !important;
+    padding-bottom: 52px !important;
+  }
+
+  .broker-official-shell main [class*="previewSection"] {
+    padding-top: 58px !important;
+    padding-bottom: 62px !important;
+  }
+
+  .broker-official-shell main [class*="distinctionSection"] {
+    padding-top: 54px !important;
+    padding-bottom: 54px !important;
+  }
+
+  .broker-official-shell main [class*="processSection"] {
+    padding-top: 54px !important;
+    padding-bottom: 54px !important;
+  }
+
+  .broker-official-shell main [class*="formSection"] {
+    padding-top: 58px !important;
+    padding-bottom: 44px !important;
+  }
+
+  .broker-official-shell main [class*="faqSection"] {
+    padding-top: 46px !important;
+    padding-bottom: 54px !important;
+  }
+}
+
 @media (max-width: 620px) {
   [class*="benefitSection"] [class*="sectionHeading"] > span {
     font-size: 20px !important;
