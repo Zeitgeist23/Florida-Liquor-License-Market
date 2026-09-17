@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v3">
   .contact-careers-entry{display:inline-flex;align-items:center;gap:8px;width:fit-content;margin-top:12px;color:#d7e2ea;font-size:14px;line-height:1.4;text-decoration:none}
@@ -62,6 +63,22 @@ function addCareersEntryPoint(html: string) {
   return html.replace(marker, `${marker}${CAREERS_ENTRY}`);
 }
 
+async function loadContactSource(request: Request) {
+  const sourcePath = path.join(process.cwd(), "public", "contact", "index.html");
+  try {
+    return await readFile(sourcePath, "utf8");
+  } catch (fileError) {
+    const sourceUrl = new URL("/contact/index.html", request.url);
+    sourceUrl.searchParams.set("fllm_raw", "1");
+    const response = await fetch(sourceUrl, {
+      cache: "no-store",
+      headers: { "x-fllm-contact-source": "1" },
+    });
+    if (!response.ok) throw fileError;
+    return await response.text();
+  }
+}
+
 function applyCareersMode(html: string) {
   return html
     .replace("<h1>Contact Florida Liquor License Market</h1>", "<h1>Apply to Join Florida Liquor License Market</h1>")
@@ -79,8 +96,7 @@ export async function GET(request: Request) {
   try {
     const requestUrl = new URL(request.url);
     const careersMode = requestUrl.searchParams.get("careers") === "1";
-    const sourcePath = path.join(process.cwd(), "public", "contact", "index.html");
-    let html = applyOfficialShell(await readFile(sourcePath, "utf8"));
+    let html = applyOfficialShell(await loadContactSource(request));
     html = careersMode ? applyCareersMode(html) : addCareersEntryPoint(html);
     return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store, max-age=0", "X-Content-Type-Options": "nosniff" } });
   } catch (error) {
