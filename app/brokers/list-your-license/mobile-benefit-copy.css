@@ -100,8 +100,8 @@
   opacity: .95;
 }
 
-/* Give the two AI OVERVIEW proof cards permanent depth and a subtle interior cyan light. */
-.broker-official-shell main .broker-google-proof-facts article:first-child {
+/* Give every inner Google proof card the same permanent depth and soft interior cyan light. */
+.broker-official-shell main .broker-google-proof-facts article {
   position: relative !important;
   overflow: hidden !important;
   border-color: rgba(102, 218, 255, .48) !important;
@@ -117,7 +117,7 @@
   transform: translateY(-1px);
 }
 
-.broker-official-shell main .broker-google-proof-facts article:first-child::before {
+.broker-official-shell main .broker-google-proof-facts article::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -128,13 +128,13 @@
   opacity: .78;
 }
 
-.broker-official-shell main .broker-google-proof-facts article:first-child > * {
+.broker-official-shell main .broker-google-proof-facts article > * {
   position: relative;
   z-index: 1;
 }
 
-.broker-official-shell main .broker-google-proof:hover .broker-google-proof-facts article:first-child,
-.broker-official-shell main .broker-google-proof:focus-within .broker-google-proof-facts article:first-child {
+.broker-official-shell main .broker-google-proof:hover .broker-google-proof-facts article,
+.broker-official-shell main .broker-google-proof:focus-within .broker-google-proof-facts article {
   transform: translateY(-4px) scale(1.012) !important;
   border-color: rgba(113, 228, 255, .78) !important;
   background:
