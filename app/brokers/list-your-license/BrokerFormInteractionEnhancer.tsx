@@ -31,6 +31,22 @@ export default function BrokerFormInteractionEnhancer() {
       websiteForm?.addEventListener("submit", normalizeWebsiteInput, true);
     }
 
+    // Route the coordinated-inventory CTA into FLLM's inquiry submission page
+    // instead of launching an external mail client.
+    const listingsTeamLink = document.querySelector<HTMLAnchorElement>(
+      '.broker-official-shell main [class*="multiListing"] a',
+    );
+    const originalListingsTeamHref = listingsTeamLink?.getAttribute("href") || null;
+    const originalListingsTeamAria = listingsTeamLink?.getAttribute("aria-label") || null;
+
+    if (listingsTeamLink) {
+      listingsTeamLink.setAttribute("href", "/contact");
+      listingsTeamLink.setAttribute(
+        "aria-label",
+        "Open the FLLM inquiry submission page",
+      );
+    }
+
     const faqLists = Array.from(
       document.querySelectorAll<HTMLElement>(
         '.broker-official-shell main [class*="faqList"]',
@@ -144,6 +160,20 @@ export default function BrokerFormInteractionEnhancer() {
         websiteInput.removeEventListener("blur", normalizeWebsiteInput);
         websiteInput.removeEventListener("change", normalizeWebsiteInput);
         websiteForm?.removeEventListener("submit", normalizeWebsiteInput, true);
+      }
+
+      if (listingsTeamLink) {
+        if (originalListingsTeamHref === null) {
+          listingsTeamLink.removeAttribute("href");
+        } else {
+          listingsTeamLink.setAttribute("href", originalListingsTeamHref);
+        }
+
+        if (originalListingsTeamAria === null) {
+          listingsTeamLink.removeAttribute("aria-label");
+        } else {
+          listingsTeamLink.setAttribute("aria-label", originalListingsTeamAria);
+        }
       }
 
       faqListListeners.forEach(
