@@ -54,6 +54,124 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
           font-size: 11px !important;
         }
 
+        /* Larger, centered process cards with dimensional hover treatment. */
+        .broker-official-shell main [class*="steps"] article {
+          display: flex !important;
+          min-height: 218px !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          box-sizing: border-box;
+          padding: 30px 24px !important;
+          text-align: center !important;
+          border-color: #d4dade !important;
+          background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.9),
+            0 10px 24px rgba(7,24,39,.08);
+          transform: translateY(0);
+          transition:
+            transform .2s ease,
+            border-color .2s ease,
+            box-shadow .2s ease,
+            background .2s ease,
+            filter .2s ease;
+        }
+
+        .broker-official-shell main [class*="steps"] article:hover {
+          transform: translateY(-7px);
+          border-color: #e3a11a !important;
+          background: linear-gradient(180deg, #fffefb 0%, #fff8e8 100%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.95),
+            0 20px 38px rgba(7,24,39,.16),
+            0 0 24px rgba(246,167,0,.20);
+          filter: brightness(1.02);
+        }
+
+        .broker-official-shell main [class*="steps"] article > b {
+          width: 46px !important;
+          height: 46px !important;
+          font-size: 18px !important;
+          box-shadow: 0 8px 18px rgba(246,167,0,.22);
+        }
+
+        .broker-official-shell main [class*="steps"] article h3 {
+          margin: 18px 0 10px !important;
+          font-size: 22px !important;
+          line-height: 1.25 !important;
+        }
+
+        .broker-official-shell main [class*="steps"] article p {
+          max-width: 235px;
+          margin-inline: auto !important;
+          font-size: 15px !important;
+          line-height: 1.65 !important;
+          color: #50616c !important;
+        }
+
+        .broker-official-shell main [class*="steps"] article:not(:last-child)::after {
+          top: 50% !important;
+          right: -14px !important;
+          width: 28px !important;
+          height: 28px !important;
+          transform: translateY(-50%);
+          box-shadow: 0 5px 12px rgba(246,167,0,.22);
+        }
+
+        /* Make listing-tier cards easier to read and clearly swap selection on hover. */
+        .broker-official-shell main [class*="tierOption"],
+        .broker-official-shell main [class*="tierSelected"] {
+          min-height: 278px !important;
+          padding: 28px 29px !important;
+          gap: 15px !important;
+          transition:
+            transform .2s ease,
+            border-color .2s ease,
+            box-shadow .2s ease,
+            background .2s ease,
+            opacity .2s ease !important;
+        }
+
+        .broker-official-shell main [class*="tierOption"] {
+          transform: translateY(0) !important;
+          border-color: #cbd3d8 !important;
+          background: #f7f8f8 !important;
+          box-shadow: 0 8px 20px rgba(7,24,39,.05) !important;
+        }
+
+        .broker-official-shell main [class*="tierSelected"] {
+          transform: translateY(-6px) !important;
+          border-color: #e0a01a !important;
+          background: linear-gradient(180deg, #fffdf7 0%, #fff8e8 100%) !important;
+          box-shadow:
+            0 18px 34px rgba(7,24,39,.13),
+            0 0 24px rgba(246,167,0,.18) !important;
+        }
+
+        .broker-official-shell main [class*="tierTop"] b {
+          font-size: 28px !important;
+        }
+
+        .broker-official-shell main [class*="tierTop"] strong {
+          font-size: 25px !important;
+        }
+
+        .broker-official-shell main [class*="tierDescription"] {
+          max-width: 470px !important;
+          font-size: 15px !important;
+          line-height: 1.6 !important;
+        }
+
+        .broker-official-shell main [class*="tierBenefits"] {
+          font-size: 14px !important;
+          line-height: 2 !important;
+        }
+
+        .broker-official-shell main [class*="tierSelected"] input[type="radio"] {
+          transform: scale(1.12);
+        }
+
         /* Make the representation distinction cards easier to read and give them the same dimensional hover language as the marketplace cards. */
         .broker-official-shell main [class*="distinctionGrid"] article {
           min-height: 330px !important;
@@ -153,6 +271,21 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
           .broker-official-shell main [class*="distinctionGrid"] article {
             min-height: 0 !important;
             padding: 28px !important;
+          }
+
+          .broker-official-shell main [class*="steps"] article {
+            min-height: 190px !important;
+            padding: 26px 22px !important;
+          }
+
+          .broker-official-shell main [class*="steps"] article:not(:last-child)::after {
+            display: none !important;
+          }
+
+          .broker-official-shell main [class*="tierOption"],
+          .broker-official-shell main [class*="tierSelected"] {
+            min-height: 0 !important;
+            padding: 24px !important;
           }
         }
       `}</style>
