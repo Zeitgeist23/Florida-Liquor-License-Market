@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 const clusterPaths = new Set([
@@ -60,9 +61,69 @@ const sellerFaqs = [
 
 export default function ListingServiceSeoCluster() {
   const pathname = usePathname();
+  const faqSectionRef = useRef<HTMLElement>(null);
   const showCluster = clusterPaths.has(pathname);
   const showBrokerFaqs = pathname === "/brokers/list-your-license";
   const showSellerFaqs = pathname === "/sell-your-license";
+
+  useEffect(() => {
+    if (!showBrokerFaqs) return;
+
+    const section = faqSectionRef.current;
+    if (!section) return;
+
+    const items = Array.from(section.querySelectorAll<HTMLDetailsElement>("details"));
+    if (!items.length) return;
+
+    let animationFrame = 0;
+
+    const updateOpenQuestion = () => {
+      animationFrame = 0;
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const sectionRect = section.getBoundingClientRect();
+
+      if (sectionRect.top > viewportHeight * 0.92 || sectionRect.bottom < viewportHeight * 0.08) {
+        return;
+      }
+
+      const focusLine = viewportHeight * 0.5;
+      let closestItem: HTMLDetailsElement | null = null;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      for (const item of items) {
+        const rect = item.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > viewportHeight) continue;
+
+        const itemCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(itemCenter - focusLine);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestItem = item;
+        }
+      }
+
+      if (!closestItem) return;
+
+      for (const item of items) {
+        item.open = item === closestItem;
+      }
+    };
+
+    const scheduleUpdate = () => {
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(updateOpenQuestion);
+    };
+
+    updateOpenQuestion();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    };
+  }, [showBrokerFaqs]);
 
   if (!showCluster && !showBrokerFaqs && !showSellerFaqs) return null;
 
@@ -86,7 +147,11 @@ export default function ListingServiceSeoCluster() {
       ) : null}
 
       {showBrokerFaqs || showSellerFaqs ? (
-        <section className="fllm-listing-service-faq" aria-label={showBrokerFaqs ? "Florida broker listing service questions" : "Florida liquor license seller listing questions"}>
+        <section
+          ref={faqSectionRef}
+          className="fllm-listing-service-faq"
+          aria-label={showBrokerFaqs ? "Florida broker listing service questions" : "Florida liquor license seller listing questions"}
+        >
           <div className="fllm-listing-service-faq__inner">
             <span>{showBrokerFaqs ? "Broker Listing Service Questions" : "Seller Listing Questions"}</span>
             <h2>{showBrokerFaqs ? "Florida liquor license marketplace questions for brokers" : "How to list and sell a Florida liquor license"}</h2>
