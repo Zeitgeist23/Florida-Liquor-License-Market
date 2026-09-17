@@ -263,7 +263,7 @@
   background:#061728!important;
 }
 
-.contact-page > .fllm-official-contact-header .native-nav-menu-standard{width:310px!important}
+.contact-page > .fllm-official-contact-header .native-nav-menu-standard{width:310px!important}\n.contact-page > .fllm-official-contact-header .native-nav-sell-menu{width:390px!important}
 .contact-page > .fllm-official-contact-header .native-nav-buy-menu{
   width:min(540px,calc(100vw - 48px))!important;
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
@@ -428,4 +428,13 @@
   .contact-page > .fllm-official-contact-header .native-license-types-menu{
     grid-template-columns:1fr!important;
   }
+}
+
+/* Canonical action hover parity */
+.contact-page > .fllm-official-contact-header .fllm-header-contact-cta:hover,
+.contact-page > .fllm-official-contact-header .fllm-header-contact-cta:focus-visible{
+  border-color:#ffc13b!important;
+  background:linear-gradient(145deg,#ffc13b,#e69a00)!important;
+  color:#07101a!important;
+  box-shadow:0 0 0 1px rgba(255,193,59,.28),0 7px 16px rgba(0,0,0,.28)!important;
 }
