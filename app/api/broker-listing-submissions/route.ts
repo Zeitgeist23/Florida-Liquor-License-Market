@@ -18,6 +18,14 @@ function value(form: FormData, key: string, maxLength = 5000) {
     .slice(0, maxLength);
 }
 
+function firstValue(form: FormData, keys: string[], maxLength = 5000) {
+  for (const key of keys) {
+    const current = value(form, key, maxLength);
+    if (current) return current;
+  }
+  return "";
+}
+
 function values(form: FormData, key: string, maxLength = 5000) {
   return form
     .getAll(key)
@@ -27,8 +35,17 @@ function values(form: FormData, key: string, maxLength = 5000) {
     .slice(0, maxLength);
 }
 
+function firstValues(form: FormData, keys: string[], maxLength = 5000) {
+  for (const key of keys) {
+    const current = values(form, key, maxLength);
+    if (current) return current;
+  }
+  return "";
+}
+
 function accepted(form: FormData, key: string) {
-  return value(form, key, 30) === "Accepted";
+  const answer = value(form, key, 30).toLowerCase();
+  return ["accepted", "on", "true", "yes", "1"].includes(answer);
 }
 
 const listingOptions = {
@@ -64,21 +81,31 @@ export async function POST(request: Request) {
     if (value(form, "_honey", 200))
       return NextResponse.json({ ok: true, checkoutUrl: "/" });
 
-    const certifications = [
+    // Current broker form uses two consolidated certifications. Keep the legacy
+    // four-field check as a fallback so older cached forms continue to work.
+    const currentCertificationsAccepted =
+      accepted(form, "authority_confirmed") && accepted(form, "terms_confirmed");
+    const legacyCertificationsAccepted = [
       "authority_certification",
       "accuracy_certification",
       "marketplace_acknowledgment",
       "fee_agreement",
-    ];
-    if (!certifications.every((key) => accepted(form, key))) {
+    ].every((key) => accepted(form, key));
+
+    if (!currentCertificationsAccepted && !legacyCertificationsAccepted) {
       return NextResponse.json(
         { error: "Please accept all broker certifications before continuing." },
         { status: 400 },
       );
     }
 
-    const brokerageName = value(form, "brokerage_name", 180);
-    const contactPreference = values(form, "contact_preference", 500);
+    // Accept both the current field names and the former form schema.
+    const brokerageName = firstValue(form, ["brokerage", "brokerage_name"], 180);
+    const contactPreference = firstValues(
+      form,
+      ["inquiry_routes", "contact_preference"],
+      500,
+    );
     if (!brokerageName || !contactPreference) {
       return NextResponse.json(
         {
@@ -105,21 +132,24 @@ export async function POST(request: Request) {
         ? await uploadBrokerListingDocument(document)
         : null;
 
-    const fullName = value(form, "name", 160);
+    const fullName = firstValue(form, ["broker_name", "name"], 160);
     const email = value(form, "email", 254).toLowerCase();
     const phone = value(form, "phone", 60);
     const county = value(form, "county", 100);
     const licenseType = value(form, "license_type", 100);
     const askingPriceText = value(form, "asking_price", 60);
-    const licenseStatus = value(form, "license_status", 120);
+    const licenseStatus =
+      value(form, "license_status", 120) ||
+      "Available / broker confirmation required";
     const preferredTiming = value(form, "preferred_timing", 120);
+
     if (
       !fullName ||
       !email ||
       !phone ||
       !county ||
       !licenseType ||
-      !licenseStatus
+      !askingPriceText
     ) {
       return NextResponse.json(
         { error: "Please complete all required broker and license fields." },
@@ -133,6 +163,11 @@ export async function POST(request: Request) {
       );
     }
 
+    const licenseVisibility =
+      value(form, "license_number_visibility", 100) ||
+      "Private unless separately authorized for display";
+    const additional = firstValue(form, ["notes", "message"], 3500);
+
     const notes = [
       "Submission type: Independent Broker Marketplace Listing",
       `Listing option: ${listingTier.label} — $${(listingTier.unitAmount / 100).toFixed(2)}`,
@@ -142,15 +177,13 @@ export async function POST(request: Request) {
       `Brokerage website: ${value(form, "brokerage_website", 300) || "Not provided"}`,
       `Buyer inquiry routing: ${contactPreference}`,
       `License number: ${value(form, "license_number", 100) || "Not provided"}`,
-      `License-number visibility: ${value(form, "license_number_visibility", 100)}`,
-      "Broker authority certification: Accepted",
-      "Accuracy and update certification: Accepted",
+      `License-number visibility: ${licenseVisibility}`,
+      "Broker authority and accuracy certification: Accepted",
       "Advertising-only marketplace acknowledgment: Accepted",
       storedDocument
         ? `Private supporting document: ${storedDocument.fileName} (${storedDocument.mimeType}, ${storedDocument.size} bytes) — storage path ${storedDocument.objectPath}`
         : "Private supporting document: Not provided",
     ];
-    const additional = value(form, "message", 3500);
     if (additional) notes.push(`Broker notes: ${additional}`);
 
     const submissionInput = {
@@ -204,7 +237,7 @@ export async function POST(request: Request) {
         metadata: {
           listing_tier: listingTierKey,
           listing_price: String(listingTier.unitAmount),
-          recovery_version: "broker_v1",
+          recovery_version: "broker_v2",
           database_saved: String(databaseSaved),
           full_name: fullName.slice(0, 500),
           email: email.slice(0, 500),
@@ -225,21 +258,14 @@ export async function POST(request: Request) {
           ),
           contact_preference: contactPreference.slice(0, 500),
           license_number: value(form, "license_number", 100).slice(0, 500),
-          license_visibility: value(
-            form,
-            "license_number_visibility",
-            100,
-          ).slice(0, 500),
+          license_visibility: licenseVisibility.slice(0, 500),
           broker_notes: additional.slice(0, 500),
           document_path: storedDocument?.objectPath.slice(0, 500) || "",
         },
         paymentLink: listingTier.paymentLink,
       },
     );
-    // Do not strand the customer on this page after Stripe has already created
-    // a valid Checkout Session. The webhook can reconcile the real session ID
-    // from submission_ref after payment even if this nonessential PATCH has a
-    // transient database/network failure.
+
     try {
       if (databaseSaved)
         await attachCheckoutSession(submission.id, checkout.id);
