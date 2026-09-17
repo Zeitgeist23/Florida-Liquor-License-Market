@@ -1,0 +1,149 @@
+.broker-choice-page .seo-market-shell {
+  width: min(1180px, calc(100% - 48px)) !important;
+  margin-inline: auto !important;
+}
+
+.broker-choice-page .seo-market-hero {
+  padding: 46px 0 54px !important;
+}
+
+.broker-choice-page .seo-market-breadcrumbs {
+  margin-bottom: 26px !important;
+}
+
+.broker-choice-page .seo-market-hero-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.18fr) minmax(360px, .82fr) !important;
+  gap: 52px !important;
+  align-items: center !important;
+}
+
+.broker-choice-page .seo-market-hero-grid > * {
+  min-width: 0;
+}
+
+.broker-choice-page .seo-market-hero h1 {
+  max-width: 760px !important;
+  margin: 12px 0 18px !important;
+  font-size: clamp(48px, 4.4vw, 66px) !important;
+  line-height: 1.04 !important;
+}
+
+.broker-choice-page .seo-market-hero p {
+  max-width: 790px !important;
+  font-size: 17px !important;
+  line-height: 1.72 !important;
+}
+
+.broker-choice-page .seo-market-actions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 14px !important;
+  margin-top: 28px !important;
+}
+
+.broker-choice-page .seo-market-actions .seo-market-button {
+  width: auto !important;
+  min-height: 52px !important;
+  padding: 0 20px !important;
+}
+
+.broker-choice-page .broker-choice-note {
+  width: 100% !important;
+  max-width: 790px !important;
+  box-sizing: border-box;
+  margin-top: 22px !important;
+  padding: 16px 18px !important;
+  border: 1px solid rgba(237,169,26,.18) !important;
+  border-left: 3px solid #eda91a !important;
+  border-radius: 0 8px 8px 0;
+  background: rgba(237,169,26,.08) !important;
+  color: #dbe5ec !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+}
+
+.broker-choice-page .seo-market-snapshot {
+  align-self: center !important;
+  margin: 0 !important;
+  padding: 26px !important;
+  border: 1px solid rgba(237,169,26,.38) !important;
+  border-radius: 14px !important;
+  background: linear-gradient(150deg,#123a5a 0%,#0b2d49 58%,#071d31 100%) !important;
+  box-shadow: 0 22px 46px rgba(0,0,0,.30) !important;
+}
+
+.broker-choice-page .seo-market-snapshot > span {
+  display: block;
+  margin-bottom: 16px;
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  letter-spacing: .10em !important;
+}
+
+.broker-choice-page .seo-market-snapshot-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  gap: 12px !important;
+  margin-top: 0 !important;
+}
+
+.broker-choice-page .seo-market-snapshot-grid div {
+  min-height: 124px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px !important;
+  border: 1px solid rgba(116,209,255,.34) !important;
+  background: linear-gradient(145deg,#194c73 0%,#103b5f 52%,#0a2b49 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 10px 20px rgba(0,0,0,.18) !important;
+  text-align: center !important;
+}
+
+.broker-choice-page .seo-market-snapshot-grid strong {
+  margin-bottom: 7px !important;
+  color: #fff !important;
+  font-size: 27px !important;
+  line-height: 1 !important;
+}
+
+.broker-choice-page .seo-market-snapshot-grid small {
+  min-height: 0 !important;
+  align-items: center !important;
+  color: #eef5f8 !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+}
+
+@media (max-width: 980px) {
+  .broker-choice-page .seo-market-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  .broker-choice-page .seo-market-snapshot {
+    width: 100% !important;
+    max-width: 620px;
+  }
+}
+
+@media (max-width: 640px) {
+  .broker-choice-page .seo-market-shell {
+    width: min(100% - 26px, 1180px) !important;
+  }
+
+  .broker-choice-page .seo-market-hero {
+    padding-top: 36px !important;
+  }
+
+  .broker-choice-page .seo-market-hero h1 {
+    font-size: 40px !important;
+  }
+
+  .broker-choice-page .seo-market-snapshot-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
