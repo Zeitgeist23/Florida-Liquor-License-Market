@@ -77,6 +77,11 @@ export default function ListingServiceSeoCluster() {
 
     let animationFrame = 0;
     let hoveredItem: HTMLDetailsElement | null = null;
+    let scrollActivated = false;
+
+    // Always begin with the broker FAQ cluster fully collapsed, including
+    // when the browser restores a previous scroll position after refresh.
+    for (const item of items) item.open = false;
 
     const openOnly = (target: HTMLDetailsElement) => {
       for (const item of items) item.open = item === target;
@@ -84,7 +89,7 @@ export default function ListingServiceSeoCluster() {
 
     const updateOpenQuestion = () => {
       animationFrame = 0;
-      if (hoveredItem) return;
+      if (hoveredItem || !scrollActivated) return;
 
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
       const sectionRect = section.getBoundingClientRect();
@@ -113,8 +118,18 @@ export default function ListingServiceSeoCluster() {
     };
 
     const scheduleUpdate = () => {
-      if (animationFrame) return;
+      if (!scrollActivated || animationFrame) return;
       animationFrame = window.requestAnimationFrame(updateOpenQuestion);
+    };
+
+    const activateScroll = () => {
+      scrollActivated = true;
+    };
+
+    const activateScrollFromKey = (event: KeyboardEvent) => {
+      if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) {
+        scrollActivated = true;
+      }
     };
 
     const listeners = items.map((item) => {
@@ -148,11 +163,18 @@ export default function ListingServiceSeoCluster() {
       return { item, onEnter, onLeave, onFocusIn, onFocusOut };
     });
 
-    updateOpenQuestion();
+    window.addEventListener("wheel", activateScroll, { passive: true });
+    window.addEventListener("touchmove", activateScroll, { passive: true });
+    window.addEventListener("pointerdown", activateScroll, { passive: true });
+    window.addEventListener("keydown", activateScrollFromKey);
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
     window.addEventListener("resize", scheduleUpdate);
 
     return () => {
+      window.removeEventListener("wheel", activateScroll);
+      window.removeEventListener("touchmove", activateScroll);
+      window.removeEventListener("pointerdown", activateScroll);
+      window.removeEventListener("keydown", activateScrollFromKey);
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
       listeners.forEach(({ item, onEnter, onLeave, onFocusIn, onFocusOut }) => {
