@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import AdminBrokerOutreachClient from "./AdminBrokerOutreachClient";
+import BrokerEmailMasterPreview from "./BrokerEmailMasterPreview";
 import "./broker-outreach.css";
 
 export const metadata: Metadata = {
@@ -11,5 +12,10 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default function Page() {
-  return <AdminBrokerOutreachClient />;
+  return (
+    <>
+      <AdminBrokerOutreachClient />
+      <BrokerEmailMasterPreview />
+    </>
+  );
 }
