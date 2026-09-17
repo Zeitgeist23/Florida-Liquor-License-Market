@@ -228,6 +228,33 @@
     menu.addEventListener('mouseleave',closeMenu);
   }
 
+  function formatContactPhone(value){
+    var digits=String(value||'').replace(/\D/g,'').slice(0,10);
+    if(!digits)return '';
+    if(digits.length<4)return '('+digits;
+    if(digits.length<7)return '('+digits.slice(0,3)+')'+digits.slice(3);
+    return '('+digits.slice(0,3)+')'+digits.slice(3,6)+'-'+digits.slice(6);
+  }
+
+  function wireContactPhone(){
+    var input=document.querySelector('form.contact-page-form input[name="phone"]');
+    if(!(input instanceof HTMLInputElement) || input.dataset.fllmPhoneFormat==='true') return;
+    input.dataset.fllmPhoneFormat='true';
+    input.setAttribute('inputmode','tel');
+    input.setAttribute('maxlength','13');
+    input.setAttribute('placeholder','(555)555-5555');
+
+    var apply=function(){
+      var formatted=formatContactPhone(input.value);
+      if(input.value!==formatted) input.value=formatted;
+    };
+
+    input.addEventListener('input',apply);
+    input.addEventListener('change',apply);
+    input.addEventListener('blur',apply);
+    apply();
+  }
+
   function wireContactHoverSelects(){
     var inquiry=document.querySelector('form.contact-page-form select[name="inquiry_type"]');
     var county=document.querySelector('form.contact-page-form select[name="preferred_county"]');
@@ -249,6 +276,7 @@
     wireHeader(header);
     positionResourcesMenus();
     wireContactHoverSelects();
+    wireContactPhone();
 
     var footer=document.querySelector('.fllm-official-contact-footer');
     if(!footer){
