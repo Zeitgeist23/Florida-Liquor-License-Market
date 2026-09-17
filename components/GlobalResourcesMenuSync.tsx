@@ -78,6 +78,22 @@ export default function GlobalResourcesMenuSync() {
           white-space:nowrap;
         }
 
+        /* Keep the comparison table readable and give 5COP-8COP a direct anchor. */
+        #common-license-chart .license-types-table th:nth-child(1),
+        #common-license-chart .license-types-table td:nth-child(1) { width: 12% !important; }
+        #common-license-chart .license-types-table th:nth-child(2),
+        #common-license-chart .license-types-table td:nth-child(2) { width: 14% !important; }
+        #common-license-chart .license-types-table th:nth-child(3),
+        #common-license-chart .license-types-table td:nth-child(3) { width: 12% !important; }
+        #common-license-chart .license-types-table th:nth-child(4),
+        #common-license-chart .license-types-table td:nth-child(4) { width: 19% !important; }
+        #common-license-chart .license-types-table th:nth-child(5),
+        #common-license-chart .license-types-table td:nth-child(5) { width: 25% !important; }
+        #common-license-chart .license-types-table th:nth-child(6),
+        #common-license-chart .license-types-table td:nth-child(6) { width: 18% !important; }
+        #common-license-chart .license-types-table thead th:nth-child(3) { white-space: nowrap; }
+        #five-to-eight-cop { scroll-margin-top: 120px; }
+
         @media (hover:hover) and (pointer:fine) {
           .primary-nav .native-nav-dropdown:has(> .native-nav-resources-menu):hover > .native-nav-resources-menu,
           .primary-nav .native-nav-dropdown:has(> .native-nav-resources-menu):focus-within > .native-nav-resources-menu {
@@ -113,12 +129,61 @@ export default function GlobalResourcesMenuSync() {
         if (column.querySelector('a[data-five-to-eight-cop="true"]')) return;
 
         const link = document.createElement("a");
-        link.href = "/resources/florida-liquor-license-types#common-license-chart";
+        link.href = "/resources/florida-liquor-license-types#five-to-eight-cop";
         link.textContent = "5COP-8COP Quota Licenses";
         link.setAttribute("role", "menuitem");
         link.dataset.fiveToEightCop = "true";
         column.appendChild(link);
       });
+    };
+
+    const enhanceLicenseTypesChart = () => {
+      const table = document.querySelector<HTMLTableElement>("#common-license-chart .license-types-table");
+      if (!table) return;
+
+      const rows = Array.from(table.querySelectorAll<HTMLTableRowElement>("tbody tr"));
+      const rowBySeries = (series: string) => rows.find((row) => row.querySelector("th")?.textContent?.trim() === series);
+
+      const packageRow = rowBySeries("3PS family") || rowBySeries("3DPS–3PS Quota Family");
+      if (packageRow) {
+        const cells = packageRow.children;
+        const badge = packageRow.querySelector("th span");
+        if (badge) badge.textContent = "3DPS–3PS Quota Family";
+        if (cells[1]) cells[1].textContent = "Quota package-store license";
+        if (cells[4]) cells[4].textContent = "County-limited quota license. Series is 3DPS, 3CPS, 3BPS, 3APS, or 3PS based on the applicable county population tier.";
+      }
+
+      const fourCopRow = rowBySeries("4COP family");
+      if (fourCopRow) {
+        const cells = fourCopRow.children;
+        if (cells[1]) cells[1].textContent = "Quota consumption-on-premises license";
+        if (cells[4]) cells[4].textContent = "County-limited quota license. 4COP is the series used in the largest county population tier.";
+
+        if (!document.getElementById("five-to-eight-cop")) {
+          const fiveToEightRow = fourCopRow.cloneNode(true) as HTMLTableRowElement;
+          fiveToEightRow.id = "five-to-eight-cop";
+          const newCells = fiveToEightRow.children;
+          const newBadge = fiveToEightRow.querySelector("th span");
+          if (newBadge) newBadge.textContent = "5COP–8COP";
+          if (newCells[1]) newCells[1].textContent = "Quota consumption-on-premises license";
+          if (newCells[2]) newCells[2].textContent = "Beer, wine, and liquor";
+          if (newCells[3]) newCells[3].textContent = "By the drink or sealed containers for consumption on or off premises.";
+          if (newCells[4]) newCells[4].textContent = "County-limited quota license. Series is 5COP, 6COP, 7COP, or 8COP depending on the applicable county population tier.";
+          if (newCells[5]) newCells[5].textContent = "Bars, taverns, cocktail lounges, nightclubs, full-liquor restaurants, and other approved hospitality venues.";
+          fourCopRow.insertAdjacentElement("afterend", fiveToEightRow);
+        }
+      }
+
+      const headingCopy = document.querySelector<HTMLElement>("#common-license-chart .license-types-section-heading > p");
+      if (headingCopy) {
+        headingCopy.textContent = "Florida quota licenses use population-based series. 4COP and 3PS are the familiar largest-population series; 5COP–8COP and 3APS–3DPS are corresponding lower-population tiers.";
+      }
+
+      const quotaSection = document.querySelector<HTMLElement>(".license-types-quota");
+      const quotaTitle = quotaSection?.querySelector("h2");
+      const quotaCopy = quotaSection?.querySelector("p");
+      if (quotaTitle) quotaTitle.textContent = "Quota COP and package-store licenses serve different business models";
+      if (quotaCopy) quotaCopy.textContent = "4COP through 8COP are consumption-on-premises quota series commonly used by bars, taverns, restaurants and nightclubs, while the 3PS family is the package-store counterpart for sealed off-premises sales.";
     };
 
     const positionResourcesMenus = () => {
@@ -179,7 +244,11 @@ export default function GlobalResourcesMenuSync() {
     };
 
     ensureFiveToEightCopLink();
-    const quotaLinkTimers = [100, 400, 1000].map((delay) => window.setTimeout(ensureFiveToEightCopLink, delay));
+    enhanceLicenseTypesChart();
+    const enhancementTimers = [100, 400, 1000].map((delay) => window.setTimeout(() => {
+      ensureFiveToEightCopLink();
+      enhanceLicenseTypesChart();
+    }, delay));
     positionResourcesMenus();
     window.addEventListener("resize", positionResourcesMenus, { passive: true });
     document.addEventListener("pointerover", positionOnResourcesHover, true);
@@ -191,7 +260,7 @@ export default function GlobalResourcesMenuSync() {
     document.addEventListener("click", blockResourcesDesktopClick, true);
 
     return () => {
-      quotaLinkTimers.forEach((timer) => window.clearTimeout(timer));
+      enhancementTimers.forEach((timer) => window.clearTimeout(timer));
       window.removeEventListener("resize", positionResourcesMenus);
       document.removeEventListener("pointerover", positionOnResourcesHover, true);
       document.removeEventListener("mouseover", blockResourcesSyntheticHover, true);
