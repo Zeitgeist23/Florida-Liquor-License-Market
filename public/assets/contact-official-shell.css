@@ -697,3 +697,59 @@
     min-width:96px!important;
   }
 }
+
+
+/* Contact Resources: exact Listings-page menu presentation. */
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu{
+  width:min(332px,calc(100vw - 24px))!important;
+  max-width:calc(100vw - 24px)!important;
+  grid-template-columns:1fr!important;
+  gap:4px!important;
+  padding:6px!important;
+  border:1px solid #f6a700!important;
+  border-radius:6px!important;
+  background:#061728!important;
+  box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12)!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a{
+  display:block!important;
+  width:100%!important;
+  min-height:0!important;
+  padding:12px 13px!important;
+  border:0!important;
+  border-radius:4px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#fff!important;
+  text-align:left!important;
+  text-decoration:none!important;
+  font:700 13px/1.25 Arial,Helvetica,sans-serif!important;
+  letter-spacing:.01em!important;
+  transform:none!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a:hover,
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a:focus-visible{
+  border:0!important;
+  background:#f6a700!important;
+  color:#061728!important;
+  transform:none!important;
+  outline:none!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a[href="/free-guide"]{
+  border:0!important;
+  background:transparent!important;
+  color:#fff!important;
+  font-weight:900!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a[href="/free-guide"]::after{
+  content:"FREE PDF"!important;
+  float:right!important;
+  margin-left:12px!important;
+  color:inherit!important;
+  font-size:9px!important;
+  letter-spacing:.08em!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]::after,
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a[href="/florida-liquor-license-value"]::after{
+  content:none!important;
+}
