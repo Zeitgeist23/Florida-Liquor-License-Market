@@ -22,8 +22,8 @@ const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v3">
 </style>`;
 
 const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=4" defer></script>';
-const OFFICIAL_SHELL_STYLES = '<link rel="stylesheet" href="/assets/contact-official-shell.css?v=2"/>';
-const OFFICIAL_SHELL_SCRIPT = '<script src="/assets/contact-official-shell.js?v=2" defer></script>';
+const OFFICIAL_SHELL_STYLES = '<link rel="stylesheet" href="/assets/contact-official-shell.css?v=3"/>';
+const OFFICIAL_SHELL_SCRIPT = '<script src="/assets/contact-official-shell.js?v=3" defer></script>';
 
 const OFFICIAL_HEADER = `<header class="site-header forms-site-header page-shell fllm-official-contact-header">
   <a class="brand-lockup" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market"/></a>
@@ -40,7 +40,21 @@ const OFFICIAL_HEADER = `<header class="site-header forms-site-header page-shell
   <div class="header-actions"><a class="btn btn-outline fllm-header-contact-cta" href="/contact"><span class="contact-phone" aria-hidden="true">☎</span>Contact Us</a><div class="fllm-contact-list-wrap"><a class="btn btn-gold fllm-header-list-cta" href="/sell-your-license">List Your License</a><div class="fllm-contact-list-menu" aria-label="List your license options"><a href="/sell-your-license?method=self#listing-options">Self-Directed Seller</a><a href="/sell-your-license#broker-assistance">Request Broker Help</a><a href="/brokers/list-your-license">For Brokers — List a Client License</a></div></div></div>
 </header>`;
 
-const OFFICIAL_FOOTER = `<footer id="resources" class="fllm-official-contact-footer"><div class="page-shell footer-grid"><div class="footer-brand"><img src="/assets/brand-footer.svg" alt="Florida Liquor License Market"/><p>Florida’s marketplace for buying, selling &amp; financing liquor licenses.</p><b>Buy · Sell · Finance · Invest</b></div><div><strong>Marketplace</strong><a href="/listings">Browse Licenses</a><a href="/sell-your-license">Sell Your License</a><a href="/brokers/list-your-license">For Brokers</a><a href="/financing">Financing Solutions</a><a href="/investment-opportunities">Investment Opportunities</a></div><div><strong>Resources</strong><a href="/free-guide">Free Buyer’s &amp; Seller’s Guide</a><a href="/resources">Resource Center</a><a href="/resources/application-center">Application Center</a><a href="/resources/forms">Florida ABT Forms</a><a href="/resources/florida-liquor-license-laws">Florida Liquor License Laws</a></div><div><strong>Market Data</strong><a href="/counties">County Markets</a><a href="/florida-liquor-license-value">License Value Estimator</a><a href="/florida-quota-liquor-license-market-report">Market Insights</a><a href="/florida-liquor-license-news">News &amp; Insights</a><a href="/contact">Contact Us</a></div></div><div class="page-shell footer-legal">Florida Liquor License Market provides marketplace information and transaction resources. Availability, pricing, licensing eligibility and transaction terms should be independently confirmed. See our <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms-of-use">Terms of Use</a>.</div><div class="page-shell copyright">© 2026 Florida Liquor License Market. All rights reserved.</div></footer>`;
+const OFFICIAL_FOOTER = `<footer class="directory-footer sell-license-page-footer official-directory-footer fllm-official-contact-footer">
+  <div class="directory-shell">
+    <div class="directory-footer-brand">
+      <a href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width="130" height="53"/></a>
+      <span>© Florida Liquor License Market</span>
+    </div>
+    <nav aria-label="Footer navigation">
+      <a href="/">Home</a>
+      <a href="/florida-4cop-liquor-license-for-sale">4COP</a>
+      <a href="/florida-3ps-liquor-license-for-sale">3PS</a>
+      <a href="/listings">Listings</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </div>
+</footer>`;
 
 const CAREERS_ENTRY = '<a class="contact-careers-entry" href="/careers"><span>Interested in joining FLLM?</span><strong>View Careers →</strong></a>';
 
