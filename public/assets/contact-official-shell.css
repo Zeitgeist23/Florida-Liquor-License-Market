@@ -263,7 +263,8 @@
   background:#061728!important;
 }
 
-.contact-page > .fllm-official-contact-header .native-nav-menu-standard{width:310px!important}\n.contact-page > .fllm-official-contact-header .native-nav-sell-menu{width:390px!important}
+.contact-page > .fllm-official-contact-header .native-nav-menu-standard{width:310px!important}
+.contact-page > .fllm-official-contact-header .native-nav-sell-menu{width:390px!important}
 .contact-page > .fllm-official-contact-header .native-nav-buy-menu{
   width:min(540px,calc(100vw - 48px))!important;
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
