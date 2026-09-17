@@ -54,6 +54,60 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
           font-size: 11px !important;
         }
 
+        /* Make the representation distinction cards easier to read and give them the same dimensional hover language as the marketplace cards. */
+        .broker-official-shell main [class*="distinctionGrid"] article {
+          min-height: 330px !important;
+          box-sizing: border-box;
+          padding: 36px !important;
+          background:
+            radial-gradient(circle at 50% 0%, rgba(246, 167, 0, .06), transparent 42%),
+            #0a2236 !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.035),
+            0 12px 28px rgba(0,0,0,.18);
+          transform: translateY(0) scale(1);
+          transition:
+            transform .2s ease,
+            border-color .2s ease,
+            box-shadow .2s ease,
+            background .2s ease,
+            filter .2s ease;
+        }
+
+        .broker-official-shell main [class*="distinctionGrid"] article:hover {
+          transform: translateY(-6px) scale(1.01);
+          border-color: rgba(246, 167, 0, .95) !important;
+          background:
+            radial-gradient(circle at 50% 0%, rgba(246, 167, 0, .16), transparent 46%),
+            linear-gradient(150deg, #0d2a43 0%, #0a2236 68%, #071927 100%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.07),
+            0 22px 44px rgba(0,0,0,.34),
+            0 0 30px rgba(246,167,0,.22);
+          filter: brightness(1.05);
+        }
+
+        .broker-official-shell main [class*="distinctionGrid"] article > span {
+          font-size: 12px !important;
+          line-height: 1.35 !important;
+          letter-spacing: .09em !important;
+        }
+
+        .broker-official-shell main [class*="distinctionGrid"] article h3 {
+          font-size: 24px !important;
+          line-height: 1.25 !important;
+        }
+
+        .broker-official-shell main [class*="distinctionGrid"] article > p {
+          font-size: 17px !important;
+          line-height: 1.65 !important;
+        }
+
+        .broker-official-shell main [class*="distinctionGrid"] article li {
+          font-size: 16px !important;
+          line-height: 1.55 !important;
+        }
+
         /* Remove the route's old one-off header/footer so the approved shared shell is authoritative. */
         .broker-official-shell > main > div:has(> .forms-site-header),
         .broker-official-shell > main > footer {
@@ -92,6 +146,13 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
             box-shadow:
               0 0 0 1px rgba(255, 193, 59, .28),
               0 0 18px rgba(241, 166, 0, .5);
+          }
+        }
+
+        @media (max-width: 720px) {
+          .broker-official-shell main [class*="distinctionGrid"] article {
+            min-height: 0 !important;
+            padding: 28px !important;
           }
         }
       `}</style>
