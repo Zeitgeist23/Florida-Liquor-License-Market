@@ -41,6 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/brevard-county-liquor-license-for-sale`, lastModified, changeFrequency: "daily", priority: 0.94 },
     { url: `${siteUrl}/marion-county-liquor-license-for-sale`, lastModified, changeFrequency: "daily", priority: 0.94 },
     { url: `${siteUrl}/license-types/4cop-quota`, lastModified, changeFrequency: "monthly", priority: 0.82 },
+    { url: `${siteUrl}/license-types/gentlemens-clubs-4cop-quota`, lastModified, changeFrequency: "monthly", priority: 0.78 },
     { url: `${siteUrl}/license-types/3ps-package-store`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/license-types/2cop-beer-wine`, lastModified, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/license-types/4cop-sfs-restaurant`, lastModified, changeFrequency: "monthly", priority: 0.72 },
