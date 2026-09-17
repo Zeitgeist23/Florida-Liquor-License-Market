@@ -10,6 +10,8 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
+// Keep the admin outreach dashboard focused on prospects and campaign management.
+// The experimental broker email preview has been intentionally removed.
 export default function Page() {
   return <AdminBrokerOutreachClient />;
 }
