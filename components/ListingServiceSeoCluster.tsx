@@ -76,9 +76,16 @@ export default function ListingServiceSeoCluster() {
     if (!items.length) return;
 
     let animationFrame = 0;
+    let hoveredItem: HTMLDetailsElement | null = null;
+
+    const openOnly = (target: HTMLDetailsElement) => {
+      for (const item of items) item.open = item === target;
+    };
 
     const updateOpenQuestion = () => {
       animationFrame = 0;
+      if (hoveredItem) return;
+
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
       const sectionRect = section.getBoundingClientRect();
 
@@ -102,17 +109,44 @@ export default function ListingServiceSeoCluster() {
         }
       }
 
-      if (!closestItem) return;
-
-      for (const item of items) {
-        item.open = item === closestItem;
-      }
+      if (closestItem) openOnly(closestItem);
     };
 
     const scheduleUpdate = () => {
       if (animationFrame) return;
       animationFrame = window.requestAnimationFrame(updateOpenQuestion);
     };
+
+    const listeners = items.map((item) => {
+      const onEnter = () => {
+        hoveredItem = item;
+        openOnly(item);
+      };
+      const onLeave = () => {
+        if (hoveredItem === item) hoveredItem = null;
+        item.open = false;
+        scheduleUpdate();
+      };
+      const onFocusIn = () => {
+        hoveredItem = item;
+        openOnly(item);
+      };
+      const onFocusOut = (event: FocusEvent) => {
+        const next = event.relatedTarget as Node | null;
+        if (!next || !item.contains(next)) {
+          if (hoveredItem === item) hoveredItem = null;
+          item.open = false;
+          scheduleUpdate();
+        }
+      };
+
+      item.addEventListener("mouseenter", onEnter);
+      item.addEventListener("mouseleave", onLeave);
+      item.addEventListener("focusin", onFocusIn);
+      item.addEventListener("focusout", onFocusOut);
+
+      return { item, onEnter, onLeave, onFocusIn, onFocusOut };
+    });
 
     updateOpenQuestion();
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
@@ -121,6 +155,12 @@ export default function ListingServiceSeoCluster() {
     return () => {
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
+      listeners.forEach(({ item, onEnter, onLeave, onFocusIn, onFocusOut }) => {
+        item.removeEventListener("mouseenter", onEnter);
+        item.removeEventListener("mouseleave", onLeave);
+        item.removeEventListener("focusin", onFocusIn);
+        item.removeEventListener("focusout", onFocusOut);
+      });
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
     };
   }, [showBrokerFaqs]);
@@ -129,6 +169,72 @@ export default function ListingServiceSeoCluster() {
 
   return (
     <>
+      <style>{`
+        .fllm-listing-service-faq__grid {
+          align-items: start;
+        }
+
+        .fllm-listing-service-faq__grid details {
+          position: relative;
+          align-self: start;
+          overflow: hidden;
+          border: 1px solid #d2d9dd !important;
+          border-radius: 12px !important;
+          background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.96),
+            0 7px 16px rgba(7,24,39,.07),
+            0 16px 30px rgba(7,24,39,.07) !important;
+          transform: translateY(0) scale(1);
+          transition:
+            transform .2s ease,
+            border-color .2s ease,
+            box-shadow .2s ease,
+            background .2s ease,
+            filter .2s ease;
+        }
+
+        .fllm-listing-service-faq__grid details:hover,
+        .fllm-listing-service-faq__grid details[open] {
+          transform: translateY(-5px) scale(1.008);
+          border-color: rgba(232,164,10,.92) !important;
+          background:
+            radial-gradient(circle at 18% 0%, rgba(71,214,255,.11), transparent 38%),
+            radial-gradient(circle at 86% 10%, rgba(246,167,0,.10), transparent 34%),
+            linear-gradient(180deg, #ffffff 0%, #fbfdff 100%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,1),
+            inset 0 0 24px rgba(72,211,255,.07),
+            0 16px 30px rgba(7,24,39,.13),
+            0 26px 46px rgba(7,24,39,.11),
+            0 0 24px rgba(246,167,0,.14) !important;
+          filter: brightness(1.015);
+        }
+
+        .fllm-listing-service-faq__grid details summary {
+          transition: color .18s ease, text-shadow .18s ease;
+        }
+
+        .fllm-listing-service-faq__grid details:hover summary,
+        .fllm-listing-service-faq__grid details[open] summary {
+          color: #d89200 !important;
+          text-shadow: 0 0 12px rgba(246,167,0,.16);
+        }
+
+        .fllm-listing-service-faq__grid details p {
+          font-size: 18px !important;
+          line-height: 1.75 !important;
+          color: #415665 !important;
+        }
+
+        @media (max-width: 720px) {
+          .fllm-listing-service-faq__grid details:hover,
+          .fllm-listing-service-faq__grid details[open] {
+            transform: translateY(-3px);
+          }
+        }
+      `}</style>
+
       {showCluster ? (
         <aside className="fllm-listing-service-cluster" aria-label="Florida liquor license listing service resources">
           <div className="fllm-listing-service-cluster__inner">
