@@ -22,7 +22,7 @@ const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v3">
 </style>`;
 
 const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=4" defer></script>';
-const OFFICIAL_SHELL_STYLES = '<link rel="stylesheet" href="/assets/contact-official-shell.css?v=3"/>';
+const OFFICIAL_SHELL_STYLES = '<link rel="stylesheet" href="/assets/contact-official-shell.css?v=4"/>';
 const OFFICIAL_SHELL_SCRIPT = '<script src="/assets/contact-official-shell.js?v=3" defer></script>';
 
 const OFFICIAL_HEADER = `<header class="site-header forms-site-header page-shell fllm-official-contact-header">
