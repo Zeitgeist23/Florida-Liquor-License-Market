@@ -43,7 +43,7 @@ function AntezzaSidebarLoanCalculator() {
   return (
     <section className="antezza-sidebar-calculator" aria-labelledby="antezza-sidebar-calculator-title">
       <style>{`
-        .antezza-calculator-slot{width:100%;margin-top:16px}
+        .antezza-calculator-slot{width:100%;margin-top:11px}
         .antezza-sidebar-calculator{box-sizing:border-box;position:relative;overflow:hidden;width:100%;border:1px solid rgba(111,240,255,.46);border-radius:13px;background:radial-gradient(circle at 50% 0%,rgba(70,210,229,.18),transparent 35%),linear-gradient(180deg,rgba(13,35,42,.99),rgba(5,18,24,.995));box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 15px 34px rgba(0,0,0,.22),0 0 34px rgba(70,210,229,.08);color:#edfaff;padding:20px;font-family:"Montserrat",Arial,sans-serif}
         .antezza-sidebar-calculator::before{content:"";position:absolute;inset:0 16% auto;height:1px;background:linear-gradient(90deg,transparent,rgba(138,244,255,.95),transparent);box-shadow:0 0 16px rgba(91,229,245,.7)}
         .antezza-sidebar-calculator *{box-sizing:border-box}
