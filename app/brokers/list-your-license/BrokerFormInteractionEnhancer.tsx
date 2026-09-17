@@ -54,23 +54,50 @@ export default function BrokerFormInteractionEnhancer() {
       websiteForm?.addEventListener("submit", normalizeWebsiteInput, true);
     }
 
-    const faqDetails = Array.from(
-      document.querySelectorAll<HTMLDetailsElement>(
-        '.broker-official-shell main [class*="faqList"] details',
+    const faqLists = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        '.broker-official-shell main [class*="faqList"]',
       ),
     );
+    const faqDetails = faqLists.flatMap((list) =>
+      Array.from(list.querySelectorAll<HTMLDetailsElement>("details")),
+    );
+
+    let closeTimer: ReturnType<typeof window.setTimeout> | null = null;
+
+    function clearCloseTimer() {
+      if (closeTimer !== null) {
+        window.clearTimeout(closeTimer);
+        closeTimer = null;
+      }
+    }
+
+    function closeAll() {
+      clearCloseTimer();
+      faqDetails.forEach((detail) => {
+        detail.open = false;
+      });
+    }
 
     function openOnly(target: HTMLDetailsElement) {
+      clearCloseTimer();
       faqDetails.forEach((detail) => {
         detail.open = detail === target;
       });
     }
 
+    // Prevent restored browser state from leaving a question open on refresh.
+    closeAll();
+
     const faqListeners = faqDetails.map((detail) => {
       const onEnter = () => openOnly(detail);
       const onFocusIn = () => openOnly(detail);
       const onLeave = () => {
-        if (!detail.contains(document.activeElement)) detail.open = false;
+        clearCloseTimer();
+        closeTimer = window.setTimeout(() => {
+          detail.open = false;
+          closeTimer = null;
+        }, 120);
       };
       const onFocusOut = (event: FocusEvent) => {
         const next = event.relatedTarget as Node | null;
@@ -85,7 +112,16 @@ export default function BrokerFormInteractionEnhancer() {
       return { detail, onEnter, onFocusIn, onLeave, onFocusOut };
     });
 
+    const listListeners = faqLists.map((list) => {
+      const onEnter = () => clearCloseTimer();
+      const onLeave = () => closeAll();
+      list.addEventListener("mouseenter", onEnter);
+      list.addEventListener("mouseleave", onLeave);
+      return { list, onEnter, onLeave };
+    });
+
     return () => {
+      clearCloseTimer();
       selects.forEach((select) => select.removeEventListener("mouseenter", openPicker));
       if (websiteInput) {
         websiteInput.removeEventListener("blur", normalizeWebsiteInput);
@@ -97,6 +133,10 @@ export default function BrokerFormInteractionEnhancer() {
         detail.removeEventListener("focusin", onFocusIn);
         detail.removeEventListener("mouseleave", onLeave);
         detail.removeEventListener("focusout", onFocusOut);
+      });
+      listListeners.forEach(({ list, onEnter, onLeave }) => {
+        list.removeEventListener("mouseenter", onEnter);
+        list.removeEventListener("mouseleave", onLeave);
       });
     };
   }, []);
