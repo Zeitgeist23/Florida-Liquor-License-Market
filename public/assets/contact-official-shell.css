@@ -908,3 +908,128 @@
   letter-spacing:.08em!important;
   white-space:nowrap!important;
 }
+
+
+/* FINAL authoritative official FLLM footer parity.
+   Values copied from app/florida-quota-liquor-license-cost/header-footer-standard.css. */
+.fllm-official-contact-footer.official-directory-footer{
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:15px 0 0!important;
+  border-top:1px solid #6e531d!important;
+  background:linear-gradient(90deg,#071f36 0%,#0c3558 50%,#071f36 100%)!important;
+}
+
+.fllm-official-contact-footer.official-directory-footer > .directory-shell{
+  box-sizing:border-box!important;
+  width:min(1240px,calc(100% - 40px))!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0 auto!important;
+  padding:0 0 14px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:20px!important;
+}
+
+.fllm-official-contact-footer.official-directory-footer .directory-footer-brand{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  gap:14px!important;
+}
+
+.fllm-official-contact-footer.official-directory-footer .directory-footer-brand > a{
+  display:block!important;
+  line-height:0!important;
+}
+
+.fllm-official-contact-footer.official-directory-footer .directory-footer-brand img{
+  display:block!important;
+  position:static!important;
+  left:auto!important;
+  width:130px!important;
+  height:auto!important;
+  max-width:none!important;
+  margin:0!important;
+  transform:none!important;
+  object-fit:contain!important;
+}
+
+.fllm-official-contact-footer.official-directory-footer span{
+  color:#e4eef5!important;
+  font-size:12px!important;
+  line-height:normal!important;
+}
+
+.fllm-official-contact-footer.official-directory-footer nav{
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:wrap!important;
+  align-items:initial!important;
+  justify-content:initial!important;
+  gap:20px!important;
+}
+
+.fllm-official-contact-footer.official-directory-footer a{
+  color:#f3f7fa!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:normal!important;
+  text-decoration:none!important;
+}
+
+.fllm-official-contact-footer.official-directory-footer a:hover,
+.fllm-official-contact-footer.official-directory-footer a:focus-visible{
+  color:#f1a600!important;
+  outline:none!important;
+}
+
+.fllm-official-contact-footer.official-directory-footer > .national-marketplace-footer-link{
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:11px max(20px,calc((100% - 1240px)/2)) 13px!important;
+  border-top:1px solid #263f55!important;
+  background:#0a2947!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:20px!important;
+  color:#dce8f0!important;
+  font-size:11px!important;
+  text-align:left!important;
+}
+
+/* The shared footer's generic span/link rules intentionally make both
+   pieces of the national row 12px. */
+.fllm-official-contact-footer.official-directory-footer > .national-marketplace-footer-link span,
+.fllm-official-contact-footer.official-directory-footer > .national-marketplace-footer-link a{
+  font-size:12px!important;
+}
+
+@media(max-width:650px){
+  .fllm-official-contact-footer.official-directory-footer > .directory-shell{
+    width:min(calc(100% - 24px),1240px)!important;
+    flex-direction:column!important;
+    text-align:center!important;
+  }
+
+  .fllm-official-contact-footer.official-directory-footer .directory-footer-brand{
+    flex-direction:column!important;
+    gap:9px!important;
+  }
+
+  .fllm-official-contact-footer.official-directory-footer nav{
+    justify-content:center!important;
+  }
+
+  .fllm-official-contact-footer.official-directory-footer > .national-marketplace-footer-link{
+    flex-direction:column!important;
+    text-align:center!important;
+  }
+}
