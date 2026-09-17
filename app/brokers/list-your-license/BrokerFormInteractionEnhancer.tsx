@@ -112,12 +112,14 @@ export default function BrokerFormInteractionEnhancer() {
       }
 
       .broker-official-shell main [class*="faqList"] details summary {
-        transition: color .18s ease, transform .18s ease;
+        color: #061827 !important;
+        transition: color .18s ease, transform .18s ease, text-shadow .18s ease;
       }
 
-      .broker-official-shell main [class*="faqList"] details:hover summary,
-      .broker-official-shell main [class*="faqList"] details[open] summary {
-        color: #061827 !important;
+      .broker-official-shell main [class*="faqList"] details[open] summary,
+      .broker-official-shell main [class*="faqList"] details:hover summary {
+        color: #d89200 !important;
+        text-shadow: 0 0 14px rgba(246,167,0,.14);
       }
 
       .broker-official-shell main [class*="faqList"] details p {
