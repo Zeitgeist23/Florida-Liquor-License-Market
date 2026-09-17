@@ -173,6 +173,68 @@
     }
   }
 
+  function wireHoverSelect(select){
+    if(!(select instanceof HTMLSelectElement) || select.dataset.fllmHoverSelect==='true') return;
+    select.dataset.fllmHoverSelect='true';
+
+    var label=select.closest('label');
+    if(!(label instanceof HTMLElement)) return;
+    label.classList.add('fllm-hover-select-wrap');
+
+    var menu=document.createElement('div');
+    menu.className='fllm-hover-select-menu';
+    menu.setAttribute('role','listbox');
+    menu.setAttribute('aria-label',(label.querySelector('span')&&label.querySelector('span').textContent||'Select options').trim());
+
+    Array.from(select.options).forEach(function(option){
+      if(option.disabled || !option.value && option.selected) return;
+      var item=document.createElement('button');
+      item.type='button';
+      item.className='fllm-hover-select-option';
+      item.textContent=option.textContent||option.label||option.value;
+      item.dataset.value=option.value;
+      item.setAttribute('role','option');
+      item.addEventListener('click',function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        select.value=option.value;
+        select.dispatchEvent(new Event('change',{bubbles:true}));
+        menu.classList.remove('is-open');
+      });
+      menu.appendChild(item);
+    });
+
+    label.appendChild(menu);
+
+    var closeTimer=null;
+    var openMenu=function(){
+      if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+      if(closeTimer){clearTimeout(closeTimer);closeTimer=null;}
+      menu.classList.add('is-open');
+    };
+    var closeMenu=function(){
+      if(closeTimer)clearTimeout(closeTimer);
+      closeTimer=setTimeout(function(){
+        menu.classList.remove('is-open');
+        closeTimer=null;
+      },180);
+    };
+
+    label.addEventListener('mouseenter',openMenu);
+    label.addEventListener('mouseleave',closeMenu);
+    select.addEventListener('focus',openMenu);
+    select.addEventListener('blur',closeMenu);
+    menu.addEventListener('mouseenter',openMenu);
+    menu.addEventListener('mouseleave',closeMenu);
+  }
+
+  function wireContactHoverSelects(){
+    var inquiry=document.querySelector('form.contact-page-form select[name="inquiry_type"]');
+    var county=document.querySelector('form.contact-page-form select[name="preferred_county"]');
+    wireHoverSelect(inquiry);
+    wireHoverSelect(county);
+  }
+
   function ensureOfficialShell(){
     var main=document.querySelector('main.contact-page');
     if(!main)return false;
@@ -186,6 +248,7 @@
     }
     wireHeader(header);
     positionResourcesMenus();
+    wireContactHoverSelects();
 
     var footer=document.querySelector('.fllm-official-contact-footer');
     if(!footer){
