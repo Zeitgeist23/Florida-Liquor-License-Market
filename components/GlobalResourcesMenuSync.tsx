@@ -78,21 +78,33 @@ export default function GlobalResourcesMenuSync() {
           white-space:nowrap;
         }
 
-        /* Keep the comparison table readable and give 5COP-8COP a direct anchor. */
+        /* Keep the comparison table readable and give the quota-family badges room. */
         #common-license-chart .license-types-table th:nth-child(1),
-        #common-license-chart .license-types-table td:nth-child(1) { width: 12% !important; }
+        #common-license-chart .license-types-table td:nth-child(1) { width: 18% !important; }
         #common-license-chart .license-types-table th:nth-child(2),
         #common-license-chart .license-types-table td:nth-child(2) { width: 14% !important; }
         #common-license-chart .license-types-table th:nth-child(3),
-        #common-license-chart .license-types-table td:nth-child(3) { width: 12% !important; }
+        #common-license-chart .license-types-table td:nth-child(3) { width: 11% !important; }
         #common-license-chart .license-types-table th:nth-child(4),
-        #common-license-chart .license-types-table td:nth-child(4) { width: 19% !important; }
+        #common-license-chart .license-types-table td:nth-child(4) { width: 18% !important; }
         #common-license-chart .license-types-table th:nth-child(5),
-        #common-license-chart .license-types-table td:nth-child(5) { width: 25% !important; }
+        #common-license-chart .license-types-table td:nth-child(5) { width: 23% !important; }
         #common-license-chart .license-types-table th:nth-child(6),
-        #common-license-chart .license-types-table td:nth-child(6) { width: 18% !important; }
+        #common-license-chart .license-types-table td:nth-child(6) { width: 16% !important; }
         #common-license-chart .license-types-table thead th:nth-child(3) { white-space: nowrap; }
-        #five-to-eight-cop { scroll-margin-top: 120px; }
+        #common-license-chart .license-types-table tbody th { vertical-align: middle !important; }
+        #common-license-chart .license-types-table tbody th span {
+          box-sizing: border-box;
+          display: block !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          white-space: normal !important;
+          overflow-wrap: anywhere;
+          text-align: center;
+          line-height: 1.2;
+          padding: 10px 8px !important;
+        }
+        #five-to-eight-cop { scroll-margin-top: 150px; }
 
         @media (hover:hover) and (pointer:fine) {
           .primary-nav .native-nav-dropdown:has(> .native-nav-resources-menu):hover > .native-nav-resources-menu,
@@ -134,6 +146,16 @@ export default function GlobalResourcesMenuSync() {
         link.setAttribute("role", "menuitem");
         link.dataset.fiveToEightCop = "true";
         column.appendChild(link);
+      });
+    };
+
+    const alignFiveToEightAnchor = () => {
+      if (window.location.hash !== "#five-to-eight-cop") return;
+      const row = document.getElementById("five-to-eight-cop");
+      if (!row || row.dataset.hashAligned === "true") return;
+      row.dataset.hashAligned = "true";
+      window.requestAnimationFrame(() => {
+        row.scrollIntoView({ block: "center" });
       });
     };
 
@@ -184,6 +206,8 @@ export default function GlobalResourcesMenuSync() {
       const quotaCopy = quotaSection?.querySelector("p");
       if (quotaTitle) quotaTitle.textContent = "Quota COP and package-store licenses serve different business models";
       if (quotaCopy) quotaCopy.textContent = "4COP through 8COP are consumption-on-premises quota series commonly used by bars, taverns, restaurants and nightclubs, while the 3PS family is the package-store counterpart for sealed off-premises sales.";
+
+      alignFiveToEightAnchor();
     };
 
     const positionResourcesMenus = () => {
@@ -251,6 +275,7 @@ export default function GlobalResourcesMenuSync() {
     }, delay));
     positionResourcesMenus();
     window.addEventListener("resize", positionResourcesMenus, { passive: true });
+    window.addEventListener("hashchange", alignFiveToEightAnchor);
     document.addEventListener("pointerover", positionOnResourcesHover, true);
     document.addEventListener("mouseover", blockResourcesSyntheticHover, true);
     document.addEventListener("pointerover", blockResourcesSyntheticHover, true);
@@ -262,6 +287,7 @@ export default function GlobalResourcesMenuSync() {
     return () => {
       enhancementTimers.forEach((timer) => window.clearTimeout(timer));
       window.removeEventListener("resize", positionResourcesMenus);
+      window.removeEventListener("hashchange", alignFiveToEightAnchor);
       document.removeEventListener("pointerover", positionOnResourcesHover, true);
       document.removeEventListener("mouseover", blockResourcesSyntheticHover, true);
       document.removeEventListener("pointerover", blockResourcesSyntheticHover, true);
