@@ -5,6 +5,7 @@ import { useEffect } from "react";
 const BROKER_PAGE = "/florida-liquor-license-broker";
 const SELL_PAGE = "/sell-your-license";
 const BROKER_HASH = "#broker-assistance";
+const LISTING_OPTIONS_HASH = "#listing-options";
 const BROKER_DESTINATION = `${SELL_PAGE}${BROKER_HASH}`;
 const SELF_METHOD = "self";
 const SELF_HIGHLIGHT_CLASS = "fllm-self-directed-prefill";
@@ -31,6 +32,30 @@ function markBrokerAssistanceLinks() {
       anchor.setAttribute("href", BROKER_DESTINATION);
     }
   });
+}
+
+function alignListingOptionsHash() {
+  if (window.location.pathname !== SELL_PAGE || window.location.hash !== LISTING_OPTIONS_HASH) return;
+
+  let attempts = 0;
+  const scrollToOptions = () => {
+    const target = document.getElementById("listing-options");
+    if (!target) {
+      attempts += 1;
+      if (attempts < 90) window.requestAnimationFrame(scrollToOptions);
+      return;
+    }
+
+    target.scrollIntoView({
+      behavior: "auto",
+      block: "start",
+    });
+  };
+
+  window.requestAnimationFrame(scrollToOptions);
+  window.setTimeout(scrollToOptions, 80);
+  window.setTimeout(scrollToOptions, 220);
+  window.setTimeout(scrollToOptions, 500);
 }
 
 function openBrokerAssistancePanel() {
@@ -123,6 +148,7 @@ function openSelfDirectedPanel() {
 export default function BrokerAssistanceNavigationEnhancement() {
   useEffect(() => {
     markBrokerAssistanceLinks();
+    alignListingOptionsHash();
     openBrokerAssistancePanel();
     openSelfDirectedPanel();
 
@@ -141,6 +167,7 @@ export default function BrokerAssistanceNavigationEnhancement() {
     };
 
     const locationHandler = () => {
+      alignListingOptionsHash();
       openBrokerAssistancePanel();
       openSelfDirectedPanel();
     };
