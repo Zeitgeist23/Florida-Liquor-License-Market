@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import AdminBrokerOutreachClient from "./AdminBrokerOutreachClient";
 import BrokerEmailMasterPreview from "./BrokerEmailMasterPreview";
 import "./broker-outreach.css";
+import "./broker-email-preview-fix.css";
 
 export const metadata: Metadata = {
   title: "FLLM Broker Outreach",
