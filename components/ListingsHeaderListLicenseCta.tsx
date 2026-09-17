@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
+const LISTING_OPTIONS_PATH = "/sell-your-license#listing-options";
 const SELF_DIRECTED_PATH = "/sell-your-license?method=self#listing-options";
 const BROKER_LISTING_PATH = "/brokers/list-your-license";
 const BROKER_ASSISTANCE_PATH = "/sell-your-license#broker-assistance";
@@ -170,14 +171,14 @@ export default function ListingsHeaderListLicenseCta() {
       {target
         ? createPortal(
             <div className="listings-header-list-license-wrap">
-              <button
+              <a
                 className="listings-header-list-license"
-                type="button"
+                href={LISTING_OPTIONS_PATH}
                 aria-haspopup="menu"
                 aria-label="List your Florida liquor license for sale"
               >
                 List Your License
-              </button>
+              </a>
               <div className="listings-header-list-license-menu" role="menu" aria-label="List your license options">
                 <a href={SELF_DIRECTED_PATH} role="menuitem">Self-Directed Seller</a>
                 <a href={BROKER_ASSISTANCE_PATH} role="menuitem">Request Broker Help</a>
