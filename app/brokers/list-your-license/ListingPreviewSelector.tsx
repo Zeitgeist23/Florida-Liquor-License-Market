@@ -168,21 +168,77 @@ export default function ListingPreviewSelector({
           cursor: pointer;
         }
         .broker-google-proof {
+          position: relative;
+          isolation: isolate;
           display: flex;
           min-height: 370px;
           flex-direction: column;
           box-sizing: border-box;
           margin-top: 20px;
           padding: 24px;
+          overflow: hidden;
           border: 1px solid rgba(246,167,0,.48);
           border-radius: 10px;
           background:
             radial-gradient(circle at 88% 7%, rgba(43,154,196,.11), transparent 34%),
             linear-gradient(145deg, #0a2236 0%, #061827 72%, #04121d 100%);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 12px 26px rgba(0,0,0,.22);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.04),
+            0 12px 26px rgba(0,0,0,.22);
+          transform: translateY(0) scale(1);
+          transition:
+            transform .22s ease,
+            border-color .22s ease,
+            box-shadow .22s ease,
+            background .22s ease,
+            filter .22s ease;
+        }
+        .broker-google-proof::before {
+          content: "";
+          position: absolute;
+          z-index: 0;
+          inset: 0;
+          pointer-events: none;
+          opacity: 0;
+          background:
+            radial-gradient(circle at 20% 8%, rgba(74,217,255,.16), transparent 39%),
+            radial-gradient(circle at 84% 15%, rgba(246,167,0,.14), transparent 38%);
+          transition: opacity .22s ease;
+        }
+        .broker-google-proof > * {
+          position: relative;
+          z-index: 1;
+        }
+        .broker-google-proof:hover,
+        .broker-google-proof:focus-within {
+          transform: translateY(-7px) scale(1.008);
+          border-color: rgba(246,167,0,.9);
+          background:
+            radial-gradient(circle at 20% 0%, rgba(66,209,255,.16), transparent 42%),
+            radial-gradient(circle at 88% 7%, rgba(246,167,0,.14), transparent 36%),
+            linear-gradient(145deg, #0d2b43 0%, #082038 68%, #051724 100%);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.09),
+            inset 0 0 36px rgba(71,214,255,.09),
+            0 22px 42px rgba(0,0,0,.36),
+            0 0 30px rgba(246,167,0,.2);
+          filter: brightness(1.055);
+        }
+        .broker-google-proof:hover::before,
+        .broker-google-proof:focus-within::before {
+          opacity: 1;
         }
         .broker-google-proof-statewide {
           border-color: rgba(105,214,255,.38);
+        }
+        .broker-google-proof-statewide:hover,
+        .broker-google-proof-statewide:focus-within {
+          border-color: rgba(105,214,255,.82);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.09),
+            inset 0 0 38px rgba(71,214,255,.12),
+            0 22px 42px rgba(0,0,0,.36),
+            0 0 32px rgba(71,214,255,.23);
         }
         .broker-google-proof-head {
           display: flex;
@@ -208,6 +264,12 @@ export default function ListingPreviewSelector({
           margin: 0 0 11px;
           color: #fff;
           font: 700 23px/1.2 Georgia, "Times New Roman", serif;
+          transition: color .2s ease, text-shadow .2s ease;
+        }
+        .broker-google-proof:hover h4,
+        .broker-google-proof:focus-within h4 {
+          color: #fffef8;
+          text-shadow: 0 0 16px rgba(255,255,255,.12);
         }
         .broker-google-proof-intro {
           max-width: 610px;
@@ -215,6 +277,11 @@ export default function ListingPreviewSelector({
           color: #c8d5de;
           font-size: 13px;
           line-height: 1.64;
+          transition: color .2s ease;
+        }
+        .broker-google-proof:hover .broker-google-proof-intro,
+        .broker-google-proof:focus-within .broker-google-proof-intro {
+          color: #dce8ef;
         }
         .broker-google-proof-intro b {
           color: #fff;
@@ -234,6 +301,35 @@ export default function ListingPreviewSelector({
           border-radius: 8px;
           background: rgba(3,17,29,.55);
           box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+          transform: translateY(0);
+          transition:
+            transform .2s ease,
+            border-color .2s ease,
+            background .2s ease,
+            box-shadow .2s ease,
+            filter .2s ease;
+        }
+        .broker-google-proof:hover .broker-google-proof-facts article,
+        .broker-google-proof:focus-within .broker-google-proof-facts article {
+          transform: translateY(-3px);
+          border-color: rgba(105,214,255,.44);
+          background:
+            radial-gradient(circle at 50% 0%, rgba(71,214,255,.11), transparent 55%),
+            linear-gradient(180deg, rgba(11,42,64,.88), rgba(3,17,29,.75));
+          box-shadow:
+            inset 0 0 22px rgba(71,214,255,.08),
+            0 9px 20px rgba(0,0,0,.2);
+          filter: brightness(1.08);
+        }
+        .broker-google-proof-featured:hover .broker-google-proof-facts article,
+        .broker-google-proof-featured:focus-within .broker-google-proof-facts article {
+          border-color: rgba(246,167,0,.42);
+          background:
+            radial-gradient(circle at 50% 0%, rgba(246,167,0,.1), transparent 55%),
+            linear-gradient(180deg, rgba(14,44,65,.9), rgba(3,17,29,.76));
+          box-shadow:
+            inset 0 0 22px rgba(246,167,0,.06),
+            0 9px 20px rgba(0,0,0,.2);
         }
         .broker-google-proof-facts article > span {
           display: block;
@@ -242,6 +338,12 @@ export default function ListingPreviewSelector({
           font-size: 9px;
           font-weight: 900;
           letter-spacing: .09em;
+          transition: color .2s ease, text-shadow .2s ease;
+        }
+        .broker-google-proof-featured:hover .broker-google-proof-facts article > span,
+        .broker-google-proof-featured:focus-within .broker-google-proof-facts article > span {
+          color: #ffc44a;
+          text-shadow: 0 0 12px rgba(246,167,0,.18);
         }
         .broker-google-proof-facts article > strong {
           display: block;
@@ -272,6 +374,18 @@ export default function ListingPreviewSelector({
           color: #8da2b0;
           font-size: 9px;
           line-height: 1.5;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .broker-google-proof,
+          .broker-google-proof-facts article {
+            transition: none;
+          }
+          .broker-google-proof:hover,
+          .broker-google-proof:focus-within,
+          .broker-google-proof:hover .broker-google-proof-facts article,
+          .broker-google-proof:focus-within .broker-google-proof-facts article {
+            transform: none;
+          }
         }
         @media (max-width: 720px) {
           .broker-google-proof {
