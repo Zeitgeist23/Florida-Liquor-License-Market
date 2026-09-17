@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
 import { floridaCounties } from "@/data/florida-counties";
 import styles from "./broker-listing.module.css";
 
@@ -16,10 +16,91 @@ function formatPhone(value: string) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
+type HoverSelectOption = {
+  value: string;
+  label: string;
+};
+
+type HoverSelectProps = {
+  id: string;
+  name: string;
+  value: string;
+  placeholder: string;
+  options: HoverSelectOption[];
+  onChange: (value: string) => void;
+};
+
+function HoverSelect({ id, name, value, placeholder, options, onChange }: HoverSelectProps) {
+  const [open, setOpen] = useState(false);
+  const selectedLabel = options.find((option) => option.value === value)?.label || placeholder;
+
+  function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    if (event.key === "Escape") {
+      setOpen(false);
+      return;
+    }
+
+    if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setOpen(true);
+    }
+  }
+
+  function choose(valueToSelect: string) {
+    onChange(valueToSelect);
+    setOpen(false);
+  }
+
+  return (
+    <div
+      className={`broker-hover-select${open ? " is-open" : ""}`}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <input type="hidden" name={name} value={value} />
+      <button
+        id={id}
+        type="button"
+        className="broker-hover-select-trigger"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+        onFocus={() => setOpen(true)}
+        onKeyDown={handleKeyDown}
+      >
+        <span>{selectedLabel}</span>
+        <i aria-hidden="true">⌄</i>
+      </button>
+
+      {open ? (
+        <div className="broker-hover-select-menu" role="listbox" aria-labelledby={id}>
+          {options.map((option) => {
+            const selected = option.value === value;
+            return (
+              <button
+                key={option.value}
+                type="button"
+                role="option"
+                aria-selected={selected}
+                className={selected ? "is-selected" : undefined}
+                onClick={() => choose(option.value)}
+              >
+                {option.label}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export default function BrokerListingForm() {
   const [listingTier, setListingTier] = useState<"standard" | "featured">("standard");
   const [askingPrice, setAskingPrice] = useState("");
   const [phone, setPhone] = useState("");
+  const [county, setCounty] = useState("");
+  const [licenseType, setLicenseType] = useState("4COP Quota");
   const [inquiryRoutes, setInquiryRoutes] = useState([
     "Direct email",
     "Direct phone",
@@ -34,6 +115,12 @@ export default function BrokerListingForm() {
     "Direct email",
     "Direct phone",
     "FLLM inquiry form forwarded to broker",
+  ];
+
+  const countyOptions = floridaCounties.map((item) => ({ value: item.name, label: item.name }));
+  const licenseTypeOptions = [
+    { value: "4COP Quota", label: "4COP Quota" },
+    { value: "3PS Quota / Package Store", label: "3PS Quota / Package Store" },
   ];
 
   function toggleInquiryRoute(route: string, checked: boolean) {
@@ -73,6 +160,21 @@ export default function BrokerListingForm() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (submitting) return;
+
+    if (!county) {
+      setIsError(true);
+      setStatus("Please select a county before continuing.");
+      document.getElementById("broker-county-select")?.focus();
+      return;
+    }
+
+    if (!licenseType) {
+      setIsError(true);
+      setStatus("Please select a license type before continuing.");
+      document.getElementById("broker-license-type-select")?.focus();
+      return;
+    }
+
     const form = event.currentTarget;
     if (!form.reportValidity()) return;
     setSubmitting(true);
@@ -98,6 +200,119 @@ export default function BrokerListingForm() {
   return (
     <form className={styles.form} onSubmit={submit} encType="multipart/form-data">
       <style>{`
+        .broker-select-field {
+          min-width: 0;
+        }
+        .broker-select-field > span {
+          display: block;
+          margin-bottom: 8px;
+          color: #071827;
+          font-size: 13px;
+          font-weight: 800;
+        }
+        .broker-hover-select {
+          position: relative;
+          z-index: 20;
+          width: 100%;
+        }
+        .broker-hover-select.is-open {
+          z-index: 60;
+        }
+        .broker-hover-select-trigger {
+          display: flex;
+          width: 100%;
+          min-height: 54px;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px;
+          padding: 0 16px;
+          border: 1px solid #b9c6cd;
+          border-radius: 7px;
+          color: #071827;
+          background: linear-gradient(180deg, #ffffff 0%, #fbfdfe 100%);
+          box-shadow:
+            inset 0 1px 2px rgba(7,24,39,.06),
+            0 6px 14px rgba(7,24,39,.07);
+          font: inherit;
+          font-size: 16px;
+          text-align: left;
+          cursor: pointer;
+          transition:
+            transform .18s ease,
+            border-color .18s ease,
+            box-shadow .18s ease,
+            background .18s ease;
+        }
+        .broker-hover-select-trigger:hover,
+        .broker-hover-select.is-open .broker-hover-select-trigger {
+          transform: translateY(-1px);
+          border-color: #d69a14;
+          background: #fff;
+          box-shadow:
+            0 0 0 3px rgba(246,167,0,.10),
+            0 10px 22px rgba(7,24,39,.12);
+        }
+        .broker-hover-select-trigger:focus-visible {
+          outline: none;
+          border-color: #d69a14;
+          box-shadow:
+            0 0 0 3px rgba(246,167,0,.16),
+            0 10px 22px rgba(7,24,39,.12);
+        }
+        .broker-hover-select-trigger i {
+          flex: 0 0 auto;
+          color: #213744;
+          font-size: 20px;
+          font-style: normal;
+          line-height: 1;
+          transform: translateY(-2px) rotate(0deg);
+          transition: transform .16s ease;
+        }
+        .broker-hover-select.is-open .broker-hover-select-trigger i {
+          transform: translateY(2px) rotate(180deg);
+        }
+        .broker-hover-select-menu {
+          position: absolute;
+          z-index: 70;
+          top: calc(100% - 1px);
+          right: 0;
+          left: 0;
+          max-height: 340px;
+          overflow-y: auto;
+          border: 1px solid #d69a14;
+          border-top: 0;
+          border-radius: 0 0 8px 8px;
+          background: #fff;
+          box-shadow: 0 18px 34px rgba(7,24,39,.18);
+        }
+        .broker-hover-select-menu button {
+          display: block;
+          width: 100%;
+          padding: 10px 16px;
+          border: 0;
+          border-bottom: 1px solid rgba(7,24,39,.06);
+          color: #071827;
+          background: #fff;
+          font: inherit;
+          font-size: 16px;
+          line-height: 1.25;
+          text-align: left;
+          cursor: pointer;
+        }
+        .broker-hover-select-menu button:last-child {
+          border-bottom: 0;
+        }
+        .broker-hover-select-menu button:hover,
+        .broker-hover-select-menu button:focus-visible {
+          outline: none;
+          color: #071827;
+          background: #eaf9fd;
+        }
+        .broker-hover-select-menu button.is-selected {
+          color: #071827;
+          background: #fff4d7;
+          font-weight: 800;
+        }
         @media (max-width: 620px) {
           .${styles.sectionHeading} > span { font-size: 16px !important; line-height: 1.35 !important; letter-spacing: .12em !important; }
           .${styles.form} legend > span { font-size: 18px !important; line-height: 1.35 !important; }
@@ -105,10 +320,13 @@ export default function BrokerListingForm() {
           .${styles.tierDescription} { font-size: 16px !important; line-height: 1.55 !important; }
           .${styles.tierBenefits} { font-size: 15px !important; line-height: 1.9 !important; }
           .${styles.fields} label > span,
-          .${styles.inquiryRouting} > span { font-size: 15px !important; }
+          .${styles.inquiryRouting} > span,
+          .broker-select-field > span { font-size: 15px !important; }
           .${styles.fields} input,
           .${styles.fields} select,
-          .${styles.fields} textarea { font-size: 16px !important; }
+          .${styles.fields} textarea,
+          .broker-hover-select-trigger,
+          .broker-hover-select-menu button { font-size: 16px !important; }
           .${styles.inquiryRouting} > small { font-size: 17px !important; line-height: 1.55 !important; color:#44596a !important; }
           .${styles.inquiryOptions} label > span { font-size: 16px !important; line-height: 1.4 !important; }
           .${styles.fileField} b { font-size: 17px !important; }
@@ -153,8 +371,28 @@ export default function BrokerListingForm() {
       <fieldset>
         <legend><b>3</b><span>License information<small>Provide the details buyers need to evaluate the opportunity.</small></span></legend>
         <div className={styles.fields}>
-          <label><span>County *</span><select name="county" required defaultValue=""><option value="" disabled>Select county</option>{floridaCounties.map((county) => (<option key={county.name} value={county.name}>{county.name}</option>))}</select></label>
-          <label><span>License type *</span><select name="license_type" required defaultValue="4COP Quota"><option value="4COP Quota">4COP Quota</option><option value="3PS Quota / Package Store">3PS Quota / Package Store</option></select></label>
+          <div className="broker-select-field">
+            <span>County *</span>
+            <HoverSelect
+              id="broker-county-select"
+              name="county"
+              value={county}
+              placeholder="Select county"
+              options={countyOptions}
+              onChange={setCounty}
+            />
+          </div>
+          <div className="broker-select-field">
+            <span>License type *</span>
+            <HoverSelect
+              id="broker-license-type-select"
+              name="license_type"
+              value={licenseType}
+              placeholder="Select license type"
+              options={licenseTypeOptions}
+              onChange={setLicenseType}
+            />
+          </div>
           <label><span>Asking price *</span><input name="asking_price" required inputMode="numeric" value={askingPrice} onChange={(event) => setAskingPrice(formatCurrency(event.target.value))} placeholder="435,000" /></label>
           <label><span>License number</span><input name="license_number" placeholder="Optional / may be kept private" /></label>
           <label className={styles.fullField}><span>Listing notes</span><textarea name="notes" rows={4} /></label>
