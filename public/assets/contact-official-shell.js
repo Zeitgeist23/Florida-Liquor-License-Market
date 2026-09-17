@@ -95,8 +95,30 @@
 
     var listWrap=header.querySelector('.fllm-contact-list-wrap');
     var listButton=header.querySelector('.fllm-header-list-cta');
+    var listMenu=header.querySelector('.fllm-contact-list-menu');
     if(listWrap&&listButton){
       listButton.setAttribute('href','/sell-your-license#listing-options');
+
+      var listCloseTimer=null;
+      var keepListMenuOpen=function(){
+        if(listCloseTimer){clearTimeout(listCloseTimer);listCloseTimer=null;}
+        listWrap.classList.add('is-open');
+      };
+      var scheduleListMenuClose=function(){
+        if(listCloseTimer)clearTimeout(listCloseTimer);
+        listCloseTimer=setTimeout(function(){
+          listWrap.classList.remove('is-open');
+          listCloseTimer=null;
+        },260);
+      };
+
+      listWrap.addEventListener('mouseenter',keepListMenuOpen);
+      listWrap.addEventListener('mouseleave',scheduleListMenuClose);
+      if(listMenu){
+        listMenu.addEventListener('mouseenter',keepListMenuOpen);
+        listMenu.addEventListener('mouseleave',scheduleListMenuClose);
+      }
+
       if(listButton.dataset.fllmListingOptionsBound!=='true'){
         listButton.dataset.fllmListingOptionsBound='true';
         listButton.addEventListener('click',function(event){
