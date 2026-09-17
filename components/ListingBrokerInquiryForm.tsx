@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 type SubmitState = "idle" | "submitting" | "sent" | "error";
@@ -12,12 +12,12 @@ function formatPhoneNumber(value: string) {
   return `(${digits.slice(0, 3)})${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-function formatCurrency(value: number, maximumFractionDigits = 0) {
+function formatCurrency(value: number, decimals = 0) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-    minimumFractionDigits: maximumFractionDigits,
-    maximumFractionDigits,
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
   }).format(Number.isFinite(value) ? value : 0);
 }
 
@@ -27,25 +27,48 @@ function AntezzaSidebarLoanCalculator() {
   const [annualRate, setAnnualRate] = useState(10);
   const [termYears, setTermYears] = useState(10);
 
-  const results = useMemo(() => {
-    const principal = Math.max(0, purchasePrice - downPayment);
-    const months = Math.max(1, Math.round(termYears * 12));
-    const monthlyRate = Math.max(0, annualRate) / 100 / 12;
-    const monthlyPayment =
-      principal <= 0
-        ? 0
-        : monthlyRate === 0
-          ? principal / months
-          : (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+  const principal = Math.max(0, purchasePrice - downPayment);
+  const months = Math.max(1, Math.round(termYears * 12));
+  const monthlyRate = Math.max(0, annualRate) / 100 / 12;
+  let monthlyPayment = 0;
 
-    return { principal, monthlyPayment };
-  }, [purchasePrice, downPayment, annualRate, termYears]);
+  if (principal > 0) {
+    if (monthlyRate === 0) {
+      monthlyPayment = principal / months;
+    } else {
+      monthlyPayment = (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+    }
+  }
 
   return (
     <section className="antezza-sidebar-calculator" aria-labelledby="antezza-sidebar-calculator-title">
       <style>{`
-        .antezza-calculator-slot{width:100%;margin-top:16px}.antezza-sidebar-calculator{box-sizing:border-box;position:relative;overflow:hidden;width:100%;border:1px solid rgba(111,240,255,.46);border-radius:13px;background:radial-gradient(circle at 50% 0%,rgba(70,210,229,.18),transparent 35%),linear-gradient(180deg,rgba(13,35,42,.99),rgba(5,18,24,.995));box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 15px 34px rgba(0,0,0,.22),0 0 34px rgba(70,210,229,.08);color:#edfaff;padding:20px;font-family:"Montserrat",Arial,sans-serif}.antezza-sidebar-calculator::before{content:"";position:absolute;inset:0 16% auto;height:1px;background:linear-gradient(90deg,transparent,rgba(138,244,255,.95),transparent);box-shadow:0 0 16px rgba(91,229,245,.7)}.antezza-sidebar-calculator *{box-sizing:border-box}.antezza-sidebar-calculator__eyebrow{display:block;color:#7cefff;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.antezza-sidebar-calculator h2{margin:7px 0 6px;color:#fff;font-size:21px;line-height:1.15}.antezza-sidebar-calculator__intro{margin:0 0 17px;color:#bfd7de;font-size:11px;line-height:1.55}.antezza-sidebar-calculator__fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.antezza-sidebar-calculator label{min-width:0}.antezza-sidebar-calculator label>span,.antezza-sidebar-calculator__readonly>span{display:block;margin-bottom:6px;color:#dff9fc;font-size:10px;font-weight:800;line-height:1.3}.antezza-sidebar-calculator input,.antezza-sidebar-calculator select{width:100%;min-height:43px;border:1px solid rgba(124,239,255,.24);border-radius:7px;outline:none;background:rgba(1,17,22,.92);color:#f3feff;padding:9px 10px;font:inherit;font-size:13px}.antezza-sidebar-calculator input:focus,.antezza-sidebar-calculator select:focus,.antezza-sidebar-calculator a:focus-visible{outline:2px solid #8af4ff;outline-offset:2px}.antezza-sidebar-calculator__readonly{margin-top:11px}.antezza-sidebar-calculator__readonly output{display:flex;align-items:center;min-height:43px;border:1px solid rgba(124,239,255,.14);border-radius:7px;background:rgba(124,239,255,.055);color:#8af4ff;padding:9px 10px;font-family:"Courier New",Consolas,monospace;font-size:15px;font-weight:800}.antezza-sidebar-calculator__payment{margin-top:13px;border:1px solid rgba(124,239,255,.2);border-radius:10px;background:rgba(0,0,0,.2);padding:15px;text-align:center}.antezza-sidebar-calculator__payment span{display:block;color:#bfeef3;font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}.antezza-sidebar-calculator__payment strong{display:block;margin-top:5px;color:#8af4ff;font-family:"Courier New",Consolas,monospace;font-size:25px;line-height:1.05}.antezza-sidebar-calculator__payment small{display:block;margin-top:5px;color:#91aab2;font-size:9px}.antezza-sidebar-calculator__cta{display:flex;align-items:center;justify-content:center;min-height:46px;margin-top:13px;border:1px solid #f0aa12;border-radius:7px;background:linear-gradient(180deg,#f9b31a,#efa000);color:#061a24!important;text-decoration:none;font-size:12px;font-weight:950;letter-spacing:.025em;transition:transform .16s ease,filter .16s ease}.antezza-sidebar-calculator__cta:hover{transform:translateY(-1px);filter:brightness(1.05)}.antezza-sidebar-calculator__full{display:block;margin-top:10px;color:#8af4ff!important;text-align:center;text-decoration:none;font-size:10px;font-weight:800}.antezza-sidebar-calculator__full:hover{text-decoration:underline}.antezza-sidebar-calculator__fineprint{display:block;margin-top:12px;color:#839ca5;font-size:9px;line-height:1.45;text-align:center}@media(max-width:760px){.antezza-sidebar-calculator__fields{grid-template-columns:1fr}.antezza-sidebar-calculator h2{font-size:20px}}
+        .antezza-calculator-slot{width:100%;margin-top:16px}
+        .antezza-sidebar-calculator{box-sizing:border-box;position:relative;overflow:hidden;width:100%;border:1px solid rgba(111,240,255,.46);border-radius:13px;background:radial-gradient(circle at 50% 0%,rgba(70,210,229,.18),transparent 35%),linear-gradient(180deg,rgba(13,35,42,.99),rgba(5,18,24,.995));box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 15px 34px rgba(0,0,0,.22),0 0 34px rgba(70,210,229,.08);color:#edfaff;padding:20px;font-family:"Montserrat",Arial,sans-serif}
+        .antezza-sidebar-calculator::before{content:"";position:absolute;inset:0 16% auto;height:1px;background:linear-gradient(90deg,transparent,rgba(138,244,255,.95),transparent);box-shadow:0 0 16px rgba(91,229,245,.7)}
+        .antezza-sidebar-calculator *{box-sizing:border-box}
+        .antezza-sidebar-calculator__eyebrow{display:block;color:#7cefff;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+        .antezza-sidebar-calculator h2{margin:7px 0 6px;color:#fff;font-size:21px;line-height:1.15}
+        .antezza-sidebar-calculator__intro{margin:0 0 17px;color:#bfd7de;font-size:11px;line-height:1.55}
+        .antezza-sidebar-calculator__fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+        .antezza-sidebar-calculator label{min-width:0}
+        .antezza-sidebar-calculator label>span,.antezza-sidebar-calculator__readonly>span{display:block;margin-bottom:6px;color:#dff9fc;font-size:10px;font-weight:800;line-height:1.3}
+        .antezza-sidebar-calculator input,.antezza-sidebar-calculator select{width:100%;min-height:43px;border:1px solid rgba(124,239,255,.24);border-radius:7px;outline:none;background:rgba(1,17,22,.92);color:#f3feff;padding:9px 10px;font:inherit;font-size:13px}
+        .antezza-sidebar-calculator input:focus,.antezza-sidebar-calculator select:focus,.antezza-sidebar-calculator a:focus-visible{outline:2px solid #8af4ff;outline-offset:2px}
+        .antezza-sidebar-calculator__readonly{margin-top:11px}
+        .antezza-sidebar-calculator__readonly output{display:flex;align-items:center;min-height:43px;border:1px solid rgba(124,239,255,.14);border-radius:7px;background:rgba(124,239,255,.055);color:#8af4ff;padding:9px 10px;font-family:"Courier New",Consolas,monospace;font-size:15px;font-weight:800}
+        .antezza-sidebar-calculator__payment{margin-top:13px;border:1px solid rgba(124,239,255,.2);border-radius:10px;background:rgba(0,0,0,.2);padding:15px;text-align:center}
+        .antezza-sidebar-calculator__payment span{display:block;color:#bfeef3;font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
+        .antezza-sidebar-calculator__payment strong{display:block;margin-top:5px;color:#8af4ff;font-family:"Courier New",Consolas,monospace;font-size:25px;line-height:1.05}
+        .antezza-sidebar-calculator__payment small{display:block;margin-top:5px;color:#91aab2;font-size:9px}
+        .antezza-sidebar-calculator__cta{display:flex;align-items:center;justify-content:center;min-height:46px;margin-top:13px;border:1px solid #f0aa12;border-radius:7px;background:linear-gradient(180deg,#f9b31a,#efa000);color:#061a24!important;text-decoration:none;font-size:12px;font-weight:950;letter-spacing:.025em;transition:transform .16s ease,filter .16s ease}
+        .antezza-sidebar-calculator__cta:hover{transform:translateY(-1px);filter:brightness(1.05)}
+        .antezza-sidebar-calculator__full{display:block;margin-top:10px;color:#8af4ff!important;text-align:center;text-decoration:none;font-size:10px;font-weight:800}
+        .antezza-sidebar-calculator__full:hover{text-decoration:underline}
+        .antezza-sidebar-calculator__fineprint{display:block;margin-top:12px;color:#839ca5;font-size:9px;line-height:1.45;text-align:center}
+        @media(max-width:760px){.antezza-sidebar-calculator__fields{grid-template-columns:1fr}.antezza-sidebar-calculator h2{font-size:20px}}
       `}</style>
+
       <span className="antezza-sidebar-calculator__eyebrow">Liquor License Financing Tool</span>
       <h2 id="antezza-sidebar-calculator-title">Estimate License Financing</h2>
       <p className="antezza-sidebar-calculator__intro">
@@ -102,12 +125,12 @@ function AntezzaSidebarLoanCalculator() {
 
       <div className="antezza-sidebar-calculator__readonly">
         <span>Amount financed</span>
-        <output>{formatCurrency(results.principal)}</output>
+        <output>{formatCurrency(principal)}</output>
       </div>
 
       <div className="antezza-sidebar-calculator__payment" aria-live="polite">
         <span>Estimated Monthly Payment</span>
-        <strong>{formatCurrency(results.monthlyPayment, 2)}</strong>
+        <strong>{formatCurrency(monthlyPayment, 2)}</strong>
         <small>Estimated principal + interest</small>
       </div>
 
@@ -149,25 +172,27 @@ export default function ListingBrokerInquiryForm({
   useEffect(() => {
     if (listingReference !== "FLLM-ANTEZZA") return;
 
-    const financeCard = document.querySelector(
+    const financeCard = document.querySelector<HTMLElement>(
       `[data-featured-broker-listing="${listingReference}"] .marketplace-listing-finance-promo`,
     );
-    if (!(financeCard instanceof HTMLElement)) return;
+    if (!financeCard) return;
 
-    let slot = document.querySelector(`[data-antezza-calculator-slot="${listingReference}"]`);
-    let created = false;
-    if (!(slot instanceof HTMLElement)) {
+    const selector = `[data-antezza-calculator-slot="${listingReference}"]`;
+    let slot = document.querySelector<HTMLElement>(selector);
+    const created = !slot;
+
+    if (!slot) {
       slot = document.createElement("div");
       slot.className = "antezza-calculator-slot";
       slot.setAttribute("data-antezza-calculator-slot", listingReference);
       financeCard.insertAdjacentElement("afterend", slot);
-      created = true;
     }
 
     setCalculatorTarget(slot);
+
     return () => {
       setCalculatorTarget(null);
-      if (created && slot instanceof HTMLElement && slot.isConnected) slot.remove();
+      if (created && slot?.isConnected) slot.remove();
     };
   }, [listingReference]);
 
