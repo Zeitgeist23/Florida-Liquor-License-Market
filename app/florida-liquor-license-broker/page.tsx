@@ -3,37 +3,39 @@ import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import "../resources/forms/abt-forms.css";
+import "../fllm-official-template.css";
 import "../florida-liquor-licenses-for-sale/seo-market.css";
+import "../fllm-market-page-template.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-broker`;
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Broker for Buyers & Sellers | FLLM",
+  title: "Florida Liquor License Broker Services | Buyers & Sellers | FLLM",
   description:
-    "Work with a Florida liquor license broker for statewide 4COP and 3PS buyer or seller representation, pricing strategy, marketing, negotiation and transaction coordination.",
+    "Request Florida liquor license broker-assisted representation for buying or selling 4COP quota, 3PS and other transferable licenses statewide.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Liquor License Broker for Buyers & Sellers | FLLM",
+    title: "Florida Liquor License Broker Services | FLLM",
     description:
-      "Request statewide Florida liquor license broker-assisted representation for a 4COP or 3PS purchase or sale, subject to a written brokerage agreement.",
+      "Full-service Florida liquor license broker assistance for buyers and sellers, separate from FLLM's advertising-only marketplace listings.",
     siteName: "Florida Liquor License Market",
   },
 };
 
 const faqs = [
   {
+    question: "What is this FLLM broker-services page for?",
+    answer:
+      "This page is for buyers and sellers who want broker-assisted representation through FLLM. It is separate from the advertising-only marketplace program used by independent brokers who want to keep their own client relationship and simply add exposure for a client listing.",
+  },
+  {
     question: "What does a Florida liquor license broker do for a seller?",
     answer:
       "Depending on the written engagement, a Florida liquor license broker may assist a seller with county-market analysis, pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, due-diligence coordination, document organization and transaction coordination through closing.",
-  },
-  {
-    question: "Can a liquor license owner hire a broker through FLLM?",
-    answer:
-      "Yes. A Florida liquor license owner may request full-service broker-assisted representation through FLLM. Representation begins only after the parties enter into a separate written brokerage agreement defining the representative, scope of services, exclusivity if any, compensation and other material terms.",
   },
   {
     question: "Can FLLM assist a buyer as well as a seller?",
@@ -41,9 +43,9 @@ const faqs = [
       "Yes. A prospective buyer may request broker-assisted help identifying suitable county and license-type opportunities, evaluating available inventory, communicating with sellers or listing representatives, negotiating business terms and coordinating transaction milestones. The exact duties and compensation must be defined in a written agreement.",
   },
   {
-    question: "What can full-service broker-assisted representation include?",
+    question: "Does broker representation begin automatically when I contact FLLM?",
     answer:
-      "Depending on the written engagement, full-service broker-assisted representation may include pricing strategy, county-market positioning, confidential or public marketing, buyer outreach and screening, buyer communications, negotiation, transaction coordination, document organization, and coordination with attorneys, accountants, lenders, escrow agents, licensing professionals or other advisers involved in the transfer and closing.",
+      "No. Broker representation begins only after the parties enter into a separate written agreement defining the client, representative, scope of services, exclusivity if any, compensation and other material terms.",
   },
   {
     question: "Does a liquor license broker approve the transfer?",
@@ -51,10 +53,37 @@ const faqs = [
       "No. Florida's Department of Business and Professional Regulation, through its Division of Alcoholic Beverages and Tobacco, administers alcoholic-beverage licensing and transfer approval. A broker can help coordinate a transaction but cannot guarantee approval, transferability or closing.",
   },
   {
-    question: "Can I sell a Florida liquor license without hiring a broker?",
+    question: "What if I am already a broker and only want to advertise my client's license?",
     answer:
-      "Yes. FLLM also offers a self-directed marketplace listing path for owners who want to set their own asking price, communicate with buyers and manage their own transaction.",
+      "Use FLLM's Independent Broker Marketplace. That program is advertising-only: your name and brokerage remain on the listing, buyer inquiries route to your designated contact, and FLLM does not take a share of your commission.",
   },
+];
+
+const sellerServices = [
+  "County-market review and pricing strategy",
+  "Public or confidential marketing",
+  "Buyer screening and communications",
+  "Negotiation of price and business terms",
+  "Due-diligence and transaction coordination",
+  "Coordination with licensing, legal, escrow and closing professionals",
+];
+
+const buyerServices = [
+  "Identify the correct county and license series",
+  "Locate public, confidential and broker-represented opportunities",
+  "Compare asking prices and county-market evidence",
+  "Coordinate communications with sellers and listing representatives",
+  "Assist with negotiation and due diligence",
+  "Coordinate financing, licensing, escrow and closing milestones",
+];
+
+const supportCards = [
+  ["01", "Pricing strategy", "Review county inventory, asking prices and market evidence before setting or negotiating price."],
+  ["02", "Opportunity identification", "Match the target county, license series and intended use to available market opportunities."],
+  ["03", "Marketing & outreach", "Develop a public or confidential marketing approach and reach qualified prospects."],
+  ["04", "Buyer & seller communications", "Organize inquiries and transaction discussions within the agreed representation scope."],
+  ["05", "Negotiation", "Assist with price and business-term negotiations while the client retains final decision authority."],
+  ["06", "Transaction coordination", "Track diligence, transfer, financing, escrow and closing milestones with the appropriate professionals."],
 ];
 
 export default function FloridaLiquorLicenseBrokerPage() {
@@ -62,12 +91,12 @@ export default function FloridaLiquorLicenseBrokerPage() {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "Florida Liquor License Broker",
+      name: "Florida Liquor License Broker Services",
       description:
         "Statewide Florida liquor license broker-assisted representation for buyers and sellers of 4COP quota, 3PS and other transferable licenses.",
       url: canonicalUrl,
       datePublished: "2026-08-26",
-      dateModified: "2026-09-09",
+      dateModified: "2026-09-17",
       publisher: {
         "@type": "Organization",
         name: "Florida Liquor License Market",
@@ -90,8 +119,6 @@ export default function FloridaLiquorLicenseBrokerPage() {
         { "@type": "Audience", audienceType: "Florida liquor license buyers" },
       ],
       url: canonicalUrl,
-      description:
-        "Broker-assisted representation for Florida liquor-license buyers and sellers, including pricing strategy, marketing, opportunity identification, negotiation and transaction coordination as defined by written agreement.",
     },
     {
       "@context": "https://schema.org",
@@ -102,23 +129,10 @@ export default function FloridaLiquorLicenseBrokerPage() {
         acceptedAnswer: { "@type": "Answer", text: faq.answer },
       })),
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Florida Liquor License Broker",
-          item: canonicalUrl,
-        },
-      ],
-    },
   ];
 
   return (
-    <main className="seo-market-page broker-choice-page">
+    <main className="seo-market-page fllm-official-page broker-choice-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -127,261 +141,219 @@ export default function FloridaLiquorLicenseBrokerPage() {
       />
 
       <style>{`
-        .broker-choice-page{background:#04111d}
-        .broker-choice-page .seo-market-hero{padding-bottom:62px}
-        .broker-choice-page .seo-market-hero-grid{grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr)}
-        .broker-choice-page .seo-market-hero h1{max-width:900px}
-        .broker-choice-page .seo-market-hero p{max-width:850px}
-        .broker-choice-note{margin-top:20px;padding:14px 16px;border-left:3px solid #eda91a;background:rgba(237,169,26,.07);color:#d5dfe7;font-size:13px;line-height:1.65}
-        .broker-two-paths{padding:72px 20px;background:#061827}
-        .broker-two-paths-shell{width:min(1120px,100%);margin:0 auto}
-        .broker-path-heading{text-align:center;max-width:900px;margin:0 auto 28px}
-        .broker-path-heading span{color:#eda91a;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
-        .broker-path-heading h2{margin:9px 0 12px;color:#fff;font-size:clamp(30px,4vw,46px);line-height:1.08}
-        .broker-path-heading p{margin:0;color:#b9c8d3;line-height:1.75;font-size:17px}
-        .broker-path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:34px}
-        .broker-path-card{display:flex;flex-direction:column;min-height:500px;padding:30px;border:1px solid rgba(237,169,26,.34);border-radius:16px;background:linear-gradient(150deg,#0a263e,#04111d);box-shadow:0 16px 40px rgba(0,0,0,.2)}
-        .broker-path-card .number{display:grid;width:48px;height:48px;place-items:center;border-radius:50%;background:#eda91a;color:#061728;font-weight:950;font-size:20px}
-        .broker-path-card .eyebrow{margin-top:18px;color:#eda91a;font-size:12px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
-        .broker-path-card h3{margin:8px 0 12px;color:#fff;font-size:28px;line-height:1.15}
-        .broker-path-card>p{margin:0;color:#c7d3dc;line-height:1.75;font-size:16px}
+        .broker-choice-page{background:#0d3152;color:#fff}
+        .broker-choice-page .seo-market-hero{padding:54px 0 58px}
+        .broker-choice-page .seo-market-hero::after{content:"BROKER";right:1vw;bottom:-34px;font-size:clamp(120px,15vw,220px)}
+        .broker-choice-page .seo-market-hero h1{max-width:830px}
+        .broker-choice-page .seo-market-hero p{max-width:800px}
+        .broker-hero-clarifier{max-width:810px;margin:19px 0 0;padding:14px 16px;border-left:3px solid #f1a600;background:#0b2842;color:#d6e3eb;font-size:14px;line-height:1.65}
+        .broker-jump-nav{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+        .broker-jump-nav a{min-height:34px;display:inline-flex;align-items:center;padding:0 12px;border:1px solid rgba(241,166,0,.72);border-radius:999px;background:rgba(241,166,0,.06);color:#ffbd24;font-size:11px;font-weight:900;text-decoration:none;transition:.18s ease}
+        .broker-jump-nav a:hover{background:#f1a600;color:#07101a;transform:translateY(-1px)}
+        .broker-updated{margin:15px 0 0;color:#c4d4df;font-size:12px}
+        .broker-service-section{padding:68px 0;background:#123b61;border-top:1px solid #72551b;border-bottom:1px solid #72551b}
+        .broker-section-head{max-width:920px;margin-bottom:26px}
+        .broker-section-head span{color:#f1a600;font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+        .broker-section-head h2{margin:8px 0 13px;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:clamp(31px,4vw,46px);line-height:1.06}
+        .broker-section-head p{margin:0;color:#d0dce4;font-size:16px;line-height:1.72}
+        .broker-path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+        .broker-path-card{display:flex;min-height:480px;flex-direction:column;padding:28px;border:1px solid #9c7019;border-radius:10px;background:linear-gradient(145deg,#15466f 0%,#0b3153 50%,#071f36 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 16px 34px rgba(3,17,29,.27);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+        .broker-path-card:hover{transform:translateY(-5px);border-color:#f1a600;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 22px 44px rgba(3,17,29,.38),0 0 20px rgba(241,166,0,.16)}
+        .broker-path-card .eyebrow{color:#f1a600;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+        .broker-path-card h3{margin:9px 0 12px;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:29px;line-height:1.12}
+        .broker-path-card>p{margin:0;color:#d3dfe6;font-size:16px;line-height:1.7}
         .broker-path-card ul{display:grid;gap:11px;margin:22px 0 0;padding:0;list-style:none}
-        .broker-path-card li{position:relative;padding-left:25px;color:#e2e9ef;line-height:1.55}
-        .broker-path-card li:before{content:"✓";position:absolute;left:0;color:#eda91a;font-weight:900}
-        .broker-card-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:28px}
-        .broker-card-actions a{display:inline-flex;min-height:46px;align-items:center;justify-content:center;padding:0 18px;border-radius:8px;font-weight:900;text-decoration:none}
-        .broker-card-actions .primary{background:#eda91a;color:#061728}
-        .broker-card-actions .secondary{border:1px solid rgba(255,255,255,.28);color:#fff}
-        .broker-difference{padding:68px 20px;background:#04111d}
-        .broker-difference-shell{width:min(1120px,100%);margin:0 auto}
-        .broker-difference-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:start}
-        .broker-difference-copy span,.broker-section-kicker{color:#eda91a;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
-        .broker-difference-copy h2{margin:9px 0 14px;color:#fff;font-size:36px;line-height:1.12}
-        .broker-difference-copy p{margin:0;color:#b8c6d1;line-height:1.75}
-        .broker-table{overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:#071d33}
-        .broker-row{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08)}
-        .broker-row:last-child{border-bottom:0}
-        .broker-row>div{padding:17px 18px;color:#d7e1e8;line-height:1.5}
-        .broker-row>div+div{border-left:1px solid rgba(255,255,255,.08)}
-        .broker-row.header>div{background:#0a263e;color:#eda91a;font-weight:900}
-        .broker-row strong{color:#fff}
-        .broker-support{padding:70px 20px;background:#061827}
-        .broker-support-shell{width:min(1120px,100%);margin:0 auto}
-        .broker-support-heading{max-width:860px}
-        .broker-support-heading h2{margin:8px 0 12px;color:#fff;font-size:38px}
-        .broker-support-heading p{margin:0;color:#bdcad4;line-height:1.75}
-        .broker-support-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
-        .broker-support-card{padding:23px;border:1px solid rgba(255,255,255,.09);border-radius:13px;background:#071d33}
-        .broker-support-card b{display:grid;width:36px;height:36px;place-items:center;border-radius:50%;background:#eda91a;color:#061728}
-        .broker-support-card h3{margin:14px 0 8px;color:#fff;font-size:19px}
-        .broker-support-card p{margin:0;color:#c5d1da;line-height:1.67;font-size:15px}
-        .broker-seo{padding:70px 20px;background:#04111d}
-        .broker-seo-shell{width:min(1120px,100%);margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:34px}
-        .broker-seo h2{margin:8px 0 14px;color:#fff;font-size:36px}
-        .broker-seo p{color:#bac8d3;line-height:1.78}
-        .broker-links{display:grid;gap:10px}
-        .broker-links a{padding:16px 17px;border:1px solid rgba(255,255,255,.09);border-radius:10px;background:#071d33;color:#fff;font-weight:850;text-decoration:none}
-        .broker-links a:hover{border-color:#eda91a;color:#eda91a}
-        .broker-faq{padding:68px 20px;background:#061827}
-        .broker-faq-shell{width:min(900px,100%);margin:0 auto}
-        .broker-faq h2{margin:8px 0 20px;color:#fff;font-size:36px}
-        .broker-faq details{border-bottom:1px solid rgba(255,255,255,.1)}
-        .broker-faq summary{padding:18px 0;color:#fff;font-weight:850;cursor:pointer}
-        .broker-faq details p{margin:0;padding:0 0 18px;color:#bdcad4;line-height:1.75}
-        .broker-final{padding:60px 20px;text-align:center;background:#071d33;border-top:1px solid rgba(237,169,26,.2)}
-        .broker-final h2{margin:0;color:#fff;font-size:34px}
-        .broker-final p{max-width:800px;margin:12px auto 22px;color:#c0ccd5;line-height:1.7}
+        .broker-path-card li{position:relative;padding-left:25px;color:#eef3f6;font-size:15px;line-height:1.5}
+        .broker-path-card li::before{content:"✓";position:absolute;left:0;color:#f1a600;font-weight:900}
+        .broker-card-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:27px}
+        .broker-card-actions a{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 17px;border-radius:4px;font-size:12px;font-weight:900;text-decoration:none;text-transform:uppercase;transition:.18s ease}
+        .broker-card-actions .primary{border:1px solid #ffd468;background:linear-gradient(145deg,#ffd66f 0%,#ffbd24 42%,#e69a00 100%);color:#07101a;box-shadow:0 7px 15px rgba(3,17,29,.32)}
+        .broker-card-actions .secondary{border:1px solid #f1a600;background:rgba(2,11,18,.38);color:#ffbd24}
+        .broker-card-actions a:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.08)}
+        .broker-support-section{padding:68px 0;background:#0d3152}
+        .broker-support-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+        .broker-support-card{min-height:210px;padding:23px;border:1px solid #315b7e;border-radius:10px;background:linear-gradient(145deg,#15466f 0%,#0b3153 52%,#071f36 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 12px 26px rgba(3,17,29,.24);transition:.18s ease}
+        .broker-support-card:hover{transform:translateY(-5px);border-color:#69d6ff;box-shadow:0 18px 34px rgba(3,17,29,.36),0 0 20px rgba(105,214,255,.12)}
+        .broker-support-card b{display:grid;width:38px;height:38px;place-items:center;border:1px solid rgba(105,214,255,.55);border-radius:50%;background:#0d3659;color:#69d6ff;font-size:12px}
+        .broker-support-card h3{margin:14px 0 8px;color:#fff;font-size:20px}
+        .broker-support-card p{margin:0;color:#d2dee6;font-size:15px;line-height:1.65}
+        .broker-distinction-section{padding:68px 0;background:#123b61;border-top:1px solid #72551b;border-bottom:1px solid #72551b}
+        .broker-distinction-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:24px;align-items:stretch}
+        .broker-distinction-copy,.broker-ad-card{padding:27px;border:1px solid #8a6412;border-radius:10px;background:#0b3153;box-shadow:0 16px 34px rgba(3,17,29,.28)}
+        .broker-distinction-copy h2,.broker-ad-card h3{margin:8px 0 12px;color:#fff;font-family:Georgia,"Times New Roman",serif;line-height:1.08}
+        .broker-distinction-copy h2{font-size:36px}
+        .broker-ad-card h3{font-size:28px}
+        .broker-distinction-copy p,.broker-ad-card p{color:#d2dee6;font-size:16px;line-height:1.72}
+        .broker-ad-card span,.broker-distinction-copy>span{color:#f1a600;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+        .broker-ad-card a{margin-top:10px}
+        .broker-faq{padding:68px 0;background:#0d3152}
+        .broker-faq details{margin-bottom:10px;border:1px solid #315b7e;border-radius:8px;background:#0b3153}
+        .broker-faq summary{padding:17px 19px;color:#fff;font-weight:850;cursor:pointer}
+        .broker-faq details p{margin:0;padding:0 19px 18px;color:#d3dfe6;font-size:16px;line-height:1.72}
+        .broker-final{padding:54px 0;background:#071f36;border-top:1px solid #8a6412;text-align:center}
+        .broker-final h2{margin:0;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:36px}
+        .broker-final p{max-width:820px;margin:12px auto 22px;color:#d0dce4;font-size:16px;line-height:1.7}
         .broker-final-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-        .broker-final-actions a{display:inline-flex;min-height:46px;align-items:center;padding:0 18px;border-radius:8px;font-weight:900;text-decoration:none}
-        .broker-final-actions .gold{background:#eda91a;color:#061728}
-        .broker-final-actions .outline{border:1px solid rgba(255,255,255,.3);color:#fff}
-        @media(max-width:860px){.broker-choice-page .seo-market-hero-grid,.broker-path-grid,.broker-difference-grid,.broker-seo-shell{grid-template-columns:1fr}.broker-support-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.broker-path-card{min-height:0}.broker-row{grid-template-columns:1fr}.broker-row>div+div{border-left:0;border-top:1px solid rgba(255,255,255,.08)}}
-        @media(max-width:560px){.broker-support-grid{grid-template-columns:1fr}.broker-path-card{padding:23px}.broker-choice-page .seo-market-hero h1{font-size:38px}.broker-two-paths,.broker-difference,.broker-support,.broker-seo,.broker-faq{padding-left:16px;padding-right:16px}}
+        @media(max-width:900px){.broker-path-grid,.broker-distinction-grid{grid-template-columns:1fr}.broker-support-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.broker-path-card{min-height:0}}
+        @media(max-width:620px){.broker-support-grid{grid-template-columns:1fr}.broker-path-card{padding:23px}.broker-choice-page .seo-market-hero h1{font-size:40px}}
       `}</style>
 
       <div className="abt-header-wrap">
         <FormsSiteHeader
           primaryActionHref="/sell-your-license"
-          primaryActionLabel="Sell Your License"
+          primaryActionLabel="List Your License"
         />
       </div>
 
       <section className="seo-market-hero">
         <div className="seo-market-shell">
           <div className="seo-market-breadcrumbs">
-            <Link href="/">Home</Link><span>›</span><strong>Florida Liquor License Broker</strong>
+            <Link href="/">Home</Link><span>›</span><strong>Florida Liquor License Broker Services</strong>
           </div>
+
           <div className="seo-market-hero-grid">
             <div>
-              <span className="seo-market-kicker">Statewide Broker-Assisted Representation</span>
-              <h1>Florida Liquor License Broker for Buyers and Sellers</h1>
+              <span className="seo-market-kicker">Full-Service Florida Liquor License Brokerage</span>
+              <h1>Florida Liquor License Broker Services</h1>
               <p>
-                Florida Liquor License Market provides statewide broker-assisted representation for owners selling transferable 4COP quota, 3PS and other Florida liquor licenses, as well as buyers seeking suitable opportunities. Services may include county-market analysis, pricing strategy, confidential or public marketing, opportunity identification, buyer or seller communications, negotiation and transaction coordination.
+                FLLM provides broker-assisted representation for Florida liquor-license buyers and sellers. This page is for clients who want professional help with pricing, opportunity identification, marketing, negotiations and transaction coordination.
               </p>
+
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">
-                  Seller — Request Broker Representation
+                  Seller — Request Representation
                 </Link>
                 <Link className="seo-market-button seo-market-button-dark" href="/contact">
-                  Buyer — Request Broker Assistance
+                  Buyer — Request Assistance
                 </Link>
               </div>
-              <div className="broker-choice-note">
-                Broker representation begins only under a written agreement defining the client, representative, scope of services, exclusivity if any, compensation and other material terms. DBPR’s Division of Alcoholic Beverages and Tobacco retains authority over license transfers and approvals.
+
+              <nav className="broker-jump-nav" aria-label="Broker service sections">
+                <a href="#seller-services">Seller Services</a>
+                <a href="#buyer-services">Buyer Services</a>
+                <a href="#what-we-do">What We Do</a>
+                <a href="#independent-brokers">Independent Brokers</a>
+              </nav>
+
+              <div className="broker-hero-clarifier">
+                <strong>This is a representation service.</strong> It is different from FLLM&apos;s advertising-only Independent Broker Marketplace, where an outside broker remains the client&apos;s representative and transaction contact.
               </div>
+              <p className="broker-updated">Statewide service across all 67 Florida counties · 4COP and 3PS quota focus</p>
             </div>
-            <aside className="seo-market-snapshot" aria-label="FLLM broker services">
-              <span>Statewide Broker Services</span>
+
+            <aside className="seo-market-snapshot" aria-label="FLLM broker service snapshot">
+              <span>FLLM Broker Service Snapshot</span>
               <div className="seo-market-snapshot-grid">
                 <div><strong>Sell</strong><small>seller representation</small></div>
                 <div><strong>Buy</strong><small>buyer assistance</small></div>
                 <div><strong>67</strong><small>Florida counties</small></div>
-                <div><strong>4COP</strong><small>& 3PS quota focus</small></div>
+                <div><strong>4COP</strong><small>&amp; 3PS quota focus</small></div>
               </div>
             </aside>
           </div>
         </div>
       </section>
 
-      <section className="broker-two-paths">
-        <div className="broker-two-paths-shell">
-          <div className="broker-path-heading">
-            <span>Buyer and Seller Representation</span>
-            <h2>Professional Florida liquor license brokerage for both sides of the transaction</h2>
+      <section className="broker-service-section" aria-labelledby="choose-broker-service">
+        <div className="seo-market-shell">
+          <div className="broker-section-head">
+            <span>Choose Your Service</span>
+            <h2 id="choose-broker-service">Two clear broker-assisted paths</h2>
             <p>
-              FLLM helps license owners position and market transferable inventory and helps qualified buyers identify and evaluate suitable opportunities. Each engagement is defined by a separate written brokerage agreement.
+              Sellers can request representation for marketing and selling a license. Buyers can request assistance identifying and acquiring a suitable license. Each engagement is defined by a separate written agreement.
             </p>
           </div>
 
           <div className="broker-path-grid">
-            <article className="broker-path-card">
-              <span className="number">1</span>
+            <article className="broker-path-card" id="seller-services">
               <span className="eyebrow">For License Owners</span>
-              <h3>Full-Service Broker-Assisted Representation for Your Florida Liquor License Sale</h3>
+              <h3>Seller Representation</h3>
               <p>
-                Own a 4COP Quota, 3PS Quota or other transferable Florida liquor license and want professional assistance across the sale? Request full-service broker-assisted representation through FLLM.
+                For owners of transferable Florida liquor licenses who want professional assistance positioning, marketing and coordinating a sale.
               </p>
               <ul>
-                <li>County-market review, valuation context and pricing strategy</li>
-                <li>Confidential or public marketing strategy and buyer outreach</li>
-                <li>Prospective-buyer screening and communications</li>
-                <li>Negotiation of price and other business terms</li>
-                <li>Due-diligence and transaction milestone coordination</li>
-                <li>Coordination with legal, licensing, financing, escrow and closing professionals</li>
+                {sellerServices.map((item) => <li key={item}>{item}</li>)}
               </ul>
               <div className="broker-card-actions">
-                <Link className="primary" href="/sell-your-license">Request Full-Service Representation</Link>
+                <Link className="primary" href="/sell-your-license">Request Seller Representation</Link>
                 <Link className="secondary" href="/florida-liquor-license-broker-fees">Review Broker Fees</Link>
               </div>
             </article>
 
-            <article className="broker-path-card">
-              <span className="number">2</span>
+            <article className="broker-path-card" id="buyer-services">
               <span className="eyebrow">For License Buyers</span>
-              <h3>Buyer Representation and Transaction Support</h3>
+              <h3>Buyer Representation</h3>
               <p>
-                Seeking a Florida liquor license? Request professional assistance identifying the correct license type and county, evaluating available inventory and coordinating the transaction.
+                For buyers who want help finding the correct county and license type, comparing available opportunities and coordinating a purchase.
               </p>
               <ul>
-                <li>Define the target county, license series and intended use</li>
-                <li>Identify public, confidential and broker-represented opportunities</li>
-                <li>Evaluate asking prices and county-market evidence</li>
-                <li>Coordinate communications with sellers and listing representatives</li>
-                <li>Assist with negotiation, due diligence and transaction milestones</li>
-                <li>Coordinate with legal, licensing, financing, escrow and closing professionals</li>
+                {buyerServices.map((item) => <li key={item}>{item}</li>)}
               </ul>
               <div className="broker-card-actions">
                 <Link className="primary" href="/contact">Request Buyer Assistance</Link>
-                <Link className="secondary" href="/listings">View Marketplace</Link>
+                <Link className="secondary" href="/listings">Browse Marketplace</Link>
               </div>
             </article>
           </div>
         </div>
       </section>
 
-      <section className="broker-difference">
-        <div className="broker-difference-shell">
-          <div className="broker-difference-grid">
-            <div className="broker-difference-copy">
-              <span>Clear Representation Roles</span>
-              <h2>Seller and buyer representation are distinct professional engagements</h2>
-              <p>
-                A seller may retain a broker to position and market a license, screen buyers, negotiate terms and coordinate the transaction. A buyer may retain a broker to identify opportunities, evaluate county-market evidence, communicate with sellers and coordinate the purchase. The written agreement controls who is represented and the scope of service.
-              </p>
-            </div>
-            <div className="broker-table" role="table" aria-label="Comparison of FLLM brokerage paths">
-              <div className="broker-row header" role="row">
-                <div>Engagement</div><div>Primary client</div><div>Primary purpose</div>
-              </div>
-              <div className="broker-row" role="row">
-                <div><strong>Seller Representation</strong></div><div>Florida liquor-license owner</div><div>Pricing strategy, marketing, buyer screening, negotiation and transaction coordination</div>
-              </div>
-              <div className="broker-row" role="row">
-                <div><strong>Buyer Representation</strong></div><div>Prospective license buyer</div><div>Opportunity identification, market comparison, communications, negotiation and transaction coordination</div>
-              </div>
-              <div className="broker-row" role="row">
-                <div><strong>Transaction Coordination</strong></div><div>As defined in the written agreement</div><div>Organizing milestones and coordinating with the appropriate professional advisers</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="broker-support">
-        <div className="broker-support-shell">
-          <div className="broker-support-heading">
-            <span className="broker-section-kicker">Full-Service Broker-Assisted Representation</span>
-            <h2>What full-service Florida liquor license representation can include</h2>
+      <section className="broker-support-section" id="what-we-do">
+        <div className="seo-market-shell">
+          <div className="broker-section-head">
+            <span>Full-Service Support</span>
+            <h2>What broker-assisted representation can include</h2>
             <p>
-              The exact scope depends on the written engagement, but full-service broker-assisted representation can extend across the major commercial stages of a Florida liquor-license sale.
+              The exact scope is defined in the written engagement, but these are the principal commercial areas FLLM can help coordinate.
             </p>
           </div>
+
           <div className="broker-support-grid">
-            {[
-              ["1", "Pricing strategy", "Compare county inventory, asking prices and relevant market evidence before setting or adjusting the asking price."],
-              ["2", "Marketing strategy", "Develop an appropriate public or confidential marketing plan and present the license to qualified prospects."],
-              ["3", "Buyer screening & communications", "Organize inquiries, qualify prospective buyers and manage transaction discussions within the agreed scope."],
-              ["4", "Negotiation", "Help evaluate and negotiate price and other business terms while the client retains final decision authority."],
-              ["5", "Due diligence & transfer coordination", "Help organize license details, liens or encumbrances, transfer information and third-party professional involvement."],
-              ["6", "Closing coordination", "Track transaction milestones and help keep the buyer, seller, attorneys, licensing professionals, escrow and other advisers aligned through closing."],
-            ].map(([n, title, copy]) => (
+            {supportCards.map(([n, title, copy]) => (
               <article className="broker-support-card" key={title}>
-                <b>{n}</b><h3>{title}</h3><p>{copy}</p>
+                <b>{n}</b>
+                <h3>{title}</h3>
+                <p>{copy}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="broker-seo">
-        <div className="broker-seo-shell">
-          <div>
-            <span className="broker-section-kicker">Florida Liquor License Brokerage</span>
-            <h2>4COP and 3PS full-service broker representation across Florida</h2>
-            <p>
-              Florida quota liquor licenses are county-specific, and market values can vary substantially from one county to another. Buyers and sellers commonly evaluate the county, license series, intended use, current inventory, asking prices, transferability and transaction timing before deciding how to proceed.
-            </p>
-            <p>
-              FLLM&apos;s specialized market infrastructure supports broker-assisted seller representation and buyer representation across Florida. Independent-broker advertising and self-directed seller listings remain available through separate marketplace services so the representation role stays clear.
-            </p>
+      <section className="broker-distinction-section" id="independent-brokers">
+        <div className="seo-market-shell">
+          <div className="broker-distinction-grid">
+            <div className="broker-distinction-copy">
+              <span>Keep the Services Separate</span>
+              <h2>Already representing the client?</h2>
+              <p>
+                If you are an independent broker and only want additional marketplace exposure for your client&apos;s liquor license, you do not need FLLM broker representation. Use the Independent Broker Marketplace instead. Your name and brokerage remain on the listing, buyer inquiries route to your designated contact, and FLLM does not take a share of your commission.
+              </p>
+              <div className="broker-card-actions">
+                <Link className="primary" href="/brokers/list-your-license">Advertise a Client License</Link>
+              </div>
+            </div>
+
+            <aside className="broker-ad-card">
+              <span>Advertising Only</span>
+              <h3>Independent Broker Marketplace</h3>
+              <p>
+                Standard and Featured third-party broker listings are a separate advertising product. FLLM provides marketplace exposure and inquiry routing while the outside broker remains the representative and transaction contact.
+              </p>
+              <div className="broker-card-actions">
+                <Link className="secondary" href="/brokers/list-your-license">View Broker Listing Options</Link>
+              </div>
+            </aside>
           </div>
-          <nav className="broker-links" aria-label="Florida liquor license broker resources">
-            <Link href="/sell-your-license">Full-Service or Self-Directed Selling</Link>
-            <Link href="/florida-liquor-license-broker-fees">Florida Liquor License Broker Fees</Link>
-            <Link href="/brokers/list-your-license">For Brokers — List a Client License</Link>
-            <Link href="/listings">Browse Florida Liquor Licenses for Sale</Link>
-            <Link href="/florida-liquor-license-value">Florida Liquor License Value</Link>
-            <Link href="/florida-liquor-license-appraisal">Florida Liquor License Appraisals</Link>
-            <Link href="/financing">Florida Liquor License Financing</Link>
-            <Link href="/resources/florida-liquor-license-laws">Florida Liquor License Laws</Link>
-          </nav>
         </div>
       </section>
 
       <section className="broker-faq">
-        <div className="broker-faq-shell">
-          <span className="broker-section-kicker">Frequently Asked Questions</span>
-          <h2>Florida liquor license broker questions</h2>
+        <div className="seo-market-shell">
+          <div className="broker-section-head">
+            <span>Frequently Asked Questions</span>
+            <h2>Florida liquor license broker questions</h2>
+          </div>
           {faqs.map((faq) => (
             <details key={faq.question}>
               <summary>{faq.question}</summary>
@@ -392,13 +364,15 @@ export default function FloridaLiquorLicenseBrokerPage() {
       </section>
 
       <section className="broker-final">
-        <h2>Request Florida liquor license broker assistance</h2>
-        <p>
-          License owners can request seller representation for pricing, marketing, buyer screening, negotiation and transaction coordination. Buyers can request assistance identifying and evaluating suitable county and license-type opportunities.
-        </p>
-        <div className="broker-final-actions">
-          <Link className="gold" href="/sell-your-license">Seller — Request Broker Representation</Link>
-          <Link className="outline" href="/contact">Buyer — Request Broker Assistance</Link>
+        <div className="seo-market-shell">
+          <h2>Request Florida liquor license broker assistance</h2>
+          <p>
+            Choose seller representation if you own a license and want professional help marketing and coordinating the sale. Choose buyer assistance if you want help finding and acquiring a suitable Florida liquor license.
+          </p>
+          <div className="broker-final-actions">
+            <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Seller — Request Representation</Link>
+            <Link className="seo-market-button seo-market-button-dark" href="/contact">Buyer — Request Assistance</Link>
+          </div>
         </div>
       </section>
     </main>
