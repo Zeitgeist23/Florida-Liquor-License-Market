@@ -98,9 +98,11 @@ function HoverSelect({ id, name, value, placeholder, options, onChange }: HoverS
 export default function BrokerListingForm() {
   const [listingTier, setListingTier] = useState<"standard" | "featured">("standard");
   const [askingPrice, setAskingPrice] = useState("");
+  const [packagePrice, setPackagePrice] = useState("");
   const [phone, setPhone] = useState("");
   const [county, setCounty] = useState("");
   const [licenseType, setLicenseType] = useState("4COP Quota");
+  const [offeringStructure, setOfferingStructure] = useState("");
   const [inquiryRoutes, setInquiryRoutes] = useState([
     "Direct email",
     "Direct phone",
@@ -122,6 +124,12 @@ export default function BrokerListingForm() {
     { value: "4COP Quota", label: "4COP Quota" },
     { value: "3PS Quota / Package Store", label: "3PS Quota / Package Store" },
   ];
+  const offeringOptions = [
+    { value: "standalone", label: "Stand-alone liquor license" },
+    { value: "business_required", label: "License included with a business — business purchase required" },
+    { value: "either", label: "Available either separately or with the business" },
+  ];
+  const includesBusiness = offeringStructure === "business_required" || offeringStructure === "either";
 
   function toggleInquiryRoute(route: string, checked: boolean) {
     setInquiryRoutes((current) =>
@@ -175,6 +183,13 @@ export default function BrokerListingForm() {
       return;
     }
 
+    if (!offeringStructure) {
+      setIsError(true);
+      setStatus("Please tell us whether the license is stand-alone or connected to a business.");
+      document.getElementById("broker-offering-structure-select")?.focus();
+      return;
+    }
+
     const form = event.currentTarget;
     if (!form.reportValidity()) return;
     setSubmitting(true);
@@ -209,6 +224,21 @@ export default function BrokerListingForm() {
           color: #071827;
           font-size: 13px;
           font-weight: 800;
+        }
+        .broker-full-select {
+          grid-column: 1 / -1;
+        }
+        .broker-business-note {
+          grid-column: 1 / -1;
+          margin: -2px 0 2px;
+          padding: 13px 15px;
+          border: 1px solid rgba(25,155,190,.28);
+          border-left: 3px solid #28c6e5;
+          border-radius: 7px;
+          color: #415665;
+          background: linear-gradient(180deg, #f7fdff 0%, #f3fafc 100%);
+          font-size: 13px;
+          line-height: 1.55;
         }
         .broker-hover-select {
           position: relative;
@@ -313,6 +343,24 @@ export default function BrokerListingForm() {
           background: #fff4d7;
           font-weight: 800;
         }
+        .${styles.fields} label:has(input[name="package_asking_price"]) {
+          position: relative;
+        }
+        .${styles.fields} label:has(input[name="package_asking_price"])::after {
+          content: "$";
+          position: absolute;
+          z-index: 2;
+          left: 14px;
+          bottom: 13px;
+          color: #334b5a;
+          font-size: 16px;
+          font-weight: 700;
+          pointer-events: none;
+        }
+        .${styles.fields} input[name="package_asking_price"] {
+          padding-left: 30px !important;
+          font-variant-numeric: tabular-nums;
+        }
         @media (max-width: 620px) {
           .${styles.sectionHeading} > span { font-size: 16px !important; line-height: 1.35 !important; letter-spacing: .12em !important; }
           .${styles.form} legend > span { font-size: 18px !important; line-height: 1.35 !important; }
@@ -335,6 +383,7 @@ export default function BrokerListingForm() {
           .${styles.formFooter} strong { font-size: 19px !important; }
           .${styles.formFooter} small { font-size: 15px !important; line-height: 1.45 !important; }
           .${styles.formFooter} button { font-size: 13px !important; }
+          .broker-business-note { font-size: 15px; }
         }
       `}</style>
       <label className={styles.honeypot} aria-hidden="true">
@@ -363,9 +412,10 @@ export default function BrokerListingForm() {
         <legend><b>2</b><span>Broker and brokerage information<small>Enter the contact details buyers should see and use.</small></span></legend>
         <div className={styles.fields}>
           <label><span>Broker name *</span><input name="broker_name" required autoComplete="name" /></label>
-          <label><span>Brokerage *</span><input name="brokerage" required autoComplete="organization" /></label>
+          <label><span>Brokerage name *</span><input name="brokerage" required autoComplete="organization" /></label>
           <label><span>Email *</span><input name="email" type="email" required autoComplete="email" /></label>
           <label><span>Phone *</span><input name="phone" required inputMode="tel" autoComplete="tel" value={phone} onChange={(event) => setPhone(formatPhone(event.target.value))} /></label>
+          <label className={styles.fullField}><span>Brokerage website</span><input name="brokerage_website" type="url" inputMode="url" autoComplete="url" placeholder="https://www.yourbrokerage.com" /></label>
         </div>
       </fieldset>
       <fieldset>
@@ -393,8 +443,29 @@ export default function BrokerListingForm() {
               onChange={setLicenseType}
             />
           </div>
-          <label><span>Asking price *</span><input name="asking_price" required inputMode="numeric" value={askingPrice} onChange={(event) => setAskingPrice(formatCurrency(event.target.value))} placeholder="435,000" /></label>
+          <label><span>License asking price *</span><input name="asking_price" required inputMode="numeric" value={askingPrice} onChange={(event) => setAskingPrice(formatCurrency(event.target.value))} placeholder="435,000" /></label>
           <label><span>License number</span><input name="license_number" placeholder="Optional / may be kept private" /></label>
+          <div className="broker-select-field broker-full-select">
+            <span>How is this license being offered? *</span>
+            <HoverSelect
+              id="broker-offering-structure-select"
+              name="offering_structure"
+              value={offeringStructure}
+              placeholder="Select how the license is offered"
+              options={offeringOptions}
+              onChange={setOfferingStructure}
+            />
+          </div>
+          {includesBusiness ? (
+            <>
+              <div className="broker-business-note">
+                Add the business-package details so buyers can distinguish the license value from the total transaction price.
+              </div>
+              <label><span>Business type *</span><input name="business_type" required placeholder="Cocktail lounge, restaurant, liquor store, nightclub…" /></label>
+              <label><span>Business name / concept</span><input name="business_name" placeholder="Optional / may be kept confidential" /></label>
+              <label className={styles.fullField}><span>Total business + license package asking price *</span><input name="package_asking_price" required inputMode="numeric" value={packagePrice} onChange={(event) => setPackagePrice(formatCurrency(event.target.value))} placeholder="1,100,000" /></label>
+            </>
+          ) : null}
           <label className={styles.fullField}><span>Listing notes</span><textarea name="notes" rows={4} /></label>
         </div>
       </fieldset>
