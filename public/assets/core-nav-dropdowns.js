@@ -21,10 +21,11 @@
     {
       key: "sell",
       label: "Sell",
-      width: 310,
+      width: 390,
       items: [
+        { label: "BROKERS — See Featured Listing Example", href: "/brokers/advertise-client-liquor-license" },
+        { label: "BROKERS — List a Client License", href: "/brokers/list-your-license" },
         { label: "Sell Your License", href: "/sell-your-license" },
-        { label: "For Brokers — List a Client License", href: "/brokers/list-your-license" },
         { label: "How to Sell a Florida Liquor License", href: "/how-to-sell-florida-liquor-license" },
         { label: "Get a License Valuation", href: "/florida-liquor-license-value" },
       ],
