@@ -439,3 +439,99 @@
   color:#07101a!important;
   box-shadow:0 0 0 1px rgba(255,193,59,.28),0 7px 16px rgba(0,0,0,.28)!important;
 }
+
+
+/* Exact official FLLM footer parity for the Contact route. */
+.fllm-official-contact-footer{
+  margin:0!important;
+  padding:15px 0 0!important;
+  border-top:1px solid #6e531d!important;
+  background:linear-gradient(90deg,#071f36 0%,#0c3558 50%,#071f36 100%)!important;
+  color:inherit!important;
+}
+.fllm-official-contact-footer > .directory-shell{
+  box-sizing:border-box!important;
+  width:min(1240px,calc(100% - 40px))!important;
+  min-height:0!important;
+  margin:0 auto!important;
+  padding:0 0 14px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:20px!important;
+}
+.fllm-official-contact-footer .directory-footer-brand{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  gap:14px!important;
+}
+.fllm-official-contact-footer .directory-footer-brand > a{
+  display:block!important;
+  line-height:0!important;
+}
+.fllm-official-contact-footer .directory-footer-brand img{
+  display:block!important;
+  width:130px!important;
+  height:auto!important;
+  object-fit:contain!important;
+}
+.fllm-official-contact-footer span{
+  color:#e4eef5!important;
+  font-size:12px!important;
+}
+.fllm-official-contact-footer nav{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  gap:20px!important;
+}
+.fllm-official-contact-footer a{
+  color:#f3f7fa!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  text-decoration:none!important;
+}
+.fllm-official-contact-footer a:hover,
+.fllm-official-contact-footer a:focus-visible{
+  color:#f1a600!important;
+  outline:none!important;
+}
+.fllm-official-contact-footer > .national-marketplace-footer-link{
+  box-sizing:border-box!important;
+  width:100%!important;
+  margin:0!important;
+  padding:11px max(20px,calc((100% - 1240px)/2)) 13px!important;
+  border-top:1px solid #263f55!important;
+  background:#0a2947!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:20px!important;
+  color:#dce8f0!important;
+  font-size:11px!important;
+  text-align:left!important;
+}
+.fllm-official-contact-footer > .national-marketplace-footer-link span,
+.fllm-official-contact-footer > .national-marketplace-footer-link a{
+  font-size:11px!important;
+}
+@media(max-width:650px){
+  .fllm-official-contact-footer > .directory-shell{
+    width:min(calc(100% - 24px),1240px)!important;
+    flex-direction:column!important;
+    text-align:center!important;
+  }
+  .fllm-official-contact-footer .directory-footer-brand{
+    flex-direction:column!important;
+    gap:9px!important;
+  }
+  .fllm-official-contact-footer nav{
+    justify-content:center!important;
+  }
+  .fllm-official-contact-footer > .national-marketplace-footer-link{
+    flex-direction:column!important;
+    text-align:center!important;
+  }
+}
