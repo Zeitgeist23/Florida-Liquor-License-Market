@@ -10,6 +10,7 @@
     { label: "Types of Florida Liquor Licenses", href: "/resources/florida-liquor-license-types" },
     { label: "Quota License Requirements", href: "/resources/florida-liquor-license-types#population-rule-title" },
     { label: "4COP Quota License", href: "/license-types/4cop-quota" },
+    { label: "Gentlemen's Clubs & 4COP", href: "/license-types/gentlemens-clubs-4cop-quota" },
     { label: "3PS Quota / Package Store", href: "/license-types/3ps-package-store" },
     { label: "2COP Beer & Wine", href: "/license-types/2cop-beer-wine" },
     { label: "SRX / 4COP-SFS Restaurant", href: "/license-types/4cop-sfs-restaurant" },
