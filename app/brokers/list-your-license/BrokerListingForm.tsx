@@ -126,14 +126,14 @@ export default function BrokerListingForm() {
       <fieldset>
         <legend><b>1</b><span>Choose your marketplace listing<small>Both options are one-time fees with no recurring charge or FLLM commission.</small></span></legend>
         <div className={styles.tierGrid}>
-          <label id="broker-tier-standard" style={{ scrollMarginTop: 110 }} className={listingTier === "standard" ? styles.tierSelected : styles.tierOption}>
+          <label id="broker-tier-standard" style={{ scrollMarginTop: 110 }} onMouseEnter={() => setListingTier("standard")} className={listingTier === "standard" ? styles.tierSelected : styles.tierOption}>
             <input type="radio" name="listing_tier" value="standard" checked={listingTier === "standard"} onChange={() => setListingTier("standard")} />
             <span className={styles.defaultFlag}>Default</span>
             <span className={styles.tierTop}><b>Standard</b><strong>$14.95</strong></span>
             <span className={styles.tierDescription}>A professional marketplace listing with your brokerage and designated contact information.</span>
             <span className={styles.tierBenefits}><i>✓</i> Marketplace publication after review<br /><i>✓</i> Buyer inquiries routed to you<br /><i>✓</i> Listing remains active until sold or withdrawn</span>
           </label>
-          <label id="broker-tier-featured" style={{ scrollMarginTop: 110 }} className={listingTier === "featured" ? styles.tierSelected : styles.tierOption}>
+          <label id="broker-tier-featured" style={{ scrollMarginTop: 110 }} onMouseEnter={() => setListingTier("featured")} className={listingTier === "featured" ? styles.tierSelected : styles.tierOption}>
             <input type="radio" name="listing_tier" value="featured" checked={listingTier === "featured"} onChange={() => setListingTier("featured")} />
             <span className={styles.tierTop}><b>Featured</b><strong>$24.95</strong></span>
             <span className={styles.tierDescription}>Everything in Standard, plus stronger visibility during the listing&apos;s launch.</span>
