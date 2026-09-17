@@ -107,7 +107,7 @@ export default function ListingsHeaderListLicenseCta() {
           width: 100% !important;
           padding: 11px 12px !important;
           border-radius: 4px !important;
-          color: #f6a700 !important;
+          color: #fff !important;
           font-size: 13.5px !important;
           font-weight: 800 !important;
           line-height: 1.25 !important;
@@ -119,8 +119,8 @@ export default function ListingsHeaderListLicenseCta() {
 
         .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a:hover,
         .results-page > .results-header nav.listings-primary-nav .listings-header-list-license-menu a:focus-visible {
-          background: #f6a700 !important;
-          color: #061728 !important;
+          background: #112c43 !important;
+          color: #f6a700 !important;
           outline: none !important;
         }
 
