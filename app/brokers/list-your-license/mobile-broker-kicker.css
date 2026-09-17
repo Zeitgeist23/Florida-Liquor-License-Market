@@ -43,6 +43,16 @@
     padding-top: 46px !important;
     padding-bottom: 54px !important;
   }
+
+  /* Keep the listing price visually attached to its Standard/Featured label instead of floating at the far edge. */
+  .broker-official-shell main .broker-preview-heading {
+    justify-content: flex-start !important;
+    gap: 20px !important;
+  }
+
+  .broker-official-shell main .broker-preview-heading strong {
+    margin-left: 2px !important;
+  }
 }
 
 @media (max-width: 620px) {
