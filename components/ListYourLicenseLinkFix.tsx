@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
+const LISTING_OPTIONS_PATH = "/sell-your-license#listing-options";
 const SELF_DIRECTED_PATH = "/sell-your-license?method=self#listing-options";
 const BROKER_ASSISTANCE_PATH = "/sell-your-license#broker-assistance";
 const BROKER_LISTING_PATH = "/brokers/list-your-license";
@@ -63,7 +64,7 @@ export default function ListYourLicenseLinkFix() {
       if (!isListYourLicenseControl(control) || bound.has(control)) return;
 
       if (control instanceof HTMLAnchorElement) {
-        control.href = SELF_DIRECTED_PATH;
+        control.href = LISTING_OPTIONS_PATH;
       }
       control.setAttribute("aria-haspopup", "menu");
 
@@ -72,9 +73,12 @@ export default function ListYourLicenseLinkFix() {
         leave: () => scheduleClose(),
         focus: () => showMenu(control),
         click: (event: MouseEvent) => {
+          hideMenu();
+          if (control instanceof HTMLAnchorElement) {
+            return;
+          }
           event.preventDefault();
-          event.stopPropagation();
-          showMenu(control);
+          window.location.assign(LISTING_OPTIONS_PATH);
         },
       };
 
