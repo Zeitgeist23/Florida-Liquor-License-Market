@@ -68,6 +68,12 @@ const listingOptions = {
   },
 } as const;
 
+const offeringLabels = {
+  standalone: "Stand-alone liquor license",
+  business_required: "License included with a business — business purchase required",
+  either: "Available either separately or with the business",
+} as const;
+
 function emergencySubmissionRef() {
   const date = new Date().toISOString().slice(0, 10).replaceAll("-", "");
   return `FLLM-PAID-${date}-${randomBytes(4).toString("hex").toUpperCase()}`;
@@ -101,6 +107,7 @@ export async function POST(request: Request) {
 
     // Accept both the current field names and the former form schema.
     const brokerageName = firstValue(form, ["brokerage", "brokerage_name"], 180);
+    const brokerageWebsite = value(form, "brokerage_website", 300);
     const contactPreference = firstValues(
       form,
       ["inquiry_routes", "contact_preference"],
@@ -138,6 +145,10 @@ export async function POST(request: Request) {
     const county = value(form, "county", 100);
     const licenseType = value(form, "license_type", 100);
     const askingPriceText = value(form, "asking_price", 60);
+    const offeringStructure = value(form, "offering_structure", 40) as keyof typeof offeringLabels;
+    const businessType = value(form, "business_type", 160);
+    const businessName = value(form, "business_name", 180);
+    const packageAskingPriceText = value(form, "package_asking_price", 60);
     const licenseStatus =
       value(form, "license_status", 120) ||
       "Available / broker confirmation required";
@@ -149,13 +160,35 @@ export async function POST(request: Request) {
       !phone ||
       !county ||
       !licenseType ||
-      !askingPriceText
+      !askingPriceText ||
+      !offeringStructure
     ) {
       return NextResponse.json(
         { error: "Please complete all required broker and license fields." },
         { status: 400 },
       );
     }
+
+    if (!(offeringStructure in offeringLabels)) {
+      return NextResponse.json(
+        { error: "Please select a valid license offering structure." },
+        { status: 400 },
+      );
+    }
+
+    const includesBusiness =
+      offeringStructure === "business_required" || offeringStructure === "either";
+
+    if (includesBusiness && (!businessType || !packageAskingPriceText)) {
+      return NextResponse.json(
+        {
+          error:
+            "Please provide the business type and total business + license package asking price.",
+        },
+        { status: 400 },
+      );
+    }
+
     if (!/^\S+@\S+\.\S+$/.test(email)) {
       return NextResponse.json(
         { error: "Please enter a valid email address." },
@@ -174,10 +207,15 @@ export async function POST(request: Request) {
       `Marketplace treatment: ${listingTier.description}`,
       `Brokerage: ${brokerageName}`,
       `Broker / registration number: ${value(form, "broker_license_number", 100) || "Not provided"}`,
-      `Brokerage website: ${value(form, "brokerage_website", 300) || "Not provided"}`,
+      `Brokerage website: ${brokerageWebsite || "Not provided"}`,
       `Buyer inquiry routing: ${contactPreference}`,
       `License number: ${value(form, "license_number", 100) || "Not provided"}`,
       `License-number visibility: ${licenseVisibility}`,
+      `Offering structure: ${offeringLabels[offeringStructure]}`,
+      `Business purchase required: ${offeringStructure === "business_required" ? "Yes" : offeringStructure === "either" ? "Optional — license may also be offered separately" : "No — stand-alone license"}`,
+      `Business type: ${businessType || "Not applicable"}`,
+      `Business name / concept: ${businessName || (includesBusiness ? "Not provided / confidential" : "Not applicable")}`,
+      `Total business + license package asking price: ${packageAskingPriceText ? `$${packageAskingPriceText}` : "Not applicable"}`,
       "Broker authority and accuracy certification: Accepted",
       "Advertising-only marketplace acknowledgment: Accepted",
       storedDocument
@@ -237,7 +275,7 @@ export async function POST(request: Request) {
         metadata: {
           listing_tier: listingTierKey,
           listing_price: String(listingTier.unitAmount),
-          recovery_version: "broker_v2",
+          recovery_version: "broker_v3",
           database_saved: String(databaseSaved),
           full_name: fullName.slice(0, 500),
           email: email.slice(0, 500),
@@ -252,13 +290,14 @@ export async function POST(request: Request) {
             0,
             500,
           ),
-          brokerage_website: value(form, "brokerage_website", 300).slice(
-            0,
-            500,
-          ),
+          brokerage_website: brokerageWebsite.slice(0, 500),
           contact_preference: contactPreference.slice(0, 500),
           license_number: value(form, "license_number", 100).slice(0, 500),
           license_visibility: licenseVisibility.slice(0, 500),
+          offering_structure: offeringStructure.slice(0, 500),
+          business_type: businessType.slice(0, 500),
+          business_name: businessName.slice(0, 500),
+          package_asking_price: packageAskingPriceText.slice(0, 500),
           broker_notes: additional.slice(0, 500),
           document_path: storedDocument?.objectPath.slice(0, 500) || "",
         },
