@@ -54,46 +54,71 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
           font-size: 11px !important;
         }
 
-        /* Larger, centered process cards with dimensional hover treatment. */
+        /* Larger, aligned process cards with cyan numbered circles and stronger depth. */
+        .broker-official-shell main [class*="steps"] {
+          align-items: stretch !important;
+        }
+
         .broker-official-shell main [class*="steps"] article {
           display: flex !important;
-          min-height: 218px !important;
+          min-height: 242px !important;
           flex-direction: column !important;
           align-items: center !important;
-          justify-content: center !important;
+          justify-content: flex-start !important;
           box-sizing: border-box;
-          padding: 30px 24px !important;
+          padding: 34px 26px 30px !important;
           text-align: center !important;
-          border-color: #d4dade !important;
-          background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%) !important;
+          border-color: #d0d8dd !important;
+          background:
+            linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(248,251,253,.98) 100%) !important;
           box-shadow:
-            inset 0 1px 0 rgba(255,255,255,.9),
-            0 10px 24px rgba(7,24,39,.08);
-          transform: translateY(0);
+            inset 0 1px 0 rgba(255,255,255,.96),
+            0 8px 18px rgba(7,24,39,.07),
+            0 18px 34px rgba(7,24,39,.08);
+          transform: translateY(0) scale(1);
           transition:
-            transform .2s ease,
-            border-color .2s ease,
-            box-shadow .2s ease,
-            background .2s ease,
-            filter .2s ease;
+            transform .22s ease,
+            border-color .22s ease,
+            box-shadow .22s ease,
+            background .22s ease,
+            filter .22s ease;
         }
 
         .broker-official-shell main [class*="steps"] article:hover {
-          transform: translateY(-7px);
-          border-color: #e3a11a !important;
-          background: linear-gradient(180deg, #fffefb 0%, #fff8e8 100%) !important;
+          transform: translateY(-8px) scale(1.012);
+          border-color: #65dfff !important;
+          background:
+            radial-gradient(circle at 50% 0%, rgba(73,214,255,.11), transparent 42%),
+            linear-gradient(180deg, #ffffff 0%, #f7fcff 100%) !important;
           box-shadow:
-            inset 0 1px 0 rgba(255,255,255,.95),
-            0 20px 38px rgba(7,24,39,.16),
-            0 0 24px rgba(246,167,0,.20);
+            inset 0 1px 0 rgba(255,255,255,1),
+            0 18px 34px rgba(7,24,39,.15),
+            0 28px 52px rgba(7,24,39,.13),
+            0 0 28px rgba(63,210,255,.18);
           filter: brightness(1.02);
         }
 
         .broker-official-shell main [class*="steps"] article > b {
-          width: 46px !important;
-          height: 46px !important;
-          font-size: 18px !important;
-          box-shadow: 0 8px 18px rgba(246,167,0,.22);
+          flex: 0 0 50px !important;
+          width: 50px !important;
+          height: 50px !important;
+          margin: 0 auto !important;
+          border: 1px solid rgba(69,218,255,.95) !important;
+          color: #041621 !important;
+          background: linear-gradient(145deg, #85ebff 0%, #32cfee 100%) !important;
+          font-size: 19px !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.75),
+            0 8px 18px rgba(33,184,220,.25),
+            0 0 18px rgba(68,216,255,.22) !important;
+        }
+
+        .broker-official-shell main [class*="steps"] article:hover > b {
+          background: linear-gradient(145deg, #9af0ff 0%, #42d8f6 100%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.9),
+            0 10px 22px rgba(33,184,220,.32),
+            0 0 24px rgba(68,216,255,.36) !important;
         }
 
         .broker-official-shell main [class*="steps"] article h3 {
@@ -122,22 +147,25 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
         /* Make listing-tier cards easier to read and clearly swap selection on hover. */
         .broker-official-shell main [class*="tierOption"],
         .broker-official-shell main [class*="tierSelected"] {
-          min-height: 278px !important;
-          padding: 28px 29px !important;
-          gap: 15px !important;
+          min-height: 286px !important;
+          padding: 29px 30px !important;
+          gap: 16px !important;
           transition:
             transform .2s ease,
             border-color .2s ease,
             box-shadow .2s ease,
             background .2s ease,
-            opacity .2s ease !important;
+            opacity .2s ease,
+            filter .2s ease !important;
         }
 
         .broker-official-shell main [class*="tierOption"] {
           transform: translateY(0) !important;
           border-color: #cbd3d8 !important;
-          background: #f7f8f8 !important;
-          box-shadow: 0 8px 20px rgba(7,24,39,.05) !important;
+          background: #f5f7f7 !important;
+          box-shadow: 0 7px 18px rgba(7,24,39,.05) !important;
+          opacity: .86;
+          filter: saturate(.8);
         }
 
         .broker-official-shell main [class*="tierSelected"] {
@@ -147,6 +175,8 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
           box-shadow:
             0 18px 34px rgba(7,24,39,.13),
             0 0 24px rgba(246,167,0,.18) !important;
+          opacity: 1;
+          filter: none;
         }
 
         .broker-official-shell main [class*="tierTop"] b {
@@ -159,12 +189,12 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
 
         .broker-official-shell main [class*="tierDescription"] {
           max-width: 470px !important;
-          font-size: 15px !important;
-          line-height: 1.6 !important;
+          font-size: 16px !important;
+          line-height: 1.62 !important;
         }
 
         .broker-official-shell main [class*="tierBenefits"] {
-          font-size: 14px !important;
+          font-size: 15px !important;
           line-height: 2 !important;
         }
 
