@@ -564,13 +564,14 @@
 /* Contact header: exact desktop geometry from /listings locked header. */
 @media (min-width:981px){
   .contact-page > .fllm-official-contact-header{
-    width:min(1400px,calc(100% - 24px))!important;
+    box-sizing:border-box!important;
+    width:100%!important;
     max-width:none!important;
     min-height:82px!important;
     height:82px!important;
-    margin:0 auto!important;
-    padding-left:0!important;
-    padding-right:0!important;
+    margin:0!important;
+    padding-left:max(12px,calc((100% - 1400px)/2))!important;
+    padding-right:max(12px,calc((100% - 1400px)/2))!important;
     gap:16px!important;
     border-bottom:1px solid #765613!important;
     background:
