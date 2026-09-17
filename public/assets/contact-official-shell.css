@@ -1,3 +1,6 @@
+/* Hide the legacy contact header during hydration so React cannot flash it over the official shell. */
+.contact-page > header.seller-header:not(.fllm-official-contact-header){visibility:hidden!important;opacity:0!important}
+
 /* Official FLLM shell for the static /contact document. */
 .contact-page > .fllm-official-contact-header {
   position: relative;
