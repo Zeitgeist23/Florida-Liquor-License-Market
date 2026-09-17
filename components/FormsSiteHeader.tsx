@@ -10,13 +10,13 @@ type FormsSiteHeaderProps = {
 };
 
 export default function FormsSiteHeader({
-  primaryActionHref = "/sell-your-license",
+  primaryActionHref = "/sell-your-license#listing-options",
   primaryActionLabel = "List Your License",
 }: FormsSiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const isNewsRoute = pathname === "/florida-liquor-license-news" || pathname.startsWith("/florida-liquor-license-news/");
-  const effectivePrimaryActionHref = isNewsRoute ? "/sell-your-license" : primaryActionHref;
+  const effectivePrimaryActionHref = isNewsRoute ? "/sell-your-license#listing-options" : primaryActionHref;
   const effectivePrimaryActionLabel = isNewsRoute ? "List Your License" : primaryActionLabel;
   const isBrokerListPage = effectivePrimaryActionLabel === "List a Client License";
 
