@@ -175,3 +175,257 @@
     gap:16px 22px!important;
   }
 }
+
+
+/* Contact header menu parity with the canonical FormsSiteHeader / HeaderNavMenus */
+.contact-page > .fllm-official-contact-header,
+.contact-page > .fllm-official-contact-header *,
+.contact-page > .fllm-official-contact-header *::before,
+.contact-page > .fllm-official-contact-header *::after{
+  box-sizing:border-box!important;
+}
+
+@media (min-width:981px){
+  .contact-page > .fllm-official-contact-header{
+    overflow:visible!important;
+  }
+  .contact-page > .fllm-official-contact-header .primary-nav{
+    gap:42px!important;
+    overflow:visible!important;
+  }
+}
+
+.contact-page > .fllm-official-contact-header .native-nav-dropdown{
+  position:relative!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  flex:0 0 auto!important;
+  padding-bottom:12px!important;
+  margin-bottom:-12px!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-nav-trigger{
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:5px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:#fff!important;
+  cursor:pointer!important;
+  font:600 10px/1 Arial,Helvetica,sans-serif!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+  transform-origin:center!important;
+  transition:transform .16s ease,color .16s ease!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-nav-trigger:hover,
+.contact-page > .fllm-official-contact-header .native-nav-trigger:focus-visible,
+.contact-page > .fllm-official-contact-header .native-nav-dropdown.is-open>.native-nav-trigger{
+  color:#f6a700!important;
+  outline:none!important;
+  transform:scale(1.03)!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-nav-menu{
+  position:absolute!important;
+  top:100%!important;
+  left:50%!important;
+  z-index:12100!important;
+  display:none!important;
+  transform:translateX(-50%)!important;
+  padding:10px!important;
+  border:1px solid #f6a700!important;
+  border-radius:7px!important;
+  background:#061728!important;
+  box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12)!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-nav-dropdown.is-open>.native-nav-menu{
+  display:grid!important;
+  gap:6px!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-nav-menu::before{
+  content:""!important;
+  position:absolute!important;
+  top:-7px!important;
+  left:50%!important;
+  width:12px!important;
+  height:12px!important;
+  transform:translateX(-50%) rotate(45deg)!important;
+  border-left:1px solid #f6a700!important;
+  border-top:1px solid #f6a700!important;
+  background:#061728!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-nav-menu-standard{width:310px!important}
+.contact-page > .fllm-official-contact-header .native-nav-buy-menu{
+  width:min(540px,calc(100vw - 48px))!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:7px 8px!important;
+  padding:10px!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-finance-menu{width:350px!important}
+.contact-page > .fllm-official-contact-header .native-nav-market-menu{
+  width:min(660px,calc(100vw - 48px))!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:7px!important;
+  padding:10px!important;
+}
+.contact-page > .fllm-official-contact-header .native-license-types-menu{
+  width:min(760px,calc(100vw - 48px))!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:10px!important;
+  padding:12px!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu{
+  left:auto!important;
+  right:-18px!important;
+  width:min(860px,calc(100vw - 48px))!important;
+  max-width:calc(100vw - 48px)!important;
+  transform:none!important;
+  margin-left:0!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:6px 10px!important;
+  padding:12px!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu::before{
+  left:auto!important;
+  right:46px!important;
+  transform:rotate(45deg)!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-license-types-column{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:6px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-license-types-column>strong{
+  display:block!important;
+  padding:7px 9px 8px!important;
+  border-bottom:1px solid rgba(246,167,0,.34)!important;
+  color:#f6a700!important;
+  font:900 10px/1.2 Arial,Helvetica,sans-serif!important;
+  letter-spacing:.09em!important;
+  text-transform:uppercase!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-nav-menu a{
+  position:relative!important;
+  z-index:1!important;
+  display:flex!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:50px!important;
+  align-items:center!important;
+  padding:12px 13px!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  border-radius:7px!important;
+  background:rgba(255,255,255,.025)!important;
+  box-shadow:none!important;
+  color:#fff!important;
+  text-decoration:none!important;
+  text-transform:none!important;
+  white-space:normal!important;
+  overflow:hidden!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  font:700 13px/1.3 Arial,Helvetica,sans-serif!important;
+  letter-spacing:.01em!important;
+  transition:border-color .16s ease,background .16s ease,color .16s ease,transform .16s ease!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-nav-menu a:hover,
+.contact-page > .fllm-official-contact-header .native-nav-menu a:focus,
+.contact-page > .fllm-official-contact-header .native-nav-menu a:focus-visible,
+.contact-page > .fllm-official-contact-header .native-nav-menu a:active{
+  border-color:rgba(246,167,0,.7)!important;
+  background:rgba(246,167,0,.08)!important;
+  box-shadow:none!important;
+  color:#f6a700!important;
+  outline:none!important;
+  transform:translateY(-1px)!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-nav-market-menu a{
+  min-height:52px!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-market-menu a:last-child{
+  grid-column:1/-1!important;
+}
+.contact-page > .fllm-official-contact-header .native-market-label{
+  min-width:0!important;
+  overflow-wrap:anywhere!important;
+}
+.contact-page > .fllm-official-contact-header .native-market-badge{
+  flex:0 0 auto!important;
+  margin-left:auto!important;
+  color:#f6a700!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  letter-spacing:.08em!important;
+  white-space:nowrap!important;
+}
+
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a[href="/free-guide"],
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a[href="/florida-liquor-license-value"],
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]{
+  border-color:rgba(246,167,0,.52)!important;
+  background:linear-gradient(135deg,rgba(246,167,0,.10),rgba(246,167,0,.025))!important;
+  color:#fff!important;
+  font-weight:900!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a[href="/free-guide"]::after{
+  content:"FREE PDF"!important;
+  margin-left:auto!important;
+  color:#f6a700!important;
+  font-size:9px!important;
+  letter-spacing:.08em!important;
+  white-space:nowrap!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a[href="/florida-liquor-license-value"]::after{
+  content:"VALUE"!important;
+  margin-left:auto!important;
+  color:#f6a700!important;
+  font-size:8px!important;
+  letter-spacing:.08em!important;
+  white-space:nowrap!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]::after{
+  content:"LOOKUP"!important;
+  margin-left:auto!important;
+  color:#f6a700!important;
+  font-size:8px!important;
+  letter-spacing:.08em!important;
+  white-space:nowrap!important;
+}
+
+@media(max-width:980px){
+  .contact-page > .fllm-official-contact-header .native-nav-menu,
+  .contact-page > .fllm-official-contact-header .native-nav-resources-menu{
+    position:static!important;
+    width:100%!important;
+    max-width:none!important;
+    transform:none!important;
+    margin:0 0 6px!important;
+  }
+  .contact-page > .fllm-official-contact-header .native-nav-menu::before{display:none!important}
+  .contact-page > .fllm-official-contact-header .native-nav-buy-menu,
+  .contact-page > .fllm-official-contact-header .native-nav-market-menu,
+  .contact-page > .fllm-official-contact-header .native-nav-resources-menu,
+  .contact-page > .fllm-official-contact-header .native-license-types-menu{
+    grid-template-columns:1fr!important;
+  }
+}
