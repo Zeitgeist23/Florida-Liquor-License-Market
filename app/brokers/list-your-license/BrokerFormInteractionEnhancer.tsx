@@ -12,27 +12,6 @@ function normalizeBrokerageWebsite(rawValue: string) {
 
 export default function BrokerFormInteractionEnhancer() {
   useEffect(() => {
-    const selects = Array.from(
-      document.querySelectorAll<HTMLSelectElement>(
-        'select[name="county"], select[name="license_type"]',
-      ),
-    );
-
-    function openPicker(event: Event) {
-      const select = event.currentTarget as HTMLSelectElement & {
-        showPicker?: () => void;
-      };
-
-      try {
-        select.focus({ preventScroll: true });
-        select.showPicker?.();
-      } catch {
-        // Browsers without select.showPicker() still retain normal click behavior.
-      }
-    }
-
-    selects.forEach((select) => select.addEventListener("mouseenter", openPicker));
-
     const websiteInput = document.querySelector<HTMLInputElement>(
       'input[name="brokerage_website"]',
     );
@@ -59,85 +38,126 @@ export default function BrokerFormInteractionEnhancer() {
         '.broker-official-shell main [class*="faqList"]',
       ),
     );
-    const faqDetails = faqLists.flatMap((list) =>
-      Array.from(list.querySelectorAll<HTMLDetailsElement>("details")),
-    );
 
-    let closeTimer: ReturnType<typeof window.setTimeout> | null = null;
+    const closeTimers = new Map<HTMLElement, number>();
 
-    function clearCloseTimer() {
-      if (closeTimer !== null) {
-        window.clearTimeout(closeTimer);
-        closeTimer = null;
+    function detailsFor(list: HTMLElement) {
+      return Array.from(list.querySelectorAll<HTMLDetailsElement>("details"));
+    }
+
+    function clearCloseTimer(list: HTMLElement) {
+      const timer = closeTimers.get(list);
+      if (timer !== undefined) {
+        window.clearTimeout(timer);
+        closeTimers.delete(list);
       }
     }
 
-    function closeAll() {
-      clearCloseTimer();
-      faqDetails.forEach((detail) => {
+    function closeList(list: HTMLElement) {
+      clearCloseTimer(list);
+      detailsFor(list).forEach((detail) => {
         detail.open = false;
       });
     }
 
-    function openOnly(target: HTMLDetailsElement) {
-      clearCloseTimer();
-      faqDetails.forEach((detail) => {
+    function scheduleClose(list: HTMLElement, delay = 90) {
+      clearCloseTimer(list);
+      closeTimers.set(
+        list,
+        window.setTimeout(() => {
+          detailsFor(list).forEach((detail) => {
+            detail.open = false;
+          });
+          closeTimers.delete(list);
+        }, delay),
+      );
+    }
+
+    function openOnly(list: HTMLElement, target: HTMLDetailsElement) {
+      clearCloseTimer(list);
+      detailsFor(list).forEach((detail) => {
         detail.open = detail === target;
       });
     }
 
-    // Prevent restored browser state from leaving a question open on refresh.
-    closeAll();
+    // Always start with a clean accordion state, including after browser scroll restoration.
+    faqLists.forEach(closeList);
 
-    const faqListeners = faqDetails.map((detail) => {
-      const onEnter = () => openOnly(detail);
-      const onFocusIn = () => openOnly(detail);
-      const onLeave = () => {
-        clearCloseTimer();
-        closeTimer = window.setTimeout(() => {
-          detail.open = false;
-          closeTimer = null;
-        }, 120);
+    const faqListListeners = faqLists.map((list) => {
+      const onMouseMove = (event: MouseEvent) => {
+        const eventTarget = event.target;
+        if (!(eventTarget instanceof Element)) return;
+
+        const detail = eventTarget.closest("details");
+        if (detail instanceof HTMLDetailsElement && list.contains(detail)) {
+          openOnly(list, detail);
+          return;
+        }
+
+        // A small delay prevents visual chatter while crossing the narrow gaps
+        // between cards, but still closes the accordion when the pointer is no
+        // longer on a question.
+        scheduleClose(list);
       };
+
+      const onMouseLeave = () => closeList(list);
+
+      const onFocusIn = (event: FocusEvent) => {
+        const eventTarget = event.target;
+        if (!(eventTarget instanceof Element)) return;
+        const detail = eventTarget.closest("details");
+        if (detail instanceof HTMLDetailsElement && list.contains(detail)) {
+          openOnly(list, detail);
+        }
+      };
+
       const onFocusOut = (event: FocusEvent) => {
         const next = event.relatedTarget as Node | null;
-        if (!next || !detail.contains(next)) detail.open = false;
+        if (!next || !list.contains(next)) scheduleClose(list, 0);
       };
 
-      detail.addEventListener("mouseenter", onEnter);
-      detail.addEventListener("focusin", onFocusIn);
-      detail.addEventListener("mouseleave", onLeave);
-      detail.addEventListener("focusout", onFocusOut);
+      const onClick = (event: MouseEvent) => {
+        const eventTarget = event.target;
+        if (!(eventTarget instanceof Element)) return;
+        const summary = eventTarget.closest("summary");
+        if (!(summary instanceof HTMLElement) || !list.contains(summary)) return;
+        const detail = summary.parentElement;
+        if (!(detail instanceof HTMLDetailsElement)) return;
 
-      return { detail, onEnter, onFocusIn, onLeave, onFocusOut };
-    });
+        // Keep click behavior consistent with hover behavior. Prevent the
+        // browser's native toggle from fighting the controlled accordion state.
+        event.preventDefault();
+        openOnly(list, detail);
+      };
 
-    const listListeners = faqLists.map((list) => {
-      const onEnter = () => clearCloseTimer();
-      const onLeave = () => closeAll();
-      list.addEventListener("mouseenter", onEnter);
-      list.addEventListener("mouseleave", onLeave);
-      return { list, onEnter, onLeave };
+      list.addEventListener("mousemove", onMouseMove);
+      list.addEventListener("mouseleave", onMouseLeave);
+      list.addEventListener("focusin", onFocusIn);
+      list.addEventListener("focusout", onFocusOut);
+      list.addEventListener("click", onClick);
+
+      return { list, onMouseMove, onMouseLeave, onFocusIn, onFocusOut, onClick };
     });
 
     return () => {
-      clearCloseTimer();
-      selects.forEach((select) => select.removeEventListener("mouseenter", openPicker));
+      closeTimers.forEach((timer) => window.clearTimeout(timer));
+      closeTimers.clear();
+
       if (websiteInput) {
         websiteInput.removeEventListener("blur", normalizeWebsiteInput);
         websiteInput.removeEventListener("change", normalizeWebsiteInput);
         websiteForm?.removeEventListener("submit", normalizeWebsiteInput, true);
       }
-      faqListeners.forEach(({ detail, onEnter, onFocusIn, onLeave, onFocusOut }) => {
-        detail.removeEventListener("mouseenter", onEnter);
-        detail.removeEventListener("focusin", onFocusIn);
-        detail.removeEventListener("mouseleave", onLeave);
-        detail.removeEventListener("focusout", onFocusOut);
-      });
-      listListeners.forEach(({ list, onEnter, onLeave }) => {
-        list.removeEventListener("mouseenter", onEnter);
-        list.removeEventListener("mouseleave", onLeave);
-      });
+
+      faqListListeners.forEach(
+        ({ list, onMouseMove, onMouseLeave, onFocusIn, onFocusOut, onClick }) => {
+          list.removeEventListener("mousemove", onMouseMove);
+          list.removeEventListener("mouseleave", onMouseLeave);
+          list.removeEventListener("focusin", onFocusIn);
+          list.removeEventListener("focusout", onFocusOut);
+          list.removeEventListener("click", onClick);
+        },
+      );
     };
   }, []);
 
