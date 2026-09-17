@@ -34,7 +34,7 @@ const brokerPhone = "(941) 416-4580";
 const brokerEmail = "info@sunshineagle.com";
 const brokerWebsite = "https://sunshineagle.com/";
 const brokerListingUrl = "https://sunshineagle.com/deal-listing/upscale-cocktail-lounge-with-4cop-quota-license/?back=https%3A%2F%2Fsunshineagle.com%2Fpremium-listings%2F&source&listing_button_text=Inquire%20About%20This%20Listing&listing_button_color&css_source=7799&json_url=https://sunshineagle.dealrelations.com/listings/upscale-cocktail-lounge-with-4cop-quota-license.json?item_id=5534";
-const brokerPhoto = "https://ap.rdcpix.com/3ca5d1e195f67fc572abd959304eafb5a-e1605096413rd-w260_h260.webp";
+const brokerPhoto = "https://sunshineagle.com/wp-content/uploads/2024/02/DSC02740-cut-scaled.jpg";
 
 export const dynamic = "force-dynamic";
 
@@ -243,7 +243,7 @@ export default function AlessandroAntezzaFeaturedListingPage() {
                 <div className="marketplace-listing-broker-profile">
                   <h2>Alessandro Antezza</h2>
                   <a className="marketplace-listing-broker-photo" href={brokerWebsite} target="_blank" rel="noopener noreferrer" aria-label="Visit Alessandro Antezza and SUNSHINEAGLE LLC">
-                    <img src={brokerPhoto} alt="Alessandro Antezza, listing broker" />
+                    <img src={brokerPhoto} alt="Alessandro Antezza, listing broker" referrerPolicy="no-referrer" />
                   </a>
                   <div className="marketplace-listing-broker-contact">
                     <strong>SUNSHINEAGLE LLC</strong>
