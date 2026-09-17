@@ -22,19 +22,36 @@ const labels: Record<Mode, string> = {
 };
 
 function sharpenPreviewHtml(html: string, mode: Mode) {
+  let rendered = html;
   if (mode === "female") {
-    return html.replaceAll(
+    rendered = rendered.replaceAll(
       "/assets/brokers/fllm-sample-female-ai.jpg",
       "/assets/brokers/sample-brunette-broker.svg",
     );
-  }
-  if (mode === "male") {
-    return html.replaceAll(
+  } else if (mode === "male") {
+    rendered = rendered.replaceAll(
       "/assets/brokers/fllm-sample-male-ai.jpg",
       "/assets/brokers/alex-morgan-headroom.jpg",
     );
   }
-  return html;
+
+  const sampleUrl = mode === "male"
+    ? "/brokers/sample-featured-listing-male"
+    : "/brokers/sample-featured-listing";
+  const fullListing = `
+    <div style="max-width:760px;margin:30px auto 0;padding-top:24px;border-top:1px solid #d8dde1;">
+      <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#b17600;font-weight:800;margin-bottom:7px;">FULL FEATURED LISTING PAGE</div>
+      <div style="font-family:Georgia,'Times New Roman',serif;font-size:24px;line-height:1.2;color:#071b2b;font-weight:700;margin-bottom:9px;">See the complete broker-branded listing presentation</div>
+      <p style="margin:0 0 14px;color:#46545d;font-size:14px;line-height:1.55;">The image below shows the full Featured listing-page layout — license details, broker identity, buyer inquiry form, market context, appraisal and financing modules.</p>
+      <a href="${sampleUrl}" style="text-decoration:none;display:block;">
+        <img src="/assets/brokers/fllm-featured-broker-sample-static.svg" alt="Full FLLM Featured broker listing page" style="display:block;width:100%;height:auto;border:1px solid #b78616;border-radius:8px;background:#061b2b;">
+      </a>
+      <div style="margin-top:12px;text-align:center;"><a href="${sampleUrl}" style="display:inline-block;padding:11px 17px;background:#f5aa14;color:#071421;text-decoration:none;font-weight:800;border-radius:5px;">Open the full Featured listing page</a></div>
+    </div>`;
+
+  return rendered.includes("</body>")
+    ? rendered.replace("</body>", `${fullListing}</body>`)
+    : `${rendered}${fullListing}`;
 }
 
 export default function BrokerEmailMasterPreview() {
@@ -103,7 +120,7 @@ export default function BrokerEmailMasterPreview() {
               <div>
                 <span>MASTER OUTREACH EMAIL</span>
                 <h2>Broker Campaign Email Preview</h2>
-                <p>The email is shown at its real reading width. Use the view buttons below to inspect the complete Featured listing page and the complete broker listing program page at full browser width.</p>
+                <p>The email is shown at its real reading width. The email itself now includes a full-page Featured listing image, and the view buttons below let you inspect both live pages at full browser width.</p>
               </div>
               <button type="button" className="broker-email-preview-close" onClick={() => setOpen(false)} aria-label="Close email preview">×</button>
             </header>
