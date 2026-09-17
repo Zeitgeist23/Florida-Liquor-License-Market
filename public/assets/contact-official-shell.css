@@ -559,3 +559,140 @@
     left:50%!important;
   }
 }
+
+
+/* Contact header: exact desktop geometry from /listings locked header. */
+@media (min-width:981px){
+  .contact-page > .fllm-official-contact-header{
+    width:min(1400px,calc(100% - 24px))!important;
+    max-width:none!important;
+    min-height:82px!important;
+    height:82px!important;
+    margin:0 auto!important;
+    padding-left:0!important;
+    padding-right:0!important;
+    gap:16px!important;
+    border-bottom:1px solid #765613!important;
+    background:
+      radial-gradient(circle at 82% 35%,rgba(19,54,77,.2),transparent 30%),
+      linear-gradient(90deg,#010810 0%,#020c14 48%,#061522 100%)!important;
+    box-shadow:0 5px 15px rgba(0,0,0,.22)!important;
+  }
+
+  .contact-page > .fllm-official-contact-header .brand-lockup{
+    flex:0 0 160px!important;
+  }
+
+  .contact-page > .fllm-official-contact-header .brand-lockup img{
+    width:150px!important;
+    height:61px!important;
+    max-height:none!important;
+    object-fit:contain!important;
+    transform:none!important;
+  }
+
+  .contact-page > .fllm-official-contact-header .primary-nav{
+    justify-content:center!important;
+    gap:42px!important;
+    margin:0!important;
+  }
+
+  .contact-page > .fllm-official-contact-header .header-actions{
+    gap:10px!important;
+    transform:none!important;
+  }
+
+  .contact-page > .fllm-official-contact-header .header-actions .btn{
+    box-sizing:border-box!important;
+    height:33px!important;
+    min-height:33px!important;
+    border-radius:5px!important;
+    font-size:9px!important;
+    font-weight:900!important;
+    letter-spacing:.02em!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+    transform-origin:center!important;
+    transition:
+      transform .18s ease,
+      border-color .18s ease,
+      background .18s ease,
+      color .18s ease,
+      box-shadow .18s ease,
+      filter .18s ease!important;
+  }
+
+  .contact-page > .fllm-official-contact-header .header-actions .fllm-header-list-cta{
+    width:116px!important;
+    min-width:116px!important;
+    padding:0 9px!important;
+    border:1px solid #ffbd2e!important;
+    background:linear-gradient(145deg,#f8b72f 0%,#e99a00 58%,#cf7800 100%)!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,237,182,.55),
+      inset 0 -2px 0 rgba(95,51,0,.28),
+      0 5px 12px rgba(0,0,0,.27)!important;
+    color:#07101a!important;
+  }
+
+  .contact-page > .fllm-official-contact-header .header-actions .fllm-header-contact-cta{
+    width:100px!important;
+    min-width:100px!important;
+    padding:0 8px!important;
+    border:1px solid #e8a000!important;
+    background:linear-gradient(145deg,rgba(7,22,34,.96),rgba(1,8,15,.98))!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.05),
+      0 4px 11px rgba(0,0,0,.22)!important;
+    color:#f6b21a!important;
+  }
+
+  .contact-page > .fllm-official-contact-header .header-actions .contact-phone{
+    margin-right:4px!important;
+    font-size:10px!important;
+  }
+
+  .contact-page > .fllm-official-contact-header .header-actions .btn:hover,
+  .contact-page > .fllm-official-contact-header .header-actions .btn:focus-visible{
+    transform:translateY(-1px) scale(1.03)!important;
+    outline:none!important;
+  }
+
+  .contact-page > .fllm-official-contact-header .header-actions .fllm-header-list-cta:hover,
+  .contact-page > .fllm-official-contact-header .header-actions .fllm-header-list-cta:focus-visible{
+    border-color:#ffd069!important;
+    background:linear-gradient(145deg,#ffc64a 0%,#f1a600 58%,#dc8500 100%)!important;
+    color:#07101a!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,247,218,.7),
+      inset 0 -2px 0 rgba(95,51,0,.22),
+      0 8px 17px rgba(0,0,0,.33),
+      0 0 12px rgba(241,166,0,.22)!important;
+  }
+
+  .contact-page > .fllm-official-contact-header .header-actions .fllm-header-contact-cta:hover,
+  .contact-page > .fllm-official-contact-header .header-actions .fllm-header-contact-cta:focus-visible{
+    border-color:#ffd069!important;
+    background:linear-gradient(145deg,#ffc64a 0%,#f1a600 58%,#dc8500 100%)!important;
+    color:#07101a!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,247,218,.7),
+      inset 0 -2px 0 rgba(95,51,0,.22),
+      0 8px 17px rgba(0,0,0,.33),
+      0 0 12px rgba(241,166,0,.28)!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1180px){
+  .contact-page > .fllm-official-contact-header .primary-nav{
+    gap:27px!important;
+  }
+  .contact-page > .fllm-official-contact-header .header-actions .fllm-header-list-cta{
+    width:110px!important;
+    min-width:110px!important;
+  }
+  .contact-page > .fllm-official-contact-header .header-actions .fllm-header-contact-cta{
+    width:96px!important;
+    min-width:96px!important;
+  }
+}
