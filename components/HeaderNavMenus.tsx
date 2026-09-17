@@ -41,9 +41,10 @@ const navMenus: NavMenu[] = [
   {
     id: "sell",
     label: "Sell",
-    menuClassName: "native-nav-menu-standard",
+    menuClassName: "native-nav-menu-standard native-nav-sell-menu",
     links: [
-      { href: "/brokers/list-your-license", label: "BROKERS — Advertise a Client License" },
+      { href: "/brokers/advertise-client-liquor-license", label: "BROKERS — See Featured Listing Example" },
+      { href: "/brokers/list-your-license", label: "BROKERS — List a Client License" },
       { href: "/sell-your-license", label: "Sell Your License" },
       { href: "/how-to-sell-florida-liquor-license", label: "How to Sell a Florida Liquor License" },
       { href: "/florida-liquor-license-value", label: "Get a License Valuation" },
@@ -288,6 +289,7 @@ export default function HeaderNavMenus({
         .native-nav-dropdown.is-open>.native-nav-menu{display:grid;gap:6px}
         .native-nav-menu::before{content:"";position:absolute;top:-7px;left:50%;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);border-left:1px solid #f6a700;border-top:1px solid #f6a700;background:#061728}
         .native-nav-menu-standard{width:310px}
+        .native-nav-sell-menu{width:390px}
         .native-nav-buy-menu{width:min(540px,calc(100vw - 48px));grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 8px!important;padding:10px}
         .native-nav-finance-menu{width:350px}
         .native-nav-market-menu{width:min(660px,calc(100vw - 48px));grid-template-columns:repeat(2,minmax(0,1fr));gap:7px!important;padding:10px}
@@ -311,7 +313,7 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-resources-menu a[href="/free-guide"]::after{content:"FREE PDF";margin-left:auto;color:#f6a700;font-size:9px;letter-spacing:.08em}
         .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"]::after{content:"VALUE";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
         .primary-nav .native-nav-resources-menu a[href^="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]::after{content:"LOOKUP";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
-        @media(max-width:760px){.native-nav-buy-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-buy-menu a{min-height:43px}.native-nav-market-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-market-menu a:last-child{grid-column:auto}.native-nav-resources-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;right:-10px;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-column{padding:0}.primary-nav .native-license-types-menu a{min-height:43px}}
+        @media(max-width:760px){.native-nav-sell-menu{width:min(360px,calc(100vw - 28px))}.native-nav-buy-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-buy-menu a{min-height:43px}.native-nav-market-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-market-menu a:last-child{grid-column:auto}.native-nav-resources-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;right:-10px;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-column{padding:0}.primary-nav .native-license-types-menu a{min-height:43px}}
       `}</style>
     </>
   );
