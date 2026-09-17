@@ -535,3 +535,27 @@
     text-align:center!important;
   }
 }
+
+
+/* Contact Resources centered like GlobalResourcesMenuSync. */
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu{
+  left:var(--resources-menu-left,50%)!important;
+  right:auto!important;
+  transform:none!important;
+  margin-left:0!important;
+}
+.contact-page > .fllm-official-contact-header .native-nav-resources-menu::before{
+  left:var(--resources-arrow-left,50%)!important;
+  right:auto!important;
+  transform:translateX(-50%) rotate(45deg)!important;
+}
+@media(max-width:760px){
+  .contact-page > .fllm-official-contact-header .native-nav-resources-menu{
+    left:50%!important;
+    right:auto!important;
+    transform:translateX(-50%)!important;
+  }
+  .contact-page > .fllm-official-contact-header .native-nav-resources-menu::before{
+    left:50%!important;
+  }
+}
