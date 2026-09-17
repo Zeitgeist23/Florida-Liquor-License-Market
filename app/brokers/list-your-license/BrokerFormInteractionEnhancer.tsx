@@ -23,8 +23,6 @@ export default function BrokerFormInteractionEnhancer() {
     }
 
     if (websiteInput) {
-      // Accept natural entries such as "brokerage.com" or "www.brokerage.com".
-      // The value is normalized to a usable https URL before it is submitted.
       websiteInput.type = "text";
       websiteInput.inputMode = "url";
       websiteInput.placeholder = "yourbrokerage.com or https://yourbrokerage.com";
@@ -80,7 +78,6 @@ export default function BrokerFormInteractionEnhancer() {
       });
     }
 
-    // Always start with a clean accordion state, including after browser scroll restoration.
     faqLists.forEach(closeList);
 
     const faqListListeners = faqLists.map((list) => {
@@ -94,9 +91,6 @@ export default function BrokerFormInteractionEnhancer() {
           return;
         }
 
-        // A small delay prevents visual chatter while crossing the narrow gaps
-        // between cards, but still closes the accordion when the pointer is no
-        // longer on a question.
         scheduleClose(list);
       };
 
@@ -124,8 +118,6 @@ export default function BrokerFormInteractionEnhancer() {
         const detail = summary.parentElement;
         if (!(detail instanceof HTMLDetailsElement)) return;
 
-        // Keep click behavior consistent with hover behavior. Prevent the
-        // browser's native toggle from fighting the controlled accordion state.
         event.preventDefault();
         openOnly(list, detail);
       };
@@ -139,9 +131,79 @@ export default function BrokerFormInteractionEnhancer() {
       return { list, onMouseMove, onMouseLeave, onFocusIn, onFocusOut, onClick };
     });
 
+    // The lower SEO FAQ had a second, independent scroll-driven controller.
+    // It was reopening whichever question sat closest to the viewport center,
+    // which is why the second question kept appearing stuck open. Override that
+    // behavior here so this lower section is hover/click controlled only.
+    const seoFaqList = document.querySelector<HTMLElement>(
+      ".fllm-listing-service-faq__grid",
+    );
+    const seoFaqDetails = seoFaqList
+      ? Array.from(seoFaqList.querySelectorAll<HTMLDetailsElement>("details"))
+      : [];
+    let seoCloseTimer: number | null = null;
+
+    function clearSeoCloseTimer() {
+      if (seoCloseTimer !== null) {
+        window.clearTimeout(seoCloseTimer);
+        seoCloseTimer = null;
+      }
+    }
+
+    function closeSeoFaqs() {
+      clearSeoCloseTimer();
+      seoFaqDetails.forEach((detail) => {
+        detail.open = false;
+      });
+    }
+
+    function openSeoFaq(target: HTMLDetailsElement) {
+      clearSeoCloseTimer();
+      seoFaqDetails.forEach((detail) => {
+        detail.open = detail === target;
+      });
+    }
+
+    closeSeoFaqs();
+
+    const seoListeners = seoFaqDetails.map((detail) => {
+      const summary = detail.querySelector("summary");
+      const onEnter = () => openSeoFaq(detail);
+      const onLeave = () => {
+        clearSeoCloseTimer();
+        seoCloseTimer = window.setTimeout(() => {
+          if (!detail.matches(":hover")) detail.open = false;
+          seoCloseTimer = null;
+        }, 100);
+      };
+      const onClick = (event: Event) => {
+        event.preventDefault();
+        openSeoFaq(detail);
+      };
+
+      detail.addEventListener("mouseenter", onEnter);
+      detail.addEventListener("mouseleave", onLeave);
+      summary?.addEventListener("click", onClick);
+
+      return { detail, summary, onEnter, onLeave, onClick };
+    });
+
+    const onSeoListLeave = () => closeSeoFaqs();
+    seoFaqList?.addEventListener("mouseleave", onSeoListLeave);
+
+    // Run after the legacy scroll handler and force a clean closed state unless
+    // the pointer is actually over the FAQ section.
+    const onScroll = () => {
+      window.setTimeout(() => {
+        if (!seoFaqList?.matches(":hover")) closeSeoFaqs();
+      }, 0);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => {
       closeTimers.forEach((timer) => window.clearTimeout(timer));
       closeTimers.clear();
+      clearSeoCloseTimer();
 
       if (websiteInput) {
         websiteInput.removeEventListener("blur", normalizeWebsiteInput);
@@ -158,6 +220,14 @@ export default function BrokerFormInteractionEnhancer() {
           list.removeEventListener("click", onClick);
         },
       );
+
+      seoListeners.forEach(({ detail, summary, onEnter, onLeave, onClick }) => {
+        detail.removeEventListener("mouseenter", onEnter);
+        detail.removeEventListener("mouseleave", onLeave);
+        summary?.removeEventListener("click", onClick);
+      });
+      seoFaqList?.removeEventListener("mouseleave", onSeoListLeave);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -173,8 +243,7 @@ export default function BrokerFormInteractionEnhancer() {
         overflow: hidden;
         border: 1px solid #d2d9dd !important;
         border-radius: 12px !important;
-        background:
-          linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%) !important;
+        background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%) !important;
         box-shadow:
           inset 0 1px 0 rgba(255,255,255,.96),
           0 7px 16px rgba(7,24,39,.07),
