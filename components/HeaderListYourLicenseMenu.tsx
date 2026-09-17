@@ -1,5 +1,6 @@
 "use client";
 
+const LISTING_OPTIONS_PATH = "/sell-your-license#listing-options";
 const SELF_DIRECTED_PATH = "/sell-your-license?method=self#listing-options";
 const BROKER_ASSISTANCE_PATH = "/sell-your-license#broker-assistance";
 const BROKER_LISTING_PATH = "/brokers/list-your-license";
@@ -7,14 +8,14 @@ const BROKER_LISTING_PATH = "/brokers/list-your-license";
 export default function HeaderListYourLicenseMenu() {
   return (
     <div className="header-list-license-menu-wrap">
-      <button
+      <a
         className="btn btn-gold header-list-license-menu-trigger"
-        type="button"
+        href={LISTING_OPTIONS_PATH}
         aria-haspopup="menu"
         aria-label="List your Florida liquor license"
       >
         List Your License
-      </button>
+      </a>
       <div
         className="header-list-license-menu-panel"
         role="menu"
