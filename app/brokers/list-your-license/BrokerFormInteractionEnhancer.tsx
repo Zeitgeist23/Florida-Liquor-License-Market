@@ -2,6 +2,14 @@
 
 import { useEffect } from "react";
 
+function normalizeBrokerageWebsite(rawValue: string) {
+  const trimmed = rawValue.trim();
+  if (!trimmed) return "";
+
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  return `https://${trimmed.replace(/^\/+/, "")}`;
+}
+
 export default function BrokerFormInteractionEnhancer() {
   useEffect(() => {
     const selects = Array.from(
@@ -24,6 +32,27 @@ export default function BrokerFormInteractionEnhancer() {
     }
 
     selects.forEach((select) => select.addEventListener("mouseenter", openPicker));
+
+    const websiteInput = document.querySelector<HTMLInputElement>(
+      'input[name="brokerage_website"]',
+    );
+    const websiteForm = websiteInput?.form || null;
+
+    function normalizeWebsiteInput() {
+      if (!websiteInput) return;
+      websiteInput.value = normalizeBrokerageWebsite(websiteInput.value);
+    }
+
+    if (websiteInput) {
+      // Accept natural entries such as "brokerage.com" or "www.brokerage.com".
+      // The value is normalized to a usable https URL before it is submitted.
+      websiteInput.type = "text";
+      websiteInput.inputMode = "url";
+      websiteInput.placeholder = "yourbrokerage.com or https://yourbrokerage.com";
+      websiteInput.addEventListener("blur", normalizeWebsiteInput);
+      websiteInput.addEventListener("change", normalizeWebsiteInput);
+      websiteForm?.addEventListener("submit", normalizeWebsiteInput, true);
+    }
 
     const faqDetails = Array.from(
       document.querySelectorAll<HTMLDetailsElement>(
@@ -58,6 +87,11 @@ export default function BrokerFormInteractionEnhancer() {
 
     return () => {
       selects.forEach((select) => select.removeEventListener("mouseenter", openPicker));
+      if (websiteInput) {
+        websiteInput.removeEventListener("blur", normalizeWebsiteInput);
+        websiteInput.removeEventListener("change", normalizeWebsiteInput);
+        websiteForm?.removeEventListener("submit", normalizeWebsiteInput, true);
+      }
       faqListeners.forEach(({ detail, onEnter, onFocusIn, onLeave, onFocusOut }) => {
         detail.removeEventListener("mouseenter", onEnter);
         detail.removeEventListener("focusin", onFocusIn);
