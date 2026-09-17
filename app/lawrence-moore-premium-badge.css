@@ -111,6 +111,42 @@
   gap: 10px !important;
 }
 
+/* Match the approved Antezza Marketplace Status presentation. */
+.marketplace-listing-page:has(.marketplace-listing-primary[href*="ref=FLLM-022"]) .marketplace-listing-facts > div:nth-child(4) > strong {
+  font-size: 0 !important;
+  line-height: 1 !important;
+}
+
+.marketplace-listing-page:has(.marketplace-listing-primary[href*="ref=FLLM-022"]) .marketplace-listing-facts > div:nth-child(4) > strong::before {
+  content: "Available";
+  display: block;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.marketplace-listing-page:has(.marketplace-listing-primary[href*="ref=FLLM-022"]) .marketplace-listing-facts > div:nth-child(4) > strong::after {
+  content: "Broker confirmation required";
+  display: block;
+  max-width: 150px;
+  margin: 5px auto 0;
+  color: #a9bac7;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: .01em;
+}
+
+/* Keep the existing Georgia/Times population typography while forcing
+   consistent lining/tabular numerals so every digit sits cleanly on one line. */
+.marketplace-listing-page:has(.marketplace-listing-primary[href*="ref=FLLM-022"]) .marketplace-county-snapshot article:first-child strong {
+  font-style: normal !important;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+  letter-spacing: .01em;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marketplace-listing-page:has(.marketplace-listing-primary[href*="ref=FLLM-022"]) .marketplace-listing-facts > div,
   .marketplace-listing-page:has(.marketplace-listing-primary[href*="ref=FLLM-022"]) .marketplace-listing-highlight-grid > div,
