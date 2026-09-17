@@ -1,21 +1,45 @@
 /* Targeted presentation fixes for the common license comparison table. */
+
+/* Give the comparison section substantially more horizontal room than the
+   standard content shell so all six columns fit on-screen on desktop. */
+#common-license-chart.page-shell {
+  width: min(1500px, calc(100% - 32px)) !important;
+  max-width: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+#common-license-chart .license-types-table-wrap {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 #common-license-chart .license-types-table {
-  min-width: 1120px;
+  width: 100% !important;
+  min-width: 0 !important;
   table-layout: fixed;
 }
 
+/* Balanced for a wide desktop table: enough room for the quota-family badge,
+   while preserving useful space for Availability and Common Use. */
 #common-license-chart .license-types-table th:nth-child(1),
-#common-license-chart .license-types-table td:nth-child(1) { width: 18% !important; }
+#common-license-chart .license-types-table td:nth-child(1) { width: 14% !important; }
 #common-license-chart .license-types-table th:nth-child(2),
 #common-license-chart .license-types-table td:nth-child(2) { width: 14% !important; }
 #common-license-chart .license-types-table th:nth-child(3),
-#common-license-chart .license-types-table td:nth-child(3) { width: 12% !important; }
+#common-license-chart .license-types-table td:nth-child(3) { width: 11% !important; }
 #common-license-chart .license-types-table th:nth-child(4),
 #common-license-chart .license-types-table td:nth-child(4) { width: 18% !important; }
 #common-license-chart .license-types-table th:nth-child(5),
-#common-license-chart .license-types-table td:nth-child(5) { width: 22% !important; }
+#common-license-chart .license-types-table td:nth-child(5) { width: 24% !important; }
 #common-license-chart .license-types-table th:nth-child(6),
-#common-license-chart .license-types-table td:nth-child(6) { width: 16% !important; }
+#common-license-chart .license-types-table td:nth-child(6) { width: 19% !important; }
+
+#common-license-chart .license-types-table th,
+#common-license-chart .license-types-table td {
+  padding-left: 14px;
+  padding-right: 14px;
+}
 
 #common-license-chart .license-types-table tbody th {
   vertical-align: middle;
@@ -57,8 +81,32 @@
   scroll-margin-top: 140px;
 }
 
+/* Keep the full table visible on normal laptop widths without forcing a
+   horizontal scrollbar. */
 @media (max-width: 1180px) {
+  #common-license-chart.page-shell {
+    width: calc(100% - 24px) !important;
+  }
+
+  #common-license-chart .license-types-table th,
+  #common-license-chart .license-types-table td {
+    padding: 14px 10px;
+    font-size: 13px;
+  }
+
+  #common-license-chart .license-types-table thead th {
+    font-size: 11px;
+  }
+}
+
+/* On genuinely small screens horizontal scrolling is preferable to making the
+   comparison unreadably narrow. */
+@media (max-width: 760px) {
+  #common-license-chart .license-types-table-wrap {
+    overflow-x: auto;
+  }
+
   #common-license-chart .license-types-table {
-    min-width: 1060px;
+    min-width: 920px !important;
   }
 }
