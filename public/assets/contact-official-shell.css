@@ -853,3 +853,20 @@
     overflow-y:auto!important;
   }
 }
+
+
+/* Contact List Your License hover bridge — prevents the dropdown closing while moving into it. */
+.contact-page .fllm-contact-list-wrap::after{
+  content:"";
+  position:absolute;
+  top:100%;
+  right:0;
+  z-index:12149;
+  width:292px;
+  height:10px;
+  background:transparent;
+  pointer-events:auto;
+}
+.contact-page .fllm-contact-list-menu{
+  top:calc(100% + 8px)!important;
+}
