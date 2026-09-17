@@ -50,7 +50,7 @@ export default function Page() {
       researchLinks={[
         { href: "/resources/florida-liquor-license-laws#cocktails-to-go", label: "Cocktails-to-Go Statutes Explained by FLLM", description: "Review FLLM's explanation of SB 148, section 565.045 and the related open-container provision." },
         { href: "/license-types/4cop-sfs-restaurant", label: "Compare 4COP-SFS", description: "Compare the transferable quota license with the qualification-based restaurant license." },
-        { href: "/resources/forms", label: "Florida ABT Forms Center", description: "Open FLLM's organized collection of commonly used Division of Alcoholic Beverages and Tobacco forms." }
+        { href: "/license-types/gentlemens-clubs-4cop-quota", label: "4COP Quota Licenses for Gentlemen's Clubs", description: "See how a 4COP quota license can fit into an adult-entertainment transaction while zoning and adult-use approvals remain separate." }
       ]}
     />
     <LicenseTypeCountyDirectory licenseType="4COP Quota" />
