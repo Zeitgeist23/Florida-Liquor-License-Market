@@ -24,8 +24,9 @@ const sellMenuMarkup = `<div class="live-nav-dropdown live-sell-dropdown" data-l
     <span>Sell</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"/>
   </button>
   <div class="live-nav-menu live-sell-menu">
+    <a href="/brokers/advertise-client-liquor-license">BROKERS — See Featured Listing Example</a>
+    <a href="/brokers/list-your-license">BROKERS — List a Client License</a>
     <a href="/sell-your-license">Sell Your License</a>
-    <a href="/brokers/list-your-license">For Brokers — List a Client License</a>
     <a href="/how-to-sell-florida-liquor-license">How to Sell a Florida Liquor License</a>
     <a href="/florida-liquor-license-value">Get a License Valuation</a>
   </div>
@@ -89,7 +90,7 @@ const styles = `<style id="live-nav-dropdown-styles">
 .primary-nav .live-nav-trigger{display:inline-flex;align-items:center;gap:5px;margin:0;padding:0;border:0;background:transparent;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:10px;font-weight:600;line-height:1;text-transform:uppercase;white-space:nowrap;cursor:pointer}
 .primary-nav .live-nav-trigger:hover,.primary-nav .live-nav-trigger:focus-visible,.primary-nav .live-nav-dropdown:focus-within>.live-nav-trigger{color:#f6a700;outline:none}
 .primary-nav .live-nav-menu{position:absolute;top:100%;left:50%;z-index:10050;display:none;width:310px;transform:translateX(-50%);padding:10px;border:1px solid #f6a700;border-radius:8px;background:#061728;box-shadow:0 18px 48px rgba(0,0,0,.48),0 0 0 1px rgba(246,167,0,.12)}
-.primary-nav .live-sell-menu{width:330px}
+.primary-nav .live-sell-menu{width:390px}
 .primary-nav .live-license-types-menu{width:320px}
 .primary-nav .live-market-data-menu{width:min(540px,calc(100vw - 32px));grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
 .primary-nav .live-market-data-menu a{justify-content:space-between;gap:10px}
@@ -131,7 +132,7 @@ const installScript = `<script id="live-nav-dropdown-installer">
     if(type==='buy'){
       wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>Buy</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-buy-menu"><a href="/buy-florida-liquor-license">Buy a Florida Liquor License</a><a href="/listings">Florida Liquor Licenses for Sale</a><a href="/license-alerts">Get a License Alert</a><a href="/how-to-buy-florida-liquor-license">How to Buy a Florida Liquor License</a><a href="/counties">Florida County Markets</a></div>';
     }else if(type==='sell'){
-      wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>Sell</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-sell-menu"><a href="/sell-your-license">Sell Your License</a><a href="/brokers/list-your-license">For Brokers — List a Client License</a><a href="/how-to-sell-florida-liquor-license">How to Sell a Florida Liquor License</a><a href="/florida-liquor-license-value">Get a License Valuation</a></div>';
+      wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>Sell</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-sell-menu"><a href="/brokers/advertise-client-liquor-license">BROKERS — See Featured Listing Example</a><a href="/brokers/list-your-license">BROKERS — List a Client License</a><a href="/sell-your-license">Sell Your License</a><a href="/how-to-sell-florida-liquor-license">How to Sell a Florida Liquor License</a><a href="/florida-liquor-license-value">Get a License Valuation</a></div>';
     }else if(type==='license-types'){
       wrap.innerHTML='<button class="live-nav-trigger" type="button" aria-haspopup="true"><span>License Types</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"></button><div class="live-nav-menu live-license-types-menu"><a href="/resources/florida-liquor-license-types">Types of Florida Liquor Licenses</a><a href="/license-types/4cop-quota">4COP Quota License</a><a href="/license-types/3ps-package-store">3PS Quota / Package Store</a><a href="/license-types/2cop-beer-wine">2COP Beer &amp; Wine</a><a href="/license-types/4cop-sfs-restaurant">SRX / 4COP-SFS Restaurant</a><a href="/license-types/mobile-bars-catered-events">Mobile Liquor License</a><a href="/resources/florida-liquor-license-types#population-rule-title">Quota License Requirements</a></div>';
     }else if(type==='market-data'){
@@ -161,7 +162,7 @@ const installScript = `<script id="live-nav-dropdown-installer">
 </script>`;
 
 const supportScripts = `<!-- fllm-all-header-hover-menus -->
-<script src="/assets/core-nav-dropdowns.js?v=4" defer></script>
+<script src="/assets/core-nav-dropdowns.js?v=5" defer></script>
 <script src="/assets/finance-menu-options.js?v=2" defer></script>
 <script src="/assets/lookup-link-override.js?v=1" defer></script>`;
 
