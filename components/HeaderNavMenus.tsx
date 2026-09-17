@@ -43,7 +43,6 @@ const navMenus: NavMenu[] = [
     label: "Sell",
     menuClassName: "native-nav-menu-standard native-nav-sell-menu",
     links: [
-      { href: "/brokers/advertise-client-liquor-license", label: "BROKERS — See Featured Listing Example" },
       { href: "/brokers/list-your-license", label: "BROKERS — List a Client License" },
       { href: "/sell-your-license", label: "Sell Your License" },
       { href: "/how-to-sell-florida-liquor-license", label: "How to Sell a Florida Liquor License" },
