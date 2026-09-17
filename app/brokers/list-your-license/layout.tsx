@@ -39,6 +39,21 @@ export default function BrokerListYourLicenseLayout({ children }: { children: Re
           margin-inline: auto;
         }
 
+        /* Improve readability of the small explanatory copy in the broker hero. */
+        .broker-official-shell main [class*="heroCopy"] > small {
+          font-size: 13px !important;
+          line-height: 1.45 !important;
+        }
+
+        .broker-official-shell main [class*="heroPlans"] small {
+          font-size: 12px !important;
+          line-height: 1.4 !important;
+        }
+
+        .broker-official-shell main [class*="priceCard"] > span {
+          font-size: 11px !important;
+        }
+
         /* Remove the route's old one-off header/footer so the approved shared shell is authoritative. */
         .broker-official-shell > main > div:has(> .forms-site-header),
         .broker-official-shell > main > footer {
