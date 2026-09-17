@@ -263,6 +263,13 @@
     0 26px 42px rgba(7,24,39,.10) !important;
 }
 
+/* Make the Built for Florida Brokers eyebrow more prominent without competing with the headline. */
+.broker-official-shell main [class*="benefitSection"] [class*="sectionHeading"] > span {
+  font-size: 13px !important;
+  line-height: 1.25 !important;
+  letter-spacing: .16em !important;
+}
+
 /* Trim only the excess navy air beneath the desktop broker hero by about 10%. */
 @media (min-width: 901px) {
   .broker-official-shell main > section[class*="hero"] {
