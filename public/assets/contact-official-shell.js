@@ -97,6 +97,14 @@
     var listButton=header.querySelector('.fllm-header-list-cta');
     if(listWrap&&listButton){
       listButton.setAttribute('href','/sell-your-license#listing-options');
+      if(listButton.dataset.fllmListingOptionsBound!=='true'){
+        listButton.dataset.fllmListingOptionsBound='true';
+        listButton.addEventListener('click',function(event){
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          window.location.assign('/sell-your-license#listing-options');
+        },true);
+      }
     }
 
     if(!globalInstalled){
