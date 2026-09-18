@@ -46,7 +46,9 @@ function senderIdentity(input: ResendEmailInput) {
   }
   return {
     name: "Florida Liquor License Market",
-    email: process.env.RESEND_FROM_EMAIL || `listings@${resendDomain()}`,
+    // Keep broker/listing mail aligned with the Listings mailbox regardless
+    // of deployment-level From overrides.
+    email: `listings@${resendDomain()}`,
   };
 }
 
