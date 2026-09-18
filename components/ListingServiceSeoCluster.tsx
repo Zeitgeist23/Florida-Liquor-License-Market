@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 const clusterPaths = new Set([
@@ -61,80 +60,9 @@ const sellerFaqs = [
 
 export default function ListingServiceSeoCluster() {
   const pathname = usePathname();
-  const faqSectionRef = useRef<HTMLElement>(null);
   const showCluster = clusterPaths.has(pathname);
   const showBrokerFaqs = pathname === "/brokers/list-your-license";
   const showSellerFaqs = pathname === "/sell-your-license";
-
-  useEffect(() => {
-    if (!showBrokerFaqs) return;
-
-    const section = faqSectionRef.current;
-    if (!section) return;
-
-    const items = Array.from(section.querySelectorAll<HTMLDetailsElement>("details"));
-    if (!items.length) return;
-
-    // Match the broker FAQ interaction used above this section:
-    // fully collapsed by default, open only on hover/focus, close on exit.
-    for (const item of items) item.open = false;
-
-    const closeAll = () => {
-      for (const item of items) item.open = false;
-    };
-
-    const openOnly = (target: HTMLDetailsElement) => {
-      for (const item of items) item.open = item === target;
-    };
-
-    const listeners = items.map((item) => {
-      const summary = item.querySelector("summary");
-
-      const onEnter = () => openOnly(item);
-      const onLeave = () => {
-        item.open = false;
-      };
-      const onFocusIn = () => openOnly(item);
-      const onFocusOut = (event: FocusEvent) => {
-        const next = event.relatedTarget as Node | null;
-        if (!next || !item.contains(next)) item.open = false;
-      };
-      const onSummaryClick = (event: Event) => {
-        // Keep pointer interaction deterministic: clicking a summary should not
-        // leave an FAQ latched open after the pointer moves away.
-        event.preventDefault();
-        openOnly(item);
-      };
-
-      item.addEventListener("mouseenter", onEnter);
-      item.addEventListener("mouseleave", onLeave);
-      item.addEventListener("focusin", onFocusIn);
-      item.addEventListener("focusout", onFocusOut);
-      summary?.addEventListener("click", onSummaryClick);
-
-      return { item, summary, onEnter, onLeave, onFocusIn, onFocusOut, onSummaryClick };
-    });
-
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeAll();
-        (document.activeElement as HTMLElement | null)?.blur?.();
-      }
-    };
-    document.addEventListener("keydown", closeOnEscape);
-
-    return () => {
-      document.removeEventListener("keydown", closeOnEscape);
-      listeners.forEach(({ item, summary, onEnter, onLeave, onFocusIn, onFocusOut, onSummaryClick }) => {
-        item.removeEventListener("mouseenter", onEnter);
-        item.removeEventListener("mouseleave", onLeave);
-        item.removeEventListener("focusin", onFocusIn);
-        item.removeEventListener("focusout", onFocusOut);
-        summary?.removeEventListener("click", onSummaryClick);
-      });
-      closeAll();
-    };
-  }, [showBrokerFaqs]);
 
   if (!showCluster && !showBrokerFaqs && !showSellerFaqs) return null;
 
@@ -225,7 +153,6 @@ export default function ListingServiceSeoCluster() {
 
       {showBrokerFaqs || showSellerFaqs ? (
         <section
-          ref={faqSectionRef}
           className="fllm-listing-service-faq"
           aria-label={showBrokerFaqs ? "Florida broker listing service questions" : "Florida liquor license seller listing questions"}
         >
