@@ -75,146 +75,64 @@ export default function ListingServiceSeoCluster() {
     const items = Array.from(section.querySelectorAll<HTMLDetailsElement>("details"));
     if (!items.length) return;
 
-    let animationFrame = 0;
-    let hoveredItem: HTMLDetailsElement | null = null;
-    let scrollActivated = false;
-    let activeIndex = -1;
-    let lastAutoChangeAt = 0;
-
-    // Always begin with the broker FAQ cluster fully collapsed, including
-    // when the browser restores a previous scroll position after refresh.
+    // Match the broker FAQ interaction used above this section:
+    // fully collapsed by default, open only on hover/focus, close on exit.
     for (const item of items) item.open = false;
 
     const closeAll = () => {
       for (const item of items) item.open = false;
-      activeIndex = -1;
     };
 
     const openOnly = (target: HTMLDetailsElement) => {
-      const index = items.indexOf(target);
       for (const item of items) item.open = item === target;
-      if (index >= 0) activeIndex = index;
-    };
-
-    const updateOpenQuestion = () => {
-      animationFrame = 0;
-      if (hoveredItem || !scrollActivated) return;
-
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const sectionRect = section.getBoundingClientRect();
-
-      if (sectionRect.top > viewportHeight * 0.92 || sectionRect.bottom < viewportHeight * 0.08) {
-        closeAll();
-        return;
-      }
-
-      const focusLine = viewportHeight * 0.5;
-      let candidateIndex = -1;
-      let closestDistance = Number.POSITIVE_INFINITY;
-
-      // Use the summary row rather than the expanded details height. This keeps
-      // the activation order stable even while the previous answer is open.
-      items.forEach((item, index) => {
-        const summary = item.querySelector("summary");
-        const rect = summary?.getBoundingClientRect() ?? item.getBoundingClientRect();
-        if (rect.bottom < 0 || rect.top > viewportHeight) return;
-
-        const rowCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(rowCenter - focusLine);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          candidateIndex = index;
-        }
-      });
-
-      if (candidateIndex < 0) return;
-
-      // Never skip over a question. If the geometry moves by more than one item
-      // while an answer expands/collapses, advance only one FAQ at a time.
-      let nextIndex = candidateIndex;
-      if (activeIndex >= 0) {
-        if (candidateIndex > activeIndex + 1) nextIndex = activeIndex + 1;
-        if (candidateIndex < activeIndex - 1) nextIndex = activeIndex - 1;
-      }
-
-      const now = performance.now();
-      if (activeIndex >= 0 && nextIndex !== activeIndex && now - lastAutoChangeAt < 220) {
-        return;
-      }
-
-      if (nextIndex !== activeIndex) {
-        openOnly(items[nextIndex]);
-        lastAutoChangeAt = now;
-      }
-    };
-
-    const scheduleUpdate = () => {
-      if (!scrollActivated || animationFrame) return;
-      animationFrame = window.requestAnimationFrame(updateOpenQuestion);
-    };
-
-    const activateScroll = () => {
-      scrollActivated = true;
-    };
-
-    const activateScrollFromKey = (event: KeyboardEvent) => {
-      if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) {
-        scrollActivated = true;
-      }
     };
 
     const listeners = items.map((item) => {
-      const onEnter = () => {
-        hoveredItem = item;
-        openOnly(item);
-      };
+      const summary = item.querySelector("summary");
+
+      const onEnter = () => openOnly(item);
       const onLeave = () => {
-        if (hoveredItem === item) hoveredItem = null;
         item.open = false;
-        scheduleUpdate();
       };
-      const onFocusIn = () => {
-        hoveredItem = item;
-        openOnly(item);
-      };
+      const onFocusIn = () => openOnly(item);
       const onFocusOut = (event: FocusEvent) => {
         const next = event.relatedTarget as Node | null;
-        if (!next || !item.contains(next)) {
-          if (hoveredItem === item) hoveredItem = null;
-          item.open = false;
-          scheduleUpdate();
-        }
+        if (!next || !item.contains(next)) item.open = false;
+      };
+      const onSummaryClick = (event: Event) => {
+        // Keep pointer interaction deterministic: clicking a summary should not
+        // leave an FAQ latched open after the pointer moves away.
+        event.preventDefault();
+        openOnly(item);
       };
 
       item.addEventListener("mouseenter", onEnter);
       item.addEventListener("mouseleave", onLeave);
       item.addEventListener("focusin", onFocusIn);
       item.addEventListener("focusout", onFocusOut);
+      summary?.addEventListener("click", onSummaryClick);
 
-      return { item, onEnter, onLeave, onFocusIn, onFocusOut };
+      return { item, summary, onEnter, onLeave, onFocusIn, onFocusOut, onSummaryClick };
     });
 
-    window.addEventListener("wheel", activateScroll, { passive: true });
-    window.addEventListener("touchmove", activateScroll, { passive: true });
-    window.addEventListener("pointerdown", activateScroll, { passive: true });
-    window.addEventListener("keydown", activateScrollFromKey);
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeAll();
+        (document.activeElement as HTMLElement | null)?.blur?.();
+      }
+    };
+    document.addEventListener("keydown", closeOnEscape);
 
     return () => {
-      window.removeEventListener("wheel", activateScroll);
-      window.removeEventListener("touchmove", activateScroll);
-      window.removeEventListener("pointerdown", activateScroll);
-      window.removeEventListener("keydown", activateScrollFromKey);
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
-      listeners.forEach(({ item, onEnter, onLeave, onFocusIn, onFocusOut }) => {
+      document.removeEventListener("keydown", closeOnEscape);
+      listeners.forEach(({ item, summary, onEnter, onLeave, onFocusIn, onFocusOut, onSummaryClick }) => {
         item.removeEventListener("mouseenter", onEnter);
         item.removeEventListener("mouseleave", onLeave);
         item.removeEventListener("focusin", onFocusIn);
         item.removeEventListener("focusout", onFocusOut);
+        summary?.removeEventListener("click", onSummaryClick);
       });
-      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      closeAll();
     };
   }, [showBrokerFaqs]);
 
