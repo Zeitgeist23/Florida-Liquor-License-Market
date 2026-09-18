@@ -1,0 +1,16 @@
+/* Julie Negovan portrait crop only.
+   Preserve the locked Alessandro broker-card frame and geometry. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-NEGOVAN"]
+  .marketplace-listing-broker-photo {
+  overflow: hidden;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-NEGOVAN"]
+  .marketplace-listing-broker-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+  object-position: center 18% !important;
+  transform: scale(1.08);
+  transform-origin: center top;
+}
