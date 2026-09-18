@@ -502,7 +502,7 @@ export async function addAndSendBrokerProspect(input: QuickBrokerOutreachInput) 
   const existingListing = (existing?.listing_url || existing?.source_url || "").trim();
   const sameListing = incomingListing
     ? incomingListing === existingListing
-    : !existingListing;
+    : true;
 
   if (!input.force && existing?.last_contacted_at && sameListing) {
     const lastContact = new Date(existing.last_contacted_at).getTime();
@@ -517,17 +517,17 @@ export async function addAndSendBrokerProspect(input: QuickBrokerOutreachInput) 
   const common = {
     full_name: fullName,
     email,
-    phone: input.phone?.trim() || null,
-    brokerage: input.brokerage?.trim() || null,
-    website_url: input.website_url?.trim() || null,
-    source_platform: input.source_platform?.trim() || null,
-    source_url: input.source_url?.trim() || null,
-    listing_title: input.listing_title?.trim() || null,
-    listing_url: input.listing_url?.trim() || null,
-    county: input.county?.trim() || null,
+    phone: input.phone?.trim() || existing?.phone || null,
+    brokerage: input.brokerage?.trim() || existing?.brokerage || null,
+    website_url: input.website_url?.trim() || existing?.website_url || null,
+    source_platform: input.source_platform?.trim() || existing?.source_platform || null,
+    source_url: input.source_url?.trim() || existing?.source_url || null,
+    listing_title: input.listing_title?.trim() || existing?.listing_title || null,
+    listing_url: input.listing_url?.trim() || existing?.listing_url || null,
+    county: input.county?.trim() || existing?.county || null,
     license_type: licenseType,
     listing_kind: listingKind,
-    languages: input.languages || existing?.languages || [],
+    languages: input.languages?.length ? input.languages : existing?.languages || [],
     outreach_template: "neutral" as BrokerTemplateMode,
     template_basis: "automatic",
     notes: input.notes?.trim() || existing?.notes || null,
