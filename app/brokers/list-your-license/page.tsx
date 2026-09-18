@@ -229,11 +229,12 @@ export default function BrokerListYourLicensePage() {
         }
         .broker-organic-grid {
           display:grid;
-          grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);
-          gap:40px;
+          grid-template-columns:minmax(0,1.12fr) minmax(380px,.88fr);
+          gap:36px;
           align-items:start;
         }
-        .broker-organic-copy > span {
+        .broker-organic-copy > span,
+        .broker-resource-center > span {
           color:#f6a700;
           font-size:12px;
           font-weight:900;
@@ -241,54 +242,162 @@ export default function BrokerListYourLicensePage() {
           text-transform:uppercase;
         }
         .broker-organic-copy h2 {
-          margin:9px 0 17px;
+          margin:9px 0 14px;
           color:#fff;
           font-family:Georgia, "Times New Roman", serif;
           font-size:clamp(31px,4vw,46px);
           line-height:1.08;
         }
-        .broker-organic-copy p {
-          margin:0 0 15px;
+        .broker-organic-intro {
+          margin:0 0 22px;
+          max-width:760px;
           color:#c5d1da;
           font-size:16px;
-          line-height:1.78;
+          line-height:1.72;
         }
-        .broker-organic-copy a {
-          color:#f6b51f;
+        .broker-benefit-group {
+          margin-top:20px;
+          padding:20px 21px;
+          border:1px solid rgba(88,200,238,.20);
+          border-radius:10px;
+          background:rgba(10,34,54,.58);
+          box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+        }
+        .broker-benefit-group + .broker-benefit-group {
+          margin-top:13px;
+        }
+        .broker-benefit-group h3 {
+          margin:0 0 14px;
+          color:#fff;
+          font-family:Georgia, "Times New Roman", serif;
+          font-size:21px;
+          line-height:1.2;
+        }
+        .broker-benefit-list {
+          display:grid;
+          grid-template-columns:repeat(2,minmax(0,1fr));
+          gap:9px 18px;
+          margin:0;
+          padding:0;
+          list-style:none;
+        }
+        .broker-benefit-list li {
+          position:relative;
+          min-width:0;
+          padding-left:22px;
+          color:#d9e4eb;
+          font-size:14px;
+          line-height:1.48;
+        }
+        .broker-benefit-list li::before {
+          content:"✓";
+          position:absolute;
+          left:0;
+          top:0;
+          color:#f6a700;
+          font-weight:900;
+        }
+        .broker-benefit-list a {
+          color:#69d6ff;
           font-weight:800;
-          text-decoration-thickness:1px;
+          text-decoration:none;
+        }
+        .broker-benefit-list a:hover,
+        .broker-benefit-list a:focus-visible {
+          color:#f6b51f;
+          text-decoration:underline;
           text-underline-offset:3px;
+          outline:none;
+        }
+        .broker-relationship-list li::before {
+          content:"•";
+          color:#69d6ff;
+          font-size:18px;
+          line-height:1;
+        }
+        .broker-resource-center {
+          padding:21px;
+          border:1px solid rgba(246,167,0,.48);
+          border-radius:12px;
+          background:linear-gradient(145deg,#0a2236,#061827);
+          box-shadow:0 18px 36px rgba(0,0,0,.22);
+        }
+        .broker-resource-center h3 {
+          margin:7px 0 6px;
+          color:#fff;
+          font-family:Georgia, "Times New Roman", serif;
+          font-size:27px;
+          line-height:1.1;
+        }
+        .broker-resource-center > p {
+          margin:0 0 16px;
+          color:#b9c9d4;
+          font-size:13px;
+          line-height:1.55;
         }
         .broker-organic-links {
           display:grid;
-          gap:10px;
+          grid-template-columns:repeat(2,minmax(0,1fr));
+          gap:9px;
         }
         .broker-organic-links a {
+          min-width:0;
+          min-height:76px;
           display:flex;
-          justify-content:space-between;
-          gap:18px;
-          padding:16px 17px;
+          flex-direction:column;
+          justify-content:center;
+          gap:6px;
+          padding:14px 15px;
           border:1px solid rgba(255,255,255,.11);
-          border-radius:10px;
-          background:#0a2236;
+          border-radius:9px;
+          background:#0c2941;
           color:#fff;
           font-weight:850;
-          line-height:1.35;
+          line-height:1.25;
           text-decoration:none;
-          transition:border-color .18s ease, color .18s ease, transform .18s ease;
+          transition:border-color .18s ease, background .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
         }
-        .broker-organic-links a:after {
+        .broker-organic-links a strong {
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          gap:10px;
+          color:inherit;
+          font-size:13px;
+          line-height:1.3;
+        }
+        .broker-organic-links a strong::after {
           content:"→";
+          flex:0 0 auto;
           color:#f6a700;
         }
-        .broker-organic-links a:hover {
-          border-color:#f6a700;
-          color:#f6b51f;
-          transform:translateY(-1px);
+        .broker-organic-links a small {
+          color:#9fb1bf;
+          font-size:10px;
+          font-weight:700;
+          line-height:1.35;
         }
-        @media(max-width:820px) {
-          .broker-organic-section { padding:56px 0; }
+        .broker-organic-links a:hover,
+        .broker-organic-links a:focus-visible {
+          border-color:#f6a700;
+          background:#103451;
+          color:#f6b51f;
+          transform:translateY(-2px);
+          box-shadow:0 10px 22px rgba(0,0,0,.18);
+          outline:none;
+        }
+        .broker-organic-links a:hover small,
+        .broker-organic-links a:focus-visible small {
+          color:#dce7ee;
+        }
+        @media(max-width:980px) {
           .broker-organic-grid { grid-template-columns:1fr; gap:28px; }
+          .broker-resource-center { max-width:none; }
+        }
+        @media(max-width:680px) {
+          .broker-organic-section { padding:56px 0; }
+          .broker-benefit-list,
+          .broker-organic-links { grid-template-columns:1fr; }
         }
       `}</style>
 
@@ -379,23 +488,58 @@ export default function BrokerListYourLicensePage() {
             <div className="broker-organic-copy">
               <span>Client Liquor License Advertising</span>
               <h2 id="broker-marketplace-seo-heading">Advertise a Florida liquor license for sale while keeping the broker relationship</h2>
-              <p>
-                FLLM gives Florida liquor license brokers a direct way to list and advertise client inventory in a specialized statewide marketplace. The broker remains the identified representative and transaction contact, while buyers can discover the license through FLLM&apos;s marketplace, license-type pages and county market pages.
+              <p className="broker-organic-intro">
+                FLLM gives Florida liquor license brokers statewide marketplace exposure plus market-data, transaction and regulatory resources while the submitting broker remains the identified representative and transaction contact.
               </p>
-              <p>
-                Broker-submitted inventory can include <Link href="/florida-4cop-liquor-license-for-sale">Florida 4COP quota liquor licenses for sale</Link> and <Link href="/florida-3ps-liquor-license-for-sale">Florida 3PS package-store licenses</Link>, subject to FLLM review. Brokers can also use <Link href="/counties">Florida county liquor-license market pages</Link> and the <Link href="/florida-quota-liquor-license-market-report">statewide quota-license market report</Link> to compare current inventory and asking-price evidence before positioning a client listing.
-              </p>
-              <p>
-                The objective is straightforward: give brokers another place to market a Florida liquor license without replacing the broker, taking over the client relationship or claiming a share of the broker&apos;s commission.
-              </p>
+
+              <div className="broker-benefit-group">
+                <h3>What brokers get through FLLM</h3>
+                <ul className="broker-benefit-list">
+                  <li>Advertise <Link href="/florida-4cop-liquor-license-for-sale">4COP quota</Link> and <Link href="/florida-3ps-liquor-license-for-sale">3PS package-store</Link> licenses.</li>
+                  <li>Reach buyers through <Link href="/listings">statewide marketplace listings</Link>.</li>
+                  <li>Compare asking prices and inventory through <Link href="/counties">county market pages</Link>.</li>
+                  <li>Use county market maps, inventory views and Florida heat-map tools.</li>
+                  <li>Review the <Link href="/market-data/exchange-board">FLLM Exchange Board</Link> and current market activity.</li>
+                  <li>Use <Link href="/florida-liquor-license-appraisal">valuation and appraisal resources</Link>.</li>
+                  <li>Access <Link href="/financing">financing resources</Link> and payment tools.</li>
+                  <li>Use <Link href="/transaction-services">FLLM Transaction Services</Link> for transaction coordination resources.</li>
+                  <li>Review <Link href="/resources/florida-department-of-revenue">FDOR transfer resources</Link>.</li>
+                  <li>Review <Link href="/resources/florida-division-alcoholic-beverages-tobacco">DBPR / ABT licensing resources</Link>.</li>
+                  <li>Access the <Link href="/resources/liquor-license-attorneys">Florida liquor-license attorney directory</Link>.</li>
+                  <li>Use <Link href="/resources/forms">ABT forms</Link>, transfer guides and regulatory reference material.</li>
+                  <li>Review the <Link href="/florida-quota-liquor-license-market-report">statewide market report</Link> and current transaction data.</li>
+                  <li>Direct buyers to county-specific license, pricing and availability information.</li>
+                </ul>
+              </div>
+
+              <div className="broker-benefit-group">
+                <h3>What does not change</h3>
+                <ul className="broker-benefit-list broker-relationship-list">
+                  <li>You remain the broker and identified representative for your client.</li>
+                  <li>Buyer inquiries continue to route to your designated contact.</li>
+                  <li>FLLM does not take over your client relationship or negotiations.</li>
+                  <li>FLLM does not take a share of your commission on broker marketplace listings.</li>
+                </ul>
+              </div>
             </div>
-            <nav className="broker-organic-links" aria-label="Florida broker marketplace resources">
-              <Link href="/florida-4cop-liquor-license-for-sale">4COP quota license marketplace</Link>
-              <Link href="/florida-3ps-liquor-license-for-sale">3PS package-store marketplace</Link>
-              <Link href="/counties">Florida county market pages</Link>
-              <Link href="/listings">Current Florida liquor licenses for sale</Link>
-              <Link href="/florida-liquor-license-broker">Florida liquor license broker services</Link>
-            </nav>
+
+            <aside className="broker-resource-center" aria-label="FLLM broker resource center">
+              <span>Broker Resource Center</span>
+              <h3>Everything around the listing</h3>
+              <p>Jump directly to the FLLM tools and professional resources brokers can use before, during and after a client listing.</p>
+              <nav className="broker-organic-links" aria-label="Florida broker marketplace resources">
+                <a href="#broker-listing-form"><strong>List a Client License</strong><small>Submit Standard or Featured inventory</small></a>
+                <Link href="/transaction-services"><strong>Transaction Services</strong><small>Transfer, closing and coordination resources</small></Link>
+                <Link href="/counties"><strong>County Data & Heat Maps</strong><small>Inventory, pricing, maps and local markets</small></Link>
+                <Link href="/market-data/exchange-board"><strong>FLLM Exchange Board</strong><small>Current market and exchange activity</small></Link>
+                <Link href="/resources/florida-division-alcoholic-beverages-tobacco"><strong>DBPR / ABT Resources</strong><small>Licensing, transfer and agency guidance</small></Link>
+                <Link href="/resources/florida-department-of-revenue"><strong>FDOR Resources</strong><small>Tax clearance and transfer resources</small></Link>
+                <Link href="/resources/liquor-license-attorneys"><strong>Attorney Directory</strong><small>Florida liquor-license legal resources</small></Link>
+                <Link href="/florida-liquor-license-appraisal"><strong>Valuation & Appraisal</strong><small>County evidence and appraisal support</small></Link>
+                <Link href="/financing"><strong>Financing</strong><small>Purchase, refinance and lender resources</small></Link>
+                <Link href="/resources/forms"><strong>ABT Forms & Guides</strong><small>Applications, forms and transfer references</small></Link>
+              </nav>
+            </aside>
           </div>
         </div>
       </section>
