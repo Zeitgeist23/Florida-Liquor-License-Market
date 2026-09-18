@@ -308,12 +308,12 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{border-color:rgba(246,167,0,.7);background:rgba(246,167,0,.08)!important;box-shadow:none!important;color:#f6a700;outline:none;transform:translateY(-1px)}
         .primary-nav .native-nav-buy-menu a{min-height:50px}
         .primary-nav .native-nav-buy-menu a[href="/exchange"]{display:block}
-        .native-exchange-cyan{display:block;color:#27d5ff;font-size:13px;font-weight:900;line-height:1.2;text-shadow:0 0 10px rgba(39,213,255,.18)}
-        .native-exchange-copy{display:block;margin-top:4px;color:#d4dee6;font-size:12px;font-weight:500;line-height:1.3;white-space:normal!important}
+        .native-exchange-cyan{display:block;color:#39cfee;font-size:13px;font-weight:900;line-height:1.2;text-shadow:0 0 8px rgba(57,207,238,.14)}
+        .native-exchange-copy{display:block;margin-top:4px;color:#e8eef3;font-size:12px;font-weight:600;line-height:1.3;white-space:normal!important}
         .primary-nav .native-nav-buy-menu a[href="/exchange"]:hover .native-exchange-copy,
-        .primary-nav .native-nav-buy-menu a[href="/exchange"]:focus-visible .native-exchange-copy{color:#eef4f8}
+        .primary-nav .native-nav-buy-menu a[href="/exchange"]:focus-visible .native-exchange-copy{color:#fff}
         .primary-nav .native-nav-buy-menu a[href="/exchange"]:hover .native-exchange-cyan,
-        .primary-nav .native-nav-buy-menu a[href="/exchange"]:focus-visible .native-exchange-cyan{color:#68e4ff;text-shadow:0 0 14px rgba(39,213,255,.34)}
+        .primary-nav .native-nav-buy-menu a[href="/exchange"]:focus-visible .native-exchange-cyan{color:#68dcf3;text-shadow:0 0 12px rgba(57,207,238,.22)}
         .primary-nav .native-nav-market-menu a{min-height:52px;justify-content:space-between;gap:12px;overflow:hidden}
         .primary-nav .native-nav-market-menu a:last-child{grid-column:1/-1}
         .native-market-label{min-width:0;overflow-wrap:anywhere}
