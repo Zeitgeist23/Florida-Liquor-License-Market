@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 const ITEMS = [
   { label: "Quota Lottery Entry", href: "/florida-liquor-license-lottery" },
-  { label: "News & Insights", href: "/florida-liquor-license-news" },
+  { label: "Florida Liquor License News", href: "/florida-liquor-license-news" },
 ] as const;
 
 function normalizedText(element: Element | null) {
