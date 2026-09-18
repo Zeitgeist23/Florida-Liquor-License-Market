@@ -1,0 +1,35 @@
+{
+  "status": "LOCKED / OFFICIAL",
+  "version": "v1",
+  "approvedDate": "2026-09-18",
+  "templateName": "FLLM Third-Party Broker Listing Outreach Email",
+  "canonicalBuilder": "lib/broker-outreach.ts#buildBrokerOutreachMessage",
+  "emailShell": "lib/fllm-email.ts#emailShell",
+  "productionDelivery": "lib/fllm-email.ts#sendFllmEmail",
+  "sender": "listings@floridaliquorlicensemarket.com",
+  "signatureDepartment": "Client Services",
+  "heroImage": "https://www.floridaliquorlicensemarket.com/assets/hero-bar-clean.png",
+  "brokerLandingUrl": "https://www.floridaliquorlicensemarket.com/brokers/list-your-license",
+  "marketplaceListingsUrl": "https://www.floridaliquorlicensemarket.com/listings",
+  "approvedEffects": "static dimensional email-safe styling; no required hover behavior",
+  "order": [
+    "personalized introduction",
+    "locked broker hero",
+    "Built for Florida Brokers six-card section",
+    "referenced source listing link",
+    "broker listing program link",
+    "marketplace listings link",
+    "Featured SEO disclosure",
+    "unsubscribe line",
+    "official Client Services corporate signature"
+  ],
+  "prospectTypes": [
+    "license_only",
+    "business_with_license"
+  ],
+  "licenseFamilies": [
+    "4COP Quota",
+    "3PS-family quota license"
+  ],
+  "changeControl": "Create a new version for approved structural/design changes."
+}
