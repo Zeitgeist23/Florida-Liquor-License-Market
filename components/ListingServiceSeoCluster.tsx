@@ -161,7 +161,15 @@ export default function ListingServiceSeoCluster() {
             <h2>{showBrokerFaqs ? "Florida liquor license marketplace questions for brokers" : "How to list and sell a Florida liquor license"}</h2>
             <div className="fllm-listing-service-faq__grid">
               {(showBrokerFaqs ? brokerFaqs : sellerFaqs).map((faq) => (
-                <details key={faq.q}>
+                <details
+                  key={faq.q}
+                  onMouseEnter={(event) => {
+                    event.currentTarget.open = true;
+                  }}
+                  onMouseLeave={(event) => {
+                    event.currentTarget.open = false;
+                  }}
+                >
                   <summary>{faq.q}</summary>
                   <p>{faq.a}</p>
                 </details>
