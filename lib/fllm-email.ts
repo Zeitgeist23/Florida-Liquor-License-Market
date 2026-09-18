@@ -66,22 +66,21 @@ function approvedPublicListingUrl(submission: ListingSubmission) {
 
 function corporateSignatureHtml() {
   const origin = siteUrl();
-  const sender = senderEmail();
   return `
     <div dir="ltr" class="gmail_signature" data-smartmail="gmail_signature">
       <div dir="ltr">
-        <div style="color:rgb(0,0,0);font-family:'Times New Roman';height:28px;line-height:28px;font-size:28px">&nbsp;</div>
-        <table cellpadding="0" cellspacing="0" border="0" style="font-size:medium;color:rgb(7,26,58);border-collapse:collapse">
+        <table cellpadding="0" cellspacing="0" border="0" style="color:rgb(7,26,58);border-collapse:collapse">
           <tbody>
             <tr>
-              <td style="padding-right:16px;vertical-align:middle">
-                <img src="cid:${FLLM_SIGNATURE_CID_PLACEHOLDER}" width="108" height="108" alt="Florida Liquor License Market" style="display:block;border:0;width:108px;height:108px">
+              <td style="padding-right:8px;vertical-align:middle">
+                <img src="cid:${FLLM_SIGNATURE_CID_PLACEHOLDER}" width="60" height="60" alt="Florida Liquor License Market" style="display:block;border:0;width:60px;height:60px">
               </td>
-              <td style="border-left:2px solid rgb(200,137,8);padding-left:16px;vertical-align:middle">
-                <div style="font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:22px;font-weight:bold;white-space:nowrap">Florida Liquor License Market</div>
-                <div style="margin-top:4px;font-size:12px;line-height:17px;font-style:italic;color:rgb(184,115,0)">Florida’s marketplace for buying, selling and financing liquor licenses</div>
-                <div style="margin-top:9px;font-size:13px;line-height:19px">✉&nbsp;&nbsp;<a href="mailto:${sender}" style="color:rgb(7,26,58);text-decoration:none" target="_blank">${sender}</a></div>
-                <div style="font-size:13px;line-height:19px">●&nbsp;&nbsp;<a href="${origin}" style="color:rgb(7,26,58);text-decoration:none" target="_blank">www.floridaliquorlicensemarket.com</a></div>
+              <td style="border-left:2px solid rgb(200,137,8);padding-left:9px;vertical-align:middle">
+                <div style="font-family:Georgia,'Times New Roman',serif;font-size:13px;line-height:15px;font-weight:bold;white-space:nowrap">Florida Liquor License Market</div>
+                <div style="font-family:Georgia,'Times New Roman',serif;font-size:13px;line-height:15px;font-weight:bold;white-space:nowrap">Client Services</div>
+                <div style="margin-top:1px;font-size:9.5px;line-height:12px;font-style:italic;color:rgb(184,115,0);white-space:nowrap">Florida’s marketplace for buying, selling and financing liquor licenses</div>
+                <div style="margin-top:3px;font-size:10.5px;line-height:13px">✉&nbsp;&nbsp;<a href="mailto:clientservices@floridaliquorlicensemarket.com" style="color:rgb(7,26,58);text-decoration:none" target="_blank">clientservices@floridaliquorlicensemarket.com</a></div>
+                <div style="font-size:10.5px;line-height:13px">●&nbsp;&nbsp;<a href="${origin}/" style="color:rgb(7,26,58);text-decoration:none" target="_blank">www.floridaliquorlicensemarket.com</a></div>
               </td>
             </tr>
           </tbody>
