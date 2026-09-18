@@ -59,11 +59,26 @@ export type BrokerMessage = {
   updated_at: string;
 };
 
+export type QuickBrokerOutreachInput = {
+  full_name: string;
+  email: string;
+  phone?: string | null;
+  brokerage?: string | null;
+  website_url?: string | null;
+  source_platform?: string | null;
+  source_url?: string | null;
+  listing_title?: string | null;
+  listing_url?: string | null;
+  county?: string | null;
+  license_type: string;
+  listing_kind: "license_only" | "business_with_license";
+  languages?: string[];
+  notes?: string | null;
+  force?: boolean;
+};
+
 const SITE_URL = "https://www.floridaliquorlicensemarket.com";
 const LANDING_URL = `${SITE_URL}/brokers/list-your-license`;
-const FEMALE_SAMPLE_URL = `${SITE_URL}/brokers/sample-featured-listing`;
-const MALE_SAMPLE_URL = `${SITE_URL}/brokers/sample-featured-listing-male`;
-
 function settings() {
   return supabaseServiceSettings("Broker outreach database is unavailable.");
 }
@@ -118,120 +133,136 @@ function mondayOfWeek(date = new Date()) {
   return d.toISOString().slice(0, 10);
 }
 
-function templateIdentity(mode: BrokerTemplateMode) {
-  if (mode === "female") {
-    return {
-      name: "Emma Brooks",
-      portrait: `${SITE_URL}/assets/brokers/fllm-sample-female-ai.jpg`,
-      sampleUrl: FEMALE_SAMPLE_URL,
-      label: "Sample female broker presentation",
-    };
-  }
-  if (mode === "male") {
-    return {
-      name: "Alex Morgan",
-      portrait: `${SITE_URL}/assets/brokers/fllm-sample-male-ai.jpg`,
-      sampleUrl: MALE_SAMPLE_URL,
-      label: "Sample male broker presentation",
-    };
-  }
-  return {
-    name: "Independent Listing Broker",
-    portrait: `${SITE_URL}/assets/brokers/fllm-featured-broker-sample-sharp.webp`,
-    sampleUrl: FEMALE_SAMPLE_URL,
-    label: "Sample broker presentation",
-  };
-}
-
 function listingLeadIn(prospect: BrokerProspect) {
   const title = prospect.listing_title?.trim();
+  const titleText = title ? ` “${title}”` : "";
+
   if (prospect.listing_kind === "business_with_license") {
-    return title
-      ? `I noticed your listing, “${title},” includes a Florida quota liquor license. FLLM can give the liquor-license component its own specialized marketplace exposure while you remain the listing broker for the complete business package.`
-      : "I noticed you market Florida businesses that include quota liquor licenses. FLLM can give the liquor-license component its own specialized marketplace exposure while you remain the listing broker for the complete business package.";
+    return `Florida Liquor License Market noticed that you listed a client’s business for sale${titleText} that includes a Florida quota liquor license. We invite you to give the liquor-license component additional specialized exposure through the Florida Liquor License Market online network while you remain the listing broker for the complete business package.`;
   }
+
   if (prospect.listing_kind === "license_only") {
-    return title
-      ? `I noticed your liquor-license listing, “${title}.” FLLM provides an additional Florida liquor-license-specific marketing channel while you remain the listing broker and transaction contact.`
-      : "I noticed you market Florida quota liquor licenses. FLLM provides an additional liquor-license-specific marketing channel while you remain the listing broker and transaction contact.";
+    return `Florida Liquor License Market noticed that you listed a client’s Florida quota liquor license for sale${titleText}. We invite you to gain additional exposure by adding the listing to the Florida Liquor License Market online network while you remain the listing broker and transaction contact.`;
   }
-  return "FLLM provides Florida brokers with an additional liquor-license-specific marketing channel while the originating broker remains the listing representative and transaction contact.";
+
+  return "Florida Liquor License Market provides independent brokers with an additional specialized marketing channel for Florida quota liquor-license inventory while the originating broker remains the listing representative and transaction contact.";
 }
 
 function buildSubject(prospect: BrokerProspect) {
   const county = prospect.county?.replace(/ County$/i, "").trim();
   if (prospect.listing_kind === "business_with_license") {
     return county
-      ? `${county} liquor-license exposure for your client business listing`
-      : "Liquor-license exposure for your client business listings";
+      ? `Additional liquor-license exposure for your ${county} business listing`
+      : "Additional liquor-license exposure for your client business listing";
   }
   return county
-    ? `${county} liquor-license marketplace exposure for your client`
-    : "Florida liquor-license marketplace exposure for your client listings";
+    ? `Additional exposure for your ${county} quota liquor license listing`
+    : "Additional exposure for your client quota liquor license listing";
 }
 
 export function buildBrokerOutreachMessage(prospect: BrokerProspect) {
-  const mode = prospect.outreach_template || "neutral";
-  const sample = templateIdentity(mode);
   const hello = firstName(prospect.full_name);
   const intro = listingLeadIn(prospect);
   const sourceLink = prospect.listing_url || prospect.source_url;
   const unsubscribe = `${SITE_URL}/api/broker-outreach/unsubscribe?id=${encodeURIComponent(prospect.id)}&email=${encodeURIComponent(prospect.email || "")}`;
   const subject = buildSubject(prospect);
-  const brokerPageShot = `${SITE_URL}/assets/brokers/fllm-featured-broker-preview.jpg`;
 
-  const text = `Hi ${hello},\n\n${intro}\n\nFLLM is Florida’s specialized marketplace for 4COP and 3PS quota liquor licenses. A broker-submitted Featured listing is $24.95 one time and can include your name, brokerage, contact information, buyer inquiry routing, county market context, financing and appraisal links, a full broker-branded detail page, 30-day priority placement, and listing-specific SEO work by FLLM. Search placement is not guaranteed. FLLM does not take any part of your commission.\n\nFeatured listing example: ${sample.sampleUrl}\nBroker listing program: ${LANDING_URL}\n${sourceLink ? `Your current listing: ${sourceLink}\n` : ""}\nOne recent FLLM Featured Pinellas listing appeared on page 1 of Google and was cited in a Google AI Overview for a relevant buyer search. Search visibility changes over time and is not guaranteed.\n\nIf you have another client license or a business package with a quota license attached, FLLM can provide an additional license-focused marketing surface while you keep the client relationship.\n\nFlorida Liquor License Market\n${LANDING_URL}\n\nNo more FLLM broker emails: ${unsubscribe}`;
+  const text = `Hello ${hello},
+
+${intro}
+
+FLLM gives independent Florida brokers an additional marketing channel without replacing the broker relationship.
+
+✓ Increase statewide exposure and buyer traffic
+✓ You remain the broker and client relationship owner
+✓ Buyer inquiries route directly to your designated contact
+✓ FLLM does not take a share of your broker commission
+✓ Quota Liquor License Only listings supported
+✓ Quota Liquor License + Business Package listings supported
+✓ Featured listings include 30-day priority exposure and listing-specific SEO work by FLLM; search placement is not guaranteed
+
+Standard Listing: $14.95 one time
+Featured Listing: $24.95 one time
+
+Broker listing program:
+${LANDING_URL}
+${sourceLink ? `
+Listing referenced for this outreach:
+${sourceLink}
+` : ""}
+
+Florida Liquor License Market
+listings@floridaliquorlicensemarket.com
+
+No more FLLM broker emails:
+${unsubscribe}`;
 
   const content = `
-    <p style="margin:0 0 16px;">Hi ${escapeHtml(hello)},</p>
-    <p style="margin:0 0 18px;">${escapeHtml(intro)}</p>
+    <p style="margin:0 0 16px;font-size:16px;">Hello ${escapeHtml(hello)},</p>
+    <p style="margin:0 0 20px;font-size:15px;line-height:1.65;color:#26323a;">${escapeHtml(intro)}</p>
 
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:680px;border:1px solid #d29b18;background:#061b2b;color:#ffffff;border-collapse:separate;border-spacing:0;border-radius:10px;overflow:hidden;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:720px;border-collapse:separate;border-spacing:0;border:1px solid #b67a00;border-radius:10px;overflow:hidden;background:#061827;color:#ffffff;">
       <tr>
-        <td style="padding:22px 24px;border-bottom:1px solid #9e7214;">
-          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#f2ad19;font-weight:800;">FLLM Featured Broker Listing</div>
-          <div style="font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.12;font-weight:700;margin-top:7px;">Show your client’s liquor license in a broker-branded marketplace page</div>
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:20px 24px;">
-          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+        <td style="padding:24px 26px 22px;border-bottom:1px solid rgba(246,167,0,.55);background:linear-gradient(135deg,#03131f 0%,#08243b 100%);">
+          <div style="font:900 11px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#f6a700;">Independent Broker Marketplace</div>
+          <div style="margin-top:9px;font:700 31px/1.12 Georgia,'Times New Roman',serif;color:#ffffff;">Add Your Client’s Florida Liquor License to FLLM</div>
+          <div style="margin-top:12px;font:400 15px/1.6 Arial,Helvetica,sans-serif;color:#dce7ee;">More exposure without giving up the broker relationship. Use FLLM as an additional marketing channel while keeping your client, transaction contact role and commission structure intact.</div>
+
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:16px;border-collapse:collapse;">
             <tr>
-              <td width="118" valign="top" style="padding-right:18px;">
-                <img src="${sample.portrait}" width="110" alt="${escapeHtml(sample.label)}" style="display:block;width:110px;height:110px;object-fit:cover;border:1px solid #d29b18;border-radius:8px;">
+              <td style="padding:4px 0;color:#eef4f8;font-size:14px;font-weight:700;"><span style="color:#f6a700;font-weight:900;">✓</span>&nbsp;&nbsp;Quota Liquor License Only</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 0;color:#eef4f8;font-size:14px;font-weight:700;"><span style="color:#f6a700;font-weight:900;">✓</span>&nbsp;&nbsp;Quota Liquor License + Business Package</td>
+            </tr>
+          </table>
+
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:18px;border-collapse:separate;border-spacing:8px 0;">
+            <tr>
+              <td width="50%" valign="top" style="padding:13px 14px;border:1px solid #36536a;border-radius:7px;background:#0d2941;">
+                <div style="font-size:14px;font-weight:800;color:#ffffff;">Standard</div>
+                <div style="margin-top:4px;font:700 23px/1 Georgia,'Times New Roman',serif;color:#f6a700;">$14.95</div>
+                <div style="margin-top:6px;font-size:11px;line-height:1.4;color:#c6d3dc;">One-time marketplace listing</div>
               </td>
-              <td valign="top">
-                <div style="font-size:10px;letter-spacing:.09em;color:#f2ad19;font-weight:800;text-transform:uppercase;">Sample listing broker</div>
-                <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:700;margin-top:4px;">${escapeHtml(sample.name)}</div>
-                <div style="font-size:13px;line-height:1.55;color:#cbd7df;margin-top:8px;">The sample shows how the broker identity, phone, email, website, inquiry form and license details are presented on a Featured third-party broker listing.</div>
+              <td width="50%" valign="top" style="padding:13px 14px;border:1px solid #36536a;border-radius:7px;background:#0d2941;">
+                <div style="font-size:14px;font-weight:800;color:#ffffff;">Featured</div>
+                <div style="margin-top:4px;font:700 23px/1 Georgia,'Times New Roman',serif;color:#f6a700;">$24.95</div>
+                <div style="margin-top:6px;font-size:11px;line-height:1.4;color:#c6d3dc;">30-day priority + FLLM listing SEO</div>
               </td>
             </tr>
           </table>
-          <div style="margin-top:18px;padding:14px 16px;background:#0c2a42;border:1px solid #34566f;border-radius:7px;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-              <td><strong style="font-size:16px;">Featured listing</strong><div style="font-size:12px;color:#cbd7df;margin-top:3px;">30-day priority + Featured badge + FLLM listing SEO</div></td>
-              <td align="right"><strong style="font-family:Georgia,'Times New Roman',serif;font-size:24px;color:#f6a700;">$24.95</strong><div style="font-size:11px;color:#cbd7df;">one time</div></td>
-            </tr></table>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:24px 20px 20px;background:#f7f7f4;color:#071827;">
+          <div style="margin:0 6px 15px;font:700 25px/1.15 Georgia,'Times New Roman',serif;color:#071827;">Built for Florida Brokers</div>
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:separate;border-spacing:8px;">
+            <tr>
+              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;Increase statewide exposure and buyer traffic</td>
+              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;You remain the broker and client relationship owner</td>
+            </tr>
+            <tr>
+              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;Buyer inquiries route directly to your designated contact</td>
+              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;FLLM does not take a share of your broker commission</td>
+            </tr>
+            <tr>
+              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;List license-only or business + liquor-license packages</td>
+              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;Featured listings add priority exposure and FLLM listing SEO</td>
+            </tr>
+          </table>
+
+          <div style="padding:20px 8px 4px;text-align:center;">
+            <a href="${LANDING_URL}" style="display:inline-block;padding:13px 20px;border:1px solid #f6a700;border-radius:5px;background:#f6a700;color:#071827;text-decoration:none;font-size:13px;font-weight:900;text-transform:uppercase;">View the FLLM Broker Listing Program</a>
           </div>
-          <div style="margin-top:16px;font-size:14px;line-height:1.7;color:#e7edf1;">✓ Broker remains the representative<br>✓ Buyer inquiries route to the broker<br>✓ No FLLM commission share<br>✓ License-only and business + quota-license packages supported</div>
         </td>
       </tr>
     </table>
 
-    <div style="margin:20px 0 0;">
-      <a href="${sample.sampleUrl}" style="display:inline-block;padding:12px 18px;background:#f5aa14;color:#071421;text-decoration:none;font-weight:800;border-radius:5px;margin-right:8px;">View the Featured listing example</a>
-      <a href="${LANDING_URL}" style="display:inline-block;padding:11px 17px;border:1px solid #b47e08;color:#8a5c00;text-decoration:none;font-weight:800;border-radius:5px;">See the broker listing program</a>
-    </div>
+    ${sourceLink ? `<p style="max-width:720px;margin:18px 0 0;font-size:12px;line-height:1.55;color:#66727a;">Listing referenced for this outreach: <a href="${escapeHtml(sourceLink)}" style="color:#0645ad;">${escapeHtml(sourceLink)}</a></p>` : ""}
 
-    <div style="margin:24px 0;padding:16px 18px;border-left:4px solid #f5aa14;background:#f6f8f9;">
-      <strong>Recent Google visibility example</strong>
-      <p style="margin:7px 0 0;font-size:14px;line-height:1.6;color:#29343b;">A recent FLLM Featured Pinellas listing appeared on page 1 of Google and was cited in a Google AI Overview for a relevant buyer search. Search rankings and AI citations can change and are not guaranteed.</p>
-    </div>
-
-    <p style="margin:0 0 17px;">If you have another client license — or a business for sale with a quota license attached — FLLM can provide an additional license-focused marketing surface without replacing you as the broker.</p>
-    ${sourceLink ? `<p style="margin:0 0 17px;font-size:13px;color:#66727a;">Listing referenced for this outreach: <a href="${escapeHtml(sourceLink)}" style="color:#0645ad;">${escapeHtml(sourceLink)}</a></p>` : ""}
-    <p style="margin:0 0 17px;"><a href="${LANDING_URL}" style="color:#0645ad;font-weight:700;">FloridaLiquorLicenseMarket.com/brokers/list-your-license</a></p>
-    <p style="margin:22px 0 0;font-size:11px;color:#7b858b;">This is a broker-outreach message from Florida Liquor License Market. <a href="${unsubscribe}" style="color:#7b858b;">No more FLLM broker emails</a>.</p>`;
+    <p style="max-width:720px;margin:18px 0 0;font-size:12px;line-height:1.55;color:#66727a;">Featured listing SEO is intended to support search visibility; search-engine rankings and AI citations are not guaranteed.</p>
+    <p style="max-width:720px;margin:20px 0 0;font-size:11px;line-height:1.5;color:#7b858b;">This is a broker-outreach message from Florida Liquor License Market. <a href="${unsubscribe}" style="color:#7b858b;">No more FLLM broker emails</a>.</p>`;
 
   return { subject, text, html: emailShell(content) };
 }
