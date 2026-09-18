@@ -49,7 +49,7 @@ export default function BrokerFormInteractionEnhancer() {
 
     const faqLists = Array.from(
       document.querySelectorAll<HTMLElement>(
-        '.broker-official-shell main [class*="faqList"]',
+        '.broker-official-shell main [class*="faqList"], .broker-official-shell main .fllm-listing-service-faq__grid',
       ),
     );
 
@@ -147,10 +147,9 @@ export default function BrokerFormInteractionEnhancer() {
       return { list, onMouseMove, onMouseLeave, onFocusIn, onFocusOut, onClick };
     });
 
-    // The lower SEO FAQ owns its own scroll/hover behavior in
-    // ListingServiceSeoCluster. Do not attach a second controller here: having
-    // two independent handlers opening and closing the same <details> elements
-    // caused the visible flicker while vertically scrolling through questions.
+    // Both broker FAQ groups intentionally use this one controller. Using
+    // container mousemove rather than per-item mouseenter prevents expanding
+    // rows from falsely activating later FAQs while the page is scrolled.
 
     return () => {
       closeTimers.forEach((timer) => window.clearTimeout(timer));
