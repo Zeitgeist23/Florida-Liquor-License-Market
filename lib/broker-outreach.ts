@@ -198,36 +198,85 @@ No more FLLM broker emails:
 ${unsubscribe}`;
 
   const content = `
+    <style>
+      @media only screen and (max-width:680px) {
+        .fllm-hero-grid,.fllm-benefit-grid { width:100% !important; }
+        .fllm-hero-grid td,.fllm-benefit-grid td { display:block !important; width:100% !important; box-sizing:border-box !important; }
+        .fllm-hero-copy { padding-right:0 !important; }
+        .fllm-price-card { margin-top:18px !important; }
+      }
+    </style>
+
     <p style="margin:0 0 16px;font-size:16px;">Hello ${escapeHtml(hello)},</p>
     <p style="margin:0 0 20px;font-size:15px;line-height:1.65;color:#26323a;">${escapeHtml(intro)}</p>
 
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:720px;border-collapse:separate;border-spacing:0;border:1px solid #b67a00;border-radius:10px;overflow:hidden;background:#061827;color:#ffffff;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:900px;border-collapse:separate;border-spacing:0;border:1px solid rgba(246,167,0,.78);background:#020b12;overflow:hidden;">
       <tr>
-        <td style="padding:24px 26px 22px;border-bottom:1px solid rgba(246,167,0,.55);background:linear-gradient(135deg,#03131f 0%,#08243b 100%);">
-          <div style="font:900 11px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#f6a700;">Independent Broker Marketplace</div>
-          <div style="margin-top:9px;font:700 31px/1.12 Georgia,'Times New Roman',serif;color:#ffffff;">Add Your Client’s Florida Liquor License to FLLM</div>
-          <div style="margin-top:12px;font:400 15px/1.6 Arial,Helvetica,sans-serif;color:#dce7ee;">More exposure without giving up the broker relationship. Use FLLM as an additional marketing channel while keeping your client, transaction contact role and commission structure intact.</div>
-
-          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:16px;border-collapse:collapse;">
+        <td background="${SITE_URL}/assets/hero-bar-clean.png" style="padding:0;background-color:#020b12;background-image:linear-gradient(90deg,rgba(2,11,18,.99) 0%,rgba(3,15,25,.96) 44%,rgba(3,15,25,.76) 68%,rgba(2,11,18,.88) 100%),url('${SITE_URL}/assets/hero-bar-clean.png');background-position:center;background-size:cover;">
+          <table class="fllm-hero-grid" role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
             <tr>
-              <td style="padding:4px 0;color:#eef4f8;font-size:14px;font-weight:700;"><span style="color:#f6a700;font-weight:900;">✓</span>&nbsp;&nbsp;Quota Liquor License Only</td>
-            </tr>
-            <tr>
-              <td style="padding:4px 0;color:#eef4f8;font-size:14px;font-weight:700;"><span style="color:#f6a700;font-weight:900;">✓</span>&nbsp;&nbsp;Quota Liquor License + Business Package</td>
-            </tr>
-          </table>
-
-          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:18px;border-collapse:separate;border-spacing:8px 0;">
-            <tr>
-              <td width="50%" valign="top" style="padding:13px 14px;border:1px solid #36536a;border-radius:7px;background:#0d2941;">
-                <div style="font-size:14px;font-weight:800;color:#ffffff;">Standard</div>
-                <div style="margin-top:4px;font:700 23px/1 Georgia,'Times New Roman',serif;color:#f6a700;">$14.95</div>
-                <div style="margin-top:6px;font-size:11px;line-height:1.4;color:#c6d3dc;">One-time marketplace listing</div>
+              <td colspan="2" style="padding:20px 28px 0;color:#b9c7d0;font-size:10px;line-height:1.4;">
+                <a href="${SITE_URL}/" style="color:#b9c7d0;text-decoration:none;">Home</a>
+                <span style="color:#f6a700;"> &nbsp;›&nbsp; </span>
+                <a href="${SITE_URL}/florida-liquor-license-broker" style="color:#b9c7d0;text-decoration:none;">Broker Services</a>
+                <span style="color:#f6a700;"> &nbsp;›&nbsp; </span>
+                <strong style="color:#ffffff;">List a Client License</strong>
               </td>
-              <td width="50%" valign="top" style="padding:13px 14px;border:1px solid #36536a;border-radius:7px;background:#0d2941;">
-                <div style="font-size:14px;font-weight:800;color:#ffffff;">Featured</div>
-                <div style="margin-top:4px;font:700 23px/1 Georgia,'Times New Roman',serif;color:#f6a700;">$24.95</div>
-                <div style="margin-top:6px;font-size:11px;line-height:1.4;color:#c6d3dc;">30-day priority + FLLM listing SEO</div>
+            </tr>
+            <tr>
+              <td class="fllm-hero-copy" width="66%" valign="middle" style="padding:30px 22px 32px 28px;">
+                <div style="color:#f6a700;font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;">Independent Broker Marketplace</div>
+                <div style="margin-top:12px;color:#ffffff;font-family:Georgia,'Times New Roman',serif;font-size:42px;line-height:1.03;font-weight:500;letter-spacing:-.02em;">Add Your Client’s Florida Liquor License to FLLM</div>
+                <div style="margin-top:18px;color:#e1e8ed;font-size:17px;line-height:1.6;">Reach buyers searching Florida’s specialized quota-license market while you remain the listing representative and transaction contact.</div>
+
+                <div style="margin-top:16px;color:#e7eef3;font-size:13px;font-weight:700;line-height:1.7;">
+                  <div><span style="color:#f6a700;font-weight:900;">✓</span>&nbsp;&nbsp;Quota Liquor License Only</div>
+                  <div><span style="color:#f6a700;font-weight:900;">✓</span>&nbsp;&nbsp;Quota Liquor License + Business Package</div>
+                </div>
+
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:23px;border-collapse:separate;border-spacing:0;">
+                  <tr>
+                    <td style="padding-right:10px;">
+                      <a href="${LANDING_URL}#broker-listing-form" style="display:inline-block;padding:14px 18px;border-radius:5px;background:#f6a700;color:#07131d;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;">Choose a Listing Option</a>
+                    </td>
+                    <td>
+                      <a href="${SITE_URL}/listings" style="display:inline-block;padding:13px 18px;border:1px solid #f6a700;border-radius:5px;background:#020b12;color:#f6a700;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;">View Marketplace Listings</a>
+                    </td>
+                  </tr>
+                </table>
+
+                <div style="margin-top:15px;color:#bfcbd3;font-size:10.5px;letter-spacing:.02em;">Listings from $14.95 · No share of your commission · Statewide exposure</div>
+              </td>
+
+              <td width="34%" valign="middle" style="padding:28px 28px 28px 6px;">
+                <table class="fllm-price-card" role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:separate;border-spacing:0;border:1px solid #d28f00;border-radius:12px;background:#071c2d;">
+                  <tr><td style="padding:24px 20px;">
+                    <div style="color:#f6a700;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;">Choose Your Exposure</div>
+
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:15px;border-collapse:separate;border-spacing:0 8px;">
+                      <tr><td style="padding:12px 13px;border:1px solid #344d61;border-radius:7px;background:#11283a;">
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+                          <td style="color:#fff;font-size:13px;font-weight:700;">Standard</td>
+                          <td align="right" style="color:#f6a700;font-family:Georgia,'Times New Roman',serif;font-size:22px;">$14.95</td>
+                        </tr></table>
+                        <div style="margin-top:5px;color:#d8e1e7;font-size:10px;line-height:1.35;">Marketplace listing · Select Standard ↓</div>
+                      </td></tr>
+                      <tr><td style="padding:12px 13px;border:1px solid #344d61;border-radius:7px;background:#11283a;">
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+                          <td style="color:#fff;font-size:13px;font-weight:700;">Featured</td>
+                          <td align="right" style="color:#f6a700;font-family:Georgia,'Times New Roman',serif;font-size:22px;">$24.95</td>
+                        </tr></table>
+                        <div style="margin-top:5px;color:#d8e1e7;font-size:10px;line-height:1.35;">30-day priority + FLLM listing SEO · Select Featured ↓</div>
+                      </td></tr>
+                    </table>
+
+                    <div style="margin-top:15px;padding-top:15px;border-top:1px solid #2c4050;color:#e9eef2;font-size:12px;line-height:1.9;">
+                      <div><span style="color:#f6a700;font-weight:900;">✓</span>&nbsp;&nbsp;One-time fee</div>
+                      <div><span style="color:#f6a700;font-weight:900;">✓</span>&nbsp;&nbsp;No recurring charge</div>
+                      <div><span style="color:#f6a700;font-weight:900;">✓</span>&nbsp;&nbsp;No FLLM commission</div>
+                    </div>
+                  </td></tr>
+                </table>
               </td>
             </tr>
           </table>
@@ -235,34 +284,47 @@ ${unsubscribe}`;
       </tr>
 
       <tr>
-        <td style="padding:24px 20px 20px;background:#f7f7f4;color:#071827;">
-          <div style="margin:0 6px 15px;font:700 25px/1.15 Georgia,'Times New Roman',serif;color:#071827;">Built for Florida Brokers</div>
-          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:separate;border-spacing:8px;">
+        <td style="padding:34px 28px 30px;background:#f7f7f4;color:#071827;">
+          <div style="color:#f6a700;font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;">Built for Florida Brokers</div>
+          <div style="margin-top:8px;font-family:Georgia,'Times New Roman',serif;font-size:34px;line-height:1.12;font-weight:500;color:#071827;">More exposure without giving up the broker relationship</div>
+          <div style="margin-top:12px;color:#52616c;font-size:15px;line-height:1.65;">Use FLLM as an additional marketing channel while keeping your client, transaction contact role and commission structure intact.</div>
+
+          <table class="fllm-benefit-grid" role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:22px;border-collapse:separate;border-spacing:7px;">
             <tr>
-              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;Increase statewide exposure and buyer traffic</td>
-              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;You remain the broker and client relationship owner</td>
+              <td width="33.33%" valign="top" style="padding:18px 16px;border:1px solid #d8dde0;border-radius:10px;background:#ffffff;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td valign="top" style="padding-right:10px;"><span style="display:inline-block;width:27px;height:27px;line-height:27px;text-align:center;border-radius:50%;background:#f6a700;color:#071827;font-weight:900;">✓</span></td><td style="color:#233543;font-size:13px;font-weight:700;line-height:1.45;">Increase statewide exposure and buyer traffic</td></tr></table>
+              </td>
+              <td width="33.33%" valign="top" style="padding:18px 16px;border:1px solid #d8dde0;border-radius:10px;background:#ffffff;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td valign="top" style="padding-right:10px;"><span style="display:inline-block;width:27px;height:27px;line-height:27px;text-align:center;border-radius:50%;background:#f6a700;color:#071827;font-weight:900;">✓</span></td><td style="color:#233543;font-size:13px;font-weight:700;line-height:1.45;">You remain the broker and client relationship owner</td></tr></table>
+              </td>
+              <td width="33.33%" valign="top" style="padding:18px 16px;border:1px solid #d8dde0;border-radius:10px;background:#ffffff;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td valign="top" style="padding-right:10px;"><span style="display:inline-block;width:27px;height:27px;line-height:27px;text-align:center;border-radius:50%;background:#f6a700;color:#071827;font-weight:900;">✓</span></td><td style="color:#233543;font-size:13px;font-weight:700;line-height:1.45;">Buyer inquiries route directly to your designated contact</td></tr></table>
+              </td>
             </tr>
             <tr>
-              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;Buyer inquiries route directly to your designated contact</td>
-              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;FLLM does not take a share of your broker commission</td>
-            </tr>
-            <tr>
-              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;List license-only or business + liquor-license packages</td>
-              <td width="50%" valign="top" style="padding:15px 16px;border:1px solid #d6dee3;border-radius:8px;background:#ffffff;font-size:13px;line-height:1.45;font-weight:700;"><span style="color:#f6a700;font-size:16px;">✓</span>&nbsp;&nbsp;Featured listings add priority exposure and FLLM listing SEO</td>
+              <td width="33.33%" valign="top" style="padding:18px 16px;border:1px solid #d8dde0;border-radius:10px;background:#ffffff;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td valign="top" style="padding-right:10px;"><span style="display:inline-block;width:27px;height:27px;line-height:27px;text-align:center;border-radius:50%;background:#f6a700;color:#071827;font-weight:900;">✓</span></td><td style="color:#233543;font-size:13px;font-weight:700;line-height:1.45;">FLLM does not take a share of your broker commission</td></tr></table>
+              </td>
+              <td width="33.33%" valign="top" style="padding:18px 16px;border:1px solid #d8dde0;border-radius:10px;background:#ffffff;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td valign="top" style="padding-right:10px;"><span style="display:inline-block;width:27px;height:27px;line-height:27px;text-align:center;border-radius:50%;background:#f6a700;color:#071827;font-weight:900;">✓</span></td><td style="color:#233543;font-size:13px;font-weight:700;line-height:1.45;">List license-only or business + liquor-license packages</td></tr></table>
+              </td>
+              <td width="33.33%" valign="top" style="padding:18px 16px;border:1px solid #d8dde0;border-radius:10px;background:#ffffff;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td valign="top" style="padding-right:10px;"><span style="display:inline-block;width:27px;height:27px;line-height:27px;text-align:center;border-radius:50%;background:#f6a700;color:#071827;font-weight:900;">✓</span></td><td style="color:#233543;font-size:13px;font-weight:700;line-height:1.45;">Featured listings add priority exposure and FLLM listing SEO</td></tr></table>
+              </td>
             </tr>
           </table>
 
-          <div style="padding:20px 8px 4px;text-align:center;">
-            <a href="${LANDING_URL}" style="display:inline-block;padding:13px 20px;border:1px solid #f6a700;border-radius:5px;background:#f6a700;color:#071827;text-decoration:none;font-size:13px;font-weight:900;text-transform:uppercase;">View the FLLM Broker Listing Program</a>
+          <div style="margin-top:22px;text-align:center;">
+            <a href="${LANDING_URL}" style="display:inline-block;padding:13px 20px;border:1px solid #f6a700;border-radius:5px;background:#f6a700;color:#071827;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;">View the FLLM Broker Listing Program</a>
           </div>
         </td>
       </tr>
     </table>
 
-    ${sourceLink ? `<p style="max-width:720px;margin:18px 0 0;font-size:12px;line-height:1.55;color:#66727a;">Listing referenced for this outreach: <a href="${escapeHtml(sourceLink)}" style="color:#0645ad;">${escapeHtml(sourceLink)}</a></p>` : ""}
-
-    <p style="max-width:720px;margin:18px 0 0;font-size:12px;line-height:1.55;color:#66727a;">Featured listing SEO is intended to support search visibility; search-engine rankings and AI citations are not guaranteed.</p>
-    <p style="max-width:720px;margin:20px 0 0;font-size:11px;line-height:1.5;color:#7b858b;">This is a broker-outreach message from Florida Liquor License Market. <a href="${unsubscribe}" style="color:#7b858b;">No more FLLM broker emails</a>.</p>`;
+    ${sourceLink ? `<p style="max-width:900px;margin:16px 0 0;font-size:12px;line-height:1.55;color:#66727a;">Listing referenced for this outreach: <a href="${escapeHtml(sourceLink)}" style="color:#0645ad;font-weight:700;">View the current listing</a></p>` : ""}
+    <p style="max-width:900px;margin:15px 0 0;font-size:12px;line-height:1.55;color:#66727a;">Featured listing SEO is intended to support search visibility; search-engine rankings and AI citations are not guaranteed.</p>
+    <p style="max-width:900px;margin:18px 0 16px;font-size:11px;line-height:1.5;color:#7b858b;">This is a broker-outreach message from Florida Liquor License Market. <a href="${unsubscribe}" style="color:#7b858b;">No more FLLM broker emails</a>.</p>
+`;
 
   return { subject, text, html: emailShell(content) };
 }
