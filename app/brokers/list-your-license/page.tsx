@@ -228,10 +228,20 @@ export default function BrokerListYourLicensePage() {
           border-bottom:1px solid rgba(246,167,0,.16);
         }
         .broker-organic-grid {
+          display:block;
+        }
+        .broker-organic-copy {
+          max-width:760px;
+          margin-bottom:28px;
+        }
+        .broker-organic-body-grid {
           display:grid;
           grid-template-columns:minmax(0,1.12fr) minmax(380px,.88fr);
           gap:36px;
           align-items:start;
+        }
+        .broker-benefits-stack .broker-benefit-group:first-child {
+          margin-top:0;
         }
         .broker-organic-copy > span,
         .broker-resource-center > span {
@@ -299,7 +309,7 @@ export default function BrokerListYourLicensePage() {
         }
         .broker-benefit-list a {
           color:#69d6ff;
-          font-weight:800;
+          font-weight:500;
           text-decoration:none;
         }
         .broker-benefit-list a:hover,
@@ -391,7 +401,8 @@ export default function BrokerListYourLicensePage() {
           color:#dce7ee;
         }
         @media(max-width:980px) {
-          .broker-organic-grid { grid-template-columns:1fr; gap:28px; }
+          .broker-organic-copy { max-width:none; }
+          .broker-organic-body-grid { grid-template-columns:1fr; gap:28px; }
           .broker-resource-center { max-width:none; }
         }
         @media(max-width:680px) {
@@ -491,39 +502,42 @@ export default function BrokerListYourLicensePage() {
               <p className="broker-organic-intro">
                 FLLM gives Florida liquor license brokers statewide marketplace exposure plus market-data, transaction and regulatory resources while the submitting broker remains the identified representative and transaction contact.
               </p>
-
-              <div className="broker-benefit-group">
-                <h3>What brokers get through FLLM</h3>
-                <ul className="broker-benefit-list">
-                  <li>Advertise <Link href="/florida-4cop-liquor-license-for-sale">4COP quota</Link> and <Link href="/florida-3ps-liquor-license-for-sale">3PS package-store</Link> licenses.</li>
-                  <li>Reach buyers through <Link href="/listings">statewide marketplace listings</Link>.</li>
-                  <li>Compare asking prices and inventory through <Link href="/counties">county market pages</Link>.</li>
-                  <li>Use county market maps, inventory views and Florida heat-map tools.</li>
-                  <li>Review the <Link href="/market-data/exchange-board">FLLM Exchange Board</Link> and current market activity.</li>
-                  <li>Use <Link href="/florida-liquor-license-appraisal">valuation and appraisal resources</Link>.</li>
-                  <li>Access <Link href="/financing">financing resources</Link> and payment tools.</li>
-                  <li>Use <Link href="/transaction-services">FLLM Transaction Services</Link> for transaction coordination resources.</li>
-                  <li>Review <Link href="/resources/florida-department-of-revenue">FDOR transfer resources</Link>.</li>
-                  <li>Review <Link href="/resources/florida-division-alcoholic-beverages-tobacco">DBPR / ABT licensing resources</Link>.</li>
-                  <li>Access the <Link href="/resources/liquor-license-attorneys">Florida liquor-license attorney directory</Link>.</li>
-                  <li>Use <Link href="/resources/forms">ABT forms</Link>, transfer guides and regulatory reference material.</li>
-                  <li>Review the <Link href="/florida-quota-liquor-license-market-report">statewide market report</Link> and current transaction data.</li>
-                  <li>Direct buyers to county-specific license, pricing and availability information.</li>
-                </ul>
-              </div>
-
-              <div className="broker-benefit-group">
-                <h3>What does not change</h3>
-                <ul className="broker-benefit-list broker-relationship-list">
-                  <li>You remain the broker and identified representative for your client.</li>
-                  <li>Buyer inquiries continue to route to your designated contact.</li>
-                  <li>FLLM does not take over your client relationship or negotiations.</li>
-                  <li>FLLM does not take a share of your commission on broker marketplace listings.</li>
-                </ul>
-              </div>
             </div>
 
-            <aside className="broker-resource-center" aria-label="FLLM broker resource center">
+            <div className="broker-organic-body-grid">
+              <div className="broker-benefits-stack">
+                <div className="broker-benefit-group">
+                  <h3>What brokers get through FLLM</h3>
+                  <ul className="broker-benefit-list">
+                    <li>Advertise <Link href="/florida-4cop-liquor-license-for-sale">4COP quota</Link> and <Link href="/florida-3ps-liquor-license-for-sale">3PS package-store</Link> licenses.</li>
+                    <li>Reach buyers through <Link href="/listings">statewide marketplace listings</Link>.</li>
+                    <li>Compare asking prices and inventory through <Link href="/counties">county market pages</Link>.</li>
+                    <li>Use county market maps, inventory views and Florida heat-map tools.</li>
+                    <li>Review the <Link href="/market-data/exchange-board">FLLM Exchange Board</Link> and current market activity.</li>
+                    <li>Use <Link href="/florida-liquor-license-appraisal">valuation and appraisal resources</Link>.</li>
+                    <li>Access <Link href="/financing">financing resources</Link> and payment tools.</li>
+                    <li>Use <Link href="/transaction-services">FLLM Transaction Services</Link> for transaction coordination resources.</li>
+                    <li>Review <Link href="/resources/florida-department-of-revenue">FDOR transfer resources</Link>.</li>
+                    <li>Review <Link href="/resources/florida-division-alcoholic-beverages-tobacco">DBPR / ABT licensing resources</Link>.</li>
+                    <li>Access the <Link href="/resources/liquor-license-attorneys">Florida liquor-license attorney directory</Link>.</li>
+                    <li>Use <Link href="/resources/forms">ABT forms</Link>, transfer guides and regulatory reference material.</li>
+                    <li>Review the <Link href="/florida-quota-liquor-license-market-report">statewide market report</Link> and current transaction data.</li>
+                    <li>Direct buyers to county-specific license, pricing and availability information.</li>
+                  </ul>
+                </div>
+
+                <div className="broker-benefit-group">
+                  <h3>What does not change</h3>
+                  <ul className="broker-benefit-list broker-relationship-list">
+                    <li>You remain the broker and identified representative for your client.</li>
+                    <li>Buyer inquiries continue to route to your designated contact.</li>
+                    <li>FLLM does not take over your client relationship or negotiations.</li>
+                    <li>FLLM does not take a share of your commission on broker marketplace listings.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <aside className="broker-resource-center" aria-label="FLLM broker resource center">
               <span>Broker Resource Center</span>
               <h3>Everything around the listing</h3>
               <p>Jump directly to the FLLM tools and professional resources brokers can use before, during and after a client listing.</p>
@@ -539,7 +553,8 @@ export default function BrokerListYourLicensePage() {
                 <Link href="/financing"><strong>Financing</strong><small>Purchase, refinance and lender resources</small></Link>
                 <Link href="/resources/forms"><strong>ABT Forms & Guides</strong><small>Applications, forms and transfer references</small></Link>
               </nav>
-            </aside>
+              </aside>
+            </div>
           </div>
         </div>
       </section>
