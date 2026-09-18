@@ -530,7 +530,7 @@ export default function BrokerListYourLicensePage() {
                   <h3>What brokers get through FLLM</h3>
                   <ul className="broker-benefit-list">
                     <li>Advertise <Link href="/florida-4cop-liquor-license-for-sale">4COP quota</Link> and <Link href="/florida-3ps-liquor-license-for-sale">3PS package-store</Link> licenses.</li>
-                    <li>Reach buyers through <Link href="/listings">statewide marketplace listings</Link>.</li>
+                    <li>Increase listing exposure and buyer traffic while augmenting the broker&apos;s listings on other sites through the <Link href="/listings">FLLM statewide marketplace</Link>.</li>
                     <li>Featured broker ads include <a href="#featured-listing-option">listing-specific SEO work by FLLM</a>; search placement is not guaranteed.</li>
                     <li>Compare asking prices and inventory through <Link href="/counties">county market pages</Link>.</li>
                     <li>Use county-specific market maps and local inventory views.</li>
