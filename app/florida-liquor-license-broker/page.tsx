@@ -11,26 +11,26 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-broker`;
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Broker Services | Buyers & Sellers | FLLM",
+  title: "Florida Liquor License Broker | Sell Your License | FLLM",
   description:
-    "Request Florida liquor license broker-assisted representation for buying or selling 4COP quota, 3PS and other transferable licenses statewide.",
+    "Sell your Florida liquor license with FLLM broker-assisted representation. Get statewide marketing, pricing strategy, buyer outreach, negotiation and transaction coordination for 4COP and 3PS quota licenses.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Liquor License Broker Services | FLLM",
+    title: "Florida Liquor License Broker | Sell Your License | FLLM",
     description:
-      "Full-service Florida liquor license broker assistance for buyers and sellers, separate from FLLM's advertising-only marketplace listings.",
+      "Florida liquor license broker-assisted representation for owners selling transferable 4COP and 3PS quota licenses statewide, with buyer assistance also available.",
     siteName: "Florida Liquor License Market",
   },
 };
 
 const faqs = [
   {
-    question: "What is this FLLM broker-services page for?",
+    question: "Can FLLM help broker the sale of my Florida liquor license?",
     answer:
-      "This page is for buyers and sellers who want broker-assisted representation through FLLM. It is separate from the advertising-only marketplace program used by independent brokers who want to keep their own client relationship and simply add exposure for a client listing.",
+      "Yes. Florida liquor license owners can request broker-assisted representation through FLLM for pricing strategy, public or confidential marketing, buyer outreach and communications, negotiation, due-diligence coordination and transaction coordination under a separate written brokerage agreement.",
   },
   {
     question: "What does a Florida liquor license broker do for a seller?",
@@ -38,9 +38,14 @@ const faqs = [
       "Depending on the written engagement, a Florida liquor license broker may assist a seller with county-market analysis, pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, due-diligence coordination, document organization and transaction coordination through closing.",
   },
   {
+    question: "How do I list my Florida liquor license with FLLM as my broker?",
+    answer:
+      "Start by requesting seller representation through FLLM and providing the county, license type and basic sale information. FLLM can then discuss the proposed marketing approach, scope of services and compensation. Representation begins only after the parties enter into a separate written agreement.",
+  },
+  {
     question: "Can FLLM assist a buyer as well as a seller?",
     answer:
-      "Yes. A prospective buyer may request broker-assisted help identifying suitable county and license-type opportunities, evaluating available inventory, communicating with sellers or listing representatives, negotiating business terms and coordinating transaction milestones. The exact duties and compensation must be defined in a written agreement.",
+      "Yes. Buyer assistance remains available, but this page is primarily designed for Florida liquor license owners who want broker-assisted help marketing and selling a transferable license. Any buyer engagement is also defined by a separate written agreement.",
   },
   {
     question: "Does broker representation begin automatically when I contact FLLM?",
@@ -78,11 +83,11 @@ const buyerServices = [
 ];
 
 const supportCards = [
-  ["01", "Pricing strategy", "Review county inventory, asking prices and market evidence before setting or negotiating price."],
-  ["02", "Opportunity identification", "Match the target county, license series and intended use to available market opportunities."],
-  ["03", "Marketing & outreach", "Develop a public or confidential marketing approach and reach qualified prospects."],
-  ["04", "Buyer & seller communications", "Organize inquiries and transaction discussions within the agreed representation scope."],
-  ["05", "Negotiation", "Assist with price and business-term negotiations while the client retains final decision authority."],
+  ["01", "County pricing strategy", "Review current inventory, asking prices and county-market evidence before positioning the license for sale."],
+  ["02", "Listing & marketing strategy", "Choose a public or confidential marketing approach appropriate to the license, county and seller's objectives."],
+  ["03", "Buyer outreach", "Present the opportunity through FLLM's statewide marketplace and appropriate direct outreach channels."],
+  ["04", "Inquiry screening", "Organize buyer inquiries and communications within the agreed seller-representation scope."],
+  ["05", "Negotiation", "Assist with price and business-term negotiations while the seller retains final decision authority."],
   ["06", "Transaction coordination", "Track diligence, transfer, financing, escrow and closing milestones with the appropriate professionals."],
 ];
 
@@ -91,12 +96,12 @@ export default function FloridaLiquorLicenseBrokerPage() {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "Florida Liquor License Broker Services",
+      name: "Florida Liquor License Broker",
       description:
-        "Statewide Florida liquor license broker-assisted representation for buyers and sellers of 4COP quota, 3PS and other transferable licenses.",
+        "Statewide Florida liquor license broker-assisted representation focused on owners selling transferable 4COP quota and 3PS licenses, with buyer assistance also available.",
       url: canonicalUrl,
       datePublished: "2026-08-26",
-      dateModified: "2026-09-17",
+      dateModified: "2026-09-18",
       publisher: {
         "@type": "Organization",
         name: "Florida Liquor License Market",
@@ -106,8 +111,8 @@ export default function FloridaLiquorLicenseBrokerPage() {
     {
       "@context": "https://schema.org",
       "@type": "Service",
-      name: "Florida Liquor License Broker-Assisted Representation",
-      serviceType: "Florida liquor license brokerage and transaction representation",
+      name: "Florida Liquor License Broker-Assisted Seller Representation",
+      serviceType: "Florida liquor license brokerage, marketing and transaction representation",
       provider: {
         "@type": "Organization",
         name: "Florida Liquor License Market",
@@ -115,7 +120,7 @@ export default function FloridaLiquorLicenseBrokerPage() {
       },
       areaServed: { "@type": "State", name: "Florida" },
       audience: [
-        { "@type": "Audience", audienceType: "Florida liquor license sellers" },
+        { "@type": "Audience", audienceType: "Florida liquor license owners and sellers" },
         { "@type": "Audience", audienceType: "Florida liquor license buyers" },
       ],
       url: canonicalUrl,
@@ -156,7 +161,8 @@ export default function FloridaLiquorLicenseBrokerPage() {
         .broker-section-head span{color:#f1a600;font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
         .broker-section-head h2{margin:8px 0 13px;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:clamp(31px,4vw,46px);line-height:1.06}
         .broker-section-head p{margin:0;color:#d0dce4;font-size:16px;line-height:1.72}
-        .broker-path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+        .broker-path-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:18px}
+        .broker-path-card.seller-primary{border-color:#d99a18;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 18px 38px rgba(3,17,29,.32),0 0 0 1px rgba(241,166,0,.08)}
         .broker-path-card{display:flex;min-height:480px;flex-direction:column;padding:28px;border:1px solid #9c7019;border-radius:10px;background:linear-gradient(145deg,#15466f 0%,#0b3153 50%,#071f36 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 16px 34px rgba(3,17,29,.27);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
         .broker-path-card:hover{transform:translateY(-5px);border-color:#f1a600;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 22px 44px rgba(3,17,29,.38),0 0 20px rgba(241,166,0,.16)}
         .broker-path-card .eyebrow{color:#f1a600;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
@@ -208,44 +214,44 @@ export default function FloridaLiquorLicenseBrokerPage() {
       <section className="seo-market-hero">
         <div className="seo-market-shell">
           <div className="seo-market-breadcrumbs">
-            <Link href="/">Home</Link><span>›</span><strong>Florida Liquor License Broker Services</strong>
+            <Link href="/">Home</Link><span>›</span><strong>Florida Liquor License Broker</strong>
           </div>
 
           <div className="seo-market-hero-grid">
             <div>
-              <span className="seo-market-kicker">Full-Service Florida Liquor License Brokerage</span>
-              <h1>Florida Liquor License Broker Services</h1>
+              <span className="seo-market-kicker">Sell Your Florida Liquor License</span>
+              <h1>Florida Liquor License Broker for Sellers</h1>
               <p>
-                FLLM provides broker-assisted representation for Florida liquor-license buyers and sellers. This page is for clients who want professional help with pricing, opportunity identification, marketing, negotiations and transaction coordination.
+                Own a transferable Florida liquor license and want help selling it? FLLM provides statewide broker-assisted representation for 4COP and 3PS quota-license owners, including market pricing strategy, public or confidential marketing, buyer outreach, negotiation and transaction coordination.
               </p>
 
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">
-                  Seller — Request Representation
+                  Sell My Liquor License
                 </Link>
-                <Link className="seo-market-button seo-market-button-dark" href="/contact">
-                  Buyer — Request Assistance
+                <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">
+                  Check My License Value
                 </Link>
               </div>
 
               <nav className="broker-jump-nav" aria-label="Broker service sections">
-                <a href="#seller-services">Seller Services</a>
-                <a href="#buyer-services">Buyer Services</a>
-                <a href="#what-we-do">What We Do</a>
-                <a href="#independent-brokers">Independent Brokers</a>
+                <a href="#seller-services">Sell My License</a>
+                <a href="#what-we-do">How FLLM Helps</a>
+                <a href="/florida-liquor-license-broker-fees">Broker Fees</a>
+                <a href="#buyer-services">Buyer Assistance</a>
               </nav>
 
               <div className="broker-hero-clarifier">
-                <strong>This is a representation service.</strong> It is different from FLLM&apos;s advertising-only Independent Broker Marketplace, where an outside broker remains the client&apos;s representative and transaction contact.
+                <strong>For Florida liquor license owners:</strong> seller representation is designed to help position, market and coordinate the sale of a transferable license. Representation, exclusivity, scope and compensation are established only in a separate written agreement.
               </div>
               <p className="broker-updated">Statewide service across all 67 Florida counties · 4COP and 3PS quota focus</p>
             </div>
 
             <aside className="seo-market-snapshot" aria-label="FLLM broker service snapshot">
-              <span>FLLM Broker Service Snapshot</span>
+              <span>Seller Representation Snapshot</span>
               <div className="seo-market-snapshot-grid">
-                <div><strong>Sell</strong><small>seller representation</small></div>
-                <div><strong>Buy</strong><small>buyer assistance</small></div>
+                <div><strong>Sell</strong><small>broker-assisted marketing</small></div>
+                <div><strong>Value</strong><small>county pricing strategy</small></div>
                 <div><strong>67</strong><small>Florida counties</small></div>
                 <div><strong>4COP</strong><small>&amp; 3PS quota focus</small></div>
               </div>
@@ -257,15 +263,15 @@ export default function FloridaLiquorLicenseBrokerPage() {
       <section className="broker-service-section" aria-labelledby="choose-broker-service">
         <div className="seo-market-shell">
           <div className="broker-section-head">
-            <span>Choose Your Service</span>
-            <h2 id="choose-broker-service">Two clear broker-assisted paths</h2>
+            <span>For Florida License Owners</span>
+            <h2 id="choose-broker-service">Sell your Florida liquor license with broker representation</h2>
             <p>
-              Sellers can request representation for marketing and selling a license. Buyers can request assistance identifying and acquiring a suitable license. Each engagement is defined by a separate written agreement.
+              FLLM&apos;s primary brokerage path is designed for owners who want professional help pricing, marketing and selling a transferable Florida liquor license. Buyer assistance remains available as a secondary service.
             </p>
           </div>
 
           <div className="broker-path-grid">
-            <article className="broker-path-card" id="seller-services">
+            <article className="broker-path-card seller-primary" id="seller-services">
               <span className="eyebrow">For License Owners</span>
               <h3>Seller Representation</h3>
               <p>
@@ -275,7 +281,7 @@ export default function FloridaLiquorLicenseBrokerPage() {
                 {sellerServices.map((item) => <li key={item}>{item}</li>)}
               </ul>
               <div className="broker-card-actions">
-                <Link className="primary" href="/sell-your-license">Request Seller Representation</Link>
+                <Link className="primary" href="/sell-your-license">Sell My Liquor License</Link>
                 <Link className="secondary" href="/florida-liquor-license-broker-fees">Review Broker Fees</Link>
               </div>
             </article>
@@ -301,10 +307,10 @@ export default function FloridaLiquorLicenseBrokerPage() {
       <section className="broker-support-section" id="what-we-do">
         <div className="seo-market-shell">
           <div className="broker-section-head">
-            <span>Full-Service Support</span>
-            <h2>What broker-assisted representation can include</h2>
+            <span>Seller Brokerage Support</span>
+            <h2>How FLLM can help market and sell your license</h2>
             <p>
-              The exact scope is defined in the written engagement, but these are the principal commercial areas FLLM can help coordinate.
+              The exact scope is defined in the written engagement, but these are the principal areas FLLM can help coordinate for a Florida liquor license owner preparing to sell.
             </p>
           </div>
 
@@ -365,13 +371,13 @@ export default function FloridaLiquorLicenseBrokerPage() {
 
       <section className="broker-final">
         <div className="seo-market-shell">
-          <h2>Request Florida liquor license broker assistance</h2>
+          <h2>Ready to sell your Florida liquor license?</h2>
           <p>
-            Choose seller representation if you own a license and want professional help marketing and coordinating the sale. Choose buyer assistance if you want help finding and acquiring a suitable Florida liquor license.
+            Request broker-assisted seller representation through FLLM for pricing strategy, statewide marketing, buyer communications, negotiation and transaction coordination. Buyer assistance remains available separately.
           </p>
           <div className="broker-final-actions">
-            <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Seller — Request Representation</Link>
-            <Link className="seo-market-button seo-market-button-dark" href="/contact">Buyer — Request Assistance</Link>
+            <Link className="seo-market-button seo-market-button-gold" href="/sell-your-license">Sell My Liquor License</Link>
+            <Link className="seo-market-button seo-market-button-dark" href="/contact">Talk to FLLM</Link>
           </div>
         </div>
       </section>
