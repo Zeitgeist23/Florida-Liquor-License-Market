@@ -206,46 +206,43 @@ ${unsubscribe}`;
         .fllm-price-card { margin-top:18px !important; }
       }
 
-      .fllm-btn-primary,
-      .fllm-btn-secondary,
-      .fllm-btn-program,
-      .fllm-price-option,
-      .fllm-benefit-card {
-        transition:background-color .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease,transform .18s ease !important;
-      }
-
+      /* Email-safe hover enhancement. Gmail webmail supports :hover when
+         the style block is in <head>. Use only properties Gmail documents as
+         supported; the static inline styles remain the fallback everywhere. */
       .fllm-btn-primary:hover,
       .fllm-btn-primary:focus {
-        background:#ffc32d !important;
-        box-shadow:0 8px 20px rgba(246,167,0,.35) !important;
-        transform:translateY(-1px) !important;
+        background-color:#ffd04a !important;
+        color:#020b12 !important;
+        border-color:#ffd86d !important;
+        outline:2px solid #ffd86d !important;
       }
 
       .fllm-btn-secondary:hover,
       .fllm-btn-secondary:focus {
-        background:#f6a700 !important;
+        background-color:#f6a700 !important;
         color:#071827 !important;
-        box-shadow:0 8px 20px rgba(246,167,0,.28) !important;
-        transform:translateY(-1px) !important;
+        border-color:#ffd86d !important;
+        outline:2px solid #f6a700 !important;
       }
 
       .fllm-btn-program:hover,
       .fllm-btn-program:focus {
-        background:#ffc32d !important;
-        box-shadow:0 8px 20px rgba(246,167,0,.35) !important;
-        transform:translateY(-1px) !important;
+        background-color:#ffd04a !important;
+        color:#020b12 !important;
+        border-color:#ffd86d !important;
+        outline:2px solid #ffd86d !important;
       }
 
       .fllm-price-option:hover {
+        background-color:#173f5c !important;
         border-color:#f6a700 !important;
-        background:#17344a !important;
-        box-shadow:0 0 0 1px rgba(246,167,0,.20),0 10px 24px rgba(0,0,0,.18) !important;
+        outline:1px solid #f6a700 !important;
       }
 
       .fllm-benefit-card:hover {
+        background-color:#fff8e8 !important;
         border-color:#f6a700 !important;
-        box-shadow:0 10px 22px rgba(7,24,39,.10) !important;
-        transform:translateY(-1px) !important;
+        outline:1px solid #f6a700 !important;
       }
     </style>
 
@@ -279,10 +276,10 @@ ${unsubscribe}`;
                 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:23px;border-collapse:separate;border-spacing:0;">
                   <tr>
                     <td style="padding-right:10px;">
-                      <a class="fllm-btn-primary" href="${LANDING_URL}#broker-listing-form" style="display:inline-block;padding:14px 18px;border-radius:5px;background:#f6a700;color:#07131d;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;">Choose a Listing Option</a>
+                      <a class="fllm-btn-primary" href="${LANDING_URL}#broker-listing-form" style="display:inline-block;padding:14px 18px;border:1px solid #e49400;border-top-color:#ffd86d;border-bottom-color:#b97800;border-radius:5px;background:#f6a700;color:#07131d;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;">Choose a Listing Option</a>
                     </td>
                     <td>
-                      <a class="fllm-btn-secondary" href="${SITE_URL}/listings" style="display:inline-block;padding:13px 18px;border:1px solid #f6a700;border-radius:5px;background:#020b12;color:#f6a700;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;">View Marketplace Listings</a>
+                      <a class="fllm-btn-secondary" href="${SITE_URL}/listings" style="display:inline-block;padding:13px 18px;border:1px solid #f6a700;border-top-color:#ffd86d;border-bottom-color:#a86d00;border-radius:5px;background:#020b12;color:#f6a700;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;">View Marketplace Listings</a>
                     </td>
                   </tr>
                 </table>
@@ -357,7 +354,7 @@ ${unsubscribe}`;
           </table>
 
           <div style="margin-top:22px;text-align:center;">
-            <a class="fllm-btn-program" href="${LANDING_URL}" style="display:inline-block;padding:13px 20px;border:1px solid #f6a700;border-radius:5px;background:#f6a700;color:#071827;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;">View the FLLM Broker Listing Program</a>
+            <a class="fllm-btn-program" href="${LANDING_URL}" style="display:inline-block;padding:13px 20px;border:1px solid #e49400;border-top-color:#ffd86d;border-bottom-color:#b97800;border-radius:5px;background:#f6a700;color:#071827;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;">View the FLLM Broker Listing Program</a>
           </div>
         </td>
       </tr>
