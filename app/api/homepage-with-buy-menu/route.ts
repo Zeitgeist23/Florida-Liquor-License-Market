@@ -56,9 +56,9 @@ const marketDataMenuMarkup = `<div class="live-nav-dropdown live-market-data-dro
     <a href="/florida-liquor-license-value"><span>Florida Liquor License Value Estimator</span><b>VALUE</b></a>
     <a href="/florida-quota-liquor-license-cost"><span>Florida Liquor License Cost by County</span></a>
     <a href="/listings?status=sold"><span>Recent Florida Transactions</span><b>SALES</b></a>
-    <a href="/#market-data"><span>Florida Market Insights</span></a>
+    <a href="/#market-data"><span>Florida Liquor License Market Insights</span></a>
     <a href="/florida-liquor-license-lottery"><span>Quota Lottery Entry</span><b>LOTTERY</b></a>
-    <a href="/florida-liquor-license-news"><span>News &amp; Insights</span></a>
+    <a href="/florida-liquor-license-news"><span>Florida Liquor License News</span></a>
     <a href="/#market-data"><span>Florida Market Heat Map</span><b>MAP</b></a>
   </div>
 </div>`;
