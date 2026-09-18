@@ -474,6 +474,104 @@ export async function sendBrokerMessage(messageId: string) {
   }
 }
 
+export async function addAndSendBrokerProspect(input: QuickBrokerOutreachInput) {
+  const fullName = input.full_name.trim();
+  const email = input.email.trim().toLowerCase();
+  const listingKind = input.listing_kind;
+  const licenseType = input.license_type.trim();
+
+  if (!fullName) throw new Error("Broker name is required.");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    throw new Error("A valid broker email address is required.");
+  }
+  if (listingKind !== "license_only" && listingKind !== "business_with_license") {
+    throw new Error("Listing type must be license-only or business + quota license.");
+  }
+  if (!licenseType) throw new Error("License type is required.");
+
+  const existingRows = await rest<BrokerProspect[]>(
+    `broker_outreach_prospects?select=*&email=eq.${encodeURIComponent(email)}&order=updated_at.desc&limit=1`,
+  );
+  const existing = existingRows[0];
+
+  if (existing?.do_not_contact || existing?.status === "opted_out") {
+    throw new Error("This broker has opted out of FLLM outreach and cannot be emailed.");
+  }
+
+  const incomingListing = (input.listing_url || input.source_url || "").trim();
+  const existingListing = (existing?.listing_url || existing?.source_url || "").trim();
+  const sameListing = incomingListing
+    ? incomingListing === existingListing
+    : !existingListing;
+
+  if (!input.force && existing?.last_contacted_at && sameListing) {
+    const lastContact = new Date(existing.last_contacted_at).getTime();
+    const duplicateWindowMs = 21 * 24 * 60 * 60 * 1000;
+    if (Number.isFinite(lastContact) && Date.now() - lastContact < duplicateWindowMs) {
+      throw new Error(
+        "This broker was already contacted about the same listing within the last 21 days. Use force only after confirming another send is intended.",
+      );
+    }
+  }
+
+  const common = {
+    full_name: fullName,
+    email,
+    phone: input.phone?.trim() || null,
+    brokerage: input.brokerage?.trim() || null,
+    website_url: input.website_url?.trim() || null,
+    source_platform: input.source_platform?.trim() || null,
+    source_url: input.source_url?.trim() || null,
+    listing_title: input.listing_title?.trim() || null,
+    listing_url: input.listing_url?.trim() || null,
+    county: input.county?.trim() || null,
+    license_type: licenseType,
+    listing_kind: listingKind,
+    languages: input.languages || existing?.languages || [],
+    outreach_template: "neutral" as BrokerTemplateMode,
+    template_basis: "automatic",
+    notes: input.notes?.trim() || existing?.notes || null,
+  };
+
+  const prospect = existing
+    ? await updateBrokerProspect(existing.id, common)
+    : await createBrokerProspect({
+        ...common,
+        status: "new",
+        do_not_contact: false,
+      });
+
+  if (!prospect) throw new Error("Broker prospect could not be saved.");
+
+  const built = buildBrokerOutreachMessage(prospect);
+  const now = new Date().toISOString();
+  const messageRows = await rest<BrokerMessage[]>("broker_outreach_messages", {
+    method: "POST",
+    headers: { Prefer: "return=representation" },
+    body: JSON.stringify({
+      campaign_id: null,
+      prospect_id: prospect.id,
+      template_mode: "neutral",
+      subject_line: built.subject,
+      body_text: built.text,
+      body_html: built.html,
+      status: "draft",
+      generated_at: now,
+      updated_at: now,
+    }),
+  });
+  const message = messageRows[0];
+  if (!message) throw new Error("Broker outreach message could not be created.");
+
+  const sentMessage = await sendBrokerMessage(message.id);
+  return {
+    prospect,
+    message: sentMessage,
+    created: !existing,
+    duplicate_override: Boolean(input.force),
+  };
+}
+
 export async function sendBrokerCampaign(campaignId: string) {
   const messages = await rest<BrokerMessage[]>(
     `broker_outreach_messages?select=*&campaign_id=eq.${encodeURIComponent(campaignId)}&status=in.(draft,failed)&order=created_at.asc`,
