@@ -79,6 +79,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   },
   additionalSellerIntro:
     "Opportunity to acquire a premium Miami adult nightclub in Miami-Dade County together with its associated Florida 4COP quota liquor license.",
+  additionalSellerIntroLinkText: "Miami adult nightclub",
   packageIncludes:
     "The package includes the operating business, furniture, fixtures and equipment, goodwill, and licenses for operation, including the Miami-Dade County 4COP quota liquor license, subject to definitive transaction documents and broker confirmation.",
   businessMetrics: [
