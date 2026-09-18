@@ -8,6 +8,7 @@ import FloridaCountyMap from "@/components/FloridaCountyMap";
 import FllmExchangePanel from "@/components/FllmExchangePanel";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
 import MarketplaceListingCard from "@/components/MarketplaceListingCard";
+import ListingViewCount from "@/components/ListingViewCount";
 import { countySlug, getCountyBySlug } from "@/data/florida-counties";
 import {
   FLORIDA_COUNTY_POPULATIONS_2025,
@@ -398,6 +399,7 @@ export default async function Page({ params }: PageProps) {
                 Available
               </span>
               <span className="marketplace-listing-hero-reference">Listing {selectedReference}</span>
+              <ListingViewCount listingRef={selectedReference} />
               {isThirdPartyBrokerListing && (
                 <span className="marketplace-listing-broker-badge">Featured · Third-Party Broker</span>
               )}
