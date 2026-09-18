@@ -51,13 +51,13 @@ html body table:not([role="presentation"]) tbody tr:focus-within > :last-child {
 }
 
 html body table:not([role="presentation"]) tbody tr:hover > td,
-html body table:not([role="presentation"]) tbody tr:hover > td *,
 html body table:not([role="presentation"]) tbody tr:hover > th,
-html body table:not([role="presentation"]) tbody tr:hover > th *,
 html body table:not([role="presentation"]) tbody tr:focus-within > td,
-html body table:not([role="presentation"]) tbody tr:focus-within > td *,
 html body table:not([role="presentation"]) tbody tr:focus-within > th,
-html body table:not([role="presentation"]) tbody tr:focus-within > th * {
+html body table:not([role="presentation"]) tbody tr:hover > td :is(a,span,strong,small,b,em,i,p,div),
+html body table:not([role="presentation"]) tbody tr:hover > th :is(a,span,strong,small,b,em,i,p,div),
+html body table:not([role="presentation"]) tbody tr:focus-within > td :is(a,span,strong,small,b,em,i,p,div),
+html body table:not([role="presentation"]) tbody tr:focus-within > th :is(a,span,strong,small,b,em,i,p,div) {
   color: #f8fbff !important;
 }
 
