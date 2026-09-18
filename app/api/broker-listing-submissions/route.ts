@@ -61,7 +61,7 @@ const listingOptions = {
     label: "Featured Broker Listing",
     unitAmount: 2495,
     description:
-      "Featured badge, prominent broker contact display and 30 days of priority marketplace placement after publication.",
+      "Featured badge, prominent broker contact display, 30 days of priority marketplace placement and listing-specific SEO work by FLLM after publication. Search placement is not guaranteed.",
     paymentLink:
       process.env.STRIPE_FEATURED_LISTING_PAYMENT_LINK ||
       "https://buy.stripe.com/5kQ00bdPv5bv4qpbLnebu05",
