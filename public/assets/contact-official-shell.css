@@ -38,6 +38,12 @@
 .contact-page > .fllm-official-contact-header .native-nav-menu a:hover,
 .contact-page > .fllm-official-contact-header .native-nav-menu a:focus-visible{background:#112c43!important;border-color:#f6a700!important;color:#fff!important;outline:none;transform:translateY(-1px)}
 .contact-page > .fllm-official-contact-header .native-market-label{min-width:0;flex:1}
+.contact-page > .fllm-official-contact-header .native-exchange-menu-cyan{color:#39cfee;font-weight:900;text-shadow:0 0 8px rgba(57,207,238,.14)}
+.contact-page > .fllm-official-contact-header .native-exchange-board-word{color:#fff}
+.contact-page > .fllm-official-contact-header .native-nav-market-menu a[href="/market-data/exchange-board"]:hover .native-exchange-menu-cyan,
+.contact-page > .fllm-official-contact-header .native-nav-market-menu a[href="/market-data/exchange-board"]:focus-visible .native-exchange-menu-cyan{color:#68dcf3}
+.contact-page > .fllm-official-contact-header .native-nav-market-menu a[href="/market-data/exchange-board"]:hover .native-exchange-board-word,
+.contact-page > .fllm-official-contact-header .native-nav-market-menu a[href="/market-data/exchange-board"]:focus-visible .native-exchange-board-word{color:#fff}
 .contact-page > .fllm-official-contact-header .native-market-badge{flex:0 0 auto;color:#f6a700;font-size:9px;font-weight:900;letter-spacing:.05em}
 .contact-page > .fllm-official-contact-header .header-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
 .contact-page > .fllm-official-contact-header .header-actions .btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 15px;border-radius:5px;font-size:10px;font-weight:900;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:transform .16s ease,box-shadow .16s ease,filter .16s ease}
