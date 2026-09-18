@@ -64,6 +64,12 @@ function approvedPublicListingUrl(submission: ListingSubmission) {
   return `${siteUrl()}/listings/${publicListingReference(submission).toLowerCase()}`;
 }
 
+/**
+ * OFFICIAL LOCKED FLLM CLIENT SERVICES CORPORATE SIGNATURE — used by the
+ * third-party broker outreach email v1. Preserve logo sizing, gold divider,
+ * department label, tagline and contact presentation unless a new email
+ * template version is explicitly approved.
+ */
 function corporateSignatureHtml() {
   const origin = siteUrl();
   return `
@@ -158,6 +164,13 @@ function attachmentBase64(value: Uint8Array) {
   );
 }
 
+/**
+ * Canonical FLLM production delivery path.
+ *
+ * Third-party broker outreach email v1 must be delivered through this function
+ * so the application controls the sender identity, production transport,
+ * signature handling and provider message logging.
+ */
 export async function sendFllmEmail(input: {
   to: string;
   cc?: string;
