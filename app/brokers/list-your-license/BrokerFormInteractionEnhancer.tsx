@@ -47,114 +47,7 @@ export default function BrokerFormInteractionEnhancer() {
       );
     }
 
-    const faqLists = Array.from(
-      document.querySelectorAll<HTMLElement>(
-        '.broker-official-shell main [class*="faqList"], .broker-official-shell main .fllm-listing-service-faq__grid',
-      ),
-    );
-
-    const closeTimers = new Map<HTMLElement, number>();
-
-    function detailsFor(list: HTMLElement) {
-      return Array.from(list.querySelectorAll<HTMLDetailsElement>("details"));
-    }
-
-    function clearCloseTimer(list: HTMLElement) {
-      const timer = closeTimers.get(list);
-      if (timer !== undefined) {
-        window.clearTimeout(timer);
-        closeTimers.delete(list);
-      }
-    }
-
-    function closeList(list: HTMLElement) {
-      clearCloseTimer(list);
-      detailsFor(list).forEach((detail) => {
-        detail.open = false;
-      });
-    }
-
-    function scheduleClose(list: HTMLElement, delay = 90) {
-      clearCloseTimer(list);
-      closeTimers.set(
-        list,
-        window.setTimeout(() => {
-          detailsFor(list).forEach((detail) => {
-            detail.open = false;
-          });
-          closeTimers.delete(list);
-        }, delay),
-      );
-    }
-
-    function openOnly(list: HTMLElement, target: HTMLDetailsElement) {
-      clearCloseTimer(list);
-      detailsFor(list).forEach((detail) => {
-        detail.open = detail === target;
-      });
-    }
-
-    faqLists.forEach(closeList);
-
-    const faqListListeners = faqLists.map((list) => {
-      const onMouseMove = (event: MouseEvent) => {
-        const eventTarget = event.target;
-        if (!(eventTarget instanceof Element)) return;
-
-        const detail = eventTarget.closest("details");
-        if (detail instanceof HTMLDetailsElement && list.contains(detail)) {
-          openOnly(list, detail);
-          return;
-        }
-
-        scheduleClose(list);
-      };
-
-      const onMouseLeave = () => closeList(list);
-
-      const onFocusIn = (event: FocusEvent) => {
-        const eventTarget = event.target;
-        if (!(eventTarget instanceof Element)) return;
-        const detail = eventTarget.closest("details");
-        if (detail instanceof HTMLDetailsElement && list.contains(detail)) {
-          openOnly(list, detail);
-        }
-      };
-
-      const onFocusOut = (event: FocusEvent) => {
-        const next = event.relatedTarget as Node | null;
-        if (!next || !list.contains(next)) scheduleClose(list, 0);
-      };
-
-      const onClick = (event: MouseEvent) => {
-        const eventTarget = event.target;
-        if (!(eventTarget instanceof Element)) return;
-        const summary = eventTarget.closest("summary");
-        if (!(summary instanceof HTMLElement) || !list.contains(summary)) return;
-        const detail = summary.parentElement;
-        if (!(detail instanceof HTMLDetailsElement)) return;
-
-        event.preventDefault();
-        openOnly(list, detail);
-      };
-
-      list.addEventListener("mousemove", onMouseMove);
-      list.addEventListener("mouseleave", onMouseLeave);
-      list.addEventListener("focusin", onFocusIn);
-      list.addEventListener("focusout", onFocusOut);
-      list.addEventListener("click", onClick);
-
-      return { list, onMouseMove, onMouseLeave, onFocusIn, onFocusOut, onClick };
-    });
-
-    // Both broker FAQ groups intentionally use this one controller. Using
-    // container mousemove rather than per-item mouseenter prevents expanding
-    // rows from falsely activating later FAQs while the page is scrolled.
-
     return () => {
-      closeTimers.forEach((timer) => window.clearTimeout(timer));
-      closeTimers.clear();
-
       if (websiteInput) {
         websiteInput.removeEventListener("blur", normalizeWebsiteInput);
         websiteInput.removeEventListener("change", normalizeWebsiteInput);
@@ -175,15 +68,6 @@ export default function BrokerFormInteractionEnhancer() {
         }
       }
 
-      faqListListeners.forEach(
-        ({ list, onMouseMove, onMouseLeave, onFocusIn, onFocusOut, onClick }) => {
-          list.removeEventListener("mousemove", onMouseMove);
-          list.removeEventListener("mouseleave", onMouseLeave);
-          list.removeEventListener("focusin", onFocusIn);
-          list.removeEventListener("focusout", onFocusOut);
-          list.removeEventListener("click", onClick);
-        },
-      );
     };
   }, []);
 
