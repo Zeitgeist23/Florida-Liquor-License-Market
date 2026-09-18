@@ -265,6 +265,11 @@ export default function HeaderNavMenus({
                           {link.badge && <span className="native-market-badge">{link.badge}</span>}
                           {link.icon && <span className={`native-market-icon native-market-icon-${link.icon}`} aria-hidden="true" />}
                         </>
+                      ) : link.href === "/exchange" ? (
+                        <>
+                          <span className="native-exchange-cyan">FLLM Exchange</span>
+                          <span> — Confidential Florida License Offers</span>
+                        </>
                       ) : link.label}
                     </a>
                   ))
@@ -302,6 +307,10 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-menu a{position:relative;z-index:1;display:flex;width:100%;min-height:50px;align-items:center;padding:12px 13px;border:1px solid rgba(255,255,255,.08);border-radius:7px;background:rgba(255,255,255,.025)!important;box-shadow:none!important;color:#fff;text-decoration:none;text-transform:none;white-space:normal;font:700 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.01em;transition:border-color .16s ease,background .16s ease,color .16s ease,transform .16s ease}
         .primary-nav .native-nav-menu a:hover,.primary-nav .native-nav-menu a:focus,.primary-nav .native-nav-menu a:focus-visible,.primary-nav .native-nav-menu a:active{border-color:rgba(246,167,0,.7);background:rgba(246,167,0,.08)!important;box-shadow:none!important;color:#f6a700;outline:none;transform:translateY(-1px)}
         .primary-nav .native-nav-buy-menu a{min-height:50px}
+        .primary-nav .native-nav-buy-menu a[href="/exchange"]{display:block}
+        .native-exchange-cyan{color:#27d5ff;font-weight:900;text-shadow:0 0 10px rgba(39,213,255,.18)}
+        .primary-nav .native-nav-buy-menu a[href="/exchange"]:hover .native-exchange-cyan,
+        .primary-nav .native-nav-buy-menu a[href="/exchange"]:focus-visible .native-exchange-cyan{color:#68e4ff;text-shadow:0 0 14px rgba(39,213,255,.34)}
         .primary-nav .native-nav-market-menu a{min-height:52px;justify-content:space-between;gap:12px;overflow:hidden}
         .primary-nav .native-nav-market-menu a:last-child{grid-column:1/-1}
         .native-market-label{min-width:0;overflow-wrap:anywhere}
