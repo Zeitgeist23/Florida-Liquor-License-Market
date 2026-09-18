@@ -1,22 +1,547 @@
 /*
-  OFFICIAL FLLM STANDARD — THIRD-PARTY BROKER + BUSINESS PACKAGE LISTINGS
-  Locked 2026-09-16 from the approved Alessandro Antezza / FLLM-ANTEZZA page.
+  OFFICIAL FLLM STANDARD — FEATURED THIRD-PARTY BROKER + BUSINESS PACKAGE LISTINGS
 
-  Any future featured third-party broker listing where purchase of an operating
-  business is required with the liquor license should import this file and use
-  the same structural classes and interaction behavior as FLLM-ANTEZZA.
+  Canonical visual reference: /listings/fllm-antezza
+  Reusable structural component: components/FeaturedThirdPartyBusinessListingPage.tsx
 
-  Do not create listing-specific replacements for these visual systems unless
-  the standard itself is intentionally revised:
-  - featured detail badge / broker rail presentation
-  - dimensional facts and highlight cards
-  - business-detail card treatment
-  - hover depth / inner light effects
-  - license-type link treatments
-  - business-purchase-required accent treatment
+  This stylesheet is intentionally self-contained. Future qualifying listing
+  routes import this one file and must not depend on route-specific Antezza CSS.
+
+  Shared selector:
+  [data-featured-broker-business-listing="true"]
 */
-@import "./fllm-antezza/featured-detail-badge.css";
-@import "./fllm-antezza/card-depth.css";
-@import "./fllm-antezza/interactive-effects.css";
-@import "./fllm-antezza/license-type-links.css";
-@import "./fllm-antezza/business-purchase-accent.css";
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-kicker {
+  display: block;
+  font-size: 0;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-kicker::after {
+  content: "Third-Party Broker Listing";
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .075em;
+  text-transform: uppercase;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-price {
+  margin-bottom: 18px;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-package-alert {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin: 0 0 14px;
+  color: #d7e2e8;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-package-badge {
+  display: inline;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: #f1b53a;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-package-alert > span:last-child {
+  font-weight: 500;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-availability {
+  margin-top: 7px;
+  margin-bottom: 22px;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-broker-badge {
+  display: none;
+}
+
+/* Keep the status fact card visually balanced with the three neighboring cards. */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div:nth-child(4) > strong {
+  font-size: 0 !important;
+  line-height: 1 !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div:nth-child(4) > strong::before {
+  content: "Available";
+  display: block;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div:nth-child(4) > strong::after {
+  content: "Broker confirmation required";
+  display: block;
+  max-width: 150px;
+  margin: 5px auto 0;
+  color: #a9bac7;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: .01em;
+}
+
+/* Match the approved county-page dimensional card language on this featured listing. */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div {
+  border: 1px solid rgba(241, 166, 0, .48) !important;
+  border-radius: 6px !important;
+  background: linear-gradient(145deg, #0d2439 0%, #081a2b 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .045),
+    inset 0 -2px 0 rgba(0, 0, 0, .26),
+    0 10px 24px rgba(3, 17, 29, .28),
+    0 1px 0 rgba(255, 193, 59, .06) !important;
+  transform: translateY(0);
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div:hover,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div:hover {
+  transform: translateY(-3px);
+  border-color: #ffc13b !important;
+  background: linear-gradient(145deg, #12324f 0%, #0b2236 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .065),
+    inset 0 -2px 0 rgba(0, 0, 0, .26),
+    0 18px 34px rgba(3, 17, 29, .36),
+    0 0 16px rgba(241, 166, 0, .14) !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid {
+  overflow: visible;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+}
+
+/* Center the broker identity block above the portrait; keep contact details left-aligned. */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-action-card > span,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-broker-profile > h2 {
+  display: block;
+  width: 100%;
+  text-align: center !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-broker-profile > h2 {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.package-listing-link {
+  color: #70c7dc !important;
+  border-bottom: 1px solid transparent !important;
+  font-size: 15px;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+  transition: color .16s ease, border-color .16s ease !important;
+}
+
+.package-listing-link:hover,
+.package-listing-link:focus-visible {
+  color: #93d9e8 !important;
+  border-bottom-color: rgba(147, 217, 232, .72) !important;
+  text-shadow: none !important;
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div {
+    transition: none !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-package-alert {
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-package-badge {
+    white-space: normal;
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div:nth-child(4) > strong::before {
+    font-size: 18px;
+  }
+}
+
+
+/* Stronger dimensional treatment for the Antezza detail cards.
+   This intentionally sits after featured-detail-badge.css so it can deepen
+   the approved county-card language without changing shared marketplace CSS. */
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(245, 178, 20, .72) !important;
+  border-radius: 7px !important;
+  background:
+    radial-gradient(circle at 22% 5%, rgba(255,255,255,.075), transparent 34%),
+    linear-gradient(155deg, #173653 0%, #0d2942 46%, #071b2d 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 1px 0 0 rgba(255,255,255,.025),
+    inset 0 -8px 16px rgba(0,0,0,.22),
+    0 2px 0 rgba(137, 91, 9, .92),
+    0 6px 0 rgba(1, 9, 16, .86),
+    0 14px 26px rgba(0,0,0,.46),
+    0 0 18px rgba(241,166,0,.08) !important;
+  transform: translate3d(0,0,0);
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease,
+    filter .18s ease !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div::before,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,.045), transparent 36%, rgba(0,0,0,.10) 100%);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div::after,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -8px;
+  height: 14px;
+  z-index: -2;
+  pointer-events: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,.38);
+  filter: blur(8px);
+  opacity: .8;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div:hover,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div:hover {
+  transform: translateY(-5px) scale(1.012);
+  border-color: #ffd05b !important;
+  background:
+    radial-gradient(circle at 22% 5%, rgba(255,255,255,.11), transparent 35%),
+    linear-gradient(155deg, #1b4265 0%, #12334f 46%, #0a2237 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 -8px 16px rgba(0,0,0,.18),
+    0 2px 0 rgba(190,128,8,.95),
+    0 8px 0 rgba(1,9,16,.80),
+    0 24px 38px rgba(0,0,0,.54),
+    0 0 24px rgba(241,166,0,.24) !important;
+  filter: brightness(1.045);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div:hover::after,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div:hover::after {
+  opacity: 1;
+  transform: translateY(5px) scaleX(1.04);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlights {
+  border-color: rgba(241,166,0,.56) !important;
+  background: linear-gradient(145deg, rgba(10,31,50,.96), rgba(4,18,30,.98)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.045),
+    0 12px 26px rgba(0,0,0,.30) !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid {
+  gap: 10px !important;
+}
+
+/* Broker-reported business metrics: mirror the restrained Featured Counties card language. */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid {
+  gap: 14px !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div {
+  min-width: 0;
+  min-height: 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 21px !important;
+  border: 1px solid rgba(88, 200, 238, .38) !important;
+  border-radius: 7px !important;
+  background: linear-gradient(145deg, #0b2130, #061018) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .18) !important;
+  transform: translateY(0);
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div:hover {
+  transform: translateY(-4px);
+  border-color: #d9f2ff !important;
+  background: linear-gradient(145deg, #0b2130, #061018) !important;
+  box-shadow:
+    0 20px 38px rgba(0, 0, 0, .32),
+    0 0 0 1px rgba(105, 214, 255, .12) !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div > span {
+  margin: 0 !important;
+  color: #69d6ff !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+  letter-spacing: .045em !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div > strong {
+  margin: 0 !important;
+  color: #fff !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+}
+
+/* Give the confidentiality label a clear FLLM warning/accent treatment while
+   keeping the explanatory sentence quieter. */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-confidential {
+  color: #d7e2e8 !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-confidential > strong {
+  color: #f1a600 !important;
+  font-weight: 900 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div::after,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div::after,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div {
+    transition: none !important;
+  }
+}
+
+
+/* Antezza listing micro-interactions: restrained inner-light hover for the
+   business metric cards and a periodic gold sweep for the broker name link. */
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #0d2739 0%, #071722 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(217, 242, 255, .055),
+    0 12px 28px rgba(0, 0, 0, .20) !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 50% -16%, rgba(225, 247, 255, .30), transparent 46%),
+    linear-gradient(180deg, rgba(105, 214, 255, .095), rgba(105, 214, 255, .025) 38%, transparent 68%);
+  transition: opacity .18s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div > span,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div > strong {
+  position: relative;
+  z-index: 1;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div:hover {
+  background: linear-gradient(145deg, #123148 0%, #0a1d2a 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(232, 250, 255, .30),
+    inset 0 0 36px rgba(105, 214, 255, .105),
+    0 20px 38px rgba(0, 0, 0, .34),
+    0 0 0 1px rgba(105, 214, 255, .16) !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div:hover::before {
+  opacity: 1;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-disclosure-link {
+  display: inline-block;
+  position: relative;
+  font-size: .94em;
+  font-weight: 600;
+  text-decoration: none;
+  background-image: linear-gradient(
+    105deg,
+    #ffffff 0%,
+    #ffffff 42%,
+    #f1a600 48%,
+    #ffe39a 50%,
+    #f1a600 52%,
+    #ffffff 58%,
+    #ffffff 100%
+  );
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  transition: text-shadow .18s ease, filter .18s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-disclosure-link.is-visible {
+  animation: featuredBusinessGoldSweep 10s ease-in-out infinite;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-disclosure-link:hover,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-disclosure-link:focus-visible {
+  filter: brightness(1.08);
+  text-shadow: 0 0 10px rgba(241, 166, 0, .28);
+  outline: none;
+}
+
+/* Keep the same CALL-button geometry and visual language as the Lawrence Moore
+   listing. Only the text swap on hover/focus is custom to this page. */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-call-broker-button {
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 7px 18px rgba(0,0,0,.28);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-call-broker-label {
+  display: block;
+  opacity: 1;
+  line-height: inherit;
+  white-space: nowrap;
+  transition: opacity .14s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-call-broker-phone {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity .14s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-call-broker-button:hover .featured-business-call-broker-label,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-call-broker-button:focus-visible .featured-business-call-broker-label {
+  opacity: 0;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-call-broker-button:hover .featured-business-call-broker-phone,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-call-broker-button:focus-visible .featured-business-call-broker-phone {
+  opacity: 1;
+}
+
+@keyframes featuredBusinessGoldSweep {
+  0% { background-position: 100% 0; }
+  11% { background-position: 0% 0; }
+  18%, 100% { background-position: 0% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div::before {
+    transition: none !important;
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-disclosure-link,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-disclosure-link.is-visible {
+    animation: none !important;
+    background: none !important;
+    color: #f1a600 !important;
+    -webkit-text-fill-color: #f1a600 !important;
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-call-broker-label,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-call-broker-phone {
+    transition: none !important;
+  }
+}
+
+
+/* License-type references on the Antezza listing are informative internal links.
+   Keep them unbolded so the color carries the emphasis rather than font weight. */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-license-type-link {
+  font-weight: 400 !important;
+  text-decoration: none !important;
+  border-bottom: 0 !important;
+  transition: color .16s ease, text-shadow .16s ease, filter .16s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-license-type-link--4cop {
+  color: #69d6ff !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-license-type-link--3ps {
+  color: #5cff9d !important;
+  text-shadow: 0 0 7px rgba(92, 255, 157, .16);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-license-type-link:hover,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-license-type-link:focus-visible {
+  text-decoration: none !important;
+  border-bottom: 0 !important;
+  filter: brightness(1.12);
+  outline: none;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-license-type-link--4cop:hover,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-license-type-link--4cop:focus-visible {
+  color: #9ce7ff !important;
+  text-shadow: 0 0 8px rgba(105, 214, 255, .18);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-license-type-link--3ps:hover,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-license-type-link--3ps:focus-visible {
+  color: #8dffba !important;
+  text-shadow: 0 0 9px rgba(92, 255, 157, .28);
+}
+
+
+/* Highlight the material business-purchase condition in the About section only. */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"]
+  .marketplace-listing-note + .marketplace-listing-section
+  p:nth-of-type(2) > strong {
+  color: #f1a600 !important;
+  font-weight: 800;
+}
