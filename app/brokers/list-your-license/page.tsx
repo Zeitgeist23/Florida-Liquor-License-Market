@@ -207,18 +207,23 @@ export default function BrokerListYourLicensePage() {
           line-height: 1.35 !important;
           color: #d8e1e7 !important;
         }
-        .broker-hero-package-note {
-          display:inline-flex;
-          align-items:center;
-          gap:8px;
+        .broker-hero-package-options {
+          display:grid;
+          gap:5px;
           margin-top:16px;
           color:#e7eef3;
           font-size:13px;
           font-weight:700;
           line-height:1.4;
         }
-        .broker-hero-package-note::before {
+        .broker-hero-package-options > div {
+          position:relative;
+          padding-left:19px;
+        }
+        .broker-hero-package-options > div::before {
           content:"✓";
+          position:absolute;
+          left:0;
           color:#f6a700;
           font-weight:900;
         }
@@ -556,7 +561,10 @@ export default function BrokerListYourLicensePage() {
               <p>
                 Reach buyers searching Florida&apos;s specialized quota-license market while you remain the listing representative and transaction contact.
               </p>
-              <div className="broker-hero-package-note">License-only and business + liquor-license package listings accepted.</div>
+              <div className="broker-hero-package-options" aria-label="Accepted broker listing structures">
+                <div>Quota Liquor License Only</div>
+                <div>Quota Liquor License + Business Package</div>
+              </div>
               <div className={styles.heroActions}>
                 <a className={styles.goldButton} href="#broker-listing-form">Choose a Listing Option</a>
                 <Link className={styles.outlineButton} href="/listings">View Marketplace Listings</Link>
