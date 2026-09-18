@@ -27,12 +27,12 @@ export const metadata: Metadata = {
 };
 
 const benefits = [
-  "Your name and brokerage appear as the listing representative",
-  "Your approved business contact information appears with the listing",
-  "Buyer inquiries are routed directly to your designated contact",
-  "You retain control of your client relationship and transaction",
-  "FLLM does not seek or receive any portion of your commission",
-  "List a stand-alone quota license or a quota license offered with an operating business package",
+  "Increase statewide exposure and buyer traffic",
+  "You remain the broker and client relationship owner",
+  "Buyer inquiries route directly to your designated contact",
+  "FLLM does not take a share of your broker commission",
+  "List license-only or business + liquor-license packages",
+  "Featured listings add priority exposure and FLLM listing SEO",
 ];
 
 const steps = [
@@ -206,6 +206,21 @@ export default function BrokerListYourLicensePage() {
           font-size: 12px !important;
           line-height: 1.35 !important;
           color: #d8e1e7 !important;
+        }
+        .broker-hero-package-note {
+          display:inline-flex;
+          align-items:center;
+          gap:8px;
+          margin-top:16px;
+          color:#e7eef3;
+          font-size:13px;
+          font-weight:700;
+          line-height:1.4;
+        }
+        .broker-hero-package-note::before {
+          content:"✓";
+          color:#f6a700;
+          font-weight:900;
         }
         #standard-listing-option,
         #featured-listing-option {
@@ -438,7 +453,7 @@ export default function BrokerListYourLicensePage() {
           flex:1;
           display:grid;
           grid-template-columns:repeat(2,minmax(0,1fr));
-          grid-auto-rows:minmax(60px,1fr);
+          grid-auto-rows:minmax(72px,1fr);
           gap:8px;
           margin-top:16px !important;
           align-content:start;
@@ -541,6 +556,7 @@ export default function BrokerListYourLicensePage() {
               <p>
                 Reach buyers searching Florida&apos;s specialized quota-license market while you remain the listing representative and transaction contact.
               </p>
+              <div className="broker-hero-package-note">License-only and business + liquor-license package listings accepted.</div>
               <div className={styles.heroActions}>
                 <a className={styles.goldButton} href="#broker-listing-form">Choose a Listing Option</a>
                 <Link className={styles.outlineButton} href="/listings">View Marketplace Listings</Link>
@@ -578,8 +594,8 @@ export default function BrokerListYourLicensePage() {
         <div className={styles.shell}>
           <div className={styles.sectionHeading}>
             <span>Built for Florida Brokers</span>
-            <h2>Expand the listing&apos;s exposure without surrendering the relationship</h2>
-            <p>FLLM provides the marketplace and inquiry routing. You remain responsible for your client, representation and transaction.</p>
+            <h2>More exposure without giving up the broker relationship</h2>
+            <p>Use FLLM as an additional marketing channel while keeping your client, transaction contact role and commission structure intact.</p>
           </div>
           <div className={styles.benefitGrid}>
             {benefits.map((benefit) => (
@@ -615,24 +631,20 @@ export default function BrokerListYourLicensePage() {
                   <h3>What brokers get through FLLM</h3>
                   <div className="broker-benefit-columns">
                     <ul className="broker-benefit-list">
-                      <li>Advertise <Link href="/florida-4cop-liquor-license-for-sale">4COP quota</Link> and <Link href="/florida-3ps-liquor-license-for-sale">3PS package-store</Link> licenses.</li>
-                      <li>Featured broker ads include <a href="#featured-listing-option">listing-specific SEO work by FLLM</a>; search placement is not guaranteed.</li>
-                      <li>Use county-specific market maps and local inventory views.</li>
-                      <li>Review the <Link href="/market-data/exchange-board">FLLM Exchange Board</Link> and current market activity.</li>
-                      <li>Use <Link href="/florida-liquor-license-appraisal">valuation and appraisal resources</Link>.</li>
-                      <li>Use <Link href="/transaction-services">FLLM Transaction Services</Link> for transaction coordination resources.</li>
-                      <li>Review <Link href="/resources/florida-division-alcoholic-beverages-tobacco">DBPR / ABT licensing resources</Link>.</li>
-                      <li>Use <Link href="/resources/forms">ABT forms</Link>, transfer guides and regulatory reference material.</li>
+                      <li>Advertise <Link href="/florida-4cop-liquor-license-for-sale">4COP</Link> and <Link href="/florida-3ps-liquor-license-for-sale">3PS</Link> quota licenses.</li>
+                      <li>List <a href="#broker-listing-form">license-only or business + license packages</a>.</li>
+                      <li>Featured ads include <a href="#featured-listing-option">FLLM listing-specific SEO</a>; ranking is not guaranteed.</li>
+                      <li>Use <Link href="/counties">county pages, county maps and heat maps</Link>.</li>
+                      <li>Review the <Link href="/market-data/exchange-board">FLLM Exchange Board</Link> and market activity.</li>
+                      <li>Use <Link href="/transaction-services">FLLM Transaction Services</Link>.</li>
                     </ul>
                     <ul className="broker-benefit-list">
-                      <li>Increase listing exposure and buyer traffic while augmenting the broker&apos;s listings on other sites through the <Link href="/listings">FLLM statewide marketplace</Link>.</li>
-                      <li>Compare asking prices and inventory through <Link href="/counties">county market pages</Link>.</li>
-                      <li>Use FLLM <Link href="/counties">heat maps</Link> to compare statewide inventory and asking-price patterns.</li>
-                      <li>Review the <Link href="/florida-quota-liquor-license-market-report">statewide market report</Link> and current transaction data.</li>
-                      <li>Access <Link href="/financing">financing resources</Link> and payment tools.</li>
-                      <li>Review <Link href="/resources/florida-department-of-revenue">FDOR transfer resources</Link>.</li>
-                      <li>Access the <Link href="/resources/liquor-license-attorneys">Florida liquor-license attorney directory</Link>.</li>
-                      <li>Advertise a liquor license with an <a href="#broker-listing-form">operating business package</a> while keeping license value and total package price clearly separated.</li>
+                      <li>Add FLLM to the broker&apos;s existing marketing channels and listings.</li>
+                      <li>Compare current inventory, asking prices and market reports.</li>
+                      <li>Access <Link href="/florida-liquor-license-appraisal">valuation</Link> and <Link href="/financing">financing</Link> resources.</li>
+                      <li>Review <Link href="/resources/florida-division-alcoholic-beverages-tobacco">DBPR / ABT</Link> and <Link href="/resources/florida-department-of-revenue">FDOR</Link> resources.</li>
+                      <li>Access the <Link href="/resources/liquor-license-attorneys">attorney directory</Link>.</li>
+                      <li>Use <Link href="/resources/forms">ABT forms and transfer guides</Link>.</li>
                     </ul>
                   </div>
                 </div>
@@ -653,18 +665,14 @@ export default function BrokerListYourLicensePage() {
               <h3>Everything around the listing</h3>
               <p>Jump directly to the FLLM tools and professional resources brokers can use before, during and after a client listing — including listings where the quota license is offered with an operating business.</p>
               <nav className="broker-organic-links" aria-label="Florida broker marketplace resources">
-                <a href="#broker-listing-form"><strong>List a Client License</strong><small>Submit Standard or Featured inventory</small></a>
-                <a href="#featured-listing-option"><strong>Featured Listing SEO</strong><small>FLLM listing-specific SEO work + priority exposure</small></a>
+                <a href="#broker-listing-form"><strong>List a Client License</strong><small>License-only or business + license package</small></a>
+                <a href="#featured-listing-option"><strong>Featured Listing SEO</strong><small>Priority exposure + FLLM listing SEO</small></a>
                 <Link href="/transaction-services"><strong>Transaction Services</strong><small>Transfer, closing and coordination resources</small></Link>
-                <Link href="/counties"><strong>Heat Maps & County Maps</strong><small>Statewide heat maps, county maps and inventory</small></Link>
-                <Link href="/market-data/exchange-board"><strong>FLLM Exchange Board</strong><small>Current market and exchange activity</small></Link>
-                <Link href="/florida-quota-liquor-license-market-report"><strong>Market Reports & Transactions</strong><small>Asking-price evidence and market activity</small></Link>
-                <Link href="/resources/florida-division-alcoholic-beverages-tobacco"><strong>DBPR / ABT Resources</strong><small>Licensing, transfer and agency guidance</small></Link>
-                <Link href="/resources/florida-department-of-revenue"><strong>FDOR Resources</strong><small>Tax clearance and transfer resources</small></Link>
+                <Link href="/counties"><strong>Heat Maps & County Maps</strong><small>Statewide and county market intelligence</small></Link>
+                <Link href="/market-data/exchange-board"><strong>Exchange Board & Reports</strong><small>Current market activity and asking-price evidence</small></Link>
+                <Link href="/resources/florida-division-alcoholic-beverages-tobacco"><strong>DBPR / ABT + FDOR</strong><small>Licensing, transfer and tax-clearance resources</small></Link>
                 <Link href="/resources/liquor-license-attorneys"><strong>Attorney Directory</strong><small>Florida liquor-license legal resources</small></Link>
-                <Link href="/florida-liquor-license-appraisal"><strong>Valuation & Appraisal</strong><small>County evidence and appraisal support</small></Link>
-                <Link href="/financing"><strong>Financing</strong><small>Purchase, refinance and lender resources</small></Link>
-                <Link href="/resources/forms"><strong>ABT Forms & Guides</strong><small>Applications, forms and transfer references</small></Link>
+                <Link href="/florida-liquor-license-appraisal"><strong>Valuation & Financing</strong><small>Appraisal, pricing and financing resources</small></Link>
               </nav>
               </aside>
             </div>
