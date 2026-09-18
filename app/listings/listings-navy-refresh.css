@@ -300,7 +300,7 @@
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
 }
 
 .results-page .inventory-last-updated {
