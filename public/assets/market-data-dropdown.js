@@ -247,9 +247,9 @@
       makeOption("FLLM Exchange Board", goToExchangeBoard, "EXCHANGE"),
       makeOption("Florida Liquor License Value Estimator", goToLicenseValueEstimator, "VALUE"),
       makeOption("Recent Florida Transactions", goToRecentTransactions, "SALES"),
-      makeOption("Florida Market Insights", goToMarketInsights),
+      makeOption("Florida Liquor License Market Insights", goToMarketInsights),
       makeOption("Quota Lottery Entry", goToQuotaLottery, "LOTTERY"),
-      makeOption("News & Insights", goToNewsInsights),
+      makeOption("Florida Liquor License News", goToNewsInsights),
       makeOption("Heat Map", openHeatMap, "MAP"),
     );
     document.body.appendChild(menu);
