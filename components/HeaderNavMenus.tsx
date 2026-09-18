@@ -13,6 +13,7 @@ type NavLink = {
   target?: "_blank";
   rel?: string;
   badge?: string;
+  icon?: "map" | "money" | "trend" | "news";
   group?: "Start Here" | "Quota Licenses" | "Other License Types";
 };
 
@@ -76,13 +77,13 @@ const navMenus: NavMenu[] = [
     menuClassName: "native-nav-menu-standard native-nav-market-menu",
     links: [
       { href: "/market-data/exchange-board", label: "FLLM Exchange Board", badge: "EXCHANGE" },
-      { href: "/counties", label: "Florida Market Data by County" },
+      { href: "/counties", label: "Florida Market Data by County", icon: "map" },
       { href: "/florida-liquor-license-value", label: "Florida Liquor License Value Estimator", badge: "VALUE" },
-      { href: "/florida-quota-liquor-license-cost", label: "Florida Liquor License Cost by County" },
+      { href: "/florida-quota-liquor-license-cost", label: "Florida Liquor License Cost by County", icon: "money" },
       { href: "/listings?status=sold", label: "Recent Florida Transactions", badge: "SALES" },
-      { href: "/florida-quota-liquor-license-market-report", label: "Florida Market Insights" },
+      { href: "/florida-quota-liquor-license-market-report", label: "Florida Market Insights", icon: "trend" },
       { href: "/florida-liquor-license-lottery", label: "Quota Lottery Entry", badge: "LOTTERY" },
-      { href: "/florida-liquor-license-news", label: "News & Insights" },
+      { href: "/florida-liquor-license-news", label: "News & Insights", icon: "news" },
       { href: "/#market-data", label: "Florida Market Heat Map", badge: "MAP" },
     ],
   },
@@ -262,6 +263,7 @@ export default function HeaderNavMenus({
                         <>
                           <span className="native-market-label">{link.label}</span>
                           {link.badge && <span className="native-market-badge">{link.badge}</span>}
+                          {link.icon && <span className={`native-market-icon native-market-icon-${link.icon}`} aria-hidden="true" />}
                         </>
                       ) : link.label}
                     </a>
@@ -304,6 +306,12 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-market-menu a:last-child{grid-column:1/-1}
         .native-market-label{min-width:0;overflow-wrap:anywhere}
         .native-market-badge{flex:0 0 auto;margin-left:auto;color:#f6a700;font-size:9px;font-weight:900;letter-spacing:.08em;white-space:nowrap}
+        .native-market-icon{flex:0 0 auto;margin-left:auto;width:16px;height:16px;display:inline-block;background:currentColor;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain}
+        .native-market-icon-map{color:#f6a700;-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6zm6-3v15m6-12v15' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6zm6-3v15m6-12v15' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+        .native-market-icon-money{background:none!important;color:#4fd17b;width:auto;height:auto;font:900 15px/1 Arial,Helvetica,sans-serif}
+        .native-market-icon-money::before{content:"$"}
+        .native-market-icon-trend{color:#69d6ff;-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 17l5-5 4 4 7-9M15 7h5v5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 17l5-5 4 4 7-9M15 7h5v5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+        .native-market-icon-news{color:#f6a700;-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 5h12v14H4V5zm3 3h6M7 11h6M7 14h4M16 8h4v10a1 1 0 0 1-1 1h-3' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 5h12v14H4V5zm3 3h6M7 11h6M7 14h4M16 8h4v10a1 1 0 0 1-1 1h-3' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
         .primary-nav .native-license-types-menu a{min-height:50px;padding:10px 9px}
         .primary-nav .native-nav-resources-menu a{min-height:50px}
         .primary-nav .native-nav-resources-menu a[href="/free-guide"],
