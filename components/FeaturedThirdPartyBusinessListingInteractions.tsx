@@ -11,21 +11,31 @@ export function FeaturedBrokerBusinessInteractions({
     const root = document.querySelector<HTMLElement>(
       `.results-page[data-featured-broker-listing="${listingReference}"][data-featured-broker-business-listing="true"]`,
     );
-    const disclosureLink = root?.querySelector<HTMLElement>(
-      ".featured-business-disclosure-link",
-    );
-    if (!disclosureLink || typeof IntersectionObserver === "undefined") return;
+    const glimmerLinks = root
+      ? Array.from(
+          root.querySelectorAll<HTMLElement>(
+            ".featured-business-disclosure-link, .featured-business-glimmer-link",
+          ),
+        )
+      : [];
+
+    if (glimmerLinks.length === 0 || typeof IntersectionObserver === "undefined") {
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          disclosureLink.classList.toggle("is-visible", entry.isIntersecting);
+          (entry.target as HTMLElement).classList.toggle(
+            "is-visible",
+            entry.isIntersecting,
+          );
         });
       },
       { threshold: 0.35 },
     );
 
-    observer.observe(disclosureLink);
+    glimmerLinks.forEach((link) => observer.observe(link));
     return () => observer.disconnect();
   }, [listingReference]);
 
