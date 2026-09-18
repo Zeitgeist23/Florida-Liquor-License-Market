@@ -296,13 +296,24 @@ export default function BrokerListYourLicensePage() {
           font-size:21px;
           line-height:1.2;
         }
+        .broker-benefit-columns {
+          display:grid;
+          grid-template-columns:repeat(2,minmax(0,1fr));
+          gap:18px;
+          align-items:start;
+        }
         .broker-benefit-list {
           display:grid;
           grid-template-columns:repeat(2,minmax(0,1fr));
-          gap:9px 18px;
+          gap:12px 18px;
           margin:0;
           padding:0;
           list-style:none;
+        }
+        .broker-benefit-columns .broker-benefit-list {
+          display:flex;
+          flex-direction:column;
+          gap:12px;
         }
         .broker-benefit-list li {
           position:relative;
@@ -436,6 +447,7 @@ export default function BrokerListYourLicensePage() {
         }
         @media(max-width:680px) {
           .broker-organic-section { padding:56px 0; }
+          .broker-benefit-columns,
           .broker-benefit-list,
           .broker-organic-links { grid-template-columns:1fr; }
         }
@@ -537,24 +549,28 @@ export default function BrokerListYourLicensePage() {
               <div className="broker-benefits-stack">
                 <div className="broker-benefit-group">
                   <h3>What brokers get through FLLM</h3>
-                  <ul className="broker-benefit-list">
-                    <li>Advertise <Link href="/florida-4cop-liquor-license-for-sale">4COP quota</Link> and <Link href="/florida-3ps-liquor-license-for-sale">3PS package-store</Link> licenses.</li>
-                    <li>Increase listing exposure and buyer traffic while augmenting the broker&apos;s listings on other sites through the <Link href="/listings">FLLM statewide marketplace</Link>.</li>
-                    <li>Featured broker ads include <a href="#featured-listing-option">listing-specific SEO work by FLLM</a>; search placement is not guaranteed.</li>
-                    <li>Compare asking prices and inventory through <Link href="/counties">county market pages</Link>.</li>
-                    <li>Use county-specific market maps and local inventory views.</li>
-                    <li>Use FLLM <Link href="/counties">heat maps</Link> to compare statewide inventory and asking-price patterns.</li>
-                    <li>Review the <Link href="/market-data/exchange-board">FLLM Exchange Board</Link> and current market activity.</li>
-                    <li>Review the <Link href="/florida-quota-liquor-license-market-report">statewide market report</Link> and current transaction data.</li>
-                    <li>Use <Link href="/florida-liquor-license-appraisal">valuation and appraisal resources</Link>.</li>
-                    <li>Access <Link href="/financing">financing resources</Link> and payment tools.</li>
-                    <li>Use <Link href="/transaction-services">FLLM Transaction Services</Link> for transaction coordination resources.</li>
-                    <li>Review <Link href="/resources/florida-department-of-revenue">FDOR transfer resources</Link>.</li>
-                    <li>Review <Link href="/resources/florida-division-alcoholic-beverages-tobacco">DBPR / ABT licensing resources</Link>.</li>
-                    <li>Access the <Link href="/resources/liquor-license-attorneys">Florida liquor-license attorney directory</Link>.</li>
-                    <li>Use <Link href="/resources/forms">ABT forms</Link>, transfer guides and regulatory reference material.</li>
-                    <li>Direct buyers to county-specific license, pricing and availability information.</li>
-                  </ul>
+                  <div className="broker-benefit-columns">
+                    <ul className="broker-benefit-list">
+                      <li>Advertise <Link href="/florida-4cop-liquor-license-for-sale">4COP quota</Link> and <Link href="/florida-3ps-liquor-license-for-sale">3PS package-store</Link> licenses.</li>
+                      <li>Featured broker ads include <a href="#featured-listing-option">listing-specific SEO work by FLLM</a>; search placement is not guaranteed.</li>
+                      <li>Use county-specific market maps and local inventory views.</li>
+                      <li>Review the <Link href="/market-data/exchange-board">FLLM Exchange Board</Link> and current market activity.</li>
+                      <li>Use <Link href="/florida-liquor-license-appraisal">valuation and appraisal resources</Link>.</li>
+                      <li>Use <Link href="/transaction-services">FLLM Transaction Services</Link> for transaction coordination resources.</li>
+                      <li>Review <Link href="/resources/florida-division-alcoholic-beverages-tobacco">DBPR / ABT licensing resources</Link>.</li>
+                      <li>Use <Link href="/resources/forms">ABT forms</Link>, transfer guides and regulatory reference material.</li>
+                    </ul>
+                    <ul className="broker-benefit-list">
+                      <li>Increase listing exposure and buyer traffic while augmenting the broker&apos;s listings on other sites through the <Link href="/listings">FLLM statewide marketplace</Link>.</li>
+                      <li>Compare asking prices and inventory through <Link href="/counties">county market pages</Link>.</li>
+                      <li>Use FLLM <Link href="/counties">heat maps</Link> to compare statewide inventory and asking-price patterns.</li>
+                      <li>Review the <Link href="/florida-quota-liquor-license-market-report">statewide market report</Link> and current transaction data.</li>
+                      <li>Access <Link href="/financing">financing resources</Link> and payment tools.</li>
+                      <li>Review <Link href="/resources/florida-department-of-revenue">FDOR transfer resources</Link>.</li>
+                      <li>Access the <Link href="/resources/liquor-license-attorneys">Florida liquor-license attorney directory</Link>.</li>
+                      <li>Direct buyers to county-specific license, pricing and availability information.</li>
+                    </ul>
+                  </div>
                 </div>
 
                 <div className="broker-benefit-group">
