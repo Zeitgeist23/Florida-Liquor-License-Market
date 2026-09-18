@@ -77,8 +77,33 @@ export type QuickBrokerOutreachInput = {
   force?: boolean;
 };
 
-const SITE_URL = "https://www.floridaliquorlicensemarket.com";
-const LANDING_URL = `${SITE_URL}/brokers/list-your-license`;
+export const THIRD_PARTY_BROKER_EMAIL_STANDARD = Object.freeze({
+  status: "LOCKED / OFFICIAL",
+  version: "v1",
+  approvedDate: "2026-09-18",
+  purpose: "Third-party broker listing outreach",
+  senderEmail: "listings@floridaliquorlicensemarket.com",
+  signatureDepartment: "Client Services",
+  siteUrl: "https://www.floridaliquorlicensemarket.com",
+  brokerLandingPath: "/brokers/list-your-license",
+  listingsPath: "/listings",
+  heroImagePath: "/assets/hero-bar-clean.png",
+  deliveryMethod: "sendFllmEmail production transport",
+  layoutOrder: [
+    "personalized introduction",
+    "locked broker-page hero",
+    "Built for Florida Brokers six-card section",
+    "referenced listing link",
+    "broker listing program link",
+    "marketplace listings link",
+    "Featured SEO disclosure",
+    "broker outreach unsubscribe line",
+    "official FLLM Client Services corporate signature",
+  ],
+} as const);
+
+const SITE_URL = THIRD_PARTY_BROKER_EMAIL_STANDARD.siteUrl;
+const LANDING_URL = `${SITE_URL}${THIRD_PARTY_BROKER_EMAIL_STANDARD.brokerLandingPath}`;
 function settings() {
   return supabaseServiceSettings("Broker outreach database is unavailable.");
 }
@@ -160,6 +185,18 @@ function buildSubject(prospect: BrokerProspect) {
     : "Additional exposure for your client quota liquor license listing";
 }
 
+/**
+ * OFFICIAL LOCKED FLLM THIRD-PARTY BROKER LISTING EMAIL — v1
+ *
+ * This function is the canonical reusable template for outreach to third-party
+ * brokers marketing either (a) a quota liquor license only or (b) a business
+ * package that includes a 4COP Quota or 3PS-family quota liquor license.
+ *
+ * Preserve the approved content order, hero image, pricing presentation,
+ * benefit cards, link placement, disclosures, corporate signature and
+ * production delivery method unless the user explicitly approves a new
+ * template version.
+ */
 export function buildBrokerOutreachMessage(prospect: BrokerProspect) {
   const hello = firstName(prospect.full_name);
   const intro = listingLeadIn(prospect);
