@@ -71,7 +71,7 @@ const faqs = [
   {
     question: "What does the Featured option include?",
     answer:
-      "A Featured listing receives the Featured Listing badge and priority marketplace placement for 30 days after publication. It then remains live as a Standard listing until sold, withdrawn or otherwise removed.",
+      "A Featured listing receives the Featured Listing badge, priority marketplace placement for 30 days and listing-specific SEO work by FLLM to support search visibility. Search placement is not guaranteed. After the 30-day priority period, the listing remains live as a Standard listing until sold, withdrawn or otherwise removed.",
   },
   {
     question: "Will my contact information appear on the listing detail page?",
@@ -114,7 +114,14 @@ export default function BrokerListYourLicensePage() {
       audience: { "@type": "Audience", audienceType: "Florida liquor license brokers" },
       offers: [
         { "@type": "Offer", name: "Standard Broker Listing", price: "14.95", priceCurrency: "USD" },
-        { "@type": "Offer", name: "Featured Broker Listing", price: "24.95", priceCurrency: "USD" },
+        {
+          "@type": "Offer",
+          name: "Featured Broker Listing",
+          price: "24.95",
+          priceCurrency: "USD",
+          description:
+            "Featured badge, 30 days of priority marketplace placement and listing-specific SEO work by FLLM. Search placement is not guaranteed.",
+        },
       ],
       description:
         "Advertising-only marketplace listing for Florida brokers representing owners of quota liquor licenses.",
@@ -231,14 +238,20 @@ export default function BrokerListYourLicensePage() {
           display:block;
         }
         .broker-organic-copy {
-          max-width:760px;
-          margin-bottom:28px;
+          max-width:980px;
+          margin-bottom:26px;
         }
         .broker-organic-body-grid {
           display:grid;
-          grid-template-columns:minmax(0,1.12fr) minmax(380px,.88fr);
-          gap:36px;
-          align-items:start;
+          grid-template-columns:minmax(0,1.08fr) minmax(390px,.92fr);
+          gap:24px;
+          align-items:stretch;
+        }
+        .broker-benefits-stack {
+          min-height:100%;
+          display:grid;
+          grid-template-rows:minmax(0,1fr) auto;
+          gap:14px;
         }
         .broker-benefits-stack .broker-benefit-group:first-child {
           margin-top:0;
@@ -259,14 +272,14 @@ export default function BrokerListYourLicensePage() {
           line-height:1.08;
         }
         .broker-organic-intro {
-          margin:0 0 22px;
-          max-width:760px;
+          margin:0;
+          max-width:900px;
           color:#c5d1da;
           font-size:16px;
           line-height:1.72;
         }
         .broker-benefit-group {
-          margin-top:20px;
+          margin:0;
           padding:20px 21px;
           border:1px solid rgba(88,200,238,.20);
           border-radius:10px;
@@ -274,7 +287,7 @@ export default function BrokerListYourLicensePage() {
           box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
         }
         .broker-benefit-group + .broker-benefit-group {
-          margin-top:13px;
+          margin-top:0;
         }
         .broker-benefit-group h3 {
           margin:0 0 14px;
@@ -326,7 +339,10 @@ export default function BrokerListYourLicensePage() {
           line-height:1;
         }
         .broker-resource-center {
-          padding:21px;
+          height:100%;
+          display:flex;
+          flex-direction:column;
+          padding:20px;
           border:1px solid rgba(246,167,0,.48);
           border-radius:12px;
           background:linear-gradient(145deg,#0a2236,#061827);
@@ -340,24 +356,26 @@ export default function BrokerListYourLicensePage() {
           line-height:1.1;
         }
         .broker-resource-center > p {
-          margin:0 0 16px;
+          margin:0 0 14px;
           color:#b9c9d4;
           font-size:13px;
           line-height:1.55;
         }
         .broker-organic-links {
+          flex:1;
           display:grid;
           grid-template-columns:repeat(2,minmax(0,1fr));
-          gap:9px;
+          grid-auto-rows:minmax(60px,1fr);
+          gap:8px;
         }
         .broker-organic-links a {
           min-width:0;
-          min-height:76px;
+          min-height:0;
           display:flex;
           flex-direction:column;
           justify-content:center;
           gap:6px;
-          padding:14px 15px;
+          padding:12px 14px;
           border:1px solid rgba(255,255,255,.11);
           border-radius:9px;
           background:#0c2941;
@@ -403,7 +421,9 @@ export default function BrokerListYourLicensePage() {
         @media(max-width:980px) {
           .broker-organic-copy { max-width:none; }
           .broker-organic-body-grid { grid-template-columns:1fr; gap:28px; }
-          .broker-resource-center { max-width:none; }
+          .broker-benefits-stack { display:block; }
+          .broker-benefit-group + .broker-benefit-group { margin-top:14px; }
+          .broker-resource-center { max-width:none; height:auto; }
         }
         @media(max-width:680px) {
           .broker-organic-section { padding:56px 0; }
@@ -465,7 +485,7 @@ export default function BrokerListYourLicensePage() {
                   <a className="hero-plan-hit" href="#featured-listing-option" aria-label="View the Featured broker listing option" />
                   <b>Featured</b>
                   <strong>$24.95</strong>
-                  <small>30-day priority placement · Select Featured ↓</small>
+                  <small>30-day priority + FLLM listing SEO · Select Featured ↓</small>
                 </div>
               </div>
               <ul>
@@ -511,9 +531,12 @@ export default function BrokerListYourLicensePage() {
                   <ul className="broker-benefit-list">
                     <li>Advertise <Link href="/florida-4cop-liquor-license-for-sale">4COP quota</Link> and <Link href="/florida-3ps-liquor-license-for-sale">3PS package-store</Link> licenses.</li>
                     <li>Reach buyers through <Link href="/listings">statewide marketplace listings</Link>.</li>
+                    <li>Featured broker ads include <a href="#featured-listing-option">listing-specific SEO work by FLLM</a>; search placement is not guaranteed.</li>
                     <li>Compare asking prices and inventory through <Link href="/counties">county market pages</Link>.</li>
-                    <li>Use county market maps, inventory views and Florida heat-map tools.</li>
+                    <li>Use county-specific market maps and local inventory views.</li>
+                    <li>Use FLLM <Link href="/counties">heat maps</Link> to compare statewide inventory and asking-price patterns.</li>
                     <li>Review the <Link href="/market-data/exchange-board">FLLM Exchange Board</Link> and current market activity.</li>
+                    <li>Review the <Link href="/florida-quota-liquor-license-market-report">statewide market report</Link> and current transaction data.</li>
                     <li>Use <Link href="/florida-liquor-license-appraisal">valuation and appraisal resources</Link>.</li>
                     <li>Access <Link href="/financing">financing resources</Link> and payment tools.</li>
                     <li>Use <Link href="/transaction-services">FLLM Transaction Services</Link> for transaction coordination resources.</li>
@@ -521,7 +544,6 @@ export default function BrokerListYourLicensePage() {
                     <li>Review <Link href="/resources/florida-division-alcoholic-beverages-tobacco">DBPR / ABT licensing resources</Link>.</li>
                     <li>Access the <Link href="/resources/liquor-license-attorneys">Florida liquor-license attorney directory</Link>.</li>
                     <li>Use <Link href="/resources/forms">ABT forms</Link>, transfer guides and regulatory reference material.</li>
-                    <li>Review the <Link href="/florida-quota-liquor-license-market-report">statewide market report</Link> and current transaction data.</li>
                     <li>Direct buyers to county-specific license, pricing and availability information.</li>
                   </ul>
                 </div>
@@ -543,9 +565,11 @@ export default function BrokerListYourLicensePage() {
               <p>Jump directly to the FLLM tools and professional resources brokers can use before, during and after a client listing.</p>
               <nav className="broker-organic-links" aria-label="Florida broker marketplace resources">
                 <a href="#broker-listing-form"><strong>List a Client License</strong><small>Submit Standard or Featured inventory</small></a>
+                <a href="#featured-listing-option"><strong>Featured Listing SEO</strong><small>FLLM listing-specific SEO work + priority exposure</small></a>
                 <Link href="/transaction-services"><strong>Transaction Services</strong><small>Transfer, closing and coordination resources</small></Link>
-                <Link href="/counties"><strong>County Data & Heat Maps</strong><small>Inventory, pricing, maps and local markets</small></Link>
+                <Link href="/counties"><strong>Heat Maps & County Maps</strong><small>Statewide heat maps, county maps and inventory</small></Link>
                 <Link href="/market-data/exchange-board"><strong>FLLM Exchange Board</strong><small>Current market and exchange activity</small></Link>
+                <Link href="/florida-quota-liquor-license-market-report"><strong>Market Reports & Transactions</strong><small>Asking-price evidence and market activity</small></Link>
                 <Link href="/resources/florida-division-alcoholic-beverages-tobacco"><strong>DBPR / ABT Resources</strong><small>Licensing, transfer and agency guidance</small></Link>
                 <Link href="/resources/florida-department-of-revenue"><strong>FDOR Resources</strong><small>Tax clearance and transfer resources</small></Link>
                 <Link href="/resources/liquor-license-attorneys"><strong>Attorney Directory</strong><small>Florida liquor-license legal resources</small></Link>
@@ -578,7 +602,7 @@ export default function BrokerListYourLicensePage() {
             <div>
               <div className="broker-preview-heading"><span>Featured Listing</span><strong>$24.95</strong></div>
               <ListingPreviewSelector id="featured-listing-option" tier="featured" className={styles.previewChoice} />
-              <p className="broker-preview-caption">Receives the Featured Listing badge and priority placement for 30 days, then continues as a Standard listing.</p>
+              <p className="broker-preview-caption">Receives the Featured Listing badge, 30 days of priority placement and listing-specific SEO work by FLLM. Search placement is not guaranteed; after 30 days the listing continues as a Standard listing.</p>
             </div>
           </div>
         </div>
