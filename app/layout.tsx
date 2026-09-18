@@ -40,7 +40,6 @@ import "./listings/[slug]/exchange-panel.css";
 import "./listings/[slug]/official-shell.css";
 import "./florida-quota-liquor-license-cost/header-footer-standard.css";
 import "./lawrence-moore-premium-badge.css";
-import "./global-table-row-hover.css";
 
 /* One authoritative listing-card presentation across every FLLM route. */
 import "./listings/listings-premium.css";
@@ -60,6 +59,7 @@ import "./listings/listings-mobile-header-fix.css";
 import "./listings/listings-focused-card.css";
 import "./listings/listings-seo-footer.css";
 import "./listings/listings-view-button-edge-fix.css";
+import "./global-table-row-hover.css";
 
 const GOOGLE_ANALYTICS_ID = "G-PKP8PXCDWF";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
