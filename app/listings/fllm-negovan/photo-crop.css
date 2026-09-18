@@ -9,8 +9,14 @@
   .marketplace-listing-broker-photo img {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover !important;
-  object-position: center 18% !important;
-  transform: scale(1.08);
-  transform-origin: center top;
+  object-position: center center !important;
+  transform: translateY(-5.5%) scale(1.14) !important;
+  transform-origin: center center !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-NEGOVAN"]
+  .marketplace-listing-broker-photo:hover img {
+  transform: translateY(-5.5%) scale(1.155) !important;
 }
