@@ -268,7 +268,7 @@
 
     const option = target.closest("#market-data-header-menu button");
     if (!(option instanceof HTMLButtonElement)) return;
-    if (!/^florida market insights$/i.test(normalizedText(option))) return;
+    if (!/^florida (?:liquor license )?market insights$/i.test(normalizedText(option))) return;
 
     event.preventDefault();
     event.stopPropagation();
