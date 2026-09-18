@@ -1291,3 +1291,43 @@
 @media(hover:none),(pointer:coarse){
   .contact-page .fllm-hover-select-menu{display:none!important}
 }
+
+
+/* Market Data right-side icons — shared visual treatment mirrored from HeaderNavMenus. */
+.contact-page > .fllm-official-contact-header .native-market-icon{
+  flex:0 0 auto!important;
+  margin-left:auto!important;
+  width:16px!important;
+  height:16px!important;
+  display:inline-block!important;
+  background:currentColor!important;
+  -webkit-mask-repeat:no-repeat!important;
+  mask-repeat:no-repeat!important;
+  -webkit-mask-position:center!important;
+  mask-position:center!important;
+  -webkit-mask-size:contain!important;
+  mask-size:contain!important;
+}
+.contact-page > .fllm-official-contact-header .native-market-icon-map{
+  color:#f6a700!important;
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6zm6-3v15m6-12v15' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6zm6-3v15m6-12v15' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+}
+.contact-page > .fllm-official-contact-header .native-market-icon-money{
+  background:none!important;
+  color:#4fd17b!important;
+  width:auto!important;
+  height:auto!important;
+  font:900 15px/1 Arial,Helvetica,sans-serif!important;
+}
+.contact-page > .fllm-official-contact-header .native-market-icon-money::before{content:"$"!important}
+.contact-page > .fllm-official-contact-header .native-market-icon-trend{
+  color:#69d6ff!important;
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 17l5-5 4 4 7-9M15 7h5v5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 17l5-5 4 4 7-9M15 7h5v5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+}
+.contact-page > .fllm-official-contact-header .native-market-icon-news{
+  color:#f6a700!important;
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 5h12v14H4V5zm3 3h6M7 11h6M7 14h4M16 8h4v10a1 1 0 0 1-1 1h-3' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 5h12v14H4V5zm3 3h6M7 11h6M7 14h4M16 8h4v10a1 1 0 0 1-1 1h-3' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+}
