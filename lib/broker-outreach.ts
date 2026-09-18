@@ -245,6 +245,30 @@ ${unsubscribe}`;
         .fllm-hero-copy { padding-right:0 !important; }
         .fllm-price-card { margin-top:18px !important; }
       }
+      .fllm-btn-primary,.fllm-btn-secondary,.fllm-btn-program,.fllm-price-option,.fllm-benefit-card {
+        transition:all .18s ease-in-out !important;
+      }
+      .fllm-btn-primary:hover,.fllm-btn-program:hover {
+        background:#ffbf24 !important;
+        box-shadow:0 8px 20px rgba(246,167,0,.35) !important;
+        transform:translateY(-1px) !important;
+      }
+      .fllm-btn-secondary:hover {
+        background:#f6a700 !important;
+        color:#071827 !important;
+        box-shadow:0 8px 20px rgba(246,167,0,.28) !important;
+        transform:translateY(-1px) !important;
+      }
+      .fllm-price-option:hover {
+        border-color:#f6a700 !important;
+        background:#17344a !important;
+        box-shadow:0 0 0 1px rgba(246,167,0,.22),0 10px 24px rgba(0,0,0,.18) !important;
+      }
+      .fllm-benefit-card:hover {
+        border-color:#f6a700 !important;
+        box-shadow:0 10px 22px rgba(0,0,0,.08) !important;
+        transform:translateY(-1px) !important;
+      }
 
     </style>
 
@@ -278,10 +302,10 @@ ${unsubscribe}`;
                 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:23px;border-collapse:separate;border-spacing:0;">
                   <tr>
                     <td style="padding-right:10px;">
-                      <a class="fllm-btn-primary" href="${LANDING_URL}#broker-listing-form" style="display:inline-block;padding:14px 18px;border:1px solid #d28c00;border-top:2px solid #ffe08a;border-bottom:3px solid #a96900;border-radius:6px;background:#f6a700;color:#07131d;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;box-shadow:0 5px 0 #8b5900,0 8px 16px rgba(0,0,0,.20);">Choose a Listing Option</a>
+                      <a class="fllm-btn-primary" href="${LANDING_URL}#broker-listing-form" class="fllm-btn-primary" style="display:inline-block;padding:14px 18px;border:1px solid #d28c00;border-top:2px solid #ffe08a;border-bottom:3px solid #a96900;border-radius:6px;background:#f6a700;color:#07131d;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;box-shadow:0 5px 0 #8b5900,0 8px 16px rgba(0,0,0,.20);">Choose a Listing Option</a>
                     </td>
                     <td>
-                      <a class="fllm-btn-secondary" href="${SITE_URL}/listings" style="display:inline-block;padding:13px 18px;border:1px solid #f6a700;border-top:2px solid #ffd86d;border-bottom:3px solid #8f5c00;border-radius:6px;background:#071827;color:#f6a700;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;box-shadow:0 5px 0 #07101a,0 8px 16px rgba(0,0,0,.24);">View Marketplace Listings</a>
+                      <a class="fllm-btn-secondary" href="${SITE_URL}/listings" class="fllm-btn-secondary" style="display:inline-block;padding:13px 18px;border:1px solid #f6a700;border-top:2px solid #ffd86d;border-bottom:3px solid #8f5c00;border-radius:6px;background:#071827;color:#f6a700;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;box-shadow:0 5px 0 #07101a,0 8px 16px rgba(0,0,0,.24);">View Marketplace Listings</a>
                     </td>
                   </tr>
                 </table>
@@ -356,7 +380,7 @@ ${unsubscribe}`;
           </table>
 
           <div style="margin-top:22px;text-align:center;">
-            <a class="fllm-btn-program" href="${LANDING_URL}" style="display:inline-block;padding:13px 20px;border:1px solid #d28c00;border-top:2px solid #ffe08a;border-bottom:3px solid #a96900;border-radius:6px;background:#f6a700;color:#071827;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;box-shadow:0 5px 0 #8b5900,0 8px 16px rgba(0,0,0,.18);">View the FLLM Broker Listing Program</a>
+            <a class="fllm-btn-program" href="${LANDING_URL}" class="fllm-btn-program" style="display:inline-block;padding:13px 20px;border:1px solid #d28c00;border-top:2px solid #ffe08a;border-bottom:3px solid #a96900;border-radius:6px;background:#f6a700;color:#071827;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;box-shadow:0 5px 0 #8b5900,0 8px 16px rgba(0,0,0,.18);">View the FLLM Broker Listing Program</a>
           </div>
 
         </td>
