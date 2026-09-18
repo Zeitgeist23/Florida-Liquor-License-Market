@@ -220,9 +220,10 @@ export default function FloridaLiquorLicenseBrokerPage() {
           <div className="seo-market-hero-grid">
             <div>
               <span className="seo-market-kicker">Sell Your Florida Liquor License</span>
-              <h1>Florida Liquor License Broker for Sellers</h1>
+              <h1>Florida Liquor License Broker</h1>
               <p>
-                Own a transferable Florida liquor license and want help selling it? FLLM provides statewide broker-assisted representation for 4COP and 3PS quota-license owners, including market pricing strategy, public or confidential marketing, buyer outreach, negotiation and transaction coordination.
+                <strong>Seller representation for Florida liquor-license owners, with buyer assistance available statewide.</strong>{" "}
+                FLLM helps owners of transferable 4COP and 3PS quota licenses with market pricing strategy, public or confidential marketing, buyer outreach, negotiation and transaction coordination. Buyers can also request help identifying and acquiring a suitable Florida liquor license.
               </p>
 
               <div className="seo-market-actions">
@@ -231,6 +232,9 @@ export default function FloridaLiquorLicenseBrokerPage() {
                 </Link>
                 <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">
                   Check My License Value
+                </Link>
+                <Link className="seo-market-button seo-market-button-dark" href="/contact">
+                  Buyer Assistance
                 </Link>
               </div>
 
@@ -248,12 +252,12 @@ export default function FloridaLiquorLicenseBrokerPage() {
             </div>
 
             <aside className="seo-market-snapshot" aria-label="FLLM broker service snapshot">
-              <span>Seller Representation Snapshot</span>
+              <span>FLLM Broker Service Snapshot</span>
               <div className="seo-market-snapshot-grid">
-                <div><strong>Sell</strong><small>broker-assisted marketing</small></div>
-                <div><strong>Value</strong><small>county pricing strategy</small></div>
+                <div><strong>Sell</strong><small>seller representation</small></div>
+                <div><strong>Buy</strong><small>buyer assistance</small></div>
                 <div><strong>67</strong><small>Florida counties</small></div>
-                <div><strong>4COP</strong><small>&amp; 3PS quota focus</small></div>
+                <div><strong>4COP &amp; 3PS</strong><small>quota-license focus</small></div>
               </div>
             </aside>
           </div>
