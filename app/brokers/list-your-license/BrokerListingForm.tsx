@@ -403,8 +403,8 @@ export default function BrokerListingForm() {
           <label id="broker-tier-featured" style={{ scrollMarginTop: 110 }} onMouseEnter={() => setListingTier("featured")} className={listingTier === "featured" ? styles.tierSelected : styles.tierOption}>
             <input type="radio" name="listing_tier" value="featured" checked={listingTier === "featured"} onChange={() => setListingTier("featured")} />
             <span className={styles.tierTop}><b>Featured</b><strong>$24.95</strong></span>
-            <span className={styles.tierDescription}>Everything in Standard, plus stronger visibility during the listing&apos;s launch.</span>
-            <span className={styles.tierBenefits}><i>✓</i> Featured badge for 30 days<br /><i>✓</i> Priority placement for 30 days<br /><i>✓</i> Reverts to a Standard listing afterward</span>
+            <span className={styles.tierDescription}>Everything in Standard, plus stronger launch visibility and listing-specific SEO work by FLLM.</span>
+            <span className={styles.tierBenefits}><i>✓</i> Featured badge for 30 days<br /><i>✓</i> Priority placement for 30 days<br /><i>✓</i> Listing-specific SEO work by FLLM<br /><i>✓</i> Reverts to a Standard listing afterward<br /><small>Search placement is not guaranteed.</small></span>
           </label>
         </div>
       </fieldset>
