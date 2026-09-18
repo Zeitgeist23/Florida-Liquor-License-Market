@@ -69,6 +69,12 @@
       }
       .market-data-header-menu button:last-child{grid-column:1/-1}
       .market-data-option-label{min-width:0;overflow-wrap:anywhere}
+      .market-data-option-exchange{color:#39cfee;font-weight:900;text-shadow:0 0 8px rgba(57,207,238,.14)}
+      .market-data-option-board{color:#fff}
+      .market-data-header-menu button:hover .market-data-option-exchange,
+      .market-data-header-menu button:focus-visible .market-data-option-exchange{color:#68dcf3}
+      .market-data-header-menu button:hover .market-data-option-board,
+      .market-data-header-menu button:focus-visible .market-data-option-board{color:#fff}
       .market-data-option-badge{flex:0 0 auto;margin-left:auto;color:#f6a700;font-size:9px;font-weight:900;letter-spacing:.08em;white-space:nowrap}
       .primary-nav a[data-market-data-dropdown-bound="true"]{
         cursor:pointer;
@@ -220,7 +226,17 @@
     button.setAttribute("role", "menuitem");
     const labelSpan = document.createElement("span");
     labelSpan.className = "market-data-option-label";
-    labelSpan.textContent = label;
+    if (label === "FLLM Exchange Board") {
+      const exchangeSpan = document.createElement("span");
+      exchangeSpan.className = "market-data-option-exchange";
+      exchangeSpan.textContent = "FLLM Exchange";
+      const boardSpan = document.createElement("span");
+      boardSpan.className = "market-data-option-board";
+      boardSpan.textContent = " Board";
+      labelSpan.append(exchangeSpan, boardSpan);
+    } else {
+      labelSpan.textContent = label;
+    }
     button.appendChild(labelSpan);
     if (badge) {
       const badgeSpan = document.createElement("span");
