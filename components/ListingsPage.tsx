@@ -230,7 +230,6 @@ export default function ListingsPage({
       <div className="listings-header-band"><FormsSiteHeader /></div>
       <section className="results-intro">
         <div className="page-shell">
-          <span>Florida Marketplace Inventory</span>
           <h1>
             Florida Liquor Licenses{" "}
             <span className="listings-title-gold">for Sale</span>
