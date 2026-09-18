@@ -21,6 +21,7 @@ import "@/app/listings/listings-mobile-header-fix.css";
 import "@/app/listings/listings-focused-card.css";
 import "../[slug]/listing-detail.css";
 import "../third-party-business-listing-standard.css";
+import "./photo-crop.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalPath = "/listings/fllm-negovan";
