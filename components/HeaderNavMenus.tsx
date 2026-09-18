@@ -268,7 +268,7 @@ export default function HeaderNavMenus({
                       ) : link.href === "/exchange" ? (
                         <>
                           <span className="native-exchange-cyan">FLLM Exchange</span>
-                          <span> — Confidential Florida License Offers</span>
+                          {" — Confidential Florida License Offers"}
                         </>
                       ) : link.label}
                     </a>
