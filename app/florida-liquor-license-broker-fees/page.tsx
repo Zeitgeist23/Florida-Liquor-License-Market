@@ -358,7 +358,7 @@ export default function FloridaLiquorLicenseBrokerFeesPage() {
               </p>
               <ul>
                 <li>Standard marketplace listings begin at $14.95 one time</li>
-                <li>Featured listings are available at $24.95 with priority exposure</li>
+                <li>Featured broker listings are available at $24.95 with 30-day priority exposure and listing-specific SEO work by FLLM; search placement is not guaranteed</li>
                 <li>No recurring marketplace charge</li>
                 <li>No FLLM share of an independent broker&apos;s commission for an advertising-only listing</li>
               </ul>
