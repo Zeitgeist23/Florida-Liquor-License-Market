@@ -51,7 +51,7 @@ const marketDataMenuMarkup = `<div class="live-nav-dropdown live-market-data-dro
     <span>Market Data</span><img class="nav-chevron" src="/assets/nav-chevron.png" alt="" aria-hidden="true"/>
   </button>
   <div class="live-nav-menu live-market-data-menu">
-    <a href="/market-data/exchange-board"><span>FLLM Exchange Board</span><b>EXCHANGE</b></a>
+    <a href="/market-data/exchange-board"><span><span style="color:#39cfee;font-weight:900;text-shadow:0 0 8px rgba(57,207,238,.14)">FLLM Exchange</span><span style="color:#fff"> Board</span></span><b>EXCHANGE</b></a>
     <a href="/counties"><span>Florida Market Data by County</span></a>
     <a href="/florida-liquor-license-value"><span>Florida Liquor License Value Estimator</span><b>VALUE</b></a>
     <a href="/florida-quota-liquor-license-cost"><span>Florida Liquor License Cost by County</span></a>
