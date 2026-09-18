@@ -49,6 +49,9 @@ export async function POST(request: NextRequest) {
       const email = String(body.email || "").trim();
       const listingKind = String(body.listing_kind || "") as BrokerListingKind;
       const licenseType = String(body.license_type || "").trim();
+      if (listingKind !== "license_only" && listingKind !== "business_with_license") {
+        return bad(new Error("Choose License only or Business + quota license before sending."));
+      }
 
       const result = await addAndSendBrokerProspect({
         full_name: fullName,
@@ -62,7 +65,7 @@ export async function POST(request: NextRequest) {
         listing_url: body.listing_url ? String(body.listing_url) : null,
         county: body.county ? String(body.county) : null,
         license_type: licenseType,
-        listing_kind: listingKind === "business_with_license" ? "business_with_license" : "license_only",
+        listing_kind: listingKind,
         languages: Array.isArray(body.languages) ? body.languages.map(String) : [],
         notes: body.notes ? String(body.notes) : null,
         force: Boolean(body.force),
