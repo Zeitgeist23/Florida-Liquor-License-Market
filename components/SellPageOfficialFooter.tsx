@@ -22,6 +22,7 @@ const officialFooterPaths = new Set([
   "/license-lookup",
   "/license-alerts",
   "/exchange",
+  "/transaction-services",
 ]);
 
 export default function SellPageOfficialFooter() {
