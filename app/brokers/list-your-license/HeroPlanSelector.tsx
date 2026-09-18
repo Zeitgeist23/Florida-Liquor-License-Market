@@ -52,7 +52,7 @@ export default function HeroPlanSelector() {
       >
         <b style={{ color: "#fff", fontSize: 13 }}>Featured</b>
         <strong style={{ color: "#f6a700", fontFamily: 'Georgia, "Times New Roman", serif', fontSize: 22, fontWeight: 500 }}>$24.95</strong>
-        <small style={{ gridColumn: "1/-1", color: "#bfcbd3", fontSize: 10 }}>30-day priority placement · Select Featured ↓</small>
+        <small style={{ gridColumn: "1/-1", color: "#bfcbd3", fontSize: 10 }}>30-day priority + FLLM listing SEO · Select Featured ↓</small>
       </button>
     </div>
   );
