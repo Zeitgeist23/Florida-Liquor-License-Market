@@ -321,6 +321,21 @@ ${unsubscribe}`;
           <div style="margin-top:22px;text-align:center;">
             <a class="fllm-btn-program" href="${LANDING_URL}" style="display:inline-block;padding:13px 20px;border:1px solid #d28c00;border-top:2px solid #ffe08a;border-bottom:3px solid #a96900;border-radius:6px;background:#f6a700;color:#071827;text-decoration:none;font-size:11px;font-weight:900;text-transform:uppercase;box-shadow:0 5px 0 #8b5900,0 8px 16px rgba(0,0,0,.18);">View the FLLM Broker Listing Program</a>
           </div>
+
+          <div style="margin:20px 0 2px;text-align:center;font-size:13px;line-height:1.8;">
+            <div>
+              <strong style="color:#52616c;">Broker Listing Page:</strong>
+              <a href="${LANDING_URL}" style="color:#0645ad;font-weight:700;text-decoration:underline;">
+                FloridaLiquorLicenseMarket.com/brokers/list-your-license
+              </a>
+            </div>
+            <div>
+              <strong style="color:#52616c;">Marketplace Listings:</strong>
+              <a href="${SITE_URL}/listings" style="color:#0645ad;font-weight:700;text-decoration:underline;">
+                FloridaLiquorLicenseMarket.com/listings
+              </a>
+            </div>
+          </div>
         </td>
       </tr>
     </table>
