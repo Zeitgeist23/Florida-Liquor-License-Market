@@ -453,3 +453,37 @@ body:has(.marketplace-listing-page) {
   .marketplace-listing-page .fllm-exchange-header::after{display:none;}
   .marketplace-listing-page .fllm-exchange{border-radius:12px !important;}
 }
+
+
+/* Public BizQuest-style listing view count. Keep it compact and secondary. */
+.marketplace-listing-view-count{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  min-height:24px;
+  padding:0 9px;
+  border:1px solid rgba(105,214,255,.24);
+  border-radius:999px;
+  background:rgba(5,24,41,.62);
+  color:#9fb2bf;
+  font:700 10px/1 Arial,Helvetica,sans-serif;
+  letter-spacing:.02em;
+  white-space:nowrap;
+}
+.marketplace-listing-view-count>span{
+  color:#9fb2bf;
+  font-size:10px;
+  font-weight:700;
+}
+.marketplace-listing-view-count>strong{
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  font-variant-numeric:tabular-nums;
+}
+@media(max-width:620px){
+  .marketplace-listing-view-count{
+    min-height:23px;
+    padding:0 8px;
+  }
+}
