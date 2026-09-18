@@ -296,17 +296,11 @@
   font-weight: 600 !important;
 }
 
-.results-page .results-summary button {
-  margin-left: auto !important;
-  color: #f0ab20 !important;
-  font-size: 11px !important;
-  font-weight: 700 !important;
-}
-
- .results-page .inventory-last-updated-row {
-  margin: -7px 0 10px;
+.results-page .results-summary-actions {
+  margin-left: auto;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
 }
 
 .results-page .inventory-last-updated {
@@ -316,6 +310,13 @@
   font-weight: 600 !important;
   letter-spacing: .02em;
   white-space: nowrap;
+}
+
+.results-page .results-summary button {
+  margin-left: 0 !important;
+  color: #f0ab20 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
 }
 
 .results-page .results-grid {
@@ -523,9 +524,9 @@
     gap: 8px 12px !important;
   }
 
-  .results-page .inventory-last-updated-row {
-    margin-top: -4px;
-    margin-bottom: 10px;
+  .results-page .results-summary-actions {
+    width: 100%;
+    margin-left: 0;
     justify-content: flex-end;
   }
 
