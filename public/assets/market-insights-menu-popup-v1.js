@@ -57,7 +57,7 @@
     }
 
     const heading = Array.from(document.querySelectorAll("h1,h2,h3,h4,h5,h6"))
-      .find((element) => /^florida market insights$/i.test(normalizedText(element)));
+      .find((element) => /^florida (?:liquor license )?market insights$/i.test(normalizedText(element)));
     heading?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -67,7 +67,7 @@
 
     const option = target.closest("#market-data-header-menu button");
     if (!(option instanceof HTMLButtonElement)) return;
-    if (!/^florida market insights$/i.test(normalizedText(option))) return;
+    if (!/^florida (?:liquor license )?market insights$/i.test(normalizedText(option))) return;
 
     event.preventDefault();
     event.stopPropagation();
