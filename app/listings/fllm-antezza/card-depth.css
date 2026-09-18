@@ -2,8 +2,8 @@
    This intentionally sits after featured-detail-badge.css so it can deepen
    the approved county-card language without changing shared marketplace CSS. */
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div,
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -29,8 +29,8 @@
     filter .18s ease !important;
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div::before,
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div::before {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div::before,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -39,8 +39,8 @@
   background: linear-gradient(180deg, rgba(255,255,255,.045), transparent 36%, rgba(0,0,0,.10) 100%);
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div::after,
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div::after {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div::after,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div::after {
   content: "";
   position: absolute;
   left: 8%;
@@ -56,8 +56,8 @@
   transition: opacity .18s ease, transform .18s ease;
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div:hover,
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div:hover {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div:hover,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div:hover {
   transform: translateY(-5px) scale(1.012);
   border-color: #ffd05b !important;
   background:
@@ -73,13 +73,13 @@
   filter: brightness(1.045);
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div:hover::after,
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div:hover::after {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div:hover::after,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div:hover::after {
   opacity: 1;
   transform: translateY(5px) scaleX(1.04);
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlights {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlights {
   border-color: rgba(241,166,0,.56) !important;
   background: linear-gradient(145deg, rgba(10,31,50,.96), rgba(4,18,30,.98)) !important;
   box-shadow:
@@ -87,16 +87,16 @@
     0 12px 26px rgba(0,0,0,.30) !important;
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid {
   gap: 10px !important;
 }
 
 /* Broker-reported business metrics: mirror the restrained Featured Counties card language. */
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid {
   gap: 14px !important;
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div {
   min-width: 0;
   min-height: 96px;
   display: flex;
@@ -115,7 +115,7 @@
     box-shadow .18s ease !important;
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div:hover {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div:hover {
   transform: translateY(-4px);
   border-color: #d9f2ff !important;
   background: linear-gradient(145deg, #0b2130, #061018) !important;
@@ -124,7 +124,7 @@
     0 0 0 1px rgba(105, 214, 255, .12) !important;
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div > span {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div > span {
   margin: 0 !important;
   color: #69d6ff !important;
   font-size: 11px !important;
@@ -133,7 +133,7 @@
   letter-spacing: .045em !important;
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div > strong {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div > strong {
   margin: 0 !important;
   color: #fff !important;
   font-size: 17px !important;
@@ -143,21 +143,21 @@
 
 /* Give the confidentiality label a clear FLLM warning/accent treatment while
    keeping the explanatory sentence quieter. */
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-confidential {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-confidential {
   color: #d7e2e8 !important;
 }
 
-.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-confidential > strong {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-confidential > strong {
   color: #f1a600 !important;
   font-weight: 900 !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div,
-  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div,
-  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-facts > div::after,
-  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .marketplace-listing-highlight-grid > div::after,
-  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-ANTEZZA"] .package-business-grid > div {
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div::after,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > div::after,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid > div {
     transition: none !important;
   }
 }
