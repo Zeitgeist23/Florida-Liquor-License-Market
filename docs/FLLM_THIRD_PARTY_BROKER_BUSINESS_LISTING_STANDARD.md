@@ -66,10 +66,16 @@ Where the liquor license is not offered separately:
 
 ## Implementation rule
 
-Future qualifying pages should import:
+The Alessandro page has now been converted into the reusable implementation.
 
-`app/listings/third-party-business-listing-standard.css`
+Future qualifying pages must:
 
-and should use the same structural class names and interaction conventions as `/listings/fllm-antezza` rather than introducing listing-specific visual overrides.
+1. Import `app/listings/third-party-business-listing-standard.css`.
+2. Render `components/FeaturedThirdPartyBusinessListingPage.tsx`.
+3. Supply only a `FeaturedThirdPartyBusinessListingConfig` data object containing the listing-specific county, prices, broker identity/contact information, broker photo/URLs, business description, business metrics, opportunities, confidentiality language and county context.
+4. Preserve `data-featured-broker-business-listing="true"`, which is the shared selector used by the locked visual system.
+5. Use `ListingBrokerInquiryForm` through the template so the inquiry form and financing calculator remain identical across qualifying listings.
 
-The Antezza page is the canonical reference. If a future page differs without a documented standard revision, the Antezza treatment controls.
+Do **not** copy the JSX into a new route and do not create route-specific visual overrides. Do **not** hard-code a listing reference, package price, broker name, email, phone number or company name into the shared styles.
+
+The canonical live reference remains `/listings/fllm-antezza`, but its visible structure is now rendered by the same reusable component future listings must use. If a future page differs without a documented standard revision, the shared template controls.
