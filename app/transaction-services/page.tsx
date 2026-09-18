@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
-import "../resources/forms/abt-forms.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/transaction-services`;
@@ -207,6 +206,33 @@ export default function TransactionServicesPage() {
 
       <style>{`
         .transaction-services-page{min-height:100vh;background:#04111d;color:#fff}
+        .transaction-official-header-band{position:relative;z-index:120;width:100%;border-bottom:1px solid #765613;background:radial-gradient(circle at 82% 35%,rgba(19,54,77,.2),transparent 30%),linear-gradient(90deg,#010810 0%,#020c14 48%,#061522 100%);box-shadow:0 5px 15px rgba(0,0,0,.22)}
+        .transaction-official-header-band .forms-site-header{background:transparent}
+        .transaction-official-header-band .forms-site-header .header-actions .btn-outline{order:1}
+        .transaction-official-header-band .forms-site-header .header-actions .btn-gold{order:2}
+        @media(min-width:981px){
+          .transaction-official-header-band .forms-site-header.page-shell{width:min(1400px,calc(100% - 24px));min-height:82px;height:82px;gap:16px}
+          .transaction-official-header-band .forms-site-header .brand-lockup{flex:0 0 160px}
+          .transaction-official-header-band .forms-site-header .brand-lockup img{width:150px;height:61px;max-height:none;object-fit:contain;transform:none}
+          .transaction-official-header-band .forms-site-header .primary-nav{justify-content:center;gap:42px}
+          .transaction-official-header-band .forms-site-header .header-actions{gap:10px;transform:none}
+          .transaction-official-header-band .forms-site-header .header-actions .btn{height:33px;min-height:33px;border-radius:5px;font-size:9px;font-weight:900;letter-spacing:.02em;line-height:1;white-space:nowrap;transform-origin:center;transition:transform .18s ease,border-color .18s ease,background .18s ease,color .18s ease,box-shadow .18s ease,filter .18s ease}
+          .transaction-official-header-band .forms-site-header .header-actions .btn-gold{width:116px;min-width:116px;padding:0 9px;border:1px solid #ffbd2e;background:linear-gradient(145deg,#f8b72f 0%,#e99a00 58%,#cf7800 100%);box-shadow:inset 0 1px 0 rgba(255,237,182,.55),inset 0 -2px 0 rgba(95,51,0,.28),0 5px 12px rgba(0,0,0,.27);color:#07101a}
+          .transaction-official-header-band .forms-site-header .header-actions .btn-outline{width:100px;min-width:100px;padding:0 8px;border:1px solid #e8a000;background:linear-gradient(145deg,rgba(7,22,34,.96),rgba(1,8,15,.98));box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 4px 11px rgba(0,0,0,.22);color:#f6b21a}
+          .transaction-official-header-band .forms-site-header .header-actions .contact-phone{margin-right:4px;font-size:10px}
+          .transaction-official-header-band .forms-site-header .header-actions .btn:hover,
+          .transaction-official-header-band .forms-site-header .header-actions .btn:focus-visible{transform:translateY(-1px) scale(1.03);outline:none}
+          .transaction-official-header-band .forms-site-header .header-actions .btn-gold:hover,
+          .transaction-official-header-band .forms-site-header .header-actions .btn-gold:focus-visible{border-color:#ffd069;background:linear-gradient(145deg,#ffc64a 0%,#f1a600 58%,#dc8500 100%);color:#07101a;box-shadow:inset 0 1px 0 rgba(255,247,218,.7),inset 0 -2px 0 rgba(95,51,0,.22),0 8px 17px rgba(0,0,0,.33),0 0 12px rgba(241,166,0,.22)}
+          .transaction-official-header-band .forms-site-header .header-actions .btn-outline:hover,
+          .transaction-official-header-band .forms-site-header .header-actions .btn-outline:focus-visible{border-color:#ffd069;background:linear-gradient(145deg,#ffc64a 0%,#f1a600 58%,#dc8500 100%);color:#07101a;box-shadow:inset 0 1px 0 rgba(255,247,218,.7),inset 0 -2px 0 rgba(95,51,0,.22),0 8px 17px rgba(0,0,0,.33),0 0 12px rgba(241,166,0,.28)}
+        }
+        @media(min-width:981px) and (max-width:1180px){
+          .transaction-official-header-band .forms-site-header .primary-nav{gap:27px}
+          .transaction-official-header-band .forms-site-header .header-actions .btn-gold{width:110px;min-width:110px}
+          .transaction-official-header-band .forms-site-header .header-actions .btn-outline{width:96px;min-width:96px}
+        }
+        @media(max-width:980px){.transaction-official-header-band{background:#020b13}}
         .transaction-shell{width:min(1420px,calc(100% - 56px));margin:0 auto}
         .transaction-hero{padding:72px 0 64px;border-bottom:1px solid rgba(241,169,26,.32);background:radial-gradient(circle at 82% 10%,rgba(30,104,149,.27),transparent 32%),linear-gradient(135deg,#0a2942,#051827 58%,#03101b)}
         .transaction-breadcrumbs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;color:#9fb0bd;font-size:12px}.transaction-breadcrumbs a{color:#f1aa1c;text-decoration:none}
@@ -220,7 +246,7 @@ export default function TransactionServicesPage() {
         @media(hover:none){.transaction-card:hover{transform:none}.transaction-link-row a:hover{transform:none}}
       `}</style>
 
-      <div className="abt-header-wrap">
+      <div className="transaction-official-header-band">
         <FormsSiteHeader />
       </div>
 
