@@ -303,6 +303,26 @@
   font-weight: 700 !important;
 }
 
+.results-page .results-summary-meta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.results-page .results-summary-meta .inventory-last-updated {
+  color: #9eafbb !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: .015em;
+  white-space: nowrap;
+}
+
+.results-page .results-summary-meta button {
+  margin-left: 0 !important;
+}
+
 .results-page .results-grid {
   display: grid !important;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
@@ -501,6 +521,17 @@
   .results-page .results-filters label:nth-child(3),
   .results-page .results-filters button {
     order: initial !important;
+  }
+
+  .results-page .results-summary {
+    flex-wrap: wrap !important;
+    gap: 8px 12px !important;
+  }
+
+  .results-page .results-summary-meta {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
   }
 
   .results-page .results-grid {
