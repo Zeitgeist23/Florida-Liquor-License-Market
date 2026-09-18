@@ -1315,14 +1315,14 @@
 }
 .contact-page > .fllm-official-contact-header .native-market-icon-money{
   background:none!important;
-  color:#4fd17b!important;
+  color:#f6a700!important;
   width:auto!important;
   height:auto!important;
-  font:900 15px/1 Arial,Helvetica,sans-serif!important;
+  font:700 14px/1 Arial,Helvetica,sans-serif!important;
 }
 .contact-page > .fllm-official-contact-header .native-market-icon-money::before{content:"$"!important}
 .contact-page > .fllm-official-contact-header .native-market-icon-trend{
-  color:#69d6ff!important;
+  color:#f6a700!important;
   -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 17l5-5 4 4 7-9M15 7h5v5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
   mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 17l5-5 4 4 7-9M15 7h5v5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
 }
