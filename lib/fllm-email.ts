@@ -16,10 +16,13 @@ function siteUrl() {
   ).replace(/\/$/, "");
 }
 
+const FLLM_LISTINGS_SENDER = "listings@floridaliquorlicensemarket.com";
+
 function senderEmail() {
-  return (
-    process.env.GOOGLE_SENDER_EMAIL || "listings@floridaliquorlicensemarket.com"
-  );
+  // Broker/listing outreach must always originate from the Listings mailbox.
+  // Do not allow a deployment environment variable or another Gmail alias to
+  // silently change the visible From address.
+  return FLLM_LISTINGS_SENDER;
 }
 
 function escapeHtml(value: string | null | undefined) {
