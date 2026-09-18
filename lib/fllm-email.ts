@@ -89,8 +89,16 @@ function corporateSignatureHtml() {
     </div>`;
 }
 export function emailShell(content: string) {
-  return `<!doctype html><html><body style="margin:0;padding:24px;background:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#111111;">
-    <div style="max-width:760px;">${content}${corporateSignatureHtml()}</div>
+  // Gmail desktop webmail can honor :hover rules, but only when the CSS lives
+  // in the document <head>. Move any template-level <style> blocks there
+  // instead of leaving them inside <body>, where Gmail commonly strips them.
+  const styleBlocks = [...content.matchAll(/<style(?:\s[^>]*)?>([\s\S]*?)<\/style>/gi)]
+    .map((match) => `<style>${match[1]}</style>`)
+    .join("\n");
+  const bodyContent = content.replace(/<style(?:\s[^>]*)?>[\s\S]*?<\/style>/gi, "");
+
+  return `<!doctype html><html><head><meta charset="utf-8">${styleBlocks}</head><body style="margin:0;padding:24px;background:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#111111;">
+    <div style="max-width:960px;">${bodyContent}${corporateSignatureHtml()}</div>
   </body></html>`;
 }
 
