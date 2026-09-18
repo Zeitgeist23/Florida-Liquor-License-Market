@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
 import MarketplaceListingCard from "@/components/MarketplaceListingCard";
+import ListingViewCount from "@/components/ListingViewCount";
 import { countySlug, getCountyBySlug } from "@/data/florida-counties";
 import type { Listing } from "@/data/listings";
 import {
@@ -292,6 +293,7 @@ export default async function FeaturedSarasota3PsListingPage() {
                 Available
               </span>
               <span className="marketplace-listing-hero-reference">Listing {listingReference}</span>
+              <ListingViewCount listingRef={listingReference} />
             </div>
             <p className="marketplace-listing-summary">
               Featured Sarasota County 3PS quota / package-store liquor-license opportunity. Review the current asking price, county market context and license details, then submit a confidential buyer bid through FLLM Exchange.
