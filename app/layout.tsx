@@ -19,6 +19,7 @@ import ListYourLicenseLinkFix from "@/components/ListYourLicenseLinkFix";
 import NationalMarketplaceFooterLink from "@/components/NationalMarketplaceFooterLink";
 import NewsOfficialShellEnhancement from "@/components/NewsOfficialShellEnhancement";
 import SellPageOfficialFooter from "@/components/SellPageOfficialFooter";
+import UniversalFaqHoverBehavior from "@/components/UniversalFaqHoverBehavior";
 
 import "./globals.css";
 import "./buyer-guide-theme.css";
@@ -135,6 +136,7 @@ export default function RootLayout({
         <GlobalResourcesMenuSync />
         <HeatMapLinkNormalizer />
         <ListingDetailOfficialHeader />
+        <UniversalFaqHoverBehavior />
         {children}
         <NewsOfficialShellEnhancement />
         <ListingDetailLicenseHighlightsEnhancement />
