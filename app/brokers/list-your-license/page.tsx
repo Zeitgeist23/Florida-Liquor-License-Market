@@ -13,7 +13,7 @@ const canonicalUrl = `${siteUrl}/brokers/list-your-license`;
 export const metadata: Metadata = {
   title: "Advertise a Client’s Liquor License | FLLM Broker Marketplace",
   description:
-    "Independent brokers can advertise client 4COP quota and 3PS licenses on the FLLM marketplace. One-time listings from $14.95 with no recurring fee or FLLM commission share.",
+    "Independent brokers can advertise client 4COP quota and 3PS licenses on FLLM, including quota licenses offered with an operating business package. One-time listings from $14.95 with no recurring fee or FLLM commission share.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Advertise a Client’s Liquor License | FLLM Broker Marketplace",
     description:
-      "Advertise a client’s Florida liquor license on FLLM while remaining the listing representative and transaction contact.",
+      "Advertise a client’s Florida liquor license on FLLM, including a quota license offered with an operating business package, while remaining the listing representative and transaction contact.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -32,7 +32,7 @@ const benefits = [
   "Buyer inquiries are routed directly to your designated contact",
   "You retain control of your client relationship and transaction",
   "FLLM does not seek or receive any portion of your commission",
-  "Your listing receives exposure within a specialized statewide marketplace",
+  "List a stand-alone quota license or a quota license offered with an operating business package",
 ];
 
 const steps = [
@@ -57,6 +57,11 @@ const faqs = [
     question: "Can I advertise a Florida 3PS package-store liquor license on FLLM?",
     answer:
       "Yes. FLLM can accept broker-submitted 3PS-family quota-license inventory for marketplace review. The applicable license series, county and transfer status should be identified accurately in the submission.",
+  },
+  {
+    question: "Can I list a liquor license together with a business for sale?",
+    answer:
+      "Yes. A broker may submit a Florida quota liquor license that is being offered with an operating business, or a license that may be sold either separately or with the business. The FLLM listing can identify the business type, distinguish the liquor-license asking price from the total business-and-license package price, and keep the submitting broker as the transaction contact.",
   },
   {
     question: "Does FLLM become my client’s broker?",
@@ -93,7 +98,7 @@ export default function BrokerListYourLicensePage() {
       name: "Advertise a Client’s Liquor License | FLLM Broker Marketplace",
       url: canonicalUrl,
       description:
-        "Florida liquor license broker marketplace page for listing and advertising client 4COP quota and 3PS licenses for sale.",
+        "Florida liquor license broker marketplace page for listing and advertising client 4COP quota and 3PS licenses for sale, including liquor licenses offered with operating businesses.",
       dateModified: "2026-09-09",
       publisher: {
         "@type": "Organization",
@@ -124,7 +129,7 @@ export default function BrokerListYourLicensePage() {
         },
       ],
       description:
-        "Advertising-only marketplace listing for Florida brokers representing owners of quota liquor licenses.",
+        "Advertising-only marketplace listing for Florida brokers representing owners of quota liquor licenses, including stand-alone licenses and licenses offered with operating business packages.",
     },
     {
       "@context": "https://schema.org",
@@ -277,6 +282,56 @@ export default function BrokerListYourLicensePage() {
           color:#c5d1da;
           font-size:16px;
           line-height:1.72;
+        }
+        .broker-business-package-callout {
+          max-width:980px;
+          display:grid;
+          grid-template-columns:auto minmax(0,1fr);
+          gap:14px;
+          align-items:start;
+          margin:18px 0 24px;
+          padding:16px 18px;
+          border:1px solid rgba(246,167,0,.48);
+          border-left:4px solid #f6a700;
+          border-radius:9px;
+          background:linear-gradient(135deg,rgba(246,167,0,.08),rgba(10,34,54,.72));
+          box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+        }
+        .broker-business-package-callout > b {
+          display:grid;
+          width:30px;
+          height:30px;
+          place-items:center;
+          border-radius:50%;
+          background:#f6a700;
+          color:#071827;
+          font-size:17px;
+          line-height:1;
+        }
+        .broker-business-package-callout strong {
+          display:block;
+          margin-bottom:5px;
+          color:#fff;
+          font-size:15px;
+          line-height:1.3;
+        }
+        .broker-business-package-callout p {
+          margin:0;
+          color:#c8d6df;
+          font-size:13px;
+          line-height:1.58;
+        }
+        .broker-business-package-callout a {
+          color:#69d6ff;
+          font-weight:500;
+          text-decoration:none;
+        }
+        .broker-business-package-callout a:hover,
+        .broker-business-package-callout a:focus-visible {
+          color:#f6b51f;
+          text-decoration:underline;
+          text-underline-offset:3px;
+          outline:none;
         }
         .broker-benefit-group {
           margin:0;
@@ -543,6 +598,15 @@ export default function BrokerListYourLicensePage() {
               <p className="broker-organic-intro">
                 FLLM gives Florida liquor license brokers statewide marketplace exposure plus market-data, transaction and regulatory resources while the submitting broker remains the identified representative and transaction contact.
               </p>
+              <div className="broker-business-package-callout">
+                <b aria-hidden="true">+</b>
+                <div>
+                  <strong>Listing a business with the liquor license? FLLM supports that too.</strong>
+                  <p>
+                    Brokers can advertise a quota license that is included with an operating business, or a license that may be sold either separately or with the business. FLLM can show the <a href="#broker-listing-form">business type and package structure</a>, distinguish the license asking price from the total business-and-license package price, and route buyer inquiries back to the submitting broker.
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="broker-organic-body-grid">
@@ -568,7 +632,7 @@ export default function BrokerListYourLicensePage() {
                       <li>Access <Link href="/financing">financing resources</Link> and payment tools.</li>
                       <li>Review <Link href="/resources/florida-department-of-revenue">FDOR transfer resources</Link>.</li>
                       <li>Access the <Link href="/resources/liquor-license-attorneys">Florida liquor-license attorney directory</Link>.</li>
-                      <li>Direct buyers to county-specific license, pricing and availability information.</li>
+                      <li>Advertise a liquor license with an <a href="#broker-listing-form">operating business package</a> while keeping license value and total package price clearly separated.</li>
                     </ul>
                   </div>
                 </div>
@@ -587,7 +651,7 @@ export default function BrokerListYourLicensePage() {
               <aside className="broker-resource-center" aria-label="FLLM broker resource center">
               <span>Broker Resource Center</span>
               <h3>Everything around the listing</h3>
-              <p>Jump directly to the FLLM tools and professional resources brokers can use before, during and after a client listing.</p>
+              <p>Jump directly to the FLLM tools and professional resources brokers can use before, during and after a client listing — including listings where the quota license is offered with an operating business.</p>
               <nav className="broker-organic-links" aria-label="Florida broker marketplace resources">
                 <a href="#broker-listing-form"><strong>List a Client License</strong><small>Submit Standard or Featured inventory</small></a>
                 <a href="#featured-listing-option"><strong>Featured Listing SEO</strong><small>FLLM listing-specific SEO work + priority exposure</small></a>
