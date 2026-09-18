@@ -21,9 +21,15 @@ function formatCurrency(value: number, decimals = 0) {
   }).format(Number.isFinite(value) ? value : 0);
 }
 
-function AntezzaSidebarLoanCalculator() {
-  const [purchasePrice, setPurchasePrice] = useState(495000);
-  const [downPayment, setDownPayment] = useState(99000);
+function ListingSidebarLoanCalculator({
+  initialPurchasePrice,
+  initialDownPayment,
+}: {
+  initialPurchasePrice: number;
+  initialDownPayment: number;
+}) {
+  const [purchasePrice, setPurchasePrice] = useState(initialPurchasePrice);
+  const [downPayment, setDownPayment] = useState(initialDownPayment);
   const [annualRate, setAnnualRate] = useState(10);
   const [termYears, setTermYears] = useState(10);
 
@@ -72,7 +78,7 @@ function AntezzaSidebarLoanCalculator() {
       <span className="antezza-sidebar-calculator__eyebrow">Liquor License Financing Tool</span>
       <h2 id="antezza-sidebar-calculator-title">Estimate License Financing</h2>
       <p className="antezza-sidebar-calculator__intro">
-        Model an estimated payment for the $495,000 liquor-license component of this listing.
+        Model an estimated payment for the displayed liquor-license component of this listing.
       </p>
 
       <div className="antezza-sidebar-calculator__fields">
@@ -152,6 +158,9 @@ type Props = {
   listingStatus: string;
   listingUrl: string;
   recipientKind?: "broker" | "seller";
+  showFinancingCalculator?: boolean;
+  financingPurchasePrice?: number;
+  financingDownPayment?: number;
 };
 
 export default function ListingBrokerInquiryForm({
@@ -163,6 +172,9 @@ export default function ListingBrokerInquiryForm({
   listingStatus,
   listingUrl,
   recipientKind = "broker",
+  showFinancingCalculator = false,
+  financingPurchasePrice = 0,
+  financingDownPayment,
 }: Props) {
   const [status, setStatus] = useState<SubmitState>("idle");
   const [phone, setPhone] = useState("");
@@ -170,21 +182,21 @@ export default function ListingBrokerInquiryForm({
   const isSeller = recipientKind === "seller";
 
   useEffect(() => {
-    if (listingReference !== "FLLM-ANTEZZA") return;
+    if (!showFinancingCalculator || financingPurchasePrice <= 0) return;
 
     const financeCard = document.querySelector<HTMLElement>(
       `[data-featured-broker-listing="${listingReference}"] .marketplace-listing-finance-promo`,
     );
     if (!financeCard) return;
 
-    const selector = `[data-antezza-calculator-slot="${listingReference}"]`;
+    const selector = `[data-listing-calculator-slot="${listingReference}"]`;
     let slot = document.querySelector<HTMLElement>(selector);
     const created = !slot;
 
     if (!slot) {
       slot = document.createElement("div");
       slot.className = "antezza-calculator-slot";
-      slot.setAttribute("data-antezza-calculator-slot", listingReference);
+      slot.setAttribute("data-listing-calculator-slot", listingReference);
       financeCard.insertAdjacentElement("afterend", slot);
     }
 
@@ -194,7 +206,7 @@ export default function ListingBrokerInquiryForm({
       setCalculatorTarget(null);
       if (created && slot?.isConnected) slot.remove();
     };
-  }, [listingReference]);
+  }, [listingReference, showFinancingCalculator, financingPurchasePrice]);
 
   async function submitInquiry(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -315,7 +327,17 @@ export default function ListingBrokerInquiryForm({
             : "By submitting this form, you agree to be contacted by the listing broker and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking."}
         </small>
       </form>
-      {calculatorTarget ? createPortal(<AntezzaSidebarLoanCalculator />, calculatorTarget) : null}
+      {calculatorTarget
+        ? createPortal(
+            <ListingSidebarLoanCalculator
+              initialPurchasePrice={financingPurchasePrice}
+              initialDownPayment={
+                financingDownPayment ?? Math.round(financingPurchasePrice * 0.2)
+              }
+            />,
+            calculatorTarget,
+          )
+        : null}
     </>
   );
 }
