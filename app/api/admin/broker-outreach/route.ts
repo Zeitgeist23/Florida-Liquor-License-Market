@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import {
+  addAndSendBrokerProspect,
   createBrokerProspect,
   generateWeeklyBrokerCampaign,
   listBrokerOutreachData,
@@ -42,6 +43,32 @@ export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as Record<string, unknown>;
     const action = String(body.action || "");
+
+    if (action === "quick_send_prospect") {
+      const fullName = String(body.full_name || "").trim();
+      const email = String(body.email || "").trim();
+      const listingKind = String(body.listing_kind || "") as BrokerListingKind;
+      const licenseType = String(body.license_type || "").trim();
+
+      const result = await addAndSendBrokerProspect({
+        full_name: fullName,
+        email,
+        phone: body.phone ? String(body.phone) : null,
+        brokerage: body.brokerage ? String(body.brokerage) : null,
+        website_url: body.website_url ? String(body.website_url) : null,
+        source_platform: body.source_platform ? String(body.source_platform) : null,
+        source_url: body.source_url ? String(body.source_url) : null,
+        listing_title: body.listing_title ? String(body.listing_title) : null,
+        listing_url: body.listing_url ? String(body.listing_url) : null,
+        county: body.county ? String(body.county) : null,
+        license_type: licenseType,
+        listing_kind: listingKind === "business_with_license" ? "business_with_license" : "license_only",
+        languages: Array.isArray(body.languages) ? body.languages.map(String) : [],
+        notes: body.notes ? String(body.notes) : null,
+        force: Boolean(body.force),
+      });
+      return NextResponse.json(result);
+    }
 
     if (action === "create_prospect") {
       const fullName = String(body.full_name || "").trim();
