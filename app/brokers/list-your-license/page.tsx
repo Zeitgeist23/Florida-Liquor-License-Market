@@ -7,6 +7,11 @@ import BrokerListingForm from "./BrokerListingForm";
 import ListingPreviewSelector from "./ListingPreviewSelector";
 import styles from "./broker-listing.module.css";
 
+// OFFICIAL LOCKED REFERENCE — Broker Listing Page v1.
+// Approved September 17, 2026. Preserve this page's layout, hierarchy, pricing,
+// broker-control messaging, business-package support, Featured SEO positioning,
+// resource-center structure, FAQ behavior, and approved FLLM visual language
+// unless the user explicitly approves a new version.
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/brokers/list-your-license`;
 
@@ -157,7 +162,7 @@ export default function BrokerListYourLicensePage() {
   ];
 
   return (
-    <main className={styles.page}>
+    <main className={styles.page} data-page-design-status="locked" data-fllm-broker-page-standard="v1">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
