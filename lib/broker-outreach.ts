@@ -186,6 +186,9 @@ Featured Listing: $24.95 one time
 
 Broker listing program:
 ${LANDING_URL}
+
+Browse FLLM marketplace listings:
+${SITE_URL}/listings
 ${sourceLink ? `
 Listing referenced for this outreach:
 ${sourceLink}
@@ -322,7 +325,13 @@ ${unsubscribe}`;
       </tr>
     </table>
 
-    ${sourceLink ? `<p style="max-width:900px;margin:16px 0 0;font-size:12px;line-height:1.55;color:#66727a;">Listing referenced for this outreach: <a href="${escapeHtml(sourceLink)}" style="color:#0645ad;font-weight:700;">View the current listing</a></p>` : ""}
+    <p style="max-width:900px;margin:18px 0 0;font-size:13px;line-height:1.7;color:#66727a;">
+      <a href="${LANDING_URL}" style="color:#0645ad;font-weight:700;text-decoration:underline;">Visit the FLLM Broker Listing Program</a>
+      <span style="color:#9aa5ad;"> &nbsp;|&nbsp; </span>
+      <a href="${SITE_URL}/listings" style="color:#0645ad;font-weight:700;text-decoration:underline;">Browse FLLM Marketplace Listings</a>
+    </p>
+
+    ${sourceLink ? `<p style="max-width:900px;margin:12px 0 0;font-size:12px;line-height:1.55;color:#66727a;">Listing referenced for this outreach: <a href="${escapeHtml(sourceLink)}" style="color:#0645ad;font-weight:700;">View the current listing</a></p>` : ""}
     <p style="max-width:900px;margin:15px 0 0;font-size:12px;line-height:1.55;color:#66727a;">Featured listing SEO is intended to support search visibility; search-engine rankings and AI citations are not guaranteed.</p>
     <p style="max-width:900px;margin:18px 0 16px;font-size:11px;line-height:1.5;color:#7b858b;">This is a broker-outreach message from Florida Liquor License Market. <a href="${unsubscribe}" style="color:#7b858b;">No more FLLM broker emails</a>.</p>
 `;
