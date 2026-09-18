@@ -48,7 +48,7 @@ const faqs = [
   {
     question: "What is the difference between Standard and Featured broker listings?",
     answer:
-      "Standard is the regular marketplace listing. Featured adds the Featured Listing badge and priority marketplace placement for the first 30 days after publication, after which the listing continues as a Standard listing until sold, withdrawn or otherwise removed.",
+      "Standard is the regular marketplace listing. Featured adds the Featured Listing badge, priority marketplace placement for the first 30 days and listing-specific SEO work by FLLM to support search visibility. Search placement is not guaranteed. After the priority period, the listing continues as a Standard listing until sold, withdrawn or otherwise removed.",
   },
 ];
 
@@ -277,8 +277,8 @@ export default function FloridaLiquorLicenseMarketingForBrokersPage() {
             </article>
             <article className="broker-marketing-panel">
               <span>Featured</span>
-              <h3>$24.95 with 30-day priority placement</h3>
-              <p>Featured adds the Featured Listing badge and priority marketplace placement for the first 30 days, then continues as a Standard listing.</p>
+              <h3>$24.95 with priority placement + listing SEO</h3>
+              <p>Featured adds the Featured Listing badge, 30 days of priority marketplace placement and listing-specific SEO work by FLLM. Search placement is not guaranteed; after the priority period, the listing continues as a Standard listing.</p>
             </article>
           </div>
           <div className="broker-marketing-note">
