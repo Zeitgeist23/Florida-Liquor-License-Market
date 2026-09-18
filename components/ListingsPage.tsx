@@ -326,14 +326,14 @@ export default function ListingsPage({
                   : "license"}
               {filtered.length === 1 ? "" : "s"}
             </span>
-            <span className="results-summary-meta">
-              <time className="inventory-last-updated" dateTime="2026-09-18">
-                Inventory last updated Sep. 18, 2026
-              </time>
-              <button type="button" onClick={clearFilters}>
-                Clear all filters
-              </button>
-            </span>
+            <button type="button" onClick={clearFilters}>
+              Clear all filters
+            </button>
+          </div>
+          <div className="inventory-last-updated-row">
+            <time className="inventory-last-updated" dateTime="2026-09-18">
+              Updated Sep. 18, 2026
+            </time>
           </div>
           {filtered.length ? (
             <>
