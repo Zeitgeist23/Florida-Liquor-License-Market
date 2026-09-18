@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   description:
     "Featured Miami-Dade County 4COP quota liquor license listing at $250,000. Business purchase required: the license is included with a premium Miami adult nightclub offered as a $3.5 million total package. Contact listing broker Julie Negovan of Patricia Burnside Realty.",
   alternates: { canonical: canonicalUrl },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: false },
   openGraph: {
     type: "website",
     url: canonicalUrl,
