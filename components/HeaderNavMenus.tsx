@@ -261,7 +261,14 @@ export default function HeaderNavMenus({
                     >
                       {menu.id === "market-data" ? (
                         <>
-                          <span className="native-market-label">{link.label}</span>
+                          <span className="native-market-label">
+                            {link.href === "/market-data/exchange-board" ? (
+                              <>
+                                <span className="native-exchange-menu-cyan">FLLM Exchange</span>
+                                <span className="native-exchange-board-word"> Board</span>
+                              </>
+                            ) : link.label}
+                          </span>
                           {link.badge && <span className="native-market-badge">{link.badge}</span>}
                           {link.icon && <span className={`native-market-icon native-market-icon-${link.icon}`} aria-hidden="true" />}
                         </>
@@ -317,6 +324,12 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-market-menu a{min-height:52px;justify-content:space-between;gap:12px;overflow:hidden}
         .primary-nav .native-nav-market-menu a:last-child{grid-column:1/-1}
         .native-market-label{min-width:0;overflow-wrap:anywhere}
+        .native-exchange-menu-cyan{color:#39cfee;font-weight:900;text-shadow:0 0 8px rgba(57,207,238,.14)}
+        .native-exchange-board-word{color:#fff}
+        .primary-nav .native-nav-market-menu a[href="/market-data/exchange-board"]:hover .native-exchange-menu-cyan,
+        .primary-nav .native-nav-market-menu a[href="/market-data/exchange-board"]:focus-visible .native-exchange-menu-cyan{color:#68dcf3}
+        .primary-nav .native-nav-market-menu a[href="/market-data/exchange-board"]:hover .native-exchange-board-word,
+        .primary-nav .native-nav-market-menu a[href="/market-data/exchange-board"]:focus-visible .native-exchange-board-word{color:#fff}
         .native-market-badge{flex:0 0 auto;margin-left:auto;color:#f6a700;font-size:9px;font-weight:900;letter-spacing:.08em;white-space:nowrap}
         .native-market-icon{flex:0 0 auto;margin-left:auto;width:16px;height:16px;display:inline-block;background:currentColor;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain}
         .native-market-icon-map{color:#f6a700;-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6zm6-3v15m6-12v15' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6zm6-3v15m6-12v15' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
