@@ -38,6 +38,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
     credential?: string;
   };
   additionalSellerIntro: string;
+  additionalSellerIntroLinkText?: string;
   packageIncludes: string;
   businessMetrics: FeaturedBusinessMetric[];
   opportunitiesHeading: string;
@@ -352,7 +353,36 @@ export default function FeaturedThirdPartyBusinessListingPage({
 
               <section className="marketplace-listing-section marketplace-listing-seller-details">
                 <h2>Additional Seller Details</h2>
-                <p>{config.additionalSellerIntro}</p>
+                <p>
+                  {config.additionalSellerIntroLinkText &&
+                  config.additionalSellerIntro.includes(
+                    config.additionalSellerIntroLinkText,
+                  ) ? (
+                    <>
+                      {config.additionalSellerIntro.slice(
+                        0,
+                        config.additionalSellerIntro.indexOf(
+                          config.additionalSellerIntroLinkText,
+                        ),
+                      )}
+                      <a
+                        className="featured-business-seller-link featured-business-glimmer-link"
+                        href={config.broker.listingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {config.additionalSellerIntroLinkText}
+                      </a>
+                      {config.additionalSellerIntro.slice(
+                        config.additionalSellerIntro.indexOf(
+                          config.additionalSellerIntroLinkText,
+                        ) + config.additionalSellerIntroLinkText.length,
+                      )}
+                    </>
+                  ) : (
+                    config.additionalSellerIntro
+                  )}
+                </p>
                 <p>
                   The total asking price for the{" "}
                   <a
