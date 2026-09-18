@@ -140,6 +140,27 @@ export default function AdminBrokerOutreachClient() {
     if (payload) setForm(emptyForm);
   }
 
+  async function quickSendProspect() {
+    if (!form.full_name.trim() || !form.email.trim()) {
+      setError("Broker name and email are required for immediate send.");
+      return;
+    }
+    if (form.listing_kind !== "license_only" && form.listing_kind !== "business_with_license") {
+      setError("Choose License only or Business + quota license before sending.");
+      return;
+    }
+    const kindLabel = form.listing_kind === "business_with_license" ? "Business + quota license" : "License only";
+    if (!window.confirm(`Add ${form.full_name} to the broker database and immediately send the standardized FLLM ${kindLabel} outreach email to ${form.email}?`)) {
+      return;
+    }
+    const payload = await action({
+      action: "quick_send_prospect",
+      ...form,
+      languages: form.languages.split(",").map((v) => v.trim()).filter(Boolean),
+    });
+    if (payload) setForm(emptyForm);
+  }
+
   async function updateProspect(id: string, patch: Record<string, unknown>) {
     await action({ action: "update_prospect", id, patch });
   }
@@ -281,7 +302,12 @@ export default function AdminBrokerOutreachClient() {
             <label className="wide">Website<input value={form.website_url} onChange={(e) => setForm({ ...form, website_url: e.target.value })} /></label>
             <label className="wide">Notes<textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} /></label>
           </div>
-          <button type="submit" disabled={working}>Add Broker Prospect</button>
+          <div className="prospect-form-actions">
+            <button type="submit" disabled={working}>Add Broker Prospect</button>
+            <button className="send-now" type="button" disabled={working} onClick={() => void quickSendProspect()}>
+              Add + Send Standardized Email
+            </button>
+          </div>
         </form>
 
         <div className="prospect-list">
