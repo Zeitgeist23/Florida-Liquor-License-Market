@@ -180,7 +180,7 @@ export function buildBrokerOutreachMessage(prospect: BrokerProspect) {
   const subject = buildSubject(prospect);
   const brokerPageShot = `${SITE_URL}/assets/brokers/fllm-featured-broker-preview.jpg`;
 
-  const text = `Hi ${hello},\n\n${intro}\n\nFLLM is Florida’s specialized marketplace for 4COP and 3PS quota liquor licenses. A broker-submitted Featured listing is $24.95 one time and can include your name, brokerage, contact information, buyer inquiry routing, county market context, financing and appraisal links, and a full broker-branded detail page. FLLM does not take any part of your commission.\n\nFeatured listing example: ${sample.sampleUrl}\nBroker listing program: ${LANDING_URL}\n${sourceLink ? `Your current listing: ${sourceLink}\n` : ""}\nOne recent FLLM Featured Pinellas listing appeared on page 1 of Google and was cited in a Google AI Overview for a relevant buyer search. Search visibility changes over time and is not guaranteed.\n\nIf you have another client license or a business package with a quota license attached, FLLM can provide an additional license-focused marketing surface while you keep the client relationship.\n\nFlorida Liquor License Market\n${LANDING_URL}\n\nNo more FLLM broker emails: ${unsubscribe}`;
+  const text = `Hi ${hello},\n\n${intro}\n\nFLLM is Florida’s specialized marketplace for 4COP and 3PS quota liquor licenses. A broker-submitted Featured listing is $24.95 one time and can include your name, brokerage, contact information, buyer inquiry routing, county market context, financing and appraisal links, a full broker-branded detail page, 30-day priority placement, and listing-specific SEO work by FLLM. Search placement is not guaranteed. FLLM does not take any part of your commission.\n\nFeatured listing example: ${sample.sampleUrl}\nBroker listing program: ${LANDING_URL}\n${sourceLink ? `Your current listing: ${sourceLink}\n` : ""}\nOne recent FLLM Featured Pinellas listing appeared on page 1 of Google and was cited in a Google AI Overview for a relevant buyer search. Search visibility changes over time and is not guaranteed.\n\nIf you have another client license or a business package with a quota license attached, FLLM can provide an additional license-focused marketing surface while you keep the client relationship.\n\nFlorida Liquor License Market\n${LANDING_URL}\n\nNo more FLLM broker emails: ${unsubscribe}`;
 
   const content = `
     <p style="margin:0 0 16px;">Hi ${escapeHtml(hello)},</p>
@@ -209,7 +209,7 @@ export function buildBrokerOutreachMessage(prospect: BrokerProspect) {
           </table>
           <div style="margin-top:18px;padding:14px 16px;background:#0c2a42;border:1px solid #34566f;border-radius:7px;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-              <td><strong style="font-size:16px;">Featured listing</strong><div style="font-size:12px;color:#cbd7df;margin-top:3px;">30-day priority placement + Featured badge</div></td>
+              <td><strong style="font-size:16px;">Featured listing</strong><div style="font-size:12px;color:#cbd7df;margin-top:3px;">30-day priority + Featured badge + FLLM listing SEO</div></td>
               <td align="right"><strong style="font-family:Georgia,'Times New Roman',serif;font-size:24px;color:#f6a700;">$24.95</strong><div style="font-size:11px;color:#cbd7df;">one time</div></td>
             </tr></table>
           </div>
