@@ -348,18 +348,25 @@ export default function BrokerListYourLicensePage() {
           background:linear-gradient(145deg,#0a2236,#061827);
           box-shadow:0 18px 36px rgba(0,0,0,.22);
         }
+        .broker-resource-center > span {
+          display:block;
+          text-align:center;
+        }
         .broker-resource-center h3 {
           margin:7px 0 6px;
           color:#fff;
           font-family:Georgia, "Times New Roman", serif;
           font-size:27px;
           line-height:1.1;
+          text-align:center;
         }
         .broker-resource-center > p {
-          margin:0 0 14px;
+          max-width:520px;
+          margin:0 auto 14px;
           color:#b9c9d4;
           font-size:13px;
           line-height:1.55;
+          text-align:center;
         }
         .broker-organic-links {
           flex:1;
@@ -367,6 +374,8 @@ export default function BrokerListYourLicensePage() {
           grid-template-columns:repeat(2,minmax(0,1fr));
           grid-auto-rows:minmax(60px,1fr);
           gap:8px;
+          margin-top:16px !important;
+          align-content:start;
         }
         .broker-organic-links a {
           min-width:0;
