@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 
 const clusterPaths = new Set([
   "/brokers/list-your-license",
@@ -64,7 +63,6 @@ export default function ListingServiceSeoCluster() {
   const showCluster = clusterPaths.has(pathname);
   const showBrokerFaqs = pathname === "/brokers/list-your-license";
   const showSellerFaqs = pathname === "/sell-your-license";
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   if (!showCluster && !showBrokerFaqs && !showSellerFaqs) return null;
 
@@ -161,25 +159,10 @@ export default function ListingServiceSeoCluster() {
           <div className="fllm-listing-service-faq__inner">
             <span>{showBrokerFaqs ? "Broker Listing Service Questions" : "Seller Listing Questions"}</span>
             <h2>{showBrokerFaqs ? "Florida liquor license marketplace questions for brokers" : "How to list and sell a Florida liquor license"}</h2>
-            <div
-              className="fllm-listing-service-faq__grid"
-              onMouseLeave={() => setOpenFaq(null)}
-            >
-              {(showBrokerFaqs ? brokerFaqs : sellerFaqs).map((faq, index) => (
-                <details
-                  key={faq.q}
-                  open={openFaq === index}
-                  onMouseEnter={() => setOpenFaq(index)}
-                  onFocus={() => setOpenFaq(index)}
-                >
-                  <summary
-                    onClick={(event) => {
-                      event.preventDefault();
-                      setOpenFaq((current) => current === index ? null : index);
-                    }}
-                  >
-                    {faq.q}
-                  </summary>
+            <div className="fllm-listing-service-faq__grid">
+              {(showBrokerFaqs ? brokerFaqs : sellerFaqs).map((faq) => (
+                <details key={faq.q}>
+                  <summary>{faq.q}</summary>
                   <p>{faq.a}</p>
                 </details>
               ))}
