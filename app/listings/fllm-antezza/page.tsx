@@ -4,6 +4,7 @@ import Link from "next/link";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
 import ListingBrokerInquiryForm from "@/components/ListingBrokerInquiryForm";
+import ListingViewCount from "@/components/ListingViewCount";
 
 import "@/app/listings/listings-premium.css";
 import "@/app/listings/listings-header-position.css";
@@ -125,6 +126,7 @@ export default function AlessandroAntezzaFeaturedListingPage() {
                 Available
               </span>
               <span className="marketplace-listing-hero-reference">Listing {listingReference}</span>
+              <ListingViewCount listingRef={listingReference} />
               <span className="marketplace-listing-broker-badge">Featured · Third-Party Broker</span>
             </div>
             <p className="marketplace-listing-summary">
