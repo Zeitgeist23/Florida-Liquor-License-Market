@@ -432,6 +432,42 @@
   outline: none;
 }
 
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-seller-link {
+  display: inline-block;
+  position: relative;
+  font-weight: 900 !important;
+  text-decoration: none !important;
+  background-image: linear-gradient(
+    105deg,
+    #a855f7 0%,
+    #a855f7 42%,
+    #f3e8ff 48%,
+    #ffffff 50%,
+    #d8b4fe 52%,
+    #a855f7 58%,
+    #a855f7 100%
+  );
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 8px rgba(168,85,247,.18);
+  transition: text-shadow .18s ease, filter .18s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-seller-link.is-visible {
+  animation: featuredBusinessGoldSweep 10s ease-in-out infinite;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-seller-link:hover,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-seller-link:focus-visible {
+  filter: brightness(1.12);
+  text-shadow: 0 0 12px rgba(168,85,247,.38);
+  outline: none;
+}
+
 /* Keep the same CALL-button geometry and visual language as the Lawrence Moore
    listing. Only the text swap on hover/focus is custom to this page. */
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-call-broker-button {
@@ -490,6 +526,14 @@
     background: none !important;
     color: #f1a600 !important;
     -webkit-text-fill-color: #f1a600 !important;
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-seller-link,
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-seller-link.is-visible {
+    animation: none !important;
+    background: none !important;
+    color: #a855f7 !important;
+    -webkit-text-fill-color: #a855f7 !important;
   }
 
   .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-call-broker-label,
