@@ -72,6 +72,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     website: "https://myexitplan.com/broker/j-r-desamours/",
     listingUrl:
       "https://www.bizbuysell.com/business-opportunity/iconic-jensen-beach-bar-for-sale-w-4-cop-license/2486902/",
+    photo: "/assets/jr-desamours-clear.jpg",
   },
   additionalSellerIntro:
     "Opportunity to acquire a long-established neighborhood bar in Jensen Beach, Florida, together with its highly sought-after Martin County 4COP quota liquor license through an asset-sale structure.",
