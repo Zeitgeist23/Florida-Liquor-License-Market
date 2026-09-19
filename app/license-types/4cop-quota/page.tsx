@@ -32,7 +32,10 @@ export default function Page() {
         { label: "Core privilege", value: "Beer · wine · spirits", detail: "Full-liquor consumption-on-premises privileges may be paired with package sales within the approved quota-license series and premises configuration.", href: "/resources/florida-liquor-license-types", linkLabel: "Compare privileges inside FLLM ›" }
       ]}
       requirementsText="The 4COP quota license is often more flexible than the special restaurant route because its statewide qualification is not based on the 4COP-SFS restaurant revenue, square-footage and seating thresholds. That flexibility does not eliminate zoning, premises or DBPR approval requirements."
-      requirementsCaution="SFS means Special Food Service. The current restaurant-license designation is 4COP-SFS. “SRX” is an older designation that remains common in older records and industry shorthand. Both terms refer to the qualification-based special restaurant license—not a transferable quota license. County or municipal zoning, distance, occupancy, parking, health, fire and premises requirements can still materially affect a proposed location."
+      requirementNotes={[
+        { title: "SFS terminology", text: "SFS means Special Food Service. The current designation is 4COP-SFS; “SRX” is the older designation still found in legacy records and industry shorthand." },
+        { title: "Local approvals still apply", text: "County or municipal zoning, distance, occupancy, parking, health, fire and premises requirements may still materially affect a proposed location." }
+      ]}
       comparison={{
         heading: "4COP Quota vs. 4COP SFS/SRX",
         intro: "Both license types can authorize beer, wine and distilled spirits for consumption on the premises. Their supply, qualification requirements, transferability and market value are fundamentally different.",
