@@ -28,6 +28,7 @@ const officialFooterPaths = new Set([
 export default function SellPageOfficialFooter() {
   const pathname = usePathname();
   const isListingDetail = pathname.startsWith("/listings/") && pathname !== "/listings";
+  const isLicenseTypePage = pathname.startsWith("/license-types/");
   const isBuyPage = pathname === "/buy-florida-liquor-license";
   const isHillsboroughPage = pathname === "/counties/hillsborough";
 
@@ -54,7 +55,7 @@ export default function SellPageOfficialFooter() {
     );
   }
 
-  if (!officialFooterPaths.has(pathname) && !isListingDetail) return null;
+  if (!officialFooterPaths.has(pathname) && !isListingDetail && !isLicenseTypePage) return null;
 
   return (
     <>
