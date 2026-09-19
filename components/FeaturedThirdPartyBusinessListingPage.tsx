@@ -26,6 +26,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   packagePrice: string;
   licenseType: "4COP Quota" | "3PS Quota / Package Store";
   businessLabel: string;
+  businessLabelLinkUrl?: string;
   heroSummary: string;
   broker: {
     name: string;
@@ -89,7 +90,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
       />
 
       <style>{`
-        .featured-business-package-alert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;color:#d7e2e8;font-size:14px;font-weight:750;line-height:1.45}.featured-business-package-badge{display:inline-flex;align-items:center;min-height:25px;padding:0 9px;border:1px solid #efaa10;border-radius:4px;color:#071a3a;background:#efaa10;font-size:9px;font-weight:950;letter-spacing:.07em;text-transform:uppercase}.featured-business-package-alert strong{color:#f1b53a}.package-business-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0}.package-business-grid div{padding:16px;border:1px solid rgba(226,165,30,.25);border-radius:8px;background:rgba(4,23,39,.72)}.package-business-grid span{display:block;color:#95a9b8;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.package-business-grid strong{display:block;margin-top:6px;color:#fff;font-size:15px}.package-total{margin:18px 0;padding:16px 18px;border-left:4px solid #efa916;background:rgba(239,169,22,.07);color:#cbd6dd;line-height:1.7}.package-total strong{color:#f1b53a}.marketplace-listing-broker-license{display:block;margin-top:4px;color:#9fb0bd;font-size:11px;font-weight:750}.marketplace-listing-broker-photo img{object-fit:cover}.package-confidential{font-size:12px;color:#9eb0be;line-height:1.6}.package-source-disclosure{font-size:11px;color:#8398a8;line-height:1.6}.featured-business-email-copy-row{display:inline-flex;align-items:center;gap:5px;width:fit-content;max-width:100%}.featured-business-copy-email-button{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:16px;height:16px;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:#f1a600;font-size:13px;font-weight:900;line-height:1;cursor:pointer;box-shadow:none;appearance:none}.featured-business-call-broker-button{position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 7px 18px rgba(0,0,0,.28)}.featured-business-call-broker-label{display:block;opacity:1;line-height:inherit;white-space:nowrap;transition:opacity .14s ease}.featured-business-call-broker-phone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;color:inherit;font:inherit;line-height:inherit;white-space:nowrap;pointer-events:none;transition:opacity .14s ease}.featured-business-call-broker-button:hover .featured-business-call-broker-label,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-label{opacity:0}.featured-business-call-broker-button:hover .featured-business-call-broker-phone,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-phone{opacity:1}@media(max-width:760px){.package-business-grid{grid-template-columns:1fr}}
+        .featured-business-package-alert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;color:#d7e2e8;font-size:14px;font-weight:750;line-height:1.45}.featured-business-package-badge{display:inline-flex;align-items:center;min-height:25px;padding:0 9px;border:1px solid #efaa10;border-radius:4px;color:#071a3a;background:#efaa10;font-size:9px;font-weight:950;letter-spacing:.07em;text-transform:uppercase}.featured-business-package-alert strong{color:#f1b53a}.featured-business-label-link{color:#ff2bd6!important;font-weight:900!important;text-decoration:none!important;text-shadow:0 0 8px rgba(255,43,214,.48),0 0 16px rgba(255,43,214,.22);transition:filter .16s ease,text-shadow .16s ease}.featured-business-label-link:hover,.featured-business-label-link:focus-visible{filter:brightness(1.16);text-shadow:0 0 10px rgba(255,43,214,.68),0 0 20px rgba(255,43,214,.36);outline:none}.package-business-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0}.package-business-grid div{padding:16px;border:1px solid rgba(226,165,30,.25);border-radius:8px;background:rgba(4,23,39,.72)}.package-business-grid span{display:block;color:#95a9b8;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.package-business-grid strong{display:block;margin-top:6px;color:#fff;font-size:15px}.package-total{margin:18px 0;padding:16px 18px;border-left:4px solid #efa916;background:rgba(239,169,22,.07);color:#cbd6dd;line-height:1.7}.package-total strong{color:#f1b53a}.marketplace-listing-broker-license{display:block;margin-top:4px;color:#9fb0bd;font-size:11px;font-weight:750}.marketplace-listing-broker-photo img{object-fit:cover}.package-confidential{font-size:12px;color:#9eb0be;line-height:1.6}.package-source-disclosure{font-size:11px;color:#8398a8;line-height:1.6}.featured-business-email-copy-row{display:inline-flex;align-items:center;gap:5px;width:fit-content;max-width:100%}.featured-business-copy-email-button{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:16px;height:16px;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:#f1a600;font-size:13px;font-weight:900;line-height:1;cursor:pointer;box-shadow:none;appearance:none}.featured-business-call-broker-button{position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 7px 18px rgba(0,0,0,.28)}.featured-business-call-broker-label{display:block;opacity:1;line-height:inherit;white-space:nowrap;transition:opacity .14s ease}.featured-business-call-broker-phone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;color:inherit;font:inherit;line-height:inherit;white-space:nowrap;pointer-events:none;transition:opacity .14s ease}.featured-business-call-broker-button:hover .featured-business-call-broker-label,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-label{opacity:0}.featured-business-call-broker-button:hover .featured-business-call-broker-phone,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-phone{opacity:1}@media(max-width:760px){.package-business-grid{grid-template-columns:1fr}}
       `}</style>
 
       <header className="results-header page-shell">
@@ -161,7 +162,20 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 Business Purchase Required
               </span>
               <span>
-                License included with associated {config.businessLabel} ·{" "}
+                License included with associated{" "}
+                {config.businessLabelLinkUrl ? (
+                  <a
+                    className="featured-business-label-link"
+                    href={config.businessLabelLinkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {config.businessLabel}
+                  </a>
+                ) : (
+                  config.businessLabel
+                )}{" "}
+                ·{" "}
                 <strong>Total package {config.packagePrice}</strong>
               </span>
             </div>
@@ -327,8 +341,21 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 <p>
                   <strong>Business purchase required:</strong> the license is
                   being offered only in connection with the acquisition of the
-                  associated {config.businessLabel}. The liquor license is not
-                  currently offered as a standalone sale.
+                  associated{" "}
+                  {config.businessLabelLinkUrl ? (
+                    <a
+                      className="featured-business-label-link"
+                      href={config.businessLabelLinkUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {config.businessLabel}
+                    </a>
+                  ) : (
+                    config.businessLabel
+                  )}
+                  . The liquor license is not currently offered as a standalone
+                  sale.
                 </p>
                 <p>
                   A Florida quota license may generally be changed between the{" "}
