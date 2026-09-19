@@ -30,24 +30,24 @@ const canonicalUrl = `${siteUrl}${canonicalPath}`;
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Miami-Dade County 4COP Quota Liquor License for Sale | $250,000",
+  title: "Miami Adult Nightclub + 4COP Quota License | $3.5M",
   description:
-    "Featured Miami-Dade County 4COP quota liquor license listing at $250,000. Business purchase required: the license is included with a premium Miami adult nightclub offered as a $3.5 million total package. Contact listing broker Julie Negovan of Patricia Burnside Realty.",
+    "Premium Miami adult nightclub and 4COP quota-license business package offered at $3.5 million. The $250,000 license value is allocated within the package and is not a separate offer.",
   alternates: { canonical: canonicalUrl },
   robots: { index: false, follow: false },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Miami-Dade County 4COP Quota Liquor License | $250,000",
+    title: "Miami Adult Nightclub + 4COP Quota License | $3.5M",
     description:
       "Featured third-party broker listing. Business purchase required; premium Miami adult nightclub and license package offered at $3.5 million total.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Miami-Dade County 4COP Quota Liquor License | $250,000",
+    title: "Miami Adult Nightclub + 4COP Quota License | $3.5M",
     description:
-      "Featured third-party broker listing represented by Julie Negovan of Patricia Burnside Realty.",
+      "Featured third-party broker preview for a Miami adult nightclub and 4COP quota-license package represented by Julie Negovan.",
   },
 };
 

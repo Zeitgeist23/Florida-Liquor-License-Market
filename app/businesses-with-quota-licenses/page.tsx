@@ -117,7 +117,7 @@ export default function BusinessesWithQuotaLicensesPage() {
       <section className="business-quota-explainer">
         <div className="business-quota-shell business-quota-explainer-grid">
           <article><span>Business Package</span><h2>What the package price means</h2><p>The total asking price may include the operating business, quota license, furniture, fixtures, equipment, leasehold rights, inventory, brand value, and goodwill. Confirm the allocation and included assets directly with the listing broker.</p></article>
-          <article><span>License Component</span><h2>Why the license value is shown</h2><p>FLLM keeps the quota-license component visible for specialized market comparison. An allocated value is not a separate offer unless the individual listing expressly states that the license can be purchased alone.</p></article>
+          <article><span>FLLM Classification</span><h2>Separate from standalone inventory</h2><p>Third-party broker offerings that include an operating business and a quota license are published in this business-package inventory. They do not increase standalone license counts or affect standalone asking-price ranges, medians, heat maps, or comparables.</p></article>
         </div>
       </section>
 

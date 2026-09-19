@@ -14,9 +14,20 @@ export type BusinessQuotaListing = {
   brokerName: string;
   brokerage: string;
   featured: boolean;
+  publicationStatus: "published" | "preview";
 };
 
-export const businessQuotaListings: BusinessQuotaListing[] = [
+/**
+ * Canonical registry for third-party broker offerings that include an
+ * operating business and a quota license. These records are deliberately
+ * separate from statewide standalone-license inventory, pricing statistics,
+ * county counts, market comparisons, and the Exchange.
+ *
+ * Preview records remain classified here so they cannot leak into standalone
+ * inventory, but they are not exposed on the public business inventory until
+ * the broker listing is approved and publicationStatus becomes "published".
+ */
+export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   {
     listingReference: "FLLM-ANTEZZA",
     href: "/listings/fllm-antezza",
@@ -31,11 +42,48 @@ export const businessQuotaListings: BusinessQuotaListing[] = [
     brokerName: "Alessandro Antezza",
     brokerage: "SUNSHINEAGLE LLC",
     featured: true,
+    publicationStatus: "published",
+  },
+  {
+    listingReference: "FLLM-DESAMOURS",
+    href: "/listings/fllm-desamours",
+    county: "Martin County",
+    countyHref: "/counties/martin",
+    licenseType: "4COP Quota",
+    title: "Iconic Jensen Beach Bar + 4COP Quota License",
+    businessType: "Long-established neighborhood bar",
+    packagePrice: "$650,000",
+    packagePriceNumber: 650_000,
+    allocatedLicenseValue: "Approx. $600,000",
+    brokerName: "JR DesAmours",
+    brokerage: "Business Exit Advisors",
+    featured: true,
+    publicationStatus: "preview",
+  },
+  {
+    listingReference: "FLLM-NEGOVAN",
+    href: "/listings/fllm-negovan",
+    county: "Miami-Dade County",
+    countyHref: "/counties/miami-dade",
+    licenseType: "4COP Quota",
+    title: "Miami Adult Nightclub + 4COP Quota License",
+    businessType: "Premium adult-entertainment business",
+    packagePrice: "$3,500,000",
+    packagePriceNumber: 3_500_000,
+    allocatedLicenseValue: "$250,000",
+    brokerName: "Julie Negovan",
+    brokerage: "Patricia Burnside Realty",
+    featured: true,
+    publicationStatus: "preview",
   },
 ];
 
+export const businessQuotaListings = businessQuotaListingRecords.filter(
+  (listing) => listing.publicationStatus === "published",
+);
+
 const businessQuotaReferences = new Set(
-  businessQuotaListings.map((listing) => listing.listingReference.toUpperCase()),
+  businessQuotaListingRecords.map((listing) => listing.listingReference.toUpperCase()),
 );
 
 export function isBusinessQuotaListing(
