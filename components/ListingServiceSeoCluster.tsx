@@ -33,6 +33,10 @@ const brokerFaqs = [
     q: "Does FLLM charge a recurring fee or commission on broker listings?",
     a: "No. Standard and Featured broker listing charges are one-time submission fees, and FLLM does not take a share of the submitting broker’s commission.",
   },
+  {
+    q: "Can I list an operating business that includes a quota liquor license?",
+    a: "Yes. FLLM publishes an operating business with an included transferable 4COP or 3PS quota license in the separate Businesses With Quota Licenses inventory. The broker remains the transaction contact, while the package is excluded from standalone license counts, pricing statistics, heat maps, comparables, and the FLLM Exchange.",
+  },
 ];
 
 const sellerFaqs = [

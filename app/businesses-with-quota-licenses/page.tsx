@@ -4,7 +4,10 @@ import Link from "next/link";
 
 import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
-import { businessQuotaListings } from "@/lib/business-quota-listings";
+import {
+  businessQuotaListings,
+  FLLM_QUOTA_LISTING_OPERATING_RULES,
+} from "@/lib/business-quota-listings";
 
 import "../fllm-official-template.css";
 import "../listings/listings-premium.css";
@@ -116,8 +119,13 @@ export default function BusinessesWithQuotaLicensesPage() {
 
       <section className="business-quota-explainer">
         <div className="business-quota-shell business-quota-explainer-grid">
-          <article><span>Business Package</span><h2>What the package price means</h2><p>The total asking price may include the operating business, quota license, furniture, fixtures, equipment, leasehold rights, inventory, brand value, and goodwill. Confirm the allocation and included assets directly with the listing broker.</p></article>
-          <article><span>FLLM Classification</span><h2>Separate from standalone inventory</h2><p>Third-party broker offerings that include an operating business and a quota license are published in this business-package inventory. They do not increase standalone license counts or affect standalone asking-price ranges, medians, heat maps, or comparables.</p></article>
+          {FLLM_QUOTA_LISTING_OPERATING_RULES.map((rule) => (
+            <article key={rule.classification}>
+              <span>{rule.placement}</span>
+              <h2>{rule.label}</h2>
+              <p>{rule.description}</p>
+            </article>
+          ))}
         </div>
       </section>
 

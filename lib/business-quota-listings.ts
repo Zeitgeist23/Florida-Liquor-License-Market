@@ -1,5 +1,64 @@
 import type { ListingWithInventoryClass } from "@/lib/listing-inventory-class";
 
+export type QuotaOfferClassification =
+  | "standalone_quota"
+  | "business_package"
+  | "dual_offering"
+  | "excluded";
+
+export type QuotaOfferFacts = {
+  isTransferableQuotaLicense: boolean;
+  includesOperatingBusiness: boolean;
+  licenseAvailableSeparately: boolean;
+};
+
+export const FLLM_QUOTA_LISTING_OPERATING_RULES = [
+  {
+    classification: "standalone_quota",
+    label: "Standalone Quota License",
+    placement: "Standalone license inventory",
+    description:
+      "A separately purchasable 4COP or 3PS quota license belongs only in FLLM's standalone inventory and market statistics.",
+  },
+  {
+    classification: "business_package",
+    label: "Business + Quota License",
+    placement: "Business-package inventory",
+    description:
+      "An operating business sold with an included quota license belongs only in Businesses With Quota Licenses and is excluded from standalone statistics.",
+  },
+  {
+    classification: "dual_offering",
+    label: "Separately Authorized Offers",
+    placement: "Two distinct listings",
+    description:
+      "When a broker expressly offers the business package and the license separately, FLLM creates distinct records, prices, disclosures, and search intent for each offer.",
+  },
+  {
+    classification: "excluded",
+    label: "Nonquota or Premises-Dependent License",
+    placement: "Excluded from quota inventory",
+    description:
+      "A business involving only a nonquota, specialty, or premises-dependent license is not published as FLLM quota-license inventory.",
+  },
+] as const satisfies ReadonlyArray<{
+  classification: QuotaOfferClassification;
+  label: string;
+  placement: string;
+  description: string;
+}>;
+
+export function classifyQuotaOffer({
+  isTransferableQuotaLicense,
+  includesOperatingBusiness,
+  licenseAvailableSeparately,
+}: QuotaOfferFacts): QuotaOfferClassification {
+  if (!isTransferableQuotaLicense) return "excluded";
+  if (includesOperatingBusiness && licenseAvailableSeparately) return "dual_offering";
+  if (includesOperatingBusiness) return "business_package";
+  return "standalone_quota";
+}
+
 export type BusinessQuotaListing = {
   listingReference: string;
   href: string;
@@ -15,6 +74,7 @@ export type BusinessQuotaListing = {
   brokerage: string;
   featured: boolean;
   publicationStatus: "published" | "preview";
+  classification: "business_package";
 };
 
 /**
@@ -43,6 +103,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerage: "SUNSHINEAGLE LLC",
     featured: true,
     publicationStatus: "published",
+    classification: "business_package",
   },
   {
     listingReference: "FLLM-DESAMOURS",
@@ -59,6 +120,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerage: "Business Exit Advisors",
     featured: true,
     publicationStatus: "preview",
+    classification: "business_package",
   },
   {
     listingReference: "FLLM-NEGOVAN",
@@ -75,6 +137,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerage: "Patricia Burnside Realty",
     featured: true,
     publicationStatus: "preview",
+    classification: "business_package",
   },
 ];
 
