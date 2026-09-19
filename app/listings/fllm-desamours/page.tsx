@@ -60,6 +60,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   askingPrice: "$600,000",
   askingPriceNumber: 600000,
   packagePrice: "$650,000",
+  packagePriceNumber: 650000,
   licenseType: "4COP Quota",
   businessLabel: "Iconic Jensen Beach bar",
   businessLabelLinkUrl: "https://myexitplan.com/listing/iconic-jensen-beach-bar-for-sale-w-4-cop-license/",

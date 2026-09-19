@@ -229,6 +229,7 @@ export default async function CountyLiquorLicenseValuePage({ params }: PageProps
             <div className="county-value-actions">
               <Link className="county-value-button county-value-button-gold" href="/florida-liquor-license-value#estimate">Calculate My License Value</Link>
               <Link className="county-value-button county-value-button-dark" href={countyPageHref}>View {county.name} Liquor Licenses for Sale</Link>
+              {slug === "pinellas" ? <Link className="county-value-button county-value-button-dark" href="/listings/fllm-antezza">View Pinellas Business + 4COP Package</Link> : null}
             </div>
           </div>
           <div className="county-value-map" aria-label={`${county.name} market map`}>

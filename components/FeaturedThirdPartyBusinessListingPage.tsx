@@ -24,6 +24,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   askingPrice: string;
   askingPriceNumber: number;
   packagePrice: string;
+  packagePriceNumber: number;
   licenseType: "4COP Quota" | "3PS Quota / Package Store";
   businessLabel: string;
   businessLabelLinkUrl?: string;
@@ -61,7 +62,7 @@ function buildInquiryHref(config: FeaturedThirdPartyBusinessListingConfig) {
     ref: config.listingReference,
     county: config.county,
     license_type: config.licenseType,
-    asking_price: config.askingPrice,
+    asking_price: config.packagePrice,
     listing_status: "Available / Broker confirmation required",
     listing_url: config.canonicalPath,
   });
@@ -114,7 +115,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
         <div className="marketplace-listing-shell marketplace-listing-hero-grid">
           <div className="marketplace-listing-copy">
             <div className="marketplace-listing-breadcrumbs">
-              <Link href="/listings">Florida Liquor Licenses for Sale</Link>
+              <Link href="/businesses-with-quota-licenses">Businesses With Quota Licenses</Link>
               <span>›</span>
               <Link href={config.countyHref}>{config.county}</Link>
               <span>›</span>
@@ -149,34 +150,21 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 {config.county}
               </span>
               <span className="marketplace-listing-title-line marketplace-listing-title-type">
-                <span className="marketplace-license-series">
-                  {shortLicenseType.replace(" Quota", "")}
-                </span>{" "}
-                Quota Liquor License
+                {config.businessLabel}
               </span>
-              <span className="marketplace-listing-title-line">for Sale</span>
+              <span className="marketplace-listing-title-line">
+                + <span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span>{" "}
+                Quota License
+              </span>
             </h1>
-            <p className="marketplace-listing-price">{config.askingPrice}</p>
+            <p className="marketplace-listing-price">{config.packagePrice}</p>
             <div className="featured-business-package-alert">
               <span className="featured-business-package-badge">
                 Business Purchase Required
               </span>
               <span>
-                License included with associated{" "}
-                {config.businessLabelLinkUrl ? (
-                  <a
-                    className="featured-business-label-link featured-business-label-link--hero"
-                    href={config.businessLabelLinkUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {config.businessLabel}
-                  </a>
-                ) : (
-                  config.businessLabel
-                )}{" "}
-                ·{" "}
-                <strong>Total package {config.packagePrice}</strong>
+                Included {shortLicenseType} allocated value {config.askingPrice} ·{" "}
+                <strong>License not offered separately</strong>
               </span>
             </div>
             <div className="marketplace-listing-availability">
@@ -197,9 +185,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
               <Link
                 className="marketplace-listing-primary"
                 href={inquiryHref}
-                aria-label={`Inquire about ${config.county} ${shortLicenseType} liquor license`}
+                aria-label={`Inquire about the ${config.county} business and ${shortLicenseType} package`}
               >
-                Inquire About This License
+                Inquire About This Business Package
               </Link>
               <Link
                 className="marketplace-listing-secondary"
@@ -240,16 +228,16 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 aria-label="Specific listing details"
               >
                 <div>
-                  <span>Asking Price</span>
+                  <span>Business + License Package</span>
+                  <strong>{config.packagePrice}</strong>
+                </div>
+                <div>
+                  <span>Allocated License Value</span>
                   <strong>{config.askingPrice}</strong>
                 </div>
                 <div>
                   <span>License Type</span>
                   <strong>{shortLicenseType}</strong>
-                </div>
-                <div>
-                  <span>County</span>
-                  <strong>{config.county}</strong>
                 </div>
                 <div>
                   <span>Marketplace Status</span>
@@ -550,7 +538,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   listingStatus={statusLabel}
                   listingUrl={config.canonicalPath}
                   showFinancingCalculator
-                  financingPurchasePrice={config.askingPriceNumber}
+                  financingPurchasePrice={config.packagePriceNumber}
                 />
               </div>
 

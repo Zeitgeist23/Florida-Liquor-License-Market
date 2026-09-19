@@ -57,7 +57,7 @@ const faqs = [
   {
     question: "Where can I find Florida liquor licenses for sale?",
     answer:
-      "Florida Liquor License Market organizes current statewide marketplace inventory on the Listings page. Buyers can filter available 4COP quota and 3PS package-store opportunities by county, asking price, license type, and availability, then open individual listing pages for more detail.",
+      "Florida Liquor License Market organizes separately purchasable 4COP quota and 3PS package-store licenses on the Listings page. Operating businesses that include quota licenses appear in a separate business inventory so buyers can distinguish the two transaction types.",
   },
   {
     question: "What is a Florida 4COP quota liquor license?",
@@ -82,7 +82,7 @@ const faqs = [
   {
     question: "Does a liquor-license listing include a restaurant or real estate?",
     answer:
-      "Not unless an individual listing expressly says so. Marketplace listings generally describe the liquor-license interest separately from any operating business, leasehold, equipment, inventory, or real estate.",
+      "No. The standalone quota-license inventory is limited to licenses offered separately from an operating business, leasehold, equipment, inventory, or real estate. Business packages with included quota licenses appear on the separate Businesses With Quota Licenses page.",
   },
 ];
 
@@ -94,9 +94,9 @@ export async function generateMetadata({ searchParams }: ListingsMetadataProps):
   const hasFilters = Object.values(params).some((value) =>
     Array.isArray(value) ? value.some(Boolean) : Boolean(value),
   );
-  const title = "Florida Liquor License for Sale | 4COP & 3PS Listings";
+  const title = "Standalone Florida Liquor Licenses for Sale | 4COP & 3PS";
   const description =
-    "Browse current Florida liquor licenses for sale, including transferable 4COP quota and 3PS package-store licenses. Search statewide inventory by county, license type, price and availability.";
+    "Browse standalone Florida liquor licenses for sale, including separately purchasable 4COP quota and 3PS package-store licenses. Business + license packages are listed separately.";
 
   return {
     title,
@@ -147,9 +147,9 @@ export default async function Page() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Florida Liquor Licenses for Sale",
+      name: "Standalone Florida Liquor Licenses for Sale",
       url: listingsUrl,
-      description: `Current Florida marketplace inventory with ${availableListings.length} available 4COP quota and 3PS liquor-license opportunities organized by county and asking price.`,
+      description: `Current standalone Florida marketplace inventory with ${availableListings.length} separately purchasable 4COP quota and 3PS liquor-license opportunities organized by county and asking price.`,
       isPartOf: {
         "@type": "WebSite",
         name: "Florida Liquor License Market",
@@ -161,13 +161,13 @@ export default async function Page() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Florida Liquor Licenses for Sale", item: listingsUrl },
+        { "@type": "ListItem", position: 2, name: "Standalone Florida Liquor Licenses for Sale", item: listingsUrl },
       ],
     },
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Florida liquor licenses for sale",
+      name: "Standalone Florida liquor licenses for sale",
       url: listingsUrl,
       numberOfItems: availableListings.length,
       itemListElement: availableListings.slice(0, 24).map((listing, index) => ({

@@ -29,22 +29,22 @@ const canonicalUrl = `${siteUrl}${canonicalPath}`;
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Pinellas County 4COP Quota Liquor License for Sale | $495,000",
+  title: "Pinellas Cocktail Lounge + 4COP Quota License | $1.1M",
   description:
-    "Featured Pinellas County 4COP quota liquor license listing at $495,000. Business purchase required: the license is included with an associated upscale cocktail lounge offered as a $1.1 million total package. Contact listing broker Alessandro Antezza of SUNSHINEAGLE LLC.",
+    "Buy an upscale Pinellas County cocktail lounge with its included 4COP quota liquor license for $1.1 million. The allocated license value is $495,000; the license is not offered separately.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Pinellas County 4COP Quota Liquor License | $495,000",
+    title: "Pinellas Cocktail Lounge + 4COP Quota License | $1.1M",
     description:
-      "Featured third-party broker listing. Business purchase required; associated cocktail lounge and license package offered at $1.1 million total.",
+      "Featured business package represented by Alessandro Antezza. The included 4COP quota license has a $495,000 allocated value and is not separately offered.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pinellas County 4COP Quota Liquor License | $495,000",
+    title: "Pinellas Cocktail Lounge + 4COP Quota License | $1.1M",
     description:
       "Featured third-party broker listing represented by Alessandro Antezza of SUNSHINEAGLE LLC.",
   },
@@ -60,6 +60,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   askingPrice: "$495,000",
   askingPriceNumber: 495000,
   packagePrice: "$1,100,000",
+  packagePriceNumber: 1100000,
   licenseType: "4COP Quota",
   businessLabel: "cocktail lounge",
   heroSummary:
@@ -110,5 +111,36 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
 };
 
 export default function AlessandroAntezzaFeaturedListingPage() {
-  return <FeaturedThirdPartyBusinessListingPage config={config} />;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Pinellas County Cocktail Lounge with 4COP Quota License",
+    description:
+      "Operating upscale cocktail lounge offered with its included Pinellas County 4COP quota liquor license. The license is not offered separately.",
+    sku: "FLLM-ANTEZZA",
+    category: "Business for sale with included Florida quota liquor license",
+    url: canonicalUrl,
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "Included license", value: "Pinellas County 4COP Quota" },
+      { "@type": "PropertyValue", name: "Allocated license value", value: "$495,000" },
+      { "@type": "PropertyValue", name: "Separate license purchase", value: "Not offered" },
+    ],
+    offers: {
+      "@type": "Offer",
+      price: 1100000,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url: canonicalUrl,
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
+      />
+      <FeaturedThirdPartyBusinessListingPage config={config} />
+    </>
+  );
 }

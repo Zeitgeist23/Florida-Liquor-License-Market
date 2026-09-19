@@ -231,12 +231,12 @@ export default function ListingsPage({
       <section className="results-intro">
         <div className="page-shell">
           <h1>
-            Florida Liquor Licenses{" "}
+            Standalone Florida Liquor Licenses{" "}
             <span className="listings-title-gold">for Sale</span>
           </h1>
           <p className="listings-seo-intro">
-            Browse {availableCount} current Florida liquor licenses for sale
-            across the statewide marketplace. Compare transferable{" "}
+            Browse {availableCount} current Florida quota liquor licenses offered
+            separately from an operating business. Compare transferable{" "}
             <Link href="/florida-4cop-liquor-license-for-sale">
               4COP quota liquor licenses
             </Link>{" "}
@@ -249,6 +249,12 @@ export default function ListingsPage({
             <Link href="/counties">Florida county market directory</Link> to
             review county-specific inventory and pricing before opening an
             individual listing for details.
+            {" "}Looking for an operating business whose sale includes a quota
+            license? Browse the separate{" "}
+            <Link href="/businesses-with-quota-licenses">
+              Florida businesses with quota licenses
+            </Link>
+            {" "}inventory.
           </p>
         </div>
       </section>

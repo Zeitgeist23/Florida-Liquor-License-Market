@@ -61,6 +61,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   askingPrice: "$250,000",
   askingPriceNumber: 250000,
   packagePrice: "$3,500,000",
+  packagePriceNumber: 3500000,
   licenseType: "4COP Quota",
   businessLabel: "premium Miami adult nightclub",
   heroSummary:

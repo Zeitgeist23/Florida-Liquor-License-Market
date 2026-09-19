@@ -4,6 +4,7 @@ import { listings, type Listing } from "@/data/listings";
 import { additionalListings } from "@/data/additional-listings";
 import { latestListings } from "@/data/latest-listings";
 import { marketAdditions } from "@/data/market-additions";
+import { standaloneQuotaListings } from "@/lib/business-quota-listings";
 import { canonicalFloridaCountyName } from "@/lib/county-normalization";
 import {
   resolveListingInventoryClass,
@@ -402,7 +403,7 @@ async function readListingRows(): Promise<ListingRow[]> {
 
 export async function getMarketplaceListings(): Promise<ClassifiedListing[]> {
   const fallback = dedupeListings(staticListings);
-  if (!databaseConfigured()) return fallback;
+  if (!databaseConfigured()) return standaloneQuotaListings(fallback);
 
   try {
     const approvedSubmissions = await listApprovedMarketplaceSubmissions();
@@ -456,10 +457,13 @@ export async function getMarketplaceListings(): Promise<ClassifiedListing[]> {
     if (listingsTableAvailable) {
       await upsertRows(missingStaticListings);
     }
-    return mergedListings;
+    // The statewide quota-license inventory contains only licenses that may be
+    // purchased separately. Operating-business packages that include a quota
+    // license are published through the dedicated business inventory instead.
+    return standaloneQuotaListings(mergedListings);
   } catch (error) {
     console.error(error);
-    return fallback;
+    return standaloneQuotaListings(fallback);
   }
 }
 

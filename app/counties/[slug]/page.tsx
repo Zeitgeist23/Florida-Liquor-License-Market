@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import CountyMarketDataPanel from "@/components/CountyMarketDataPanel";
+import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import MarketplaceListingCard from "@/components/MarketplaceListingCard";
 import { countyValuationGuideHref, isCountyValuationGuide } from "@/data/county-valuation-guides";
@@ -11,6 +12,7 @@ import type { Listing } from "@/data/listings";
 import {
   countyListingDescription,
 } from "@/lib/county-listing-descriptions";
+import { businessQuotaListingsForCounty } from "@/lib/business-quota-listings";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleMarketplaceListings } from "@/lib/visible-marketplace-listings";
@@ -21,6 +23,7 @@ import "../../listings/listings-county-links.css";
 import "../../listings/listings-conversion-cards.css";
 import "../../listings/listings-card-overlap-fix.css";
 import "../../listings/listings-view-button-edge-fix.css";
+import "../../businesses-with-quota-licenses/business-inventory.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 
@@ -279,6 +282,7 @@ export default async function CountyPage({ params }: PageProps) {
   if (!county) notFound();
 
   const { available, sold, lowest, highest, medianPrice } = await getCountyListingSnapshot(county.name);
+  const businessPackages = businessQuotaListingsForCounty(county.name);
   const canonical = `${siteUrl}/counties/${county.slug}`;
   const inventoryHref = "#available-licenses";
   const cityText = county.primaryCities.length ? county.primaryCities.join(", ") : county.name.replace(" County", "");
@@ -470,6 +474,21 @@ export default async function CountyPage({ params }: PageProps) {
           )}
         </div>
       </section>
+
+      {businessPackages.length > 0 ? (
+        <section className="county-inventory county-business-packages" aria-labelledby="county-business-packages-title">
+          <div className="county-shell">
+            <div className="county-section-heading">
+              <div><span>Separate Business Inventory</span><h2 id="county-business-packages-title">Businesses With Quota Licenses in {county.name}</h2></div>
+              <Link href="/businesses-with-quota-licenses">Browse all business + license packages ›</Link>
+            </div>
+            <p className="county-disclaimer">These are operating-business acquisitions that include a quota liquor license. They are not counted as separately purchasable licenses above.</p>
+            <div className="business-quota-grid county-business-quota-grid">
+              {businessPackages.map((listing) => <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />)}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="county-guide county-shell">
         <article>
