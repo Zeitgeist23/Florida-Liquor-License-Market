@@ -17,6 +17,7 @@ export default function Page() {
       imageSrc="https://images.pexels.com/photos/18675118/pexels-photo-18675118/free-photo-of-interior-of-a-bar.jpeg?auto=compress&dpr=1&h=1000&w=1800"
       imageAlt="Sharp interior view of a bar and lounge representing businesses that commonly use a Florida 4COP quota liquor license"
       definition="A Florida 4COP quota license is a county-limited full-liquor quota license recorded in the 4COP consumption-on-premises series. It can authorize beer, wine and distilled spirits for consumption on the licensed premises and, within its approved privileges, package sales for off-premises consumption."
+      populationRule={{ text: "Florida’s quota system generally makes one additional quota license available for each increase of 7,500 residents in a county, subject to the statute’s census baseline and exceptions.", href: "https://www.flsenate.gov/Laws/Statutes/2025/561.20", citation: "Fla. Stat. § 561.20(1)(a)" }}
       plainEnglish="Think of the quota license as the scarce county license interest and 4COP as the operating series used when that quota license is approved for full-liquor consumption on premises. That is why people commonly say they are buying a 4COP, even though the quota status and the 4COP series describe two different aspects of the license."
       plainEnglishHighlights={["quota status", "4COP series"]}
       seriesMeaning="In 4COP, COP stands for Consumption on Premises."
