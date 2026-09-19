@@ -34,7 +34,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
     email: string;
     website: string;
     listingUrl: string;
-    photo: string;
+    photo?: string;
     credential?: string;
   };
   additionalSellerIntro: string;
@@ -456,19 +456,21 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 <span>Independent Listing Broker</span>
                 <div className="marketplace-listing-broker-profile">
                   <h2>{config.broker.name}</h2>
-                  <a
-                    className="marketplace-listing-broker-photo"
-                    href={config.broker.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit ${config.broker.name} and ${config.broker.brokerage}`}
-                  >
-                    <img
-                      src={config.broker.photo}
-                      alt={`${config.broker.name}, listing broker`}
-                      referrerPolicy="no-referrer"
-                    />
-                  </a>
+                  {config.broker.photo ? (
+                    <a
+                      className="marketplace-listing-broker-photo"
+                      href={config.broker.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visit ${config.broker.name} and ${config.broker.brokerage}`}
+                    >
+                      <img
+                        src={config.broker.photo}
+                        alt={`${config.broker.name}, listing broker`}
+                        referrerPolicy="no-referrer"
+                      />
+                    </a>
+                  ) : null}
                   <div className="marketplace-listing-broker-contact">
                     <strong>{config.broker.brokerage}</strong>
                     {config.broker.credential ? (
