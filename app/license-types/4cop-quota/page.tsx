@@ -33,6 +33,24 @@ export default function Page() {
       ]}
       requirementsText="The 4COP quota license is often more flexible than the special restaurant route because its statewide qualification is not based on the 4COP-SFS restaurant revenue, square-footage and seating thresholds. That flexibility does not eliminate zoning, premises or DBPR approval requirements."
       requirementsCaution="SFS means Special Food Service. The current restaurant-license designation is 4COP-SFS. “SRX” is an older designation that remains common in older records and industry shorthand. Both terms refer to the qualification-based special restaurant license—not a transferable quota license. County or municipal zoning, distance, occupancy, parking, health, fire and premises requirements can still materially affect a proposed location."
+      comparison={{
+        heading: "4COP Quota vs. 4COP SFS/SRX",
+        intro: "Both license types can authorize beer, wine and distilled spirits for consumption on the premises. Their supply, qualification requirements, transferability and market value are fundamentally different.",
+        rows: [
+          { feature: "Full-liquor privileges", quota: "Beer, wine and distilled spirits for consumption on the licensed premises, with approved package-sale privileges.", sfs: "Beer, wine and distilled spirits for consumption in the qualifying restaurant; privileges remain tied to the approved operation and premises." },
+          { feature: "Number available", quota: "Limited by county population under Florida’s quota system—generally one additional license for each increase of 7,500 residents, subject to statutory rules and exceptions.", sfs: "Not limited by the county’s quota count. A restaurant may apply when it satisfies the current Special Food Service qualifications." },
+          { feature: "How it is obtained", quota: "Purchased from an existing holder on the secondary market or awarded through Florida’s annual quota-license drawing.", sfs: "Applied for directly through DBPR/DABT as part of a qualifying food-service operation; it is not acquired through the quota drawing." },
+          { feature: "Property and market value", quota: "A scarce, county-specific license interest with independent secondary-market value. It may be bought, sold, financed or held inactive, subject to Florida law and DABT approval.", sfs: "No standalone quota asset or independent secondary-market value. Its usefulness depends on the restaurant continuing to qualify." },
+          { feature: "Transferability", quota: "Ownership and location may be transferred within the licensed county, subject to application, qualification, zoning and DABT approval.", sfs: "Not transferable as a freestanding quota license. A new owner or location must apply, receive approval and independently satisfy the SFS requirements." },
+          { feature: "Food-sales requirement", quota: "No statewide 51% food-and-nonalcoholic-beverage revenue test applies merely because it is a quota 4COP.", sfs: "At least 51% of gross food-and-beverage revenue must come from food and nonalcoholic beverages—not beer, wine or liquor." },
+          { feature: "Annual DBPR/DABT fee", quota: "$624–$1,820 per year, based on county population.", sfs: "$624–$1,820 per year, based on county population—the same statutory 4COP on-premises fee schedule." }
+        ],
+        sources: [
+          { href: "https://www.flsenate.gov/Laws/Statutes/2025/561.20", label: "Fla. Stat. § 561.20 — quota and SFS rules" },
+          { href: "https://www.flsenate.gov/Laws/Statutes/2025/565.02", label: "Fla. Stat. § 565.02 — annual 4COP fees" },
+          { href: "https://www2.myfloridalicense.com/abt/licensing/annual-quota-beverage-license-drawing/", label: "DBPR/DABT annual quota drawing" }
+        ]
+      }}
       officialResources={[
         { href: "/resources/florida-liquor-license-system", label: "FLLM Guide to Florida's Quota-License System", description: "Understand quota status, series designations, inactive ownership, county limits and how 4COP fits into Florida's licensing structure." },
         { href: "/resources/florida-liquor-license-laws", label: "FLLM Florida Liquor License Laws", description: "Read FLLM's plain-English explanation of the quota statute, premises rules and current beverage-law developments." },
