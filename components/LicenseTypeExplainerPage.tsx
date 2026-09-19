@@ -49,12 +49,36 @@ function LicenseTypeTitle({ title }: { title: string }) {
 
 function HighlightTerms({ text, terms = [] }: { text: string; terms?: string[] }) {
   if (!terms.length) return <>{text}</>;
-  const escaped = terms.map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, "\\function LicenseTypeTitle({ title }: { title: string }) {
-  return <>{title.split(/([34](?=(?:PS|COP)))/g).map((part, index) => /^[34]$/.test(part) ? <span className="lt-straight-numeral" key={`${part}-${index}`}>{part}</span> : part)}</>;
-}
-"));
-  const parts = text.split(new RegExp(`(${escaped.join("|")})`, "gi"));
-  return <>{parts.map((part, index) => terms.some((term) => term.toLowerCase() === part.toLowerCase()) ? <strong className="lt-term-highlight" key={`${part}-${index}`}>{part}</strong> : part)}</>;
+  const normalizedTerms = terms.map((term) => term.toLowerCase());
+  const lowerText = text.toLowerCase();
+  const nodes: React.ReactNode[] = [];
+  let cursor = 0;
+  let key = 0;
+
+  while (cursor < text.length) {
+    let nextIndex = -1;
+    let nextTerm = "";
+
+    normalizedTerms.forEach((term) => {
+      const index = lowerText.indexOf(term, cursor);
+      if (index >= 0 && (nextIndex < 0 || index < nextIndex)) {
+        nextIndex = index;
+        nextTerm = term;
+      }
+    });
+
+    if (nextIndex < 0) {
+      nodes.push(text.slice(cursor));
+      break;
+    }
+
+    if (nextIndex > cursor) nodes.push(text.slice(cursor, nextIndex));
+    const match = text.slice(nextIndex, nextIndex + nextTerm.length);
+    nodes.push(<strong className="lt-term-highlight" key={`${match}-${key++}`}>{match}</strong>);
+    cursor = nextIndex + nextTerm.length;
+  }
+
+  return <>{nodes}</>;
 }
 
 export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProps) {
