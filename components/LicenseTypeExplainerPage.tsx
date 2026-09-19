@@ -6,6 +6,7 @@ export type LicenseTypeExplainerProps = {
   eyebrow: string;
   definition: string;
   plainEnglish: string;
+  seriesMeaning?: string;
   sells: string[];
   businesses: string[];
   doesNot: string[];
@@ -59,9 +60,10 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-definition{margin:24px 0 0;padding:26px 28px;border:1px solid rgba(246,167,0,.6);border-left:5px solid var(--gold);border-radius:10px;background:rgba(255,255,255,.065);max-width:1050px}
         .lt-definition h2{margin:0 0 12px;color:var(--gold);font-size:20px}.lt-definition p{margin:0;color:#fff;font-size:21px;line-height:1.55;font-weight:600}
         .lt-plain{margin:18px 0 0;color:var(--muted);font-size:17px;line-height:1.7;max-width:1000px}
-        .lt-grid{display:grid;grid-template-columns:minmax(0,.96fr) minmax(0,1.08fr) minmax(0,.96fr);align-items:center;gap:22px;padding:26px 0 34px}
+        .lt-series-meaning{display:flex;align-items:center;gap:10px;width:fit-content;max-width:100%;margin:14px 0 0;padding:10px 14px;border-left:3px solid var(--gold);border-radius:7px;background:rgba(4,23,39,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 18px rgba(0,0,0,.12);color:#dce7ed;font-size:14px;line-height:1.4}.lt-series-meaning strong{color:var(--gold);font-weight:900}
+        .lt-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1fr);align-items:stretch;gap:22px;padding:24px 0 30px}
         .lt-card{position:relative;isolation:isolate;overflow:hidden;padding:24px;border:1px solid rgba(246,167,0,.46);border-radius:12px;background:radial-gradient(circle at 24% 0%,rgba(255,255,255,.055),transparent 36%),linear-gradient(145deg,#16405f 0%,#123955 48%,#0d2d46 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),inset 0 -8px 18px rgba(0,0,0,.13),0 3px 0 rgba(111,77,13,.52),0 16px 34px rgba(0,0,0,.2);transform:translateY(0);transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease,filter .2s ease}.lt-card::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% -10%,rgba(108,216,255,.22),transparent 44%),linear-gradient(180deg,rgba(255,255,255,.055),transparent 40%);transition:opacity .2s ease}.lt-card::after{content:"";position:absolute;left:10%;right:10%;bottom:-8px;height:14px;z-index:-2;border-radius:50%;background:rgba(0,0,0,.34);filter:blur(8px)}.lt-card:nth-child(2){z-index:1}.lt-card:hover,.lt-card:focus-within{background:radial-gradient(circle at 24% 0%,rgba(255,255,255,.09),transparent 38%),linear-gradient(145deg,#1b4e70 0%,#164663 48%,#10364f 100%);border-color:#ffc13b;box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 0 30px rgba(105,214,255,.075),0 4px 0 rgba(163,111,10,.66),0 22px 42px rgba(0,0,0,.3),0 0 20px rgba(105,214,255,.16),0 0 16px rgba(246,167,0,.14);transform:translateY(-5px) scale(1.012);filter:brightness(1.05)}.lt-card:hover::before,.lt-card:focus-within::before{opacity:1}
-        .lt-card h2{margin:0 0 14px;color:#fff;font-size:20px}.lt-card ul{margin:0;padding-left:20px;color:#edf4f8;font-size:15.5px;line-height:1.68}.lt-card li+li{margin-top:8px}
+        .lt-card h2{margin:0 0 14px;color:#fff;font-size:20px}.lt-card ul{margin:0;padding-left:20px;color:#edf4f8;font-size:15.5px;line-height:1.68}.lt-card li+li{margin-top:8px}.lt-card-businesses ul{display:grid;grid-template-columns:1fr 1fr;column-gap:22px;row-gap:8px;align-content:start}.lt-card-businesses li{break-inside:avoid;margin-top:0!important}
         .lt-requirements{padding:4px 0 30px}.lt-requirements-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:end;margin-bottom:16px}
         .lt-requirements-head span,.lt-rule-updates>span,.lt-official>span,.lt-research>span{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
         .lt-requirements-head h2,.lt-rule-updates h2,.lt-official h2,.lt-research h2{margin:7px 0 0;color:#fff;font:700 29px/1.15 Georgia,serif}
@@ -79,8 +81,8 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-research{padding:0 0 34px}.lt-research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.lt-research-grid a{display:flex;flex-direction:column;min-height:150px;padding:19px;border:1px solid rgba(246,167,0,.4);border-radius:10px;background:#10314b;color:inherit;text-decoration:none;transition:transform .18s ease,border-color .18s ease}.lt-research-grid a:hover,.lt-research-grid a:focus-visible{transform:translateY(-3px);border-color:var(--gold);outline:none}.lt-research-grid strong{color:#fff;font-size:17px;line-height:1.3}.lt-research-grid p{margin:9px 0 13px;color:var(--muted);font-size:13px;line-height:1.55}.lt-research-grid small{margin-top:auto;color:var(--gold);font-weight:900;text-transform:uppercase}
         .lt-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 0 42px;border-top:1px solid rgba(246,167,0,.3)}.lt-cta p{margin:0;color:#d3dfe7;line-height:1.6}.lt-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.lt-button{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:7px;text-decoration:none;font-size:13px;font-weight:900;transform-origin:center;transition:transform .18s ease,border-color .18s ease,background .18s ease,color .18s ease,box-shadow .18s ease}.lt-button.gold{border:1px solid #ffc13b;background:linear-gradient(145deg,#ffc13b,#e69a00);box-shadow:0 6px 13px rgba(0,0,0,.2);color:#061728}.lt-button.outline{border:1px solid var(--gold);background:#071a2b;color:#fff}.lt-button:hover,.lt-button:focus-visible{border-color:#ffd66e;background:linear-gradient(145deg,#ffca4d,#f1a600);box-shadow:0 9px 18px rgba(0,0,0,.28),0 0 13px rgba(246,167,0,.2);color:#061728;transform:translateY(-1px) scale(1.03);outline:none}.lt-disclaimer{padding:18px 0 34px;color:#aebfcc;font-size:12px;line-height:1.6}
         @media(max-width:900px){.lt-requirement-grid{grid-template-columns:1fr 1fr}.lt-requirements-head{grid-template-columns:1fr}}
-        @media(max-width:850px){.lt-grid,.lt-extra,.lt-research-grid,.lt-rule-grid,.lt-official-grid{grid-template-columns:1fr}.lt-research-grid a,.lt-official-grid a{min-height:0}.lt-band{grid-template-columns:1fr}.lt-business-image img{max-height:none;aspect-ratio:4/3}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
-        @media(max-width:560px){.lt-requirement-grid{grid-template-columns:1fr}}
+        @media(max-width:850px){.lt-grid,.lt-extra,.lt-research-grid,.lt-rule-grid,.lt-official-grid{grid-template-columns:1fr}.lt-card-businesses ul{grid-template-columns:1fr 1fr}.lt-research-grid a,.lt-official-grid a{min-height:0}.lt-band{grid-template-columns:1fr}.lt-business-image img{max-height:none;aspect-ratio:4/3}.lt-cta{align-items:flex-start;flex-direction:column}.lt-actions{justify-content:flex-start}.lt-definition p{font-size:18px}}
+        @media(max-width:560px){.lt-requirement-grid{grid-template-columns:1fr}.lt-card-businesses ul{grid-template-columns:1fr}.lt-series-meaning{align-items:flex-start;flex-direction:column;gap:3px}}
       `}</style>
 
 
@@ -89,11 +91,12 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         <div style={{marginTop:24}}><span className="lt-eyebrow">{props.eyebrow}</span><h1><LicenseTypeTitle title={props.title} /></h1></div>
         <div className="lt-definition"><h2>What is a {props.code} license?</h2><p>{props.definition}</p></div>
         <p className="lt-plain"><strong>In plain English:</strong> {props.plainEnglish}</p>
+        {props.seriesMeaning ? <div className="lt-series-meaning"><strong>Series meaning:</strong><span>{props.seriesMeaning}</span></div> : null}
       </section>
 
       <section className="lt-shell lt-grid" aria-label={`${props.code} license summary`}>
         <article className="lt-card"><h2>What it can sell</h2><ul>{props.sells.map((item) => <li key={item}>{item}</li>)}</ul></article>
-        <article className="lt-card"><h2>Businesses that commonly use it</h2><ul>{props.businesses.map((item) => <li key={item}>{item}</li>)}</ul></article>
+        <article className="lt-card lt-card-businesses"><h2>Businesses that commonly use it</h2><ul>{props.businesses.map((item) => <li key={item}>{item}</li>)}</ul></article>
         <article className="lt-card"><h2>What it does not automatically allow</h2><ul>{props.doesNot.map((item) => <li key={item}>{item}</li>)}</ul></article>
       </section>
 
