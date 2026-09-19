@@ -6,6 +6,7 @@ export type LicenseTypeExplainerProps = {
   eyebrow: string;
   definition: string;
   plainEnglish: string;
+  plainEnglishHighlights?: string[];
   seriesMeaning?: string;
   sells: string[];
   businesses: string[];
@@ -46,6 +47,16 @@ function LicenseTypeTitle({ title }: { title: string }) {
   return <>{title.split(/([34](?=(?:PS|COP)))/g).map((part, index) => /^[34]$/.test(part) ? <span className="lt-straight-numeral" key={`${part}-${index}`}>{part}</span> : part)}</>;
 }
 
+function HighlightTerms({ text, terms = [] }: { text: string; terms?: string[] }) {
+  if (!terms.length) return <>{text}</>;
+  const escaped = terms.map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, "\\function LicenseTypeTitle({ title }: { title: string }) {
+  return <>{title.split(/([34](?=(?:PS|COP)))/g).map((part, index) => /^[34]$/.test(part) ? <span className="lt-straight-numeral" key={`${part}-${index}`}>{part}</span> : part)}</>;
+}
+"));
+  const parts = text.split(new RegExp(`(${escaped.join("|")})`, "gi"));
+  return <>{parts.map((part, index) => terms.some((term) => term.toLowerCase() === part.toLowerCase()) ? <strong className="lt-term-highlight" key={`${part}-${index}`}>{part}</strong> : part)}</>;
+}
+
 export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProps) {
   return (
     <main className={`license-explainer-page${props.organizedSummary ? " lt-readable-layout" : ""}`}>
@@ -61,7 +72,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-definition{margin:24px 0 0;padding:26px 28px;border:1px solid rgba(246,167,0,.6);border-left:5px solid var(--gold);border-radius:10px;background:rgba(255,255,255,.065);max-width:1050px}
         .lt-definition h2{margin:0 0 12px;color:var(--gold);font-size:20px}.lt-definition p{margin:0;color:#fff;font-size:21px;line-height:1.55;font-weight:600}
         .lt-plain{margin:18px 0 0;color:var(--muted);font-size:17px;line-height:1.7;max-width:1000px}
-        .lt-series-meaning{display:flex;align-items:center;gap:10px;width:fit-content;max-width:100%;margin:14px 0 0;padding:10px 14px;border-left:3px solid var(--gold);border-radius:7px;background:rgba(4,23,39,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 18px rgba(0,0,0,.12);color:#dce7ed;font-size:14px;line-height:1.4}.lt-series-meaning strong{color:var(--gold);font-weight:900}
+        .lt-series-meaning{display:flex;align-items:center;gap:10px;width:fit-content;max-width:100%;margin:14px 0 0;padding:10px 14px;border-left:3px solid var(--gold);border-radius:7px;background:rgba(4,23,39,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 18px rgba(0,0,0,.12);color:#dce7ed;font-size:14px;line-height:1.4}.lt-series-meaning strong{color:var(--gold);font-weight:900}.lt-term-highlight{color:#70dcff;font-weight:900;text-shadow:0 0 12px rgba(112,220,255,.16)}
         .lt-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.1fr) minmax(0,.95fr);align-items:start;gap:22px;padding:24px 0 24px}
         .lt-summary{padding:24px 0 34px}.lt-summary-head{margin:0 0 16px}.lt-summary-head span{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.lt-summary-head h2{margin:7px 0 0;color:#fff;font:700 29px/1.15 Georgia,serif}.lt-summary-compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}.lt-summary-compare .lt-card{height:100%}.lt-readable-layout .lt-plain{font-size:19px;line-height:1.72}.lt-readable-layout .lt-series-meaning{font-size:16px;padding:12px 16px}.lt-readable-layout .lt-summary-head span{font-size:13px}.lt-readable-layout .lt-summary-head h2{font-size:32px}.lt-readable-layout .lt-card h2{font-size:22px}.lt-readable-layout .lt-card ul{font-size:17px;line-height:1.68}.lt-readable-layout .lt-card li{margin-bottom:11px}.lt-readable-layout .lt-requirements-head span{font-size:13px}.lt-readable-layout .lt-requirements-head p{font-size:17px}.lt-readable-layout .lt-requirement-card span{font-size:14px}.lt-readable-layout .lt-requirement-card p{font-size:16px}.lt-readable-layout .lt-requirement-source{font-size:14px!important}
         .lt-summary-businesses{margin-top:18px}.lt-summary-businesses h2{white-space:normal}.lt-card-businesses.lt-summary-businesses ul{grid-template-columns:repeat(4,minmax(0,1fr));column-gap:32px}.lt-card-businesses.lt-summary-businesses li:first-child{grid-column:span 2;margin-bottom:10px}.lt-card-businesses.lt-summary-businesses li{margin-bottom:8px}
@@ -93,7 +104,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         <Link className="lt-back" href="/resources/florida-liquor-license-types">← All Florida liquor license types</Link>
         <div style={{marginTop:24}}><span className="lt-eyebrow">{props.eyebrow}</span><h1><LicenseTypeTitle title={props.title} /></h1></div>
         <div className="lt-definition"><h2>What is a {props.code} license?</h2><p>{props.definition}</p></div>
-        <p className="lt-plain"><strong>In plain English:</strong> {props.plainEnglish}</p>
+        <p className="lt-plain"><strong>In plain English:</strong> <HighlightTerms text={props.plainEnglish} terms={props.plainEnglishHighlights} /></p>
         {props.seriesMeaning ? <div className="lt-series-meaning"><strong>Series meaning:</strong><span>{props.seriesMeaning}</span></div> : null}
       </section>
 
