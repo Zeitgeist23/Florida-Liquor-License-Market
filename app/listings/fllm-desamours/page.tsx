@@ -62,6 +62,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   packagePrice: "$650,000",
   licenseType: "4COP Quota",
   businessLabel: "Iconic Jensen Beach bar",
+  businessLabelLinkUrl: "https://myexitplan.com/listing/iconic-jensen-beach-bar-for-sale-w-4-cop-license/",
   heroSummary:
     "Martin County 4COP quota liquor license available exclusively with the acquisition of the associated long-established Jensen Beach bar through an asset-sale transaction. The license is not currently offered separately.",
   broker: {
