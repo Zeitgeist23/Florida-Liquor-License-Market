@@ -32,7 +32,8 @@ const violations=[];
 
 for(const page of pages){
   const source=fs.readFileSync(page,"utf8");
-  if(!source.includes(marker)) continue;
+  const usesV2Shell = source.includes("FllmPageShell");
+  if(!source.includes(marker) && !usesV2Shell) continue;
 
   if(!source.includes("fllm-official-template.css")){
     violations.push([page,"missing fllm-official-template.css import"]);
@@ -40,8 +41,8 @@ for(const page of pages){
   if(!source.includes("fllm-design-system.css")){
     violations.push([page,"missing fllm-design-system.css import"]);
   }
-  if(!source.includes("FormsSiteHeader")){
-    violations.push([page,"missing FormsSiteHeader"]);
+  if(!usesV2Shell && !source.includes("FormsSiteHeader")){
+    violations.push([page,"missing FormsSiteHeader or FllmPageShell"]);
   }
 
   const importMatches=[...source.matchAll(/import\s+["']([^"']+\.css)["'];/g)];
