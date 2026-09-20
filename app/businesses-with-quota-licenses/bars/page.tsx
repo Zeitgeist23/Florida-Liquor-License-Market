@@ -118,40 +118,40 @@ export default function BarsWithQuotaLicensesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
 
-      <section className="bar-package-hero fllm-template-hero">
-        <div className="fllm-template-shell bar-package-hero-grid">
+      <section className="seo-market-hero">
+        <div className="seo-market-shell"><div className="seo-market-hero-grid">
           <div>
-            <div className="fllm-ui-breadcrumbs">
+            <div className="seo-market-breadcrumbs">
               <Link href="/">Home</Link><span>›</span>
               <Link href="/businesses-with-quota-licenses">Businesses With Quota Licenses</Link><span>›</span>
               <strong>Bars</strong>
             </div>
-            <span className="fllm-template-eyebrow">Florida Business + 4COP Quota License Packages</span>
-            <h1 className="fllm-template-hero-title">Bars for Sale With <em>4COP Quota Licenses</em> in Florida</h1>
-            <p className="fllm-template-hero-copy">
+            <span className="seo-market-kicker">Florida Business + 4COP Quota License Packages</span>
+            <h1 >Bars for Sale With <em>4COP Quota Licenses</em> in Florida</h1>
+            <p >
               A bar acquisition can combine an operating hospitality business with a valuable, transferable
               county quota liquor license. FLLM keeps these business packages separate from standalone license
               inventory while giving brokers, attorneys, buyers and sellers tools to identify, value, transfer
               and document the liquor-license component of the transaction.
             </p>
-            <div className="fllm-ui-actions">
-              <a className="fllm-template-button" href="#current-packages">View Bar + License Packages</a>
-              <Link className="fllm-template-button fllm-template-button--outline" href="/transaction-services">
+            <div className="seo-market-actions">
+              <a className="seo-market-button seo-market-button-gold" href="#current-packages">View Bar + License Packages</a>
+              <Link className="seo-market-button seo-market-button-dark" href="/transaction-services">
                 Explore Transaction Services
               </Link>
             </div>
           </div>
 
-          <aside className="fllm-ui-panel" aria-label="Bar and quota license package overview">
-            <span className="fllm-ui-panel-label">What FLLM Separates</span>
-            <div className="fllm-ui-kpi-grid">
-              <div className="fllm-ui-kpi"><strong>Business</strong><small>Operations, goodwill, equipment and other negotiated assets</small></div>
-              <div className="fllm-ui-kpi"><strong>4COP</strong><small>Transferable county quota license included in the package</small></div>
-              <div className="fllm-ui-kpi"><strong>Value</strong><small>License component can be analyzed separately from total package price</small></div>
-              <div className="fllm-ui-kpi"><strong>Transfer</strong><small>Regulatory approval remains separate from the business closing</small></div>
+          <aside className="seo-market-snapshot" aria-label="Bar and quota license package overview">
+            <span>What FLLM Separates</span>
+            <div className="seo-market-snapshot-grid">
+              <div><strong>Business</strong><small>Operations, goodwill, equipment and other negotiated assets</small></div>
+              <div><strong>4COP</strong><small>Transferable county quota license included in the package</small></div>
+              <div><strong>Value</strong><small>License component can be analyzed separately from total package price</small></div>
+              <div><strong>Transfer</strong><small>Regulatory approval remains separate from the business closing</small></div>
             </div>
           </aside>
-        </div>
+        </div></div>
       </section>
 
       <section className="fllm-template-section bar-package-overview">
