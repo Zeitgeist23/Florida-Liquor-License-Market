@@ -30,6 +30,24 @@ function walk(dir, files=[]){
 const pages=walk(appRoot).filter((file)=>file.endsWith("page.tsx"));
 const violations=[];
 
+const designSystemPath = path.join(root, "app", "fllm-design-system.css");
+if (fs.existsSync(designSystemPath)) {
+  const designCss = fs.readFileSync(designSystemPath, "utf8");
+  const canonicalBaseImport = '@import "./florida-liquor-licenses-for-sale/seo-market.css";';
+  const canonicalLockedImport = '@import "./fllm-market-page-template.css";';
+  const baseIndex = designCss.indexOf(canonicalBaseImport);
+  const lockedIndex = designCss.indexOf(canonicalLockedImport);
+  if (baseIndex < 0) {
+    violations.push([designSystemPath, "missing canonical seo-market.css base import"]);
+  }
+  if (lockedIndex < 0) {
+    violations.push([designSystemPath, "missing canonical fllm-market-page-template.css import"]);
+  }
+  if (baseIndex >= 0 && lockedIndex >= 0 && baseIndex > lockedIndex) {
+    violations.push([designSystemPath, "canonical imports are in the wrong order; base must load before locked template"]);
+  }
+}
+
 for(const page of pages){
   const source=fs.readFileSync(page,"utf8");
   const usesV2Shell = source.includes("FllmPageShell");
