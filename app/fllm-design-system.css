@@ -14,6 +14,17 @@
 }
 
 
+
+.fllm-official-page[data-fllm-design-system="v2"] .fllm-template-hero-title em{
+  color:var(--fllm-gold-pale);
+  font-style:normal;
+}
+.fllm-official-page[data-fllm-design-system="v2"] .fllm-template-card-copy{
+  color:#e2ebf0;
+  font-size:15px;
+  line-height:1.7;
+}
+
 .fllm-ui-breadcrumbs{
   display:flex;
   flex-wrap:wrap;
