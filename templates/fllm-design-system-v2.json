@@ -62,5 +62,8 @@
     "/businesses-with-quota-licenses/bars",
     "/are-florida-quota-liquor-licenses-worth-it"
   ],
-  "docs": "docs/FLLM_DESIGN_SYSTEM_LOCK.md"
+  "docs": "docs/FLLM_DESIGN_SYSTEM_LOCK.md",
+  "canonicalVisualLayer": "app/fllm-market-page-template.css",
+  "canonicalHeaderStructure": "abt-header-wrap > FormsSiteHeader",
+  "canonicalRootClass": "seo-market-page fllm-official-page"
 }
