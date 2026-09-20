@@ -13,6 +13,20 @@
   font-feature-settings:"lnum" 1,"tnum" 1;
 }
 
+
+.fllm-ui-breadcrumbs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:24px;
+  color:#cbd9e2;
+  font-size:12px;
+}
+.fllm-ui-breadcrumbs a{color:var(--fllm-gold-bright)}
+.fllm-ui-breadcrumbs strong{color:var(--fllm-white)}
+.fllm-ui-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}
+.fllm-ui-updated{margin:16px 0 0;color:#c4d4df;font-size:12px;line-height:1.5}
+
 .fllm-ui-heading{
   display:flex;
   align-items:end;
@@ -376,6 +390,7 @@
   .fllm-ui-faq-grid--2{grid-template-columns:1fr}
   .fllm-ui-kpi-grid,.fllm-ui-ratio-grid{grid-template-columns:1fr}
   .fllm-ui-final-actions{display:grid;grid-template-columns:1fr;width:100%}
+  .fllm-ui-actions{display:grid;grid-template-columns:1fr;width:100%}
   .fllm-ui-step-actions{display:grid;grid-template-columns:1fr}
   .fllm-ui-step-actions .fllm-template-button{width:100%}
   .fllm-ui-table{min-width:720px}
