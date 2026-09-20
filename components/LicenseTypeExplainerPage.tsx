@@ -52,7 +52,7 @@ function ExternalOrInternalLink({ href, children, className }: { href: string; c
 }
 
 function LicenseTypeTitle({ title }: { title: string }) {
-  return <>{title.split(/([34](?:PS|COP))/g).map((part, index) => /^[34](?:PS|COP)$/.test(part) ? <span className="lt-license-token" key={`${part}-${index}`}><span className="lt-straight-numeral">{part.charAt(0)}</span>{part.slice(1)}</span> : part)}</>;
+  return <>{title.split(/([34](?:PS|COP))/g).map((part, index) => /^[34](?:PS|COP)$/.test(part) ? <b className="lt-license-token" key={`${part}-${index}`}><i className="lt-straight-numeral">{part.charAt(0)}</i>{part.slice(1)}</b> : part)}</>;
 }
 
 function HighlightTerms({ text, terms = [] }: { text: string; terms?: string[] }) {
