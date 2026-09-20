@@ -8,6 +8,7 @@
  * radii, hover/focus effects, header geometry or footer appearance.
  */
 
+.fllm-ui-header{background:var(--fllm-deep-navy)}
 .fllm-official-page[data-fllm-design-system="v2"]{
   font-variant-numeric:lining-nums tabular-nums;
   font-feature-settings:"lnum" 1,"tnum" 1;
