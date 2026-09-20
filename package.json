@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run check:fllm-design && next build",
     "start": "next start",
     "lint": "eslint .",
     "check:fllm-design": "node scripts/check-fllm-design-system.mjs"
