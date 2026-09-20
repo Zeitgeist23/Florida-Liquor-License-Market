@@ -24,6 +24,7 @@ const officialFooterPaths = new Set([
   "/exchange",
   "/transaction-services",
   "/businesses-with-quota-licenses/bars",
+  "/are-florida-quota-liquor-licenses-worth-it",
 ]);
 
 export default function SellPageOfficialFooter() {
