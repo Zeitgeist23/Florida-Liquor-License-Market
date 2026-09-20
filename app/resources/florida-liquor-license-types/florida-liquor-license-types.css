@@ -46,7 +46,7 @@
   gap: 8px;
   margin-bottom: 34px;
   color: #91a2af;
-  font-size: 16px;
+  font-size: 13px;
   text-transform: uppercase;
 }
 
@@ -62,7 +62,7 @@
 .license-types-sources > div:first-child > span {
   display: block;
   color: #f6a700;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: .13em;
   text-transform: uppercase;
@@ -94,7 +94,7 @@
 
 .license-types-hero-actions .btn {
   min-height: 44px;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .license-types-definition {
@@ -128,7 +128,7 @@
 
 .license-types-definition span {
   color: #f6a700;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: .13em;
   text-transform: uppercase;
@@ -157,7 +157,7 @@
   display: inline-block;
   margin-top: 2px;
   color: #f6a700;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 900;
 }
 
@@ -192,7 +192,7 @@
 .license-types-sources p {
   margin: 0;
   color: #aebbc4;
-  font-size: 17px;
+  font-size: 14px;
   line-height: 1.72;
 }
 
@@ -247,7 +247,7 @@
 .license-types-population-number span {
   margin-top: 5px;
   color: #c7d2d9;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 900;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -255,7 +255,7 @@
 
 .license-types-rule-eyebrow {
   color: #f6a700;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: .13em;
   text-transform: uppercase;
@@ -284,7 +284,7 @@
   display: inline-block;
   margin-top: 4px;
   color: #f6a700;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 900;
 }
 
@@ -392,7 +392,7 @@
   border-top: 0;
   color: #f6a700;
   background: #0d2638;
-  font-size: 17px;
+  font-size: 15px;
   letter-spacing: .06em;
   text-transform: uppercase;
 }
@@ -477,7 +477,7 @@
 
 .license-types-quota-cards span {
   color: #fff;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 900;
   line-height: 1.4;
   text-transform: uppercase;
@@ -524,7 +524,7 @@
   padding-top: 10px;
   border-top: 1px solid #263f50;
   color: #f6a700;
-  font-size: 17px;
+  font-size: 15px;
   letter-spacing: .035em;
   text-transform: uppercase;
 }
@@ -567,7 +567,7 @@
 
 .license-types-requirement-modal > header span {
   color: #f6a700;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 900;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -685,7 +685,7 @@
   color: #07131e;
   background: #f6a700;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -726,7 +726,7 @@
   border-radius: 4px;
   color: #f6a700;
   background: rgba(246, 167, 0, .05);
-  font-size: 17px;
+  font-size: 14px;
   line-height: 1.35;
   font-weight: 900;
   letter-spacing: .05em;
@@ -795,7 +795,7 @@
 
 .license-types-market-cta > div:first-child > span {
   color: #f6a700;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -873,20 +873,20 @@
 .license-types-disclosure strong {
   display: block;
   color: #f6a700;
-  font-size: 16px;
+  font-size: 13px;
   letter-spacing: .1em;
   text-transform: uppercase;
 }
 
 .license-types-disclosure p {
   margin: 8px 0;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1.7;
 }
 
 .license-types-disclosure small {
   color: #7f909b;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 @media (max-width: 850px) {
@@ -1059,7 +1059,7 @@
 
 .license-types-page .directory-footer span {
   color: #e4eef5;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .license-types-page .directory-footer nav {
@@ -1070,7 +1070,7 @@
 
 .license-types-page .directory-footer a {
   color: #f3f7fa;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 800;
   text-decoration: none;
 }
@@ -1092,7 +1092,7 @@
   justify-content: space-between;
   gap: 20px;
   color: #dce8f0;
-  font-size: 17px;
+  font-size: 14px;
   text-align: left;
 }
 
