@@ -407,18 +407,44 @@
 }
 
 .license-types-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 4;
   border-top: 0;
   color: #f6a700;
   background: #0d2638;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .24);
   font-size: 15px;
   letter-spacing: .06em;
+  text-align: center;
   text-transform: uppercase;
 }
 
 .license-types-table tbody th {
   width: 132px;
-  background: #081a27;
 }
+
+
+.license-types-table tbody tr:nth-child(odd) > th,
+.license-types-table tbody tr:nth-child(odd) > td {
+  background: #103754;
+}
+
+.license-types-table tbody tr:nth-child(even) > th,
+.license-types-table tbody tr:nth-child(even) > td {
+  background: #0b2b44;
+}
+
+.license-types-table tbody tr.is-quota:nth-child(odd) > th,
+.license-types-table tbody tr.is-quota:nth-child(odd) > td {
+  background: #143b56;
+}
+
+.license-types-table tbody tr.is-quota:nth-child(even) > th,
+.license-types-table tbody tr.is-quota:nth-child(even) > td {
+  background: #0f314a;
+}
+
 
 .license-types-table tbody th span {
   display: inline-block;
@@ -429,11 +455,6 @@
   background: #0a2131;
   font-size: 17px;
   white-space: nowrap;
-}
-
-.license-types-table tr.is-quota th,
-.license-types-table tr.is-quota td {
-  background: rgba(246, 167, 0, .035);
 }
 
 .license-types-table tr.is-quota th span {
