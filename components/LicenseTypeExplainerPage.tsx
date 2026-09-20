@@ -116,7 +116,7 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-readable-layout .lt-requirements-head p,.lt-readable-layout .lt-comparison-head p{max-width:1180px;margin:0 auto;color:#edf3f7;font-size:20px;line-height:1.78}
         .lt-readable-layout .lt-official-grid,.lt-readable-layout .lt-rule-grid,.lt-readable-layout .lt-research-grid{margin-top:30px}
         .lt-readable-layout .lt-summary-businesses{margin-top:24px}
-        .lt-readable-layout .lt-summary .lt-card h2{text-align:center}
+        .lt-readable-layout .lt-summary .lt-card h2{display:table;max-width:calc(100% - 24px);margin:0 auto 22px;padding:8px 22px 10px;border-bottom:2px solid #70dcff;border-radius:7px;background:linear-gradient(180deg,rgba(18,58,86,.96) 0%,rgba(9,42,67,.96) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 12px rgba(0,0,0,.22);color:#fff!important;text-align:center}
         .lt-readable-layout .lt-comparison-wrap{overflow:visible}
         .lt-readable-layout .lt-comparison-table thead{position:sticky;top:0;z-index:12;background:linear-gradient(180deg,#247caf 0%,#155b87 52%,#0f456b 100%);box-shadow:inset 0 1px 0 rgba(190,239,255,.42),inset 0 -2px 0 rgba(112,220,255,.78),0 3px 0 rgba(246,167,0,.62),0 12px 26px rgba(2,13,23,.52),0 0 22px rgba(71,190,242,.3)}\n        .lt-readable-layout .lt-comparison-table thead th{position:static;background:transparent}
         .lt-summary-businesses{margin-top:18px}.lt-summary-businesses h2{white-space:normal}.lt-card-businesses.lt-summary-businesses ul{grid-template-columns:repeat(4,minmax(0,1fr));column-gap:32px}.lt-card-businesses.lt-summary-businesses li:first-child{grid-column:span 2;margin-bottom:10px}.lt-card-businesses.lt-summary-businesses li{margin-bottom:8px}
