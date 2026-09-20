@@ -49,6 +49,7 @@ export default function Page() {
       researchLinks={[
         { href: "/resources/florida-liquor-license-laws#current-developments", label: "Florida Liquor License Laws", description: "Open FLLM's statewide-law summary and connected special-act explanations." },
         { href: "/license-types/4cop-quota", label: "Compare With 4COP Quota", description: "Compare the qualification-based restaurant license with a transferable county quota license." },
+        { href: "/are-florida-quota-liquor-licenses-worth-it", label: "Are Florida Quota Liquor Licenses Worth It?", description: "Use FLLM market data and the 51% restaurant-revenue test to compare quota-license flexibility with the SFS/SRX alternative and the potential value of releasing license equity." },
         { href: "/florida-liquor-license-news", label: "FLLM Liquor License News", description: "Browse FLLM's continuing coverage of Florida beverage-law changes, cases and licensing developments." }
       ]}
     />
