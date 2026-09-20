@@ -55,6 +55,7 @@ export default function FloridaLiquorLicenseSystemPage() {
         .resource-card a:hover{text-decoration:underline}
         .license-series-card{border-color:rgba(112,220,255,.62)!important;border-top:4px solid #70dcff!important;background:radial-gradient(circle at 18% 0%,rgba(112,220,255,.15),transparent 40%),linear-gradient(145deg,#194866 0%,#123a56 52%,#0b2a43 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -10px 22px rgba(0,0,0,.17),0 4px 0 rgba(35,124,157,.66),0 19px 38px rgba(0,0,0,.28),0 0 19px rgba(112,220,255,.09)!important}
         .license-series-card:hover,.license-series-card:focus-within{border-color:#9ce8ff!important;background:radial-gradient(circle at 18% 0%,rgba(112,220,255,.28),transparent 43%),linear-gradient(145deg,#225d7e 0%,#184963 52%,#10334d 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.17),inset 0 0 34px rgba(112,220,255,.1),0 5px 0 rgba(38,137,173,.75),0 25px 46px rgba(0,0,0,.34),0 0 30px rgba(112,220,255,.26)!important}
+        .license-series-card h3{color:#70dcff!important;text-shadow:0 0 14px rgba(112,220,255,.18)}
         @media(max-width:700px){.resource-card,.resource-feature-box{transform:none!important}.resource-card:hover,.resource-card:focus-within,.resource-feature-box:hover,.resource-feature-box:focus-within{transform:translateY(-3px)!important}}
       `}</style>
       <div className="abt-header-wrap">
