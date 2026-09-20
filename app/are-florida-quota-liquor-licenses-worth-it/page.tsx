@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
@@ -7,6 +6,7 @@ import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
 import "../fllm-official-template.css";
+import "../fllm-design-system.css";
 import "./worth-it.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -171,7 +171,7 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
   ];
 
   return (
-    <main className="worth-it-page fllm-official-page">
+    <main className="worth-it-page fllm-official-page" data-fllm-design-system="v2">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
@@ -182,7 +182,7 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
       <section className="worth-it-hero fllm-template-hero">
         <div className="fllm-template-shell worth-it-hero-grid">
           <div>
-            <div className="worth-it-breadcrumbs">
+            <div className="fllm-ui-breadcrumbs">
               <Link href="/">Home</Link><span>›</span>
               <Link href="/florida-4cop-liquor-license-for-sale">4COP Quota</Link><span>›</span>
               <strong>Are Quota Licenses Worth It?</strong>
@@ -195,31 +195,31 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
               market value of the license, food-to-alcohol revenue mix, financing cost, desired operating flexibility
               and whether the business can independently qualify for Florida&apos;s 4COP-SFS / SRX special restaurant license.
             </p>
-            <div className="worth-it-actions">
+            <div className="fllm-ui-actions">
               <a className="fllm-template-button" href="#decision-framework">See the Decision Framework</a>
               <Link className="fllm-template-button fllm-template-button--outline" href="/florida-liquor-license-value">
                 Estimate License Value
               </Link>
             </div>
-            <p className="worth-it-updated">FLLM marketplace snapshot updated {updatedLabel}.</p>
+            <p className="fllm-ui-updated">FLLM marketplace snapshot updated {updatedLabel}.</p>
           </div>
 
-          <aside className="worth-it-snapshot" aria-label="Current FLLM 4COP market snapshot">
-            <span>Current FLLM 4COP Snapshot</span>
-            <div className="worth-it-stat-grid">
-              <div><strong>{market.listings.length}</strong><small>active 4COP listings</small></div>
-              <div><strong>{market.countyCount}</strong><small>counties represented</small></div>
-              <div><strong>{market.median === null ? "—" : money(market.median)}</strong><small>median disclosed ask</small></div>
-              <div><strong>{market.low === null ? "—" : money(market.low)}</strong><small>lowest disclosed ask</small></div>
+          <aside className="fllm-ui-panel" aria-label="Current FLLM 4COP market snapshot">
+            <span className="fllm-ui-panel-label">Current FLLM 4COP Snapshot</span>
+            <div className="fllm-ui-kpi-grid">
+              <div className="fllm-ui-kpi"><strong>{market.listings.length}</strong><small>active 4COP listings</small></div>
+              <div className="fllm-ui-kpi"><strong>{market.countyCount}</strong><small>counties represented</small></div>
+              <div className="fllm-ui-kpi"><strong>{market.median === null ? "—" : money(market.median)}</strong><small>median disclosed ask</small></div>
+              <div className="fllm-ui-kpi"><strong>{market.low === null ? "—" : money(market.low)}</strong><small>lowest disclosed ask</small></div>
             </div>
-            <p>Asking-price data is marketplace evidence, not completed-sale pricing or an appraisal.</p>
+            <p className="fllm-ui-panel-note">Asking-price data is marketplace evidence, not completed-sale pricing or an appraisal.</p>
           </aside>
         </div>
       </section>
 
       <section className="fllm-template-section worth-it-answer" id="decision-framework">
         <div className="fllm-template-shell">
-          <div className="worth-it-centered-heading">
+          <div className="fllm-ui-heading fllm-ui-heading--center">
             <span className="fllm-template-eyebrow">The Short Answer</span>
             <h2>A quota license is worth it when the flexibility is worth the capital</h2>
             <p>
@@ -228,17 +228,17 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
             </p>
           </div>
 
-          <div className="worth-it-decision-grid">
-            <article className="worth-it-decision-card worth-it-yes">
-              <span>Often Worth It</span>
+          <div className="fllm-ui-grid fllm-ui-grid--3">
+            <article className="fllm-template-card fllm-template-card--gold fllm-ui-card--center">
+              <span className="fllm-ui-card-kicker">Often Worth It</span>
               <h3>Bars, nightclubs and concepts that do not qualify for SFS/SRX</h3>
               <p>
                 A transferable quota license can be essential for a full-liquor concept that cannot reliably satisfy
                 the special restaurant requirements or wants operating flexibility not conditioned on the SFS/SRX model.
               </p>
             </article>
-            <article className="worth-it-decision-card worth-it-maybe">
-              <span>Run the Numbers</span>
+            <article className="fllm-template-card fllm-template-card--gold fllm-ui-card--center">
+              <span className="fllm-ui-card-kicker">Run the Numbers</span>
               <h3>Restaurants that naturally exceed 51% food + nonalcoholic revenue</h3>
               <p>
                 If the restaurant already operates well above the statutory food-and-nonalcoholic threshold and also
@@ -246,8 +246,8 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
                 be an expensive way to obtain privileges available through a special restaurant license.
               </p>
             </article>
-            <article className="worth-it-decision-card worth-it-flex">
-              <span>Flexibility Has Value</span>
+            <article className="fllm-template-card fllm-template-card--gold fllm-ui-card--center">
+              <span className="fllm-ui-card-kicker">Flexibility Has Value</span>
               <h3>Restaurants close to the 51% line or changing concepts</h3>
               <p>
                 A quota license may still be economically rational where the revenue mix is volatile, the concept may
@@ -261,7 +261,7 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
 
       <section className="fllm-template-section fllm-template-section--deep worth-it-revenue">
         <div className="fllm-template-shell">
-          <div className="worth-it-centered-heading">
+          <div className="fllm-ui-heading fllm-ui-heading--center">
             <span className="fllm-template-eyebrow">The 51% Test in Dollars</span>
             <h2>What the restaurant revenue requirement actually means</h2>
             <p>
@@ -271,8 +271,8 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
             </p>
           </div>
 
-          <div className="worth-it-revenue-table-wrap">
-            <table className="worth-it-revenue-table">
+          <div className="fllm-template-table-wrap">
+            <table className="fllm-ui-table">
               <thead>
                 <tr>
                   <th>Annual Food + Beverage Revenue</th>
@@ -292,13 +292,13 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
             </table>
           </div>
 
-          <div className="worth-it-rule-grid">
-            <article><strong>60% / 40%</strong><span>Food + nonalcoholic / alcohol</span><p>Comfortably above the 51% revenue threshold, assuming all other requirements are met.</p></article>
-            <article><strong>51% / 49%</strong><span>Threshold mix</span><p>Qualifies on the revenue ratio, but leaves little cushion if alcohol sales rise or food sales soften.</p></article>
-            <article><strong>50% / 50%</strong><span>Below the threshold</span><p>Does not satisfy the special restaurant revenue test for the covered period.</p></article>
+          <div className="fllm-ui-ratio-grid">
+            <article className="fllm-ui-ratio-card"><strong>60% / 40%</strong><span>Food + nonalcoholic / alcohol</span><p>Comfortably above the 51% revenue threshold, assuming all other requirements are met.</p></article>
+            <article className="fllm-ui-ratio-card"><strong>51% / 49%</strong><span>Threshold mix</span><p>Qualifies on the revenue ratio, but leaves little cushion if alcohol sales rise or food sales soften.</p></article>
+            <article className="fllm-ui-ratio-card"><strong>50% / 50%</strong><span>Below the threshold</span><p>Does not satisfy the special restaurant revenue test for the covered period.</p></article>
           </div>
 
-          <div className="worth-it-disclosure">
+          <div className="fllm-template-disclosure">
             <strong>Revenue is only one requirement.</strong> The current statute also requires a bona fide restaurant
             with at least 2,000 square feet of service area, capacity to serve meals to 120 persons at one time and at
             least 120 physical seats available during operating hours. Verify the current requirements before relying
@@ -316,8 +316,8 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
             </div>
           </div>
 
-          <div className="worth-it-cost-grid">
-            <article className="worth-it-market-value-card">
+          <div className="fllm-ui-grid fllm-ui-grid--3">
+            <article className="fllm-ui-value-card">
               <span>Current FLLM Market Evidence</span>
               <strong>{market.median === null ? "Varies by county" : money(market.median)}</strong>
               <p>Median disclosed asking price among currently visible FLLM 4COP quota listings.</p>
@@ -326,7 +326,7 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
               </small>
             </article>
 
-            <article className="worth-it-sfs-card">
+            <article className="fllm-ui-value-card">
               <span>Special Restaurant State License Fee</span>
               <strong>{money(highestTierSfsAnnualFee)} / year</strong>
               <p>
@@ -335,7 +335,7 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
               </p>
             </article>
 
-            <article className="worth-it-equity-card">
+            <article className="fllm-ui-value-card">
               <span>Economic Question</span>
               <strong>What else could the equity do?</strong>
               <p>
@@ -346,7 +346,7 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
             </article>
           </div>
 
-          <div className="worth-it-disclosure">
+          <div className="fllm-template-disclosure">
             This is not a simple “quota price ÷ annual fee” ROI calculation. A quota license is a transferable asset that
             may retain or change value over time, while the SFS/SRX license is a qualification-based operating license.
             The relevant comparison is the value of quota flexibility and resale value versus the cost of keeping capital
@@ -357,7 +357,7 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
 
       <section className="fllm-template-section fllm-template-section--gradient worth-it-convert">
         <div className="fllm-template-shell">
-          <div className="worth-it-centered-heading">
+          <div className="fllm-ui-heading fllm-ui-heading--center">
             <span className="fllm-template-eyebrow">Already Own a 4COP Quota?</span>
             <h2>A qualifying restaurant may be able to monetize the quota asset</h2>
             <p>
@@ -367,14 +367,14 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
             </p>
           </div>
 
-          <div className="worth-it-process-grid">
-            <article><b>01</b><h3>Confirm qualification</h3><p>Verify the restaurant meets the current statutory revenue, seating, service-area and operating requirements.</p></article>
-            <article><b>02</b><h3>Value the quota asset</h3><p>Use county market evidence, a preliminary market report or an appraisal to estimate the license component.</p></article>
-            <article><b>03</b><h3>Plan the licensing sequence</h3><p>Coordinate the SFS/SRX application or series strategy with DBPR/DABT before the quota license is sold or transferred.</p></article>
-            <article><b>04</b><h3>Market and sell the quota license</h3><p>List, broker or privately market the asset, then coordinate buyer qualification, contract, FDOR and ABT transfer workstreams.</p></article>
+          <div className="fllm-ui-grid fllm-ui-grid--4">
+            <article className="fllm-ui-process-card"><b>01</b><h3>Confirm qualification</h3><p>Verify the restaurant meets the current statutory revenue, seating, service-area and operating requirements.</p></article>
+            <article className="fllm-ui-process-card"><b>02</b><h3>Value the quota asset</h3><p>Use county market evidence, a preliminary market report or an appraisal to estimate the license component.</p></article>
+            <article className="fllm-ui-process-card"><b>03</b><h3>Plan the licensing sequence</h3><p>Coordinate the SFS/SRX application or series strategy with DBPR/DABT before the quota license is sold or transferred.</p></article>
+            <article className="fllm-ui-process-card"><b>04</b><h3>Market and sell the quota license</h3><p>List, broker or privately market the asset, then coordinate buyer qualification, contract, FDOR and ABT transfer workstreams.</p></article>
           </div>
 
-          <div className="worth-it-actions worth-it-process-actions">
+          <div className="fllm-ui-actions worth-it-process-actions">
             <Link className="fllm-template-button" href="/florida-liquor-license-value">Value My License</Link>
             <Link className="fllm-template-button fllm-template-button--outline" href="/sell-your-license">Sell My License</Link>
             <Link className="fllm-template-button fllm-template-button--outline" href="/florida-liquor-license-broker">Broker Representation</Link>
@@ -384,17 +384,17 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
 
       <section className="fllm-template-section fllm-template-section--deep worth-it-audits">
         <div className="fllm-template-shell">
-          <div className="worth-it-centered-heading">
+          <div className="fllm-ui-heading fllm-ui-heading--center">
             <span className="fllm-template-eyebrow">Current SFS/SRX Audit Structure</span>
             <h2>The farther above 51%, the less frequent the scheduled audit cycle</h2>
           </div>
-          <div className="worth-it-audit-grid">
-            <article><strong>51%–60%</strong><span>Level 1</span><p>Audit every year.</p></article>
-            <article><strong>61%–75%</strong><span>Level 2</span><p>Audit every 2 years.</p></article>
-            <article><strong>76%–90%</strong><span>Level 3</span><p>Audit every 3 years.</p></article>
-            <article><strong>91%–100%</strong><span>Level 4</span><p>Audit every 4 years.</p></article>
+          <div className="fllm-ui-grid fllm-ui-grid--4">
+            <article className="fllm-ui-ratio-card"><strong>51%–60%</strong><span>Level 1</span><p>Audit every year.</p></article>
+            <article className="fllm-ui-ratio-card"><strong>61%–75%</strong><span>Level 2</span><p>Audit every 2 years.</p></article>
+            <article className="fllm-ui-ratio-card"><strong>76%–90%</strong><span>Level 3</span><p>Audit every 3 years.</p></article>
+            <article className="fllm-ui-ratio-card"><strong>91%–100%</strong><span>Level 4</span><p>Audit every 4 years.</p></article>
           </div>
-          <div className="worth-it-disclosure">
+          <div className="fllm-template-disclosure">
             The statute also specifies initial testing periods and consequences for failing the required percentage.
             Businesses should use current DBPR/DABT guidance and professional advice for compliance decisions.
           </div>
@@ -403,55 +403,55 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
 
       <section className="fllm-template-section worth-it-services">
         <div className="fllm-template-shell">
-          <div className="worth-it-centered-heading">
+          <div className="fllm-ui-heading fllm-ui-heading--center">
             <span className="fllm-template-eyebrow">FLLM Can Help Execute the Decision</span>
             <h2>From “is the quota license worth keeping?” to valuation, marketing and transfer</h2>
           </div>
 
-          <div className="worth-it-service-grid">
-            <Link href="/florida-liquor-license-value"><strong>Valuation</strong><span>County market evidence and preliminary value analysis.</span></Link>
-            <Link href="/florida-liquor-license-appraisal"><strong>Appraisal</strong><span>License-specific appraisal resources for supported valuation needs.</span></Link>
-            <Link href="/sell-your-license"><strong>Marketing & Listing</strong><span>Place the license in front of Florida quota-license buyers.</span></Link>
-            <Link href="/florida-liquor-license-broker"><strong>Brokerage</strong><span>Broker-assisted representation when the owner wants transaction support.</span></Link>
-            <Link href="/transaction-services"><strong>Transaction Services</strong><span>Coordinate valuation, financing, FDOR, ABT transfer and closing resources.</span></Link>
-            <Link href="/dbpr-abt-6002"><strong>ABT Transfer Process</strong><span>Review the ownership-transfer workflow and ABT-6002 preparation resources.</span></Link>
+          <div className="fllm-ui-grid fllm-ui-grid--3">
+            <Link className="fllm-ui-link-card" href="/florida-liquor-license-value"><strong>Valuation</strong><span>County market evidence and preliminary value analysis.</span></Link>
+            <Link className="fllm-ui-link-card" href="/florida-liquor-license-appraisal"><strong>Appraisal</strong><span>License-specific appraisal resources for supported valuation needs.</span></Link>
+            <Link className="fllm-ui-link-card" href="/sell-your-license"><strong>Marketing & Listing</strong><span>Place the license in front of Florida quota-license buyers.</span></Link>
+            <Link className="fllm-ui-link-card" href="/florida-liquor-license-broker"><strong>Brokerage</strong><span>Broker-assisted representation when the owner wants transaction support.</span></Link>
+            <Link className="fllm-ui-link-card" href="/transaction-services"><strong>Transaction Services</strong><span>Coordinate valuation, financing, FDOR, ABT transfer and closing resources.</span></Link>
+            <Link className="fllm-ui-link-card" href="/dbpr-abt-6002"><strong>ABT Transfer Process</strong><span>Review the ownership-transfer workflow and ABT-6002 preparation resources.</span></Link>
           </div>
         </div>
       </section>
 
       <section className="fllm-template-section fllm-template-section--gradient worth-it-official">
         <div className="fllm-template-shell">
-          <div className="worth-it-centered-heading">
+          <div className="fllm-ui-heading fllm-ui-heading--center">
             <span className="fllm-template-eyebrow">Official Florida References</span>
             <h2>Verify the licensing rule before making the capital decision</h2>
           </div>
-          <div className="worth-it-official-grid">
-            <a href={statuteUrl} target="_blank" rel="noreferrer"><strong>Florida Statute § 561.20</strong><span>Current special food service qualifications, revenue test and audit schedule.</span></a>
-            <a href={dbprTypesUrl} target="_blank" rel="noreferrer"><strong>DBPR Alcoholic Beverage License Types</strong><span>Current SFS license privileges, fees and operating restrictions.</span></a>
-            <Link href="/license-types/4cop-sfs-restaurant"><strong>FLLM 4COP-SFS / SRX Guide</strong><span>Plain-English comparison of the special restaurant licensing path.</span></Link>
-            <Link href="/license-types/4cop-quota"><strong>FLLM 4COP Quota Guide</strong><span>Privileges, transferability and quota-market considerations.</span></Link>
+          <div className="fllm-ui-grid fllm-ui-grid--3">
+            <a className="fllm-ui-link-card" href={statuteUrl} target="_blank" rel="noreferrer"><strong>Florida Statute § 561.20</strong><span>Current special food service qualifications, revenue test and audit schedule.</span></a>
+            <a className="fllm-ui-link-card" href={dbprTypesUrl} target="_blank" rel="noreferrer"><strong>DBPR Alcoholic Beverage License Types</strong><span>Current SFS license privileges, fees and operating restrictions.</span></a>
+            <Link className="fllm-ui-link-card" href="/license-types/4cop-sfs-restaurant"><strong>FLLM 4COP-SFS / SRX Guide</strong><span>Plain-English comparison of the special restaurant licensing path.</span></Link>
+            <Link className="fllm-ui-link-card" href="/license-types/4cop-quota"><strong>FLLM 4COP Quota Guide</strong><span>Privileges, transferability and quota-market considerations.</span></Link>
           </div>
         </div>
       </section>
 
       <section className="fllm-template-section fllm-template-section--deep worth-it-faq">
         <div className="fllm-template-shell">
-          <div className="worth-it-centered-heading">
+          <div className="fllm-ui-heading fllm-ui-heading--center">
             <span className="fllm-template-eyebrow">Frequently Asked Questions</span>
             <h2>Florida quota-license economics and restaurant alternatives</h2>
           </div>
-          <div className="worth-it-faq-grid">
+          <div className="fllm-ui-faq-grid fllm-ui-faq-grid--2">
             {faqs.map((faq) => (
-              <details key={faq.question}>
+              <details className="fllm-ui-faq" key={faq.question}>
                 <summary>{faq.question}</summary>
-                <p>{faq.answer}</p>
+                <div className="fllm-ui-faq-answer"><p>{faq.answer}</p></div>
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="worth-it-final-cta">
+      <section className="fllm-ui-final-cta">
         <div className="fllm-template-shell">
           <div>
             <span className="fllm-template-eyebrow">Turn License Equity Into a Decision</span>
@@ -461,30 +461,14 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
               equity better serves the business.
             </p>
           </div>
-          <div className="worth-it-final-actions">
+          <div className="fllm-ui-final-actions">
             <Link className="fllm-template-button" href="/florida-liquor-license-value">Estimate Value</Link>
             <Link className="fllm-template-button fllm-template-button--outline" href="/contact">Discuss the Transaction</Link>
           </div>
         </div>
       </section>
 
-      <footer className="worth-it-footer">
-        <div className="fllm-template-shell">
-          <div>
-            <Link href="/" aria-label="Florida Liquor License Market home">
-              <Image src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width={130} height={53} />
-            </Link>
-            <span>© Florida Liquor License Market</span>
-          </div>
-          <nav>
-            <Link href="/florida-4cop-liquor-license-for-sale">4COP Market</Link>
-            <Link href="/florida-liquor-license-value">Valuation</Link>
-            <Link href="/sell-your-license">Sell</Link>
-            <Link href="/transaction-services">Transaction Services</Link>
-            <Link href="/contact">Contact</Link>
-          </nav>
-        </div>
-      </footer>
+
     </main>
   );
 }
