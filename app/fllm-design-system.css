@@ -1,0 +1,231 @@
+/*
+ * FLLM Component Design System v2 — LOCKED
+ * Shared visual primitives for new FLLM informational, transaction,
+ * market, business-package and research pages.
+ *
+ * Page-local styles may control content-specific layout only. They must not
+ * redefine typography, colors, buttons, cards, tables, FAQs, shadows,
+ * radii, hover/focus effects, header geometry or footer appearance.
+ */
+
+.fllm-official-page[data-fllm-design-system="v2"]{
+  font-variant-numeric:lining-nums tabular-nums;
+  font-feature-settings:"lnum" 1,"tnum" 1;
+}
+
+.fllm-ui-heading{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:30px;
+  margin-bottom:23px;
+}
+.fllm-ui-heading>div:first-child{min-width:0}
+.fllm-ui-heading h2{
+  margin:8px 0 0;
+  color:var(--fllm-white);
+  font-family:var(--fllm-serif);
+  font-size:clamp(30px,3.8vw,46px);
+  font-weight:700;
+  line-height:1.05;
+}
+.fllm-ui-heading-copy{
+  max-width:920px;
+  margin-top:13px;
+  color:var(--fllm-text-muted);
+  font-size:15px;
+  line-height:1.7;
+}
+.fllm-ui-heading--center{
+  display:block;
+  max-width:1080px;
+  margin-right:auto;
+  margin-left:auto;
+  text-align:center;
+}
+.fllm-ui-heading--center .fllm-template-eyebrow{
+  display:block;
+  width:100%;
+  text-align:center;
+}
+.fllm-ui-heading--center .fllm-ui-heading-copy{margin-right:auto;margin-left:auto}
+.fllm-ui-heading-action{flex:0 0 auto}
+
+.fllm-ui-grid{display:grid;gap:14px}
+.fllm-ui-grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.fllm-ui-grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.fllm-ui-grid--4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+.fllm-ui-card-kicker,
+.fllm-ui-step-kicker{
+  display:block;
+  margin-bottom:9px;
+  color:var(--fllm-cyan);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.09em;
+  line-height:1.35;
+  text-transform:uppercase;
+}
+.fllm-ui-card--center{text-align:center}
+.fllm-ui-card--center .fllm-ui-card-kicker{text-align:center}
+.fllm-ui-card-body{
+  margin-top:10px;
+  color:var(--fllm-text-muted);
+  font-size:15px;
+  line-height:1.7;
+}
+.fllm-ui-card-body>p{margin:0}
+.fllm-ui-card-body>p+p{margin-top:10px}
+.fllm-ui-card-body ul{margin:14px 0 0;padding-left:19px}
+.fllm-ui-card-body li{margin:7px 0}
+.fllm-ui-card-body li::marker{color:var(--fllm-cyan)}
+
+.fllm-ui-step-card{
+  min-width:0;
+  padding:25px;
+  border:1px solid var(--fllm-gold-border);
+  border-radius:var(--fllm-radius);
+  background:linear-gradient(145deg,var(--fllm-card-blue-bright) 0%,var(--fllm-card-blue) 58%,var(--fllm-page-blue) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,211,108,.28),
+    inset 0 -1px 0 rgba(4,18,30,.48),
+    0 11px 24px rgba(3,17,29,.28),
+    0 0 0 1px rgba(241,166,0,.07);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.fllm-ui-step-card:hover,
+.fllm-ui-step-card:focus-within{
+  transform:translateY(-4px);
+  border-color:var(--fllm-gold-bright);
+  box-shadow:
+    inset 0 1px 0 rgba(255,222,145,.4),
+    inset 0 -1px 0 rgba(4,18,30,.5),
+    0 18px 34px rgba(3,17,29,.38),
+    0 0 18px rgba(241,166,0,.18);
+}
+.fllm-ui-step-kicker{text-align:center}
+.fllm-ui-step-card h3{
+  margin:9px 0 12px;
+  color:var(--fllm-white);
+  font-family:var(--fllm-serif);
+  font-size:25px;
+  font-weight:700;
+  line-height:1.15;
+}
+.fllm-ui-step-body{
+  color:#e3edf2;
+  font-size:15.5px;
+  line-height:1.68;
+}
+.fllm-ui-step-body>p{margin:0}
+.fllm-ui-step-body ul{
+  display:grid;
+  gap:9px;
+  margin:18px 0 0;
+  padding-left:19px;
+}
+.fllm-ui-step-body li::marker{color:var(--fllm-cyan)}
+.fllm-ui-step-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:20px;
+}
+.fllm-ui-step-actions .fllm-template-button{min-height:40px;padding:8px 13px}
+
+.fllm-ui-table{
+  width:100%;
+  min-width:760px;
+  border-collapse:collapse;
+  color:var(--fllm-white);
+}
+.fllm-ui-table th{
+  position:sticky;
+  top:0;
+  z-index:3;
+  padding:15px 14px;
+  border-bottom:1px solid #e3a619;
+  background:linear-gradient(180deg,#236f98 0%,#174f79 52%,#0d3659 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 5px 12px rgba(3,17,29,.38);
+  color:var(--fllm-gold-bright);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.07em;
+  line-height:1.4;
+  text-align:center;
+  text-shadow:0 1px 0 rgba(3,17,29,.45);
+  text-transform:uppercase;
+}
+.fllm-ui-table td{
+  padding:15px 14px;
+  border-bottom:1px solid #315b7e;
+  background:var(--fllm-card-blue);
+  color:var(--fllm-white);
+  font-size:15px;
+  line-height:1.55;
+  vertical-align:top;
+}
+.fllm-ui-table tbody tr:nth-child(even) td{background:var(--fllm-card-blue-hover)}
+.fllm-ui-table tbody tr:hover td{background:#1a527f}
+.fllm-ui-table tr:last-child td{border-bottom:0}
+.fllm-ui-table a{color:var(--fllm-white);font-weight:900}
+.fllm-ui-table a:hover{color:var(--fllm-gold-bright)}
+
+.fllm-ui-faq-grid{display:grid;gap:12px}
+.fllm-ui-faq-grid--1{grid-template-columns:1fr}
+.fllm-ui-faq-grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.fllm-ui-faq{
+  border:1px solid var(--fllm-cyan-border);
+  border-radius:var(--fllm-radius);
+  background:linear-gradient(145deg,#0b2945,#061725);
+  box-shadow:var(--fllm-shadow);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.fllm-ui-faq:hover,
+.fllm-ui-faq[open]{
+  transform:translateY(-2px);
+  border-color:var(--fllm-gold-border);
+  box-shadow:var(--fllm-shadow-raised),0 0 16px rgba(241,166,0,.1);
+}
+.fllm-ui-faq summary{
+  cursor:pointer;
+  padding:19px 20px;
+  color:var(--fllm-white);
+  font-size:15px;
+  font-weight:900;
+  line-height:1.4;
+}
+.fllm-ui-faq-answer{
+  padding:0 20px 20px;
+  color:#e0e9ef;
+  font-size:15px;
+  line-height:1.7;
+}
+.fllm-ui-faq-answer p{margin:0}
+
+.fllm-ui-stat-card p{
+  margin:10px 0 0;
+  color:var(--fllm-text-muted);
+  font-size:13px;
+  line-height:1.55;
+  text-transform:none;
+}
+
+@media(max-width:980px){
+  .fllm-ui-grid--3,.fllm-ui-grid--4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .fllm-ui-heading{display:block}
+  .fllm-ui-heading-action{margin-top:18px}
+}
+@media(max-width:650px){
+  .fllm-ui-grid--2,.fllm-ui-grid--3,.fllm-ui-grid--4,
+  .fllm-ui-faq-grid--2{grid-template-columns:1fr}
+  .fllm-ui-step-actions{display:grid;grid-template-columns:1fr}
+  .fllm-ui-step-actions .fllm-template-button{width:100%}
+  .fllm-ui-table{min-width:720px}
+}
+@media(prefers-reduced-motion:reduce){
+  .fllm-ui-step-card,.fllm-ui-faq{transition:none}
+}
