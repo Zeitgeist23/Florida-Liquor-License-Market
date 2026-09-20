@@ -29,22 +29,22 @@ const canonicalUrl = `${siteUrl}${canonicalPath}`;
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Pinellas Cocktail Lounge + 4COP Quota License | $1.1M",
+  title: "Pinellas Cocktail Lounge + 4COP Quota License | $999,000",
   description:
-    "Buy an upscale Pinellas County cocktail lounge with its included 4COP quota liquor license for $1.1 million. The allocated license value is $495,000; the license is not offered separately.",
+    "Buy an upscale Pinellas County cocktail lounge with its included 4COP quota liquor license for $999,000. The allocated license value is $460,000; the license is not offered separately.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Pinellas Cocktail Lounge + 4COP Quota License | $1.1M",
+    title: "Pinellas Cocktail Lounge + 4COP Quota License | $999,000",
     description:
-      "Featured business package represented by Alessandro Antezza. The included 4COP quota license has a $495,000 allocated value and is not separately offered.",
+      "Featured business package represented by Alessandro Antezza. The included 4COP quota license has a $460,000 allocated value and is not separately offered.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pinellas Cocktail Lounge + 4COP Quota License | $1.1M",
+    title: "Pinellas Cocktail Lounge + 4COP Quota License | $999,000",
     description:
       "Featured third-party broker listing represented by Alessandro Antezza of SUNSHINEAGLE LLC.",
   },
@@ -57,10 +57,10 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   countyHref: "/counties/pinellas",
   countyValueHref: "/counties/pinellas/liquor-license-value",
   countyCities: "St. Petersburg · Clearwater · Largo · Gulf Beaches",
-  askingPrice: "$495,000",
-  askingPriceNumber: 495000,
-  packagePrice: "$1,100,000",
-  packagePriceNumber: 1100000,
+  askingPrice: "$460,000",
+  askingPriceNumber: 460000,
+  packagePrice: "$999,000",
+  packagePriceNumber: 999000,
   licenseType: "4COP Quota",
   businessLabel: "cocktail lounge",
   heroSummary:
@@ -122,12 +122,12 @@ export default function AlessandroAntezzaFeaturedListingPage() {
     url: canonicalUrl,
     additionalProperty: [
       { "@type": "PropertyValue", name: "Included license", value: "Pinellas County 4COP Quota" },
-      { "@type": "PropertyValue", name: "Allocated license value", value: "$495,000" },
+      { "@type": "PropertyValue", name: "Allocated license value", value: "$460,000" },
       { "@type": "PropertyValue", name: "Separate license purchase", value: "Not offered" },
     ],
     offers: {
       "@type": "Offer",
-      price: 1100000,
+      price: 999000,
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
       url: canonicalUrl,
