@@ -69,7 +69,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   broker: {
     name: "JR DesAmours",
     brokerage: "Business Exit Advisors",
-    phone: "(772) 758-1817",
+    phone: "(772) 356-2926",
     email: "JRDesAmours@myexitplan.com",
     website: "https://myexitplan.com/broker/j-r-desamours/",
     listingUrl:
