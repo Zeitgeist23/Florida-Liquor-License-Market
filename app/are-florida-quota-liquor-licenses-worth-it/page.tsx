@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { getMarketplaceListings } from "@/lib/listing-store";
+import { FllmPageShell } from "@/components/FllmDesignSystem";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
 import "../fllm-official-template.css";
@@ -171,13 +171,11 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
   ];
 
   return (
-    <main className="worth-it-page fllm-official-page" data-fllm-design-system="v2">
+    <FllmPageShell className="worth-it-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
-
-      <div className="worth-it-header"><FormsSiteHeader /></div>
 
       <section className="worth-it-hero fllm-template-hero">
         <div className="fllm-template-shell worth-it-hero-grid">
@@ -469,6 +467,6 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
       </section>
 
 
-    </main>
+    </FllmPageShell>
   );
 }
