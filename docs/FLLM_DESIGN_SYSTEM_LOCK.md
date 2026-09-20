@@ -8,12 +8,13 @@ The purpose of v2 is to stop page-by-page visual reinvention. New FLLM pages mus
 
 ## Sources of truth
 
-1. `app/fllm-official-template.css` — color tokens, typography, shell, hero, section, button and base-card primitives.
-2. `app/fllm-design-system.css` — shared headings, grids, step cards, data tables, FAQ surfaces and reusable content hierarchy.
-3. `components/FllmDesignSystem.tsx` — approved React primitives.
-4. `components/FormsSiteHeader.tsx` — the only approved page header.
-5. `components/SellPageOfficialFooter.tsx` — the approved footer implementation for registered routes.
-6. `templates/fllm-design-system-v2.json` — machine-readable design contract.
+1. `app/fllm-official-template.css` — global FLLM tokens and foundation primitives.
+2. `app/fllm-market-page-template.css` — the canonical market-page visual layer. v2 inherits this exact approved header/hero/button/snapshot/footer language rather than approximating it.
+3. `app/fllm-design-system.css` — shared v2 components layered on top of the canonical market-page visual system.
+4. `components/FllmDesignSystem.tsx` — approved React primitives.
+5. `components/FormsSiteHeader.tsx` — the only approved page header.
+6. `components/SellPageOfficialFooter.tsx` — the approved footer implementation for registered routes.
+7. `templates/fllm-design-system-v2.json` — machine-readable design contract.
 
 ## Mandatory rule for new pages
 
