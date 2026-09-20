@@ -337,6 +337,18 @@
   margin-bottom: 22px;
 }
 
+#common-license-chart .license-types-section-heading {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+}
+
+#common-license-chart .license-types-section-heading > div,
+#common-license-chart .license-types-section-heading > p {
+  justify-self: center;
+  width: min(100%, 760px);
+  text-align: center;
+}
+
 .license-types-table-wrap {
   overflow-x: auto;
   border: 1px solid #41596b;
