@@ -97,7 +97,7 @@ export default function FloridaLiquorLicenseSystemPage() {
       <section className="page-shell" style={{ paddingTop: "44px", paddingBottom: "22px" }}>
         <span style={{ color: "#f6a700", fontSize: "13px", fontWeight: 900, letterSpacing: ".13em", textTransform: "uppercase" }}>Start here</span>
         <h2 style={{ ...headingStyle, fontSize: "38px", marginTop: "8px" }}>Three broad paths to alcoholic-beverage privileges</h2>
-        <p style={{ ...paragraphStyle, maxWidth: "900px" }}>
+        <p style={{ ...paragraphStyle, maxWidth: "1180px" }}>
           The practical question is not simply whether a business needs a liquor license. It is whether the proposed operation needs beer and wine only, qualifies for a special full-liquor exception, or needs a transferable full-liquor quota license.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))", gap: "15px", marginTop: "24px" }}>
