@@ -64,7 +64,7 @@ export default function FloridaLiquorLicenseSystemPage() {
         .series-change-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
         .series-change-item{padding:21px 22px;border:1px solid rgba(139,171,191,.42);border-radius:9px;background:linear-gradient(145deg,rgba(34,79,105,.72),rgba(12,43,64,.84));box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 9px 18px rgba(0,0,0,.16);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease}
         .series-change-item:hover,.series-change-item:focus-within{transform:translateY(-3px);border-color:#70dcff;background:linear-gradient(145deg,rgba(42,96,124,.78),rgba(15,50,72,.9));box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 14px 24px rgba(0,0,0,.22),0 0 12px rgba(112,220,255,.1)}
-        .series-change-item h3{margin:0 0 9px;color:#70dcff;font-size:20px;line-height:1.25}
+        .series-change-item h3{margin:0 0 9px;color:#f6a700;font-size:20px;line-height:1.25}
         .series-change-item p{margin:0;color:#e1eaf0;font-size:16.5px;line-height:1.65}
         @media(max-width:850px){.series-change-grid{grid-template-columns:1fr}}
         @media(max-width:700px){.resource-card,.resource-feature-box{transform:none!important}.resource-card:hover,.resource-card:focus-within,.resource-feature-box:hover,.resource-feature-box:focus-within{transform:translateY(-3px)!important}}
@@ -170,8 +170,8 @@ export default function FloridaLiquorLicenseSystemPage() {
           <div className="series-change-grid">
             <article className="series-change-item">
               <h3>Privileges after conversion</h3>
-              <p><strong style={{ color: "#fff" }}>4COP quota:</strong> beer, wine and spirits for consumption on the licensed premises, with package-sale privileges when approved.</p>
-              <p style={{ marginTop: "13px" }}><strong style={{ color: "#fff" }}>3PS quota:</strong> sealed beer, wine and spirits for consumption away from the licensed premises; on-premises consumption is not authorized.</p>
+              <p><strong style={{ color: "#70dcff" }}>4COP quota:</strong> beer, wine and spirits for consumption on the licensed premises, with package-sale privileges when approved.</p>
+              <p style={{ marginTop: "13px" }}><strong style={{ color: "#70dcff" }}>3PS quota:</strong> sealed beer, wine and spirits for consumption away from the licensed premises; on-premises consumption is not authorized.</p>
             </article>
             <article className="series-change-item">
               <h3>Qualifications and approvals</h3>
