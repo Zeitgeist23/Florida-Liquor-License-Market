@@ -23,6 +23,7 @@ const officialFooterPaths = new Set([
   "/license-alerts",
   "/exchange",
   "/transaction-services",
+  "/businesses-with-quota-licenses/bars",
 ]);
 
 export default function SellPageOfficialFooter() {
