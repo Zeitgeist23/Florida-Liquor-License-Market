@@ -563,6 +563,13 @@ export default async function Florida4CopLiquorLicenseForSalePage() {
               </p>
               <Link href="/brokers/list-your-license">List a client&apos;s Florida license ›</Link>
             </article>
+            <article>
+              <h3>Is a quota license worth it?</h3>
+              <p>
+                Compare quota-license value with the 4COP-SFS / SRX restaurant alternative, the 51% revenue test and the economics of releasing license equity.
+              </p>
+              <Link href="/are-florida-quota-liquor-licenses-worth-it">Are Florida quota liquor licenses worth it? ›</Link>
+            </article>
           </div>
         </div>
       </section>
