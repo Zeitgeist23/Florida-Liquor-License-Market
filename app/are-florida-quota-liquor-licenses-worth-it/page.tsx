@@ -177,42 +177,42 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
 
-      <section className="worth-it-hero fllm-template-hero">
-        <div className="fllm-template-shell worth-it-hero-grid">
+      <section className="seo-market-hero">
+        <div className="seo-market-shell"><div className="seo-market-hero-grid">
           <div>
-            <div className="fllm-ui-breadcrumbs">
+            <div className="seo-market-breadcrumbs">
               <Link href="/">Home</Link><span>›</span>
               <Link href="/florida-4cop-liquor-license-for-sale">4COP Quota</Link><span>›</span>
               <strong>Are Quota Licenses Worth It?</strong>
             </div>
-            <span className="fllm-template-eyebrow">Florida 4COP Decision Guide · Market Data + Operating Economics</span>
-            <h1 className="fllm-template-hero-title">Are Florida Quota Liquor Licenses <em>Worth It?</em></h1>
-            <p className="fllm-template-hero-copy">
+            <span className="seo-market-kicker">Florida 4COP Decision Guide · Market Data + Operating Economics</span>
+            <h1 >Are Florida Quota Liquor Licenses <em>Worth It?</em></h1>
+            <p >
               Sometimes absolutely. Sometimes they tie up capital a qualifying restaurant may not need to keep
               invested in a transferable quota asset. The economic answer depends on the business model, the county
               market value of the license, food-to-alcohol revenue mix, financing cost, desired operating flexibility
               and whether the business can independently qualify for Florida&apos;s 4COP-SFS / SRX special restaurant license.
             </p>
-            <div className="fllm-ui-actions">
-              <a className="fllm-template-button" href="#decision-framework">See the Decision Framework</a>
-              <Link className="fllm-template-button fllm-template-button--outline" href="/florida-liquor-license-value">
+            <div className="seo-market-actions">
+              <a className="seo-market-button seo-market-button-gold" href="#decision-framework">See the Decision Framework</a>
+              <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-value">
                 Estimate License Value
               </Link>
             </div>
-            <p className="fllm-ui-updated">FLLM marketplace snapshot updated {updatedLabel}.</p>
+            <p className="four-cop-updated">FLLM marketplace snapshot updated {updatedLabel}.</p>
           </div>
 
-          <aside className="fllm-ui-panel" aria-label="Current FLLM 4COP market snapshot">
-            <span className="fllm-ui-panel-label">Current FLLM 4COP Snapshot</span>
-            <div className="fllm-ui-kpi-grid">
-              <div className="fllm-ui-kpi"><strong>{market.listings.length}</strong><small>active 4COP listings</small></div>
-              <div className="fllm-ui-kpi"><strong>{market.countyCount}</strong><small>counties represented</small></div>
-              <div className="fllm-ui-kpi"><strong>{market.median === null ? "—" : money(market.median)}</strong><small>median disclosed ask</small></div>
-              <div className="fllm-ui-kpi"><strong>{market.low === null ? "—" : money(market.low)}</strong><small>lowest disclosed ask</small></div>
+          <aside className="seo-market-snapshot" aria-label="Current FLLM 4COP market snapshot">
+            <span>Current FLLM 4COP Snapshot</span>
+            <div className="seo-market-snapshot-grid">
+              <div><strong>{market.listings.length}</strong><small>active 4COP listings</small></div>
+              <div><strong>{market.countyCount}</strong><small>counties represented</small></div>
+              <div><strong>{market.median === null ? "—" : money(market.median)}</strong><small>median disclosed ask</small></div>
+              <div><strong>{market.low === null ? "—" : money(market.low)}</strong><small>lowest disclosed ask</small></div>
             </div>
-            <p className="fllm-ui-panel-note">Asking-price data is marketplace evidence, not completed-sale pricing or an appraisal.</p>
+            <p className="four-cop-updated">Asking-price data is marketplace evidence, not completed-sale pricing or an appraisal.</p>
           </aside>
-        </div>
+        </div></div>
       </section>
 
       <section className="fllm-template-section worth-it-answer" id="decision-framework">
