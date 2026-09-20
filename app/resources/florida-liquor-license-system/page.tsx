@@ -170,7 +170,8 @@ export default function FloridaLiquorLicenseSystemPage() {
           <div className="series-change-grid">
             <article className="series-change-item">
               <h3>Privileges after conversion</h3>
-              <p><strong style={{ color: "#fff" }}>4COP quota:</strong> beer, wine and spirits for consumption on the licensed premises, with package-sale privileges when approved. <strong style={{ color: "#fff" }}>3PS quota:</strong> sealed beer, wine and spirits for consumption away from the licensed premises; on-premises consumption is not authorized.</p>
+              <p><strong style={{ color: "#fff" }}>4COP quota:</strong> beer, wine and spirits for consumption on the licensed premises, with package-sale privileges when approved.</p>
+              <p style={{ marginTop: "13px" }}><strong style={{ color: "#fff" }}>3PS quota:</strong> sealed beer, wine and spirits for consumption away from the licensed premises; on-premises consumption is not authorized.</p>
             </article>
             <article className="series-change-item">
               <h3>Qualifications and approvals</h3>
