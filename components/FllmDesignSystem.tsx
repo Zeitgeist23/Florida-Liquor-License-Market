@@ -1,8 +1,28 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 
 type Align = "left" | "center";
 type Columns = 2 | 3 | 4;
+
+
+export function FllmPageShell({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <main
+      className={`fllm-official-page ${className}`.trim()}
+      data-fllm-design-system="v2"
+    >
+      <div className="fllm-ui-header"><FormsSiteHeader /></div>
+      {children}
+    </main>
+  );
+}
 
 export function FllmSectionHeading({
   eyebrow,
