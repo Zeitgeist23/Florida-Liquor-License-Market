@@ -58,3 +58,10 @@ The county market-data page is the official reference for future FLLM page refin
 - Keep page-specific layouts when they serve a distinct function.
 - Do not add inventory-based color tiers to ordinary cards.
 - Compare the adapted page directly against the county page before approval.
+
+
+## v2 default for new pages
+
+The County v1 contract remains a valid historical reference, but **all new FLLM pages must use the locked v2 component system** documented in `docs/FLLM_DESIGN_SYSTEM_LOCK.md`.
+
+Do not start new pages from page-local visual CSS. Start with `templates/fllm-v2-page-starter.tsx.txt`, use `FllmPageShell`, and run `npm run check:fllm-design` before deployment.
