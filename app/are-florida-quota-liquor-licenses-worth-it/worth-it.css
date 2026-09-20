@@ -1,14 +1,5 @@
 /*
  * Route-specific geometry only.
- * Visual styling is locked in fllm-official-template.css and fllm-design-system.css.
+ * All visual styling comes from the canonical FLLM market template and v2 design system.
  */
-.worth-it-hero-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1.45fr) minmax(320px,.55fr);
-  gap:38px;
-  align-items:center;
-}
 .worth-it-process-actions{justify-content:center}
-@media(max-width:980px){
-  .worth-it-hero-grid{grid-template-columns:1fr}
-}
