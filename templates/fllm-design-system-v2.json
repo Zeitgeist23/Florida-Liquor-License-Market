@@ -1,0 +1,66 @@
+{
+  "id": "fllm-design-system-v2",
+  "status": "locked",
+  "approvedOn": "2026-09-20",
+  "rootMarker": "data-fllm-design-system=\"v2\"",
+  "requiredImports": [
+    "app/fllm-official-template.css",
+    "app/fllm-design-system.css"
+  ],
+  "requiredComponents": [
+    "components/FormsSiteHeader.tsx",
+    "components/FllmDesignSystem.tsx",
+    "components/SellPageOfficialFooter.tsx"
+  ],
+  "lockedDomains": [
+    "colors",
+    "gradients",
+    "fonts",
+    "font sizes",
+    "font weights",
+    "line heights",
+    "buttons",
+    "cards",
+    "tables",
+    "FAQs",
+    "borders",
+    "radii",
+    "shadows",
+    "hover/focus states",
+    "header",
+    "footer",
+    "responsive design breakpoints"
+  ],
+  "localCssMayControl": [
+    "display",
+    "grid-template-columns",
+    "grid-column",
+    "grid-row",
+    "gap",
+    "align-items",
+    "justify-content",
+    "width",
+    "max-width",
+    "min-width",
+    "height",
+    "min-height",
+    "max-height",
+    "margin",
+    "padding",
+    "position",
+    "inset",
+    "top",
+    "right",
+    "bottom",
+    "left",
+    "overflow",
+    "object-fit",
+    "object-position",
+    "scroll-margin"
+  ],
+  "referenceRoutes": [
+    "/businesses-with-quota-licenses/bars",
+    "/are-florida-quota-liquor-licenses-worth-it"
+  ],
+  "docs": "docs/FLLM_DESIGN_SYSTEM_LOCK.md"
+}
