@@ -59,6 +59,14 @@ export default function FloridaLiquorLicenseSystemPage() {
         .license-system-route main section article.license-series-card{border-color:rgba(112,220,255,.62)!important;border-top:4px solid #70dcff!important;background:radial-gradient(circle at 18% 0%,rgba(112,220,255,.15),transparent 40%),linear-gradient(145deg,#194866 0%,#123a56 52%,#0b2a43 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -10px 22px rgba(0,0,0,.17),0 4px 0 rgba(35,124,157,.66),0 19px 38px rgba(0,0,0,.28),0 0 19px rgba(112,220,255,.09)!important}
         .license-system-route main section article.license-series-card:hover,.license-system-route main section article.license-series-card:focus-within{transform:translateY(-5px) scale(1.01)!important;border-color:#9ce8ff!important;background:radial-gradient(circle at 18% 0%,rgba(112,220,255,.28),transparent 43%),linear-gradient(145deg,#225d7e 0%,#184963 52%,#10334d 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.17),inset 0 0 34px rgba(112,220,255,.1),0 5px 0 rgba(38,137,173,.75),0 25px 46px rgba(0,0,0,.34),0 0 30px rgba(112,220,255,.26)!important}
         .license-system-route main section article.license-series-card h3{color:#70dcff!important;text-shadow:0 0 14px rgba(112,220,255,.18)!important}
+        .series-change-panel{border:1px solid rgba(112,220,255,.5)!important;border-left:5px solid #70dcff!important;background:radial-gradient(circle at 16% 0%,rgba(112,220,255,.08),transparent 38%),linear-gradient(145deg,#123a54 0%,#0e3048 55%,#09243a 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -8px 18px rgba(0,0,0,.15),0 3px 0 rgba(35,116,147,.48),0 16px 30px rgba(0,0,0,.25)!important}
+        .series-change-panel:hover,.series-change-panel:focus-within{border-color:#8ee5ff!important;transform:translateY(-4px) scale(1.004);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 0 24px rgba(112,220,255,.045),0 4px 0 rgba(43,133,166,.55),0 21px 38px rgba(0,0,0,.3),0 0 15px rgba(112,220,255,.12)!important;filter:brightness(1.025)}
+        .series-change-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+        .series-change-item{padding:21px 22px;border:1px solid rgba(139,171,191,.42);border-radius:9px;background:linear-gradient(145deg,rgba(34,79,105,.72),rgba(12,43,64,.84));box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 9px 18px rgba(0,0,0,.16);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease}
+        .series-change-item:hover,.series-change-item:focus-within{transform:translateY(-3px);border-color:#70dcff;background:linear-gradient(145deg,rgba(42,96,124,.78),rgba(15,50,72,.9));box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 14px 24px rgba(0,0,0,.22),0 0 12px rgba(112,220,255,.1)}
+        .series-change-item h3{margin:0 0 9px;color:#70dcff;font-size:20px;line-height:1.25}
+        .series-change-item p{margin:0;color:#e1eaf0;font-size:16.5px;line-height:1.65}
+        @media(max-width:850px){.series-change-grid{grid-template-columns:1fr}}
         @media(max-width:700px){.resource-card,.resource-feature-box{transform:none!important}.resource-card:hover,.resource-card:focus-within,.resource-feature-box:hover,.resource-feature-box:focus-within{transform:translateY(-3px)!important}}
       `}</style>
       <div className="abt-header-wrap">
@@ -148,6 +156,42 @@ export default function FloridaLiquorLicenseSystemPage() {
             <p style={paragraphStyle}>Florida provides a formal change-in-series-or-type process. A quota license may therefore be approved in a package-sales series or a consumption-on-premises series depending on the proposed use and regulatory approvals. A change is not automatic.</p>
             <Link href="/license-types/3ps-package-store" style={{ color: "#f6a700", fontWeight: 900 }}>Read the 3PS quota guide →</Link>
           </article>
+        </div>
+      </section>
+
+      <section className="page-shell" style={{ paddingTop: "30px", paddingBottom: "30px" }}>
+        <div className="resource-feature-box series-change-panel" style={{ padding: "32px", borderRadius: "11px" }}>
+          <span style={{ color: "#f6a700", fontSize: "13px", fontWeight: 900, letterSpacing: ".13em", textTransform: "uppercase" }}>Changing the approved series</span>
+          <h2 style={{ ...headingStyle, marginTop: "9px", fontSize: "34px" }}>A 4COP quota can become a 3PS quota—and a 3PS quota can become a 4COP quota</h2>
+          <p style={{ ...paragraphStyle, maxWidth: "1120px" }}>
+            The underlying asset remains the same county-limited quota license. What changes is the series under which ABT authorizes it to operate. A change does not create another quota license, move the license to another county, or become effective merely because the owner requests it; the Florida Division of Alcoholic Beverages and Tobacco must approve the new series first.
+          </p>
+
+          <div className="series-change-grid">
+            <article className="series-change-item">
+              <h3>Privileges after conversion</h3>
+              <p><strong style={{ color: "#fff" }}>4COP quota:</strong> beer, wine and spirits for consumption on the licensed premises, with package-sale privileges when approved. <strong style={{ color: "#fff" }}>3PS quota:</strong> sealed beer, wine and spirits for consumption away from the licensed premises; on-premises consumption is not authorized.</p>
+            </article>
+            <article className="series-change-item">
+              <h3>Qualifications and approvals</h3>
+              <p>The licensee and disclosed interested parties must remain qualified under Florida law. If the converted license will operate at a location, ABT may require the premises sketch and applicable zoning, sales-tax, health, ownership, fingerprint and contract disclosures shown in the application packet.</p>
+            </article>
+            <article className="series-change-item">
+              <h3>Restrictions and conditions</h3>
+              <p>The license remains tied to its county and may be used only with the privileges ABT approves. Local zoning, distance, hours, package-sale and premises rules still apply. The applicable annual state license tax also changes; an off-premises-only vendor pays 75% of the corresponding consumption-on-premises state license tax.</p>
+            </article>
+          </div>
+
+          <div style={{ marginTop: "21px", paddingTop: "18px", borderTop: "1px solid rgba(112,220,255,.22)", color: "#e1eaf0", fontSize: "16.5px", lineHeight: 1.7 }}>
+            <strong style={{ color: "#f6a700" }}>Form used:</strong> DBPR ABT-6014, Change of Location/Change in Series or Type Application. The form asks whether the request is a change, increase or decrease in series and identifies the requested series and type/class. Approval should be obtained before operating under the new privileges.{" "}
+            <a href="https://www2.myfloridalicense.com/abt/forms/documents/abt-6014.pdf" target="_blank" rel="noreferrer" style={{ color: "#70dcff", fontWeight: 400, textDecoration: "none" }}>Open official ABT-6014</a>
+            <span style={{ color: "#91aabd" }}> · </span>
+            <a href="https://www2.myfloridalicense.com/alcoholic-beverages-and-tobacco/forms-and-publications/" target="_blank" rel="noreferrer" style={{ color: "#70dcff", fontWeight: 400, textDecoration: "none" }}>ABT forms and instructions</a>
+            <span style={{ color: "#91aabd" }}> · </span>
+            <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&amp;URL=0500-0599/0561/Sections/0561.15.html" target="_blank" rel="noreferrer" style={{ color: "#70dcff", fontWeight: 400, textDecoration: "none" }}>Fla. Stat. § 561.15</a>
+            <span style={{ color: "#91aabd" }}> · </span>
+            <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&amp;URL=0500-0599/0565/Sections/0565.02.html" target="_blank" rel="noreferrer" style={{ color: "#70dcff", fontWeight: 400, textDecoration: "none" }}>Fla. Stat. § 565.02</a>
+          </div>
         </div>
       </section>
 
