@@ -137,13 +137,13 @@ export default function FloridaLiquorLicenseSystemPage() {
         <p style={{ ...paragraphStyle, maxWidth: "950px" }}>This distinction resolves the common confusion between “4COP quota,” “4COP,” and “3PS quota.” They are related terms, but they do not describe exactly the same thing.</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "16px", marginTop: "22px" }}>
           <article className="resource-card license-series-card" style={cardStyle}>
-            <h3 style={{ ...headingStyle, color: "#70dcff", fontSize: "26px" }}>4COP quota</h3>
+            <h3 style={{ ...headingStyle, fontSize: "26px" }}><span style={{ color: "#70dcff", textShadow: "0 0 14px rgba(112,220,255,.18)" }}>4COP quota</span></h3>
             <p style={paragraphStyle}>A 4COP-family quota series is used when the county quota license is approved for full-liquor consumption-on-premises privileges. In everyday marketplace language, people often say they are “buying a 4COP.” More precisely, they are buying a county quota-license interest that is held or operated in the applicable consumption-on-premises series.</p>
             <p style={paragraphStyle}><strong style={{ color: "#fff" }}>Do not confuse it with 4COP-SFS / SRX.</strong> The special restaurant license is qualification-based and is not the same transferable quota asset.</p>
             <Link href="/license-types/4cop-quota" style={{ color: "#f6a700", fontWeight: 900 }}>Read the 4COP quota guide →</Link>
           </article>
           <article className="resource-card license-series-card" style={cardStyle}>
-            <h3 style={{ ...headingStyle, color: "#70dcff", fontSize: "26px" }}>3PS quota</h3>
+            <h3 style={{ ...headingStyle, fontSize: "26px" }}><span style={{ color: "#70dcff", textShadow: "0 0 14px rgba(112,220,255,.18)" }}>3PS quota</span></h3>
             <p style={paragraphStyle}>A 3PS-family quota series is used when the quota license is approved for package sales of sealed beer, wine and spirits for consumption away from the licensed premises, such as at a liquor store.</p>
             <p style={paragraphStyle}>Florida provides a formal change-in-series-or-type process. A quota license may therefore be approved in a package-sales series or a consumption-on-premises series depending on the proposed use and regulatory approvals. A change is not automatic.</p>
             <Link href="/license-types/3ps-package-store" style={{ color: "#f6a700", fontWeight: 900 }}>Read the 3PS quota guide →</Link>
