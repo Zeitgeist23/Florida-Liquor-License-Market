@@ -53,6 +53,7 @@ for(const page of pages){
       normalized.endsWith("/app/fllm-official-template.css") ||
       normalized.endsWith("/app/fllm-design-system.css") ||
       normalized.endsWith("/app/fllm-market-page-template.css") ||
+      normalized.endsWith("/app/businesses-with-quota-licenses/business-inventory.css") ||
       normalized.includes("/app/listings/")
     ) continue;
     if(!fs.existsSync(resolved)) continue;
