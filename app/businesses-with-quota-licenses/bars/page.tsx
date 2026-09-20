@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
@@ -7,6 +6,7 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { businessQuotaListings } from "@/lib/business-quota-listings";
 
 import "../../fllm-official-template.css";
+import "../../fllm-design-system.css";
 import "../../listings/listings-premium.css";
 import "../business-inventory.css";
 import "./bars.css";
@@ -112,7 +112,7 @@ export default function BarsWithQuotaLicensesPage() {
   ];
 
   return (
-    <main className="bar-package-page fllm-official-page">
+    <main className="bar-package-page fllm-official-page" data-fllm-design-system="v2">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
@@ -125,7 +125,7 @@ export default function BarsWithQuotaLicensesPage() {
       <section className="bar-package-hero fllm-template-hero">
         <div className="fllm-template-shell bar-package-hero-grid">
           <div>
-            <div className="bar-package-breadcrumbs">
+            <div className="fllm-ui-breadcrumbs">
               <Link href="/">Home</Link><span>›</span>
               <Link href="/businesses-with-quota-licenses">Businesses With Quota Licenses</Link><span>›</span>
               <strong>Bars</strong>
@@ -138,7 +138,7 @@ export default function BarsWithQuotaLicensesPage() {
               inventory while giving brokers, attorneys, buyers and sellers tools to identify, value, transfer
               and document the liquor-license component of the transaction.
             </p>
-            <div className="bar-package-actions">
+            <div className="fllm-ui-actions">
               <a className="fllm-template-button" href="#current-packages">View Bar + License Packages</a>
               <Link className="fllm-template-button fllm-template-button--outline" href="/transaction-services">
                 Explore Transaction Services
@@ -146,13 +146,13 @@ export default function BarsWithQuotaLicensesPage() {
             </div>
           </div>
 
-          <aside className="bar-package-hero-panel" aria-label="Bar and quota license package overview">
-            <span>What FLLM Separates</span>
-            <div className="bar-package-hero-panel-grid">
-              <div><strong>Business</strong><small>Operations, goodwill, equipment and other negotiated assets</small></div>
-              <div><strong>4COP</strong><small>Transferable county quota license included in the package</small></div>
-              <div><strong>Value</strong><small>License component can be analyzed separately from total package price</small></div>
-              <div><strong>Transfer</strong><small>Regulatory approval remains separate from the business closing</small></div>
+          <aside className="fllm-ui-panel" aria-label="Bar and quota license package overview">
+            <span className="fllm-ui-panel-label">What FLLM Separates</span>
+            <div className="fllm-ui-kpi-grid">
+              <div className="fllm-ui-kpi"><strong>Business</strong><small>Operations, goodwill, equipment and other negotiated assets</small></div>
+              <div className="fllm-ui-kpi"><strong>4COP</strong><small>Transferable county quota license included in the package</small></div>
+              <div className="fllm-ui-kpi"><strong>Value</strong><small>License component can be analyzed separately from total package price</small></div>
+              <div className="fllm-ui-kpi"><strong>Transfer</strong><small>Regulatory approval remains separate from the business closing</small></div>
             </div>
           </aside>
         </div>
@@ -169,7 +169,7 @@ export default function BarsWithQuotaLicensesPage() {
 
           <div className="fllm-template-card-grid">
             <article className="fllm-template-card fllm-template-card--gold">
-              <span className="bar-package-card-kicker">Operating Business</span>
+              <span className="fllm-ui-card-kicker">Operating Business</span>
               <strong className="fllm-template-card-title">The bar transaction</strong>
               <p className="fllm-template-card-copy">
                 The purchase price may include the operating business, goodwill, furniture, fixtures,
@@ -178,7 +178,7 @@ export default function BarsWithQuotaLicensesPage() {
               </p>
             </article>
             <article className="fllm-template-card fllm-template-card--gold">
-              <span className="bar-package-card-kicker">Quota License Component</span>
+              <span className="fllm-ui-card-kicker">Quota License Component</span>
               <strong className="fllm-template-card-title">The transferable 4COP asset</strong>
               <p className="fllm-template-card-copy">
                 A 4COP quota license is a county-specific full-liquor quota license commonly used by bars,
@@ -187,7 +187,7 @@ export default function BarsWithQuotaLicensesPage() {
               </p>
             </article>
             <article className="fllm-template-card fllm-template-card--gold">
-              <span className="bar-package-card-kicker">Allocated Value</span>
+              <span className="fllm-ui-card-kicker">Allocated Value</span>
               <strong className="fllm-template-card-title">The license can be valued separately</strong>
               <p className="fllm-template-card-copy">
                 Brokers and parties can identify an allocated license value inside the total business package.
@@ -231,7 +231,7 @@ export default function BarsWithQuotaLicensesPage() {
               ))}
             </div>
           ) : (
-            <div className="bar-package-empty">
+            <div className="fllm-ui-panel bar-package-empty">
               <strong>No published bar packages are active at this moment.</strong>
               <p>FLLM keeps this page live for market guidance and will display qualifying bar + 4COP packages here as they are published.</p>
               <Link className="fllm-template-button" href="/brokers/list-your-license">List a Client Package</Link>
@@ -250,9 +250,9 @@ export default function BarsWithQuotaLicensesPage() {
             <Link className="fllm-template-button" href="/transaction-services">Transaction Services</Link>
           </div>
 
-          <div className="bar-package-stage-grid">
-            <article className="bar-package-stage-card">
-              <span>01 · Presale</span>
+          <div className="fllm-ui-grid fllm-ui-grid--3">
+            <article className="fllm-ui-step-card">
+              <span className="fllm-ui-step-kicker">01 · Presale</span>
               <h3>Identify and value the license before marketing the bar</h3>
               <p>
                 FLLM can help the broker, seller and counsel separate the liquor-license component from the rest
@@ -264,15 +264,15 @@ export default function BarsWithQuotaLicensesPage() {
                 <li>Prepare a preliminary market value or license-specific appraisal when appropriate</li>
                 <li>Present the allocated license value clearly in a broker or FLLM package listing</li>
               </ul>
-              <div className="bar-package-stage-links">
-                <Link href="/florida-liquor-license-value">License Value</Link>
-                <Link href="/florida-liquor-license-appraisal">Appraisal</Link>
-                <Link href="/brokers/list-your-license">Broker Listings</Link>
+              <div className="fllm-ui-step-actions">
+                <Link className="fllm-template-button" href="/florida-liquor-license-value">License Value</Link>
+                <Link className="fllm-template-button fllm-template-button--outline" href="/florida-liquor-license-appraisal">Appraisal</Link>
+                <Link className="fllm-template-button fllm-template-button--outline" href="/brokers/list-your-license">Broker Listings</Link>
               </div>
             </article>
 
-            <article className="bar-package-stage-card">
-              <span>02 · Contract & Closing</span>
+            <article className="fllm-ui-step-card">
+              <span className="fllm-ui-step-kicker">02 · Contract & Closing</span>
               <h3>Coordinate the bar closing with the quota-license transfer</h3>
               <p>
                 The business purchase agreement, escrow and closing schedule should account for the separate
@@ -284,15 +284,15 @@ export default function BarsWithQuotaLicensesPage() {
                 <li>FDOR clearance and DR-835 resource coordination</li>
                 <li>Financing, appraisal, escrow and independent professional referral resources</li>
               </ul>
-              <div className="bar-package-stage-links">
-                <Link href="/dbpr-abt-6002">ABT-6002 Guide</Link>
-                <Link href="/resources/florida-department-of-revenue">FDOR Resources</Link>
-                <Link href="/resources/quota-transfer-fee-calculator">Transfer Fee</Link>
+              <div className="fllm-ui-step-actions">
+                <Link className="fllm-template-button" href="/dbpr-abt-6002">ABT-6002 Guide</Link>
+                <Link className="fllm-template-button fllm-template-button--outline" href="/resources/florida-department-of-revenue">FDOR Resources</Link>
+                <Link className="fllm-template-button fllm-template-button--outline" href="/resources/quota-transfer-fee-calculator">Transfer Fee</Link>
               </div>
             </article>
 
-            <article className="bar-package-stage-card">
-              <span>03 · Post-Sale</span>
+            <article className="fllm-ui-step-card">
+              <span className="fllm-ui-step-kicker">03 · Post-Sale</span>
               <h3>Document the license component after the business changes hands</h3>
               <p>
                 After closing, an updated license-specific valuation can help the new owner, lender and professional
@@ -304,10 +304,10 @@ export default function BarsWithQuotaLicensesPage() {
                 <li>Market support for purchase-price allocation review by the parties and their advisers</li>
                 <li>Ongoing county-market monitoring for future sale, refinance or strategic planning</li>
               </ul>
-              <div className="bar-package-stage-links">
-                <Link href="/florida-liquor-license-appraisal">Order Appraisal</Link>
-                <Link href="/counties">County Markets</Link>
-                <Link href="/financing">Financing & Refinance</Link>
+              <div className="fllm-ui-step-actions">
+                <Link className="fllm-template-button" href="/florida-liquor-license-appraisal">Order Appraisal</Link>
+                <Link className="fllm-template-button fllm-template-button--outline" href="/counties">County Markets</Link>
+                <Link className="fllm-template-button fllm-template-button--outline" href="/financing">Financing & Refinance</Link>
               </div>
             </article>
           </div>
@@ -323,9 +323,9 @@ export default function BarsWithQuotaLicensesPage() {
             </div>
           </div>
 
-          <div className="bar-package-audience-grid">
+          <div className="fllm-ui-grid fllm-ui-grid--4">
             <article className="fllm-template-card">
-              <span className="bar-package-card-kicker">Business Brokers</span>
+              <span className="fllm-ui-card-kicker">Business Brokers</span>
               <strong className="fllm-template-card-title">Market the license component intelligently</strong>
               <p className="fllm-template-card-copy">
                 Use county data, allocated-value analysis and FLLM package listings while keeping the broker as
@@ -333,7 +333,7 @@ export default function BarsWithQuotaLicensesPage() {
               </p>
             </article>
             <article className="fllm-template-card">
-              <span className="bar-package-card-kicker">Attorneys</span>
+              <span className="fllm-ui-card-kicker">Attorneys</span>
               <strong className="fllm-template-card-title">Connect legal drafting to market and transfer facts</strong>
               <p className="fllm-template-card-copy">
                 FLLM can supply market, appraisal, transfer-process and agency-resource information that counsel
@@ -341,7 +341,7 @@ export default function BarsWithQuotaLicensesPage() {
               </p>
             </article>
             <article className="fllm-template-card">
-              <span className="bar-package-card-kicker">Buyers</span>
+              <span className="fllm-ui-card-kicker">Buyers</span>
               <strong className="fllm-template-card-title">Understand what portion of the package is the license</strong>
               <p className="fllm-template-card-copy">
                 Compare county market evidence, review financing and transfer resources, and avoid treating the
@@ -349,7 +349,7 @@ export default function BarsWithQuotaLicensesPage() {
               </p>
             </article>
             <article className="fllm-template-card">
-              <span className="bar-package-card-kicker">Sellers</span>
+              <span className="fllm-ui-card-kicker">Sellers</span>
               <strong className="fllm-template-card-title">Support pricing before the bar reaches market</strong>
               <p className="fllm-template-card-copy">
                 Establish a defensible license allocation, organize transfer readiness and give prospective
@@ -362,14 +362,14 @@ export default function BarsWithQuotaLicensesPage() {
 
       <section className="fllm-template-section fllm-template-section--gradient bar-package-compare">
         <div className="fllm-template-shell">
-          <div className="fllm-template-heading">
+          <div className="fllm-ui-heading fllm-ui-heading--center">
             <div>
               <span className="fllm-template-eyebrow">4COP Quota vs Restaurant License</span>
               <h2>Do not assume every Florida bar or restaurant package contains a quota license</h2>
             </div>
           </div>
           <div className="fllm-template-table-wrap">
-            <table className="bar-package-table">
+            <table className="fllm-ui-table">
               <thead>
                 <tr><th>Issue</th><th>4COP Quota</th><th>4COP-SFS / SRX</th></tr>
               </thead>
@@ -381,7 +381,7 @@ export default function BarsWithQuotaLicensesPage() {
               </tbody>
             </table>
           </div>
-          <div className="bar-package-compare-actions">
+          <div className="fllm-ui-actions">
             <Link className="fllm-template-button" href="/license-types/4cop-quota">4COP Quota Guide</Link>
             <Link className="fllm-template-button fllm-template-button--outline" href="/license-types/4cop-sfs-restaurant">
               4COP-SFS / SRX Guide
@@ -398,16 +398,16 @@ export default function BarsWithQuotaLicensesPage() {
               <h2>Bars, business sales and quota-license transfers</h2>
             </div>
           </div>
-          <div className="bar-package-faq-grid">
+          <div className="fllm-ui-faq-grid fllm-ui-faq-grid--2">
             {faqs.map((faq) => (
-              <details key={faq.question}>
+              <details className="fllm-ui-faq" key={faq.question}>
                 <summary>{faq.question}</summary>
-                <p>{faq.answer}</p>
+                <div className="fllm-ui-faq-answer"><p>{faq.answer}</p></div>
               </details>
             ))}
           </div>
 
-          <div className="fllm-template-disclosure bar-package-legal-note">
+          <div className="fllm-template-disclosure">
             <strong>Scope of FLLM services:</strong> FLLM provides marketplace, market-data, valuation/appraisal,
             financing and transaction-resource services. FLLM is not acting as the parties' law firm, tax adviser,
             escrow agent or governmental licensing authority. Legal, tax, accounting and escrow questions should
@@ -416,7 +416,7 @@ export default function BarsWithQuotaLicensesPage() {
         </div>
       </section>
 
-      <section className="bar-package-final-cta">
+      <section className="fllm-ui-final-cta">
         <div className="fllm-template-shell">
           <div>
             <span className="fllm-template-eyebrow">From Marketing to Transfer</span>
@@ -426,7 +426,7 @@ export default function BarsWithQuotaLicensesPage() {
               financing, appraisal and closing workstreams.
             </p>
           </div>
-          <div className="bar-package-final-actions">
+          <div className="fllm-ui-final-actions">
             <Link className="fllm-template-button" href="/transaction-services">Explore Transaction Services</Link>
             <Link className="fllm-template-button fllm-template-button--outline" href="/businesses-with-quota-licenses">
               All Business Packages
@@ -435,23 +435,7 @@ export default function BarsWithQuotaLicensesPage() {
         </div>
       </section>
 
-      <footer className="business-quota-footer">
-        <div className="business-quota-shell">
-          <div>
-            <Link href="/" aria-label="Florida Liquor License Market home">
-              <Image src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width={130} height={53} />
-            </Link>
-            <span>© Florida Liquor License Market</span>
-          </div>
-          <nav aria-label="Footer navigation">
-            <Link href="/listings">Standalone Licenses</Link>
-            <Link href="/businesses-with-quota-licenses">Business Packages</Link>
-            <Link href="/transaction-services">Transaction Services</Link>
-            <Link href="/counties">Counties</Link>
-            <Link href="/contact">Contact</Link>
-          </nav>
-        </div>
-      </footer>
+
     </main>
   );
 }
