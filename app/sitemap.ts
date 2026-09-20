@@ -39,6 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/private-liquor-license-lenders`, lastModified, changeFrequency: "monthly", priority: 0.82 },
     { url: `${siteUrl}/self-directed-ira-liquor-license-lending`, lastModified, changeFrequency: "monthly", priority: 0.72 },
     { url: `${siteUrl}/florida-4cop-liquor-license-for-sale`, lastModified, changeFrequency: "daily", priority: 0.9 },
+    { url: `${siteUrl}/are-florida-quota-liquor-licenses-worth-it`, lastModified, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/florida-3ps-liquor-license-for-sale`, lastModified, changeFrequency: "daily", priority: 0.85 },
     { url: `${siteUrl}/broward-county-liquor-license-for-sale`, lastModified, changeFrequency: "daily", priority: 0.95 },
     { url: `${siteUrl}/brevard-county-liquor-license-for-sale`, lastModified, changeFrequency: "daily", priority: 0.94 },
