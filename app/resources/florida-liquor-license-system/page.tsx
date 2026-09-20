@@ -46,6 +46,7 @@ export default function FloridaLiquorLicenseSystemPage() {
         .resource-card::after,.resource-feature-box::after{content:"";position:absolute;left:9%;right:9%;bottom:-8px;height:14px;z-index:-1;border-radius:50%;background:rgba(0,0,0,.34);filter:blur(8px)}
         .resource-card:hover,.resource-card:focus-within,.resource-feature-box:hover,.resource-feature-box:focus-within{transform:translateY(-5px) scale(1.01);border-color:#ffc13b!important;background:radial-gradient(circle at 20% 0%,rgba(112,220,255,.2),transparent 42%),linear-gradient(145deg,#205675 0%,#174661 52%,#10334d 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 0 30px rgba(112,220,255,.075),0 4px 0 rgba(158,108,10,.66),0 22px 42px rgba(0,0,0,.31),0 0 22px rgba(112,220,255,.18),0 0 16px rgba(246,167,0,.14)!important;filter:brightness(1.06)}
         .resource-inner-note:hover,.resource-inner-note:focus-within{transform:translateY(-3px);border-color:#ffc13b!important;background:rgba(112,220,255,.1)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 12px 24px rgba(0,0,0,.24),0 0 18px rgba(112,220,255,.14)!important}
+        .active-operation-list li::marker{color:#70dcff;font-size:1.08em}
         .resource-card>strong{font-size:18px;line-height:1.4}
         .resource-card a{display:inline-block;font-size:16.5px;line-height:1.45;text-decoration:none}
         .resource-card a:hover{text-decoration:underline}
@@ -150,8 +151,8 @@ export default function FloridaLiquorLicenseSystemPage() {
           <p style={paragraphStyle}>An eligible purchaser can acquire a transferable Florida quota license even when no operating location is ready. Florida provides inactive and escrow procedures for quota licenses that are not currently assigned to an operating location. While inactive, the license cannot be used to sell alcoholic beverages.</p>
           <p style={paragraphStyle}>That means a buyer may purchase a 4COP-family or 3PS-family quota license as an investment asset, keep it in the required inactive or escrow status, and later sell it or seek approval to activate it at a qualifying location.</p>
           <div className="resource-inner-note" style={{ marginTop: "20px", padding: "22px 24px", border: "1px solid rgba(246,167,0,.42)", borderRadius: "9px", background: "rgba(246,167,0,.06)", boxShadow: "inset 0 1px 0 rgba(255,255,255,.05),0 8px 18px rgba(0,0,0,.16)", color: "#e5edf2", fontSize: "16.5px", lineHeight: 1.7 }}>
-            <p style={{ margin: "0 0 10px" }}><strong style={{ color: "#fff" }}>Important:</strong> inactive ownership remains regulated. For a quota license issued after September 30, 1988:</p>
-            <ul style={{ margin: "0 0 10px", paddingLeft: "24px" }}>
+            <p style={{ margin: "0 0 10px" }}><strong style={{ color: "#f6a700" }}>Important:</strong> inactive ownership remains regulated. For a quota license issued after September 30, 1988:</p>
+            <ul className="active-operation-list" style={{ margin: "0 0 10px", paddingLeft: "24px" }}>
               <li style={{ marginBottom: "7px" }}>The licensed premises generally must be open to the public for bona fide retail sales of authorized alcoholic beverages during regular and reasonable business hours.</li>
               <li style={{ marginBottom: "7px" }}>The minimum operating schedule is at least 8 hours per day on at least 210 days during a 12-month period, beginning 6 months after acquisition.</li>
               <li style={{ marginBottom: "7px" }}>The licensee must notify ABT in writing of inactive periods and place the license in inactive status.</li>
