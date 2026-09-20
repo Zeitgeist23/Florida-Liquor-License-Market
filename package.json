@@ -9,7 +9,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "check:fllm-design": "node scripts/check-fllm-design-system.mjs"
   },
   "dependencies": {
     "next": "15.5.21",
