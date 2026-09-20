@@ -93,6 +93,7 @@ export default function BusinessesWithQuotaLicensesPage() {
           </p>
           <div className="business-quota-hero-actions">
             <Link className="business-quota-primary" href="#business-inventory">View Business Packages</Link>
+            <Link className="business-quota-secondary" href="/businesses-with-quota-licenses/bars">Bars + 4COP Packages</Link>
             <Link className="business-quota-secondary" href="/listings">View Standalone Quota Licenses</Link>
           </div>
         </div>
