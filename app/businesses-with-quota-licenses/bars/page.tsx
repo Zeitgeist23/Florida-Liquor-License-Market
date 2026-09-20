@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
-import FormsSiteHeader from "@/components/FormsSiteHeader";
+import { FllmPageShell } from "@/components/FllmDesignSystem";
 import { businessQuotaListings } from "@/lib/business-quota-listings";
 
 import "../../fllm-official-template.css";
@@ -112,15 +112,11 @@ export default function BarsWithQuotaLicensesPage() {
   ];
 
   return (
-    <main className="bar-package-page fllm-official-page" data-fllm-design-system="v2">
+    <FllmPageShell className="bar-package-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
-
-      <div className="bar-package-header">
-        <FormsSiteHeader />
-      </div>
 
       <section className="bar-package-hero fllm-template-hero">
         <div className="fllm-template-shell bar-package-hero-grid">
@@ -436,6 +432,6 @@ export default function BarsWithQuotaLicensesPage() {
       </section>
 
 
-    </main>
+    </FllmPageShell>
   );
 }
