@@ -49,6 +49,7 @@
   text-align:center;
 }
 .fllm-ui-heading--center .fllm-ui-heading-copy{margin-right:auto;margin-left:auto}
+.fllm-ui-heading--center>p{max-width:940px;margin:13px auto 0;color:var(--fllm-text-muted);font-size:15px;line-height:1.7}
 .fllm-ui-heading-action{flex:0 0 auto}
 
 .fllm-ui-grid{display:grid;gap:14px}
