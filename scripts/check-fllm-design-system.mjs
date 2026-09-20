@@ -35,6 +35,10 @@ for(const page of pages){
   const usesV2Shell = source.includes("FllmPageShell");
   if(!source.includes(marker) && !usesV2Shell) continue;
 
+  if(!usesV2Shell){
+    violations.push([page,"v2 pages must use FllmPageShell"]);
+  }
+
   if(!source.includes("fllm-official-template.css")){
     violations.push([page,"missing fllm-official-template.css import"]);
   }
