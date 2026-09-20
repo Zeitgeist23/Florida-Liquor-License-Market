@@ -338,20 +338,18 @@
 }
 
 #common-license-chart .license-types-section-heading {
-  grid-template-columns: 1fr;
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-items: center;
+  gap: 14px;
 }
 
 #common-license-chart .license-types-section-heading > div {
-  grid-column: 1;
   width: min(100%, 1100px);
   text-align: center;
 }
 
 #common-license-chart .license-types-section-heading > p {
-  grid-column: 1;
   width: min(100%, 1050px);
   margin: 0 auto;
   text-align: center;
