@@ -214,6 +214,46 @@
 }
 
 
+
+.fllm-official-page[data-fllm-design-system="v2"] .fllm-template-card>h3{
+  margin:9px 0 12px;
+  color:var(--fllm-white);
+  font-family:var(--fllm-serif);
+  font-size:25px;
+  font-weight:700;
+  line-height:1.18;
+}
+.fllm-official-page[data-fllm-design-system="v2"] .fllm-template-card>p{
+  margin:0;
+  color:var(--fllm-text-muted);
+  font-size:15px;
+  line-height:1.7;
+}
+.fllm-official-page[data-fllm-design-system="v2"] .fllm-ui-card--center>h3{text-align:center}
+
+.fllm-ui-process-card{
+  padding:22px;
+  border:1px solid var(--fllm-cyan-border);
+  border-radius:var(--fllm-radius);
+  background:linear-gradient(145deg,#0b2945,#061725);
+  box-shadow:var(--fllm-shadow);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.fllm-ui-process-card:hover{transform:translateY(-4px);border-color:var(--fllm-gold-bright);box-shadow:var(--fllm-shadow-raised)}
+.fllm-ui-process-card>b{
+  display:grid;
+  width:36px;
+  height:36px;
+  margin:0 auto 13px;
+  place-items:center;
+  border-radius:50%;
+  background:var(--fllm-gold);
+  color:#07101a;
+  font-size:13px;
+}
+.fllm-ui-process-card>h3{margin:0 0 10px;color:var(--fllm-white);font-size:19px;text-align:center}
+.fllm-ui-process-card>p{margin:0;color:var(--fllm-text-muted);font-size:14px;line-height:1.62}
+
 .fllm-ui-panel{
   padding:24px;
   border:1px solid var(--fllm-gold-border);
