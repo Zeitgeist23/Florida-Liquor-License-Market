@@ -49,6 +49,8 @@ export default function FloridaLiquorLicenseSystemPage() {
         .resource-card>strong{font-size:18px;line-height:1.4}
         .resource-card a{display:inline-block;font-size:16.5px;line-height:1.45;text-decoration:none}
         .resource-card a:hover{text-decoration:underline}
+        .license-series-card{border-color:rgba(112,220,255,.62)!important;border-top:4px solid #70dcff!important;background:radial-gradient(circle at 18% 0%,rgba(112,220,255,.15),transparent 40%),linear-gradient(145deg,#194866 0%,#123a56 52%,#0b2a43 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -10px 22px rgba(0,0,0,.17),0 4px 0 rgba(35,124,157,.66),0 19px 38px rgba(0,0,0,.28),0 0 19px rgba(112,220,255,.09)!important}
+        .license-series-card:hover,.license-series-card:focus-within{border-color:#9ce8ff!important;background:radial-gradient(circle at 18% 0%,rgba(112,220,255,.28),transparent 43%),linear-gradient(145deg,#225d7e 0%,#184963 52%,#10334d 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.17),inset 0 0 34px rgba(112,220,255,.1),0 5px 0 rgba(38,137,173,.75),0 25px 46px rgba(0,0,0,.34),0 0 30px rgba(112,220,255,.26)!important}
         @media(max-width:700px){.resource-card,.resource-feature-box{transform:none!important}.resource-card:hover,.resource-card:focus-within,.resource-feature-box:hover,.resource-feature-box:focus-within{transform:translateY(-3px)!important}}
       `}</style>
       <div className="abt-header-wrap">
@@ -126,14 +128,14 @@ export default function FloridaLiquorLicenseSystemPage() {
         <h2 style={{ ...headingStyle, fontSize: "38px", marginTop: "8px" }}>“Quota” is the scarce license interest; 4COP and 3PS describe the approved series or use</h2>
         <p style={{ ...paragraphStyle, maxWidth: "950px" }}>This distinction resolves the common confusion between “4COP quota,” “4COP,” and “3PS quota.” They are related terms, but they do not describe exactly the same thing.</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "16px", marginTop: "22px" }}>
-          <article className="resource-card" style={cardStyle}>
-            <h3 style={{ ...headingStyle, fontSize: "26px" }}>4COP quota</h3>
+          <article className="resource-card license-series-card" style={cardStyle}>
+            <h3 style={{ ...headingStyle, color: "#70dcff", fontSize: "26px" }}>4COP quota</h3>
             <p style={paragraphStyle}>A 4COP-family quota series is used when the county quota license is approved for full-liquor consumption-on-premises privileges. In everyday marketplace language, people often say they are “buying a 4COP.” More precisely, they are buying a county quota-license interest that is held or operated in the applicable consumption-on-premises series.</p>
             <p style={paragraphStyle}><strong style={{ color: "#fff" }}>Do not confuse it with 4COP-SFS / SRX.</strong> The special restaurant license is qualification-based and is not the same transferable quota asset.</p>
             <Link href="/license-types/4cop-quota" style={{ color: "#f6a700", fontWeight: 900 }}>Read the 4COP quota guide →</Link>
           </article>
-          <article className="resource-card" style={cardStyle}>
-            <h3 style={{ ...headingStyle, fontSize: "26px" }}>3PS quota</h3>
+          <article className="resource-card license-series-card" style={cardStyle}>
+            <h3 style={{ ...headingStyle, color: "#70dcff", fontSize: "26px" }}>3PS quota</h3>
             <p style={paragraphStyle}>A 3PS-family quota series is used when the quota license is approved for package sales of sealed beer, wine and spirits for consumption away from the licensed premises, such as at a liquor store.</p>
             <p style={paragraphStyle}>Florida provides a formal change-in-series-or-type process. A quota license may therefore be approved in a package-sales series or a consumption-on-premises series depending on the proposed use and regulatory approvals. A change is not automatic.</p>
             <Link href="/license-types/3ps-package-store" style={{ color: "#f6a700", fontWeight: 900 }}>Read the 3PS quota guide →</Link>
