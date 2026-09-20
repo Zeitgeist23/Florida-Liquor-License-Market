@@ -140,6 +140,27 @@
   font-weight:700;
   line-height:1.15;
 }
+
+.fllm-ui-step-card>p,
+.fllm-ui-step-card>.fllm-ui-step-body{
+  color:#e3edf2;
+  font-size:15.5px;
+  line-height:1.68;
+}
+.fllm-ui-step-card>p{margin:0}
+.fllm-ui-step-card>ul,
+.fllm-ui-step-body ul{
+  display:grid;
+  gap:9px;
+  margin:18px 0 0;
+  padding-left:19px;
+  color:#edf4f7;
+  font-size:15px;
+  line-height:1.62;
+}
+.fllm-ui-step-card>ul li::marker,
+.fllm-ui-step-body li::marker{color:var(--fllm-cyan)}
+
 .fllm-ui-step-body{
   color:#e3edf2;
   font-size:15.5px;
