@@ -1,3 +1,5 @@
+@import "./fllm-market-page-template.css";
+
 /*
  * FLLM Component Design System v2 — LOCKED
  * Shared visual primitives for new FLLM informational, transaction,
@@ -8,7 +10,10 @@
  * radii, hover/focus effects, header geometry or footer appearance.
  */
 
-.fllm-ui-header{background:var(--fllm-deep-navy)}
+.fllm-ui-header{
+  border-bottom:1px solid rgba(246,167,0,.55);
+  background:#020b12;
+}
 .fllm-official-page[data-fllm-design-system="v2"]{
   font-variant-numeric:lining-nums tabular-nums;
   font-feature-settings:"lnum" 1,"tnum" 1;
@@ -16,6 +21,10 @@
 
 
 
+.seo-market-page .seo-market-hero h1 em{
+  color:var(--fllm-gold-pale);
+  font-style:normal;
+}
 .fllm-official-page[data-fllm-design-system="v2"] .fllm-template-hero-title em{
   color:var(--fllm-gold-pale);
   font-style:normal;
