@@ -1,0 +1,81 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+
+import { FllmPageShell } from "@/components/FllmDesignSystem";
+
+import "../fllm-official-template.css";
+import "../fllm-design-system.css";
+import "./page.css";
+
+export const metadata: Metadata = {
+  title: "PAGE TITLE | FLLM",
+  description: "PAGE DESCRIPTION",
+};
+
+export default function Page() {
+  return (
+    <FllmPageShell className="page-route-name">
+      <section className="fllm-template-hero">
+        <div className="fllm-template-shell">
+          <div className="fllm-ui-breadcrumbs">
+            <Link href="/">Home</Link><span>›</span><strong>Page</strong>
+          </div>
+          <span className="fllm-template-eyebrow">Eyebrow</span>
+          <h1 className="fllm-template-hero-title">Page title</h1>
+          <p className="fllm-template-hero-copy">Supporting copy.</p>
+          <div className="fllm-ui-actions">
+            <Link className="fllm-template-button" href="#start">Primary action</Link>
+            <Link className="fllm-template-button fllm-template-button--outline" href="/contact">Secondary action</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="fllm-template-section" id="start">
+        <div className="fllm-template-shell">
+          <div className="fllm-ui-heading">
+            <div>
+              <span className="fllm-template-eyebrow">Section eyebrow</span>
+              <h2>Section heading</h2>
+            </div>
+          </div>
+
+          <div className="fllm-ui-grid fllm-ui-grid--3">
+            <article className="fllm-template-card fllm-template-card--gold">
+              <span className="fllm-ui-card-kicker">Card label</span>
+              <strong className="fllm-template-card-title">Card title</strong>
+              <p className="fllm-template-card-copy">Card copy.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="fllm-template-section fllm-template-section--deep">
+        <div className="fllm-template-shell">
+          <div className="fllm-ui-heading fllm-ui-heading--center">
+            <span className="fllm-template-eyebrow">Data</span>
+            <h2>Approved table example</h2>
+          </div>
+          <div className="fllm-template-table-wrap">
+            <table className="fllm-ui-table">
+              <thead><tr><th>Column 1</th><th>Column 2</th></tr></thead>
+              <tbody><tr><td>Value</td><td>Value</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section className="fllm-ui-final-cta">
+        <div className="fllm-template-shell">
+          <div>
+            <span className="fllm-template-eyebrow">Final CTA</span>
+            <h2>CTA heading</h2>
+            <p>CTA supporting copy.</p>
+          </div>
+          <div className="fllm-ui-final-actions">
+            <Link className="fllm-template-button" href="/contact">Contact FLLM</Link>
+          </div>
+        </div>
+      </section>
+    </FllmPageShell>
+  );
+}
