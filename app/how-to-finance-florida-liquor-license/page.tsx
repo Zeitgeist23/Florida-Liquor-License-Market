@@ -11,7 +11,7 @@ const canonicalUrl = `${siteUrl}/how-to-finance-florida-liquor-license`;
 export const metadata: Metadata = {
   title: "How to Finance a Florida Quota Liquor License | FLLM",
   description:
-    "Learn how Florida 4COP and 3PS quota-license financing works, including private lenders, seller financing, promissory notes, security interests and ABT-6022.",
+    "Learn how Florida 4COP and 3PS quota-license financing works, including private lenders, ABT lien searches, lien perfection, ABT-6022 and five-year renewal controls.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
@@ -64,7 +64,17 @@ const faqs = [
   {
     question: "How is a Florida quota liquor-license loan documented and perfected?",
     answer:
-      "The loan is generally evidenced by a promissory note, while a separate security agreement grants the lender a contractual security interest in the quota license. For an interest against a qualifying spirituous alcoholic-beverage license to be perfected under section 561.65, it must be recorded with the Division within 90 days after creation, generally using ABT-6022. Additional documents or filings may be appropriate depending on the complete collateral package and transaction.",
+      "The loan is generally evidenced by a promissory note, while a separate security agreement grants the lender a contractual security interest in the quota license. For an interest against a spirituous alcoholic-beverage license to be perfected under section 561.65, it must be recorded with the Division within 90 days after creation, generally using ABT-6022. A UCC filing may still be used for inventory, furniture, fixtures, equipment or other business collateral, but it does not replace the specialized Division recording required for the liquor-license interest.",
+  },
+  {
+    question: "How long does a recorded Florida liquor-license lien remain effective?",
+    answer:
+      "Section 561.65 provides that liens and security interests filed on or after July 1, 1995 expire five years after recordation unless the lienholder renews within the six months before expiration. The official ABT-6022 instructions describe the same five-year duration and renewal window. Lenders should calendar the recordation date and obtain transaction-specific legal guidance well before the renewal period.",
+  },
+  {
+    question: "What lien diligence should a lender complete before closing?",
+    answer:
+      "The lender should confirm the exact license number, series, county, ownership and status; order the Division's official ABT-6023 lien search; reconcile the result with the seller's payoff information and the lender's other UCC, tax and litigation diligence; and establish closing instructions for releases, new ABT-6022 recording and post-closing evidence of acceptance.",
   },
 ];
 
@@ -77,7 +87,7 @@ export default function HowToFinanceFloridaLiquorLicensePage() {
       description:
         "A practical guide to financing Florida 4COP and 3PS quota liquor licenses through private lenders, seller financing, promissory notes and properly recorded security interests.",
       datePublished: "2026-08-18",
-      dateModified: "2026-08-25",
+      dateModified: "2026-09-20",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market" },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -137,6 +147,8 @@ export default function HowToFinanceFloridaLiquorLicensePage() {
         .finance-guide-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
         .finance-guide-links a{padding:18px;border:1px solid rgba(246,167,0,.45);border-radius:11px;background:linear-gradient(145deg,#0a2237,#04111c);color:#fff;text-decoration:none;font-weight:800;line-height:1.35;box-shadow:0 8px 18px rgba(2,11,18,.14)}
         .finance-guide-links a span{display:block;margin-top:7px;color:#b9c8d4;font-size:12px;font-weight:500;line-height:1.5}
+        .finance-guide-source-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+        .finance-guide-source-links a{padding:11px 14px;border:1px solid #d89200;border-radius:7px;background:#fff;color:#0a2942;font-size:12px;font-weight:900;text-decoration:none}
         .finance-guide-page .seo-market-counties{background:radial-gradient(circle at 90% 10%,rgba(246,167,0,.08),transparent 26%),linear-gradient(145deg,#0a2237 0%,#020b12 74%);border-top:1px solid rgba(246,167,0,.38);border-bottom:1px solid rgba(246,167,0,.38)}
         .finance-guide-page .seo-market-counties h2{color:#fff}
         @media(max-width:820px){.finance-guide-grid,.finance-guide-checklist,.finance-guide-links{grid-template-columns:1fr}}
@@ -259,6 +271,30 @@ export default function HowToFinanceFloridaLiquorLicensePage() {
             <li>DBPR transfer requirements and buyer qualification issues.</li>
             <li>Any additional collateral or guarantees supporting the loan.</li>
           </ul>
+        </div>
+      </section>
+
+      <section className="seo-market-counties" id="lien-perfection">
+        <div className="seo-market-shell">
+          <div className="seo-market-section-heading"><div><span className="seo-market-section-kicker">Lien Perfection &amp; Closing Controls</span><h2>Protecting the quota-license collateral is a separate legal and operational workstream</h2></div></div>
+          <div className="finance-guide-grid">
+            <article className="finance-guide-card"><h3>1. Search before funding</h3><p>Confirm the exact license number, series, county, owner and status, then request the Division&apos;s official <strong>ABT-6023 lien search</strong>. Reconcile the result with payoff letters, seller disclosures and the lender&apos;s broader UCC, tax and litigation diligence.</p></article>
+            <article className="finance-guide-card"><h3>2. Record within 90 days</h3><p>For a lien or security interest in a spirituous alcoholic-beverage license to be perfected under section 561.65, the secured party must record it with the Division <strong>within 90 days after creation</strong>. The current Division form is <strong>ABT-6022</strong>.</p></article>
+            <article className="finance-guide-card"><h3>3. Track the five-year deadline</h3><p>A recorded lien or security interest expires <strong>five years after recordation</strong> unless the lienholder renews it during the <strong>six months before expiration</strong>. The lender should calendar the accepted recordation date and the opening of the renewal window.</p></article>
+            <article className="finance-guide-card"><h3>4. Preserve notice and enforcement rights</h3><p>A properly filed lienholder is entitled to Division notice of a pending revocation or suspension. Section 561.65 provides a <strong>180-day enforcement period</strong> in the circumstances described by the statute; enforcement and foreclosure require Florida counsel and remain subject to Division authority.</p></article>
+          </div>
+          <p className="finance-guide-note">
+            <strong>ABT filing and UCC filing address different collateral questions.</strong> Section 561.65 establishes the specialized recording procedure for a lien or security interest in the spirituous alcoholic-beverage license itself. Counsel may also recommend a UCC-1 or other filings for inventory, furniture, fixtures, equipment, receivables and other business assets. One filing should not be assumed to substitute for the other.
+          </p>
+          <div className="finance-guide-source-links" aria-label="Official lien perfection sources">
+            <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&amp;URL=0500-0599/0561/Sections/0561.65.html" target="_blank" rel="noopener noreferrer">Florida Statutes § 561.65</a>
+            <a href="https://www2.myfloridalicense.com/abt/forms/documents/AppPackforMortgageesInterestinSpiritAlcoholBevLic.pdf" target="_blank" rel="noopener noreferrer">Official ABT-6022 Form &amp; Instructions</a>
+            <a href="https://www2.myfloridalicense.com/abt/documents/LienSearchRequestForm.pdf" target="_blank" rel="noopener noreferrer">Official ABT-6023 Lien Search</a>
+            <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&amp;URL=0500-0599/0561/Sections/0561.32.html" target="_blank" rel="noopener noreferrer">Florida Statutes § 561.32</a>
+          </div>
+          <p className="finance-guide-note">
+            This checklist is educational and is not a legal opinion or a substitute for lender counsel. The parties should confirm current forms, fees, facts and filing instructions with the Division of Alcoholic Beverages and Tobacco for each transaction.
+          </p>
         </div>
       </section>
 

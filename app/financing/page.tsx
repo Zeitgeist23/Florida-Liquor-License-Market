@@ -13,7 +13,7 @@ const canonicalUrl = `${siteUrl}/financing`;
 export const metadata: Metadata = {
   title: "Florida Liquor License Financing | 4COP & 3PS Loans",
   description:
-    "Explore Florida liquor license financing for qualifying 4COP and 3PS purchases and refinances. Review private lenders, payments, appraisal and underwriting considerations.",
+    "Explore Florida liquor license financing for qualifying 4COP and 3PS purchases and refinances, including lender diligence, ABT lien searches and lien-perfection controls.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -99,6 +99,12 @@ export default function FinancingPage() {
             <h2>How to Finance a Florida Liquor License</h2>
             <p>Review collateral value, transaction structure, private-lender considerations and borrower preparation.</p>
             <a href="/how-to-finance-florida-liquor-license">Read Financing Guide →</a>
+          </article>
+          <article className="financing-native-resource-card">
+            <span>Florida Collateral Controls</span>
+            <h2>Lien Search, Recording &amp; Renewal</h2>
+            <p>Review ABT-6023 lien diligence, the 90-day ABT-6022 recording period, five-year duration and six-month renewal window.</p>
+            <a href="/how-to-finance-florida-liquor-license#lien-perfection">Review Lien Perfection Guide →</a>
           </article>
         </div>
       </section>

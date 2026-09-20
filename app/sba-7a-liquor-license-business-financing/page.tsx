@@ -12,7 +12,7 @@ const canonicalUrl = `${siteUrl}/sba-7a-liquor-license-business-financing`;
 export const metadata: Metadata = {
   title: "SBA 7(a) Loans for Florida Liquor License Businesses | FLLM",
   description:
-    "Learn when SBA 7(a) financing may help purchase or refinance a Florida liquor store, restaurant, bar or nightclub holding a 3PS or 4COP Quota license.",
+    "Learn when SBA 7(a) financing may help purchase or refinance a Florida liquor-license business, including ABT lien searches, perfection and renewal controls.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
@@ -22,6 +22,8 @@ export const metadata: Metadata = {
     "Florida liquor license business financing",
     "SBA lender Florida liquor license",
     "refinance liquor store SBA loan",
+    "Florida liquor license lien perfection",
+    "ABT-6022 lender",
   ],
   openGraph: {
     type: "article",
@@ -50,6 +52,16 @@ const faqs = [
       "A Preferred Lender is an SBA-approved lending institution with delegated authority to process qualifying SBA loans. Preferred status can streamline processing, but it does not guarantee approval. The lender still applies its underwriting standards and SBA eligibility requirements.",
   },
   {
+    question: "Does an SBA loan eliminate Florida liquor-license lien requirements?",
+    answer:
+      "No. SBA program requirements and Florida collateral-perfection requirements are separate. If the lender takes a lien or security interest in a spirituous alcoholic-beverage license, section 561.65 requires Division recording within 90 days after creation, generally using ABT-6022. The lender and its counsel remain responsible for the collateral documents, filings and controls required for the particular transaction.",
+  },
+  {
+    question: "How long does a Florida ABT-recorded lien last?",
+    answer:
+      "Liens and security interests filed on or after July 1, 1995 expire five years after recordation unless renewed by the lienholder within the six months before expiration. The lender should retain evidence of the accepted recordation and calendar the statutory renewal window rather than relying only on the loan maturity date.",
+  },
+  {
     question: "How can FLLM help?",
     answer:
       "FLLM can help distinguish a stand-alone license request from an operating-business transaction, provide license-market information and valuation services, organize relevant license information and, where appropriate, refer a prospective borrower to an SBA participating or Preferred Lender. All lending decisions remain with the lender and SBA where applicable.",
@@ -65,7 +77,7 @@ export default function SbaSevenALiquorLicenseBusinessFinancingPage() {
       description:
         "A practical explanation of SBA 7(a) financing for operating Florida liquor stores, restaurants, bars and nightclubs holding quota liquor licenses.",
       datePublished: "2026-08-29",
-      dateModified: "2026-09-04",
+      dateModified: "2026-09-20",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market" },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -209,6 +221,35 @@ export default function SbaSevenALiquorLicenseBusinessFinancingPage() {
         </div>
       </section>
 
+      <section className="seo-market-intro" id="quota-license-lien-perfection">
+        <div className="seo-market-shell">
+          <span className="seo-market-section-kicker">Florida Collateral Controls</span>
+          <h2>SBA underwriting does not replace Florida quota-license lien perfection</h2>
+          <p>
+            When a participating lender takes the 3PS or 4COP quota license as collateral, the SBA loan process and the Florida beverage-license process run in parallel. Lender counsel should address the license interest separately from liens on inventory, furniture, fixtures, equipment, receivables, real estate and other business collateral.
+          </p>
+          <div className="sba-table-wrap"><table className="sba-table"><thead><tr><th>Control point</th><th>Florida license action</th><th>Lender evidence to retain</th></tr></thead><tbody>
+            <tr><td><strong>Pre-closing diligence</strong></td><td>Verify the exact license number, series, county, owner and status. Order the Division&apos;s official ABT-6023 lien search and reconcile existing liens with payoff and release instructions.</td><td>License record, lien-search response, payoff letters, proposed satisfactions and counsel&apos;s closing checklist.</td></tr>
+            <tr><td><strong>Creation and recording</strong></td><td>Document the license pledge in the loan package and record the lien or security interest with the Division on ABT-6022 within 90 days after creation as required by section 561.65.</td><td>Executed note and security agreement, submitted ABT-6022, fee evidence and Division acceptance or recorded-lien confirmation.</td></tr>
+            <tr><td><strong>Other business collateral</strong></td><td>Use UCC, mortgage or other filings counsel determines are appropriate for assets outside the license. Do not treat a UCC-1 as a substitute for the Division recording required for the license interest.</td><td>Filed UCC records, mortgages, assignments, insurance and a collateral schedule that distinguishes the quota license from other assets.</td></tr>
+            <tr><td><strong>Five-year maintenance</strong></td><td>Calendar expiration five years after recordation and the six-month statutory renewal window. Use the current ABT-6022 process for renewal or extension.</td><td>Tickler dates, responsible servicing owner, current contact information and renewed Division record.</td></tr>
+            <tr><td><strong>Adverse-license events</strong></td><td>Maintain the properly filed record and monitor compliance. Section 561.65 provides notice and a 180-day enforcement period in the circumstances specified by the statute.</td><td>Current DBPR monitoring, notices, immediate escalation procedures and Florida beverage-law counsel.</td></tr>
+          </tbody></table></div>
+          <p className="sba-note">
+            <strong>Closing discipline matters:</strong> the five-year clock runs from recordation, not from the loan&apos;s maturity date. A refinance, modification, assignment, extension or payoff may require its own Division action. Confirm the current form, signatures, fees and filing instructions before closing.
+          </p>
+          <div className="sba-source-links" aria-label="Official Florida lien sources">
+            <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&amp;URL=0500-0599/0561/Sections/0561.65.html" target="_blank" rel="noopener noreferrer">Florida Statutes § 561.65</a>
+            <a href="https://www2.myfloridalicense.com/abt/forms/documents/AppPackforMortgageesInterestinSpiritAlcoholBevLic.pdf" target="_blank" rel="noopener noreferrer">Official ABT-6022</a>
+            <a href="https://www2.myfloridalicense.com/abt/documents/LienSearchRequestForm.pdf" target="_blank" rel="noopener noreferrer">Official ABT-6023 Lien Search</a>
+            <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&amp;URL=0500-0599/0561/Sections/0561.32.html" target="_blank" rel="noopener noreferrer">Florida Statutes § 561.32</a>
+          </div>
+          <p className="sba-note">
+            This material is educational and is not legal advice, an SBA eligibility determination or a substitute for lender counsel. Section 561.65 applies to liens or security interests in spirituous alcoholic-beverage licenses; counsel should determine the exact treatment of every license and collateral package.
+          </p>
+        </div>
+      </section>
+
       <section className="seo-market-intro">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">Preparing for Lender Review</span>
@@ -218,7 +259,8 @@ export default function SbaSevenALiquorLicenseBusinessFinancingPage() {
             <li>Purchase agreement or documentation of the proposed refinance.</li>
             <li>Business valuation and allocation of the purchase price.</li>
             <li>Liquor-license number, series, county, status and ownership record.</li>
-            <li>Existing loan, lien and security-interest information.</li>
+            <li>Official ABT-6023 lien search, payoff letters and release instructions.</li>
+            <li>Proposed ABT-6022 recording and post-closing acceptance evidence.</li>
             <li>Lease, real-estate and landlord documentation where applicable.</li>
             <li>Buyer résumé, management experience and ownership structure.</li>
             <li>Sources of borrower equity and post-closing liquidity.</li>

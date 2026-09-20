@@ -48,11 +48,20 @@ const FINANCING_PAGE_STYLES = `<style id="financing-logo-match-investment-v1">
   .fllm-financing-seo-links a {display:block;padding:14px 15px;border:1px solid rgba(255,255,255,.1);border-radius:8px;background:rgba(255,255,255,.035);color:#fff;text-decoration:none}
   .fllm-financing-seo-links strong {display:block;margin-bottom:4px;color:#f6b51f;font-size:13px}
   .fllm-financing-seo-links small {display:block;color:#b9c8d3;font-size:11px;line-height:1.5}
+  .fllm-financing-lien-card {margin:24px 0;padding:24px;border:1px solid rgba(124,239,255,.35);border-radius:12px;background:linear-gradient(145deg,#09222b,#03151d);color:#fff;box-shadow:0 12px 28px rgba(0,0,0,.18)}
+  .fllm-financing-lien-card > span {display:block;color:#7cefff;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+  .fllm-financing-lien-card h2 {margin:7px 0 8px;color:#fff;font-size:25px;line-height:1.15}
+  .fllm-financing-lien-card > p {margin:0;color:#c8d5de;font-size:13px;line-height:1.65}
+  .fllm-financing-lien-points {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}
+  .fllm-financing-lien-points div {padding:13px 14px;border:1px solid rgba(255,255,255,.1);border-radius:8px;background:rgba(255,255,255,.035);color:#c8d5de;font-size:12px;line-height:1.5}
+  .fllm-financing-lien-points strong {display:block;margin-bottom:3px;color:#7cefff;font-size:13px}
+  .fllm-financing-lien-card > a {display:inline-flex;align-items:center;min-height:42px;padding:0 15px;border:1px solid #7cefff;border-radius:6px;color:#062027;background:linear-gradient(180deg,#8af4ff,#49d5e5);font-size:11px;font-weight:900;text-decoration:none;text-transform:uppercase}
   @media(max-width:760px){
     .fllm-financing-appraisal-card{grid-template-columns:92px 1fr;gap:12px;padding:14px}
     .fllm-financing-appraisal-card h2{font-size:20px}
     .fllm-financing-calculator-link{grid-template-columns:1fr}
     .fllm-financing-seo-links{grid-template-columns:1fr}
+    .fllm-financing-lien-points{grid-template-columns:1fr}
   }
 </style>`;
 
@@ -124,7 +133,21 @@ const FINANCING_SEO_CLUSTER = `<section class="fllm-financing-seo-cluster" aria-
     <a href="/finance-a-license"><strong>Finance a Florida Liquor License</strong><small>Review purchase financing, refinance paths and common underwriting considerations.</small></a>
     <a href="/how-to-finance-florida-liquor-license"><strong>How to Finance a Florida Liquor License</strong><small>Use the detailed FLLM guide to understand collateral value, structure and lender review.</small></a>
     <a href="/florida-liquor-license-appraisal"><strong>Florida Liquor License Appraisal</strong><small>Establish a supported market value before structuring a purchase or refinance.</small></a>
+    <a href="/sba-7a-liquor-license-business-financing#quota-license-lien-perfection"><strong>SBA Collateral &amp; Lien Controls</strong><small>Coordinate SBA underwriting with Florida license-specific diligence, recording and servicing controls.</small></a>
   </div>
+</section>`;
+
+const LIEN_CONTROL_CARD = `<section class="fllm-financing-lien-card" aria-label="Florida quota liquor license lien perfection">
+  <span>Florida License Collateral Controls</span>
+  <h2>Financing does not end at underwriting</h2>
+  <p>A lender taking a Florida spirituous alcoholic-beverage license as collateral should build Division filing and servicing controls into the closing process.</p>
+  <div class="fllm-financing-lien-points">
+    <div><strong>ABT-6023 search</strong>Order the official Division lien search and reconcile existing interests before funding.</div>
+    <div><strong>90-day recording</strong>Record the qualifying license lien or security interest with the Division using ABT-6022 within the statutory period.</div>
+    <div><strong>Five-year duration</strong>Calendar expiration five years after recordation and the six-month renewal window.</div>
+    <div><strong>Separate collateral filings</strong>Use the additional UCC, mortgage or asset filings lender counsel determines are appropriate for non-license collateral.</div>
+  </div>
+  <a href="/how-to-finance-florida-liquor-license#lien-perfection">Review the Lien Perfection Guide</a>
 </section>`;
 
 function optimizeFinancingHtml(input: string): string {
@@ -184,7 +207,7 @@ function optimizeFinancingHtml(input: string): string {
     '<article id="private-lenders"><h2>Access to Private Lenders</h2>'
   );
   if (!html.includes("fllm-financing-appraisal-card")) {
-    html = html.replace('<div class="seller-trust">', `${APPRAISAL_CARD}${CALCULATOR_LINK}${FINANCING_SEO_CLUSTER}<div class="seller-trust">`);
+    html = html.replace('<div class="seller-trust">', `${APPRAISAL_CARD}${CALCULATOR_LINK}${FINANCING_SEO_CLUSTER}${LIEN_CONTROL_CARD}<div class="seller-trust">`);
   }
   html = html.replace(
     '<form class="seller-form financing-form">',
