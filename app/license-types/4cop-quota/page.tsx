@@ -23,7 +23,7 @@ export default function Page() {
       seriesMeaning="In 4COP, COP stands for Consumption on Premises."
       organizedSummary
       sells={["Beer", "Wine", "Distilled spirits / liquor", "Alcoholic beverages for on-premises consumption", "Package sales within the approved quota-license privileges"]}
-      businesses={["Restaurants that need a transferable quota license instead of a special restaurant license", "Bars and taverns", "Cocktail lounges", "Nightclubs", "Gentlemen's clubs", "Marinas", "Sports bars", "Country clubs", "Bowling alleys", "Hotels & motels", "Casinos", "Resorts", "Pubs", "Breweries", "Full-liquor hospitality concepts"]}
+      businesses={["Restaurants using a transferable quota license", "Bars and taverns", "Cocktail lounges", "Nightclubs", "Gentlemen's clubs", "Marinas", "Sports bars", "Country clubs", "Bowling alleys", "Hotels & motels", "Casinos", "Resorts", "Pubs", "Breweries", "Full-liquor hospitality concepts"]}
       doesNot={["Guarantee zoning approval for the proposed premises", "Allow use in a different county simply because the license is owned", "Replace DBPR transfer, change-of-series, or change-of-location approval", "Turn a 4COP-SFS special restaurant license into a transferable quota license"]}
       requirementCards={[
         { label: "Food-sales requirement", value: "No statewide SFS 51% test", detail: "A quota 4COP is not conditioned on the special restaurant 51% food-and-nonalcoholic-beverage revenue test merely because it is a 4COP quota license.", href: "/resources/florida-liquor-license-laws#current-developments", linkLabel: "Read the FLLM rule explanation ›" },
