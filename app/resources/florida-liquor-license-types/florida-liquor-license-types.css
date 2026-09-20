@@ -919,6 +919,16 @@
     gap: 23px;
   }
 
+  #common-license-chart .license-types-section-heading {
+    grid-template-columns: 1fr;
+  }
+
+  #common-license-chart .license-types-section-heading > div,
+  #common-license-chart .license-types-section-heading > p {
+    grid-column: 1;
+    width: 100%;
+  }
+
   .license-types-population-number {
     width: min(100%, 340px);
   }
