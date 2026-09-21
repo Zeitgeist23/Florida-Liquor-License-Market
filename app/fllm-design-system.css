@@ -450,6 +450,11 @@
 }
 
 /* Worth-it page typography uses the shared design-system layer. */
+.worth-it-page .fllm-template-eyebrow {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
 .worth-it-page .worth-it-answer .fllm-ui-heading--center > p {
   font-size: 18px;
   line-height: 1.72;
@@ -461,8 +466,49 @@
 }
 
 .worth-it-page .worth-it-revenue .fllm-template-eyebrow {
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: .11em;
+}
+
+.worth-it-page .fllm-ui-card-kicker,
+.worth-it-page .fllm-ui-step-kicker,
+.worth-it-page .fllm-ui-value-card > span,
+.worth-it-page .fllm-ui-ratio-card span {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.worth-it-page .fllm-ui-value-card > p,
+.worth-it-page .fllm-ui-link-card span,
+.worth-it-page .fllm-ui-process-card > p,
+.worth-it-page .fllm-ui-ratio-card p,
+.worth-it-page .fllm-ui-final-cta p,
+.worth-it-page .fllm-ui-faq-answer {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.worth-it-page .fllm-ui-value-card > small,
+.worth-it-page .fllm-ui-panel-note,
+.worth-it-page .fllm-ui-updated,
+.worth-it-page .four-cop-updated,
+.worth-it-page .seo-market-snapshot-grid small {
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.worth-it-page .fllm-template-disclosure {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.worth-it-page .fllm-ui-table th {
+  font-size: 13.5px;
+}
+
+.worth-it-page .fllm-ui-table td,
+.worth-it-page .fllm-ui-faq summary {
+  font-size: 16px;
 }
 
 .worth-it-page .fllm-ui-heading .fllm-template-eyebrow {
@@ -550,12 +596,13 @@
 }
 
 .worth-it-page .worth-it-revenue .fllm-ui-ratio-card span {
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 1.45;
 }
 
 .worth-it-page .worth-it-revenue .fllm-ui-ratio-card p {
-  font-size: 15.5px;
-  line-height: 1.65;
+  font-size: 16px;
+  line-height: 1.7;
 }
 
 .worth-it-page .worth-it-revenue .fllm-template-disclosure {
