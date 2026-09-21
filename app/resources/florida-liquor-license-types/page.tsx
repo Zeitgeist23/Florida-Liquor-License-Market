@@ -133,6 +133,20 @@ const specialtyLicenses = [
   },
 ];
 
+function StraightenLicenseNumerals({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(/(\d)/g).map((part, index) =>
+        /^\d$/.test(part) ? (
+          <span className="license-types-straight-numeral" key={`${part}-${index}`}>{part}</span>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  );
+}
+
 const frequentlyAskedQuestions = [
   {
     question: "What is a Florida liquor license?",
@@ -429,7 +443,7 @@ export default function FloridaLiquorLicenseTypesPage() {
         <div className="license-types-faq-grid">
           {frequentlyAskedQuestions.map(({ question, answer }) => (
             <article key={question}>
-              <h3>{question}</h3>
+              <h3><StraightenLicenseNumerals text={question} /></h3>
               <p>{answer}</p>
             </article>
           ))}
