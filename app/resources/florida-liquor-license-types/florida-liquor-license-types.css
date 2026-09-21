@@ -723,6 +723,7 @@
 
 .license-types-quota-card-head {
   min-height: 76px;
+  text-align: center;
 }
 
 .license-types-quota-card b {
