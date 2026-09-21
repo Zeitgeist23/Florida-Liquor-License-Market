@@ -119,6 +119,22 @@ export default function ListingsPage({
   const [visibleCount, setVisibleCount] = useState(LISTINGS_PAGE_SIZE);
   const focusedCardRef = useRef<HTMLElement | null>(null);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requestedType = params.get("type");
+    const requestedStatus = params.get("status");
+
+    if (
+      requestedType &&
+      ["all", "quota", "4COP Quota", "3PS Quota / Package Store"].includes(requestedType)
+    ) {
+      setType(requestedType);
+    }
+    if (requestedStatus && ["available", "sold", "all"].includes(requestedStatus)) {
+      setStatus(requestedStatus);
+    }
+  }, []);
+
   const normalizedFocusReference = focusReference?.trim().toLowerCase() || "";
   const focusListing = useMemo(
     () =>
