@@ -16,6 +16,13 @@
   overflow: visible;
 }
 
+.license-types-quota.page-shell {
+  width: min(1380px, calc(100vw - 152px)) !important;
+  max-width: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 #common-license-chart .license-types-table {
   width: 100% !important;
   min-width: 0 !important;
@@ -104,6 +111,10 @@
 
   #common-license-chart .license-types-table-wrap {
     width: 100%;
+  }
+
+  .license-types-quota.page-shell {
+    width: calc(100% - 24px) !important;
   }
 
   #common-license-chart .license-types-table th,
