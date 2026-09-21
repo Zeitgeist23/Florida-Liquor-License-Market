@@ -1,0 +1,48 @@
+.business-quota-filter-bar {
+  position: relative;
+  z-index: 12;
+  margin: 0 0 22px;
+  padding: 18px 18px 0;
+  border: 1px solid rgba(239, 170, 16, 0.58);
+  border-radius: 8px;
+  background: #081d30;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.business-quota-filter-bar.results-page .results-filters {
+  margin: 0;
+}
+
+.business-quota-separation-note button,
+.business-quota-no-results button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f1b53a;
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.business-quota-no-results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 28px;
+  border: 1px solid rgba(239, 170, 16, 0.35);
+  border-radius: 8px;
+  background: #0a2943;
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  .business-quota-filter-bar {
+    padding: 14px 14px 0;
+  }
+
+  .business-quota-no-results {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
