@@ -43,7 +43,8 @@
   padding-right: 14px;
 }
 
-#common-license-chart .license-types-table tbody th {
+#common-license-chart .license-types-table tbody th,
+#common-license-chart .license-types-table tbody td {
   vertical-align: middle;
   text-align: center;
 }
