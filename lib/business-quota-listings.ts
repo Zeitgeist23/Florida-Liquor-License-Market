@@ -119,7 +119,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerName: "JR DesAmours",
     brokerage: "Business Exit Advisors",
     featured: true,
-    publicationStatus: "preview",
+    publicationStatus: "published",
     classification: "business_package",
   },
   {
