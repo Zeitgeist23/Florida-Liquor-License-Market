@@ -254,6 +254,36 @@
   font-size: 1.15em;
 }
 
+
+@media (max-width: 760px) {
+  .license-types-license-group > header {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .license-types-quota-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .license-types-quota-card {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 570px) {
+  .license-types-quota {
+    padding: 22px 16px;
+  }
+
+  .license-types-license-group {
+    padding: 14px;
+  }
+
+  .license-types-quota-card-rules {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 850px) {
   .license-types-comparison-points li {
     white-space: normal;
