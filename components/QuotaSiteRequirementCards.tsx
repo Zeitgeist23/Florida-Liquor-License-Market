@@ -172,38 +172,61 @@ export default function QuotaSiteRequirementCards() {
 
   return (
     <>
-      <div className="license-types-quota-cards">
-        {(Object.keys(requirements) as LicenseKey[]).map((licenseKey) => {
-          const license = requirements[licenseKey];
-          return (
-            <article
-              className="license-types-quota-card"
-              key={licenseKey}
-              ref={(element) => { triggerRefs.current[licenseKey] = element; }}
-              role="button"
-              tabIndex={0}
-              aria-haspopup="dialog"
-              aria-label={`Open ${license.label} requirements`}
-              onClick={() => setSelected(licenseKey)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  setSelected(licenseKey);
-                }
-              }}
-            >
-              <b>{license.label}</b>
-              <span>{license.uses}</span>
-              <dl style={{margin:"14px 0",display:"grid",gap:"8px"}}>
-                <div><dt style={{fontSize:"11px",textTransform:"uppercase",opacity:.72}}>Food sales</dt><dd style={{margin:"2px 0 0",fontWeight:800}}>{license.foodRule}</dd></div>
-                <div><dt style={{fontSize:"11px",textTransform:"uppercase",opacity:.72}}>Service area</dt><dd style={{margin:"2px 0 0",fontWeight:800}}>{license.areaRule}</dd></div>
-                <div><dt style={{fontSize:"11px",textTransform:"uppercase",opacity:.72}}>Seating</dt><dd style={{margin:"2px 0 0",fontWeight:800}}>{license.seatingRule}</dd></div>
-              </dl>
-              <small>{license.privilege}</small>
-              <strong>View requirements &amp; current-rule links →</strong>
-            </article>
-          );
-        })}
+      <div className="license-types-license-groups">
+        {([
+          {
+            title: "Transferable quota licenses",
+            note: "County-limited license assets that can be transferred subject to DBPR approval.",
+            keys: ["4cop", "3ps"] as LicenseKey[],
+          },
+          {
+            title: "Non-quota and qualification-based alternatives",
+            note: "Licenses that may fit a business without purchasing a transferable county quota asset.",
+            keys: ["2cop", "sfs"] as LicenseKey[],
+          },
+        ]).map((group) => (
+          <section className="license-types-license-group" key={group.title}>
+            <header>
+              <h3>{group.title}</h3>
+              <p>{group.note}</p>
+            </header>
+            <div className="license-types-quota-cards">
+              {group.keys.map((licenseKey) => {
+                const license = requirements[licenseKey];
+                return (
+                  <article
+                    className={`license-types-quota-card license-types-quota-card--${licenseKey}`}
+                    key={licenseKey}
+                    ref={(element) => { triggerRefs.current[licenseKey] = element; }}
+                    role="button"
+                    tabIndex={0}
+                    aria-haspopup="dialog"
+                    aria-label={`Open ${license.label} requirements`}
+                    onClick={() => setSelected(licenseKey)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        setSelected(licenseKey);
+                      }
+                    }}
+                  >
+                    <div className="license-types-quota-card-head">
+                      <b>{license.label}</b>
+                      <span>{license.uses}</span>
+                    </div>
+                    <dl className="license-types-quota-card-rules">
+                      <div><dt>Food sales</dt><dd>{license.foodRule}</dd></div>
+                      <div><dt>Service area</dt><dd>{license.areaRule}</dd></div>
+                      <div><dt>Seating</dt><dd>{license.seatingRule}</dd></div>
+                    </dl>
+                    <small>{license.privilege}</small>
+                    <strong>View requirements &amp; current-rule links →</strong>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        ))}
       </div>
 
       {activeRequirement && (
