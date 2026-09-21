@@ -153,10 +153,10 @@
   text-shadow: 0 6px 24px rgba(0, 0, 0, .28) !important;
 }
 
-.results-page .results-intro h1 .listings-title-gold {
+.results-page .results-intro h1 span {
   display: inline !important;
   margin: 0 !important;
-  color: #f3aa17 !important;
+  color: #f7f4ec !important;
   font: inherit !important;
   letter-spacing: inherit !important;
   text-transform: none !important;
