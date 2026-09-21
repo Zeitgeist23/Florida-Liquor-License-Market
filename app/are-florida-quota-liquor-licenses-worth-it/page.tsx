@@ -62,6 +62,20 @@ async function getFourCopMarket() {
   };
 }
 
+async function getMarketplaceSnapshot() {
+  const listings = getVisibleAvailableMarketplaceListings(await getMarketplaceListings());
+  const prices = listings
+    .map((listing) => listing.price)
+    .filter((value): value is number => Number.isFinite(value));
+
+  return {
+    listings,
+    countyCount: new Set(listings.map((listing) => listing.county)).size,
+    low: prices.length ? Math.min(...prices) : null,
+    median: median(prices),
+  };
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const market = await getFourCopMarket();
   const marketText =
@@ -124,7 +138,10 @@ const faqs = [
 ];
 
 export default async function AreFloridaQuotaLicensesWorthItPage() {
-  const market = await getFourCopMarket();
+  const [market, marketplaceSnapshot] = await Promise.all([
+    getFourCopMarket(),
+    getMarketplaceSnapshot(),
+  ]);
   const updatedLabel = floridaDateLabel();
   const highestTierSfsAnnualFee = 1820;
 
@@ -205,10 +222,10 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
           <aside className="seo-market-snapshot" aria-label="Current FLLM 4COP Quota market snapshot">
             <span>Current FLLM 4COP Quota Snapshot</span>
             <div className="seo-market-snapshot-grid">
-              <div><strong>{market.listings.length}</strong><small>active 4COP Quota listings</small></div>
-              <div><strong>{market.countyCount}</strong><small>counties represented</small></div>
-              <div><strong>{market.median === null ? "—" : money(market.median)}</strong><small>median disclosed ask</small></div>
-              <div><strong>{market.low === null ? "—" : money(market.low)}</strong><small>lowest disclosed ask</small></div>
+              <div><strong>{marketplaceSnapshot.listings.length}</strong><small>Active listings</small></div>
+              <div><strong>{marketplaceSnapshot.countyCount}</strong><small>Counties represented</small></div>
+              <div><strong>{marketplaceSnapshot.low === null ? "—" : money(marketplaceSnapshot.low)}</strong><small>Lowest asking price</small></div>
+              <div><strong>{marketplaceSnapshot.median === null ? "—" : money(marketplaceSnapshot.median)}</strong><small>Median asking price</small></div>
             </div>
             <p className="four-cop-updated">Asking-price data is marketplace evidence, not completed-sale pricing or an appraisal.</p>
           </aside>
