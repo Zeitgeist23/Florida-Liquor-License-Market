@@ -344,10 +344,10 @@ export default function FloridaLiquorLicenseTypesPage() {
             <span>Common retail vendor licenses</span>
             <h2 id="common-license-title">Florida retail license comparison</h2>
           </div>
-          <p>
-            The quota series number changes with the population band used in DBPR’s current chart.
-            “4COP” and “3PS” are the familiar names used in the largest population band.
-          </p>
+          <ul className="license-types-comparison-points" aria-label="Quota series population bands">
+            <li>4COP and 3PS are the familiar quota-license series used in Florida’s largest population band.</li>
+            <li>5COP–8COP and 3APS–3DPS are the corresponding quota-license series used in lower-population tiers.</li>
+          </ul>
         </div>
 
         <div className="license-types-table-wrap">
@@ -498,4 +498,3 @@ export default function FloridaLiquorLicenseTypesPage() {
     </main>
   );
 }
-
