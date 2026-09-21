@@ -521,3 +521,65 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+.results-page .listings-inventory-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 8px;
+  border: 1px solid rgba(246,167,0,.42);
+  border-radius: 7px;
+  background: rgba(3,18,30,.5);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 10px 22px rgba(0,0,0,.18);
+}
+
+.results-page .listings-inventory-current,
+.results-page .listings-business-inventory-link {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 17px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.results-page .listings-inventory-current {
+  border: 1px solid rgba(112,220,255,.42);
+  background: #0b2947;
+  color: #d9edf7 !important;
+}
+
+.results-page .listings-business-inventory-link {
+  border: 1px solid #f1a600;
+  background: linear-gradient(145deg,#ffc13b 0%,#e69a00 100%);
+  color: #07101a !important;
+  text-decoration: none !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.46), 0 8px 20px rgba(241,166,0,.22);
+  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+}
+
+.results-page .listings-business-inventory-link:hover,
+.results-page .listings-business-inventory-link:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.52), 0 12px 26px rgba(241,166,0,.29);
+  outline: none;
+}
+
+@media (max-width: 650px) {
+  .results-page .listings-inventory-switch {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .results-page .listings-inventory-current,
+  .results-page .listings-business-inventory-link {
+    width: 100%;
+  }
+}
