@@ -379,12 +379,14 @@ export default function FloridaLiquorLicenseTypesPage() {
       </section>
 
       <section className="license-types-quota page-shell" aria-labelledby="quota-explainer-title">
-        <div>
-          <span>What businesses use these licenses?</span>
-          <h2 id="quota-explainer-title">4COP and 3PS serve different business models</h2>
+        <div className="license-types-quota-intro">
+          <span>Which license fits the business model?</span>
+          <h2 id="quota-explainer-title">Compare quota licenses with common non-quota alternatives</h2>
           <p>
-            Both are full-liquor quota licenses, but a 4COP is commonly used for on-premises service,
-            while a 3PS is the familiar Florida liquor-store or package-store license.
+            Start with how the business actually sells alcohol. 4COP and 3PS are transferable county
+            quota-license series, while 2COP and 4COP-SFS / SRX follow different qualification paths.
+            The comparison below separates those categories so the food, premises, seating and sales
+            rules are easier to understand.
           </p>
         </div>
         <QuotaSiteRequirementCards />
