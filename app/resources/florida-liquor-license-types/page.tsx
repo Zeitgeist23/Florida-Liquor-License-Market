@@ -442,10 +442,10 @@ export default function FloridaLiquorLicenseTypesPage() {
         </div>
         <div className="license-types-faq-grid">
           {frequentlyAskedQuestions.map(({ question, answer }) => (
-            <article key={question}>
-              <h3><StraightenLicenseNumerals text={question} /></h3>
+            <details key={question}>
+              <summary><StraightenLicenseNumerals text={question} /></summary>
               <p>{answer}</p>
-            </article>
+            </details>
           ))}
         </div>
       </section>
