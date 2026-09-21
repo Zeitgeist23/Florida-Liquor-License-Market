@@ -250,12 +250,6 @@ export default function ListingsPage({
             review county-specific inventory and pricing before opening an
             individual listing for details.
           </p>
-          <div className="listings-inventory-switch" aria-label="Choose FLLM inventory type">
-            <span className="listings-inventory-current">Standalone Licenses</span>
-            <Link className="listings-business-inventory-link" href="/businesses-with-quota-licenses">
-              Businesses With Quota Licenses
-            </Link>
-          </div>
         </div>
       </section>
       <section className="results-content">
