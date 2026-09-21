@@ -155,7 +155,10 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-series-change{padding:38px 0 48px}
         .lt-series-change-head{max-width:none;margin:0 0 40px;text-align:center}
         .lt-series-change-head>span{display:block;margin-bottom:20px;color:var(--gold);font-size:16px;font-weight:900;letter-spacing:.12em;line-height:1.35;text-align:center;text-transform:uppercase}
-        .lt-series-change-head h2{margin:0 0 24px;color:#fff;font:700 clamp(36px,3.6vw,50px)/1.14 Georgia,serif;text-align:center}
+        .lt-series-change-head h2{margin:0 0 24px;color:#fff;fontclassName="lt-shell lt-summary"
+        className={`lt-shell lt-summary${props.code === "4COP Quota" ? " lt-summary-county-card-style" : ""}`}:.lt-card h2{
+        .lt-summary-county-card-style .lt-card{border:1px solid rgba(112,220,255,.42);border-top:2px solid var(--gold);background:linear-gradient(145deg,#0b293d 0%,#082235 52%,#061b2a 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.055),inset 0 -5px 14px rgba(0,0,0,.12),0 12px 26px rgba(0,0,0,.2)}.lt-summary-county-card-style .lt-card:hover,.lt-summary-county-card-style .lt-card:focus-within{border-color:rgba(112,220,255,.72);border-top-color:#ffc13b;background:linear-gradient(145deg,#0e3047 0%,#0a293e 52%,#072033 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 17px 31px rgba(0,0,0,.26),0 0 14px rgba(112,220,255,.1);transform:translateY(-3px) scale(1.008);filter:brightness(1.025)}
+        .lt-card h2{700 clamp(36px,3.6vw,50px)/1.14 Georgia,serif;text-align:center}
         .lt-series-change-head p{max-width:1180px;margin:0 auto;color:#edf3f7;font-size:20px;line-height:1.78;text-align:center}
         .lt-series-change-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
         .lt-series-change-card{position:relative;isolation:isolate;overflow:hidden;min-height:235px;padding:26px 28px;border:1px solid rgba(246,167,0,.62);border-radius:11px;background:radial-gradient(circle at 24% 2%,rgba(255,255,255,.08),transparent 36%),linear-gradient(150deg,#173f5e 0%,#10334e 48%,#0a263c 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -8px 18px rgba(0,0,0,.16),0 3px 0 rgba(128,88,12,.65),0 13px 28px rgba(0,0,0,.25);transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease}
