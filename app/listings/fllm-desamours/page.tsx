@@ -33,20 +33,20 @@ export const metadata: Metadata = {
   description:
     "Jensen Beach bar and Martin County 4COP quota license business package offered at $650,000. The allocated license value is approximately $600,000 and the license is not offered separately.",
   alternates: { canonical: canonicalUrl },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
     title: "Jensen Beach Bar + 4COP Quota License | $650,000",
     description:
-      "Featured third-party broker preview. Business purchase required; Jensen Beach bar and 4COP quota license asset-sale package offered at $650,000 total.",
+      "Featured third-party broker listing. Business purchase required; Jensen Beach bar and Martin County 4COP quota license asset-sale package offered at $650,000 total.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
     title: "Jensen Beach Bar + 4COP Quota License | $650,000",
     description:
-      "Featured third-party broker preview for a Jensen Beach business and 4COP quota-license package represented by JR DesAmours.",
+      "Featured third-party broker listing for a Jensen Beach business and Martin County 4COP quota-license package represented by JR DesAmours.",
   },
 };
 
