@@ -1028,7 +1028,36 @@
 }
 
 .license-types-faq {
+  padding-top: 54px;
   padding-bottom: 48px;
+}
+
+.license-types-faq .license-types-section-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 42px;
+  text-align: center;
+}
+
+.license-types-faq .license-types-section-heading > div {
+  width: min(100%, 1100px);
+  text-align: center;
+}
+
+.license-types-faq .license-types-section-heading h2 {
+  font-size: clamp(36px, 4.4vw, 48px);
+  line-height: 1.08;
+}
+
+.license-types-faq .license-types-section-heading > p {
+  width: min(100%, 1050px);
+  margin: 0 auto;
+  color: #c6d1d8;
+  font-size: 17px;
+  line-height: 1.6;
+  text-align: center;
 }
 
 .license-types-faq-grid {
