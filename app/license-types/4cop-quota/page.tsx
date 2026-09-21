@@ -4,7 +4,7 @@ import LicenseTypeCountyDirectory from "@/components/LicenseTypeCountyDirectory"
 
 export const metadata: Metadata = {
   title: "What Is a Florida 4COP Quota Liquor License? | FLLM",
-  description: "Understand what a Florida 4COP quota liquor license is, how the 4COP series differs from the quota license itself, what it allows, and how inactive investment ownership works.",
+  description: "Understand what a Florida 4COP quota liquor license is, what it allows, how it can potentially change to a 3PS quota package-sales series with DBPR approval, and how inactive ownership works.",
   alternates: { canonical: "https://www.floridaliquorlicensemarket.com/license-types/4cop-quota" },
 };
 
@@ -36,6 +36,42 @@ export default function Page() {
         { title: "SFS terminology", text: "SFS means Special Food Service. The current designation is 4COP-SFS; “SRX” is the older designation still found in legacy records and industry shorthand." },
         { title: "Local approvals still apply", text: "County or municipal zoning, distance, occupancy, parking, health, fire and premises requirements may still materially affect a proposed location." }
       ]}
+      seriesChangeSection={{
+        eyebrow: "4COP ↔ 3PS Series Change",
+        heading: "Can a 4COP quota license be changed to a 3PS quota license?",
+        intro: "Potentially, yes. Florida treats both the 4COP-family consumption-on-premises licenses and the 3PS-family package-sales licenses as quota-license series. DBPR provides a formal change-in-series-or-type process, but the change is not automatic and the requested series must fit the county, premises, intended use and current licensing requirements.",
+        points: [
+          {
+            title: "What changes",
+            text: "The approved operating series changes from consumption on premises to package sales. In a county where the applicable labels are 4COP and 3PS, the practical change is from full-liquor on-premises privileges to a full-liquor package-store series for sealed off-premises sales."
+          },
+          {
+            title: "The quota status is still the key asset characteristic",
+            text: "A series-change application does not create a new quota license. The underlying license remains subject to Florida's county quota system, and the requested series is still subject to DBPR approval and the applicable population-tier designation."
+          },
+          {
+            title: "Existing owner: ABT-6014",
+            text: "DBPR identifies ABT-6014 as the Change of Location / Change in Series or Type application. The form specifically allows a change, increase or decrease in series and asks for the requested series and type/class."
+          },
+          {
+            title: "If ownership is changing at the same time",
+            text: "The ABT-6002 transfer application also includes Change in Series, Decrease in Series and Increase in Series options. That allows the transfer and requested series change to be addressed in the same transaction when appropriate."
+          },
+          {
+            title: "County population can change the label",
+            text: "4COP and 3PS are the familiar labels in the largest county population tier. Lower-population counties use corresponding 5COP–8COP and 3APS–3DPS series, so the requested series should be matched to the county's applicable tier."
+          },
+          {
+            title: "Why this matters to value",
+            text: "4COP and 3PS quota licenses can trade at different market levels within the same county. A buyer, seller or lender evaluating a possible series change should compare both same-county markets and account for approval, premises, timing and transaction risk."
+          }
+        ],
+        primaryHref: "https://www2.myfloridalicense.com/abt/forms/documents/abt-6014.pdf",
+        primaryLabel: "Open Official ABT-6014",
+        secondaryHref: "/resources/florida-liquor-license-system",
+        secondaryLabel: "Read FLLM Series-Change Guide",
+        note: "Do not assume a 4COP automatically becomes a 3PS merely because the business use changes. DBPR approval is required before operating under the requested series, and local zoning, package-store premises rules, ownership, location and other transaction requirements may also apply."
+      }}
       comparison={{
         heading: "4COP Quota vs. 4COP SFS/SRX",
         intro: "Both license types can authorize beer, wine and distilled spirits for consumption on the premises. Their supply, qualification requirements, transferability and market value are fundamentally different.",
