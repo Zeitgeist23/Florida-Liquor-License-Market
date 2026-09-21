@@ -313,7 +313,7 @@
   font-weight: 900;
 }
 
-.license-types-key article {
+.license-types-page .license-types-key article {
   display: grid;
   grid-template-columns: 78px 1fr;
   gap: 19px;
@@ -329,7 +329,7 @@
   transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 
-.license-types-key article:hover {
+.license-types-page .license-types-key article:hover {
   transform: translateY(-3px);
   border-color: #7397ae;
   border-top-color: #ffc447;
