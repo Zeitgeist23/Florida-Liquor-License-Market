@@ -21,7 +21,9 @@ const countyOptions: readonly ListingsHoverSelectOption[] = [
 ];
 
 const licenseTypeOptions: readonly ListingsHoverSelectOption[] = [
-  { value: "all", label: "All License Types" },
+  { value: "all", label: "All Listings" },
+  { value: "quota", label: "Quota Licenses" },
+  { value: "businesses", label: "Businesses w/ Quota Licenses" },
   { value: "4COP Quota", label: "4COP Quota" },
   { value: "3PS Quota / Package Store", label: "3PS Quota / Package Store" },
 ];
@@ -35,10 +37,10 @@ const priceOptions: readonly ListingsHoverSelectOption[] = [
   { value: "over1m", label: "Over $1 Million" },
 ];
 
-const inventoryOptions: readonly ListingsHoverSelectOption[] = [
-  { value: "available", label: "Available Stand-alone Licenses" },
-  { value: "businesses", label: "Businesses With Quota Licenses" },
-  { value: "sold", label: "Sold Licenses" },
+const availabilityOptions: readonly ListingsHoverSelectOption[] = [
+  { value: "available", label: "Available" },
+  { value: "sold", label: "Sold" },
+  { value: "all", label: "All" },
 ];
 
 const LISTINGS_PAGE_SIZE = 24;
@@ -180,7 +182,7 @@ export default function ListingsPage({
       orderedMarketplaceListings.filter(
         (listing) =>
           (county === "all" || listing.county === county) &&
-          (type === "all" || listing.type === type) &&
+          (type === "all" || type === "quota" || listing.type === type) &&
           priceMatches(listing.price, price) &&
           (status === "all" ||
             (status === "available"
@@ -225,18 +227,13 @@ export default function ListingsPage({
     setStatus("available");
   }
 
-  function changeInventory(value: string) {
+  function changeListingType(value: string) {
     if (value === "businesses") {
       window.location.assign("/businesses-with-quota-licenses");
       return;
     }
 
-    setStatus(value);
-    window.history.replaceState(
-      null,
-      "",
-      value === "sold" ? "/listings?status=sold" : "/listings",
-    );
+    setType(value);
   }
 
   return (
@@ -282,12 +279,12 @@ export default function ListingsPage({
               />
             </label>
             <label>
-              <span>License Type</span>
+              <span>Listing Type</span>
               <ListingsHoverSelect
-                ariaLabel="Filter listings by license type"
+                ariaLabel="Filter by listing type"
                 value={type}
                 options={licenseTypeOptions}
-                onChange={setType}
+                onChange={changeListingType}
               />
             </label>
             <label>
@@ -300,12 +297,12 @@ export default function ListingsPage({
               />
             </label>
             <label>
-              <span>Inventory</span>
+              <span>Availability</span>
               <ListingsHoverSelect
-                ariaLabel="Browse marketplace inventory"
+                ariaLabel="Filter listings by availability"
                 value={status}
-                options={inventoryOptions}
-                onChange={changeInventory}
+                options={availabilityOptions}
+                onChange={setStatus}
               />
             </label>
             <button className="btn btn-gold" type="submit">
@@ -391,7 +388,7 @@ export default function ListingsPage({
             <div className="no-results">
               <strong>No listings match all filters.</strong>
               <p>
-                Try broadening the county, price range, license type, or status.
+                Try broadening the county, price range, listing type, or status.
               </p>
               <button
                 className="btn btn-gold"
