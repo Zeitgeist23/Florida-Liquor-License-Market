@@ -232,7 +232,7 @@ export default function ListingsPage({
         <div className="page-shell">
           <h1>
             Florida Liquor Licenses{" "}
-            <span className="listings-title-gold">for Sale</span>
+            <span>for Sale</span>
           </h1>
           <p className="listings-seo-intro">
             Browse {availableCount} current Florida liquor licenses for sale
