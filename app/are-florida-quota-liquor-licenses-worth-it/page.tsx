@@ -202,10 +202,10 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
             <p className="four-cop-updated">FLLM marketplace snapshot updated {updatedLabel}.</p>
           </div>
 
-          <aside className="seo-market-snapshot" aria-label="Current FLLM 4COP market snapshot">
-            <span>Current FLLM 4COP Snapshot</span>
+          <aside className="seo-market-snapshot" aria-label="Current FLLM 4COP Quota market snapshot">
+            <span>Current FLLM 4COP Quota Snapshot</span>
             <div className="seo-market-snapshot-grid">
-              <div><strong>{market.listings.length}</strong><small>active 4COP listings</small></div>
+              <div><strong>{market.listings.length}</strong><small>active 4COP Quota listings</small></div>
               <div><strong>{market.countyCount}</strong><small>counties represented</small></div>
               <div><strong>{market.median === null ? "—" : money(market.median)}</strong><small>median disclosed ask</small></div>
               <div><strong>{market.low === null ? "—" : money(market.low)}</strong><small>lowest disclosed ask</small></div>
