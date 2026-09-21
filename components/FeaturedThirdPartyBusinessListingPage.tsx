@@ -498,7 +498,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     </a>
                     <span className="featured-business-email-copy-row">
                       <a href={`mailto:${config.broker.email}`}>
-                        ✉ {config.broker.email}
+                        {config.broker.email}
                       </a>
                       <FeaturedBrokerEmailCopyButton
                         email={config.broker.email}
