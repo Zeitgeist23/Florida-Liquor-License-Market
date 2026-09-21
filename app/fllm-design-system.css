@@ -448,3 +448,14 @@
 @media(prefers-reduced-motion:reduce){
   .fllm-ui-step-card,.fllm-ui-faq{transition:none}
 }
+
+/* Worth-it page typography uses the shared design-system layer. */
+.worth-it-page .worth-it-answer .fllm-ui-heading--center > p {
+  font-size: 17px;
+  line-height: 1.72;
+}
+
+.worth-it-page .worth-it-answer .fllm-template-card > p {
+  font-size: 16px;
+  line-height: 1.72;
+}
