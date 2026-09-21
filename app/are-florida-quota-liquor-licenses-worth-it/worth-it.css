@@ -8,6 +8,16 @@
 }
 .worth-it-process-actions{justify-content:center}
 
+/* Keep the short-answer copy comfortably readable without changing the approved layout. */
+.worth-it-page .worth-it-answer .fllm-ui-heading--center>p{
+  font-size:17px;
+  line-height:1.72;
+}
+.worth-it-page .worth-it-answer .fllm-template-card>p{
+  font-size:16px;
+  line-height:1.72;
+}
+
 @media(max-width:980px){
   .worth-it-page .seo-market-hero-grid{grid-template-columns:1fr}
 }
