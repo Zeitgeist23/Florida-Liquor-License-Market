@@ -592,7 +592,7 @@
   text-align: center;
 }
 
-.license-types-quota-intro > span {
+.license-types-page .license-types-quota-intro > span {
   display: block;
   margin-bottom: 14px;
   color: #f6a700;
