@@ -544,109 +544,212 @@
 }
 
 .license-types-quota {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(340px, .9fr);
-  gap: 42px;
-  align-items: center;
   margin-bottom: 42px;
-  padding: 30px;
+  padding: 34px 30px 30px;
   border: 1px solid #665326;
   border-top: 3px solid #f6a700;
   border-radius: 8px;
-  background: linear-gradient(145deg, #0b2132, #07131e);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(112, 220, 255, .07), transparent 34%),
+    linear-gradient(145deg, #0b2132, #07131e);
 }
 
-.license-types-quota > div:first-child > p {
-  margin-top: 13px;
+.license-types-quota-intro {
+  max-width: 980px;
+  margin: 0 auto 30px;
+  text-align: center;
+}
+
+.license-types-quota-intro > span {
+  display: block;
+  color: #f6a700;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.license-types-quota-intro h2 {
+  margin: 8px 0 13px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(30px, 3.8vw, 42px);
+  line-height: 1.08;
+}
+
+.license-types-quota-intro p {
+  max-width: 900px;
+  margin: 0 auto;
   color: #c6d1d8;
   font-size: 17px;
-  line-height: 1.65;
+  line-height: 1.68;
+}
+
+.license-types-license-groups {
+  display: grid;
+  gap: 22px;
+}
+
+.license-types-license-group {
+  padding: 20px;
+  border: 1px solid #38566b;
+  border-radius: 8px;
+  background: rgba(4, 22, 36, .42);
+}
+
+.license-types-license-group > header {
+  display: grid;
+  grid-template-columns: minmax(220px, .7fr) minmax(0, 1.3fr);
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(112, 220, 255, .2);
+}
+
+.license-types-license-group > header h3 {
+  margin: 0;
+  color: #70dcff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  line-height: 1.15;
+}
+
+.license-types-license-group > header p {
+  margin: 0;
+  color: #bfcdd6;
+  font-size: 14px;
+  line-height: 1.55;
 }
 
 .license-types-quota-cards {
   display: grid;
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
 }
 
-.license-types-quota-cards article {
-  display: grid;
-  gap: 7px;
+.license-types-quota-card {
+  display: flex;
+  min-width: 0;
+  min-height: 320px;
+  flex-direction: column;
   padding: 22px;
-  border: 1px solid #425a6b;
-  border-left: 3px solid #f6a700;
-  border-radius: 5px;
-  background: #06131e;
+  border: 1px solid #49677b;
+  border-left: 4px solid #f6a700;
+  border-radius: 7px;
+  background: linear-gradient(145deg, #123d5b 0%, #0d304a 58%, #0a263a 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 12px 26px rgba(0,0,0,.22);
   cursor: pointer;
   outline: none;
   transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
 }
 
+.license-types-quota-card--2cop,
+.license-types-quota-card--sfs {
+  border-left-color: #70dcff;
+}
+
 .license-types-quota-card:hover,
 .license-types-quota-card:focus-visible {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
   border-color: #f6a700;
-  background: #0a2131;
-  box-shadow: 0 20px 42px rgba(0, 0, 0, .4), 0 0 0 1px rgba(246, 167, 0, .2);
+  background: linear-gradient(145deg, #185071 0%, #123b56 58%, #0d2c43 100%);
+  box-shadow: 0 18px 36px rgba(0,0,0,.34), 0 0 16px rgba(246,167,0,.08);
 }
 
-.license-types-quota-cards b {
+.license-types-quota-card--2cop:hover,
+.license-types-quota-card--2cop:focus-visible,
+.license-types-quota-card--sfs:hover,
+.license-types-quota-card--sfs:focus-visible {
+  border-color: #70dcff;
+  box-shadow: 0 18px 36px rgba(0,0,0,.34), 0 0 16px rgba(112,220,255,.1);
+}
+
+.license-types-quota-card-head {
+  min-height: 76px;
+}
+
+.license-types-quota-card b {
+  display: block;
   color: #f6a700;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 23px;
+  font-size: 25px;
+  line-height: 1.08;
 }
 
-.license-types-quota-cards span {
+.license-types-quota-card--2cop b,
+.license-types-quota-card--sfs b {
+  color: #70dcff;
+}
+
+.license-types-quota-card-head > span {
+  display: block;
+  margin-top: 7px;
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 900;
-  line-height: 1.4;
+  letter-spacing: .02em;
+  line-height: 1.35;
   text-transform: uppercase;
 }
 
-.license-types-quota-cards p {
-  margin-top: 3px;
-  color: #c6d1d8;
-  font-size: 17px;
-  line-height: 1.6;
-}
-
-.license-types-quota-cards ul {
+.license-types-quota-card-rules {
   display: grid;
-  gap: 7px;
-  margin: 3px 0 4px;
-  padding: 0;
-  list-style: none;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 16px;
 }
 
-.license-types-quota-cards li {
-  position: relative;
-  padding-left: 17px;
-  color: #fff;
-  font-size: 17px;
-  line-height: 1.5;
+.license-types-quota-card-rules > div {
+  min-width: 0;
+  padding: 10px 11px;
+  border: 1px solid rgba(112, 220, 255, .17);
+  border-radius: 5px;
+  background: rgba(3, 18, 30, .34);
 }
 
-.license-types-quota-cards li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: #f6a700;
-}
-
-.license-types-quota-cards small {
-  color: #9fb0ba;
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-.license-types-quota-cards .license-types-quota-card > strong {
-  margin-top: 8px;
-  padding-top: 10px;
-  border-top: 1px solid #263f50;
-  color: #f6a700;
-  font-size: 15px;
-  letter-spacing: .035em;
+.license-types-quota-card-rules dt {
+  margin: 0 0 5px;
+  color: #9fb7c7;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  line-height: 1.25;
   text-transform: uppercase;
+}
+
+.license-types-quota-card-rules dd {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.38;
+}
+
+.license-types-quota-card > small {
+  display: block;
+  margin-top: 2px;
+  color: #bfd0da;
+  font-size: 15px;
+  line-height: 1.58;
+}
+
+.license-types-quota-card > strong {
+  display: block;
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid #315066;
+  color: #f6a700;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .03em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.license-types-quota-card--2cop > strong,
+.license-types-quota-card--sfs > strong {
+  color: #70dcff;
 }
 
 .license-types-modal-backdrop {
