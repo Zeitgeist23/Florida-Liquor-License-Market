@@ -186,7 +186,7 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
               <strong>Are Quota Licenses Worth It?</strong>
             </div>
             <span className="seo-market-kicker">Florida 4COP Decision Guide · Market Data + Operating Economics</span>
-            <h1>Are Florida Quota<br />Liquor Licenses <em>Worth It?</em></h1>
+            <h1 className="fllm-ui-hero-title--long">Are Florida Quota Liquor Licenses <em>Worth It?</em></h1>
             <p >
               Sometimes absolutely. Sometimes they tie up capital a qualifying restaurant may not need to keep
               invested in a transferable quota asset. The economic answer depends on the business model, the county
