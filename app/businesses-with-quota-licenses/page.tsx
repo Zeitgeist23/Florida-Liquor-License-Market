@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
+import BusinessQuotaInventory from "@/components/BusinessQuotaInventory";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import {
   businessQuotaListings,
@@ -12,6 +12,7 @@ import {
 import "../fllm-official-template.css";
 import "../listings/listings-premium.css";
 import "./business-inventory.css";
+import "./business-inventory-filters.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/businesses-with-quota-licenses`;
@@ -101,20 +102,7 @@ export default function BusinessesWithQuotaLicensesPage() {
 
       <section className="business-quota-inventory" id="business-inventory">
         <div className="business-quota-shell">
-          <div className="business-quota-heading">
-            <div><span>Current Business Inventory</span><h2>Businesses That Include a Quota License</h2></div>
-            <strong>{businessQuotaListings.length} Active Package{businessQuotaListings.length === 1 ? "" : "s"}</strong>
-          </div>
-          <div className="business-quota-separation-note">
-            <strong>Looking for a license without a business?</strong>
-            <span>FLLM keeps separately purchasable quota licenses in the dedicated standalone inventory.</span>
-            <Link href="/listings">Browse standalone quota licenses ›</Link>
-          </div>
-          <div className="business-quota-grid">
-            {businessQuotaListings.map((listing) => (
-              <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
-            ))}
-          </div>
+          <BusinessQuotaInventory listings={businessQuotaListings} />
         </div>
       </section>
 
