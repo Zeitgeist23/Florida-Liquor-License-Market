@@ -126,15 +126,6 @@
   text-transform: none !important;
 }
 
-.results-page .results-filters label:nth-child(4) > span {
-  font-size: 0;
-}
-
-.results-page .results-filters label:nth-child(4) > span::after {
-  content: "Availability";
-  font-size: 11px;
-}
-
 .results-page .results-filters select {
   height: 46px !important;
   padding: 0 14px !important;
