@@ -250,6 +250,12 @@ export default function ListingsPage({
             review county-specific inventory and pricing before opening an
             individual listing for details.
           </p>
+          <div className="listings-inventory-switch" aria-label="Choose FLLM inventory type">
+            <span className="listings-inventory-current">Standalone Licenses</span>
+            <Link className="listings-business-inventory-link" href="/businesses-with-quota-licenses">
+              Businesses With Quota Licenses
+            </Link>
+          </div>
         </div>
       </section>
       <section className="results-content">
@@ -308,6 +314,7 @@ export default function ListingsPage({
             <Link href="/florida-3ps-liquor-license-for-sale">
               Florida 3PS licenses for sale
             </Link>{" "}
+            · <Link href="/businesses-with-quota-licenses">Businesses With Quota Licenses</Link>{" "}
             · <Link href="/counties">All 67 county markets</Link>{" "}
             ·{" "}
             <Link href="/counties/miami-dade">
