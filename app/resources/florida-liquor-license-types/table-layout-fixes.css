@@ -63,11 +63,20 @@
 }
 
 #common-license-chart .license-types-table tr.is-quota th span {
-  font-size: 13px;
+  width: calc(100% - 12px);
+  max-width: 230px;
+  min-height: 52px;
+  margin-inline: auto;
+  padding: 8px 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  line-height: 1.2;
+  text-align: center;
 }
 
 #common-license-chart .license-types-table tbody tr:nth-child(5) th span {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 #common-license-chart .license-types-table td:nth-child(2),
