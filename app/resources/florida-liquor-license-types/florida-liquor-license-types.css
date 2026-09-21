@@ -582,6 +582,8 @@
   background:
     radial-gradient(circle at 50% 0%, rgba(112, 220, 255, .07), transparent 34%),
     linear-gradient(145deg, #0b2132, #07131e);
+  font-variant-numeric: lining-nums proportional-nums;
+  font-feature-settings: "lnum" 1, "pnum" 1;
 }
 
 .license-types-quota-intro {
