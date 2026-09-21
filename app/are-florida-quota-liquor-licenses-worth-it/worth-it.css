@@ -8,21 +8,9 @@
 }
 .worth-it-process-actions{justify-content:center}
 
-/* Keep the short-answer copy comfortably readable without changing the approved layout. */
-.worth-it-page .worth-it-answer .fllm-ui-heading--center>p{
-  font-size:17px;
-  line-height:1.72;
-}
-.worth-it-page .worth-it-answer .fllm-template-card>p{
-  font-size:16px;
-  line-height:1.72;
-}
+/* Typography lives in the shared FLLM design-system stylesheet. */
 
-/* Strengthen the revenue-section label and keep every table figure aligned. */
-.worth-it-page .worth-it-revenue .fllm-template-eyebrow{
-  font-size:14px;
-  letter-spacing:.11em;
-}
+/* Keep every table figure aligned. */
 .worth-it-page .worth-it-revenue .fllm-ui-table th,
 .worth-it-page .worth-it-revenue .fllm-ui-table td{
   text-align:center;
