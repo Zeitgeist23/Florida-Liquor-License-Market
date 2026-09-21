@@ -84,6 +84,8 @@
   overflow-wrap: normal;
   word-break: normal;
   hyphens: none;
+  text-align: center;
+  vertical-align: middle;
 }
 
 #five-to-eight-cop {
