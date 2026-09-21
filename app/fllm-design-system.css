@@ -465,6 +465,24 @@
   letter-spacing: .11em;
 }
 
+.worth-it-page .fllm-ui-heading .fllm-template-eyebrow {
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.worth-it-page .fllm-ui-heading h2 {
+  margin-top: 0;
+}
+
+.worth-it-page .fllm-ui-final-cta .fllm-template-eyebrow {
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.worth-it-page .fllm-ui-final-cta h2 {
+  margin-top: 0;
+}
+
 .worth-it-page .seo-market-snapshot > span {
   display: block;
   width: 100%;
