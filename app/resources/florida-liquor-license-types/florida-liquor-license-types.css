@@ -171,8 +171,21 @@
 }
 
 .license-types-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   padding-top: 43px;
-  padding-bottom: 25px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+.license-types-intro > div {
+  max-width: 920px;
+}
+
+.license-types-intro > p {
+  max-width: 880px;
 }
 
 .license-types-intro h2,
