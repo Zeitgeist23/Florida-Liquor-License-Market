@@ -464,3 +464,40 @@
   font-size: 14px;
   letter-spacing: .11em;
 }
+
+.worth-it-page .seo-market-snapshot > span {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.worth-it-page .seo-market-snapshot-grid > div {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .2),
+    inset 0 -3px 0 rgba(2, 11, 18, .5),
+    0 11px 22px rgba(2, 12, 22, .34),
+    0 0 0 1px rgba(105, 214, 255, .06);
+  transform: translateY(0);
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.worth-it-page .seo-market-snapshot-grid > div:hover {
+  border-color: rgba(255, 190, 36, .82);
+  background: linear-gradient(145deg, #1c5887 0%, #104267 46%, #092b47 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .26),
+    inset 0 -3px 0 rgba(2, 11, 18, .54),
+    0 16px 28px rgba(2, 12, 22, .42),
+    0 0 18px rgba(255, 190, 36, .14);
+  transform: translateY(-4px) scale(1.02);
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .worth-it-page .seo-market-snapshot-grid > div {
+    transition: none;
+  }
+
+  .worth-it-page .seo-market-snapshot-grid > div:hover {
+    transform: none;
+  }
+}
