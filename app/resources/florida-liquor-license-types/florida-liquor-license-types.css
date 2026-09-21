@@ -1023,6 +1023,19 @@
   background: #0a1d2c;
 }
 
+
+.license-types-straight-numeral {
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: .92em;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0;
+  color: inherit;
+  vertical-align: baseline;
+}
+
 .license-types-faq-grid h3 {
   margin: 0 0 10px;
   color: #fff;
