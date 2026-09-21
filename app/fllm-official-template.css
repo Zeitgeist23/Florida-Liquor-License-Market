@@ -79,8 +79,15 @@
 
   .fllm-official-page .forms-site-header .primary-nav .native-nav-trigger,
   .fllm-official-page .forms-site-header .primary-nav .native-nav-direct-link {
-    font-size: 11.5px;
-    font-weight: 700;
+    font-size: 12.5px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+  }
+
+  .fllm-official-page .forms-site-header .primary-nav .native-nav-trigger > span,
+  .fllm-official-page .forms-site-header .primary-nav .native-nav-direct-link > span {
+    font-size: inherit !important;
+    font-weight: inherit !important;
   }
 
   .fllm-official-page .forms-site-header .header-actions {
