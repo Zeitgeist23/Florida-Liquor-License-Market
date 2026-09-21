@@ -33,7 +33,7 @@ const navMenus: NavMenu[] = [
     links: [
       { href: "/buy-florida-liquor-license", label: "Buy a Florida Liquor License" },
       { href: "/listings", label: "Quota Licenses for Sale" },
-      { href: "/businesses-with-quota-licenses", label: "Businesses With Quota Licenses" },
+      { href: "/businesses-with-quota-licenses", label: "Businesses + Quota Licenses" },
       { href: "/how-to-buy-florida-liquor-license", label: "How to Buy a Florida Liquor License" },
       { href: "/counties", label: "Florida County Markets" },
       { href: "/license-alerts", label: "Get a License Alert" },
