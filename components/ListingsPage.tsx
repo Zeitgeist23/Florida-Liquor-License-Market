@@ -23,9 +23,9 @@ const countyOptions: readonly ListingsHoverSelectOption[] = [
 const licenseTypeOptions: readonly ListingsHoverSelectOption[] = [
   { value: "all", label: "All Listings" },
   { value: "quota", label: "Quota Licenses" },
-  { value: "businesses", label: "Businesses w/ Quota Licenses" },
   { value: "4COP Quota", label: "4COP Quota" },
   { value: "3PS Quota / Package Store", label: "3PS Quota / Package Store" },
+  { value: "businesses", label: "Businesses w/ Quota Licenses" },
 ];
 
 const priceOptions: readonly ListingsHoverSelectOption[] = [
