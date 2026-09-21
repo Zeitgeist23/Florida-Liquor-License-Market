@@ -201,12 +201,6 @@ export default function GlobalResourcesMenuSync() {
         headingCopy.textContent = "Florida quota licenses use population-based series. 4COP and 3PS are the familiar largest-population series; 5COP–8COP and 3APS–3DPS are corresponding lower-population tiers.";
       }
 
-      const quotaSection = document.querySelector<HTMLElement>(".license-types-quota");
-      const quotaTitle = quotaSection?.querySelector("h2");
-      const quotaCopy = quotaSection?.querySelector("p");
-      if (quotaTitle) quotaTitle.textContent = "Quota COP and package-store licenses serve different business models";
-      if (quotaCopy) quotaCopy.textContent = "4COP through 8COP are consumption-on-premises quota series commonly used by bars, taverns, restaurants and nightclubs, while the 3PS family is the package-store counterpart for sealed off-premises sales.";
-
       alignFiveToEightAnchor();
     };
 
