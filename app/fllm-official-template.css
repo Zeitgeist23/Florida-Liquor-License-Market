@@ -77,6 +77,12 @@
     gap: 42px;
   }
 
+  .fllm-official-page .forms-site-header .primary-nav .native-nav-trigger,
+  .fllm-official-page .forms-site-header .primary-nav .native-nav-direct-link {
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+
   .fllm-official-page .forms-site-header .header-actions {
     transform: translateX(5px);
   }
