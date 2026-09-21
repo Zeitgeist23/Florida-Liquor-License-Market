@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 
-import FormsSiteHeader from "@/components/FormsSiteHeader";
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import {
   countyValuationGuideHref,
@@ -18,6 +17,7 @@ import { getVisibleMarketplaceListings } from "@/lib/visible-marketplace-listing
 import "@/app/resources/forms/abt-forms.css";
 import "./appraisal-link.css";
 import "./county-value-page.css";
+import "./hero-fix.css";
 import "./historical-asking-prices.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -212,10 +212,6 @@ export default async function CountyLiquorLicenseValuePage({ params }: PageProps
   return (
     <main className="county-value-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }} />
-
-      <div className="abt-header-wrap">
-        <FormsSiteHeader primaryActionHref="/sell-your-license" primaryActionLabel="Sell Your License" />
-      </div>
 
       <section className="county-value-hero">
         <div className="page-shell county-value-hero-grid">

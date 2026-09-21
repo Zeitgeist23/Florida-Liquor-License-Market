@@ -1,0 +1,29 @@
+/* Route-specific composition fixes for the county valuation hero. */
+@media (min-width: 901px) {
+  .county-value-hero {
+    padding: 58px 0 64px;
+  }
+
+  .county-value-hero-grid {
+    grid-template-columns: minmax(0, 1.62fr) minmax(300px, .58fr);
+    gap: 64px;
+  }
+
+  .county-value-breadcrumbs {
+    margin-bottom: 30px;
+  }
+
+  .county-value-hero h1 {
+    max-width: 940px;
+    margin: 12px 0 20px;
+    font-size: clamp(46px, 4.25vw, 64px);
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  .county-value-hero p {
+    max-width: 900px;
+    font-size: 17px;
+    line-height: 1.68;
+  }
+}
