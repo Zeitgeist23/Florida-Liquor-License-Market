@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 
 const validPriceRanges = new Set(["under150", "150to350", "350to500", "500to1m", "over1m"]);
-const validLicenseTypes = new Set(["4COP Quota", "3PS Quota / Package Store"]);
-const validStatuses = new Set(["available", "sold"]);
+const validLicenseTypes = new Set(["all", "quota", "4COP Quota", "3PS Quota / Package Store"]);
+const validStatuses = new Set(["available", "sold", "all"]);
 
 function setSelectValue(select: HTMLSelectElement, value: string) {
   const hasOption = Array.from(select.options).some((option) => option.value === value);
@@ -39,9 +39,9 @@ export default function ListingsQueryFilterEnhancement() {
     };
 
     const countySelect = selectFor("County");
-    const typeSelect = selectFor("License Type");
+    const typeSelect = selectFor("Listing Type");
     const priceSelect = selectFor("Price Range");
-    const statusSelect = selectFor("Inventory");
+    const statusSelect = selectFor("Availability");
 
     if (requestedCounty && countySelect) setSelectValue(countySelect, requestedCounty);
     if (requestedType && validLicenseTypes.has(requestedType) && typeSelect) setSelectValue(typeSelect, requestedType);
