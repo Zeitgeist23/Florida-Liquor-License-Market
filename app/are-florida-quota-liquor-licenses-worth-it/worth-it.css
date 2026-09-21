@@ -18,6 +18,16 @@
   line-height:1.72;
 }
 
+/* Strengthen the revenue-section label and keep every table figure aligned. */
+.worth-it-page .worth-it-revenue .fllm-template-eyebrow{
+  font-size:14px;
+  letter-spacing:.11em;
+}
+.worth-it-page .worth-it-revenue .fllm-ui-table th,
+.worth-it-page .worth-it-revenue .fllm-ui-table td{
+  text-align:center;
+}
+
 @media(max-width:980px){
   .worth-it-page .seo-market-hero-grid{grid-template-columns:1fr}
 }
