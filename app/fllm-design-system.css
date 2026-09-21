@@ -474,6 +474,22 @@
   margin-top: 0;
 }
 
+.worth-it-page .worth-it-cost .fllm-template-heading {
+  display: block;
+  text-align: center;
+}
+
+.worth-it-page .worth-it-cost .fllm-template-heading .fllm-template-eyebrow {
+  width: 100%;
+  margin-bottom: 16px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.worth-it-page .worth-it-cost .fllm-template-heading h2 {
+  margin-top: 0;
+}
+
 .worth-it-page .fllm-ui-final-cta .fllm-template-eyebrow {
   margin-bottom: 14px;
   line-height: 1.5;
