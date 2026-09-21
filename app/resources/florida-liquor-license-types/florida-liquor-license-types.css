@@ -221,6 +221,35 @@
   line-height: 1.72;
 }
 
+.license-types-section-heading .license-types-comparison-points {
+  display: grid;
+  gap: 10px;
+  width: max-content;
+  max-width: 100%;
+  margin: 10px auto 0;
+  padding-left: 28px;
+  color: #70dcff;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.license-types-comparison-points li {
+  white-space: nowrap;
+}
+
+.license-types-comparison-points li::marker {
+  color: #70dcff;
+  font-size: 1.15em;
+}
+
+@media (max-width: 850px) {
+  .license-types-comparison-points li {
+    white-space: normal;
+  }
+}
+
 .license-types-key {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
