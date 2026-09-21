@@ -502,6 +502,34 @@
   }
 }
 
+.worth-it-page .worth-it-revenue .fllm-ui-ratio-card {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 27px 23px;
+}
+
+.worth-it-page .worth-it-revenue .fllm-ui-ratio-card strong {
+  font-size: 35px;
+}
+
+.worth-it-page .worth-it-revenue .fllm-ui-ratio-card span {
+  font-size: 12px;
+}
+
+.worth-it-page .worth-it-revenue .fllm-ui-ratio-card p {
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+
+.worth-it-page .worth-it-revenue .fllm-template-disclosure {
+  padding: 18px 20px;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
 .worth-it-page .fllm-template-button:not(.fllm-template-button--outline) {
   border-color: #ffc12d;
   background: linear-gradient(145deg, #ffbd21 0%, #ef9000 100%);
