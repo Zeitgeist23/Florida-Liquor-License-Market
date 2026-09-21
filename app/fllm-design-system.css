@@ -36,6 +36,13 @@
   line-height:1.7;
 }
 
+
+.seo-market-page .seo-market-hero h1.fllm-ui-hero-title--long{
+  max-width:930px;
+  font-size:clamp(42px,4.8vw,62px);
+  line-height:1;
+}
+
 .fllm-ui-breadcrumbs{
   display:flex;
   flex-wrap:wrap;
