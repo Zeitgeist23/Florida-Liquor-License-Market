@@ -10,6 +10,15 @@
   width: min(1480px, calc(100% - 64px));
 }
 
+/* Keep the Listings page header identical to the official FLLM header shell. */
+.results-page > .listings-header-band {
+  position: relative;
+  z-index: 120;
+  width: 100%;
+  border-bottom: 1px solid #8a6412;
+  background: #020c14;
+}
+
 /* Keep the live navigation and links exactly as they are; only restyle the shell. */
 .results-page > .results-header {
   width: 100% !important;
