@@ -139,6 +139,23 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     publicationStatus: "preview",
     classification: "business_package",
   },
+  {
+    listingReference: "FLLM-MELLO",
+    href: "/listings/fllm-mello",
+    county: "Palm Beach County",
+    countyHref: "/counties/palm-beach",
+    licenseType: "4COP Quota",
+    title: "Delray Beach Restaurant + 4COP Quota License",
+    businessType: "Turnkey full-service restaurant and bar",
+    packagePrice: "$159,000 + $200,000 license",
+    packagePriceNumber: 359_000,
+    allocatedLicenseValue: "$200,000",
+    brokerName: "Leonard Mello",
+    brokerage: "We Sell Restaurants",
+    featured: true,
+    publicationStatus: "preview",
+    classification: "business_package",
+  },
 ];
 
 export const businessQuotaListings = businessQuotaListingRecords.filter(
