@@ -311,7 +311,7 @@
 .license-types-population-number span {
   margin-top: 5px;
   color: #c7d2d9;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 900;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -330,6 +330,8 @@
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(29px, 3.8vw, 42px);
+  font-variant-numeric: lining-nums proportional-nums;
+  font-feature-settings: "lnum" 1, "pnum" 1;
   line-height: 1.08;
 }
 
