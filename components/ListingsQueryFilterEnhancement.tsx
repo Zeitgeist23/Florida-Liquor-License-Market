@@ -41,7 +41,7 @@ export default function ListingsQueryFilterEnhancement() {
     const countySelect = selectFor("County");
     const typeSelect = selectFor("License Type");
     const priceSelect = selectFor("Price Range");
-    const statusSelect = selectFor("Status");
+    const statusSelect = selectFor("Inventory");
 
     if (requestedCounty && countySelect) setSelectValue(countySelect, requestedCounty);
     if (requestedType && validLicenseTypes.has(requestedType) && typeSelect) setSelectValue(typeSelect, requestedType);

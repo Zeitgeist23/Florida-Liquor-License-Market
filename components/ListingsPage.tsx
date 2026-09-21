@@ -35,10 +35,10 @@ const priceOptions: readonly ListingsHoverSelectOption[] = [
   { value: "over1m", label: "Over $1 Million" },
 ];
 
-const statusOptions: readonly ListingsHoverSelectOption[] = [
-  { value: "all", label: "Available & Sold" },
-  { value: "available", label: "Available" },
-  { value: "sold", label: "Sold" },
+const inventoryOptions: readonly ListingsHoverSelectOption[] = [
+  { value: "available", label: "Available Stand-alone Licenses" },
+  { value: "businesses", label: "Businesses With Quota Licenses" },
+  { value: "sold", label: "Sold Licenses" },
 ];
 
 const LISTINGS_PAGE_SIZE = 24;
@@ -225,6 +225,20 @@ export default function ListingsPage({
     setStatus("available");
   }
 
+  function changeInventory(value: string) {
+    if (value === "businesses") {
+      window.location.assign("/businesses-with-quota-licenses");
+      return;
+    }
+
+    setStatus(value);
+    window.history.replaceState(
+      null,
+      "",
+      value === "sold" ? "/listings?status=sold" : "/listings",
+    );
+  }
+
   return (
     <main className="results-page fllm-official-page" data-fllm-template="county-v1">
       <div className="listings-header-band"><FormsSiteHeader /></div>
@@ -286,12 +300,12 @@ export default function ListingsPage({
               />
             </label>
             <label>
-              <span>Status</span>
+              <span>Inventory</span>
               <ListingsHoverSelect
-                ariaLabel="Filter listings by availability"
+                ariaLabel="Browse marketplace inventory"
                 value={status}
-                options={statusOptions}
-                onChange={setStatus}
+                options={inventoryOptions}
+                onChange={changeInventory}
               />
             </label>
             <button className="btn btn-gold" type="submit">
