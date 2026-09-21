@@ -11,7 +11,7 @@
 
 #common-license-chart .license-types-table-wrap {
   width: 100%;
-  overflow-x: hidden;
+  overflow: visible;
 }
 
 #common-license-chart .license-types-table {
