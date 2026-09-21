@@ -125,6 +125,11 @@ export default function LicenseTypeExplainerPage(props: LicenseTypeExplainerProp
         .lt-readable-layout .lt-summary-head h2,.lt-readable-layout .lt-requirements-head h2,.lt-readable-layout .lt-comparison-head h2,.lt-readable-layout .lt-official h2,.lt-readable-layout .lt-rule-updates h2,.lt-readable-layout .lt-research h2{margin:0 0 24px;color:#fff;font:700 clamp(36px,3.6vw,50px)/1.14 Georgia,serif;text-align:center}
         .lt-readable-layout .lt-summary-head h2:last-child,.lt-readable-layout .lt-official h2,.lt-readable-layout .lt-rule-updates h2,.lt-readable-layout .lt-research h2{margin-bottom:0}
         .lt-readable-layout .lt-requirements-head p,.lt-readable-layout .lt-comparison-head p{max-width:1180px;margin:0 auto;color:#edf3f7;font-size:20px;line-height:1.78}
+        /* Keep the practical-requirements heading aligned with the page's standard section rhythm. */
+        .lt-readable-layout .lt-requirements-head{max-width:1080px;margin:0 auto 34px;text-align:center}
+        .lt-readable-layout .lt-requirements-head>div>span{margin-bottom:12px;color:var(--gold);font-size:14px;line-height:1.35;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
+        .lt-readable-layout .lt-requirements-head h2{margin:0 0 14px;color:#fff;font:700 clamp(34px,3.25vw,44px)/1.12 Georgia,serif;text-align:center}
+        .lt-readable-layout .lt-requirements-head p{max-width:1040px;margin:0 auto;color:#dce7ed;font-size:18px;line-height:1.68;text-align:center}
         .lt-readable-layout .lt-official-grid,.lt-readable-layout .lt-rule-grid,.lt-readable-layout .lt-research-grid{margin-top:30px}
         .lt-readable-layout .lt-summary-businesses{margin-top:24px}
         .lt-readable-layout .lt-summary .lt-card h2{text-align:center}
