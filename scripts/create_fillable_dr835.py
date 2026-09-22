@@ -103,23 +103,23 @@ def page_one_fields(form):
     add_text_field(form, "federal_identification_numbers", 484, 232, 695, 260)
     add_text_field(form, "florida_tax_registration_numbers", 707, 232, 955, 260)
     add_text_field(form, "taxpayer_contact_person", 484, 303, 695, 320, font_size=7)
-    add_text_field(form, "taxpayer_telephone", 803, 279, 955, 292, font_size=7)
-    add_text_field(form, "taxpayer_fax", 790, 309, 955, 324, font_size=7)
+    add_text_field(form, "taxpayer_telephone", 803, 282, 955, 295, font_size=7)
+    add_text_field(form, "taxpayer_fax", 790, 312.3, 955, 327.3, font_size=7)
 
     # Section 2 - Representatives
     representative_rows = [
-        ("representative_1", 382, 478),
-        ("representative_2", 487, 583),
-        ("representative_3", 592, 689),
+        ("representative_1", 382, 478, (394, 411), (429, 446), (467, 478)),
+        ("representative_2", 487, 583, (493, 510), (522, 539), (572, 583)),
+        ("representative_3", 592, 689, (604, 621), (639, 656), (676.5, 688.5)),
     ]
-    for prefix, top, bottom in representative_rows:
+    for prefix, top, bottom, telephone, fax, cell in representative_rows:
         add_text_field(form, f"{prefix}_name_firm_address", 66, top + 13, 694, bottom - 34, multiline=True)
         add_text_field(form, f"{prefix}_email", 122, bottom - 29, 694, bottom - 7)
         # Keep contact fields to the right of the form's printed labels and
         # telephone-format punctuation instead of covering them.
-        add_text_field(form, f"{prefix}_telephone", 803, top + 14, 955, top + 31, font_size=7)
-        add_text_field(form, f"{prefix}_fax", 790, top + 47, 955, top + 64, font_size=7)
-        add_text_field(form, f"{prefix}_cell", 803, top + 77, 955, bottom - 7, font_size=7)
+        add_text_field(form, f"{prefix}_telephone", 803, telephone[0], 955, telephone[1], font_size=7)
+        add_text_field(form, f"{prefix}_fax", 790, fax[0], 955, fax[1], font_size=7)
+        add_text_field(form, f"{prefix}_cell", 803, cell[0], 955, cell[1], font_size=7)
 
     # Section 3 - Tax matters
     tax_rows = [(774, 801), (805, 832)]
