@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import { join } from "path";
-import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { PDFDocument, PDFName, PDFString, StandardFonts, rgb } from "pdf-lib";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -8,6 +8,7 @@ export const runtime = "nodejs";
 type FieldRectangle = { x: number; y: number; width: number; height: number };
 
 type AcroTextField = {
+  dict: { set: (key: PDFName, value: unknown) => void };
   getWidgets: () => Array<{ setRectangle: (rectangle: FieldRectangle) => void }>;
   setDefaultAppearance: (appearance: string) => void;
 };
@@ -57,6 +58,10 @@ const PAGE_TWO_CHECKBOX_LAYOUT: Record<string, FieldRectangle> = {
 
 const CONTACT_FIELD_NAMES = Object.keys(FIELD_LAYOUT).filter(
   (name) => name.endsWith("_telephone") || name.endsWith("_fax") || name.endsWith("_cell"),
+);
+
+const PHONE_FIELD_NAMES = Object.keys(FIELD_LAYOUT).filter(
+  (name) => name.endsWith("_telephone") || name.endsWith("_cell"),
 );
 
 export async function GET() {
@@ -169,6 +174,26 @@ export async function GET() {
     acroField.setDefaultAppearance("/Helv 7 Tf .05 .08 .11 rg");
     field.setFontSize(7);
     if (name !== "taxpayer_name_and_address") field.updateAppearances(helvetica);
+  }
+
+  // Apply Acrobat's standard U.S. telephone input and display formatting to
+  // every telephone and cell-phone field while leaving fax fields unchanged.
+  for (const name of PHONE_FIELD_NAMES) {
+    const field = form.getTextField(name);
+    const acroField = (field as unknown as { acroField: AcroTextField }).acroField;
+    const keystrokeAction = pdfDoc.context.obj({
+      S: PDFName.of("JavaScript"),
+      JS: PDFString.of("AFSpecial_Keystroke(2);"),
+    });
+    const formatAction = pdfDoc.context.obj({
+      S: PDFName.of("JavaScript"),
+      JS: PDFString.of("AFSpecial_Format(2);"),
+    });
+    acroField.dict.set(
+      PDFName.of("AA"),
+      pdfDoc.context.obj({ K: keystrokeAction, F: formatAction }),
+    );
+    acroField.dict.set(PDFName.of("TU"), PDFString.of("Telephone format: (###) ###-####"));
   }
 
   for (const [name, rectangle] of Object.entries(CHECKBOX_LAYOUT)) {
