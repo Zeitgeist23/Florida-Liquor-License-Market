@@ -196,6 +196,25 @@ export async function GET() {
     acroField.dict.set(PDFName.of("TU"), PDFString.of("Telephone format: (###) ###-####"));
   }
 
+  const feinField = form.getTextField("federal_identification_numbers");
+  const feinAcroField = (feinField as unknown as { acroField: AcroTextField }).acroField;
+  const feinKeystrokeAction = pdfDoc.context.obj({
+    S: PDFName.of("JavaScript"),
+    JS: PDFString.of('AFSpecial_KeystrokeEx("99-9999999");'),
+  });
+  const feinFormatAction = pdfDoc.context.obj({
+    S: PDFName.of("JavaScript"),
+    JS: PDFString.of(
+      'var v=event.value.split("").filter(function(c){return c>="0"&&c<="9";}).join("").slice(0,9); event.value=v.length>=2?v.slice(0,2)+"-"+v.slice(2):v;',
+    ),
+  });
+  feinAcroField.dict.set(
+    PDFName.of("AA"),
+    pdfDoc.context.obj({ K: feinKeystrokeAction, F: feinFormatAction }),
+  );
+  feinAcroField.dict.set(PDFName.of("TU"), PDFString.of("FEIN format: XX-XXXXXXX"));
+  feinField.setMaxLength(10);
+
   for (const [name, rectangle] of Object.entries(CHECKBOX_LAYOUT)) {
     const field = form.getCheckBox(name);
     const acroField = (field as unknown as { acroField: AcroTextField }).acroField;
