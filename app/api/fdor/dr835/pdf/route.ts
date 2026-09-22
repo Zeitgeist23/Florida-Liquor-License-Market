@@ -120,6 +120,18 @@ export async function GET() {
     color: rgb(1, 1, 1),
   });
 
+  // Remove the source form's unmatched opening parentheses beside the fax
+  // labels and the Section 4 telephone label.
+  for (const rectangle of [
+    { x: 458, y: 594, width: 11, height: 14 },
+    { x: 458, y: 522.8, width: 11, height: 14 },
+    { x: 458, y: 467, width: 11, height: 14 },
+    { x: 458, y: 396.8, width: 11, height: 14 },
+    { x: 478.5, y: 170.2, width: 13.5, height: 15 },
+  ]) {
+    firstPage.drawRectangle({ ...rectangle, color: rgb(1, 1, 1) });
+  }
+
   // Remove the printed checkbox outlines and their tiny reference numbers;
   // the interactive checkbox widgets are redrawn over these clean areas.
   for (const rectangle of CHECKBOX_MASKS) {
