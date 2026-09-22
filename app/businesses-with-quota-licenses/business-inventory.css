@@ -234,7 +234,7 @@
   display: grid;
   grid-template-columns: repeat(2,minmax(0,1fr));
   gap: 12px;
-  margin-top: 14px;
+  margin-top: 17px;
 }
 
 .business-quota-card-pricing div {
@@ -278,8 +278,7 @@
   color: #d4e0e7;
   font-size: 11px;
   line-height: 1.35;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .business-quota-card-broker {
@@ -571,7 +570,7 @@
 .business-quota-card-heading-stack h2 {
   width: auto;
   min-height: 22px;
-  margin: 7px 0 0;
+  margin: 9px 0 0;
 }
 
 .business-quota-card-heading-stack h2 a {
