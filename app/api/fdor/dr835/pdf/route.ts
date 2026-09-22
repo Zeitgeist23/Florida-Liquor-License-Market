@@ -12,11 +12,10 @@ export async function GET() {
   const form = pdfDoc.getForm();
 
   // Section 1 taxpayer name/address field:
-  // allow four clean lines and reduce the fixed type size so longer
-  // entity/DBA/address lines fit comfortably within the existing box.
+  // Allow four clean lines. The source field has no default appearance (/DA),
+  // so forcing a font size makes pdf-lib throw and the endpoint return HTTP 500.
   const taxpayerField = form.getTextField("taxpayer_name_and_address");
   taxpayerField.enableMultiline();
-  taxpayerField.setFontSize(6.5);
 
   const output = await pdfDoc.save({ useObjectStreams: false });
 
