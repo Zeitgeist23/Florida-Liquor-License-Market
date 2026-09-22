@@ -59,6 +59,19 @@ export function classifyQuotaOffer({
   return "standalone_quota";
 }
 
+export type BusinessQuotaCategory =
+  | "Bar"
+  | "Cocktail Lounge"
+  | "Nightclub"
+  | "Restaurant"
+  | "Bowling Alley"
+  | "Liquor Store"
+  | "Marina"
+  | "Gentlemen's Club"
+  | "Hotel / Motel"
+  | "Country Club"
+  | "Other Hospitality";
+
 export type BusinessQuotaListing = {
   listingReference: string;
   href: string;
@@ -67,6 +80,7 @@ export type BusinessQuotaListing = {
   licenseType: "4COP Quota" | "3PS Quota / Package Store";
   title: string;
   businessType: string;
+  businessCategory: BusinessQuotaCategory;
   summaryBusinessType: string;
   transactionType: string;
   packagePrice: string;
@@ -98,6 +112,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     licenseType: "4COP Quota",
     title: "Pinellas County Cocktail Lounge + 4COP Quota License",
     businessType: "Upscale cocktail lounge",
+    businessCategory: "Cocktail Lounge",
     summaryBusinessType: "Cocktail Lounge",
     transactionType: "Asset Sale",
     packagePrice: "$999,000",
@@ -117,7 +132,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     licenseType: "4COP Quota",
     title: "Iconic Jensen Beach Bar + 4COP Quota License",
     businessType: "Long-established neighborhood bar",
-    summaryBusinessType: "Neighborhood Bar",
+    businessCategory: "Bar",
+    summaryBusinessType: "Bar",
     transactionType: "Asset Sale",
     packagePrice: "$650,000",
     packagePriceNumber: 650_000,
@@ -136,7 +152,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     licenseType: "4COP Quota",
     title: "Miami Adult Nightclub + 4COP Quota License",
     businessType: "Premium adult-entertainment business",
-    summaryBusinessType: "Adult Nightclub",
+    businessCategory: "Gentlemen's Club",
+    summaryBusinessType: "Gentlemen's Club",
     transactionType: "Business Package",
     packagePrice: "$3,500,000",
     packagePriceNumber: 3_500_000,
@@ -155,7 +172,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     licenseType: "4COP Quota",
     title: "Delray Beach Restaurant + 4COP Quota License",
     businessType: "Turnkey full-service restaurant and bar",
-    summaryBusinessType: "Restaurant + Bar",
+    businessCategory: "Restaurant",
+    summaryBusinessType: "Restaurant",
     transactionType: "Asset Sale",
     packagePrice: "$159,000 + $200,000 license",
     packagePriceNumber: 359_000,
