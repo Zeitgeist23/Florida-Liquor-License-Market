@@ -48,6 +48,66 @@ if (fs.existsSync(designSystemPath)) {
   }
 }
 
+// Approved business-with-quota inventory cards are a locked FLLM primitive.
+// Keep these checks explicit so future listing work cannot silently resize,
+// restyle, or reword the standardized marketplace card.
+const businessCardCssPath = path.join(
+  root,
+  "app",
+  "businesses-with-quota-licenses",
+  "business-inventory.css",
+);
+const businessCardComponentPath = path.join(
+  root,
+  "components",
+  "BusinessQuotaListingCard.tsx",
+);
+
+const lockedBusinessCardCss = [
+  ["312px fixed card height", "min-height: 312px;\n  height: 312px;"],
+  ["approved body/map column proportions", "grid-template-columns: minmax(0, 1.08fr) minmax(172px, .92fr);"],
+  ["approved map height", "min-height: 312px;\n  display: flex;"],
+  ["approved map maximum size", "max-width: 215px;\n  max-height: 250px;"],
+  ["three-card desktop inventory", "grid-template-columns: repeat(3, minmax(0, 1fr));"],
+  ["business badge upper spacing", "margin: 9px 0 0;"],
+  ["business badge lower spacing", "margin-top: 17px;"],
+  ["two-line license statement", "white-space: normal;"],
+  ["approved broker-name green", "color: #58c94f;"],
+  ["approved gold action height", "min-height: 43px;"],
+  ["approved gold action fill", "background: linear-gradient(145deg,#ffc13a 0%,#e99b00 100%);"],
+  ["approved dimensional gold frame", "box-shadow:\n    0 0 0 1px rgba(105,67,10,.44),"],
+];
+
+if (!fs.existsSync(businessCardCssPath)) {
+  violations.push([businessCardCssPath, "missing locked business-with-quota card stylesheet"]);
+} else {
+  const businessCardCss = fs.readFileSync(businessCardCssPath, "utf8");
+  for (const [name, token] of lockedBusinessCardCss) {
+    if (!businessCardCss.includes(token)) {
+      violations.push([businessCardCssPath, `locked business card changed: ${name}`]);
+    }
+  }
+}
+
+const lockedBusinessCardComponent = [
+  ["dynamic license-type badge", "{listing.licenseType} Included"],
+  ["standardized business-category badge", "{listing.businessCategory}"],
+  ["two-line included-license wording", "{listing.licenseType} liquor license included<br />"],
+  ["not-separately-offered disclosure", "and not offered separately."],
+  ["standard package action", "View Business + License Package"],
+];
+
+if (!fs.existsSync(businessCardComponentPath)) {
+  violations.push([businessCardComponentPath, "missing locked business-with-quota card component"]);
+} else {
+  const businessCardComponent = fs.readFileSync(businessCardComponentPath, "utf8");
+  for (const [name, token] of lockedBusinessCardComponent) {
+    if (!businessCardComponent.includes(token)) {
+      violations.push([businessCardComponentPath, `locked business card changed: ${name}`]);
+    }
+  }
+}
+
 for(const page of pages){
   const source=fs.readFileSync(page,"utf8");
   const usesV2Shell = source.includes("FllmPageShell");
