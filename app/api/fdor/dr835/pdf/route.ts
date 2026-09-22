@@ -15,17 +15,17 @@ type AcroTextField = {
 const FIELD_LAYOUT: Record<string, FieldRectangle> = {
   taxpayer_name_and_address: { x: 40.8, y: 600, width: 240, height: 50.4 },
   taxpayer_contact_person: { x: 290.4, y: 599.4, width: 126.6, height: 11.4 },
-  taxpayer_telephone: { x: 482, y: 616.8, width: 91, height: 7.8 },
-  taxpayer_fax: { x: 474, y: 597.6, width: 99, height: 9 },
-  representative_1_telephone: { x: 482, y: 544.2, width: 91, height: 10.2 },
+  taxpayer_telephone: { x: 482, y: 615.2, width: 91, height: 7.8 },
+  taxpayer_fax: { x: 474, y: 595.6, width: 99, height: 9 },
+  representative_1_telephone: { x: 482, y: 545.4, width: 91, height: 10.2 },
   representative_1_fax: { x: 474, y: 524.4, width: 99, height: 10.2 },
-  representative_1_cell: { x: 482, y: 509.4, width: 91, height: 6.6 },
-  representative_2_telephone: { x: 482, y: 481.2, width: 91, height: 10.2 },
-  representative_2_fax: { x: 474, y: 461.4, width: 99, height: 10.2 },
-  representative_2_cell: { x: 482, y: 446.4, width: 91, height: 6.6 },
-  representative_3_telephone: { x: 482, y: 418.2, width: 91, height: 10.2 },
+  representative_1_cell: { x: 482, y: 505.2, width: 91, height: 6.6 },
+  representative_2_telephone: { x: 482, y: 486, width: 91, height: 10.2 },
+  representative_2_fax: { x: 474, y: 468.6, width: 99, height: 10.2 },
+  representative_2_cell: { x: 482, y: 442.2, width: 91, height: 6.6 },
+  representative_3_telephone: { x: 482, y: 419.4, width: 91, height: 10.2 },
   representative_3_fax: { x: 474, y: 398.4, width: 99, height: 10.2 },
-  representative_3_cell: { x: 482, y: 382.8, width: 91, height: 7.2 },
+  representative_3_cell: { x: 482, y: 378.9, width: 91, height: 7.2 },
 };
 
 const CONTACT_FIELD_NAMES = Object.keys(FIELD_LAYOUT).filter(
@@ -74,6 +74,17 @@ export async function GET() {
       width: rectangle.width + 7,
       height: rectangle.height + 12,
       color: rgb(1, 1, 1),
+    });
+  }
+
+  // Restore the representative-row dividers up to the aligned cell-phone
+  // widgets after masking the source phone-format artwork.
+  for (const y of [505.2, 442.2, 378.6]) {
+    firstPage.drawLine({
+      start: { x: 420.6, y },
+      end: { x: 482, y },
+      thickness: 0.6,
+      color: rgb(0.08, 0.08, 0.08),
     });
   }
 
