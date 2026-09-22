@@ -58,6 +58,7 @@ export default function BusinessQuotaListingCard({
 
       <div className="business-quota-card-map">
         <Image
+          className="florida-county-map"
           src={`/api/county-map?county=${encodeURIComponent(listing.county)}&transparent=1`}
           alt={`Florida map with ${listing.county} highlighted in gold`}
           width={560}
