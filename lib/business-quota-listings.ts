@@ -166,7 +166,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-265072",
-    href: "/listings/fllm-265072",
+    href: "/listings/fllm-mello",
     county: "Palm Beach County",
     countyHref: "/counties/palm-beach",
     licenseType: "4COP Quota",
