@@ -32,7 +32,6 @@ export default function BusinessQuotaListingCard({
   listing: BusinessQuotaListing;
 }) {
   const categoryClassName = categoryClassNames[listing.businessCategory];
-  const cardTitle = `${listing.businessCategory} + ${cardLicenseLabel(listing)}`;
 
   return (
     <article
@@ -54,14 +53,15 @@ export default function BusinessQuotaListingCard({
         </p>
 
         <h2>
-          <Link href={listing.href}>{cardTitle}</Link>
+          <Link href={listing.href}>
+            <span
+              className={`business-quota-category business-quota-category--title business-quota-category--${categoryClassName}`}
+            >
+              {listing.businessCategory}
+            </span>
+            <span>+ {cardLicenseLabel(listing)}</span>
+          </Link>
         </h2>
-
-        <span
-          className={`business-quota-category business-quota-category--${categoryClassName}`}
-        >
-          {listing.businessCategory}
-        </span>
 
         <div className="business-quota-card-pricing">
           <div>
