@@ -615,7 +615,8 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   listingStatus={statusLabel}
                   listingUrl={config.canonicalPath}
                   showFinancingCalculator
-                  financingPurchasePrice={config.packagePriceNumber}
+                  // Business-package calculators always model the displayed license component, never the total package.
+                  financingPurchasePrice={config.askingPriceNumber}
                 />
               </div>
 
