@@ -59,6 +59,11 @@ type ValuationDetails = {
   };
 };
 
+function isOwnerInquiry(lead: Lead) {
+  const email = lead.email.trim().toLowerCase();
+  const name = lead.fullName.trim().toLowerCase();
+  return email === "jwigg023@gmail.com" || name === "james wigg";
+}
 function isBuyer(lead: Lead) {
   return lead.submissionRef.startsWith("FLLM-BUYER-");
 }
@@ -204,7 +209,7 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
       const payload = (await response.json()) as { leads?: Lead[]; error?: string };
       if (!response.ok) throw new Error(payload.error || "Could not load leads.");
       setAuthenticated(true);
-      setLeads(payload.leads || []);
+      setLeads((payload.leads || []).filter((lead) => !isOwnerInquiry(lead)));
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Could not load leads.");
     } finally {
