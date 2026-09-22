@@ -26,9 +26,9 @@ const FIELD_LAYOUT: Record<string, FieldRectangle> = {
   representative_3_telephone: { x: 482, y: 419.4, width: 91, height: 10.2 },
   representative_3_fax: { x: 474, y: 398.4, width: 99, height: 10.2 },
   representative_3_cell: { x: 482, y: 378.6, width: 91, height: 10.2 },
-  reemployment_agent_number: { x: 492, y: 211.2, width: 81, height: 7.2 },
-  reemployment_federal_id: { x: 492, y: 192.2, width: 81, height: 7.2 },
-  reemployment_telephone: { x: 492, y: 173.2, width: 81, height: 7.2 },
+  reemployment_agent_number: { x: 492, y: 209.7, width: 81, height: 10.2 },
+  reemployment_federal_id: { x: 492, y: 190.7, width: 81, height: 10.2 },
+  reemployment_telephone: { x: 492, y: 171.7, width: 81, height: 10.2 },
 };
 
 const CHECKBOX_LAYOUT: Record<string, FieldRectangle> = {
