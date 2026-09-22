@@ -575,3 +575,48 @@
     inset 0 1px 0 rgba(255,232,171,.32),
     inset 0 0 0 1px rgba(138,91,16,.26);
 }
+
+
+/* Center each business badge directly beneath its county-name text. */
+.business-quota-card-heading {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 27px 0 0;
+}
+
+.business-quota-card-location-dot {
+  margin-top: 2px;
+  color: #f1a600;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 13px;
+  line-height: 1.14;
+}
+
+.business-quota-card-heading-stack {
+  min-width: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.business-quota-card-heading .business-quota-card-location {
+  width: auto;
+  display: block;
+  margin: 0;
+}
+
+.business-quota-card-heading-stack h2 {
+  width: auto;
+  min-height: 22px;
+  margin: 7px 0 0;
+}
+
+.business-quota-card-heading-stack h2 a {
+  display: block;
+}
+
+.business-quota-card-heading-stack .business-quota-category--title {
+  align-self: auto;
+}
