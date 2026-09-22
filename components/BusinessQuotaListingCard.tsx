@@ -1,17 +1,44 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import type { BusinessQuotaListing } from "@/lib/business-quota-listings";
+import type {
+  BusinessQuotaCategory,
+  BusinessQuotaListing,
+} from "@/lib/business-quota-listings";
+
+const categoryClassNames: Record<BusinessQuotaCategory, string> = {
+  Bar: "bar",
+  "Cocktail Lounge": "cocktail-lounge",
+  Nightclub: "nightclub",
+  Restaurant: "restaurant",
+  "Bowling Alley": "bowling-alley",
+  "Liquor Store": "liquor-store",
+  Marina: "marina",
+  "Gentlemen's Club": "gentlemens-club",
+  "Hotel / Motel": "hotel-motel",
+  "Country Club": "country-club",
+  "Other Hospitality": "other-hospitality",
+};
+
+function cardLicenseLabel(listing: BusinessQuotaListing) {
+  return listing.licenseType === "4COP Quota"
+    ? "4COP Quota License"
+    : "3PS Quota License";
+}
 
 export default function BusinessQuotaListingCard({
   listing,
 }: {
   listing: BusinessQuotaListing;
 }) {
+  const categoryClassName = categoryClassNames[listing.businessCategory];
+  const cardTitle = `${listing.businessCategory} + ${cardLicenseLabel(listing)}`;
+
   return (
     <article
       className="business-quota-card"
       data-business-quota-listing={listing.listingReference}
+      data-business-category={categoryClassName}
     >
       {listing.featured ? (
         <strong className="business-quota-featured-badge">Featured Listing</strong>
@@ -27,10 +54,14 @@ export default function BusinessQuotaListingCard({
         </p>
 
         <h2>
-          <Link href={listing.href}>{listing.title}</Link>
+          <Link href={listing.href}>{cardTitle}</Link>
         </h2>
 
-        <p className="business-quota-card-type">{listing.businessType}</p>
+        <span
+          className={`business-quota-category business-quota-category--${categoryClassName}`}
+        >
+          {listing.businessCategory}
+        </span>
 
         <div className="business-quota-card-pricing">
           <div>
