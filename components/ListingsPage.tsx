@@ -28,7 +28,7 @@ const licenseTypeOptions: readonly ListingsHoverSelectOption[] = [
   { value: "4COP Quota", label: "4COP Quota" },
   { value: "3PS Quota / Package Store", label: "3PS Quota / Package Store" },
   { value: "businesses", label: "Businesses w/ Quota Licenses" },
-  { value: "businesses-sfs", label: "Businesses w/ 4COP SFS/SRX Licenses" },
+  { value: "businesses-sfs", label: "Businesses w/ 4COP SFS / SRX Licenses" },
 ];
 
 const priceOptions: readonly ListingsHoverSelectOption[] = [
@@ -282,13 +282,13 @@ export default function ListingsPage({
               <>
                 <h1>
                   {showingSfsBusinessListings
-                    ? "Florida Businesses With 4COP SFS/SRX Liquor Licenses"
+                    ? "Florida Businesses With 4COP SFS / SRX Liquor Licenses"
                     : "Florida Businesses With Quota Liquor Licenses"}{" "}
                   <span>for Sale</span>
                 </h1>
                 <p className="listings-seo-intro">
                   {showingSfsBusinessListings
-                    ? "Browse Florida restaurant businesses operating with location-specific 4COP SFS/SRX full-liquor privileges. These are business acquisitions, not sales of independently transferable quota licenses."
+                    ? "Browse Florida restaurant businesses operating with location-specific 4COP SFS / SRX full-liquor privileges. These are business acquisitions, not sales of independently transferable quota licenses."
                     : "Browse Florida hospitality businesses for sale with included 4COP and 3PS quota liquor licenses, including asset sales, established operating businesses, restaurants, bars, lounges, cocktail lounges, nightclubs, country clubs, and gentlemen's clubs."}
                 </p>
               </>
@@ -369,11 +369,11 @@ export default function ListingsPage({
             {showingBusinessListings ? (
               <>
                 {showingSfsBusinessListings
-                  ? "These listings are restaurant-business acquisitions involving location-specific 4COP SFS/SRX privileges—not sales of transferable quota licenses. Confirm the premises, food-service qualifications, license status, ownership-change requirements, and transaction terms. "
+                  ? "These listings are restaurant-business acquisitions involving location-specific 4COP SFS / SRX privileges—not sales of transferable quota licenses. Confirm the premises, food-service qualifications, license status, ownership-change requirements, and transaction terms. "
                   : "These listings are business acquisition packages that include a quota liquor license. Confirm the assets, premises, real estate, license allocation, and transaction terms included in each sale. "}
                 <Link href={showingSfsBusinessListings ? "/license-types/4cop-sfs-restaurant" : "/businesses-with-quota-licenses"}>
                   {showingSfsBusinessListings
-                    ? "Review Florida 4COP SFS/SRX restaurant licensing"
+                    ? "Review Florida 4COP SFS / SRX restaurant licensing"
                     : "View the dedicated business inventory guide"}
                 </Link>.
               </>

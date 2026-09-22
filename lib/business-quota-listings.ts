@@ -196,7 +196,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     countyHref: "/counties/miami-dade",
     licenseType: "4COP SFS/SRX",
     licenseClass: "sfs",
-    title: "Miami-Dade Mexican Restaurant + 4COP SFS/SRX License",
+    title: "Miami-Dade Mexican Restaurant + 4COP SFS / SRX License",
     businessType: "Mexican-Latin restaurant and entertainment venue",
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",

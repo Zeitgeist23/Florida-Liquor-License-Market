@@ -95,7 +95,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
     config.licenseType === "4COP Quota"
       ? "4COP Quota"
       : config.licenseType === "4COP SFS/SRX"
-        ? "4COP SFS/SRX"
+        ? "4COP SFS / SRX"
         : "3PS Quota";
   const isSfsListing = config.licenseClass === "sfs" || config.licenseType === "4COP SFS/SRX";
   const countyShort = config.county.replace(/\s+County$/i, "");
@@ -141,7 +141,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
           <div className="marketplace-listing-copy">
             <div className="marketplace-listing-breadcrumbs">
               <Link href={isSfsListing ? "/listings?type=businesses-sfs" : "/businesses-with-quota-licenses"}>
-                {isSfsListing ? "Businesses With 4COP SFS/SRX Licenses" : "Businesses With Quota Licenses"}
+                {isSfsListing ? "Businesses With 4COP SFS / SRX Licenses" : "Businesses With Quota Licenses"}
               </Link>
               <span>›</span>
               <Link href={config.countyHref}>{config.county}</Link>
@@ -398,7 +398,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 <h2>About This License Listing</h2>
                 <p>
                   {isSfsListing
-                    ? `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, which the broker reports operates with 4COP SFS/SRX full-liquor privileges. No separate license value is assigned.`
+                    ? `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, which the broker reports operates with 4COP SFS / SRX full-liquor privileges. No separate license value is assigned.`
                     : `This individual marketplace page represents the ${config.county} ${shortLicenseType} liquor-license interest identified as ${config.listingReference}. The displayed license asking price is ${config.askingPrice}.`}
                 </p>
                 <p>
@@ -439,7 +439,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   subject to applicable premises, zoning, applicant, and
                   regulatory requirements.
                 </p> : <p>
-                  A 4COP SFS/SRX license is a special restaurant license whose continued privileges depend on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.
+                  A <span className="featured-business-sfs-classification">4COP SFS / SRX</span> license is a special restaurant license whose continued privileges depend on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.
                 </p>}
               </section>
 

@@ -31,22 +31,22 @@ const sourceListingUrl =
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Miami Mexican Restaurant + 4COP SFS/SRX | Broker Preview",
+  title: "Miami Mexican Restaurant + 4COP SFS / SRX | Broker Preview",
   description:
-    "Broker approval preview for a Miami-Dade Mexican-Latin restaurant and entertainment venue operating with a location-specific 4COP SFS/SRX restaurant license.",
+    "Broker approval preview for a Miami-Dade Mexican-Latin restaurant and entertainment venue operating with a location-specific 4COP SFS / SRX restaurant license.",
   alternates: { canonical: canonicalUrl },
   robots: { index: false, follow: false },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Miami Mexican-Latin Restaurant + 4COP SFS/SRX License",
+    title: "Miami Mexican-Latin Restaurant + 4COP SFS / SRX License",
     description:
       "Featured third-party broker preview represented by Brian Zoberg of Suncoast Business Consultants.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Miami Mexican-Latin Restaurant + 4COP SFS/SRX License",
+    title: "Miami Mexican-Latin Restaurant + 4COP SFS / SRX License",
     description:
       "Private featured-listing mockup for broker review and approval.",
   },
@@ -68,7 +68,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   businessLabel: "Mexican-Latin restaurant and entertainment venue",
   businessLabelLinkUrl: sourceListingUrl,
   heroSummary:
-    "Established Miami-Dade full-service Mexican-Latin restaurant and entertainment venue offered as a turnkey operating-business acquisition. The broker reports full-liquor service under a 4COP SFS/SRX restaurant license tied to the qualifying operation and premises—not a separately transferable quota license.",
+    "Established Miami-Dade full-service Mexican-Latin restaurant and entertainment venue offered as a turnkey operating-business acquisition. The broker reports full-liquor service under a 4COP SFS / SRX restaurant license tied to the qualifying operation and premises—not a separately transferable quota license.",
   broker: {
     name: "Brian Zoberg",
     brokerage: "Suncoast Business Consultants",
@@ -83,12 +83,12 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Opportunity to acquire a well-established full-service Mexican restaurant, cocktail program and entertainment venue in Miami-Dade County as a turnkey operating business.",
   packageIncludes:
-    "The broker-reported offering includes the operating restaurant business, established systems, furniture, fixtures and equipment, commercial kitchen and bar infrastructure, leasehold interests and associated goodwill. The restaurant is reported to operate with a 4COP SFS/SRX special restaurant license. That privilege is premises- and qualification-dependent, is assigned no separate license value by FLLM, and must not be treated as a transferable county quota license.",
+    "The broker-reported offering includes the operating restaurant business, established systems, furniture, fixtures and equipment, commercial kitchen and bar infrastructure, leasehold interests and associated goodwill. The restaurant is reported to operate with a 4COP SFS / SRX special restaurant license. That privilege is premises- and qualification-dependent, is assigned no separate license value by FLLM, and must not be treated as a transferable county quota license.",
   businessMetrics: [
     { label: "Business Asking Price", value: "$1,200,000" },
     { label: "Cash Flow (SDE)", value: "$388,520" },
     { label: "Gross Revenue", value: "$3,280,000" },
-    { label: "License Classification", value: "4COP SFS/SRX — broker reported" },
+    { label: "License Classification", value: "4COP SFS / SRX — broker reported" },
     { label: "License Value", value: "No separate quota value" },
     { label: "Premises", value: "5,242 SF leased" },
     { label: "Monthly Rent", value: "$33,162" },
@@ -110,9 +110,9 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   confidentialityText:
     "the business name, exact premises, financial records, lease documents and licensing records may require buyer qualification and direct confirmation through the listing broker.",
   sourceDisclosure:
-    "Business, financial, lease, facility, licensing and visa-positioning information is broker-reported from BizBuySell Ad #2545461 and has not been independently audited or verified by FLLM. The source advertisement describes a 4COP liquor license but does not publish the ABT license number or series suffix. Brian Zoberg advised FLLM that the license is tied to the restaurant location and is an SFS/SRX license rather than a quota license. Buyers should independently verify the exact license series, status, ownership, permitted privileges, premises approval, food-sales compliance, ownership-transfer requirements and all transaction information with the broker, DBPR and appropriate professionals.",
+    "Business, financial, lease, facility, licensing and visa-positioning information is broker-reported from BizBuySell Ad #2545461 and has not been independently audited or verified by FLLM. The source advertisement describes a 4COP liquor license but does not publish the ABT license number or series suffix. Brian Zoberg advised FLLM that the license is tied to the restaurant location and is an SFS / SRX license rather than a quota license. Buyers should independently verify the exact license series, status, ownership, permitted privileges, premises approval, food-sales compliance, ownership-transfer requirements and all transaction information with the broker, DBPR and appropriate professionals.",
   countyContext:
-    "Miami-Dade County supports one of Florida's largest restaurant, nightlife, tourism and international-buyer markets. A 4COP SFS/SRX license is materially different from a Miami-Dade quota license: it depends on an eligible restaurant and approved premises and should not be valued as an independently transferable quota asset.",
+    "Miami-Dade County supports one of Florida's largest restaurant, nightlife, tourism and international-buyer markets. A 4COP SFS / SRX license is materially different from a Miami-Dade quota license: it depends on an eligible restaurant and approved premises and should not be valued as an independently transferable quota asset.",
 };
 
 export default function BrianZobergFeaturedListingPage() {
