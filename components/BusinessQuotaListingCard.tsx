@@ -41,20 +41,24 @@ export default function BusinessQuotaListingCard({
       </span>
 
       <div className="business-quota-card-body">
-        <p className="business-quota-card-location">
-          <span aria-hidden="true">●</span>
-          <Link href={listing.countyHref}>{listing.county}</Link>
-        </p>
+        <div className="business-quota-card-heading">
+          <span className="business-quota-card-location-dot" aria-hidden="true">●</span>
+          <div className="business-quota-card-heading-stack">
+            <p className="business-quota-card-location">
+              <Link href={listing.countyHref}>{listing.county}</Link>
+            </p>
 
-        <h2>
-          <Link href={listing.href}>
-            <span
-              className={`business-quota-category business-quota-category--title business-quota-category--${categoryClassName}`}
-            >
-              {listing.businessCategory}
-            </span>
-          </Link>
-        </h2>
+            <h2>
+              <Link href={listing.href}>
+                <span
+                  className={`business-quota-category business-quota-category--title business-quota-category--${categoryClassName}`}
+                >
+                  {listing.businessCategory}
+                </span>
+              </Link>
+            </h2>
+          </div>
+        </div>
 
         <div className="business-quota-card-pricing">
           <div>
