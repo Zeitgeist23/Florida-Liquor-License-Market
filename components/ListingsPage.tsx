@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { Listing } from "@/data/listings";
+import type { BusinessQuotaListing } from "@/lib/business-quota-listings";
+import BusinessQuotaListingCard from "./BusinessQuotaListingCard";
 import FormsSiteHeader from "./FormsSiteHeader";
 import ListingsHoverSelect, {
   type ListingsHoverSelectOption,
@@ -105,11 +107,13 @@ function listingIdentity(
 
 type ListingsPageProps = {
   initialListings: Listing[];
+  businessListings: BusinessQuotaListing[];
   focusReference?: string | null;
 };
 
 export default function ListingsPage({
   initialListings,
+  businessListings,
   focusReference = null,
 }: ListingsPageProps) {
   const [county, setCounty] = useState("all");
@@ -126,7 +130,7 @@ export default function ListingsPage({
 
     if (
       requestedType &&
-      ["all", "quota", "4COP Quota", "3PS Quota / Package Store"].includes(requestedType)
+      ["all", "quota", "4COP Quota", "3PS Quota / Package Store", "businesses"].includes(requestedType)
     ) {
       setType(requestedType);
     }
@@ -208,6 +212,18 @@ export default function ListingsPage({
     [county, type, price, status, orderedMarketplaceListings],
   );
 
+  const showingBusinessListings = type === "businesses";
+  const filteredBusinessListings = useMemo(
+    () =>
+      businessListings.filter(
+        (listing) =>
+          status !== "sold" &&
+          (county === "all" || listing.county === county) &&
+          priceMatches(listing.packagePriceNumber, price),
+      ),
+    [businessListings, county, price, status],
+  );
+
   const visibleListings = useMemo(
     () => filtered.slice(0, visibleCount),
     [filtered, visibleCount],
@@ -244,11 +260,6 @@ export default function ListingsPage({
   }
 
   function changeListingType(value: string) {
-    if (value === "businesses") {
-      window.location.assign("/businesses-with-quota-licenses");
-      return;
-    }
-
     setType(value);
   }
 
@@ -257,26 +268,49 @@ export default function ListingsPage({
       <div className="listings-header-band"><FormsSiteHeader /></div>
       <section className="results-intro">
         <div className="page-shell">
-          <h1>
-            Florida Liquor Licenses{" "}
-            <span>for Sale</span>
-          </h1>
-          <p className="listings-seo-intro">
-            Browse {availableCount} current Florida liquor licenses for sale
-            across the statewide marketplace. Compare transferable{" "}
-            <Link href="/florida-4cop-liquor-license-for-sale">
-              4COP quota liquor licenses
-            </Link>{" "}
-            and{" "}
-            <Link href="/florida-3ps-liquor-license-for-sale">
-              3PS package-store licenses
-            </Link>
-            , then filter current inventory by county, license type, asking
-            price, and availability. Buyers can also use the{" "}
-            <Link href="/counties">Florida county market directory</Link> to
-            review county-specific inventory and pricing before opening an
-            individual listing for details.
-          </p>
+          <div
+            className="listings-hero-copy-transition"
+            key={showingBusinessListings ? "businesses" : "licenses"}
+          >
+            {showingBusinessListings ? (
+              <>
+                <h1>
+                  Florida Businesses With Quota Liquor Licenses{" "}
+                  <span>for Sale</span>
+                </h1>
+                <p className="listings-seo-intro">
+                  Browse Florida hospitality businesses for sale with included
+                  4COP and 3PS quota liquor licenses, including asset sales,
+                  established operating businesses, restaurants, bars,
+                  lounges, cocktail lounges, nightclubs, country clubs, and
+                  gentlemen&apos;s clubs.
+                </p>
+              </>
+            ) : (
+              <>
+                <h1>
+                  Florida Liquor Licenses{" "}
+                  <span>for Sale</span>
+                </h1>
+                <p className="listings-seo-intro">
+                  Browse {availableCount} current Florida liquor licenses for sale
+                  across the statewide marketplace. Compare transferable{" "}
+                  <Link href="/florida-4cop-liquor-license-for-sale">
+                    4COP quota liquor licenses
+                  </Link>{" "}
+                  and{" "}
+                  <Link href="/florida-3ps-liquor-license-for-sale">
+                    3PS package-store licenses
+                  </Link>
+                  , then filter current inventory by county, license type, asking
+                  price, and availability. Buyers can also use the{" "}
+                  <Link href="/counties">Florida county market directory</Link> to
+                  review county-specific inventory and pricing before opening an
+                  individual listing for details.
+                </p>
+              </>
+            )}
+          </div>
         </div>
       </section>
       <section className="results-content">
@@ -326,32 +360,55 @@ export default function ListingsPage({
             </button>
           </form>
           <div className="inventory-disclaimer">
-            Listings are for liquor-license interests only unless expressly
-            stated otherwise. Businesses and real estate are not included.{" "}
-            <Link href="/florida-4cop-liquor-license-for-sale">
-              Florida 4COP licenses for sale
-            </Link>{" "}
-            ·{" "}
-            <Link href="/florida-3ps-liquor-license-for-sale">
-              Florida 3PS licenses for sale
-            </Link>{" "}
-            · <Link href="/businesses-with-quota-licenses">Businesses With Quota Licenses</Link>{" "}
-            · <Link href="/counties">All 67 county markets</Link>{" "}
-            ·{" "}
-            <Link href="/counties/miami-dade">
-              Miami-Dade County liquor licenses for sale
-            </Link>.
+            {showingBusinessListings ? (
+              <>
+                These listings are business acquisition packages that include a
+                quota liquor license. Confirm the assets, premises, real estate,
+                license allocation, and transaction terms included in each sale.{" "}
+                <Link href="/businesses-with-quota-licenses">
+                  View the dedicated business inventory guide
+                </Link>.
+              </>
+            ) : (
+              <>
+                Listings are for liquor-license interests only unless expressly
+                stated otherwise. Businesses and real estate are not included.{" "}
+                <Link href="/florida-4cop-liquor-license-for-sale">
+                  Florida 4COP licenses for sale
+                </Link>{" "}
+                ·{" "}
+                <Link href="/florida-3ps-liquor-license-for-sale">
+                  Florida 3PS licenses for sale
+                </Link>{" "}
+                · <Link href="/businesses-with-quota-licenses">Businesses With Quota Licenses</Link>{" "}
+                · <Link href="/counties">All 67 county markets</Link>{" "}
+                ·{" "}
+                <Link href="/counties/miami-dade">
+                  Miami-Dade County liquor licenses for sale
+                </Link>.
+              </>
+            )}
           </div>
           <div className="results-summary">
             <span>
-              Showing <strong>{Math.min(visibleCount, filtered.length)}</strong> of{" "}
-              <strong>{filtered.length}</strong>{" "}
-              {status === "available"
-                ? "available license"
-                : status === "sold"
-                  ? "sold license"
-                  : "license"}
-              {filtered.length === 1 ? "" : "s"}
+              {showingBusinessListings ? (
+                <>
+                  Showing <strong>{filteredBusinessListings.length}</strong> of{" "}
+                  <strong>{businessListings.length}</strong> available business
+                  {businessListings.length === 1 ? " package" : " packages"}
+                </>
+              ) : (
+                <>
+                  Showing <strong>{Math.min(visibleCount, filtered.length)}</strong> of{" "}
+                  <strong>{filtered.length}</strong>{" "}
+                  {status === "available"
+                    ? "available license"
+                    : status === "sold"
+                      ? "sold license"
+                      : "license"}
+                  {filtered.length === 1 ? "" : "s"}
+                </>
+              )}
             </span>
             <span className="results-summary-actions">
               <time className="inventory-last-updated" dateTime="2026-09-18">
@@ -362,7 +419,26 @@ export default function ListingsPage({
               </button>
             </span>
           </div>
-          {filtered.length ? (
+          {showingBusinessListings ? (
+            filteredBusinessListings.length ? (
+              <div className="business-quota-grid listings-business-grid">
+                {filteredBusinessListings.map((listing) => (
+                  <BusinessQuotaListingCard
+                    key={listing.listingReference}
+                    listing={listing}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="no-results">
+                <strong>No business packages match all filters.</strong>
+                <p>Try broadening the county, price range, or availability.</p>
+                <button className="btn btn-gold" type="button" onClick={clearFilters}>
+                  View All Listings
+                </button>
+              </div>
+            )
+          ) : filtered.length ? (
             <>
               <div className="results-grid">
                 {visibleListings.map((listing) => {
