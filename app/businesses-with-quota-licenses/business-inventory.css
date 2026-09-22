@@ -269,43 +269,16 @@
   white-space: nowrap;
 }
 
-.business-quota-card-details {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1.15fr .88fr 1fr;
-  gap: 7px;
-  margin-top: 9px;
-  padding: 7px 0;
-  border-top: 1px solid rgba(99,210,238,.18);
-  border-bottom: 1px solid rgba(99,210,238,.18);
-}
-
-.business-quota-card-details div {
-  min-width: 0;
-}
-
-.business-quota-card-details span {
-  display: block;
-  overflow: hidden;
-  color: #79cfe8;
-  font-size: 7px;
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: .045em;
-  text-overflow: ellipsis;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.business-quota-card-details strong {
-  display: block;
-  margin-top: 3px;
-  overflow: hidden;
-  color: #fff;
+.business-quota-card-transaction {
+  align-self: center;
+  margin: 10px 0 0;
+  color: #d4e0e7;
   font-size: 9px;
-  line-height: 1.15;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .06em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .business-quota-card-condition {
@@ -333,7 +306,7 @@
 }
 
 .business-quota-card-broker strong {
-  color: #fff;
+  color: #58c94f;
 }
 
 .business-quota-card-action {
