@@ -53,11 +53,14 @@ export function listingPageSlug(
 
   const normalizedReference = listing.sourceRef.trim().toUpperCase();
 
-  // FLLM-ANTEZZA has a dedicated featured third-party broker page. Keep the
-  // Listings-page card, structured data, and every internal link pointed at
-  // that canonical page instead of creating a second generated-market route.
+  // Featured third-party broker listings can have a named canonical route
+  // even when the paid-submission backend keeps a numeric public reference.
+  // Keep cards, structured data, and internal links pointed at the named page.
   if (normalizedReference === "FLLM-ANTEZZA") {
     return "fllm-antezza";
+  }
+  if (normalizedReference === "FLLM-265072") {
+    return "fllm-mello";
   }
 
   // Paid seller listings already use their public submission reference as the
