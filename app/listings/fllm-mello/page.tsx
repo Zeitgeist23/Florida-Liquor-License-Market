@@ -75,7 +75,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     website:
       "https://www.wesellrestaurants.com/restaurants-for-sale/Gold-Coast-Florida-Leonard-Mello",
     listingUrl:
-      "https://www.bizbuysell.com/business-opportunity/delray-beach-restaurant-for-sale-steps-from-atlantic-ave/2543468/",
+      "https://www.wesellrestaurants.com/restaurant-for-sale/delray-beach-restaurant-for-sale-steps-from-atlantic-ave/33116",
     photo: "/assets/brokers/leonard-mello.png",
     credential: "Florida sales associate license SL3659241",
   },
