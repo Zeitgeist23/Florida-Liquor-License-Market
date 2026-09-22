@@ -102,7 +102,7 @@ def page_one_fields(form):
     )
     add_text_field(form, "federal_identification_numbers", 484, 232, 695, 260)
     add_text_field(form, "florida_tax_registration_numbers", 707, 232, 955, 260)
-    add_text_field(form, "taxpayer_contact_person", 484, 278, 695, 324)
+    add_text_field(form, "taxpayer_contact_person", 484, 303, 695, 320, font_size=7)
     add_text_field(form, "taxpayer_telephone", 846, 279, 955, 292, font_size=7)
     add_text_field(form, "taxpayer_fax", 846, 309, 955, 324, font_size=7)
 
