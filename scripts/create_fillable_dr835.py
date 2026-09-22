@@ -108,9 +108,9 @@ def page_one_fields(form):
 
     # Section 2 - Representatives
     representative_rows = [
-        ("representative_1", 382, 478, (394, 411), (429, 446), (467, 478)),
-        ("representative_2", 487, 583, (493, 510), (522, 539), (572, 583)),
-        ("representative_3", 592, 689, (604, 621), (639, 656), (676.5, 688.5)),
+        ("representative_1", 382, 478, (394, 411), (429, 446), (464, 481)),
+        ("representative_2", 487, 583, (493, 510), (522, 539), (569, 586)),
+        ("representative_3", 592, 689, (604, 621), (639, 656), (674, 691)),
     ]
     for prefix, top, bottom, telephone, fax, cell in representative_rows:
         add_text_field(form, f"{prefix}_name_firm_address", 66, top + 13, 694, bottom - 34, multiline=True)
