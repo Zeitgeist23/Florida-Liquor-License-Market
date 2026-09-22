@@ -1,0 +1,25 @@
+.listings-hero-copy-transition {
+  animation: listings-inventory-fade 320ms ease both;
+}
+
+.results-page .listings-business-grid {
+  margin-top: 0;
+}
+
+@keyframes listings-inventory-fade {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .listings-hero-copy-transition {
+    animation: none;
+  }
+}
