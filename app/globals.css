@@ -22,8 +22,18 @@ body {
   background: var(--ink);
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
-  font-variant-numeric: lining-nums;
-  font-feature-settings: "lnum" 1;
+}
+
+/*
+ * Sitewide FLLM license-code numeral standard.
+ * Force upright lining figures even when a page-level `font` shorthand would
+ * otherwise restore old-style 4COP, 3COP, or 3PS numerals. Tabular spacing
+ * preserves the existing alignment of prices, counts, and market-data tables.
+ */
+body,
+body * {
+  font-variant-numeric: lining-nums tabular-nums !important;
+  font-feature-settings: "lnum" 1, "tnum" 1 !important;
 }
 button, select { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
