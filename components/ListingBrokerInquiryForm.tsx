@@ -30,9 +30,10 @@ function ListingSidebarLoanCalculator({
 }) {
   const [purchasePrice, setPurchasePrice] = useState(initialPurchasePrice);
   const [downPayment, setDownPayment] = useState(initialDownPayment);
-  const [annualRate, setAnnualRate] = useState(10);
+  const [annualRateInput, setAnnualRateInput] = useState("10");
   const [termYears, setTermYears] = useState(10);
 
+  const annualRate = Math.min(50, Math.max(0, Number(annualRateInput) || 0));
   const principal = Math.max(0, purchasePrice - downPayment);
   const months = Math.max(1, Math.round(termYears * 12));
   const monthlyRate = Math.max(0, annualRate) / 100 / 12;
@@ -61,8 +62,11 @@ function ListingSidebarLoanCalculator({
         .antezza-sidebar-calculator label>span,.antezza-sidebar-calculator__readonly>span{display:block;margin-bottom:6px;color:#dff9fc;font-size:10px;font-weight:800;line-height:1.3}
         .antezza-sidebar-calculator input,.antezza-sidebar-calculator select{width:100%;min-height:43px;border:1px solid rgba(124,239,255,.24);border-radius:7px;outline:none;background:rgba(1,17,22,.92);color:#f3feff;padding:9px 10px;font:inherit;font-size:13px}
         .antezza-sidebar-calculator input:focus,.antezza-sidebar-calculator select:focus,.antezza-sidebar-calculator a:focus-visible{outline:2px solid #8af4ff;outline-offset:2px}
-        .antezza-sidebar-calculator__readonly{margin-top:11px}
-        .antezza-sidebar-calculator__readonly output{display:flex;align-items:center;min-height:43px;border:1px solid rgba(124,239,255,.14);border-radius:7px;background:rgba(124,239,255,.055);color:#8af4ff;padding:9px 10px;font-family:"Courier New",Consolas,monospace;font-size:15px;font-weight:800}
+        .antezza-sidebar-calculator__readonly{margin-top:11px;text-align:center}
+        .antezza-sidebar-calculator__readonly>span{text-align:center}
+        .antezza-sidebar-calculator__readonly output{display:flex;align-items:center;justify-content:center;min-height:43px;border:1px solid rgba(124,239,255,.2);border-radius:7px;background:rgba(124,239,255,.07);color:#8af4ff;padding:9px 10px;text-align:center;font-family:"Courier New",Consolas,monospace;font-size:15px;font-weight:800;animation:antezza-financed-highlight .55s ease-out}
+        @keyframes antezza-financed-highlight{0%{border-color:#8af4ff;background:rgba(65,211,255,.28);box-shadow:0 0 0 1px rgba(138,244,255,.35),0 0 22px rgba(65,211,255,.4);color:#d9fcff}100%{border-color:rgba(124,239,255,.2);background:rgba(124,239,255,.07);box-shadow:none;color:#8af4ff}}
+        @media(prefers-reduced-motion:reduce){.antezza-sidebar-calculator__readonly output{animation:none}}
         .antezza-sidebar-calculator__payment{margin-top:13px;border:1px solid rgba(124,239,255,.2);border-radius:10px;background:rgba(0,0,0,.2);padding:15px;text-align:center}
         .antezza-sidebar-calculator__payment span{display:block;color:#bfeef3;font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
         .antezza-sidebar-calculator__payment strong{display:block;margin-top:5px;color:#8af4ff;font-family:"Courier New",Consolas,monospace;font-size:25px;line-height:1.05}
@@ -112,8 +116,17 @@ function ListingSidebarLoanCalculator({
             max="50"
             step="0.01"
             inputMode="decimal"
-            value={annualRate}
-            onChange={(event) => setAnnualRate(Math.min(50, Math.max(0, Number(event.target.value) || 0)))}
+            value={annualRateInput}
+            onFocus={(event) => event.currentTarget.select()}
+            onChange={(event) => {
+              const rawValue = event.target.value;
+              if (rawValue === "") {
+                setAnnualRateInput("");
+                return;
+              }
+              const normalizedValue = rawValue.replace(/^0+(?=\d)/, "");
+              setAnnualRateInput(String(Math.min(50, Math.max(0, Number(normalizedValue) || 0))));
+            }}
           />
         </label>
         <label>
@@ -131,7 +144,7 @@ function ListingSidebarLoanCalculator({
 
       <div className="antezza-sidebar-calculator__readonly">
         <span>Amount financed</span>
-        <output>{formatCurrency(principal)}</output>
+        <output key={`${principal}-${annualRate}-${termYears}`} aria-live="polite">{formatCurrency(principal)}</output>
       </div>
 
       <div className="antezza-sidebar-calculator__payment" aria-live="polite">
