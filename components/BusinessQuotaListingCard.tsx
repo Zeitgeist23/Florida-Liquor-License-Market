@@ -34,12 +34,27 @@ export default function BusinessQuotaListingCard({
 
         <div className="business-quota-card-pricing">
           <div>
-            <span>Business + License Package</span>
+            <span>Package Price</span>
             <strong>{listing.packagePrice}</strong>
           </div>
           <div>
-            <span>License Allocation</span>
+            <span>License Value</span>
             <strong>{listing.allocatedLicenseValue}</strong>
+          </div>
+        </div>
+
+        <div className="business-quota-card-details" aria-label="Business package summary">
+          <div>
+            <span>Business Type</span>
+            <strong>{listing.summaryBusinessType}</strong>
+          </div>
+          <div>
+            <span>Transaction</span>
+            <strong>{listing.transactionType}</strong>
+          </div>
+          <div>
+            <span>License Included</span>
+            <strong>{listing.licenseType}</strong>
           </div>
         </div>
 
