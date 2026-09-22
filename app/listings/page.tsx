@@ -14,6 +14,7 @@ import {
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
+import { businessQuotaListings } from "@/lib/business-quota-listings";
 import "../fllm-official-template.css";
 import "./listings-premium.css";
 import "./listings-header-position.css";
@@ -31,6 +32,8 @@ import "./listings-masthead-darker.css";
 import "./listings-mobile-header-fix.css";
 import "./listings-seo-footer.css";
 import "./listings-view-button-edge-fix.css";
+import "../businesses-with-quota-licenses/business-inventory.css";
+import "./listings-inventory-transition.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const listingsUrl = `${siteUrl}/listings`;
@@ -193,7 +196,10 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
-      <ListingsPage initialListings={marketplaceListings} />
+      <ListingsPage
+        initialListings={marketplaceListings}
+        businessListings={businessQuotaListings}
+      />
       <ListingsSeoAuthorityBridge />
       <ListingsQueryFilterEnhancement />
       <MonroeMapCompletion />
