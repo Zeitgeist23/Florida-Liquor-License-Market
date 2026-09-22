@@ -38,6 +38,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
     listingUrl: string;
     photo?: string;
     credential?: string;
+    linkBrokerageName?: boolean;
   };
   additionalSellerIntro: string;
   additionalSellerIntroLinkText?: string;
@@ -487,7 +488,18 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     </a>
                   ) : null}
                   <div className="marketplace-listing-broker-contact">
-                    <strong>{config.broker.brokerage}</strong>
+                    {config.broker.linkBrokerageName ? (
+                      <a
+                        href={config.broker.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Visit ${config.broker.name}'s ${config.broker.brokerage} broker page`}
+                      >
+                        <strong>{config.broker.brokerage}</strong>
+                      </a>
+                    ) : (
+                      <strong>{config.broker.brokerage}</strong>
+                    )}
                     {config.broker.credential ? (
                       <span className="marketplace-listing-broker-license">
                         {config.broker.credential}
