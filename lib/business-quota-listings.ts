@@ -165,8 +165,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_package",
   },
   {
-    listingReference: "FLLM-MELLO",
-    href: "/listings/fllm-mello",
+    listingReference: "FLLM-265072",
+    href: "/listings/fllm-265072",
     county: "Palm Beach County",
     countyHref: "/counties/palm-beach",
     licenseType: "4COP Quota",
@@ -181,7 +181,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerName: "Leonard Mello",
     brokerage: "We Sell Restaurants",
     featured: true,
-    publicationStatus: "preview",
+    publicationStatus: "published",
     classification: "business_package",
   },
 ];
