@@ -146,15 +146,74 @@
   -webkit-line-clamp: 2;
 }
 
-.business-quota-card-type {
-  width: 100%;
-  margin: 3px 0 0;
-  overflow: hidden;
-  color: #c7d1d8;
-  font-size: 10px;
-  line-height: 1.25;
-  text-overflow: ellipsis;
+.business-quota-category {
+  --category-color: #7d91a0;
+  --category-surface: rgba(125,145,160,.14);
+  display: inline-flex;
+  align-items: center;
+  min-height: 17px;
+  margin: 4px 0 0;
+  padding: 2px 7px;
+  border: 1px solid color-mix(in srgb,var(--category-color) 72%,transparent);
+  border-radius: 999px;
+  color: var(--category-color);
+  background: var(--category-surface);
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: .055em;
+  text-transform: uppercase;
   white-space: nowrap;
+}
+
+.business-quota-category--bar {
+  --category-color: #ff7777;
+  --category-surface: rgba(183,54,54,.18);
+}
+
+.business-quota-category--cocktail-lounge {
+  --category-color: #c08cff;
+  --category-surface: rgba(137,76,201,.18);
+}
+
+.business-quota-category--nightclub {
+  --category-color: #ff72cf;
+  --category-surface: rgba(199,54,151,.18);
+}
+
+.business-quota-category--restaurant {
+  --category-color: #54dbc8;
+  --category-surface: rgba(40,168,150,.18);
+}
+
+.business-quota-category--bowling-alley {
+  --category-color: #ffab5c;
+  --category-surface: rgba(190,103,34,.18);
+}
+
+.business-quota-category--liquor-store {
+  --category-color: #70d78c;
+  --category-surface: rgba(55,151,82,.18);
+}
+
+.business-quota-category--marina {
+  --category-color: #67bfff;
+  --category-surface: rgba(49,132,191,.18);
+}
+
+.business-quota-category--gentlemens-club {
+  --category-color: #e883a5;
+  --category-surface: rgba(165,55,91,.18);
+}
+
+.business-quota-category--hotel-motel {
+  --category-color: #91a5ff;
+  --category-surface: rgba(78,99,190,.18);
+}
+
+.business-quota-category--country-club {
+  --category-color: #78d6a2;
+  --category-surface: rgba(50,145,92,.18);
 }
 
 .business-quota-card-pricing {
