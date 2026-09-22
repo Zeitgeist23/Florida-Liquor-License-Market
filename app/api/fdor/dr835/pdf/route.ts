@@ -15,17 +15,17 @@ type AcroTextField = {
 const FIELD_LAYOUT: Record<string, FieldRectangle> = {
   taxpayer_name_and_address: { x: 40.8, y: 600, width: 240, height: 50.4 },
   taxpayer_contact_person: { x: 290.4, y: 599.4, width: 126.6, height: 11.4 },
-  taxpayer_telephone: { x: 507.6, y: 616.8, width: 65.4, height: 7.8 },
-  taxpayer_fax: { x: 507.6, y: 597.6, width: 65.4, height: 9 },
-  representative_1_telephone: { x: 507.6, y: 544.2, width: 65.4, height: 10.2 },
-  representative_1_fax: { x: 507.6, y: 524.4, width: 65.4, height: 10.2 },
-  representative_1_cell: { x: 507.6, y: 509.4, width: 65.4, height: 6.6 },
-  representative_2_telephone: { x: 507.6, y: 481.2, width: 65.4, height: 10.2 },
-  representative_2_fax: { x: 507.6, y: 461.4, width: 65.4, height: 10.2 },
-  representative_2_cell: { x: 507.6, y: 446.4, width: 65.4, height: 6.6 },
-  representative_3_telephone: { x: 507.6, y: 418.2, width: 65.4, height: 10.2 },
-  representative_3_fax: { x: 507.6, y: 398.4, width: 65.4, height: 10.2 },
-  representative_3_cell: { x: 507.6, y: 382.8, width: 65.4, height: 7.2 },
+  taxpayer_telephone: { x: 495, y: 616.8, width: 78, height: 7.8 },
+  taxpayer_fax: { x: 486, y: 597.6, width: 87, height: 9 },
+  representative_1_telephone: { x: 495, y: 544.2, width: 78, height: 10.2 },
+  representative_1_fax: { x: 486, y: 524.4, width: 87, height: 10.2 },
+  representative_1_cell: { x: 495, y: 509.4, width: 78, height: 6.6 },
+  representative_2_telephone: { x: 495, y: 481.2, width: 78, height: 10.2 },
+  representative_2_fax: { x: 486, y: 461.4, width: 87, height: 10.2 },
+  representative_2_cell: { x: 495, y: 446.4, width: 78, height: 6.6 },
+  representative_3_telephone: { x: 495, y: 418.2, width: 78, height: 10.2 },
+  representative_3_fax: { x: 486, y: 398.4, width: 87, height: 10.2 },
+  representative_3_cell: { x: 495, y: 382.8, width: 78, height: 7.2 },
 };
 
 export async function GET() {
@@ -65,7 +65,7 @@ export async function GET() {
     for (const widget of acroField.getWidgets()) widget.setRectangle(rectangle);
     acroField.setDefaultAppearance("/Helv 7 Tf .05 .08 .11 rg");
     field.setFontSize(7);
-    if (name === "taxpayer_contact_person") field.updateAppearances(helvetica);
+    if (name !== "taxpayer_name_and_address") field.updateAppearances(helvetica);
   }
 
   // Five seven-point lines fit inside the taxpayer box without clipping.
