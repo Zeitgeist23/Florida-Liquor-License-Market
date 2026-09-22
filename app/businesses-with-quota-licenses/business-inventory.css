@@ -468,3 +468,50 @@
     background: transparent !important;
   }
 }
+
+
+/* CATEGORY UPDATE REGRESSION GUARD — preserve the approved map scale and FLLM gold CTA. */
+.business-quota-card-action,
+.results-page .business-quota-card-action {
+  border-color: #efaa10 !important;
+  color: #07131d !important;
+  background: linear-gradient(145deg,#ffc13a 0%,#e99b00 100%) !important;
+  box-shadow: 0 5px 15px rgba(228,148,0,.18) !important;
+}
+
+.business-quota-card-action:hover,
+.results-page .business-quota-card-action:hover {
+  border-color: #f6b718 !important;
+  color: #03090d !important;
+  background: linear-gradient(145deg,#ffd05d 0%,#f1a600 100%) !important;
+}
+
+@media (min-width:761px) {
+  .business-quota-card-map,
+  .results-page .business-quota-card-map {
+    padding: 14px 2px 14px 0 !important;
+    overflow: visible !important;
+  }
+
+  .business-quota-card-map .florida-county-map,
+  .results-page .business-quota-card-map .florida-county-map {
+    width: 166% !important;
+    height: 166% !important;
+    max-width: 372px !important;
+    max-height: 372px !important;
+    object-fit: contain !important;
+    transform: translate(3px,8px) scale(1.08) !important;
+    transform-origin: center center !important;
+    filter: drop-shadow(0 9px 16px rgba(0,0,0,.38)) !important;
+  }
+}
+
+@media (min-width:761px) and (max-width:1120px) {
+  .business-quota-card-map .florida-county-map,
+  .results-page .business-quota-card-map .florida-county-map {
+    width: 156% !important;
+    height: 156% !important;
+    max-width: 328px !important;
+    max-height: 328px !important;
+  }
+}
