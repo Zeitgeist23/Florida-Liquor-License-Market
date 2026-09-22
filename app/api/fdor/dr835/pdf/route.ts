@@ -26,7 +26,24 @@ const FIELD_LAYOUT: Record<string, FieldRectangle> = {
   representative_3_telephone: { x: 482, y: 419.4, width: 91, height: 10.2 },
   representative_3_fax: { x: 474, y: 398.4, width: 99, height: 10.2 },
   representative_3_cell: { x: 482, y: 378.6, width: 91, height: 10.2 },
+  reemployment_agent_number: { x: 492, y: 211.2, width: 81, height: 7.2 },
+  reemployment_federal_id: { x: 492, y: 192.2, width: 81, height: 7.2 },
+  reemployment_telephone: { x: 492, y: 173.2, width: 81, height: 7.2 },
 };
+
+const CHECKBOX_LAYOUT: Record<string, FieldRectangle> = {
+  mail_type_primary: { x: 294, y: 153, width: 7.8, height: 7.8 },
+  mail_type_reporting: { x: 351, y: 153, width: 7.8, height: 7.8 },
+  mail_type_rate: { x: 414.6, y: 153, width: 7.8, height: 7.8 },
+  mail_type_claim: { x: 460.2, y: 153, width: 7.8, height: 7.8 },
+};
+
+const CHECKBOX_MASKS: FieldRectangle[] = [
+  { x: 289, y: 151.5, width: 18.8, height: 10.8 },
+  { x: 346, y: 151.5, width: 17.2, height: 10.8 },
+  { x: 409.6, y: 151.5, width: 16.6, height: 10.8 },
+  { x: 455.2, y: 151.5, width: 15.6, height: 10.8 },
+];
 
 const CONTACT_FIELD_NAMES = Object.keys(FIELD_LAYOUT).filter(
   (name) => name.endsWith("_telephone") || name.endsWith("_fax") || name.endsWith("_cell"),
@@ -77,6 +94,25 @@ export async function GET() {
     });
   }
 
+  // Remove the printed checkbox outlines and their tiny reference numbers;
+  // the interactive checkbox widgets are redrawn over these clean areas.
+  for (const rectangle of CHECKBOX_MASKS) {
+    firstPage.drawRectangle({
+      ...rectangle,
+      color: rgb(1, 1, 1),
+    });
+  }
+
+  // Cover the old lower-positioned Section 4 widgets before placing the
+  // corrected, vertically centered replacements.
+  for (const rectangle of [
+    { x: 485, y: 202.5, width: 88, height: 17.5 },
+    { x: 485, y: 183.5, width: 88, height: 17.5 },
+    { x: 485, y: 164, width: 88, height: 18 },
+  ]) {
+    firstPage.drawRectangle({ ...rectangle, color: rgb(1, 1, 1) });
+  }
+
   // Restore the representative-row dividers up to the aligned cell-phone
   // widgets after masking the source phone-format artwork.
   for (const y of [505.2, 442.2, 378.6]) {
@@ -95,6 +131,13 @@ export async function GET() {
     acroField.setDefaultAppearance("/Helv 7 Tf .05 .08 .11 rg");
     field.setFontSize(7);
     if (name !== "taxpayer_name_and_address") field.updateAppearances(helvetica);
+  }
+
+  for (const [name, rectangle] of Object.entries(CHECKBOX_LAYOUT)) {
+    const field = form.getCheckBox(name);
+    const acroField = (field as unknown as { acroField: AcroTextField }).acroField;
+    for (const widget of acroField.getWidgets()) widget.setRectangle(rectangle);
+    field.updateAppearances();
   }
 
   // Five seven-point lines fit inside the taxpayer box without clipping.
