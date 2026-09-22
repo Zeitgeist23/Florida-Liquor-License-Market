@@ -290,6 +290,7 @@ export default function HowToFinanceFloridaLiquorLicensePage() {
             <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&amp;URL=0500-0599/0561/Sections/0561.65.html" target="_blank" rel="noopener noreferrer">Florida Statutes § 561.65</a>
             <a href="https://www2.myfloridalicense.com/abt/forms/documents/AppPackforMortgageesInterestinSpiritAlcoholBevLic.pdf" target="_blank" rel="noopener noreferrer">Official ABT-6022 Form &amp; Instructions</a>
             <a href="https://www2.myfloridalicense.com/abt/documents/LienSearchRequestForm.pdf" target="_blank" rel="noopener noreferrer">Official ABT-6023 Lien Search</a>
+            <a href="https://floridaucc.com/search" target="_blank" rel="noopener noreferrer">Florida UCC / Secured Transaction Search</a>
             <a href="https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&amp;URL=0500-0599/0561/Sections/0561.32.html" target="_blank" rel="noopener noreferrer">Florida Statutes § 561.32</a>
           </div>
           <p className="finance-guide-note">
