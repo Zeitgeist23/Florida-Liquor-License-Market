@@ -39,10 +39,10 @@ const CHECKBOX_LAYOUT: Record<string, FieldRectangle> = {
 };
 
 const CHECKBOX_MASKS: FieldRectangle[] = [
-  { x: 289, y: 151.5, width: 18.8, height: 10.8 },
-  { x: 346, y: 151.5, width: 17.2, height: 10.8 },
-  { x: 409.6, y: 151.5, width: 16.6, height: 10.8 },
-  { x: 455.2, y: 151.5, width: 15.6, height: 10.8 },
+  { x: 289, y: 145, width: 18.8, height: 17.3 },
+  { x: 346, y: 145, width: 17.2, height: 17.3 },
+  { x: 409.6, y: 145, width: 16.6, height: 17.3 },
+  { x: 455.2, y: 145, width: 15.6, height: 17.3 },
 ];
 
 const PAGE_ONE_CHECKBOX_LAYOUT: Record<string, FieldRectangle> = {
