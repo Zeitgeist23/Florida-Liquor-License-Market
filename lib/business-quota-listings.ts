@@ -67,6 +67,8 @@ export type BusinessQuotaListing = {
   licenseType: "4COP Quota" | "3PS Quota / Package Store";
   title: string;
   businessType: string;
+  summaryBusinessType: string;
+  transactionType: string;
   packagePrice: string;
   packagePriceNumber: number;
   allocatedLicenseValue: string;
@@ -96,6 +98,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     licenseType: "4COP Quota",
     title: "Pinellas County Cocktail Lounge + 4COP Quota License",
     businessType: "Upscale cocktail lounge",
+    summaryBusinessType: "Cocktail Lounge",
+    transactionType: "Asset Sale",
     packagePrice: "$999,000",
     packagePriceNumber: 999_000,
     allocatedLicenseValue: "$460,000",
@@ -113,9 +117,11 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     licenseType: "4COP Quota",
     title: "Iconic Jensen Beach Bar + 4COP Quota License",
     businessType: "Long-established neighborhood bar",
+    summaryBusinessType: "Neighborhood Bar",
+    transactionType: "Asset Sale",
     packagePrice: "$650,000",
     packagePriceNumber: 650_000,
-    allocatedLicenseValue: "Approx. $600,000",
+    allocatedLicenseValue: "$600,000 est.",
     brokerName: "JR DesAmours",
     brokerage: "Business Exit Advisors",
     featured: true,
@@ -130,6 +136,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     licenseType: "4COP Quota",
     title: "Miami Adult Nightclub + 4COP Quota License",
     businessType: "Premium adult-entertainment business",
+    summaryBusinessType: "Adult Nightclub",
+    transactionType: "Business Package",
     packagePrice: "$3,500,000",
     packagePriceNumber: 3_500_000,
     allocatedLicenseValue: "$250,000",
@@ -147,6 +155,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     licenseType: "4COP Quota",
     title: "Delray Beach Restaurant + 4COP Quota License",
     businessType: "Turnkey full-service restaurant and bar",
+    summaryBusinessType: "Restaurant + Bar",
+    transactionType: "Asset Sale",
     packagePrice: "$159,000 + $200,000 license",
     packagePriceNumber: 359_000,
     allocatedLicenseValue: "$200,000",
