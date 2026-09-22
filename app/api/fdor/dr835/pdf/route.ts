@@ -45,6 +45,16 @@ const CHECKBOX_MASKS: FieldRectangle[] = [
   { x: 455.2, y: 151.5, width: 15.6, height: 10.8 },
 ];
 
+const PAGE_ONE_CHECKBOX_LAYOUT: Record<string, FieldRectangle> = {
+  authorize_refund_warrant_receipt: { x: 566.4, y: 63, width: 8.4, height: 8.4 },
+};
+
+const PAGE_TWO_CHECKBOX_LAYOUT: Record<string, FieldRectangle> = {
+  notices_to_taxpayer_and_representative: { x: 510, y: 634.8, width: 9, height: 9 },
+  notices_to_taxpayer_only: { x: 510, y: 618.6, width: 9, height: 9 },
+  revoke_prior_power_of_attorney: { x: 510, y: 542.4, width: 9, height: 9 },
+};
+
 const CONTACT_FIELD_NAMES = Object.keys(FIELD_LAYOUT).filter(
   (name) => name.endsWith("_telephone") || name.endsWith("_fax") || name.endsWith("_cell"),
 );
@@ -59,6 +69,7 @@ export async function GET() {
   // The original generated overlay baked a field border through this label.
   // Rebuild only this cell so the label and the fillable box are both clean.
   const firstPage = pdfDoc.getPage(0);
+  const secondPage = pdfDoc.getPage(1);
   firstPage.drawRectangle({
     x: 289.1,
     y: 598.2,
@@ -103,6 +114,23 @@ export async function GET() {
     });
   }
 
+  firstPage.drawRectangle({
+    x: 564.5,
+    y: 59.5,
+    width: 12,
+    height: 14,
+    color: rgb(1, 1, 1),
+  });
+  for (const rectangle of Object.values(PAGE_TWO_CHECKBOX_LAYOUT)) {
+    secondPage.drawRectangle({
+      x: rectangle.x - 1.5,
+      y: rectangle.y - 1.5,
+      width: rectangle.width + 3,
+      height: rectangle.height + 5,
+      color: rgb(1, 1, 1),
+    });
+  }
+
   // Cover the old lower-positioned Section 4 widgets before placing the
   // corrected, vertically centered replacements.
   for (const rectangle of [
@@ -134,6 +162,15 @@ export async function GET() {
   }
 
   for (const [name, rectangle] of Object.entries(CHECKBOX_LAYOUT)) {
+    const field = form.getCheckBox(name);
+    const acroField = (field as unknown as { acroField: AcroTextField }).acroField;
+    for (const widget of acroField.getWidgets()) widget.setRectangle(rectangle);
+    field.updateAppearances();
+  }
+  for (const [name, rectangle] of Object.entries({
+    ...PAGE_ONE_CHECKBOX_LAYOUT,
+    ...PAGE_TWO_CHECKBOX_LAYOUT,
+  })) {
     const field = form.getCheckBox(name);
     const acroField = (field as unknown as { acroField: AcroTextField }).acroField;
     for (const widget of acroField.getWidgets()) widget.setRectangle(rectangle);
