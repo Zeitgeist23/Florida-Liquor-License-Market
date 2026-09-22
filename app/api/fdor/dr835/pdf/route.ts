@@ -15,7 +15,7 @@ type AcroTextField = {
 const FIELD_LAYOUT: Record<string, FieldRectangle> = {
   taxpayer_name_and_address: { x: 40.8, y: 600, width: 240, height: 50.4 },
   taxpayer_contact_person: { x: 290.4, y: 599.4, width: 126.6, height: 11.4 },
-  taxpayer_telephone: { x: 482, y: 615.2, width: 91, height: 7.8 },
+  taxpayer_telephone: { x: 482, y: 614, width: 91, height: 10.2 },
   taxpayer_fax: { x: 474, y: 595.6, width: 99, height: 9 },
   representative_1_telephone: { x: 482, y: 545.4, width: 91, height: 10.2 },
   representative_1_fax: { x: 474, y: 524.4, width: 99, height: 10.2 },
