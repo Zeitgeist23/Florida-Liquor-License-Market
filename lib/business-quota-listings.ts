@@ -175,7 +175,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Asset Sale",
-    packagePrice: "$159,000 + $200,000 license",
+    packagePrice: "$359,000",
     packagePriceNumber: 359_000,
     allocatedLicenseValue: "$200,000",
     brokerName: "Leonard Mello",
