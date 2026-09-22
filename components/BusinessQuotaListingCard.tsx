@@ -72,7 +72,8 @@ export default function BusinessQuotaListingCard({
         </div>
 
         <p className="business-quota-card-condition">
-          Quota license included and not offered separately.
+          {listing.licenseType} liquor license included<br />
+          and not offered separately.
         </p>
 
         <p className="business-quota-card-broker">
