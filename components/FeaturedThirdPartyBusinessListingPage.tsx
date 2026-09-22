@@ -14,6 +14,18 @@ export type FeaturedBusinessMetric = {
   value: string;
 };
 
+type SellerFinancingDisclosure = {
+  offered: true;
+  source: "broker-reported" | "seller-reported";
+  advertisedRate?: string;
+  termsSummary: string;
+};
+
+type SbaFinancingDisclosure = {
+  status: "broker-advertised" | "lender-reviewed";
+  termsSummary: string;
+};
+
 export type FeaturedThirdPartyBusinessListingConfig = {
   listingReference: string;
   canonicalPath: string;
@@ -43,6 +55,8 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntroLinkText?: string;
   packageIncludes: string;
   businessMetrics: FeaturedBusinessMetric[];
+  sellerFinancing?: SellerFinancingDisclosure;
+  sbaFinancing?: SbaFinancingDisclosure;
   opportunitiesHeading: string;
   opportunities: string[];
   transitionText?: string;
@@ -81,6 +95,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
   const countyShort = config.county.replace(/\s+County$/i, "");
   const isWeSellRestaurantsBroker =
     config.broker.brokerage.trim().toLowerCase() === "we sell restaurants";
+  const hasFinancingDisclosure = Boolean(
+    config.sellerFinancing || config.sbaFinancing,
+  );
 
   return (
     <main
@@ -93,7 +110,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
       />
 
       <style>{`
-        .featured-business-package-alert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;color:#d7e2e8;font-size:14px;font-weight:750;line-height:1.45}.featured-business-package-badge{display:inline-flex;align-items:center;min-height:25px;padding:0 9px;border:1px solid #efaa10;border-radius:4px;color:#071a3a;background:#efaa10;font-size:9px;font-weight:950;letter-spacing:.07em;text-transform:uppercase}.featured-business-package-alert strong{color:#f1b53a}.featured-business-label-link{text-decoration:none!important;transition:color .16s ease,border-color .16s ease}.featured-business-label-link--hero{color:inherit!important;font-weight:inherit!important;text-shadow:none!important;border-bottom:1px solid rgba(215,226,232,.34)}.featured-business-label-link--hero:hover,.featured-business-label-link--hero:focus-visible{color:#fff!important;border-bottom-color:rgba(255,255,255,.72);outline:none}.featured-business-label-link--body{color:#e29abf!important;font-weight:400!important;text-shadow:none!important;border-bottom:0!important}.featured-business-label-link--body:hover,.featured-business-label-link--body:focus-visible{color:#efafd0!important;border-bottom:0!important;outline:none}.package-business-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0}.package-business-grid div{padding:16px;border:1px solid rgba(226,165,30,.25);border-radius:8px;background:rgba(4,23,39,.72)}.package-business-grid span{display:block;color:#95a9b8;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.package-business-grid strong{display:block;margin-top:6px;color:#fff;font-size:15px}.package-total{margin:18px 0;padding:16px 18px;border-left:4px solid #efa916;background:rgba(239,169,22,.07);color:#cbd6dd;line-height:1.7}.package-total strong{color:#f1b53a}.marketplace-listing-broker-license{display:block;margin-top:4px;color:#9fb0bd;font-size:11px;font-weight:750}.marketplace-listing-broker-photo img{object-fit:cover}.package-confidential{font-size:12px;color:#9eb0be;line-height:1.6}.package-source-disclosure{font-size:11px;color:#8398a8;line-height:1.6}.featured-business-email-copy-row{display:inline-flex;align-items:center;gap:5px;width:fit-content;max-width:100%}.featured-business-copy-email-button{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:16px;height:16px;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:#f1a600;font-size:13px;font-weight:900;line-height:1;cursor:pointer;box-shadow:none;appearance:none}.featured-business-call-broker-button{position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 7px 18px rgba(0,0,0,.28)}.featured-business-call-broker-label{display:block;opacity:1;line-height:inherit;white-space:nowrap;transition:opacity .14s ease}.featured-business-call-broker-phone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;color:inherit;font:inherit;line-height:inherit;white-space:nowrap;pointer-events:none;transition:opacity .14s ease}.featured-business-call-broker-button:hover .featured-business-call-broker-label,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-label{opacity:0}.featured-business-call-broker-button:hover .featured-business-call-broker-phone,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-phone{opacity:1}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link{color:#d98282!important;-webkit-text-fill-color:#d98282!important;background:none!important;background-image:none!important;font-weight:400!important;text-shadow:none!important;text-decoration:none}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link:hover,.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link:focus-visible{color:#e79a9a!important;-webkit-text-fill-color:#e79a9a!important;filter:none!important;text-shadow:0 0 8px rgba(217,130,130,.22)!important;outline:none}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link strong{color:#f1a600!important;-webkit-text-fill-color:#f1a600!important}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link:hover strong,.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link:focus-visible strong{color:#ffc43d!important;-webkit-text-fill-color:#ffc43d!important}@media(max-width:760px){.package-business-grid{grid-template-columns:1fr}}
+        .featured-business-package-alert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;color:#d7e2e8;font-size:14px;font-weight:750;line-height:1.45}.featured-business-package-badge{display:inline-flex;align-items:center;min-height:25px;padding:0 9px;border:1px solid #efaa10;border-radius:4px;color:#071a3a;background:#efaa10;font-size:9px;font-weight:950;letter-spacing:.07em;text-transform:uppercase}.featured-business-package-alert strong{color:#f1b53a}.featured-business-label-link{text-decoration:none!important;transition:color .16s ease,border-color .16s ease}.featured-business-label-link--hero{color:inherit!important;font-weight:inherit!important;text-shadow:none!important;border-bottom:1px solid rgba(215,226,232,.34)}.featured-business-label-link--hero:hover,.featured-business-label-link--hero:focus-visible{color:#fff!important;border-bottom-color:rgba(255,255,255,.72);outline:none}.featured-business-label-link--body{color:#e29abf!important;font-weight:400!important;text-shadow:none!important;border-bottom:0!important}.featured-business-label-link--body:hover,.featured-business-label-link--body:focus-visible{color:#efafd0!important;border-bottom:0!important;outline:none}.package-business-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0}.package-business-grid div{padding:16px;border:1px solid rgba(226,165,30,.25);border-radius:8px;background:rgba(4,23,39,.72)}.package-business-grid span{display:block;color:#95a9b8;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.package-business-grid strong{display:block;margin-top:6px;color:#fff;font-size:15px}.package-total{margin:18px 0;padding:16px 18px;border-left:4px solid #efa916;background:rgba(239,169,22,.07);color:#cbd6dd;line-height:1.7}.package-total strong{color:#f1b53a}.featured-business-financing{margin-top:16px;padding:18px;border:1px solid rgba(105,214,255,.32);border-radius:8px;background:rgba(4,23,39,.72)}.featured-business-financing>h3{margin:0 0 13px!important;color:#fff!important;font-size:18px!important;text-align:center}.featured-business-financing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.featured-business-financing-grid:has(>article:only-child){grid-template-columns:minmax(0,1fr)}.featured-business-financing-card{display:flex;min-height:112px;flex-direction:column;justify-content:center;padding:17px 18px;border:1px solid rgba(241,166,0,.58);border-radius:7px;background:linear-gradient(145deg,#173653,#081b2d);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 22px rgba(0,0,0,.24)}.featured-business-financing-card>span{color:#69d6ff;font-size:10px;font-weight:900;letter-spacing:.075em;text-transform:uppercase}.featured-business-financing-card>strong{margin-top:5px;color:#f1a600;font:700 21px/1.12 Georgia,serif}.featured-business-financing-card>p{margin:8px 0 0!important;color:#d7e2e8!important;font-size:13px!important;line-height:1.55!important}.featured-business-financing-card>small{margin-top:7px;color:#93a7b5;font-size:10px;line-height:1.45}.marketplace-listing-broker-license{display:block;margin-top:4px;color:#9fb0bd;font-size:11px;font-weight:750}.marketplace-listing-broker-photo img{object-fit:cover}.package-confidential{font-size:12px;color:#9eb0be;line-height:1.6}.package-source-disclosure{font-size:11px;color:#8398a8;line-height:1.6}.featured-business-email-copy-row{display:inline-flex;align-items:center;gap:5px;width:fit-content;max-width:100%}.featured-business-copy-email-button{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:16px;height:16px;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:#f1a600;font-size:13px;font-weight:900;line-height:1;cursor:pointer;box-shadow:none;appearance:none}.featured-business-call-broker-button{position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 7px 18px rgba(0,0,0,.28)}.featured-business-call-broker-label{display:block;opacity:1;line-height:inherit;white-space:nowrap;transition:opacity .14s ease}.featured-business-call-broker-phone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;color:inherit;font:inherit;line-height:inherit;white-space:nowrap;pointer-events:none;transition:opacity .14s ease}.featured-business-call-broker-button:hover .featured-business-call-broker-label,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-label{opacity:0}.featured-business-call-broker-button:hover .featured-business-call-broker-phone,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-phone{opacity:1}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link{color:#d98282!important;-webkit-text-fill-color:#d98282!important;background:none!important;background-image:none!important;font-weight:400!important;text-shadow:none!important;text-decoration:none}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link:hover,.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link:focus-visible{color:#e79a9a!important;-webkit-text-fill-color:#e79a9a!important;filter:none!important;text-shadow:0 0 8px rgba(217,130,130,.22)!important;outline:none}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link strong{color:#f1a600!important;-webkit-text-fill-color:#f1a600!important}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link:hover strong,.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link:focus-visible strong{color:#ffc43d!important;-webkit-text-fill-color:#ffc43d!important}@media(max-width:760px){.package-business-grid,.featured-business-financing-grid{grid-template-columns:1fr}}
       `}</style>
 
       <header className="results-header page-shell">
@@ -298,6 +315,52 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   </div>
                 </div>
               </section>
+
+              {hasFinancingDisclosure ? (
+                <section
+                  className="featured-business-financing"
+                  aria-labelledby="featured-business-financing-heading"
+                >
+                  <h3 id="featured-business-financing-heading">
+                    Purchase Financing
+                  </h3>
+                  <div className="featured-business-financing-grid">
+                    {config.sellerFinancing ? (
+                      <article className="featured-business-financing-card">
+                        <span>Broker-Reported Terms</span>
+                        <strong>Seller Financing Available</strong>
+                        <p>
+                          {config.sellerFinancing.advertisedRate
+                            ? `${config.sellerFinancing.advertisedRate} advertised rate · `
+                            : ""}
+                          {config.sellerFinancing.termsSummary}
+                        </p>
+                        <small>
+                          Availability, final terms, documentation, and buyer
+                          qualification require direct seller and broker
+                          confirmation.
+                        </small>
+                      </article>
+                    ) : null}
+                    {config.sbaFinancing ? (
+                      <article className="featured-business-financing-card">
+                        <span>
+                          {config.sbaFinancing.status === "lender-reviewed"
+                            ? "Lender-Reviewed"
+                            : "Broker-Advertised"}
+                        </span>
+                        <strong>SBA Financing May Be Available</strong>
+                        <p>{config.sbaFinancing.termsSummary}</p>
+                        <small>
+                          SBA eligibility and all credit, underwriting,
+                          collateral, and approval decisions belong to the
+                          participating lender and, where applicable, the SBA.
+                        </small>
+                      </article>
+                    ) : null}
+                  </div>
+                </section>
+              ) : null}
 
               <div className="marketplace-listing-note">
                 <strong>Third-party broker disclosure</strong>
