@@ -113,6 +113,33 @@ function money(value: number | null) {
   }).format(value);
 }
 
+type SourceContact = {
+  name: string;
+  phone?: string;
+  note?: string;
+};
+
+const SOURCE_CONTACTS: Record<string, SourceContact> = {
+  "FLLM-042": { name: "Liquor License Auctioneers", phone: "818-345-2226" },
+  "FLLM-060": { name: "LiquorLicense.com", phone: "800-222-5777" },
+  "FLLM-084": { name: "Liquor License Auctioneers", phone: "818-345-2226" },
+  "FLLM-165": { name: "Broker not publicly available", note: "Source listing is no longer active" },
+  "FLLM-189": { name: "Del Ogorelkoff — BeachFront Realty, Inc.", phone: "954-245-0714" },
+  "FLLM-195": { name: "Seller or broker not publicly disclosed", note: "Contact through the source listing" },
+};
+
+function sourceContact(listing: ListingMatch): SourceContact {
+  const exact = SOURCE_CONTACTS[listing.sourceRef];
+  if (exact) return exact;
+  if (listing.sourceName === "Liquor License Auctioneers") {
+    return { name: "Liquor License Auctioneers", phone: "818-345-2226" };
+  }
+  if (listing.sourceName === "LiquorLicense.com") {
+    return { name: "LiquorLicense.com", phone: "800-222-5777" };
+  }
+  return { name: "Broker not publicly disclosed", note: "Review the source listing" };
+}
+
 function sellerStage(lead: Lead) {
   if (isValuation(lead)) return "Estimate follow-up requested";
   if (lead.submissionRef.startsWith("FLLM-CONSULT-")) return "Consultation requested";
@@ -346,10 +373,19 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
               <>
                 <div className="lead-match-table-wrap">
                   <table className="lead-match-table">
-                    <thead><tr><th>FLLM reference</th><th>Asking price</th><th>Potential source</th><th>Source listing</th></tr></thead>
-                    <tbody>{matchResult.matches.map((listing) => (
-                      <tr key={listing.sourceRef}><td><strong>{listing.sourceRef}</strong></td><td>{listing.priceLabel}</td><td>{listing.sourceName || "Source not recorded"}</td><td>{listing.sourceUrl ? <a href={listing.sourceUrl} target="_blank" rel="noopener noreferrer">Review source ↗</a> : "Not recorded"}</td></tr>
-                    ))}</tbody>
+                    <thead><tr><th>FLLM reference</th><th>Asking price</th><th>Potential source</th><th>Source contact</th><th>Source listing</th></tr></thead>
+                    <tbody>{matchResult.matches.map((listing) => {
+                      const contact = sourceContact(listing);
+                      return (
+                        <tr key={listing.sourceRef}>
+                          <td><strong>{listing.sourceRef}</strong></td>
+                          <td>{listing.priceLabel}</td>
+                          <td>{listing.sourceName || "Source not recorded"}</td>
+                          <td><strong>{contact.name}</strong>{contact.phone ? <><br /><a href={`tel:${contact.phone}`}>{contact.phone}</a></> : contact.note ? <><br /><small>{contact.note}</small></> : null}</td>
+                          <td>{listing.sourceUrl ? <a href={listing.sourceUrl} target="_blank" rel="noopener noreferrer">Review source ↗</a> : "Not recorded"}</td>
+                        </tr>
+                      );
+                    })}</tbody>
                   </table>
                 </div>
                 <div className="lead-match-draft">
