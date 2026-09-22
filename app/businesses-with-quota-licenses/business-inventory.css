@@ -312,3 +312,60 @@
   color: #03090d !important;
   background: linear-gradient(145deg,#ffd05d 0%,#f1a600 100%) !important;
 }
+
+
+/* Use the exact map-pane geometry and scale from standalone listing cards. */
+@media (min-width:761px) {
+  .results-page .business-quota-card {
+    grid-template-columns: minmax(0,1.14fr) minmax(205px,.86fr);
+    column-gap: 0;
+  }
+
+  .results-page .business-quota-card-map {
+    position: relative;
+    z-index: 1;
+    align-self: stretch;
+    width: 100%;
+    height: 100%;
+    min-height: 312px;
+    padding: 14px 2px 14px 0;
+    overflow: visible;
+    background: transparent;
+    transform: none;
+  }
+
+  .results-page .business-quota-card-map .florida-county-map {
+    width: 160% !important;
+    height: 160% !important;
+    max-width: 360px !important;
+    max-height: 360px !important;
+    object-fit: contain !important;
+    background: transparent !important;
+    transform: translateX(2px) scale(1.06) !important;
+    transform-origin: center center !important;
+    filter: drop-shadow(0 9px 16px rgba(0,0,0,.38)) !important;
+  }
+}
+
+@media (min-width:761px) and (max-width:1120px) {
+  .results-page .business-quota-card {
+    grid-template-columns: minmax(0,1.18fr) minmax(180px,.82fr);
+  }
+
+  .results-page .business-quota-card-map .florida-county-map {
+    width: 151% !important;
+    height: 151% !important;
+    max-width: 316px !important;
+    max-height: 316px !important;
+  }
+}
+
+@media (max-width:760px) {
+  .results-page .business-quota-card-map .florida-county-map {
+    width: 138% !important;
+    height: 138% !important;
+    max-width: 248px !important;
+    max-height: 248px !important;
+    background: transparent !important;
+  }
+}
