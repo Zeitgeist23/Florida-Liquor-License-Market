@@ -130,11 +130,11 @@ def page_one_fields(form):
 
     # Section 4 - Reemployment tax agent
     add_text_field(form, "reemployment_agent_name", 66, 961, 658, 980)
-    add_text_field(form, "reemployment_agent_number", 820, 956, 955, 968)
+    add_text_field(form, "reemployment_agent_number", 820, 953.5, 955, 970.5)
     add_text_field(form, "reemployment_firm_name", 66, 994, 658, 1012)
-    add_text_field(form, "reemployment_federal_id", 820, 987.7, 955, 999.7)
+    add_text_field(form, "reemployment_federal_id", 820, 985.2, 955, 1002.2)
     add_text_field(form, "reemployment_address", 66, 1027, 695, 1044)
-    add_text_field(form, "reemployment_telephone", 820, 1019.3, 955, 1031.3)
+    add_text_field(form, "reemployment_telephone", 820, 1016.8, 955, 1033.8)
     add_checkbox(form, "mail_type_primary", 490, 1052, 13)
     add_checkbox(form, "mail_type_reporting", 585, 1052, 13)
     add_checkbox(form, "mail_type_rate", 691, 1052, 13)
