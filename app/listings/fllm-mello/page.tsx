@@ -78,6 +78,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       "https://www.bizbuysell.com/business-opportunity/delray-beach-restaurant-for-sale-steps-from-atlantic-ave/2543468/",
     photo: "/assets/brokers/leonard-mello.png",
     credential: "Florida sales associate license SL3659241",
+    linkBrokerageName: true,
   },
   additionalSellerIntro:
     "Opportunity to acquire turnkey restaurant and bar leasehold rights just off Atlantic Avenue in Delray Beach together with the associated transferable Palm Beach County 4COP quota liquor license.",
