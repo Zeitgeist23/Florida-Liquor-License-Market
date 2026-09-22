@@ -102,6 +102,27 @@ export default function Abt6023BrowserForm({ officialPdfUrl }: { officialPdfUrl:
         <p className="abt-viewer-help">
           The FLLM browser form is provided for administrative convenience. Before filing, compare the completed information with the current official DBPR ABT-6023 and follow DBPR/ABT submission and fee requirements.
         </p>
+
+        <aside className="abt-6023-ucc-companion" aria-label="Additional Florida UCC due diligence">
+          <div>
+            <span>Additional secured-transaction due diligence</span>
+            <h3>Also search the Florida UCC registry</h3>
+            <p>
+              ABT-6023 is used to request the Division&apos;s search for recorded liens or mortgagee interests involving the alcoholic-beverage license. For broader debtor-level secured-transaction diligence, also search the Florida Secured Transaction Registry for UCC financing statements filed under the business or debtor name.
+            </p>
+            <small>
+              A UCC search is a separate public-record check and should not be treated by itself as confirmation that a liquor license or transaction is free of every lien, claim, tax obligation, judgment or other encumbrance.
+            </small>
+          </div>
+          <a
+            className="btn btn-gold"
+            href="https://floridaucc.com/search"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Search Florida UCC Records
+          </a>
+        </aside>
       </div>
     </section>
   );
