@@ -105,6 +105,16 @@ export async function GET() {
     });
   }
 
+  // Remove the remaining source-field bottom edge between the second
+  // representative's fax and cell-phone rows.
+  firstPage.drawRectangle({
+    x: 485,
+    y: 458.5,
+    width: 88,
+    height: 4.5,
+    color: rgb(1, 1, 1),
+  });
+
   // Remove the printed checkbox outlines and their tiny reference numbers;
   // the interactive checkbox widgets are redrawn over these clean areas.
   for (const rectangle of CHECKBOX_MASKS) {
