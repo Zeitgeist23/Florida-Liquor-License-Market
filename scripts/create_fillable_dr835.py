@@ -88,23 +88,23 @@ def add_checkbox(form, name: str, px_left: float, px_top: float, size_px: float 
 
 def page_one_fields(form):
     # Section 1 - Taxpayer information
-    # Expanded to use almost the full taxpayer box, with a smaller fixed font so
-    # four lines (entity, DBA, street, city/state/ZIP) and longer line entries fit cleanly.
+    # Use the taxpayer box with a fixed seven-point font so five lines fit
+    # cleanly without touching the box border.
     add_text_field(
         form,
         "taxpayer_name_and_address",
-        61,
-        229,
-        478,
-        326,
-        font_size=6.5,
+        68,
+        236,
+        468,
+        320,
+        font_size=7,
         multiline=True,
     )
     add_text_field(form, "federal_identification_numbers", 484, 232, 695, 260)
     add_text_field(form, "florida_tax_registration_numbers", 707, 232, 955, 260)
     add_text_field(form, "taxpayer_contact_person", 484, 278, 695, 324)
-    add_text_field(form, "taxpayer_telephone", 808, 279, 955, 292)
-    add_text_field(form, "taxpayer_fax", 790, 309, 955, 324)
+    add_text_field(form, "taxpayer_telephone", 846, 279, 955, 292, font_size=7)
+    add_text_field(form, "taxpayer_fax", 846, 309, 955, 324, font_size=7)
 
     # Section 2 - Representatives
     representative_rows = [
@@ -115,9 +115,11 @@ def page_one_fields(form):
     for prefix, top, bottom in representative_rows:
         add_text_field(form, f"{prefix}_name_firm_address", 66, top + 13, 694, bottom - 34, multiline=True)
         add_text_field(form, f"{prefix}_email", 122, bottom - 29, 694, bottom - 7)
-        add_text_field(form, f"{prefix}_telephone", 804, top + 14, 955, top + 31)
-        add_text_field(form, f"{prefix}_fax", 790, top + 47, 955, top + 64)
-        add_text_field(form, f"{prefix}_cell", 806, top + 81, 955, bottom - 7)
+        # Keep contact fields to the right of the form's printed labels and
+        # telephone-format punctuation instead of covering them.
+        add_text_field(form, f"{prefix}_telephone", 846, top + 14, 955, top + 31, font_size=7)
+        add_text_field(form, f"{prefix}_fax", 846, top + 47, 955, top + 64, font_size=7)
+        add_text_field(form, f"{prefix}_cell", 846, top + 77, 955, bottom - 7, font_size=7)
 
     # Section 3 - Tax matters
     tax_rows = [(774, 801), (805, 832)]
