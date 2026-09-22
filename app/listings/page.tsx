@@ -14,7 +14,7 @@ import {
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
-import { businessQuotaListings } from "@/lib/business-quota-listings";
+import { businessQuotaListings, businessSfsListings } from "@/lib/business-quota-listings";
 import "../fllm-official-template.css";
 import "./listings-premium.css";
 import "./listings-header-position.css";
@@ -199,6 +199,7 @@ export default async function Page() {
       <ListingsPage
         initialListings={marketplaceListings}
         businessListings={businessQuotaListings}
+        businessSfsListings={businessSfsListings}
       />
       <ListingsSeoAuthorityBridge />
       <ListingsQueryFilterEnhancement />

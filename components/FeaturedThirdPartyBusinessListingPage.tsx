@@ -37,7 +37,8 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   askingPriceNumber: number;
   packagePrice: string;
   packagePriceNumber: number;
-  licenseType: "4COP Quota" | "3PS Quota / Package Store";
+  licenseType: "4COP Quota" | "3PS Quota / Package Store" | "4COP SFS/SRX";
+  licenseClass?: "quota" | "sfs";
   businessLabel: string;
   businessLabelLinkUrl?: string;
   heroSummary: string;
@@ -91,7 +92,12 @@ export default function FeaturedThirdPartyBusinessListingPage({
   const statusLabel = "Available / Broker confirmation required";
   const inquiryHref = buildInquiryHref(config);
   const shortLicenseType =
-    config.licenseType === "4COP Quota" ? "4COP Quota" : "3PS Quota";
+    config.licenseType === "4COP Quota"
+      ? "4COP Quota"
+      : config.licenseType === "4COP SFS/SRX"
+        ? "4COP SFS/SRX"
+        : "3PS Quota";
+  const isSfsListing = config.licenseClass === "sfs" || config.licenseType === "4COP SFS/SRX";
   const countyShort = config.county.replace(/\s+County$/i, "");
   const isWeSellRestaurantsBroker =
     config.broker.brokerage.trim().toLowerCase() === "we sell restaurants";
@@ -134,7 +140,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
         <div className="marketplace-listing-shell marketplace-listing-hero-grid">
           <div className="marketplace-listing-copy">
             <div className="marketplace-listing-breadcrumbs">
-              <Link href="/businesses-with-quota-licenses">Businesses With Quota Licenses</Link>
+              <Link href={isSfsListing ? "/listings?type=businesses-sfs" : "/businesses-with-quota-licenses"}>
+                {isSfsListing ? "Businesses With 4COP SFS/SRX Licenses" : "Businesses With Quota Licenses"}
+              </Link>
               <span>›</span>
               <Link href={config.countyHref}>{config.county}</Link>
               <span>›</span>
@@ -173,17 +181,20 @@ export default function FeaturedThirdPartyBusinessListingPage({
               </span>
               <span className="marketplace-listing-title-line">
                 + <span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span>{" "}
-                Quota License
+                {isSfsListing ? "Restaurant License" : "Quota License"}
               </span>
             </h1>
             <p className="marketplace-listing-price">{config.packagePrice}</p>
             <div className="featured-business-package-alert">
               <span className="featured-business-package-badge">
-                Business Purchase Required
+                {isSfsListing ? "Business + Premises Required" : "Business Purchase Required"}
               </span>
               <span>
-                Included {shortLicenseType} allocated value {config.askingPrice} ·{" "}
-                <strong>License not offered separately</strong>
+                {isSfsListing ? (
+                  <>Location-specific full-liquor privilege · <strong>Not a transferable quota asset</strong></>
+                ) : (
+                  <>Included {shortLicenseType} allocated value {config.askingPrice} · <strong>License not offered separately</strong></>
+                )}
               </span>
             </div>
             <div className="marketplace-listing-availability">
@@ -238,7 +249,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   <span className="marketplace-license-series">
                     {shortLicenseType.replace(" Quota", "")}
                   </span>{" "}
-                  Quota in {config.county}
+                  {isSfsListing ? "Restaurant License" : "Quota"} in {config.county}
                 </h2>
               </div>
 
@@ -247,12 +258,12 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 aria-label="Specific listing details"
               >
                 <div>
-                  <span>Business + License Package</span>
+                  <span>{isSfsListing ? "Restaurant Business Asking Price" : "Business + License Package"}</span>
                   <strong>{config.packagePrice}</strong>
                 </div>
                 <div>
-                  <span>Allocated License Value</span>
-                  <strong>{config.askingPrice}</strong>
+                  <span>{isSfsListing ? "License Classification" : "Allocated License Value"}</span>
+                  <strong>{isSfsListing ? "Location-specific" : config.askingPrice}</strong>
                 </div>
                 <div>
                   <span>License Type</span>
@@ -285,9 +296,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" />
                     </svg>
                     <strong>
-                      On- or
+                      {isSfsListing ? "Restaurant" : "On- or"}
                       <br />
-                      off-premises use
+                      {isSfsListing ? "premises required" : "off-premises use"}
                     </strong>
                   </div>
                   <div>
@@ -295,9 +306,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" />
                     </svg>
                     <strong>
-                      Generally no SFS
+                      {isSfsListing ? "51% food / nonalcoholic" : "Generally no SFS"}
                       <br />
-                      food-sales percentage
+                      {isSfsListing ? "revenue requirement" : "food-sales percentage"}
                     </strong>
                   </div>
                   <div>
@@ -308,9 +319,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <path d="M13 42v-6c0-7 5-12 11-12s11 5 11 12v6zM2 42v-5c0-5 4-9 9-9 2 0 4 1 6 2M46 42v-5c0-5-4-9-9-9-2 0-4 1-6 2" />
                     </svg>
                     <strong>
-                      Limited {countyShort}
+                      {isSfsListing ? "Qualification-based" : `Limited ${countyShort}`}
                       <br />
-                      County quota supply
+                      {isSfsListing ? "not quota inventory" : "County quota supply"}
                     </strong>
                   </div>
                 </div>
@@ -386,15 +397,13 @@ export default function FeaturedThirdPartyBusinessListingPage({
               <section className="marketplace-listing-section">
                 <h2>About This License Listing</h2>
                 <p>
-                  This individual marketplace page represents the {config.county}{" "}
-                  {shortLicenseType} liquor-license interest identified as{" "}
-                  {config.listingReference}. The displayed license asking price
-                  is {config.askingPrice}.
+                  {isSfsListing
+                    ? `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, which the broker reports operates with 4COP SFS/SRX full-liquor privileges. No separate license value is assigned.`
+                    : `This individual marketplace page represents the ${config.county} ${shortLicenseType} liquor-license interest identified as ${config.listingReference}. The displayed license asking price is ${config.askingPrice}.`}
                 </p>
                 <p>
-                  <strong>Business purchase required:</strong> the license is
-                  being offered only in connection with the acquisition of the
-                  associated{" "}
+                  <strong>{isSfsListing ? "Business and premises required:" : "Business purchase required:"}</strong> the license is
+                  {isSfsListing ? " tied to the qualifying restaurant operation and licensed premises associated with the " : " being offered only in connection with the acquisition of the associated "}
                   {config.businessLabelLinkUrl ? (
                     <a
                       className="featured-business-label-link featured-business-label-link--body"
@@ -407,10 +416,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   ) : (
                     config.businessLabel
                   )}
-                  . The liquor license is not currently offered as a standalone
-                  sale.
+                  . {isSfsListing
+                    ? "It is not being represented as a separately saleable or independently movable quota license."
+                    : "The liquor license is not currently offered as a standalone sale."}
                 </p>
-                <p>
+                {!isSfsListing ? <p>
                   A Florida quota license may generally be changed between the{" "}
                   <Link
                     className="featured-business-license-type-link featured-business-license-type-link--4cop"
@@ -428,7 +438,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   series through a DBPR-approved change of license series,
                   subject to applicable premises, zoning, applicant, and
                   regulatory requirements.
-                </p>
+                </p> : <p>
+                  A 4COP SFS/SRX license is a special restaurant license whose continued privileges depend on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.
+                </p>}
               </section>
 
               <section className="marketplace-listing-section marketplace-listing-seller-details">
@@ -480,10 +492,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   <strong>
                     Business + license package: {config.packagePrice}.
                   </strong>{" "}
-                  The {shortLicenseType} liquor license is displayed on FLLM at{" "}
-                  {config.askingPrice}. Purchase of the associated business is
-                  required, and the license is not currently being offered
-                  separately.
+                  {isSfsListing
+                    ? `The reported ${shortLicenseType} privilege is location- and qualification-dependent. FLLM assigns it no separate quota-license value and does not present it as independently transferable inventory.`
+                    : `The ${shortLicenseType} liquor license is displayed on FLLM at ${config.askingPrice}. Purchase of the associated business is required, and the license is not currently being offered separately.`}
                 </div>
 
                 <h3>Broker-reported business details</h3>

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 const validPriceRanges = new Set(["under150", "150to350", "350to500", "500to1m", "over1m"]);
-const validLicenseTypes = new Set(["all", "quota", "4COP Quota", "3PS Quota / Package Store"]);
+const validLicenseTypes = new Set(["all", "quota", "4COP Quota", "3PS Quota / Package Store", "businesses", "businesses-sfs"]);
 const validStatuses = new Set(["available", "sold", "all"]);
 
 function setSelectValue(select: HTMLSelectElement, value: string) {

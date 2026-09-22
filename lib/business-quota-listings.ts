@@ -77,7 +77,8 @@ export type BusinessQuotaListing = {
   href: string;
   county: string;
   countyHref: string;
-  licenseType: "4COP Quota" | "3PS Quota / Package Store";
+  licenseType: "4COP Quota" | "3PS Quota / Package Store" | "4COP SFS/SRX";
+  licenseClass: "quota" | "sfs";
   title: string;
   businessType: string;
   businessCategory: BusinessQuotaCategory;
@@ -90,7 +91,7 @@ export type BusinessQuotaListing = {
   brokerage: string;
   featured: boolean;
   publicationStatus: "published" | "preview";
-  classification: "business_package";
+  classification: "business_package" | "business_sfs";
 };
 
 /**
@@ -110,6 +111,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     county: "Pinellas County",
     countyHref: "/counties/pinellas",
     licenseType: "4COP Quota",
+    licenseClass: "quota",
     title: "Pinellas County Cocktail Lounge + 4COP Quota License",
     businessType: "Upscale cocktail lounge",
     businessCategory: "Cocktail Lounge",
@@ -130,6 +132,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     county: "Martin County",
     countyHref: "/counties/martin",
     licenseType: "4COP Quota",
+    licenseClass: "quota",
     title: "Iconic Jensen Beach Bar + 4COP Quota License",
     businessType: "Long-established neighborhood bar",
     businessCategory: "Bar",
@@ -150,6 +153,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     county: "Miami-Dade County",
     countyHref: "/counties/miami-dade",
     licenseType: "4COP Quota",
+    licenseClass: "quota",
     title: "Miami Adult Nightclub + 4COP Quota License",
     businessType: "Premium adult-entertainment business",
     businessCategory: "Gentlemen's Club",
@@ -165,29 +169,55 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_package",
   },
   {
-    listingReference: "FLLM-265072",
+    listingReference: "FLLM-MELLO",
     href: "/listings/fllm-mello",
     county: "Palm Beach County",
     countyHref: "/counties/palm-beach",
     licenseType: "4COP Quota",
+    licenseClass: "quota",
     title: "Delray Beach Restaurant + 4COP Quota License",
     businessType: "Turnkey full-service restaurant and bar",
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Asset Sale",
-    packagePrice: "$359,000",
+    packagePrice: "$159,000 + $200,000 license",
     packagePriceNumber: 359_000,
     allocatedLicenseValue: "$200,000",
     brokerName: "Leonard Mello",
     brokerage: "We Sell Restaurants",
     featured: true,
-    publicationStatus: "published",
+    publicationStatus: "preview",
     classification: "business_package",
+  },
+  {
+    listingReference: "FLLM-ZOBERG",
+    href: "/listings/fllm-zoberg",
+    county: "Miami-Dade County",
+    countyHref: "/counties/miami-dade",
+    licenseType: "4COP SFS/SRX",
+    licenseClass: "sfs",
+    title: "Miami-Dade Mexican Restaurant + 4COP SFS/SRX License",
+    businessType: "Mexican-Latin restaurant and entertainment venue",
+    businessCategory: "Restaurant",
+    summaryBusinessType: "Restaurant",
+    transactionType: "Business Sale",
+    packagePrice: "$1,200,000",
+    packagePriceNumber: 1_200_000,
+    allocatedLicenseValue: "Location-specific",
+    brokerName: "Brian Zoberg",
+    brokerage: "Suncoast Business Consultants",
+    featured: true,
+    publicationStatus: "preview",
+    classification: "business_sfs",
   },
 ];
 
 export const businessQuotaListings = businessQuotaListingRecords.filter(
-  (listing) => listing.publicationStatus === "published",
+  (listing) => listing.publicationStatus === "published" && listing.licenseClass === "quota",
+);
+
+export const businessSfsListings = businessQuotaListingRecords.filter(
+  (listing) => listing.publicationStatus === "published" && listing.licenseClass === "sfs",
 );
 
 const businessQuotaReferences = new Set(

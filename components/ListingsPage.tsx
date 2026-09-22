@@ -28,6 +28,7 @@ const licenseTypeOptions: readonly ListingsHoverSelectOption[] = [
   { value: "4COP Quota", label: "4COP Quota" },
   { value: "3PS Quota / Package Store", label: "3PS Quota / Package Store" },
   { value: "businesses", label: "Businesses w/ Quota Licenses" },
+  { value: "businesses-sfs", label: "Businesses w/ 4COP SFS/SRX Licenses" },
 ];
 
 const priceOptions: readonly ListingsHoverSelectOption[] = [
@@ -108,12 +109,14 @@ function listingIdentity(
 type ListingsPageProps = {
   initialListings: Listing[];
   businessListings: BusinessQuotaListing[];
+  businessSfsListings: BusinessQuotaListing[];
   focusReference?: string | null;
 };
 
 export default function ListingsPage({
   initialListings,
   businessListings,
+  businessSfsListings,
   focusReference = null,
 }: ListingsPageProps) {
   const [county, setCounty] = useState("all");
@@ -130,7 +133,7 @@ export default function ListingsPage({
 
     if (
       requestedType &&
-      ["all", "quota", "4COP Quota", "3PS Quota / Package Store", "businesses"].includes(requestedType)
+      ["all", "quota", "4COP Quota", "3PS Quota / Package Store", "businesses", "businesses-sfs"].includes(requestedType)
     ) {
       setType(requestedType);
     }
@@ -212,16 +215,19 @@ export default function ListingsPage({
     [county, type, price, status, orderedMarketplaceListings],
   );
 
-  const showingBusinessListings = type === "businesses";
+  const showingQuotaBusinessListings = type === "businesses";
+  const showingSfsBusinessListings = type === "businesses-sfs";
+  const showingBusinessListings = showingQuotaBusinessListings || showingSfsBusinessListings;
+  const activeBusinessListings = showingSfsBusinessListings ? businessSfsListings : businessListings;
   const filteredBusinessListings = useMemo(
     () =>
-      businessListings.filter(
+      activeBusinessListings.filter(
         (listing) =>
           status !== "sold" &&
           (county === "all" || listing.county === county) &&
           priceMatches(listing.packagePriceNumber, price),
       ),
-    [businessListings, county, price, status],
+    [activeBusinessListings, county, price, status],
   );
 
   const visibleListings = useMemo(
@@ -275,15 +281,15 @@ export default function ListingsPage({
             {showingBusinessListings ? (
               <>
                 <h1>
-                  Florida Businesses With Quota Liquor Licenses{" "}
+                  {showingSfsBusinessListings
+                    ? "Florida Businesses With 4COP SFS/SRX Liquor Licenses"
+                    : "Florida Businesses With Quota Liquor Licenses"}{" "}
                   <span>for Sale</span>
                 </h1>
                 <p className="listings-seo-intro">
-                  Browse Florida hospitality businesses for sale with included
-                  4COP and 3PS quota liquor licenses, including asset sales,
-                  established operating businesses, restaurants, bars,
-                  lounges, cocktail lounges, nightclubs, country clubs, and
-                  gentlemen&apos;s clubs.
+                  {showingSfsBusinessListings
+                    ? "Browse Florida restaurant businesses operating with location-specific 4COP SFS/SRX full-liquor privileges. These are business acquisitions, not sales of independently transferable quota licenses."
+                    : "Browse Florida hospitality businesses for sale with included 4COP and 3PS quota liquor licenses, including asset sales, established operating businesses, restaurants, bars, lounges, cocktail lounges, nightclubs, country clubs, and gentlemen's clubs."}
                 </p>
               </>
             ) : (
@@ -362,11 +368,13 @@ export default function ListingsPage({
           <div className="inventory-disclaimer">
             {showingBusinessListings ? (
               <>
-                These listings are business acquisition packages that include a
-                quota liquor license. Confirm the assets, premises, real estate,
-                license allocation, and transaction terms included in each sale.{" "}
-                <Link href="/businesses-with-quota-licenses">
-                  View the dedicated business inventory guide
+                {showingSfsBusinessListings
+                  ? "These listings are restaurant-business acquisitions involving location-specific 4COP SFS/SRX privileges—not sales of transferable quota licenses. Confirm the premises, food-service qualifications, license status, ownership-change requirements, and transaction terms. "
+                  : "These listings are business acquisition packages that include a quota liquor license. Confirm the assets, premises, real estate, license allocation, and transaction terms included in each sale. "}
+                <Link href={showingSfsBusinessListings ? "/license-types/4cop-sfs-restaurant" : "/businesses-with-quota-licenses"}>
+                  {showingSfsBusinessListings
+                    ? "Review Florida 4COP SFS/SRX restaurant licensing"
+                    : "View the dedicated business inventory guide"}
                 </Link>.
               </>
             ) : (
@@ -394,8 +402,8 @@ export default function ListingsPage({
               {showingBusinessListings ? (
                 <>
                   Showing <strong>{filteredBusinessListings.length}</strong> of{" "}
-                  <strong>{businessListings.length}</strong> available business
-                  {businessListings.length === 1 ? " package" : " packages"}
+                  <strong>{activeBusinessListings.length}</strong> available business
+                  {activeBusinessListings.length === 1 ? " package" : " packages"}
                 </>
               ) : (
                 <>
