@@ -59,7 +59,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   countyCities: "West Palm Beach · Boca Raton · Delray Beach · Jupiter",
   askingPrice: "$200,000",
   askingPriceNumber: 200000,
-  packagePrice: "$159,000 + $200,000 license",
+  packagePrice: "$359,000",
   packagePriceNumber: 359000,
   licenseType: "4COP Quota",
   businessLabel: "Delray Beach restaurant and bar",
