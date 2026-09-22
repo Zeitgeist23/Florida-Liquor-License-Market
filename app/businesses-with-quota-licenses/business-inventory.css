@@ -160,8 +160,8 @@
 .business-quota-card-pricing {
   width: 100%;
   display: grid;
-  grid-template-columns: 1.08fr .92fr;
-  gap: 8px;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
   margin-top: 8px;
 }
 
@@ -190,15 +190,55 @@
   margin-top: 3px;
   overflow: hidden;
   color: #fff;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.08;
+  letter-spacing: -.015em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.business-quota-card-details {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.15fr .88fr 1fr;
+  gap: 7px;
+  margin-top: 9px;
+  padding: 7px 0;
+  border-top: 1px solid rgba(99,210,238,.18);
+  border-bottom: 1px solid rgba(99,210,238,.18);
+}
+
+.business-quota-card-details div {
+  min-width: 0;
+}
+
+.business-quota-card-details span {
+  display: block;
+  overflow: hidden;
+  color: #79cfe8;
+  font-size: 7px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: .045em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.business-quota-card-details strong {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  color: #fff;
+  font-size: 9px;
+  line-height: 1.15;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .business-quota-card-condition {
   width: 100%;
-  margin: 7px 0 0;
+  margin: 6px 0 0;
   padding: 0;
   overflow: hidden;
   border: 0;
@@ -211,7 +251,7 @@
 
 .business-quota-card-broker {
   width: 100%;
-  margin: 4px 0 0;
+  margin: 3px 0 0;
   overflow: hidden;
   color: #99adbb;
   font-size: 9px;
@@ -226,7 +266,7 @@
 
 .business-quota-card-action {
   box-sizing: border-box;
-  width: min(245px,100%);
+  width: 100%;
   min-height: 43px;
   display: inline-flex;
   align-items: center;
@@ -272,10 +312,10 @@
 @media (max-width:520px) {
   .business-quota-card {
     box-sizing: border-box;
-    min-height: 420px;
+    min-height: 465px;
     height: auto;
     grid-template-columns: 1fr;
-    grid-template-rows: 250px 170px;
+    grid-template-rows: 295px 170px;
   }
 
   .business-quota-card-body {
@@ -335,13 +375,13 @@
   }
 
   .results-page .business-quota-card-map .florida-county-map {
-    width: 160% !important;
-    height: 160% !important;
-    max-width: 360px !important;
-    max-height: 360px !important;
+    width: 166% !important;
+    height: 166% !important;
+    max-width: 372px !important;
+    max-height: 372px !important;
     object-fit: contain !important;
     background: transparent !important;
-    transform: translateX(2px) scale(1.06) !important;
+    transform: translate(3px,8px) scale(1.08) !important;
     transform-origin: center center !important;
     filter: drop-shadow(0 9px 16px rgba(0,0,0,.38)) !important;
   }
@@ -353,10 +393,10 @@
   }
 
   .results-page .business-quota-card-map .florida-county-map {
-    width: 151% !important;
-    height: 151% !important;
-    max-width: 316px !important;
-    max-height: 316px !important;
+    width: 156% !important;
+    height: 156% !important;
+    max-width: 328px !important;
+    max-height: 328px !important;
   }
 }
 
