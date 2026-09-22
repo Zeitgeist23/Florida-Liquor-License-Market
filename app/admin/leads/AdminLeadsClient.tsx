@@ -27,6 +27,17 @@ type Lead = {
   updatedAt: string;
 };
 
+
+type ListingMatch = {
+  county: string;
+  type: string;
+  price: number | null;
+  priceLabel: string;
+  sourceRef: string;
+  sourceName?: string;
+  sourceUrl?: string;
+};
+
 type BuyerDetails = {
   purchaseMethod?: string | null;
   targetClosing?: string | null;
@@ -170,13 +181,15 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
   );
 }
 
-export default function AdminLeadsClient() {
+export default function AdminLeadsClient({ inventory }: { inventory: ListingMatch[] }) {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [filter, setFilter] = useState<"all" | "buyers" | "valuations" | "sellers">("all");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [matchCode, setMatchCode] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -237,6 +250,40 @@ export default function AdminLeadsClient() {
     });
   }, [filter, leads, search]);
 
+  const matchResult = useMemo(() => {
+    const code = matchCode.trim().toUpperCase();
+    if (!code) return null;
+    const buyer = leads.find((lead) =>
+      isBuyer(lead) && (lead.submissionRef.toUpperCase() === code || lead.liveListingRef?.toUpperCase() === code),
+    ) || null;
+    const requested = inventory.find((listing) => listing.sourceRef.toUpperCase() === code)
+      || (buyer?.liveListingRef ? inventory.find((listing) => listing.sourceRef === buyer.liveListingRef) : undefined)
+      || null;
+    const county = buyer?.county || requested?.county || "";
+    const licenseType = buyer?.licenseType || requested?.type || "";
+    if (!county || !licenseType) return { buyer, requested, matches: [] as ListingMatch[], draft: "" };
+    const matches = inventory
+      .filter((listing) => listing.county === county && listing.type === licenseType)
+      .sort((a, b) => (a.price ?? Number.MAX_SAFE_INTEGER) - (b.price ?? Number.MAX_SAFE_INTEGER));
+    const disclosed = matches.filter((listing) => listing.price !== null);
+    const prices = disclosed.map((listing) => listing.price as number);
+    const low = prices.length ? Math.min(...prices) : null;
+    const high = prices.length ? Math.max(...prices) : null;
+    const firstName = buyer?.fullName.split(/\s+/)[0] || "there";
+    const inventoryLines = matches.map((listing) =>
+      `• ${listing.sourceRef} — ${listing.priceLabel} — availability and terms subject to confirmation`,
+    ).join("\n");
+    const range = low === null ? "with prices available upon confirmation" : `from ${money(low)} to ${money(high)}`;
+    const draft = `Hello ${firstName},\n\nThank you for your inquiry. FLLM currently tracks ${matches.length} ${county} ${licenseType} opportunit${matches.length === 1 ? "y" : "ies"} ${range}.\n\n${inventoryLines}\n\nThese are market opportunities identified by FLLM. Availability, pricing, license status, transferability, liens, and transaction terms remain subject to seller or broker confirmation and independent due diligence.\n\nPlease let me know which references you would like us to investigate further.\n\nFlorida Liquor License Market`;
+    return { buyer, requested, matches, draft };
+  }, [inventory, leads, matchCode]);
+
+  async function copyBuyerDraft() {
+    if (!matchResult?.draft) return;
+    await navigator.clipboard.writeText(matchResult.draft);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+  }
   async function logout() {
     await fetch("/api/admin/session", { method: "DELETE" });
     setAuthenticated(false);
@@ -269,6 +316,42 @@ export default function AdminLeadsClient() {
         <div><span>Seller Leads</span><strong>{sellers}</strong></div>
       </section>
 
+      <section className="lead-match-desk" aria-labelledby="lead-match-title">
+        <div className="lead-match-heading">
+          <div><span>Private inventory intelligence</span><h2 id="lead-match-title">Lead Match Desk</h2><p>Enter a buyer inquiry code or FLLM listing reference to see the originating source and every matching county opportunity.</p></div>
+          <label><span>Buyer or listing code</span><input value={matchCode} onChange={(event) => { setMatchCode(event.target.value); setCopied(false); }} placeholder="FLLM-BUYER-… or FLLM-042" /></label>
+        </div>
+
+        {matchCode.trim() && !matchResult && <p className="lead-match-empty">No buyer lead or inventory listing matches that code.</p>}
+        {matchResult && (
+          <div className="lead-match-results">
+            <div className="lead-match-summary">
+              <div><span>Buyer</span><strong>{matchResult.buyer?.fullName || "No linked buyer lead"}</strong><small>{matchResult.buyer?.email || "Search was opened from a listing reference"}</small></div>
+              <div><span>Requested market</span><strong>{matchResult.buyer?.county || matchResult.requested?.county || "Unknown"}</strong><small>{matchResult.buyer?.licenseType || matchResult.requested?.type || "Unknown license type"}</small></div>
+              <div><span>Originating source</span><strong>{matchResult.requested?.sourceName || "Source not recorded"}</strong>{matchResult.requested?.sourceUrl ? <a href={matchResult.requested.sourceUrl} target="_blank" rel="noopener noreferrer">Open private source ↗</a> : <small>No source URL recorded</small>}</div>
+              <div><span>Matching inventory</span><strong>{matchResult.matches.length}</strong><small>Same county and license type</small></div>
+            </div>
+
+            {matchResult.matches.length ? (
+              <>
+                <div className="lead-match-table-wrap">
+                  <table className="lead-match-table">
+                    <thead><tr><th>FLLM reference</th><th>Asking price</th><th>Potential source</th><th>Source listing</th></tr></thead>
+                    <tbody>{matchResult.matches.map((listing) => (
+                      <tr key={listing.sourceRef}><td><strong>{listing.sourceRef}</strong></td><td>{listing.priceLabel}</td><td>{listing.sourceName || "Source not recorded"}</td><td>{listing.sourceUrl ? <a href={listing.sourceUrl} target="_blank" rel="noopener noreferrer">Review source ↗</a> : "Not recorded"}</td></tr>
+                    ))}</tbody>
+                  </table>
+                </div>
+                <div className="lead-match-draft">
+                  <div><span>Buyer-ready comparison</span><button type="button" onClick={() => void copyBuyerDraft()}>{copied ? "Copied" : "Copy Buyer Message"}</button></div>
+                  <textarea readOnly value={matchResult.draft} aria-label="Buyer-ready comparison message" />
+                  <small>Source identities stay inside the private admin view; the buyer receives FLLM references, prices, and confirmation language.</small>
+                </div>
+              </>
+            ) : <p className="lead-match-empty">The lead was found, but no same-county inventory matches are currently recorded.</p>}
+          </div>
+        )}
+      </section>
       <section className="lead-controls">
         <div className="lead-filter" role="group" aria-label="Lead type">
           <button className={filter === "all" ? "active" : ""} onClick={() => setFilter("all")}>All</button>
