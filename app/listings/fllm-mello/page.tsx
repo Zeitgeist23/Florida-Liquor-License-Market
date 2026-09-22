@@ -97,6 +97,13 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     { label: "Bar Seating", value: "10 guests" },
     { label: "Employees", value: "6 full-time · 2 part-time" },
   ],
+  sellerFinancing: {
+    offered: true,
+    source: "broker-reported",
+    advertisedRate: "6% interest-only",
+    termsSummary:
+      "$1,000 monthly license payment is reported as included in rent.",
+  },
   opportunitiesHeading:
     "Offering highlights identified in the broker listing",
   opportunities: [
