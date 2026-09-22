@@ -29,24 +29,24 @@ const canonicalUrl = `${siteUrl}${canonicalPath}`;
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Delray Beach Restaurant + 4COP Quota License | Broker Preview",
+  title: "Delray Beach Restaurant + 4COP Quota License | $359,000 Package",
   description:
-    "Broker approval preview for a Delray Beach restaurant offered at $159,000 with a transferable Palm Beach County 4COP quota license stated at $200,000.",
+    "Featured Leonard Mello broker listing for a Delray Beach restaurant and bar offered as a $359,000 business + 4COP quota license package. Business component $159,000; allocated license value $200,000.",
   alternates: { canonical: canonicalUrl },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
     title: "Delray Beach Restaurant + 4COP Quota License",
     description:
-      "Featured third-party broker preview. The restaurant is offered at $159,000 and the associated transferable 4COP quota license is stated at $200,000.",
+      "Featured Leonard Mello broker listing. $359,000 total package: $159,000 business component plus a Palm Beach County 4COP quota license allocated at $200,000.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
     title: "Delray Beach Restaurant + 4COP Quota License",
     description:
-      "Featured third-party broker preview represented by Leonard Mello of We Sell Restaurants.",
+      "Delray Beach restaurant and bar + Palm Beach County 4COP quota license package represented by Leonard Mello of We Sell Restaurants.",
   },
 };
 
