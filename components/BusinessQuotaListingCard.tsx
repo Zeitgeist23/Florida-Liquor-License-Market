@@ -71,20 +71,9 @@ export default function BusinessQuotaListingCard({
           </div>
         </div>
 
-        <div className="business-quota-card-details" aria-label="Business package summary">
-          <div>
-            <span>Business Type</span>
-            <strong>{listing.summaryBusinessType}</strong>
-          </div>
-          <div>
-            <span>Transaction</span>
-            <strong>{listing.transactionType}</strong>
-          </div>
-          <div>
-            <span>License Included</span>
-            <strong>{listing.licenseType}</strong>
-          </div>
-        </div>
+        <p className="business-quota-card-transaction">
+          {listing.transactionType}
+        </p>
 
         <p className="business-quota-card-condition">
           Quota license included and not offered separately.
