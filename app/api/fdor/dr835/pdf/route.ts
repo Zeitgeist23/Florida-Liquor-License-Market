@@ -19,13 +19,13 @@ const FIELD_LAYOUT: Record<string, FieldRectangle> = {
   taxpayer_fax: { x: 474, y: 595.6, width: 99, height: 9 },
   representative_1_telephone: { x: 482, y: 545.4, width: 91, height: 10.2 },
   representative_1_fax: { x: 474, y: 524.4, width: 99, height: 10.2 },
-  representative_1_cell: { x: 482, y: 505.2, width: 91, height: 6.6 },
+  representative_1_cell: { x: 482, y: 505.2, width: 91, height: 10.2 },
   representative_2_telephone: { x: 482, y: 486, width: 91, height: 10.2 },
   representative_2_fax: { x: 474, y: 468.6, width: 99, height: 10.2 },
-  representative_2_cell: { x: 482, y: 442.2, width: 91, height: 6.6 },
+  representative_2_cell: { x: 482, y: 442.2, width: 91, height: 10.2 },
   representative_3_telephone: { x: 482, y: 419.4, width: 91, height: 10.2 },
   representative_3_fax: { x: 474, y: 398.4, width: 99, height: 10.2 },
-  representative_3_cell: { x: 482, y: 378.9, width: 91, height: 7.2 },
+  representative_3_cell: { x: 482, y: 378.6, width: 91, height: 10.2 },
 };
 
 const CONTACT_FIELD_NAMES = Object.keys(FIELD_LAYOUT).filter(
