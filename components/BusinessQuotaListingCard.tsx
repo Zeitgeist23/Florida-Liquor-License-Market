@@ -20,12 +20,6 @@ const categoryClassNames: Record<BusinessQuotaCategory, string> = {
   "Other Hospitality": "other-hospitality",
 };
 
-function cardLicenseLabel(listing: BusinessQuotaListing) {
-  return listing.licenseType === "4COP Quota"
-    ? "4COP Quota License"
-    : "3PS Quota License";
-}
-
 export default function BusinessQuotaListingCard({
   listing,
 }: {
@@ -59,7 +53,6 @@ export default function BusinessQuotaListingCard({
             >
               {listing.businessCategory}
             </span>
-            <span>+ {cardLicenseLabel(listing)}</span>
           </Link>
         </h2>
 
