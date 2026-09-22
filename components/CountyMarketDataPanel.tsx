@@ -55,7 +55,7 @@ export default function CountyMarketDataPanel({
     year: "numeric",
     timeZone: "America/New_York",
   }).format(new Date());
-  const evidenceListings = listings.filter((listing) => listing.sourceRef).slice(0, 5);
+  const evidenceListings = listings.filter((listing) => listing.sourceRef);
 
   return (
     <section className="county-data-panel county-shell" aria-labelledby="county-data-title">
