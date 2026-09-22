@@ -62,7 +62,12 @@ type ValuationDetails = {
 function isOwnerInquiry(lead: Lead) {
   const email = lead.email.trim().toLowerCase();
   const name = lead.fullName.trim().toLowerCase();
-  return email === "jwigg023@gmail.com" || name === "james wigg";
+  return (
+    email === "jwigg023@gmail.com" ||
+    name === "james wigg" ||
+    name === "ted bundy" ||
+    name === "george washington"
+  );
 }
 function isBuyer(lead: Lead) {
   return lead.submissionRef.startsWith("FLLM-BUYER-");
