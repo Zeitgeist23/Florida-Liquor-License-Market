@@ -220,9 +220,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
             </h1>
             <p className="marketplace-listing-price">{config.packagePrice}</p>
             <div className="featured-business-package-alert">
-              <span className="featured-business-package-badge">
-                {is2copListing ? "Business + 2COP License" : isSfsListing ? tr("Business + Premises Required", "Negocio + local requeridos") : tr("Business Purchase Required", "Compra del negocio requerida")}
-              </span>
+              {!isSfsListing && (
+                <span className="featured-business-package-badge">
+                  {is2copListing ? "Business + 2COP License" : tr("Business Purchase Required", "Compra del negocio requerida")}
+                </span>
+              )}
               <span>
                 {is2copListing ? (
                   <>Beer-and-wine privileges only · <strong>No separate quota-license value</strong></>
