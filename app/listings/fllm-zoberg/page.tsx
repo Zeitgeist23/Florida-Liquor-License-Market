@@ -86,9 +86,9 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "The broker-reported offering includes the operating restaurant business, established systems, furniture, fixtures and equipment, commercial kitchen and bar infrastructure, leasehold interests and associated goodwill. The restaurant is reported to operate with a 4COP SFS / SRX special restaurant license. That privilege is premises- and qualification-dependent, is assigned no separate license value by FLLM, and must not be treated as a transferable county quota license.",
   businessMetrics: [
     { label: "Business Asking Price", value: "$1,200,000" },
+    { label: "Gross Revenue", value: "$3,280,000" },
     { label: "Cash Flow (SDE)", value: "$388,520" },
     { label: "Adjusted SDE", value: "$362,000" },
-    { label: "Gross Revenue", value: "$3,280,000" },
     { label: "License Classification", value: "4COP SFS / SRX — broker reported" },
     { label: "License Value", value: "No separate quota value" },
     { label: "Premises", value: "5,242 SF leased" },
