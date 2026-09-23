@@ -72,6 +72,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   countyValueHref: "/counties/miami-dade/liquor-license-value",
   countyCities: "Miami · Doral · Hialeah · Miami Beach",
   countyPopulation: "2,838,461",
+  annualLicenseFee: "$1,820",
   askingPrice: "Not separately valued",
   askingPriceNumber: 0,
   packagePrice: "$1,200,000",
