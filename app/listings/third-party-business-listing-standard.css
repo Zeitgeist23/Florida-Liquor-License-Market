@@ -652,9 +652,9 @@
 
 
 /* Explain the SFS / SRX designation without replacing the card's education link. */
-.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-license-type-card {
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div.marketplace-listing-license-type-card {
   z-index: 10;
-  overflow: visible;
+  overflow: visible !important;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-license-type-tooltip {
