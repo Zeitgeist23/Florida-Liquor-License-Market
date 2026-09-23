@@ -31,6 +31,8 @@ type SbaFinancingDisclosure = {
 export type FeaturedThirdPartyBusinessListingConfig = {
   listingReference: string;
   canonicalPath: string;
+  locale?: "en" | "es";
+  languageAlternates?: { en: string; es: string };
   county: string;
   countyHref: string;
   countyValueHref: string;
@@ -92,7 +94,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
 }: {
   config: FeaturedThirdPartyBusinessListingConfig;
 }) {
-  const statusLabel = "Available / Broker confirmation required";
+  const isSpanish = config.locale === "es";
+  const tr = (english: string, spanish: string) => isSpanish ? spanish : english;
+  const statusLabel = tr("Available / Broker confirmation required", "Disponible / Confirmación del corredor requerida");
   const inquiryHref = buildInquiryHref(config);
   const shortLicenseType =
     config.licenseType === "4COP Quota"
@@ -113,20 +117,21 @@ export default function FeaturedThirdPartyBusinessListingPage({
       className="results-page marketplace-listing-page"
       data-featured-broker-listing={config.listingReference}
       data-featured-broker-business-listing="true"
+      lang={isSpanish ? "es" : "en"}
     >
       <FeaturedBrokerBusinessInteractions
         listingReference={config.listingReference}
       />
 
       <style>{`
-        .featured-business-package-alert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;color:#d7e2e8;font-size:14px;font-weight:750;line-height:1.45}.featured-business-package-badge{display:inline-flex;align-items:center;min-height:25px;padding:0 9px;border:1px solid #efaa10;border-radius:4px;color:#071a3a;background:#efaa10;font-size:9px;font-weight:950;letter-spacing:.07em;text-transform:uppercase}.featured-business-package-alert strong{color:#f1b53a}.featured-business-label-link{text-decoration:none!important;transition:color .16s ease,border-color .16s ease}.featured-business-label-link--hero{color:inherit!important;font-weight:inherit!important;text-shadow:none!important;border-bottom:1px solid rgba(215,226,232,.34)}.featured-business-label-link--hero:hover,.featured-business-label-link--hero:focus-visible{color:#fff!important;border-bottom-color:rgba(255,255,255,.72);outline:none}.featured-business-label-link--body{color:#e29abf!important;font-weight:400!important;text-shadow:none!important;border-bottom:0!important}.featured-business-label-link--body:hover,.featured-business-label-link--body:focus-visible{color:#efafd0!important;border-bottom:0!important;outline:none}.package-business-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0;overflow:visible}.package-business-metric{position:relative!important;display:block!important;min-width:0;min-height:96px;padding:16px!important;overflow:visible!important;border:1px solid rgba(226,165,30,.25);border-radius:8px;background:rgba(4,23,39,.72);color:inherit;text-decoration:none!important;cursor:help;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease,background .16s ease}.package-business-metric--link{cursor:pointer}.package-business-metric:hover,.package-business-metric:focus-visible{z-index:100!important;transform:translateY(-2px);border-color:rgba(105,214,255,.82);background:rgba(9,38,58,.96);box-shadow:0 11px 24px rgba(0,0,0,.32),0 0 16px rgba(105,214,255,.12);outline:none}.package-business-metric>span:first-child{display:block;color:#69d6ff;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.package-business-metric>strong{display:block;margin-top:6px;color:#fff;font-size:15px}.package-business-tooltip{position:absolute!important;z-index:120!important;left:12px!important;right:12px!important;top:calc(100% + 8px)!important;bottom:auto!important;display:block!important;padding:11px 12px;border:1px solid rgba(105,214,255,.72);border-radius:7px;background:#071b2d!important;color:#dce8ef!important;box-shadow:0 14px 28px rgba(0,0,0,.42);font-size:12px!important;font-weight:400!important;letter-spacing:0!important;line-height:1.5!important;text-transform:none!important;opacity:0;visibility:hidden;transform:translateY(-5px);pointer-events:auto;transition:opacity .15s ease,visibility .15s ease,transform .15s ease}.package-business-tooltip:before{content:"";position:absolute;left:18px;bottom:100%;border:7px solid transparent;border-bottom-color:rgba(105,214,255,.72)}.package-business-tooltip:after{content:"";position:absolute;left:0;right:0;bottom:100%;height:9px;background:transparent}.package-business-tooltip small{display:block;margin-top:6px;color:#f1a600;font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}.package-business-metric:hover .package-business-tooltip,.package-business-metric:focus-visible .package-business-tooltip{opacity:1;visibility:visible;transform:translateY(0)}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid>.package-business-metric>.package-business-tooltip{color:#dce8ef!important;font-weight:400!important}.package-total{margin:18px 0;padding:16px 18px;border-left:4px solid #efa916;background:rgba(239,169,22,.07);color:#cbd6dd;line-height:1.7}.package-total strong{color:#f1b53a}.featured-business-financing{margin-top:16px;padding:18px;border:1px solid rgba(105,214,255,.32);border-radius:8px;background:rgba(4,23,39,.72)}.featured-business-financing>h3{margin:0 0 13px!important;color:#fff!important;font-size:18px!important;text-align:center}.featured-business-financing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.featured-business-financing-grid:has(>article:only-child){grid-template-columns:minmax(0,1fr)}.featured-business-financing-card{display:flex;min-height:112px;flex-direction:column;justify-content:center;padding:17px 18px;border:1px solid rgba(241,166,0,.58);border-radius:7px;background:linear-gradient(145deg,#173653,#081b2d);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 22px rgba(0,0,0,.24)}.featured-business-financing-card>span{color:#69d6ff;font-size:10px;font-weight:900;letter-spacing:.075em;text-transform:uppercase}.featured-business-financing-card>strong{margin-top:5px;color:#f1a600;font:700 21px/1.12 Georgia,serif}.featured-business-financing-card>p{margin:8px 0 0!important;color:#d7e2e8!important;font-size:13px!important;line-height:1.55!important}.featured-business-financing-card>small{margin-top:7px;color:#93a7b5;font-size:10px;line-height:1.45}.marketplace-listing-broker-license{display:block;margin-top:4px;color:#9fb0bd;font-size:11px;font-weight:750}.marketplace-listing-broker-photo img{object-fit:cover}.package-confidential{font-size:12px;color:#9eb0be;line-height:1.6}.package-source-disclosure{font-size:11px;color:#8398a8;line-height:1.6}.featured-business-email-copy-row{display:inline-flex;align-items:center;gap:5px;width:fit-content;max-width:100%}.featured-business-copy-email-button{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:16px;height:16px;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:#f1a600;font-size:13px;font-weight:900;line-height:1;cursor:pointer;box-shadow:none;appearance:none}.featured-business-call-broker-button{position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 7px 18px rgba(0,0,0,.28)}.featured-business-call-broker-label{display:block;opacity:1;line-height:inherit;white-space:nowrap;transition:opacity .14s ease}.featured-business-call-broker-phone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;color:inherit;font:inherit;line-height:inherit;white-space:nowrap;pointer-events:none;transition:opacity .14s ease}.featured-business-call-broker-button:hover .featured-business-call-broker-label,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-label{opacity:0}.featured-business-call-broker-button:hover .featured-business-call-broker-phone,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-phone{opacity:1}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link{color:#d98282!important;-webkit-text-fill-color:#d98282!important;background:none!important;background-image:none!important;font-weight:400!important;text-shadow:none!important;text-decoration:none}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link:hover,.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link:focus-visible{color:#e79a9a!important;-webkit-text-fill-color:#e79a9a!important;filter:none!important;text-shadow:0 0 8px rgba(217,130,130,.22)!important;outline:none}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link strong{color:#f1a600!important;-webkit-text-fill-color:#f1a600!important}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link:hover strong,.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link:focus-visible strong{color:#ffc43d!important;-webkit-text-fill-color:#ffc43d!important}@media(max-width:760px){.package-business-grid,.featured-business-financing-grid{grid-template-columns:1fr}}
+        .featured-business-package-alert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;color:#d7e2e8;font-size:14px;font-weight:750;line-height:1.45}.featured-business-package-badge{display:inline-flex;align-items:center;min-height:25px;padding:0 9px;border:1px solid #efaa10;border-radius:4px;color:#071a3a;background:#efaa10;font-size:9px;font-weight:950;letter-spacing:.07em;text-transform:uppercase}.featured-business-package-alert strong{color:#f1b53a}.featured-business-label-link{text-decoration:none!important;transition:color .16s ease,border-color .16s ease}.featured-business-label-link--hero{color:inherit!important;font-weight:inherit!important;text-shadow:none!important;border-bottom:1px solid rgba(215,226,232,.34)}.featured-business-label-link--hero:hover,.featured-business-label-link--hero:focus-visible{color:#fff!important;border-bottom-color:rgba(255,255,255,.72);outline:none}.featured-business-label-link--body{color:#e29abf!important;font-weight:400!important;text-shadow:none!important;border-bottom:0!important}.featured-business-label-link--body:hover,.featured-business-label-link--body:focus-visible{color:#efafd0!important;border-bottom:0!important;outline:none}.package-business-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0;overflow:visible}.package-business-metric{position:relative!important;display:block!important;min-width:0;min-height:96px;padding:16px!important;overflow:visible!important;border:1px solid rgba(226,165,30,.25);border-radius:8px;background:rgba(4,23,39,.72);color:inherit;text-decoration:none!important;cursor:help;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease,background .16s ease}.package-business-metric--link{cursor:pointer}.package-business-metric:hover,.package-business-metric:focus-visible{z-index:100!important;transform:translateY(-2px);border-color:rgba(105,214,255,.82);background:rgba(9,38,58,.96);box-shadow:0 11px 24px rgba(0,0,0,.32),0 0 16px rgba(105,214,255,.12);outline:none}.package-business-metric>span:first-child{display:block;color:#69d6ff;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.package-business-metric>strong{display:block;margin-top:6px;color:#fff;font-size:15px}.package-business-tooltip{position:absolute!important;z-index:120!important;left:12px!important;right:12px!important;top:calc(100% + 8px)!important;bottom:auto!important;display:block!important;padding:11px 12px;border:1px solid rgba(105,214,255,.72);border-radius:7px;background:#071b2d!important;color:#dce8ef!important;box-shadow:0 14px 28px rgba(0,0,0,.42);font-size:12px!important;font-weight:400!important;letter-spacing:0!important;line-height:1.5!important;text-transform:none!important;opacity:0;visibility:hidden;transform:translateY(-5px);pointer-events:auto;transition:opacity .15s ease,visibility .15s ease,transform .15s ease}.package-business-tooltip:before{content:"";position:absolute;left:18px;bottom:100%;border:7px solid transparent;border-bottom-color:rgba(105,214,255,.72)}.package-business-tooltip:after{content:"";position:absolute;left:0;right:0;bottom:100%;height:9px;background:transparent}.package-business-tooltip small{display:block;margin-top:6px;color:#f1a600;font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}.package-business-metric:hover .package-business-tooltip,.package-business-metric:focus-visible .package-business-tooltip{opacity:1;visibility:visible;transform:translateY(0)}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid>.package-business-metric>.package-business-tooltip{color:#dce8ef!important;font-weight:400!important}.package-total{margin:18px 0;padding:16px 18px;border-left:4px solid #efa916;background:rgba(239,169,22,.07);color:#cbd6dd;line-height:1.7}.package-total strong{color:#f1b53a}.featured-business-financing{margin-top:16px;padding:18px;border:1px solid rgba(105,214,255,.32);border-radius:8px;background:rgba(4,23,39,.72)}.featured-business-financing>h3{margin:0 0 13px!important;color:#fff!important;font-size:18px!important;text-align:center}.featured-business-financing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.featured-business-financing-grid:has(>article:only-child){grid-template-columns:minmax(0,1fr)}.featured-business-financing-card{display:flex;min-height:112px;flex-direction:column;justify-content:center;padding:17px 18px;border:1px solid rgba(241,166,0,.58);border-radius:7px;background:linear-gradient(145deg,#173653,#081b2d);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 22px rgba(0,0,0,.24)}.featured-business-financing-card>span{color:#69d6ff;font-size:10px;font-weight:900;letter-spacing:.075em;text-transform:uppercase}.featured-business-financing-card>strong{margin-top:5px;color:#f1a600;font:700 21px/1.12 Georgia,serif}.featured-business-financing-card>p{margin:8px 0 0!important;color:#d7e2e8!important;font-size:13px!important;line-height:1.55!important}.featured-business-financing-card>small{margin-top:7px;color:#93a7b5;font-size:10px;line-height:1.45}.marketplace-listing-broker-license{display:block;margin-top:4px;color:#9fb0bd;font-size:11px;font-weight:750}.marketplace-listing-broker-photo img{object-fit:cover}.package-confidential{font-size:12px;color:#9eb0be;line-height:1.6}.package-source-disclosure{font-size:11px;color:#8398a8;line-height:1.6}.featured-business-email-copy-row{display:inline-flex;align-items:center;gap:5px;width:fit-content;max-width:100%}.featured-business-copy-email-button{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:16px;height:16px;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:#f1a600;font-size:13px;font-weight:900;line-height:1;cursor:pointer;box-shadow:none;appearance:none}.featured-business-call-broker-button{position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 7px 18px rgba(0,0,0,.28)}.featured-business-call-broker-label{display:block;opacity:1;line-height:inherit;white-space:nowrap;transition:opacity .14s ease}.featured-business-call-broker-phone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;color:inherit;font:inherit;line-height:inherit;white-space:nowrap;pointer-events:none;transition:opacity .14s ease}.featured-business-call-broker-button:hover .featured-business-call-broker-label,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-label{opacity:0}.featured-business-call-broker-button:hover .featured-business-call-broker-phone,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-phone{opacity:1}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link{color:#d98282!important;-webkit-text-fill-color:#d98282!important;background:none!important;background-image:none!important;font-weight:400!important;text-shadow:none!important;text-decoration:none}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link:hover,.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link:focus-visible{color:#e79a9a!important;-webkit-text-fill-color:#e79a9a!important;filter:none!important;text-shadow:0 0 8px rgba(217,130,130,.22)!important;outline:none}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link strong{color:#f1a600!important;-webkit-text-fill-color:#f1a600!important}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link:hover strong,.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link:focus-visible strong{color:#ffc43d!important;-webkit-text-fill-color:#ffc43d!important}.featured-business-language-switch{display:flex;align-items:center;gap:7px;width:fit-content;margin:0 0 12px;padding:6px 9px;border:1px solid rgba(105,214,255,.5);border-radius:999px;background:rgba(2,18,31,.72);color:#dce8ef;font-size:10px;font-weight:900;letter-spacing:.06em}.featured-business-language-switch svg{width:14px;height:14px;fill:none;stroke:#69d6ff;stroke-width:1.8}.featured-business-language-switch a{color:#dce8ef!important;text-decoration:none!important}.featured-business-language-switch a:hover,.featured-business-language-switch a:focus-visible{color:#fff!important;outline:none}.featured-business-language-switch [aria-current="page"]{color:#f1a600}.featured-business-language-divider{color:#69808f}@media(max-width:760px){.package-business-grid,.featured-business-financing-grid{grid-template-columns:1fr}}
       `}</style>
 
       <header className="results-header page-shell">
         <Link
           className="seller-brand"
           href="/"
-          aria-label="Florida Liquor License Market home"
+          aria-label={tr("Florida Liquor License Market home", "Página principal de Florida Liquor License Market")}
         >
           <img
             src="/assets/brand-sharp.svg"
@@ -144,13 +149,24 @@ export default function FeaturedThirdPartyBusinessListingPage({
           <div className="marketplace-listing-copy">
             <div className="marketplace-listing-breadcrumbs">
               <Link href={isSfsListing ? "/listings?type=businesses-sfs" : "/businesses-with-quota-licenses"}>
-                {isSfsListing ? "Businesses With 4COP SFS / SRX Licenses" : "Businesses With Quota Licenses"}
+                {isSfsListing ? tr("Businesses With 4COP SFS / SRX Licenses", "Negocios con licencias 4COP SFS / SRX") : tr("Businesses With Quota Licenses", "Negocios con licencias de cupo")}
               </Link>
               <span>›</span>
               <Link href={config.countyHref}>{config.county}</Link>
               <span>›</span>
               <strong>{config.listingReference}</strong>
             </div>
+            {config.languageAlternates ? (
+              <nav className="featured-business-language-switch" aria-label={tr("Listing language", "Idioma del anuncio")}>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M3 12h18M12 3c3 3.1 4.2 6.1 4.2 9S15 17.9 12 21M12 3C9 6.1 7.8 9.1 7.8 12S9 17.9 12 21" />
+                </svg>
+                {isSpanish ? <Link href={config.languageAlternates.en}>EN</Link> : <span aria-current="page">EN</span>}
+                <span className="featured-business-language-divider">|</span>
+                {isSpanish ? <span aria-current="page">ES</span> : <Link href={config.languageAlternates.es}>ES</Link>}
+              </nav>
+            ) : null}
             <span
               style={{
                 display: "inline-flex",
@@ -170,10 +186,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 textTransform: "uppercase",
               }}
             >
-              Featured Listing
+              {tr("Featured Listing", "Anuncio destacado")}
             </span>
             <span className="marketplace-listing-kicker">
-              Featured Third-Party Broker Listing
+              {tr("Featured Third-Party Broker Listing", "Anuncio destacado de corredor externo")}
             </span>
             <h1>
               <span className="marketplace-listing-title-line">
@@ -184,33 +200,33 @@ export default function FeaturedThirdPartyBusinessListingPage({
               </span>
               <span className="marketplace-listing-title-line">
                 + <span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span>{" "}
-                {isSfsListing ? "Full-Liquor License" : "Quota License"}
+                {isSfsListing ? tr("Full-Liquor License", "Licencia completa de bebidas alcohólicas") : tr("Quota License", "Licencia de cupo")}
               </span>
             </h1>
             <p className="marketplace-listing-price">{config.packagePrice}</p>
             <div className="featured-business-package-alert">
               <span className="featured-business-package-badge">
-                {isSfsListing ? "Business + Premises Required" : "Business Purchase Required"}
+                {isSfsListing ? tr("Business + Premises Required", "Negocio + local requeridos") : tr("Business Purchase Required", "Compra del negocio requerida")}
               </span>
               <span>
                 {isSfsListing ? (
-                  <>Location-specific full-liquor privileges · <strong>4COP SFS / SRX license included</strong></>
+                  <>{tr("Location-specific full-liquor privileges", "Privilegios de bebidas alcohólicas vinculados al local")} · <strong>{tr("4COP SFS / SRX license included", "Licencia 4COP SFS / SRX incluida")}</strong></>
                 ) : (
-                  <>Included {shortLicenseType} allocated value {config.askingPrice} · <strong>License not offered separately</strong></>
+                  <>{tr("Included", "Incluida")} {shortLicenseType} {tr("allocated value", "valor asignado")} {config.askingPrice} · <strong>{tr("License not offered separately", "La licencia no se ofrece por separado")}</strong></>
                 )}
               </span>
             </div>
             <div className="marketplace-listing-availability">
               <span className="availability-pill" title={statusLabel}>
                 <span className="availability-dot" aria-hidden="true" />
-                Available
+                {tr("Available", "Disponible")}
               </span>
               <span className="marketplace-listing-hero-reference">
-                Listing {config.listingReference}
+                {tr("Listing", "Anuncio")} {config.listingReference}
               </span>
               <ListingViewCount listingRef={config.listingReference} />
               <span className="marketplace-listing-broker-badge">
-                Featured · Third-Party Broker
+                {tr("Featured · Third-Party Broker", "Destacado · Corredor externo")}
               </span>
             </div>
             <p className="marketplace-listing-summary">{config.heroSummary}</p>
@@ -220,13 +236,13 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 href={inquiryHref}
                 aria-label={`Inquire about the ${config.county} business and ${shortLicenseType} package`}
               >
-                Inquire About This Business Package
+                {tr("Inquire About This Business Package", "Solicitar información sobre este negocio")}
               </Link>
               <Link
                 className="marketplace-listing-secondary"
                 href={config.countyHref}
               >
-                View {countyShort} License Market
+                {tr("View", "Ver mercado de licencias de")} {countyShort}
               </Link>
             </div>
           </div>
@@ -247,25 +263,25 @@ export default function FeaturedThirdPartyBusinessListingPage({
           <div className="marketplace-listing-grid">
             <article className="marketplace-listing-main">
               <div className="marketplace-listing-heading">
-                <span>Specific License Details</span>
+                <span>{tr("Specific License Details", "Detalles específicos de la licencia")}</span>
                 <h2>
                   <span className="marketplace-license-series">
                     {shortLicenseType.replace(" Quota", "")}
                   </span>{" "}
-                  {isSfsListing ? "Full-Liquor License" : "Quota"} in {config.county}
+                  {isSfsListing ? tr("Full-Liquor License", "Licencia completa de bebidas alcohólicas") : tr("Quota", "Cupo")} {tr("in", "en")} {config.county}
                 </h2>
               </div>
 
               <div
                 className="marketplace-listing-facts"
-                aria-label="Specific listing details"
+                aria-label={tr("Specific listing details", "Detalles específicos del anuncio")}
               >
                 <div>
-                  <span>{isSfsListing ? "Restaurant Business Asking Price" : "Business + License Package"}</span>
+                  <span>{isSfsListing ? tr("Restaurant Business Asking Price", "Precio de venta del negocio de restaurante") : tr("Business + License Package", "Paquete de negocio + licencia")}</span>
                   <strong>{config.packagePrice}</strong>
                 </div>
                 <div className={isSfsListing ? "marketplace-listing-education-card marketplace-listing-license-type-card" : undefined}>
-                  <span>{isSfsListing ? "Liquor License Type" : "License Type"}</span>
+                  <span>{isSfsListing ? tr("Liquor License Type", "Tipo de licencia de bebidas alcohólicas") : tr("License Type", "Tipo de licencia")}</span>
                   <strong>{shortLicenseType}</strong>
                   {isSfsListing ? (
                     <>
@@ -274,8 +290,8 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         className="marketplace-listing-license-type-tooltip"
                         role="tooltip"
                       >
-                        <span>Series: 4COP (Consumption on Premises)</span>
-                        <span>Status: SFS / SRX</span>
+                        <span>{tr("Series: 4COP (Consumption on Premises)", "Serie: 4COP (consumo en el local)")}</span>
+                        <span>{tr("Status: SFS / SRX", "Estado: SFS / SRX")}</span>
                       </span>
                       <Link
                         className="marketplace-listing-education-link"
@@ -283,14 +299,14 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         aria-label="Learn about 4COP SFS / SRX full-liquor licenses"
                         aria-describedby="sfs-license-type-tooltip"
                       >
-                        <span>Learn more →</span>
+                        <span>{tr("Learn more →", "Más información →")}</span>
                       </Link>
                     </>
                   ) : null}
                 </div>
                 <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
-                  <span>{isSfsListing ? "License Classification" : "Allocated License Value"}</span>
-                  <strong>{isSfsListing ? "Location-specific" : config.askingPrice}</strong>
+                  <span>{isSfsListing ? tr("License Classification", "Clasificación de la licencia") : tr("Allocated License Value", "Valor asignado de la licencia")}</span>
+                  <strong>{isSfsListing ? tr("Location-specific", "Vinculada al local") : config.askingPrice}</strong>
                   {isSfsListing ? (
                     <Link
                       className="marketplace-listing-education-link"
@@ -302,7 +318,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   ) : null}
                 </div>
                 <div>
-                  <span>Marketplace Status</span>
+                  <span>{tr("Marketplace Status", "Estado en el mercado")}</span>
                   <strong>{statusLabel}</strong>
                 </div>
               </div>
@@ -311,16 +327,16 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 className="marketplace-listing-highlights"
                 aria-labelledby="license-highlights-heading"
               >
-                <h3 id="license-highlights-heading">License Highlights</h3>
+                <h3 id="license-highlights-heading">{tr("License Highlights", "Características de la licencia")}</h3>
                 <div className="marketplace-listing-highlight-grid">
                   <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
                     <svg viewBox="0 0 48 48" aria-hidden="true">
                       <path d="M11 42h13V18H11zM15 18V8h5v10M11 26h13M29 25h12l-2 9a5 5 0 0 1-4 3.5A5 5 0 0 1 31 34zM35 37.5V42M30 42h10" />
                     </svg>
                     <strong>
-                      Full-liquor
+                      {tr("Full-liquor", "Bebidas alcohólicas")}
                       <br />
-                      privileges
+                      {tr("privileges", "completas")}
                     </strong>
                     {isSfsListing ? (
                       <Link
@@ -337,9 +353,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" />
                     </svg>
                     <strong>
-                      {isSfsListing ? "Restaurant" : "On- or"}
+                      {isSfsListing ? tr("Restaurant", "Restaurante") : tr("On- or", "Dentro o")}
                       <br />
-                      {isSfsListing ? "premises required" : "off-premises use"}
+                      {isSfsListing ? tr("premises required", "local requeridos") : tr("off-premises use", "fuera del local")}
                     </strong>
                     {isSfsListing ? (
                       <Link
@@ -356,9 +372,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" />
                     </svg>
                     <strong>
-                      {isSfsListing ? "51% food / nonalcoholic" : "Generally no SFS"}
+                      {isSfsListing ? tr("51% food / nonalcoholic", "51% alimentos / sin alcohol") : tr("Generally no SFS", "Generalmente sin SFS")}
                       <br />
-                      {isSfsListing ? "revenue requirement" : "food-sales percentage"}
+                      {isSfsListing ? tr("revenue requirement", "requisito de ingresos") : tr("food-sales percentage", "porcentaje de ventas de alimentos")}
                     </strong>
                     {isSfsListing ? (
                       <Link
@@ -378,9 +394,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <path d="M13 42v-6c0-7 5-12 11-12s11 5 11 12v6zM2 42v-5c0-5 4-9 9-9 2 0 4 1 6 2M46 42v-5c0-5-4-9-9-9-2 0-4 1-6 2" />
                     </svg>
                     <strong>
-                      {isSfsListing ? "Qualification-based" : `Limited ${countyShort}`}
+                      {isSfsListing ? tr("Qualification-based", "Basada en requisitos") : `${tr("Limited", "Limitada")} ${countyShort}`}
                       <br />
-                      {isSfsListing ? "not quota inventory" : "County quota supply"}
+                      {isSfsListing ? tr("not quota inventory", "no es inventario de cupo") : tr("County quota supply", "Oferta de cupos del condado")}
                     </strong>
                     {isSfsListing ? (
                       <Link
@@ -442,9 +458,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
               ) : null}
 
               <div className="marketplace-listing-note">
-                <strong>Third-party broker disclosure</strong>
+                <strong>{tr("Third-party broker disclosure", "Divulgación sobre corredor externo")}</strong>
                 <p>
-                  This featured listing is represented by {config.broker.name} of{" "}
+                  {tr("This featured listing is represented by", "Este anuncio destacado está representado por")} {config.broker.name} {tr("of", "de")}{" "}
                   <a
                     className={`featured-business-disclosure-link${isWeSellRestaurantsBroker ? " we-sell-restaurants-disclosure-link" : ""}`}
                     href={isWeSellRestaurantsBroker ? config.broker.website : config.broker.listingUrl}
@@ -453,25 +469,19 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   >
                     {config.broker.brokerage}
                   </a>
-                  . Florida Liquor License Market is providing marketplace
-                  exposure and is not acting as the seller&apos;s broker or
-                  transaction representative. Availability, package terms,
-                  license status, transferability, and all transaction
-                  information should be confirmed directly with the listing
-                  broker.
+                  . {tr("Florida Liquor License Market is providing marketplace exposure and is not acting as the seller’s broker or transaction representative. Availability, package terms, license status, transferability, and all transaction information should be confirmed directly with the listing broker.", "Florida Liquor License Market proporciona exposición en el mercado y no actúa como corredor del vendedor ni como representante de la transacción. La disponibilidad, los términos del paquete, el estado y la transferibilidad de la licencia y toda la información de la transacción deben confirmarse directamente con el corredor del anuncio.")}
                 </p>
               </div>
 
               <section className="marketplace-listing-section">
-                <h2>About This License Listing</h2>
+                <h2>{tr("About This License Listing", "Acerca de este anuncio de licencia")}</h2>
                 <p>
                   {isSfsListing
-                    ? `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, which the broker reports operates with 4COP SFS / SRX full-liquor privileges. No separate license value is assigned.`
+                    ? (isSpanish ? `Esta página individual del mercado representa el negocio de restaurante del Condado de Miami-Dade identificado como ${config.listingReference}, que según el corredor opera con privilegios completos de bebidas alcohólicas 4COP SFS / SRX. No se asigna un valor separado a la licencia.` : `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, which the broker reports operates with 4COP SFS / SRX full-liquor privileges. No separate license value is assigned.`)
                     : `This individual marketplace page represents the ${config.county} ${shortLicenseType} liquor-license interest identified as ${config.listingReference}. The displayed license asking price is ${config.askingPrice}.`}
                 </p>
                 <p>
-                  <strong>{isSfsListing ? "Business & 4COP SFS / SRX Full-Liquor License:" : "Business purchase required:"}</strong> the license is
-                  {isSfsListing ? " tied to the qualifying restaurant operation and licensed premises associated with the " : " being offered only in connection with the acquisition of the associated "}
+                  <strong>{isSfsListing ? tr("Business & 4COP SFS / SRX Full-Liquor License:", "Negocio y licencia completa de bebidas alcohólicas 4COP SFS / SRX:") : tr("Business purchase required:", "Compra del negocio requerida:")}</strong>{isSfsListing ? tr(" the license is tied to the qualifying restaurant operation and licensed premises associated with the ", " la licencia está vinculada a la operación del restaurante que cumple los requisitos y al local autorizado asociado con el ") : tr(" the license is being offered only in connection with the acquisition of the associated ", " la licencia se ofrece únicamente junto con la adquisición del negocio asociado ")}
                   {config.businessLabelLinkUrl ? (
                     <a
                       className="featured-business-label-link featured-business-label-link--body"
@@ -485,7 +495,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     config.businessLabel
                   )}
                   . {isSfsListing
-                    ? "It is not being represented as a separately saleable or independently movable quota license."
+                    ? tr("It is not being represented as a separately saleable or independently movable quota license.", "No se presenta como una licencia de cupo que pueda venderse por separado o trasladarse independientemente.")
                     : "The liquor license is not currently offered as a standalone sale."}
                 </p>
                 {!isSfsListing ? <p>
@@ -507,12 +517,12 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   subject to applicable premises, zoning, applicant, and
                   regulatory requirements.
                 </p> : <p>
-                  A <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> license is a special restaurant license whose continued privileges depend on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.
+                  {tr("A", "Una")} <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> {tr("license is a special restaurant license whose continued privileges depend on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.", "es una licencia especial para restaurantes cuyos privilegios continuos dependen de la operación de servicio de alimentos que cumple los requisitos, el local aprobado, la aprobación de cambios de propiedad o entidad y el cumplimiento continuo de los requisitos aplicables del DBPR, incluida la prueba de ventas de alimentos y bebidas no alcohólicas.")}
                 </p>}
               </section>
 
               <section className="marketplace-listing-section marketplace-listing-seller-details">
-                <h2>Additional Seller Details</h2>
+                <h2>{tr("Additional Seller Details", "Detalles adicionales del vendedor")}</h2>
                 <p>
                   {config.additionalSellerIntroLinkText &&
                   config.additionalSellerIntro.includes(
@@ -544,31 +554,31 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   )}
                 </p>
                 <p>
-                  The total asking price for the{" "}
+                  {tr("The total asking price for the", "El precio total solicitado por el")}{" "}
                   <a
                     className="package-listing-link"
                     href={config.broker.listingUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    business and license package is {config.packagePrice}
+                    {tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}
                   </a>
                   . {config.packageIncludes}
                 </p>
 
                 <div className="package-total">
                   <strong>
-                    Business + license package: {config.packagePrice}.
+                    {tr("Business + license package", "Paquete de negocio + licencia")}: {config.packagePrice}.
                   </strong>{" "}
                   {isSfsListing
-                    ? `The reported ${shortLicenseType} privilege is location- and qualification-dependent. FLLM assigns it no separate quota-license value and does not present it as independently transferable inventory.`
+                    ? (isSpanish ? `El privilegio ${shortLicenseType} informado depende del local y de los requisitos. FLLM no le asigna un valor separado como licencia de cupo ni lo presenta como inventario transferible de forma independiente.` : `The reported ${shortLicenseType} privilege is location- and qualification-dependent. FLLM assigns it no separate quota-license value and does not present it as independently transferable inventory.`)
                     : `The ${shortLicenseType} liquor license is displayed on FLLM at ${config.askingPrice}. Purchase of the associated business is required, and the license is not currently being offered separately.`}
                 </div>
 
-                <h3>Business Details</h3>
+                <h3>{tr("Business Details", "Detalles del negocio")}</h3>
                 <div
                   className="package-business-grid"
-                  aria-label="Business details and definitions"
+                  aria-label={tr("Business details and definitions", "Detalles y definiciones del negocio")}
                 >
                   {config.businessMetrics.map((metric, index) => {
                     const tooltipId = `${config.listingReference.toLowerCase()}-metric-${index}`;
@@ -583,7 +593,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                             role="tooltip"
                           >
                             {metric.description}
-                            {metric.href ? <small>Click to read the FLLM guide →</small> : null}
+                            {metric.href ? <small>{tr("Click to read the FLLM guide →", "Haga clic para leer la guía de FLLM →")}</small> : null}
                           </span>
                         ) : null}
                       </>
@@ -618,7 +628,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 </ul>
                 {config.transitionText ? <p>{config.transitionText}</p> : null}
                 <p className="package-confidential">
-                  <strong>Confidentiality:</strong>{" "}
+                  <strong>{tr("Confidentiality:", "Confidencialidad:")}</strong>{" "}
                   {config.confidentialityText}
                 </p>
                 {config.sourceDisclosure ? (
@@ -629,13 +639,12 @@ export default function FeaturedThirdPartyBusinessListingPage({
               </section>
 
               <section className="marketplace-listing-section">
-                <h2>{config.county} Market Context</h2>
+                <h2>{isSpanish ? `Contexto del mercado del ${config.county}` : `${config.county} Market Context`}</h2>
                 <p>{config.countyContext}</p>
                 {config.countyPopulation ? (
                   <p>
-                    <strong>Total county population:</strong>{" "}
-                    {config.countyPopulation} — U.S. Census Vintage 2024
-                    estimate
+                    <strong>{tr("Total county population:", "Población total del condado:")}</strong>{" "}
+                    {config.countyPopulation} — {tr("U.S. Census Vintage 2024 estimate", "estimación Vintage 2024 del Censo de EE. UU.")}
                   </p>
                 ) : null}
                 {!isSfsListing ? (
@@ -656,26 +665,23 @@ export default function FeaturedThirdPartyBusinessListingPage({
 
               {isSfsListing ? (
                 <section className="marketplace-listing-section">
-                  <h2>4COP SFS / SRX License Resources</h2>
+                  <h2>{tr("4COP SFS / SRX License Resources", "Recursos sobre licencias 4COP SFS / SRX")}</h2>
                   <p>
-                    Review how Florida&apos;s qualification-based special
-                    restaurant license works, how it differs from a
-                    transferable 4COP quota license, and the FLLM resources
-                    available for transaction planning.
+                    {tr("Review how Florida’s qualification-based special restaurant license works, how it differs from a transferable 4COP quota license, and the FLLM resources available for transaction planning.", "Conozca cómo funciona la licencia especial para restaurantes de Florida basada en requisitos, en qué se diferencia de una licencia de cupo 4COP transferible y qué recursos ofrece FLLM para planificar la transacción.")}
                   </p>
                   <p>
                     <Link href="/license-types/4cop-sfs-restaurant">
-                      Learn about 4COP SFS / SRX restaurant licenses →
+                      {tr("Learn about 4COP SFS / SRX restaurant licenses →", "Conozca las licencias 4COP SFS / SRX para restaurantes →")}
                     </Link>
                   </p>
                   <p>
                     <Link href="/license-types/4cop-quota#license-comparison-title">
-                      Compare 4COP Quota vs. 4COP SFS / SRX →
+                      {tr("Compare 4COP Quota vs. 4COP SFS / SRX →", "Compare 4COP de cupo con 4COP SFS / SRX →")}
                     </Link>
                   </p>
                   <p>
                     <Link href="/transaction-services">
-                      Explore FLLM transaction services →
+                      {tr("Explore FLLM transaction services →", "Explore los servicios de transacción de FLLM →")}
                     </Link>
                   </p>
                 </section>
@@ -686,7 +692,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
               className={`marketplace-listing-aside marketplace-listing-aside-broker${isSfsListing ? " marketplace-listing-aside-sfs" : ""}`}
             >
               <div className="marketplace-listing-action-card">
-                <span>Independent Listing Broker</span>
+                <span>{tr("Independent Listing Broker", "Corredor independiente del anuncio")}</span>
                 <div className="marketplace-listing-broker-profile">
                   <h2>{config.broker.name}</h2>
                   {config.broker.photo ? (
@@ -742,7 +748,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   aria-label={`Call listing broker ${config.broker.name} at ${config.broker.phone}`}
                 >
                   <span className="featured-business-call-broker-label">
-                    Call Listing Broker
+                    {tr("Call Listing Broker", "Llamar al corredor")}
                   </span>
                   <span
                     className="featured-business-call-broker-phone"
@@ -757,7 +763,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Visit Listing Broker Website →
+                  {tr("Visit Listing Broker Website →", "Visitar el sitio web del corredor →")}
                 </a>
                 <ListingBrokerInquiryForm
                   listingReference={config.listingReference}
@@ -771,6 +777,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     : `${config.askingPrice} license asking price; ${config.packagePrice} total business package`}
                   listingStatus={statusLabel}
                   listingUrl={config.canonicalPath}
+                  locale={config.locale}
                   showFinancingCalculator
                   financingCalculatorMode={isSfsListing ? "sba-business" : "license"}
                   financingPurchasePrice={isSfsListing ? config.packagePriceNumber : config.askingPriceNumber}
@@ -783,19 +790,19 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   className="marketplace-listing-finance-promo marketplace-listing-ira-promo"
                   aria-labelledby="listing-ira-rollover-title"
                 >
-                  <span>FLLM Retirement-Fund Coordination</span>
-                  <h2 id="listing-ira-rollover-title">Self-Directed IRA Rollover Service</h2>
+                  <span>{tr("FLLM Retirement-Fund Coordination", "Coordinación de fondos de jubilación de FLLM")}</span>
+                  <h2 id="listing-ira-rollover-title">{tr("Self-Directed IRA Rollover Service", "Servicio de transferencia a una IRA autodirigida")}</h2>
                   <p>
-                    Explore whether eligible retirement funds may be transferred or rolled over to a self-directed IRA structure considered for this business acquisition.
+                    {tr("Explore whether eligible retirement funds may be transferred or rolled over to a self-directed IRA structure considered for this business acquisition.", "Explore si fondos de jubilación elegibles pueden transferirse a una estructura IRA autodirigida considerada para esta adquisición comercial.")}
                   </p>
                   <Link
                     className="marketplace-listing-finance-button"
                     href="/self-directed-ira-liquor-license-lending#ira-setup-assistance"
                   >
-                    Review Rollover Assistance
+                    {tr("Review Rollover Assistance", "Revisar asistencia para transferencias")}
                   </Link>
                   <small>
-                    FLLM coordinates administrative setup and introductions only. Custodian acceptance, transaction eligibility, prohibited-transaction review, tax treatment, and any investment decision require independent professional review.
+                    {tr("FLLM coordinates administrative setup and introductions only. Custodian acceptance, transaction eligibility, prohibited-transaction review, tax treatment, and any investment decision require independent professional review.", "FLLM únicamente coordina la configuración administrativa y las presentaciones. La aceptación del custodio, la elegibilidad de la transacción, la revisión de transacciones prohibidas, el tratamiento fiscal y cualquier decisión de inversión requieren revisión profesional independiente.")}
                   </small>
                 </section>
               ) : (
@@ -834,7 +841,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 className="marketplace-listing-sticky-contact"
                 aria-label={`Contact ${config.broker.name} about listing ${config.listingReference}`}
               >
-                <span>Interested in this business?</span>
+                <span>{tr("Interested in this business?", "¿Le interesa este negocio?")}</span>
                 <h2>{config.broker.name}</h2>
                 <p>{config.broker.brokerage}</p>
                 <a
@@ -843,7 +850,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   aria-label={`Call listing broker ${config.broker.name} at ${config.broker.phone}`}
                 >
                   <span className="marketplace-listing-sticky-contact-call-label">
-                    Call Listing Broker
+                    {tr("Call Listing Broker", "Llamar al corredor")}
                   </span>
                   <span
                     className="marketplace-listing-sticky-contact-call-phone"
@@ -856,19 +863,14 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   className="marketplace-listing-sticky-contact-request"
                   href={`#${config.listingReference.toLowerCase()}-request-information`}
                 >
-                  Request Information
+                  {tr("Request Information", "Solicitar información")}
                 </a>
               </section>
             </aside>
           </div>
 
           <div className="marketplace-listing-disclaimer">
-            Marketplace information is provided for informational purposes and
-            remains subject to seller or broker confirmation. Florida Liquor
-            License Market does not guarantee business performance, license
-            status, availability, transfer approval, package price, license
-            price, lease terms, or transaction terms. Independent legal, tax,
-            financial, licensing, zoning, and regulatory review is recommended.
+            {tr("Marketplace information is provided for informational purposes and remains subject to seller or broker confirmation. Florida Liquor License Market does not guarantee business performance, license status, availability, transfer approval, package price, license price, lease terms, or transaction terms. Independent legal, tax, financial, licensing, zoning, and regulatory review is recommended.", "La información del mercado se proporciona únicamente con fines informativos y está sujeta a confirmación por parte del vendedor o corredor. Florida Liquor License Market no garantiza el rendimiento del negocio, el estado o disponibilidad de la licencia, la aprobación de transferencias, el precio del paquete o de la licencia, los términos del arrendamiento ni los términos de la transacción. Se recomienda una revisión legal, fiscal, financiera, de licencias, zonificación y regulación independiente.")}
           </div>
         </div>
       </section>
