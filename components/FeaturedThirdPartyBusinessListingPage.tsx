@@ -191,7 +191,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
               </span>
               <span>
                 {isSfsListing ? (
-                  <>Location-specific full-liquor privilege · <strong>Not a transferable quota asset</strong></>
+                  <>Location-specific full-liquor privileges · <strong>4COP SFS / SRX license included</strong></>
                 ) : (
                   <>Included {shortLicenseType} allocated value {config.askingPrice} · <strong>License not offered separately</strong></>
                 )}
