@@ -38,6 +38,8 @@ type ListingMatch = {
   sourceUrl?: string;
 };
 
+type MatchMode = "all" | "buyer_name" | "county" | "listing_ref" | "buyer_ref";
+
 type BuyerDetails = {
   purchaseMethod?: string | null;
   targetClosing?: string | null;
@@ -225,7 +227,8 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [matchCode, setMatchCode] = useState("");
+  const [matchQuery, setMatchQuery] = useState("");
+  const [matchMode, setMatchMode] = useState<MatchMode>("all");
   const [copied, setCopied] = useState(false);
 
   const load = useCallback(async () => {
@@ -288,32 +291,116 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
   }, [filter, leads, search]);
 
   const matchResult = useMemo(() => {
-    const code = matchCode.trim().toUpperCase();
-    if (!code) return null;
-    const buyer = leads.find((lead) =>
-      isBuyer(lead) && (lead.submissionRef.toUpperCase() === code || lead.liveListingRef?.toUpperCase() === code),
-    ) || null;
-    const requested = inventory.find((listing) => listing.sourceRef.toUpperCase() === code)
-      || (buyer?.liveListingRef ? inventory.find((listing) => listing.sourceRef === buyer.liveListingRef) : undefined)
-      || null;
-    const county = buyer?.county || requested?.county || "";
-    const licenseType = buyer?.licenseType || requested?.type || "";
-    if (!county || !licenseType) return { buyer, requested, matches: [] as ListingMatch[], draft: "" };
+    const rawQuery = matchQuery.trim();
+    if (!rawQuery) return null;
+
+    const query = rawQuery.toLowerCase();
+    const code = rawQuery.toUpperCase();
+    const digits = rawQuery.replace(/\D/g, "");
+    const buyerLeads = leads.filter(isBuyer);
+    const inventoryCounties = Array.from(new Set(inventory.map((listing) => listing.county)));
+
+    const countyForQuery = inventoryCounties.find((county) => {
+      const normalized = county.toLowerCase();
+      const short = normalized.replace(/\s+county$/, "");
+      return normalized === query || short === query || normalized.includes(query);
+    }) || "";
+
+    const nameMatches = buyerLeads.filter((lead) => {
+      if (matchMode === "buyer_ref") return lead.submissionRef.toUpperCase() === code;
+      if (matchMode === "listing_ref") return lead.liveListingRef?.toUpperCase() === code;
+      if (matchMode === "county") return countyForQuery ? lead.county === countyForQuery : lead.county.toLowerCase().includes(query);
+      if (matchMode === "buyer_name") return lead.fullName.toLowerCase().includes(query);
+
+      const phoneDigits = lead.phone.replace(/\D/g, "");
+      return (
+        lead.submissionRef.toUpperCase() === code ||
+        lead.liveListingRef?.toUpperCase() === code ||
+        lead.fullName.toLowerCase().includes(query) ||
+        lead.email.toLowerCase().includes(query) ||
+        (digits.length >= 4 && phoneDigits.includes(digits))
+      );
+    });
+
+    let requested: ListingMatch | null =
+      inventory.find((listing) => listing.sourceRef.toUpperCase() === code) || null;
+
+    let buyers = nameMatches;
+    let county = "";
+    let licenseType = "";
+    let countyWide = matchMode === "county";
+
+    if (!requested && matchMode === "all" && countyForQuery) {
+      countyWide = true;
+      buyers = buyerLeads.filter((lead) => lead.county === countyForQuery);
+    }
+
+    const primaryBuyer =
+      buyers.find((lead) => lead.submissionRef.toUpperCase() === code) ||
+      buyers.find((lead) => lead.liveListingRef?.toUpperCase() === code) ||
+      buyers[0] ||
+      null;
+
+    if (!requested && primaryBuyer?.liveListingRef) {
+      requested =
+        inventory.find((listing) => listing.sourceRef === primaryBuyer.liveListingRef) || null;
+    }
+
+    if (countyWide) {
+      county = countyForQuery || primaryBuyer?.county || "";
+    } else {
+      county = primaryBuyer?.county || requested?.county || countyForQuery || "";
+      licenseType = primaryBuyer?.licenseType || requested?.type || "";
+    }
+
+    if (requested && !buyers.length) {
+      buyers = buyerLeads.filter((lead) =>
+        lead.liveListingRef?.toUpperCase() === requested?.sourceRef.toUpperCase() ||
+        (lead.county === requested?.county && lead.licenseType === requested?.type),
+      );
+    }
+
+    if (!county && !requested && !buyers.length) {
+      return {
+        buyer: null,
+        buyers: [] as Lead[],
+        requested: null,
+        matches: [] as ListingMatch[],
+        draft: "",
+        county: "",
+        licenseType: "",
+        countyWide: false,
+      };
+    }
+
     const matches = inventory
-      .filter((listing) => listing.county === county && listing.type === licenseType)
-      .sort((a, b) => (a.price ?? Number.MAX_SAFE_INTEGER) - (b.price ?? Number.MAX_SAFE_INTEGER));
+      .filter((listing) => {
+        if (!county) return false;
+        if (listing.county !== county) return false;
+        return countyWide || !licenseType || listing.type === licenseType;
+      })
+      .sort((a, b) => {
+        if (a.type !== b.type) return a.type.localeCompare(b.type);
+        return (a.price ?? Number.MAX_SAFE_INTEGER) - (b.price ?? Number.MAX_SAFE_INTEGER);
+      });
+
+    const buyer = primaryBuyer;
     const disclosed = matches.filter((listing) => listing.price !== null);
     const prices = disclosed.map((listing) => listing.price as number);
     const low = prices.length ? Math.min(...prices) : null;
     const high = prices.length ? Math.max(...prices) : null;
     const firstName = buyer?.fullName.split(/\s+/)[0] || "there";
     const inventoryLines = matches.map((listing) =>
-      `• ${listing.sourceRef} — ${listing.priceLabel} — availability and terms subject to confirmation`,
+      `• ${listing.sourceRef} — ${listing.type} — ${listing.priceLabel} — availability and terms subject to confirmation`,
     ).join("\n");
     const range = low === null ? "with prices available upon confirmation" : `from ${money(low)} to ${money(high)}`;
-    const draft = `Hello ${firstName},\n\nThank you for your inquiry. FLLM currently tracks ${matches.length} ${county} ${licenseType} opportunit${matches.length === 1 ? "y" : "ies"} ${range}.\n\n${inventoryLines}\n\nThese are market opportunities identified by FLLM. Availability, pricing, license status, transferability, liens, and transaction terms remain subject to seller or broker confirmation and independent due diligence.\n\nPlease let me know which references you would like us to investigate further.\n\nFlorida Liquor License Market`;
-    return { buyer, requested, matches, draft };
-  }, [inventory, leads, matchCode]);
+    const marketLabel = countyWide ? county : `${county} ${licenseType}`;
+    const draft = buyer && matches.length
+      ? `Hello ${firstName},\n\nThank you for your inquiry. FLLM currently tracks ${matches.length} ${marketLabel} opportunit${matches.length === 1 ? "y" : "ies"} ${range}.\n\n${inventoryLines}\n\nThese are market opportunities identified by FLLM. Availability, pricing, license status, transferability, liens, and transaction terms remain subject to seller or broker confirmation and independent due diligence.\n\nPlease let me know which references you would like us to investigate further.\n\nFlorida Liquor License Market`
+      : "";
+
+    return { buyer, buyers, requested, matches, draft, county, licenseType, countyWide };
+  }, [inventory, leads, matchMode, matchQuery]);
 
   async function copyBuyerDraft() {
     if (!matchResult?.draft) return;
@@ -355,19 +442,65 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
 
       <section className="lead-match-desk" aria-labelledby="lead-match-title">
         <div className="lead-match-heading">
-          <div><span>Private inventory intelligence</span><h2 id="lead-match-title">Lead Match Desk</h2><p>Enter a buyer inquiry code or FLLM listing reference to see the originating source and every matching county opportunity.</p></div>
-          <label><span>Buyer or listing code</span><input value={matchCode} onChange={(event) => { setMatchCode(event.target.value); setCopied(false); }} placeholder="FLLM-BUYER-… or FLLM-042" /></label>
+          <div>
+            <span>Private inventory intelligence</span>
+            <h2 id="lead-match-title">Lead Match Desk</h2>
+            <p>Search by buyer name, county, buyer inquiry code, or FLLM listing reference. FLLM will connect matching buyer leads with current license inventory in the same market.</p>
+          </div>
+          <div className="lead-match-search">
+            <div className="lead-match-mode" role="group" aria-label="Lead Match Desk search type">
+              {([
+                ["all", "All"],
+                ["buyer_name", "Buyer Name"],
+                ["county", "County"],
+                ["listing_ref", "Listing Ref"],
+                ["buyer_ref", "Buyer Ref"],
+              ] as Array<[MatchMode, string]>).map(([mode, label]) => (
+                <button key={mode} type="button" className={matchMode === mode ? "active" : ""} onClick={() => { setMatchMode(mode); setCopied(false); }}>
+                  {label}
+                </button>
+              ))}
+            </div>
+            <label>
+              <span>Lead or market search</span>
+              <input
+                value={matchQuery}
+                onChange={(event) => { setMatchQuery(event.target.value); setCopied(false); }}
+                placeholder={matchMode === "county" ? "Marion County" : matchMode === "buyer_name" ? "Michael Gagne" : matchMode === "listing_ref" ? "FLLM-042" : matchMode === "buyer_ref" ? "FLLM-BUYER-…" : "Michael Gagne, Marion County, FLLM-042…"}
+              />
+            </label>
+          </div>
         </div>
 
-        {matchCode.trim() && !matchResult && <p className="lead-match-empty">No buyer lead or inventory listing matches that code.</p>}
-        {matchResult && (
+        {matchQuery.trim() && matchResult && !matchResult.buyers.length && !matchResult.requested && !matchResult.matches.length && <p className="lead-match-empty">No buyer lead, county, or inventory listing matches that search.</p>}
+        {matchResult && (matchResult.buyers.length > 0 || matchResult.requested || matchResult.matches.length > 0) && (
           <div className="lead-match-results">
             <div className="lead-match-summary">
-              <div><span>Buyer</span><strong>{matchResult.buyer?.fullName || "No linked buyer lead"}</strong><small>{matchResult.buyer?.email || "Search was opened from a listing reference"}</small></div>
-              <div><span>Requested market</span><strong>{matchResult.buyer?.county || matchResult.requested?.county || "Unknown"}</strong><small>{matchResult.buyer?.licenseType || matchResult.requested?.type || "Unknown license type"}</small></div>
-              <div><span>Originating source</span><strong>{matchResult.requested?.sourceName || "Source not recorded"}</strong>{matchResult.requested?.sourceUrl ? <a href={matchResult.requested.sourceUrl} target="_blank" rel="noopener noreferrer">Open private source ↗</a> : <small>No source URL recorded</small>}</div>
-              <div><span>Matching inventory</span><strong>{matchResult.matches.length}</strong><small>Same county and license type</small></div>
+              <div><span>Buyer matches</span><strong>{matchResult.buyers.length === 1 ? matchResult.buyers[0].fullName : `${matchResult.buyers.length} buyer leads`}</strong><small>{matchResult.buyers.length === 1 ? matchResult.buyers[0].email : matchResult.buyers.length ? "Matching the selected market" : "No linked buyer lead"}</small></div>
+              <div><span>Requested market</span><strong>{matchResult.county || "Unknown"}</strong><small>{matchResult.countyWide ? "All quota license types" : matchResult.licenseType || "Unknown license type"}</small></div>
+              <div><span>Originating source</span><strong>{matchResult.requested?.sourceName || (matchResult.requested ? "Source not recorded" : "Market search")}</strong>{matchResult.requested?.sourceUrl ? <a href={matchResult.requested.sourceUrl} target="_blank" rel="noopener noreferrer">Open private source ↗</a> : <small>{matchResult.requested ? "No source URL recorded" : "No single originating listing"}</small>}</div>
+              <div><span>Matching inventory</span><strong>{matchResult.matches.length}</strong><small>{matchResult.countyWide ? "All current county inventory" : "Same county and license type"}</small></div>
             </div>
+
+            {matchResult.buyers.length ? (
+              <div className="lead-match-buyers">
+                <div className="lead-match-section-title"><span>Matching buyer leads</span><strong>{matchResult.buyers.length}</strong></div>
+                <div className="lead-match-table-wrap">
+                  <table className="lead-match-table">
+                    <thead><tr><th>Buyer</th><th>Contact</th><th>Requested listing</th><th>Market</th><th>Inquiry code</th></tr></thead>
+                    <tbody>{matchResult.buyers.map((lead) => (
+                      <tr key={lead.id}>
+                        <td><strong>{lead.fullName}</strong></td>
+                        <td><a href={`mailto:${lead.email}`}>{lead.email}</a>{lead.phone ? <><br /><a href={`tel:${lead.phone}`}>{lead.phone}</a></> : null}</td>
+                        <td>{lead.liveListingRef || "General market inquiry"}</td>
+                        <td>{lead.county}<br /><small>{lead.licenseType}</small></td>
+                        <td><strong>{lead.submissionRef}</strong></td>
+                      </tr>
+                    ))}</tbody>
+                  </table>
+                </div>
+              </div>
+            ) : null}
 
             {matchResult.matches.length ? (
               <>
@@ -388,11 +521,15 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
                     })}</tbody>
                   </table>
                 </div>
-                <div className="lead-match-draft">
-                  <div><span>Buyer-ready comparison</span><button type="button" onClick={() => void copyBuyerDraft()}>{copied ? "Copied" : "Copy Buyer Message"}</button></div>
-                  <textarea readOnly value={matchResult.draft} aria-label="Buyer-ready comparison message" />
-                  <small>Source identities stay inside the private admin view; the buyer receives FLLM references, prices, and confirmation language.</small>
-                </div>
+                {matchResult.draft ? (
+                  <div className="lead-match-draft">
+                    <div><span>Buyer-ready comparison</span><button type="button" onClick={() => void copyBuyerDraft()}>{copied ? "Copied" : "Copy Buyer Message"}</button></div>
+                    <textarea readOnly value={matchResult.draft} aria-label="Buyer-ready comparison message" />
+                    <small>Source identities stay inside the private admin view; the buyer receives FLLM references, prices, and confirmation language.</small>
+                  </div>
+                ) : (
+                  <p className="lead-match-empty">This is a market-level search. Select or search a specific buyer to generate a buyer-ready comparison message.</p>
+                )}
               </>
             ) : <p className="lead-match-empty">The lead was found, but no same-county inventory matches are currently recorded.</p>}
           </div>
