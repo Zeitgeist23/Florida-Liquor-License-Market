@@ -19,9 +19,7 @@ function normalizeCurrencyInput(value: string) {
 
 function formatCurrencyInput(value: string) {
   if (!value) return "";
-  return `${Number(value).toLocaleString("en-US", {
-    maximumFractionDigits: 0,
-  })}`;
+  return formatCurrency(Number(value));
 }
 
 function formatCurrency(value: number, decimals = 0) {
