@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 
 type ListingViewCountProps = {
   listingRef: string;
+  locale?: "en" | "es";
 };
 
 export default function ListingViewCount({
   listingRef,
+  locale = "en",
 }: ListingViewCountProps) {
   const [count, setCount] = useState<number | null>(null);
 
@@ -37,9 +39,9 @@ export default function ListingViewCount({
   return (
     <span
       className="marketplace-listing-view-count"
-      title="One counted view per browser per listing per day"
+      title={locale === "es" ? "Una vista contabilizada por navegador, anuncio y día" : "One counted view per browser per listing per day"}
     >
-      <span>Listing Views</span>
+      <span>{locale === "es" ? "Vistas del anuncio" : "Listing Views"}</span>
       <strong>{count === null ? "—" : count.toLocaleString("en-US")}</strong>
     </span>
   );
