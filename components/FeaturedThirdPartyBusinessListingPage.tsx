@@ -98,7 +98,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
 }) {
   const isSpanish = config.locale === "es";
   const tr = (english: string, spanish: string) => isSpanish ? spanish : english;
-  const statusLabel = config.approvalPreview ? "Seller approval and payment pending" : config.sellerDirect ? "Available / Seller confirmation required" : tr("Available / Broker confirmation required", "Disponible / Confirmación del corredor requerida");
+  const statusLabel = config.approvalPreview ? "Seller review preview" : config.sellerDirect ? "Available / Seller confirmation required" : tr("Available / Broker confirmation required", "Disponible / Confirmación del corredor requerida");
   const inquiryHref = buildInquiryHref(config);
   const shortLicenseType =
     config.licenseType === "2COP Beer & Wine"
@@ -133,8 +133,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
 
       <style>{`
         .results-page.marketplace-listing-page[data-seller-direct="true"] .marketplace-listing-kicker::after{content:"Direct Seller Business Listing"!important}
-        .results-page.marketplace-listing-page[data-approval-preview="true"] .marketplace-listing-facts>div:nth-child(4)>strong::before{content:"Review Preview"!important}
-        .results-page.marketplace-listing-page[data-approval-preview="true"] .marketplace-listing-facts>div:nth-child(4)>strong::after{content:"Approval + payment pending"!important}
+        .results-page.marketplace-listing-page[data-approval-preview="true"] .marketplace-listing-facts>div:nth-child(4)>strong::before{content:"Preview"!important}
         .featured-business-package-alert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;color:#d7e2e8;font-size:14px;font-weight:750;line-height:1.45}.featured-business-package-badge{display:inline-flex;align-items:center;min-height:25px;padding:0 9px;border:1px solid #efaa10;border-radius:4px;color:#071a3a;background:#efaa10;font-size:9px;font-weight:950;letter-spacing:.07em;text-transform:uppercase}.featured-business-package-alert strong{color:#f1b53a}.featured-business-label-link{text-decoration:none!important;transition:color .16s ease,border-color .16s ease}.featured-business-label-link--hero{color:inherit!important;font-weight:inherit!important;text-shadow:none!important;border-bottom:1px solid rgba(215,226,232,.34)}.featured-business-label-link--hero:hover,.featured-business-label-link--hero:focus-visible{color:#fff!important;border-bottom-color:rgba(255,255,255,.72);outline:none}.featured-business-label-link--body{color:#e29abf!important;font-weight:400!important;text-shadow:none!important;border-bottom:0!important}.featured-business-label-link--body:hover,.featured-business-label-link--body:focus-visible{color:#efafd0!important;border-bottom:0!important;outline:none}.package-business-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0;overflow:visible}.package-business-metric{position:relative!important;display:block!important;min-width:0;min-height:96px;padding:16px!important;overflow:visible!important;border:1px solid rgba(226,165,30,.25);border-radius:8px;background:rgba(4,23,39,.72);color:inherit;text-decoration:none!important;cursor:help;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease,background .16s ease}.package-business-metric--link{cursor:pointer}.package-business-metric:hover,.package-business-metric:focus-visible{z-index:100!important;transform:translateY(-2px);border-color:rgba(105,214,255,.82);background:rgba(9,38,58,.96);box-shadow:0 11px 24px rgba(0,0,0,.32),0 0 16px rgba(105,214,255,.12);outline:none}.package-business-metric>span:first-child{display:block;color:#69d6ff;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.package-business-metric>strong{display:block;margin-top:6px;color:#fff;font-size:15px}.package-business-tooltip{position:absolute!important;z-index:120!important;left:12px!important;right:12px!important;top:calc(100% + 8px)!important;bottom:auto!important;display:block!important;padding:11px 12px;border:1px solid rgba(105,214,255,.72);border-radius:7px;background:#071b2d!important;color:#dce8ef!important;box-shadow:0 14px 28px rgba(0,0,0,.42);font-size:12px!important;font-weight:400!important;letter-spacing:0!important;line-height:1.5!important;text-transform:none!important;opacity:0;visibility:hidden;transform:translateY(-5px);pointer-events:auto;transition:opacity .15s ease,visibility .15s ease,transform .15s ease}.package-business-tooltip:before{content:"";position:absolute;left:18px;bottom:100%;border:7px solid transparent;border-bottom-color:rgba(105,214,255,.72)}.package-business-tooltip:after{content:"";position:absolute;left:0;right:0;bottom:100%;height:9px;background:transparent}.package-business-tooltip small{display:block;margin-top:6px;color:#f1a600;font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}.package-business-metric:hover .package-business-tooltip,.package-business-metric:focus-visible .package-business-tooltip{opacity:1;visibility:visible;transform:translateY(0)}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .package-business-grid>.package-business-metric>.package-business-tooltip{color:#dce8ef!important;font-weight:400!important}.package-total{margin:18px 0;padding:16px 18px;border-left:4px solid #efa916;background:rgba(239,169,22,.07);color:#cbd6dd;line-height:1.7}.package-total strong{color:#f1b53a}.featured-business-financing{margin-top:16px;padding:18px;border:1px solid rgba(105,214,255,.32);border-radius:8px;background:rgba(4,23,39,.72)}.featured-business-financing>h3{margin:0 0 13px!important;color:#fff!important;font-size:18px!important;text-align:center}.featured-business-financing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.featured-business-financing-grid:has(>article:only-child){grid-template-columns:minmax(0,1fr)}.featured-business-financing-card{display:flex;min-height:112px;flex-direction:column;justify-content:center;padding:17px 18px;border:1px solid rgba(241,166,0,.58);border-radius:7px;background:linear-gradient(145deg,#173653,#081b2d);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 22px rgba(0,0,0,.24)}.featured-business-financing-card>span{color:#69d6ff;font-size:10px;font-weight:900;letter-spacing:.075em;text-transform:uppercase}.featured-business-financing-card>strong{margin-top:5px;color:#f1a600;font:700 21px/1.12 Georgia,serif}.featured-business-financing-card>p{margin:8px 0 0!important;color:#d7e2e8!important;font-size:13px!important;line-height:1.55!important}.featured-business-financing-card>small{margin-top:7px;color:#93a7b5;font-size:10px;line-height:1.45}.marketplace-listing-broker-license{display:block;margin-top:4px;color:#9fb0bd;font-size:11px;font-weight:750}.marketplace-listing-broker-photo img{object-fit:cover}.package-confidential{font-size:12px;color:#9eb0be;line-height:1.6}.package-source-disclosure{font-size:11px;color:#8398a8;line-height:1.6}.featured-business-email-copy-row{display:inline-flex;align-items:center;gap:5px;width:fit-content;max-width:100%}.featured-business-copy-email-button{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:16px;height:16px;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:#f1a600;font-size:13px;font-weight:900;line-height:1;cursor:pointer;box-shadow:none;appearance:none}.featured-business-call-broker-button{position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 7px 18px rgba(0,0,0,.28)}.featured-business-call-broker-label{display:block;opacity:1;line-height:inherit;white-space:nowrap;transition:opacity .14s ease}.featured-business-call-broker-phone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;color:inherit;font:inherit;line-height:inherit;white-space:nowrap;pointer-events:none;transition:opacity .14s ease}.featured-business-call-broker-button:hover .featured-business-call-broker-label,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-label{opacity:0}.featured-business-call-broker-button:hover .featured-business-call-broker-phone,.featured-business-call-broker-button:focus-visible .featured-business-call-broker-phone{opacity:1}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link{color:#d98282!important;-webkit-text-fill-color:#d98282!important;background:none!important;background-image:none!important;font-weight:400!important;text-shadow:none!important;text-decoration:none}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link:hover,.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-disclosure-link:focus-visible{color:#e79a9a!important;-webkit-text-fill-color:#e79a9a!important;filter:none!important;text-shadow:0 0 8px rgba(217,130,130,.22)!important;outline:none}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link strong{color:#f1a600!important;-webkit-text-fill-color:#f1a600!important}.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link:hover strong,.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .we-sell-restaurants-sidebar-link:focus-visible strong{color:#ffc43d!important;-webkit-text-fill-color:#ffc43d!important}.featured-business-badge-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:0 0 10px}.featured-business-language-switch{display:flex;align-items:center;gap:7px;width:fit-content;margin:0;padding:6px 9px;border:1px solid rgba(105,214,255,.5);border-radius:999px;background:rgba(2,18,31,.72);color:#dce8ef;font-size:10px;font-weight:900;letter-spacing:.06em}.featured-business-language-switch svg{width:14px;height:14px;fill:none;stroke:#69d6ff;stroke-width:1.8}.featured-business-language-switch a{color:#dce8ef!important;text-decoration:none!important}.featured-business-language-switch a:hover,.featured-business-language-switch a:focus-visible{color:#fff!important;outline:none}.featured-business-language-switch [aria-current="page"]{color:#f1a600}.featured-business-language-divider{color:#69808f}.results-page.marketplace-listing-page[lang="es"] .marketplace-listing-kicker::after{content:"Anuncio destacado de corredor externo"!important}@media(max-width:760px){.package-business-grid,.featured-business-financing-grid{grid-template-columns:1fr}}
       `}</style>
 
@@ -249,8 +248,8 @@ export default function FeaturedThirdPartyBusinessListingPage({
             </div>
             <p className="marketplace-listing-summary">{config.heroSummary}</p>
             <div className="marketplace-listing-actions">
-              {config.approvalPreview ? (
-                <span className="marketplace-listing-primary" aria-disabled="true">Inquiries open after seller approval</span>
+              {config.approvalPreview && config.sellerDirect ? (
+                <a className="marketplace-listing-primary" href={phoneHref(config.broker.phone)} aria-label={`Call seller ${config.broker.name} at ${config.broker.phone}`}>Call Seller · {config.broker.phone}</a>
               ) : (
                 <Link className="marketplace-listing-primary" href={inquiryHref} aria-label={`Inquire about the ${config.county} business and ${shortLicenseType} package`}>
                   {tr("Inquire About This Business Package", "Solicitar información sobre este negocio")}
@@ -394,9 +393,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" />
                     </svg>
                     <strong>
-                      {is2copListing ? "No SFS food-sales" : isSfsListing ? tr("51% food / nonalcoholic", "51% alimentos / sin alcohol") : tr("Generally no SFS", "Generalmente sin SFS")}
+                      {is2copListing ? "Beer & wine" : isSfsListing ? tr("51% food / nonalcoholic", "51% alimentos / sin alcohol") : tr("Generally no SFS", "Generalmente sin SFS")}
                       <br />
-                      {is2copListing ? "test for 2COP" : isSfsListing ? tr("revenue requirement", "requisito de ingresos") : tr("food-sales percentage", "porcentaje de ventas de alimentos")}
+                      {is2copListing ? "without spirits" : isSfsListing ? tr("revenue requirement", "requisito de ingresos") : tr("food-sales percentage", "porcentaje de ventas de alimentos")}
                     </strong>
                     {isSfsListing ? (
                       <Link
@@ -418,7 +417,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     <strong>
                       {is2copListing ? "Non-quota" : isSfsListing ? tr("Qualification-based", "Basada en requisitos") : `${tr("Limited", "Limitada")} ${countyShort}`}
                       <br />
-                      {is2copListing ? "no county supply limit" : isSfsListing ? tr("not quota inventory", "no es inventario de cupo") : tr("County quota supply", "Oferta de cupos del condado")}
+                      {is2copListing ? "license series" : isSfsListing ? tr("not quota inventory", "no es inventario de cupo") : tr("County quota supply", "Oferta de cupos del condado")}
                     </strong>
                     {isSfsListing ? (
                       <Link
@@ -479,8 +478,8 @@ export default function FeaturedThirdPartyBusinessListingPage({
               ) : null}
 
               <div className="marketplace-listing-note">
-                <strong>{config.sellerDirect ? "Direct seller preview disclosure" : tr("Third-party broker disclosure", "Divulgación sobre corredor externo")}</strong>
-                {config.sellerDirect ? <p>This business is advertised directly by {config.broker.name}. FLLM is preparing this listing for seller review. The restaurant information and 2COP license series have not been independently verified. Buyer contact will open only after seller approval and listing payment.</p> : <p>
+                <strong>{config.sellerDirect ? "Direct seller disclosure" : tr("Third-party broker disclosure", "Divulgación sobre corredor externo")}</strong>
+                {config.sellerDirect ? <p>This business is offered directly by {config.broker.name}. Florida Liquor License Market provides marketplace exposure and is not acting as the seller’s broker or transaction representative. Availability, package terms, license status and transfer requirements should be confirmed directly with the seller.</p> : <p>
                   {tr("This featured listing is represented by", "Este anuncio destacado está representado por")} {config.broker.name} {tr("of", "de")}{" "}
                   <a
                     className={`featured-business-disclosure-link${isWeSellRestaurantsBroker ? " we-sell-restaurants-disclosure-link" : ""}`}
@@ -498,7 +497,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 <h2>{tr("About This License Listing", "Acerca de este anuncio de licencia")}</h2>
                 <p>
                   {is2copListing
-                    ? `This individual marketplace preview describes the ${config.county} restaurant business identified as ${config.listingReference}. The seller reports beer-and-wine privileges; FLLM has not verified the precise 2COP record. No separate value is assigned to the license.`
+                    ? `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, which the seller reports operates with 2COP beer-and-wine privileges. No separate license value is assigned.`
                     : isSfsListing
                     ? (isSpanish ? `Esta página individual del mercado representa el negocio de restaurante del Condado de Miami-Dade identificado como ${config.listingReference}, que según el corredor opera con privilegios completos de bebidas alcohólicas 4COP SFS / SRX. No se asigna un valor separado a la licencia.` : `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, which the broker reports operates with 4COP SFS / SRX full-liquor privileges. No separate license value is assigned.`)
                     : `This individual marketplace page represents the ${config.county} ${shortLicenseType} liquor-license interest identified as ${config.listingReference}. The displayed license asking price is ${config.askingPrice}.`}
@@ -754,7 +753,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         {config.broker.credential}
                       </span>
                     ) : null}
-                    {!config.approvalPreview && config.broker.phone ? <a href={phoneHref(config.broker.phone)}>
+                    {config.broker.phone ? <a href={phoneHref(config.broker.phone)}>
                       ☎ {config.broker.phone}
                     </a> : null}
                     {config.broker.email && !config.approvalPreview ? <span className="featured-business-email-copy-row">
@@ -767,13 +766,13 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     </span> : null}
                   </div>
                 </div>
-                {config.approvalPreview ? <span className="marketplace-listing-primary featured-business-call-broker-button" aria-disabled="true">Contact opens after approval</span> : <a
+                <a
                   className="marketplace-listing-primary featured-business-call-broker-button"
                   href={phoneHref(config.broker.phone)}
                   aria-label={`Call ${config.sellerDirect ? "seller" : "listing broker"} ${config.broker.name} at ${config.broker.phone}`}
                 >
                   <span className="featured-business-call-broker-label">
-                    {config.sellerDirect ? "Call Seller" : tr("Call Listing Broker", "Llamar al corredor")}
+                    {config.sellerDirect ? `Call Seller · ${config.broker.phone}` : tr("Call Listing Broker", "Llamar al corredor")}
                   </span>
                   <span
                     className="featured-business-call-broker-phone"
@@ -781,7 +780,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   >
                     {config.broker.phone}
                   </span>
-                </a>}
+                </a>
                 <a
                   className="marketplace-listing-text-link"
                   href={config.broker.listingUrl}
@@ -790,7 +789,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 >
                   {config.sellerDirect ? "View Original Seller Advertisement →" : tr("Visit Listing Broker Website →", "Visitar el sitio web del corredor →")}
                 </a>
-                {config.approvalPreview ? <p className="package-source-disclosure">Seller approval and $24.95 listing payment are pending. This preview does not accept buyer inquiries.</p> : <ListingBrokerInquiryForm
+                {!config.approvalPreview ? <ListingBrokerInquiryForm
                   listingReference={config.listingReference}
                   listingRequested={isNonQuotaBusiness
                     ? `${config.county} ${shortLicenseType} Restaurant Business`
@@ -802,12 +801,13 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     : `${config.askingPrice} license asking price; ${config.packagePrice} total business package`}
                   listingStatus={statusLabel}
                   listingUrl={config.canonicalPath}
+                  recipientKind={config.sellerDirect ? "seller" : "broker"}
                   locale={config.locale}
                   showFinancingCalculator
                   financingCalculatorMode={isNonQuotaBusiness ? "sba-business" : "license"}
                   financingPurchasePrice={isNonQuotaBusiness ? config.packagePriceNumber : config.askingPriceNumber}
                   financingDownPayment={isNonQuotaBusiness ? Math.round(config.packagePriceNumber * 0.1) : undefined}
-                />}
+                /> : null}
               </div>
 
               {isNonQuotaBusiness ? (
@@ -866,16 +866,16 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 className="marketplace-listing-sticky-contact"
                 aria-label={`Contact ${config.broker.name} about listing ${config.listingReference}`}
               >
-                <span>{config.approvalPreview ? "Seller Review Preview" : tr("Interested in this business?", "¿Le interesa este negocio?")}</span>
+                <span>{tr("Interested in this business?", "¿Le interesa este negocio?")}</span>
                 <h2>{config.broker.name}</h2>
                 <p>{config.broker.brokerage}</p>
-                {config.approvalPreview ? <span className="marketplace-listing-sticky-contact-call" aria-disabled="true">Contact opens after approval</span> : <a
+                <a
                   className="marketplace-listing-sticky-contact-call"
                   href={phoneHref(config.broker.phone)}
                   aria-label={`Call ${config.sellerDirect ? "seller" : "listing broker"} ${config.broker.name} at ${config.broker.phone}`}
                 >
                   <span className="marketplace-listing-sticky-contact-call-label">
-                    {config.sellerDirect ? "Call Seller" : tr("Call Listing Broker", "Llamar al corredor")}
+                    {config.sellerDirect ? `Call Seller · ${config.broker.phone}` : tr("Call Listing Broker", "Llamar al corredor")}
                   </span>
                   <span
                     className="marketplace-listing-sticky-contact-call-phone"
@@ -883,8 +883,8 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   >
                     {config.broker.phone}
                   </span>
-                </a>}
-                {config.approvalPreview ? <span className="marketplace-listing-sticky-contact-request" aria-disabled="true">Approval pending</span> : <a
+                </a>
+                {config.approvalPreview ? <a className="marketplace-listing-sticky-contact-request" href={config.broker.listingUrl} target="_blank" rel="noopener noreferrer">View Seller Advertisement</a> : <a
                   className="marketplace-listing-sticky-contact-request"
                   href={`#${config.listingReference.toLowerCase()}-request-information`}
                 >
