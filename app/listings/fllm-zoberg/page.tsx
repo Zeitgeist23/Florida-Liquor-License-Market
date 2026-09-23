@@ -107,7 +107,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "Adjusted SDE",
       value: "$362,000",
       description:
-        "The broker's adjusted estimate of Seller's Discretionary Earnings after stated normalization changes. Buyers should request the adjustment schedule and reconcile it to tax returns and financial statements.",
+        "An adjusted estimate of Seller's Discretionary Earnings after stated normalization changes. Buyers should request the adjustment schedule and reconcile it to tax returns and financial statements.",
     },
     {
       label: "License Classification",
