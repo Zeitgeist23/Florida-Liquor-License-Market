@@ -264,13 +264,31 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   <span>{isSfsListing ? "Restaurant Business Asking Price" : "Business + License Package"}</span>
                   <strong>{config.packagePrice}</strong>
                 </div>
-                <div>
+                <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
                   <span>{isSfsListing ? "License Classification" : "Allocated License Value"}</span>
                   <strong>{isSfsListing ? "Location-specific" : config.askingPrice}</strong>
+                  {isSfsListing ? (
+                    <Link
+                      className="marketplace-listing-education-link"
+                      href="/license-types/4cop-sfs-restaurant"
+                      aria-label="Learn about location-specific 4COP SFS / SRX licenses"
+                    >
+                      <span>Learn more →</span>
+                    </Link>
+                  ) : null}
                 </div>
-                <div>
+                <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
                   <span>License Type</span>
                   <strong>{shortLicenseType}</strong>
+                  {isSfsListing ? (
+                    <Link
+                      className="marketplace-listing-education-link"
+                      href="/license-types/4cop-sfs-restaurant"
+                      aria-label="Learn about 4COP SFS / SRX restaurant licenses"
+                    >
+                      <span>Learn more →</span>
+                    </Link>
+                  ) : null}
                 </div>
                 <div>
                   <span>Marketplace Status</span>
@@ -284,7 +302,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
               >
                 <h3 id="license-highlights-heading">License Highlights</h3>
                 <div className="marketplace-listing-highlight-grid">
-                  <div>
+                  <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
                     <svg viewBox="0 0 48 48" aria-hidden="true">
                       <path d="M11 42h13V18H11zM15 18V8h5v10M11 26h13M29 25h12l-2 9a5 5 0 0 1-4 3.5A5 5 0 0 1 31 34zM35 37.5V42M30 42h10" />
                     </svg>
@@ -293,8 +311,17 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <br />
                       privileges
                     </strong>
+                    {isSfsListing ? (
+                      <Link
+                        className="marketplace-listing-education-link"
+                        href="/license-types/4cop-sfs-restaurant"
+                        aria-label="Learn about full-liquor privileges under a 4COP SFS / SRX license"
+                      >
+                        <span>Learn more →</span>
+                      </Link>
+                    ) : null}
                   </div>
-                  <div>
+                  <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
                     <svg viewBox="0 0 48 48" aria-hidden="true">
                       <path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" />
                     </svg>
@@ -303,8 +330,17 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <br />
                       {isSfsListing ? "premises required" : "off-premises use"}
                     </strong>
+                    {isSfsListing ? (
+                      <Link
+                        className="marketplace-listing-education-link"
+                        href="/license-types/4cop-sfs-restaurant"
+                        aria-label="Learn about restaurant and premises requirements for 4COP SFS / SRX licenses"
+                      >
+                        <span>Learn more →</span>
+                      </Link>
+                    ) : null}
                   </div>
-                  <div>
+                  <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
                     <svg viewBox="0 0 48 48" aria-hidden="true">
                       <path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" />
                     </svg>
@@ -313,8 +349,17 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <br />
                       {isSfsListing ? "revenue requirement" : "food-sales percentage"}
                     </strong>
+                    {isSfsListing ? (
+                      <Link
+                        className="marketplace-listing-education-link"
+                        href="/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs"
+                        aria-label="Learn about the 51 percent food and nonalcoholic revenue requirement"
+                      >
+                        <span>Learn more →</span>
+                      </Link>
+                    ) : null}
                   </div>
-                  <div>
+                  <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
                     <svg viewBox="0 0 48 48" aria-hidden="true">
                       <circle cx="24" cy="14" r="7" />
                       <circle cx="10" cy="22" r="5" />
@@ -326,6 +371,15 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <br />
                       {isSfsListing ? "not quota inventory" : "County quota supply"}
                     </strong>
+                    {isSfsListing ? (
+                      <Link
+                        className="marketplace-listing-education-link"
+                        href="/license-types/4cop-quota#license-comparison-title"
+                        aria-label="Compare qualification-based 4COP SFS / SRX licenses with transferable quota licenses"
+                      >
+                        <span>Learn more →</span>
+                      </Link>
+                    ) : null}
                   </div>
                 </div>
               </section>
