@@ -203,7 +203,7 @@ export default async function LoanPaymentCalculatorPage({
                   </div>
                 </div>
 
-                <button className="fllm-loan-calculator__calculate" type="submit">Calculate / Update Payment</button>
+                <button className="fllm-loan-calculator__calculate" id="fllm-calculate-button" type="button">Calculate / Update Payment</button>
                 <p className="fllm-loan-calculator__error" id="fllm-loan-calculator-error" role="alert" />
               </div>
 
@@ -336,7 +336,7 @@ export default async function LoanPaymentCalculatorPage({
         )}
       </section>
 
-      <Script src="/assets/financing-loan-calculator.js?v=3" strategy="afterInteractive" />
+      <Script src="/assets/financing-loan-calculator.js?v=4" strategy="afterInteractive" />
     </main>
   );
 }
