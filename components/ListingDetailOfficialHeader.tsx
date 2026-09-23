@@ -6,7 +6,9 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 
 export default function ListingDetailOfficialHeader() {
   const pathname = usePathname();
-  const isListingDetail = pathname.startsWith("/listings/") && pathname !== "/listings";
+  const isListingDetail =
+    (pathname.startsWith("/listings/") && pathname !== "/listings") ||
+    (pathname.startsWith("/es/listings/") && pathname !== "/es/listings");
 
   if (!isListingDetail) return null;
 
