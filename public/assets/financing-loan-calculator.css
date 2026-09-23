@@ -197,21 +197,37 @@
   font-size: 10px;
 }
 
-.fllm-loan-calculator__calculate {
+.fllm-loan-calculator__button-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+  gap: 10px;
+  margin-top: 17px;
+}
+
+.fllm-loan-calculator__calculate,
+.fllm-loan-calculator__reset {
   width: 100%;
   min-height: 48px;
-  margin-top: 17px;
-  border: 1px solid #8af4ff;
   border-radius: 8px;
-  background: linear-gradient(180deg, #8af4ff, #49d5e5);
-  color: #062027;
   font: inherit;
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.075em;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.fllm-loan-calculator__calculate {
+  border: 1px solid #8af4ff;
+  background: linear-gradient(180deg, #8af4ff, #49d5e5);
+  color: #062027;
   box-shadow: 0 0 22px rgba(70, 210, 229, 0.22);
+}
+
+.fllm-loan-calculator__reset {
+  border: 1px solid rgba(124, 239, 255, 0.42);
+  background: rgba(3, 24, 30, 0.92);
+  color: #dffbfe;
 }
 
 .fllm-loan-calculator__error {
@@ -543,6 +559,7 @@
   }
 
   .fllm-loan-calculator__fields,
+  .fllm-loan-calculator__button-row,
   .fllm-loan-calculator__tax-inputs,
   .fllm-loan-calculator__summary,
   .fllm-loan-calculator__tax-summary {
