@@ -519,7 +519,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     config.businessLabel
                   )}
                   . {is2copListing ? "License status and any ownership-change requirements must be verified with DBPR; the license is not priced as a separate quota asset." : isSfsListing
-                    ? tr("It is not being represented as a separately saleable or independently movable quota license.", "No se presenta como una licencia de cupo que pueda venderse por separado o trasladarse independientemente.")
+                    ? tr("It is not an independently transferable quota license.", "No es una licencia de cupo transferible de forma independiente.")
                     : "The liquor license is not currently offered as a standalone sale."}
                 </p>
                 {!isNonQuotaBusiness ? <p>
