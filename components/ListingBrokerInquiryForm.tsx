@@ -297,7 +297,11 @@ export default function ListingBrokerInquiryForm({
 
   return (
     <>
-      <form className="marketplace-listing-broker-inquiry" onSubmit={submitInquiry}>
+      <form
+        id={`${listingReference.toLowerCase()}-request-information`}
+        className="marketplace-listing-broker-inquiry"
+        onSubmit={submitInquiry}
+      >
         <h3>{isSeller ? "Buyer Message & Contact Center" : "Request Information"}</h3>
         {isSeller && (
           <p className="marketplace-listing-inquiry-intro">
