@@ -5,6 +5,7 @@
   const isSbaBusiness = root.dataset.calculatorMode === "sba-business";
 
   const form = root.querySelector("#fllm-loan-calculator-form");
+  const calculateButton = root.querySelector("#fllm-calculate-button");
   if (!(form instanceof HTMLFormElement)) return;
 
   const purchaseFields = root.querySelector("#fllm-purchase-fields");
@@ -427,6 +428,10 @@
     taxBasisInput.addEventListener("input", () => {
       taxBasisDirty = true;
     });
+  }
+
+  if (calculateButton instanceof HTMLButtonElement) {
+    calculateButton.addEventListener("click", calculate);
   }
 
   form.addEventListener("submit", (event) => {
