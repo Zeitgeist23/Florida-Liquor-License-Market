@@ -176,8 +176,6 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "The seller is reported to provide transition training and post-closing consultation, subject to final agreement with the buyer.",
   confidentialityText:
     "the business name, exact premises, financial records, lease documents and licensing records may require buyer qualification and direct confirmation through the listing broker.",
-  sourceDisclosure:
-    "Business, financial, lease, facility, licensing and visa-positioning information is broker-reported from BizBuySell Ad #2545461 and has not been independently audited or verified by FLLM. The source advertisement describes a 4COP liquor license but does not publish the ABT license number or series suffix. Brian Zoberg advised FLLM that the license is tied to the restaurant location and is an SFS / SRX license rather than a quota license. Buyers should independently verify the exact license series, status, ownership, permitted privileges, premises approval, food-sales compliance, ownership-transfer requirements and all transaction information with the broker, DBPR and appropriate professionals.",
   countyContext:
     "Miami-Dade County supports one of Florida's largest restaurant, nightlife, tourism and international-buyer markets. A 4COP SFS / SRX license is materially different from a Miami-Dade quota license: it depends on an eligible restaurant and approved premises and should not be valued as an independently transferable quota asset.",
 };
