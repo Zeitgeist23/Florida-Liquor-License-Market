@@ -481,6 +481,8 @@
   if (resetButton instanceof HTMLButtonElement) {
     resetButton.addEventListener("click", () => {
       form.reset();
+      purchasePriceInput.value = "$0";
+      downPaymentInput.value = "$0";
       transaction = "purchase";
       scheduleMode = "annual";
       taxBasisDirty = false;
