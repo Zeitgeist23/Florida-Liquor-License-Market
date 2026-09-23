@@ -69,7 +69,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   businessLabel: "Mexican-Latin restaurant and entertainment venue",
   businessLabelLinkUrl: sourceListingUrl,
   heroSummary:
-    "Established Miami-Dade full-service Mexican-Latin restaurant and entertainment venue offered as a turnkey operating-business acquisition. The broker reports full-liquor service under a 4COP SFS / SRX restaurant license tied to the qualifying operation and premises—not a separately transferable quota license.",
+    "Established Miami-Dade Mexican-Latin restaurant and entertainment venue offered as a turnkey business acquisition with location-specific 4COP SFS / SRX full-liquor privileges.",
   broker: {
     name: "Brian Zoberg",
     brokerage: "Suncoast Business Consultants",
