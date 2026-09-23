@@ -470,7 +470,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     : `This individual marketplace page represents the ${config.county} ${shortLicenseType} liquor-license interest identified as ${config.listingReference}. The displayed license asking price is ${config.askingPrice}.`}
                 </p>
                 <p>
-                  <strong>{isSfsListing ? "Business and premises required:" : "Business purchase required:"}</strong> the license is
+                  <strong>{isSfsListing ? "Business with 4COP SFS / SRX Full-Liquor Privileges:" : "Business purchase required:"}</strong> the license is
                   {isSfsListing ? " tied to the qualifying restaurant operation and licensed premises associated with the " : " being offered only in connection with the acquisition of the associated "}
                   {config.businessLabelLinkUrl ? (
                     <a
