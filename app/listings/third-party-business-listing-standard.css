@@ -651,6 +651,15 @@
 }
 
 
+/* Preserve viewport-based sticky positioning on featured business listings.
+   Horizontal clipping remains in place without turning html/body into a
+   non-scrolling sticky container. */
+html:has(body .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"]),
+body:has(.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"]) {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
 /* Compact desktop contact rail: enters after the full sidebar stack, follows
    the reader through long listing content, and stops with the listing grid. */
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-aside-broker {
