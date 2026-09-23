@@ -570,7 +570,7 @@
    the quota-business template while preserving the mobile stacked layout. */
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"]
   .marketplace-listing-aside-broker.marketplace-listing-aside-sfs {
-  margin-top: 99px;
+  margin-top: 105px;
 }
 
 @media (max-width: 900px) {
