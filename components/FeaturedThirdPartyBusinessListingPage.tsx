@@ -818,6 +818,29 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   </section>
                 </>
               )}
+
+              <section
+                className="marketplace-listing-sticky-contact"
+                aria-label={`Contact ${config.broker.name} about listing ${config.listingReference}`}
+              >
+                <span>Interested in this business?</span>
+                <h2>{config.broker.name}</h2>
+                <p>{config.broker.brokerage}</p>
+                <strong>{config.packagePrice}</strong>
+                <a
+                  className="marketplace-listing-sticky-contact-call"
+                  href={phoneHref(config.broker.phone)}
+                  aria-label={`Call listing broker ${config.broker.name} at ${config.broker.phone}`}
+                >
+                  Call Listing Broker
+                </a>
+                <a
+                  className="marketplace-listing-sticky-contact-request"
+                  href={`#${config.listingReference.toLowerCase()}-request-information`}
+                >
+                  Request Information
+                </a>
+              </section>
             </aside>
           </div>
 
