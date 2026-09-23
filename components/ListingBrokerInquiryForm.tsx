@@ -52,6 +52,15 @@ function ListingSidebarLoanCalculator({
     }
   }
 
+  const fullCalculatorParams = new URLSearchParams({
+    mode: isSbaBusiness ? "sba-business" : "license",
+    purchasePrice: String(Math.round(purchasePrice)),
+    downPayment: String(Math.round(downPayment)),
+    rate: String(annualRate),
+    term: String(termYears),
+  });
+  const fullCalculatorHref = `/financing/loan-payment-calculator?${fullCalculatorParams.toString()}`;
+
   return (
     <section className="antezza-sidebar-calculator" aria-labelledby="antezza-sidebar-calculator-title">
       <style>{`
@@ -175,7 +184,9 @@ function ListingSidebarLoanCalculator({
       <a className="antezza-sidebar-calculator__cta" href={isSbaBusiness ? "/sba-7a-liquor-license-business-financing" : "/financing#request-financing"}>
         {isSbaBusiness ? "Review SBA 7(a) Financing" : "Request Financing"}
       </a>
-      <a className="antezza-sidebar-calculator__full" href="/financing/loan-payment-calculator">Open Full Loan Calculator →</a>
+      <a className="antezza-sidebar-calculator__full" href={fullCalculatorHref}>
+        {isSbaBusiness ? "Open Full SBA 7(a) Loan Analysis →" : "Open Full Loan Calculator →"}
+      </a>
       <small className="antezza-sidebar-calculator__fineprint">
         Illustrative estimate only. {isSbaBusiness ? "This is not an SBA eligibility or approval determination. " : ""}Actual financing is subject to independent lender review, underwriting, collateral eligibility, transaction structure, rates, terms, and approval.
       </small>
