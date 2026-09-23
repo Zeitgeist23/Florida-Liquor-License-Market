@@ -6,6 +6,7 @@
 
   const form = root.querySelector("#fllm-loan-calculator-form");
   const calculateButton = root.querySelector("#fllm-calculate-button");
+  const resetButton = root.querySelector("#fllm-reset-button");
   if (!(form instanceof HTMLFormElement)) return;
 
   const purchaseFields = root.querySelector("#fllm-purchase-fields");
@@ -72,8 +73,26 @@
   });
 
   function numberValue(input) {
-    const value = Number.parseFloat(input.value);
+    const normalized = String(input.value || "").replace(/[^0-9.-]/g, "");
+    const value = Number.parseFloat(normalized);
     return Number.isFinite(value) ? value : 0;
+  }
+
+  function formatCurrencyInput(input) {
+    if (!(input instanceof HTMLInputElement)) return;
+    const value = Math.max(0, Math.round(numberValue(input)));
+    input.value = input.value.trim() === "" ? "" : integerMoney.format(value);
+  }
+
+  function attachCurrencyFormatting(input) {
+    if (!(input instanceof HTMLInputElement)) return;
+    input.addEventListener("focus", () => input.select());
+    input.addEventListener("input", () => {
+      const digits = input.value.replace(/\D/g, "");
+      input.value = digits ? integerMoney.format(Number(digits)) : "";
+    });
+    input.addEventListener("blur", () => formatCurrencyInput(input));
+    formatCurrencyInput(input);
   }
 
   function pad(value) {
@@ -402,8 +421,12 @@
     taxStartInput.value = monthInputValue(now);
   }
   if (taxBasisInput instanceof HTMLInputElement && !taxBasisInput.value) {
-    taxBasisInput.value = purchasePriceInput.value || "400000";
+    taxBasisInput.value = String(Math.round(numberValue(purchasePriceInput) || 400000));
   }
+
+  attachCurrencyFormatting(purchasePriceInput);
+  attachCurrencyFormatting(downPaymentInput);
+  attachCurrencyFormatting(refinanceAmountInput);
 
   transactionButtons.forEach((button) => {
     if (!(button instanceof HTMLButtonElement)) return;
@@ -421,7 +444,7 @@
       !taxBasisDirty &&
       transaction === "purchase"
     ) {
-      taxBasisInput.value = purchasePriceInput.value;
+      taxBasisInput.value = String(Math.round(numberValue(purchasePriceInput)));
     }
   });
   if (taxBasisInput instanceof HTMLInputElement) {
@@ -432,6 +455,25 @@
 
   if (calculateButton instanceof HTMLButtonElement) {
     calculateButton.addEventListener("click", calculate);
+  }
+
+  if (resetButton instanceof HTMLButtonElement) {
+    resetButton.addEventListener("click", () => {
+      form.reset();
+      transaction = "purchase";
+      scheduleMode = "annual";
+      taxBasisDirty = false;
+      firstPaymentInput.value = dateInputValue(firstPayment);
+      if (taxStartInput instanceof HTMLInputElement) {
+        taxStartInput.value = monthInputValue(now);
+      }
+      formatCurrencyInput(purchasePriceInput);
+      formatCurrencyInput(downPaymentInput);
+      formatCurrencyInput(refinanceAmountInput);
+      setTransaction("purchase");
+      setScheduleMode("annual");
+      calculate();
+    });
   }
 
   form.addEventListener("submit", (event) => {
