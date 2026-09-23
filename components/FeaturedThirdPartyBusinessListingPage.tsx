@@ -277,17 +277,28 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     </Link>
                   ) : null}
                 </div>
-                <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
-                  <span>License Type</span>
+                <div className={isSfsListing ? "marketplace-listing-education-card marketplace-listing-license-type-card" : undefined}>
+                  <span>{isSfsListing ? "Liquor License Type" : "License Type"}</span>
                   <strong>{shortLicenseType}</strong>
                   {isSfsListing ? (
-                    <Link
-                      className="marketplace-listing-education-link"
-                      href="/license-types/4cop-sfs-restaurant"
-                      aria-label="Learn about 4COP SFS / SRX restaurant licenses"
-                    >
-                      <span>Learn more →</span>
-                    </Link>
+                    <>
+                      <span
+                        id="sfs-license-type-tooltip"
+                        className="marketplace-listing-license-type-tooltip"
+                        role="tooltip"
+                      >
+                        <span>Series: 4COP (Consumption on Premises)</span>
+                        <span>Status: SFS / SRX</span>
+                      </span>
+                      <Link
+                        className="marketplace-listing-education-link"
+                        href="/license-types/4cop-sfs-restaurant"
+                        aria-label="Learn about 4COP SFS / SRX full-liquor licenses"
+                        aria-describedby="sfs-license-type-tooltip"
+                      >
+                        <span>Learn more →</span>
+                      </Link>
+                    </>
                   ) : null}
                 </div>
                 <div>
