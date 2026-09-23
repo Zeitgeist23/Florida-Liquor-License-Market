@@ -16,8 +16,9 @@ export default function ListingDetailOfficialHeader() {
     <>
       <style>{`
         .listing-detail-official-header {
-          position: relative;
-          z-index: 120;
+          position: sticky;
+          top: 0;
+          z-index: 1000;
           width: 100%;
           border-bottom: 1px solid #765613;
           background:
