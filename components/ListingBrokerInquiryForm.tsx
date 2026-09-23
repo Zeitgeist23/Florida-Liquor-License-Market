@@ -24,14 +24,17 @@ function formatCurrency(value: number, decimals = 0) {
 function ListingSidebarLoanCalculator({
   initialPurchasePrice,
   initialDownPayment,
+  mode,
 }: {
   initialPurchasePrice: number;
   initialDownPayment: number;
+  mode: "license" | "sba-business";
 }) {
   const [purchasePrice, setPurchasePrice] = useState(initialPurchasePrice);
   const [downPayment, setDownPayment] = useState(initialDownPayment);
   const [annualRateInput, setAnnualRateInput] = useState("10");
   const [termYears, setTermYears] = useState(10);
+  const isSbaBusiness = mode === "sba-business";
 
   const annualRate = Math.min(50, Math.max(0, Number(annualRateInput) || 0));
   const principal = Math.max(0, purchasePrice - downPayment);
@@ -79,15 +82,21 @@ function ListingSidebarLoanCalculator({
         @media(max-width:760px){.antezza-sidebar-calculator__fields{grid-template-columns:1fr}.antezza-sidebar-calculator h2{font-size:20px}}
       `}</style>
 
-      <span className="antezza-sidebar-calculator__eyebrow">Liquor License Financing Tool</span>
-      <h2 id="antezza-sidebar-calculator-title">Estimate License Financing</h2>
+      <span className="antezza-sidebar-calculator__eyebrow">
+        {isSbaBusiness ? "SBA 7(a) Business Loan Tool" : "Liquor License Financing Tool"}
+      </span>
+      <h2 id="antezza-sidebar-calculator-title">
+        {isSbaBusiness ? "Estimate Business Financing" : "Estimate License Financing"}
+      </h2>
       <p className="antezza-sidebar-calculator__intro">
-        Model an estimated payment for the displayed liquor-license component of this listing.
+        {isSbaBusiness
+          ? "Compare estimated principal-and-interest payments for financing the operating-business purchase."
+          : "Model an estimated payment for the displayed liquor-license component of this listing."}
       </p>
 
       <div className="antezza-sidebar-calculator__fields">
         <label>
-          <span>License purchase price</span>
+          <span>{isSbaBusiness ? "Business purchase price" : "License purchase price"}</span>
           <input
             type="number"
             min="0"
@@ -132,12 +141,12 @@ function ListingSidebarLoanCalculator({
         <label>
           <span>Loan term</span>
           <select value={termYears} onChange={(event) => setTermYears(Number(event.target.value) || 10)}>
-            <option value={3}>3 years</option>
+            {!isSbaBusiness && <option value={3}>3 years</option>}
             <option value={5}>5 years</option>
             <option value={7}>7 years</option>
             <option value={10}>10 years</option>
-            <option value={15}>15 years</option>
-            <option value={20}>20 years</option>
+            {!isSbaBusiness && <option value={15}>15 years</option>}
+            {!isSbaBusiness && <option value={20}>20 years</option>}
           </select>
         </label>
       </div>
@@ -153,10 +162,12 @@ function ListingSidebarLoanCalculator({
         <small>Estimated principal + interest</small>
       </div>
 
-      <a className="antezza-sidebar-calculator__cta" href="/financing#request-financing">Request Financing</a>
+      <a className="antezza-sidebar-calculator__cta" href={isSbaBusiness ? "/sba-7a-liquor-license-business-financing" : "/financing#request-financing"}>
+        {isSbaBusiness ? "Review SBA 7(a) Financing" : "Request Financing"}
+      </a>
       <a className="antezza-sidebar-calculator__full" href="/financing/loan-payment-calculator">Open Full Loan Calculator →</a>
       <small className="antezza-sidebar-calculator__fineprint">
-        Illustrative estimate only. Actual financing is subject to independent lender review, underwriting, collateral eligibility, transaction structure, rates, terms, and approval.
+        Illustrative estimate only. {isSbaBusiness ? "This is not an SBA eligibility or approval determination. " : ""}Actual financing is subject to independent lender review, underwriting, collateral eligibility, transaction structure, rates, terms, and approval.
       </small>
     </section>
   );
@@ -172,6 +183,7 @@ type Props = {
   listingUrl: string;
   recipientKind?: "broker" | "seller";
   showFinancingCalculator?: boolean;
+  financingCalculatorMode?: "license" | "sba-business";
   financingPurchasePrice?: number;
   financingDownPayment?: number;
 };
@@ -186,6 +198,7 @@ export default function ListingBrokerInquiryForm({
   listingUrl,
   recipientKind = "broker",
   showFinancingCalculator = false,
+  financingCalculatorMode = "license",
   financingPurchasePrice = 0,
   financingDownPayment,
 }: Props) {
@@ -198,7 +211,9 @@ export default function ListingBrokerInquiryForm({
     if (!showFinancingCalculator || financingPurchasePrice <= 0) return;
 
     const financeCard = document.querySelector<HTMLElement>(
-      `[data-featured-broker-listing="${listingReference}"] .marketplace-listing-finance-promo`,
+      financingCalculatorMode === "sba-business"
+        ? `[data-featured-broker-listing="${listingReference}"] .marketplace-listing-ira-promo`
+        : `[data-featured-broker-listing="${listingReference}"] .marketplace-listing-finance-promo`,
     );
     if (!financeCard) return;
 
@@ -219,7 +234,7 @@ export default function ListingBrokerInquiryForm({
       setCalculatorTarget(null);
       if (created && slot?.isConnected) slot.remove();
     };
-  }, [listingReference, showFinancingCalculator, financingPurchasePrice]);
+  }, [financingCalculatorMode, listingReference, showFinancingCalculator, financingPurchasePrice]);
 
   async function submitInquiry(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -344,6 +359,7 @@ export default function ListingBrokerInquiryForm({
         ? createPortal(
             <ListingSidebarLoanCalculator
               initialPurchasePrice={financingPurchasePrice}
+              mode={financingCalculatorMode}
               initialDownPayment={
                 financingDownPayment ?? Math.round(financingPurchasePrice * 0.2)
               }

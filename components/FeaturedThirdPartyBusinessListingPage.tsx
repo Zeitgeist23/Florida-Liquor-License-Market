@@ -619,75 +619,74 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 </a>
                 <ListingBrokerInquiryForm
                   listingReference={config.listingReference}
-                  listingRequested={`${config.county} ${shortLicenseType} Liquor License — Business Purchase Required`}
+                  listingRequested={isSfsListing
+                    ? `${config.county} ${shortLicenseType} Restaurant Business`
+                    : `${config.county} ${shortLicenseType} Liquor License — Business Purchase Required`}
                   listingCounty={config.county}
                   licenseType={shortLicenseType}
-                  askingPrice={`${config.askingPrice} license asking price; ${config.packagePrice} total business package`}
+                  askingPrice={isSfsListing
+                    ? `${config.packagePrice} business asking price; no separate quota-license value`
+                    : `${config.askingPrice} license asking price; ${config.packagePrice} total business package`}
                   listingStatus={statusLabel}
                   listingUrl={config.canonicalPath}
                   showFinancingCalculator
-                  // Business-package calculators always model the displayed license component, never the total package.
-                  financingPurchasePrice={config.askingPriceNumber}
+                  financingCalculatorMode={isSfsListing ? "sba-business" : "license"}
+                  financingPurchasePrice={isSfsListing ? config.packagePriceNumber : config.askingPriceNumber}
+                  financingDownPayment={isSfsListing ? Math.round(config.packagePriceNumber * 0.1) : undefined}
                 />
               </div>
 
-              <section
-                className="marketplace-listing-appraisal-card"
-                aria-labelledby="listing-appraisal-promo-title"
-              >
-                <img
-                  src="/assets/fllm-formal-appraisal-preview-v1.webp"
-                  alt="Sample FLLM formal liquor license appraisal report"
-                />
-                <div>
-                  <span>Professional License Valuation</span>
-                  <h2 id="listing-appraisal-promo-title">
-                    Order a Liquor License Appraisal
-                  </h2>
+              {isSfsListing ? (
+                <section
+                  className="marketplace-listing-finance-promo marketplace-listing-ira-promo"
+                  aria-labelledby="listing-ira-rollover-title"
+                >
+                  <span>FLLM Retirement-Fund Coordination</span>
+                  <h2 id="listing-ira-rollover-title">Self-Directed IRA Rollover Service</h2>
                   <p>
-                    Get a license-specific valuation supported by county market
-                    evidence and regulatory research.
+                    Explore whether eligible retirement funds may be transferred or rolled over to a self-directed IRA structure considered for this business acquisition.
                   </p>
                   <Link
-                    className="marketplace-listing-appraisal-button"
-                    href="/florida-liquor-license-appraisal#order-form"
+                    className="marketplace-listing-finance-button"
+                    href="/self-directed-ira-liquor-license-lending#ira-setup-assistance"
                   >
-                    Order an Appraisal
+                    Review Rollover Assistance
                   </Link>
-                  <Link
-                    className="marketplace-listing-heat-map-link"
-                    href="/?open=heat-map"
+                  <small>
+                    FLLM coordinates administrative setup and introductions only. Custodian acceptance, transaction eligibility, prohibited-transaction review, tax treatment, and any investment decision require independent professional review.
+                  </small>
+                </section>
+              ) : (
+                <>
+                  <section
+                    className="marketplace-listing-appraisal-card"
+                    aria-labelledby="listing-appraisal-promo-title"
                   >
-                    Explore the Florida License Heat Map →
-                  </Link>
-                </div>
-              </section>
+                    <img
+                      src="/assets/fllm-formal-appraisal-preview-v1.webp"
+                      alt="Sample FLLM formal liquor license appraisal report"
+                    />
+                    <div>
+                      <span>Professional License Valuation</span>
+                      <h2 id="listing-appraisal-promo-title">Order a Liquor License Appraisal</h2>
+                      <p>Get a license-specific valuation supported by county market evidence and regulatory research.</p>
+                      <Link className="marketplace-listing-appraisal-button" href="/florida-liquor-license-appraisal#order-form">Order an Appraisal</Link>
+                      <Link className="marketplace-listing-heat-map-link" href="/?open=heat-map">Explore the Florida License Heat Map →</Link>
+                    </div>
+                  </section>
 
-              <section
-                className="marketplace-listing-finance-promo"
-                aria-labelledby="listing-financing-promo-title"
-              >
-                <span>Liquor License Purchase Financing</span>
-                <h2 id="listing-financing-promo-title">
-                  Finance the License Component
-                </h2>
-                <p>
-                  Request financing consideration through the FLLM Private
-                  Lender Network for the qualifying liquor-license component of
-                  a transaction.
-                </p>
-                <Link
-                  className="marketplace-listing-finance-button"
-                  href="/financing#request-financing"
-                >
-                  Request Financing
-                </Link>
-                <small>
-                  All financing is subject to independent lender review,
-                  underwriting, collateral eligibility, transaction structure,
-                  and approval.
-                </small>
-              </section>
+                  <section
+                    className="marketplace-listing-finance-promo"
+                    aria-labelledby="listing-financing-promo-title"
+                  >
+                    <span>Liquor License Purchase Financing</span>
+                    <h2 id="listing-financing-promo-title">Finance the License Component</h2>
+                    <p>Request financing consideration through the FLLM Private Lender Network for the qualifying liquor-license component of a transaction.</p>
+                    <Link className="marketplace-listing-finance-button" href="/financing#request-financing">Request Financing</Link>
+                    <small>All financing is subject to independent lender review, underwriting, collateral eligibility, transaction structure, and approval.</small>
+                  </section>
+                </>
+              )}
             </aside>
           </div>
 
