@@ -89,7 +89,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "Business Asking Price",
       value: "$1,200,000",
       description:
-        "The seller's requested price for the operating business and included transaction assets. Final price, included assets, working capital and transaction costs remain subject to negotiation and broker confirmation.",
+        "The seller's requested price for the operating business and included transaction assets. Final price, included assets, working capital and transaction costs remain subject to negotiation and verification.",
     },
     {
       label: "Gross Revenue",
@@ -111,7 +111,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     },
     {
       label: "License Classification",
-      value: "4COP SFS / SRX — broker reported",
+      value: "4COP SFS / SRX",
       description:
         "4COP denotes full-liquor consumption-on-premises privileges. SFS means Special Food Service and SRX is commonly used for the special restaurant category. This qualification-based license depends on the restaurant and approved premises rather than constituting a separately transferable quota asset.",
       href: "/license-types/4cop-sfs-restaurant",
@@ -126,7 +126,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "Premises",
       value: "5,242 SF leased",
       description:
-        "The broker-reported size of the leased restaurant premises. Buyers should verify usable area, lease terms, permitted use, renewals and assignment rights.",
+        "The total stated size of the leased restaurant premises. Buyers should verify usable area, lease terms, permitted use, renewal options and assignment rights.",
     },
     {
       label: "Monthly Rent",
@@ -138,31 +138,31 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "Employees",
       value: "28 full-time · 4 part-time",
       description:
-        "The broker-reported staffing level. Payroll, contractor status, benefits, scheduling and continued employment should be independently verified.",
+        "The number of full-time and part-time employees associated with the business. Payroll, contractor status, benefits, scheduling and continued employment should be independently verified.",
     },
     {
       label: "Food Service",
       value: "Full kitchen, hood and grease trap",
       description:
-        "Broker-reported food-service infrastructure. Equipment condition, ownership, permits, code compliance and maintenance obligations require inspection and verification.",
+        "The kitchen systems and equipment used for food preparation and service. Equipment condition, ownership, permits, code compliance and maintenance obligations require inspection and verification.",
     },
     {
       label: "Entertainment",
       value: "Live music · DJs · private events",
       description:
-        "Broker-reported entertainment uses. Buyers should confirm zoning, occupancy, noise, late-hours and entertainment approvals for the premises.",
+        "The types of entertainment offered at the premises. Buyers should confirm zoning, occupancy, noise, late-hours and entertainment approvals.",
     },
     {
       label: "Revenue Channels",
       value: "Dine-in · takeout · delivery · catering",
       description:
-        "The broker-reported ways the business generates sales. Buyers should verify the revenue contribution, margins and contracts associated with each channel.",
+        "The ways the business generates sales. Buyers should verify the revenue contribution, margins and contracts associated with each channel.",
     },
     {
       label: "Visa Positioning",
       value: "E-2 / L-1 / EB-5 advertised",
       description:
-        "Visa categories referenced in the broker advertisement. This is not a guarantee of immigration eligibility or approval; buyers should obtain advice from a qualified immigration attorney.",
+        "Immigration categories that may be considered in connection with a qualifying business investment. This is not a guarantee of eligibility or approval; buyers should obtain advice from a qualified immigration attorney.",
     },
   ],
   opportunitiesHeading: "Offering highlights identified in the broker listing",
