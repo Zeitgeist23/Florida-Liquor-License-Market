@@ -34,7 +34,14 @@ export const metadata: Metadata = {
   title: "Miami Mexican Restaurant + 4COP SFS / SRX | Broker Preview",
   description:
     "Broker approval preview for a Miami-Dade Mexican-Latin restaurant and entertainment venue operating with a location-specific 4COP SFS / SRX restaurant license.",
-  alternates: { canonical: canonicalUrl },
+  alternates: {
+    canonical: canonicalUrl,
+    languages: {
+      "en-US": canonicalUrl,
+      "es-US": `${siteUrl}/es/listings/fllm-zoberg`,
+      "x-default": canonicalUrl,
+    },
+  },
   robots: { index: false, follow: false },
   openGraph: {
     type: "website",
@@ -55,6 +62,11 @@ export const metadata: Metadata = {
 const config: FeaturedThirdPartyBusinessListingConfig = {
   listingReference: "FLLM-ZOBERG",
   canonicalPath,
+  locale: "en",
+  languageAlternates: {
+    en: canonicalPath,
+    es: "/es/listings/fllm-zoberg",
+  },
   county: "Miami-Dade County",
   countyHref: "/counties/miami-dade",
   countyValueHref: "/counties/miami-dade/liquor-license-value",
