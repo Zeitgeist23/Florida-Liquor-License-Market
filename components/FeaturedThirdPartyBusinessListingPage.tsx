@@ -536,7 +536,6 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <div
                         key={metric.label}
                         className="package-business-metric"
-                        tabIndex={metric.description ? 0 : undefined}
                         aria-describedby={metric.description ? tooltipId : undefined}
                       >
                         {metricContent}
