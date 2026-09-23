@@ -132,7 +132,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "Monthly Rent",
       value: "$33,162",
       description:
-        "The broker-reported monthly rent. Confirm whether this figure includes common-area charges, taxes, insurance, percentage rent or other occupancy costs.",
+        "The amount paid each month to occupy the business premises. Confirm whether this figure includes common-area charges, property taxes, insurance, percentage rent or other occupancy costs.",
     },
     {
       label: "Employees",
