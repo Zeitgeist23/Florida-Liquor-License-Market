@@ -260,9 +260,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
               )}
               <Link
                 className="marketplace-listing-secondary"
-                href={config.countyHref}
+                href={isNonQuotaBusiness ? "#license-details" : config.countyHref}
               >
-                {tr("View", "Ver mercado de licencias de")} {countyShort}
+                {isNonQuotaBusiness
+                  ? tr("View License Details", "Ver detalles de la licencia")
+                  : <>{tr("View", "Ver mercado de licencias de")} {countyShort}</>}
               </Link>
             </div>
           </div>
@@ -278,7 +280,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
         </div>
       </section>
 
-      <section className="marketplace-listing-body">
+      <section id="license-details" className="marketplace-listing-body">
         <div className="marketplace-listing-shell">
           <div className="marketplace-listing-grid">
             <article className="marketplace-listing-main">
