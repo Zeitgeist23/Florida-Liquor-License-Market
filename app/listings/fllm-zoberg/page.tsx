@@ -59,6 +59,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   countyHref: "/counties/miami-dade",
   countyValueHref: "/counties/miami-dade/liquor-license-value",
   countyCities: "Miami · Doral · Hialeah · Miami Beach",
+  countyPopulation: "2,838,461",
   askingPrice: "Not separately valued",
   askingPriceNumber: 0,
   packagePrice: "$1,200,000",
@@ -177,7 +178,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   confidentialityText:
     "the business name, exact premises, financial records, lease documents and licensing records may require buyer qualification and direct confirmation through the listing broker.",
   countyContext:
-    "Miami-Dade County supports one of Florida's largest restaurant, nightlife, tourism and international-buyer markets. A 4COP SFS / SRX license is materially different from a Miami-Dade quota license: it depends on an eligible restaurant and approved premises and should not be valued as an independently transferable quota asset.",
+    "Miami-Dade County is Florida's largest international hospitality market, combining global tourism, finance, trade, culture, hotels, restaurants, nightlife, entertainment, and dense year-round population.",
 };
 
 export default function BrianZobergFeaturedListingPage() {
