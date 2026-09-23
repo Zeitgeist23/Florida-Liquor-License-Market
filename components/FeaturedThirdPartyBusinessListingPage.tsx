@@ -611,7 +611,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   {is2copListing
                     ? "The beer-and-wine privilege is not a quota license. FLLM assigns it no separate license value. The business asking price excludes the separately advertised real estate and inventory unless the seller confirms otherwise."
                     : isSfsListing
-                    ? (isSpanish ? `El precio solicitado de ${config.packagePrice} corresponde al paquete del negocio y la licencia completa de bebidas alcohólicas ${shortLicenseType}. La licencia no tiene valor transferible independiente, y FLLM no le asigna un valor separado.` : `The ${config.packagePrice} asking price applies to the business and ${shortLicenseType} full-liquor license package. The license has no independent transferable value, and FLLM assigns no separate value to it.`)
+                    ? (isSpanish ? `El precio solicitado de ${config.packagePrice} corresponde al paquete del negocio y la licencia completa de bebidas alcohólicas ${shortLicenseType}. Una licencia de bebidas alcohólicas ${shortLicenseType} no tiene valor transferible independiente y FLLM no le asigna un valor separado.` : `The ${config.packagePrice} asking price applies to the business and ${shortLicenseType} full-liquor license package. A ${shortLicenseType} liquor license has no independent transferable value and FLLM assigns no separate value to it.`)
                     : `The ${shortLicenseType} liquor license is displayed on FLLM at ${config.askingPrice}. Purchase of the associated business is required, and the license is not currently being offered separately.`}
                 </div>
 
