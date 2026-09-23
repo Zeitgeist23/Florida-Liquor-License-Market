@@ -38,6 +38,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   countyValueHref: string;
   countyCities: string;
   countyPopulation?: string;
+  annualLicenseFee?: string;
   askingPrice: string;
   askingPriceNumber: number;
   packagePrice: string;
@@ -543,6 +544,19 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 </p> : is2copListing ? <p>Florida&apos;s <Link href="/license-types/2cop-beer-wine">2COP beer-and-wine license</Link> is a non-quota series for beer and wine privileges. It does not authorize spirits. Confirm the license record, licensed premises, buyer qualifications, and transaction requirements with DBPR.</p> : <p>
                   {tr("A", "Una")} <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> {tr("license is a special restaurant license whose continued privileges depend on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.", "es una licencia especial para restaurantes cuyos privilegios continuos dependen de la operación de servicio de alimentos que cumple los requisitos, el local aprobado, la aprobación de cambios de propiedad o entidad y el cumplimiento continuo de los requisitos aplicables del DBPR, incluida la prueba de ventas de alimentos y bebidas no alcohólicas.")}
                 </p>}
+                {isSfsListing && config.annualLicenseFee ? (
+                  <p className="featured-business-renewal-fee">
+                    <strong className="featured-business-sfs-lead">
+                      {tr("Annual State License Fee:", "Tarifa estatal anual de la licencia:")}
+                    </strong>{" "}
+                    {tr("The current annual DBPR/DABT fee for a 4COP SFS / SRX license in", "La tarifa anual vigente de DBPR/DABT para una licencia 4COP SFS / SRX en")}{" "}
+                    {config.county} {tr("is", "es")} <strong>{config.annualLicenseFee}</strong>.{" "}
+                    {tr("Fees may change and should be confirmed with the Florida Division of Alcoholic Beverages and Tobacco.", "Las tarifas pueden cambiar y deben confirmarse con la División de Bebidas Alcohólicas y Tabaco de Florida.")}{" "}
+                    <Link href="/resources/license-fees">
+                      {tr("View the FLLM Annual Liquor License Fee Chart →", "Ver la tabla anual de tarifas de licencias de FLLM →")}
+                    </Link>
+                  </p>
+                ) : null}
               </section>
 
               <section className="marketplace-listing-section marketplace-listing-seller-details">
