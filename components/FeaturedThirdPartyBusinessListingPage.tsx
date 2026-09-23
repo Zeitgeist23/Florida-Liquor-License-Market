@@ -64,7 +64,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   opportunities: string[];
   transitionText?: string;
   confidentialityText: string;
-  sourceDisclosure: string;
+  sourceDisclosure?: string;
   countyContext: string;
 };
 
@@ -555,9 +555,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   <strong>Confidentiality:</strong>{" "}
                   {config.confidentialityText}
                 </p>
-                <p className="package-source-disclosure">
-                  {config.sourceDisclosure}
-                </p>
+                {config.sourceDisclosure ? (
+                  <p className="package-source-disclosure">
+                    {config.sourceDisclosure}
+                  </p>
+                ) : null}
               </section>
 
               <section className="marketplace-listing-section">
