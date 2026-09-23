@@ -134,7 +134,6 @@ export default function FeaturedThirdPartyBusinessListingPage({
       />
 
       <style>{`
-        .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"]>.results-header{position:sticky!important;top:0;z-index:1000;box-shadow:0 6px 18px rgba(0,0,0,.28)}
         .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-kicker{font-size:12px!important;font-weight:900;letter-spacing:.075em;text-transform:uppercase}
         .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-kicker::after{content:none!important;display:none!important}
         .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts>div:nth-child(4)>strong{font-size:20px!important;line-height:1.2!important}
