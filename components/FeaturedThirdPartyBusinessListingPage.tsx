@@ -224,7 +224,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
               <span className="marketplace-listing-hero-reference">
                 {tr("Listing", "Anuncio")} {config.listingReference}
               </span>
-              <ListingViewCount listingRef={config.listingReference} />
+              <ListingViewCount listingRef={config.listingReference} locale={config.locale} />
               <span className="marketplace-listing-broker-badge">
                 {tr("Featured · Third-Party Broker", "Destacado · Corredor externo")}
               </span>
@@ -313,7 +313,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       href="/license-types/4cop-sfs-restaurant"
                       aria-label="Learn about location-specific 4COP SFS / SRX licenses"
                     >
-                      <span>Learn more →</span>
+                      <span>{tr("Learn more →", "Más información →")}</span>
                     </Link>
                   ) : null}
                 </div>
@@ -344,7 +344,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         href="/license-types/4cop-sfs-restaurant"
                         aria-label="Learn about full-liquor privileges under a 4COP SFS / SRX license"
                       >
-                        <span>Learn more →</span>
+                        <span>{tr("Learn more →", "Más información →")}</span>
                       </Link>
                     ) : null}
                   </div>
@@ -363,7 +363,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         href="/license-types/4cop-sfs-restaurant"
                         aria-label="Learn about restaurant and premises requirements for 4COP SFS / SRX licenses"
                       >
-                        <span>Learn more →</span>
+                        <span>{tr("Learn more →", "Más información →")}</span>
                       </Link>
                     ) : null}
                   </div>
@@ -382,7 +382,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         href="/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs"
                         aria-label="Learn about the 51 percent food and nonalcoholic revenue requirement"
                       >
-                        <span>Learn more →</span>
+                        <span>{tr("Learn more →", "Más información →")}</span>
                       </Link>
                     ) : null}
                   </div>
@@ -404,7 +404,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         href="/license-types/4cop-quota#license-comparison-title"
                         aria-label="Compare qualification-based 4COP SFS / SRX licenses with transferable quota licenses"
                       >
-                        <span>Learn more →</span>
+                        <span>{tr("Learn more →", "Más información →")}</span>
                       </Link>
                     ) : null}
                   </div>
