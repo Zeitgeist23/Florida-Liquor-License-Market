@@ -110,6 +110,21 @@ export type CreateBuyerLeadInput = {
   message?: string | null;
 };
 
+export type CreateBuyerInquiryLeadInput = {
+  fullName: string;
+  email: string;
+  phone?: string | null;
+  listingReference: string;
+  listingRequested: string;
+  county: string;
+  licenseType: string;
+  askingPriceText?: string | null;
+  listingUrl?: string | null;
+  inquiryType?: string | null;
+  message?: string | null;
+  source?: string | null;
+};
+
 export type CreateValuationLeadInput = {
   fullName: string;
   email: string;
@@ -346,6 +361,81 @@ export async function createBuyerLead(input: CreateBuyerLeadInput) {
   const rows = (await response.json()) as SubmissionRow[];
   if (!rows[0])
     throw new Error("The buyer lead was not returned by the database.");
+  return toSubmission(rows[0]);
+}
+
+export async function createBuyerInquiryLead(input: CreateBuyerInquiryLeadInput) {
+  requireDatabase();
+
+  const fullName = cleanText(input.fullName, 160);
+  const email = cleanText(input.email, 254).toLowerCase();
+  const phone = cleanText(input.phone, 60);
+  const listingReference = cleanText(input.listingReference, 100).toUpperCase();
+  const listingRequested = cleanText(input.listingRequested, 300);
+  const county = cleanText(input.county, 100);
+  const licenseType = cleanText(input.licenseType, 120);
+  const askingPriceText = cleanText(input.askingPriceText, 80) || null;
+  const listingUrl = cleanText(input.listingUrl, 500) || null;
+  const inquiryType = cleanText(input.inquiryType, 120) || "Buy a License";
+  const message = cleanText(input.message, 5000) || null;
+  const source = cleanText(input.source, 160) || "listing_contact_center";
+
+  if (!fullName || !email || !listingReference || !county || !licenseType) {
+    throw new Error("Buyer inquiry is missing required lead data.");
+  }
+  if (!/^\S+@\S+\.\S+$/.test(email)) {
+    throw new Error("Please enter a valid email address.");
+  }
+
+  const approvedLicenseType =
+    licenseType === "4COP Quota" || licenseType === "3PS Quota / Package Store"
+      ? licenseType
+      : null;
+  const now = new Date().toISOString();
+  const row = {
+    submission_ref: makeBuyerLeadRef(),
+    full_name: fullName,
+    first_name: fullName.split(/\s+/)[0] || "there",
+    email,
+    phone,
+    county,
+    license_type: licenseType,
+    asking_price: null,
+    asking_price_text: askingPriceText,
+    license_status: "Buyer inquiry",
+    preferred_timing: null,
+    message: JSON.stringify({
+      kind: "buyer_inquiry",
+      inquiryType,
+      buyerMessage: message,
+      source,
+      listingReference,
+    }),
+    status: "pending_payment" satisfies SubmissionStatus,
+    payment_email_status: "pending" satisfies EmailDeliveryStatus,
+    approval_email_status: "pending" satisfies EmailDeliveryStatus,
+    listing_title: listingRequested || `${county} ${licenseType}`,
+    approved_license_type: approvedLicenseType,
+    approved_asking_price: null,
+    live_listing_ref: listingReference,
+    live_listing_url: listingUrl,
+    created_at: now,
+    updated_at: now,
+  };
+
+  const response = await fetch(endpoint("listing_submissions"), {
+    method: "POST",
+    headers: supabaseHeaders({ Prefer: "return=representation" }),
+    body: JSON.stringify(row),
+    cache: "no-store",
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Could not save the buyer inquiry: ${response.status} ${await response.text()}`,
+    );
+  }
+  const rows = (await response.json()) as SubmissionRow[];
+  if (!rows[0]) throw new Error("The buyer inquiry was not returned by the database.");
   return toSubmission(rows[0]);
 }
 
