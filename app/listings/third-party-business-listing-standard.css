@@ -32,6 +32,11 @@
    to enter the initial desktop viewport as a natural scroll cue. The business
    description and license line share one secondary size for a balanced hierarchy. */
 @media (min-width: 901px) {
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-hero {
+    padding-top: 38px;
+    padding-bottom: 34px;
+  }
+
   .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-copy h1 {
     font-size: clamp(36px, 4.2vw, 52px);
     line-height: 1.04;
