@@ -47,6 +47,11 @@ export default async function LoanPaymentCalculatorPage({
   const allowedTerms = isSbaBusiness ? [5, 7, 10] : [3, 5, 7, 10, 15, 20];
   const loanTerm = allowedTerms.includes(requestedTerm) ? requestedTerm : 10;
   const amountFinanced = Math.max(0, purchasePrice - downPayment);
+  const wholeDollarCurrency = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  });
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -67,7 +72,7 @@ export default async function LoanPaymentCalculatorPage({
 
   return (
     <main className="loan-calculator-page">
-      <link rel="stylesheet" href="/assets/financing-loan-calculator.css?v=3" />
+      <link rel="stylesheet" href="/assets/financing-loan-calculator.css?v=4" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
@@ -159,18 +164,18 @@ export default async function LoanPaymentCalculatorPage({
                 <div className="fllm-loan-calculator__fields" id="fllm-purchase-fields">
                   <label className="fllm-loan-calculator__field">
                     <span>{isSbaBusiness ? "Business purchase price" : "Liquor license purchase price"}</span>
-                    <input id="fllm-purchase-price" type="number" min="0" step="5000" inputMode="decimal" defaultValue={String(purchasePrice)} />
+                    <input id="fllm-purchase-price" type="text" inputMode="numeric" defaultValue={wholeDollarCurrency.format(purchasePrice)} />
                   </label>
                   <label className="fllm-loan-calculator__field">
                     <span>Down payment</span>
-                    <input id="fllm-down-payment" type="number" min="0" step="5000" inputMode="decimal" defaultValue={String(downPayment)} />
+                    <input id="fllm-down-payment" type="text" inputMode="numeric" defaultValue={wholeDollarCurrency.format(downPayment)} />
                   </label>
                 </div>
 
                 <div className="fllm-loan-calculator__fields" id="fllm-refinance-fields" hidden>
                   <label className="fllm-loan-calculator__field">
                     <span>New refinance loan amount</span>
-                    <input id="fllm-refinance-amount" type="number" min="0" step="5000" inputMode="decimal" defaultValue="300000" />
+                    <input id="fllm-refinance-amount" type="text" inputMode="numeric" defaultValue="$300,000" />
                     <small className="fllm-loan-calculator__helper">
                       Enter the new principal balance being modeled, including cash-out only if it will actually be financed.
                     </small>
@@ -199,11 +204,14 @@ export default async function LoanPaymentCalculatorPage({
                   </label>
                   <div className="fllm-loan-calculator__readonly">
                     <span>Amount financed</span>
-                    <output id="fllm-principal-output">{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amountFinanced)}</output>
+                    <output id="fllm-principal-output">{wholeDollarCurrency.format(amountFinanced)}</output>
                   </div>
                 </div>
 
-                <button className="fllm-loan-calculator__calculate" id="fllm-calculate-button" type="button">Calculate / Update Payment</button>
+                <div className="fllm-loan-calculator__button-row">
+                  <button className="fllm-loan-calculator__calculate" id="fllm-calculate-button" type="button">Calculate / Update Payment</button>
+                  <button className="fllm-loan-calculator__reset" id="fllm-reset-button" type="button">Reset Calculator</button>
+                </div>
                 <p className="fllm-loan-calculator__error" id="fllm-loan-calculator-error" role="alert" />
               </div>
 
@@ -336,7 +344,7 @@ export default async function LoanPaymentCalculatorPage({
         )}
       </section>
 
-      <Script src="/assets/financing-loan-calculator.js?v=4" strategy="afterInteractive" />
+      <Script src="/assets/financing-loan-calculator.js?v=5" strategy="afterInteractive" />
     </main>
   );
 }
