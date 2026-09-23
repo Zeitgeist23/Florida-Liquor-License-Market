@@ -655,6 +655,7 @@
    the reader through long listing content, and stops with the listing grid. */
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-aside-broker {
   align-self: stretch;
+  align-content: start;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-sticky-contact {
