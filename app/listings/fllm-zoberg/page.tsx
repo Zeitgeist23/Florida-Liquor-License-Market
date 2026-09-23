@@ -96,7 +96,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Opportunity to acquire a well-established full-service Mexican restaurant, cocktail program and entertainment venue in Miami-Dade County as a turnkey operating business.",
   packageIncludes:
-    "The offering includes the operating restaurant business, established systems, furniture, fixtures and equipment, commercial kitchen and bar infrastructure, leasehold interests and associated goodwill. The restaurant operates with a 4COP SFS / SRX special restaurant license. That privilege is premises- and qualification-dependent, is assigned no separate license value by FLLM, and must not be treated as a transferable county quota license.",
+    "The offering includes the operating restaurant business, established systems, furniture, fixtures and equipment, commercial kitchen and bar infrastructure, leasehold interests and associated goodwill. The restaurant operates with a 4COP SFS / SRX special restaurant license tied to the qualifying operation and approved premises.",
   businessMetrics: [
     {
       label: "Business Asking Price",
@@ -128,12 +128,6 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       description:
         "4COP denotes full-liquor consumption-on-premises privileges. SFS means Special Food Service and SRX is commonly used for the special restaurant category. This qualification-based license depends on the restaurant and approved premises rather than constituting a separately transferable quota asset.",
       href: "/license-types/4cop-sfs-restaurant",
-    },
-    {
-      label: "License Value",
-      value: "No separate quota value",
-      description:
-        "FLLM assigns no independent quota-license value because the SFS/SRX privilege is tied to restaurant qualification and the approved premises.",
     },
     {
       label: "Premises",
