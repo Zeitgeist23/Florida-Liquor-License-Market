@@ -726,7 +726,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   </p> : null}
                   <p>
                     <Link href="/transaction-services">
-                      {tr("Explore FLLM transaction services →", "Explore los servicios de transacción de FLLM →")}
+                      {tr("Explore FLLM Liquor License Transfer Services →", "Explore los servicios de transferencia de licencias de bebidas alcohólicas de FLLM →")}
                     </Link>
                   </p>
                 </section>
