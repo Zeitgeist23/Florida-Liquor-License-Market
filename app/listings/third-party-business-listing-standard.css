@@ -654,8 +654,11 @@
 /* Compact desktop contact rail: enters after the full sidebar stack, follows
    the reader through long listing content, and stops with the listing grid. */
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-aside-broker {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   align-self: stretch;
-  align-content: start;
+  gap: 14px;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-sticky-contact {
