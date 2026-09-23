@@ -573,17 +573,19 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     estimate
                   </p>
                 ) : null}
-                <p>
-                  <Link href={config.countyHref}>
-                    View the {config.county} liquor license market →
-                  </Link>
-                </p>
                 {!isSfsListing ? (
-                  <p>
-                    <Link href={config.countyValueHref}>
-                      Review current {config.county} liquor license values →
-                    </Link>
-                  </p>
+                  <>
+                    <p>
+                      <Link href={config.countyHref}>
+                        View the {config.county} liquor license market →
+                      </Link>
+                    </p>
+                    <p>
+                      <Link href={config.countyValueHref}>
+                        Review current {config.county} liquor license values →
+                      </Link>
+                    </p>
+                  </>
                 ) : null}
               </section>
 
