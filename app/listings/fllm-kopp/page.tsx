@@ -1,116 +1,88 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
-import FormsSiteHeader from "@/components/FormsSiteHeader";
-import styles from "./preview.module.css";
+import FeaturedThirdPartyBusinessListingPage, {
+  type FeaturedThirdPartyBusinessListingConfig,
+} from "@/components/FeaturedThirdPartyBusinessListingPage";
 
-const sourceUrl = "https://www.bizbuysell.com/business-opportunity/prime-location-in-miami-established-peruvian-mediterranean-restauran/2479201/";
-const photos = [
-  { src: "https://images.bizbuysell.com/shared/listings/247/2479201/899b04d1-b1b6-49d0-ab76-61c8f551a3ff-W768.webp", alt: "Dining room photographed for the seller's BizBuySell advertisement" },
-  { src: "https://images.bizbuysell.com/shared/listings/247/2479201/7c50cfae-a727-461e-82dd-2b7db430be13-W768.webp", alt: "Restaurant entrance photographed for the seller's BizBuySell advertisement" },
-  { src: "https://images.bizbuysell.com/shared/listings/247/2479201/c5ddea83-c1fd-482e-b716-09b8f15ee6bd-W768.webp", alt: "Kitchen photographed for the seller's BizBuySell advertisement" },
-  { src: "https://images.bizbuysell.com/shared/listings/247/2479201/0e1e0ed3-108e-4044-9739-b1831ddf03ab-W768.webp", alt: "Dining area photographed for the seller's BizBuySell advertisement" },
-];
+import "@/app/listings/listings-premium.css";
+import "@/app/listings/listings-header-position.css";
+import "@/app/listings/listings-map-size.css";
+import "@/app/listings/listings-county-links.css";
+import "@/app/listings/listings-navy-refresh.css";
+import "@/app/listings/listings-card-gold-borders.css";
+import "@/app/listings/listings-title-highlight.css";
+import "@/app/listings/listings-regression-fix.css";
+import "@/app/listings/listings-filter-depth.css";
+import "@/app/listings/listings-logo-3pct-lock.css";
+import "@/app/listings/listings-conversion-cards.css";
+import "@/app/listings/listings-card-overlap-fix.css";
+import "@/app/listings/listings-masthead-darker.css";
+import "@/app/listings/listings-mobile-header-fix.css";
+import "@/app/listings/listings-focused-card.css";
+import "../[slug]/listing-detail.css";
+import "../third-party-business-listing-standard.css";
+
+const sourceListingUrl = "https://www.bizbuysell.com/business-opportunity/prime-location-in-miami-established-peruvian-mediterranean-restauran/2479201/";
 
 export const metadata: Metadata = {
-  title: "Marianella Kopp Peruvian Restaurant | Seller Approval Preview",
-  description: "Unpublished seller review draft for a Miami Peruvian restaurant business with a reported 2COP beer-and-wine license.",
+  title: "Miami Peruvian Restaurant + 2COP Beer & Wine | Seller Review Preview",
+  description: "Unpublished direct-seller review draft for a Miami Peruvian-Mediterranean restaurant business with seller-reported beer-and-wine privileges.",
   robots: { index: false, follow: false, noarchive: true },
 };
 
+const config: FeaturedThirdPartyBusinessListingConfig = {
+  listingReference: "FLLM-KOPP",
+  canonicalPath: "/listings/fllm-kopp",
+  county: "Miami-Dade County",
+  countyHref: "/counties/miami-dade",
+  countyValueHref: "/counties/miami-dade/liquor-license-value",
+  countyCities: "Miami · Doral · Hialeah · Miami Beach",
+  askingPrice: "No separate quota value",
+  askingPriceNumber: 0,
+  packagePrice: "$599,999",
+  packagePriceNumber: 599999,
+  licenseType: "2COP Beer & Wine",
+  licenseClass: "2cop",
+  sellerDirect: true,
+  approvalPreview: true,
+  businessLabel: "Peruvian-Mediterranean Restaurant",
+  businessLabelLinkUrl: sourceListingUrl,
+  heroSummary: "Established Miami Peruvian-Mediterranean restaurant offered directly by the seller. The seller advertises beer-and-wine privileges with the business. This draft is for seller review; FLLM has not verified the exact 2COP license record or the operating figures.",
+  broker: {
+    name: "Marianella Kopp",
+    brokerage: "Seller Direct",
+    phone: "(786) 477-3541",
+    email: "",
+    website: sourceListingUrl,
+    listingUrl: sourceListingUrl,
+  },
+  additionalSellerIntro: "The seller's BizBuySell advertisement describes an established Peruvian-Mediterranean restaurant in Miami, operating since 2007, with a furnished dining room and commercial kitchen. Details below reflect the seller's advertisement and remain subject to confirmation.",
+  packageIncludes: "The seller reports approximately $500,000 of furniture, fixtures, and equipment included. Approximately $40,000 of inventory and the separately offered real estate are excluded from the advertised business price; verify these terms with the seller.",
+  businessMetrics: [
+    { label: "Business Asking Price", value: "$599,999", description: "Seller-advertised business asking price. Real estate and inventory are advertised separately." },
+    { label: "Reported Annual Gross", value: "$980,000", description: "Seller-reported revenue. FLLM has not reviewed financial records." },
+    { label: "Established", value: "2007", description: "Operating history stated in the seller's advertisement." },
+    { label: "Restaurant Space", value: "2,725 sq. ft.", description: "Premises size stated by the seller. Real estate is offered separately." },
+    { label: "Restaurant Seating", value: "80 permitted", description: "Seller reports possible expansion to 120 seats, subject to approvals." },
+    { label: "License Series", value: "2COP reported", description: "Beer-and-wine privileges are seller-reported. Verify the exact DBPR record and premises.", href: "/license-types/2cop-beer-wine" },
+  ],
+  sellerFinancing: {
+    offered: true,
+    source: "seller-reported",
+    termsSummary: "The seller advertises financing up to 40% of the asking price. Availability and final terms require direct seller confirmation.",
+  },
+  opportunitiesHeading: "Restaurant Acquisition Highlights",
+  opportunities: [
+    "Established Peruvian-Mediterranean restaurant concept in Miami with seller-reported beer-and-wine privileges.",
+    "Seller advertises equipment and fixtures with the operating business; inventory and real estate are separate.",
+    "Seller offers approximately two weeks of transition training, subject to agreement.",
+  ],
+  transitionText: "The seller's advertisement describes a two-week training period. Confirm the exact transition scope and timing directly with Marianella before signing a purchase agreement.",
+  confidentialityText: "This is a seller review preview. Buyer inquiries are disabled until the seller approves the page and pays the $24.95 listing fee.",
+  sourceDisclosure: "Source: seller's BizBuySell advertisement #2479201. Price, operating metrics, included assets, financing, seating, and license status are seller-reported and have not been independently verified by FLLM. No restaurant photographs are reproduced in this draft.",
+  countyContext: "Miami-Dade County is the location stated in the seller's restaurant advertisement. This is a business sale with reported 2COP beer-and-wine privileges, not a separately priced quota-license listing. Verify the restaurant premises and license status before making a transaction decision.",
+};
+
 export default function MarianellaSellerPreview() {
-  return (
-    <main className={styles.page}>
-      <FormsSiteHeader />
-      <div className={styles.shell}>
-        <div className={styles.previewNotice} role="status">
-          <strong>SELLER REVIEW DRAFT</strong>
-          <span>Not published in FLLM inventory. Seller approval and $24.95 listing payment pending.</span>
-        </div>
-
-        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-          <Link href="/listings?type=businesses-2cop">Businesses with 2COP Beer &amp; Wine Licenses</Link>
-          <span>›</span>
-          <span>Miami-Dade County</span>
-        </nav>
-
-        <header className={styles.hero}>
-          <div>
-            <p className={styles.eyebrow}>SELLER DIRECT · BUSINESS + 2COP BEER &amp; WINE</p>
-            <h1>Miami Peruvian Restaurant <span>for Sale</span></h1>
-            <p className={styles.summary}>
-              Established Peruvian-Mediterranean restaurant in Miami offered directly by owner Marianella Kopp.
-              The seller reports an active beer-and-wine license with the operating business. The 2COP series,
-              license status, and ownership-change requirements should be confirmed with DBPR before publication.
-            </p>
-            <div className={styles.tags}>
-              <span>Miami-Dade County</span><span>Restaurant Business</span><span>2COP reported by seller</span>
-            </div>
-          </div>
-          <aside className={styles.priceCard}>
-            <span>BUSINESS ASKING PRICE</span>
-            <strong>$599,999</strong>
-            <p>Real estate is offered separately and is not included in this business asking price. Inventory is also reported separately.</p>
-            <small>Seller direct · FLLM reference FLLM-KOPP</small>
-          </aside>
-        </header>
-
-        <section className={styles.photoSection} aria-label="Restaurant photographs from the seller's advertisement">
-          <div className={styles.gallery}>
-            {photos.map((photo, index) => (
-              <a className={index === 0 ? styles.primaryPhoto : styles.secondaryPhoto} href={sourceUrl} target="_blank" rel="noopener noreferrer" key={photo.src} aria-label={`View original seller advertisement: ${photo.alt}`}>
-                {/* External seller-ad photos are displayed only in this approval mockup. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={photo.src} alt={photo.alt} loading={index === 0 ? "eager" : "lazy"} />
-              </a>
-            ))}
-          </div>
-          <p>Photos displayed from Marianella&apos;s BizBuySell advertisement for mockup review. Confirm photo use with the seller before publication.</p>
-        </section>
-
-        <section className={styles.section} aria-labelledby="highlights">
-          <h2 id="highlights">Business at a glance</h2>
-          <div className={styles.grid}>
-            <article><span>Reported annual revenue</span><strong>$980,000</strong><p>Seller-reported; financial records have not been verified by FLLM.</p></article>
-            <article><span>Established</span><strong>2007</strong><p>Operating history reported in the seller&apos;s BizBuySell advertisement.</p></article>
-            <article><span>Restaurant space</span><strong>2,725 sq. ft.</strong><p>Premises size is seller-reported; property offered separately.</p></article>
-            <article><span>Seating</span><strong>80 permitted</strong><p>Seller reports potential for 120; buyer must verify approvals.</p></article>
-            <article><span>Beer &amp; wine license</span><strong>2COP reported</strong><p>No separate quota-license value is included or implied.</p></article>
-            <article><span>Seller financing</span><strong>Up to 40% stated</strong><p>Availability and final terms require direct seller confirmation.</p></article>
-          </div>
-        </section>
-
-        <section className={styles.section} aria-labelledby="offering">
-          <h2 id="offering">What the advertised offering describes</h2>
-          <div className={styles.twoColumns}>
-            <div>
-              <p>The seller advertises an established restaurant business, furnished dining area, commercial kitchen, equipment, and two weeks of transition training. The $500,000 stated FF&amp;E figure is included in the asking price; $40,000 of stated inventory is not.</p>
-              <p>The separately owned real estate is outside the $599,999 business asking price. Buyers should confirm occupancy terms if purchasing the business without the property.</p>
-            </div>
-            <div className={styles.disclosure}>
-              <h3>License and transaction review</h3>
-              <p>A 2COP beer-and-wine license is distinct from a scarce 4COP quota license and does not authorize spirits. Confirm the precise license record, premises, permitted privileges, and requirements for the buyer&apos;s operation directly with Florida DBPR.</p>
-              <Link href="/license-types/2cop-beer-wine">Read the FLLM 2COP guide →</Link>
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.sellerPanel} aria-label="Seller and inquiry preview">
-          <div>
-            <span>DIRECT SELLER</span>
-            <h2>Marianella Kopp</h2>
-            <p>Owner-posted restaurant opportunity in Miami-Dade County. Buyer inquiries can be routed directly to the seller once she confirms her preferred contact details and approves publication.</p>
-          </div>
-          <div className={styles.pendingAction} aria-label="Inquiries unavailable until publication">CONTACT SELLER · AVAILABLE AFTER APPROVAL</div>
-        </section>
-
-        <section className={styles.review} aria-label="Seller review steps">
-          <div><span>PREPUBLICATION REVIEW</span><h2>Confirm the details before this ad goes live</h2>
-            <p>Marianella can review the description, asking price, included assets, photos, license documentation, and preferred buyer contact method. FLLM will add the listing to the 2COP business category only after her approval and $24.95 payment.</p>
-            <p className={styles.source}>Draft facts and preview images from the seller&apos;s <a href={sourceUrl} target="_blank" rel="noopener noreferrer">BizBuySell advertisement #2479201</a>. The images are linked from that advertisement for seller review; obtain approved image files before publication. No financial, license, or ownership representations have been independently verified by FLLM.</p>
-          </div>
-        </section>
-      </div>
-    </main>
-  );
+  return <FeaturedThirdPartyBusinessListingPage config={config} />;
 }
