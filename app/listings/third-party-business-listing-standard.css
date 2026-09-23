@@ -559,11 +559,11 @@
   font-weight: 600;
 }
 
-/* SFS / SRX business pages begin the complete broker sidebar 25px lower than
+/* SFS / SRX business pages begin the complete broker sidebar slightly lower than
    the quota-business template while preserving the mobile stacked layout. */
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"]
   .marketplace-listing-aside-broker.marketplace-listing-aside-sfs {
-  margin-top: 107px;
+  margin-top: 109px;
 }
 
 /* Keep Marianella's seller preview aligned with its shorter 2COP introduction. */
