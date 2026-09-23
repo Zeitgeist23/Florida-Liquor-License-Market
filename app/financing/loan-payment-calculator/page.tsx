@@ -67,7 +67,7 @@ export default async function LoanPaymentCalculatorPage({
 
   return (
     <main className="loan-calculator-page">
-      <link rel="stylesheet" href="/assets/financing-loan-calculator.css?v=2" />
+      <link rel="stylesheet" href="/assets/financing-loan-calculator.css?v=3" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
