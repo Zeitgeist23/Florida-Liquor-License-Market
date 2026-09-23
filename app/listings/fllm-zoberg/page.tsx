@@ -96,7 +96,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Opportunity to acquire a well-established full-service Mexican restaurant, cocktail program and entertainment venue in Miami-Dade County as a turnkey operating business.",
   packageIncludes:
-    "The broker-reported offering includes the operating restaurant business, established systems, furniture, fixtures and equipment, commercial kitchen and bar infrastructure, leasehold interests and associated goodwill. The restaurant is reported to operate with a 4COP SFS / SRX special restaurant license. That privilege is premises- and qualification-dependent, is assigned no separate license value by FLLM, and must not be treated as a transferable county quota license.",
+    "The offering includes the operating restaurant business, established systems, furniture, fixtures and equipment, commercial kitchen and bar infrastructure, leasehold interests and associated goodwill. The restaurant operates with a 4COP SFS / SRX special restaurant license. That privilege is premises- and qualification-dependent, is assigned no separate license value by FLLM, and must not be treated as a transferable county quota license.",
   businessMetrics: [
     {
       label: "Business Asking Price",
@@ -108,13 +108,13 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "Gross Revenue",
       value: "$3,280,000",
       description:
-        "The business's reported annual sales before operating expenses, debt service, taxes, owner compensation and other deductions.",
+        "The business's annual sales before operating expenses, debt service, taxes, owner compensation and other deductions.",
     },
     {
       label: "Cash Flow (SDE)",
       value: "$388,520",
       description:
-        "SDE means Seller's Discretionary Earnings: reported business earnings adjusted to reflect the economic benefit available to one owner-operator before items such as owner compensation, interest, taxes, depreciation, amortization and certain discretionary or nonrecurring expenses.",
+        "SDE means Seller's Discretionary Earnings: business earnings adjusted to reflect the economic benefit available to one owner-operator before items such as owner compensation, interest, taxes, depreciation, amortization and certain discretionary or nonrecurring expenses.",
     },
     {
       label: "Adjusted SDE",
@@ -133,7 +133,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "License Value",
       value: "No separate quota value",
       description:
-        "FLLM assigns no independent quota-license value because the reported SFS/SRX privilege is tied to restaurant qualification and the approved premises.",
+        "FLLM assigns no independent quota-license value because the SFS/SRX privilege is tied to restaurant qualification and the approved premises.",
     },
     {
       label: "Premises",
@@ -178,7 +178,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "Immigration categories that may be considered in connection with a qualifying business investment. This is not a guarantee of eligibility or approval; buyers should obtain advice from a qualified immigration attorney.",
     },
   ],
-  opportunitiesHeading: "Offering highlights identified in the broker listing",
+  opportunitiesHeading: "Offering Highlights",
   opportunities: [
     "Acquire a turnkey full-service Mexican-Latin restaurant with an established customer base and operating systems.",
     "Continue dine-in, takeout, delivery, catering, private-event and beverage revenue streams.",
@@ -186,7 +186,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "Expand marketing, catering, private events, additional locations or franchising initiatives.",
   ],
   transitionText:
-    "The seller is reported to provide transition training and post-closing consultation, subject to final agreement with the buyer.",
+    "The seller offers transition training and post-closing consultation, subject to final agreement with the buyer.",
   confidentialityText:
     "the business name, exact premises, financial records, lease documents and licensing records may require buyer qualification and direct confirmation through the listing broker.",
   countyContext:
