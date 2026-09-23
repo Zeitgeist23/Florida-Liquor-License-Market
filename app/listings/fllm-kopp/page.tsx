@@ -5,6 +5,12 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 import styles from "./preview.module.css";
 
 const sourceUrl = "https://www.bizbuysell.com/business-opportunity/prime-location-in-miami-established-peruvian-mediterranean-restauran/2479201/";
+const photos = [
+  { src: "https://images.bizbuysell.com/shared/listings/247/2479201/899b04d1-b1b6-49d0-ab76-61c8f551a3ff-W768.webp", alt: "Dining room photographed for the seller's BizBuySell advertisement" },
+  { src: "https://images.bizbuysell.com/shared/listings/247/2479201/7c50cfae-a727-461e-82dd-2b7db430be13-W768.webp", alt: "Restaurant entrance photographed for the seller's BizBuySell advertisement" },
+  { src: "https://images.bizbuysell.com/shared/listings/247/2479201/c5ddea83-c1fd-482e-b716-09b8f15ee6bd-W768.webp", alt: "Kitchen photographed for the seller's BizBuySell advertisement" },
+  { src: "https://images.bizbuysell.com/shared/listings/247/2479201/0e1e0ed3-108e-4044-9739-b1831ddf03ab-W768.webp", alt: "Dining area photographed for the seller's BizBuySell advertisement" },
+];
 
 export const metadata: Metadata = {
   title: "Marianella Kopp Peruvian Restaurant | Seller Approval Preview",
@@ -49,6 +55,19 @@ export default function MarianellaSellerPreview() {
           </aside>
         </header>
 
+        <section className={styles.photoSection} aria-label="Restaurant photographs from the seller's advertisement">
+          <div className={styles.gallery}>
+            {photos.map((photo, index) => (
+              <a className={index === 0 ? styles.primaryPhoto : styles.secondaryPhoto} href={sourceUrl} target="_blank" rel="noopener noreferrer" key={photo.src} aria-label={`View original seller advertisement: ${photo.alt}`}>
+                {/* External seller-ad photos are displayed only in this approval mockup. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={photo.src} alt={photo.alt} loading={index === 0 ? "eager" : "lazy"} />
+              </a>
+            ))}
+          </div>
+          <p>Photos displayed from Marianella&apos;s BizBuySell advertisement for mockup review. Confirm photo use with the seller before publication.</p>
+        </section>
+
         <section className={styles.section} aria-labelledby="highlights">
           <h2 id="highlights">Business at a glance</h2>
           <div className={styles.grid}>
@@ -76,10 +95,19 @@ export default function MarianellaSellerPreview() {
           </div>
         </section>
 
+        <section className={styles.sellerPanel} aria-label="Seller and inquiry preview">
+          <div>
+            <span>DIRECT SELLER</span>
+            <h2>Marianella Kopp</h2>
+            <p>Owner-posted restaurant opportunity in Miami-Dade County. Buyer inquiries can be routed directly to the seller once she confirms her preferred contact details and approves publication.</p>
+          </div>
+          <div className={styles.pendingAction} aria-label="Inquiries unavailable until publication">CONTACT SELLER · AVAILABLE AFTER APPROVAL</div>
+        </section>
+
         <section className={styles.review} aria-label="Seller review steps">
           <div><span>PREPUBLICATION REVIEW</span><h2>Confirm the details before this ad goes live</h2>
             <p>Marianella can review the description, asking price, included assets, photos, license documentation, and preferred buyer contact method. FLLM will add the listing to the 2COP business category only after her approval and $24.95 payment.</p>
-            <p className={styles.source}>Draft facts adapted from the seller&apos;s <a href={sourceUrl} target="_blank" rel="noopener noreferrer">BizBuySell advertisement #2479201</a>. Photos have not been reused. No financial, license, or ownership representations have been independently verified by FLLM.</p>
+            <p className={styles.source}>Draft facts and preview images from the seller&apos;s <a href={sourceUrl} target="_blank" rel="noopener noreferrer">BizBuySell advertisement #2479201</a>. The images are linked from that advertisement for seller review; obtain approved image files before publication. No financial, license, or ownership representations have been independently verified by FLLM.</p>
           </div>
         </section>
       </div>
