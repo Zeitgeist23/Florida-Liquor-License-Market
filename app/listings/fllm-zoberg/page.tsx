@@ -33,7 +33,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Miami Mexican Restaurant + 4COP SFS / SRX | Broker Preview",
   description:
-    "Broker approval preview for a Miami-Dade Mexican-Latin restaurant and entertainment venue operating with a location-specific 4COP SFS / SRX restaurant license.",
+    "Broker approval preview for a Miami-Dade Mexican-Latin restaurant and entertainment venue operating with a location-specific 4COP SFS / SRX full-liquor license.",
   alternates: {
     canonical: canonicalUrl,
     languages: {
@@ -82,7 +82,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   businessLabel: "Mexican-Latin restaurant and entertainment venue",
   businessLabelLinkUrl: sourceListingUrl,
   heroSummary:
-    "Established Miami-Dade Mexican-Latin restaurant and entertainment venue offered as a turnkey business acquisition with location-specific 4COP SFS / SRX full-liquor privileges.",
+    "Established Miami-Dade Mexican-Latin restaurant and entertainment venue offered as a turnkey business acquisition with a location-specific 4COP SFS / SRX full-liquor license.",
   broker: {
     name: "Brian Zoberg",
     brokerage: "Suncoast Business Consultants",
