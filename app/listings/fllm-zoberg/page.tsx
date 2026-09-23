@@ -85,19 +85,85 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   packageIncludes:
     "The broker-reported offering includes the operating restaurant business, established systems, furniture, fixtures and equipment, commercial kitchen and bar infrastructure, leasehold interests and associated goodwill. The restaurant is reported to operate with a 4COP SFS / SRX special restaurant license. That privilege is premises- and qualification-dependent, is assigned no separate license value by FLLM, and must not be treated as a transferable county quota license.",
   businessMetrics: [
-    { label: "Business Asking Price", value: "$1,200,000" },
-    { label: "Gross Revenue", value: "$3,280,000" },
-    { label: "Cash Flow (SDE)", value: "$388,520" },
-    { label: "Adjusted SDE", value: "$362,000" },
-    { label: "License Classification", value: "4COP SFS / SRX — broker reported" },
-    { label: "License Value", value: "No separate quota value" },
-    { label: "Premises", value: "5,242 SF leased" },
-    { label: "Monthly Rent", value: "$33,162" },
-    { label: "Employees", value: "28 full-time · 4 part-time" },
-    { label: "Food Service", value: "Full kitchen, hood and grease trap" },
-    { label: "Entertainment", value: "Live music · DJs · private events" },
-    { label: "Revenue Channels", value: "Dine-in · takeout · delivery · catering" },
-    { label: "Visa Positioning", value: "E-2 / L-1 / EB-5 advertised" },
+    {
+      label: "Business Asking Price",
+      value: "$1,200,000",
+      description:
+        "The seller's requested price for the operating business and included transaction assets. Final price, included assets, working capital and transaction costs remain subject to negotiation and broker confirmation.",
+    },
+    {
+      label: "Gross Revenue",
+      value: "$3,280,000",
+      description:
+        "The business's reported annual sales before operating expenses, debt service, taxes, owner compensation and other deductions.",
+    },
+    {
+      label: "Cash Flow (SDE)",
+      value: "$388,520",
+      description:
+        "SDE means Seller's Discretionary Earnings: reported business earnings adjusted to reflect the economic benefit available to one owner-operator before items such as owner compensation, interest, taxes, depreciation, amortization and certain discretionary or nonrecurring expenses.",
+    },
+    {
+      label: "Adjusted SDE",
+      value: "$362,000",
+      description:
+        "The broker's adjusted estimate of Seller's Discretionary Earnings after stated normalization changes. Buyers should request the adjustment schedule and reconcile it to tax returns and financial statements.",
+    },
+    {
+      label: "License Classification",
+      value: "4COP SFS / SRX — broker reported",
+      description:
+        "4COP denotes full-liquor consumption-on-premises privileges. SFS means Special Food Service and SRX is commonly used for the special restaurant category. This qualification-based license depends on the restaurant and approved premises rather than constituting a separately transferable quota asset.",
+      href: "/license-types/4cop-sfs-restaurant",
+    },
+    {
+      label: "License Value",
+      value: "No separate quota value",
+      description:
+        "FLLM assigns no independent quota-license value because the reported SFS/SRX privilege is tied to restaurant qualification and the approved premises.",
+    },
+    {
+      label: "Premises",
+      value: "5,242 SF leased",
+      description:
+        "The broker-reported size of the leased restaurant premises. Buyers should verify usable area, lease terms, permitted use, renewals and assignment rights.",
+    },
+    {
+      label: "Monthly Rent",
+      value: "$33,162",
+      description:
+        "The broker-reported monthly rent. Confirm whether this figure includes common-area charges, taxes, insurance, percentage rent or other occupancy costs.",
+    },
+    {
+      label: "Employees",
+      value: "28 full-time · 4 part-time",
+      description:
+        "The broker-reported staffing level. Payroll, contractor status, benefits, scheduling and continued employment should be independently verified.",
+    },
+    {
+      label: "Food Service",
+      value: "Full kitchen, hood and grease trap",
+      description:
+        "Broker-reported food-service infrastructure. Equipment condition, ownership, permits, code compliance and maintenance obligations require inspection and verification.",
+    },
+    {
+      label: "Entertainment",
+      value: "Live music · DJs · private events",
+      description:
+        "Broker-reported entertainment uses. Buyers should confirm zoning, occupancy, noise, late-hours and entertainment approvals for the premises.",
+    },
+    {
+      label: "Revenue Channels",
+      value: "Dine-in · takeout · delivery · catering",
+      description:
+        "The broker-reported ways the business generates sales. Buyers should verify the revenue contribution, margins and contracts associated with each channel.",
+    },
+    {
+      label: "Visa Positioning",
+      value: "E-2 / L-1 / EB-5 advertised",
+      description:
+        "Visa categories referenced in the broker advertisement. This is not a guarantee of immigration eligibility or approval; buyers should obtain advice from a qualified immigration attorney.",
+    },
   ],
   opportunitiesHeading: "Offering highlights identified in the broker listing",
   opportunities: [
