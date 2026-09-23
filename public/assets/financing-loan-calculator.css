@@ -98,6 +98,13 @@
   padding: 20px;
 }
 
+.fllm-loan-calculator-section[data-calculator-mode="sba-business"] .fllm-loan-calculator__form > .fllm-loan-calculator__caption {
+  width: calc((100% - 8px) / 2);
+  margin: 4px 0 10px;
+  text-align: center;
+  line-height: 1.25;
+}
+
 .fllm-loan-calculator__segmented {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
