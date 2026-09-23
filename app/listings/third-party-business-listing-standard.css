@@ -83,15 +83,8 @@
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div:nth-child(4) > strong::after {
-  content: "Broker confirmation required";
-  display: block;
-  max-width: 150px;
-  margin: 5px auto 0;
-  color: #a9bac7;
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: .01em;
+  content: none;
+  display: none;
 }
 
 /* Match the approved county-page dimensional card language on this featured listing. */
@@ -613,7 +606,7 @@
 /* Educational destinations for qualification-based SFS / SRX cards */
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-education-card {
   position: relative;
-  padding-bottom: 38px !important;
+  padding-bottom: 20px !important;
   cursor: pointer;
 }
 
@@ -637,7 +630,7 @@
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-education-link > span {
-  transition: color .16s ease, transform .16s ease;
+  display: none;
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-education-card:hover .marketplace-listing-education-link > span {
