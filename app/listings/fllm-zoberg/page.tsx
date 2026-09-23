@@ -87,6 +87,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   businessMetrics: [
     { label: "Business Asking Price", value: "$1,200,000" },
     { label: "Cash Flow (SDE)", value: "$388,520" },
+    { label: "Adjusted SDE", value: "$362,000" },
     { label: "Gross Revenue", value: "$3,280,000" },
     { label: "License Classification", value: "4COP SFS / SRX — broker reported" },
     { label: "License Value", value: "No separate quota value" },
