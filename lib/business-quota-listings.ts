@@ -74,6 +74,7 @@ export type BusinessQuotaCategory =
 
 export type BusinessQuotaListing = {
   listingReference: string;
+  inventoryReferences?: readonly string[];
   href: string;
   county: string;
   countyHref: string;
@@ -170,6 +171,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MELLO",
+    inventoryReferences: ["FLLM-265072"],
     href: "/listings/fllm-mello",
     county: "Palm Beach County",
     countyHref: "/counties/palm-beach",
@@ -221,7 +223,11 @@ export const businessSfsListings = businessQuotaListingRecords.filter(
 );
 
 const businessQuotaReferences = new Set(
-  businessQuotaListingRecords.map((listing) => listing.listingReference.toUpperCase()),
+  businessQuotaListingRecords.flatMap((listing) =>
+    [listing.listingReference, ...(listing.inventoryReferences ?? [])].map((reference) =>
+      reference.toUpperCase(),
+    ),
+  ),
 );
 
 export function isBusinessQuotaListing(
