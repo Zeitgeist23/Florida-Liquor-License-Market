@@ -30,12 +30,14 @@ function ListingSidebarLoanCalculator({
   initialDownPayment: number;
   mode: "license" | "sba-business";
 }) {
-  const [purchasePrice, setPurchasePrice] = useState(initialPurchasePrice);
-  const [downPayment, setDownPayment] = useState(initialDownPayment);
+  const [purchasePriceInput, setPurchasePriceInput] = useState(String(initialPurchasePrice));
+  const [downPaymentInput, setDownPaymentInput] = useState(String(initialDownPayment));
   const [annualRateInput, setAnnualRateInput] = useState("10");
   const [termYears, setTermYears] = useState(10);
   const isSbaBusiness = mode === "sba-business";
 
+  const purchasePrice = Math.max(0, Number(purchasePriceInput) || 0);
+  const downPayment = Math.max(0, Number(downPaymentInput) || 0);
   const annualRate = Math.min(50, Math.max(0, Number(annualRateInput) || 0));
   const principal = Math.max(0, purchasePrice - downPayment);
   const months = Math.max(1, Math.round(termYears * 12));
@@ -102,8 +104,12 @@ function ListingSidebarLoanCalculator({
             min="0"
             step="5000"
             inputMode="decimal"
-            value={purchasePrice}
-            onChange={(event) => setPurchasePrice(Math.max(0, Number(event.target.value) || 0))}
+            value={purchasePriceInput}
+            onFocus={(event) => event.currentTarget.select()}
+            onChange={(event) => {
+              const rawValue = event.target.value;
+              setPurchasePriceInput(rawValue === "" ? "" : rawValue.replace(/^0+(?=\d)/, ""));
+            }}
           />
         </label>
         <label>
@@ -113,8 +119,12 @@ function ListingSidebarLoanCalculator({
             min="0"
             step="5000"
             inputMode="decimal"
-            value={downPayment}
-            onChange={(event) => setDownPayment(Math.max(0, Number(event.target.value) || 0))}
+            value={downPaymentInput}
+            onFocus={(event) => event.currentTarget.select()}
+            onChange={(event) => {
+              const rawValue = event.target.value;
+              setDownPaymentInput(rawValue === "" ? "" : rawValue.replace(/^0+(?=\d)/, ""));
+            }}
           />
         </label>
         <label>
