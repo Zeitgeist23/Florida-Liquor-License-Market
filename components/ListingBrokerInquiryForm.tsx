@@ -12,6 +12,18 @@ function formatPhoneNumber(value: string) {
   return `(${digits.slice(0, 3)})${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
+function normalizeCurrencyInput(value: string) {
+  const digits = value.replace(/\D/g, "");
+  return digits.replace(/^0+(?=\d)/, "");
+}
+
+function formatCurrencyInput(value: string) {
+  if (!value) return "";
+  return `${Number(value).toLocaleString("en-US", {
+    maximumFractionDigits: 0,
+  })}`;
+}
+
 function formatCurrency(value: number, decimals = 0) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -109,30 +121,24 @@ function ListingSidebarLoanCalculator({
         <label>
           <span>{isSbaBusiness ? "Business purchase price" : "License purchase price"}</span>
           <input
-            type="number"
-            min="0"
-            step="5000"
-            inputMode="decimal"
-            value={purchasePriceInput}
+            type="text"
+            inputMode="numeric"
+            value={formatCurrencyInput(purchasePriceInput)}
             onFocus={(event) => event.currentTarget.select()}
             onChange={(event) => {
-              const rawValue = event.target.value;
-              setPurchasePriceInput(rawValue === "" ? "" : rawValue.replace(/^0+(?=\d)/, ""));
+              setPurchasePriceInput(normalizeCurrencyInput(event.target.value));
             }}
           />
         </label>
         <label>
           <span>Down payment</span>
           <input
-            type="number"
-            min="0"
-            step="5000"
-            inputMode="decimal"
-            value={downPaymentInput}
+            type="text"
+            inputMode="numeric"
+            value={formatCurrencyInput(downPaymentInput)}
             onFocus={(event) => event.currentTarget.select()}
             onChange={(event) => {
-              const rawValue = event.target.value;
-              setDownPaymentInput(rawValue === "" ? "" : rawValue.replace(/^0+(?=\d)/, ""));
+              setDownPaymentInput(normalizeCurrencyInput(event.target.value));
             }}
           />
         </label>
