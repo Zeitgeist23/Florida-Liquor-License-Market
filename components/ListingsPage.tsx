@@ -23,10 +23,9 @@ const countyOptions: readonly ListingsHoverSelectOption[] = [
 ];
 
 const licenseTypeOptions: readonly ListingsHoverSelectOption[] = [
-  { value: "all", label: "All Listings" },
-  { value: "quota", label: "Quota Licenses" },
-  { value: "4COP Quota", label: "4COP Quota" },
-  { value: "3PS Quota / Package Store", label: "3PS Quota / Package Store" },
+  { value: "quota", label: "All Quota Liquor Licenses" },
+  { value: "4COP Quota", label: "4COP Quota Liquor Licenses" },
+  { value: "3PS Quota / Package Store", label: "3PS Quota / Package Store Licenses" },
   { value: "businesses", label: "Businesses w/ Quota Licenses" },
   { value: "businesses-sfs", label: "Businesses w/ 4COP SFS / SRX Licenses" },
 ];
@@ -120,7 +119,7 @@ export default function ListingsPage({
   focusReference = null,
 }: ListingsPageProps) {
   const [county, setCounty] = useState("all");
-  const [type, setType] = useState("all");
+  const [type, setType] = useState("quota");
   const [price, setPrice] = useState("all");
   const [status, setStatus] = useState("available");
   const [visibleCount, setVisibleCount] = useState(LISTINGS_PAGE_SIZE);
@@ -131,9 +130,11 @@ export default function ListingsPage({
     const requestedType = params.get("type");
     const requestedStatus = params.get("status");
 
-    if (
+    if (requestedType === "all") {
+      setType("quota");
+    } else if (
       requestedType &&
-      ["all", "quota", "4COP Quota", "3PS Quota / Package Store", "businesses", "businesses-sfs"].includes(requestedType)
+      ["quota", "4COP Quota", "3PS Quota / Package Store", "businesses", "businesses-sfs"].includes(requestedType)
     ) {
       setType(requestedType);
     }
@@ -205,7 +206,7 @@ export default function ListingsPage({
       orderedMarketplaceListings.filter(
         (listing) =>
           (county === "all" || listing.county === county) &&
-          (type === "all" || type === "quota" || listing.type === type) &&
+          (type === "quota" || listing.type === type) &&
           priceMatches(listing.price, price) &&
           (status === "all" ||
             (status === "available"
@@ -260,7 +261,7 @@ export default function ListingsPage({
 
   function clearFilters() {
     setCounty("all");
-    setType("all");
+    setType("quota");
     setPrice("all");
     setStatus("available");
   }
