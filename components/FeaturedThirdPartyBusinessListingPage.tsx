@@ -439,7 +439,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   subject to applicable premises, zoning, applicant, and
                   regulatory requirements.
                 </p> : <p>
-                  A <span className="featured-business-sfs-classification">4COP SFS / SRX</span> license is a special restaurant license whose continued privileges depend on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.
+                  A <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> license is a special restaurant license whose continued privileges depend on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.
                 </p>}
               </section>
 
