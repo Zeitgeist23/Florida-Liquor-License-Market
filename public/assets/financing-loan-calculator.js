@@ -2,6 +2,7 @@
   const root = document.getElementById("loan-calculator");
   if (!(root instanceof HTMLElement) || root.dataset.calculatorReady === "true") return;
   root.dataset.calculatorReady = "true";
+  const isSbaBusiness = root.dataset.calculatorMode === "sba-business";
 
   const form = root.querySelector("#fllm-loan-calculator-form");
   if (!(form instanceof HTMLFormElement)) return;
@@ -23,9 +24,7 @@
     !(refinanceAmountInput instanceof HTMLInputElement) ||
     !(rateInput instanceof HTMLInputElement) ||
     !(termInput instanceof HTMLSelectElement) ||
-    !(firstPaymentInput instanceof HTMLInputElement) ||
-    !(taxBasisInput instanceof HTMLInputElement) ||
-    !(taxStartInput instanceof HTMLInputElement)
+    !(firstPaymentInput instanceof HTMLInputElement)
   ) return;
 
   const principalOutput = root.querySelector("#fllm-principal-output");
@@ -156,7 +155,9 @@
     if (transaction === "purchase") {
       const price = numberValue(purchasePriceInput);
       const down = numberValue(downPaymentInput);
-      if (!(price > 0)) return "Enter a liquor license purchase price greater than zero.";
+      if (!(price > 0)) return isSbaBusiness
+        ? "Enter a business purchase price greater than zero."
+        : "Enter a liquor license purchase price greater than zero.";
       if (down < 0) return "Down payment cannot be negative.";
       if (down >= price) return "Down payment must be less than the purchase price to calculate a financed balance.";
     } else if (!(numberValue(refinanceAmountInput) > 0)) {
@@ -259,7 +260,12 @@
   }
 
   function renderTaxSchedule(referenceDate) {
-    if (!(taxTableBody instanceof HTMLElement)) return;
+    if (
+      isSbaBusiness ||
+      !(taxTableBody instanceof HTMLElement) ||
+      !(taxBasisInput instanceof HTMLInputElement) ||
+      !(taxStartInput instanceof HTMLInputElement)
+    ) return;
 
     const basis = Math.max(0, numberValue(taxBasisInput));
     const start = parseCalendarMonth(taxStartInput.value);
@@ -321,7 +327,11 @@
   }
 
   function updateTaxCopy() {
-    if (!(taxCopy instanceof HTMLElement) || !(taxStartLabel instanceof HTMLElement)) return;
+    if (
+      isSbaBusiness ||
+      !(taxCopy instanceof HTMLElement) ||
+      !(taxStartLabel instanceof HTMLElement)
+    ) return;
     if (transaction === "refinance") {
       taxStartLabel.textContent = "Original Section 197 amortization start month";
       taxCopy.innerHTML = 'A refinance by itself generally does <strong>not</strong> create a new liquor-license tax basis or restart a fresh 15-year period. Enter the original basis allocated to the license and the original Section 197 amortization start month to estimate the remaining schedule as of the new loan\'s first payment month.';
@@ -387,8 +397,12 @@
   const now = new Date();
   const firstPayment = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1));
   if (!firstPaymentInput.value) firstPaymentInput.value = dateInputValue(firstPayment);
-  if (!taxStartInput.value) taxStartInput.value = monthInputValue(now);
-  if (!taxBasisInput.value) taxBasisInput.value = purchasePriceInput.value || "400000";
+  if (taxStartInput instanceof HTMLInputElement && !taxStartInput.value) {
+    taxStartInput.value = monthInputValue(now);
+  }
+  if (taxBasisInput instanceof HTMLInputElement && !taxBasisInput.value) {
+    taxBasisInput.value = purchasePriceInput.value || "400000";
+  }
 
   transactionButtons.forEach((button) => {
     if (!(button instanceof HTMLButtonElement)) return;
@@ -401,11 +415,19 @@
   });
 
   purchasePriceInput.addEventListener("input", () => {
-    if (!taxBasisDirty && transaction === "purchase") taxBasisInput.value = purchasePriceInput.value;
+    if (
+      taxBasisInput instanceof HTMLInputElement &&
+      !taxBasisDirty &&
+      transaction === "purchase"
+    ) {
+      taxBasisInput.value = purchasePriceInput.value;
+    }
   });
-  taxBasisInput.addEventListener("input", () => {
-    taxBasisDirty = true;
-  });
+  if (taxBasisInput instanceof HTMLInputElement) {
+    taxBasisInput.addEventListener("input", () => {
+      taxBasisDirty = true;
+    });
+  }
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
