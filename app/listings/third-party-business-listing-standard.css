@@ -566,6 +566,20 @@
   font-weight: 600;
 }
 
+/* SFS / SRX business pages begin the complete broker sidebar 25px lower than
+   the quota-business template while preserving the mobile stacked layout. */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"]
+  .marketplace-listing-aside-broker.marketplace-listing-aside-sfs {
+  margin-top: 99px;
+}
+
+@media (max-width: 900px) {
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"]
+    .marketplace-listing-aside-broker.marketplace-listing-aside-sfs {
+    margin-top: 0;
+  }
+}
+
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-license-type-link:hover,
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-license-type-link:focus-visible {
   text-decoration: none !important;

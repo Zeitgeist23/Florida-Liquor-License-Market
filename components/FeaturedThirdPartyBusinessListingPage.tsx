@@ -542,7 +542,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
               </section>
             </article>
 
-            <aside className="marketplace-listing-aside marketplace-listing-aside-broker">
+            <aside
+              className={`marketplace-listing-aside marketplace-listing-aside-broker${isSfsListing ? " marketplace-listing-aside-sfs" : ""}`}
+            >
               <div className="marketplace-listing-action-card">
                 <span>Independent Listing Broker</span>
                 <div className="marketplace-listing-broker-profile">
