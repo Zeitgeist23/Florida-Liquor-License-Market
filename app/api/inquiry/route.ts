@@ -11,6 +11,7 @@ import {
   sendFllmEmail,
 } from "@/lib/fllm-email";
 import {
+  createBuyerInquiryLead,
   createBuyerLead,
   getApprovedSubmissionByPublicRef,
 } from "@/lib/listing-submission-store";
@@ -215,6 +216,31 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     } catch (buyerDeliveryError) {
       buyerDeliveryFailed = true;
       console.error("Approved seller contact delivery failed", buyerDeliveryError);
+    }
+  }
+
+  if (
+    resolvedListingReference &&
+    !approvedSellerSubmission &&
+    !featuredBrokerRecipient
+  ) {
+    try {
+      await createBuyerInquiryLead({
+        fullName,
+        email,
+        phone,
+        listingReference: resolvedListingReference,
+        listingRequested,
+        county: listingCounty || preferredCounty || "Florida",
+        licenseType: licenseType || "4COP Quota",
+        askingPriceText: askingPrice || null,
+        listingUrl: resolvedListingUrl || null,
+        inquiryType,
+        message,
+        source: "specific_listing_contact_inquiry",
+      });
+    } catch (trackingError) {
+      console.error("Specific listing buyer inquiry tracking failed", trackingError);
     }
   }
 
