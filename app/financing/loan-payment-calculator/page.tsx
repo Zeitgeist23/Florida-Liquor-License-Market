@@ -344,7 +344,7 @@ export default async function LoanPaymentCalculatorPage({
         )}
       </section>
 
-      <Script src="/assets/financing-loan-calculator.js?v=5" strategy="afterInteractive" />
+      <Script src="/assets/financing-loan-calculator.js?v=6" strategy="afterInteractive" />
     </main>
   );
 }

@@ -54,6 +54,7 @@
   let scheduleMode = "annual";
   let taxBasisDirty = false;
   let latestLoanRows = [];
+  let hasCalculated = false;
 
   const money = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -377,6 +378,7 @@
     if (!firstDate) return;
 
     const payment = monthlyPayment(principal, apr, months);
+    hasCalculated = true;
     latestLoanRows = buildLoanRows(principal, apr, months, firstDate);
     const totalPayments = latestLoanRows.reduce((sum, row) => sum + row.payment, 0);
     const totalInterest = latestLoanRows.reduce((sum, row) => sum + row.interest, 0);
@@ -393,6 +395,25 @@
     renderTaxSchedule(firstDate);
   }
 
+  function clearResults() {
+    hasCalculated = false;
+    latestLoanRows = [];
+    clearError();
+    if (principalOutput instanceof HTMLElement) principalOutput.textContent = integerMoney.format(currentPrincipal());
+    if (monthlyOutput instanceof HTMLElement) monthlyOutput.textContent = "$0.00";
+    if (annualDebtOutput instanceof HTMLElement) annualDebtOutput.textContent = "$0.00";
+    if (totalInterestOutput instanceof HTMLElement) totalInterestOutput.textContent = "$0.00";
+    if (totalPaymentsOutput instanceof HTMLElement) totalPaymentsOutput.textContent = "$0.00";
+    if (termSummaryOutput instanceof HTMLElement) termSummaryOutput.textContent = "—";
+    if (rateComparisonBody instanceof HTMLElement) rateComparisonBody.innerHTML = '<tr><td colspan="4">Press Calculate / Update Payment to compare rates.</td></tr>';
+    if (loanTableBody instanceof HTMLElement) loanTableBody.innerHTML = '<tr><td colspan="7">Press Calculate / Update Payment to generate the amortization schedule.</td></tr>';
+    if (taxBasisOutput instanceof HTMLElement) taxBasisOutput.textContent = "$0";
+    if (taxMonthlyOutput instanceof HTMLElement) taxMonthlyOutput.textContent = "$0.00";
+    if (taxAnnualOutput instanceof HTMLElement) taxAnnualOutput.textContent = "$0.00";
+    if (taxRemainingOutput instanceof HTMLElement) taxRemainingOutput.textContent = "—";
+    if (taxTableBody instanceof HTMLElement) taxTableBody.innerHTML = '<tr><td colspan="5">Press Calculate / Update Payment to generate the Section 197 schedule.</td></tr>';
+  }
+
   function setTransaction(next) {
     transaction = next === "refinance" ? "refinance" : "purchase";
     transactionButtons.forEach((button) => {
@@ -402,7 +423,7 @@
     if (purchaseFields instanceof HTMLElement) purchaseFields.hidden = transaction !== "purchase";
     if (refinanceFields instanceof HTMLElement) refinanceFields.hidden = transaction !== "refinance";
     updateTaxCopy();
-    calculate();
+    clearResults();
   }
 
   function setScheduleMode(next) {
@@ -411,7 +432,7 @@
       if (!(button instanceof HTMLButtonElement)) return;
       button.setAttribute("aria-pressed", button.dataset.scheduleMode === scheduleMode ? "true" : "false");
     });
-    renderLoanSchedule();
+    if (hasCalculated) renderLoanSchedule();
   }
 
   const now = new Date();
@@ -472,7 +493,7 @@
       formatCurrencyInput(refinanceAmountInput);
       setTransaction("purchase");
       setScheduleMode("annual");
-      calculate();
+      clearResults();
     });
   }
 
@@ -481,13 +502,9 @@
     calculate();
   });
 
-  form.addEventListener("input", () => {
-    window.requestAnimationFrame(calculate);
-  });
-  form.addEventListener("change", () => {
-    window.requestAnimationFrame(calculate);
-  });
+  form.addEventListener("input", clearResults);
+  form.addEventListener("change", clearResults);
 
   updateTaxCopy();
-  calculate();
+  clearResults();
 })();
