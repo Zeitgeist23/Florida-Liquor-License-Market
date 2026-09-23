@@ -99,7 +99,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Oportunidad de adquirir como negocio llave en mano un restaurante mexicano de servicio completo, programa de cócteles y centro de entretenimiento bien establecido en Miami-Dade County.",
   packageIncludes:
-    "La oferta incluye el negocio de restaurante en operación, sistemas establecidos, muebles, instalaciones y equipo, cocina comercial e infraestructura de bar, derechos de arrendamiento y valor comercial asociado. El restaurante opera con una licencia especial para restaurantes 4COP SFS / SRX. Ese privilegio depende del local y del cumplimiento de los requisitos, FLLM no le asigna un valor separado y no debe tratarse como una licencia de cupo transferible del condado.",
+    "La oferta incluye el negocio de restaurante en operación, sistemas establecidos, muebles, instalaciones y equipo, cocina comercial e infraestructura de bar, derechos de arrendamiento y valor comercial asociado. El restaurante opera con una licencia especial para restaurantes 4COP SFS / SRX vinculada a la operación que cumple los requisitos y al local aprobado.",
   businessMetrics: [
     {
       label: "Precio de venta del negocio",
@@ -131,12 +131,6 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       description:
         "4COP indica privilegios para el consumo de cerveza, vino y bebidas destiladas en el local. SFS significa Servicio Especial de Alimentos y SRX se usa comúnmente para la categoría especial de restaurante. Esta licencia basada en requisitos depende del restaurante y del local aprobado y no constituye un activo de cupo transferible por separado.",
       href: "/license-types/4cop-sfs-restaurant",
-    },
-    {
-      label: "Valor de la licencia",
-      value: "Sin valor de cupo separado",
-      description:
-        "FLLM no asigna un valor independiente de licencia de cupo porque el privilegio SFS/SRX está vinculado a los requisitos del restaurante y al local aprobado.",
     },
     {
       label: "Local",
