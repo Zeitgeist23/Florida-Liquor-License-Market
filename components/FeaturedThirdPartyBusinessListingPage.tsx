@@ -35,6 +35,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   countyHref: string;
   countyValueHref: string;
   countyCities: string;
+  countyPopulation?: string;
   askingPrice: string;
   askingPriceNumber: number;
   packagePrice: string;
@@ -563,48 +564,55 @@ export default function FeaturedThirdPartyBusinessListingPage({
               </section>
 
               <section className="marketplace-listing-section">
-                {isSfsListing ? (
-                  <>
-                    <h2>4COP SFS / SRX License Resources</h2>
-                    <p>
-                      Review how Florida&apos;s qualification-based special
-                      restaurant license works, how it differs from a
-                      transferable 4COP quota license, and the FLLM resources
-                      available for transaction planning.
-                    </p>
-                    <p>
-                      <Link href="/license-types/4cop-sfs-restaurant">
-                        Learn about 4COP SFS / SRX restaurant licenses →
-                      </Link>
-                    </p>
-                    <p>
-                      <Link href="/license-types/4cop-quota#license-comparison-title">
-                        Compare 4COP Quota vs. 4COP SFS / SRX →
-                      </Link>
-                    </p>
-                    <p>
-                      <Link href="/transaction-services">
-                        Explore FLLM transaction services →
-                      </Link>
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <h2>{config.county} Market Context</h2>
-                    <p>{config.countyContext}</p>
-                    <p>
-                      <Link href={config.countyHref}>
-                        View the {config.county} liquor license market →
-                      </Link>
-                    </p>
-                    <p>
-                      <Link href={config.countyValueHref}>
-                        Review current {config.county} liquor license values →
-                      </Link>
-                    </p>
-                  </>
-                )}
+                <h2>{config.county} Market Context</h2>
+                <p>{config.countyContext}</p>
+                {config.countyPopulation ? (
+                  <p>
+                    <strong>Total county population:</strong>{" "}
+                    {config.countyPopulation} — U.S. Census Vintage 2024
+                    estimate
+                  </p>
+                ) : null}
+                <p>
+                  <Link href={config.countyHref}>
+                    View the {config.county} liquor license market →
+                  </Link>
+                </p>
+                {!isSfsListing ? (
+                  <p>
+                    <Link href={config.countyValueHref}>
+                      Review current {config.county} liquor license values →
+                    </Link>
+                  </p>
+                ) : null}
               </section>
+
+              {isSfsListing ? (
+                <section className="marketplace-listing-section">
+                  <h2>4COP SFS / SRX License Resources</h2>
+                  <p>
+                    Review how Florida&apos;s qualification-based special
+                    restaurant license works, how it differs from a
+                    transferable 4COP quota license, and the FLLM resources
+                    available for transaction planning.
+                  </p>
+                  <p>
+                    <Link href="/license-types/4cop-sfs-restaurant">
+                      Learn about 4COP SFS / SRX restaurant licenses →
+                    </Link>
+                  </p>
+                  <p>
+                    <Link href="/license-types/4cop-quota#license-comparison-title">
+                      Compare 4COP Quota vs. 4COP SFS / SRX →
+                    </Link>
+                  </p>
+                  <p>
+                    <Link href="/transaction-services">
+                      Explore FLLM transaction services →
+                    </Link>
+                  </p>
+                </section>
+              ) : null}
             </article>
 
             <aside
