@@ -85,7 +85,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   businessLabel: "restaurante mexicano-latino y centro de entretenimiento",
   businessLabelLinkUrl: sourceListingUrl,
   heroSummary:
-    "Restaurante mexicano-latino de servicio completo y centro de entretenimiento establecido en Miami-Dade, ofrecido como adquisición llave en mano con privilegios completos de bebidas alcohólicas 4COP SFS / SRX vinculados al local.",
+    "Restaurante mexicano-latino de servicio completo y centro de entretenimiento establecido en Miami-Dade, ofrecido como adquisición llave en mano con una licencia completa de bebidas alcohólicas 4COP SFS / SRX vinculada al local.",
   broker: {
     name: "Brian Zoberg",
     brokerage: "Suncoast Business Consultants",
