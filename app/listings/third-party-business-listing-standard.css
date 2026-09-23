@@ -83,8 +83,8 @@
 }
 
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts > div:nth-child(4) > strong::after {
-  content: none;
-  display: none;
+  content: none !important;
+  display: none !important;
 }
 
 /* Match the approved county-page dimensional card language on this featured listing. */
