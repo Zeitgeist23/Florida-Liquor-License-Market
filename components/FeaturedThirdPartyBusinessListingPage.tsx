@@ -184,7 +184,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
               </span>
               <span className="marketplace-listing-title-line">
                 + <span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span>{" "}
-                {isSfsListing ? "Restaurant License" : "Quota License"}
+                {isSfsListing ? "Full-Liquor License" : "Quota License"}
               </span>
             </h1>
             <p className="marketplace-listing-price">{config.packagePrice}</p>
@@ -252,7 +252,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   <span className="marketplace-license-series">
                     {shortLicenseType.replace(" Quota", "")}
                   </span>{" "}
-                  {isSfsListing ? "Restaurant License" : "Quota"} in {config.county}
+                  {isSfsListing ? "Full-Liquor License" : "Quota"} in {config.county}
                 </h2>
               </div>
 
