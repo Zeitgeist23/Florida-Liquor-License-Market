@@ -186,7 +186,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerName: "Leonard Mello",
     brokerage: "We Sell Restaurants",
     featured: true,
-    publicationStatus: "preview",
+    publicationStatus: "published",
     classification: "business_package",
   },
   {
