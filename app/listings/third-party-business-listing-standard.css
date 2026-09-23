@@ -29,11 +29,17 @@
 }
 
 /* Keep long business-package titles prominent while allowing the next section
-   to enter the initial desktop viewport as a natural scroll cue. */
+   to enter the initial desktop viewport as a natural scroll cue. The business
+   description and license line share one secondary size for a balanced hierarchy. */
 @media (min-width: 901px) {
   .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-copy h1 {
     font-size: clamp(36px, 4.2vw, 52px);
-    line-height: .99;
+    line-height: 1.04;
+  }
+
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-copy h1 > .marketplace-listing-title-line + .marketplace-listing-title-line {
+    font-size: .92em;
+    line-height: 1.04;
   }
 }
 
