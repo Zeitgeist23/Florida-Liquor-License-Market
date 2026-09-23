@@ -22,11 +22,36 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LoanPaymentCalculatorPage() {
+type CalculatorSearchParams = Promise<Record<string, string | string[] | undefined>>;
+
+function firstQueryValue(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function boundedNumber(value: string | string[] | undefined, fallback: number, minimum: number, maximum: number) {
+  const parsed = Number(firstQueryValue(value));
+  return Number.isFinite(parsed) ? Math.min(maximum, Math.max(minimum, parsed)) : fallback;
+}
+
+export default async function LoanPaymentCalculatorPage({
+  searchParams,
+}: {
+  searchParams: CalculatorSearchParams;
+}) {
+  const params = await searchParams;
+  const isSbaBusiness = firstQueryValue(params.mode) === "sba-business";
+  const purchasePrice = Math.round(boundedNumber(params.purchasePrice, isSbaBusiness ? 1_200_000 : 400_000, 1, 100_000_000));
+  const downPayment = Math.round(boundedNumber(params.downPayment, isSbaBusiness ? purchasePrice * 0.1 : purchasePrice * 0.2, 0, Math.max(0, purchasePrice - 1)));
+  const interestRate = boundedNumber(params.rate, 10, 0, 50);
+  const requestedTerm = Math.round(boundedNumber(params.term, 10, 1, 30));
+  const allowedTerms = isSbaBusiness ? [5, 7, 10] : [3, 5, 7, 10, 15, 20];
+  const loanTerm = allowedTerms.includes(requestedTerm) ? requestedTerm : 10;
+  const amountFinanced = Math.max(0, purchasePrice - downPayment);
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "Florida Liquor License Loan Payment Calculator",
+    name: isSbaBusiness ? "SBA 7(a) Business Acquisition Loan Analysis Calculator" : "Florida Liquor License Loan Payment Calculator",
     url: canonicalUrl,
     applicationCategory: "FinanceApplication",
     operatingSystem: "Any",
@@ -35,8 +60,9 @@ export default function LoanPaymentCalculatorPage() {
       name: "Florida Liquor License Market",
       url: siteUrl,
     },
-    description:
-      "Interactive calculator for Florida quota liquor-license purchase and refinance loan payments, loan amortization, interest-rate comparisons and a separate estimated Section 197 tax-basis schedule.",
+    description: isSbaBusiness
+      ? "Interactive SBA 7(a) business-acquisition loan analysis for a full operating-business purchase price, payment scenarios, and debt amortization."
+      : "Interactive calculator for Florida quota liquor-license purchase and refinance loan payments, loan amortization, interest-rate comparisons and a separate estimated Section 197 tax-basis schedule.",
   };
 
   return (
@@ -106,16 +132,18 @@ export default function LoanPaymentCalculatorPage() {
       </div>
 
       <nav className="calculator-breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a><span>›</span><a href="/financing">Financing</a><span>›</span><strong>Loan Payment Calculator</strong>
+        <a href="/">Home</a><span>›</span><a href="/financing">Financing</a><span>›</span><strong>{isSbaBusiness ? "SBA 7(a) Loan Analysis Calculator" : "Loan Payment Calculator"}</strong>
       </nav>
 
-      <section className="fllm-loan-calculator-section" id="loan-calculator" aria-labelledby="fllm-loan-calculator-title">
+      <section className="fllm-loan-calculator-section" id="loan-calculator" data-calculator-mode={isSbaBusiness ? "sba-business" : "license"} aria-labelledby="fllm-loan-calculator-title">
         <div className="fllm-loan-calculator">
           <header className="fllm-loan-calculator__header">
-            <span className="fllm-loan-calculator__eyebrow">Liquor License Financing Tool</span>
-            <h1 id="fllm-loan-calculator-title">Florida Liquor License Loan &amp; Refinance Calculator</h1>
+            <span className="fllm-loan-calculator__eyebrow">{isSbaBusiness ? "SBA 7(a) Business Acquisition Tool" : "Liquor License Financing Tool"}</span>
+            <h1 id="fllm-loan-calculator-title">{isSbaBusiness ? "SBA 7(a) Loan Analysis Calculator" : <>Florida Liquor License Loan &amp; Refinance Calculator</>}</h1>
             <p>
-              Estimate a fixed-rate monthly payment for a Florida 4COP, 3PS or other quota-license purchase or refinance, compare nearby interest-rate scenarios, and review the amortization schedule below.
+              {isSbaBusiness
+                ? "Estimate principal-and-interest payments for the full business acquisition price, compare interest-rate scenarios, and review the loan amortization schedule. This analysis assigns no separate transfer value to the premises-dependent 4COP SFS / SRX license."
+                : "Estimate a fixed-rate monthly payment for a Florida 4COP, 3PS or other quota-license purchase or refinance, compare nearby interest-rate scenarios, and review the amortization schedule below."}
             </p>
           </header>
 
@@ -124,18 +152,18 @@ export default function LoanPaymentCalculatorPage() {
               <div className="fllm-loan-calculator__form">
                 <span className="fllm-loan-calculator__caption">Loan Scenario</span>
                 <div className="fllm-loan-calculator__segmented" aria-label="Transaction type">
-                  <button type="button" data-transaction="purchase" aria-pressed="true">Purchase</button>
-                  <button type="button" data-transaction="refinance" aria-pressed="false">Refinance</button>
+                  <button type="button" data-transaction="purchase" aria-pressed="true">{isSbaBusiness ? "Business Acquisition" : "Purchase"}</button>
+                  {!isSbaBusiness ? <button type="button" data-transaction="refinance" aria-pressed="false">Refinance</button> : null}
                 </div>
 
                 <div className="fllm-loan-calculator__fields" id="fllm-purchase-fields">
                   <label className="fllm-loan-calculator__field">
-                    <span>Liquor license purchase price</span>
-                    <input id="fllm-purchase-price" type="number" min="0" step="5000" inputMode="decimal" defaultValue="400000" />
+                    <span>{isSbaBusiness ? "Business purchase price" : "Liquor license purchase price"}</span>
+                    <input id="fllm-purchase-price" type="number" min="0" step="5000" inputMode="decimal" defaultValue={String(purchasePrice)} />
                   </label>
                   <label className="fllm-loan-calculator__field">
                     <span>Down payment</span>
-                    <input id="fllm-down-payment" type="number" min="0" step="5000" inputMode="decimal" defaultValue="80000" />
+                    <input id="fllm-down-payment" type="number" min="0" step="5000" inputMode="decimal" defaultValue={String(downPayment)} />
                   </label>
                 </div>
 
@@ -152,17 +180,17 @@ export default function LoanPaymentCalculatorPage() {
                 <div className="fllm-loan-calculator__fields">
                   <label className="fllm-loan-calculator__field">
                     <span>Interest rate (APR)</span>
-                    <input id="fllm-interest-rate" type="number" min="0" max="50" step="0.01" inputMode="decimal" defaultValue="10.00" />
+                    <input id="fllm-interest-rate" type="number" min="0" max="50" step="0.01" inputMode="decimal" defaultValue={String(interestRate)} />
                   </label>
                   <label className="fllm-loan-calculator__field">
                     <span>Loan term</span>
-                    <select id="fllm-loan-term" defaultValue="10">
-                      <option value="3">3 years</option>
+                    <select id="fllm-loan-term" defaultValue={String(loanTerm)}>
+                      {!isSbaBusiness ? <option value="3">3 years</option> : null}
                       <option value="5">5 years</option>
                       <option value="7">7 years</option>
                       <option value="10">10 years</option>
-                      <option value="15">15 years</option>
-                      <option value="20">20 years</option>
+                      {!isSbaBusiness ? <option value="15">15 years</option> : null}
+                      {!isSbaBusiness ? <option value="20">20 years</option> : null}
                     </select>
                   </label>
                   <label className="fllm-loan-calculator__field">
@@ -171,7 +199,7 @@ export default function LoanPaymentCalculatorPage() {
                   </label>
                   <div className="fllm-loan-calculator__readonly">
                     <span>Amount financed</span>
-                    <output id="fllm-principal-output">$320,000</output>
+                    <output id="fllm-principal-output">{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amountFinanced)}</output>
                   </div>
                 </div>
 
@@ -225,7 +253,7 @@ export default function LoanPaymentCalculatorPage() {
               </div>
             </section>
 
-            <section className="fllm-loan-calculator__tax" aria-labelledby="fllm-tax-amortization-title">
+            {!isSbaBusiness ? <section className="fllm-loan-calculator__tax" aria-labelledby="fllm-tax-amortization-title">
               <div className="fllm-loan-calculator__section-heading">
                 <div>
                   <span className="fllm-loan-calculator__caption">Separate Tax-Basis Schedule</span>
@@ -266,27 +294,49 @@ export default function LoanPaymentCalculatorPage() {
               <p className="fllm-loan-calculator__tax-note">
                 <strong>Purchase versus refinance:</strong> loan amortization and federal tax amortization are different calculations. A refinance by itself generally does not create a new tax basis or restart a new 180-month Section 197 period. Review the <a href="https://www.irs.gov/instructions/i4562" target="_blank" rel="noopener noreferrer">IRS Instructions for Form 4562</a> and confirm your facts with a qualified tax adviser.
               </p>
-            </section>
+            </section> : null}
 
             <div className="fllm-loan-calculator__actions">
-              <a href="/financing#request-financing">Request Liquor License Financing</a>
-              <a href="/florida-liquor-license-appraisal#order-form">Order a License Appraisal</a>
-              <a href="/listings">View Licenses for Sale</a>
+              {isSbaBusiness ? (
+                <>
+                  <a href="/sba-7a-liquor-license-business-financing">Review SBA 7(a) Financing</a>
+                  <a href="/financing#request-financing">Request Business Financing</a>
+                  <a href="/listings?type=businesses-sfs">View SFS / SRX Businesses</a>
+                </>
+              ) : (
+                <>
+                  <a href="/financing#request-financing">Request Liquor License Financing</a>
+                  <a href="/florida-liquor-license-appraisal#order-form">Order a License Appraisal</a>
+                  <a href="/listings">View Licenses for Sale</a>
+                </>
+              )}
             </div>
             <p className="fllm-loan-calculator__fine-print">
-              Calculator estimates assume a fully amortizing, fixed-rate loan with monthly principal-and-interest payments and no balloon payment. Results exclude lender fees, legal fees, appraisal costs, SBA guaranty fees, closing costs, taxes, insurance and other transaction charges. Financing is subject to lender underwriting and final documentation. Section 197 results are informational estimates only and are not tax, legal or accounting advice. Florida Statutes § 561.65 contains separate requirements for perfection and enforcement of qualifying liens or security interests in spirituous alcoholic-beverage licenses.
+              {isSbaBusiness
+                ? "Illustrative business-acquisition analysis only. Results assume a fully amortizing, fixed-rate loan with monthly principal-and-interest payments and no balloon payment. They exclude lender fees, SBA guaranty fees, legal and closing costs, taxes, insurance, working-capital adjustments, and other transaction charges. This calculator does not determine SBA eligibility, lender approval, required equity injection, collateral sufficiency, or final loan terms."
+                : "Calculator estimates assume a fully amortizing, fixed-rate loan with monthly principal-and-interest payments and no balloon payment. Results exclude lender fees, legal fees, appraisal costs, SBA guaranty fees, closing costs, taxes, insurance and other transaction charges. Financing is subject to lender underwriting and final documentation. Section 197 results are informational estimates only and are not tax, legal or accounting advice. Florida Statutes § 561.65 contains separate requirements for perfection and enforcement of qualifying liens or security interests in spirituous alcoholic-beverage licenses."}
             </p>
           </form>
         </div>
       </section>
 
       <section className="calculator-after" aria-label="Related financing actions">
-        <a href="/financing#request-financing"><strong>Request Financing</strong><span>Submit the county, license type, transaction value and financing amount for lender review.</span></a>
-        <a href="/florida-liquor-license-appraisal#order-form"><strong>Order a License Appraisal</strong><span>Document county-specific collateral value for purchase, refinance or lender review.</span></a>
-        <a href="/how-to-finance-florida-liquor-license"><strong>Read the Financing Guide</strong><span>See how private lenders evaluate Florida quota-license collateral and transaction structure.</span></a>
+        {isSbaBusiness ? (
+          <>
+            <a href="/sba-7a-liquor-license-business-financing"><strong>Review SBA 7(a) Financing</strong><span>Understand how participating lenders evaluate eligible business acquisitions.</span></a>
+            <a href="/financing#request-financing"><strong>Request Business Financing</strong><span>Submit the purchase price, proposed equity injection, and transaction details for review.</span></a>
+            <a href="/listings?type=businesses-sfs"><strong>View SFS / SRX Businesses</strong><span>Browse operating-business listings with premises-dependent full-liquor privileges.</span></a>
+          </>
+        ) : (
+          <>
+            <a href="/financing#request-financing"><strong>Request Financing</strong><span>Submit the county, license type, transaction value and financing amount for lender review.</span></a>
+            <a href="/florida-liquor-license-appraisal#order-form"><strong>Order a License Appraisal</strong><span>Document county-specific collateral value for purchase, refinance or lender review.</span></a>
+            <a href="/how-to-finance-florida-liquor-license"><strong>Read the Financing Guide</strong><span>See how private lenders evaluate Florida quota-license collateral and transaction structure.</span></a>
+          </>
+        )}
       </section>
 
-      <Script src="/assets/financing-loan-calculator.js?v=2" strategy="afterInteractive" />
+      <Script src="/assets/financing-loan-calculator.js?v=3" strategy="afterInteractive" />
     </main>
   );
 }
