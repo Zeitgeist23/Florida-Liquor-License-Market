@@ -497,13 +497,13 @@ export default function FeaturedThirdPartyBusinessListingPage({
 
               <section className="marketplace-listing-section">
                 <h2>{tr("About This License Listing", "Acerca de este anuncio de licencia")}</h2>
-                <p>
-                  {is2copListing
-                    ? `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, operating with 2COP beer-and-wine privileges. No separate license value is assigned.`
-                    : isSfsListing
-                    ? (isSpanish ? `Esta página individual del mercado representa el negocio de restaurante del Condado de Miami-Dade identificado como ${config.listingReference}, que opera con privilegios completos de bebidas alcohólicas 4COP SFS / SRX.` : `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, operating with 4COP SFS / SRX full-liquor privileges.`)
-                    : `This individual marketplace page represents the ${config.county} ${shortLicenseType} liquor-license interest identified as ${config.listingReference}. The displayed license asking price is ${config.askingPrice}.`}
-                </p>
+                {!isSfsListing ? (
+                  <p>
+                    {is2copListing
+                      ? `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, operating with 2COP beer-and-wine privileges. No separate license value is assigned.`
+                      : `This individual marketplace page represents the ${config.county} ${shortLicenseType} liquor-license interest identified as ${config.listingReference}. The displayed license asking price is ${config.askingPrice}.`}
+                  </p>
+                ) : null}
                 <p>
                   <strong>{is2copListing ? "Business & 2COP Beer & Wine License:" : isSfsListing ? tr("Business & 4COP SFS / SRX Full-Liquor License:", "Negocio y licencia completa de bebidas alcohólicas 4COP SFS / SRX:") : tr("Business purchase required:", "Compra del negocio requerida:")}</strong>{is2copListing ? " the seller describes beer-and-wine privileges with the operating " : isSfsListing ? tr(" the license is tied to the qualifying restaurant operation and licensed premises associated with the ", " la licencia está vinculada a la operación del restaurante que cumple los requisitos y al local autorizado asociado con el ") : tr(" the license is being offered only in connection with the acquisition of the associated ", " la licencia se ofrece únicamente junto con la adquisición del negocio asociado ")}
                   {config.businessLabelLinkUrl ? (
