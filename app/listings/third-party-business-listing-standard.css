@@ -566,6 +566,14 @@
   margin-top: 107px;
 }
 
+/* Keep Marianella's seller preview aligned with its shorter 2COP introduction. */
+@media (min-width: 901px) {
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-KOPP"]
+    .marketplace-listing-aside-broker.marketplace-listing-aside-sfs {
+    margin-top: 89px;
+  }
+}
+
 @media (max-width: 900px) {
   .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"]
     .marketplace-listing-aside-broker.marketplace-listing-aside-sfs {
