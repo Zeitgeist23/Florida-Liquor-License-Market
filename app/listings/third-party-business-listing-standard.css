@@ -28,6 +28,15 @@
   margin-bottom: 18px;
 }
 
+/* Keep long business-package titles prominent while allowing the next section
+   to enter the initial desktop viewport as a natural scroll cue. */
+@media (min-width: 901px) {
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-copy h1 {
+    font-size: clamp(36px, 4.2vw, 52px);
+    line-height: .99;
+  }
+}
+
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-package-alert {
   display: flex;
   align-items: baseline;
