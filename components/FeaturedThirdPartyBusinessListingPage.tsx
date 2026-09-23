@@ -501,7 +501,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   {is2copListing
                     ? `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, operating with 2COP beer-and-wine privileges. No separate license value is assigned.`
                     : isSfsListing
-                    ? (isSpanish ? `Esta página individual del mercado representa el negocio de restaurante del Condado de Miami-Dade identificado como ${config.listingReference}, que opera con privilegios completos de bebidas alcohólicas 4COP SFS / SRX. No se asigna un valor separado a la licencia.` : `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, operating with 4COP SFS / SRX full-liquor privileges. No separate license value is assigned.`)
+                    ? (isSpanish ? `Esta página individual del mercado representa el negocio de restaurante del Condado de Miami-Dade identificado como ${config.listingReference}, que opera con privilegios completos de bebidas alcohólicas 4COP SFS / SRX.` : `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, operating with 4COP SFS / SRX full-liquor privileges.`)
                     : `This individual marketplace page represents the ${config.county} ${shortLicenseType} liquor-license interest identified as ${config.listingReference}. The displayed license asking price is ${config.askingPrice}.`}
                 </p>
                 <p>
@@ -597,7 +597,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   {is2copListing
                     ? "The beer-and-wine privilege is not a quota license. FLLM assigns it no separate license value. The business asking price excludes the separately advertised real estate and inventory unless the seller confirms otherwise."
                     : isSfsListing
-                    ? (isSpanish ? `El privilegio ${shortLicenseType} depende del local y de los requisitos. FLLM no le asigna un valor separado como licencia de cupo ni lo presenta como inventario transferible de forma independiente.` : `The ${shortLicenseType} privilege is location- and qualification-dependent. FLLM assigns it no separate quota-license value and does not present it as independently transferable inventory.`)
+                    ? (isSpanish ? `Divulgación sobre el valor de la licencia: el precio solicitado de ${config.packagePrice} corresponde al paquete del negocio. FLLM no asigna un valor separado al privilegio ${shortLicenseType}.` : `License value disclosure: the ${config.packagePrice} asking price applies to the business package. FLLM assigns no separate value to the ${shortLicenseType} privilege.`)
                     : `The ${shortLicenseType} liquor license is displayed on FLLM at ${config.askingPrice}. Purchase of the associated business is required, and the license is not currently being offered separately.`}
                 </div>
 
