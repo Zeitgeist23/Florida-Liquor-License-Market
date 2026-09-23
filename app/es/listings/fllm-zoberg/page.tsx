@@ -99,7 +99,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Oportunidad de adquirir como negocio llave en mano un restaurante mexicano de servicio completo, programa de cócteles y centro de entretenimiento bien establecido en Miami-Dade County.",
   packageIncludes:
-    "La oferta incluye el negocio de restaurante en operación, sistemas establecidos, muebles, instalaciones y equipo, cocina comercial e infraestructura de bar, derechos de arrendamiento y valor comercial asociado. Se informa que el restaurante opera con una licencia especial para restaurantes 4COP SFS / SRX. Ese privilegio depende del local y del cumplimiento de los requisitos, FLLM no le asigna un valor separado y no debe tratarse como una licencia de cupo transferible del condado.",
+    "La oferta incluye el negocio de restaurante en operación, sistemas establecidos, muebles, instalaciones y equipo, cocina comercial e infraestructura de bar, derechos de arrendamiento y valor comercial asociado. El restaurante opera con una licencia especial para restaurantes 4COP SFS / SRX. Ese privilegio depende del local y del cumplimiento de los requisitos, FLLM no le asigna un valor separado y no debe tratarse como una licencia de cupo transferible del condado.",
   businessMetrics: [
     {
       label: "Precio de venta del negocio",
@@ -111,13 +111,13 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "Ingresos brutos",
       value: "$3,280,000",
       description:
-        "Las ventas anuales informadas del negocio antes de gastos operativos, servicio de deuda, impuestos, compensación del propietario y otras deducciones.",
+        "Las ventas anuales del negocio antes de gastos operativos, servicio de deuda, impuestos, compensación del propietario y otras deducciones.",
     },
     {
       label: "Flujo de caja (SDE)",
       value: "$388,520",
       description:
-        "SDE significa ganancias discrecionales del vendedor: ganancias informadas del negocio ajustadas para reflejar el beneficio económico disponible para un propietario-operador antes de partidas como compensación del propietario, intereses, impuestos, depreciación, amortización y ciertos gastos discrecionales o no recurrentes.",
+        "SDE significa ganancias discrecionales del vendedor: ganancias del negocio ajustadas para reflejar el beneficio económico disponible para un propietario-operador antes de partidas como compensación del propietario, intereses, impuestos, depreciación, amortización y ciertos gastos discrecionales o no recurrentes.",
     },
     {
       label: "SDE ajustado",
@@ -136,7 +136,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "Valor de la licencia",
       value: "Sin valor de cupo separado",
       description:
-        "FLLM no asigna un valor independiente de licencia de cupo porque el privilegio SFS/SRX informado está vinculado a los requisitos del restaurante y al local aprobado.",
+        "FLLM no asigna un valor independiente de licencia de cupo porque el privilegio SFS/SRX está vinculado a los requisitos del restaurante y al local aprobado.",
     },
     {
       label: "Local",
@@ -181,7 +181,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "Categorías de inmigración que pueden considerarse en relación con una inversión empresarial que cumpla los requisitos. Esto no garantiza elegibilidad ni aprobación; los compradores deben obtener asesoramiento de un abogado de inmigración calificado.",
     },
   ],
-  opportunitiesHeading: "Aspectos destacados identificados en el anuncio del corredor",
+  opportunitiesHeading: "Aspectos destacados de la oferta",
   opportunities: [
     "Adquirir un restaurante mexicano-latino de servicio completo, llave en mano, con una base de clientes y sistemas operativos establecidos.",
     "Continuar los ingresos provenientes del consumo en el local, pedidos para llevar, entregas, catering, eventos privados y bebidas.",
@@ -189,7 +189,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "Ampliar el marketing, el catering, los eventos privados, las ubicaciones adicionales o las iniciativas de franquicia.",
   ],
   transitionText:
-    "Se informa que el vendedor proporcionará capacitación de transición y consultoría después del cierre, sujeto al acuerdo final con el comprador.",
+    "El vendedor ofrece capacitación de transición y consultoría después del cierre, sujeto al acuerdo final con el comprador.",
   confidentialityText:
     "el nombre del negocio, el local exacto, los registros financieros, los documentos de arrendamiento y los registros de licencias pueden requerir que el comprador cumpla ciertos requisitos y los confirme directamente con el corredor del anuncio.",
   countyContext:
