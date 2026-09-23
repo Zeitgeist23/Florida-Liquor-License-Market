@@ -268,12 +268,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
               <div className="marketplace-listing-heading">
                 <span>{tr("Specific License Details", "Detalles específicos de la licencia")}</span>
                 <h2>
-                  <span className="marketplace-license-series">
-                    {shortLicenseType.replace(" Quota", "")}
-                  </span>{" "}
-                  {isSpanish && isSfsListing
-                    ? <>Licencia completa de bebidas alcohólicas <span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span> en {config.county}</>
-                    : <>{isSfsListing ? "Full-Liquor License" : "Quota"} in {config.county}</>}
+                  {isSpanish && isSfsListing ? (
+                    <>Licencia completa de bebidas alcohólicas <span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span> en {config.county}</>
+                  ) : (
+                    <><span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span>{" "}{isSfsListing ? "Full-Liquor License" : "Quota"} in {config.county}</>
+                  )}
                 </h2>
               </div>
 
