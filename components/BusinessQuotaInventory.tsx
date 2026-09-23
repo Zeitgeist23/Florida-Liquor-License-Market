@@ -9,10 +9,9 @@ import ListingsHoverSelect, {
 } from "./ListingsHoverSelect";
 
 const listingTypeOptions: readonly ListingsHoverSelectOption[] = [
-  { value: "all", label: "All Listings" },
-  { value: "quota", label: "Quota Licenses" },
-  { value: "4COP Quota", label: "4COP Quota" },
-  { value: "3PS Quota / Package Store", label: "3PS Quota / Package Store" },
+  { value: "quota", label: "All Quota Liquor Licenses" },
+  { value: "4COP Quota", label: "4COP Quota Liquor Licenses" },
+  { value: "3PS Quota / Package Store", label: "3PS Quota / Package Store Licenses" },
   { value: "businesses", label: "Businesses w/ Quota Licenses" },
   { value: "businesses-sfs", label: "Businesses w/ 4COP SFS / SRX Licenses" },
 ];
@@ -76,10 +75,13 @@ export default function BusinessQuotaInventory({
   function changeListingType(value: string) {
     if (value === "businesses") return;
 
-    const params = new URLSearchParams();
-    if (value !== "all") params.set("type", value);
-    const query = params.toString();
-    window.location.assign(`/listings${query ? `?${query}` : ""}`);
+    if (value === "quota") {
+      window.location.assign("/listings");
+      return;
+    }
+
+    const params = new URLSearchParams({ type: value });
+    window.location.assign(`/listings?${params.toString()}`);
   }
 
   function clearFilters() {
