@@ -35,16 +35,20 @@ function ListingSidebarLoanCalculator({
   initialPurchasePrice,
   initialDownPayment,
   mode,
+  locale = "en",
 }: {
   initialPurchasePrice: number;
   initialDownPayment: number;
   mode: "license" | "sba-business";
+  locale?: "en" | "es";
 }) {
   const [purchasePriceInput, setPurchasePriceInput] = useState(String(initialPurchasePrice));
   const [downPaymentInput, setDownPaymentInput] = useState(String(initialDownPayment));
   const [annualRateInput, setAnnualRateInput] = useState("10");
   const [termYears, setTermYears] = useState(10);
   const isSbaBusiness = mode === "sba-business";
+  const isSpanish = locale === "es";
+  const tr = (english: string, spanish: string) => isSpanish ? spanish : english;
 
   const purchasePrice = Math.max(0, Number(purchasePriceInput) || 0);
   const downPayment = Math.max(0, Number(downPaymentInput) || 0);
@@ -104,20 +108,20 @@ function ListingSidebarLoanCalculator({
       `}</style>
 
       <span className="antezza-sidebar-calculator__eyebrow">
-        {isSbaBusiness ? "SBA 7(a) Business Loan Tool" : "Liquor License Financing Tool"}
+        {isSbaBusiness ? tr("SBA 7(a) Business Loan Tool", "Herramienta de préstamo comercial SBA 7(a)") : tr("Liquor License Financing Tool", "Herramienta de financiamiento de licencias")}
       </span>
       <h2 id="antezza-sidebar-calculator-title">
-        {isSbaBusiness ? "Estimate Business Financing" : "Estimate License Financing"}
+        {isSbaBusiness ? tr("Estimate Business Financing", "Estimar financiamiento del negocio") : tr("Estimate License Financing", "Estimar financiamiento de la licencia")}
       </h2>
       <p className="antezza-sidebar-calculator__intro">
         {isSbaBusiness
-          ? "Compare estimated principal-and-interest payments for financing the operating-business purchase."
-          : "Model an estimated payment for the displayed liquor-license component of this listing."}
+          ? tr("Compare estimated principal-and-interest payments for financing the operating-business purchase.", "Compare pagos estimados de capital e intereses para financiar la compra del negocio en operación.")
+          : tr("Model an estimated payment for the displayed liquor-license component of this listing.", "Calcule un pago estimado para el componente de licencia mostrado en este anuncio.")}
       </p>
 
       <div className="antezza-sidebar-calculator__fields">
         <label>
-          <span>{isSbaBusiness ? "Business purchase price" : "License purchase price"}</span>
+          <span>{isSbaBusiness ? tr("Business purchase price", "Precio de compra del negocio") : tr("License purchase price", "Precio de compra de la licencia")}</span>
           <input
             type="text"
             inputMode="numeric"
@@ -129,7 +133,7 @@ function ListingSidebarLoanCalculator({
           />
         </label>
         <label>
-          <span>Down payment</span>
+          <span>{tr("Down payment", "Pago inicial")}</span>
           <input
             type="text"
             inputMode="numeric"
@@ -141,7 +145,7 @@ function ListingSidebarLoanCalculator({
           />
         </label>
         <label>
-          <span>Interest rate (APR)</span>
+          <span>{tr("Interest rate (APR)", "Tasa de interés (APR)")}</span>
           <input
             type="number"
             min="0"
@@ -162,12 +166,12 @@ function ListingSidebarLoanCalculator({
           />
         </label>
         <label>
-          <span>Loan term</span>
+          <span>{tr("Loan term", "Plazo del préstamo")}</span>
           <select value={termYears} onChange={(event) => setTermYears(Number(event.target.value) || 10)}>
             {!isSbaBusiness && <option value={3}>3 years</option>}
-            <option value={5}>5 years</option>
-            <option value={7}>7 years</option>
-            <option value={10}>10 years</option>
+            <option value={5}>{tr("5 years", "5 años")}</option>
+            <option value={7}>{tr("7 years", "7 años")}</option>
+            <option value={10}>{tr("10 years", "10 años")}</option>
             {!isSbaBusiness && <option value={15}>15 years</option>}
             {!isSbaBusiness && <option value={20}>20 years</option>}
           </select>
@@ -175,24 +179,24 @@ function ListingSidebarLoanCalculator({
       </div>
 
       <div className="antezza-sidebar-calculator__readonly">
-        <span>Amount financed</span>
+        <span>{tr("Amount financed", "Monto financiado")}</span>
         <output key={`${principal}-${annualRate}-${termYears}`} aria-live="polite">{formatCurrency(principal)}</output>
       </div>
 
       <div className="antezza-sidebar-calculator__payment" aria-live="polite">
-        <span>Estimated Monthly Payment</span>
+        <span>{tr("Estimated Monthly Payment", "Pago mensual estimado")}</span>
         <strong>{formatCurrency(monthlyPayment, 2)}</strong>
-        <small>Estimated principal + interest</small>
+        <small>{tr("Estimated principal + interest", "Capital + intereses estimados")}</small>
       </div>
 
       <a className="antezza-sidebar-calculator__cta" href={isSbaBusiness ? "/sba-7a-liquor-license-business-financing" : "/financing#request-financing"}>
-        {isSbaBusiness ? "Review SBA 7(a) Financing" : "Request Financing"}
+        {isSbaBusiness ? tr("Review SBA 7(a) Financing", "Revisar financiamiento SBA 7(a)") : tr("Request Financing", "Solicitar financiamiento")}
       </a>
       <a className="antezza-sidebar-calculator__full" href={fullCalculatorHref}>
-        {isSbaBusiness ? "Open Full SBA 7(a) Loan Analysis →" : "Open Full Loan Calculator →"}
+        {isSbaBusiness ? tr("Open Full SBA 7(a) Loan Analysis →", "Abrir análisis completo del préstamo SBA 7(a) →") : tr("Open Full Loan Calculator →", "Abrir calculadora completa →")}
       </a>
       <small className="antezza-sidebar-calculator__fineprint">
-        Illustrative estimate only. {isSbaBusiness ? "This is not an SBA eligibility or approval determination. " : ""}Actual financing is subject to independent lender review, underwriting, collateral eligibility, transaction structure, rates, terms, and approval.
+        {tr("Illustrative estimate only.", "Estimación únicamente ilustrativa.")} {isSbaBusiness ? tr("This is not an SBA eligibility or approval determination. ", "Esto no determina la elegibilidad ni la aprobación de la SBA. ") : ""}{tr("Actual financing is subject to independent lender review, underwriting, collateral eligibility, transaction structure, rates, terms, and approval.", "El financiamiento real está sujeto a revisión independiente del prestamista, evaluación crediticia, elegibilidad de la garantía, estructura de la transacción, tasas, términos y aprobación.")}
       </small>
     </section>
   );
@@ -211,6 +215,7 @@ type Props = {
   financingCalculatorMode?: "license" | "sba-business";
   financingPurchasePrice?: number;
   financingDownPayment?: number;
+  locale?: "en" | "es";
 };
 
 export default function ListingBrokerInquiryForm({
@@ -226,11 +231,14 @@ export default function ListingBrokerInquiryForm({
   financingCalculatorMode = "license",
   financingPurchasePrice = 0,
   financingDownPayment,
+  locale = "en",
 }: Props) {
   const [status, setStatus] = useState<SubmitState>("idle");
   const [phone, setPhone] = useState("");
   const [calculatorTarget, setCalculatorTarget] = useState<HTMLElement | null>(null);
   const isSeller = recipientKind === "seller";
+  const isSpanish = locale === "es";
+  const tr = (english: string, spanish: string) => isSpanish ? spanish : english;
 
   useEffect(() => {
     if (!showFinancingCalculator || financingPurchasePrice <= 0) return;
@@ -302,10 +310,10 @@ export default function ListingBrokerInquiryForm({
         className="marketplace-listing-broker-inquiry"
         onSubmit={submitInquiry}
       >
-        <h3>{isSeller ? "Buyer Message & Contact Center" : "Request Information"}</h3>
+        <h3>{isSeller ? tr("Buyer Message & Contact Center", "Centro de mensajes y contacto del comprador") : tr("Request Information", "Solicitar información")}</h3>
         {isSeller && (
           <p className="marketplace-listing-inquiry-intro">
-            Send your contact information and message directly to the seller through FLLM.
+            {tr("Send your contact information and message directly to the seller through FLLM.", "Envíe su información de contacto y mensaje directamente al vendedor a través de FLLM.")}
           </p>
         )}
         <input
@@ -324,17 +332,17 @@ export default function ListingBrokerInquiryForm({
 
         <div className="marketplace-listing-broker-inquiry-row">
           <label>
-            <span>First name</span>
-            <input name="first_name" type="text" placeholder="First Name" autoComplete="given-name" required />
+            <span>{tr("First name", "Nombre")}</span>
+            <input name="first_name" type="text" placeholder={tr("First Name", "Nombre")} autoComplete="given-name" required />
           </label>
           <label>
-            <span>Last name</span>
-            <input name="last_name" type="text" placeholder="Last Name" autoComplete="family-name" required />
+            <span>{tr("Last name", "Apellido")}</span>
+            <input name="last_name" type="text" placeholder={tr("Last Name", "Apellido")} autoComplete="family-name" required />
           </label>
         </div>
         <div className="marketplace-listing-broker-inquiry-row">
           <label>
-            <span>Phone number</span>
+            <span>{tr("Phone number", "Teléfono")}</span>
             <input
               name="phone"
               type="tel"
@@ -348,40 +356,40 @@ export default function ListingBrokerInquiryForm({
             />
           </label>
           <label>
-            <span>Email</span>
+            <span>{tr("Email", "Correo electrónico")}</span>
             <input name="email" type="email" placeholder="Email" autoComplete="email" required />
           </label>
         </div>
         <label>
-          <span>Message</span>
+          <span>{tr("Message", "Mensaje")}</span>
           <textarea
             name="message"
-            placeholder={isSeller ? "Message to the seller" : "Message"}
+            placeholder={isSeller ? tr("Message to the seller", "Mensaje al vendedor") : tr("Message", "Mensaje")}
             rows={6}
             required
           />
         </label>
         <button type="submit" disabled={status === "submitting"}>
-          {status === "submitting" ? "Sending…" : isSeller ? "Send Message to Seller" : "Send Inquiry"}
+          {status === "submitting" ? tr("Sending…", "Enviando…") : isSeller ? tr("Send Message to Seller", "Enviar mensaje al vendedor") : tr("Send Inquiry", "Enviar solicitud")}
         </button>
         {status === "sent" && (
           <p className="marketplace-listing-inquiry-status success" role="status">
             {isSeller
-              ? "Your contact information and message were sent to the seller and recorded by FLLM."
-              : "Your inquiry was sent to the listing broker and recorded by FLLM."}
+              ? tr("Your contact information and message were sent to the seller and recorded by FLLM.", "Su información de contacto y mensaje fueron enviados al vendedor y registrados por FLLM.")
+              : tr("Your inquiry was sent to the listing broker and recorded by FLLM.", "Su solicitud fue enviada al corredor del anuncio y registrada por FLLM.")}
           </p>
         )}
         {status === "error" && (
           <p className="marketplace-listing-inquiry-status error" role="alert">
             {isSeller
-              ? "The message could not be sent. Please try again."
-              : "The inquiry could not be sent. Please call the listing broker."}
+              ? tr("The message could not be sent. Please try again.", "No se pudo enviar el mensaje. Inténtelo de nuevo.")
+              : tr("The inquiry could not be sent. Please call the listing broker.", "No se pudo enviar la solicitud. Llame al corredor del anuncio.")}
           </p>
         )}
         <small>
           {isSeller
-            ? "By submitting this form, you agree to be contacted by the seller and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking."
-            : "By submitting this form, you agree to be contacted by the listing broker and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking."}
+            ? tr("By submitting this form, you agree to be contacted by the seller and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking.", "Al enviar este formulario, acepta que el vendedor y FLLM se comuniquen con usted sobre esta licencia. FLLM registra la solicitud para el seguimiento de contactos del mercado.")
+            : tr("By submitting this form, you agree to be contacted by the listing broker and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking.", "Al enviar este formulario, acepta que el corredor del anuncio y FLLM se comuniquen con usted sobre esta licencia. FLLM registra la solicitud para el seguimiento de contactos del mercado.")}
         </small>
       </form>
       {calculatorTarget
@@ -392,6 +400,7 @@ export default function ListingBrokerInquiryForm({
               initialDownPayment={
                 financingDownPayment ?? Math.round(financingPurchasePrice * 0.2)
               }
+              locale={locale}
             />,
             calculatorTarget,
           )
