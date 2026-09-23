@@ -264,19 +264,6 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   <span>{isSfsListing ? "Restaurant Business Asking Price" : "Business + License Package"}</span>
                   <strong>{config.packagePrice}</strong>
                 </div>
-                <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
-                  <span>{isSfsListing ? "License Classification" : "Allocated License Value"}</span>
-                  <strong>{isSfsListing ? "Location-specific" : config.askingPrice}</strong>
-                  {isSfsListing ? (
-                    <Link
-                      className="marketplace-listing-education-link"
-                      href="/license-types/4cop-sfs-restaurant"
-                      aria-label="Learn about location-specific 4COP SFS / SRX licenses"
-                    >
-                      <span>Learn more →</span>
-                    </Link>
-                  ) : null}
-                </div>
                 <div className={isSfsListing ? "marketplace-listing-education-card marketplace-listing-license-type-card" : undefined}>
                   <span>{isSfsListing ? "Liquor License Type" : "License Type"}</span>
                   <strong>{shortLicenseType}</strong>
@@ -299,6 +286,19 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         <span>Learn more →</span>
                       </Link>
                     </>
+                  ) : null}
+                </div>
+                <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
+                  <span>{isSfsListing ? "License Classification" : "Allocated License Value"}</span>
+                  <strong>{isSfsListing ? "Location-specific" : config.askingPrice}</strong>
+                  {isSfsListing ? (
+                    <Link
+                      className="marketplace-listing-education-link"
+                      href="/license-types/4cop-sfs-restaurant"
+                      aria-label="Learn about location-specific 4COP SFS / SRX licenses"
+                    >
+                      <span>Learn more →</span>
+                    </Link>
                   ) : null}
                 </div>
                 <div>
