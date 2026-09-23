@@ -78,8 +78,8 @@ export type BusinessQuotaListing = {
   href: string;
   county: string;
   countyHref: string;
-  licenseType: "4COP Quota" | "3PS Quota / Package Store" | "4COP SFS/SRX";
-  licenseClass: "quota" | "sfs";
+  licenseType: "4COP Quota" | "3PS Quota / Package Store" | "4COP SFS/SRX" | "2COP Beer & Wine";
+  licenseClass: "quota" | "sfs" | "2cop";
   title: string;
   businessType: string;
   businessCategory: BusinessQuotaCategory;
@@ -92,7 +92,8 @@ export type BusinessQuotaListing = {
   brokerage: string;
   featured: boolean;
   publicationStatus: "published" | "preview";
-  classification: "business_package" | "business_sfs";
+  classification: "business_package" | "business_sfs" | "business_2cop";
+  sellerDirect?: boolean;
 };
 
 /**
@@ -212,6 +213,28 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     publicationStatus: "preview",
     classification: "business_sfs",
   },
+  {
+    listingReference: "FLLM-KOPP",
+    href: "/listings/fllm-kopp",
+    county: "Miami-Dade County",
+    countyHref: "/counties/miami-dade",
+    licenseType: "2COP Beer & Wine",
+    licenseClass: "2cop",
+    title: "Miami Peruvian Restaurant + 2COP Beer & Wine License",
+    businessType: "Peruvian-Mediterranean restaurant",
+    businessCategory: "Restaurant",
+    summaryBusinessType: "Restaurant",
+    transactionType: "Business Sale",
+    packagePrice: "$599,999",
+    packagePriceNumber: 599_999,
+    allocatedLicenseValue: "No separate quota value",
+    brokerName: "Marianella Kopp",
+    brokerage: "Seller Direct",
+    sellerDirect: true,
+    featured: true,
+    publicationStatus: "preview",
+    classification: "business_2cop",
+  },
 ];
 
 export const businessQuotaListings = businessQuotaListingRecords.filter(
@@ -220,6 +243,10 @@ export const businessQuotaListings = businessQuotaListingRecords.filter(
 
 export const businessSfsListings = businessQuotaListingRecords.filter(
   (listing) => listing.publicationStatus === "published" && listing.licenseClass === "sfs",
+);
+
+export const business2copListings = businessQuotaListingRecords.filter(
+  (listing) => listing.publicationStatus === "published" && listing.licenseClass === "2cop",
 );
 
 const businessQuotaReferences = new Set(

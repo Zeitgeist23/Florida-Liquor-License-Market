@@ -66,18 +66,22 @@ export default function BusinessQuotaListingCard({
             <strong>{listing.packagePrice}</strong>
           </div>
           <div>
-            <span>License Value</span>
+            <span>{listing.licenseClass === "2cop" ? "License Classification" : "License Value"}</span>
             <strong>{listing.allocatedLicenseValue}</strong>
           </div>
         </div>
 
         <p className="business-quota-card-condition">
-          {listing.licenseType} liquor license included<br />
-          and not offered separately.
+          {listing.licenseClass === "2cop" ? (
+            <>{listing.licenseType} reported with the business.<br />Verify license status and transfer requirements.</>
+          ) : (
+            <>{listing.licenseType} liquor license included<br />
+            and not offered separately.</>
+          )}
         </p>
 
         <p className="business-quota-card-broker">
-          Represented by <strong>{listing.brokerName}</strong>
+          {listing.sellerDirect ? "Offered directly by " : "Represented by "}<strong>{listing.brokerName}</strong>
         </p>
 
         <Link className="business-quota-card-action" href={listing.href}>
