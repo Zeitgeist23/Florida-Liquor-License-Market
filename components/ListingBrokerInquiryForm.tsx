@@ -346,7 +346,7 @@ export default function ListingBrokerInquiryForm({
             <input
               name="phone"
               type="tel"
-              placeholder="(xxx)xxx-xxxx"
+              placeholder={tr("Phone Number", "Número de teléfono")}
               autoComplete="tel-national"
               inputMode="tel"
               maxLength={13}
