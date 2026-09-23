@@ -608,3 +608,44 @@
   color: #f1a600 !important;
   font-weight: 800;
 }
+
+
+/* Educational destinations for qualification-based SFS / SRX cards */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-education-card {
+  position: relative;
+  padding-bottom: 38px !important;
+  cursor: pointer;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-education-link {
+  position: absolute;
+  z-index: 8;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 10px 11px;
+  border-radius: inherit;
+  color: #f1a600 !important;
+  text-decoration: none !important;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .055em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-education-link > span {
+  transition: color .16s ease, transform .16s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-education-card:hover .marketplace-listing-education-link > span {
+  color: #ffd56f;
+  transform: translateX(2px);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-education-link:focus-visible {
+  outline: 2px solid #8af4ff;
+  outline-offset: 2px;
+}
