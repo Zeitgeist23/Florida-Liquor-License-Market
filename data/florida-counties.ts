@@ -181,7 +181,7 @@ const countyContent: Record<string, CountyContent> = {
     featured: true,
   },
   pinellas: {
-    primaryCities: ["St. Petersburg", "Clearwater", "Largo"],
+    primaryCities: ["St. Petersburg", "Clearwater", "Largo", "Dunedin"],
     introduction: "Pinellas County includes St. Petersburg and Clearwater, with dense coastal communities, Gulf beaches, tourism, arts, resorts, dining, nightlife, and year-round local demand.",
     marketOverview: "Pinellas County's constrained geography and established tourism economy create sustained interest in transferable quota licenses. Buyers should review the proposed premises, zoning, local approvals, license category, and transfer timing in addition to price.",
     nearbyCounties: ["hillsborough", "pasco", "manatee"],
