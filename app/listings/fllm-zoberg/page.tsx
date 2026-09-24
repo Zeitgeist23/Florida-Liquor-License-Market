@@ -32,9 +32,9 @@ const sourceListingUrl =
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Miami Mexican Restaurant + 4COP SFS / SRX | Broker Preview",
+  title: "Miami-Dade Mexican Restaurant + 4COP SFS / SRX Full-Liquor License | FLLM",
   description:
-    "Broker approval preview for a Miami-Dade Mexican-Latin restaurant and entertainment venue operating with a location-specific 4COP SFS / SRX full-liquor license.",
+    "Featured Miami-Dade Mexican-Latin restaurant and entertainment venue for sale with a location-specific 4COP SFS / SRX full-liquor license.",
   alternates: {
     canonical: canonicalUrl,
     languages: {
@@ -43,20 +43,20 @@ export const metadata: Metadata = {
       "x-default": canonicalUrl,
     },
   },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
     title: "Miami Mexican-Latin Restaurant + 4COP SFS / SRX License",
     description:
-      "Featured third-party broker preview represented by Brian Zoberg of Suncoast Business Consultants.",
+      "Featured third-party broker listing represented by Brian Zoberg of Suncoast Business Consultants.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
     title: "Miami Mexican-Latin Restaurant + 4COP SFS / SRX License",
     description:
-      "Private featured-listing mockup for broker review and approval.",
+      "Miami-Dade restaurant business package with a location-specific 4COP SFS / SRX full-liquor license.",
   },
 };
 
