@@ -161,7 +161,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "El inventario indicado no está incluido en el precio solicitado del negocio y debe verificarse antes del cierre.",
     },
     {
-      label: "Valor del inmueble",
+      label: "Inmueble — Ofrecido por separado",
       value: "$1,800,000",
       description:
         "El valor indicado del inmueble ofrecido por separado. No está incluido en el precio solicitado de $599,999 por el negocio y requiere términos, valoración y diligencia debida independientes.",
