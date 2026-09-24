@@ -141,7 +141,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     },
     {
       label: "Seller Financing",
-      value: "Up to 40% advertised",
+      value: "Up to 40%",
       description:
         "The seller advertises financing for up to 40% of the asking price, subject to buyer qualification and mutually agreed terms.",
     },
@@ -164,10 +164,10 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "The stated value of the separately offered real estate. It is not included in the $599,999 business asking price and requires independent terms, valuation and due diligence.",
     },
     {
-      label: "Advertised Monthly Rent",
-      value: "$9,500++",
+      label: "Monthly Rent",
+      value: "$9,500/month",
       description:
-        "The source listing advertises monthly rent of $9,500 plus additional charges. Buyers should confirm the lease structure, pass-through expenses, term, options and whether a lease or separate real-estate purchase is contemplated.",
+        "The source listing states monthly base rent of $9,500, with additional occupancy charges. Buyers should confirm the lease structure, pass-through expenses, term, options and whether a lease or separate real-estate purchase is contemplated.",
     },
     {
       label: "Employees",
