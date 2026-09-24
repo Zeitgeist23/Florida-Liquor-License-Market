@@ -233,7 +233,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 {is2copListing ? (
                   <>Beer-and-wine privileges only · <strong>No separate quota-license value</strong></>
                 ) : isSfsListing ? (
-                  <>{tr("Location-specific full-liquor license", "Licencia completa de bebidas alcohólicas vinculada al local")} · <strong>{tr("4COP SFS / SRX included", "4COP SFS / SRX incluida")}</strong></>
+                  <>{tr("Business asking price", "Precio de venta del negocio")} · <strong>{tr("4COP SFS / SRX full-liquor license included", "Licencia completa de bebidas alcohólicas 4COP SFS / SRX incluida")}</strong></>
                 ) : (
                   <>{tr("Included", "Incluida")} {shortLicenseType} {tr("allocated value", "valor asignado")} {config.askingPrice} · <strong>{tr("License not offered separately", "La licencia no se ofrece por separado")}</strong></>
                 )}
@@ -382,9 +382,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" />
                     </svg>
                     <strong>
-                      {is2copListing ? "On-premises" : isSfsListing ? tr("Restaurant", "Restaurante") : tr("On- or", "Dentro o")}
+                      {is2copListing ? "On-premises" : isSfsListing ? tr("Qualifying restaurant", "Local de restaurante") : tr("On- or", "Dentro o")}
                       <br />
-                      {is2copListing ? "beer & wine" : isSfsListing ? tr("premises required", "local requeridos") : tr("off-premises use", "fuera del local")}
+                      {is2copListing ? "beer & wine" : isSfsListing ? tr("premises", "que cumple requisitos") : tr("off-premises use", "fuera del local")}
                     </strong>
                     {isSfsListing ? (
                       <Link
@@ -502,7 +502,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
               </div>
 
               <section className="marketplace-listing-section">
-                <h2>{tr("About This License Listing", "Acerca de este anuncio de licencia")}</h2>
+                <h2>{tr("About This Business & License Listing", "Acerca de este anuncio de negocio y licencia")}</h2>
                 {!isSfsListing ? (
                   <p>
                     {is2copListing
@@ -547,7 +547,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   subject to applicable premises, zoning, applicant, and
                   regulatory requirements.
                 </p> : is2copListing ? <p>Florida&apos;s <Link href="/license-types/2cop-beer-wine">2COP beer-and-wine license</Link> is a non-quota series for beer and wine privileges. It does not authorize spirits. Confirm the license record, licensed premises, buyer qualifications, and transaction requirements with DBPR.</p> : <p>
-                  {tr("A", "Una")} <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> {tr("license is a special restaurant license whose continued privileges depend on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.", "es una licencia especial para restaurantes cuyos privilegios continuos dependen de la operación de servicio de alimentos que cumple los requisitos, el local aprobado, la aprobación de cambios de propiedad o entidad y el cumplimiento continuo de los requisitos aplicables del DBPR, incluida la prueba de ventas de alimentos y bebidas no alcohólicas.")}
+                  {tr("A", "Una")} <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> {tr("full-liquor license is issued to a qualifying restaurant and remains dependent on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.", "es una licencia completa de bebidas alcohólicas emitida para un restaurante que cumple los requisitos y permanece vinculada a la operación de servicio de alimentos que cumple los requisitos, el local aprobado, la aprobación de cambios de propiedad o entidad y el cumplimiento continuo de los requisitos aplicables del DBPR, incluida la prueba de ventas de alimentos y bebidas no alcohólicas.")}
                 </p>}
                 {isSfsListing && config.annualLicenseFee ? (
                   <p className="featured-business-renewal-fee">
@@ -565,7 +565,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
               </section>
 
               <section className="marketplace-listing-section marketplace-listing-seller-details">
-                <h2>{tr("Additional Seller Details", "Detalles adicionales del vendedor")}</h2>
+                <h2>{tr("Business Offering Details", "Detalles de la oferta comercial")}</h2>
                 <p>
                   {config.additionalSellerIntroLinkText &&
                   config.additionalSellerIntro.includes(
