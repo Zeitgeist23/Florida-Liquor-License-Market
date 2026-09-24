@@ -144,7 +144,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     },
     {
       label: "Financiamiento de la vendedora",
-      value: "Hasta 40% anunciado",
+      value: "Hasta 40%",
       description:
         "La vendedora anuncia financiamiento de hasta el 40% del precio solicitado, sujeto a la calificación del comprador y a términos acordados mutuamente.",
     },
@@ -167,10 +167,10 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "El valor indicado del inmueble ofrecido por separado. No está incluido en el precio solicitado de $599,999 por el negocio y requiere términos, valoración y diligencia debida independientes.",
     },
     {
-      label: "Alquiler mensual anunciado",
-      value: "$9,500++",
+      label: "Alquiler mensual",
+      value: "$9,500/mes",
       description:
-        "El anuncio de origen indica un alquiler mensual de $9,500 más cargos adicionales. Los compradores deben confirmar la estructura del arrendamiento, los gastos transferidos, el plazo, las opciones y si se contempla un arrendamiento o una compra separada del inmueble.",
+        "El anuncio de origen indica un alquiler base mensual de $9,500, más cargos adicionales de ocupación. Los compradores deben confirmar la estructura del arrendamiento, los gastos transferidos, el plazo, las opciones y si se contempla un arrendamiento o una compra separada del inmueble.",
     },
     {
       label: "Personal",
