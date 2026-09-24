@@ -798,7 +798,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   aria-label={`Call ${config.sellerDirect ? "seller" : "listing broker"} ${config.broker.name} at ${config.broker.phone}`}
                 >
                   <span className="featured-business-call-broker-label">
-                    {config.sellerDirect ? `${tr("Call Seller", "Llamar al vendedor")} · ${config.broker.phone}` : tr("Call Listing Broker", "Llamar al corredor")}
+                    {config.sellerDirect ? tr("Call Seller", "Llamar al vendedor") : tr("Call Listing Broker", "Llamar al corredor")}
                   </span>
                   <span
                     className="featured-business-call-broker-phone"
@@ -901,7 +901,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   aria-label={`Call ${config.sellerDirect ? "seller" : "listing broker"} ${config.broker.name} at ${config.broker.phone}`}
                 >
                   <span className="marketplace-listing-sticky-contact-call-label">
-                    {config.sellerDirect ? `${tr("Call Seller", "Llamar al vendedor")} · ${config.broker.phone}` : tr("Call Listing Broker", "Llamar al corredor")}
+                    {config.sellerDirect ? tr("Call Seller", "Llamar al vendedor") : tr("Call Listing Broker", "Llamar al corredor")}
                   </span>
                   <span
                     className="marketplace-listing-sticky-contact-call-phone"
