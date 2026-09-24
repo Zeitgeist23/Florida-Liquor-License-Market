@@ -61,3 +61,19 @@
 .county-data-links a{border-color:#f1a600!important;background:#123d65!important;color:#ffc13b!important;transform-origin:center;transition:transform .18s ease,filter .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease}.county-data-links a:hover,.county-data-links a:focus-visible{transform:translateY(-2px) scale(1.03);border-color:#ffe29a!important;background:linear-gradient(145deg,#ffc13b,#e69a00)!important;color:#07101a!important;box-shadow:0 10px 20px rgba(3,17,29,.34),0 0 14px rgba(241,166,0,.22);outline:none}
 .county-data-history-note{background:#123d65!important;color:#d7e3ec!important}
 @media(prefers-reduced-motion:reduce){.county-button,.county-guide article,.county-guide aside,.county-local-authority article,.county-local-authority aside,.county-faq details,.county-sold-grid>div,.county-nearby-links a,.county-listing-card,.county-data-grid article,.county-data-type-grid>article,.county-data-context-grid article,.county-data-context-grid aside,.county-data-evidence,.county-data-evidence-grid>a,.county-data-links a{transition:none!important}}
+
+
+/* PRIMARY LOCAL MARKETS — photo-grid treatment for counties with curated city imagery. */
+.county-data-local-markets--photos{padding:22px!important}
+.county-city-photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.county-city-photo-card{position:relative;aspect-ratio:1/1;margin:0;overflow:hidden;border:1px solid rgba(241,166,0,.82);border-radius:7px;background:#061f35;box-shadow:0 10px 22px rgba(3,17,29,.24),inset 0 1px 0 rgba(255,255,255,.07);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.county-city-photo-card:hover{transform:translateY(-3px);border-color:#ffd05d;box-shadow:0 16px 30px rgba(3,17,29,.34),0 0 18px rgba(241,166,0,.14)}
+.county-city-photo-card img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.county-city-photo-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(2,14,24,.76) 0%,rgba(2,14,24,.16) 28%,rgba(2,14,24,0) 58%,rgba(2,14,24,.46) 100%)}
+.county-city-photo-card figcaption{position:absolute;inset:0;z-index:2;pointer-events:none}
+.county-city-photo-card figcaption strong{position:absolute;top:0;right:0;left:0;padding:12px 14px 16px;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.05;text-shadow:0 2px 7px rgba(0,0,0,.72)}
+.county-city-photo-card figcaption a{position:absolute;right:9px;bottom:8px;max-width:calc(100% - 18px);overflow:hidden;color:rgba(255,255,255,.82);font-size:8px;font-weight:700;line-height:1.2;text-overflow:ellipsis;white-space:nowrap;pointer-events:auto;text-shadow:0 1px 4px rgba(0,0,0,.88)}
+.county-city-photo-card figcaption a:hover{color:#ffd05d}
+.county-city-photo-summary{margin-top:14px!important;color:#d7e3ec!important;font-size:12px!important;line-height:1.55!important}
+@media(max-width:680px){.county-city-photo-grid{gap:8px}.county-city-photo-card figcaption strong{padding:9px 10px 12px;font-size:17px}.county-city-photo-card figcaption a{right:7px;bottom:6px;font-size:7px}.county-city-photo-summary{font-size:11px!important}}
+@media(prefers-reduced-motion:reduce){.county-city-photo-card{transition:none}}
