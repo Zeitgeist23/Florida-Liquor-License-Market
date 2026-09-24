@@ -11,6 +11,48 @@ import "./CountyMarketDataPanel.css";
 import "@/app/county-approved-tone-refine.css";
 import "./CountyMarketDataPanel-readability.css";
 
+
+type CountyLocalMarketPhoto = {
+  city: string;
+  src: string;
+  alt: string;
+  sourceUrl: string;
+  credit: string;
+};
+
+const countyLocalMarketPhotos: Record<string, CountyLocalMarketPhoto[]> = {
+  pinellas: [
+    {
+      city: "St. Petersburg",
+      src: "https://commons.wikimedia.org/wiki/Special:FilePath/St._Petersburg_Florida_skyline_at_sunrise_1.jpg?width=900",
+      alt: "St. Petersburg, Florida skyline just before sunrise",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:St._Petersburg_Florida_skyline_at_sunrise_1.jpg",
+      credit: "Andrew Heneen · CC BY 4.0",
+    },
+    {
+      city: "Clearwater",
+      src: "https://commons.wikimedia.org/wiki/Special:FilePath/Clearwater_Beach_2007.JPG?width=900",
+      alt: "Clearwater Beach, Florida viewed north from Pier 60",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Clearwater_Beach_2007.JPG",
+      credit: "Paulvonfeldt · Public domain",
+    },
+    {
+      city: "Largo",
+      src: "https://commons.wikimedia.org/wiki/Special:FilePath/Trees_in_Largo_Central_Park,_Largo,_Florida,_10_March_2024.jpg?width=900",
+      alt: "Largo Central Park in Largo, Florida",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Trees_in_Largo_Central_Park,_Largo,_Florida,_10_March_2024.jpg",
+      credit: "Theo Worrall · CC0",
+    },
+    {
+      city: "Dunedin",
+      src: "https://commons.wikimedia.org/wiki/Special:FilePath/Dunedin_Town_Hall_and_City_Library,_15_Jun_2026.jpg?width=900",
+      alt: "Dunedin Town Hall and City Library in Dunedin, Florida",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Dunedin_Town_Hall_and_City_Library,_15_Jun_2026.jpg",
+      credit: "Andykatib · CC0",
+    },
+  ],
+};
+
 function money(value: number | null) {
   if (value === null) return "—";
   return new Intl.NumberFormat("en-US", {
@@ -56,6 +98,7 @@ export default function CountyMarketDataPanel({
     timeZone: "America/New_York",
   }).format(new Date());
   const evidenceListings = listings.filter((listing) => listing.sourceRef);
+  const localMarketPhotos = countyLocalMarketPhotos[county.slug] ?? [];
 
   return (
     <section className="county-data-panel county-shell" aria-labelledby="county-data-title">
@@ -118,10 +161,33 @@ export default function CountyMarketDataPanel({
       </div>
 
       <div className="county-data-context-grid">
-        <article>
+        <article className={localMarketPhotos.length ? "county-data-local-markets county-data-local-markets--photos" : "county-data-local-markets"}>
           <span>Primary local markets</span>
-          <h3>{county.primaryCities.length ? county.primaryCities.join(" · ") : county.name.replace(" County", "")}</h3>
-          <p>{county.marketOverview}</p>
+          {localMarketPhotos.length ? (
+            <>
+              <div className="county-city-photo-grid" aria-label={`Primary cities and local markets in ${county.name}`}>
+                {localMarketPhotos.map((photo) => (
+                  <figure className="county-city-photo-card" key={photo.city}>
+                    <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+                    <figcaption>
+                      <strong>{photo.city}</strong>
+                      <a href={photo.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={`Photo source and license for ${photo.city}`}>
+                        {photo.credit}
+                      </a>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+              <p className="county-city-photo-summary">
+                Key local markets within {county.name}. Compare city-level hospitality demand together with countywide quota-license supply, asking prices, premises, zoning and transfer requirements.
+              </p>
+            </>
+          ) : (
+            <>
+              <h3>{county.primaryCities.length ? county.primaryCities.join(" · ") : county.name.replace(" County", "")}</h3>
+              <p>{county.marketOverview}</p>
+            </>
+          )}
         </article>
         <aside>
           <span>Regulatory context</span>
