@@ -1,0 +1,82 @@
+{
+  "id": "fllm-4cop-sfs-business-listing-v1",
+  "status": "official",
+  "lockedOn": "2026-09-24",
+  "canonicalReference": {
+    "englishPath": "/listings/fllm-zoberg",
+    "spanishPath": "/es/listings/fllm-zoberg",
+    "component": "components/FeaturedThirdPartyBusinessListingPage.tsx",
+    "configFactory": "lib/listings/official4CopSfsBusinessListing.ts",
+    "styling": "app/listings/third-party-business-listing-standard.css"
+  },
+  "triggerPhrases": [
+    "create listing mockup for [broker] for his business for sale with 4COP SFS / SRX listing",
+    "create listing mockup for [broker] for her business for sale with 4COP SFS / SRX listing"
+  ],
+  "lockedElements": [
+    "official FLLM sticky header and navigation",
+    "official FLLM county-page footer",
+    "hero composition, typography, map card, badges and language toggle",
+    "section order and heading hierarchy",
+    "four specific-license fact cards",
+    "four License Highlights cards",
+    "third-party broker disclosure",
+    "About This Business & License Listing",
+    "Business Offering Details and business metric cards",
+    "Miami-Dade-style county market context adapted only to the listing county",
+    "4COP SFS / SRX License Resources",
+    "independent listing broker sidebar, photograph, contact block and inquiry form",
+    "gold and cyan button, card, hover, tooltip and link treatments",
+    "sticky broker contact card and scroll behavior",
+    "English and Spanish paired routes",
+    "preview noindex workflow and publication metadata workflow"
+  ],
+  "variableFields": [
+    "listing reference and route slug",
+    "broker name, brokerage, credentials, photograph, phone, email, website and source listing URL",
+    "county, county links, county cities, population and annual state license fee",
+    "business label, hero summary, asking price and business metrics",
+    "seller-provided offering highlights, transition support and confidentiality details",
+    "listing-specific SEO title and description"
+  ],
+  "terminology": {
+    "required": [
+      "4COP SFS / SRX",
+      "full-liquor license",
+      "business asking price",
+      "qualifying restaurant premises",
+      "qualification-based",
+      "not an independently transferable quota license",
+      "no independent transferable value",
+      "FLLM assigns no separate value to the license"
+    ],
+    "prohibited": [
+      "4COP SRS",
+      "restaurant license as the primary marketing label",
+      "license privilege as the primary marketing label",
+      "business and premises required",
+      "broker-reported as repetitive body copy",
+      "separate quota-license value for a 4COP SFS / SRX license"
+    ]
+  },
+  "fixedPrimaryActions": [
+    "Inquire About This Business Package",
+    "View License Details",
+    "Call Listing Broker",
+    "Visit Listing Broker Website",
+    "Request Information"
+  ],
+  "previewWorkflow": {
+    "metadataTitleSuffix": "| Broker Preview",
+    "robots": "noindex, nofollow",
+    "publishOnlyAfter": "broker approval and payment confirmation",
+    "publicationActions": [
+      "remove Broker Preview from metadata",
+      "replace preview meta descriptions",
+      "change robots to index, follow",
+      "verify English and Spanish canonical and hreflang URLs",
+      "verify the page live before requesting Google Search Console indexing"
+    ]
+  },
+  "changeControl": "Do not alter locked elements for an individual listing unless James Wigg explicitly approves a template-wide revision."
+}
