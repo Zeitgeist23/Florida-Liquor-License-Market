@@ -125,6 +125,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
       className="results-page marketplace-listing-page"
       data-featured-broker-listing={config.listingReference}
       data-featured-broker-business-listing="true"
+      data-listing-template={isSfsListing ? "fllm-4cop-sfs-business-listing-v1" : undefined}
       data-seller-direct={config.sellerDirect ? "true" : undefined}
       data-approval-preview={config.approvalPreview ? "true" : undefined}
       lang={isSpanish ? "es" : "en"}
