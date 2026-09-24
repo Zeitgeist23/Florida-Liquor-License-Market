@@ -33,9 +33,9 @@ const sourceListingUrl =
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Restaurante mexicano en Miami + licencia 4COP SFS / SRX | Vista previa",
+  title: "Restaurante mexicano en Miami-Dade + licencia completa 4COP SFS / SRX | FLLM",
   description:
-    "Vista previa para aprobación del corredor de un restaurante mexicano-latino y centro de entretenimiento en Miami-Dade con licencia 4COP SFS / SRX vinculada al local.",
+    "Anuncio destacado de un restaurante mexicano-latino y centro de entretenimiento en venta en Miami-Dade con licencia completa 4COP SFS / SRX vinculada al local.",
   alternates: {
     canonical: canonicalUrl,
     languages: {
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
       "x-default": englishUrl,
     },
   },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Restaurante mexicano-latino en Miami + licencia 4COP SFS / SRX",
     description:
-      "Vista previa privada del anuncio destacado para revisión y aprobación del corredor.",
+      "Paquete de negocio de restaurante en Miami-Dade con licencia completa 4COP SFS / SRX vinculada al local.",
   },
 };
 
