@@ -328,8 +328,6 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         <span>{tr("Learn more →", "Más información →")}</span>
                       </Link>
                     </>
-                  ) : is2copListing ? (
-                    <Link className="marketplace-listing-education-link" href="/license-types/2cop-beer-wine" aria-label="Learn about 2COP beer-and-wine licenses"><span>Learn more →</span></Link>
                   ) : null}
                 </div>
                 <div className={isNonQuotaBusiness ? "marketplace-listing-education-card" : undefined}>
@@ -343,8 +341,6 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     >
                       <span>Learn more →</span>
                     </Link>
-                  ) : is2copListing ? (
-                    <Link className="marketplace-listing-education-link" href="/license-types/2cop-beer-wine" aria-label="Learn about non-quota 2COP licenses"><span>Learn more →</span></Link>
                   ) : null}
                 </div>
                 <div>
@@ -701,9 +697,15 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       </Link>
                     </p>
                     <p>
-                      <Link href={config.countyValueHref}>
-                        Review current {config.county} liquor license values →
-                      </Link>
+                      {is2copListing ? (
+                        <Link href="/license-types/2cop-beer-wine">
+                          Explore the FLLM 2COP Beer &amp; Wine License Guide →
+                        </Link>
+                      ) : (
+                        <Link href={config.countyValueHref}>
+                          Review current {config.county} liquor license values →
+                        </Link>
+                      )}
                     </p>
                   </>
                 ) : null}
