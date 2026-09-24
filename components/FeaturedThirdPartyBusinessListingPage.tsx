@@ -99,7 +99,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
 }) {
   const isSpanish = config.locale === "es";
   const tr = (english: string, spanish: string) => isSpanish ? spanish : english;
-  const statusLabel = config.approvalPreview ? "Seller review preview" : config.sellerDirect ? "Available / Seller confirmation required" : tr("Available / Broker confirmation required", "Disponible / Confirmación del corredor requerida");
+  const statusLabel = config.approvalPreview ? tr("Seller review preview", "Vista previa para revisión de la vendedora") : config.sellerDirect ? tr("Available / Seller confirmation required", "Disponible / Confirmación de la vendedora requerida") : tr("Available / Broker confirmation required", "Disponible / Confirmación del corredor requerida");
   const statusCardLabel = config.approvalPreview ? tr("Preview", "Vista previa") : tr("Available", "Disponible");
   const inquiryHref = buildInquiryHref(config);
   const shortLicenseType =
@@ -164,7 +164,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
           <div className="marketplace-listing-copy">
             <div className="marketplace-listing-breadcrumbs">
               <Link href={is2copListing ? "/listings?type=businesses-2cop" : isSfsListing ? "/listings?type=businesses-sfs" : "/businesses-with-quota-licenses"}>
-                {is2copListing ? "Businesses With 2COP Beer & Wine Licenses" : isSfsListing ? tr("Businesses With 4COP SFS / SRX Licenses", "Negocios con licencias 4COP SFS / SRX") : tr("Businesses With Quota Licenses", "Negocios con licencias de cupo")}
+                {is2copListing ? tr("Businesses With 2COP Beer & Wine Licenses", "Negocios con licencias 2COP de cerveza y vino") : isSfsListing ? tr("Businesses With 4COP SFS / SRX Licenses", "Negocios con licencias 4COP SFS / SRX") : tr("Businesses With Quota Licenses", "Negocios con licencias de cupo")}
               </Link>
               <span>›</span>
               <Link href={config.countyHref}>{config.county}</Link>
@@ -206,7 +206,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
               ) : null}
             </div>
             <span className="marketplace-listing-kicker">
-              {config.sellerDirect ? "Direct Seller Business Listing" : tr("Featured Third-Party Broker Listing", "Anuncio destacado de corredor externo")}
+              {config.sellerDirect ? tr("Direct Seller Business Listing", "Anuncio de negocio de venta directa") : tr("Featured Third-Party Broker Listing", "Anuncio destacado de corredor externo")}
             </span>
             <h1>
               <span className="marketplace-listing-title-line">
@@ -218,6 +218,8 @@ export default function FeaturedThirdPartyBusinessListingPage({
               <span className="marketplace-listing-title-line">
                 {isSpanish && isSfsListing ? (
                   <>+ Licencia completa de bebidas alcohólicas{" "}<span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span></>
+                ) : isSpanish && is2copListing ? (
+                  <>+ Licencia <span className="marketplace-license-series">{shortLicenseType}</span> de cerveza y vino</>
                 ) : (
                   <>+ <span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span>{" "}{is2copListing ? "Beer & Wine License" : isSfsListing ? "Full-Liquor License" : "Quota License"}</>
                 )}
@@ -227,12 +229,12 @@ export default function FeaturedThirdPartyBusinessListingPage({
             <div className="featured-business-package-alert">
               {!isSfsListing && (
                 <span className="featured-business-package-badge">
-                  {is2copListing ? "Business + 2COP License" : tr("Business Purchase Required", "Compra del negocio requerida")}
+                  {is2copListing ? tr("Business + 2COP License", "Negocio + licencia 2COP") : tr("Business Purchase Required", "Compra del negocio requerida")}
                 </span>
               )}
               <span>
                 {is2copListing ? (
-                  <>Beer-and-wine privileges only · <strong>No separate quota-license value</strong></>
+                  <>{tr("Beer-and-wine privileges only", "Solo cerveza y vino")} · <strong>{tr("No separate quota-license value", "Sin valor separado de licencia de cupo")}</strong></>
                 ) : isSfsListing ? (
                   <>{tr("Business asking price", "Precio de venta del negocio")} · <strong>{tr("4COP SFS / SRX full-liquor license included", "Licencia completa de bebidas alcohólicas 4COP SFS / SRX incluida")}</strong></>
                 ) : (
@@ -250,7 +252,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
               </span>
               {!config.approvalPreview ? <ListingViewCount listingRef={config.listingReference} locale={config.locale} /> : null}
               <span className="marketplace-listing-broker-badge">
-                {config.sellerDirect ? "Seller Direct · Business Sale" : tr("Featured · Third-Party Broker", "Destacado · Corredor externo")}
+                {config.sellerDirect ? tr("Seller Direct · Business Sale", "Venta directa · Venta de negocio") : tr("Featured · Third-Party Broker", "Destacado · Corredor externo")}
               </span>
             </div>
             <p className="marketplace-listing-summary">{config.heroSummary}</p>
@@ -294,7 +296,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   <span className="marketplace-license-series">
                     {shortLicenseType.replace(" Quota", "")}
                   </span>{" "}
-                  {is2copListing ? "Beer & Wine License" : isSfsListing ? tr("Full-Liquor License", "Licencia completa de bebidas alcohólicas") : tr("Quota", "Cupo")} {tr("in", "en")} {config.county}
+                  {is2copListing ? tr("Beer & Wine License", "Licencia de cerveza y vino") : isSfsListing ? tr("Full-Liquor License", "Licencia completa de bebidas alcohólicas") : tr("Quota", "Cupo")} {tr("in", "en")} {config.county}
                 </h2>
               </div>
 
@@ -308,7 +310,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 </div>
                 <div className={isNonQuotaBusiness ? "marketplace-listing-education-card marketplace-listing-license-type-card" : undefined}>
                   <span>{isNonQuotaBusiness ? tr("Liquor License Type", "Tipo de licencia de bebidas alcohólicas") : tr("License Type", "Tipo de licencia")}</span>
-                  <strong>{is2copListing ? "2COP Beer & Wine" : shortLicenseType}</strong>
+                  <strong>{is2copListing ? tr("2COP Beer & Wine", "2COP Cerveza y Vino") : shortLicenseType}</strong>
                   {isSfsListing ? (
                     <>
                       <span
@@ -332,7 +334,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 </div>
                 <div className={isNonQuotaBusiness ? "marketplace-listing-education-card" : undefined}>
                   <span>{isNonQuotaBusiness ? tr("License Classification", "Clasificación de la licencia") : tr("Allocated License Value", "Valor asignado de la licencia")}</span>
-                  <strong>{is2copListing ? "Non-quota · no separate value" : isSfsListing ? tr("Location-specific", "Vinculada al local") : config.askingPrice}</strong>
+                  <strong>{is2copListing ? tr("Non-quota · no separate value", "Sin cupo · sin valor separado") : isSfsListing ? tr("Location-specific", "Vinculada al local") : config.askingPrice}</strong>
                   {isSfsListing ? (
                     <Link
                       className="marketplace-listing-education-link"
@@ -362,7 +364,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     <strong>
                       {is2copListing ? tr("Beer & wine", "Cerveza y vino") : tr("Full-liquor", "Bebidas alcohólicas")}
                       <br />
-                      {tr("license", "licencia completa")}
+                      {is2copListing ? tr("license", "licencia") : tr("license", "licencia completa")}
                     </strong>
                     {isSfsListing ? (
                       <Link
@@ -379,9 +381,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" />
                     </svg>
                     <strong>
-                      {is2copListing ? "On-premises" : isSfsListing ? tr("Qualifying restaurant", "Local de restaurante") : tr("On- or", "Dentro o")}
+                      {is2copListing ? tr("On-premises", "Consumo en el local") : isSfsListing ? tr("Qualifying restaurant", "Local de restaurante") : tr("On- or", "Dentro o")}
                       <br />
-                      {is2copListing ? "beer & wine" : isSfsListing ? tr("premises", "que cumple requisitos") : tr("off-premises use", "fuera del local")}
+                      {is2copListing ? tr("beer & wine", "cerveza y vino") : isSfsListing ? tr("premises", "que cumple requisitos") : tr("off-premises use", "fuera del local")}
                     </strong>
                     {isSfsListing ? (
                       <Link
@@ -398,9 +400,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" />
                     </svg>
                     <strong>
-                      {is2copListing ? "Beer & wine" : isSfsListing ? tr("51% food / nonalcoholic", "51% alimentos / sin alcohol") : tr("Generally no SFS", "Generalmente sin SFS")}
+                      {is2copListing ? tr("Beer & wine", "Cerveza y vino") : isSfsListing ? tr("51% food / nonalcoholic", "51% alimentos / sin alcohol") : tr("Generally no SFS", "Generalmente sin SFS")}
                       <br />
-                      {is2copListing ? "without spirits" : isSfsListing ? tr("revenue requirement", "requisito de ingresos") : tr("food-sales percentage", "porcentaje de ventas de alimentos")}
+                      {is2copListing ? tr("without spirits", "sin bebidas destiladas") : isSfsListing ? tr("revenue requirement", "requisito de ingresos") : tr("food-sales percentage", "porcentaje de ventas de alimentos")}
                     </strong>
                     {isSfsListing ? (
                       <Link
@@ -420,9 +422,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <path d="M13 42v-6c0-7 5-12 11-12s11 5 11 12v6zM2 42v-5c0-5 4-9 9-9 2 0 4 1 6 2M46 42v-5c0-5-4-9-9-9-2 0-4 1-6 2" />
                     </svg>
                     <strong>
-                      {is2copListing ? "Non-quota" : isSfsListing ? tr("Qualification-based", "Basada en requisitos") : `${tr("Limited", "Limitada")} ${countyShort}`}
+                      {is2copListing ? tr("Non-quota", "Sin cupo") : isSfsListing ? tr("Qualification-based", "Basada en requisitos") : `${tr("Limited", "Limitada")} ${countyShort}`}
                       <br />
-                      {is2copListing ? "license series" : isSfsListing ? tr("not quota inventory", "no es inventario de cupo") : tr("County quota supply", "Oferta de cupos del condado")}
+                      {is2copListing ? tr("license series", "serie de licencia") : isSfsListing ? tr("not quota inventory", "no es inventario de cupo") : tr("County quota supply", "Oferta de cupos del condado")}
                     </strong>
                     {isSfsListing ? (
                       <Link
@@ -483,8 +485,8 @@ export default function FeaturedThirdPartyBusinessListingPage({
               ) : null}
 
               <div className="marketplace-listing-note">
-                <strong>{config.sellerDirect ? "Direct seller disclosure" : tr("Third-party broker disclosure", "Divulgación sobre corredor externo")}</strong>
-                {config.sellerDirect ? <p>This business is offered directly by {config.broker.name}. Florida Liquor License Market provides marketplace exposure and is not acting as the seller’s broker or transaction representative. Availability, package terms, license status and transfer requirements should be confirmed directly with the seller.</p> : <p>
+                <strong>{config.sellerDirect ? tr("Direct seller disclosure", "Divulgación de venta directa") : tr("Third-party broker disclosure", "Divulgación sobre corredor externo")}</strong>
+                {config.sellerDirect ? <p>{tr(`This business is offered directly by ${config.broker.name}. Florida Liquor License Market provides marketplace exposure and is not acting as the seller’s broker or transaction representative. Availability, package terms, license status and transfer requirements should be confirmed directly with the seller.`, `Este negocio es ofrecido directamente por ${config.broker.name}. Florida Liquor License Market proporciona exposición en el mercado y no actúa como corredor ni representante de la vendedora. La disponibilidad, los términos del paquete, el estado de la licencia y los requisitos de cambio de titularidad deben confirmarse directamente con la vendedora.`)}</p> : <p>
                   {tr("This featured listing is represented by", "Este anuncio destacado está representado por")} {config.broker.name} {tr("of", "de")}{" "}
                   <a
                     className={`featured-business-disclosure-link${isWeSellRestaurantsBroker ? " we-sell-restaurants-disclosure-link" : ""}`}
@@ -503,12 +505,12 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 {!isSfsListing ? (
                   <p>
                     {is2copListing
-                      ? `This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, operating with 2COP beer-and-wine privileges. No separate license value is assigned.`
+                      ? tr(`This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, operating with 2COP beer-and-wine privileges. No separate license value is assigned.`, `Esta página individual del mercado representa el restaurante de ${config.county} identificado como ${config.listingReference}, que opera con una licencia 2COP de cerveza y vino. No se asigna un valor separado a la licencia.`)
                       : `This individual marketplace page represents the ${config.county} ${shortLicenseType} liquor-license interest identified as ${config.listingReference}. The displayed license asking price is ${config.askingPrice}.`}
                   </p>
                 ) : null}
                 <p>
-                  <strong className={isSfsListing ? "featured-business-sfs-lead" : undefined}>{is2copListing ? "Business & 2COP Beer & Wine License:" : isSfsListing ? tr("Business & 4COP SFS / SRX Full-Liquor License:", "Negocio y licencia completa de bebidas alcohólicas 4COP SFS / SRX:") : tr("Business purchase required:", "Compra del negocio requerida:")}</strong>{is2copListing ? " the seller describes beer-and-wine privileges with the operating " : isSfsListing ? tr(" the license is tied to the qualifying restaurant operation and licensed premises associated with the ", " la licencia está vinculada a la operación del restaurante que cumple los requisitos y al local autorizado asociado con el ") : tr(" the license is being offered only in connection with the acquisition of the associated ", " la licencia se ofrece únicamente junto con la adquisición del negocio asociado ")}
+                  <strong className={isSfsListing ? "featured-business-sfs-lead" : undefined}>{is2copListing ? tr("Business & 2COP Beer & Wine License:", "Negocio y licencia 2COP de cerveza y vino:") : isSfsListing ? tr("Business & 4COP SFS / SRX Full-Liquor License:", "Negocio y licencia completa de bebidas alcohólicas 4COP SFS / SRX:") : tr("Business purchase required:", "Compra del negocio requerida:")}</strong>{is2copListing ? tr(" the seller offers the 2COP beer-and-wine license with the operating ", " la vendedora ofrece la licencia 2COP de cerveza y vino junto con el ") : isSfsListing ? tr(" the license is tied to the qualifying restaurant operation and licensed premises associated with the ", " la licencia está vinculada a la operación del restaurante que cumple los requisitos y al local autorizado asociado con el ") : tr(" the license is being offered only in connection with the acquisition of the associated ", " la licencia se ofrece únicamente junto con la adquisición del negocio asociado ")}
                   {config.businessLabelLinkUrl ? (
                     <a
                       className="featured-business-label-link featured-business-label-link--body"
@@ -521,7 +523,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   ) : (
                     config.businessLabel
                   )}
-                  . {is2copListing ? "License status and any ownership-change requirements must be verified with DBPR; the license is not priced as a separate quota asset." : isSfsListing
+                  . {is2copListing ? tr("License status and any ownership-change requirements must be verified with DBPR; the license is not priced as a separate quota asset.", "El estado de la licencia y cualquier requisito de cambio de titularidad deben verificarse con el DBPR; la licencia no tiene un precio separado como activo de cupo.") : isSfsListing
                     ? tr("It is not an independently transferable quota license.", "No es una licencia de cupo transferible de forma independiente.")
                     : "The liquor license is not currently offered as a standalone sale."}
                 </p>
@@ -543,7 +545,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   series through a DBPR-approved change of license series,
                   subject to applicable premises, zoning, applicant, and
                   regulatory requirements.
-                </p> : is2copListing ? <p>Florida&apos;s <Link href="/license-types/2cop-beer-wine">2COP beer-and-wine license</Link> is a non-quota series for beer and wine privileges. It does not authorize spirits. Confirm the license record, licensed premises, buyer qualifications, and transaction requirements with DBPR.</p> : <p>
+                </p> : is2copListing ? <p>{tr(<>Florida&apos;s <Link href="/license-types/2cop-beer-wine">2COP beer-and-wine license</Link> is a non-quota series for beer and wine privileges. It does not authorize spirits. Confirm the license record, licensed premises, buyer qualifications, and transaction requirements with DBPR.</>, <>La <Link href="/license-types/2cop-beer-wine">licencia 2COP de cerveza y vino</Link> de Florida es una serie sin cupo para cerveza y vino. No autoriza bebidas destiladas. Confirme el registro de la licencia, el local autorizado, los requisitos del comprador y los requisitos de la transacción con el DBPR.</>)}</p> : <p>
                   {isSpanish ? (<>Una licencia completa de bebidas alcohólicas <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> se emite para un restaurante que cumple los requisitos y permanece vinculada a la operación de servicio de alimentos que cumple los requisitos, el local aprobado, la aprobación de cambios de propiedad o entidad y el cumplimiento continuo de los requisitos aplicables del DBPR, incluida la prueba de ventas de alimentos y bebidas no alcohólicas.</>) : (<>A <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> full-liquor license is issued to a qualifying restaurant and remains dependent on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.</>)}
                 </p>}
                 {isSfsListing && config.annualLicenseFee ? (
@@ -611,7 +613,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     {tr("Business + license package", "Paquete de negocio + licencia")}: {config.packagePrice}.
                   </strong>{" "}
                   {is2copListing
-                    ? "The beer-and-wine privilege is not a quota license. FLLM assigns it no separate license value. The business asking price excludes the separately advertised real estate and inventory unless the seller confirms otherwise."
+                    ? tr("The 2COP beer-and-wine license is not a quota license. FLLM assigns it no separate license value. The business asking price excludes the separately advertised real estate and inventory unless the seller confirms otherwise.", "La licencia 2COP de cerveza y vino no es una licencia de cupo. FLLM no le asigna un valor separado. El precio solicitado del negocio excluye el inmueble y el inventario anunciados por separado, salvo confirmación distinta de la vendedora.")
                     : isSfsListing
                     ? (isSpanish ? `El precio solicitado de ${config.packagePrice} corresponde al paquete del negocio y la licencia completa de bebidas alcohólicas ${shortLicenseType}. Una licencia de bebidas alcohólicas ${shortLicenseType} no tiene valor transferible independiente y FLLM no le asigna un valor separado.` : `The ${config.packagePrice} asking price applies to the business and ${shortLicenseType} full-liquor license package. A ${shortLicenseType} liquor license has no independent transferable value and FLLM assigns no separate value to it.`)
                     : `The ${shortLicenseType} liquor license is displayed on FLLM at ${config.askingPrice}. Purchase of the associated business is required, and the license is not currently being offered separately.`}
@@ -713,13 +715,13 @@ export default function FeaturedThirdPartyBusinessListingPage({
 
               {isNonQuotaBusiness ? (
                 <section className="marketplace-listing-section">
-                  <h2>{is2copListing ? "2COP Beer & Wine License Resources" : tr("4COP SFS / SRX License Resources", "Recursos sobre licencias 4COP SFS / SRX")}</h2>
+                  <h2>{is2copListing ? tr("2COP Beer & Wine License Resources", "Recursos sobre la licencia 2COP de cerveza y vino") : tr("4COP SFS / SRX License Resources", "Recursos sobre licencias 4COP SFS / SRX")}</h2>
                   <p>
-                    {is2copListing ? "Review Florida beer-and-wine licensing and the steps to check a restaurant business acquisition." : tr("Review how Florida’s qualification-based 4COP SFS / SRX full-liquor license works, how it differs from a transferable 4COP quota license, and the FLLM resources available for transaction planning.", "Conozca cómo funciona la licencia completa de bebidas alcohólicas 4COP SFS / SRX de Florida basada en requisitos, en qué se diferencia de una licencia de cupo 4COP transferible y qué recursos ofrece FLLM para planificar la transacción.")}
+                    {is2copListing ? tr("Review Florida beer-and-wine licensing and the steps to evaluate a restaurant business acquisition.", "Revise las licencias de cerveza y vino de Florida y los pasos para evaluar la adquisición de un restaurante.") : tr("Review how Florida’s qualification-based 4COP SFS / SRX full-liquor license works, how it differs from a transferable 4COP quota license, and the FLLM resources available for transaction planning.", "Conozca cómo funciona la licencia completa de bebidas alcohólicas 4COP SFS / SRX de Florida basada en requisitos, en qué se diferencia de una licencia de cupo 4COP transferible y qué recursos ofrece FLLM para planificar la transacción.")}
                   </p>
                   <p>
                     <Link href={is2copListing ? "/license-types/2cop-beer-wine" : "/license-types/4cop-sfs-restaurant"}>
-                      {is2copListing ? "Learn about 2COP beer-and-wine licenses →" : tr("Learn about 4COP SFS / SRX full-liquor licenses →", "Conozca las licencias completas de bebidas alcohólicas 4COP SFS / SRX →")}
+                      {is2copListing ? tr("Learn about 2COP beer-and-wine licenses →", "Conozca las licencias 2COP de cerveza y vino →") : tr("Learn about 4COP SFS / SRX full-liquor licenses →", "Conozca las licencias completas de bebidas alcohólicas 4COP SFS / SRX →")}
                     </Link>
                   </p>
                   {!is2copListing ? <p>
