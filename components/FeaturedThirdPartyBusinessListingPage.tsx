@@ -740,7 +740,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
               className={`marketplace-listing-aside marketplace-listing-aside-broker${isNonQuotaBusiness ? " marketplace-listing-aside-sfs" : ""}`}
             >
               <div className="marketplace-listing-action-card">
-                <span>{config.sellerDirect ? "Direct Seller" : tr("Independent Listing Broker", "Corredor independiente del anuncio")}</span>
+                <span>{config.sellerDirect ? tr("Direct Seller", "Vendedor directo") : tr("Independent Listing Broker", "Corredor independiente del anuncio")}</span>
                 <div className="marketplace-listing-broker-profile">
                   <h2>{config.broker.name}</h2>
                   {config.broker.photo ? (
@@ -796,7 +796,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   aria-label={`Call ${config.sellerDirect ? "seller" : "listing broker"} ${config.broker.name} at ${config.broker.phone}`}
                 >
                   <span className="featured-business-call-broker-label">
-                    {config.sellerDirect ? `Call Seller · ${config.broker.phone}` : tr("Call Listing Broker", "Llamar al corredor")}
+                    {config.sellerDirect ? `${tr("Call Seller", "Llamar al vendedor")} · ${config.broker.phone}` : tr("Call Listing Broker", "Llamar al corredor")}
                   </span>
                   <span
                     className="featured-business-call-broker-phone"
@@ -811,7 +811,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {config.sellerDirect ? "View Original Seller Advertisement →" : tr("Visit Listing Broker Website →", "Visitar el sitio web del corredor →")}
+                  {config.sellerDirect ? tr("View Original Seller Advertisement →", "Ver el anuncio original de la vendedora →") : tr("Visit Listing Broker Website →", "Visitar el sitio web del corredor →")}
                 </a>
                 {!config.approvalPreview ? <ListingBrokerInquiryForm
                   listingReference={config.listingReference}
@@ -899,7 +899,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   aria-label={`Call ${config.sellerDirect ? "seller" : "listing broker"} ${config.broker.name} at ${config.broker.phone}`}
                 >
                   <span className="marketplace-listing-sticky-contact-call-label">
-                    {config.sellerDirect ? `Call Seller · ${config.broker.phone}` : tr("Call Listing Broker", "Llamar al corredor")}
+                    {config.sellerDirect ? `${tr("Call Seller", "Llamar al vendedor")} · ${config.broker.phone}` : tr("Call Listing Broker", "Llamar al corredor")}
                   </span>
                   <span
                     className="marketplace-listing-sticky-contact-call-phone"
