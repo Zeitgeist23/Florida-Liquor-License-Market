@@ -158,7 +158,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "The stated inventory amount is excluded from the advertised business asking price and should be verified before closing.",
     },
     {
-      label: "Real Estate Value",
+      label: "Real Estate — Offered Separately",
       value: "$1,800,000",
       description:
         "The stated value of the separately offered real estate. It is not included in the $599,999 business asking price and requires independent terms, valuation and due diligence.",
