@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
-import FeaturedThirdPartyBusinessListingPage, {
-  type FeaturedThirdPartyBusinessListingConfig,
-} from "@/components/FeaturedThirdPartyBusinessListingPage";
+import FeaturedThirdPartyBusinessListingPage from "@/components/FeaturedThirdPartyBusinessListingPage";
+import {
+  defineOfficial4CopSfsBusinessListing,
+} from "@/lib/listings/official4CopSfsBusinessListing";
 
 import "@/app/listings/listings-premium.css";
 import "@/app/listings/listings-header-position.css";
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
   },
 };
 
-const config: FeaturedThirdPartyBusinessListingConfig = {
+const config = defineOfficial4CopSfsBusinessListing({
   listingReference: "FLLM-ZOBERG",
   canonicalPath,
   locale: "en",
@@ -77,8 +78,6 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   askingPriceNumber: 0,
   packagePrice: "$1,200,000",
   packagePriceNumber: 1_200_000,
-  licenseType: "4COP SFS/SRX",
-  licenseClass: "sfs",
   businessLabel: "Mexican-Latin restaurant and entertainment venue",
   businessLabelLinkUrl: sourceListingUrl,
   heroSummary:
@@ -186,7 +185,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "the business name, exact premises, financial records, lease documents and licensing records may require buyer qualification and direct confirmation through the listing broker.",
   countyContext:
     "Miami-Dade County is Florida's largest international hospitality market, combining global tourism, finance, trade, culture, hotels, restaurants, nightlife, entertainment, and dense year-round population.",
-};
+});
 
 export default function BrianZobergFeaturedListingPage() {
   return <FeaturedThirdPartyBusinessListingPage config={config} />;
