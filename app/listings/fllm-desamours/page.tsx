@@ -29,24 +29,24 @@ const canonicalUrl = `${siteUrl}${canonicalPath}`;
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Jensen Beach Bar + 4COP Quota License | $650,000",
+  title: "Jensen Beach Bar for Sale + 4COP Liquor License | Martin County",
   description:
-    "Jensen Beach bar and Martin County 4COP quota license business package offered at $650,000. The allocated license value is approximately $600,000 and the license is not offered separately.",
+    "Jensen Beach bar business for sale in Martin County, Florida, offered as a $650,000 asset-sale package with a 4COP quota liquor license. Approximate license value is $600,000; the license is not offered separately.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Jensen Beach Bar + 4COP Quota License | $650,000",
+    title: "Jensen Beach Bar for Sale + 4COP Liquor License | Martin County",
     description:
-      "Featured third-party broker listing. Business purchase required; Jensen Beach bar and Martin County 4COP quota license asset-sale package offered at $650,000 total.",
+      "Featured Martin County, Florida bar business for sale in Jensen Beach with a 4COP quota liquor license, offered as a $650,000 asset-sale package. The license is not offered separately.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jensen Beach Bar + 4COP Quota License | $650,000",
+    title: "Jensen Beach Bar for Sale + 4COP Liquor License | Martin County",
     description:
-      "Featured third-party broker listing for a Jensen Beach business and Martin County 4COP quota-license package represented by JR DesAmours.",
+      "Jensen Beach bar business for sale in Martin County, Florida, with a 4COP quota liquor license, represented by JR DesAmours of Business Exit Advisors.",
   },
 };
 
@@ -65,7 +65,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   businessLabel: "Iconic Jensen Beach bar",
   businessLabelLinkUrl: "https://myexitplan.com/listing/iconic-jensen-beach-bar-for-sale-w-4-cop-license/",
   heroSummary:
-    "Martin County 4COP quota liquor license available exclusively with the acquisition of the associated long-established Jensen Beach bar through an asset-sale transaction. The license is not currently offered separately.",
+    "Jensen Beach bar business for sale in Martin County, Florida, offered with a 4COP quota liquor license through an asset-sale transaction. The long-established business and license are offered together; the license is not currently offered separately.",
   broker: {
     name: "JR DesAmours",
     brokerage: "Business Exit Advisors",
