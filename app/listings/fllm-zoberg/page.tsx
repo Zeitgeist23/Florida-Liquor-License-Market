@@ -112,7 +112,7 @@ const config = defineOfficial4CopSfsBusinessListing({
     },
     {
       label: "Cash Flow (SDE)",
-      value: "$388,520",
+      value: "$362,000",
       description:
         "SDE means Seller's Discretionary Earnings: business earnings adjusted to reflect the economic benefit available to one owner-operator before items such as owner compensation, interest, taxes, depreciation, amortization and certain discretionary or nonrecurring expenses.",
     },
