@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
-import FeaturedThirdPartyBusinessListingPage, {
-  type FeaturedThirdPartyBusinessListingConfig,
-} from "@/components/FeaturedThirdPartyBusinessListingPage";
+import FeaturedThirdPartyBusinessListingPage from "@/components/FeaturedThirdPartyBusinessListingPage";
+import {
+  defineOfficial4CopSfsBusinessListing,
+} from "@/lib/listings/official4CopSfsBusinessListing";
 
 import "@/app/listings/listings-premium.css";
 import "@/app/listings/listings-header-position.css";
@@ -62,7 +63,7 @@ export const metadata: Metadata = {
   },
 };
 
-const config: FeaturedThirdPartyBusinessListingConfig = {
+const config = defineOfficial4CopSfsBusinessListing({
   listingReference: "FLLM-ZOBERG",
   canonicalPath,
   locale: "es",
@@ -80,8 +81,6 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   askingPriceNumber: 0,
   packagePrice: "$1,200,000",
   packagePriceNumber: 1_200_000,
-  licenseType: "4COP SFS/SRX",
-  licenseClass: "sfs",
   businessLabel: "restaurante mexicano-latino y centro de entretenimiento",
   businessLabelLinkUrl: sourceListingUrl,
   heroSummary:
@@ -189,7 +188,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "el nombre del negocio, el local exacto, los registros financieros, los documentos de arrendamiento y los registros de licencias pueden requerir que el comprador cumpla ciertos requisitos y los confirme directamente con el corredor del anuncio.",
   countyContext:
     "Miami-Dade County es el mayor mercado internacional de hospitalidad de Florida y combina turismo global, finanzas, comercio, cultura, hoteles, restaurantes, vida nocturna, entretenimiento y una población densa durante todo el año.",
-};
+});
 
 export default function BrianZobergSpanishFeaturedListingPage() {
   return <FeaturedThirdPartyBusinessListingPage config={config} />;
