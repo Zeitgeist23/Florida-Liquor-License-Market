@@ -586,6 +586,12 @@
   margin-top: 109px;
 }
 
+/* Slightly reduce the direct-seller inquiry button text on Marianella's 2COP preview. */
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-KOPP"]
+  .marketplace-listing-broker-inquiry button {
+  font-size: 15px;
+}
+
 /* Keep Marianella's seller preview aligned with its shorter 2COP introduction. */
 @media (min-width: 901px) {
   .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-KOPP"]
