@@ -95,9 +95,9 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     listingUrl: sourceListingUrl,
   },
   additionalSellerIntro:
-    "Oportunidad de adquirir como negocio llave en mano un restaurante peruano-mediterráneo establecido en Miami-Dade County.",
+    "Oportunidad de adquirir un restaurante peruano-mediterráneo de categoría con una clientela leal, un ambiente refinado y más de 19 años de historial operativo en un centro comercial de alto tráfico en Miami.",
   packageIncludes:
-    "La oferta incluye el restaurante en operación, su licencia 2COP de cerveza y vino, y aproximadamente $500,000 en muebles, instalaciones y equipo. Aproximadamente $40,000 de inventario y el inmueble ofrecido por separado no están incluidos en el precio anunciado del negocio. El uso de la licencia y los cambios de titularidad permanecen sujetos a la aprobación del DBPR y al local aprobado.",
+    "La oferta comercial de $599,999 incluye el restaurante en operación, su licencia 2COP activa de cerveza y vino, y aproximadamente $500,000 en muebles, instalaciones y equipo. Aproximadamente $40,000 de inventario están excluidos. El inmueble tiene un valor indicado por separado de $1,800,000 y no está incluido en el precio solicitado del negocio. El uso de la licencia y los cambios de titularidad permanecen sujetos a la aprobación del DBPR y al local aprobado.",
   businessMetrics: [
     {
       label: "Precio de venta del negocio",
@@ -161,10 +161,53 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "El inventario indicado no está incluido en el precio solicitado del negocio y debe verificarse antes del cierre.",
     },
     {
-      label: "Bien inmueble",
-      value: "Ofrecido por separado",
+      label: "Valor del inmueble",
+      value: "$1,800,000",
       description:
-        "El negocio del restaurante puede adquirirse sin comprar el inmueble. Cualquier transacción inmobiliaria separada requiere términos y diligencia debida independientes.",
+        "El valor indicado del inmueble ofrecido por separado. No está incluido en el precio solicitado de $599,999 por el negocio y requiere términos, valoración y diligencia debida independientes.",
+    },
+    {
+      label: "Alquiler mensual anunciado",
+      value: "$9,500++",
+      description:
+        "El anuncio de origen indica un alquiler mensual de $9,500 más cargos adicionales. Los compradores deben confirmar la estructura del arrendamiento, los gastos transferidos, el plazo, las opciones y si se contempla un arrendamiento o una compra separada del inmueble.",
+    },
+    {
+      label: "Personal",
+      value: "8 trabajadores",
+      description:
+        "El personal indicado consiste en tres empleados a tiempo completo, cuatro a tiempo parcial y un contratista.",
+    },
+    {
+      label: "Renovación de 2024",
+      value: "Casi $200,000",
+      description:
+        "El anuncio de origen indica que el restaurante fue completamente renovado en 2024, incluyendo equipo de cocina, unidades de aire acondicionado, tapicería de bancos, pintura y arte peruano.",
+    },
+    {
+      label: "Ubicación",
+      value: "Centro comercial de alto tráfico",
+      description:
+        "El restaurante se anuncia en una ubicación estratégica dentro de un centro comercial rodeado de negocios establecidos y vecindarios residenciales.",
+    },
+    {
+      label: "Demografía del área",
+      value: "$104,293 de ingreso familiar promedio",
+      description:
+        "El anuncio de origen indica esta cifra de ingreso familiar promedio para el mercado circundante. Los compradores deben verificar independientemente los datos demográficos actuales.",
+    },
+    {
+      label: "Estado de la licencia",
+      value: "Licencia de cerveza y vino activa",
+      description:
+        "El anuncio de origen indica que la licencia de cerveza y vino del restaurante está vigente. Los compradores deben verificar directamente con el DBPR el estado y los requisitos de transferencia o cambio de titularidad.",
+      href: "/license-types/2cop-beer-wine",
+    },
+    {
+      label: "Planes para licencia completa",
+      value: "Planos arquitectónicos preparados",
+      description:
+        "La vendedora indica que se prepararon planos arquitectónicos para una posible solicitud de licencia completa. Cualquier cambio permanece sujeto a disponibilidad, calificación del local, requisitos locales y aprobación regulatoria.",
     },
     {
       label: "Tipo de transacción",
@@ -175,10 +218,10 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   ],
   opportunitiesHeading: "Aspectos destacados de la oferta",
   opportunities: [
-    "Adquirir un restaurante peruano-mediterráneo establecido y en operación desde 2007.",
-    "Continuar el servicio de cerveza y vino bajo la licencia 2COP incluida, sujeto a la aprobación del DBPR y a los requisitos del local.",
-    "Adquirir aproximadamente $500,000 en muebles, instalaciones y equipo indicados junto con el negocio.",
-    "Considerar el financiamiento anunciado por la vendedora y la posible ampliación de asientos, sujeto a términos finales y aprobaciones aplicables.",
+    "Adquirir un restaurante peruano-mediterráneo llave en mano, establecido en 2007, con clientela leal, ambiente refinado, sistemas optimizados y gastos generales manejables.",
+    "Operar desde un restaurante totalmente equipado de 2,725 pies cuadrados, con 80 asientos permitidos, posible ampliación a 120, licencia 2COP activa y aproximadamente $500,000 en FF&E indicados.",
+    "Explorar servicios de catering, eventos privados, productos minoristas, desarrollo de marca y horarios ampliados; también se indica que hay planos preparados para una posible solicitud de licencia completa, sujeta a todas las aprobaciones.",
+    "Considerar el financiamiento anunciado de hasta el 40%, dos semanas de apoyo de transición de la chef-propietaria y el inmueble ofrecido por separado con valor indicado de $1,800,000.",
   ],
   transitionText:
     "La vendedora ofrece aproximadamente dos semanas de capacitación de transición, sujeto al acuerdo final con el comprador.",
