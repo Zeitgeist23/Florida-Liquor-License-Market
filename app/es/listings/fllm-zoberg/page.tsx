@@ -115,7 +115,7 @@ const config = defineOfficial4CopSfsBusinessListing({
     },
     {
       label: "Flujo de caja (SDE)",
-      value: "$388,520",
+      value: "$362,000",
       description:
         "SDE significa ganancias discrecionales del vendedor: ganancias del negocio ajustadas para reflejar el beneficio económico disponible para un propietario-operador antes de partidas como compensación del propietario, intereses, impuestos, depreciación, amortización y ciertos gastos discrecionales o no recurrentes.",
     },
