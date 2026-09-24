@@ -580,3 +580,22 @@
 .business-quota-card-heading-stack .business-quota-category--title {
   align-self: auto;
 }
+
+
+/* CLICKABILITY FIX — keep decorative county map from intercepting the business-package CTA. */
+.business-quota-card-body {
+  position: relative;
+  z-index: 3;
+}
+
+.business-quota-card-map,
+.business-quota-card-map img {
+  pointer-events: none;
+}
+
+.business-quota-card-action {
+  position: relative;
+  z-index: 6;
+  pointer-events: auto;
+  cursor: pointer;
+}
