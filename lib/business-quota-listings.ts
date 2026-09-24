@@ -210,7 +210,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerName: "Brian Zoberg",
     brokerage: "Suncoast Business Consultants",
     featured: true,
-    publicationStatus: "preview",
+    publicationStatus: "published",
     classification: "business_sfs",
   },
   {
