@@ -92,9 +92,9 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     listingUrl: sourceListingUrl,
   },
   additionalSellerIntro:
-    "Opportunity to acquire an established Peruvian-Mediterranean restaurant in Miami-Dade County as a turnkey operating business.",
+    "Opportunity to acquire an established upscale Peruvian-Mediterranean restaurant with a loyal customer base, refined dining atmosphere and more than 19 years of operating history in a high-traffic Miami shopping-center location.",
   packageIncludes:
-    "The offering includes the operating restaurant business, its 2COP beer-and-wine license, and approximately $500,000 of furniture, fixtures and equipment. Approximately $40,000 of inventory and the separately offered real estate are excluded from the advertised business price. License use and ownership changes remain subject to DBPR approval and the approved premises.",
+    "The $599,999 business offering includes the operating restaurant, its active 2COP beer-and-wine license, and approximately $500,000 of furniture, fixtures and equipment. Approximately $40,000 of inventory is excluded. The real estate has a separately stated value of $1,800,000 and is not included in the business asking price. License use and ownership changes remain subject to DBPR approval and the approved premises.",
   businessMetrics: [
     {
       label: "Business Asking Price",
@@ -158,10 +158,53 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "The stated inventory amount is excluded from the advertised business asking price and should be verified before closing.",
     },
     {
-      label: "Real Estate",
-      value: "Offered separately",
+      label: "Real Estate Value",
+      value: "$1,800,000",
       description:
-        "The restaurant business may be purchased without purchasing the real estate. Any separate real-estate transaction requires independent terms and due diligence.",
+        "The stated value of the separately offered real estate. It is not included in the $599,999 business asking price and requires independent terms, valuation and due diligence.",
+    },
+    {
+      label: "Advertised Monthly Rent",
+      value: "$9,500++",
+      description:
+        "The source listing advertises monthly rent of $9,500 plus additional charges. Buyers should confirm the lease structure, pass-through expenses, term, options and whether a lease or separate real-estate purchase is contemplated.",
+    },
+    {
+      label: "Employees",
+      value: "8 workers",
+      description:
+        "The stated staffing consists of three full-time employees, four part-time employees and one contractor.",
+    },
+    {
+      label: "2024 Renovation",
+      value: "Nearly $200,000",
+      description:
+        "The source listing states that the restaurant was completely renovated in 2024, including kitchen equipment, air-conditioning units, booth upholstery, paint and Peruvian artwork.",
+    },
+    {
+      label: "Location",
+      value: "High-traffic shopping center",
+      description:
+        "The restaurant is advertised in a strategic shopping-center location surrounded by established businesses and residential neighborhoods.",
+    },
+    {
+      label: "Area Demographics",
+      value: "$104,293 average household income",
+      description:
+        "The source listing states this average household-income figure for the surrounding market area. Buyers should independently verify current demographic data.",
+    },
+    {
+      label: "License Status",
+      value: "Beer & wine license active",
+      description:
+        "The source listing states that the restaurant's beer-and-wine license is current. Buyers should verify license status and transfer or ownership-change requirements directly with DBPR.",
+      href: "/license-types/2cop-beer-wine",
+    },
+    {
+      label: "Full-Liquor Plans",
+      value: "Architectural drawings prepared",
+      description:
+        "The seller states that architectural drawings have been prepared for a possible full-liquor application. Any upgrade remains subject to license availability, premises qualification, local requirements and regulatory approval.",
     },
     {
       label: "Transaction Type",
@@ -172,10 +215,10 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   ],
   opportunitiesHeading: "Offering Highlights",
   opportunities: [
-    "Acquire an established Peruvian-Mediterranean restaurant operating since 2007.",
-    "Continue beer-and-wine service under the included 2COP license, subject to DBPR approval and premises requirements.",
-    "Acquire approximately $500,000 of stated furniture, fixtures and equipment with the operating business.",
-    "Consider advertised seller financing and potential seating expansion, subject to final terms and applicable approvals.",
+    "Acquire a turnkey Peruvian-Mediterranean restaurant established in 2007 with a loyal customer base, refined dining atmosphere, streamlined systems and manageable overhead.",
+    "Operate from a fully equipped 2,725-square-foot restaurant with 80 permitted seats, potential expansion to 120, an active 2COP beer-and-wine license and approximately $500,000 of stated FF&E.",
+    "Explore catering, private events, retail products, branding and extended operating hours; architectural drawings are also stated to be prepared for a possible full-liquor application, subject to all approvals.",
+    "Consider advertised seller financing of up to 40%, two weeks of chef-owner transition support, and the separately offered real estate stated at $1,800,000.",
   ],
   transitionText:
     "The seller offers approximately two weeks of transition training, subject to the final agreement with the buyer.",
