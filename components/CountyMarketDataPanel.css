@@ -216,3 +216,58 @@
   .county-city-photo-card figcaption small{font-size:7px}
   .county-city-photo-card figcaption b{font-size:10px}
 }
+
+
+/* Fill the Primary Local Markets panel with four equal square city cards and larger stats. */
+@media (min-width:981px){
+  .county-data-context-grid .county-city-photo-grid{
+    width:100%;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:12px!important;
+    justify-content:stretch!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card{
+    width:auto!important;
+    aspect-ratio:1/1!important;
+    display:grid!important;
+    grid-template-rows:auto minmax(0,1fr) auto;
+  }
+
+  .county-data-context-grid .county-city-photo-card img{
+    width:100%!important;
+    height:100%!important;
+    min-height:0;
+    aspect-ratio:auto!important;
+    object-fit:cover!important;
+  }
+
+  .county-data-context-grid .county-city-photo-name{
+    padding:8px 9px 7px;
+    font-size:17px;
+    line-height:1.05;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption{
+    padding:9px 10px 10px!important;
+    gap:7px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption small{
+    font-size:9px!important;
+    line-height:1.15!important;
+    letter-spacing:.02em!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption b{
+    font-size:13px!important;
+    line-height:1.05!important;
+  }
+
+  .county-data-context-grid .county-city-photo-summary{
+    margin-top:12px!important;
+    max-width:none!important;
+    font-size:11px!important;
+    line-height:1.55!important;
+  }
+}
