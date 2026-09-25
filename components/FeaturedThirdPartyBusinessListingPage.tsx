@@ -99,7 +99,13 @@ export default function FeaturedThirdPartyBusinessListingPage({
 }) {
   const isSpanish = config.locale === "es";
   const tr = (english: string, spanish: string) => isSpanish ? spanish : english;
-  const statusLabel = config.approvalPreview ? tr("Seller review preview", "Vista previa para revisión de la vendedora") : config.sellerDirect ? tr("Available / Seller confirmation required", "Disponible / Confirmación de la vendedora requerida") : tr("Available / Broker confirmation required", "Disponible / Confirmación del corredor requerida");
+  const statusLabel = config.approvalPreview
+    ? config.sellerDirect
+      ? tr("Seller review preview", "Vista previa para revisión de la vendedora")
+      : tr("Broker review preview", "Vista previa para revisión del corredor")
+    : config.sellerDirect
+      ? tr("Available / Seller confirmation required", "Disponible / Confirmación de la vendedora requerida")
+      : tr("Available / Broker confirmation required", "Disponible / Confirmación del corredor requerida");
   const statusCardLabel = config.approvalPreview ? tr("Preview", "Vista previa") : tr("Available", "Disponible");
   const inquiryHref = buildInquiryHref(config);
   const shortLicenseType =
@@ -191,7 +197,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   textTransform: "uppercase",
                 }}
               >
-                {config.approvalPreview ? "Seller Review Preview" : tr("Featured Listing", "Anuncio destacado")}
+                {config.approvalPreview
+                  ? config.sellerDirect
+                    ? tr("Seller Review Preview", "Vista previa del vendedor")
+                    : tr("Broker Review Preview", "Vista previa del corredor")
+                  : tr("Featured Listing", "Anuncio destacado")}
               </span>
               {config.languageAlternates ? (
                 <nav className="featured-business-language-switch" aria-label={tr("Listing language", "Idioma del anuncio")}>
