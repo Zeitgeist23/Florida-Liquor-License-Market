@@ -161,6 +161,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
             eyebrow="Current Restaurant Inventory"
             title="Florida restaurant businesses currently published on FLLM"
           />
+          {/* Restaurant inventory explanatory copy intentionally omitted. */}
 
           {restaurantListings.length ? (
             <div className="business-quota-grid">
