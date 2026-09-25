@@ -271,3 +271,53 @@
     line-height:1.55!important;
   }
 }
+
+
+/* Equalize all four Primary Local Markets cards and photo viewports exactly. */
+@media (min-width:981px){
+  .county-data-context-grid .county-city-photo-grid{
+    grid-auto-rows:1fr;
+  }
+
+  .county-data-context-grid .county-city-photo-card{
+    min-width:0!important;
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:1/1!important;
+    grid-template-rows:40px minmax(0,1fr) 68px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-name{
+    box-sizing:border-box;
+    width:100%;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 7px!important;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .county-data-context-grid .county-city-photo-card img{
+    display:block!important;
+    box-sizing:border-box;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    max-width:none!important;
+    max-height:none!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption{
+    box-sizing:border-box;
+    width:100%;
+    height:68px;
+    min-height:68px;
+    overflow:hidden;
+  }
+}
