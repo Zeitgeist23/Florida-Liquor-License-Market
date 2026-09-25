@@ -3,7 +3,7 @@ import { cookies, headers as requestHeaders } from "next/headers";
 import { NextResponse } from "next/server";
 
 import {
-  getListingViewCount,
+  getListingUniqueVisitorCount,
   recordListingView,
 } from "@/lib/listing-view-store";
 
@@ -35,7 +35,7 @@ export async function GET(
   const ref = normalizeRef(rawRef);
   if (!ref) return NextResponse.json({ count: 0 }, { status: 400 });
 
-  return jsonResponse(await getListingViewCount(ref));
+  return jsonResponse(await getListingUniqueVisitorCount(ref));
 }
 
 export async function POST(
@@ -50,7 +50,7 @@ export async function POST(
   const userAgent = headers.get("user-agent") ?? "";
 
   if (!userAgent || BOT_PATTERN.test(userAgent)) {
-    return jsonResponse(await getListingViewCount(ref));
+    return jsonResponse(await getListingUniqueVisitorCount(ref));
   }
 
   const cookieStore = await cookies();
