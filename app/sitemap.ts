@@ -20,6 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/es/leyes`, lastModified, changeFrequency: "monthly", priority: 0.72, alternates: { languages: { en: `${siteUrl}/resources/florida-liquor-license-laws`, es: `${siteUrl}/es/leyes` } } },
     { url: `${siteUrl}/listings`, lastModified, changeFrequency: "daily", priority: 1 },
     { url: `${siteUrl}/businesses-with-quota-licenses`, lastModified, changeFrequency: "daily", priority: 0.88 },
+    { url: `${siteUrl}/florida-liquor-license-market-platform`, lastModified, changeFrequency: "weekly", priority: 0.91 },
     { url: `${siteUrl}/businesses-with-quota-licenses/bars`, lastModified, changeFrequency: "weekly", priority: 0.86 },
     { url: `${siteUrl}/listings/fllm-antezza`, lastModified, changeFrequency: "daily", priority: 0.86 },
     { url: `${siteUrl}/listings/fllm-desamours`, lastModified, changeFrequency: "daily", priority: 0.86 },
