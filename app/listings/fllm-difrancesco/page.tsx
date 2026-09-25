@@ -97,7 +97,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Opportunity to acquire a turnkey Broward County beachside restaurant and nightclub within walking distance of the beach, positioned for dining, live music, street dancing and nightlife traffic.",
   packageIncludes:
-    "The offering includes the operating restaurant and nightclub business, approximately $15,000 of inventory, approximately $475,000 of furniture, fixtures and equipment, the recently remodeled 3,000-square-foot hospitality premises and the associated transferable quota liquor license. The included license is described as a coveted 4COP / 3PS liquor license valued at nearly half a million dollars. The total business asking price is $1,650,000. Buyers should confirm the exact license series, included assets, lease terms, license allocation and transaction structure directly with the listing broker.",
+    "The offering includes the operating restaurant and nightclub business, approximately $15,000 of inventory, approximately $475,000 of furniture, fixtures and equipment, the recently remodeled 3,000-square-foot hospitality premises and the associated transferable quota liquor license. The included license is a coveted 4COP / 3PS liquor license valued at nearly half a million dollars. The total business asking price is $1,650,000. Buyers should confirm the exact license series, included assets, lease terms, license allocation and transaction structure directly with the listing broker.",
   businessMetrics: [
     {
       label: "Cash Flow (SDE)",
