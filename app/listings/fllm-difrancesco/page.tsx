@@ -121,7 +121,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "Premises",
       value: "3,000 SF",
       description:
-        "The premises are described as an approximately 3,000-square-foot turnkey restaurant operation. Buyers should verify the exact premises size, lease terms, permitted use and occupancy.",
+        "The premises are approximately 3,000 square feet and configured as a turnkey restaurant operation. Buyers should verify the exact premises size, lease terms, permitted use and occupancy.",
     },
     {
       label: "Inventory",
@@ -145,7 +145,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "License",
       value: "4COP / 3PS quota license included",
       description:
-        "A coveted 4COP / 3PS liquor license is included with the business and is described as being valued at nearly half a million dollars. Buyers should confirm the exact current series, quota status, ownership and transferability with the listing broker and DBPR/ABT.",
+        "A coveted 4COP / 3PS liquor license is included with the business and valued at nearly half a million dollars. Buyers should confirm the exact current series, quota status, ownership and transferability with the listing broker and DBPR/ABT.",
       href: "/license-types/4cop-quota",
     },
     {
@@ -186,7 +186,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   confidentialityText:
     "the business name, exact premises, lease documents, financial statements, license records and other sensitive information may require buyer qualification and direct confirmation through the listing broker.",
   sourceDisclosure:
-    "Business, financial, facility, staffing, asset, license-value and other figures have not been independently audited or verified by FLLM. The included license is described as a 4COP / 3PS liquor license valued at nearly half a million dollars; the ABT license number and a precise separate license allocation are not displayed. Buyers should verify the current license series, quota status, ownership, transferability, premises, zoning, lease conditions, financial performance, included assets and all transaction terms directly with Nick DiFrancesco, the seller and appropriate professional advisers.",
+    "Business, financial, facility, staffing, asset, license-value and other figures have not been independently audited or verified by FLLM. The included 4COP / 3PS liquor license is valued at nearly half a million dollars; the ABT license number and a precise separate license allocation are not displayed. Buyers should verify the current license series, quota status, ownership, transferability, premises, zoning, lease conditions, financial performance, included assets and all transaction terms directly with Nick DiFrancesco, the seller and appropriate professional advisers.",
   countyContext:
     "Broward County supports a substantial restaurant, nightlife, hospitality and tourism market across Fort Lauderdale, Hollywood, Pompano Beach, Deerfield Beach and surrounding communities. Quota-license values can vary materially based on supply, seller terms, intended premises, timing and transaction structure.",
 };
