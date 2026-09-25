@@ -923,3 +923,10 @@
     font-size:16px;
   }
 }
+
+
+/* Restaurant hub license-path supporting copy readability. */
+.restaurants-with-liquor-licenses-page #license-paths .fllm-ui-heading-copy{
+  font-size:17px;
+  line-height:1.72;
+}
