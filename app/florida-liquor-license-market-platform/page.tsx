@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 import "../counties/[slug]/county-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -455,17 +456,7 @@ export default function FloridaLiquorLicenseMarketPlatformPage() {
         }
       `}</style>
 
-      <header className="county-header county-shell">
-        <Link className="county-brand" href="/" aria-label="Florida Liquor License Market home">
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-        </Link>
-        <nav aria-label="FLLM platform navigation">
-          <Link href="/listings">Florida Listings</Link>
-          <Link href="/businesses-with-quota-licenses">Businesses</Link>
-          <Link href="/counties">Market Data</Link>
-          <Link className="county-nav-cta" href="/brokers/list-your-license">For Brokers</Link>
-        </nav>
-      </header>
+      <FormsSiteHeader />
 
       <section className="county-hero">
         <div className="county-shell county-hero-grid">
@@ -613,17 +604,6 @@ export default function FloridaLiquorLicenseMarketPlatformPage() {
         </div>
       </section>
 
-      <footer className="county-footer">
-        <div className="county-shell">
-          <span>© Florida Liquor License Market</span>
-          <nav>
-            <Link href="/listings">Licenses</Link>
-            <Link href="/businesses-with-quota-licenses">Businesses</Link>
-            <Link href="/counties">Market Data</Link>
-            <Link href="/contact">Contact</Link>
-          </nav>
-        </div>
-      </footer>
     </main>
   );
 }
