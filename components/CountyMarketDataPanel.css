@@ -321,3 +321,79 @@
     overflow:hidden;
   }
 }
+
+
+/* Rebalance the local-market / regulatory row and give the city imagery more vertical presence. */
+@media (min-width:981px){
+  .county-data-context-grid{
+    grid-template-columns:minmax(0,1.42fr) minmax(330px,.78fr)!important;
+    align-items:stretch!important;
+  }
+
+  .county-data-context-grid > .county-data-local-markets--photos,
+  .county-data-context-grid > aside{
+    height:100%;
+    min-height:390px;
+  }
+
+  .county-data-context-grid > .county-data-local-markets--photos{
+    display:flex;
+    flex-direction:column;
+    padding:22px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-grid{
+    flex:1 0 auto;
+    align-items:stretch;
+    grid-auto-rows:260px!important;
+    gap:13px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card{
+    height:260px!important;
+    min-height:260px!important;
+    aspect-ratio:auto!important;
+    grid-template-rows:42px minmax(0,1fr) 76px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-name{
+    height:42px!important;
+    font-size:18px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption{
+    height:76px!important;
+    min-height:76px!important;
+    padding:10px 11px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption small{
+    font-size:9px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption b{
+    font-size:13px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-summary{
+    margin-top:14px!important;
+    font-size:11px!important;
+    line-height:1.55!important;
+  }
+
+  .county-data-context-grid > aside{
+    display:flex;
+    flex-direction:column;
+    padding:28px!important;
+  }
+
+  .county-data-context-grid > aside h3{
+    margin-top:10px;
+    font-size:28px;
+  }
+
+  .county-data-context-grid > aside p{
+    font-size:13px;
+    line-height:1.72;
+  }
+}
