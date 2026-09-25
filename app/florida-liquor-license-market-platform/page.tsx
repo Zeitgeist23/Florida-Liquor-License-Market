@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import FormsSiteHeader from "@/components/FormsSiteHeader";
+import { FllmPageShell } from "@/components/FllmDesignSystem";
+import "../fllm-official-template.css";
+import "../fllm-design-system.css";
 import "../counties/[slug]/county-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -142,7 +144,7 @@ export default function FloridaLiquorLicenseMarketPlatformPage() {
   ];
 
   return (
-    <main className="county-market-page platform-market-page">
+    <FllmPageShell className="county-market-page platform-market-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
@@ -456,8 +458,6 @@ export default function FloridaLiquorLicenseMarketPlatformPage() {
         }
       `}</style>
 
-      <FormsSiteHeader />
-
       <section className="county-hero">
         <div className="county-shell county-hero-grid">
           <div>
@@ -604,6 +604,6 @@ export default function FloridaLiquorLicenseMarketPlatformPage() {
         </div>
       </section>
 
-    </main>
+    </FllmPageShell>
   );
 }
