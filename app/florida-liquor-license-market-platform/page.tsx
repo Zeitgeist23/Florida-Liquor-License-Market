@@ -144,7 +144,7 @@ export default function FloridaLiquorLicenseMarketPlatformPage() {
   ];
 
   return (
-    <FllmPageShell className="county-market-page platform-market-page">
+    <FllmPageShell className="county-market-page platform-market-page" headerVariant="marketplace">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
