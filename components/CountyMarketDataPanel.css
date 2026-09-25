@@ -126,3 +126,93 @@
     font-size:6px;
   }
 }
+
+
+/* Pinellas city cards: compact generated image tiles with city, population and quota-equivalent stats. */
+.county-city-photo-card{
+  display:flex;
+  flex-direction:column;
+  aspect-ratio:auto!important;
+  overflow:hidden;
+}
+.county-city-photo-card::after{display:none!important}
+.county-city-photo-name{
+  display:block;
+  padding:7px 8px 6px;
+  color:#fff;
+  background:#0b2d4a;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:14px;
+  line-height:1.05;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.county-city-photo-card img{
+  width:100%;
+  aspect-ratio:1/1;
+  height:auto;
+  flex:0 0 auto;
+  object-fit:cover;
+}
+.county-city-photo-card figcaption{
+  position:static!important;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:5px;
+  padding:7px 8px 8px;
+  background:#08243d;
+  pointer-events:auto!important;
+}
+.county-city-photo-card figcaption span{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:6px;
+}
+.county-city-photo-card figcaption small{
+  color:#a9bdca;
+  font-size:7px;
+  font-weight:800;
+  line-height:1.1;
+  text-transform:uppercase;
+  letter-spacing:.025em;
+}
+.county-city-photo-card figcaption b{
+  color:#fff;
+  font-size:10px;
+  line-height:1;
+}
+.county-city-photo-summary{
+  margin-top:9px!important;
+  max-width:760px;
+  color:#b9cbd8!important;
+  font-size:9px!important;
+  line-height:1.45!important;
+}
+@media (min-width:981px){
+  .county-data-context-grid .county-city-photo-grid{
+    grid-template-columns:repeat(4,minmax(105px,128px));
+    justify-content:start;
+    gap:10px;
+  }
+  .county-data-context-grid .county-city-photo-card{
+    width:128px;
+  }
+}
+@media (min-width:681px) and (max-width:980px){
+  .county-city-photo-grid{
+    grid-template-columns:repeat(4,minmax(105px,128px));
+    justify-content:start;
+    gap:9px;
+  }
+}
+@media (max-width:680px){
+  .county-city-photo-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .county-city-photo-name{font-size:13px}
+  .county-city-photo-card figcaption small{font-size:7px}
+  .county-city-photo-card figcaption b{font-size:10px}
+}
