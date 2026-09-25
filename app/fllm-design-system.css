@@ -904,3 +904,10 @@
     font-weight:600 !important;
   }
 }
+
+
+.restaurant-card-cyan-label{
+  display:block;
+  width:100%;
+  text-align:center;
+}
