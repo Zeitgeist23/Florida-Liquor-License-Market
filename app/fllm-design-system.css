@@ -870,3 +870,20 @@
   .platform-market-page .county-hero h1{font-size:42px}
   .platform-market-page .county-hero p{font-size:14px}
 }
+
+
+/* Approved official FLLM gold CTA treatment for v2 pages. */
+.fllm-ui-official-gold-button{
+  border:1px solid #ffbd2e !important;
+  background:linear-gradient(145deg,#f8b72f 0%,#e99a00 58%,#cf7800 100%) !important;
+  box-shadow:inset 0 1px 0 rgba(255,237,182,.55),inset 0 -2px 0 rgba(95,51,0,.28),0 5px 12px rgba(0,0,0,.27) !important;
+  color:#07101a !important;
+}
+.fllm-ui-official-gold-button:hover,
+.fllm-ui-official-gold-button:focus-visible{
+  filter:brightness(1.08);
+  transform:translateY(-2px) scale(1.03);
+  border-color:#ffd66d !important;
+  box-shadow:inset 0 1px 0 rgba(255,237,182,.66),inset 0 -2px 0 rgba(95,51,0,.22),0 9px 18px rgba(0,0,0,.31),0 0 15px rgba(232,160,0,.25) !important;
+  outline:none;
+}
