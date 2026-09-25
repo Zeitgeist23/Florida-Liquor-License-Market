@@ -98,7 +98,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
             bringing both sides of the restaurant market into one place.
           </p>
           <div className="fllm-ui-actions">
-            <Link className="btn btn-gold" href="#restaurant-inventory">View Restaurant Listings</Link>
+            <Link className="btn btn-gold fllm-ui-official-gold-button" href="#restaurant-inventory">View Restaurant Listings</Link>
             <FllmButton href="#license-paths" variant="outline">Compare License Paths</FllmButton>
           </div>
         </div>
@@ -125,7 +125,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
                 represent a separately valued asset within the business transaction.
               </p>
               <div className="fllm-ui-actions">
-                <Link className="btn btn-gold" href="/listings?type=businesses">Browse Quota Business Listings</Link>
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/listings?type=businesses">Browse Quota Business Listings</Link>
                 <FllmButton href="/license-types/4cop-quota" variant="outline">4COP Quota Guide</FllmButton>
               </div>
             </FllmCard>
@@ -136,7 +136,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
                 special food-service framework.
               </p>
               <div className="fllm-ui-actions">
-                <Link className="btn btn-gold" href="/listings?type=businesses-sfs">Browse SFS / SRX Listings</Link>
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/listings?type=businesses-sfs">Browse SFS / SRX Listings</Link>
                 <FllmButton href="/license-types/4cop-sfs-restaurant" variant="outline">SFS / SRX Guide</FllmButton>
               </div>
             </FllmCard>
@@ -147,7 +147,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
                 listings remain separate from quota-license inventory.
               </p>
               <div className="fllm-ui-actions">
-                <Link className="btn btn-gold" href="/listings?type=businesses-2cop">Browse 2COP Listings</Link>
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/listings?type=businesses-2cop">Browse 2COP Listings</Link>
                 <FllmButton href="/license-types/2cop-beer-wine" variant="outline">2COP Guide</FllmButton>
               </div>
             </FllmCard>
@@ -193,7 +193,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
             </p>
           </div>
           <div className="fllm-ui-final-actions">
-            <Link className="btn btn-gold restaurant-primary-gold" href="/brokers/list-your-license">List a Restaurant Opportunity</Link>
+            <Link className="btn btn-gold fllm-ui-official-gold-button" href="/brokers/list-your-license">List a Restaurant Opportunity</Link>
             <FllmButton href="/contact" variant="outline">Contact FLLM</FllmButton>
           </div>
         </div>
