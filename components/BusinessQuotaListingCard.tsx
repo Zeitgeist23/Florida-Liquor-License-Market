@@ -20,36 +20,6 @@ const categoryClassNames: Record<BusinessQuotaCategory, string> = {
   "Other Hospitality": "other-hospitality",
 };
 
-function LicenseCondition({ listing }: { listing: BusinessQuotaListing }) {
-  if (listing.licenseClass === "2cop") {
-    return (
-      <>
-        {listing.licenseType} reported with the business.
-        <br />
-        Verify license status and transfer requirements.
-      </>
-    );
-  }
-
-  if (listing.licenseClass === "sfs") {
-    return (
-      <>
-        4COP SFS/SRX license included
-        <br />
-        and not offered separately.
-      </>
-    );
-  }
-
-  return (
-    <>
-      {listing.licenseType} liquor license included
-      <br />
-      and not offered separately.
-    </>
-  );
-}
-
 export default function BusinessQuotaListingCard({
   listing,
 }: {
@@ -102,7 +72,15 @@ export default function BusinessQuotaListingCard({
         </div>
 
         <p className="business-quota-card-condition">
-          <LicenseCondition listing={listing} />
+          {listing.licenseClass === "2cop" ? (
+            <>{listing.licenseType} reported with the business.<br />Verify license status and transfer requirements.</>
+          ) : listing.licenseClass === "sfs" ? (
+            <>4COP SFS/SRX license included<br />
+            and not offered separately.</>
+          ) : (
+            <>{listing.licenseType} liquor license included<br />
+            and not offered separately.</>
+          )}
         </p>
 
         <p className="business-quota-card-broker">
