@@ -160,12 +160,6 @@ export default function RestaurantsWithLiquorLicensesPage() {
           <FllmSectionHeading
             eyebrow="Current Restaurant Inventory"
             title="Florida restaurant businesses currently published on FLLM"
-            copy={
-              <p>
-                These cards use FLLM's existing approved business-listing treatment and combine published restaurant
-                opportunities across the supported liquor-license categories.
-              </p>
-            }
           />
 
           {restaurantListings.length ? (
