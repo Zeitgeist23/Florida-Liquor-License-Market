@@ -780,3 +780,44 @@
     line-height:1!important;
   }
 }
+
+
+/* TRUE IMAGE DOWNSIZE — make each city photo physically smaller inside the card, not merely shorter. */
+@media (min-width:981px){
+  .county-data-context-grid .county-city-photo-card{
+    height:250px!important;
+    min-height:250px!important;
+    max-height:250px!important;
+    grid-template-rows:42px 126px 82px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card img{
+    width:76%!important;
+    max-width:240px!important;
+    height:104px!important;
+    min-height:104px!important;
+    max-height:104px!important;
+    justify-self:center!important;
+    align-self:center!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    border:1px solid rgba(105,214,255,.22)!important;
+    border-radius:5px!important;
+    box-shadow:0 6px 14px rgba(0,0,0,.22)!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption{
+    height:82px!important;
+    min-height:82px!important;
+    max-height:82px!important;
+    padding:11px 14px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption small{
+    font-size:11px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption b{
+    font-size:18px!important;
+  }
+}
