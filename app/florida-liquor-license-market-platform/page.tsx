@@ -4,7 +4,6 @@ import Link from "next/link";
 import { FllmPageShell } from "@/components/FllmDesignSystem";
 import "../fllm-official-template.css";
 import "../fllm-design-system.css";
-import "../counties/[slug]/county-page.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-market-platform`;
