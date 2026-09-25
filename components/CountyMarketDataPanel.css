@@ -77,3 +77,52 @@
 .county-city-photo-summary{margin-top:14px!important;color:#d7e3ec!important;font-size:12px!important;line-height:1.55!important}
 @media(max-width:680px){.county-city-photo-grid{gap:8px}.county-city-photo-card figcaption strong{padding:9px 10px 12px;font-size:17px}.county-city-photo-card figcaption a{right:7px;bottom:6px;font-size:7px}.county-city-photo-summary{font-size:11px!important}}
 @media(prefers-reduced-motion:reduce){.county-city-photo-card{transition:none}}
+
+
+/* Compact primary-market photo strip: keep the regulatory panel from being stretched by tall city tiles. */
+@media (min-width:981px){
+  .county-data-context-grid{
+    align-items:start;
+  }
+  .county-data-context-grid .county-data-local-markets--photos{
+    padding:18px!important;
+  }
+  .county-data-context-grid .county-city-photo-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:9px;
+    margin-top:10px;
+  }
+  .county-data-context-grid .county-city-photo-card{
+    aspect-ratio:1/1;
+    border-radius:6px;
+  }
+  .county-data-context-grid .county-city-photo-card figcaption strong{
+    padding:8px 9px 10px;
+    font-size:15px;
+    line-height:1;
+  }
+  .county-data-context-grid .county-city-photo-card figcaption a{
+    right:6px;
+    bottom:5px;
+    max-width:calc(100% - 12px);
+    font-size:6px;
+  }
+  .county-data-context-grid .county-city-photo-summary{
+    margin-top:10px!important;
+    font-size:10px!important;
+    line-height:1.45!important;
+  }
+}
+@media (min-width:681px) and (max-width:980px){
+  .county-city-photo-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:8px;
+  }
+  .county-city-photo-card figcaption strong{
+    padding:8px;
+    font-size:15px;
+  }
+  .county-city-photo-card figcaption a{
+    font-size:6px;
+  }
+}
