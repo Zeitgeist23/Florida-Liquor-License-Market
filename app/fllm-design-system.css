@@ -911,3 +911,15 @@
   width:100%;
   text-align:center;
 }
+
+
+/* Restaurant hub hero supporting copy readability. */
+.restaurants-with-liquor-licenses-page .fllm-template-hero-copy{
+  font-size:18px;
+  line-height:1.72;
+}
+@media(max-width:980px){
+  .restaurants-with-liquor-licenses-page .fllm-template-hero-copy{
+    font-size:16px;
+  }
+}
