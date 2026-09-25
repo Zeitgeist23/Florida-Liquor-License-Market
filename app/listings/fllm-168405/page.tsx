@@ -368,9 +368,6 @@ export default async function FeaturedSarasota3PsListingPage() {
               <section className="marketplace-listing-section">
                 <h2>About This Featured License Listing</h2>
                 <p>
-                  This individual marketplace page represents the specific {selected.type} liquor-license interest identified as {listingReference} in Sarasota County. The displayed asking price is {selected.priceLabel}. Availability, price, license status, transferability, liens and transaction terms should be confirmed before reliance or commitment.
-                </p>
-                <p>
                   Unless this listing expressly states otherwise, the offering concerns the liquor-license interest only and does not include an operating business, leasehold, equipment, inventory or real estate.
                 </p>
               </section>
