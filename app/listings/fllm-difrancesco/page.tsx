@@ -100,16 +100,16 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "The offering includes the operating restaurant and nightclub business, approximately $15,000 of inventory, approximately $475,000 of furniture, fixtures and equipment, the recently remodeled 3,000-square-foot hospitality premises and the associated transferable quota liquor license. The included license is a coveted 4COP / 3PS liquor license valued at nearly half a million dollars. The total business asking price is $1,650,000. Buyers should confirm the exact license series, included assets, lease terms, license allocation and transaction structure directly with the listing broker.",
   businessMetrics: [
     {
-      label: "Cash Flow (SDE)",
-      value: "$285,735",
-      description:
-        "Seller's Discretionary Earnings are stated at $285,735. Buyers should reconcile this figure to tax returns, financial statements and supporting records during due diligence.",
-    },
-    {
       label: "Gross Revenue",
       value: "$1,616,822",
       description:
         "Gross revenue is stated at $1,616,822. Buyers should verify the reporting period and reconcile revenue to financial records.",
+    },
+    {
+      label: "Cash Flow (SDE)",
+      value: "$285,735",
+      description:
+        "Seller's Discretionary Earnings are stated at $285,735. Buyers should reconcile this figure to tax returns, financial statements and supporting records during due diligence.",
     },
     {
       label: "Established",
