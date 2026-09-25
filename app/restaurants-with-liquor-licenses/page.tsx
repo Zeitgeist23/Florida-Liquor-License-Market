@@ -193,7 +193,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
             </p>
           </div>
           <div className="fllm-ui-final-actions">
-            <Link className="btn btn-gold fllm-ui-official-gold-button" href="/brokers/list-your-license">List a Restaurant Opportunity</Link>
+            <Link className="btn btn-gold fllm-ui-official-gold-button restaurant-list-cta" href="/brokers/list-your-license">List a Restaurant Opportunity</Link>
             <FllmButton href="/contact" variant="outline">Contact FLLM</FllmButton>
           </div>
         </div>
