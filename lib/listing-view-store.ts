@@ -57,7 +57,42 @@ async function countRows(listingRef: string) {
 export async function getListingViewCount(rawListingRef: string) {
   const listingRef = normalizedListingRef(rawListingRef);
   if (!listingRef) return 0;
-  return countRows(listingRef);
+  return countUniqueVisitors(listingRef);
+}
+
+async function countUniqueVisitors(listingRef: string) {
+  if (!databaseConfigured()) return 0;
+
+  const endpoint =
+    process.env.SUPABASE_URL +
+    "/rest/v1/rpc/get_listing_unique_visitor_count";
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: headers(),
+    body: JSON.stringify({ p_listing_ref: listingRef }),
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    console.error(
+      "Listing unique visitor count failed: " +
+        response.status +
+        " " +
+        (await response.text()),
+    );
+    return 0;
+  }
+
+  const payload = await response.json();
+  const total = typeof payload === "number" ? payload : Number(payload);
+  return Number.isFinite(total) ? total : 0;
+}
+
+export async function getListingUniqueVisitorCount(rawListingRef: string) {
+  const listingRef = normalizedListingRef(rawListingRef);
+  if (!listingRef) return 0;
+  return countUniqueVisitors(listingRef);
 }
 
 export async function recordListingView(
@@ -66,7 +101,7 @@ export async function recordListingView(
 ) {
   const listingRef = normalizedListingRef(rawListingRef);
   if (!listingRef || !databaseConfigured()) {
-    return listingRef ? countRows(listingRef) : 0;
+    return listingRef ? countUniqueVisitors(listingRef) : 0;
   }
 
   const today = new Date().toISOString().slice(0, 10);
