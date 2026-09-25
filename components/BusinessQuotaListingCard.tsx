@@ -74,6 +74,9 @@ export default function BusinessQuotaListingCard({
         <p className="business-quota-card-condition">
           {listing.licenseClass === "2cop" ? (
             <>{listing.licenseType} reported with the business.<br />Verify license status and transfer requirements.</>
+          ) : listing.licenseClass === "sfs" ? (
+            <>4COP SFS/SRX license included<br />
+            and not offered separately.</>
           ) : (
             <>{listing.licenseType} liquor license included<br />
             and not offered separately.</>
