@@ -512,13 +512,6 @@ export default function FeaturedThirdPartyBusinessListingPage({
 
               <section className="marketplace-listing-section">
                 <h2>{tr("About This Business & License Listing", "Acerca de este anuncio de negocio y licencia")}</h2>
-                {!isSfsListing ? (
-                  <p>
-                    {is2copListing
-                      ? tr(`This individual marketplace page represents the ${config.county} restaurant business identified as ${config.listingReference}, operating with 2COP beer-and-wine privileges. No separate license value is assigned.`, `Esta página individual del mercado representa el restaurante de ${config.county} identificado como ${config.listingReference}, que opera con una licencia 2COP de cerveza y vino. No se asigna un valor separado a la licencia.`)
-                      : `This individual marketplace page represents the ${config.county} ${shortLicenseType} liquor-license interest identified as ${config.listingReference}. The displayed license asking price is ${config.askingPrice}.`}
-                  </p>
-                ) : null}
                 <p>
                   <strong className={isSfsListing ? "featured-business-sfs-lead" : undefined}>{is2copListing ? tr("Business & 2COP Beer & Wine License:", "Negocio y licencia 2COP de cerveza y vino:") : isSfsListing ? tr("Business & 4COP SFS / SRX Full-Liquor License:", "Negocio y licencia completa de bebidas alcohólicas 4COP SFS / SRX:") : tr("Business purchase required:", "Compra del negocio requerida:")}</strong>{is2copListing ? tr(" the seller offers the 2COP beer-and-wine license with the operating ", " la vendedora ofrece la licencia 2COP de cerveza y vino junto con el ") : isSfsListing ? tr(" the license is tied to the qualifying restaurant operation and licensed premises associated with the ", " la licencia está vinculada a la operación del restaurante que cumple los requisitos y al local autorizado asociado con el ") : tr(" the license is being offered only in connection with the acquisition of the associated ", " la licencia se ofrece únicamente junto con la adquisición del negocio asociado ")}
                   {config.businessLabelLinkUrl ? (
