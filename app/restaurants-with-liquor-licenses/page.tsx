@@ -119,7 +119,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
           />
 
           <FllmCardGrid columns={3}>
-            <FllmCard eyebrow="Transferable full-liquor asset" title="Restaurants With 4COP Quota Licenses" variant="gold">
+            <FllmCard eyebrow={<span className="restaurant-card-cyan-label">Transferable full-liquor asset</span>} title="Restaurants With 4COP Quota Licenses" variant="gold">
               <p>
                 Restaurant acquisitions that include a county-specific transferable 4COP quota license. The license can
                 represent a separately valued asset within the business transaction.
@@ -130,7 +130,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
               </div>
             </FllmCard>
 
-            <FllmCard eyebrow="Qualification-based full liquor" title="Restaurants With 4COP SFS / SRX Licenses" variant="gold">
+            <FllmCard eyebrow={<span className="restaurant-card-cyan-label">Qualification-based full liquor</span>} title="Restaurants With 4COP SFS / SRX Licenses" variant="gold">
               <p>
                 Qualifying restaurant businesses operating with premises-dependent full-liquor privileges under Florida's
                 special food-service framework.
@@ -141,7 +141,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
               </div>
             </FllmCard>
 
-            <FllmCard eyebrow="Beer & wine" title="Restaurants With 2COP Licenses" variant="gold">
+            <FllmCard eyebrow={<span className="restaurant-card-cyan-label">Beer & wine</span>} title="Restaurants With 2COP Licenses" variant="gold">
               <p>
                 Restaurant businesses using a 2COP beer-and-wine license rather than distilled-spirit privileges. These
                 listings remain separate from quota-license inventory.
