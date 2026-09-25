@@ -730,3 +730,53 @@
     line-height:1.5!important;
   }
 }
+
+
+/* SHARP CITY CARD PASS — substantially reduce image display size and increase stat readability. */
+@media (min-width:981px){
+  .county-data-context-grid .county-city-photo-card{
+    height:236px!important;
+    min-height:236px!important;
+    max-height:236px!important;
+    grid-template-rows:42px 112px 82px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card img{
+    width:100%!important;
+    height:112px!important;
+    min-height:112px!important;
+    max-height:112px!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    image-rendering:auto!important;
+    filter:saturate(1.03) contrast(1.04)!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption{
+    height:82px!important;
+    min-height:82px!important;
+    max-height:82px!important;
+    grid-template-columns:1fr 1fr!important;
+    align-items:center!important;
+    gap:14px!important;
+    padding:11px 14px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption small{
+    display:block!important;
+    margin-bottom:7px!important;
+    color:#b8ccd7!important;
+    font-size:11px!important;
+    font-weight:900!important;
+    line-height:1.12!important;
+    letter-spacing:.025em!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption b{
+    display:block!important;
+    color:#fff!important;
+    font-size:18px!important;
+    font-weight:900!important;
+    line-height:1!important;
+  }
+}
