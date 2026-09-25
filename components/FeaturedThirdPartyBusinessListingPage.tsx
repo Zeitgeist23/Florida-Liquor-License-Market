@@ -78,6 +78,53 @@ function phoneHref(phone: string) {
   return "tel:" + phone.replace(/[^\d+]/g, "");
 }
 
+function standardizeBusinessMetrics(
+  metrics: FeaturedBusinessMetric[],
+  isSpanish: boolean,
+) {
+  const normalize = (label: string) =>
+    label.toLowerCase().replace(/[^a-z0-9áéíóúüñ]+/g, " ").trim();
+
+  const grossIndex = metrics.findIndex((metric) => {
+    const label = normalize(metric.label);
+    return label.includes("gross revenue") || label.includes("ingresos brutos");
+  });
+
+  const cashFlowIndex = metrics.findIndex((metric) => {
+    const label = normalize(metric.label);
+    if (label.includes("adjusted") || label.includes("ajustad")) return false;
+    return (
+      label.includes("cash flow") ||
+      label.includes("flujo de caja") ||
+      label === "sde" ||
+      label.includes("sde")
+    );
+  });
+
+  const used = new Set<number>();
+  const grossRevenue =
+    grossIndex >= 0
+      ? (used.add(grossIndex), metrics[grossIndex])
+      : {
+          label: isSpanish ? "Ingresos brutos" : "Gross Revenue",
+          value: isSpanish ? "No divulgado" : "Not Disclosed",
+        };
+
+  const cashFlow =
+    cashFlowIndex >= 0
+      ? (used.add(cashFlowIndex), metrics[cashFlowIndex])
+      : {
+          label: isSpanish ? "Flujo de caja (SDE)" : "Cash Flow (SDE)",
+          value: isSpanish ? "No divulgado" : "Not Disclosed",
+        };
+
+  return [
+    grossRevenue,
+    cashFlow,
+    ...metrics.filter((_, index) => !used.has(index)),
+  ];
+}
+
 function buildInquiryHref(config: FeaturedThirdPartyBusinessListingConfig) {
   const params = new URLSearchParams({
     source: "specific-license",
@@ -124,6 +171,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
     config.broker.brokerage.trim().toLowerCase() === "we sell restaurants";
   const hasFinancingDisclosure = Boolean(
     config.sellerFinancing || config.sbaFinancing,
+  );
+  const standardizedBusinessMetrics = standardizeBusinessMetrics(
+    config.businessMetrics,
+    isSpanish,
   );
 
   return (
@@ -627,7 +678,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   className="package-business-grid"
                   aria-label={tr("Business details and definitions", "Detalles y definiciones del negocio")}
                 >
-                  {config.businessMetrics.map((metric, index) => {
+                  {standardizedBusinessMetrics.map((metric, index) => {
                     const tooltipId = `${config.listingReference.toLowerCase()}-metric-${index}`;
                     const metricContent = (
                       <>
