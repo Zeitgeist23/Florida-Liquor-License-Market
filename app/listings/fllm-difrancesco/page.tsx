@@ -97,83 +97,83 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Opportunity to acquire a turnkey Broward County beachside restaurant and nightclub within walking distance of the beach, positioned for dining, live music, street dancing and nightlife traffic.",
   packageIncludes:
-    "The broker-reported offering includes the operating restaurant and nightclub business, approximately $15,000 of inventory, approximately $475,000 of furniture, fixtures and equipment, the recently remodeled 3,000-square-foot hospitality premises and the associated transferable quota liquor license. The source listing describes the license as a coveted 4COP / 3PS liquor license valued at nearly half a million dollars. The total business asking price is $1,650,000. Buyers should confirm the exact license series, included assets, lease terms, license allocation and transaction structure directly with the listing broker.",
+    "The offering includes the operating restaurant and nightclub business, approximately $15,000 of inventory, approximately $475,000 of furniture, fixtures and equipment, the recently remodeled 3,000-square-foot hospitality premises and the associated transferable quota liquor license. The included license is described as a coveted 4COP / 3PS liquor license valued at nearly half a million dollars. The total business asking price is $1,650,000. Buyers should confirm the exact license series, included assets, lease terms, license allocation and transaction structure directly with the listing broker.",
   businessMetrics: [
     {
       label: "Cash Flow (SDE)",
       value: "$285,735",
       description:
-        "The source listing reports Seller's Discretionary Earnings of $285,735. Buyers should reconcile this figure to tax returns, financial statements and supporting records during due diligence.",
+        "Seller's Discretionary Earnings are stated at $285,735. Buyers should reconcile this figure to tax returns, financial statements and supporting records during due diligence.",
     },
     {
       label: "Gross Revenue",
       value: "$1,616,822",
       description:
-        "The source listing reports gross revenue of $1,616,822. Buyers should verify the reporting period and reconcile revenue to source financial records.",
+        "Gross revenue is stated at $1,616,822. Buyers should verify the reporting period and reconcile revenue to financial records.",
     },
     {
       label: "Established",
       value: "2006",
       description:
-        "The source listing states the business was established in 2006.",
+        "The business is stated to have been established in 2006.",
     },
     {
       label: "Premises",
       value: "3,000 SF",
       description:
-        "The source listing describes an approximately 3,000-square-foot turnkey restaurant operation. Buyers should verify the exact premises size, lease terms, permitted use and occupancy.",
+        "The premises are described as an approximately 3,000-square-foot turnkey restaurant operation. Buyers should verify the exact premises size, lease terms, permitted use and occupancy.",
     },
     {
       label: "Inventory",
       value: "$15,000 included",
       description:
-        "The source listing states approximately $15,000 of inventory is included in the asking price.",
+        "Approximately $15,000 of inventory is included in the asking price.",
     },
     {
       label: "FF&E",
       value: "$475,000 included",
       description:
-        "The source listing states approximately $475,000 of furniture, fixtures and equipment is included in the asking price.",
+        "Approximately $475,000 of furniture, fixtures and equipment is included in the asking price.",
     },
     {
       label: "Employees",
       value: "11",
       description:
-        "The source listing reports 11 employees. Buyers should verify payroll, employee roles, scheduling and continued employment.",
+        "The business is stated to have 11 employees. Buyers should verify payroll, employee roles, scheduling and continued employment.",
     },
     {
       label: "License",
       value: "4COP / 3PS quota license included",
       description:
-        "The broker's advertisement describes a coveted 4COP / 3PS liquor license included with the business and valued at nearly half a million dollars. Buyers should confirm the exact current series, quota status, ownership and transferability with the listing broker and DBPR/ABT.",
+        "A coveted 4COP / 3PS liquor license is included with the business and is described as being valued at nearly half a million dollars. Buyers should confirm the exact current series, quota status, ownership and transferability with the listing broker and DBPR/ABT.",
       href: "/license-types/4cop-quota",
     },
     {
       label: "Facilities",
       value: "Remodeled interior · upgraded outdoor bar",
       description:
-        "The source listing describes updated bathrooms, new furniture, a redesigned interior and an upgraded outdoor bar area.",
+        "The facilities include updated bathrooms, new furniture, a redesigned interior and an upgraded outdoor bar area.",
     },
     {
       label: "Competition / Positioning",
       value: "High-traffic beachside hospitality area",
       description:
-        "The source listing describes a high-traffic location with full-liquor service, extended hours, dining, live music and nightlife positioning.",
+        "The business occupies a high-traffic location with full-liquor service, extended hours, dining, live music and nightlife positioning.",
     },
     {
       label: "Seller Training",
       value: "14 business days",
       description:
-        "The source listing states the seller will provide 14 business days of training at no cost following closing.",
+        "The seller will provide 14 business days of training at no cost following closing.",
     },
     {
       label: "Reason for Selling",
       value: "Family Related",
       description:
-        "The source listing states the reason for selling is family related.",
+        "The stated reason for selling is family related.",
     },
   ],
-  opportunitiesHeading: "Offering highlights identified in the broker listing",
+  opportunitiesHeading: "Offering Highlights",
   opportunities: [
     "Acquire a turnkey Broward County beachside restaurant and nightclub within walking distance of the beach.",
     "Continue a hospitality concept known for live music, street dancing, nightlife and a community-supported weekly event.",
@@ -182,11 +182,11 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "Build on the reported $1,616,822 gross revenue and $285,735 SDE through stronger digital marketing, events and customer-retention initiatives.",
   ],
   transitionText:
-    "The seller will provide 14 business days of training at no cost following closing. The source listing states the reason for selling is family related.",
+    "The seller will provide 14 business days of training at no cost following closing. The stated reason for selling is family related.",
   confidentialityText:
     "the business name, exact premises, lease documents, financial statements, license records and other sensitive information may require buyer qualification and direct confirmation through the listing broker.",
   sourceDisclosure:
-    "Business, financial, facility, staffing, asset, license-value and other figures are broker-reported listing information and have not been independently audited or verified by FLLM. The source advertisement describes the included license as a 4COP / 3PS liquor license valued at nearly half a million dollars but does not publish the ABT license number or a precise separate license allocation. Buyers should verify the current license series, quota status, ownership, transferability, premises, zoning, lease conditions, financial performance, included assets and all transaction terms directly with Nick DiFrancesco, the seller and appropriate professional advisers.",
+    "Business, financial, facility, staffing, asset, license-value and other figures have not been independently audited or verified by FLLM. The included license is described as a 4COP / 3PS liquor license valued at nearly half a million dollars; the ABT license number and a precise separate license allocation are not displayed. Buyers should verify the current license series, quota status, ownership, transferability, premises, zoning, lease conditions, financial performance, included assets and all transaction terms directly with Nick DiFrancesco, the seller and appropriate professional advisers.",
   countyContext:
     "Broward County supports a substantial restaurant, nightlife, hospitality and tourism market across Fort Lauderdale, Hollywood, Pompano Beach, Deerfield Beach and surrounding communities. Quota-license values can vary materially based on supply, seller terms, intended premises, timing and transaction structure.",
 };
