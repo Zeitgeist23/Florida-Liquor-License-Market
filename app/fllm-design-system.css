@@ -930,3 +930,16 @@
   font-size:17px;
   line-height:1.72;
 }
+
+
+/* Center cyan kicker labels on the three restaurant license-path cards. */
+.restaurants-with-liquor-licenses-page #license-paths .fllm-ui-card-kicker{
+  display:block;
+  width:100%;
+  text-align:center !important;
+}
+.restaurants-with-liquor-licenses-page #license-paths .restaurant-card-cyan-label{
+  display:block;
+  width:100%;
+  text-align:center !important;
+}
