@@ -308,6 +308,17 @@ export default function BrokerListYourLicensePage() {
           font-size:16px;
           line-height:1.72;
         }
+        .broker-positioning-line {
+          margin:16px 0 0;
+          max-width:980px;
+          padding:13px 16px;
+          border-left:3px solid #f6a700;
+          background:rgba(246,167,0,.065);
+          color:#eef4f8;
+          font-size:15px;
+          font-weight:800;
+          line-height:1.55;
+        }
         .broker-business-package-callout {
           max-width:980px;
           display:grid;
@@ -626,6 +637,9 @@ export default function BrokerListYourLicensePage() {
               <h2 id="broker-marketplace-seo-heading">Advertise a Florida liquor license for sale while keeping the broker relationship</h2>
               <p className="broker-organic-intro">
                 FLLM gives Florida liquor license brokers statewide marketplace exposure plus market-data, transaction and regulatory resources while the submitting broker remains the identified representative and transaction contact.
+              </p>
+              <p className="broker-positioning-line">
+                Florida Liquor License Market — licenses, businesses, market data, valuation, and transaction resources for Florida’s licensed hospitality market.
               </p>
               <div className="broker-business-package-callout">
                 <b aria-hidden="true">+</b>
