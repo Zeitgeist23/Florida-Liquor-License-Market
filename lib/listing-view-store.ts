@@ -57,7 +57,7 @@ async function countRows(listingRef: string) {
 export async function getListingViewCount(rawListingRef: string) {
   const listingRef = normalizedListingRef(rawListingRef);
   if (!listingRef) return 0;
-  return countUniqueVisitors(listingRef);
+  return countRows(listingRef);
 }
 
 async function countUniqueVisitors(listingRef: string) {
@@ -131,5 +131,5 @@ export async function recordListingView(
     );
   }
 
-  return countRows(listingRef);
+  return countUniqueVisitors(listingRef);
 }
