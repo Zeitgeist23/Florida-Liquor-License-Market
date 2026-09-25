@@ -9,8 +9,9 @@ export default function ListingDetailOfficialHeader() {
   const isListingDetail =
     (pathname.startsWith("/listings/") && pathname !== "/listings") ||
     (pathname.startsWith("/es/listings/") && pathname !== "/es/listings");
+  const isPlatformPage = pathname === "/florida-liquor-license-market-platform";
 
-  if (!isListingDetail) return null;
+  if (!isListingDetail && !isPlatformPage) return null;
 
   return (
     <>
