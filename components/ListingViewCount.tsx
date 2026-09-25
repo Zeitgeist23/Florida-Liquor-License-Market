@@ -39,9 +39,9 @@ export default function ListingViewCount({
   return (
     <span
       className="marketplace-listing-view-count"
-      title={locale === "es" ? "Una vista contabilizada por navegador, anuncio y día" : "One counted view per browser per listing per day"}
+      title={locale === "es" ? "Visitantes únicos aproximados por navegador; las visitas repetidas desde el mismo navegador se cuentan una sola vez" : "Approximate unique visitors by browser; repeat visits from the same browser are counted once"}
     >
-      <span>{locale === "es" ? "Vistas del anuncio" : "Listing Views"}</span>
+      <span>{locale === "es" ? "Visitantes únicos" : "Unique Visitors"}</span>
       <strong>{count === null ? "—" : count.toLocaleString("en-US")}</strong>
     </span>
   );
