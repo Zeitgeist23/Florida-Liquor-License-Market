@@ -69,7 +69,6 @@ function StandardSampleListing() {
 
                 <section className={styles.standardPanel}>
                   <h3>About This License Listing</h3>
-                  <p>This individual marketplace page represents a sample 4COP Quota liquor license listing for demonstration purposes only. Listing FLLM-DEMO-001 in Orange County illustrates the typical information, structure, and layout used for active listings on the Florida Liquor License Market.</p>
                   <p>A Florida quota license may generally be changed between the 3PS Quota series and the 4COP Quota series through a county approval change of license series. Approval is subject to applicable premises, zoning, applicant, and regulatory requirements.</p>
                   <p>Unless an individual listing expressly states otherwise, the offering concerns a liquor-license interest only and does not include an operating business, leasehold, equipment, inventory, or real estate.</p>
                 </section>
