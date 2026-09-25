@@ -82,7 +82,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   businessLabel: "Beachside restaurant and nightclub",
   businessLabelLinkUrl: sourceListingUrl,
   heroSummary:
-    "Broward County beachside restaurant and nightclub offered as a turnkey business acquisition with steady revenue, live music and nightlife, a recently remodeled hospitality operation, and an included transferable quota liquor license described by the broker as a 4COP / 3PS license.",
+    "Broward County beachside restaurant and nightclub offered as a turnkey business acquisition with steady revenue, live music and nightlife, a recently remodeled hospitality operation, and an included transferable 4COP / 3PS quota liquor license.",
   broker: {
     name: "Nick DiFrancesco",
     brokerage: "Business Exit Advisors",
