@@ -88,7 +88,6 @@ export default function LockedFeaturedBrokerPreview({ brokerMode = "female" }: {
 
             <section className={styles.panel}>
               <h3>About This License Listing</h3>
-              <p>This individual marketplace page represents the specific 4COP Quota liquor-license interest identified as FLLM-031 in St Lucie County. The displayed asking price is $285,000. Availability, price, license status, transferability, liens, and transaction terms should be confirmed before reliance or commitment.</p>
               <p>A Florida quota license may generally be changed between the 3PS Quota series and the 4COP Quota series through a DBPR-approved change of license series. Approval is subject to applicable premises, zoning, applicant, and regulatory requirements.</p>
               <p>Unless an individual listing expressly states otherwise, the offering concerns a liquor-license interest only and does not include an operating business, leasehold, equipment, inventory, or real estate.</p>
             </section>
