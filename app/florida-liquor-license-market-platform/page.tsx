@@ -157,9 +157,34 @@ export default function FloridaLiquorLicenseMarketPlatformPage() {
             linear-gradient(135deg,#03131f 0%,#061f35 56%,#173649 100%);
         }
         .platform-market-page .county-hero h1{
-          max-width:980px;
-          font-size:clamp(38px,4.55vw,64px);
-          line-height:1.02;
+          max-width:820px;
+          font-size:clamp(42px,4.7vw,68px);
+          line-height:.98;
+        }
+        .platform-hero-scope{
+          display:grid;
+          gap:7px;
+          max-width:760px;
+          margin:18px 0 20px;
+          padding:0;
+          list-style:none;
+        }
+        .platform-hero-scope li{
+          position:relative;
+          padding-left:22px;
+          color:#fff;
+          font-size:18px;
+          font-weight:750;
+          line-height:1.35;
+        }
+        .platform-hero-scope li::before{
+          content:"•";
+          position:absolute;
+          left:0;
+          top:-1px;
+          color:#69d6ff;
+          font-size:24px;
+          line-height:1;
         }
         .platform-market-page .county-hero p{color:#d7e3ec}
         .platform-hero-card{
@@ -464,7 +489,14 @@ export default function FloridaLiquorLicenseMarketPlatformPage() {
               <Link href="/">Home</Link><span>›</span><strong>FLLM Platform</strong>
             </div>
             <span className="county-kicker">One Market · Two Connected Verticals</span>
-            <h1>{positioningLine}</h1>
+            <h1>Florida Liquor License Market</h1>
+            <ul className="platform-hero-scope" aria-label="Florida Liquor License Market platform scope">
+              <li>Standalone liquor licenses</li>
+              <li>Businesses with liquor licenses</li>
+              <li>Market data and county intelligence</li>
+              <li>Valuation and appraisal</li>
+              <li>Transaction resources for Florida’s licensed hospitality market</li>
+            </ul>
             <p>
               FLLM covers both the market for Florida liquor licenses themselves and the broader landscape of Florida businesses whose operations and value are connected to liquor-license privileges.
             </p>
