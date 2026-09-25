@@ -894,3 +894,13 @@
   justify-content:center !important;
   align-items:center !important;
 }
+
+
+/* Restaurant hub: match the smaller official FLLM desktop menu labels. */
+@media (min-width:981px){
+  .restaurants-with-liquor-licenses-page .forms-site-header .primary-nav .native-nav-trigger,
+  .restaurants-with-liquor-licenses-page .forms-site-header .primary-nav .native-nav-direct-link{
+    font-size:10px !important;
+    font-weight:600 !important;
+  }
+}
