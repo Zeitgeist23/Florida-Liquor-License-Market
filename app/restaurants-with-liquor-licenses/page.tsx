@@ -30,7 +30,7 @@ const restaurantListings = [
 ].filter((listing) => listing.businessCategory === "Restaurant");
 
 export const metadata: Metadata = {
-  title: "Florida Restaurants With Liquor Licenses | FLLM",
+  title: "Florida Restaurants For Sale With Liquor Licenses | FLLM",
   description:
     "Browse Florida restaurant businesses with 4COP quota, 4COP SFS / SRX, and 2COP beer-and-wine licenses, and compare the principal licensing paths for restaurant operators and buyers.",
   alternates: { canonical: canonicalUrl },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Restaurants With Liquor Licenses | FLLM",
+    title: "Florida Restaurants For Sale With Liquor Licenses | FLLM",
     description:
       "A Florida restaurant marketplace and licensing hub covering transferable 4COP quota licenses, 4COP SFS / SRX restaurant licenses, and 2COP beer-and-wine licenses.",
     siteName: "Florida Liquor License Market",
@@ -50,7 +50,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Florida Restaurants With Liquor Licenses",
+      name: "Florida Restaurants For Sale With Liquor Licenses",
       url: canonicalUrl,
       description:
         "Florida restaurant business listings and licensing paths involving 4COP quota, 4COP SFS / SRX, and 2COP beer-and-wine licenses.",
@@ -91,7 +91,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
             <Link href="/">Home</Link><span>›</span><strong>Restaurants With Liquor Licenses</strong>
           </div>
           <span className="fllm-template-eyebrow">Florida Restaurant Liquor License Market</span>
-          <h1 className="fllm-template-hero-title">Florida Restaurants With Liquor Licenses</h1>
+          <h1 className="fllm-template-hero-title">Florida Restaurants For Sale With Liquor Licenses</h1>
           <p className="fllm-template-hero-copy">
             Browse restaurant businesses and compare the principal Florida liquor-license structures used by restaurants.
             FLLM keeps transferable quota-license packages separate from qualification-based restaurant licenses while
