@@ -13,7 +13,7 @@ export function FllmPageShell({
 }: {
   children: ReactNode;
   className?: string;
-  headerVariant?: "default" | "marketplace";
+  headerVariant?: "default" | "marketplace" | "none";
 }) {
   const marketplaceHeader = headerVariant === "marketplace";
 
@@ -22,7 +22,7 @@ export function FllmPageShell({
       className={`seo-market-page fllm-official-page${marketplaceHeader ? " results-page" : ""} ${className}`.trim()}
       data-fllm-design-system="v2"
     >
-      {marketplaceHeader ? (
+      {headerVariant === "none" ? null : marketplaceHeader ? (
         <div className="listings-header-band"><FormsSiteHeader /></div>
       ) : (
         <div className="abt-header-wrap fllm-ui-header"><FormsSiteHeader /></div>
