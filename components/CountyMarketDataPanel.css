@@ -662,3 +662,71 @@
     line-height:1.45!important;
   }
 }
+
+
+/* FINAL CITY CARD SCALE FIX — reduce blurry image area and enlarge the stats immediately below. */
+@media (min-width:981px){
+  .county-data-context-grid .county-city-photo-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:14px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card{
+    width:100%!important;
+    height:268px!important;
+    min-height:268px!important;
+    max-height:268px!important;
+    aspect-ratio:auto!important;
+    grid-template-rows:42px 148px 78px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-name{
+    height:42px!important;
+    min-height:42px!important;
+    padding:0 8px!important;
+    font-size:18px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card img{
+    width:100%!important;
+    height:148px!important;
+    min-height:148px!important;
+    max-height:148px!important;
+    aspect-ratio:auto!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    image-rendering:auto!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption{
+    height:78px!important;
+    min-height:78px!important;
+    max-height:78px!important;
+    grid-template-columns:1fr 1fr!important;
+    align-items:center!important;
+    gap:12px!important;
+    padding:10px 12px!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption small{
+    display:block!important;
+    margin-bottom:6px!important;
+    font-size:10px!important;
+    line-height:1.15!important;
+    letter-spacing:.025em!important;
+    white-space:normal!important;
+  }
+
+  .county-data-context-grid .county-city-photo-card figcaption b{
+    display:block!important;
+    font-size:16px!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+  }
+
+  .county-data-context-grid .county-city-photo-summary{
+    margin-top:12px!important;
+    font-size:10px!important;
+    line-height:1.5!important;
+  }
+}
