@@ -10,6 +10,7 @@ import {
 } from "@/lib/business-quota-listings";
 
 import "../fllm-official-template.css";
+import "../fllm-design-system.css";
 import "../listings/listings-premium.css";
 import "./business-inventory.css";
 import "./business-inventory-filters.css";
@@ -93,7 +94,7 @@ export default function BusinessesWithQuotaLicensesPage() {
             license value is an allocated component and does not mean the license is offered separately.
           </p>
           <div className="business-quota-hero-actions">
-            <Link className="business-quota-primary" href="#business-inventory">View Business Packages</Link>
+            <Link className="business-quota-primary fllm-ui-official-gold-button" href="#business-inventory">View Business Packages</Link>
             <Link className="business-quota-secondary" href="/businesses-with-quota-licenses/bars">Bars + 4COP Packages</Link>
             <Link className="business-quota-secondary" href="/listings">View Standalone Quota Licenses</Link>
           </div>
