@@ -1,4 +1,4 @@
-import { countySlug, getCountyBySlug } from "@/data/florida-counties";
+import { countySlug, floridaCounties } from "@/data/florida-counties";
 import type { BusinessQuotaListing } from "@/lib/business-quota-listings";
 
 export default function BusinessPackageLocalMarkets({
@@ -11,7 +11,7 @@ export default function BusinessPackageLocalMarkets({
   const cities = Array.from(
     new Set(
       listings.flatMap((listing) =>
-        getCountyBySlug(countySlug(listing.county))?.primaryCities ?? [],
+        floridaCounties.find((county) => county.slug === countySlug(listing.county))?.primaryCities ?? [],
       ),
     ),
   ).slice(0, 14);
