@@ -13,6 +13,7 @@ The purpose of v2 is to stop page-by-page visual reinvention. New FLLM pages mus
 3. `app/fllm-design-system.css` — shared v2 components layered on top of the canonical market-page visual system.
 4. `components/FllmDesignSystem.tsx` — approved React primitives.
 5. `components/FormsSiteHeader.tsx` — the only approved page header.
+6. `app/fllm-official-header.css` — the locked sitewide header geometry and typography.
 6. `components/SellPageOfficialFooter.tsx` — the approved footer implementation for registered routes.
 7. `templates/fllm-design-system-v2.json` — machine-readable design contract.
 
@@ -51,6 +52,20 @@ Only content-specific geometry:
 - white-background SEO strips.
 
 If a page needs a new visual primitive, add it to the shared design system after approval. Do not create a local imitation.
+
+## Official header standard
+
+The compact header shown on the approved FLLM inventory pages is now the official sitewide standard.
+
+- Shared component: `FormsSiteHeader`.
+- Desktop header height: 82px.
+- Logo: 150px × 61px.
+- Top-level menu: white Arial, **10px**, **600** weight, uppercase.
+- Top-level hover/open state: FLLM gold with 103% scale.
+- Desktop menu spacing: 42px on wide screens and 27px on narrower desktop layouts.
+- Contact Us and List Your License retain the approved compact 33px button treatment.
+- Route-specific styles may not enlarge, embolden, recolor, or otherwise restyle the top-level menu.
+- Any change to this header requires an explicit update to the locked design system and build gate.
 
 ## Approved content hierarchy
 
