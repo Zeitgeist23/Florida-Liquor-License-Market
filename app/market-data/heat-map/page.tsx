@@ -241,6 +241,7 @@ export default async function HeatMapPage({
           <BusinessPackageHeatMap
             rows={businessPackageRows}
             licenseType={businessPackageLicenseType}
+            listingType={isSfsBusinessMap ? "businesses-sfs" : "businesses-2cop"}
             businessTypeLabel={businessTypeLabel}
           />
         ) : (
