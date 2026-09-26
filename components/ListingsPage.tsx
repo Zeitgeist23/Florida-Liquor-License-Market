@@ -158,7 +158,7 @@ export default function ListingsPage({
   const [price, setPrice] = useState("all");
   const [status, setStatus] = useState("available");
   const [businessType, setBusinessType] = useState("all");
-  const [visibleCount, setVisibleCount] = useState(LISTINGS_PAGE_SIZE);
+  const [businessVisibleCount, setBusinessVisibleCount] = useState(BUSINESS_LISTING_DISPLAY_LIMIT);
   const focusedCardRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -310,17 +310,17 @@ export default function ListingsPage({
   );
 
   const visibleBusinessListings = useMemo(
-    () => filteredBusinessListings.slice(0, visibleCount),
-    [filteredBusinessListings, visibleCount],
+    () => filteredBusinessListings.slice(0, businessVisibleCount),
+    [filteredBusinessListings, businessVisibleCount],
   );
 
   const visibleListings = useMemo(
-    () => filtered.slice(0, visibleCount),
-    [filtered, visibleCount],
+    () => filtered.slice(0, LISTINGS_PAGE_SIZE),
+    [filtered],
   );
 
   useEffect(() => {
-    setVisibleCount(LISTINGS_PAGE_SIZE);
+    setBusinessVisibleCount(BUSINESS_LISTING_DISPLAY_LIMIT);
   }, [businessType, county, type, price, status]);
 
   useEffect(() => {
@@ -522,7 +522,7 @@ export default function ListingsPage({
                 </>
               ) : (
                 <>
-                  Showing <strong>{Math.min(visibleCount, filtered.length)}</strong> of{" "}
+                  Showing <strong>{Math.min(LISTINGS_PAGE_SIZE, filtered.length)}</strong> of{" "}
                   <strong>{filtered.length}</strong>{" "}
                   {status === "available"
                     ? "available license"
@@ -553,20 +553,20 @@ export default function ListingsPage({
                     />
                   ))}
                 </div>
-                {visibleCount < filteredBusinessListings.length ? (
+                {businessVisibleCount < filteredBusinessListings.length ? (
                   <div className="listings-load-more">
                     <button
                       className="btn btn-gold"
                       type="button"
                       onClick={() =>
-                        setVisibleCount((current) => current + BUSINESS_LISTING_DISPLAY_LIMIT)
+                        setBusinessVisibleCount((current) => current + BUSINESS_LISTING_DISPLAY_LIMIT)
                       }
                     >
                       Show More Business Packages
                     </button>
                     <small>
-                      {filteredBusinessListings.length - visibleCount} additional package
-                      {filteredBusinessListings.length - visibleCount === 1 ? "" : "s"}
+                      {filteredBusinessListings.length - businessVisibleCount} additional package
+                      {filteredBusinessListings.length - businessVisibleCount === 1 ? "" : "s"}
                     </small>
                   </div>
                 ) : null}
@@ -600,23 +600,7 @@ export default function ListingsPage({
                   );
                 })}
               </div>
-              {visibleCount < filtered.length ? (
-                <div className="listings-load-more">
-                  <button
-                    className="btn btn-gold"
-                    type="button"
-                    onClick={() =>
-                      setVisibleCount((current) => current + LISTINGS_PAGE_SIZE)
-                    }
-                  >
-                    Show More Licenses
-                  </button>
-                  <small>
-                    {filtered.length - visibleCount} additional listing
-                    {filtered.length - visibleCount === 1 ? "" : "s"}
-                  </small>
-                </div>
-              ) : null}
+
             </>
           ) : (
             <div className="no-results">
