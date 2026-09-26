@@ -171,7 +171,7 @@ function withMarketLicenseValues(
     const median = medianPrice(countyPrices);
     return {
       ...listing,
-      allocatedLicenseValue: median === null ? "Market data unavailable" : `${formatMoney(median)} est.`,
+      allocatedLicenseValue: median === null ? "Market data unavailable" : formatMoney(median),
     };
   });
 }
