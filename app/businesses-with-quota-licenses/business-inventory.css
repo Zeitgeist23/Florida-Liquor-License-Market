@@ -654,3 +654,49 @@
   text-overflow: clip;
   white-space: normal;
 }
+
+
+/* BUSINESS PACKAGE LOCAL MARKET SIGNALS — crawlable city context + separate market-data action. */
+.business-quota-card-local-markets,
+.business-package-local-markets {
+  margin: 10px 0 0;
+  color: #c8d8e2;
+  font-size: 10px;
+  line-height: 1.45;
+}
+.business-quota-card-local-markets span,
+.business-package-local-markets strong {
+  color: #70d7f2;
+  font-weight: 900;
+}
+.business-package-local-markets {
+  margin: 4px 0 20px;
+  text-align: center;
+  font-size: 13px;
+}
+.business-quota-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+.business-quota-card-actions .business-quota-card-action {
+  margin-top: 0;
+}
+.business-quota-card-market-view {
+  align-self: center;
+  color: #f1b53a;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .035em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform .17s ease, color .17s ease, text-shadow .17s ease;
+}
+.business-quota-card-market-view:hover,
+.business-quota-card-market-view:focus-visible {
+  color: #ffd66d;
+  transform: scale(1.04);
+  text-shadow: 0 0 10px rgba(241,181,58,.28);
+  outline: none;
+}
