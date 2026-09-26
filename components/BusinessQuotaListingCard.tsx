@@ -73,7 +73,7 @@ export default function BusinessQuotaListingCard({
 
         <div className={`business-quota-card-pricing${isMarketListing ? " business-quota-card-pricing--market" : ""}`}>
           <div>
-            <span>{listing.featured ? "Package Price" : isMarketListing ? "Advertised Asking Price" : "Package Price"}</span>
+            <span>Package Price</span>
             <strong>{listing.packagePrice}</strong>
           </div>
           {!isMarketListing ? (
