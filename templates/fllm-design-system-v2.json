@@ -5,7 +5,8 @@
   "rootMarker": "data-fllm-design-system=\"v2\"",
   "requiredImports": [
     "app/fllm-official-template.css",
-    "app/fllm-design-system.css"
+    "app/fllm-design-system.css",
+    "app/fllm-official-header.css"
   ],
   "requiredComponents": [
     "components/FormsSiteHeader.tsx",
@@ -64,6 +65,20 @@
   ],
   "docs": "docs/FLLM_DESIGN_SYSTEM_LOCK.md",
   "canonicalVisualLayer": "app/fllm-market-page-template.css",
-  "canonicalHeaderStructure": "abt-header-wrap > FormsSiteHeader",
-  "canonicalRootClass": "seo-market-page fllm-official-page"
+  "canonicalHeaderStructure": "FormsSiteHeader with fllm-official-shared-header",
+  "canonicalRootClass": "seo-market-page fllm-official-page",
+  "canonicalHeaderStylesheet": "app/fllm-official-header.css",
+  "canonicalHeader": {
+    "desktopHeight": "82px",
+    "logoWidth": "150px",
+    "logoHeight": "61px",
+    "topLevelMenuFontFamily": "Arial, Helvetica, sans-serif",
+    "topLevelMenuFontSize": "10px",
+    "topLevelMenuFontWeight": 600,
+    "topLevelMenuColor": "#ffffff",
+    "topLevelMenuHoverColor": "#f6a700",
+    "topLevelMenuWideGap": "42px",
+    "topLevelMenuNarrowDesktopGap": "27px",
+    "actionButtonHeight": "33px"
+  }
 }
