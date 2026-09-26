@@ -1,287 +1,57 @@
-.business-package-heat-map {
-  margin: 26px 0 34px;
-  border: 1px solid rgba(105, 214, 255, 0.72);
-  border-radius: 9px;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 18% 8%, rgba(22, 126, 168, 0.18), transparent 38%),
-    linear-gradient(145deg, #0d3152, #061f35 72%);
-  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255,255,255,.04);
+/* Business-package maps deliberately reuse the exact counties-page heat-map
+   classes, colors, legend, map scale and pin treatment. Keep this file limited
+   to package-specific copy/context so the visual language cannot drift. */
+
+.market-heat-map-page .business-package-county-map {
+  margin-inline: calc(50% - 50vw);
 }
 
-.business-package-map-heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(390px, .6fr);
-  gap: 28px;
-  align-items: end;
-  padding: 26px 28px 18px;
-  border-bottom: 1px solid rgba(105, 214, 255, 0.26);
+.market-heat-map-page .business-package-county-map .directory-shell {
+  width: min(1240px, calc(100% - 40px));
+  margin: 0 auto;
 }
 
-.business-package-map-heading > div:first-child > span,
-.business-package-map-filter-note span,
-.business-package-map-summary article span {
-  color: #69d6ff;
-  font: 900 11px/1.2 Arial, sans-serif;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.business-package-map-heading h2 {
-  margin: 7px 0 8px;
-  color: #fff;
-  font: 700 clamp(28px, 3vw, 42px)/1.05 Georgia, "Times New Roman", serif;
-}
-
-.business-package-map-heading p {
-  max-width: 780px;
-  margin: 0;
-  color: #d2e2ed;
-  font: 500 14px/1.58 Arial, sans-serif;
-}
-
-.business-package-map-summary {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.business-package-map-summary article {
-  min-height: 82px;
-  display: grid;
-  place-content: center;
-  gap: 6px;
-  text-align: center;
-  border: 1px solid rgba(105, 214, 255, 0.34);
+.business-package-map-context {
+  min-width: 235px;
+  padding: 12px 16px;
+  border: 1px solid rgba(241, 166, 0, .72);
   border-radius: 7px;
-  background: linear-gradient(145deg, rgba(18,61,101,.94), rgba(6,31,53,.96));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 9px 18px rgba(0,0,0,.16);
+  background: rgba(5, 24, 42, .62);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 220, 139, .16),
+    0 10px 22px rgba(2, 14, 25, .22);
+  text-align: right;
 }
 
-.business-package-map-summary article strong {
-  color: #fff;
-  font: 700 19px/1.15 Georgia, "Times New Roman", serif;
-}
-
-.business-package-map-filter-note {
-  display: flex;
-  align-items: center;
-  gap: 9px 14px;
-  flex-wrap: wrap;
-  padding: 12px 28px;
-  border-bottom: 1px solid rgba(241,166,0,.32);
-  background: rgba(3, 21, 36, 0.62);
-}
-
-.business-package-map-filter-note strong {
-  color: #f1a600;
-  font: 900 12px/1.2 Arial, sans-serif;
-  margin-right: 18px;
-}
-
-.business-package-map-stage {
-  position: relative;
-  min-height: 620px;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  padding: 14px 24px 6px;
-  background:
-    radial-gradient(circle at 50% 48%, rgba(105,214,255,.08), transparent 44%),
-    #071f34;
-}
-
-.business-package-map-svg {
-  width: min(94%, 980px);
-  height: auto;
-  max-height: 600px;
-  overflow: visible;
-  filter: drop-shadow(0 16px 25px rgba(0,0,0,.24));
-}
-
-.business-package-map-county {
-  vector-effect: non-scaling-stroke;
-  transition: fill 150ms ease, stroke 150ms ease, filter 150ms ease;
-  outline: none;
-}
-
-.business-package-map-county.has-packages {
-  cursor: pointer;
-}
-
-.business-package-map-county.has-packages:hover,
-.business-package-map-county.has-packages:focus {
-  fill: #1bbbd0;
-  stroke: #d8f7ff;
-  filter: drop-shadow(0 0 3px rgba(105,214,255,.75));
-}
-
-.business-package-pin-anchor {
-  pointer-events: bounding-box;
-  cursor: pointer;
-}
-
-.business-package-pin-drop {
-  animation: business-package-pin-drop 520ms cubic-bezier(.2,.9,.25,1.22) both;
-  transform-box: fill-box;
-  transform-origin: center bottom;
-}
-
-@keyframes business-package-pin-drop {
-  from {
-    opacity: 0;
-    transform: translateY(-22px) scale(.82);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.business-package-map-tooltip {
-  position: absolute;
-  z-index: 5;
-  width: 286px;
-  min-height: 156px;
-  pointer-events: none;
-  padding: 15px 16px 14px;
-  border: 1px solid #69d6ff;
-  border-radius: 7px;
-  background: linear-gradient(150deg, rgba(13,49,82,.98), rgba(4,25,43,.99));
-  box-shadow: 0 14px 34px rgba(0,0,0,.42), 0 0 20px rgba(105,214,255,.08);
-}
-
-.business-package-map-tooltip > span {
+.business-package-map-context span {
   display: block;
-  color: #f1a600;
-  font: 900 11px/1.2 Arial, sans-serif;
-  letter-spacing: .07em;
+  color: #ffc13b;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .06em;
   text-transform: uppercase;
 }
 
-.business-package-map-tooltip > strong {
+.business-package-map-context strong {
   display: block;
   margin-top: 5px;
   color: #fff;
-  font: 700 21px/1.14 Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.15;
 }
 
-.business-package-map-tooltip dl {
-  display: grid;
-  gap: 8px;
-  margin: 13px 0 0;
+.business-package-county-map .county-availability-tooltip > small:empty {
+  display: none;
 }
 
-.business-package-map-tooltip dl div {
-  display: flex;
-  justify-content: space-between;
-  gap: 14px;
-  padding-top: 7px;
-  border-top: 1px solid rgba(105,214,255,.19);
-}
-
-.business-package-map-tooltip dt {
-  color: #a9c7d9;
-  font: 700 10px/1.25 Arial, sans-serif;
-  text-transform: uppercase;
-}
-
-.business-package-map-tooltip dd {
-  margin: 0;
-  color: #fff;
-  text-align: right;
-  font: 800 12px/1.25 Arial, sans-serif;
-}
-
-.business-package-map-tooltip p {
-  margin: 10px 0 0;
-  color: #69d6ff;
-  font: 700 10px/1.35 Arial, sans-serif;
-}
-
-.business-package-map-legend {
-  display: flex;
-  justify-content: center;
-  gap: 22px;
-  flex-wrap: wrap;
-  padding: 14px 22px 16px;
-  border-top: 1px solid rgba(105,214,255,.24);
-  background: #061a2c;
-  color: #c7dce8;
-  font: 700 11px/1.2 Arial, sans-serif;
-}
-
-.business-package-map-legend span {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.business-package-map-swatch {
-  width: 18px;
-  height: 12px;
-  display: inline-block;
-  border: 1px solid #69d6ff;
-  border-radius: 2px;
-}
-
-.business-package-map-swatch.county {
-  background: #123d65;
-  border-color: #2f6385;
-}
-
-.business-package-map-swatch.inventory {
-  background: #167ea8;
-}
-
-.business-package-map-swatch.pin {
-  width: 11px;
-  height: 11px;
-  border-radius: 50% 50% 50% 0;
-  background: #69d6ff;
-  border-color: #d8f7ff;
-  transform: rotate(-45deg);
-}
-
-@media (max-width: 900px) {
-  .business-package-map-heading {
-    grid-template-columns: 1fr;
+@media (max-width: 760px) {
+  .market-heat-map-page .business-package-county-map .directory-shell {
+    width: min(calc(100% - 24px), 1240px);
   }
 
-  .business-package-map-summary {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .business-package-map-stage {
-    min-height: 470px;
-    padding-inline: 8px;
-  }
-}
-
-@media (max-width: 620px) {
-  .business-package-map-heading {
-    padding: 20px 16px 15px;
-  }
-
-  .business-package-map-summary {
-    grid-template-columns: 1fr;
-  }
-
-  .business-package-map-filter-note {
-    padding-inline: 16px;
-  }
-
-  .business-package-map-stage {
-    min-height: 390px;
-  }
-
-  .business-package-map-tooltip {
-    width: min(270px, calc(100% - 24px));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .business-package-pin-drop {
-    animation: none;
+  .business-package-map-context {
+    margin-top: 16px;
+    text-align: left;
   }
 }
