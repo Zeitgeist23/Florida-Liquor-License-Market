@@ -22,6 +22,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/businesses-with-quota-licenses`, lastModified, changeFrequency: "daily", priority: 0.88 },
     { url: `${siteUrl}/florida-liquor-license-market-platform`, lastModified, changeFrequency: "weekly", priority: 0.91 },
     { url: `${siteUrl}/businesses-with-quota-licenses/bars`, lastModified, changeFrequency: "weekly", priority: 0.86 },
+    { url: `${siteUrl}/businesses-with-quota-licenses/liquor-stores`, lastModified, changeFrequency: "weekly", priority: 0.86 },
+    { url: `${siteUrl}/businesses-with-quota-licenses/nightclubs`, lastModified, changeFrequency: "weekly", priority: 0.86 },
     { url: `${siteUrl}/restaurants-with-liquor-licenses`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/listings/fllm-antezza`, lastModified, changeFrequency: "daily", priority: 0.86 },
     { url: `${siteUrl}/listings/fllm-desamours`, lastModified, changeFrequency: "daily", priority: 0.86 },
