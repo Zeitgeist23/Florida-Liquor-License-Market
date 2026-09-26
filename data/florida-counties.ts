@@ -74,7 +74,7 @@ const countyContent: Record<string, CountyContent> = {
     introduction: "DeSoto County is a south-central Florida market centered on Arcadia, with agriculture, cattle ranching, local commerce, regional travel, restaurants, and community-focused hospitality.",
   },
   duval: {
-    primaryCities: ["Jacksonville"],
+    primaryCities: ["Jacksonville", "Atlantic Beach", "Jacksonville Beach", "Neptune Beach"],
     introduction: "Duval County is anchored by Jacksonville, one of Florida's largest metropolitan markets, with a major port, finance, logistics, healthcare, sports, beaches, dining, nightlife, and entertainment.",
     marketOverview: "Duval County supports restaurant and beverage concepts ranging from neighborhood operators to large hospitality groups. Buyers searching for Jacksonville and Duval County liquor licenses for sale can compare 4COP and 3PS quota opportunities, asking prices, availability, intended use, zoning, local approvals, and state transfer requirements.",
     nearbyCounties: ["clay", "st-johns", "nassau"],
