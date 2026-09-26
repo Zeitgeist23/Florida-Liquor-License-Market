@@ -310,8 +310,8 @@ export default function ListingsPage({
   );
 
   const visibleBusinessListings = useMemo(
-    () => filteredBusinessListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT),
-    [filteredBusinessListings],
+    () => filteredBusinessListings.slice(0, visibleCount),
+    [filteredBusinessListings, visibleCount],
   );
 
   const visibleListings = useMemo(
@@ -544,14 +544,33 @@ export default function ListingsPage({
           </div>
           {showingBusinessListings ? (
             filteredBusinessListings.length ? (
-              <div className="business-quota-grid listings-business-grid">
-                {visibleBusinessListings.map((listing) => (
-                  <BusinessQuotaListingCard
-                    key={listing.listingReference}
-                    listing={listing}
-                  />
-                ))}
-              </div>
+              <>
+                <div className="business-quota-grid listings-business-grid">
+                  {visibleBusinessListings.map((listing) => (
+                    <BusinessQuotaListingCard
+                      key={listing.listingReference}
+                      listing={listing}
+                    />
+                  ))}
+                </div>
+                {visibleCount < filteredBusinessListings.length ? (
+                  <div className="listings-load-more">
+                    <button
+                      className="btn btn-gold"
+                      type="button"
+                      onClick={() =>
+                        setVisibleCount((current) => current + BUSINESS_LISTING_DISPLAY_LIMIT)
+                      }
+                    >
+                      Show More Business Packages
+                    </button>
+                    <small>
+                      {filteredBusinessListings.length - visibleCount} additional package
+                      {filteredBusinessListings.length - visibleCount === 1 ? "" : "s"}
+                    </small>
+                  </div>
+                ) : null}
+              </>
             ) : (
               <div className="no-results">
                 <strong>{activeBusinessListings.length ? "No business packages match all filters." : "No published businesses in this category yet."}</strong>
