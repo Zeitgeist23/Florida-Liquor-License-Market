@@ -33,6 +33,7 @@ import "./listings-mobile-header-fix.css";
 import "./listings-seo-footer.css";
 import "./listings-view-button-edge-fix.css";
 import "../businesses-with-quota-licenses/business-inventory.css";
+import "../businesses-with-quota-licenses/business-inventory-filters.css";
 import "./listings-inventory-transition.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
