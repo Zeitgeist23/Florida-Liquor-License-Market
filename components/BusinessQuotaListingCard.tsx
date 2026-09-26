@@ -90,7 +90,7 @@ export default function BusinessQuotaListingCard({
               ) : listing.licenseClass === "sfs" ? (
                 <>4COP SFS/SRX license included<br />with advertised business package.</>
               ) : (
-                <>{listing.licenseType} liquor license included<br />with advertised business package.</>
+                <>{listing.licenseType} liquor license included<br />and not offered separately.</>
               )}
             </p>
             <p className="business-quota-card-broker business-quota-card-market-label">
