@@ -18,6 +18,9 @@ const allBarPackageListings = businessQuotaListings.filter((listing) =>
   /bar|pub|tavern|lounge|nightclub/i.test(`${listing.title} ${listing.businessType}`),
 );
 const barPackageListings = allBarPackageListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
+const duvalBarPackageListings = allBarPackageListings.filter(
+  (listing) => listing.county === "Duval County",
+);
 
 const faqs = [
   {
@@ -40,12 +43,17 @@ const faqs = [
     answer:
       "FLLM can provide quota-license market data, valuation and appraisal resources, transfer-process references, FDOR and ABT preparation resources, financing coordination and independent professional referrals. The broker or attorney remains responsible for the business transaction and any professional services within their scope.",
   },
+  {
+    question: "Where can I find bars for sale with liquor licenses in Duval County, Florida?",
+    answer:
+      "FLLM tracks Jacksonville, Atlantic Beach and other Duval County business packages that include transferable 4COP quota liquor licenses. Current Duval County bar packages are summarized on this page and linked to FLLM's Duval County market page.",
+  },
 ];
 
 export const metadata: Metadata = {
   title: "Bars for Sale With 4COP Quota Licenses in Florida | FLLM",
   description:
-    "Florida bars for sale with included 4COP quota liquor licenses. Learn how FLLM supports brokers, attorneys, buyers and sellers with presale valuation, transfer and closing resources, and post-sale license valuation.",
+    "Florida bars for sale with included 4COP quota liquor licenses, including Jacksonville, Atlantic Beach and Duval County opportunities. Compare business packages and FLLM transaction resources.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -240,6 +248,49 @@ export default function BarsWithQuotaLicensesPage() {
           )}
         </div>
       </section>
+
+      {duvalBarPackageListings.length ? (
+        <section className="fllm-template-section bar-package-local-market">
+          <div className="fllm-template-shell">
+            <div className="fllm-template-heading">
+              <div>
+                <span className="fllm-template-eyebrow">Jacksonville & Duval County</span>
+                <h2>Bars for Sale With Liquor Licenses in Duval County, Florida</h2>
+              </div>
+              <Link className="fllm-template-button" href="/counties/duval">
+                Duval County Market
+              </Link>
+            </div>
+            <p className="fllm-template-card-copy">
+              FLLM currently tracks {duvalBarPackageListings.length} Duval County bar business
+              package{duvalBarPackageListings.length === 1 ? "" : "s"} with included transferable 4COP quota
+              liquor licenses. Current opportunities include Jacksonville and Atlantic Beach businesses, including
+              high-volume sports-bar, neighborhood-bar and bar/restaurant concepts. These are business acquisitions,
+              not standalone liquor-license listings.
+            </p>
+            <div className="fllm-template-card-grid">
+              {duvalBarPackageListings.map((listing) => (
+                <article className="fllm-template-card fllm-template-card--gold" key={listing.listingReference}>
+                  <span className="fllm-ui-card-kicker">{listing.county}</span>
+                  <strong className="fllm-template-card-title">{listing.title}</strong>
+                  <p className="fllm-template-card-copy">
+                    Package price {listing.packagePrice}. {listing.licenseType} included with the advertised
+                    business package.
+                  </p>
+                </article>
+              ))}
+            </div>
+            <div className="fllm-ui-actions">
+              <Link className="fllm-template-button" href="/counties/duval#county-business-packages-title">
+                View Duval Business Packages
+              </Link>
+              <Link className="fllm-template-button fllm-template-button--outline" href="/counties/duval">
+                Jacksonville Liquor License Market
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="fllm-template-section fllm-template-section--deep bar-package-services">
         <div className="fllm-template-shell">
