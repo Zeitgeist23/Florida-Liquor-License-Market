@@ -53,3 +53,18 @@
     flex-direction: column;
   }
 }
+
+
+/* Business Type replaces redundant Availability on current business inventory.
+   Reuse the exact business-category colors from the listing cards. */
+.business-quota-filter-bar .business-filter-type-badge {
+  min-height: 22px;
+  margin: 0;
+  padding: 4px 10px;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.business-quota-filter-bar .business-type-filter > span {
+  white-space: nowrap;
+}
