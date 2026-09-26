@@ -165,6 +165,9 @@ export default function ListingsPage({
     const params = new URLSearchParams(window.location.search);
     const requestedType = params.get("type");
     const requestedStatus = params.get("status");
+    const requestedCounty = params.get("county");
+    const requestedPrice = params.get("price");
+    const requestedBusinessType = params.get("businessType");
 
     if (requestedType === "all") {
       setType("quota");
@@ -174,8 +177,27 @@ export default function ListingsPage({
     ) {
       setType(requestedType);
     }
+
     if (requestedStatus && ["available", "sold", "all"].includes(requestedStatus)) {
       setStatus(requestedStatus);
+    }
+
+    if (requestedCounty && counties.includes(requestedCounty)) {
+      setCounty(requestedCounty);
+    }
+
+    if (
+      requestedPrice &&
+      ["all", "under150", "150to350", "350to500", "500to1m", "over1m"].includes(requestedPrice)
+    ) {
+      setPrice(requestedPrice);
+    }
+
+    if (
+      requestedBusinessType &&
+      businessCategoryOrder.includes(requestedBusinessType as BusinessQuotaCategory)
+    ) {
+      setBusinessType(requestedBusinessType);
     }
   }, []);
 
@@ -486,7 +508,11 @@ export default function ListingsPage({
               </>
             )}
           </div>
-          <div className="results-summary">
+          <div
+            id="business-package-results"
+            className="results-summary"
+            style={{ scrollMarginTop: "118px" }}
+          >
             <span>
               {showingBusinessListings ? (
                 <>
