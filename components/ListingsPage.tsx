@@ -432,8 +432,8 @@ export default function ListingsPage({
               )}
             </span>
             <span className="results-summary-actions">
-              <time className="inventory-last-updated" dateTime="2026-09-18">
-                Updated Sep. 18, 2026
+              <time className="inventory-last-updated" dateTime="2026-09-25">
+                Updated Sep. 25, 2026
               </time>
               <button type="button" onClick={clearFilters}>
                 Clear all filters
