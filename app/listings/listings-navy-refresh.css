@@ -22,7 +22,8 @@
 @media (min-width: 981px) {
   .results-page .listings-header-band .forms-site-header .native-nav-trigger,
   .results-page .listings-header-band .forms-site-header .native-nav-direct-link {
-    font-size: 11px !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
   }
 }
 
