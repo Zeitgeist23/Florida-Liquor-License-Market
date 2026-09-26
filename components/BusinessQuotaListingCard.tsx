@@ -83,9 +83,20 @@ export default function BusinessQuotaListingCard({
         </div>
 
         {isMarketListing ? (
-          <p className="business-quota-card-broker business-quota-card-market-label">
-            Market Listing
-          </p>
+          <>
+            <p className="business-quota-card-condition">
+              {listing.licenseClass === "2cop" ? (
+                <>{listing.licenseType} included<br />with advertised business package.</>
+              ) : listing.licenseClass === "sfs" ? (
+                <>4COP SFS/SRX license included<br />with advertised business package.</>
+              ) : (
+                <>{listing.licenseType} liquor license included<br />with advertised business package.</>
+              )}
+            </p>
+            <p className="business-quota-card-broker business-quota-card-market-label">
+              Market Listing
+            </p>
+          </>
         ) : (
           <>
             <p className="business-quota-card-condition">
