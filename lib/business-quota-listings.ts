@@ -2885,6 +2885,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
 ];
 
+export const BUSINESS_LISTING_DISPLAY_LIMIT = 24;
+
 export const businessQuotaListings = businessQuotaListingRecords.filter(
   (listing) => listing.publicationStatus === "published" && listing.licenseClass === "quota",
 );
