@@ -6,6 +6,7 @@ import BusinessQuotaInventory from "@/components/BusinessQuotaInventory";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { FllmFaqGrid } from "@/components/FllmDesignSystem";
 import {
+  BUSINESS_LISTING_DISPLAY_LIMIT,
   businessQuotaListings,
   FLLM_QUOTA_LISTING_OPERATING_RULES,
 } from "@/lib/business-quota-listings";
@@ -82,6 +83,7 @@ export const metadata: Metadata = {
 };
 
 export default function BusinessesWithQuotaLicensesPage() {
+  const structuredBusinessListings = businessQuotaListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -125,8 +127,8 @@ export default function BusinessesWithQuotaLicensesPage() {
       "@context": "https://schema.org",
       "@type": "ItemList",
       name: "Florida businesses with included quota liquor licenses",
-      numberOfItems: businessQuotaListings.length,
-      itemListElement: businessQuotaListings.map((listing, index) => ({
+      numberOfItems: structuredBusinessListings.length,
+      itemListElement: structuredBusinessListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: listing.title,
