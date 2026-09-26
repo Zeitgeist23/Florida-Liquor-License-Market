@@ -628,3 +628,16 @@
   font-weight: 700;
   letter-spacing: .02em;
 }
+
+
+.business-quota-card[data-market-listing="true"] .business-quota-card-condition {
+  display: block !important;
+  width: 100%;
+  margin: 14px 0 9px;
+  padding: 0;
+  border: 0;
+  color: #d4e0e7;
+  font-size: 11px;
+  line-height: 1.35;
+  white-space: normal;
+}
