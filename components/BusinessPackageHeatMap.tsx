@@ -403,7 +403,7 @@ export default function BusinessPackageHeatMap({
                           <dd>{activeRow.licenseType}</dd>
                         </div>
                         <div>
-                          <dt>Average package asking price</dt>
+                          <dt>Avg. Package Price</dt>
                           <dd>{money(activeRow.averagePrice)}</dd>
                         </div>
                         <div>
