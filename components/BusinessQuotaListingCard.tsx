@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { businessMarketViewHref } from "@/lib/business-market-view";
 import type {
   BusinessQuotaCategory,
   BusinessQuotaListing,
@@ -26,6 +27,8 @@ export default function BusinessQuotaListingCard({
   listing: BusinessQuotaListing;
 }) {
   const categoryClassName = categoryClassNames[listing.businessCategory];
+  const isMarketListing = listing.listingTier === "market";
+  const actionHref = isMarketListing ? businessMarketViewHref(listing) : listing.href;
 
   return (
     <article
@@ -33,7 +36,9 @@ export default function BusinessQuotaListingCard({
       data-business-quota-listing={listing.listingReference}
       data-business-category={categoryClassName}
     >
-      {listing.featured ? (
+      {isMarketListing ? (
+        <strong className="business-quota-market-badge">Market Listing</strong>
+      ) : listing.featured ? (
         <strong className="business-quota-featured-badge">Featured Listing</strong>
       ) : null}
       <span className="business-quota-type-badge">
@@ -49,7 +54,7 @@ export default function BusinessQuotaListingCard({
             </p>
 
             <h2>
-              <Link href={listing.href}>
+              <Link href={actionHref}>
                 <span
                   className={`business-quota-category business-quota-category--title business-quota-category--${categoryClassName}`}
                 >
@@ -60,35 +65,41 @@ export default function BusinessQuotaListingCard({
           </div>
         </div>
 
-        <div className="business-quota-card-pricing">
+        <div className={`business-quota-card-pricing${isMarketListing ? " business-quota-card-pricing--market" : ""}`}>
           <div>
-            <span>Package Price</span>
+            <span>{isMarketListing ? "Advertised Asking Price" : "Package Price"}</span>
             <strong>{listing.packagePrice}</strong>
           </div>
-          <div>
-            <span>{listing.licenseClass === "2cop" ? "License Classification" : "License Value"}</span>
-            <strong>{listing.allocatedLicenseValue}</strong>
-          </div>
+          {!isMarketListing ? (
+            <div>
+              <span>{listing.licenseClass === "2cop" ? "License Classification" : "License Value"}</span>
+              <strong>{listing.allocatedLicenseValue}</strong>
+            </div>
+          ) : null}
         </div>
 
-        <p className="business-quota-card-condition">
-          {listing.licenseClass === "2cop" ? (
-            <>{listing.licenseType} reported with the business.<br />Verify license status and transfer requirements.</>
-          ) : listing.licenseClass === "sfs" ? (
-            <>4COP SFS/SRX license included<br />
-            and not offered separately.</>
-          ) : (
-            <>{listing.licenseType} liquor license included<br />
-            and not offered separately.</>
-          )}
-        </p>
+        {!isMarketListing ? (
+          <>
+            <p className="business-quota-card-condition">
+              {listing.licenseClass === "2cop" ? (
+                <>{listing.licenseType} reported with the business.<br />Verify license status and transfer requirements.</>
+              ) : listing.licenseClass === "sfs" ? (
+                <>4COP SFS/SRX license included<br />
+                and not offered separately.</>
+              ) : (
+                <>{listing.licenseType} liquor license included<br />
+                and not offered separately.</>
+              )}
+            </p>
 
-        <p className="business-quota-card-broker">
-          {listing.sellerDirect ? "Offered directly by " : "Represented by "}<strong>{listing.brokerName}</strong>
-        </p>
+            <p className="business-quota-card-broker">
+              {listing.sellerDirect ? "Offered directly by " : "Represented by "}<strong>{listing.brokerName}</strong>
+            </p>
+          </>
+        ) : null}
 
-        <Link className="business-quota-card-action" href={listing.href}>
-          View Business + License Package <span aria-hidden="true">›</span>
+        <Link className="business-quota-card-action" href={actionHref}>
+          {isMarketListing ? "Market View" : "View Business + License Package"} <span aria-hidden="true">›</span>
         </Link>
       </div>
 
