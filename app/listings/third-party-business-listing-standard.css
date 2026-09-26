@@ -825,6 +825,42 @@
   }
 }
 
+
+/* Keep quota-license education tooltips above neighboring rows/cards. */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlights,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid {
+  position: relative;
+  overflow: visible !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts {
+  z-index: 30;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlights {
+  z-index: 20;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-tooltip-card:hover,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-tooltip-card:focus,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-tooltip-card:focus-within {
+  z-index: 400 !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts:has(.marketplace-listing-tooltip-card:hover),
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-facts:has(.marketplace-listing-tooltip-card:focus-within),
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlights:has(.marketplace-listing-tooltip-card:hover),
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlights:has(.marketplace-listing-tooltip-card:focus-within) {
+  z-index: 500 !important;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-card-tooltip {
+  z-index: 600 !important;
+  width: 320px;
+  max-width: min(340px, calc(100vw - 40px));
+}
+
 /* Preserve viewport-based sticky positioning on featured business listings.
    Horizontal clipping remains in place without turning html/body into a
    non-scrolling sticky container. */
