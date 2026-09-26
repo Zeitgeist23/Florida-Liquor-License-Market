@@ -2631,7 +2631,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_2cop",
   },
   {
-    listingReference: "FLLM-MKT-Q-011",
+    listingReference: "FLLM-MKT-Q-036",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Orange County",
@@ -2654,7 +2654,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_package",
   },
   {
-    listingReference: "FLLM-MKT-Q-012",
+    listingReference: "FLLM-MKT-Q-037",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -2677,7 +2677,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_package",
   },
   {
-    listingReference: "FLLM-MKT-Q-013",
+    listingReference: "FLLM-MKT-Q-038",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Miami-Dade County",
@@ -2700,7 +2700,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_package",
   },
   {
-    listingReference: "FLLM-MKT-Q-014",
+    listingReference: "FLLM-MKT-Q-039",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Martin County",
@@ -2723,7 +2723,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_package",
   },
   {
-    listingReference: "FLLM-MKT-SFS-016",
+    listingReference: "FLLM-MKT-SFS-040",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Orange County",
@@ -2746,7 +2746,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_sfs",
   },
   {
-    listingReference: "FLLM-MKT-SFS-017",
+    listingReference: "FLLM-MKT-SFS-041",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "St. Johns County",
@@ -2769,7 +2769,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_sfs",
   },
   {
-    listingReference: "FLLM-MKT-SFS-018",
+    listingReference: "FLLM-MKT-SFS-042",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -2792,7 +2792,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_sfs",
   },
   {
-    listingReference: "FLLM-MKT-2COP-016",
+    listingReference: "FLLM-MKT-2COP-032",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Hernando County",
@@ -2815,7 +2815,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_2cop",
   },
   {
-    listingReference: "FLLM-MKT-Q-015",
+    listingReference: "FLLM-MKT-Q-040",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -2838,7 +2838,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_package",
   },
   {
-    listingReference: "FLLM-MKT-Q-016",
+    listingReference: "FLLM-MKT-Q-041",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Marion County",
@@ -2861,7 +2861,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_package",
   },
   {
-    listingReference: "FLLM-MKT-Q-017",
+    listingReference: "FLLM-MKT-Q-042",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Clay County",
