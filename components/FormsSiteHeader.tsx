@@ -89,7 +89,7 @@ export default function FormsSiteHeader({
         `}</style>
       ) : null}
 
-      <header className={`site-header forms-site-header page-shell${isBrokerListPage ? " broker-list-site-header" : ""}`}>
+      <header className={`site-header forms-site-header fllm-official-shared-header page-shell${isBrokerListPage ? " broker-list-site-header" : ""}`}>
         <a className="brand-lockup" href="/" aria-label="Florida Liquor License Market home">
           <img
             src="/assets/brand-sharp.svg"
