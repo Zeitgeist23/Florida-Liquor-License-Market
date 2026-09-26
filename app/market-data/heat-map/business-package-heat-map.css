@@ -136,3 +136,88 @@
     margin: 0 auto;
   }
 }
+
+
+/* Package-map tooltips are navigation targets: clicking the county or the
+   tooltip opens the matching listing cards, not the county market page. */
+.business-package-county-map .county-availability-tooltip {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.business-package-tooltip-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.business-package-tooltip-link > span {
+  display: block;
+  color: #ffc13b;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.business-package-tooltip-link > strong {
+  display: block;
+  margin-top: 5px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.business-package-tooltip-link dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  margin: 12px 0 10px;
+}
+
+.business-package-tooltip-link dl > div {
+  min-width: 0;
+}
+
+.business-package-tooltip-link dt {
+  color: #9eb8cc;
+  font-size: 9px;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.business-package-tooltip-link dd {
+  margin: 3px 0 0;
+  color: #dff7ff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.business-package-tooltip-link > small {
+  display: block;
+  color: #69d6ff;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.business-package-tooltip-link > em {
+  display: block;
+  margin-top: 10px;
+  color: #ffc13b;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+
+.business-package-tooltip-link:hover > em,
+.business-package-tooltip-link:focus-visible > em {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(105, 214, 255, .5);
+}
+
+.business-package-tooltip-link:focus-visible {
+  outline: none;
+}
