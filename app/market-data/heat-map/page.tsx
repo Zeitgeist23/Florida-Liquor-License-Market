@@ -29,17 +29,17 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License & Business Package Heat Map | FLLM",
+  title: "Florida Liquor License Heat Map | 4COP & 3PS Asking Prices",
   description:
-    "Explore Florida liquor-license market data by county, including transferable quota-license pricing and statewide business-package inventory for 4COP SFS / SRX and 2COP Beer & Wine listings.",
+    "Explore Florida liquor-license market data by county with interactive heat maps for active listings and separate 4COP and 3PS median and highest current asking-price views.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Liquor License Market Heat Map",
+    title: "Florida Liquor License Heat Map",
     description:
-      "Interactive Florida county maps for quota-license market data and location-dependent liquor-license business packages.",
+      "Interactive Florida county heat maps for current liquor-license inventory plus 4COP and 3PS asking-price data.",
     siteName: "Florida Liquor License Market",
   },
 };
