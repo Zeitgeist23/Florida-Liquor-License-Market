@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
+import BusinessPackageLocalMarkets from "@/components/BusinessPackageLocalMarkets";
 import { FllmPageShell } from "@/components/FllmDesignSystem";
 import { BUSINESS_LISTING_DISPLAY_LIMIT, businessQuotaListings } from "@/lib/business-quota-listings";
 
@@ -212,6 +213,8 @@ export default function GentlemensClubsWithQuotaLicensesPage() {
               {allListings.length === 1 ? "" : "s"}
             </strong>
           </div>
+
+          <BusinessPackageLocalMarkets listings={allListings} />
 
           <div className="business-quota-separation-note">
             <strong>Business package ≠ standalone license listing</strong>
