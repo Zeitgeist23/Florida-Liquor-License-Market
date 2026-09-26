@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 
 import { QUOTA_DRAWING_2026 } from "@/data/quota-drawing-2026";
 import { buildFloridaMarketIndex, type MarketPriceStats } from "@/lib/florida-market-index";
@@ -138,17 +139,7 @@ export default async function FloridaLiquorLicenseMarketIndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
 
-      <header className="index-header index-shell">
-        <Link className="index-brand" href="/" aria-label="Florida Liquor License Market home">
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-        </Link>
-        <nav aria-label="Market index navigation">
-          <Link href="/florida-liquor-licenses-for-sale">Licenses for Sale</Link>
-          <Link href="/counties">County Data</Link>
-          <Link href="/research">Research</Link>
-          <Link className="index-nav-cta" href={csvUrl}>Download CSV</Link>
-        </nav>
-      </header>
+      <div className="fllm-ui-header"><FormsSiteHeader /></div>
 
       <section className="index-hero">
         <div className="index-shell index-hero-grid">
