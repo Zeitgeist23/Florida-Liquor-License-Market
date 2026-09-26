@@ -147,6 +147,21 @@ if (!fs.existsSync(businessCardCssPath)) {
   }
 }
 
+const businessListingRegistryPath = path.join(root, "lib", "business-quota-listings.ts");
+if (fs.existsSync(businessListingRegistryPath)) {
+  const registrySource = fs.readFileSync(businessListingRegistryPath, "utf8");
+  const references = [...registrySource.matchAll(/listingReference:\s*"([^"]+)"/g)].map((match) => match[1]);
+  const seenReferences = new Set();
+  const duplicateReferences = new Set();
+  for (const reference of references) {
+    if (seenReferences.has(reference)) duplicateReferences.add(reference);
+    else seenReferences.add(reference);
+  }
+  for (const reference of duplicateReferences) {
+    violations.push([businessListingRegistryPath, `duplicate Market Listing reference: ${reference}`]);
+  }
+}
+
 const lockedBusinessCardComponent = [
   ["dynamic license-type badge", "{listing.licenseType} Included"],
   ["standardized business-category badge", "{listing.businessCategory}"],
