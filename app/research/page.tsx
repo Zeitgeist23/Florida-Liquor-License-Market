@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 
 import { QUOTA_DRAWING_2026 } from "@/data/quota-drawing-2026";
 import { buildFloridaMarketIndex } from "@/lib/florida-market-index";
@@ -74,17 +75,7 @@ export default async function ResearchPage() {
     <main className="research-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema).replaceAll("<", "\\u003c") }} />
 
-      <header className="research-header research-shell">
-        <Link className="research-brand" href="/" aria-label="Florida Liquor License Market home">
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-        </Link>
-        <nav aria-label="Research navigation">
-          <Link href="/florida-liquor-license-market-index">Market Index</Link>
-          <Link href="/counties">County Data</Link>
-          <Link href="/resources/license-fees">License Fees</Link>
-          <Link href="/florida-liquor-license-lottery">Quota Lottery</Link>
-        </nav>
-      </header>
+      <div className="fllm-ui-header"><FormsSiteHeader /></div>
 
       <section className="research-hero">
         <div className="research-shell research-hero-grid">
