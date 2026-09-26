@@ -29,6 +29,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/restaurants-with-liquor-licenses`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/listings/fllm-antezza`, lastModified, changeFrequency: "daily", priority: 0.86 },
     { url: `${siteUrl}/listings/fllm-desamours`, lastModified, changeFrequency: "daily", priority: 0.86 },
+    { url: `${siteUrl}/listings/fllm-solano`, lastModified, changeFrequency: "daily", priority: 0.86, alternates: { languages: { "en-US": `${siteUrl}/listings/fllm-solano`, "es-US": `${siteUrl}/es/listings/fllm-solano` } } },
+    { url: `${siteUrl}/es/listings/fllm-solano`, lastModified, changeFrequency: "daily", priority: 0.8, alternates: { languages: { "en-US": `${siteUrl}/listings/fllm-solano`, "es-US": `${siteUrl}/es/listings/fllm-solano` } } },
     { url: `${siteUrl}/florida-liquor-licenses-for-sale`, lastModified, changeFrequency: "daily", priority: 0.99 },
     { url: `${siteUrl}/exchange`, lastModified, changeFrequency: "daily", priority: 0.98 },
     { url: `${siteUrl}/buy-florida-liquor-license`, lastModified, changeFrequency: "daily", priority: 0.98 },
