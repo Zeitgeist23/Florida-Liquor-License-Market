@@ -167,7 +167,7 @@ export default function BusinessQuotaInventory({
 
       {filtered.length ? (
         <div className="business-quota-grid">
-          {filtered.map((listing) => <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />)}
+          {filtered.map((listing) => <BusinessQuotaListingCard key={`${listing.listingReference}-${listing.county}-${listing.businessCategory}-${listing.packagePriceNumber}`} listing={listing} />)}
         </div>
       ) : (
         <div className="business-quota-no-results">
