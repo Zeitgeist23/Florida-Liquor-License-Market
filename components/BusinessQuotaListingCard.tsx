@@ -36,9 +36,7 @@ export default function BusinessQuotaListingCard({
       data-business-category={categoryClassName}
       data-market-listing={isMarketListing ? "true" : undefined}
     >
-      {isMarketListing ? (
-        <strong className="business-quota-market-badge">Market Listing</strong>
-      ) : listing.featured ? (
+      {listing.featured ? (
         <strong className="business-quota-featured-badge">Featured Listing</strong>
       ) : null}
       <span className="business-quota-type-badge">
@@ -86,7 +84,11 @@ export default function BusinessQuotaListingCard({
           ) : null}
         </div>
 
-        {!isMarketListing ? (
+        {isMarketListing ? (
+          <p className="business-quota-card-broker business-quota-card-market-label">
+            Market Listing
+          </p>
+        ) : (
           <>
             <p className="business-quota-card-condition">
               {listing.licenseClass === "2cop" ? (
