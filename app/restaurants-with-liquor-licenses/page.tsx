@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
+import BusinessPackageLocalMarkets from "@/components/BusinessPackageLocalMarkets";
 import {
   FllmButton,
   FllmCard,
@@ -171,6 +172,8 @@ export default function RestaurantsWithLiquorLicensesPage() {
             title="Florida restaurant businesses currently published on FLLM"
           />
           {/* Restaurant inventory explanatory copy intentionally omitted. */}
+          <BusinessPackageLocalMarkets listings={allRestaurantListings} />
+
 
           {restaurantListings.length ? (
             <div className="business-quota-grid">
