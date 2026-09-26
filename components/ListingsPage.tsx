@@ -63,28 +63,18 @@ const businessCategoryClassNames: Record<BusinessQuotaCategory, string> = {
   "Other Hospitality": "other-hospitality",
 };
 
-const businessTypeOptions: readonly ListingsHoverSelectOption[] = [
-  { value: "all", label: "All Business Types" },
-  ...(
-    [
-      "Bar",
-      "Cocktail Lounge",
-      "Nightclub",
-      "Restaurant",
-      "Liquor Store",
-      "Marina",
-      "Gentlemen's Club",
-      "Hotel / Motel",
-      "Country Club",
-      "Bowling Alley",
-      "Other Hospitality",
-    ] as const
-  ).map((category) => ({
-    value: category,
-    label: category,
-    badgeClassName:
-      `business-quota-category business-quota-category--title business-quota-category--${businessCategoryClassNames[category]} business-filter-type-badge`,
-  })),
+const businessCategoryOrder: readonly BusinessQuotaCategory[] = [
+  "Bar",
+  "Cocktail Lounge",
+  "Nightclub",
+  "Restaurant",
+  "Liquor Store",
+  "Marina",
+  "Gentlemen's Club",
+  "Hotel / Motel",
+  "Country Club",
+  "Bowling Alley",
+  "Other Hospitality",
 ];
 
 const LISTINGS_PAGE_SIZE = 24;
@@ -266,6 +256,24 @@ export default function ListingsPage({
   const showing2copBusinessListings = type === "businesses-2cop";
   const showingBusinessListings = showingQuotaBusinessListings || showingSfsBusinessListings || showing2copBusinessListings;
   const activeBusinessListings = showing2copBusinessListings ? business2copListings : showingSfsBusinessListings ? businessSfsListings : businessListings;
+  const businessTypeOptions = useMemo<readonly ListingsHoverSelectOption[]>(() => {
+    const activeCategories = new Set(
+      activeBusinessListings.map((listing) => listing.businessCategory),
+    );
+
+    return [
+      { value: "all", label: "All Business Types" },
+      ...businessCategoryOrder
+        .filter((category) => activeCategories.has(category))
+        .map((category) => ({
+          value: category,
+          label: category,
+          badgeClassName:
+            `business-quota-category business-quota-category--title business-quota-category--${businessCategoryClassNames[category]} business-filter-type-badge`,
+        })),
+    ];
+  }, [activeBusinessListings]);
+
   const filteredBusinessListings = useMemo(
     () =>
       activeBusinessListings.filter(
@@ -315,6 +323,7 @@ export default function ListingsPage({
   }
 
   function changeListingType(value: string) {
+    setBusinessType("all");
     setType(value);
   }
 
