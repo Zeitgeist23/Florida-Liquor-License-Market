@@ -435,7 +435,12 @@ export default function ListingsPage({
                 />
               </label>
             )}
-            <button className="btn btn-gold" type="submit">
+            <button
+              className="btn btn-gold"
+              type="submit"
+              data-heat-map-type={type}
+              data-heat-map-business-type={businessType}
+            >
               Apply Filters
             </button>
           </form>
