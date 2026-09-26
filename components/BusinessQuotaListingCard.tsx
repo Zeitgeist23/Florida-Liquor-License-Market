@@ -28,6 +28,18 @@ export default function BusinessQuotaListingCard({
   const categoryClassName = categoryClassNames[listing.businessCategory];
   const isMarketListing = listing.listingTier === "market";
   const actionHref = isMarketListing ? listing.marketViewHref ?? "/market-data/heat-map" : listing.href;
+  const usesClassification = listing.licenseClass === "sfs" || listing.licenseClass === "2cop";
+  const licenseMetricLabel = usesClassification
+    ? "License Classification"
+    : isMarketListing
+      ? "License Value Est."
+      : "License Value";
+  const licenseMetricValue =
+    listing.licenseClass === "sfs"
+      ? "Location-Specific"
+      : listing.licenseClass === "2cop"
+        ? "Non-Quota"
+        : listing.allocatedLicenseValue;
 
   return (
     <article
@@ -77,8 +89,10 @@ export default function BusinessQuotaListingCard({
             <strong>{listing.packagePrice}</strong>
           </div>
           <div>
-            <span>{isMarketListing ? "License Value Est." : listing.licenseClass === "2cop" ? "License Classification" : "License Value"}</span>
-            <strong>{listing.allocatedLicenseValue}</strong>
+            <span>{licenseMetricLabel}</span>
+            <strong className={usesClassification ? "business-quota-card-classification-value" : undefined}>
+              {licenseMetricValue}
+            </strong>
           </div>
         </div>
 
