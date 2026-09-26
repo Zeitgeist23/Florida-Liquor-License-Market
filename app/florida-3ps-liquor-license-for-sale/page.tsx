@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 
 import MarketplaceListingCard from "@/components/MarketplaceListingCard";
 import { indexableCounties } from "@/data/florida-counties";
@@ -114,10 +115,7 @@ export default async function Florida3PsLiquorLicenseForSalePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }} />
       <main className="county-directory-page market-data-page three-ps-page">
-        <header className="directory-header directory-shell">
-          <Link className="directory-brand" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /></Link>
-          <nav><Link href="/listings">Licenses for Sale</Link><Link href="/florida-liquor-license-value">Value Estimator</Link><Link href="/florida-liquor-license-lottery">Quota Lottery</Link><Link href="/sell-your-license">List Your License</Link><Link href="/contact">Contact</Link></nav>
-        </header>
+      <div className="fllm-ui-header"><FormsSiteHeader /></div>
 
         <section className="directory-hero market-data-hero three-ps-hero">
           <div className="directory-shell">
