@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 
 import "../florida-liquor-licenses-for-sale/seo-market.css";
 
@@ -65,15 +66,7 @@ export default function HowToOpenALiquorStoreInFloridaPage() {
     <main className="seo-market-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }} />
 
-      <header className="seo-market-header seo-market-shell">
-        <Link className="seo-market-brand" href="/"><img src="/assets/logo.png" alt="Florida Liquor License Market" /></Link>
-        <nav aria-label="Guide navigation">
-          <Link href="/resources">Resources</Link>
-          <Link href="/listings">Licenses for Sale</Link>
-          <Link href="/counties">County Markets</Link>
-          <Link className="seo-market-nav-cta" href="/sell-your-license">List Your License</Link>
-        </nav>
-      </header>
+      <div className="fllm-ui-header"><FormsSiteHeader /></div>
 
       <section className="seo-market-hero">
         <div className="seo-market-shell">
