@@ -14,7 +14,7 @@ import {
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
-import { business2copListings, businessQuotaListings, businessSfsListings } from "@/lib/business-quota-listings";
+import { business2copListings, businessQuotaListings, businessSfsListings, type BusinessQuotaListing } from "@/lib/business-quota-listings";
 import "../fllm-official-template.css";
 import "./listings-premium.css";
 import "./listings-header-position.css";
@@ -120,6 +120,62 @@ export async function generateMetadata({ searchParams }: ListingsMetadataProps):
   };
 }
 
+
+function formatMoney(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+function medianPrice(values: number[]) {
+  if (!values.length) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const midpoint = Math.floor(sorted.length / 2);
+  return sorted.length % 2
+    ? sorted[midpoint]
+    : Math.round((sorted[midpoint - 1] + sorted[midpoint]) / 2);
+}
+
+function withMarketLicenseValues(
+  listings: BusinessQuotaListing[],
+  standaloneListings: Listing[],
+) {
+  return listings.map((listing) => {
+    if (listing.listingTier !== "market") return listing;
+
+    if (listing.licenseClass === "sfs") {
+      return { ...listing, allocatedLicenseValue: "Location-specific" };
+    }
+
+    if (listing.licenseClass === "2cop") {
+      return { ...listing, allocatedLicenseValue: "No separate quota value" };
+    }
+
+    const comparableType =
+      listing.licenseType === "3PS Quota / Package Store"
+        ? "3PS Quota / Package Store"
+        : "4COP Quota";
+
+    const countyPrices = standaloneListings
+      .filter(
+        (marketListing) =>
+          marketListing.county === listing.county &&
+          marketListing.type === comparableType &&
+          typeof marketListing.price === "number" &&
+          Number.isFinite(marketListing.price),
+      )
+      .map((marketListing) => marketListing.price as number);
+
+    const median = medianPrice(countyPrices);
+    return {
+      ...listing,
+      allocatedLicenseValue: median === null ? "Market data unavailable" : `${formatMoney(median)} est.`,
+    };
+  });
+}
+
 function preservePaidListingIdentity(input: ListingWithInventoryClass[]): Listing[] {
   return input.map((listing, index) => {
     if (!isDirectSellerListing(listing)) return listing;
@@ -144,6 +200,19 @@ export default async function Page() {
   const rawMarketplaceListings = await getMarketplaceListings();
   const marketplaceListings = preservePaidListingIdentity(rawMarketplaceListings);
   const availableListings = getVisibleAvailableMarketplaceListings(rawMarketplaceListings);
+
+  const businessQuotaListingsWithValues = withMarketLicenseValues(
+    businessQuotaListings,
+    availableListings,
+  );
+  const businessSfsListingsWithValues = withMarketLicenseValues(
+    businessSfsListings,
+    availableListings,
+  );
+  const business2copListingsWithValues = withMarketLicenseValues(
+    business2copListings,
+    availableListings,
+  );
 
   const structuredData = [
     {
@@ -198,9 +267,9 @@ export default async function Page() {
       />
       <ListingsPage
         initialListings={marketplaceListings}
-        businessListings={businessQuotaListings}
-        businessSfsListings={businessSfsListings}
-        business2copListings={business2copListings}
+        businessListings={businessQuotaListingsWithValues}
+        businessSfsListings={businessSfsListingsWithValues}
+        business2copListings={business2copListingsWithValues}
       />
       <ListingsSeoAuthorityBridge />
       <ListingsQueryFilterEnhancement />
