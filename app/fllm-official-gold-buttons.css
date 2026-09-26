@@ -1,0 +1,88 @@
+/* OFFICIAL FLLM GOLD BUTTON — sitewide lock.
+   Avoid pale/yellow variants. All primary gold CTAs use the same deeper
+   dimensional amber-gold treatment. */
+:root{
+  --fllm-official-gold-start:#f8b72f;
+  --fllm-official-gold-mid:#e99a00;
+  --fllm-official-gold-end:#cf7800;
+  --fllm-official-gold-border:#ffbd2e;
+  --fllm-official-gold-text:#07101a;
+}
+
+.btn-gold,
+.fllm-ui-official-gold-button,
+.fllm-template-button:not(.fllm-template-button--outline),
+.seo-market-button-gold,
+.business-quota-primary,
+.business-quota-card-action,
+.result-view-button,
+.transaction-button.gold,
+.lt-button.gold,
+.county-button-gold,
+.index-button-gold,
+.careers-button-gold,
+.three-ps-button-gold,
+a[class*="-button-gold"],
+button[class*="-button-gold"]{
+  border-color:var(--fllm-official-gold-border) !important;
+  color:var(--fllm-official-gold-text) !important;
+  background:linear-gradient(
+    145deg,
+    var(--fllm-official-gold-start) 0%,
+    var(--fllm-official-gold-mid) 58%,
+    var(--fllm-official-gold-end) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,237,182,.55),
+    inset 0 -2px 0 rgba(95,51,0,.28),
+    0 5px 12px rgba(0,0,0,.27) !important;
+  filter:none !important;
+}
+
+.btn-gold:hover:not(:disabled),
+.btn-gold:focus-visible:not(:disabled),
+.fllm-ui-official-gold-button:hover,
+.fllm-ui-official-gold-button:focus-visible,
+.fllm-template-button:not(.fllm-template-button--outline):hover,
+.fllm-template-button:not(.fllm-template-button--outline):focus-visible,
+.seo-market-button-gold:hover,
+.seo-market-button-gold:focus-visible,
+.business-quota-primary:hover,
+.business-quota-primary:focus-visible,
+.business-quota-card-action:hover,
+.business-quota-card-action:focus-visible,
+.result-view-button:hover,
+.result-view-button:focus-visible,
+.transaction-button.gold:hover,
+.transaction-button.gold:focus-visible,
+.lt-button.gold:hover,
+.lt-button.gold:focus-visible,
+.county-button-gold:hover,
+.county-button-gold:focus-visible,
+.index-button-gold:hover,
+.index-button-gold:focus-visible,
+.careers-button-gold:hover,
+.careers-button-gold:focus-visible,
+.three-ps-button-gold:hover,
+.three-ps-button-gold:focus-visible,
+a[class*="-button-gold"]:hover,
+a[class*="-button-gold"]:focus-visible,
+button[class*="-button-gold"]:hover:not(:disabled),
+button[class*="-button-gold"]:focus-visible:not(:disabled){
+  border-color:#ffd069 !important;
+  color:var(--fllm-official-gold-text) !important;
+  background:linear-gradient(145deg,#ffc64a 0%,#f1a600 58%,#dc8500 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,247,218,.70),
+    inset 0 -2px 0 rgba(95,51,0,.22),
+    0 8px 17px rgba(0,0,0,.33),
+    0 0 12px rgba(241,166,0,.24) !important;
+  filter:none !important;
+  outline:none;
+}
+
+.btn-gold:disabled,
+button[class*="-button-gold"]:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
