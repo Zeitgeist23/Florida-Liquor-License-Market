@@ -48,6 +48,42 @@ if (fs.existsSync(designSystemPath)) {
   }
 }
 
+// Official FLLM header is a locked sitewide primitive.
+const officialHeaderCssPath = path.join(root, "app", "fllm-official-header.css");
+const officialHeaderComponentPath = path.join(root, "components", "FormsSiteHeader.tsx");
+
+const lockedOfficialHeaderCss = [
+  ["official desktop height", "height:82px !important;"],
+  ["official logo width", "width:150px !important;"],
+  ["official logo height", "height:61px !important;"],
+  ["compact menu font size", "font-size:10px !important;"],
+  ["compact menu font weight", "font-weight:600 !important;"],
+  ["official menu white", "color:#fff !important;"],
+  ["official menu gold hover", "color:#f6a700 !important;"],
+  ["official wide desktop menu gap", "gap:42px !important;"],
+  ["official compact action height", "height:33px !important;"],
+];
+
+if (!fs.existsSync(officialHeaderCssPath)) {
+  violations.push([officialHeaderCssPath, "missing locked official FLLM header stylesheet"]);
+} else {
+  const officialHeaderCss = fs.readFileSync(officialHeaderCssPath, "utf8");
+  for (const [name, token] of lockedOfficialHeaderCss) {
+    if (!officialHeaderCss.includes(token)) {
+      violations.push([officialHeaderCssPath, `locked official header changed: ${name}`]);
+    }
+  }
+}
+
+if (!fs.existsSync(officialHeaderComponentPath)) {
+  violations.push([officialHeaderComponentPath, "missing official FormsSiteHeader component"]);
+} else {
+  const officialHeaderComponent = fs.readFileSync(officialHeaderComponentPath, "utf8");
+  if (!officialHeaderComponent.includes("fllm-official-shared-header")) {
+    violations.push([officialHeaderComponentPath, "FormsSiteHeader missing official shared-header lock class"]);
+  }
+}
+
 // Approved business-with-quota inventory cards are a locked FLLM primitive.
 // Keep these checks explicit so future listing work cannot silently resize,
 // restyle, or reword the standardized marketplace card.
