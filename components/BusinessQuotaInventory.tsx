@@ -2,7 +2,10 @@
 
 import { useMemo, useState } from "react";
 
-import type { BusinessQuotaListing } from "@/lib/business-quota-listings";
+import type {
+  BusinessQuotaCategory,
+  BusinessQuotaListing,
+} from "@/lib/business-quota-listings";
 import BusinessQuotaListingCard from "./BusinessQuotaListingCard";
 import ListingsHoverSelect, {
   type ListingsHoverSelectOption,
@@ -16,10 +19,42 @@ const listingTypeOptions: readonly ListingsHoverSelectOption[] = [
   { value: "businesses-sfs", label: "Businesses w/ 4COP SFS / SRX Licenses" },
 ];
 
-const availabilityOptions: readonly ListingsHoverSelectOption[] = [
-  { value: "available", label: "Available" },
-  { value: "sold", label: "Sold" },
-  { value: "all", label: "All" },
+const businessCategoryClassNames: Record<BusinessQuotaCategory, string> = {
+  Bar: "bar",
+  "Cocktail Lounge": "cocktail-lounge",
+  Nightclub: "nightclub",
+  Restaurant: "restaurant",
+  "Bowling Alley": "bowling-alley",
+  "Liquor Store": "liquor-store",
+  Marina: "marina",
+  "Gentlemen's Club": "gentlemens-club",
+  "Hotel / Motel": "hotel-motel",
+  "Country Club": "country-club",
+  "Other Hospitality": "other-hospitality",
+};
+
+const businessTypeOptions: readonly ListingsHoverSelectOption[] = [
+  { value: "all", label: "All Business Types" },
+  ...(
+    [
+      "Bar",
+      "Cocktail Lounge",
+      "Nightclub",
+      "Restaurant",
+      "Liquor Store",
+      "Marina",
+      "Gentlemen's Club",
+      "Hotel / Motel",
+      "Country Club",
+      "Bowling Alley",
+      "Other Hospitality",
+    ] as const
+  ).map((category) => ({
+    value: category,
+    label: category,
+    badgeClassName:
+      `business-quota-category business-quota-category--title business-quota-category--${businessCategoryClassNames[category]} business-filter-type-badge`,
+  })),
 ];
 
 const priceOptions: readonly ListingsHoverSelectOption[] = [
@@ -49,7 +84,7 @@ export default function BusinessQuotaInventory({
 }) {
   const [county, setCounty] = useState("all");
   const [price, setPrice] = useState("all");
-  const [availability, setAvailability] = useState("available");
+  const [businessType, setBusinessType] = useState("all");
 
   const countyOptions = useMemo<readonly ListingsHoverSelectOption[]>(
     () => [
@@ -65,11 +100,11 @@ export default function BusinessQuotaInventory({
     () =>
       listings.filter(
         (listing) =>
-          availability !== "sold" &&
+          (businessType === "all" || listing.businessCategory === businessType) &&
           (county === "all" || listing.county === county) &&
           priceMatches(listing.packagePriceNumber, price),
       ),
-    [availability, county, listings, price],
+    [businessType, county, listings, price],
   );
 
   function changeListingType(value: string) {
@@ -87,7 +122,7 @@ export default function BusinessQuotaInventory({
   function clearFilters() {
     setCounty("all");
     setPrice("all");
-    setAvailability("available");
+    setBusinessType("all");
   }
 
   return (
@@ -111,9 +146,14 @@ export default function BusinessQuotaInventory({
             <span>Price Range</span>
             <ListingsHoverSelect ariaLabel="Filter business listings by package price" value={price} options={priceOptions} onChange={setPrice} />
           </label>
-          <label>
-            <span>Availability</span>
-            <ListingsHoverSelect ariaLabel="Filter business listings by availability" value={availability} options={availabilityOptions} onChange={setAvailability} />
+          <label className="business-type-filter">
+            <span>Business Type</span>
+            <ListingsHoverSelect
+              ariaLabel="Filter business listings by business type"
+              value={businessType}
+              options={businessTypeOptions}
+              onChange={setBusinessType}
+            />
           </label>
           <button className="btn btn-gold" type="button" onClick={() => window.location.assign("/market-data/heat-map")}>Heat Map</button>
         </form>
