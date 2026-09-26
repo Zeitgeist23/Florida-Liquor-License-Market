@@ -1,3 +1,10 @@
+.business-quota-filter-bar.results-page {
+  min-height: 0 !important;
+  height: auto !important;
+  background: #081d30 !important;
+  color: inherit !important;
+}
+
 .business-quota-filter-bar {
   position: relative;
   z-index: 12;
