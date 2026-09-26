@@ -5,7 +5,7 @@ import type { Listing as MarketplaceListing } from "@/data/listings";
 import { countySlug } from "@/data/florida-counties";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import HomeMarketInsightsMap from "./HomeMarketInsightsMap";
-import HeaderNavMenus from "./HeaderNavMenus";
+import FormsSiteHeader from "./FormsSiteHeader";
 
 type FeaturedListing = {
   county: string;
@@ -57,7 +57,6 @@ const stats = [
 ];
 
 export default function Home({ marketListings }: { marketListings: MarketplaceListing[] }) {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [county, setCounty] = useState("all");
   const [licenseType, setLicenseType] = useState("all");
   const [priceRange, setPriceRange] = useState("all");
@@ -168,12 +167,9 @@ export default function Home({ marketListings }: { marketListings: MarketplaceLi
         <img className="hero-photo hero-photo-left" src="/assets/hero-skyline-full.png" alt="Miami skyline at sunset" />
         <img className="hero-photo hero-photo-right" src="/assets/hero-bar-full.png" alt="Upscale Florida bar interior" />
         <div className="hero-shade" />
-        <header className="site-header page-shell">
-          <a className="brand-lockup" href="#top" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" /></a>
-          <button className="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>☰</button>
-          <HeaderNavMenus className={menuOpen ? "primary-nav is-open" : "primary-nav"} />
-          <div className="header-actions"><a className="btn btn-outline fllm-header-contact-cta" href="/contact"><span className="contact-phone" aria-hidden="true">☎</span>Contact Us</a><a className="btn btn-gold fllm-header-list-cta" href="#sell">List Your License</a></div>
-        </header>
+        <div className="fllm-home-official-header">
+          <FormsSiteHeader primaryActionHref="/sell-your-license#listing-options" primaryActionLabel="List Your License" />
+        </div>
         <div className="hero-content page-shell">
           <h1><span>Buy &amp; Sell</span>Florida Liquor Licenses</h1>
           <p className="confidential"><i /><img className="confidential-icon" src="/assets/hero-confidential-shield.png" alt="" aria-hidden="true" /><strong>Confidential Inquiries</strong><i /></p>
