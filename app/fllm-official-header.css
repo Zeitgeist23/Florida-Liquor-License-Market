@@ -196,3 +196,19 @@
     background:#06131f !important;
   }
 }
+
+
+/* Canonical top-level menu typography: intentionally compact. */
+.fllm-official-page .forms-site-header.fllm-official-shared-header .primary-nav .native-nav-trigger,
+.fllm-official-page .forms-site-header.fllm-official-shared-header .primary-nav .native-nav-direct-link,
+.fllm-official-shared-header .primary-nav .native-nav-trigger,
+.fllm-official-shared-header .primary-nav .native-nav-direct-link{
+  font-size:10px !important;
+  font-weight:600 !important;
+  line-height:1 !important;
+}
+.fllm-official-page .forms-site-header.fllm-official-shared-header .primary-nav .native-nav-trigger>span,
+.fllm-official-page .forms-site-header.fllm-official-shared-header .primary-nav .native-nav-direct-link>span{
+  font-size:inherit !important;
+  font-weight:inherit !important;
+}
