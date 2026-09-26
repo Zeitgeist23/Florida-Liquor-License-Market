@@ -110,10 +110,10 @@ export default function BusinessMarketHeatMap({
   const legend = mode === "inventory" ? INVENTORY_LEGEND : PRICE_LEGEND;
   const title =
     mode === "business"
-      ? \`Average \${categoryLabel} asking price by county\`
+      ? `Average ${categoryLabel} asking price by county`
       : mode === "quota"
-        ? \`Average \${benchmarkLabel} asking price by county\`
-        : \`\${categoryLabel} market observations by county\`;
+        ? `Average ${benchmarkLabel} asking price by county`
+        : `${categoryLabel} market observations by county`;
 
   function rowColor(row: BusinessMarketHeatMapRow | undefined) {
     if (!row) return mode === "inventory" ? INVENTORY_LEGEND[0][0] : PRICE_LEGEND[0][0];
@@ -144,7 +144,7 @@ export default function BusinessMarketHeatMap({
       <div className="business-market-heat-map-grid">
         <aside className="business-market-heat-map-legend">
           <span>{mode === "inventory" ? "Observation Scale" : "Average Asking-Price Scale"}</span>
-          <h3>{mode === "business" ? categoryLabel : mode === "quota" ? benchmarkLabel : \`\${categoryLabel} inventory\`}</h3>
+          <h3>{mode === "business" ? categoryLabel : mode === "quota" ? benchmarkLabel : `${categoryLabel} inventory`}</h3>
           <ul>
             {legend.map(([color, label]) => (
               <li key={label}>
@@ -159,17 +159,17 @@ export default function BusinessMarketHeatMap({
             <ol>
               {ranked.map(({ row, value }) => (
                 <li
-                  key={\`\${mode}-\${row.slug}\`}
+                  key={`${mode}-${row.slug}`}
                   onPointerEnter={() => setActive(row)}
                   onPointerLeave={() => setActive(null)}
                   onFocus={() => setActive(row)}
                   onBlur={() => setActive(null)}
                 >
-                  <a href={\`/market-data/businesses/\${row.slug}/\${categorySlug}/\${licenseSlug}\`}>
+                  <a href={`/market-data/businesses/${row.slug}/${categorySlug}/${licenseSlug}`}>
                     {row.name.replace(/ County$/i, "")}
                   </a>
                   <b>{mode === "inventory" ? value : money(value)}</b>
-                  <em><span style={{ width: \`\${Math.max(8, (value / max) * 100)}%\` }} /></em>
+                  <em><span style={{ width: `${Math.max(8, (value / max) * 100)}%` }} /></em>
                 </li>
               ))}
             </ol>
@@ -186,12 +186,12 @@ export default function BusinessMarketHeatMap({
                 const row = byCounty.get(key(county.name));
                 const rowSlug = row?.slug ?? "";
                 const label = row
-                  ? \`\${row.name}: \${row.businessCount} matching \${categoryLabel.toLowerCase()} observations, average business ask \${money(row.businessAverage)}, average \${benchmarkLabel} ask \${money(row.quotaAverage)}\`
+                  ? `${row.name}: ${row.businessCount} matching ${categoryLabel.toLowerCase()} observations, average business ask ${money(row.businessAverage)}, average ${benchmarkLabel} ask ${money(row.quotaAverage)}`
                   : county.name;
                 return (
                   <a
                     key={county.id}
-                    href={row ? \`/market-data/businesses/\${row.slug}/\${categorySlug}/\${licenseSlug}\` : undefined}
+                    href={row ? `/market-data/businesses/${row.slug}/${categorySlug}/${licenseSlug}` : undefined}
                     aria-label={label}
                     className={[
                       row && active?.slug === row.slug ? "is-active" : "",
@@ -219,7 +219,7 @@ export default function BusinessMarketHeatMap({
                 <div><dt>Business observations</dt><dd>{active.businessCount}</dd></div>
                 <div><dt>Quota observations</dt><dd>{active.quotaCount}</dd></div>
               </dl>
-              <a href={\`/market-data/businesses/\${active.slug}/\${categorySlug}/\${licenseSlug}\`}>
+              <a href={`/market-data/businesses/${active.slug}/${categorySlug}/${licenseSlug}`}>
                 Open county market view →
               </a>
             </aside>
