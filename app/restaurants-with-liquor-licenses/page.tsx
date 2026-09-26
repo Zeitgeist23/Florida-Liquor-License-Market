@@ -10,6 +10,7 @@ import {
   FllmSectionHeading,
 } from "@/components/FllmDesignSystem";
 import {
+  BUSINESS_LISTING_DISPLAY_LIMIT,
   business2copListings,
   businessQuotaListings,
   businessSfsListings,
@@ -23,11 +24,12 @@ import "../businesses-with-quota-licenses/business-inventory.css";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/restaurants-with-liquor-licenses`;
 
-const restaurantListings = [
+const allRestaurantListings = [
   ...businessQuotaListings,
   ...businessSfsListings,
   ...business2copListings,
 ].filter((listing) => listing.businessCategory === "Restaurant");
+const restaurantListings = allRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
 
 export const metadata: Metadata = {
   title: "Florida Restaurants For Sale With Liquor Licenses | FLLM",
