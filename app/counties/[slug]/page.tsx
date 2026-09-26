@@ -283,6 +283,11 @@ export default async function CountyPage({ params }: PageProps) {
 
   const { available, sold, lowest, highest, medianPrice } = await getCountyListingSnapshot(county.name);
   const businessPackages = businessQuotaListingsForCounty(county.name);
+  const barBusinessPackages = businessPackages.filter(
+    (listing) =>
+      listing.businessCategory === "Bar" ||
+      /bar|pub|tavern|lounge/i.test(`${listing.title} ${listing.businessType}`),
+  );
   const canonical = `${siteUrl}/counties/${county.slug}`;
   const inventoryHref = "#available-licenses";
   const cityText = county.primaryCities.length ? county.primaryCities.join(", ") : county.name.replace(" County", "");
@@ -483,6 +488,16 @@ export default async function CountyPage({ params }: PageProps) {
               <Link href="/businesses-with-quota-licenses">Browse all business + license packages ›</Link>
             </div>
             <p className="county-disclaimer">These are operating-business acquisitions that include a quota liquor license. They are not counted as separately purchasable licenses above.</p>
+            {barBusinessPackages.length > 0 ? (
+              <p className="county-disclaimer">
+                Looking for bars for sale with liquor licenses in {county.name}? FLLM currently tracks{" "}
+                {barBusinessPackages.length} bar or bar/restaurant business package
+                {barBusinessPackages.length === 1 ? "" : "s"} in this county.{" "}
+                <Link href="/businesses-with-quota-licenses/bars">
+                  Browse Florida bars for sale with 4COP quota liquor licenses ›
+                </Link>
+              </p>
+            ) : null}
             <div className="business-quota-grid county-business-quota-grid">
               {businessPackages.map((listing) => <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />)}
             </div>
