@@ -235,7 +235,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     featured: true,
     publicationStatus: "preview",
     classification: "business_2cop",
-  },,
+  },
   {
     listingReference: "FLLM-MKT-001",
     href: "/market-data/businesses/martin/bar/4cop-quota",
