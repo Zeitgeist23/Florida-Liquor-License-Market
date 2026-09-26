@@ -40,6 +40,7 @@ import "./listings/[slug]/exchange-panel.css";
 import "./listings/[slug]/official-shell.css";
 import "./florida-quota-liquor-license-cost/header-footer-standard.css";
 import "./lawrence-moore-premium-badge.css";
+import "./fllm-official-header.css";
 
 /* One authoritative listing-card presentation across every FLLM route. */
 import "./listings/listings-premium.css";
