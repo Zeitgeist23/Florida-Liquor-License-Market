@@ -14,8 +14,8 @@ The purpose of v2 is to stop page-by-page visual reinvention. New FLLM pages mus
 4. `components/FllmDesignSystem.tsx` — approved React primitives.
 5. `components/FormsSiteHeader.tsx` — the only approved page header.
 6. `app/fllm-official-header.css` — the locked sitewide header geometry and typography.
-6. `components/SellPageOfficialFooter.tsx` — the approved footer implementation for registered routes.
-7. `templates/fllm-design-system-v2.json` — machine-readable design contract.
+7. `components/SellPageOfficialFooter.tsx` — the approved footer implementation for registered routes.
+8. `templates/fllm-design-system-v2.json` — machine-readable design contract.
 
 ## Mandatory rule for new pages
 
@@ -66,6 +66,20 @@ The compact header shown on the approved FLLM inventory pages is now the officia
 - Contact Us and List Your License retain the approved compact 33px button treatment.
 - Route-specific styles may not enlarge, embolden, recolor, or otherwise restyle the top-level menu.
 - Any change to this header requires an explicit update to the locked design system and build gate.
+
+## Official gold button standard
+
+The pale yellow/gold variants are retired. Primary FLLM gold CTAs use one deeper amber-gold treatment sitewide.
+
+- Border: `#ffbd2e`.
+- Base gradient: `#f8b72f 0% → #e99a00 58% → #cf7800 100%`.
+- Text: `#07101a`.
+- Inset highlight: `rgba(255,237,182,.55)`.
+- Bottom inset: `rgba(95,51,0,.28)`.
+- Base shadow: `0 5px 12px rgba(0,0,0,.27)`.
+- Hover gradient: `#ffc64a 0% → #f1a600 58% → #dc8500 100%`.
+- Route-specific pale gradients such as `#ffd56b`, `#ffd66f`, or equivalent light-yellow starts are not approved for primary gold buttons.
+- Shared stylesheet: `app/fllm-official-gold-buttons.css`.
 
 ## Approved content hierarchy
 
