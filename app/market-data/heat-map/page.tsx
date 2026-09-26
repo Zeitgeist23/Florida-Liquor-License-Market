@@ -19,6 +19,7 @@ import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import "@/app/resources/forms/abt-forms.css";
 import "@/app/fllm-official-template.css";
+import "@/app/counties/counties-page.css";
 import "./heat-map-page.css";
 import "./business-package-heat-map.css";
 
