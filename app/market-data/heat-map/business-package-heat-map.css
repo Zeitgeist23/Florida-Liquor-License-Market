@@ -55,3 +55,82 @@
     text-align: left;
   }
 }
+
+
+/* Center the entire business-package map introduction and control band.
+   This applies to both 4COP SFS/SRX and 2COP map modes. */
+.business-package-county-map .county-availability-map-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.business-package-county-map .county-availability-map-heading > div {
+  width: 100%;
+  text-align: center;
+}
+
+.business-package-county-map .county-availability-map-heading > div > span,
+.business-package-county-map .county-availability-map-heading h2 {
+  text-align: center;
+}
+
+.business-package-county-map .county-availability-map-heading h2 {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.business-package-county-map .county-availability-map-heading > p {
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+  white-space: normal;
+}
+
+.business-package-county-map .county-heatmap-toolbar {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.business-package-county-map .county-heatmap-current-metric {
+  width: 100%;
+  text-align: center;
+}
+
+.business-package-county-map .county-heatmap-current-metric > span,
+.business-package-county-map .county-heatmap-current-metric h3 {
+  text-align: center;
+}
+
+.business-package-county-map .county-heatmap-current-metric h3 {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.business-package-county-map .business-package-map-context {
+  min-width: 294px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .business-package-county-map .county-availability-map-heading,
+  .business-package-county-map .county-availability-map-heading > p,
+  .business-package-county-map .county-heatmap-toolbar,
+  .business-package-county-map .county-heatmap-current-metric,
+  .business-package-county-map .business-package-map-context {
+    text-align: center;
+  }
+
+  .business-package-county-map .business-package-map-context {
+    margin: 0 auto;
+  }
+}
