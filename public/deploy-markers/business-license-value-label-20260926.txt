@@ -1,0 +1,8 @@
+Fresh production deployment trigger for FLLM business Market Listing label update.
+
+Target UI change:
+- Market Listing cards must display "LICENSE VALUE EST."
+- They must not display "FLLM VALUE EST."
+
+Source commit containing the label change: 8844b2db14c44c78af7a44a49ed9fc2032f9a724
+Triggered: 2026-09-26
