@@ -33,9 +33,9 @@ const sourceListingUrl =
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Restaurante/Bar en Hollywood + Licencia 4COP SFS / SRX | Vista Previa del Corredor",
+  title: "Restaurante/Bar en Hollywood + Licencia 4COP SFS / SRX | FLLM",
   description:
-    "Vista previa para revisión del corredor de un restaurante/bar en Hollywood, Florida, ofrecido por $499,000 con una licencia completa 4COP SFS / SRX vinculada al local.",
+    "Anuncio destacado de un restaurante/bar en Hollywood, Florida, ofrecido por $499,000 con una licencia completa 4COP SFS / SRX vinculada al local y representado por Aquiles Solano Jr., P.A.",
   alternates: {
     canonical: canonicalUrl,
     languages: {
@@ -44,20 +44,20 @@ export const metadata: Metadata = {
       "x-default": englishUrl,
     },
   },
-  robots: { index: false, follow: false, noarchive: true },
+  robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Restaurante/Bar en Hollywood + Licencia 4COP SFS / SRX | Vista Previa",
+    title: "Restaurante/Bar en Hollywood + Licencia 4COP SFS / SRX | FLLM",
     description:
-      "Vista previa privada para revisión del corredor Aquiles Solano Jr., P.A., de Southeast Florida Realty & Management Corp.",
+      "Anuncio destacado representado por Aquiles Solano Jr., P.A., de Southeast Florida Realty & Management Corp.",
     siteName: "Florida Liquor License Market",
     locale: "es_US",
     alternateLocale: ["en_US"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Restaurante/Bar en Hollywood + Licencia 4COP SFS / SRX | Vista Previa",
+    title: "Restaurante/Bar en Hollywood + Licencia 4COP SFS / SRX | FLLM",
     description:
       "Paquete comercial de restaurante/bar en Broward County con licencia completa 4COP SFS / SRX basada en requisitos.",
   },
@@ -202,11 +202,11 @@ const config = defineOfficial4CopSfsBusinessListing({
   confidentialityText:
     "se indica que la documentación financiera detallada y las métricas operativas están disponibles para compradores calificados después de firmar un acuerdo de confidencialidad. La identidad exacta del negocio, el local, los registros financieros, documentos de arrendamiento, activos incluidos y registros de licencias deben confirmarse directamente a través del corredor.",
   sourceDisclosure:
-    "Vista previa para revisión del corredor basada en el anuncio fuente identificado como BizBuySell Ad #2543711 y en información pública del perfil del corredor. FLLM no ha verificado de forma independiente la información comercial proporcionada por el vendedor.",
+    "Anuncio destacado de corredor externo basado en la información del vendedor y del corredor para BizBuySell Ad #2543711 y en información pública del perfil del corredor. FLLM no ha verificado de forma independiente la información comercial proporcionada por el vendedor.",
   countyContext:
     "Broward County es un importante mercado del sur de Florida alrededor de Fort Lauderdale y Hollywood, con alta densidad de población, playas, navegación, turismo, restaurantes, vida nocturna, entretenimiento y demanda hotelera durante todo el año.",
 });
 
-export default function AquilesSolanoSpanishBrokerPreviewPage() {
+export default function AquilesSolanoSpanishFeaturedListingPage() {
   return <FeaturedThirdPartyBusinessListingPage config={config} />;
 }
