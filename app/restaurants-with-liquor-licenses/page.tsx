@@ -28,13 +28,20 @@ const allRestaurantListings = [
   ...businessQuotaListings,
   ...businessSfsListings,
   ...business2copListings,
-].filter((listing) => listing.businessCategory === "Restaurant");
+].filter(
+  (listing) =>
+    listing.businessCategory === "Restaurant" ||
+    /restaurant/i.test(`${listing.title} ${listing.businessType}`),
+);
 const restaurantListings = allRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
+const stJohnsRestaurantListings = allRestaurantListings.filter(
+  (listing) => listing.county === "St. Johns County",
+);
 
 export const metadata: Metadata = {
   title: "Florida Restaurants For Sale With Liquor Licenses | FLLM",
   description:
-    "Browse Florida restaurant businesses with 4COP quota, 4COP SFS / SRX, and 2COP beer-and-wine licenses, and compare the principal licensing paths for restaurant operators and buyers.",
+    "Browse Florida restaurants and restaurant/bar businesses for sale with 4COP quota, 4COP SFS / SRX, and 2COP beer-and-wine licenses, including St. Augustine and St. Johns County opportunities.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -178,6 +185,33 @@ export default function RestaurantsWithLiquorLicensesPage() {
           )}
         </div>
       </section>
+
+      {stJohnsRestaurantListings.length ? (
+        <section className="fllm-template-section">
+          <div className="fllm-template-shell">
+            <FllmSectionHeading
+              eyebrow="St. Augustine & St. Johns County"
+              title="Restaurants for sale with liquor licenses in St. Augustine and St. Johns County"
+              copy={
+                <p>
+                  FLLM currently tracks {stJohnsRestaurantListings.length} restaurant or restaurant/bar business
+                  package{stJohnsRestaurantListings.length === 1 ? "" : "s"} in St. Johns County, including
+                  transferable 4COP quota and qualification-based 4COP SFS / SRX opportunities. These business
+                  packages are kept separate from standalone St. Johns County liquor-license inventory.
+                </p>
+              }
+            />
+            <div className="fllm-ui-actions">
+              <Link className="btn btn-gold fllm-ui-official-gold-button" href="#restaurant-inventory">
+                View St. Johns Restaurant Packages
+              </Link>
+              <FllmButton href="/counties/st-johns" variant="outline">
+                St. Johns County License Market
+              </FllmButton>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="fllm-ui-final-cta">
         <div className="fllm-template-shell">
