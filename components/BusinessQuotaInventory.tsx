@@ -2,9 +2,10 @@
 
 import { useMemo, useState } from "react";
 
-import type {
-  BusinessQuotaCategory,
-  BusinessQuotaListing,
+import {
+  BUSINESS_LISTING_DISPLAY_LIMIT,
+  type BusinessQuotaCategory,
+  type BusinessQuotaListing,
 } from "@/lib/business-quota-listings";
 import BusinessQuotaListingCard from "./BusinessQuotaListingCard";
 import ListingsHoverSelect, {
@@ -107,6 +108,11 @@ export default function BusinessQuotaInventory({
     [businessType, county, listings, price],
   );
 
+  const visibleListings = useMemo(
+    () => filtered.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT),
+    [filtered],
+  );
+
   function changeListingType(value: string) {
     if (value === "businesses") return;
 
@@ -129,7 +135,11 @@ export default function BusinessQuotaInventory({
     <>
       <div className="business-quota-heading">
         <div><span>Current Business Inventory</span><h2>Businesses That Include a Quota License</h2></div>
-        <strong>{filtered.length} Active Package{filtered.length === 1 ? "" : "s"}</strong>
+        <strong>
+          {visibleListings.length}
+          {filtered.length > BUSINESS_LISTING_DISPLAY_LIMIT ? ` of ${filtered.length}` : ""} Active Package
+          {filtered.length === 1 ? "" : "s"}
+        </strong>
       </div>
 
       <div className="business-quota-filter-bar results-page">
@@ -167,7 +177,7 @@ export default function BusinessQuotaInventory({
 
       {filtered.length ? (
         <div className="business-quota-grid">
-          {filtered.map((listing) => <BusinessQuotaListingCard key={`${listing.listingReference}-${listing.county}-${listing.businessCategory}-${listing.packagePriceNumber}`} listing={listing} />)}
+          {visibleListings.map((listing) => <BusinessQuotaListingCard key={`${listing.listingReference}-${listing.county}-${listing.businessCategory}-${listing.packagePriceNumber}`} listing={listing} />)}
         </div>
       ) : (
         <div className="business-quota-no-results">
