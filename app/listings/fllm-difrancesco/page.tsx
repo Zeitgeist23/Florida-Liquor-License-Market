@@ -91,7 +91,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     website: "https://businesssaleslistings.com",
     listingUrl: sourceListingUrl,
     photo:
-      "https://myexitplan.com/wp-content/uploads/2025/11/nickdif-wpcf_250x250.jpg",
+      "https://images.bizbuysell.com/shared/brokerdirectory/images/50260/pf_prs_headshot.jpeg",
     credential: "Florida licensed business broker · SL3626742",
   },
   additionalSellerIntro:
