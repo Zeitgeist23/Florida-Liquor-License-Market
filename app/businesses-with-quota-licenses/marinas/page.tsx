@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   description:
     "Florida marina and waterfront business packages with included quota liquor licenses. Review FLLM licensing, valuation and transaction resources for marina acquisitions.",
   alternates: { canonical: canonicalUrl },
-  robots: hasInventory ? { index: true, follow: true } : { index: false, follow: true },
+  robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
