@@ -71,7 +71,7 @@ function money(value: number | null) {
 function rangeLabel(priceStats: PriceStats) {
   if (priceStats.low === null || priceStats.high === null) return "No disclosed data";
   if (priceStats.low === priceStats.high) return money(priceStats.low);
-  return \`\${money(priceStats.low)}–\${money(priceStats.high)}\`;
+  return `${money(priceStats.low)}–${money(priceStats.high)}`;
 }
 
 function licenseMatches(
@@ -92,10 +92,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!county || !category || !licenseView) return {};
 
-  const canonical = \`\${siteUrl}/market-data/businesses/\${county.slug}/\${categorySlug}/\${licenseSlug}\`;
-  const title = \`\${county.name} \${category} Market View | FLLM\`;
+  const canonical = `${siteUrl}/market-data/businesses/${county.slug}/${categorySlug}/${licenseSlug}`;
+  const title = `${county.name} ${category} Market View | FLLM`;
   const description =
-    \`Compare observed \${category.toLowerCase()} asking prices in \${county.name} with FLLM's \${licenseView.benchmarkLabel} asking-price data and statewide county heat-map context.\`;
+    `Compare observed ${category.toLowerCase()} asking prices in ${county.name} with FLLM's ${licenseView.benchmarkLabel} asking-price data and statewide county heat-map context.`;
 
   return {
     title,
@@ -170,14 +170,14 @@ export default async function BusinessMarketViewPage({ params }: PageProps) {
     };
   });
 
-  const canonicalPath = \`/market-data/businesses/\${county.slug}/\${categorySlug}/\${licenseSlug}\`;
+  const canonicalPath = `/market-data/businesses/${county.slug}/${categorySlug}/${licenseSlug}`;
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Dataset",
-    name: \`\${county.name} \${category} Market View\`,
-    url: \`\${siteUrl}\${canonicalPath}\`,
+    name: `${county.name} ${category} Market View`,
+    url: `${siteUrl}${canonicalPath}`,
     description:
-      \`Observed advertised asking prices for \${category.toLowerCase()} businesses using \${licenseView.label} licensing, compared with FLLM county quota-license asking-price data.\`,
+      `Observed advertised asking prices for ${category.toLowerCase()} businesses using ${licenseView.label} licensing, compared with FLLM county quota-license asking-price data.`,
     spatialCoverage: { "@type": "Place", name: county.name },
     creator: {
       "@type": "Organization",
@@ -185,8 +185,8 @@ export default async function BusinessMarketViewPage({ params }: PageProps) {
       url: siteUrl,
     },
     variableMeasured: [
-      \`\${category} advertised asking prices\`,
-      \`\${licenseView.benchmarkLabel} advertised asking prices\`,
+      `${category} advertised asking prices`,
+      `${licenseView.benchmarkLabel} advertised asking prices`,
       "Matching market observations",
     ],
   };
