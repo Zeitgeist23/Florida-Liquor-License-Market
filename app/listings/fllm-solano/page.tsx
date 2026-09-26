@@ -32,9 +32,9 @@ const sourceListingUrl =
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Hollywood Restaurant/Bar + 4COP SFS / SRX Full-Liquor License | Broker Preview",
+  title: "Hollywood Restaurant/Bar + 4COP SFS / SRX Full-Liquor License | FLLM",
   description:
-    "Broker-review mockup for a Hollywood, Florida restaurant/bar business offered at $499,000 with a location-specific 4COP SFS / SRX full-liquor license.",
+    "Featured Hollywood, Florida restaurant/bar business offered at $499,000 with a location-specific 4COP SFS / SRX full-liquor license, represented by Aquiles Solano Jr., P.A.",
   alternates: {
     canonical: canonicalUrl,
     languages: {
@@ -43,18 +43,18 @@ export const metadata: Metadata = {
       "x-default": canonicalUrl,
     },
   },
-  robots: { index: false, follow: false, noarchive: true },
+  robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Hollywood Restaurant/Bar + 4COP SFS / SRX License | Broker Preview",
+    title: "Hollywood Restaurant/Bar + 4COP SFS / SRX License | FLLM",
     description:
-      "Private broker-review mockup represented by Aquiles Solano Jr., P.A. of Southeast Florida Realty & Management Corp.",
+      "Featured Hollywood restaurant/bar listing represented by Aquiles Solano Jr., P.A. of Southeast Florida Realty & Management Corp.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hollywood Restaurant/Bar + 4COP SFS / SRX License | Broker Preview",
+    title: "Hollywood Restaurant/Bar + 4COP SFS / SRX License | FLLM",
     description:
       "Broward County restaurant/bar business package with a qualification-based 4COP SFS / SRX full-liquor license.",
   },
@@ -199,11 +199,11 @@ const config = defineOfficial4CopSfsBusinessListing({
   confidentialityText:
     "detailed financial documentation and operational metrics are stated to be available to qualified buyers upon execution of a non-disclosure agreement. The exact business identity, premises, financial records, lease documents, included assets and licensing records should be confirmed directly through the listing broker.",
   sourceDisclosure:
-    "Broker-review mockup based on the source listing identified as BizBuySell Ad #2543711 and public broker-profile information. FLLM has not independently verified the seller-provided business information.",
+    "Featured third-party broker listing based on the seller and broker information provided for BizBuySell Ad #2543711 and public broker-profile information. FLLM has not independently verified the seller-provided business information.",
   countyContext:
     "Broward County anchors South Florida around Fort Lauderdale and Hollywood, with dense population, beaches, boating, tourism, restaurants, nightlife, entertainment and year-round hospitality demand.",
 });
 
-export default function AquilesSolanoBrokerPreviewPage() {
+export default function AquilesSolanoFeaturedListingPage() {
   return <FeaturedThirdPartyBusinessListingPage config={config} />;
 }
