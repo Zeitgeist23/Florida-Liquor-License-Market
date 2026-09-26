@@ -111,6 +111,7 @@ export default function Page() {
         { href: "/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law", label: "Florida cocktails-to-go: current restaurant rules", description: "Review the current food-order, sealing, packaging and delivery rules that can matter to qualifying restaurant operations." }
       ]}
       researchLinks={[
+        { href: "/businesses-with-quota-licenses", label: "Florida Businesses for Sale With 4COP Quota Liquor Licenses", description: "Browse operating Florida business packages that include transferable quota liquor licenses, kept separate from FLLM's standalone license inventory." },
         { href: "/resources/florida-liquor-license-laws#cocktails-to-go", label: "Cocktails-to-Go Statutes Explained by FLLM", description: "Review FLLM's explanation of SB 148, section 565.045 and the related open-container provision." },
         { href: "/license-types/4cop-sfs-restaurant", label: "Compare 4COP-SFS", description: "Compare the transferable quota license with the qualification-based restaurant license." },
         { href: "/license-types/gentlemens-clubs-4cop-quota", label: "4COP Quota Licenses for Gentlemen's Clubs", description: "See how a 4COP quota license can fit into an adult-entertainment transaction while zoning and adult-use approvals remain separate." }
