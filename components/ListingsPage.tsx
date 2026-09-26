@@ -4,7 +4,10 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { Listing } from "@/data/listings";
-import type { BusinessQuotaListing } from "@/lib/business-quota-listings";
+import type {
+  BusinessQuotaCategory,
+  BusinessQuotaListing,
+} from "@/lib/business-quota-listings";
 import BusinessQuotaListingCard from "./BusinessQuotaListingCard";
 import FormsSiteHeader from "./FormsSiteHeader";
 import ListingsHoverSelect, {
@@ -44,6 +47,44 @@ const availabilityOptions: readonly ListingsHoverSelectOption[] = [
   { value: "available", label: "Available" },
   { value: "sold", label: "Sold" },
   { value: "all", label: "All" },
+];
+
+const businessCategoryClassNames: Record<BusinessQuotaCategory, string> = {
+  Bar: "bar",
+  "Cocktail Lounge": "cocktail-lounge",
+  Nightclub: "nightclub",
+  Restaurant: "restaurant",
+  "Bowling Alley": "bowling-alley",
+  "Liquor Store": "liquor-store",
+  Marina: "marina",
+  "Gentlemen's Club": "gentlemens-club",
+  "Hotel / Motel": "hotel-motel",
+  "Country Club": "country-club",
+  "Other Hospitality": "other-hospitality",
+};
+
+const businessTypeOptions: readonly ListingsHoverSelectOption[] = [
+  { value: "all", label: "All Business Types" },
+  ...(
+    [
+      "Bar",
+      "Cocktail Lounge",
+      "Nightclub",
+      "Restaurant",
+      "Liquor Store",
+      "Marina",
+      "Gentlemen's Club",
+      "Hotel / Motel",
+      "Country Club",
+      "Bowling Alley",
+      "Other Hospitality",
+    ] as const
+  ).map((category) => ({
+    value: category,
+    label: category,
+    badgeClassName:
+      `business-quota-category business-quota-category--title business-quota-category--${businessCategoryClassNames[category]} business-filter-type-badge`,
+  })),
 ];
 
 const LISTINGS_PAGE_SIZE = 24;
@@ -125,6 +166,7 @@ export default function ListingsPage({
   const [type, setType] = useState("quota");
   const [price, setPrice] = useState("all");
   const [status, setStatus] = useState("available");
+  const [businessType, setBusinessType] = useState("all");
   const [visibleCount, setVisibleCount] = useState(LISTINGS_PAGE_SIZE);
   const focusedCardRef = useRef<HTMLElement | null>(null);
 
@@ -229,10 +271,11 @@ export default function ListingsPage({
       activeBusinessListings.filter(
         (listing) =>
           status !== "sold" &&
+          (businessType === "all" || listing.businessCategory === businessType) &&
           (county === "all" || listing.county === county) &&
           priceMatches(listing.packagePriceNumber, price),
       ),
-    [activeBusinessListings, county, price, status],
+    [activeBusinessListings, businessType, county, price, status],
   );
 
   const visibleListings = useMemo(
@@ -242,7 +285,7 @@ export default function ListingsPage({
 
   useEffect(() => {
     setVisibleCount(LISTINGS_PAGE_SIZE);
-  }, [county, type, price, status]);
+  }, [businessType, county, type, price, status]);
 
   useEffect(() => {
     if (!focusIdentity) return;
@@ -268,6 +311,7 @@ export default function ListingsPage({
     setType("quota");
     setPrice("all");
     setStatus("available");
+    setBusinessType("all");
   }
 
   function changeListingType(value: string) {
@@ -361,15 +405,27 @@ export default function ListingsPage({
                 onChange={setPrice}
               />
             </label>
-            <label>
-              <span>Availability</span>
-              <ListingsHoverSelect
-                ariaLabel="Filter listings by availability"
-                value={status}
-                options={availabilityOptions}
-                onChange={setStatus}
-              />
-            </label>
+            {showingBusinessListings ? (
+              <label className="business-type-filter">
+                <span>Business Type</span>
+                <ListingsHoverSelect
+                  ariaLabel="Filter business listings by business type"
+                  value={businessType}
+                  options={businessTypeOptions}
+                  onChange={setBusinessType}
+                />
+              </label>
+            ) : (
+              <label>
+                <span>Availability</span>
+                <ListingsHoverSelect
+                  ariaLabel="Filter listings by availability"
+                  value={status}
+                  options={availabilityOptions}
+                  onChange={setStatus}
+                />
+              </label>
+            )}
             <button className="btn btn-gold" type="submit">
               Apply Filters
             </button>
