@@ -106,7 +106,7 @@ export default function BusinessQuotaListingCard({
               {listing.sellerDirect ? "Offered directly by " : "Represented by "}<strong>{listing.brokerName}</strong>
             </p>
           </>
-        ) : null}
+        )}
 
         <Link className="business-quota-card-action" href={actionHref}>
           {isMarketListing ? "Market View" : "View Business + License Package"} <span aria-hidden="true">›</span>
