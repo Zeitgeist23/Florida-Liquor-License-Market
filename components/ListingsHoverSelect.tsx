@@ -7,6 +7,7 @@ import styles from "./ListingsHoverSelect.module.css";
 export type ListingsHoverSelectOption = {
   value: string;
   label: string;
+  badgeClassName?: string;
 };
 
 type ListingsHoverSelectProps = {
@@ -241,7 +242,13 @@ export default function ListingsHoverSelect({
           if (event.key.length === 1 && /\S/.test(event.key)) handleTypeahead(event.key);
         }}
       >
-        <span>{selectedOption?.label ?? "Select"}</span>
+        <span>
+          {selectedOption?.badgeClassName ? (
+            <span className={selectedOption.badgeClassName}>{selectedOption.label}</span>
+          ) : (
+            selectedOption?.label ?? "Select"
+          )}
+        </span>
         <i className={styles.chevron} aria-hidden="true" />
       </button>
 
@@ -269,7 +276,13 @@ export default function ListingsHoverSelect({
               onPointerDown={(event) => event.preventDefault()}
               onClick={() => selectIndex(index)}
             >
-              <span>{option.label}</span>
+              <span>
+                {option.badgeClassName ? (
+                  <span className={option.badgeClassName}>{option.label}</span>
+                ) : (
+                  option.label
+                )}
+              </span>
               {selected ? <b aria-hidden="true">✓</b> : null}
             </button>
           );
