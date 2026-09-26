@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import BusinessQuotaInventory from "@/components/BusinessQuotaInventory";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import { FllmFaqGrid } from "@/components/FllmDesignSystem";
 import {
   businessQuotaListings,
   FLLM_QUOTA_LISTING_OPERATING_RULES,
@@ -17,6 +18,47 @@ import "./business-inventory-filters.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/businesses-with-quota-licenses`;
+
+
+const businessQuotaFaqs = [
+  {
+    question: "What kinds of Florida businesses are sold with 4COP quota liquor licenses?",
+    answer: (
+      <>
+        Bars, cocktail lounges, restaurants, nightclubs and other hospitality businesses may be offered with an included
+        transferable 4COP quota license. FLLM keeps those business packages separate from standalone quota-license listings.
+      </>
+    ),
+  },
+  {
+    question: "Is a 4COP quota license transferable when a Florida business is sold?",
+    answer: (
+      <>
+        A 4COP quota license is a transferable county quota asset, but a sale still requires the applicable Florida DBPR /
+        Division of Alcoholic Beverages and Tobacco transfer process, buyer qualification, premises review and other required approvals.
+      </>
+    ),
+  },
+  {
+    question: "Is a 4COP quota license the same as a 4COP SFS / SRX restaurant license?",
+    answer: (
+      <>
+        No. A 4COP quota license is a county-limited transferable quota asset. A 4COP SFS / SRX license is a
+        qualification-based restaurant license tied to the qualifying operation and approved premises. FLLM lists those
+        restaurant opportunities separately.
+      </>
+    ),
+  },
+  {
+    question: "Where can I find Florida restaurants for sale with liquor licenses?",
+    answer: (
+      <>
+        Use FLLM's <Link href="/restaurants-with-liquor-licenses">Florida Restaurants For Sale With Liquor Licenses</Link>
+        {" "}hub to compare restaurant opportunities involving 4COP quota, 4COP SFS / SRX, and 2COP beer-and-wine licenses.
+      </>
+    ),
+  },
+];
 
 export const metadata: Metadata = {
   title: "Florida Businesses for Sale With 4COP & 3PS Quota Licenses",
@@ -57,6 +99,27 @@ export default function BusinessesWithQuotaLicensesPage() {
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
         { "@type": "ListItem", position: 2, name: "Businesses With Quota Licenses", item: canonicalUrl },
       ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: businessQuotaFaqs.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            typeof item.answer === "string"
+              ? item.answer
+              : item.question === "Where can I find Florida restaurants for sale with liquor licenses?"
+                ? "Use FLLM's Florida Restaurants For Sale With Liquor Licenses hub to compare restaurant opportunities involving 4COP quota, 4COP SFS / SRX, and 2COP beer-and-wine licenses."
+                : item.question === "Is a 4COP quota license the same as a 4COP SFS / SRX restaurant license?"
+                  ? "No. A 4COP quota license is a county-limited transferable quota asset. A 4COP SFS / SRX license is a qualification-based restaurant license tied to the qualifying operation and approved premises."
+                  : item.question === "Is a 4COP quota license transferable when a Florida business is sold?"
+                    ? "A 4COP quota license is a transferable county quota asset, but the transaction still requires the applicable Florida DBPR / Division of Alcoholic Beverages and Tobacco transfer process and approvals."
+                    : "Bars, cocktail lounges, restaurants, nightclubs and other hospitality businesses may be offered with an included transferable 4COP quota license.",
+        },
+      })),
     },
     {
       "@context": "https://schema.org",
@@ -104,6 +167,50 @@ export default function BusinessesWithQuotaLicensesPage() {
       <section className="business-quota-inventory" id="business-inventory">
         <div className="business-quota-shell">
           <BusinessQuotaInventory listings={businessQuotaListings} />
+        </div>
+      </section>
+
+      <section className="fllm-template-section business-quota-seo-section">
+        <div className="business-quota-shell">
+          <div className="fllm-ui-heading fllm-ui-heading--center">
+            <div>
+              <span className="fllm-template-eyebrow">4COP Business Types</span>
+              <h2>Businesses With 4COP Quota Liquor Licenses in Florida</h2>
+              <div className="fllm-ui-heading-copy">
+                <p>
+                  FLLM separates operating-business packages from standalone quota licenses so buyers can compare the
+                  business opportunity and the included license without mixing the two markets.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="fllm-ui-grid fllm-ui-grid--3">
+            <Link className="fllm-ui-link-card" href="/businesses-with-quota-licenses/bars">
+              <strong>Bars & Lounges</strong>
+              <span>Browse Florida bar, lounge and nightlife packages that include transferable 4COP quota licenses.</span>
+            </Link>
+            <Link className="fllm-ui-link-card" href="/restaurants-with-liquor-licenses">
+              <strong>Restaurants</strong>
+              <span>Compare restaurant opportunities involving 4COP quota, 4COP SFS / SRX and 2COP licenses.</span>
+            </Link>
+            <Link className="fllm-ui-link-card" href="/license-types/gentlemens-clubs-4cop-quota">
+              <strong>Gentlemen's Clubs & Nightlife</strong>
+              <span>Review how 4COP quota licensing fits adult-entertainment and other nightlife transactions.</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="fllm-template-section fllm-template-section--deep business-quota-faq-section">
+        <div className="business-quota-shell">
+          <div className="fllm-ui-heading fllm-ui-heading--center">
+            <div>
+              <span className="fllm-template-eyebrow">4COP Business Questions</span>
+              <h2>Florida 4COP quota business FAQs</h2>
+            </div>
+          </div>
+          <FllmFaqGrid items={businessQuotaFaqs} columns={2} />
         </div>
       </section>
 
