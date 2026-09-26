@@ -6,7 +6,8 @@
   "requiredImports": [
     "app/fllm-official-template.css",
     "app/fllm-design-system.css",
-    "app/fllm-official-header.css"
+    "app/fllm-official-header.css",
+    "app/fllm-official-gold-buttons.css"
   ],
   "requiredComponents": [
     "components/FormsSiteHeader.tsx",
@@ -80,5 +81,21 @@
     "topLevelMenuWideGap": "42px",
     "topLevelMenuNarrowDesktopGap": "27px",
     "actionButtonHeight": "33px"
+  },
+  "canonicalGoldButtonStylesheet": "app/fllm-official-gold-buttons.css",
+  "canonicalGoldButton": {
+    "border": "#ffbd2e",
+    "text": "#07101a",
+    "gradient": [
+      "#f8b72f 0%",
+      "#e99a00 58%",
+      "#cf7800 100%"
+    ],
+    "hoverGradient": [
+      "#ffc64a 0%",
+      "#f1a600 58%",
+      "#dc8500 100%"
+    ],
+    "paleYellowVariantsAllowed": false
   }
 }
