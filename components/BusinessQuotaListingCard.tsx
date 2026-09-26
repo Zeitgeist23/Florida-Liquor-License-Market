@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { countySlug, getCountyBySlug } from "@/data/florida-counties";
 import type {
   BusinessQuotaCategory,
   BusinessQuotaListing,
@@ -27,7 +28,12 @@ export default function BusinessQuotaListingCard({
 }) {
   const categoryClassName = categoryClassNames[listing.businessCategory];
   const isMarketListing = listing.listingTier === "market";
-  const actionHref = isMarketListing ? listing.marketViewHref ?? "/market-data/heat-map" : listing.href;
+  const county = getCountyBySlug(countySlug(listing.county));
+  const primaryMarkets = county?.primaryCities.slice(0, 4) ?? [];
+  const actionHref = isMarketListing
+    ? `${listing.countyHref}#county-business-packages-title`
+    : listing.href;
+  const marketViewHref = listing.marketViewHref ?? "/market-data/heat-map";
   const usesClassification = listing.licenseClass === "sfs" || listing.licenseClass === "2cop";
   const licenseMetricLabel = usesClassification
     ? "License Classification"
@@ -96,6 +102,12 @@ export default function BusinessQuotaListingCard({
           </div>
         </div>
 
+        {primaryMarkets.length ? (
+          <p className="business-quota-card-local-markets">
+            <span>Primary markets:</span> {primaryMarkets.join(" · ")}
+          </p>
+        ) : null}
+
         {isMarketListing ? (
           <>
             <p className="business-quota-card-condition">
@@ -131,9 +143,16 @@ export default function BusinessQuotaListingCard({
           </>
         )}
 
-        <Link className="business-quota-card-action" href={actionHref}>
-          {isMarketListing ? "Market View" : "View Business + License Package"} <span aria-hidden="true">›</span>
-        </Link>
+        <div className="business-quota-card-actions">
+          <Link className="business-quota-card-action" href={actionHref}>
+            {isMarketListing ? "View County Business Packages" : "View Business + License Package"} <span aria-hidden="true">›</span>
+          </Link>
+          {isMarketListing ? (
+            <Link className="business-quota-card-market-view" href={marketViewHref}>
+              Market View ›
+            </Link>
+          ) : null}
+        </div>
       </div>
 
       <div className="business-quota-card-map">
