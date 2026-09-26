@@ -34,6 +34,21 @@ function getHeatMapApi() {
   return (window as HeatMapWindow).FLLMHeatMap;
 }
 
+function businessPackageHeatMapHref(button: HTMLButtonElement) {
+  const listingType = button.dataset.heatMapType;
+  if (listingType !== "businesses-sfs" && listingType !== "businesses-2cop") {
+    return null;
+  }
+
+  const params = new URLSearchParams({ view: listingType });
+  const businessType = button.dataset.heatMapBusinessType?.trim();
+  if (businessType && businessType !== "all") {
+    params.set("businessType", businessType);
+  }
+
+  return `/market-data/heat-map?${params.toString()}`;
+}
+
 function ensureScript(id: string, src: string) {
   return new Promise<void>((resolve, reject) => {
     const assetPath = src.split("?")[0];
@@ -104,6 +119,12 @@ export default function ListingsHeatMapEnhancement() {
       button.setAttribute("aria-busy", "true");
 
       try {
+        const packageHeatMapHref = businessPackageHeatMapHref(button);
+        if (packageHeatMapHref) {
+          window.location.assign(packageHeatMapHref);
+          return;
+        }
+
         await Promise.all(SCRIPT_ASSETS.map((asset) => ensureScript(asset.id, asset.src)));
         const heatMap = getHeatMapApi();
         if (!heatMap) throw new Error("Shared heat map API was not initialized");
