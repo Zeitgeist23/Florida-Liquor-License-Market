@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./careers.css";
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const applyHref = "/contact?careers=1";
@@ -51,16 +52,7 @@ const responsibilities = [
 export default function CareersPage() {
   return (
     <main className="careers-page">
-      <header className="careers-header careers-shell">
-        <Link className="careers-brand" href="/" aria-label="Florida Liquor License Market home">
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-        </Link>
-        <nav aria-label="Careers navigation">
-          <Link href="/listings">Licenses for Sale</Link>
-          <Link href="/sell-your-license">List Your License</Link>
-          <Link href="/contact">Contact Us</Link>
-        </nav>
-      </header>
+      <div className="fllm-ui-header"><FormsSiteHeader /></div>
 
       <section className="careers-hero">
         <div className="careers-shell careers-hero-grid">
