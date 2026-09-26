@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FormsSiteHeader from "@/components/FormsSiteHeader";
 
 import BrokerBacklinkGenerator from "@/components/BrokerBacklinkGenerator";
 import "./broker-link-kit.css";
@@ -18,16 +19,7 @@ export const metadata: Metadata = {
 export default function BrokerListingLinkKitPage() {
   return (
     <main className="broker-link-kit-page">
-      <header className="broker-link-kit-header broker-link-kit-shell">
-        <Link className="broker-link-kit-brand" href="/" aria-label="Florida Liquor License Market home">
-          <img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" />
-        </Link>
-        <nav aria-label="Broker listing navigation">
-          <Link href="/brokers/list-your-license">List a License</Link>
-          <Link href="/listings">Marketplace Listings</Link>
-          <Link href="/contact">Contact</Link>
-        </nav>
-      </header>
+      <div className="fllm-ui-header"><FormsSiteHeader /></div>
 
       <section className="broker-link-kit-hero">
         <div className="broker-link-kit-shell">
