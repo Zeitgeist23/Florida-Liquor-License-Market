@@ -35,6 +35,7 @@ export default function BusinessQuotaListingCard({
       className="business-quota-card"
       data-business-quota-listing={listing.listingReference}
       data-business-category={categoryClassName}
+      data-market-listing={isMarketListing ? "true" : undefined}
     >
       {isMarketListing ? (
         <strong className="business-quota-market-badge">Market Listing</strong>
