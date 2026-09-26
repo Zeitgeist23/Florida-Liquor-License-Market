@@ -2899,3 +2899,11 @@ export function standaloneQuotaListings<T extends Pick<ListingWithInventoryClass
 export function businessQuotaListingsForCounty(county: string) {
   return businessQuotaListings.filter((listing) => listing.county === county);
 }
+
+export function businessLicenseListingsForCounty(county: string) {
+  return [
+    ...businessQuotaListings,
+    ...businessSfsListings,
+    ...business2copListings,
+  ].filter((listing) => listing.county === county);
+}
