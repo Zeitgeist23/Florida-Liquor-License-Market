@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { Listing } from "@/data/listings";
-import type {
-  BusinessQuotaCategory,
-  BusinessQuotaListing,
+import {
+  BUSINESS_LISTING_DISPLAY_LIMIT,
+  type BusinessQuotaCategory,
+  type BusinessQuotaListing,
 } from "@/lib/business-quota-listings";
 import BusinessQuotaListingCard from "./BusinessQuotaListingCard";
 import FormsSiteHeader from "./FormsSiteHeader";
@@ -286,6 +287,11 @@ export default function ListingsPage({
     [activeBusinessListings, businessType, county, price, status],
   );
 
+  const visibleBusinessListings = useMemo(
+    () => filteredBusinessListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT),
+    [filteredBusinessListings],
+  );
+
   const visibleListings = useMemo(
     () => filtered.slice(0, visibleCount),
     [filtered, visibleCount],
@@ -484,8 +490,8 @@ export default function ListingsPage({
             <span>
               {showingBusinessListings ? (
                 <>
-                  Showing <strong>{filteredBusinessListings.length}</strong> of{" "}
-                  <strong>{activeBusinessListings.length}</strong> available business
+                  Showing <strong>{visibleBusinessListings.length}</strong> of{" "}
+                  <strong>{filteredBusinessListings.length}</strong> matching business
                   {activeBusinessListings.length === 1 ? " package" : " packages"}
                 </>
               ) : (
@@ -513,7 +519,7 @@ export default function ListingsPage({
           {showingBusinessListings ? (
             filteredBusinessListings.length ? (
               <div className="business-quota-grid listings-business-grid">
-                {filteredBusinessListings.map((listing) => (
+                {visibleBusinessListings.map((listing) => (
                   <BusinessQuotaListingCard
                     key={listing.listingReference}
                     listing={listing}
