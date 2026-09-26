@@ -309,7 +309,7 @@
   border: 1px solid #efaa10;
   border-radius: 5px;
   color: #07131d;
-  background: linear-gradient(145deg,#ffc13a 0%,#e99b00 100%);
+  background: linear-gradient(145deg,#f8b72f 0%,#e99a00 58%,#cf7800 100%);
   box-shadow: 0 5px 15px rgba(228,148,0,.18);
   font-size: 10px;
   font-weight: 900;
@@ -320,7 +320,7 @@
 
 .business-quota-card-action:hover {
   color: #03090d;
-  background: linear-gradient(145deg,#ffd05d 0%,#f1a600 100%);
+  background: linear-gradient(145deg,#ffc64a 0%,#f1a600 58%,#dc8500 100%);
 }
 
 .business-quota-card-action span {
@@ -376,13 +376,13 @@
 /* Match the standalone listing button exactly, including dark label text. */
 .results-page .business-quota-card-action {
   color: #07131d !important;
-  background: linear-gradient(145deg,#ffc13a 0%,#e99b00 100%) !important;
-  border-color: #efaa10 !important;
+  background: linear-gradient(145deg,#f8b72f 0%,#e99a00 58%,#cf7800 100%) !important;
+  border-color: #ffbd2e !important;
 }
 
 .results-page .business-quota-card-action:hover {
   color: #03090d !important;
-  background: linear-gradient(145deg,#ffd05d 0%,#f1a600 100%) !important;
+  background: linear-gradient(145deg,#ffc64a 0%,#f1a600 58%,#dc8500 100%) !important;
 }
 
 
@@ -446,9 +446,9 @@
 /* CATEGORY UPDATE REGRESSION GUARD — preserve the approved map scale and FLLM gold CTA. */
 .business-quota-card-action,
 .results-page .business-quota-card-action {
-  border-color: #efaa10 !important;
+  border-color: #ffbd2e !important;
   color: #07131d !important;
-  background: linear-gradient(145deg,#ffc13a 0%,#e99b00 100%) !important;
+  background: linear-gradient(145deg,#f8b72f 0%,#e99a00 58%,#cf7800 100%) !important;
   box-shadow: 0 5px 15px rgba(228,148,0,.18) !important;
 }
 
@@ -456,7 +456,7 @@
 .results-page .business-quota-card-action:hover {
   border-color: #f6b718 !important;
   color: #03090d !important;
-  background: linear-gradient(145deg,#ffd05d 0%,#f1a600 100%) !important;
+  background: linear-gradient(145deg,#ffc64a 0%,#f1a600 58%,#dc8500 100%) !important;
 }
 
 @media (min-width:761px) {
