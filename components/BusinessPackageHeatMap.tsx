@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import { FLORIDA_COUNTY_PATHS } from "@/components/FloridaCountyMap";
 
@@ -13,26 +13,39 @@ export type BusinessPackageHeatMapRow = {
   businessCategories: string[];
 };
 
-type PinPosition = {
-  key: string;
-  x: number;
-  y: number;
-};
-
-type TooltipPosition = {
-  left: number;
-  top: number;
-};
+const INVENTORY_LEGEND = [
+  { color: "#193552", label: "0 packages" },
+  { color: "#195b86", label: "1–2 packages" },
+  { color: "#167ea8", label: "3–5 packages" },
+  { color: "#1bbbd0", label: "6–8 packages" },
+  { color: "#7357e8", label: "9–11 packages" },
+  { color: "#a855f7", label: "12+ packages" },
+];
 
 function countyKey(value: string) {
-  return value
-    .replace(/\s+County$/i, "")
-    .replace(/[^a-z]/gi, "")
-    .toLowerCase();
+  return value.replace(/\s+County$/i, "").replace(/[^a-z]/gi, "").toLowerCase();
+}
+
+function inventoryColor(count: number) {
+  if (count >= 12) return "#a855f7";
+  if (count >= 9) return "#7357e8";
+  if (count >= 6) return "#1bbbd0";
+  if (count >= 3) return "#167ea8";
+  if (count >= 1) return "#195b86";
+  return "#193552";
+}
+
+function inventoryBandMatches(count: number, band: number) {
+  if (band === 0) return count === 0;
+  if (band === 1) return count >= 1 && count <= 2;
+  if (band === 2) return count >= 3 && count <= 5;
+  if (band === 3) return count >= 6 && count <= 8;
+  if (band === 4) return count >= 9 && count <= 11;
+  return count >= 12;
 }
 
 function money(value: number | null) {
-  if (value === null) return "Price data unavailable";
+  if (value === null) return "—";
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -49,18 +62,37 @@ export default function BusinessPackageHeatMap({
   licenseType: string;
   businessTypeLabel: string;
 }) {
-  const mapRef = useRef<SVGSVGElement>(null);
+  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [mapPin, setMapPin] = useState<{ x: number; y: number; color: string } | null>(null);
+  const [inventoryBand, setInventoryBand] = useState<number | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const [pins, setPins] = useState<PinPosition[]>([]);
-  const [active, setActive] = useState<BusinessPackageHeatMapRow | null>(null);
-  const [tooltipPosition, setTooltipPosition] = useState<TooltipPosition>({
-    left: 24,
-    top: 24,
-  });
+  const tooltipRef = useRef<HTMLElement>(null);
 
-  const byCounty = useMemo(
+  const rowsByCounty = useMemo(
     () => new Map(rows.map((row) => [countyKey(row.name), row])),
     [rows],
+  );
+
+  const activeRow = activeSlug
+    ? rowsByCounty.get(countyKey(activeSlug)) ?? null
+    : null;
+
+  const ranking = useMemo(
+    () =>
+      [...rows]
+        .filter((row) => row.listingCount > 0)
+        .sort(
+          (a, b) =>
+            b.listingCount - a.listingCount ||
+            a.name.localeCompare(b.name),
+        )
+        .slice(0, 5),
+    [rows],
+  );
+
+  const maxRankingValue = ranking.reduce(
+    (maximum, row) => Math.max(maximum, row.listingCount),
+    0,
   );
 
   const totalPackages = useMemo(
@@ -68,261 +100,395 @@ export default function BusinessPackageHeatMap({
     [rows],
   );
 
-  const statewideAverage = useMemo(() => {
-    const pricedRows = rows.filter(
-      (row): row is BusinessPackageHeatMapRow & { averagePrice: number } =>
-        typeof row.averagePrice === "number" &&
-        Number.isFinite(row.averagePrice) &&
-        row.averagePrice > 0,
+  function positionTooltip(target: Element, clientY: number) {
+    const stage = stageRef.current;
+    const tooltip = tooltipRef.current;
+    const stateOutline = stage?.querySelector(".county-availability-map-svg > g");
+    if (!stage || !tooltip || !stateOutline) return;
+
+    const stageBounds = stage.getBoundingClientRect();
+    const stateBounds = stateOutline.getBoundingClientRect();
+    const countyBounds = target.getBoundingClientRect();
+    const stateLeft = stateBounds.left;
+    const stateRight = stateBounds.right;
+    const stateCenter = stateBounds.left + stateBounds.width / 2;
+    const countyCenter = countyBounds.left + countyBounds.width / 2;
+    const tooltipWidth = tooltip.offsetWidth || 270;
+    const tooltipHeight = tooltip.offsetHeight || 190;
+    const gap = 14;
+    const desiredLeft =
+      countyCenter < stateCenter
+        ? stateLeft - tooltipWidth - gap
+        : stateRight + gap;
+    const viewportLeft = Math.min(
+      Math.max(12, desiredLeft),
+      window.innerWidth - tooltipWidth - 12,
     );
-    if (!pricedRows.length) return null;
-
-    const weightedTotal = pricedRows.reduce(
-      (sum, row) => sum + row.averagePrice * row.listingCount,
-      0,
+    const top = Math.min(
+      Math.max(10, clientY - stageBounds.top - tooltipHeight / 2),
+      Math.max(10, stageBounds.height - tooltipHeight - 10),
     );
-    const pricedCount = pricedRows.reduce(
-      (sum, row) => sum + row.listingCount,
-      0,
-    );
-    return pricedCount ? weightedTotal / pricedCount : null;
-  }, [rows]);
 
-  useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
-      const map = mapRef.current;
-      if (!map) return;
+    tooltip.style.left = `${viewportLeft - stageBounds.left}px`;
+    tooltip.style.right = "auto";
+    tooltip.style.top = `${top}px`;
+    tooltip.style.bottom = "auto";
+  }
 
-      const nextPins = rows
-        .map((row) => {
-          const key = countyKey(row.name);
-          const path = map.querySelector<SVGPathElement>(
-            `[data-package-county="${key}"]`,
-          );
-          if (!path) return null;
-          const bounds = path.getBBox();
-          return {
-            key,
-            x: bounds.x + bounds.width / 2,
-            y: bounds.y + bounds.height / 2,
-          };
-        })
-        .filter((pin): pin is PinPosition => Boolean(pin));
+  function activateCounty(
+    row: BusinessPackageHeatMapRow,
+    target: Element,
+    clientY: number,
+  ) {
+    const countyPath = target.matches("path")
+      ? target
+      : target.querySelector("path");
 
-      setPins(nextPins);
-    });
+    setActiveSlug(row.name);
 
-    return () => window.cancelAnimationFrame(frame);
-  }, [rows]);
+    if (countyPath instanceof SVGGraphicsElement) {
+      const bounds = countyPath.getBBox();
+      setMapPin({
+        x: bounds.x + bounds.width / 2,
+        y: bounds.y + bounds.height / 2,
+        color: inventoryColor(row.listingCount),
+      });
+    }
 
-  function placeTooltip(clientX: number, clientY: number) {
+    window.requestAnimationFrame(() => positionTooltip(target, clientY));
+  }
+
+  function activateRankedCounty(row: BusinessPackageHeatMapRow) {
     const stage = stageRef.current;
     if (!stage) return;
 
-    const bounds = stage.getBoundingClientRect();
-    const width = 286;
-    const height = 178;
-    const padding = 12;
+    const countyPath = Array.from(
+      stage.querySelectorAll<SVGPathElement>(".county-availability-map-svg path"),
+    ).find((path) => path.dataset.county === row.name);
+    const countyLink = countyPath?.closest("a");
 
-    let left = clientX - bounds.left + 18;
-    let top = clientY - bounds.top - 24;
-
-    if (left + width > bounds.width - padding) {
-      left = clientX - bounds.left - width - 18;
-    }
-
-    left = Math.max(padding, Math.min(left, bounds.width - width - padding));
-    top = Math.max(padding, Math.min(top, bounds.height - height - padding));
-
-    setTooltipPosition({ left, top });
+    if (!countyPath || !countyLink) return;
+    const bounds = countyPath.getBoundingClientRect();
+    activateCounty(
+      row,
+      countyLink,
+      bounds.top + bounds.height / 2,
+    );
   }
 
-  function activate(
-    row: BusinessPackageHeatMapRow,
-    clientX?: number,
-    clientY?: number,
-  ) {
-    setActive(row);
+  function deactivateCounty() {
+    setActiveSlug(null);
+    setMapPin(null);
+  }
 
-    if (typeof clientX === "number" && typeof clientY === "number") {
-      placeTooltip(clientX, clientY);
-      return;
-    }
-
-    setTooltipPosition({ left: 24, top: 24 });
+  function setBand(index: number | null) {
+    setInventoryBand(index);
+    setActiveSlug(null);
+    setMapPin(null);
   }
 
   return (
-    <section className="business-package-heat-map" aria-labelledby="business-package-map-title">
-      <div className="business-package-map-heading">
-        <div>
-          <span>Business Package Inventory</span>
-          <h2 id="business-package-map-title">
-            Florida {licenseType} Business Packages
-          </h2>
+    <section
+      className="county-availability-map-section business-package-county-map"
+      aria-labelledby="business-package-map-title"
+    >
+      <div className="directory-shell">
+        <div className="directory-heading county-availability-map-heading">
+          <div>
+            <span>Statewide Business Package Distribution</span>
+            <h2 id="business-package-map-title">
+              Florida {licenseType} business package map
+            </h2>
+          </div>
           <p>
-            This map measures operating-business package inventory rather than
-            stand-alone liquor-license value. Hover a county pin to see the
-            number of similar packages and their average package asking price.
+            Hover county pins to compare matching operating-business packages.
+            Package asking prices are used here—not stand-alone license values.
           </p>
         </div>
-        <div className="business-package-map-summary" aria-label="Map summary">
-          <article>
-            <span>Packages</span>
-            <strong>{totalPackages}</strong>
-          </article>
-          <article>
-            <span>Counties</span>
-            <strong>{rows.length}</strong>
-          </article>
-          <article>
-            <span>Average Ask</span>
-            <strong>{money(statewideAverage)}</strong>
+
+        <div className="county-heatmap-toolbar">
+          <div className="county-heatmap-current-metric" aria-live="polite">
+            <span>Inventory View</span>
+            <h3>Active {licenseType} business packages by county</h3>
+          </div>
+          <div className="business-package-map-context">
+            <span>{businessTypeLabel}</span>
+            <strong>
+              {totalPackages} active package{totalPackages === 1 ? "" : "s"}
+            </strong>
+          </div>
+        </div>
+
+        <div className="county-availability-map-layout">
+          <article className="county-heatmap-module county-heatmap-module--inventory">
+            <div className="county-heatmap-module-grid">
+              <div className="county-availability-map-stage" ref={stageRef}>
+                <svg
+                  className="county-availability-map-svg"
+                  viewBox="135 10 295 275"
+                  role="img"
+                  aria-label={`Interactive Florida county map shaded by active ${licenseType} business packages`}
+                >
+                  <g>
+                    {FLORIDA_COUNTY_PATHS.map((county) => {
+                      const row = rowsByCounty.get(countyKey(county.name));
+                      const listingCount = row?.listingCount ?? 0;
+                      const bandActive = inventoryBand !== null;
+                      const bandMatch =
+                        bandActive &&
+                        inventoryBandMatches(
+                          listingCount,
+                          inventoryBand as number,
+                        );
+                      const fill =
+                        bandActive && !bandMatch
+                          ? INVENTORY_LEGEND[0].color
+                          : inventoryColor(listingCount);
+
+                      return (
+                        <a
+                          key={county.id}
+                          href={row ? `/counties/${row.slug}` : "/counties"}
+                          className={
+                            row && activeSlug === row.name
+                              ? "is-active"
+                              : undefined
+                          }
+                          aria-label={
+                            row
+                              ? `${row.name}: ${row.listingCount} ${licenseType} business package${row.listingCount === 1 ? "" : "s"}, average listing price ${money(row.averagePrice)}`
+                              : `${county.name} County: no matching business packages`
+                          }
+                          onPointerEnter={(event) =>
+                            row &&
+                            activateCounty(
+                              row,
+                              event.currentTarget,
+                              event.clientY,
+                            )
+                          }
+                          onPointerMove={(event) =>
+                            positionTooltip(
+                              event.currentTarget,
+                              event.clientY,
+                            )
+                          }
+                          onPointerLeave={deactivateCounty}
+                          onFocus={(event) => {
+                            if (!row) return;
+                            const bounds =
+                              event.currentTarget.getBoundingClientRect();
+                            activateCounty(
+                              row,
+                              event.currentTarget,
+                              bounds.top + bounds.height / 2,
+                            );
+                          }}
+                          onBlur={deactivateCounty}
+                        >
+                          <path
+                            d={county.path}
+                            fill={fill}
+                            style={
+                              bandMatch
+                                ? {
+                                    filter:
+                                      "brightness(1.45) saturate(1.18) drop-shadow(0 0 7px rgba(105,214,255,.98))",
+                                    opacity: 1,
+                                  }
+                                : bandActive
+                                  ? { opacity: 0.82 }
+                                  : undefined
+                            }
+                            data-listing-count={listingCount}
+                            data-county={
+                              row?.name ?? `${county.name} County`
+                            }
+                          />
+                        </a>
+                      );
+                    })}
+                  </g>
+
+                  {mapPin ? (
+                    <g
+                      transform={`translate(${mapPin.x} ${mapPin.y})`}
+                      aria-hidden="true"
+                    >
+                      <g className="county-map-pin-marker">
+                        <line x1="0" y1="-25" x2="0" y2="-3" />
+                        <circle
+                          className="county-map-pin-tip"
+                          cx="0"
+                          cy="-29"
+                          r="5.5"
+                          fill={mapPin.color}
+                        />
+                        <circle
+                          className="county-map-pin-shine"
+                          cx="-1.6"
+                          cy="-30.7"
+                          r="1.25"
+                        />
+                        <circle
+                          className="county-map-pin-point"
+                          cx="0"
+                          cy="0"
+                          r="1.8"
+                          fill={mapPin.color}
+                        />
+                      </g>
+                    </g>
+                  ) : null}
+                </svg>
+
+                <aside
+                  ref={tooltipRef}
+                  className={`county-availability-tooltip${activeRow ? " is-visible" : ""}`}
+                  aria-hidden={!activeRow}
+                >
+                  {activeRow ? (
+                    <>
+                      <span>{activeRow.name}</span>
+                      <strong>
+                        {activeRow.listingCount} similar business
+                        {activeRow.listingCount === 1
+                          ? " package"
+                          : " packages"}
+                      </strong>
+                      <dl>
+                        <div>
+                          <dt>License type</dt>
+                          <dd>{activeRow.licenseType}</dd>
+                        </div>
+                        <div>
+                          <dt>Average listing price</dt>
+                          <dd>{money(activeRow.averagePrice)}</dd>
+                        </div>
+                        <div>
+                          <dt>Active packages</dt>
+                          <dd>{activeRow.listingCount}</dd>
+                        </div>
+                        <div>
+                          <dt>Business types</dt>
+                          <dd>
+                            {activeRow.businessCategories.length ||
+                              "—"}
+                          </dd>
+                        </div>
+                      </dl>
+                      <small>
+                        {activeRow.businessCategories.join(" · ")}
+                      </small>
+                    </>
+                  ) : null}
+                </aside>
+              </div>
+
+              <aside className="county-availability-map-legend">
+                <span>Listing Scale</span>
+                <h4>Business package availability</h4>
+                <ul aria-label="Active business package color scale">
+                  {INVENTORY_LEGEND.map((item, index) => (
+                    <li
+                      key={item.label}
+                      className={
+                        inventoryBand === index
+                          ? "is-filter-active"
+                          : undefined
+                      }
+                    >
+                      <button
+                        type="button"
+                        aria-label={`Highlight counties with ${item.label}`}
+                        onPointerEnter={() => setBand(index)}
+                        onPointerLeave={() => setBand(null)}
+                        onMouseEnter={() => setBand(index)}
+                        onMouseLeave={() => setBand(null)}
+                        onFocus={() => setBand(index)}
+                        onBlur={() => setBand(null)}
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 10,
+                          padding: 0,
+                          border: 0,
+                          background: "transparent",
+                          color: "inherit",
+                          font: "inherit",
+                          fontWeight: "inherit",
+                          textAlign: "left",
+                          cursor: "pointer",
+                          filter:
+                            inventoryBand === index
+                              ? "brightness(1.25)"
+                              : undefined,
+                          textShadow:
+                            inventoryBand === index
+                              ? "0 0 12px rgba(99,228,255,.75)"
+                              : undefined,
+                        }}
+                      >
+                        <i style={{ background: item.color }} />
+                        <span>{item.label}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="county-heatmap-ranking">
+                  <div className="county-heatmap-ranking-heading">
+                    <strong>Most active counties</strong>
+                  </div>
+                  <ol>
+                    {ranking.map((row) => (
+                      <li
+                        key={row.slug}
+                        className={
+                          activeSlug === row.name
+                            ? "is-map-active"
+                            : undefined
+                        }
+                        onPointerEnter={() =>
+                          activateRankedCounty(row)
+                        }
+                        onPointerLeave={deactivateCounty}
+                        onFocus={() => activateRankedCounty(row)}
+                        onBlur={deactivateCounty}
+                      >
+                        <span>
+                          <a href={`/counties/${row.slug}`}>
+                            {row.name.replace(/ County$/i, "")}
+                          </a>
+                          <b>{row.listingCount}</b>
+                        </span>
+                        <i>
+                          <em
+                            style={{
+                              width: `${Math.max(
+                                8,
+                                (row.listingCount /
+                                  Math.max(1, maxRankingValue)) *
+                                  100,
+                              )}%`,
+                            }}
+                          />
+                        </i>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                <small className="county-availability-map-note">
+                  FLLM business-package inventory. SFS/SRX and 2COP licenses
+                  are shown as part of the operating business package and are
+                  not valued here as stand-alone transferable assets.
+                </small>
+              </aside>
+            </div>
           </article>
         </div>
-      </div>
-
-      <div className="business-package-map-filter-note">
-        <span>License Type</span>
-        <strong>{licenseType}</strong>
-        <span>Business Type</span>
-        <strong>{businessTypeLabel}</strong>
-      </div>
-
-      <div
-        className="business-package-map-stage"
-        ref={stageRef}
-        onPointerLeave={() => setActive(null)}
-      >
-        <svg
-          ref={mapRef}
-          className="business-package-map-svg"
-          viewBox="135 10 295 275"
-          preserveAspectRatio="xMidYMid meet"
-          role="img"
-          aria-label={`Florida county map showing ${licenseType} business packages for sale`}
-        >
-          <defs>
-            <linearGradient id="business-package-map-bg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="#061f35" />
-              <stop offset="1" stopColor="#0d3152" />
-            </linearGradient>
-            <filter id="business-package-pin-glow" x="-100%" y="-100%" width="300%" height="300%">
-              <feGaussianBlur stdDeviation="2.4" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          <rect x="135" y="10" width="295" height="275" fill="url(#business-package-map-bg)" rx="8" />
-
-          <g strokeLinejoin="round" strokeLinecap="round">
-            {FLORIDA_COUNTY_PATHS.map((county) => {
-              const key = countyKey(county.name);
-              const row = byCounty.get(key);
-              return (
-                <path
-                  key={county.id}
-                  d={county.path}
-                  data-package-county={key}
-                  className={row ? "business-package-map-county has-packages" : "business-package-map-county"}
-                  fill={row ? "#167ea8" : "#123d65"}
-                  stroke={row ? "#69d6ff" : "#2f6385"}
-                  strokeWidth={row ? 1.15 : 0.65}
-                  onPointerEnter={(event) => {
-                    if (row) activate(row, event.clientX, event.clientY);
-                  }}
-                  onPointerMove={(event) => {
-                    if (row) placeTooltip(event.clientX, event.clientY);
-                  }}
-                  onFocus={(event) => {
-                    if (row) {
-                      const bounds = event.currentTarget.getBoundingClientRect();
-                      activate(
-                        row,
-                        bounds.left + bounds.width / 2,
-                        bounds.top + bounds.height / 2,
-                      );
-                    }
-                  }}
-                  tabIndex={row ? 0 : -1}
-                  aria-label={
-                    row
-                      ? `${row.name}: ${row.listingCount} ${licenseType} business packages, average asking price ${money(row.averagePrice)}`
-                      : undefined
-                  }
-                />
-              );
-            })}
-          </g>
-
-          <g className="business-package-map-pins" aria-hidden="true">
-            {pins.map((pin, index) => {
-              const row = byCounty.get(pin.key);
-              if (!row) return null;
-
-              return (
-                <g
-                  key={pin.key}
-                  transform={`translate(${pin.x} ${pin.y - 14})`}
-                  className="business-package-pin-anchor"
-                  style={{ animationDelay: `${Math.min(index * 35, 650)}ms` }}
-                  onPointerEnter={(event) => activate(row, event.clientX, event.clientY)}
-                  onPointerMove={(event) => placeTooltip(event.clientX, event.clientY)}
-                >
-                  <g className="business-package-pin-drop">
-                    <path
-                      d="M0,-16 C-7,-16 -12,-11 -12,-5 C-12,4 0,14 0,14 C0,14 12,4 12,-5 C12,-11 7,-16 0,-16Z"
-                      fill="#69d6ff"
-                      stroke="#d8f7ff"
-                      strokeWidth="1.1"
-                      filter="url(#business-package-pin-glow)"
-                    />
-                    <circle cx="0" cy="-5" r="4.2" fill="#061f35" stroke="#f1a600" strokeWidth="1.5" />
-                  </g>
-                </g>
-              );
-            })}
-          </g>
-        </svg>
-
-        {active ? (
-          <aside
-            className="business-package-map-tooltip"
-            style={{
-              left: tooltipPosition.left,
-              top: tooltipPosition.top,
-            }}
-            aria-live="polite"
-          >
-            <span>{active.name}</span>
-            <strong>
-              {active.listingCount} similar business
-              {active.listingCount === 1 ? " package" : " packages"}
-            </strong>
-            <dl>
-              <div>
-                <dt>License Type</dt>
-                <dd>{active.licenseType}</dd>
-              </div>
-              <div>
-                <dt>Average Listing Price</dt>
-                <dd>{money(active.averagePrice)}</dd>
-              </div>
-            </dl>
-            {active.businessCategories.length ? (
-              <p>{active.businessCategories.join(" · ")}</p>
-            ) : null}
-          </aside>
-        ) : null}
-      </div>
-
-      <div className="business-package-map-legend" aria-label="Map legend">
-        <span><i className="business-package-map-swatch county" /> Florida county</span>
-        <span><i className="business-package-map-swatch inventory" /> Matching package inventory</span>
-        <span><i className="business-package-map-swatch pin" /> County with package(s) for sale</span>
       </div>
     </section>
   );
