@@ -369,9 +369,17 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   <span>{isNonQuotaBusiness ? tr("Restaurant Business Asking Price", "Precio de venta del negocio de restaurante") : tr("Business + License Package", "Paquete de negocio + licencia")}</span>
                   <strong>{config.packagePrice}</strong>
                 </div>
-                <div className={isNonQuotaBusiness ? "marketplace-listing-education-card marketplace-listing-license-type-card" : undefined}>
+                <div
+                  className={isNonQuotaBusiness ? "marketplace-listing-education-card marketplace-listing-license-type-card" : "marketplace-listing-tooltip-card"}
+                  tabIndex={!isNonQuotaBusiness ? 0 : undefined}
+                >
                   <span>{isNonQuotaBusiness ? tr("Liquor License Type", "Tipo de licencia de bebidas alcohólicas") : tr("License Type", "Tipo de licencia")}</span>
                   <strong>{is2copListing ? tr("2COP Beer & Wine", "2COP Cerveza y Vino") : shortLicenseType}</strong>
+                  {!isNonQuotaBusiness ? (
+                    <span className="marketplace-listing-card-tooltip" role="tooltip">
+                      {tr("A Florida quota license is county-limited. The 4COP series supports full-liquor consumption on premises and package sales within its approved privileges; a change to the 3PS package-sales series requires DBPR/ABT approval.", "Una licencia de cupo de Florida está limitada por condado. La serie 4COP permite bebidas alcohólicas completas para consumo en el local y ventas en paquete dentro de sus privilegios aprobados; un cambio a la serie 3PS requiere aprobación de DBPR/ABT.")}
+                    </span>
+                  ) : null}
                   {isSfsListing ? (
                     <>
                       <span
@@ -393,9 +401,17 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     </>
                   ) : null}
                 </div>
-                <div className={isNonQuotaBusiness ? "marketplace-listing-education-card" : undefined}>
+                <div
+                  className={isNonQuotaBusiness ? "marketplace-listing-education-card" : "marketplace-listing-tooltip-card"}
+                  tabIndex={!isNonQuotaBusiness ? 0 : undefined}
+                >
                   <span>{isNonQuotaBusiness ? tr("License Classification", "Clasificación de la licencia") : tr("Allocated License Value", "Valor asignado de la licencia")}</span>
                   <strong>{is2copListing ? tr("Non-quota · no separate value", "Sin cupo · sin valor separado") : isSfsListing ? tr("Location-specific", "Vinculada al local") : config.askingPrice}</strong>
+                  {!isNonQuotaBusiness ? (
+                    <span className="marketplace-listing-card-tooltip" role="tooltip">
+                      {tr("This is the license value allocated within the business-and-license package. Buyers should confirm the exact license series, current status, ownership, liens, transferability and negotiated allocation before closing.", "Este es el valor de la licencia asignado dentro del paquete de negocio y licencia. Los compradores deben confirmar la serie exacta, estado actual, titularidad, gravámenes, transferibilidad y asignación negociada antes del cierre.")}
+                    </span>
+                  ) : null}
                   {isSfsListing ? (
                     <Link
                       className="marketplace-listing-education-link"
@@ -418,7 +434,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
               >
                 <h3 id="license-highlights-heading">{tr("License Highlights", "Características de la licencia")}</h3>
                 <div className="marketplace-listing-highlight-grid">
-                  <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
+                  <div
+                    className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
+                    tabIndex={!isNonQuotaBusiness ? 0 : undefined}
+                  >
                     <svg viewBox="0 0 48 48" aria-hidden="true">
                       <path d="M11 42h13V18H11zM15 18V8h5v10M11 26h13M29 25h12l-2 9a5 5 0 0 1-4 3.5A5 5 0 0 1 31 34zM35 37.5V42M30 42h10" />
                     </svg>
@@ -427,6 +446,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <br />
                       {is2copListing ? tr("license", "licencia") : tr("license", "licencia completa")}
                     </strong>
+                    {!isNonQuotaBusiness ? (
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr("Full-liquor quota privileges include beer, wine and distilled spirits, subject to the approved series, premises and DBPR/ABT requirements.", "Los privilegios de una licencia de cupo de bebidas alcohólicas completas incluyen cerveza, vino y licores destilados, sujetos a la serie aprobada, el local y los requisitos de DBPR/ABT.")}
+                      </span>
+                    ) : null}
                     {isSfsListing ? (
                       <Link
                         className="marketplace-listing-education-link"
@@ -437,7 +461,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       </Link>
                     ) : null}
                   </div>
-                  <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
+                  <div
+                    className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
+                    tabIndex={!isNonQuotaBusiness ? 0 : undefined}
+                  >
                     <svg viewBox="0 0 48 48" aria-hidden="true">
                       <path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" />
                     </svg>
@@ -446,6 +473,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <br />
                       {is2copListing ? tr("beer & wine", "cerveza y vino") : isSfsListing ? tr("premises", "que cumple requisitos") : tr("off-premises use", "fuera del local")}
                     </strong>
+                    {!isNonQuotaBusiness ? (
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr("In the 4COP series, a quota license can authorize on-premises consumption and package sales for off-premises consumption within its approved privileges. A 3PS series is used for package sales.", "En la serie 4COP, una licencia de cupo puede autorizar consumo en el local y ventas en paquete para consumo fuera del local dentro de sus privilegios aprobados. La serie 3PS se utiliza para ventas en paquete.")}
+                      </span>
+                    ) : null}
                     {isSfsListing ? (
                       <Link
                         className="marketplace-listing-education-link"
@@ -456,7 +488,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       </Link>
                     ) : null}
                   </div>
-                  <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
+                  <div
+                    className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
+                    tabIndex={!isNonQuotaBusiness ? 0 : undefined}
+                  >
                     <svg viewBox="0 0 48 48" aria-hidden="true">
                       <path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" />
                     </svg>
@@ -465,6 +500,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <br />
                       {is2copListing ? tr("without spirits", "sin bebidas destiladas") : isSfsListing ? tr("revenue requirement", "requisito de ingresos") : tr("food-sales percentage", "porcentaje de ventas de alimentos")}
                     </strong>
+                    {!isNonQuotaBusiness ? (
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr("A transferable quota license is different from a qualification-based 4COP SFS / SRX restaurant license. The statewide SFS food-and-nonalcoholic revenue percentage generally does not govern a quota 4COP license.", "Una licencia de cupo transferible es diferente de una licencia de restaurante 4COP SFS / SRX basada en requisitos. El porcentaje estatal de ingresos de alimentos y bebidas no alcohólicas de SFS generalmente no rige una licencia 4COP de cupo.")}
+                      </span>
+                    ) : null}
                     {isSfsListing ? (
                       <Link
                         className="marketplace-listing-education-link"
@@ -475,7 +515,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       </Link>
                     ) : null}
                   </div>
-                  <div className={isSfsListing ? "marketplace-listing-education-card" : undefined}>
+                  <div
+                    className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
+                    tabIndex={!isNonQuotaBusiness ? 0 : undefined}
+                  >
                     <svg viewBox="0 0 48 48" aria-hidden="true">
                       <circle cx="24" cy="14" r="7" />
                       <circle cx="10" cy="22" r="5" />
@@ -487,6 +530,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       <br />
                       {is2copListing ? tr("license series", "serie de licencia") : isSfsListing ? tr("not quota inventory", "no es inventario de cupo") : tr("County quota supply", "Oferta de cupos del condado")}
                     </strong>
+                    {!isNonQuotaBusiness ? (
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr(`Florida quota-license supply is county-specific and limited by the statutory quota system. A ${config.county} license generally remains a ${config.county} asset, subject to DBPR/ABT transfer and location approval.`, `La oferta de licencias de cupo de Florida es específica por condado y está limitada por el sistema legal de cupos. Una licencia de ${config.county} generalmente permanece como un activo de ${config.county}, sujeta a la aprobación de transferencia y ubicación de DBPR/ABT.`)}
+                      </span>
+                    ) : null}
                     {isSfsListing ? (
                       <Link
                         className="marketplace-listing-education-link"
