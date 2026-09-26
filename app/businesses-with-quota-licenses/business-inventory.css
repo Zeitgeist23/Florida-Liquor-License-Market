@@ -641,3 +641,16 @@
   line-height: 1.35;
   white-space: normal;
 }
+
+
+/* BUSINESS CARD LICENSE METRIC STANDARD
+   Quota cards show monetary license value.
+   SFS/SRX and 2COP cards show classification instead of implying a separate license value. */
+.business-quota-card-pricing strong.business-quota-card-classification-value {
+  overflow: visible;
+  font-size: 13px;
+  line-height: 1.15;
+  letter-spacing: 0;
+  text-overflow: clip;
+  white-space: normal;
+}
