@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
 import { FllmPageShell } from "@/components/FllmDesignSystem";
-import { businessQuotaListings } from "@/lib/business-quota-listings";
+import { BUSINESS_LISTING_DISPLAY_LIMIT, businessQuotaListings } from "@/lib/business-quota-listings";
 
 import "../../fllm-official-template.css";
 import "../../fllm-design-system.css";
@@ -14,9 +14,10 @@ import "./bars.css";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/businesses-with-quota-licenses/bars`;
 
-const barPackageListings = businessQuotaListings.filter((listing) =>
+const allBarPackageListings = businessQuotaListings.filter((listing) =>
   /bar|pub|tavern|lounge|nightclub/i.test(`${listing.title} ${listing.businessType}`),
 );
+const barPackageListings = allBarPackageListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
 
 const faqs = [
   {
@@ -208,7 +209,11 @@ export default function BarsWithQuotaLicensesPage() {
               <span>Current FLLM Business Inventory</span>
               <h2>Bars & Lounges Offered With 4COP Quota Licenses</h2>
             </div>
-            <strong>{barPackageListings.length} Active Package{barPackageListings.length === 1 ? "" : "s"}</strong>
+            <strong>
+              {barPackageListings.length}
+              {allBarPackageListings.length > BUSINESS_LISTING_DISPLAY_LIMIT ? ` of ${allBarPackageListings.length}` : ""} Active Package
+              {allBarPackageListings.length === 1 ? "" : "s"}
+            </strong>
           </div>
 
           <div className="business-quota-separation-note">
