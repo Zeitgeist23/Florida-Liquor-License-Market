@@ -602,25 +602,6 @@
 
 
 /* MARKET LISTING CARD VARIANT — keeps sourced market inventory distinct from paid Featured Listings. */
-.business-quota-market-badge {
-  position: absolute;
-  top: 8px;
-  left: 33px;
-  z-index: 5;
-  margin: 0;
-  padding: 5px 10px;
-  border: 1px solid rgba(210,221,228,.58);
-  border-radius: 8px 4px 4px 4px;
-  color: #e6edf2;
-  background: linear-gradient(180deg,#526878 0%,#354a58 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.14),0 3px 8px rgba(0,0,0,.24);
-  font-size: 9px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-
 .business-quota-card[data-market-listing="true"] .business-quota-card-pricing {
   grid-template-columns: minmax(0,1fr);
   max-width: 185px;
@@ -638,4 +619,12 @@
 
 .business-quota-card[data-market-listing="true"] .business-quota-card-body {
   padding-bottom: 18px;
+}
+
+
+.business-quota-card-market-label {
+  margin-top: 44px;
+  color: #a8bac6;
+  font-weight: 700;
+  letter-spacing: .02em;
 }
