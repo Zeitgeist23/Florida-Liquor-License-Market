@@ -125,7 +125,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
                 represent a separately valued asset within the business transaction.
               </p>
               <div className="fllm-ui-actions">
-                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/listings?type=businesses">Browse Quota Business Listings</Link>
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/businesses-with-quota-licenses">Browse Quota Business Listings</Link>
                 <FllmButton href="/license-types/4cop-quota" variant="outline">4COP Quota Guide</FllmButton>
               </div>
             </FllmCard>
