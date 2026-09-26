@@ -77,7 +77,7 @@ export default function BusinessQuotaListingCard({
             <strong>{listing.packagePrice}</strong>
           </div>
           <div>
-            <span>{isMarketListing ? "FLLM Value Est." : listing.licenseClass === "2cop" ? "License Classification" : "License Value"}</span>
+            <span>{isMarketListing ? "License Value Est." : listing.licenseClass === "2cop" ? "License Classification" : "License Value"}</span>
             <strong>{listing.allocatedLicenseValue}</strong>
           </div>
         </div>
