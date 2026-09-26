@@ -56,10 +56,12 @@ function money(value: number | null) {
 export default function BusinessPackageHeatMap({
   rows,
   licenseType,
+  listingType,
   businessTypeLabel,
 }: {
   rows: BusinessPackageHeatMapRow[];
   licenseType: string;
+  listingType: "businesses-sfs" | "businesses-2cop";
   businessTypeLabel: string;
 }) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
@@ -67,6 +69,7 @@ export default function BusinessPackageHeatMap({
   const [inventoryBand, setInventoryBand] = useState<number | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLElement>(null);
+  const deactivateTimerRef = useRef<number | null>(null);
 
   const rowsByCounty = useMemo(
     () => new Map(rows.map((row) => [countyKey(row.name), row])),
@@ -99,6 +102,35 @@ export default function BusinessPackageHeatMap({
     () => rows.reduce((sum, row) => sum + row.listingCount, 0),
     [rows],
   );
+
+  function listingResultsHref(row: BusinessPackageHeatMapRow) {
+    const params = new URLSearchParams({
+      type: listingType,
+      county: row.name,
+    });
+
+    if (businessTypeLabel !== "All Business Types") {
+      params.set("businessType", businessTypeLabel);
+    }
+
+    return `/listings?${params.toString()}#business-package-results`;
+  }
+
+  function cancelDeactivate() {
+    if (deactivateTimerRef.current !== null) {
+      window.clearTimeout(deactivateTimerRef.current);
+      deactivateTimerRef.current = null;
+    }
+  }
+
+  function scheduleDeactivate() {
+    cancelDeactivate();
+    deactivateTimerRef.current = window.setTimeout(() => {
+      setActiveSlug(null);
+      setMapPin(null);
+      deactivateTimerRef.current = null;
+    }, 180);
+  }
 
   function positionTooltip(target: Element, clientY: number) {
     const stage = stageRef.current;
@@ -140,6 +172,8 @@ export default function BusinessPackageHeatMap({
     target: Element,
     clientY: number,
   ) {
+    cancelDeactivate();
+
     const countyPath = target.matches("path")
       ? target
       : target.querySelector("path");
@@ -177,6 +211,7 @@ export default function BusinessPackageHeatMap({
   }
 
   function deactivateCounty() {
+    cancelDeactivate();
     setActiveSlug(null);
     setMapPin(null);
   }
@@ -248,7 +283,7 @@ export default function BusinessPackageHeatMap({
                       return (
                         <a
                           key={county.id}
-                          href={row ? `/counties/${row.slug}` : "/counties"}
+                          href={row ? listingResultsHref(row) : "/listings"}
                           className={
                             row && activeSlug === row.name
                               ? "is-active"
@@ -256,7 +291,7 @@ export default function BusinessPackageHeatMap({
                           }
                           aria-label={
                             row
-                              ? `${row.name}: ${row.listingCount} ${licenseType} business package${row.listingCount === 1 ? "" : "s"}, average listing price ${money(row.averagePrice)}`
+                              ? `${row.name}: ${row.listingCount} ${licenseType} business package${row.listingCount === 1 ? "" : "s"}, average package asking price ${money(row.averagePrice)}; open matching listings`
                               : `${county.name} County: no matching business packages`
                           }
                           onPointerEnter={(event) =>
@@ -273,7 +308,7 @@ export default function BusinessPackageHeatMap({
                               event.clientY,
                             )
                           }
-                          onPointerLeave={deactivateCounty}
+                          onPointerLeave={scheduleDeactivate}
                           onFocus={(event) => {
                             if (!row) return;
                             const bounds =
@@ -346,9 +381,15 @@ export default function BusinessPackageHeatMap({
                   ref={tooltipRef}
                   className={`county-availability-tooltip${activeRow ? " is-visible" : ""}`}
                   aria-hidden={!activeRow}
+                  onPointerEnter={cancelDeactivate}
+                  onPointerLeave={scheduleDeactivate}
                 >
                   {activeRow ? (
-                    <>
+                    <a
+                      className="business-package-tooltip-link"
+                      href={listingResultsHref(activeRow)}
+                      aria-label={`View matching ${activeRow.licenseType} business packages in ${activeRow.name}`}
+                    >
                       <span>{activeRow.name}</span>
                       <strong>
                         {activeRow.listingCount} similar business
@@ -380,7 +421,8 @@ export default function BusinessPackageHeatMap({
                       <small>
                         {activeRow.businessCategories.join(" · ")}
                       </small>
-                    </>
+                      <em>View matching listings →</em>
+                    </a>
                   ) : null}
                 </aside>
               </div>
@@ -453,12 +495,12 @@ export default function BusinessPackageHeatMap({
                         onPointerEnter={() =>
                           activateRankedCounty(row)
                         }
-                        onPointerLeave={deactivateCounty}
+                        onPointerLeave={scheduleDeactivate}
                         onFocus={() => activateRankedCounty(row)}
                         onBlur={deactivateCounty}
                       >
                         <span>
-                          <a href={`/counties/${row.slug}`}>
+                          <a href={listingResultsHref(row)}>
                             {row.name.replace(/ County$/i, "")}
                           </a>
                           <b>{row.listingCount}</b>
