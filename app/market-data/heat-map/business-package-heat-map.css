@@ -89,6 +89,8 @@
   margin: 0 auto;
   text-align: center;
   white-space: normal;
+  font-size: 15px;
+  line-height: 1.65;
 }
 
 .business-package-county-map .county-heatmap-toolbar {
