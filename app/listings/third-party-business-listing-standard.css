@@ -750,6 +750,81 @@
 }
 
 
+
+/* Shared educational tooltips for transferable quota-license fact/highlight cards. */
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-tooltip-card {
+  position: relative;
+  z-index: 6;
+  overflow: visible !important;
+  cursor: help;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-tooltip-card:focus-visible {
+  outline: 2px solid #8af4ff;
+  outline-offset: 2px;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-card-tooltip {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 9px);
+  left: 50%;
+  width: 290px;
+  max-width: min(320px, calc(100vw - 40px));
+  padding: 11px 13px;
+  border: 1px solid rgba(105,214,255,.76);
+  border-radius: 7px;
+  background: #071b2d;
+  color: #dce8ef !important;
+  box-shadow: 0 14px 28px rgba(0,0,0,.44);
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.5 !important;
+  text-align: left !important;
+  text-transform: none !important;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -5px);
+  pointer-events: none;
+  transition: opacity .15s ease, visibility .15s ease, transform .15s ease;
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-card-tooltip::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  border: 7px solid transparent;
+  border-bottom-color: rgba(105,214,255,.76);
+  transform: translateX(-50%);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-tooltip-card:hover .marketplace-listing-card-tooltip,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-tooltip-card:focus .marketplace-listing-card-tooltip,
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-tooltip-card:focus-within .marketplace-listing-card-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-highlight-grid > .marketplace-listing-tooltip-card {
+  overflow: visible !important;
+}
+
+@media (max-width: 760px) {
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-card-tooltip {
+    width: calc(100vw - 48px);
+    max-width: 320px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .marketplace-listing-card-tooltip {
+    transition: none;
+  }
+}
+
 /* Preserve viewport-based sticky positioning on featured business listings.
    Horizontal clipping remains in place without turning html/body into a
    non-scrolling sticky container. */
