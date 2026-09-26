@@ -48,6 +48,28 @@ if (fs.existsSync(designSystemPath)) {
   }
 }
 
+// Official FLLM gold button is a locked sitewide primitive.
+const officialGoldCssPath = path.join(root, "app", "fllm-official-gold-buttons.css");
+const lockedOfficialGoldCss = [
+  ["official gold border", "--fllm-official-gold-border:#ffbd2e;"],
+  ["official gold start", "--fllm-official-gold-start:#f8b72f;"],
+  ["official gold middle", "--fllm-official-gold-mid:#e99a00;"],
+  ["official gold end", "--fllm-official-gold-end:#cf7800;"],
+  ["official gold text", "--fllm-official-gold-text:#07101a;"],
+  ["official gold hover", "background:linear-gradient(145deg,#ffc64a 0%,#f1a600 58%,#dc8500 100%) !important;"],
+];
+
+if (!fs.existsSync(officialGoldCssPath)) {
+  violations.push([officialGoldCssPath, "missing locked official FLLM gold button stylesheet"]);
+} else {
+  const officialGoldCss = fs.readFileSync(officialGoldCssPath, "utf8");
+  for (const [name, token] of lockedOfficialGoldCss) {
+    if (!officialGoldCss.includes(token)) {
+      violations.push([officialGoldCssPath, `locked official gold button changed: ${name}`]);
+    }
+  }
+}
+
 // Official FLLM header is a locked sitewide primitive.
 const officialHeaderCssPath = path.join(root, "app", "fllm-official-header.css");
 const officialHeaderComponentPath = path.join(root, "components", "FormsSiteHeader.tsx");
@@ -110,7 +132,7 @@ const lockedBusinessCardCss = [
   ["two-line license statement", "white-space: normal;"],
   ["approved broker-name green", "color: #58c94f;"],
   ["approved gold action height", "min-height: 43px;"],
-  ["approved gold action fill", "background: linear-gradient(145deg,#ffc13a 0%,#e99b00 100%);"],
+  ["approved gold action fill", "background: linear-gradient(145deg,#f8b72f 0%,#e99a00 58%,#cf7800 100%);"],
   ["approved dimensional gold frame", "box-shadow:\n    0 0 0 1px rgba(105,67,10,.44),"],
 ];
 
