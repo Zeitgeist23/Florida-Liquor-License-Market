@@ -88,8 +88,10 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   countyValueHref: "/counties/broward/liquor-license-value",
   countyCities: "Fort Lauderdale · Hollywood · Pompano Beach · Deerfield Beach",
   countyPopulation: "2,037,472",
-  askingPrice: "Casi $500,000",
+  askingPrice: "El corredor indica casi $500,000",
   askingPriceNumber: 500000,
+  marketMedianAskingPrice: "$225,000",
+  marketMedianAskingPriceNumber: 225000,
   packagePrice: "$1,650,000",
   packagePriceNumber: 1_650_000,
   licenseType: "4COP Quota",
@@ -201,7 +203,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   confidentialityText:
     "el nombre del negocio, el local exacto, los documentos de arrendamiento, estados financieros, registros de licencia y otra información sensible pueden requerir calificación del comprador y confirmación directa a través del corredor.",
   sourceDisclosure:
-    "Las cifras comerciales, financieras, de instalaciones, personal, activos, valor de licencia y demás información no han sido auditadas ni verificadas de forma independiente por FLLM. La licencia 4COP / 3PS incluida se valora en casi medio millón de dólares; no se muestra el número de licencia ABT ni una asignación separada precisa del valor de la licencia. Los compradores deben verificar la serie actual, estado de cupo, titularidad, transferibilidad, local, zonificación, condiciones del arrendamiento, desempeño financiero, activos incluidos y todos los términos de la transacción directamente con Nick DiFrancesco, el vendedor y los asesores profesionales correspondientes.",
+    "Las cifras comerciales, financieras, de instalaciones, personal, activos y demás información no han sido auditadas ni verificadas de forma independiente por FLLM. El anuncio fuente describe la licencia de cupo 4COP / 3PS incluida como valorada en casi medio millón de dólares. Por separado, los datos actuales de FLLM para Broward County muestran una mediana de precios publicados de $225,000 para inventario comparable de licencias 4COP de cupo independientes. La mediana de FLLM es contexto de mercado, no una tasación ni un valor asignado a la licencia específica incluida en esta transacción. Los compradores deben verificar la serie actual, estado de cupo, titularidad, transferibilidad, local, zonificación, condiciones del arrendamiento, desempeño financiero, activos incluidos y todos los términos de la transacción directamente con Nick DiFrancesco, el vendedor y los asesores profesionales correspondientes.",
   countyContext:
     "Broward County sostiene un importante mercado de restaurantes, vida nocturna, hotelería y turismo en Fort Lauderdale, Hollywood, Pompano Beach, Deerfield Beach y comunidades cercanas. Los valores de licencias de cupo pueden variar de forma significativa según la oferta, los términos del vendedor, el local previsto, el calendario y la estructura de la transacción.",
 };
