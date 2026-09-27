@@ -114,7 +114,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Oportunidad de adquirir un restaurante y club nocturno frente a la playa en Broward County, llave en mano y a poca distancia de la playa, posicionado para comidas, música en vivo, baile y tráfico nocturno.",
   packageIncludes:
-    "La oferta incluye el restaurante y club nocturno en operación, aproximadamente $15,000 de inventario, aproximadamente $475,000 en muebles, accesorios y equipo, las instalaciones hoteleras recientemente remodeladas de 3,000 pies cuadrados y la licencia de licor de cupo transferible asociada. La licencia incluida es una codiciada licencia 4COP / 3PS valorada en casi medio millón de dólares. El precio total solicitado por el negocio es de $1,650,000. Los compradores deben confirmar directamente con el corredor la serie exacta de la licencia, los activos incluidos, los términos del arrendamiento, la asignación de valor de la licencia y la estructura de la transacción.",
+    "La oferta incluye el restaurante y club nocturno en operación, aproximadamente $15,000 de inventario, aproximadamente $475,000 en muebles, accesorios y equipo, las instalaciones hoteleras recientemente remodeladas de 3,000 pies cuadrados y la licencia de licor de cupo transferible asociada. El anuncio fuente describe la licencia de cupo 4COP / 3PS incluida como valorada en casi medio millón de dólares. Como referencia independiente de mercado, los datos actuales de FLLM para Broward County muestran una mediana de precios publicados de $225,000 para inventario comparable de licencias 4COP de cupo independientes. El precio total solicitado por el negocio es de $1,650,000. Los compradores deben confirmar directamente con el corredor la serie exacta de la licencia, los activos incluidos, los términos del arrendamiento, la asignación de valor de la licencia y la estructura de la transacción.",
   businessMetrics: [
     {
       label: "Ingresos brutos",
@@ -162,7 +162,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "Licencia",
       value: "Licencia de cupo 4COP / 3PS incluida",
       description:
-        "Se incluye con el negocio una codiciada licencia 4COP / 3PS valorada en casi medio millón de dólares. Los compradores deben confirmar con el corredor y DBPR/ABT la serie actual exacta, el estado de cupo, la titularidad y la transferibilidad.",
+        "El anuncio fuente describe la licencia de cupo 4COP / 3PS incluida como valorada en casi medio millón de dólares. Los datos actuales de FLLM para Broward County muestran una mediana de precios publicados de $225,000 para inventario comparable de licencias 4COP de cupo independientes. La mediana de FLLM es contexto de mercado, no una tasación de esta licencia específica. Los compradores deben confirmar con el corredor y DBPR/ABT la serie actual exacta, el estado de cupo, la titularidad y la transferibilidad.",
       href: "/license-types/4cop-quota",
     },
     {
