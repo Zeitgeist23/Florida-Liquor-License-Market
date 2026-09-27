@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { countySlug, floridaCounties } from "@/data/florida-counties";
 import type {
   BusinessQuotaCategory,
   BusinessQuotaListing,
@@ -28,8 +27,6 @@ export default function BusinessQuotaListingCard({
 }) {
   const categoryClassName = categoryClassNames[listing.businessCategory];
   const isMarketListing = listing.listingTier === "market";
-  const county = floridaCounties.find((county) => county.slug === countySlug(listing.county));
-  const primaryMarkets = county?.primaryCities.slice(0, 4) ?? [];
   const actionHref = isMarketListing
     ? `${listing.countyHref}#county-business-packages-title`
     : listing.href;
@@ -101,12 +98,6 @@ export default function BusinessQuotaListingCard({
             </strong>
           </div>
         </div>
-
-        {primaryMarkets.length ? (
-          <p className="business-quota-card-local-markets">
-            <span>Primary markets:</span> {primaryMarkets.join(" · ")}
-          </p>
-        ) : null}
 
         {isMarketListing ? (
           <>
