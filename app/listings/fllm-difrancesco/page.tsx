@@ -85,8 +85,10 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   countyValueHref: "/counties/broward/liquor-license-value",
   countyCities: "Fort Lauderdale · Hollywood · Pompano Beach · Deerfield Beach",
   countyPopulation: "2,037,472",
-  askingPrice: "Nearly $500,000",
+  askingPrice: "Broker-stated nearly $500,000",
   askingPriceNumber: 500000,
+  marketMedianAskingPrice: "$225,000",
+  marketMedianAskingPriceNumber: 225000,
   packagePrice: "$1,650,000",
   packagePriceNumber: 1_650_000,
   licenseType: "4COP Quota",
@@ -198,7 +200,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   confidentialityText:
     "the business name, exact premises, lease documents, financial statements, license records and other sensitive information may require buyer qualification and direct confirmation through the listing broker.",
   sourceDisclosure:
-    "Business, financial, facility, staffing, asset, license-value and other figures have not been independently audited or verified by FLLM. The included 4COP / 3PS liquor license is valued at nearly half a million dollars; the ABT license number and a precise separate license allocation are not displayed. Buyers should verify the current license series, quota status, ownership, transferability, premises, zoning, lease conditions, financial performance, included assets and all transaction terms directly with Nick DiFrancesco, the seller and appropriate professional advisers.",
+    "Business, financial, facility, staffing, asset and other figures have not been independently audited or verified by FLLM. The source advertisement describes the included 4COP / 3PS quota liquor license as valued at nearly half a million dollars. Separately, FLLM's current Broward County 4COP market data shows a median disclosed asking price of $225,000 for comparable standalone quota-license inventory. The FLLM median is market context, not an appraisal or an allocated value for the specific license included in this transaction. Buyers should verify the current license series, quota status, ownership, transferability, premises, zoning, lease conditions, financial performance, included assets and all transaction terms directly with Nick DiFrancesco, the seller and appropriate professional advisers.",
   countyContext:
     "Broward County supports a substantial restaurant, nightlife, hospitality and tourism market across Fort Lauderdale, Hollywood, Pompano Beach, Deerfield Beach and surrounding communities. Quota-license values can vary materially based on supply, seller terms, intended premises, timing and transaction structure.",
 };
