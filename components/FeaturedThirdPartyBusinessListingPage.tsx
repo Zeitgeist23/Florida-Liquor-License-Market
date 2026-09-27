@@ -908,7 +908,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     {config.broker.phone ? <a href={phoneHref(config.broker.phone)}>
                       ☎ {config.broker.phone}
                     </a> : null}
-                    {config.broker.email && !config.approvalPreview ? <span className="featured-business-email-copy-row">
+                    {config.broker.email ? <span className="featured-business-email-copy-row">
                       <a href={`mailto:${config.broker.email}`}>
                         {config.broker.email}
                       </a>
