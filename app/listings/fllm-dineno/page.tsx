@@ -100,68 +100,68 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Opportunity to acquire a thriving, beautifully built-out sports-themed bar and grill in a desirable North Tampa growth corridor with strong family demographics, high visibility and a grocery-anchored retail setting.",
   packageIncludes:
-    "The advertised $499,000 asking price includes the operating restaurant and bar business and approximately $250,000 of furniture, fixtures and equipment. The source listing describes a full-liquor license as part of the operation, a highly popular covered outdoor patio, live entertainment programming and a turnkey restaurant/bar buildout. The business premises are leased. Buyers should confirm the exact Florida liquor-license series, current license record, continuing qualification requirements, lease terms, included assets and transaction structure directly with the listing broker before relying on the advertised package.",
+    "The $499,000 asking price includes the operating restaurant and bar business and approximately $250,000 of furniture, fixtures and equipment. The offering includes full-liquor service, a highly popular covered outdoor patio, live entertainment programming and a turnkey restaurant/bar buildout. The business premises are leased. Exact liquor-license series, lease terms, included assets and transaction structure remain subject to buyer due diligence and applicable regulatory approval.",
   businessMetrics: [
     {
       label: "Gross Revenue",
       value: "Not Disclosed",
       description:
-        "Gross revenue is not publicly disclosed in the source listing. Qualified buyers should obtain and verify financial records through the listing broker after satisfying confidentiality requirements.",
+        "Gross revenue is not disclosed. Qualified buyers may request financial records after satisfying applicable confidentiality requirements.",
     },
     {
       label: "Cash Flow (SDE)",
       value: "Not Disclosed",
       description:
-        "Seller's Discretionary Earnings are not publicly disclosed in the source listing. Buyers should reconcile any later-provided SDE figure to tax returns, financial statements and supporting records.",
+        "Seller's Discretionary Earnings are not disclosed. Any later-provided SDE figure should be reconciled to tax returns, financial statements and supporting records during due diligence.",
     },
     {
       label: "License Classification",
       value: "Full liquor included · exact series to confirm",
       description:
-        "The source listing advertises a full-liquor license but does not publicly identify the exact DBPR series. This private FLLM preview uses the restaurant-license presentation pending broker confirmation of the exact license classification.",
+        "Full-liquor service is included with the operation. The exact DBPR license series is pending confirmation for this preview and should be verified before publication or closing.",
       href: "/resources/florida-liquor-license-types",
     },
     {
       label: "FF&E",
       value: "$250,000 included",
       description:
-        "The source listing reports approximately $250,000 of furniture, fixtures and equipment included in the asking price.",
+        "Approximately $250,000 of furniture, fixtures and equipment is included in the asking price.",
     },
     {
       label: "Inventory",
       value: "Not Disclosed",
       description:
-        "Inventory is not publicly disclosed in the source listing and should be confirmed directly with the broker.",
+        "Inventory is not disclosed and should be confirmed during due diligence.",
     },
     {
       label: "Employees",
       value: "Not Disclosed",
       description:
-        "Employee count is not publicly disclosed in the source listing. Buyers should verify staffing, payroll, scheduling and employment continuity during due diligence.",
+        "Employee count is not disclosed. Staffing, payroll, scheduling and employment continuity should be verified during due diligence.",
     },
     {
       label: "Established",
       value: "Not Disclosed",
       description:
-        "The source listing does not publicly disclose the year the business was established.",
+        "The year the business was established is not disclosed.",
     },
     {
       label: "Premises",
       value: "Leased · grocery-anchored endcap",
       description:
-        "The business operates from leased premises described as an endcap in a well-maintained, grocery-anchored shopping center at a busy intersection.",
+        "The business operates from leased endcap premises in a well-maintained, grocery-anchored shopping center at a busy intersection.",
     },
     {
       label: "Facilities",
       value: "Covered patio · turnkey buildout · live entertainment",
       description:
-        "The source listing highlights a high-quality interior, well-maintained kitchen equipment, a covered outdoor patio and established nightly live entertainment.",
+        "The facilities include a high-quality interior, well-maintained kitchen equipment, a covered outdoor patio and established nightly live entertainment.",
     },
     {
       label: "Competition / Positioning",
       value: "North Tampa family-growth corridor",
       description:
-        "The source listing emphasizes surrounding planned developments, affluent family neighborhoods, youth sports activity, equestrian communities and built-in retail traffic.",
+        "The surrounding market includes planned residential growth, affluent family neighborhoods, youth sports activity, equestrian communities and built-in retail traffic.",
     },
     {
       label: "Seller Training",
@@ -189,7 +189,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   confidentialityText:
     "the business name, exact premises, lease documents, financial information, liquor-license records and other sensitive information require buyer qualification and a signed NDA before release by the listing broker.",
   sourceDisclosure:
-    "Broker Preview Note: Business information is based on the broker's public BizBuySell / BizQuest listing and has not been independently verified by FLLM. The public listing describes a full-liquor license but does not state the exact DBPR license series; the exact license classification must be confirmed with Chris DiNeno / Restaurant Traders before publication.",
+    "Preview Disclosure: Business information has not been independently verified by FLLM. The exact DBPR liquor-license series is pending confirmation before publication. Buyers should independently verify material business, lease, financial and licensing information during due diligence.",
   countyContext:
     "Hillsborough County supports one of Florida's largest restaurant, bar and hospitality markets, anchored by Tampa and surrounding high-growth residential communities. Buyers evaluating a full-liquor restaurant or bar acquisition should separately verify the business financials, lease economics, license classification, continuing license eligibility, premises approvals, transfer requirements and local zoning.",
 };
