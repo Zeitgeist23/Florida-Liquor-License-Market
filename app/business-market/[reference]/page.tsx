@@ -3,9 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import BusinessPackageHeatMap, {
+  type BusinessPackageHeatMapRow,
+} from "@/components/BusinessPackageHeatMap";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
-import { floridaCounties } from "@/data/florida-counties";
+import { countySlug, floridaCounties } from "@/data/florida-counties";
 import {
   businessMarketRecordHref,
   businessQuotaListingRecords,
@@ -14,6 +17,8 @@ import {
 
 import "@/app/fllm-official-template.css";
 import "@/app/fllm-design-system.css";
+import "@/app/counties/counties-page.css";
+import "@/app/market-data/heat-map/business-package-heat-map.css";
 import "./market-record.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -76,6 +81,47 @@ function licenseContext(listing: BusinessQuotaListing) {
   return "The advertised business uses a 2COP beer-and-wine license classification. Buyers should confirm the current license record, premises, transfer process, local requirements, and whether the proposed concept remains eligible for the same license privileges.";
 }
 
+function buildMarketMapRows(
+  listings: BusinessQuotaListing[],
+  licenseType: string,
+): BusinessPackageHeatMapRow[] {
+  const grouped = new Map<string, BusinessQuotaListing[]>();
+
+  for (const listing of listings) {
+    const group = grouped.get(listing.county) ?? [];
+    group.push(listing);
+    grouped.set(listing.county, group);
+  }
+
+  return Array.from(grouped.entries())
+    .map(([county, countyListings]) => {
+      const prices = countyListings
+        .map((item) => item.packagePriceNumber)
+        .filter(
+          (price): price is number =>
+            typeof price === "number" && Number.isFinite(price) && price > 0,
+        );
+
+      return {
+        name: county,
+        slug: countySlug(county),
+        listingCount: countyListings.length,
+        averagePrice: prices.length
+          ? prices.reduce((sum, price) => sum + price, 0) / prices.length
+          : null,
+        licenseType,
+        businessCategories: Array.from(
+          new Set(countyListings.map((item) => item.businessCategory)),
+        ).sort(),
+      };
+    })
+    .sort(
+      (left, right) =>
+        right.listingCount - left.listingCount ||
+        left.name.localeCompare(right.name),
+    );
+}
+
 function marketDescription(listing: BusinessQuotaListing) {
   const county = countyFor(listing);
   const cityText = county?.primaryCities.length
@@ -121,6 +167,19 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
   const county = countyFor(listing);
   const canonicalPath = businessMarketRecordHref(listing);
   const primaryMarkets = county?.primaryCities ?? [];
+  const mapListings = businessQuotaListingRecords.filter(
+    (candidate) =>
+      candidate.publicationStatus === "published" &&
+      candidate.licenseType === listing.licenseType &&
+      candidate.businessCategory === listing.businessCategory,
+  );
+  const mapRows = buildMarketMapRows(mapListings, listing.licenseType);
+  const mapListingType: "businesses" | "businesses-sfs" | "businesses-2cop" =
+    listing.licenseClass === "sfs"
+      ? "businesses-sfs"
+      : listing.licenseClass === "2cop"
+        ? "businesses-2cop"
+        : "businesses";
   const related = marketRecords
     .filter(
       (candidate) =>
@@ -240,6 +299,15 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      <div className="business-market-interactive-map">
+        <BusinessPackageHeatMap
+          rows={mapRows}
+          licenseType={listing.licenseType}
+          listingType={mapListingType}
+          businessTypeLabel={listing.businessCategory}
+        />
+      </div>
 
       <section className="business-market-content">
         <div className="business-market-shell">
