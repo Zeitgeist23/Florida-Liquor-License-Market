@@ -61,7 +61,7 @@ export default function BusinessPackageHeatMap({
 }: {
   rows: BusinessPackageHeatMapRow[];
   licenseType: string;
-  listingType: "businesses-sfs" | "businesses-2cop";
+  listingType: "businesses" | "businesses-sfs" | "businesses-2cop";
   businessTypeLabel: string;
 }) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
