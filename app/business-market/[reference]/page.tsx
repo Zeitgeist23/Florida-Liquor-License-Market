@@ -358,6 +358,9 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 <div className="business-market-license-links">
                   <Link href={listing.countyHref}>View {listing.county} license market ›</Link>
                   <Link href="/resources/florida-liquor-license-types">Compare Florida license types ›</Link>
+                  {listing.businessCategory === "Gentlemen's Club" ? (
+                    <Link href="/businesses-with-quota-licenses/gentlemens-clubs">More Florida gentlemen's clubs for sale ›</Link>
+                  ) : null}
                 </div>
               </section>
             </div>
