@@ -282,6 +282,8 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   <>+ Licencia completa de bebidas alcohólicas{" "}<span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span></>
                 ) : isSpanish && is2copListing ? (
                   <>+ Licencia <span className="marketplace-license-series">{shortLicenseType}</span> de cerveza y vino</>
+                ) : isSpanish ? (
+                  <>+ Licencia de cupo <span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span></>
                 ) : (
                   <>+ <span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span>{" "}{is2copListing ? "Beer & Wine License" : isSfsListing ? "Full-Liquor License" : "Quota License"}</>
                 )}
@@ -307,7 +309,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
             <div className="marketplace-listing-availability">
               <span className="availability-pill" title={statusLabel}>
                 <span className="availability-dot" aria-hidden="true" />
-                {config.approvalPreview ? "Preview" : tr("Available", "Disponible")}
+                {config.approvalPreview ? tr("Preview", "Vista previa") : tr("Available", "Disponible")}
               </span>
               <span className="marketplace-listing-hero-reference">
                 {tr("Listing", "Anuncio")} {config.listingReference}
@@ -974,14 +976,14 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   >
                     <img
                       src="/assets/fllm-formal-appraisal-preview-v1.webp"
-                      alt="Sample FLLM formal liquor license appraisal report"
+                      alt={tr("Sample FLLM formal liquor license appraisal report", "Ejemplo de informe formal de tasación de licencia de licor de FLLM")}
                     />
                     <div>
-                      <span>Professional License Valuation</span>
-                      <h2 id="listing-appraisal-promo-title">Order a Liquor License Appraisal</h2>
-                      <p>Get a license-specific valuation supported by county market evidence and regulatory research.</p>
-                      <Link className="marketplace-listing-appraisal-button" href="/florida-liquor-license-appraisal#order-form">Order an Appraisal</Link>
-                      <Link className="marketplace-listing-heat-map-link" href="/?open=heat-map">Explore the Florida License Heat Map →</Link>
+                      <span>{tr("Professional License Valuation", "Valoración profesional de licencia")}</span>
+                      <h2 id="listing-appraisal-promo-title">{tr("Order a Liquor License Appraisal", "Solicite una tasación de licencia de licor")}</h2>
+                      <p>{tr("Get a license-specific valuation supported by county market evidence and regulatory research.", "Obtenga una valoración específica de la licencia respaldada por evidencia del mercado del condado e investigación regulatoria.")}</p>
+                      <Link className="marketplace-listing-appraisal-button" href="/florida-liquor-license-appraisal#order-form">{tr("Order an Appraisal", "Solicitar una tasación")}</Link>
+                      <Link className="marketplace-listing-heat-map-link" href="/?open=heat-map">{tr("Explore the Florida License Heat Map →", "Explorar el mapa de calor de licencias de Florida →")}</Link>
                     </div>
                   </section>
 
@@ -1018,7 +1020,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     {config.broker.phone}
                   </span>
                 </a>
-                {config.approvalPreview ? <a className="marketplace-listing-sticky-contact-request" href={config.broker.listingUrl} target="_blank" rel="noopener noreferrer">View Seller Advertisement</a> : <a
+                {config.approvalPreview ? <a className="marketplace-listing-sticky-contact-request" href={config.broker.listingUrl} target="_blank" rel="noopener noreferrer">{tr("View Seller Advertisement", "Ver anuncio del vendedor")}</a> : <a
                   className="marketplace-listing-sticky-contact-request"
                   href={`#${config.listingReference.toLowerCase()}-request-information`}
                 >
