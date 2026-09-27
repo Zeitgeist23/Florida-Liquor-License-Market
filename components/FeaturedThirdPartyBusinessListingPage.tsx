@@ -939,7 +939,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   listingUrl={config.canonicalPath}
                   recipientKind={config.sellerDirect ? "seller" : "broker"}
                   locale={config.locale}
-                  showFinancingCalculator
+                  showFinancingCalculator={isNonQuotaBusiness}
                   financingCalculatorMode={isNonQuotaBusiness ? "sba-business" : "license"}
                   financingPurchasePrice={isNonQuotaBusiness ? config.packagePriceNumber : config.askingPriceNumber}
                   financingDownPayment={isNonQuotaBusiness ? Math.round(config.packagePriceNumber * 0.1) : undefined}
@@ -985,26 +985,14 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     </div>
                   </section>
 
-                  <section
-                    className="marketplace-listing-finance-promo"
-                    aria-labelledby="listing-financing-promo-title"
-                  >
-                    <span>Liquor License Purchase Financing</span>
-                    <h2 id="listing-financing-promo-title">Finance the License Component</h2>
-                    <p>Request financing consideration through the FLLM Private Lender Network for the qualifying liquor-license component of a transaction.</p>
-                    <Link className="marketplace-listing-finance-button" href="/financing#request-financing">Request Financing</Link>
-                    <small>All financing is subject to independent lender review, underwriting, collateral eligibility, transaction structure, and approval.</small>
-                  </section>
-                  {config.approvalPreview ? (
-                    <div className="antezza-calculator-slot">
-                      <ListingSidebarLoanCalculator
-                        initialPurchasePrice={config.askingPriceNumber}
-                        initialDownPayment={Math.round(config.askingPriceNumber * 0.2)}
-                        mode="license"
-                        locale={config.locale}
-                      />
-                    </div>
-                  ) : null}
+                  <div className="antezza-calculator-slot">
+                    <ListingSidebarLoanCalculator
+                      initialPurchasePrice={config.askingPriceNumber}
+                      initialDownPayment={Math.round(config.askingPriceNumber * 0.2)}
+                      mode="license"
+                      locale={config.locale}
+                    />
+                  </div>
                 </>
               )}
 
