@@ -13,7 +13,6 @@ import {
 
 import "../fllm-official-template.css";
 import "../fllm-design-system.css";
-import "./expert-witness-hero.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-value-expert-witness`;
@@ -205,6 +204,18 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
+      <style>{`
+        .litigation-value-page .litigation-value-hero{padding:48px 0 52px}
+        .litigation-value-hero-grid{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(390px,.76fr);align-items:stretch;gap:34px}
+        .litigation-value-hero-copy{min-width:0;align-self:center;padding:6px 0}
+        .litigation-value-page .litigation-value-hero .fllm-template-hero-title{max-width:820px;font-size:clamp(42px,4.6vw,64px);line-height:1.01}
+        .litigation-value-page .litigation-value-hero .fllm-template-hero-copy{max-width:800px}
+        .litigation-value-hero-image{position:relative;min-height:560px;overflow:hidden;border:1px solid rgba(241,166,0,.62);border-radius:9px;background:linear-gradient(180deg,rgba(4,17,29,.02),rgba(4,17,29,.14)),url("/assets/fllm-expert-witness-litigation-hero.svg") center 26%/cover no-repeat;box-shadow:inset 0 1px 0 rgba(255,220,142,.2),0 18px 38px rgba(0,0,0,.34),0 0 24px rgba(241,166,0,.08)}
+        .litigation-value-hero-image::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(5,24,40,.34) 0%,transparent 24%),linear-gradient(180deg,transparent 62%,rgba(3,13,22,.28) 100%)}
+        @media(max-width:1080px){.litigation-value-hero-grid{grid-template-columns:minmax(0,1.12fr) minmax(340px,.88fr);gap:26px}.litigation-value-hero-image{min-height:520px}.litigation-value-page .litigation-value-hero .fllm-template-hero-title{font-size:clamp(40px,4.5vw,58px)}}
+        @media(max-width:900px){.litigation-value-page .litigation-value-hero{padding:38px 0 46px}.litigation-value-hero-grid{grid-template-columns:1fr;gap:26px}.litigation-value-hero-image{min-height:460px;background-position:center 24%}.litigation-value-page .litigation-value-hero .fllm-template-hero-title{max-width:900px;font-size:clamp(40px,8vw,58px)}}
+        @media(max-width:620px){.litigation-value-hero-image{min-height:360px;background-position:center 24%}}
+      `}</style>
 
       <section className="fllm-template-hero litigation-value-hero">
         <div className="fllm-template-shell litigation-value-hero-grid">
