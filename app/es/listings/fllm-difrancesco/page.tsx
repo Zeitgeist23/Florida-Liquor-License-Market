@@ -129,6 +129,19 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "Se declaran ganancias discrecionales del vendedor de $285,735. Los compradores deben conciliar esta cifra con declaraciones de impuestos, estados financieros y documentación de respaldo durante la debida diligencia.",
     },
     {
+      label: "Licencia",
+      value: "Licencia de cupo 4COP / 3PS incluida",
+      description:
+        "La licencia de licor de cupo 4COP incluida tiene un valor estimado de $225,000 basado en el precio mediano calculado por FLLM para Broward County. La mediana de FLLM es contexto de mercado, no una tasación de esta licencia específica. Los compradores deben confirmar con el corredor y DBPR/ABT la serie actual exacta, el estado de cupo, la titularidad y la transferibilidad.",
+      href: "/license-types/4cop-quota",
+    },
+    {
+      label: "Muebles, accesorios y equipo",
+      value: "$475,000 incluidos",
+      description:
+        "Aproximadamente $475,000 en muebles, accesorios y equipo están incluidos en el precio solicitado.",
+    },
+    {
       label: "Establecido",
       value: "2006",
       description:
@@ -147,23 +160,10 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "Aproximadamente $15,000 de inventario están incluidos en el precio solicitado.",
     },
     {
-      label: "Muebles, accesorios y equipo",
-      value: "$475,000 incluidos",
-      description:
-        "Aproximadamente $475,000 en muebles, accesorios y equipo están incluidos en el precio solicitado.",
-    },
-    {
       label: "Empleados",
       value: "11",
       description:
         "Se indica que el negocio cuenta con 11 empleados. Los compradores deben verificar nómina, funciones, horarios y continuidad laboral.",
-    },
-    {
-      label: "Licencia",
-      value: "Licencia de cupo 4COP / 3PS incluida",
-      description:
-        "La licencia de licor de cupo 4COP incluida tiene un valor estimado de $225,000 basado en el precio mediano calculado por FLLM para Broward County. La mediana de FLLM es contexto de mercado, no una tasación de esta licencia específica. Los compradores deben confirmar con el corredor y DBPR/ABT la serie actual exacta, el estado de cupo, la titularidad y la transferibilidad.",
-      href: "/license-types/4cop-quota",
     },
     {
       label: "Instalaciones",
