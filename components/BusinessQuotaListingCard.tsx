@@ -27,9 +27,7 @@ export default function BusinessQuotaListingCard({
 }) {
   const categoryClassName = categoryClassNames[listing.businessCategory];
   const isMarketListing = listing.listingTier === "market";
-  const actionHref = isMarketListing
-    ? `${listing.countyHref}#county-business-packages-title`
-    : listing.href;
+  const actionHref = listing.href;
   const marketViewHref = listing.marketViewHref ?? "/market-data/heat-map";
   const usesClassification = listing.licenseClass === "sfs" || listing.licenseClass === "2cop";
   const licenseMetricLabel = usesClassification
@@ -67,21 +65,13 @@ export default function BusinessQuotaListingCard({
             </p>
 
             <h2>
-              {isMarketListing ? (
+              <Link href={actionHref}>
                 <span
                   className={`business-quota-category business-quota-category--title business-quota-category--${categoryClassName}`}
                 >
                   {listing.businessCategory}
                 </span>
-              ) : (
-                <Link href={listing.href}>
-                  <span
-                    className={`business-quota-category business-quota-category--title business-quota-category--${categoryClassName}`}
-                  >
-                    {listing.businessCategory}
-                  </span>
-                </Link>
-              )}
+              </Link>
             </h2>
           </div>
         </div>
@@ -136,7 +126,7 @@ export default function BusinessQuotaListingCard({
 
         <div className="business-quota-card-actions">
           <Link className="business-quota-card-action" href={actionHref}>
-            {isMarketListing ? "View County Business Packages" : "View Business + License Package"} <span aria-hidden="true">›</span>
+            {isMarketListing ? "View Market Record" : "View Business + License Package"} <span aria-hidden="true">›</span>
           </Link>
           {isMarketListing ? (
             <Link className="business-quota-card-market-view" href={marketViewHref}>
