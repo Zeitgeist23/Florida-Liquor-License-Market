@@ -86,8 +86,8 @@ export default function MarketBuyerLeadForm({
       <span className="business-market-form-eyebrow">Buyer Match Request</span>
       <h2>Looking for a {businessType} in {county}?</h2>
       <p>
-        Tell FLLM what you are looking for. Your request will be recorded in the
-        Lead Match Desk so FLLM can identify matching opportunities in this market.
+        Tell FLLM your budget and what you want to buy. We’ll use the Lead Match Desk
+        to identify matching opportunities in this market.
       </p>
 
       <input type="hidden" name="inquiry_type" value="Business Market Buyer Match" />
@@ -173,7 +173,7 @@ export default function MarketBuyerLeadForm({
 
       {status === "sent" ? (
         <p className="business-market-form-status success" role="status">
-          Your buyer request was recorded. FLLM can now use your market preferences to identify matching opportunities.
+          Your request was received. FLLM will use your preferences to identify matching opportunities.
         </p>
       ) : null}
 
@@ -184,8 +184,7 @@ export default function MarketBuyerLeadForm({
       ) : null}
 
       <small>
-        By submitting this form, you agree that FLLM may contact you about matching business and liquor-license opportunities.
-        This market record does not represent a paid broker listing and does not guarantee current availability.
+        FLLM may contact you about matching business and liquor-license opportunities. Market availability and pricing can change.
       </small>
     </form>
   );
