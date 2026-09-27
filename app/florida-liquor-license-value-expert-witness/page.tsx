@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import FormsSiteHeader from "@/components/FormsSiteHeader";
-import "../resources/forms/abt-forms.css";
-import "../florida-liquor-licenses-for-sale/seo-market.css";
+import {
+  FllmButton,
+  FllmCard,
+  FllmCardGrid,
+  FllmDisclosure,
+  FllmFaqGrid,
+  FllmPageShell,
+  FllmSectionHeading,
+} from "@/components/FllmDesignSystem";
+
+import "../fllm-official-template.css";
+import "../fllm-design-system.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-value-expert-witness`;
@@ -15,14 +24,13 @@ export const metadata: Metadata = {
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
-    "Florida liquor license value expert witness",
     "Florida liquor license expert witness",
-    "liquor license valuation expert witness Florida",
+    "Florida liquor license value expert witness",
     "4COP quota license expert witness",
     "3PS liquor license expert witness",
     "Florida liquor license litigation valuation",
-    "Florida liquor license damages valuation",
-    "Florida quota license appraisal litigation",
+    "St. Johns County liquor license expert witness",
+    "4COP quota liquor license sale dispute",
   ],
   openGraph: {
     type: "article",
@@ -35,48 +43,84 @@ export const metadata: Metadata = {
 };
 
 const useCases = [
-  ["Business and partnership disputes", "Support for disputes involving ownership, buyouts, damages, dissolution or allocation of value where a Florida quota liquor license is a material asset."],
-  ["Divorce and equitable-distribution matters", "County-specific market evidence can help counsel and retained valuation professionals evaluate a 3PS or 4COP quota-license interest separately from the operating business."],
-  ["Bankruptcy, receivership and distressed matters", "Marketability, transferability, current asking-price evidence and available transaction history may be relevant when evaluating liquidation or going-concern scenarios."],
-  ["Eminent domain, tax and estate disputes", "A defined effective date and documented market record can support professionals addressing historical or current value questions involving a quota-license interest."],
-  ["Commercial damages and transaction disputes", "License-specific research can help establish the market context for claimed loss, failed transfer, impaired collateral or disputed transaction value."],
-  ["Attorney and expert support", "FLLM can organize Florida liquor-license market evidence for review by counsel, a retained appraiser or another expert who will provide the ultimate litigation opinion or testimony."],
+  {
+    title: "Business and partnership disputes",
+    text: "Support for disputes involving ownership, buyouts, damages, dissolution or allocation of value where a Florida quota liquor license is a material asset.",
+  },
+  {
+    title: "Commercial damages and transaction disputes",
+    text: "License-specific research can help establish market context for a claimed loss, failed transfer, impaired collateral or disputed transaction value.",
+  },
+  {
+    title: "Bankruptcy, receivership and distressed matters",
+    text: "Marketability, transferability, current asking-price evidence and available transaction history may be relevant to liquidation or going-concern analysis.",
+  },
+  {
+    title: "Divorce, estate and fiduciary matters",
+    text: "County-specific evidence can help counsel and retained valuation professionals evaluate a 3PS or 4COP quota-license interest separately from an operating business.",
+  },
+  {
+    title: "Historical-value questions",
+    text: "A defined effective date can separate then-current market evidence from later asking prices, transfers and market developments.",
+  },
+  {
+    title: "Attorney and retained-expert support",
+    text: "FLLM can organize Florida liquor-license market evidence for review by counsel, a retained appraiser or another expert providing the ultimate opinion or testimony.",
+  },
 ];
 
 const evidenceItems = [
-  ["Subject-license identity", "License number, county, series, holder of record, status and available DBPR transfer history."],
-  ["Same-county market evidence", "Current 3PS and 4COP offerings, with exact-series evidence identified separately and cross-series evidence explained rather than blended."],
-  ["Verified transaction evidence", "Available recent sales, transfers, recorded transaction information and other market evidence appropriate to the assignment."],
-  ["Historical market context", "Where the effective date is in the past, the analysis can distinguish then-current evidence from present asking prices and later market developments."],
-  ["Liens and marketability", "Available lien or security-interest information, transfer restrictions and other facts that may affect marketability or the scope of the valuation analysis."],
-  ["Reconciliation", "A documented explanation of how the available evidence supports the indicated market-value range or conclusion for the specific license and effective date."],
+  {
+    title: "Subject-license identity",
+    text: "License number, county, series, holder of record, status and available DBPR transfer history.",
+  },
+  {
+    title: "Same-county market evidence",
+    text: "Current 3PS and 4COP offerings, with exact-series evidence kept separate from cross-series evidence.",
+  },
+  {
+    title: "Available transaction evidence",
+    text: "Recent sales, transfers, recorded transaction information and other market evidence appropriate to the assignment when available.",
+  },
+  {
+    title: "Historical market context",
+    text: "Past-effective-date work distinguishes contemporaneous evidence from current asking prices and later market developments.",
+  },
+  {
+    title: "Liens and marketability",
+    text: "Available lien or security-interest information, transfer restrictions and other facts that may affect marketability or scope.",
+  },
+  {
+    title: "Value reconciliation",
+    text: "A documented explanation of how available evidence supports the indicated market-value range or conclusion.",
+  },
 ];
 
 const faqs = [
   {
-    question: "Can FLLM assist with an expert-witness matter involving the sale of a 4COP quota liquor license in St. Johns County?",
-    answer:
-      "Yes. FLLM can assemble St. Johns County 4COP market evidence, DBPR research, available current and historical asking-price comparables, transaction evidence and a license-specific valuation record for counsel or a retained expert. FLLM does not represent that every analyst or report is automatically court-qualified or admissible as expert testimony; witness qualification and admissibility remain engagement- and court-specific.",
-  },
-  {
     question: "What is a Florida liquor license value expert witness?",
     answer:
-      "A Florida liquor license value expert witness is a person qualified by the court to offer opinion testimony concerning the value, marketability or transfer economics of a Florida alcoholic-beverage license. Qualification depends on the witness's knowledge, skill, experience, training, education and the court's evidentiary rulings; it is not created simply by publishing a valuation report.",
+      "A Florida liquor license value expert witness is a person qualified by the court to offer opinion testimony concerning the value, marketability or transfer economics of a Florida alcoholic-beverage license. Qualification depends on the witness's knowledge, skill, experience, training, education and the court's evidentiary rulings.",
   },
   {
     question: "Does FLLM automatically act as a court-qualified expert witness?",
     answer:
-      "No. FLLM provides Florida liquor-license market research, license-specific valuation analysis and litigation support. FLLM does not represent that every report, analyst or engagement is USPAP-compliant, credentialed, court-qualified or admissible as expert testimony. Counsel should determine the required witness qualifications and scope for the specific matter.",
+      "No. FLLM provides Florida liquor-license market research, license-specific valuation analysis and litigation support. FLLM does not represent that every report, analyst or engagement is USPAP-compliant, credentialed, court-qualified or admissible as expert testimony.",
   },
   {
     question: "Can FLLM support a retained appraiser or testifying expert?",
     answer:
-      "Yes. FLLM can organize subject-license information, DBPR research, county-specific 3PS and 4COP market evidence, available transaction history and other Florida quota-license market data for review by counsel or a separately retained credentialed appraiser or expert witness.",
+      "Yes. FLLM can organize subject-license information, DBPR research, county-specific 3PS and 4COP market evidence, available transaction history and related Florida quota-license market data for review by counsel or a separately retained credentialed appraiser or expert witness.",
   },
   {
     question: "Can FLLM value a 4COP or 3PS license for litigation?",
     answer:
-      "FLLM can prepare a license-specific market valuation for a Florida 4COP or 3PS quota license using a defined effective date and county-specific evidence. Whether that work product satisfies a court, opposing party, insurer, lender or retained expert depends on the engagement and the receiving party's requirements.",
+      "FLLM can prepare a license-specific market valuation for a Florida 4COP or 3PS quota license using a defined effective date and county-specific evidence. Whether that work product satisfies a court, opposing party, insurer, lender or retained expert depends on the engagement and receiving party's requirements.",
+  },
+  {
+    question: "Can FLLM assist with an expert-witness matter involving the sale of a 4COP quota liquor license in St. Johns County?",
+    answer:
+      "Yes. FLLM can assemble St. Johns County 4COP market evidence, DBPR research, available current and historical asking-price comparables, transaction evidence and a license-specific valuation record for counsel or a retained expert. Witness qualification and admissibility remain engagement- and court-specific.",
   },
   {
     question: "What is the difference between a market valuation and expert testimony?",
@@ -90,20 +134,14 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "Florida Liquor License Value Expert Witness and Litigation Valuation Support",
+      headline: "Florida Liquor License Expert Witness and Litigation Valuation Support",
       description:
-        "Florida quota liquor-license valuation and litigation-support information for 4COP and 3PS licenses, including county market evidence, DBPR research and expert-witness qualification distinctions.",
+        "Florida quota liquor-license valuation and litigation-support information for 4COP and 3PS licenses, including St. Johns County market evidence, DBPR research and expert-witness qualification distinctions.",
       datePublished: "2026-08-30",
       dateModified: "2026-09-27",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
-      about: [
-        { "@type": "Thing", name: "Florida liquor license valuation" },
-        { "@type": "Thing", name: "Expert witness litigation support" },
-        { "@type": "Thing", name: "4COP quota liquor license" },
-        { "@type": "Thing", name: "3PS quota liquor license" },
-      ],
     },
     {
       "@context": "https://schema.org",
@@ -113,8 +151,6 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
       areaServed: { "@type": "State", name: "Florida" },
       provider: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
       url: canonicalUrl,
-      description:
-        "License-specific market research and valuation support for attorneys, litigants, appraisers and other professionals evaluating Florida 4COP and 3PS quota-license value.",
     },
     {
       "@context": "https://schema.org",
@@ -130,192 +166,200 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Florida Liquor License Appraisal", item: `${siteUrl}/florida-liquor-license-appraisal` },
-        { "@type": "ListItem", position: 3, name: "Value Expert Witness & Litigation Support", item: canonicalUrl },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Florida Liquor License Appraisal",
+          item: `${siteUrl}/florida-liquor-license-appraisal`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Expert Witness & Litigation Valuation Support",
+          item: canonicalUrl,
+        },
       ],
     },
   ];
 
   return (
-    <main className="seo-market-page litigation-value-page">
+    <FllmPageShell className="litigation-value-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
-      <style>{`
-        .litigation-value-page{background:#f6f7f8;color:#101923}
-        .litigation-value-page .seo-market-hero{background:radial-gradient(circle at 82% 18%,rgba(212,157,32,.18),transparent 31%),linear-gradient(135deg,#020b12 0%,#07192a 57%,#0b2942 100%);border-top:1px solid rgba(212,157,32,.42);border-bottom:1px solid rgba(212,157,32,.48)}
-        .litigation-value-page .seo-market-breadcrumbs,.litigation-value-page .seo-market-hero p{color:#d9e4ec}
-        .litigation-value-page .seo-market-breadcrumbs a,.litigation-value-page .seo-market-kicker,.litigation-value-page .seo-market-section-kicker{color:#e1ad39}
-        .litigation-value-page .seo-market-hero h1{color:#fff;text-shadow:0 3px 22px rgba(0,0,0,.42)}
-        .litigation-panel{padding:24px;border:1px solid rgba(225,173,57,.48);border-radius:14px;background:#fff;box-shadow:0 20px 45px rgba(0,0,0,.22)}
-        .litigation-panel strong{display:block;color:#081b2a;font-size:18px;line-height:1.4}
-        .litigation-panel p{margin:10px 0 0!important;color:#526370!important;font-size:13px!important;line-height:1.65!important}
-        .litigation-distinction{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:24px}
-        .litigation-distinction article{padding:25px;border-radius:14px;box-shadow:0 12px 28px rgba(2,11,18,.12)}
-        .litigation-distinction article:first-child{border:1px solid #d7dfe5;background:#fff}
-        .litigation-distinction article:last-child{border:1px solid #d5a136;background:linear-gradient(145deg,#0a2237,#04111c);color:#d7e0e7}
-        .litigation-distinction h3{margin:0 0 12px;font-size:22px}.litigation-distinction article:last-child h3{color:#fff}.litigation-distinction p{margin:0;line-height:1.7}
-        .litigation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:24px}
-        .litigation-card{padding:23px;border:1px solid rgba(212,157,32,.3);border-radius:13px;background:#fff;box-shadow:0 10px 25px rgba(0,0,0,.08)}
-        .litigation-card h3{margin:0 0 10px;color:#0a2942;font-size:19px}.litigation-card p{margin:0;line-height:1.65;color:#455864}
-        .litigation-evidence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}
-        .litigation-evidence article{padding:20px;border:1px solid rgba(212,157,32,.3);border-radius:12px;background:linear-gradient(145deg,#0a2237,#04111c);color:#cfd9df}
-        .litigation-evidence h3{margin:0 0 8px;color:#fff;font-size:18px}.litigation-evidence p{margin:0;line-height:1.65}.litigation-evidence b{color:#e7b64a}
-        .litigation-note{margin-top:22px;padding:18px 20px;border-left:4px solid #d9a12d;background:#fff3d6;color:#40515d;font-size:13px;line-height:1.7}
-        .litigation-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}.litigation-links a{padding:12px 15px;border:1px solid #bf8a1e;border-radius:7px;color:#0a2942;background:#fff;font-weight:800;text-decoration:none}
-        @media(max-width:820px){.litigation-distinction,.litigation-grid,.litigation-evidence{grid-template-columns:1fr}}
-      `}</style>
 
-      <div className="abt-header-wrap">
-        <FormsSiteHeader primaryActionHref="/contact" primaryActionLabel="Discuss Litigation Support" />
-      </div>
-
-      <section className="seo-market-hero">
-        <div className="seo-market-shell">
-          <div className="seo-market-breadcrumbs">
-            <Link href="/">Home</Link><span>›</span><Link href="/florida-liquor-license-appraisal">Appraisal</Link><span>›</span><strong>Expert Witness & Litigation Support</strong>
+      <section className="fllm-template-hero">
+        <div className="fllm-template-shell">
+          <div className="fllm-ui-breadcrumbs">
+            <Link href="/">Home</Link><span>›</span>
+            <Link href="/florida-liquor-license-appraisal">Appraisal</Link><span>›</span>
+            <strong>Expert Witness & Litigation Support</strong>
           </div>
-          <div className="seo-market-hero-grid">
-            <div>
-              <span className="seo-market-kicker">Florida 4COP & 3PS Litigation Valuation</span>
-              <h1>Florida Liquor License Expert Witness & Litigation Valuation Support</h1>
+          <span className="fllm-template-eyebrow">Florida 4COP & 3PS Litigation Valuation</span>
+          <h1 className="fllm-template-hero-title">Florida Liquor License Expert Witness & Litigation Valuation Support</h1>
+          <p className="fllm-template-hero-copy">
+            FLLM provides license-specific Florida quota-license market research and valuation support for attorneys,
+            litigants, appraisers and other professionals evaluating the value, marketability, sale price or transfer
+            economics of a 4COP or 3PS license in litigation or a transaction dispute.
+          </p>
+          <div className="fllm-ui-actions">
+            <FllmButton href="/contact">Discuss Litigation Support</FllmButton>
+            <FllmButton href="/florida-liquor-license-appraisal" variant="outline">Review Appraisal Methodology</FllmButton>
+          </div>
+        </div>
+      </section>
+
+      <section className="fllm-template-section">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Critical Distinction"
+            title="Market valuation is not automatically expert testimony"
+            copy={
               <p>
-                FLLM provides license-specific Florida quota-license market research and valuation support for attorneys, litigants, appraisers and other professionals evaluating the value, marketability, sale price or transfer economics of a 4COP or 3PS license in litigation or a transaction dispute.
+                Courts determine whether a witness is qualified and whether an opinion is admissible. FLLM can provide
+                market research, license-specific valuation analysis and litigation support without representing that
+                every report or analyst is automatically court-qualified.
               </p>
-              <div className="seo-market-actions">
-                <Link className="seo-market-button seo-market-button-gold" href="/contact">Discuss Litigation Support</Link>
-                <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-appraisal">Review FLLM Appraisal Methodology</Link>
-              </div>
-            </div>
-            <aside className="litigation-panel">
-              <strong>Market valuation is not automatically expert testimony.</strong>
+            }
+          />
+          <FllmCardGrid columns={2}>
+            <FllmCard eyebrow="FLLM Market Analysis" title="License-specific valuation and litigation support" variant="gold">
               <p>
-                Courts determine whether a witness is qualified and whether an opinion is admissible. FLLM does not represent that every report or analyst is USPAP-compliant, credentialed, court-qualified or admissible as an expert witness.
+                FLLM can research the subject license, county market, 3PS and 4COP comparables, DBPR history, available
+                transactions, liens, transfer conditions and other evidence relevant to a supported market-value conclusion.
               </p>
-            </aside>
+            </FllmCard>
+            <FllmCard eyebrow="Testifying Expert" title="Qualification remains engagement-specific" variant="gold">
+              <p>
+                A court, attorney, insurer, tax authority or opposing party may require a separately qualified expert,
+                credentialed appraiser, deposition testimony, trial testimony or another specific scope.
+              </p>
+            </FllmCard>
+          </FllmCardGrid>
+          <FllmDisclosure>
+            <strong>Scope:</strong> FLLM can build and explain the Florida liquor-license market record. The ultimate
+            expert qualification, admissibility determination and testimony remain matter-specific.
+          </FllmDisclosure>
+        </div>
+      </section>
+
+      <section className="fllm-template-section fllm-template-section--deep">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="St. Johns County 4COP Matters"
+            title="Support for a St. Johns County 4COP quota-license sale dispute"
+          />
+          <FllmCardGrid columns={3}>
+            <FllmCard title="Sale-price and transaction disputes" variant="gold">
+              <p>
+                FLLM can organize county-specific evidence when the issue involves sale price, allocated license value,
+                failed transfer, transaction timing or claimed loss associated with a St. Johns County 4COP quota license.
+              </p>
+            </FllmCard>
+            <FllmCard title="St. Johns County market evidence" variant="gold">
+              <p>
+                The analysis can separate current active asking prices, dated historical advertisements, available
+                verified transactions and subject-license DBPR records so different effective dates are not blended.
+              </p>
+            </FllmCard>
+            <FllmCard title="Attorney or retained-expert support" variant="gold">
+              <p>
+                FLLM can prepare the liquor-license market record for counsel, a retained appraiser or another testifying
+                expert. The engagement determines who provides the ultimate opinion.
+              </p>
+            </FllmCard>
+          </FllmCardGrid>
+          <div className="fllm-ui-actions">
+            <FllmButton href="/counties/st-johns/liquor-license-value">St. Johns County License Value</FllmButton>
+            <FllmButton href="/counties/st-johns" variant="outline">St. Johns County Market</FllmButton>
           </div>
         </div>
       </section>
 
-      <section className="seo-market-intro">
-        <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">The Critical Distinction</span>
-          <h2>Liquor-license market valuation versus court-qualified expert testimony</h2>
-          <div className="litigation-distinction">
-            <article>
-              <h3>FLLM market valuation and litigation support</h3>
-              <p>FLLM can research the subject license, county market, 3PS and 4COP comparables, DBPR history, available transactions, liens, transfer conditions and other evidence relevant to a supported market-value conclusion.</p>
-            </article>
-            <article>
-              <h3>Testifying expert or credentialed appraisal</h3>
-              <p>A court, attorney, insurer, tax authority or opposing party may require a separately qualified expert, credentialed appraiser, USPAP-compliant assignment, deposition testimony or trial testimony. Those requirements should be determined before the engagement is scoped.</p>
-            </article>
-          </div>
-          <p className="litigation-note"><strong>Practical use:</strong> FLLM can provide the Florida liquor-license market evidence and subject-matter research that counsel or a separately retained expert may use in evaluating a disputed license value. The ultimate litigation opinion, qualification and testimony remain engagement-specific.</p>
-        </div>
-      </section>
-
-      <section className="seo-market-counties" aria-labelledby="st-johns-expert-witness-title">
-        <div className="seo-market-shell">
-          <div className="seo-market-section-heading">
-            <div>
-              <span className="seo-market-section-kicker">St. Johns County 4COP Matters</span>
-              <h2 id="st-johns-expert-witness-title">Expert-witness and valuation support for a St. Johns County 4COP quota-license sale dispute</h2>
-            </div>
-          </div>
-          <div className="litigation-grid">
-            <article className="litigation-card">
-              <h3>Sale-price and transaction disputes</h3>
-              <p>FLLM can organize county-specific evidence when the disputed issue involves the sale price, allocated license value, failed transfer, transaction timing or claimed loss associated with a St. Johns County 4COP quota license.</p>
-            </article>
-            <article className="litigation-card">
-              <h3>St. Johns County market evidence</h3>
-              <p>The analysis can separate current active asking prices, dated historical advertisements, available verified transactions and subject-license DBPR records so present evidence is not confused with the market on an earlier effective date.</p>
-            </article>
-            <article className="litigation-card">
-              <h3>Attorney or retained-expert support</h3>
-              <p>FLLM can prepare the liquor-license market record for review by counsel, a retained appraiser or another testifying expert. The court and engagement requirements determine who may offer the ultimate expert opinion.</p>
-            </article>
-          </div>
-          <div className="litigation-links">
-            <Link href="/counties/st-johns/liquor-license-value">St. Johns County Liquor License Value</Link>
-            <Link href="/counties/st-johns">St. Johns County License Market</Link>
-            <Link href="/florida-liquor-license-appraisal">Formal 4COP / 3PS Appraisal</Link>
-            <Link href="/contact">Discuss a St. Johns County Matter</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="seo-market-counties">
-        <div className="seo-market-shell">
-          <div className="seo-market-section-heading">
-            <div><span className="seo-market-section-kicker">Common Legal Contexts</span><h2>When Florida liquor-license value becomes a disputed issue</h2></div>
-          </div>
-          <div className="litigation-grid">
-            {useCases.map(([title, text]) => (
-              <article className="litigation-card" key={title}>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </article>
+      <section className="fllm-template-section">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Common Legal Contexts"
+            title="When Florida liquor-license value becomes a disputed issue"
+          />
+          <FllmCardGrid columns={3}>
+            {useCases.map((item) => (
+              <FllmCard key={item.title} title={item.title}>
+                <p>{item.text}</p>
+              </FllmCard>
             ))}
-          </div>
+          </FllmCardGrid>
         </div>
       </section>
 
-      <section className="seo-market-intro">
-        <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">Evidence Framework</span>
-          <h2>What a defensible Florida liquor-license valuation record may include</h2>
-          <div className="litigation-evidence">
-            {evidenceItems.map(([title, text], index) => (
-              <article key={title}>
-                <h3><b>{String(index + 1).padStart(2, "0")}</b> {title}</h3>
-                <p>{text}</p>
-              </article>
+      <section className="fllm-template-section fllm-template-section--deep">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Evidence Framework"
+            title="What a defensible Florida liquor-license valuation record may include"
+          />
+          <FllmCardGrid columns={3}>
+            {evidenceItems.map((item) => (
+              <FllmCard key={item.title} title={item.title} variant="gold">
+                <p>{item.text}</p>
+              </FllmCard>
             ))}
-          </div>
-          <div className="litigation-links">
-            <Link href="/florida-liquor-license-value">Florida Liquor License Value</Link>
-            <Link href="/florida-liquor-license-appraisal">Formal Appraisal</Link>
-            <Link href="/florida-liquor-license-court-decisions">Florida Court Decisions</Link>
-            <Link href="/resources/florida-liquor-license-laws">Florida Liquor License Laws</Link>
-            <Link href="/resources/liquor-license-attorneys">Liquor License Attorneys</Link>
+          </FllmCardGrid>
+          <div className="fllm-ui-actions">
+            <FllmButton href="/florida-liquor-license-value">License Value</FllmButton>
+            <FllmButton href="/florida-liquor-license-appraisal" variant="outline">Formal Appraisal</FllmButton>
+            <FllmButton href="/resources/florida-liquor-license-laws" variant="outline">Florida License Laws</FllmButton>
           </div>
         </div>
       </section>
 
-      <section className="seo-market-counties">
-        <div className="seo-market-shell">
-          <div className="seo-market-section-heading">
-            <div><span className="seo-market-section-kicker">Attorney & Expert Workflow</span><h2>Build the market record before deciding who must testify</h2></div>
-          </div>
-          <div className="litigation-grid">
-            <article className="litigation-card"><h3>1. Define the issue</h3><p>Identify the subject license, county, series, effective date, legal issue and the specific value question the matter requires.</p></article>
-            <article className="litigation-card"><h3>2. Assemble the evidence</h3><p>Collect DBPR records, ownership and transfer history, county-specific comparables, available transactions, liens and other market evidence.</p></article>
-            <article className="litigation-card"><h3>3. Confirm witness requirements</h3><p>Determine whether counsel needs market research only, an FLLM valuation report, a separately credentialed appraiser, deposition testimony, trial testimony or another expert scope.</p></article>
-          </div>
-          <div className="seo-market-actions" style={{ marginTop: 24 }}>
-            <Link className="seo-market-button seo-market-button-gold" href="/contact">Discuss a Litigation Matter</Link>
-            <Link className="seo-market-button seo-market-button-dark" href="/florida-liquor-license-appraisal">Order / Review Appraisal Options</Link>
-          </div>
+      <section className="fllm-template-section">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Attorney & Expert Workflow"
+            title="Build the market record before deciding who must testify"
+          />
+          <FllmCardGrid columns={3}>
+            <FllmCard eyebrow="01" title="Define the issue" variant="gold">
+              <p>Identify the subject license, county, series, effective date, legal issue and specific value question.</p>
+            </FllmCard>
+            <FllmCard eyebrow="02" title="Assemble the evidence" variant="gold">
+              <p>Collect DBPR records, transfer history, county comparables, available transactions, liens and related market evidence.</p>
+            </FllmCard>
+            <FllmCard eyebrow="03" title="Confirm witness requirements" variant="gold">
+              <p>Determine whether the matter needs market research, an FLLM valuation report, a credentialed appraiser, deposition testimony or trial testimony.</p>
+            </FllmCard>
+          </FllmCardGrid>
         </div>
       </section>
 
-      <section className="seo-market-intro">
-        <div className="seo-market-shell">
-          <span className="seo-market-section-kicker">Questions</span>
-          <h2>Florida liquor-license value expert-witness FAQs</h2>
-          <div className="litigation-grid">
-            {faqs.map((faq) => (
-              <article className="litigation-card" key={faq.question}>
-                <h3>{faq.question}</h3>
-                <p>{faq.answer}</p>
-              </article>
-            ))}
+      <section className="fllm-template-section fllm-template-section--deep">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Common Questions"
+            title="Florida liquor-license expert-witness FAQs"
+          />
+          <FllmFaqGrid
+            items={faqs.map((faq) => ({ question: faq.question, answer: <p>{faq.answer}</p> }))}
+            columns={2}
+          />
+        </div>
+      </section>
+
+      <section className="fllm-ui-final-cta">
+        <div className="fllm-template-shell">
+          <div>
+            <span className="fllm-template-eyebrow">Litigation & Valuation Support</span>
+            <h2>Discuss a Florida 4COP or 3PS valuation matter with FLLM</h2>
+            <p>Start with the subject license, county, effective date and the valuation question the matter requires.</p>
+          </div>
+          <div className="fllm-ui-final-actions">
+            <FllmButton href="/contact">Contact FLLM</FllmButton>
+            <FllmButton href="/florida-liquor-license-appraisal" variant="outline">Appraisal Options</FllmButton>
           </div>
         </div>
       </section>
-    </main>
+    </FllmPageShell>
   );
 }
