@@ -111,7 +111,9 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     resolvedListingReference || listingReference,
     approvedSellerSubmission,
   );
-  const isBusinessMarketBuyerMatch = inquiryType === "Business Market Buyer Match";
+  const isBusinessMarketBuyerMatch =
+    inquiryType === "Business Market Buyer Match" ||
+    inquiryType === "Business Market Opportunity Inquiry";
 
   const subject = resolvedListingReference
     ? isBusinessMarketBuyerMatch
