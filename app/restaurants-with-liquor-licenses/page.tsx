@@ -34,23 +34,30 @@ const allRestaurantListings = [
     listing.businessCategory === "Restaurant" ||
     /restaurant/i.test(`${listing.title} ${listing.businessType}`),
 );
+const allQuotaRestaurantListings = businessQuotaListings.filter(
+  (listing) =>
+    listing.licenseType === "4COP Quota" &&
+    (listing.businessCategory === "Restaurant" ||
+      /restaurant/i.test(`${listing.title} ${listing.businessType}`)),
+);
+const quotaRestaurantListings = allQuotaRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
 const restaurantListings = allRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
 const stJohnsRestaurantListings = allRestaurantListings.filter(
   (listing) => listing.county === "St. Johns County",
 );
 
 export const metadata: Metadata = {
-  title: "Florida Restaurants For Sale With Liquor Licenses | FLLM",
+  title: "Florida Restaurants for Sale With Liquor Licenses | 4COP, SFS & 2COP | FLLM",
   description:
-    "Browse Florida restaurants and restaurant/bar businesses for sale with 4COP quota, 4COP SFS / SRX, and 2COP beer-and-wine licenses, including St. Augustine and St. Johns County opportunities.",
+    "Browse Florida restaurants for sale with 4COP quota liquor licenses, 4COP SFS / SRX licenses and 2COP beer-and-wine licenses. Compare active restaurant opportunities by license type and county.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Restaurants For Sale With Liquor Licenses | FLLM",
+    title: "Florida Restaurants for Sale With Liquor Licenses | 4COP, SFS & 2COP | FLLM",
     description:
-      "A Florida restaurant marketplace and licensing hub covering transferable 4COP quota licenses, 4COP SFS / SRX restaurant licenses, and 2COP beer-and-wine licenses.",
+      "Browse Florida restaurants for sale with transferable 4COP quota licenses, 4COP SFS / SRX restaurant licenses, and 2COP beer-and-wine licenses.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -60,10 +67,10 @@ export default function RestaurantsWithLiquorLicensesPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Florida Restaurants For Sale With Liquor Licenses",
+      name: "Florida Restaurants for Sale With Liquor Licenses",
       url: canonicalUrl,
       description:
-        "Florida restaurant business listings and licensing paths involving 4COP quota, 4COP SFS / SRX, and 2COP beer-and-wine licenses.",
+        "Florida restaurants for sale with 4COP quota liquor licenses, 4COP SFS / SRX licenses, and 2COP beer-and-wine licenses.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
@@ -73,6 +80,18 @@ export default function RestaurantsWithLiquorLicensesPage() {
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
         { "@type": "ListItem", position: 2, name: "Restaurants With Liquor Licenses", item: canonicalUrl },
       ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "Restaurants for Sale With 4COP Quota Licenses in Florida",
+      numberOfItems: quotaRestaurantListings.length,
+      itemListElement: quotaRestaurantListings.map((listing, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: listing.title,
+        url: `${siteUrl}${listing.href}`,
+      })),
     },
     {
       "@context": "https://schema.org",
@@ -100,12 +119,13 @@ export default function RestaurantsWithLiquorLicensesPage() {
           <div className="fllm-ui-breadcrumbs">
             <Link href="/">Home</Link><span>›</span><strong>Restaurants With Liquor Licenses</strong>
           </div>
-          <span className="fllm-template-eyebrow">Florida Restaurant Liquor License Market</span>
-          <h1 className="fllm-template-hero-title">Florida Restaurants For Sale With Liquor Licenses</h1>
+          <span className="fllm-template-eyebrow">Florida Restaurants for Sale + Liquor License Market</span>
+          <h1 className="fllm-template-hero-title">Florida Restaurants for Sale With Liquor Licenses</h1>
           <p className="fllm-template-hero-copy">
-            Browse restaurant businesses and compare the principal Florida liquor-license structures used by restaurants.
-            FLLM keeps transferable quota-license packages separate from qualification-based restaurant licenses while
-            bringing both sides of the restaurant market into one place.
+            Browse Florida restaurants and restaurant/bar businesses for sale with 4COP quota liquor licenses,
+            4COP SFS / SRX licenses and 2COP beer-and-wine licenses. FLLM keeps transferable quota-license packages
+            separate from qualification-based restaurant licenses while bringing all three restaurant license paths
+            into one marketplace hub.
           </p>
           <div className="fllm-ui-actions">
             <Link className="btn btn-gold fllm-ui-official-gold-button" href="#restaurant-inventory">View Restaurant Listings</Link>
@@ -135,7 +155,7 @@ export default function RestaurantsWithLiquorLicensesPage() {
                 represent a separately valued asset within the business transaction.
               </p>
               <div className="fllm-ui-actions">
-                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/businesses-with-quota-licenses">Browse Quota Business Listings</Link>
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="#quota-restaurant-inventory">Browse 4COP Quota Restaurants</Link>
                 <FllmButton href="/license-types/4cop-quota" variant="outline">4COP Quota Guide</FllmButton>
               </div>
             </FllmCard>
@@ -162,6 +182,39 @@ export default function RestaurantsWithLiquorLicensesPage() {
               </div>
             </FllmCard>
           </FllmCardGrid>
+        </div>
+      </section>
+
+      <section className="fllm-template-section fllm-template-section--deep" id="quota-restaurant-inventory">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Transferable 4COP Quota Restaurant Packages"
+            title="Restaurants for Sale With 4COP Quota Licenses in Florida"
+            copy={
+              <p>
+                Browse Florida restaurants and bar-and-grill businesses for sale with transferable 4COP quota liquor
+                licenses included in the acquisition. These opportunities are separate from restaurants operating under
+                location-specific 4COP SFS / SRX licenses, because a 4COP quota license is a county-limited transferable
+                asset that can carry a separately analyzed license value within the business transaction.
+              </p>
+            }
+          />
+          <BusinessPackageLocalMarkets
+            listings={allQuotaRestaurantListings}
+            label="Florida markets for restaurants with 4COP quota licenses in current inventory"
+          />
+
+          {quotaRestaurantListings.length ? (
+            <div className="business-quota-grid">
+              {quotaRestaurantListings.map((listing) => (
+                <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
+              ))}
+            </div>
+          ) : (
+            <FllmCard title="No published restaurant + 4COP quota packages are available right now." variant="gold">
+              <p>FLLM will display qualifying restaurant acquisitions with included transferable 4COP quota licenses here as they are published.</p>
+            </FllmCard>
+          )}
         </div>
       </section>
 
