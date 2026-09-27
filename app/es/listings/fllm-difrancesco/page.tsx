@@ -142,18 +142,6 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "Aproximadamente $475,000 en muebles, accesorios y equipo están incluidos en el precio solicitado.",
     },
     {
-      label: "Establecido",
-      value: "2006",
-      description:
-        "Se indica que el negocio fue establecido en 2006.",
-    },
-    {
-      label: "Local",
-      value: "3,000 pies²",
-      description:
-        "El local tiene aproximadamente 3,000 pies cuadrados y está configurado como una operación de restaurante llave en mano. Los compradores deben verificar el tamaño exacto, los términos del arrendamiento, el uso permitido y la ocupación.",
-    },
-    {
       label: "Inventario",
       value: "$15,000 incluido",
       description:
@@ -164,6 +152,18 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       value: "11",
       description:
         "Se indica que el negocio cuenta con 11 empleados. Los compradores deben verificar nómina, funciones, horarios y continuidad laboral.",
+    },
+    {
+      label: "Establecido",
+      value: "2006",
+      description:
+        "Se indica que el negocio fue establecido en 2006.",
+    },
+    {
+      label: "Local",
+      value: "3,000 pies²",
+      description:
+        "El local tiene aproximadamente 3,000 pies cuadrados y está configurado como una operación de restaurante llave en mano. Los compradores deben verificar el tamaño exacto, los términos del arrendamiento, el uso permitido y la ocupación.",
     },
     {
       label: "Instalaciones",
