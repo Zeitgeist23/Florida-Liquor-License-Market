@@ -9,9 +9,9 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-value-expert-witness`;
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Value Expert Witness & Litigation Support",
+  title: "Florida Liquor License Expert Witness & Litigation Valuation | FLLM",
   description:
-    "Florida liquor license value expert-witness and litigation valuation support for 4COP and 3PS quota licenses, including county market evidence, DBPR research and transaction analysis.",
+    "Florida liquor license expert-witness and litigation valuation support for 4COP and 3PS quota licenses, including sale disputes, St. Johns County market evidence, DBPR research and transaction analysis.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     url: canonicalUrl,
-    title: "Florida Liquor License Value Expert Witness & Litigation Support",
+    title: "Florida Liquor License Expert Witness & Litigation Valuation | FLLM",
     description:
-      "License-specific Florida 4COP and 3PS market valuation support for attorneys, litigants and professionals, with clear separation between market research and court-qualified expert testimony.",
+      "Florida 4COP and 3PS litigation valuation support for attorneys and professionals, including sale-price disputes, county market evidence and expert-witness support distinctions.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -53,6 +53,11 @@ const evidenceItems = [
 ];
 
 const faqs = [
+  {
+    question: "Can FLLM assist with an expert-witness matter involving the sale of a 4COP quota liquor license in St. Johns County?",
+    answer:
+      "Yes. FLLM can assemble St. Johns County 4COP market evidence, DBPR research, available current and historical asking-price comparables, transaction evidence and a license-specific valuation record for counsel or a retained expert. FLLM does not represent that every analyst or report is automatically court-qualified or admissible as expert testimony; witness qualification and admissibility remain engagement- and court-specific.",
+  },
   {
     question: "What is a Florida liquor license value expert witness?",
     answer:
@@ -89,7 +94,7 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
       description:
         "Florida quota liquor-license valuation and litigation-support information for 4COP and 3PS licenses, including county market evidence, DBPR research and expert-witness qualification distinctions.",
       datePublished: "2026-08-30",
-      dateModified: "2026-08-30",
+      dateModified: "2026-09-27",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -174,9 +179,9 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
           <div className="seo-market-hero-grid">
             <div>
               <span className="seo-market-kicker">Florida 4COP & 3PS Litigation Valuation</span>
-              <h1>Florida Liquor License Value Expert Witness and Litigation Valuation Support</h1>
+              <h1>Florida Liquor License Expert Witness & Litigation Valuation Support</h1>
               <p>
-                FLLM provides license-specific Florida quota-license market research and valuation support for attorneys, litigants, appraisers and other professionals evaluating the value, marketability or transfer economics of a 4COP or 3PS license in litigation.
+                FLLM provides license-specific Florida quota-license market research and valuation support for attorneys, litigants, appraisers and other professionals evaluating the value, marketability, sale price or transfer economics of a 4COP or 3PS license in litigation or a transaction dispute.
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/contact">Discuss Litigation Support</Link>
@@ -208,6 +213,37 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
             </article>
           </div>
           <p className="litigation-note"><strong>Practical use:</strong> FLLM can provide the Florida liquor-license market evidence and subject-matter research that counsel or a separately retained expert may use in evaluating a disputed license value. The ultimate litigation opinion, qualification and testimony remain engagement-specific.</p>
+        </div>
+      </section>
+
+      <section className="seo-market-counties" aria-labelledby="st-johns-expert-witness-title">
+        <div className="seo-market-shell">
+          <div className="seo-market-section-heading">
+            <div>
+              <span className="seo-market-section-kicker">St. Johns County 4COP Matters</span>
+              <h2 id="st-johns-expert-witness-title">Expert-witness and valuation support for a St. Johns County 4COP quota-license sale dispute</h2>
+            </div>
+          </div>
+          <div className="litigation-grid">
+            <article className="litigation-card">
+              <h3>Sale-price and transaction disputes</h3>
+              <p>FLLM can organize county-specific evidence when the disputed issue involves the sale price, allocated license value, failed transfer, transaction timing or claimed loss associated with a St. Johns County 4COP quota license.</p>
+            </article>
+            <article className="litigation-card">
+              <h3>St. Johns County market evidence</h3>
+              <p>The analysis can separate current active asking prices, dated historical advertisements, available verified transactions and subject-license DBPR records so present evidence is not confused with the market on an earlier effective date.</p>
+            </article>
+            <article className="litigation-card">
+              <h3>Attorney or retained-expert support</h3>
+              <p>FLLM can prepare the liquor-license market record for review by counsel, a retained appraiser or another testifying expert. The court and engagement requirements determine who may offer the ultimate expert opinion.</p>
+            </article>
+          </div>
+          <div className="litigation-links">
+            <Link href="/counties/st-johns/liquor-license-value">St. Johns County Liquor License Value</Link>
+            <Link href="/counties/st-johns">St. Johns County License Market</Link>
+            <Link href="/florida-liquor-license-appraisal">Formal 4COP / 3PS Appraisal</Link>
+            <Link href="/contact">Discuss a St. Johns County Matter</Link>
+          </div>
         </div>
       </section>
 
