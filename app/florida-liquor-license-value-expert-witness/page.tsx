@@ -211,23 +211,48 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
           min-height:690px;
           padding:54px 0 58px;
           background:
-            linear-gradient(90deg,rgba(3,18,31,.99) 0%,rgba(5,28,47,.985) 47%,rgba(5,28,47,.88) 63%,rgba(5,28,47,.34) 100%),
-            url("/assets/fllm-expert-witness-litigation-hero.webp") right center/auto 100% no-repeat,
-            linear-gradient(135deg,var(--fllm-ink) 0%,var(--fllm-deep-navy) 56%,#173649 100%);
+            radial-gradient(circle at 76% 24%,rgba(246,167,0,.07),transparent 30%),
+            linear-gradient(135deg,var(--fllm-ink) 0%,var(--fllm-deep-navy) 58%,#173649 100%);
+        }
+        .litigation-value-page .litigation-value-hero::before{
+          content:"";
+          position:absolute;
+          top:0;
+          right:0;
+          bottom:0;
+          left:42%;
+          z-index:0;
+          pointer-events:none;
+          background:url("/assets/fllm-expert-witness-litigation-hero.webp") 43% center/cover no-repeat;
+          filter:contrast(1.12) saturate(1.08) brightness(1.045);
+          transform:scale(1.018);
+          transform-origin:center right;
         }
         .litigation-value-page .litigation-value-hero::after{
           content:"";
           position:absolute;
           inset:0;
-          z-index:0;
+          z-index:1;
           pointer-events:none;
           background:
-            linear-gradient(90deg,transparent 0%,transparent 50%,rgba(5,28,47,.14) 61%,rgba(5,28,47,.03) 100%),
-            linear-gradient(180deg,rgba(2,12,21,.05),rgba(2,12,21,.18));
+            linear-gradient(
+              90deg,
+              rgba(3,18,31,1) 0%,
+              rgba(3,18,31,.995) 34%,
+              rgba(4,22,38,.96) 43%,
+              rgba(4,24,41,.84) 50%,
+              rgba(5,27,46,.65) 57%,
+              rgba(5,28,47,.44) 64%,
+              rgba(5,28,47,.24) 71%,
+              rgba(5,28,47,.11) 79%,
+              rgba(5,28,47,.035) 88%,
+              rgba(5,28,47,0) 100%
+            ),
+            linear-gradient(180deg,rgba(2,12,21,.04),rgba(2,12,21,.14));
         }
         .litigation-value-page .litigation-value-hero .fllm-template-shell{
           position:relative;
-          z-index:1;
+          z-index:2;
         }
         .litigation-value-hero-copy{
           width:min(58%,900px);
@@ -244,12 +269,25 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
           line-height:1.72;
         }
         @media(max-width:1120px){
-          .litigation-value-page .litigation-value-hero{
-            min-height:640px;
+          .litigation-value-page .litigation-value-hero{min-height:640px}
+          .litigation-value-page .litigation-value-hero::before{
+            left:38%;
+            background-position:41% center;
+            filter:contrast(1.1) saturate(1.06) brightness(1.04);
+          }
+          .litigation-value-page .litigation-value-hero::after{
             background:
-              linear-gradient(90deg,rgba(3,18,31,.99) 0%,rgba(5,28,47,.97) 52%,rgba(5,28,47,.74) 72%,rgba(5,28,47,.3) 100%),
-              url("/assets/fllm-expert-witness-litigation-hero.webp") 92% center/auto 100% no-repeat,
-              linear-gradient(135deg,var(--fllm-ink) 0%,var(--fllm-deep-navy) 56%,#173649 100%);
+              linear-gradient(
+                90deg,
+                rgba(3,18,31,1) 0%,
+                rgba(3,18,31,.99) 38%,
+                rgba(4,23,40,.9) 49%,
+                rgba(5,27,46,.67) 59%,
+                rgba(5,28,47,.39) 70%,
+                rgba(5,28,47,.12) 84%,
+                rgba(5,28,47,0) 100%
+              ),
+              linear-gradient(180deg,rgba(2,12,21,.04),rgba(2,12,21,.14));
           }
           .litigation-value-hero-copy{width:min(64%,760px)}
           .litigation-value-page .litigation-value-hero .fllm-template-hero-title{font-size:clamp(42px,5vw,62px)}
@@ -258,10 +296,28 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
           .litigation-value-page .litigation-value-hero{
             min-height:0;
             padding:40px 0 350px;
+          }
+          .litigation-value-page .litigation-value-hero::before{
+            top:auto;
+            left:0;
+            right:0;
+            bottom:0;
+            height:360px;
+            background-position:center 28%;
+            transform:none;
+            filter:contrast(1.1) saturate(1.06) brightness(1.04);
+          }
+          .litigation-value-page .litigation-value-hero::after{
             background:
-              linear-gradient(180deg,rgba(3,18,31,.99) 0%,rgba(5,28,47,.98) 54%,rgba(5,28,47,.62) 70%,rgba(5,28,47,.22) 100%),
-              url("/assets/fllm-expert-witness-litigation-hero.webp") center bottom/auto 360px no-repeat,
-              linear-gradient(135deg,var(--fllm-ink),var(--fllm-deep-navy));
+              linear-gradient(
+                180deg,
+                rgba(3,18,31,1) 0%,
+                rgba(3,18,31,.99) 48%,
+                rgba(5,28,47,.84) 58%,
+                rgba(5,28,47,.52) 70%,
+                rgba(5,28,47,.18) 84%,
+                rgba(5,28,47,0) 100%
+              );
           }
           .litigation-value-hero-copy{width:100%}
           .litigation-value-page .litigation-value-hero .fllm-template-hero-title{max-width:100%;font-size:clamp(40px,8vw,58px)}
