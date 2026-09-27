@@ -35,7 +35,14 @@ export const metadata: Metadata = {
     "Broward County Beachside Restaurant & Nightclub + 4COP Quota License | Broker Preview",
   description:
     "Private broker-review preview for Nick DiFrancesco's Broward County beachside restaurant and nightclub offered at $1,650,000 with an included transferable quota liquor license.",
-  alternates: { canonical: canonicalUrl },
+  alternates: {
+    canonical: canonicalUrl,
+    languages: {
+      "en-US": canonicalUrl,
+      "es-US": `${siteUrl}/es/listings/fllm-difrancesco`,
+      "x-default": canonicalUrl,
+    },
+  },
   robots: {
     index: false,
     follow: false,
@@ -68,6 +75,11 @@ export const metadata: Metadata = {
 const config: FeaturedThirdPartyBusinessListingConfig = {
   listingReference: "FLLM-DIFRANCESCO",
   canonicalPath,
+  locale: "en",
+  languageAlternates: {
+    en: canonicalPath,
+    es: "/es/listings/fllm-difrancesco",
+  },
   county: "Broward County",
   countyHref: "/counties/broward",
   countyValueHref: "/counties/broward/liquor-license-value",
