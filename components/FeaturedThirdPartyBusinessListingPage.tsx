@@ -935,7 +935,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 </a>
                 <a
                   className="marketplace-listing-text-link"
-                  href={config.broker.listingUrl}
+                  href={config.sellerDirect ? config.broker.listingUrl : config.broker.website}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
