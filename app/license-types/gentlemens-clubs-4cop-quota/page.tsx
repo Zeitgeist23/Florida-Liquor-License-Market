@@ -126,6 +126,12 @@ export default function Page() {
       relatedLabel="List a 4COP Quota License"
       ruleUpdateLinks={[
         {
+          href: "/businesses-with-quota-licenses/gentlemens-clubs",
+          label: "Browse Florida Gentlemen's Clubs for Sale",
+          description:
+            "View current Florida gentlemen's clubs and adult-entertainment business packages for sale, including opportunities with transferable 4COP quota liquor licenses.",
+        },
+        {
           href: "/florida-4cop-liquor-license-for-sale",
           label: "Florida 4COP quota licenses for sale",
           description:
