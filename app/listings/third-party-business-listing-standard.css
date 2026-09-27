@@ -1029,10 +1029,10 @@ body:has(.results-page.marketplace-listing-page[data-featured-broker-business-li
 
 
 /* Keep the two primary gold broker-rail actions typographically identical.
-   Use the smaller approved label size for both Call Listing Broker and Send Inquiry. */
+   Match both labels to the smaller broker-call treatment. */
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"]
   .featured-business-call-broker-button,
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"]
   .marketplace-listing-broker-inquiry button {
-  font-size: 15px !important;
+  font-size: 13px !important;
 }
