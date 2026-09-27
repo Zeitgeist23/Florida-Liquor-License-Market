@@ -126,7 +126,7 @@ export default function BusinessQuotaListingCard({
 
         <div className="business-quota-card-actions">
           <Link className="business-quota-card-action" href={actionHref}>
-            {isMarketListing ? "View Market Record" : "View Business + License Package"} <span aria-hidden="true">›</span>
+            {isMarketListing ? "View Market Listing" : "View Business + License Package"} <span aria-hidden="true">›</span>
           </Link>
           {isMarketListing ? (
             <Link className="business-quota-card-market-view" href={marketViewHref}>
