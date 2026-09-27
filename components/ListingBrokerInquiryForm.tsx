@@ -31,7 +31,7 @@ function formatCurrency(value: number, decimals = 0) {
   }).format(Number.isFinite(value) ? value : 0);
 }
 
-function ListingSidebarLoanCalculator({
+export function ListingSidebarLoanCalculator({
   initialPurchasePrice,
   initialDownPayment,
   mode,
