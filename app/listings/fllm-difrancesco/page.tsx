@@ -126,6 +126,19 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "Seller's Discretionary Earnings are stated at $285,735. Buyers should reconcile this figure to tax returns, financial statements and supporting records during due diligence.",
     },
     {
+      label: "License",
+      value: "4COP / 3PS quota license included",
+      description:
+        "The included 4COP quota liquor license has an estimated value of $225,000 based on the median FLLM-calculated price for Broward County. The FLLM median is market context, not an appraisal of this specific license. Buyers should confirm the exact current series, quota status, ownership and transferability with the listing broker and DBPR/ABT.",
+      href: "/license-types/4cop-quota",
+    },
+    {
+      label: "FF&E",
+      value: "$475,000 included",
+      description:
+        "Approximately $475,000 of furniture, fixtures and equipment is included in the asking price.",
+    },
+    {
       label: "Established",
       value: "2006",
       description:
@@ -144,23 +157,10 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "Approximately $15,000 of inventory is included in the asking price.",
     },
     {
-      label: "FF&E",
-      value: "$475,000 included",
-      description:
-        "Approximately $475,000 of furniture, fixtures and equipment is included in the asking price.",
-    },
-    {
       label: "Employees",
       value: "11",
       description:
         "The business is stated to have 11 employees. Buyers should verify payroll, employee roles, scheduling and continued employment.",
-    },
-    {
-      label: "License",
-      value: "4COP / 3PS quota license included",
-      description:
-        "The included 4COP quota liquor license has an estimated value of $225,000 based on the median FLLM-calculated price for Broward County. The FLLM median is market context, not an appraisal of this specific license. Buyers should confirm the exact current series, quota status, ownership and transferability with the listing broker and DBPR/ABT.",
-      href: "/license-types/4cop-quota",
     },
     {
       label: "Facilities",
