@@ -196,9 +196,9 @@ export default function BusinessesWithQuotaLicensesPage() {
               <strong>Restaurants</strong>
               <span>Compare restaurant opportunities involving 4COP quota, 4COP SFS / SRX and 2COP licenses.</span>
             </Link>
-            <Link className="fllm-ui-link-card" href="/license-types/gentlemens-clubs-4cop-quota">
-              <strong>Gentlemen's Clubs & Nightlife</strong>
-              <span>Review how 4COP quota licensing fits adult-entertainment and other nightlife transactions.</span>
+            <Link className="fllm-ui-link-card" href="/businesses-with-quota-licenses/gentlemens-clubs">
+              <strong>Gentlemen's Clubs for Sale in Florida</strong>
+              <span>Browse adult-entertainment business packages for sale, including opportunities with transferable 4COP quota licenses.</span>
             </Link>
           </div>
         </div>
