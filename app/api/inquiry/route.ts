@@ -75,7 +75,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   const submittedAskingPrice = value(formData, "asking_price", 80);
   const submittedListingStatus = value(formData, "listing_status", 160);
   const listingUrlValue = value(formData, "listing_url", 500);
-  const listingUrl = /^\/listings\/[a-z0-9%._~-]+(?:[/?#].*)?$/i.test(listingUrlValue)
+  const listingUrl = /^\/(?:listings|business-market)\/[a-z0-9%._~-]+(?:[/?#].*)?$/i.test(listingUrlValue)
     ? new URL(listingUrlValue, request.url).toString()
     : "";
   const approvedSellerSubmission = /^FLLM-/i.test(listingReference)
@@ -111,9 +111,12 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     resolvedListingReference || listingReference,
     approvedSellerSubmission,
   );
+  const isBusinessMarketBuyerMatch = inquiryType === "Business Market Buyer Match";
 
   const subject = resolvedListingReference
-    ? `Specific License Inquiry — ${resolvedListingReference} — ${listingCounty || listingRequested}`
+    ? isBusinessMarketBuyerMatch
+      ? `Business Market Buyer Lead — ${resolvedListingReference} — ${listingCounty || listingRequested}`
+      : `Specific License Inquiry — ${resolvedListingReference} — ${listingCounty || listingRequested}`
     : value(formData, "_subject", 240) || `FLLM Contact Inquiry — ${inquiryType}`;
 
   const listingDetails = [
@@ -144,7 +147,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#f4f6f7;font-family:Arial,Helvetica,sans-serif;color:#071a3a;">
     <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #d6dde2;border-top:5px solid #f6a700;padding:24px;">
       <div style="margin-bottom:20px;color:#f1a600;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;">Florida Liquor License Market</div>
-      <h1 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.15;">${resolvedListingReference ? "Specific License Inquiry" : "New Confidential Inquiry"}</h1>
+      <h1 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.15;">${isBusinessMarketBuyerMatch ? "Business Market Buyer Lead" : resolvedListingReference ? "Specific License Inquiry" : "New Confidential Inquiry"}</h1>
       <p style="margin:0 0 18px;line-height:1.65;"><strong>Name:</strong> ${escapeHtml(fullName)}<br><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a><br><strong>Phone:</strong> ${escapeHtml(phone || "Not provided")}<br><strong>Inquiry type:</strong> ${escapeHtml(inquiryType)}<br><strong>Preferred county:</strong> ${escapeHtml(preferredCounty || "Not selected")}</p>
       ${listingRows ? `<h2 style="margin:24px 0 10px;font-size:17px;">Selected License Details</h2><table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border:1px solid #d9dee2;border-collapse:collapse;">${listingRows}</table>` : ""}
       <h2 style="margin:24px 0 8px;font-size:17px;">Message</h2>
@@ -237,7 +240,9 @@ async function submitContactInquiry(request: Request, formData: FormData) {
         listingUrl: resolvedListingUrl || null,
         inquiryType,
         message,
-        source: "specific_listing_contact_inquiry",
+        source: isBusinessMarketBuyerMatch
+          ? "business_market_record"
+          : "specific_listing_contact_inquiry",
       });
     } catch (trackingError) {
       console.error("Specific listing buyer inquiry tracking failed", trackingError);
