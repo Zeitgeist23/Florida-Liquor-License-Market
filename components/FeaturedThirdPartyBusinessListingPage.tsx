@@ -169,6 +169,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
   const countyShort = config.county.replace(/\s+County$/i, "");
   const isWeSellRestaurantsBroker =
     config.broker.brokerage.trim().toLowerCase() === "we sell restaurants";
+  const isRestaurantBusiness = /restaurant/i.test(`${config.businessLabel} ${config.heroSummary}`);
   const hasFinancingDisclosure = Boolean(
     config.sellerFinancing || config.sbaFinancing,
   );
@@ -650,6 +651,13 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 </p> : is2copListing ? <p>{isSpanish ? <>La <Link href="/license-types/2cop-beer-wine">licencia 2COP de cerveza y vino</Link> de Florida es una serie sin cupo para cerveza y vino. No autoriza bebidas destiladas. Confirme el registro de la licencia, el local autorizado, los requisitos del comprador y los requisitos de la transacción con el DBPR.</> : <>Florida&apos;s <Link href="/license-types/2cop-beer-wine">2COP beer-and-wine license</Link> is a non-quota series for beer and wine privileges. It does not authorize spirits. Confirm the license record, licensed premises, buyer qualifications, and transaction requirements with DBPR.</>}</p> : <p>
                   {isSpanish ? (<>Una licencia completa de bebidas alcohólicas <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> se emite para un restaurante que cumple los requisitos y permanece vinculada a la operación de servicio de alimentos que cumple los requisitos, el local aprobado, la aprobación de cambios de propiedad o entidad y el cumplimiento continuo de los requisitos aplicables del DBPR, incluida la prueba de ventas de alimentos y bebidas no alcohólicas.</>) : (<>A <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> full-liquor license is issued to a qualifying restaurant and remains dependent on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.</>)}
                 </p>}
+                {!isSpanish && config.licenseType === "4COP Quota" && isRestaurantBusiness ? (
+                  <p>
+                    <Link href="/restaurants-with-liquor-licenses#quota-restaurant-inventory">
+                      More Florida restaurants for sale with 4COP quota licenses →
+                    </Link>
+                  </p>
+                ) : null}
                 {isSfsListing && config.annualLicenseFee ? (
                   <p className="featured-business-renewal-fee">
                     <strong className="featured-business-sfs-lead">
