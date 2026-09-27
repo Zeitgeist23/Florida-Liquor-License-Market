@@ -112,6 +112,21 @@
   text-transform:uppercase;
 }
 .fllm-ui-card--center{text-align:center}
+
+.fllm-ui-card--county{
+  min-height:142px;
+  border-color:rgba(88,200,238,.38);
+  background:linear-gradient(145deg,#0b2130,#061018);
+  box-shadow:0 12px 28px rgba(0,0,0,.18);
+}
+.fllm-ui-card--county:hover,
+.fllm-ui-card--county:focus-within{
+  border-color:#d9f2ff;
+  box-shadow:0 20px 38px rgba(0,0,0,.32),0 0 0 1px rgba(105,214,255,.12);
+}
+.fllm-ui-card--county .fllm-template-card-title{
+  color:var(--fllm-cyan);
+}
 .fllm-ui-card--center .fllm-ui-card-kicker{text-align:center}
 .fllm-ui-card-body{
   margin-top:10px;
