@@ -216,6 +216,7 @@ type Props = {
   financingPurchasePrice?: number;
   financingDownPayment?: number;
   locale?: "en" | "es";
+  previewCaptureOnly?: boolean;
 };
 
 export default function ListingBrokerInquiryForm({
@@ -232,6 +233,7 @@ export default function ListingBrokerInquiryForm({
   financingPurchasePrice = 0,
   financingDownPayment,
   locale = "en",
+  previewCaptureOnly = false,
 }: Props) {
   const [status, setStatus] = useState<SubmitState>("idle");
   const [phone, setPhone] = useState("");
@@ -310,7 +312,11 @@ export default function ListingBrokerInquiryForm({
         className="marketplace-listing-broker-inquiry"
         onSubmit={submitInquiry}
       >
-        <h3>{isSeller ? tr("Buyer Message & Contact Center", "Centro de mensajes y contacto del comprador") : tr("Request Information", "Solicitar información")}</h3>
+        <h3>{previewCaptureOnly
+          ? tr("Request Information", "Solicitar información")
+          : isSeller
+            ? tr("Buyer Message & Contact Center", "Centro de mensajes y contacto del comprador")
+            : tr("Request Information", "Solicitar información")}</h3>
         {isSeller && (
           <p className="marketplace-listing-inquiry-intro">
             {tr("Send your contact information and message directly to the seller through FLLM.", "Envíe su información de contacto y mensaje directamente al vendedor a través de FLLM.")}
@@ -319,7 +325,11 @@ export default function ListingBrokerInquiryForm({
         <input
           type="hidden"
           name="inquiry_type"
-          value={isSeller ? "Self-Directed Seller Listing Inquiry" : "Third-Party Broker Listing Inquiry"}
+          value={previewCaptureOnly
+            ? "Broker Preview Buyer Inquiry"
+            : isSeller
+              ? "Self-Directed Seller Listing Inquiry"
+              : "Third-Party Broker Listing Inquiry"}
         />
         <input type="hidden" name="listing_reference" value={listingReference} />
         <input type="hidden" name="listing_requested" value={listingRequested} />
@@ -374,22 +384,28 @@ export default function ListingBrokerInquiryForm({
         </button>
         {status === "sent" && (
           <p className="marketplace-listing-inquiry-status success" role="status">
-            {isSeller
-              ? tr("Your contact information and message were sent to the seller and recorded by FLLM.", "Su información de contacto y mensaje fueron enviados al vendedor y registrados por FLLM.")
-              : tr("Your inquiry was sent to the listing broker and recorded by FLLM.", "Su solicitud fue enviada al corredor del anuncio y registrada por FLLM.")}
+            {previewCaptureOnly
+              ? tr("Your inquiry was sent to FLLM and recorded for follow-up.", "Su solicitud fue enviada a FLLM y registrada para seguimiento.")
+              : isSeller
+                ? tr("Your contact information and message were sent to the seller and recorded by FLLM.", "Su información de contacto y mensaje fueron enviados al vendedor y registrados por FLLM.")
+                : tr("Your inquiry was sent to the listing broker and recorded by FLLM.", "Su solicitud fue enviada al corredor del anuncio y registrada por FLLM.")}
           </p>
         )}
         {status === "error" && (
           <p className="marketplace-listing-inquiry-status error" role="alert">
-            {isSeller
-              ? tr("The message could not be sent. Please try again.", "No se pudo enviar el mensaje. Inténtelo de nuevo.")
-              : tr("The inquiry could not be sent. Please call the listing broker.", "No se pudo enviar la solicitud. Llame al corredor del anuncio.")}
+            {previewCaptureOnly
+              ? tr("The inquiry could not be submitted. Please try again.", "No se pudo enviar la solicitud. Inténtelo de nuevo.")
+              : isSeller
+                ? tr("The message could not be sent. Please try again.", "No se pudo enviar el mensaje. Inténtelo de nuevo.")
+                : tr("The inquiry could not be sent. Please call the listing broker.", "No se pudo enviar la solicitud. Llame al corredor del anuncio.")}
           </p>
         )}
         <small>
-          {isSeller
-            ? tr("By submitting this form, you agree to be contacted by the seller and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking.", "Al enviar este formulario, acepta que el vendedor y FLLM se comuniquen con usted sobre esta licencia. FLLM registra la solicitud para el seguimiento de contactos del mercado.")
-            : tr("By submitting this form, you agree to be contacted by the listing broker and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking.", "Al enviar este formulario, acepta que el corredor del anuncio y FLLM se comuniquen con usted sobre esta licencia. FLLM registra la solicitud para el seguimiento de contactos del mercado.")}
+          {previewCaptureOnly
+            ? tr("By submitting this form, you agree that FLLM may contact you regarding this preview listing. FLLM records the inquiry for marketplace lead tracking.", "Al enviar este formulario, acepta que FLLM pueda comunicarse con usted sobre este anuncio en vista previa. FLLM registra la solicitud para el seguimiento de contactos del mercado.")
+            : isSeller
+              ? tr("By submitting this form, you agree to be contacted by the seller and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking.", "Al enviar este formulario, acepta que el vendedor y FLLM se comuniquen con usted sobre esta licencia. FLLM registra la solicitud para el seguimiento de contactos del mercado.")
+              : tr("By submitting this form, you agree to be contacted by the listing broker and FLLM regarding this license. FLLM records the inquiry for marketplace lead tracking.", "Al enviar este formulario, acepta que el corredor del anuncio y FLLM se comuniquen con usted sobre esta licencia. FLLM registra la solicitud para el seguimiento de contactos del mercado.")}
         </small>
       </form>
       {calculatorTarget
