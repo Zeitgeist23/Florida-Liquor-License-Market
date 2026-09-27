@@ -200,7 +200,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   confidentialityText:
     "the business name, exact premises, lease documents, financial statements, license records and other sensitive information may require buyer qualification and direct confirmation through the listing broker.",
   sourceDisclosure:
-    "Business, financial, facility, staffing, asset and other figures have not been independently audited or verified by FLLM. FLLM's current Broward County 4COP market data shows a median value of $225,000 for comparable standalone quota-license inventory. This market benchmark is not an appraisal or an allocated value for the specific license included in this transaction. Buyers should verify the current license series, quota status, ownership, transferability, premises, zoning, lease conditions, financial performance, included assets and all transaction terms directly with Nick DiFrancesco, the seller and appropriate professional advisers.",
+    "Market Data Note: Business information is broker/seller-provided and has not been independently verified by FLLM. The $225,000 figure is FLLM's Broward County median market estimate for comparable 4COP quota licenses and is not an appraisal of this specific license.",
   countyContext:
     "Broward County supports a substantial restaurant, nightlife, hospitality and tourism market across Fort Lauderdale, Hollywood, Pompano Beach, Deerfield Beach and surrounding communities. Quota-license values can vary materially based on supply, seller terms, intended premises, timing and transaction structure.",
 };
