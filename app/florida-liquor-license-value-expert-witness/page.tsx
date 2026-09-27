@@ -285,7 +285,7 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
           />
           <FllmCardGrid columns={3}>
             {useCases.map((item) => (
-              <FllmCard key={item.title} title={item.title}>
+              <FllmCard key={item.title} title={item.title} variant="county">
                 <p>{item.text}</p>
               </FllmCard>
             ))}
