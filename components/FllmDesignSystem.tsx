@@ -104,7 +104,7 @@ export function FllmCard({
   eyebrow?: ReactNode;
   title?: ReactNode;
   children: ReactNode;
-  variant?: "standard" | "gold";
+  variant?: "standard" | "gold" | "county";
   align?: Align;
   className?: string;
 }) {
@@ -113,6 +113,7 @@ export function FllmCard({
       className={[
         "fllm-template-card",
         variant === "gold" ? "fllm-template-card--gold" : "",
+        variant === "county" ? "fllm-ui-card--county" : "",
         align === "center" ? "fllm-ui-card--center" : "",
         className,
       ].filter(Boolean).join(" ")}
