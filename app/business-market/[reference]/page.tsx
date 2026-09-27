@@ -361,6 +361,9 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   {listing.businessCategory === "Gentlemen's Club" ? (
                     <Link href="/businesses-with-quota-licenses/gentlemens-clubs">More Florida gentlemen's clubs for sale ›</Link>
                   ) : null}
+                  {listing.businessCategory === "Restaurant" && listing.licenseType === "4COP Quota" ? (
+                    <Link href="/restaurants-with-liquor-licenses#quota-restaurant-inventory">More Florida restaurants for sale with 4COP quota licenses ›</Link>
+                  ) : null}
                 </div>
               </section>
             </div>
