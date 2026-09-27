@@ -2864,17 +2864,36 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
 
 export const BUSINESS_LISTING_DISPLAY_LIMIT = 24;
 
-export const businessQuotaListings = businessQuotaListingRecords.filter(
-  (listing) => listing.publicationStatus === "published" && listing.licenseClass === "quota",
-);
+export function businessMarketRecordHref(
+  listing: Pick<BusinessQuotaListing, "listingReference" | "listingTier" | "href">,
+) {
+  return listing.listingTier === "market"
+    ? `/business-market/${listing.listingReference.toLowerCase()}`
+    : listing.href;
+}
 
-export const businessSfsListings = businessQuotaListingRecords.filter(
-  (listing) => listing.publicationStatus === "published" && listing.licenseClass === "sfs",
-);
+function withBusinessMarketHref(listing: BusinessQuotaListing): BusinessQuotaListing {
+  const href = businessMarketRecordHref(listing);
+  return href === listing.href ? listing : { ...listing, href };
+}
 
-export const business2copListings = businessQuotaListingRecords.filter(
-  (listing) => listing.publicationStatus === "published" && listing.licenseClass === "2cop",
-);
+export const businessQuotaListings = businessQuotaListingRecords
+  .filter(
+    (listing) => listing.publicationStatus === "published" && listing.licenseClass === "quota",
+  )
+  .map(withBusinessMarketHref);
+
+export const businessSfsListings = businessQuotaListingRecords
+  .filter(
+    (listing) => listing.publicationStatus === "published" && listing.licenseClass === "sfs",
+  )
+  .map(withBusinessMarketHref);
+
+export const business2copListings = businessQuotaListingRecords
+  .filter(
+    (listing) => listing.publicationStatus === "published" && listing.licenseClass === "2cop",
+  )
+  .map(withBusinessMarketHref);
 
 const businessQuotaReferences = new Set(
   businessQuotaListingRecords.flatMap((listing) =>
