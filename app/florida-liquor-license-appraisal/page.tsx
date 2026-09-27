@@ -304,6 +304,7 @@ export default async function FloridaLiquorLicenseAppraisalPage({ searchParams }
           <div className="appraisal-market-examples">
             <strong>Related market resources:</strong>
             <Link href="/florida-liquor-license-value">Florida Liquor License Value</Link>
+            <Link href="/florida-liquor-license-value-expert-witness">Expert Witness & Litigation Valuation Support</Link>
             <Link href="/resources/florida-liquor-license-types">2COP, 3PS & 4COP License Types</Link>
             <Link href="/florida-liquor-license-sba-appraisal">SBA Appraisal & Lender Valuation</Link>
           </div>
