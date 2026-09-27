@@ -188,26 +188,41 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
             <span>›</span>
             <Link href="/businesses-with-quota-licenses">Business Packages</Link>
             <span>›</span>
-            <strong>{listing.listingReference}</strong>
+            <strong>{listing.county}</strong>
           </div>
 
           <div className="business-market-hero-grid">
-            <div>
-              <span className="business-market-eyebrow">FLLM Market Record</span>
+            <div className="business-market-hero-copy-block">
+              <span className="business-market-eyebrow">FLLM Market Listing</span>
               <h1>{listing.title}</h1>
               <p className="business-market-hero-copy">
-                FLLM tracks this {listing.businessType.toLowerCase()} opportunity as part of its
-                {" "}{listing.county} business-and-liquor-license market coverage. This is a market
-                intelligence record, not a paid broker listing. Availability, price and transaction
-                terms require current confirmation.
+                Explore this {listing.businessCategory.toLowerCase()} opportunity in {listing.county},
+                including the advertised package price, liquor-license classification and local market context.
               </p>
+
+              <div className="business-market-hero-stats">
+                <div>
+                  <span>Package Price</span>
+                  <strong>{listing.packagePrice}</strong>
+                </div>
+                <div>
+                  <span>License Included</span>
+                  <strong>{listing.licenseType}</strong>
+                </div>
+                <div>
+                  <span>Business Type</span>
+                  <strong>{listing.businessType}</strong>
+                </div>
+              </div>
+
               <div className="business-market-hero-actions">
                 <a className="business-market-primary" href="#buyer-match">Find Matching Opportunities</a>
-                <Link className="business-market-secondary" href={listing.countyHref}>View {listing.county} Market</Link>
+                <Link className="business-market-secondary" href={listing.countyHref}>Explore {listing.county}</Link>
               </div>
             </div>
 
             <div className="business-market-map-card">
+              <span className="business-market-map-label">Florida Market</span>
               <Image
                 src={`/api/county-map?county=${encodeURIComponent(listing.county)}&transparent=1`}
                 alt={`Florida map highlighting ${listing.county}`}
@@ -217,94 +232,64 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               />
               <strong>{listing.county}</strong>
               {primaryMarkets.length ? (
-                <span>Primary markets: {primaryMarkets.join(" · ")}</span>
+                <span className="business-market-city-line">{primaryMarkets.join(" · ")}</span>
               ) : (
-                <span>Florida business-package market</span>
+                <span className="business-market-city-line">Florida business market</span>
               )}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="business-market-summary">
+      <section className="business-market-content">
         <div className="business-market-shell">
-          <div className="business-market-metrics">
-            <article>
-              <span>Advertised Package Price</span>
-              <strong>{listing.packagePrice}</strong>
-            </article>
-            <article>
-              <span>Business Type</span>
-              <strong>{listing.businessType}</strong>
-            </article>
-            <article>
-              <span>License Classification</span>
-              <strong>{listing.licenseType}</strong>
-            </article>
-            <article>
-              <span>Transaction Type</span>
-              <strong>{listing.transactionType}</strong>
-            </article>
-          </div>
-
           <div className="business-market-grid">
             <div className="business-market-main">
-              <section className="business-market-panel">
-                <span className="business-market-panel-kicker">Opportunity Snapshot</span>
-                <h2>What this market record tells a buyer</h2>
+              <section className="business-market-panel business-market-overview">
+                <div className="business-market-section-heading">
+                  <span>Opportunity Overview</span>
+                  <h2>{listing.businessCategory} + {listing.licenseType}</h2>
+                </div>
                 <p>
-                  A {listing.businessType.toLowerCase()} has been advertised in {listing.county} at
-                  {" "}{listing.packagePrice} with a {listing.licenseType} included in the business
-                  package. FLLM does not display the unpaid originating broker, brokerage, phone
-                  number or marketplace on this record.
+                  FLLM is tracking an advertised {listing.businessType.toLowerCase()} opportunity in
+                  {" "}{listing.county} at {listing.packagePrice}. The business package includes a
+                  {" "}{listing.licenseType}.
                 </p>
-                <p>
-                  The purpose of the record is to document market activity, connect the business
-                  category to the county and license class, and let buyers tell FLLM what type of
-                  opportunity they want to pursue.
-                </p>
+
                 <div className="business-market-fact-grid">
-                  <div><span>FLLM Reference</span><strong>{listing.listingReference}</strong></div>
-                  <div><span>Category</span><strong>{listing.businessCategory}</strong></div>
                   <div><span>County</span><strong>{listing.county}</strong></div>
-                  <div><span>Current Status</span><strong>Confirmation Required</strong></div>
+                  <div><span>Business Category</span><strong>{listing.businessCategory}</strong></div>
+                  <div><span>Transaction Type</span><strong>{listing.transactionType}</strong></div>
+                  <div><span>FLLM Market Ref.</span><strong>{listing.listingReference}</strong></div>
                 </div>
               </section>
 
               <section className="business-market-panel">
-                <span className="business-market-panel-kicker">County + City Context</span>
-                <h2>{listing.businessCategory} market context in {listing.county}</h2>
+                <div className="business-market-section-heading">
+                  <span>Local Market</span>
+                  <h2>{listing.county} business market</h2>
+                </div>
+
+                {primaryMarkets.length ? (
+                  <div className="business-market-city-pills" aria-label={`Primary markets in ${listing.county}`}>
+                    {primaryMarkets.map((city) => <span key={city}>{city}</span>)}
+                  </div>
+                ) : null}
+
                 <p>{county?.introduction ?? `${listing.county} is part of Florida's active hospitality and business-acquisition market.`}</p>
                 {county?.marketOverview ? <p>{county.marketOverview}</p> : null}
-                {primaryMarkets.length ? (
-                  <p>
-                    FLLM associates this county market with <strong>{primaryMarkets.join(", ")}</strong>.
-                    Those city relationships help buyers move from a statewide search into the local
-                    market where a business package is being evaluated.
-                  </p>
-                ) : null}
                 <p>{categoryContext(listing)}</p>
               </section>
 
-              <section className="business-market-panel">
-                <span className="business-market-panel-kicker">License Context</span>
-                <h2>{listing.licenseType} included with the advertised business</h2>
+              <section className="business-market-panel business-market-license-panel">
+                <div className="business-market-section-heading">
+                  <span>License Included</span>
+                  <h2>{listing.licenseType}</h2>
+                </div>
                 <p>{licenseContext(listing)}</p>
-                <p>
-                  The package price shown here is the advertised price for the business transaction.
-                  It should not be interpreted as a standalone liquor-license asking price unless a
-                  separate license-only offering is expressly published by FLLM.
-                </p>
-              </section>
-
-              <section className="business-market-panel">
-                <span className="business-market-panel-kicker">Buyer Due Diligence</span>
-                <h2>Confirm the opportunity before relying on advertised terms</h2>
-                <div className="business-market-checklist">
-                  <div><b>01</b><p>Confirm that the business is still available and that the advertised package price remains current.</p></div>
-                  <div><b>02</b><p>Verify the alcoholic-beverage license number, status, county, transfer requirements and any liens or encumbrances.</p></div>
-                  <div><b>03</b><p>Review revenue, cash flow, lease terms, equipment, inventory, real estate and other operating assets directly with the authorized seller or broker.</p></div>
-                  <div><b>04</b><p>Confirm zoning, premises eligibility, financing, regulatory timing and closing requirements before entering a binding transaction.</p></div>
+                <div className="business-market-license-links">
+                  <Link href={listing.countyHref}>View {listing.county} license market ›</Link>
+                  <Link href="/resources/florida-liquor-license-types">Compare Florida license types ›</Link>
                 </div>
               </section>
             </div>
@@ -319,12 +304,13 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 askingPrice={listing.packagePrice}
                 listingUrl={canonicalPath}
               />
-              <div className="business-market-disclosure">
-                <strong>Market record, not broker advertising</strong>
+
+              <div className="business-market-side-card">
+                <span>FLLM Buyer Matching</span>
+                <strong>Looking for something similar?</strong>
                 <p>
-                  FLLM is not promoting the unpaid originating broker on this page. A buyer inquiry
-                  goes to FLLM for market matching rather than being forwarded as a free lead to a
-                  third-party marketplace.
+                  Tell FLLM your budget, preferred market and financing needs. We will use the
+                  Lead Match Desk to identify business-and-license opportunities that fit your search.
                 </p>
               </div>
             </aside>
@@ -335,21 +321,29 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
       {related.length ? (
         <section className="business-market-related">
           <div className="business-market-shell">
-            <span className="business-market-panel-kicker">Related Market Activity</span>
-            <h2>Other FLLM business market records</h2>
+            <div className="business-market-section-heading business-market-section-heading--center">
+              <span>More Market Listings</span>
+              <h2>Related Florida business opportunities</h2>
+            </div>
             <div className="business-market-related-grid">
               {related.map((item) => (
                 <Link key={item.listingReference} href={businessMarketRecordHref(item)}>
                   <span>{item.county}</span>
-                  <strong>{item.title}</strong>
+                  <strong>{item.businessCategory}</strong>
                   <small>{item.packagePrice} · {item.licenseType}</small>
-                  <em>View market record ›</em>
+                  <em>View Market Listing ›</em>
                 </Link>
               ))}
             </div>
           </div>
         </section>
       ) : null}
+
+      <section className="business-market-note">
+        <div className="business-market-shell">
+          Market availability and pricing can change. FLLM will confirm current opportunities when a buyer requests a match.
+        </div>
+      </section>
 
       <footer className="business-market-footer">
         <div className="business-market-shell">
