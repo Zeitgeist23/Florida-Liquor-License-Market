@@ -27,6 +27,7 @@ const officialFooterPaths = new Set([
   "/restaurants-with-liquor-licenses",
   "/florida-liquor-license-market-platform",
   "/are-florida-quota-liquor-licenses-worth-it",
+  "/florida-liquor-license-value-expert-witness",
 ]);
 
 export default function SellPageOfficialFooter() {
