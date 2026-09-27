@@ -111,7 +111,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Opportunity to acquire a turnkey Broward County beachside restaurant and nightclub within walking distance of the beach, positioned for dining, live music, street dancing and nightlife traffic.",
   packageIncludes:
-    "The offering includes the operating restaurant and nightclub business, approximately $15,000 of inventory, approximately $475,000 of furniture, fixtures and equipment, the recently remodeled 3,000-square-foot hospitality premises and the associated transferable quota liquor license. The included license is a coveted 4COP / 3PS liquor license valued at nearly half a million dollars. The total business asking price is $1,650,000. Buyers should confirm the exact license series, included assets, lease terms, license allocation and transaction structure directly with the listing broker.",
+    "The offering includes the operating restaurant and nightclub business, approximately $15,000 of inventory, approximately $475,000 of furniture, fixtures and equipment, the recently remodeled 3,000-square-foot hospitality premises and the associated transferable quota liquor license. The source advertisement describes the included 4COP / 3PS quota license as valued at nearly half a million dollars. For independent market context, FLLM's current Broward County data shows a median disclosed asking price of $225,000 for comparable standalone 4COP quota-license inventory. The total business asking price is $1,650,000. Buyers should confirm the exact license series, included assets, lease terms, license allocation and transaction structure directly with the listing broker.",
   businessMetrics: [
     {
       label: "Gross Revenue",
@@ -159,7 +159,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "License",
       value: "4COP / 3PS quota license included",
       description:
-        "A coveted 4COP / 3PS liquor license is included with the business and valued at nearly half a million dollars. Buyers should confirm the exact current series, quota status, ownership and transferability with the listing broker and DBPR/ABT.",
+        "The source advertisement describes the included 4COP / 3PS quota license as valued at nearly half a million dollars. FLLM's current Broward County market data shows a $225,000 median disclosed asking price for comparable standalone 4COP quota-license inventory. The FLLM median is market context, not an appraisal of this specific license. Buyers should confirm the exact current series, quota status, ownership and transferability with the listing broker and DBPR/ABT.",
       href: "/license-types/4cop-quota",
     },
     {
