@@ -2,7 +2,7 @@
    Keep the logo 12% smaller and move it an additional 25px left from its current position. */
 
 body:has(.buy-guide-quick) .forms-site-header .brand-lockup img,
-body:has(.seo-market-page .abt-header-wrap) .forms-site-header .brand-lockup img,
+body:has(.seo-market-page:not(.fllm-official-page) .abt-header-wrap) .forms-site-header .brand-lockup img,
 body:has(.official-resource-page) .forms-site-header .brand-lockup img,
 body:has(.license-types-page) .forms-site-header .brand-lockup img,
 body:has(.transfer-calculator-page) .forms-site-header .brand-lockup img {
@@ -24,7 +24,7 @@ body:has(.transfer-calculator-page) .forms-site-header .brand-lockup img {
 
 @media (max-width: 720px) {
   body:has(.buy-guide-quick) .forms-site-header .brand-lockup img,
-  body:has(.seo-market-page .abt-header-wrap) .forms-site-header .brand-lockup img,
+  body:has(.seo-market-page:not(.fllm-official-page) .abt-header-wrap) .forms-site-header .brand-lockup img,
   body:has(.official-resource-page) .forms-site-header .brand-lockup img,
   body:has(.license-types-page) .forms-site-header .brand-lockup img,
   body:has(.transfer-calculator-page) .forms-site-header .brand-lockup img,
