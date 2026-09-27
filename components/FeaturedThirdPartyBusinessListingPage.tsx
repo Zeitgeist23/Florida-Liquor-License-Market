@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
-import ListingBrokerInquiryForm from "@/components/ListingBrokerInquiryForm";
+import ListingBrokerInquiryForm, { ListingSidebarLoanCalculator } from "@/components/ListingBrokerInquiryForm";
 import ListingViewCount from "@/components/ListingViewCount";
 import {
   FeaturedBrokerBusinessInteractions,
@@ -995,6 +995,16 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     <Link className="marketplace-listing-finance-button" href="/financing#request-financing">Request Financing</Link>
                     <small>All financing is subject to independent lender review, underwriting, collateral eligibility, transaction structure, and approval.</small>
                   </section>
+                  {config.approvalPreview ? (
+                    <div className="antezza-calculator-slot">
+                      <ListingSidebarLoanCalculator
+                        initialPurchasePrice={config.askingPriceNumber}
+                        initialDownPayment={Math.round(config.askingPriceNumber * 0.2)}
+                        mode="license"
+                        locale={config.locale}
+                      />
+                    </div>
+                  ) : null}
                 </>
               )}
 
