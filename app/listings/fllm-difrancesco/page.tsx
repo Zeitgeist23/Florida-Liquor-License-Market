@@ -102,7 +102,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     brokerage: "Business Exit Advisors",
     phone: "(561) 578-0584",
     email: "nick@myexitplan.com",
-    website: "https://businesssaleslistings.com",
+    website: "https://myexitplan.com/",
     listingUrl: sourceListingUrl,
     photo:
       "https://images.bizbuysell.com/shared/brokerdirectory/images/50260/pf_prs_headshot.jpeg",
