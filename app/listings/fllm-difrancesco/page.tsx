@@ -139,18 +139,6 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
         "Approximately $475,000 of furniture, fixtures and equipment is included in the asking price.",
     },
     {
-      label: "Established",
-      value: "2006",
-      description:
-        "The business is stated to have been established in 2006.",
-    },
-    {
-      label: "Premises",
-      value: "3,000 SF",
-      description:
-        "The premises are approximately 3,000 square feet and configured as a turnkey restaurant operation. Buyers should verify the exact premises size, lease terms, permitted use and occupancy.",
-    },
-    {
       label: "Inventory",
       value: "$15,000 included",
       description:
@@ -161,6 +149,18 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       value: "11",
       description:
         "The business is stated to have 11 employees. Buyers should verify payroll, employee roles, scheduling and continued employment.",
+    },
+    {
+      label: "Established",
+      value: "2006",
+      description:
+        "The business is stated to have been established in 2006.",
+    },
+    {
+      label: "Premises",
+      value: "3,000 SF",
+      description:
+        "The premises are approximately 3,000 square feet and configured as a turnkey restaurant operation. Buyers should verify the exact premises size, lease terms, permitted use and occupancy.",
     },
     {
       label: "Facilities",
