@@ -275,7 +275,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               </div>
 
               <div className="business-market-hero-actions">
-                <a className="business-market-primary" href="#buyer-match">Find Matching Opportunities</a>
+                <a className="business-market-primary" href="#buyer-match">Inquire About This Opportunity</a>
                 <Link className="business-market-secondary" href={listing.countyHref}>Explore {listing.county}</Link>
               </div>
             </div>
@@ -374,11 +374,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               />
 
               <div className="business-market-side-card">
-                <span>FLLM Buyer Matching</span>
-                <strong>Looking for something similar?</strong>
+                <span>More Options</span>
+                <strong>Want to see similar opportunities too?</strong>
                 <p>
-                  Tell FLLM your budget, preferred market and financing needs. We will use the
-                  Lead Match Desk to identify business-and-license opportunities that fit your search.
+                  FLLM can also use your county, budget and business preferences to identify
+                  comparable business-and-license opportunities in the same market.
                 </p>
               </div>
             </aside>
