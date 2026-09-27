@@ -941,7 +941,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 >
                   {config.sellerDirect ? tr("View Original Seller Advertisement →", "Ver el anuncio original de la vendedora →") : tr("Visit Listing Broker Website →", "Visitar el sitio web del corredor →")}
                 </a>
-                {!config.approvalPreview ? <ListingBrokerInquiryForm
+                <ListingBrokerInquiryForm
                   listingReference={config.listingReference}
                   listingRequested={isNonQuotaBusiness
                     ? `${config.county} ${shortLicenseType} Restaurant Business`
@@ -957,11 +957,12 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   listingUrl={config.canonicalPath}
                   recipientKind={config.sellerDirect ? "seller" : "broker"}
                   locale={config.locale}
-                  showFinancingCalculator={isNonQuotaBusiness}
+                  previewCaptureOnly={Boolean(config.approvalPreview)}
+                  showFinancingCalculator={!config.approvalPreview && isNonQuotaBusiness}
                   financingCalculatorMode={isNonQuotaBusiness ? "sba-business" : "license"}
                   financingPurchasePrice={isNonQuotaBusiness ? config.packagePriceNumber : quotaMarketReferenceNumber}
                   financingDownPayment={isNonQuotaBusiness ? Math.round(config.packagePriceNumber * 0.1) : undefined}
-                /> : null}
+                />
               </div>
 
               {isNonQuotaBusiness ? (
