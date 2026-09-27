@@ -67,6 +67,22 @@ const useCases = [
     title: "Attorney and retained-expert support",
     text: "FLLM can organize Florida liquor-license market evidence for review by counsel, a retained appraiser or another expert providing the ultimate opinion or testimony.",
   },
+  {
+    title: "Sales and transfers of businesses with quota licenses",
+    text: "Support for disputes involving the sale or transfer of an operating business where a 4COP or 3PS quota license is included, separately valued, assigned, or transferred as part of the transaction.",
+  },
+  {
+    title: "Specific performance claims",
+    text: "Market and transaction evidence may be relevant when a party seeks specific performance of an agreement involving a Florida quota liquor license, including questions about value, transferability, timing, and the license component of the bargain.",
+  },
+  {
+    title: "Lis pendens filings involving quota licenses",
+    text: "FLLM can organize license, transaction, timing, and market evidence in disputes where a lis pendens is asserted against a transaction involving a quota liquor license or related business assets. Legal effect remains a matter for counsel and the court.",
+  },
+  {
+    title: "Sales and purchases of quota licenses",
+    text: "Support for purchase and sale disputes involving standalone 4COP or 3PS quota licenses, including asking-price evidence, transaction history, county market conditions, transfer timing, and disputed value.",
+  },
 ];
 
 const evidenceItems = [
