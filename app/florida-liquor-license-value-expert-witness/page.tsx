@@ -13,6 +13,7 @@ import {
 
 import "../fllm-official-template.css";
 import "../fllm-design-system.css";
+import "./expert-witness-hero.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-value-expert-witness`;
@@ -205,24 +206,31 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
 
-      <section className="fllm-template-hero">
-        <div className="fllm-template-shell">
-          <div className="fllm-ui-breadcrumbs">
-            <Link href="/">Home</Link><span>›</span>
-            <Link href="/florida-liquor-license-appraisal">Appraisal</Link><span>›</span>
-            <strong>Expert Witness & Litigation Support</strong>
+      <section className="fllm-template-hero litigation-value-hero">
+        <div className="fllm-template-shell litigation-value-hero-grid">
+          <div className="litigation-value-hero-copy">
+            <div className="fllm-ui-breadcrumbs">
+              <Link href="/">Home</Link><span>›</span>
+              <Link href="/florida-liquor-license-appraisal">Appraisal</Link><span>›</span>
+              <strong>Expert Witness & Litigation Support</strong>
+            </div>
+            <span className="fllm-template-eyebrow">Florida 4COP & 3PS Litigation Valuation</span>
+            <h1 className="fllm-template-hero-title">Florida Liquor License Expert Witness & Litigation Valuation Support</h1>
+            <p className="fllm-template-hero-copy">
+              FLLM provides license-specific Florida quota-license market research and valuation support for attorneys,
+              litigants, appraisers and other professionals evaluating the value, marketability, sale price or transfer
+              economics of a 4COP or 3PS license in litigation or a transaction dispute.
+            </p>
+            <div className="fllm-ui-actions">
+              <FllmButton href="/contact">Discuss Litigation Support</FllmButton>
+              <FllmButton href="/florida-liquor-license-appraisal" variant="outline">Review Appraisal Methodology</FllmButton>
+            </div>
           </div>
-          <span className="fllm-template-eyebrow">Florida 4COP & 3PS Litigation Valuation</span>
-          <h1 className="fllm-template-hero-title">Florida Liquor License Expert Witness & Litigation Valuation Support</h1>
-          <p className="fllm-template-hero-copy">
-            FLLM provides license-specific Florida quota-license market research and valuation support for attorneys,
-            litigants, appraisers and other professionals evaluating the value, marketability, sale price or transfer
-            economics of a 4COP or 3PS license in litigation or a transaction dispute.
-          </p>
-          <div className="fllm-ui-actions">
-            <FllmButton href="/contact">Discuss Litigation Support</FllmButton>
-            <FllmButton href="/florida-liquor-license-appraisal" variant="outline">Review Appraisal Methodology</FllmButton>
-          </div>
+          <div
+            className="litigation-value-hero-image"
+            role="img"
+            aria-label="Illustrative expert witness presenting Florida quota liquor-license valuation analysis in a courtroom setting"
+          />
         </div>
       </section>
 
