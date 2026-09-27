@@ -22,6 +22,11 @@ const listings = allListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
 
 const faqs = [
   {
+    question: "Where can I find gentlemen's clubs for sale in Florida?",
+    answer:
+      "FLLM's Florida Gentlemen's Clubs for Sale page displays active adult-entertainment business packages classified as Gentlemen's Club, including opportunities with transferable 4COP quota liquor licenses, leasehold interests, real estate, and other negotiated business assets when disclosed.",
+  },
+  {
     question: "What does it mean when a Florida gentlemen's club is sold with a 4COP quota license?",
     answer:
       "It means the operating adult-entertainment business is being offered with a transferable county quota full-liquor license as part of the acquisition. The business and the quota-license component can have separate values even when they are marketed together.",
@@ -44,24 +49,24 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "Gentlemen's Clubs for Sale With 4COP Quota Licenses in Florida | FLLM",
+  title: "Gentlemen's Clubs for Sale in Florida | Businesses & 4COP Licenses | FLLM",
   description:
-    "Browse Florida gentlemen's clubs and adult-entertainment businesses for sale with included 4COP quota liquor licenses. Compare current packages and FLLM valuation, transfer and transaction resources.",
+    "Browse gentlemen's clubs for sale in Florida, adult-entertainment businesses and nightlife venues, including opportunities with 4COP quota liquor licenses, real estate and leasehold interests.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Gentlemen's Clubs for Sale With 4COP Quota Licenses | FLLM",
+    title: "Florida Gentlemen's Clubs for Sale | Businesses & 4COP Licenses | FLLM",
     description:
-      "Florida gentlemen's-club business packages with included transferable 4COP quota licenses, separated from standalone license inventory.",
+      "Browse Florida gentlemen's clubs, adult-entertainment venues and related nightlife businesses for sale, including packages with transferable 4COP quota liquor licenses.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Gentlemen's Clubs for Sale With 4COP Quota Licenses in Florida | FLLM",
+    title: "Gentlemen's Clubs for Sale in Florida | Businesses & 4COP Licenses | FLLM",
     description:
-      "Adult-entertainment business packages with included Florida 4COP quota licenses and FLLM transaction resources.",
+      "Florida gentlemen's clubs and adult-entertainment businesses for sale, including opportunities with 4COP quota licenses and FLLM transaction resources.",
   },
 };
 
@@ -70,10 +75,10 @@ export default function GentlemensClubsWithQuotaLicensesPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Gentlemen's Clubs for Sale With 4COP Quota Licenses in Florida",
+      name: "Gentlemen's Clubs for Sale in Florida | 4COP Quota License Business Packages",
       url: canonicalUrl,
       description:
-        "Florida gentlemen's clubs and adult-entertainment businesses for sale with included 4COP quota liquor licenses.",
+        "Florida gentlemen's clubs, adult-entertainment venues and related nightlife businesses for sale, including opportunities with 4COP quota liquor licenses.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
@@ -87,13 +92,13 @@ export default function GentlemensClubsWithQuotaLicensesPage() {
           name: "Businesses With Quota Licenses",
           item: `${siteUrl}/businesses-with-quota-licenses`,
         },
-        { "@type": "ListItem", position: 3, name: "Gentlemen's Clubs With 4COP Quota Licenses", item: canonicalUrl },
+        { "@type": "ListItem", position: 3, name: "Gentlemen's Clubs for Sale in Florida", item: canonicalUrl },
       ],
     },
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Florida gentlemen's clubs with included 4COP quota licenses",
+      name: "Gentlemen's clubs for sale in Florida with included 4COP quota licenses",
       numberOfItems: listings.length,
       itemListElement: listings.map((listing, index) => ({
         "@type": "ListItem",
@@ -128,23 +133,23 @@ export default function GentlemensClubsWithQuotaLicensesPage() {
               <Link href="/businesses-with-quota-licenses">Businesses With Quota Licenses</Link><span>›</span>
               <strong>Gentlemen's Clubs</strong>
             </div>
-            <span className="seo-market-kicker">Florida Business + 4COP Quota License Packages</span>
-            <h1>Gentlemen's Clubs for Sale With <em>4COP Quota Licenses</em> in Florida</h1>
+            <span className="seo-market-kicker">Florida Gentlemen's Clubs & Adult-Entertainment Businesses for Sale</span>
+            <h1>Gentlemen's Clubs for Sale in Florida <em>With 4COP Quota License Opportunities</em></h1>
             <p>
-              FLLM separates adult-entertainment business acquisitions from standalone quota-license inventory.
-              This page displays Florida business packages classified as Gentlemen's Club with an included 4COP quota
-              license so buyers can evaluate the operating business, the liquor-license component and the separate
-              premises or local approvals that may apply.
+              Browse gentlemen's clubs for sale in Florida, adult-entertainment venues, strip-club businesses and
+              related nightlife opportunities. FLLM displays active business packages separately from standalone
+              liquor-license inventory, including opportunities with transferable 4COP quota liquor licenses, disclosed
+              real estate or leasehold interests, and other negotiated operating-business assets.
             </p>
             <div className="seo-market-actions">
-              <a className="seo-market-button seo-market-button-gold" href="#current-packages">View Gentlemen's Club Packages</a>
+              <a className="seo-market-button seo-market-button-gold" href="#current-packages">View Florida Gentlemen's Clubs for Sale</a>
               <Link className="seo-market-button seo-market-button-dark" href="/transaction-services">
                 Explore Transaction Services
               </Link>
             </div>
           </div>
 
-          <aside className="seo-market-snapshot" aria-label="Gentlemen's club and quota license package overview">
+          <aside className="seo-market-snapshot" aria-label="Florida gentlemen's clubs for sale and quota license package overview">
             <span>What FLLM Separates</span>
             <div className="seo-market-snapshot-grid">
               <div><strong>Business</strong><small>Operations, goodwill, equipment and other negotiated assets</small></div>
@@ -161,7 +166,7 @@ export default function GentlemensClubsWithQuotaLicensesPage() {
           <div className="fllm-template-heading">
             <div>
               <span className="fllm-template-eyebrow">Understanding the Package</span>
-              <h2>What a gentlemen's-club + quota-license sale can include</h2>
+              <h2>Florida Gentlemen's Clubs for Sale: What Buyers Are Evaluating</h2>
             </div>
           </div>
 
@@ -204,8 +209,8 @@ export default function GentlemensClubsWithQuotaLicensesPage() {
         <div className="business-quota-shell">
           <div className="business-quota-heading">
             <div>
-              <span>Current FLLM Business Inventory</span>
-              <h2>Gentlemen's Clubs Offered With 4COP Quota Licenses</h2>
+              <span>Current Florida Business Opportunities</span>
+              <h2>Current Gentlemen's Clubs for Sale in Florida</h2>
             </div>
             <strong>
               {listings.length}
@@ -214,13 +219,13 @@ export default function GentlemensClubsWithQuotaLicensesPage() {
             </strong>
           </div>
 
-          <BusinessPackageLocalMarkets listings={allListings} />
+          <BusinessPackageLocalMarkets listings={allListings} label="Florida markets for gentlemen's clubs in current inventory" />
 
           <div className="business-quota-separation-note">
             <strong>Business package ≠ standalone license listing</strong>
             <span>
-              These cards represent operating-business opportunities classified as Gentlemen's Club in FLLM's
-              Businesses With Quota Licenses inventory.
+              These cards represent gentlemen's clubs and adult-entertainment businesses for sale in Florida that
+              are classified as Gentlemen's Club in FLLM's Businesses With Quota Licenses inventory.
             </span>
             <Link href="/listings?type=4COP%20Quota">Standalone 4COP licenses ›</Link>
           </div>
@@ -314,8 +319,8 @@ export default function GentlemensClubsWithQuotaLicensesPage() {
         <div className="fllm-template-shell">
           <div>
             <span className="fllm-template-eyebrow">Business + License Market</span>
-            <h2>Compare Florida gentlemen's-club packages without mixing business prices with standalone license values</h2>
-            <p>Use FLLM to review qualifying packages, county license markets and transaction resources in one place.</p>
+            <h2>Compare Gentlemen's Clubs for Sale in Florida Without Mixing Business Prices With Standalone License Values</h2>
+            <p>Use FLLM to compare Florida gentlemen's clubs, adult-entertainment businesses, county license markets and transaction resources in one place.</p>
           </div>
           <div className="fllm-ui-final-actions">
             <Link className="fllm-template-button" href="/businesses-with-quota-licenses">All Business Packages</Link>
