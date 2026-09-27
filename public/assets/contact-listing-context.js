@@ -1,6 +1,6 @@
 (() => {
-  if (window.__FLLM_CONTACT_LISTING_CONTEXT_V4__) return;
-  window.__FLLM_CONTACT_LISTING_CONTEXT_V4__ = true;
+  if (window.__FLLM_CONTACT_LISTING_CONTEXT_V5__) return;
+  window.__FLLM_CONTACT_LISTING_CONTEXT_V5__ = true;
 
   const params = new URLSearchParams(window.location.search);
   const context = {
@@ -106,9 +106,19 @@
     const eyebrow = document.createElement("span");
     eyebrow.textContent = "Selected License";
     const title = document.createElement("h3");
-    title.textContent = context.county && context.licenseType
+    const titleText = context.county && context.licenseType
       ? `${context.county} · ${context.licenseType}`
       : context.listing || context.reference || "Specific Florida Liquor License";
+    titleText.split(/(4(?=COP))/g).forEach((part) => {
+      if (part === "4") {
+        const uprightFour = document.createElement("span");
+        uprightFour.className = "contact-upright-four-cop";
+        uprightFour.textContent = "4";
+        title.appendChild(uprightFour);
+      } else {
+        title.appendChild(document.createTextNode(part));
+      }
+    });
     heading.append(eyebrow, title);
 
     const grid = document.createElement("div");
