@@ -11,6 +11,7 @@ const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v3">
   .contact-license-context{margin:2px 0 20px;padding:18px;border:1px solid rgba(246,167,0,.72);border-left:4px solid #f6a700;border-radius:6px;color:#f8fafc;background:linear-gradient(145deg,rgba(10,34,55,.98),rgba(4,18,30,.98));box-shadow:0 12px 30px rgba(0,0,0,.22)}
   .contact-license-context-heading>span{display:block;margin-bottom:6px;color:#f6a700;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
   .contact-license-context-heading h3{margin:0;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:1.2}
+  .contact-upright-four-cop{display:inline-block;font-family:Arial,Helvetica,sans-serif;font-style:normal;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1;line-height:1}
   .contact-license-context-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}
   .contact-license-context-grid>div{min-width:0;padding:10px 11px;border:1px solid rgba(255,255,255,.12);border-radius:4px;background:rgba(2,11,18,.62)}
   .contact-license-context-grid span{display:block;margin-bottom:5px;color:#aebbc5;font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
@@ -21,7 +22,7 @@ const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v3">
   @media(max-width:620px){.contact-license-context-grid{grid-template-columns:1fr}.contact-license-context-heading h3{font-size:19px}}
 </style>`;
 
-const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=4" defer></script>';
+const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=5" defer></script>';
 const OFFICIAL_SHELL_STYLES = '<link rel="stylesheet" href="/assets/contact-official-shell.css?v=21"/>';
 const OFFICIAL_SHELL_SCRIPT = '<script src="/assets/contact-official-shell.js?v=15" defer></script>';
 
