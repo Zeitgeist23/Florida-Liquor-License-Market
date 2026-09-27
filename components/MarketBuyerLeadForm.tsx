@@ -83,14 +83,14 @@ export default function MarketBuyerLeadForm({
 
   return (
     <form className="business-market-lead-form" onSubmit={submit}>
-      <span className="business-market-form-eyebrow">Buyer Match Request</span>
-      <h2>Looking for a {businessType} in {county}?</h2>
+      <span className="business-market-form-eyebrow">Opportunity Inquiry</span>
+      <h2>Interested in this {businessType} opportunity?</h2>
       <p>
-        Tell FLLM your budget and what you want to buy. We’ll use the Lead Match Desk
-        to identify matching opportunities in this market.
+        Send FLLM your contact information and any questions about this specific market listing.
+        We’ll review the opportunity and follow up with you.
       </p>
 
-      <input type="hidden" name="inquiry_type" value="Business Market Buyer Match" />
+      <input type="hidden" name="inquiry_type" value="Business Market Opportunity Inquiry" />
       <input type="hidden" name="preferred_county" value={county} />
       <input type="hidden" name="listing_reference" value={listingReference} />
       <input type="hidden" name="listing_requested" value={listingTitle} />
@@ -168,12 +168,12 @@ export default function MarketBuyerLeadForm({
       </label>
 
       <button type="submit" disabled={status === "submitting"}>
-        {status === "submitting" ? "Submitting…" : "Show Me Matching Opportunities"}
+        {status === "submitting" ? "Submitting…" : "Request Information"}
       </button>
 
       {status === "sent" ? (
         <p className="business-market-form-status success" role="status">
-          Your request was received. FLLM will use your preferences to identify matching opportunities.
+          Your inquiry was received. FLLM will review this opportunity and follow up.
         </p>
       ) : null}
 
@@ -184,7 +184,7 @@ export default function MarketBuyerLeadForm({
       ) : null}
 
       <small>
-        FLLM may contact you about matching business and liquor-license opportunities. Market availability and pricing can change.
+        FLLM may contact you about this opportunity and, if requested, similar business-and-license opportunities.
       </small>
     </form>
   );
