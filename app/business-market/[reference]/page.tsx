@@ -252,7 +252,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
 
           <div className="business-market-hero-grid">
             <div className="business-market-hero-copy-block">
-              <span className="business-market-eyebrow">FLLM Market Listing</span>
+              <span className="business-market-eyebrow">FLLM Market Opportunity</span>
               <h1>{listing.title}</h1>
               <p className="business-market-hero-copy">
                 Explore this {listing.businessCategory.toLowerCase()} opportunity in {listing.county},
@@ -275,7 +275,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               </div>
 
               <div className="business-market-hero-actions">
-                <a className="business-market-primary" href="#buyer-match">Inquire About This Opportunity</a>
+                <a className="business-market-primary" href="#buyer-match">Ask FLLM About This Opportunity</a>
                 <Link className="business-market-secondary" href={listing.countyHref}>Explore {listing.county}</Link>
               </div>
             </div>
