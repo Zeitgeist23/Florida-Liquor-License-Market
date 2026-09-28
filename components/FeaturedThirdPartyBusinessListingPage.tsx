@@ -415,8 +415,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
               {config.approvalPreview && config.sellerDirect ? (
                 <a className="marketplace-listing-primary" href={phoneHref(config.broker.phone)} aria-label={`Call seller ${config.broker.name} at ${config.broker.phone}`}>Call Seller · {config.broker.phone}</a>
               ) : (
-                <Link className="marketplace-listing-primary" href={inquiryHref} aria-label={`Inquire about the ${config.county} business and ${shortLicenseType} package`}>
-                  {tr("Inquire About This Business Package", "Solicitar información sobre este negocio")}
+                <Link className="marketplace-listing-primary" href={inquiryHref} aria-label={`Inquire about the ${config.county} business and ${shortLicenseType} offer`}>
+                  {isSeparateQuotaOffer
+                    ? tr("Inquire About Business or License", "Solicitar información sobre el negocio o la licencia")
+                    : tr("Inquire About This Business Package", "Solicitar información sobre este negocio")}
                 </Link>
               )}
               <Link
