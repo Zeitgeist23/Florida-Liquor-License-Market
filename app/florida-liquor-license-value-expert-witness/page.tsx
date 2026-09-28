@@ -220,30 +220,36 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
           inset:0;
           z-index:0;
           pointer-events:none;
-          background:url("/assets/fllm-expert-witness-litigation-hero.webp") right 34%/auto 108% no-repeat;
+          background:url("/assets/fllm-expert-witness-litigation-hero.webp") 92% 34%/auto 108% no-repeat;
           filter:contrast(1.1) saturate(1.06) brightness(1.03);
           transform:none;
           transform-origin:center right;
           -webkit-mask-image:linear-gradient(
             90deg,
             transparent 0%,
-            transparent 48%,
-            rgba(0,0,0,.08) 54%,
-            rgba(0,0,0,.28) 59%,
-            rgba(0,0,0,.56) 64%,
-            rgba(0,0,0,.82) 69%,
-            #000 75%,
+            transparent 40%,
+            rgba(0,0,0,.025) 46%,
+            rgba(0,0,0,.08) 51%,
+            rgba(0,0,0,.18) 56%,
+            rgba(0,0,0,.34) 61%,
+            rgba(0,0,0,.54) 66%,
+            rgba(0,0,0,.74) 71%,
+            rgba(0,0,0,.9) 76%,
+            #000 82%,
             #000 100%
           );
           mask-image:linear-gradient(
             90deg,
             transparent 0%,
-            transparent 48%,
-            rgba(0,0,0,.08) 54%,
-            rgba(0,0,0,.28) 59%,
-            rgba(0,0,0,.56) 64%,
-            rgba(0,0,0,.82) 69%,
-            #000 75%,
+            transparent 40%,
+            rgba(0,0,0,.025) 46%,
+            rgba(0,0,0,.08) 51%,
+            rgba(0,0,0,.18) 56%,
+            rgba(0,0,0,.34) 61%,
+            rgba(0,0,0,.54) 66%,
+            rgba(0,0,0,.74) 71%,
+            rgba(0,0,0,.9) 76%,
+            #000 82%,
             #000 100%
           );
           -webkit-mask-repeat:no-repeat;
@@ -261,14 +267,15 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
             linear-gradient(
               90deg,
               rgba(3,18,31,1) 0%,
-              rgba(3,18,31,.995) 28%,
-              rgba(4,22,38,.94) 38%,
-              rgba(4,24,41,.78) 48%,
-              rgba(5,27,46,.56) 58%,
-              rgba(5,28,47,.34) 68%,
-              rgba(5,28,47,.16) 78%,
-              rgba(5,28,47,.055) 88%,
-              rgba(5,28,47,.012) 95%,
+              rgba(3,18,31,.995) 24%,
+              rgba(4,22,38,.955) 34%,
+              rgba(4,24,41,.84) 44%,
+              rgba(5,27,46,.66) 54%,
+              rgba(5,28,47,.46) 64%,
+              rgba(5,28,47,.28) 73%,
+              rgba(5,28,47,.14) 82%,
+              rgba(5,28,47,.05) 90%,
+              rgba(5,28,47,.012) 96%,
               rgba(5,28,47,0) 100%
             ),
             linear-gradient(180deg,rgba(2,12,21,.04),rgba(2,12,21,.14));
@@ -295,29 +302,33 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
           .litigation-value-page .litigation-value-hero{min-height:640px}
           .litigation-value-page .litigation-value-hero::before{
             inset:0;
-            background-position:right 32%;
+            background-position:90% 32%;
             background-size:auto 105%;
             filter:contrast(1.08) saturate(1.05) brightness(1.03);
             -webkit-mask-image:linear-gradient(
               90deg,
               transparent 0%,
-              transparent 43%,
-              rgba(0,0,0,.08) 50%,
-              rgba(0,0,0,.32) 57%,
-              rgba(0,0,0,.64) 64%,
-              rgba(0,0,0,.88) 70%,
-              #000 76%,
+              transparent 35%,
+              rgba(0,0,0,.03) 42%,
+              rgba(0,0,0,.1) 48%,
+              rgba(0,0,0,.24) 54%,
+              rgba(0,0,0,.44) 60%,
+              rgba(0,0,0,.68) 66%,
+              rgba(0,0,0,.88) 72%,
+              #000 79%,
               #000 100%
             );
             mask-image:linear-gradient(
               90deg,
               transparent 0%,
-              transparent 43%,
-              rgba(0,0,0,.08) 50%,
-              rgba(0,0,0,.32) 57%,
-              rgba(0,0,0,.64) 64%,
-              rgba(0,0,0,.88) 70%,
-              #000 76%,
+              transparent 35%,
+              rgba(0,0,0,.03) 42%,
+              rgba(0,0,0,.1) 48%,
+              rgba(0,0,0,.24) 54%,
+              rgba(0,0,0,.44) 60%,
+              rgba(0,0,0,.68) 66%,
+              rgba(0,0,0,.88) 72%,
+              #000 79%,
               #000 100%
             );
           }
