@@ -49,6 +49,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   licenseClass?: "quota" | "sfs" | "2cop";
   sellerDirect?: boolean;
   approvalPreview?: boolean;
+  showPreviewFinancingCalculator?: boolean;
   businessLabel: string;
   businessLabelLinkUrl?: string;
   heroSummary: string;
@@ -958,7 +959,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   recipientKind={config.sellerDirect ? "seller" : "broker"}
                   locale={config.locale}
                   previewCaptureOnly={Boolean(config.approvalPreview)}
-                  showFinancingCalculator={!config.approvalPreview && isNonQuotaBusiness}
+                  showFinancingCalculator={isNonQuotaBusiness && (!config.approvalPreview || Boolean(config.showPreviewFinancingCalculator))}
                   financingCalculatorMode={isNonQuotaBusiness ? "sba-business" : "license"}
                   financingPurchasePrice={isNonQuotaBusiness ? config.packagePriceNumber : quotaMarketReferenceNumber}
                   financingDownPayment={isNonQuotaBusiness ? Math.round(config.packagePriceNumber * 0.1) : undefined}
