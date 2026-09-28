@@ -809,19 +809,37 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   )}
                 </p>
                 <p>
-                  {tr("The total asking price for the", "El precio total solicitado por el")}{" "}
-                  <a
-                    className="package-listing-link"
-                    href={config.broker.listingUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}
-                  </a>
-                  . {config.packageIncludes}
+                  {isSeparateQuotaOffer ? (
+                    <>
+                      {tr("The operating business is offered at", "El negocio operativo se ofrece por")}{" "}
+                      <a
+                        className="package-listing-link"
+                        href={config.broker.listingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {config.packagePrice}
+                      </a>
+                      . {config.packageIncludes}
+                    </>
+                  ) : (
+                    <>
+                      {tr("The total asking price for the", "El precio total solicitado por el")}{" "}
+                      <a
+                        className="package-listing-link"
+                        href={config.broker.listingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}
+                      </a>
+                      . {config.packageIncludes}
+                    </>
+                  )}
                 </p>
 
-                <div className="package-total">
+                {!isSeparateQuotaOffer ? (
+                  <div className="package-total">
                   <strong>
                     {tr("Business + license package", "Paquete de negocio + licencia")}: {config.packagePrice}.
                   </strong>{" "}
@@ -850,7 +868,8 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         `La licencia de cupo ${shortLicenseType} incluida no se ofrece por separado. Como referencia de mercado, la mediana actual de precios publicados por FLLM para inventario comparable de licencias 4COP de cupo independientes en ${config.county} es ${quotaMarketReference}. Esta mediana del condado no es una tasación ni un valor asignado a la licencia específica incluida en este paquete comercial.`,
                       )
                     : `The ${shortLicenseType} liquor license is displayed on FLLM at ${config.askingPrice}. Purchase of the associated business is required, and the license is not currently being offered separately.`}
-                </div>
+                  </div>
+                ) : null}
 
                 <h3>{tr("Business Details", "Detalles del negocio")}</h3>
                 <div
