@@ -366,6 +366,55 @@
   line-height:1.58;
 }
 
+
+.business-market-featured-broker-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin-top:18px;
+}
+.business-market-featured-broker-grid a{
+  min-width:0;
+  min-height:160px;
+  display:flex;
+  flex-direction:column;
+  padding:18px;
+  border:1px solid rgba(64,214,255,.52);
+  border-radius:8px;
+  background:linear-gradient(155deg,#123a5c 0%,#0a2943 52%,#071d31 100%);
+  box-shadow:0 11px 25px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.05);
+  color:#fff;
+  text-decoration:none;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.business-market-featured-broker-grid a:hover{
+  transform:translateY(-3px) scale(1.015);
+  border-color:#74e6ff;
+  box-shadow:0 17px 31px rgba(0,0,0,.32),0 0 18px rgba(64,214,255,.12);
+}
+.business-market-featured-broker-grid span{
+  color:#74e6ff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.business-market-featured-broker-grid strong{
+  margin:8px 0;
+  color:#fff;
+  font:700 21px/1.16 Georgia,"Times New Roman",serif;
+}
+.business-market-featured-broker-grid small{color:#c0ced7;font-size:11px;line-height:1.45}
+.business-market-featured-broker-grid em{
+  margin-top:auto;
+  padding-top:14px;
+  color:#efaa10;
+  font-size:11px;
+  font-weight:900;
+  font-style:normal;
+  text-transform:uppercase;
+}
+
 .business-market-related{
   padding:43px 0 49px;
   border-top:1px solid rgba(239,170,16,.28);
@@ -444,9 +493,11 @@
   .business-market-hero-grid,.business-market-grid{grid-template-columns:1fr}
   .business-market-sidebar{position:static}
   .business-market-map-card{max-width:670px;width:100%}
-  .business-market-related-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .business-market-related-grid,.business-market-featured-broker-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:720px){
+  .business-market-featured-broker-grid{grid-template-columns:1fr}
+
   .business-market-shell{width:min(100% - 28px,1180px)}
   .business-market-hero{padding:34px 0 38px}
   .business-market-hero h1{font-size:38px}
