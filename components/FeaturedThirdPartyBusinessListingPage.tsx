@@ -667,7 +667,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
   
               ) : null}
 
-              {hasFinancingDisclosure ? (
+              {hasFinancingDisclosure && isNonQuotaBusiness ? (
                 <section
                   className="featured-business-financing"
                   aria-labelledby="featured-business-financing-heading"
