@@ -128,19 +128,26 @@ export default function AdminLienSearchClient() {
     followUp: searches.filter((item) => item.reviewStatus === "needs_follow_up").length,
   }), [searches]);
 
-  async function runSearch(event: React.FormEvent) {
+  async function runSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const submittedLicenseNumber = String(form.get("licenseNumber") || licenseNumber).trim();
+    const submittedAppraisalRef = String(form.get("appraisalRef") || appraisalRef).trim();
+    const submittedAdditionalDebtorName = String(
+      form.get("additionalDebtorName") || additionalDebtorName,
+    ).trim();
+
     setRunning(true);
     setError("");
-    setMessage("");
+    setMessage("Starting DBPR verification and Florida UCC research…");
     try {
       const response = await fetch("/api/admin/lien-search", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          licenseNumber,
-          appraisalRef,
-          additionalDebtorName,
+          licenseNumber: submittedLicenseNumber,
+          appraisalRef: submittedAppraisalRef,
+          additionalDebtorName: submittedAdditionalDebtorName,
         }),
       });
       const payload = (await response.json()) as {
@@ -240,6 +247,7 @@ export default function AdminLienSearchClient() {
           <label>
             <span>DBPR License Number</span>
             <input
+              name="licenseNumber"
               value={licenseNumber}
               onChange={(event) => setLicenseNumber(event.target.value.toUpperCase())}
               placeholder="BEV2330020"
@@ -249,6 +257,7 @@ export default function AdminLienSearchClient() {
           <label>
             <span>Appraisal Reference <small>optional</small></span>
             <input
+              name="appraisalRef"
               value={appraisalRef}
               onChange={(event) => setAppraisalRef(event.target.value)}
               placeholder="FLLM-APPRAISAL-..."
@@ -257,12 +266,13 @@ export default function AdminLienSearchClient() {
           <label>
             <span>Prior Owner / Additional Debtor <small>optional</small></span>
             <input
+              name="additionalDebtorName"
               value={additionalDebtorName}
               onChange={(event) => setAdditionalDebtorName(event.target.value)}
               placeholder="Example: MAX & FRANK LLC"
             />
           </label>
-          <button disabled={running || !licenseNumber.trim()}>
+          <button disabled={running}>
             {running ? "Running Due Diligence…" : "Run Lien Search"}
           </button>
         </form>
