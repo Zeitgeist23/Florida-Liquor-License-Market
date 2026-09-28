@@ -26,6 +26,7 @@ import "../third-party-business-listing-standard.css";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalPath = "/listings/fllm-solano";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
+const socialImageUrl = "https://images.bizbuysell.com/shared/brokerdirectory/images/29626/pf_prs_AquilesJr6.jpg";
 const sourceListingUrl =
   "https://www.bizbuysell.com/business-opportunity/restaurant-bar-with-outside-seating-on-main-boulevard-in-hollywood-fl/2543711/";
 
@@ -51,9 +52,11 @@ export const metadata: Metadata = {
     description:
       "Featured Hollywood restaurant/bar listing represented by Aquiles Solano Jr., P.A. of Southeast Florida Realty & Management Corp.",
     siteName: "Florida Liquor License Market",
+    images: [{ url: socialImageUrl, alt: "Aquiles Solano Jr., P.A. — FLLM featured listing" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: [socialImageUrl],
     title: "Hollywood Restaurant/Bar + 4COP SFS / SRX License | FLLM",
     description:
       "Broward County restaurant/bar business package with a qualification-based 4COP SFS / SRX full-liquor license.",
