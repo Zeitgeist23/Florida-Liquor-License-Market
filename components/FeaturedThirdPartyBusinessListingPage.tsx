@@ -50,6 +50,8 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   sellerDirect?: boolean;
   approvalPreview?: boolean;
   showPreviewFinancingCalculator?: boolean;
+  quotaLeaseOnly?: boolean;
+  quotaLeaseSummary?: string;
   businessLabel: string;
   businessLabelLinkUrl?: string;
   heroSummary: string;
@@ -177,6 +179,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
   const isSfsListing = config.licenseClass === "sfs" || config.licenseType === "4COP SFS/SRX";
   const is2copListing = config.licenseClass === "2cop" || config.licenseType === "2COP Beer & Wine";
   const isNonQuotaBusiness = isSfsListing || is2copListing;
+  const isQuotaLeaseOnly = Boolean(config.quotaLeaseOnly && config.licenseType === "4COP Quota");
+  const usesBusinessFinancing = isNonQuotaBusiness || isQuotaLeaseOnly;
+  const quotaLeaseSummary =
+    config.quotaLeaseSummary ??
+    tr("4COP Quota available via lease · License not offered for sale", "4COP de cupo disponible mediante arrendamiento · La licencia no se ofrece a la venta");
   const countyShort = config.county.replace(/\s+County$/i, "");
   const isWeSellRestaurantsBroker =
     config.broker.brokerage.trim().toLowerCase() === "we sell restaurants";
@@ -365,6 +372,8 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   <>{tr("Beer-and-wine privileges only", "Solo cerveza y vino")} · <strong>{tr("No separate quota-license value", "Sin valor separado de licencia de cupo")}</strong></>
                 ) : isSfsListing ? (
                   <>{tr("Business asking price", "Precio de venta del negocio")} · <strong>{tr("4COP SFS / SRX full-liquor license included", "Licencia completa de bebidas alcohólicas 4COP SFS / SRX incluida")}</strong></>
+                ) : isQuotaLeaseOnly ? (
+                  <><strong>{quotaLeaseSummary}</strong></>
                 ) : usesFllmMedian ? (
                   <>{tr("FLLM", "FLLM")} {countyShort} {tr("median disclosed 4COP ask", "mediana de precios publicados 4COP")} {quotaMarketReference} · <strong>{tr("License not offered separately", "La licencia no se ofrece por separado")}</strong></>
                 ) : (
@@ -435,7 +444,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 aria-label={tr("Specific listing details", "Detalles específicos del anuncio")}
               >
                 <div>
-                  <span>{isNonQuotaBusiness ? tr("Restaurant Business Asking Price", "Precio de venta del negocio de restaurante") : tr("Business + License Package", "Paquete de negocio + licencia")}</span>
+                  <span>{usesBusinessFinancing ? tr("Business Asking Price", "Precio de venta del negocio") : tr("Business + License Package", "Paquete de negocio + licencia")}</span>
                   <strong>{config.packagePrice}</strong>
                 </div>
                 <div
@@ -474,11 +483,16 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   className={isNonQuotaBusiness ? "marketplace-listing-education-card" : "marketplace-listing-tooltip-card"}
                   tabIndex={!isNonQuotaBusiness ? 0 : undefined}
                 >
-                  <span>{isNonQuotaBusiness ? tr("License Classification", "Clasificación de la licencia") : usesFllmMedian ? tr("FLLM County Median Ask", "Mediana FLLM del condado") : tr("Allocated License Value", "Valor asignado de la licencia")}</span>
-                  <strong>{is2copListing ? tr("Non-quota · no separate value", "Sin cupo · sin valor separado") : isSfsListing ? tr("Location-specific", "Vinculada al local") : quotaMarketReference}</strong>
+                  <span>{isQuotaLeaseOnly ? tr("License Arrangement", "Modalidad de la licencia") : isNonQuotaBusiness ? tr("License Classification", "Clasificación de la licencia") : usesFllmMedian ? tr("FLLM County Median Ask", "Mediana FLLM del condado") : tr("Allocated License Value", "Valor asignado de la licencia")}</span>
+                  <strong>{isQuotaLeaseOnly ? tr("Available via lease", "Disponible mediante arrendamiento") : is2copListing ? tr("Non-quota · no separate value", "Sin cupo · sin valor separado") : isSfsListing ? tr("Location-specific", "Vinculada al local") : quotaMarketReference}</strong>
                   {!isNonQuotaBusiness ? (
                     <span className="marketplace-listing-card-tooltip" role="tooltip">
-                      {usesFllmMedian
+                      {isQuotaLeaseOnly
+                        ? tr(
+                            "The source listing describes the 4COP quota license as available via lease rather than being sold with the restaurant. Buyers should confirm the license owner, lease terms, transfer or placement requirements, liens, current status and DBPR/ABT approval requirements.",
+                            "El anuncio de origen describe la licencia 4COP de cupo como disponible mediante arrendamiento en lugar de venderse con el restaurante. Los compradores deben confirmar el titular, los términos del arrendamiento, los requisitos de transferencia o colocación, gravámenes, estado actual y requisitos de aprobación de DBPR/ABT.",
+                          )
+                        : usesFllmMedian
                         ? tr(
                             "This is FLLM's median disclosed asking price for comparable standalone quota-license inventory in the county. It is market context, not an appraisal or an allocated value for the license included in this business transaction.",
                             "Esta es la mediana de precios publicados de FLLM para inventario comparable de licencias de cupo independientes en el condado. Es contexto de mercado, no una tasación ni un valor asignado a la licencia incluida en esta transacción comercial.",
@@ -686,7 +700,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
               <section className="marketplace-listing-section">
                 <h2>{tr("About This Business & License Listing", "Acerca de este anuncio de negocio y licencia")}</h2>
                 <p>
-                  <strong className={isSfsListing ? "featured-business-sfs-lead" : undefined}>{is2copListing ? tr("Business & 2COP Beer & Wine License:", "Negocio y licencia 2COP de cerveza y vino:") : isSfsListing ? tr("Business & 4COP SFS / SRX Full-Liquor License:", "Negocio y licencia completa de bebidas alcohólicas 4COP SFS / SRX:") : tr("Business purchase required:", "Compra del negocio requerida:")}</strong>{is2copListing ? tr(" the seller offers the 2COP beer-and-wine license with the operating ", " la vendedora ofrece la licencia 2COP de cerveza y vino junto con el ") : isSfsListing ? tr(" the license is tied to the qualifying restaurant operation and licensed premises associated with the ", " la licencia está vinculada a la operación del restaurante que cumple los requisitos y al local autorizado asociado con el ") : tr(" the license is being offered only in connection with the acquisition of the associated ", " la licencia se ofrece únicamente junto con la adquisición del negocio asociado ")}
+                  <strong className={isSfsListing ? "featured-business-sfs-lead" : undefined}>{is2copListing ? tr("Business & 2COP Beer & Wine License:", "Negocio y licencia 2COP de cerveza y vino:") : isSfsListing ? tr("Business & 4COP SFS / SRX Full-Liquor License:", "Negocio y licencia completa de bebidas alcohólicas 4COP SFS / SRX:") : tr("Business purchase required:", "Compra del negocio requerida:")}</strong>{is2copListing ? tr(" the seller offers the 2COP beer-and-wine license with the operating ", " la vendedora ofrece la licencia 2COP de cerveza y vino junto con el ") : isSfsListing ? tr(" the license is tied to the qualifying restaurant operation and licensed premises associated with the ", " la licencia está vinculada a la operación del restaurante que cumple los requisitos y al local autorizado asociado con el ") : isQuotaLeaseOnly ? tr(" the operating business is offered for sale and a 4COP Quota license is available via lease for the associated ", " el negocio operativo se ofrece a la venta y una licencia 4COP de cupo está disponible mediante arrendamiento para el negocio asociado ") : tr(" the license is being offered only in connection with the acquisition of the associated ", " la licencia se ofrece únicamente junto con la adquisición del negocio asociado ")}
                   {config.businessLabelLinkUrl ? (
                     <a
                       className="featured-business-label-link featured-business-label-link--body"
@@ -701,7 +715,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   )}
                   . {is2copListing ? tr("License status and any ownership-change requirements must be verified with DBPR; the license is not priced as a separate quota asset.", "El estado de la licencia y cualquier requisito de cambio de titularidad deben verificarse con el DBPR; la licencia no tiene un precio separado como activo de cupo.") : isSfsListing
                     ? tr("It is not an independently transferable quota license.", "No es una licencia de cupo transferible de forma independiente.")
-                    : "The liquor license is not currently offered as a standalone sale."}
+                    : isQuotaLeaseOnly
+                      ? tr("The 4COP Quota license itself is not being offered for sale; the source listing states that it is available via lease.", "La licencia 4COP de cupo no se ofrece a la venta; el anuncio de origen indica que está disponible mediante arrendamiento.")
+                      : "The liquor license is not currently offered as a standalone sale."}
                 </p>
                 {!isNonQuotaBusiness ? <p>
                   A Florida quota license may generally be changed between the{" "}
@@ -793,6 +809,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     ? tr("The 2COP beer-and-wine license is not a quota license. FLLM assigns it no separate license value. The business asking price excludes the separately advertised real estate and inventory unless the seller confirms otherwise.", "La licencia 2COP de cerveza y vino no es una licencia de cupo. FLLM no le asigna un valor separado. El precio solicitado del negocio excluye el inmueble y el inventario anunciados por separado, salvo confirmación distinta de la vendedora.")
                     : isSfsListing
                     ? (isSpanish ? `El precio solicitado de ${config.packagePrice} corresponde al paquete del negocio y la licencia completa de bebidas alcohólicas ${shortLicenseType}. Una licencia de bebidas alcohólicas ${shortLicenseType} no tiene valor transferible independiente y FLLM no le asigna un valor separado.` : `The ${config.packagePrice} asking price applies to the business and ${shortLicenseType} full-liquor license package. A ${shortLicenseType} liquor license has no independent transferable value and FLLM assigns no separate value to it.`)
+                    : isQuotaLeaseOnly
+                    ? tr(
+                        `The ${config.packagePrice} asking price applies to the operating business. The ${shortLicenseType} liquor license is available via lease and is not included as a separately purchased license asset.`,
+                        `El precio solicitado de ${config.packagePrice} corresponde al negocio operativo. La licencia de cupo ${shortLicenseType} está disponible mediante arrendamiento y no está incluida como un activo de licencia comprado por separado.`,
+                      )
                     : usesFllmMedian
                     ? tr(
                         `The included ${shortLicenseType} quota license is not being offered separately. For market context, FLLM's current ${config.county} median disclosed asking price for comparable standalone 4COP quota-license inventory is ${quotaMarketReference}. This county median is not an appraisal or an allocated value for the specific license included in this business package.`,
@@ -895,7 +916,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 ) : null}
               </section>
 
-              {isNonQuotaBusiness ? (
+              {usesBusinessFinancing ? (
                 <section className="marketplace-listing-section">
                   <h2>{is2copListing ? tr("2COP Beer & Wine License Resources", "Recursos sobre la licencia 2COP de cerveza y vino") : tr("4COP SFS / SRX License Resources", "Recursos sobre licencias 4COP SFS / SRX")}</h2>
                   <p>
@@ -1004,8 +1025,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     : `${config.county} ${shortLicenseType} Liquor License — Business Purchase Required`}
                   listingCounty={config.county}
                   licenseType={shortLicenseType}
-                  askingPrice={isNonQuotaBusiness
-                    ? `${config.packagePrice} business asking price; no separate quota-license value`
+                  askingPrice={usesBusinessFinancing
+                    ? isQuotaLeaseOnly
+                      ? `${config.packagePrice} business asking price; 4COP Quota available via lease`
+                      : `${config.packagePrice} business asking price; no separate quota-license value`
                     : usesFllmMedian
                       ? `${quotaMarketReference} FLLM county median disclosed ask; ${config.packagePrice} total business package`
                       : `${config.askingPrice} license asking price; ${config.packagePrice} total business package`}
@@ -1014,10 +1037,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   recipientKind={config.sellerDirect ? "seller" : "broker"}
                   locale={config.locale}
                   previewCaptureOnly={Boolean(config.approvalPreview)}
-                  showFinancingCalculator={isNonQuotaBusiness && (!config.approvalPreview || Boolean(config.showPreviewFinancingCalculator))}
-                  financingCalculatorMode={isNonQuotaBusiness ? "sba-business" : "license"}
-                  financingPurchasePrice={isNonQuotaBusiness ? config.packagePriceNumber : quotaMarketReferenceNumber}
-                  financingDownPayment={isNonQuotaBusiness ? Math.round(config.packagePriceNumber * 0.1) : undefined}
+                  showFinancingCalculator={usesBusinessFinancing && (!config.approvalPreview || Boolean(config.showPreviewFinancingCalculator))}
+                  financingCalculatorMode={usesBusinessFinancing ? "sba-business" : "license"}
+                  financingPurchasePrice={usesBusinessFinancing ? config.packagePriceNumber : quotaMarketReferenceNumber}
+                  financingDownPayment={usesBusinessFinancing ? Math.round(config.packagePriceNumber * 0.1) : undefined}
                 />
               </div>
 
