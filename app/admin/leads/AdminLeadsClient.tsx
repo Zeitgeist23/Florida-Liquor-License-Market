@@ -430,7 +430,7 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
     <main className="leads-page">
       <header className="leads-header">
         <div><span>Private FLLM administration</span><h1>Buyer &amp; Seller Lead Database</h1><p>All website-generated marketplace contacts in one secure view.</p></div>
-        <nav><Link href="/admin/listing-submissions">Listing Review</Link><button type="button" onClick={() => void load()} disabled={loading}>Refresh</button><button type="button" onClick={logout}>Sign Out</button></nav>
+        <nav><Link href="/admin/listing-submissions">Listing Review</Link><Link href="/admin/lien-search">Lien Search</Link><button type="button" onClick={() => void load()} disabled={loading}>Refresh</button><button type="button" onClick={logout}>Sign Out</button></nav>
       </header>
 
       <section className="lead-stats" aria-label="Lead summary">
