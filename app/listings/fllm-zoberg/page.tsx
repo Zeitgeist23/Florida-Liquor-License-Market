@@ -26,6 +26,7 @@ import "../third-party-business-listing-standard.css";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalPath = "/listings/fllm-zoberg";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
+const socialImageUrl = "https://suncoastbiz.net/wp-content/uploads/2026/09/Brian-Pic-2026-Left-upper.jpg";
 const sourceListingUrl =
   "https://www.bizbuysell.com/business-opportunity/turnkey-mexican-latin-dining-and-entertainment-concept-with-full-liquor/2545461/";
 
@@ -51,9 +52,11 @@ export const metadata: Metadata = {
     description:
       "Featured third-party broker listing represented by Brian Zoberg of Suncoast Business Consultants.",
     siteName: "Florida Liquor License Market",
+    images: [{ url: socialImageUrl, alt: "Brian Zoberg — FLLM featured listing" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: [socialImageUrl],
     title: "Miami Mexican-Latin Restaurant + 4COP SFS / SRX License",
     description:
       "Miami-Dade restaurant business package with a location-specific 4COP SFS / SRX full-liquor license.",
