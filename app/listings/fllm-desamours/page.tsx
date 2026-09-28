@@ -25,6 +25,7 @@ import "../third-party-business-listing-standard.css";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalPath = "/listings/fllm-desamours";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
+const socialImageUrl = "https://myexitplan.com/wp-content/uploads/2025/11/j_r_desamours_broker_-wpcf_250x250.jpg";
 
 export const dynamic = "force-dynamic";
 
@@ -41,9 +42,11 @@ export const metadata: Metadata = {
     description:
       "Featured Martin County, Florida bar business for sale in Jensen Beach with a 4COP quota liquor license, offered as a $650,000 asset-sale package. The license is not offered separately.",
     siteName: "Florida Liquor License Market",
+    images: [{ url: socialImageUrl, alt: "JR DesAmours — FLLM featured listing" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: [socialImageUrl],
     title: "Jensen Beach Bar for Sale + 4COP Liquor License | Martin County",
     description:
       "Jensen Beach bar business for sale in Martin County, Florida, with a 4COP quota liquor license, represented by JR DesAmours of Business Exit Advisors.",
