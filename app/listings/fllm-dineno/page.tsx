@@ -82,6 +82,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   licenseType: "4COP SFS/SRX",
   licenseClass: "sfs",
   approvalPreview: true,
+  showPreviewFinancingCalculator: true,
   businessLabel: "Sports-themed family bar & grill",
   businessLabelLinkUrl: sourceListingUrl,
   heroSummary:
@@ -94,7 +95,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     website: "https://restauranttraders.com/",
     listingUrl: sourceListingUrl,
     photo:
-      "https://images.bizquest.com/shared/brokerdirectory/images/19031/lg_cmp_20260128_131849137_iOS.jpg",
+      "https://images.bizbuysell.com/shared/brokerdirectory/images/19031/pf_prs_014_cBSaRkYbBEk_2_.jpeg",
     credential: "Florida licensed broker · BK3137276",
   },
   additionalSellerIntro:
