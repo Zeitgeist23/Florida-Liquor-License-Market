@@ -372,7 +372,11 @@ export default function FeaturedThirdPartyBusinessListingPage({
             <div className="featured-business-package-alert">
               {!isSfsListing && (
                 <span className="featured-business-package-badge">
-                  {is2copListing ? tr("Business + 2COP License", "Negocio + licencia 2COP") : tr("Business Purchase Required", "Compra del negocio requerida")}
+                  {is2copListing
+                    ? tr("Business + 2COP License", "Negocio + licencia 2COP")
+                    : isSeparateQuotaOffer
+                      ? tr("Business Asking Price", "Precio de venta del negocio")
+                      : tr("Business Purchase Required", "Compra del negocio requerida")}
                 </span>
               )}
               <span>
@@ -1046,7 +1050,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   listingReference={config.listingReference}
                   listingRequested={isNonQuotaBusiness
                     ? `${config.county} ${shortLicenseType} Restaurant Business`
-                    : `${config.county} ${shortLicenseType} Liquor License — Business Purchase Required`}
+                    : isSeparateQuotaOffer
+                      ? `${config.county} ${shortLicenseType} Liquor License + ${config.businessLabel}`
+                      : `${config.county} ${shortLicenseType} Liquor License — Business Purchase Required`}
                   listingCounty={config.county}
                   licenseType={shortLicenseType}
                   askingPrice={usesBusinessFinancing
