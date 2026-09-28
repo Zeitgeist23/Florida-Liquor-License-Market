@@ -88,6 +88,9 @@ export type BusinessQuotaListing = {
   packagePrice: string;
   packagePriceNumber: number;
   allocatedLicenseValue: string;
+  marketMedianLicenseValue?: string;
+  licenseAvailableSeparately?: boolean;
+  sellerFinancingAvailable?: boolean;
   brokerName: string;
   brokerage: string;
   featured: boolean;
@@ -169,6 +172,31 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerName: "Julie Negovan",
     brokerage: "Patricia Burnside Realty",
     featured: true,
+    publicationStatus: "preview",
+    classification: "business_package",
+  },
+  {
+    listingReference: "FLLM-PAQUET",
+    href: "/listings/fllm-paquet",
+    county: "Miami-Dade County",
+    countyHref: "/counties/miami-dade",
+    licenseType: "4COP Quota",
+    licenseClass: "quota",
+    title: "Prime Italian Restaurant – Miami Beach + 4COP Quota",
+    businessType: "Prime Italian restaurant in South of Fifth",
+    businessCategory: "Restaurant",
+    summaryBusinessType: "Restaurant",
+    transactionType: "Business Sale + Separate License",
+    packagePrice: "$590,000",
+    packagePriceNumber: 590_000,
+    allocatedLicenseValue: "Offered separately",
+    marketMedianLicenseValue: "$210,000",
+    licenseAvailableSeparately: true,
+    sellerFinancingAvailable: true,
+    brokerName: "Thierry Paquet de Villejust",
+    brokerage: "Listing Broker",
+    featured: true,
+    listingTier: "featured",
     publicationStatus: "preview",
     classification: "business_package",
   },
