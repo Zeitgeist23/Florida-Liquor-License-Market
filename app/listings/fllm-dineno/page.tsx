@@ -25,6 +25,7 @@ import "../third-party-business-listing-standard.css";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalPath = "/listings/fllm-dineno";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
+const socialImageUrl = "https://images.bizbuysell.com/shared/brokerdirectory/images/19031/pf_prs_014_cBSaRkYbBEk_2_.jpeg";
 const sourceListingUrl =
   "https://www.bizbuysell.com/business-opportunity/sports-themed-family-bar-and-grill-with-full-liquor/2552142/";
 
@@ -57,9 +58,11 @@ export const metadata: Metadata = {
     description:
       "Private FLLM preview represented by Chris DiNeno of Restaurant Traders.",
     siteName: "Florida Liquor License Market",
+    images: [{ url: socialImageUrl, alt: "Chris DiNeno — FLLM featured listing" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: [socialImageUrl],
     title:
       "Hillsborough County Sports-Themed Family Bar & Grill + Full Liquor | Broker Preview",
     description:
