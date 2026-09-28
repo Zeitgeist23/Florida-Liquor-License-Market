@@ -18,7 +18,7 @@ type LookupResult = {
 type Classification = {
   label: string;
   shortLabel: string;
-  tone: "quota" | "special" | "unknown";
+  tone: "quota" | "special" | "beerwine" | "unknown";
   note: string;
 };
 
@@ -26,6 +26,24 @@ function classifyLicense(seriesValue: string, modifierValue: string): Classifica
   const series = seriesValue.trim().toUpperCase();
   const modifier = modifierValue.trim().toUpperCase();
   const specialModifier = /(SFS|SRX|SPECIAL|HOTEL|MOTEL|CLUB|GOLF|AIRPORT|THEME|CATER|CIVIC|PERFORM|BOWLING|RACE|VESSEL)/i.test(modifier);
+
+  if (series === "2COP") {
+    return {
+      label: "2COP — Beer & Wine",
+      shortLabel: "Beer & Wine",
+      tone: "beerwine",
+      note: "A 2COP license authorizes beer and wine sales for consumption on premises and package sales, subject to applicable DBPR and local requirements. It is not a full-liquor quota license.",
+    };
+  }
+
+  if (series === "2APS") {
+    return {
+      label: "2APS — Beer & Wine Package Sales",
+      shortLabel: "Beer & Wine Package",
+      tone: "beerwine",
+      note: "A 2APS license is for package sales of beer and wine and does not authorize full-liquor sales.",
+    };
+  }
 
   if (["3PS", "3APS", "3BPS", "3CPS", "3DPS"].includes(series)) {
     return {
@@ -37,19 +55,27 @@ function classifyLicense(seriesValue: string, modifierValue: string): Classifica
   }
 
   if (["4COP", "5COP", "6COP", "7COP", "8COP"].includes(series)) {
+    if (/\b(SFS|SRX)\b/i.test(modifier)) {
+      return {
+        label: `${series} ${modifier} — Special Food Service`,
+        shortLabel: "4COP SFS/SRX",
+        tone: "special",
+        note: "The DBPR extract carries an SFS/SRX class modifier, so FLLM treats this as a special food-service license rather than a standard quota license.",
+      };
+    }
     if (specialModifier) {
       return {
         label: `${series}${modifier ? ` ${modifier}` : ""} — Special Classification`,
         shortLabel: "Special / Non-Quota",
         tone: "special",
-        note: "The DBPR extract carries a special modifier, so FLLM does not treat this record as a standard quota license.",
+        note: "The DBPR extract carries a special class modifier, so FLLM does not treat this record as a standard quota license.",
       };
     }
     return {
       label: `${series} Quota`,
       shortLabel: "Quota License",
       tone: "quota",
-      note: "The DBPR rank is a county-population COP quota series and the retail extract does not show a special-license modifier. Confirm the Special Qualifications section on the official DBPR detail record for transaction due diligence.",
+      note: "The DBPR retail extract shows a county-population COP series with no special class modifier. Confirm the Special Qualifications section on the official DBPR detail record before transaction reliance.",
     };
   }
 
@@ -58,7 +84,7 @@ function classifyLicense(seriesValue: string, modifierValue: string): Classifica
       label: `${series || "Retail Beverage"} ${modifier}`,
       shortLabel: "Special Classification",
       tone: "special",
-      note: "This record carries a DBPR modifier and is not automatically treated by FLLM as a quota license.",
+      note: "This record carries a DBPR class modifier and is not automatically treated by FLLM as a quota license.",
     };
   }
 
@@ -66,7 +92,7 @@ function classifyLicense(seriesValue: string, modifierValue: string): Classifica
     label: series || "Retail Beverage",
     shortLabel: "Classification Not Confirmed",
     tone: "unknown",
-    note: "FLLM cannot confirm quota status from the DBPR rank and modifier alone. Review the official DBPR Special Qualifications section before relying on the classification.",
+    note: "FLLM cannot confirm the license classification from the DBPR rank and modifier alone. Review the official DBPR Special Qualifications section before relying on the classification.",
   };
 }
 
@@ -195,6 +221,7 @@ export default function LicenseLookupClient() {
         .lookup-classification b{font-size:12px}
         .lookup-classification.quota{border-color:#c98b00;background:#fff8df;color:#6a4300}.lookup-classification.quota span{color:#ad6c00}
         .lookup-classification.special{border-color:#597087;background:#eef5fa;color:#17334b}.lookup-classification.special span{color:#3c627f}
+        .lookup-classification.beerwine{border-color:#4d7d73;background:#eef8f4;color:#173c34}.lookup-classification.beerwine span{color:#3e7167}
         .lookup-classification.unknown{border-color:#8b969e;background:#f4f6f7;color:#394650}.lookup-classification.unknown span{color:#66747d}
         .lookup-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:22px;border:1px solid #dce2e6;border-radius:8px;overflow:hidden}
         .lookup-grid>div{padding:17px 18px;border-right:1px solid #e1e6e9;border-bottom:1px solid #e1e6e9;background:#fafbfa}.lookup-grid>div:nth-child(4n){border-right:0}.lookup-grid>div:nth-last-child(-n+4){border-bottom:0}
