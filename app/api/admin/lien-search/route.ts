@@ -51,14 +51,15 @@ export async function GET() {
 
         const checked = await Promise.all(
           rawRuns.map(async (entry) => {
-            if (!entry.runId) return { ...entry, status: "FAILED", error: "Missing TinyFish run ID." };
+            if (!entry.runId) return { ...entry, status: "FAILED" as const, result: null, error: "Missing TinyFish run ID." };
             try {
               const run = await getTinyFishRun(entry.runId);
               return { ...entry, ...run };
             } catch (error) {
               return {
                 ...entry,
-                status: "FAILED",
+                status: "FAILED" as const,
+                result: null,
                 error: error instanceof Error ? error.message : "Could not check TinyFish run.",
               };
             }
