@@ -106,10 +106,9 @@ export async function POST(request: Request) {
       });
     }
 
-    const results = [];
-    for (const debtorName of debtorNames) {
-      results.push(await searchFloridaUccDebtor(debtorName));
-    }
+    const results = await Promise.all(
+      debtorNames.map((debtorName) => searchFloridaUccDebtor(debtorName)),
+    );
 
     const filingCount = results.reduce(
       (sum, result) => sum + countReportedUccFilings(result.payload),
