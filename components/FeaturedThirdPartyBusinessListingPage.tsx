@@ -543,125 +543,179 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 )}
               </div>
 
-              <section
-                className="marketplace-listing-highlights"
-                aria-labelledby="license-highlights-heading"
-              >
-                  <h3 id="license-highlights-heading">{tr("License Highlights", "Características de la licencia")}</h3>
+              {!isNonQuotaBusiness ? (
+                <section
+                  className="marketplace-listing-highlights quota-license-highlights"
+                  aria-labelledby="quota-license-highlights-heading"
+                >
+                  <h3 id="quota-license-highlights-heading">{tr("License Highlights", "Características de la licencia")}</h3>
                   <div className="marketplace-listing-highlight-grid">
-                    <div
-                      className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
-                      tabIndex={!isNonQuotaBusiness ? 0 : undefined}
-                    >
+                    <div className="marketplace-listing-tooltip-card" tabIndex={0}>
                       <svg viewBox="0 0 48 48" aria-hidden="true">
                         <path d="M11 42h13V18H11zM15 18V8h5v10M11 26h13M29 25h12l-2 9a5 5 0 0 1-4 3.5A5 5 0 0 1 31 34zM35 37.5V42M30 42h10" />
                       </svg>
-                      <strong>
-                        {is2copListing ? tr("Beer & wine", "Cerveza y vino") : tr("Full-liquor", "Bebidas alcohólicas")}
-                        <br />
-                        {is2copListing ? tr("license", "licencia") : tr("license", "licencia completa")}
-                      </strong>
-                      {!isNonQuotaBusiness ? (
-                        <span className="marketplace-listing-card-tooltip" role="tooltip">
-                          {tr("Full-liquor quota privileges include beer, wine and distilled spirits, subject to the approved series, premises and DBPR/ABT requirements.", "Los privilegios de una licencia de cupo de bebidas alcohólicas completas incluyen cerveza, vino y licores destilados, sujetos a la serie aprobada, el local y los requisitos de DBPR/ABT.")}
-                        </span>
-                      ) : null}
-                      {isSfsListing ? (
-                        <Link
-                          className="marketplace-listing-education-link"
-                          href="/license-types/4cop-sfs-restaurant"
-                          aria-label="Learn about the 4COP SFS / SRX full-liquor license"
-                        >
-                          <span>Learn more →</span>
-                        </Link>
-                      ) : null}
+                      <strong>{tr("Full-liquor", "Bebidas alcohólicas")}<br />{tr("license", "licencia completa")}</strong>
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr("Full-liquor quota privileges include beer, wine and distilled spirits, subject to the approved series, premises and DBPR/ABT requirements.", "Los privilegios de una licencia de cupo de bebidas alcohólicas completas incluyen cerveza, vino y licores destilados, sujetos a la serie aprobada, el local y los requisitos de DBPR/ABT.")}
+                      </span>
                     </div>
-                    <div
-                      className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
-                      tabIndex={!isNonQuotaBusiness ? 0 : undefined}
-                    >
+                    <div className="marketplace-listing-tooltip-card" tabIndex={0}>
                       <svg viewBox="0 0 48 48" aria-hidden="true">
                         <path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" />
                       </svg>
-                      <strong>
-                        {is2copListing ? tr("On-premises", "Consumo en el local") : isSfsListing ? tr("Qualifying restaurant", "Local de restaurante") : tr("On- or", "Dentro o")}
-                        <br />
-                        {is2copListing ? tr("beer & wine", "cerveza y vino") : isSfsListing ? tr("premises", "que cumple requisitos") : tr("off-premises use", "fuera del local")}
-                      </strong>
-                      {!isNonQuotaBusiness ? (
-                        <span className="marketplace-listing-card-tooltip" role="tooltip">
-                          {tr("In the 4COP series, a quota license can authorize on-premises consumption and package sales for off-premises consumption within its approved privileges. A 3PS series is used for package sales.", "En la serie 4COP, una licencia de cupo puede autorizar consumo en el local y ventas en paquete para consumo fuera del local dentro de sus privilegios aprobados. La serie 3PS se utiliza para ventas en paquete.")}
-                        </span>
-                      ) : null}
-                      {isSfsListing ? (
-                        <Link
-                          className="marketplace-listing-education-link"
-                          href="/license-types/4cop-sfs-restaurant"
-                          aria-label="Learn about restaurant and premises requirements for 4COP SFS / SRX licenses"
-                        >
-                          <span>Learn more →</span>
-                        </Link>
-                      ) : null}
+                      <strong>{tr("On- or", "Dentro o")}<br />{tr("off-premises use", "fuera del local")}</strong>
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr("In the 4COP series, a quota license can authorize on-premises consumption and package sales for off-premises consumption within its approved privileges.", "En la serie 4COP, una licencia de cupo puede autorizar consumo en el local y ventas en paquete para consumo fuera del local dentro de sus privilegios aprobados.")}
+                      </span>
                     </div>
-                    <div
-                      className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
-                      tabIndex={!isNonQuotaBusiness ? 0 : undefined}
-                    >
+                    <div className="marketplace-listing-tooltip-card" tabIndex={0}>
                       <svg viewBox="0 0 48 48" aria-hidden="true">
                         <path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" />
                       </svg>
-                      <strong>
-                        {is2copListing ? tr("Beer & wine", "Cerveza y vino") : isSfsListing ? tr("51% food / nonalcoholic", "51% alimentos / sin alcohol") : tr("Generally no SFS", "Generalmente sin SFS")}
-                        <br />
-                        {is2copListing ? tr("without spirits", "sin bebidas destiladas") : isSfsListing ? tr("revenue requirement", "requisito de ingresos") : tr("food-sales percentage", "porcentaje de ventas de alimentos")}
-                      </strong>
-                      {!isNonQuotaBusiness ? (
-                        <span className="marketplace-listing-card-tooltip" role="tooltip">
-                          {tr("A transferable quota license is different from a qualification-based 4COP SFS / SRX restaurant license. The statewide SFS food-and-nonalcoholic revenue percentage generally does not govern a quota 4COP license.", "Una licencia de cupo transferible es diferente de una licencia de restaurante 4COP SFS / SRX basada en requisitos. El porcentaje estatal de ingresos de alimentos y bebidas no alcohólicas de SFS generalmente no rige una licencia 4COP de cupo.")}
-                        </span>
-                      ) : null}
-                      {isSfsListing ? (
-                        <Link
-                          className="marketplace-listing-education-link"
-                          href="/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs"
-                          aria-label="Learn about the 51 percent food and nonalcoholic revenue requirement"
-                        >
-                          <span>Learn more →</span>
-                        </Link>
-                      ) : null}
+                      <strong>{tr("Generally no SFS", "Generalmente sin SFS")}<br />{tr("food-sales percentage", "porcentaje de ventas de alimentos")}</strong>
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr("A transferable quota license is different from a qualification-based 4COP SFS / SRX restaurant license. The statewide SFS food-and-nonalcoholic revenue percentage generally does not govern a quota 4COP license.", "Una licencia de cupo transferible es diferente de una licencia de restaurante 4COP SFS / SRX basada en requisitos. El porcentaje estatal de ingresos de alimentos y bebidas no alcohólicas de SFS generalmente no rige una licencia 4COP de cupo.")}
+                      </span>
                     </div>
-                    <div
-                      className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
-                      tabIndex={!isNonQuotaBusiness ? 0 : undefined}
-                    >
+                    <div className="marketplace-listing-tooltip-card" tabIndex={0}>
                       <svg viewBox="0 0 48 48" aria-hidden="true">
                         <circle cx="24" cy="14" r="7" />
                         <circle cx="10" cy="22" r="5" />
                         <circle cx="38" cy="22" r="5" />
                         <path d="M13 42v-6c0-7 5-12 11-12s11 5 11 12v6zM2 42v-5c0-5 4-9 9-9 2 0 4 1 6 2M46 42v-5c0-5-4-9-9-9-2 0-4 1-6 2" />
                       </svg>
-                      <strong>
-                        {is2copListing ? tr("Non-quota", "Sin cupo") : isSfsListing ? tr("Qualification-based", "Basada en requisitos") : `${tr("Limited", "Limitada")} ${countyShort}`}
-                        <br />
-                        {is2copListing ? tr("license series", "serie de licencia") : isSfsListing ? tr("not quota inventory", "no es inventario de cupo") : tr("County quota supply", "Oferta de cupos del condado")}
-                      </strong>
-                      {!isNonQuotaBusiness ? (
-                        <span className="marketplace-listing-card-tooltip" role="tooltip">
-                          {tr(`Florida quota-license supply is county-specific and limited by the statutory quota system. A ${config.county} license generally remains a ${config.county} asset, subject to DBPR/ABT transfer and location approval.`, `La oferta de licencias de cupo de Florida es específica por condado y está limitada por el sistema legal de cupos. Una licencia de ${config.county} generalmente permanece como un activo de ${config.county}, sujeta a la aprobación de transferencia y ubicación de DBPR/ABT.`)}
-                        </span>
-                      ) : null}
-                      {isSfsListing ? (
-                        <Link
-                          className="marketplace-listing-education-link"
-                          href="/license-types/4cop-quota#license-comparison-title"
-                          aria-label="Compare qualification-based 4COP SFS / SRX licenses with transferable quota licenses"
-                        >
-                          <span>Learn more →</span>
-                        </Link>
-                      ) : null}
+                      <strong>{tr("Limited", "Limitada")} {countyShort}<br />{tr("County quota supply", "Oferta de cupos del condado")}</strong>
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr(`Florida quota-license supply is county-specific and limited by the statutory quota system. A ${config.county} license generally remains a ${config.county} asset, subject to DBPR/ABT transfer and location approval.`, `La oferta de licencias de cupo de Florida es específica por condado y está limitada por el sistema legal de cupos. Una licencia de ${config.county} generalmente permanece como un activo de ${config.county}, sujeta a la aprobación de transferencia y ubicación de DBPR/ABT.`)}
+                      </span>
                     </div>
                   </div>
                 </section>
+              ) : null}
+
+              {isNonQuotaBusiness ? (
+                              <section
+                                className="marketplace-listing-highlights"
+                                aria-labelledby="license-highlights-heading"
+                              >
+                                  <h3 id="license-highlights-heading">{tr("License Highlights", "Características de la licencia")}</h3>
+                                  <div className="marketplace-listing-highlight-grid">
+                                    <div
+                                      className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
+                                      tabIndex={!isNonQuotaBusiness ? 0 : undefined}
+                                    >
+                                      <svg viewBox="0 0 48 48" aria-hidden="true">
+                                        <path d="M11 42h13V18H11zM15 18V8h5v10M11 26h13M29 25h12l-2 9a5 5 0 0 1-4 3.5A5 5 0 0 1 31 34zM35 37.5V42M30 42h10" />
+                                      </svg>
+                                      <strong>
+                                        {is2copListing ? tr("Beer & wine", "Cerveza y vino") : tr("Full-liquor", "Bebidas alcohólicas")}
+                                        <br />
+                                        {is2copListing ? tr("license", "licencia") : tr("license", "licencia completa")}
+                                      </strong>
+                                      {!isNonQuotaBusiness ? (
+                                        <span className="marketplace-listing-card-tooltip" role="tooltip">
+                                          {tr("Full-liquor quota privileges include beer, wine and distilled spirits, subject to the approved series, premises and DBPR/ABT requirements.", "Los privilegios de una licencia de cupo de bebidas alcohólicas completas incluyen cerveza, vino y licores destilados, sujetos a la serie aprobada, el local y los requisitos de DBPR/ABT.")}
+                                        </span>
+                                      ) : null}
+                                      {isSfsListing ? (
+                                        <Link
+                                          className="marketplace-listing-education-link"
+                                          href="/license-types/4cop-sfs-restaurant"
+                                          aria-label="Learn about the 4COP SFS / SRX full-liquor license"
+                                        >
+                                          <span>Learn more →</span>
+                                        </Link>
+                                      ) : null}
+                                    </div>
+                                    <div
+                                      className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
+                                      tabIndex={!isNonQuotaBusiness ? 0 : undefined}
+                                    >
+                                      <svg viewBox="0 0 48 48" aria-hidden="true">
+                                        <path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" />
+                                      </svg>
+                                      <strong>
+                                        {is2copListing ? tr("On-premises", "Consumo en el local") : isSfsListing ? tr("Qualifying restaurant", "Local de restaurante") : tr("On- or", "Dentro o")}
+                                        <br />
+                                        {is2copListing ? tr("beer & wine", "cerveza y vino") : isSfsListing ? tr("premises", "que cumple requisitos") : tr("off-premises use", "fuera del local")}
+                                      </strong>
+                                      {!isNonQuotaBusiness ? (
+                                        <span className="marketplace-listing-card-tooltip" role="tooltip">
+                                          {tr("In the 4COP series, a quota license can authorize on-premises consumption and package sales for off-premises consumption within its approved privileges. A 3PS series is used for package sales.", "En la serie 4COP, una licencia de cupo puede autorizar consumo en el local y ventas en paquete para consumo fuera del local dentro de sus privilegios aprobados. La serie 3PS se utiliza para ventas en paquete.")}
+                                        </span>
+                                      ) : null}
+                                      {isSfsListing ? (
+                                        <Link
+                                          className="marketplace-listing-education-link"
+                                          href="/license-types/4cop-sfs-restaurant"
+                                          aria-label="Learn about restaurant and premises requirements for 4COP SFS / SRX licenses"
+                                        >
+                                          <span>Learn more →</span>
+                                        </Link>
+                                      ) : null}
+                                    </div>
+                                    <div
+                                      className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
+                                      tabIndex={!isNonQuotaBusiness ? 0 : undefined}
+                                    >
+                                      <svg viewBox="0 0 48 48" aria-hidden="true">
+                                        <path d="M15 9h18v33H10V9h5M18 6h12v7H18zM16 21l3 3 6-7M16 31l3 3 6-7M29 21h5M29 31h5" />
+                                      </svg>
+                                      <strong>
+                                        {is2copListing ? tr("Beer & wine", "Cerveza y vino") : isSfsListing ? tr("51% food / nonalcoholic", "51% alimentos / sin alcohol") : tr("Generally no SFS", "Generalmente sin SFS")}
+                                        <br />
+                                        {is2copListing ? tr("without spirits", "sin bebidas destiladas") : isSfsListing ? tr("revenue requirement", "requisito de ingresos") : tr("food-sales percentage", "porcentaje de ventas de alimentos")}
+                                      </strong>
+                                      {!isNonQuotaBusiness ? (
+                                        <span className="marketplace-listing-card-tooltip" role="tooltip">
+                                          {tr("A transferable quota license is different from a qualification-based 4COP SFS / SRX restaurant license. The statewide SFS food-and-nonalcoholic revenue percentage generally does not govern a quota 4COP license.", "Una licencia de cupo transferible es diferente de una licencia de restaurante 4COP SFS / SRX basada en requisitos. El porcentaje estatal de ingresos de alimentos y bebidas no alcohólicas de SFS generalmente no rige una licencia 4COP de cupo.")}
+                                        </span>
+                                      ) : null}
+                                      {isSfsListing ? (
+                                        <Link
+                                          className="marketplace-listing-education-link"
+                                          href="/florida-liquor-license-news/florida-alcohol-licensing-reform-small-restaurants-sfs"
+                                          aria-label="Learn about the 51 percent food and nonalcoholic revenue requirement"
+                                        >
+                                          <span>Learn more →</span>
+                                        </Link>
+                                      ) : null}
+                                    </div>
+                                    <div
+                                      className={isSfsListing ? "marketplace-listing-education-card" : !isNonQuotaBusiness ? "marketplace-listing-tooltip-card" : undefined}
+                                      tabIndex={!isNonQuotaBusiness ? 0 : undefined}
+                                    >
+                                      <svg viewBox="0 0 48 48" aria-hidden="true">
+                                        <circle cx="24" cy="14" r="7" />
+                                        <circle cx="10" cy="22" r="5" />
+                                        <circle cx="38" cy="22" r="5" />
+                                        <path d="M13 42v-6c0-7 5-12 11-12s11 5 11 12v6zM2 42v-5c0-5 4-9 9-9 2 0 4 1 6 2M46 42v-5c0-5-4-9-9-9-2 0-4 1-6 2" />
+                                      </svg>
+                                      <strong>
+                                        {is2copListing ? tr("Non-quota", "Sin cupo") : isSfsListing ? tr("Qualification-based", "Basada en requisitos") : `${tr("Limited", "Limitada")} ${countyShort}`}
+                                        <br />
+                                        {is2copListing ? tr("license series", "serie de licencia") : isSfsListing ? tr("not quota inventory", "no es inventario de cupo") : tr("County quota supply", "Oferta de cupos del condado")}
+                                      </strong>
+                                      {!isNonQuotaBusiness ? (
+                                        <span className="marketplace-listing-card-tooltip" role="tooltip">
+                                          {tr(`Florida quota-license supply is county-specific and limited by the statutory quota system. A ${config.county} license generally remains a ${config.county} asset, subject to DBPR/ABT transfer and location approval.`, `La oferta de licencias de cupo de Florida es específica por condado y está limitada por el sistema legal de cupos. Una licencia de ${config.county} generalmente permanece como un activo de ${config.county}, sujeta a la aprobación de transferencia y ubicación de DBPR/ABT.`)}
+                                        </span>
+                                      ) : null}
+                                      {isSfsListing ? (
+                                        <Link
+                                          className="marketplace-listing-education-link"
+                                          href="/license-types/4cop-quota#license-comparison-title"
+                                          aria-label="Compare qualification-based 4COP SFS / SRX licenses with transferable quota licenses"
+                                        >
+                                          <span>Learn more →</span>
+                                        </Link>
+                                      ) : null}
+                                    </div>
+                                  </div>
+                                </section>
+                
+                
+              ) : null}
 
               {hasFinancingDisclosure && isNonQuotaBusiness ? (
                 <section
