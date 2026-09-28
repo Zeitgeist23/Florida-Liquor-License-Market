@@ -108,9 +108,9 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
       listingUrl: sourceListingUrl,
     },
     additionalSellerIntro:
-      "Opportunity to acquire a turnkey Italian restaurant in Miami Beach's South of Fifth area, approximately 300 meters from the beach, with a recently remodeled dining operation, full kitchen, indoor and outdoor seating, and strong year-round hospitality demand.",
+      "Turnkey Italian restaurant in Miami Beach's South of Fifth, approximately 300 meters from the beach, with a recently remodeled dining room, full kitchen, indoor and outdoor seating, and strong year-round demand.",
     packageIncludes:
-      `The $590,000 asking price applies to the operating restaurant business, business assets and leasehold position. Inventory and furniture, fixtures and equipment are included in the business asking price. A transferable 4COP Quota full-liquor license is offered separately from the restaurant, with seller financing available. FLLM's current Miami-Dade County median disclosed asking price for active standalone 4COP quota-license inventory is ${medianLabel}. This median is market context and is not the seller's stated license price or an appraisal. Buyers should confirm the separate license price, seller-financing terms, current ABT record, liens, transfer requirements, final included assets, premises lease terms, permits and transaction structure directly with the listing broker.`,
+      `The business sale includes inventory, furniture, fixtures, equipment and the leasehold position. A transferable 4COP Quota license is offered separately, with seller financing available. FLLM's current Miami-Dade County median disclosed 4COP asking price is ${medianLabel}; this is market context only, not the seller's license price or an appraisal. Buyers should confirm the separate license price and financing terms directly with the listing broker.`,
     businessMetrics: [
       {
         label: "Business Asking Price",
