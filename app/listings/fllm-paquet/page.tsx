@@ -241,7 +241,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     sourceDisclosure:
       "Featured third-party broker-page mockup for the Prime Italian Restaurant for Sale – Miami Beach. Business, financial, license, financing and lease information should be independently verified during due diligence before reliance or closing.",
     countyContext:
-      `Primary markets: ${primaryCities}. Current FLLM inventory includes ${activeFourCopCount} active 4COP Quota listings, with a median disclosed asking price of ${medianLabel} and a disclosed asking range of ${lowLabel}–${highLabel}. The 2026 quota drawing adds ${newQuotaLicenses} new quota licenses in Miami-Dade County.`,
+      "Cities in Miami-Dade County include Miami, Miami Beach, Hialeah, Homestead, Doral, Coral Gables, Aventura and Miami Gardens.",
   };
 }
 
