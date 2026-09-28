@@ -114,7 +114,7 @@ const navMenus: NavMenu[] = [
       { href: "/resources", label: "View All Resources" },
       { href: "/resources/application-center", label: "Alcohol License Application Center" },
       {
-        href: "/license-lookup",
+        href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
         label: "Florida Liquor License Lookup",
         target: "_blank",
         rel: "noopener noreferrer",
@@ -343,10 +343,10 @@ export default function HeaderNavMenus({
         .primary-nav .native-nav-resources-menu a{min-height:50px}
         .primary-nav .native-nav-resources-menu a[href="/free-guide"],
         .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"],
-        .primary-nav .native-nav-resources-menu a[href="/license-lookup"]{border-color:rgba(246,167,0,.52);background:linear-gradient(135deg,rgba(246,167,0,.10),rgba(246,167,0,.025))!important;color:#fff;font-weight:900}
+        .primary-nav .native-nav-resources-menu a[href="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]{border-color:rgba(246,167,0,.52);background:linear-gradient(135deg,rgba(246,167,0,.10),rgba(246,167,0,.025))!important;color:#fff;font-weight:900}
         .primary-nav .native-nav-resources-menu a[href="/free-guide"]::after{content:"FREE PDF";margin-left:auto;color:#f6a700;font-size:9px;letter-spacing:.08em}
         .primary-nav .native-nav-resources-menu a[href="/florida-liquor-license-value"]::after{content:"VALUE";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
-        .primary-nav .native-nav-resources-menu a[href="/license-lookup"]::after{content:"LOOKUP";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
+        .primary-nav .native-nav-resources-menu a[href="https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup"]::after{content:"LOOKUP";margin-left:auto;color:#f6a700;font-size:8px;letter-spacing:.08em}
         @media(max-width:760px){.native-nav-sell-menu{width:min(360px,calc(100vw - 28px))}.native-nav-buy-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-buy-menu a{min-height:43px}.native-nav-market-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.primary-nav .native-nav-market-menu a:last-child{grid-column:auto}.native-nav-resources-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;right:-10px;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-menu{width:min(360px,calc(100vw - 28px));grid-template-columns:1fr;max-height:min(70vh,560px);overflow-y:auto}.native-license-types-column{padding:0}.primary-nav .native-license-types-menu a{min-height:43px}}
       `}</style>
     </>
