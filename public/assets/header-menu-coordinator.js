@@ -8,7 +8,7 @@
     { label: "Free Buyer’s & Seller’s Guide", href: "/free-guide" },
     { label: "Florida Division of Alcoholic Beverages & Tobacco", href: "/resources/florida-division-alcoholic-beverages-tobacco" },
     { label: "Florida Department of Revenue", href: "/resources/florida-department-of-revenue" },
-    { label: "Florida Liquor License Lookup", href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup" },
+    { label: "Florida Liquor License Lookup", href: "/license-lookup" },
     { label: "Florida ABT Forms", href: "/resources/forms" },
     { label: "Florida Liquor License Laws", href: "/resources/florida-liquor-license-laws" },
     { label: "Florida Liquor License Value Estimator", href: "/florida-liquor-license-value" },
