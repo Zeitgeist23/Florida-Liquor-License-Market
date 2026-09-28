@@ -35,7 +35,7 @@ export default function Abt6023BrowserForm({
     event.preventDefault();
     setGenerating(true);
     setError("");
-    setStatus("Preparing completed official DBPR ABT-6023…");
+    setStatus("Preparing completed DBPR ABT-6023…");
 
     try {
       const formData = new FormData(event.currentTarget);
@@ -128,14 +128,14 @@ export default function Abt6023BrowserForm({
         <div className="abt-progress-heading">
           <div>
             <span>Browser-based form</span>
-            <h2>Complete DBPR ABT-6023 and generate the printable official PDF</h2>
+            <h2>Complete DBPR ABT-6023 and generate a printable completed PDF</h2>
           </div>
           <strong>100%</strong>
         </div>
         <div className="abt-progress-track"><i style={{ width: "100%" }} /></div>
 
         <p className="abt-viewer-help">
-          Enter the information below once. FLLM will transfer it to the official ABT-6023 PDF so you can review, print and download the completed request.
+          Enter the information below once. FLLM will generate a completed ABT-6023 PDF from the entered information so you can review, print and download the request.
         </p>
 
         <form id="abt-6023-browser-form" className="abt-field-grid" onSubmit={generateCompletedPdf}>
