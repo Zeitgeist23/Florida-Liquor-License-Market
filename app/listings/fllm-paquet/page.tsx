@@ -116,7 +116,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
       name: "Thierry Paquet de Villejust",
       brokerage: "Listing Broker",
       phone: "407-928-0725",
-      email: "",
+      email: "Thierry@businessbrokerofmiami.com",
       website: "https://casaamoremiami.com/",
       listingUrl: sourceListingUrl,
     },
