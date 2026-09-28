@@ -134,9 +134,15 @@ function normalizeCountyName(value: string) {
     .replace(/[^a-z0-9]/g, "");
 }
 
-function marketLicenseTypeForSeries(seriesValue: string) {
+function marketLicenseTypeForSeries(seriesValue: string, modifierValue: string) {
   const series = seriesValue.trim().toUpperCase();
-  if (["4COP", "5COP", "6COP", "7COP", "8COP"].includes(series)) return "4COP Quota" as const;
+  const modifier = modifierValue.trim().toUpperCase();
+  const specialModifier =
+    /(SFS|SRX|SPECIAL|HOTEL|MOTEL|CLUB|GOLF|AIRPORT|THEME|CATER|CIVIC|PERFORM|BOWLING|RACE|VESSEL)/i.test(modifier);
+
+  if (["4COP", "5COP", "6COP", "7COP", "8COP"].includes(series)) {
+    return specialModifier ? null : ("4COP Quota" as const);
+  }
   if (["3PS", "3APS", "3BPS", "3CPS", "3DPS"].includes(series)) {
     return "3PS Quota / Package Store" as const;
   }
@@ -264,7 +270,7 @@ export async function validateFloridaRetailLicenseIdentity(
     };
   }
 
-  const expectedLicenseType = marketLicenseTypeForSeries(record.series);
+  const expectedLicenseType = marketLicenseTypeForSeries(record.series, record.modifier);
   const countyMatches = normalizeCountyName(record.county) === normalizeCountyName(selectedCounty);
   const licenseTypeMatches = expectedLicenseType === selectedLicenseType;
 
