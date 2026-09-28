@@ -1,4 +1,16 @@
-export default function Abt6023BrowserForm({ officialPdfUrl }: { officialPdfUrl: string }) {
+type InitialValues = {
+  licenseNumber?: string;
+  ownerName?: string;
+  businessName?: string;
+};
+
+export default function Abt6023BrowserForm({
+  officialPdfUrl,
+  initialValues = {},
+}: {
+  officialPdfUrl: string;
+  initialValues?: InitialValues;
+}) {
   return (
     <section className="abt-workspace" aria-label="ABT-6023 browser form workspace">
       <div className="abt-guided-panel" id="abt-6023-browser-form-wrap">
@@ -66,15 +78,15 @@ export default function Abt6023BrowserForm({ officialPdfUrl }: { officialPdfUrl:
           </label>
           <label className="abt-field">
             <span><strong>License number to be researched</strong></span>
-            <input name="licenseNumber" type="text" />
+            <input name="licenseNumber" type="text" defaultValue={initialValues.licenseNumber || ""} />
           </label>
           <label className="abt-field">
             <span><strong>Owner Name</strong></span>
-            <input name="ownerName" type="text" />
+            <input name="ownerName" type="text" defaultValue={initialValues.ownerName || ""} />
           </label>
           <label className="abt-field">
             <span><strong>Business Name (DBA)</strong></span>
-            <input name="businessName" type="text" />
+            <input name="businessName" type="text" defaultValue={initialValues.businessName || ""} />
           </label>
           <label className="abt-field">
             <span><strong>Check / Money Order Number</strong></span>
