@@ -25,6 +25,7 @@ import "../third-party-business-listing-standard.css";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalPath = "/listings/fllm-antezza";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
+const socialImageUrl = "https://sunshineagle.com/wp-content/uploads/2024/02/DSC02740-cut-scaled.jpg";
 
 export const dynamic = "force-dynamic";
 
@@ -41,9 +42,11 @@ export const metadata: Metadata = {
     description:
       "Featured business package represented by Alessandro Antezza. The included 4COP quota license has a $460,000 allocated value and is not separately offered.",
     siteName: "Florida Liquor License Market",
+    images: [{ url: socialImageUrl, alt: "Alessandro Antezza — FLLM featured listing" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: [socialImageUrl],
     title: "Pinellas Cocktail Lounge + 4COP Quota License | $999,000",
     description:
       "Featured third-party broker listing represented by Alessandro Antezza of SUNSHINEAGLE LLC.",
