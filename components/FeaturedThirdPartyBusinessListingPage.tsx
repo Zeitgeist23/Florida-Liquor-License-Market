@@ -543,11 +543,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 )}
               </div>
 
-              {isNonQuotaBusiness ? (
-                <section
-                  className="marketplace-listing-highlights"
-                  aria-labelledby="license-highlights-heading"
-                >
+              <section
+                className="marketplace-listing-highlights"
+                aria-labelledby="license-highlights-heading"
+              >
                   <h3 id="license-highlights-heading">{tr("License Highlights", "Características de la licencia")}</h3>
                   <div className="marketplace-listing-highlight-grid">
                     <div
@@ -663,9 +662,6 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     </div>
                   </div>
                 </section>
-  
-  
-              ) : null}
 
               {hasFinancingDisclosure && isNonQuotaBusiness ? (
                 <section
