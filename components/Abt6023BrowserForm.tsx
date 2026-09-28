@@ -1,10 +1,5 @@
 "use client";
 
-import {
-  PDFCheckBox,
-  PDFDocument,
-  PDFTextField,
-} from "pdf-lib";
 import { useEffect, useRef, useState } from "react";
 
 type InitialValues = {
@@ -12,92 +7,6 @@ type InitialValues = {
   ownerName?: string;
   businessName?: string;
 };
-
-type BrowserFieldName =
-  | "requestorName"
-  | "mailingAddress"
-  | "city"
-  | "state"
-  | "zip"
-  | "email"
-  | "telephone"
-  | "telephoneExt"
-  | "contactPerson"
-  | "contactTelephone"
-  | "contactTelephoneExt"
-  | "contactEmail"
-  | "licenseNumber"
-  | "ownerName"
-  | "businessName"
-  | "checkNumber"
-  | "lienAccountNumber";
-
-const TEXT_FIELD_ALIASES: Record<BrowserFieldName, string[]> = {
-  requestorName: ["name of requestor"],
-  mailingAddress: ["mailing address"],
-  city: ["city"],
-  state: ["state"],
-  zip: ["zip code", "zip"],
-  email: ["requestor e mail address", "requestor email address", "e mail address"],
-  telephone: ["requestor telephone number", "telephone number"],
-  telephoneExt: ["requestor telephone extension", "telephone extension"],
-  contactPerson: ["contact person"],
-  contactTelephone: ["contact telephone number", "contact telephone"],
-  contactTelephoneExt: ["contact telephone extension"],
-  contactEmail: ["contact e mail address", "contact email address"],
-  licenseNumber: ["license number to be researched", "license number"],
-  ownerName: ["owner name"],
-  businessName: ["business name dba", "business name"],
-  checkNumber: ["check money order number", "check or money order number", "check number"],
-  lienAccountNumber: ["lien account number"],
-};
-
-const CHECKBOX_ALIASES = {
-  checklistApplication: ["abt6023 checklist complete application", "complete application"],
-  checklistFee: ["abt6023 checklist pay 20 fee", "pay 20 fee"],
-};
-
-function normalize(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/\$/g, "")
-    .replace(/[^a-z0-9]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function aliasScore(fieldName: string, aliases: string[]) {
-  const normalizedField = normalize(fieldName);
-  let best = 0;
-
-  aliases.forEach((alias) => {
-    const normalizedAlias = normalize(alias);
-    if (!normalizedAlias) return;
-    if (normalizedField === normalizedAlias) {
-      best = Math.max(best, 1000 + normalizedAlias.length);
-      return;
-    }
-    if (normalizedField.includes(normalizedAlias) || normalizedAlias.includes(normalizedField)) {
-      best = Math.max(best, 500 + Math.min(normalizedField.length, normalizedAlias.length));
-      return;
-    }
-
-    const words = normalizedAlias.split(" ").filter(Boolean);
-    const matches = words.filter((word) => normalizedField.includes(word)).length;
-    if (matches === words.length && words.length) {
-      best = Math.max(best, 100 + matches);
-    }
-  });
-
-  return best;
-}
-
-function findFieldByAliases<T extends { getName(): string }>(fields: T[], aliases: string[]) {
-  return fields
-    .map((field) => ({ field, score: aliasScore(field.getName(), aliases) }))
-    .filter((entry) => entry.score > 0)
-    .sort((left, right) => right.score - left.score)[0]?.field;
-}
 
 function completedPdfFilename(licenseNumber: string) {
   const safeLicense = licenseNumber.trim().replace(/[^a-z0-9-]+/gi, "-") || "license";
@@ -130,74 +39,42 @@ export default function Abt6023BrowserForm({
 
     try {
       const formData = new FormData(event.currentTarget);
-      const sourceResponse = await fetch("/abt-forms/abt-6023.pdf", { cache: "no-store" });
-      if (!sourceResponse.ok) {
-        throw new Error("The official ABT-6023 PDF could not be loaded.");
-      }
+      const payload = {
+        requestorName: String(formData.get("requestorName") || ""),
+        mailingAddress: String(formData.get("mailingAddress") || ""),
+        city: String(formData.get("city") || ""),
+        state: String(formData.get("state") || ""),
+        zip: String(formData.get("zip") || ""),
+        email: String(formData.get("email") || ""),
+        telephone: String(formData.get("telephone") || ""),
+        telephoneExt: String(formData.get("telephoneExt") || ""),
+        contactPerson: String(formData.get("contactPerson") || ""),
+        contactTelephone: String(formData.get("contactTelephone") || ""),
+        contactTelephoneExt: String(formData.get("contactTelephoneExt") || ""),
+        contactEmail: String(formData.get("contactEmail") || ""),
+        licenseNumber: String(formData.get("licenseNumber") || ""),
+        ownerName: String(formData.get("ownerName") || ""),
+        businessName: String(formData.get("businessName") || ""),
+        checkNumber: String(formData.get("checkNumber") || ""),
+        lienAccountNumber: String(formData.get("lienAccountNumber") || ""),
+        checklistApplication: formData.get("checklistApplication") === "on",
+        checklistFee: formData.get("checklistFee") === "on",
+      };
 
-      const sourceBytes = new Uint8Array(await sourceResponse.arrayBuffer());
-      const pdfDocument = await PDFDocument.load(sourceBytes, { ignoreEncryption: true });
-      const pdfForm = pdfDocument.getForm();
-      const textFields = pdfForm.getFields().filter((field): field is PDFTextField => field instanceof PDFTextField);
-      const checkboxes = pdfForm.getFields().filter((field): field is PDFCheckBox => field instanceof PDFCheckBox);
-
-      const unmapped: string[] = [];
-
-      (Object.keys(TEXT_FIELD_ALIASES) as BrowserFieldName[]).forEach((browserFieldName) => {
-        const value = String(formData.get(browserFieldName) || "").trim();
-        if (!value) return;
-
-        const target = findFieldByAliases(textFields, TEXT_FIELD_ALIASES[browserFieldName]);
-        if (!target) {
-          unmapped.push(browserFieldName);
-          return;
-        }
-
-        try {
-          target.setText(value);
-        } catch {
-          unmapped.push(browserFieldName);
-        }
+      const response = await fetch("/api/abt-forms/abt-6023/completed", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        cache: "no-store",
       });
-
-      const applicationChecked = formData.get("checklistApplication") === "on";
-      const feeChecked = formData.get("checklistFee") === "on";
-
-      const applicationCheckbox = findFieldByAliases(checkboxes, CHECKBOX_ALIASES.checklistApplication);
-      if (applicationCheckbox) {
-        if (applicationChecked) applicationCheckbox.check();
-        else applicationCheckbox.uncheck();
-      } else if (applicationChecked) {
-        unmapped.push("checklistApplication");
+      if (!response.ok) {
+        const errorPayload = (await response.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(errorPayload?.error || "The completed ABT-6023 could not be generated.");
       }
 
-      const feeCheckbox = findFieldByAliases(checkboxes, CHECKBOX_ALIASES.checklistFee);
-      if (feeCheckbox) {
-        if (feeChecked) feeCheckbox.check();
-        else feeCheckbox.uncheck();
-      } else if (feeChecked) {
-        unmapped.push("checklistFee");
-      }
-
-      try {
-        pdfForm.updateFieldAppearances();
-      } catch {
-        // The source PDF already contains appearance dictionaries. The entered
-        // values remain valid even if a viewer regenerates appearances itself.
-      }
-
-      // Flatten the completed copy so the values render reliably when printed
-      // or opened in browsers that do not fully support AcroForm appearances.
-      try {
-        pdfForm.flatten();
-      } catch {
-        // Keep the populated AcroForm copy if a field cannot be flattened.
-      }
-
-      const completedBytes = await pdfDocument.save({ useObjectStreams: false });
-      const completedBuffer = Uint8Array.from(completedBytes).buffer;
+      const completedBuffer = await response.arrayBuffer();
       const nextUrl = URL.createObjectURL(new Blob([completedBuffer], { type: "application/pdf" }));
-      const licenseNumber = String(formData.get("licenseNumber") || "");
+      const licenseNumber = payload.licenseNumber;
       const nextFilename = completedPdfFilename(licenseNumber);
 
       setPreviewUrl((current) => {
@@ -206,13 +83,7 @@ export default function Abt6023BrowserForm({
       });
       setPreviewFilename(nextFilename);
 
-      if (unmapped.length) {
-        setStatus(
-          `Completed PDF generated. Review it carefully: ${unmapped.length} entered field${unmapped.length === 1 ? "" : "s"} could not be matched automatically to the official PDF.`,
-        );
-      } else {
-        setStatus("Completed official ABT-6023 generated. Review it below, then print or download.");
-      }
+      setStatus("Completed ABT-6023 generated. Review it below, then print or download.");
 
       window.setTimeout(() => {
         document.getElementById("abt-6023-completed-preview")?.scrollIntoView({ behavior: "smooth" });
@@ -379,10 +250,10 @@ export default function Abt6023BrowserForm({
           >
             <div className="abt-6023-completed-heading">
               <div>
-                <span>Completed official PDF</span>
+                <span>Completed ABT-6023 PDF</span>
                 <h3>Review, print or download ABT-6023</h3>
                 <p>
-                  The completed copy is generated in your browser from the official form. Review every field before sending it to DBPR/ABT.
+                  The completed copy is generated from the current ABT-6023 field layout for review, printing and submission preparation. Compare it with the linked official DBPR form before filing.
                 </p>
               </div>
               <div className="abt-6023-completed-actions">
