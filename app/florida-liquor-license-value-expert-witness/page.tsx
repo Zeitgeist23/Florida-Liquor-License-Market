@@ -220,36 +220,30 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
           top:0;
           right:0;
           bottom:0;
-          left:36%;
+          left:34%;
           z-index:0;
           pointer-events:none;
-          background:url("/assets/fllm-expert-witness-litigation-hero.webp") 34% 31%/auto 96% no-repeat;
+          background:url("/assets/fllm-expert-witness-litigation-hero.webp") right 31%/auto 96% no-repeat;
           filter:contrast(1.1) saturate(1.06) brightness(1.03);
           transform:none;
           transform-origin:center right;
           -webkit-mask-image:linear-gradient(
             90deg,
             transparent 0%,
-            rgba(0,0,0,.08) 10%,
-            rgba(0,0,0,.38) 18%,
-            rgba(0,0,0,.78) 27%,
-            #000 38%,
-            #000 76%,
-            rgba(0,0,0,.74) 84%,
-            rgba(0,0,0,.32) 92%,
-            transparent 100%
+            rgba(0,0,0,.08) 9%,
+            rgba(0,0,0,.38) 17%,
+            rgba(0,0,0,.78) 25%,
+            #000 36%,
+            #000 100%
           );
           mask-image:linear-gradient(
             90deg,
             transparent 0%,
-            rgba(0,0,0,.08) 10%,
-            rgba(0,0,0,.38) 18%,
-            rgba(0,0,0,.78) 27%,
-            #000 38%,
-            #000 76%,
-            rgba(0,0,0,.74) 84%,
-            rgba(0,0,0,.32) 92%,
-            transparent 100%
+            rgba(0,0,0,.08) 9%,
+            rgba(0,0,0,.38) 17%,
+            rgba(0,0,0,.78) 25%,
+            #000 36%,
+            #000 100%
           );
           -webkit-mask-repeat:no-repeat;
           mask-repeat:no-repeat;
@@ -299,8 +293,8 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
         @media(max-width:1120px){
           .litigation-value-page .litigation-value-hero{min-height:640px}
           .litigation-value-page .litigation-value-hero::before{
-            left:34%;
-            background-position:32% 30%;
+            left:32%;
+            background-position:right 30%;
             background-size:auto 95%;
             filter:contrast(1.08) saturate(1.05) brightness(1.03);
           }
