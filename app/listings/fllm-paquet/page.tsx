@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
-import FeaturedThirdPartyBusinessListingPage from "@/components/FeaturedThirdPartyBusinessListingPage";
-import { defineOfficial4CopSfsBusinessListing } from "@/lib/listings/official4CopSfsBusinessListing";
+import FeaturedThirdPartyBusinessListingPage, {
+  type FeaturedThirdPartyBusinessListingConfig,
+} from "@/components/FeaturedThirdPartyBusinessListingPage";
 
 import "@/app/listings/listings-premium.css";
 import "@/app/listings/listings-header-position.css";
@@ -30,42 +31,45 @@ const sourceListingUrl =
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Prime Italian Restaurant for Sale – Miami Beach + 4COP SFS/SRX | FLLM",
+  title: "Prime Italian Restaurant for Sale – Miami Beach + 4COP Quota | FLLM",
   description:
-    "Broker-review FLLM mockup for a $590,000 Miami Beach Italian restaurant with $1.35M gross revenue, $255,891 SDE and a 4COP SFS/SRX full-liquor license available via lease.",
+    "Broker-review FLLM mockup for a $590,000 Miami Beach Italian restaurant with $1.35M gross revenue, $255,891 SDE and a 4COP Quota full-liquor license available via lease.",
   alternates: { canonical: canonicalUrl },
   robots: { index: false, follow: false, noarchive: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Prime Italian Restaurant for Sale – Miami Beach + 4COP SFS/SRX",
+    title: "Prime Italian Restaurant for Sale – Miami Beach + 4COP Quota",
     description:
-      "FLLM third-party broker page mockup for Thierry Paquet de Villejust. $590,000 Miami Beach restaurant opportunity with a 4COP SFS/SRX full-liquor license available via lease.",
+      "FLLM third-party broker page mockup for Thierry Paquet de Villejust. $590,000 Miami Beach restaurant opportunity with a 4COP Quota full-liquor license available via lease.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary",
-    title: "Prime Italian Restaurant for Sale – Miami Beach + 4COP SFS/SRX",
+    title: "Prime Italian Restaurant for Sale – Miami Beach + 4COP Quota",
     description:
       "FLLM broker-page mockup for a $590,000 South of Fifth Miami Beach restaurant opportunity.",
   },
 };
 
-const config = defineOfficial4CopSfsBusinessListing({
+const config: FeaturedThirdPartyBusinessListingConfig = {
   listingReference: "FLLM-PAQUET",
   canonicalPath,
   county: "Miami-Dade County",
   countyHref: "/counties/miami-dade",
   countyValueHref: "/counties/miami-dade/liquor-license-value",
   countyCities: "Miami Beach · South Beach · Brickell · Coral Gables",
-  askingPrice: "No independent transferable value",
+  askingPrice: "Available via lease",
   askingPriceNumber: 0,
+  licenseType: "4COP Quota",
+  quotaLeaseOnly: true,
+  quotaLeaseSummary: "4COP Quota available via lease · License not offered for sale",
   packagePrice: "$590,000",
   packagePriceNumber: 590_000,
   businessLabel: "Prime Italian Restaurant for Sale – Miami Beach",
   businessLabelLinkUrl: sourceListingUrl,
   heroSummary:
-    "Prime Italian restaurant opportunity in Miami Beach's South of Fifth neighborhood. The business is presented as a beautifully remodeled, turnkey operation with strong cash flow, a full kitchen, indoor and outdoor seating, and a 4COP SFS/SRX full-liquor license available via lease.",
+    "Prime Italian restaurant opportunity in Miami Beach's South of Fifth neighborhood. The business is presented as a beautifully remodeled, turnkey operation with strong cash flow, a full kitchen, indoor and outdoor seating, and a transferable 4COP Quota full-liquor license available via lease.",
   broker: {
     name: "Thierry Paquet de Villejust",
     brokerage: "Listing Broker",
@@ -77,7 +81,7 @@ const config = defineOfficial4CopSfsBusinessListing({
   additionalSellerIntro:
     "Opportunity to acquire a turnkey Italian restaurant in Miami Beach's South of Fifth area, approximately 300 meters from the beach, with a recently remodeled dining operation, full kitchen, indoor and outdoor seating, and strong year-round hospitality demand.",
   packageIncludes:
-    "The offering is presented as the sale of the operating restaurant business together with the seller's business assets and leasehold position. The source listing states that inventory and furniture, fixtures and equipment are included in the asking price. The 4COP SFS/SRX full-liquor license is described as available via lease rather than being offered as a separate transferable quota-license asset. Buyers should confirm the final included assets, lease terms, license arrangement, permits and transaction structure directly with the listing broker.",
+    "The offering is presented as the sale of the operating restaurant business together with the seller's business assets and leasehold position. The source listing states that inventory and furniture, fixtures and equipment are included in the asking price. The transferable 4COP Quota full-liquor license is available via lease and is not being sold as part of the $590,000 business purchase. Buyers should confirm the license owner, lease terms, current ABT record, transfer or placement requirements, final included assets, premises lease terms, permits and transaction structure directly with the listing broker.",
   businessMetrics: [
     {
       label: "Business Asking Price",
@@ -111,16 +115,16 @@ const config = defineOfficial4CopSfsBusinessListing({
     },
     {
       label: "License Classification",
-      value: "4COP SFS / SRX",
+      value: "4COP Quota",
       description:
-        "The listing describes a full-liquor restaurant license available via lease. A 4COP SFS/SRX license is qualification-based and tied to qualifying restaurant operations and approved premises rather than an independently transferable quota-license asset.",
-      href: "/license-types/4cop-sfs-restaurant",
+        "The source listing identifies a 4COP quota liquor license available via lease. A 4COP Quota license is a county-limited transferable quota license that can support full-liquor privileges subject to the approved series, premises, zoning and DBPR/ABT approval.",
+      href: "/license-types/4cop-quota",
     },
     {
       label: "License Arrangement",
       value: "Available via lease",
       description:
-        "The source listing states that the liquor license is available via lease. Buyers should confirm the lessor, lease terms, monthly license payment, transfer or approval requirements and continuing qualification directly with the listing broker and applicable professionals.",
+        "The source listing states that the 4COP Quota liquor license is available via lease. Buyers should confirm the license owner, lessor, lease terms, monthly license payment, current ABT record, liens, transfer or placement requirements, premises approval and all DBPR/ABT requirements directly with the listing broker and applicable professionals.",
     },
     {
       label: "Seating",
@@ -177,7 +181,7 @@ const config = defineOfficial4CopSfsBusinessListing({
     "Acquire a turnkey Italian restaurant in Miami Beach's South of Fifth neighborhood, approximately 300 meters from the beach.",
     "Operate from a beautifully remodeled restaurant with a brand-new kitchen, new equipment, updated furniture and indoor/outdoor seating.",
     "Build on the source listing's reported $1,351,144 gross revenue and $255,891 SDE.",
-    "Continue full-liquor restaurant operations subject to the 4COP SFS/SRX license arrangement, DBPR approval and continuing qualification.",
+    "Continue full-liquor restaurant operations using a leased 4COP Quota license, subject to the license lease, premises approval and DBPR/ABT requirements.",
     "Benefit from proximity to luxury condominium demand, year-round tourism and strong South Beach foot traffic.",
   ],
   transitionText:
@@ -185,10 +189,10 @@ const config = defineOfficial4CopSfsBusinessListing({
   confidentialityText:
     "serious inquiries are requested and confidentiality is stated to be assured. Buyers should obtain and independently review financial statements, lease documents, licensing records, included-asset schedules and all transaction documents directly through the listing broker.",
   sourceDisclosure:
-    "Featured third-party broker-page mockup based on the business and broker information shown in BizBuySell Ad #2552485 and the attached source listing. FLLM has not independently verified the seller-provided business information.",
+    "Featured third-party broker-page mockup based on the business and broker information shown in BizBuySell Ad #2552485 and the attached source listing. The source listing states that a 4COP quota liquor license is available via lease. FLLM has not independently verified the seller-provided business or license information.",
   countyContext:
     "Miami-Dade County supports one of Florida's deepest restaurant, nightlife, hospitality and tourism markets across Miami Beach, South Beach, Brickell, Coral Gables and surrounding communities. Restaurant and liquor-license economics can vary materially based on location, lease structure, license terms, traffic profile, operating performance and transaction structure.",
-});
+};
 
 export default function ThierryPaquetFeaturedListingMockupPage() {
   return <FeaturedThirdPartyBusinessListingPage config={config} />;
