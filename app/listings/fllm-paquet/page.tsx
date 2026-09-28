@@ -154,20 +154,20 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
         description: "The current restaurant operation was established in 2025.",
       },
       {
-        label: "License Classification",
+        label: "Liquor License Classification",
         value: "4COP Quota",
         description:
           "A 4COP Quota license is a county-limited transferable quota license that can support full-liquor privileges subject to the approved series, premises, zoning and DBPR/ABT approval.",
         href: "/license-types/4cop-quota",
       },
       {
-        label: "License Offer",
+        label: "Liquor License Offer",
         value: "Offered w/Seller Financing",
         description:
           "The 4COP Quota license is offered separately from the restaurant business. Seller financing is available, with final price, down payment, interest rate, term, amortization, security and documentation subject to seller-approved terms.",
       },
       {
-        label: "FLLM Miami-Dade 4COP Median",
+        label: "FLLM Miami-Dade 4COP Quota Median",
         value: medianLabel,
         description:
           `Calculated from current active standalone 4COP Quota inventory in Miami-Dade County. Current disclosed 4COP asks included in the calculation: ${fourCopStats.count}. This is market context, not an appraisal or the seller's stated asking price for this license.`,
