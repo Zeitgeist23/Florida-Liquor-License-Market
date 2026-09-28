@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import FeaturedThirdPartyBusinessListingPage, {
   type FeaturedThirdPartyBusinessListingConfig,
 } from "@/components/FeaturedThirdPartyBusinessListingPage";
-import { marketPriceStats } from "@/lib/florida-market-index";
+import { buildFloridaMarketIndex, marketPriceStats } from "@/lib/florida-market-index";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
@@ -75,8 +75,20 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
   const fourCopStats = marketPriceStats(
     miamiDadeFourCop.map((listing) => listing.price),
   );
-  const medianValue = fourCopStats.median ?? 210_000;
+  const marketIndex = buildFloridaMarketIndex(visibleListings);
+  const miamiDadeMarket = marketIndex.countyRows.find(
+    (row) => row.county === "Miami-Dade County",
+  );
+  const medianValue = fourCopStats.median ?? miamiDadeMarket?.fourCop.median ?? 210_000;
   const medianLabel = money(medianValue);
+  const lowLabel = money(miamiDadeMarket?.fourCop.low ?? fourCopStats.low ?? 185_000);
+  const highLabel = money(miamiDadeMarket?.fourCop.high ?? fourCopStats.high ?? 495_000);
+  const countyPopulation = (miamiDadeMarket?.population ?? 2_838_461).toLocaleString("en-US");
+  const activeFourCopCount = miamiDadeMarket?.fourCopCount ?? miamiDadeFourCop.length;
+  const newQuotaLicenses = miamiDadeMarket?.quotaDrawingLicenses ?? 5;
+  const primaryCities = miamiDadeMarket?.cities?.length
+    ? miamiDadeMarket.cities.join(" · ")
+    : "Miami · Miami Beach · Doral";
 
   return {
     listingReference: "FLLM-PAQUET",
@@ -85,6 +97,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     countyHref: "/counties/miami-dade",
     countyValueHref: "/counties/miami-dade/liquor-license-value",
     countyCities: "Miami Beach · South Beach · Brickell · Coral Gables",
+    countyPopulation,
     askingPrice: "Offered separately",
     askingPriceNumber: 0,
     marketMedianAskingPrice: medianLabel,
@@ -228,7 +241,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     sourceDisclosure:
       "Featured third-party broker-page mockup for the Prime Italian Restaurant for Sale – Miami Beach. Business, financial, license, financing and lease information should be independently verified during due diligence before reliance or closing.",
     countyContext:
-      `Miami-Dade County supports one of Florida's deepest restaurant, nightlife, hospitality and tourism markets across Miami Beach, South Beach, Brickell, Coral Gables and surrounding communities. FLLM's current median disclosed asking price for active Miami-Dade County 4COP Quota inventory is ${medianLabel}. Restaurant and liquor-license economics can vary materially based on location, license status, seller terms, traffic profile, operating performance and transaction structure.`,
+      `Primary markets: ${primaryCities}. Current FLLM inventory includes ${activeFourCopCount} active 4COP Quota listings, with a median disclosed asking price of ${medianLabel} and a disclosed asking range of ${lowLabel}–${highLabel}. The 2026 quota drawing adds ${newQuotaLicenses} new quota licenses in Miami-Dade County.`,
   };
 }
 
