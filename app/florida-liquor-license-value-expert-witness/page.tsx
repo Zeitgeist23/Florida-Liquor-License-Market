@@ -220,12 +220,12 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
           top:0;
           right:0;
           bottom:0;
-          left:42%;
+          left:44%;
           z-index:0;
           pointer-events:none;
-          background:url("/assets/fllm-expert-witness-litigation-hero.webp") 43% center/cover no-repeat;
-          filter:contrast(1.12) saturate(1.08) brightness(1.045);
-          transform:scale(1.018);
+          background:url("/assets/fllm-expert-witness-litigation-hero.webp") 52% 32%/auto 94% no-repeat;
+          filter:contrast(1.1) saturate(1.06) brightness(1.03);
+          transform:none;
           transform-origin:center right;
         }
         .litigation-value-page .litigation-value-hero::after{
@@ -271,9 +271,10 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
         @media(max-width:1120px){
           .litigation-value-page .litigation-value-hero{min-height:640px}
           .litigation-value-page .litigation-value-hero::before{
-            left:38%;
-            background-position:41% center;
-            filter:contrast(1.1) saturate(1.06) brightness(1.04);
+            left:42%;
+            background-position:52% 30%;
+            background-size:auto 94%;
+            filter:contrast(1.08) saturate(1.05) brightness(1.03);
           }
           .litigation-value-page .litigation-value-hero::after{
             background:
