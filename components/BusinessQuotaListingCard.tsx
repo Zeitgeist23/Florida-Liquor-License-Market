@@ -32,15 +32,17 @@ export default function BusinessQuotaListingCard({
   const usesClassification = listing.licenseClass === "sfs" || listing.licenseClass === "2cop";
   const licenseMetricLabel = usesClassification
     ? "License Classification"
-    : isMarketListing
-      ? "License Value Est."
-      : "License Value";
+    : listing.marketMedianLicenseValue
+      ? "FLLM Median 4COP Ask"
+      : isMarketListing
+        ? "License Value Est."
+        : "License Value";
   const licenseMetricValue =
     listing.licenseClass === "sfs"
       ? "Location-Specific"
       : listing.licenseClass === "2cop"
         ? "Non-Quota"
-        : listing.allocatedLicenseValue;
+        : listing.marketMedianLicenseValue ?? listing.allocatedLicenseValue;
 
   return (
     <article
@@ -112,6 +114,9 @@ export default function BusinessQuotaListingCard({
               ) : listing.licenseClass === "sfs" ? (
                 <>4COP SFS/SRX license included<br />
                 and not offered separately.</>
+              ) : listing.licenseAvailableSeparately ? (
+                <>{listing.licenseType} offered separately<br />
+                {listing.sellerFinancingAvailable ? "with seller financing available." : "from the business sale."}</>
               ) : (
                 <>{listing.licenseType} liquor license included<br />
                 and not offered separately.</>
@@ -126,7 +131,11 @@ export default function BusinessQuotaListingCard({
 
         <div className="business-quota-card-actions">
           <Link className="business-quota-card-action" href={actionHref}>
-            {isMarketListing ? "View Market Listing" : "View Business + License Package"} <span aria-hidden="true">›</span>
+            {isMarketListing
+              ? "View Market Listing"
+              : listing.licenseAvailableSeparately
+                ? "View Business + License Options"
+                : "View Business + License Package"} <span aria-hidden="true">›</span>
           </Link>
           {isMarketListing ? (
             <Link className="business-quota-card-market-view" href={marketViewHref}>
