@@ -489,7 +489,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     <span className="marketplace-listing-card-tooltip" role="tooltip">
                       {isQuotaLeaseOnly
                         ? tr(
-                            "The source listing describes the 4COP quota license as available via lease rather than being sold with the restaurant. Buyers should confirm the license owner, lease terms, transfer or placement requirements, liens, current status and DBPR/ABT approval requirements.",
+                            "The 4COP quota license is available via lease rather than being sold with the restaurant. Buyers should confirm the license owner, lease terms, transfer or placement requirements, liens, current status and DBPR/ABT approval requirements.",
                             "El anuncio de origen describe la licencia 4COP de cupo como disponible mediante arrendamiento en lugar de venderse con el restaurante. Los compradores deben confirmar el titular, los términos del arrendamiento, los requisitos de transferencia o colocación, gravámenes, estado actual y requisitos de aprobación de DBPR/ABT.",
                           )
                         : usesFllmMedian
@@ -716,7 +716,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   . {is2copListing ? tr("License status and any ownership-change requirements must be verified with DBPR; the license is not priced as a separate quota asset.", "El estado de la licencia y cualquier requisito de cambio de titularidad deben verificarse con el DBPR; la licencia no tiene un precio separado como activo de cupo.") : isSfsListing
                     ? tr("It is not an independently transferable quota license.", "No es una licencia de cupo transferible de forma independiente.")
                     : isQuotaLeaseOnly
-                      ? tr("The 4COP Quota license itself is not being offered for sale; the source listing states that it is available via lease.", "La licencia 4COP de cupo no se ofrece a la venta; el anuncio de origen indica que está disponible mediante arrendamiento.")
+                      ? tr("The 4COP Quota license itself is not being offered for sale; it is available via lease.", "La licencia 4COP de cupo no se ofrece a la venta; está disponible mediante arrendamiento.")
                       : "The liquor license is not currently offered as a standalone sale."}
                 </p>
                 {!isNonQuotaBusiness ? <p>
