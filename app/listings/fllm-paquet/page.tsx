@@ -180,14 +180,14 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   opportunities: [
     "Acquire a turnkey Italian restaurant in Miami Beach's South of Fifth neighborhood, approximately 300 meters from the beach.",
     "Operate from a beautifully remodeled restaurant with a brand-new kitchen, new equipment, updated furniture and indoor/outdoor seating.",
-    "Build on the source listing's reported $1,351,144 gross revenue and $255,891 SDE.",
+    "Build on $1,351,144 in gross revenue and $255,891 in seller's discretionary earnings.",
     "Continue full-liquor restaurant operations using a leased 4COP Quota license, subject to the license lease, premises approval and DBPR/ABT requirements.",
     "Benefit from proximity to luxury condominium demand, year-round tourism and strong South Beach foot traffic.",
   ],
   transitionText:
     "The restaurant is a new but proven concept created by experienced Miami restaurateurs. The reason for sale is partnership dissolution, and two weeks of training with support are included.",
   confidentialityText:
-    "serious inquiries are requested and confidentiality is stated to be assured. Buyers should obtain and independently review financial statements, lease documents, licensing records, included-asset schedules and all transaction documents directly through the listing broker.",
+    "serious inquiries only; confidentiality assured. Buyers should independently review financial statements, lease documents, licensing records, included-asset schedules and all transaction documents directly through the listing broker.",
   sourceDisclosure:
     "Featured third-party broker-page mockup for the Prime Italian Restaurant for Sale – Miami Beach. Business, financial, lease and license information should be independently verified during due diligence before reliance or closing.",
   countyContext:
