@@ -25,6 +25,7 @@ import "@/app/listings/third-party-business-listing-standard.css";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalPath = "/es/listings/fllm-difrancesco";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
+const socialImageUrl = "https://images.bizbuysell.com/shared/brokerdirectory/images/50260/pf_prs_headshot.jpeg";
 const englishUrl = `${siteUrl}/listings/fllm-difrancesco`;
 const sourceListingUrl =
   "https://www.bizbuysell.com/business-opportunity/beachside-restaurant-and-nightclub-with-liquor-license-and-steady-revenue/2397061/";
@@ -63,11 +64,13 @@ export const metadata: Metadata = {
     description:
       "Vista previa privada de FLLM representada por Nick DiFrancesco de Business Exit Advisors.",
     siteName: "Florida Liquor License Market",
+    images: [{ url: socialImageUrl, alt: "Nick DiFrancesco — FLLM featured listing" }],
     locale: "es_US",
     alternateLocale: ["en_US"],
   },
   twitter: {
     card: "summary_large_image",
+    images: [socialImageUrl],
     title:
       "Restaurante y club nocturno frente a la playa + Licencia de cupo | Vista previa",
     description:
