@@ -81,99 +81,99 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Opportunity to acquire a turnkey Italian restaurant in Miami Beach's South of Fifth area, approximately 300 meters from the beach, with a recently remodeled dining operation, full kitchen, indoor and outdoor seating, and strong year-round hospitality demand.",
   packageIncludes:
-    "The offering is presented as the sale of the operating restaurant business together with the seller's business assets and leasehold position. The source listing states that inventory and furniture, fixtures and equipment are included in the asking price. The transferable 4COP Quota full-liquor license is available via lease and is not being sold as part of the $590,000 business purchase. Buyers should confirm the license owner, lease terms, current ABT record, transfer or placement requirements, final included assets, premises lease terms, permits and transaction structure directly with the listing broker.",
+    "The $590,000 offering includes the operating restaurant business, business assets and leasehold position. Inventory and furniture, fixtures and equipment are included in the asking price. A transferable 4COP Quota full-liquor license is available via lease and is not being sold as part of the business purchase. Buyers should confirm the license owner, lease terms, current ABT record, transfer or placement requirements, final included assets, premises lease terms, permits and transaction structure directly with the listing broker.",
   businessMetrics: [
     {
       label: "Business Asking Price",
       value: "$590,000",
       description:
-        "The source listing states an asking price of $590,000 for the operating business. Buyers should confirm the final transaction structure and included assets with the listing broker.",
+        "The operating business is offered at $590,000. Buyers should confirm the final transaction structure and included assets directly with the listing broker.",
     },
     {
       label: "Gross Revenue",
       value: "$1,351,144",
       description:
-        "The source listing reports annual gross revenue of $1,351,144. Buyers should reconcile revenue to financial statements, tax returns and source records during due diligence.",
+        "Annual gross revenue is listed at $1,351,144. Buyers should reconcile revenue to financial statements, tax returns and supporting records during due diligence.",
     },
     {
       label: "Cash Flow (SDE)",
       value: "$255,891",
       description:
-        "The source listing reports seller's discretionary earnings of $255,891. Buyers should verify the calculation methodology and supporting financial records.",
+        "Seller's discretionary earnings are listed at $255,891. Buyers should verify the calculation methodology and supporting financial records.",
     },
     {
       label: "EBITDA",
       value: "Not Disclosed",
       description:
-        "EBITDA was not disclosed in the source listing.",
+        "EBITDA is not disclosed.",
     },
     {
       label: "Established",
       value: "2025",
       description:
-        "The source listing states that the current restaurant operation was established in 2025.",
+        "The current restaurant operation was established in 2025.",
     },
     {
       label: "License Classification",
       value: "4COP Quota",
       description:
-        "The source listing identifies a 4COP quota liquor license available via lease. A 4COP Quota license is a county-limited transferable quota license that can support full-liquor privileges subject to the approved series, premises, zoning and DBPR/ABT approval.",
+        "A 4COP Quota liquor license is available via lease. A 4COP Quota license is a county-limited transferable quota license that can support full-liquor privileges subject to the approved series, premises, zoning and DBPR/ABT approval.",
       href: "/license-types/4cop-quota",
     },
     {
       label: "License Arrangement",
       value: "Available via lease",
       description:
-        "The source listing states that the 4COP Quota liquor license is available via lease. Buyers should confirm the license owner, lessor, lease terms, monthly license payment, current ABT record, liens, transfer or placement requirements, premises approval and all DBPR/ABT requirements directly with the listing broker and applicable professionals.",
+        "The 4COP Quota liquor license is available via lease. Buyers should confirm the license owner, lessor, lease terms, monthly license payment, current ABT record, liens, transfer or placement requirements, premises approval and all DBPR/ABT requirements directly with the listing broker and applicable professionals.",
     },
     {
       label: "Seating",
       value: "90 seats · 60 inside · 30 terrace",
       description:
-        "The source listing states seating for 90 guests, consisting of 60 interior seats and 30 seats on a spacious outdoor terrace.",
+        "The restaurant offers seating for 90 guests, consisting of 60 interior seats and 30 seats on a spacious outdoor terrace.",
     },
     {
       label: "Employees",
       value: "17 full-time",
       description:
-        "The source listing reports 17 full-time employees. Buyers should verify payroll, roles, benefits and continued employment during due diligence.",
+        "The business has 17 full-time employees. Buyers should verify payroll, roles, benefits and continued employment during due diligence.",
     },
     {
       label: "Inventory",
       value: "$5,000 included",
       description:
-        "The source listing states inventory of approximately $5,000 is included in the asking price.",
+        "Approximately $5,000 of inventory is included in the asking price.",
     },
     {
       label: "Furniture, Fixtures & Equipment",
       value: "$80,000 included",
       description:
-        "The source listing states furniture, fixtures and equipment valued at approximately $80,000 are included in the asking price.",
+        "Furniture, fixtures and equipment valued at approximately $80,000 are included in the asking price.",
     },
     {
       label: "Lease Term",
       value: "Approximately 8 years remaining",
       description:
-        "The source listing states the restaurant has approximately eight years remaining on its lease. Buyers should confirm the exact lease dates, assignment rights, options and landlord approval requirements.",
+        "The restaurant has approximately eight years remaining on its lease. Buyers should confirm the exact lease dates, assignment rights, options and landlord approval requirements.",
     },
     {
       label: "Reason for Selling",
       value: "Partnership dissolution",
       description:
-        "The source listing states that the current partners have decided to part ways.",
+        "The stated reason for sale is partnership dissolution.",
     },
     {
       label: "Support & Training",
       value: "2 weeks",
       description:
-        "The source listing states that the seller will provide two weeks of training with support.",
+        "Two weeks of training with support are included.",
     },
     {
       label: "Business Website",
       value: "casaamoremiami.com",
       href: "https://casaamoremiami.com/",
       description:
-        "Website link shown in the source listing.",
+        "Business website.",
     },
   ],
   opportunitiesHeading: "Offering Highlights",
@@ -185,11 +185,11 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "Benefit from proximity to luxury condominium demand, year-round tourism and strong South Beach foot traffic.",
   ],
   transitionText:
-    "The source listing describes the restaurant as a new but proven concept created by experienced Miami restaurateurs. The stated reason for sale is partnership dissolution, and the seller is offering two weeks of training with support.",
+    "The restaurant is a new but proven concept created by experienced Miami restaurateurs. The reason for sale is partnership dissolution, and two weeks of training with support are included.",
   confidentialityText:
     "serious inquiries are requested and confidentiality is stated to be assured. Buyers should obtain and independently review financial statements, lease documents, licensing records, included-asset schedules and all transaction documents directly through the listing broker.",
   sourceDisclosure:
-    "Featured third-party broker-page mockup based on the business and broker information shown in BizBuySell Ad #2552485 and the attached source listing. The source listing states that a 4COP quota liquor license is available via lease. FLLM has not independently verified the seller-provided business or license information.",
+    "Featured third-party broker-page mockup for the Prime Italian Restaurant for Sale – Miami Beach. Business, financial, lease and license information should be independently verified during due diligence before reliance or closing.",
   countyContext:
     "Miami-Dade County supports one of Florida's deepest restaurant, nightlife, hospitality and tourism markets across Miami Beach, South Beach, Brickell, Coral Gables and surrounding communities. Restaurant and liquor-license economics can vary materially based on location, lease structure, license terms, traffic profile, operating performance and transaction structure.",
 };
