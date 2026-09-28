@@ -184,7 +184,7 @@ export default function LicenseLookupClient() {
           </div>
 
           <div className="lookup-actions">
-            <a href="https://myfloridalicense.com/portalsearches/VerifyLicensee/SearchByLicenseNumber" target="_blank" rel="noreferrer">View official DBPR source ↗</a>
+            <a href="https://www.myfloridalicense.com/portalsearches/VerifyLicensee/SearchByLicenseNumber" target="_blank" rel="noreferrer">Verify on Official DBPR ↗</a>
             <a href="/resources/florida-liquor-license-types">Compare License Types</a>
             {classification.tone === "quota" && <a href={`/listings?county=${encodeURIComponent(result.county)}`}>View {result.county} Marketplace</a>}
           </div>
