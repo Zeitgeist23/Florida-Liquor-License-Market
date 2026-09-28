@@ -11,7 +11,8 @@ import {
 import { lookupFloridaRetailLicense } from "@/lib/license-fee-lookup";
 import {
   countReportedUccFilings,
-  searchFloridaUccDebtor,
+  getTinyFishRun,
+  startFloridaUccDebtorSearch,
   tinyFishConfigured,
 } from "@/lib/tinyfish-ucc-search";
 
@@ -38,7 +39,71 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
   }
   try {
-    const searches = await listAppraisalLienSearches(50);
+    let searches = await listAppraisalLienSearches(50);
+
+    if (tinyFishConfigured()) {
+      const running = searches.filter((item) => item.uccStatus === "running").slice(0, 10);
+      for (const item of running) {
+        const rawRuns = Array.isArray(item.uccResult?.runs)
+          ? (item.uccResult.runs as Array<{ debtorName?: string; runId?: string | null }>)
+          : [];
+        if (!rawRuns.length) continue;
+
+        const checked = await Promise.all(
+          rawRuns.map(async (entry) => {
+            if (!entry.runId) return { ...entry, status: "FAILED", error: "Missing TinyFish run ID." };
+            try {
+              const run = await getTinyFishRun(entry.runId);
+              return { ...entry, ...run };
+            } catch (error) {
+              return {
+                ...entry,
+                status: "FAILED",
+                error: error instanceof Error ? error.message : "Could not check TinyFish run.",
+              };
+            }
+          }),
+        );
+
+        const terminal = checked.every((entry) =>
+          ["COMPLETED", "FAILED", "CANCELLED"].includes(String(entry.status)),
+        );
+        if (!terminal) continue;
+
+        const filingCount = checked.reduce(
+          (sum, entry) => sum + countReportedUccFilings(entry.result),
+          0,
+        );
+        const allCompleted = checked.every((entry) => entry.status === "COMPLETED");
+        const uccStatus = !allCompleted
+          ? "error"
+          : filingCount > 0
+            ? "filings_found"
+            : "no_filings_reported";
+
+        await updateAppraisalLienSearch(item.id, {
+          uccStatus,
+          uccSearchedAt: new Date().toISOString(),
+          uccResult: {
+            registry: "Florida Secured Transaction Registry",
+            registryUrl: "https://floridaucc.com/search",
+            filingCount,
+            searches: checked.map((entry) => ({
+              debtorName: entry.debtorName,
+              completed: entry.status === "COMPLETED",
+              payload: entry.result ?? {},
+              rawStatus: entry.status,
+              error: entry.error ?? null,
+            })),
+            runs: rawRuns,
+            disclaimer:
+              "UCC research is a separate debtor-level public-record search and is not an official ABT-6023 certification of liens against the alcoholic-beverage license.",
+          },
+        });
+      }
+      searches = await listAppraisalLienSearches(50);
+    }
+
     return NextResponse.json({
       searches,
       tinyFishConfigured: tinyFishConfigured(),
@@ -106,29 +171,46 @@ export async function POST(request: Request) {
       });
     }
 
-    const results = await Promise.all(
-      debtorNames.map((debtorName) => searchFloridaUccDebtor(debtorName)),
+    const runs = await Promise.all(
+      debtorNames.map((debtorName) => startFloridaUccDebtorSearch(debtorName)),
     );
 
-    const filingCount = results.reduce(
-      (sum, result) => sum + countReportedUccFilings(result.payload),
-      0,
-    );
-    const allCompleted = results.every((result) => result.completed && !result.error);
-    const uccStatus = !allCompleted
-      ? "error"
-      : filingCount > 0
-        ? "filings_found"
-        : "no_filings_reported";
+    const failedStarts = runs.filter((run) => !run.runId);
+    if (failedStarts.length) {
+      search = await updateAppraisalLienSearch(search.id, {
+        uccStatus: "error",
+        uccSearchedAt: new Date().toISOString(),
+        uccResult: {
+          registry: "Florida Secured Transaction Registry",
+          registryUrl: "https://floridaucc.com/search",
+          filingCount: 0,
+          runs,
+          searches: failedStarts.map((run) => ({
+            debtorName: run.debtorName,
+            completed: false,
+            payload: {},
+            rawStatus: null,
+            error: run.error,
+          })),
+          disclaimer:
+            "UCC research is a separate debtor-level public-record search and is not an official ABT-6023 certification of liens against the alcoholic-beverage license.",
+        },
+      });
+      return NextResponse.json({
+        search,
+        tinyFishConfigured: true,
+        message: "TinyFish could not start one or more Florida UCC searches. Review the audit record for details.",
+      });
+    }
 
     search = await updateAppraisalLienSearch(search.id, {
-      uccStatus,
-      uccSearchedAt: new Date().toISOString(),
+      uccStatus: "running",
       uccResult: {
         registry: "Florida Secured Transaction Registry",
         registryUrl: "https://floridaucc.com/search",
-        filingCount,
-        searches: results,
+        filingCount: 0,
+        runs,
+        searches: [],
         disclaimer:
           "UCC research is a separate debtor-level public-record search and is not an official ABT-6023 certification of liens against the alcoholic-beverage license.",
       },
@@ -137,6 +219,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       search,
       tinyFishConfigured: true,
+      message: "Florida UCC research started in TinyFish. Use Refresh to collect the completed results.",
     });
   } catch (error) {
     return NextResponse.json(
