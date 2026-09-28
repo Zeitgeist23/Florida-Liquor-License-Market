@@ -26,6 +26,7 @@ import "./photo-crop.css";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalPath = "/listings/fllm-negovan";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
+const socialImageUrl = "https://images.bizbuysell.com/shared/brokerdirectory/images/2638/pf_prs_Julie_headshot.jpg";
 
 export const dynamic = "force-dynamic";
 
@@ -42,9 +43,11 @@ export const metadata: Metadata = {
     description:
       "Featured third-party broker listing. Business purchase required; premium Miami adult nightclub and license package offered at $3.5 million total.",
     siteName: "Florida Liquor License Market",
+    images: [{ url: socialImageUrl, alt: "Julie Negovan — FLLM featured listing" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: [socialImageUrl],
     title: "Miami Adult Nightclub + 4COP Quota License | $3.5M",
     description:
       "Featured third-party broker preview for a Miami adult nightclub and 4COP quota-license package represented by Julie Negovan.",
