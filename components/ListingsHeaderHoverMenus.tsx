@@ -53,7 +53,7 @@ const RESOURCE_ITEMS = [
   },
   {
     label: "Florida Liquor License Lookup",
-    href: "/license-lookup",
+    href: "https://florida-liquor-license-market.jwigg023.chatgpt.site/license-lookup",
     external: true,
   },
   {
