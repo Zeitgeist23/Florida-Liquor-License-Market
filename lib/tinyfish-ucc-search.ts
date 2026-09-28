@@ -91,7 +91,7 @@ If the site blocks or prevents completion, return an empty filings array and put
         goal,
       }),
       cache: "no-store",
-      signal: AbortSignal.timeout(115_000),
+      signal: AbortSignal.timeout(100_000),
     });
 
     const text = await response.text();
