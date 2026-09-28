@@ -180,6 +180,27 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
       : listing.licenseClass === "2cop"
         ? "businesses-2cop"
         : "businesses";
+  const featuredBrokerListings = businessQuotaListingRecords
+    .filter(
+      (candidate) =>
+        candidate.publicationStatus === "published" &&
+        candidate.featured &&
+        candidate.listingReference !== listing.listingReference &&
+        candidate.county === listing.county &&
+        (candidate.licenseType === listing.licenseType ||
+          candidate.businessCategory === listing.businessCategory),
+    )
+    .sort((left, right) => {
+      const leftExact =
+        Number(left.licenseType === listing.licenseType) +
+        Number(left.businessCategory === listing.businessCategory);
+      const rightExact =
+        Number(right.licenseType === listing.licenseType) +
+        Number(right.businessCategory === listing.businessCategory);
+      return rightExact - leftExact || left.title.localeCompare(right.title);
+    })
+    .slice(0, 3);
+
   const related = marketRecords
     .filter(
       (candidate) =>
@@ -366,6 +387,29 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   ) : null}
                 </div>
               </section>
+
+              {featuredBrokerListings.length ? (
+                <section className="business-market-panel business-market-featured-brokers">
+                  <div className="business-market-section-heading">
+                    <span>Featured FLLM Broker Listings</span>
+                    <h2>Broker-represented opportunities in {listing.county}</h2>
+                  </div>
+                  <p>
+                    FLLM also has broker-represented listings in this county. These featured
+                    listings link directly to the broker's dedicated FLLM page.
+                  </p>
+                  <div className="business-market-featured-broker-grid">
+                    {featuredBrokerListings.map((item) => (
+                      <Link key={item.listingReference} href={item.href}>
+                        <span>{item.brokerName ? `Featured broker · ${item.brokerName}` : "Featured FLLM listing"}</span>
+                        <strong>{item.title}</strong>
+                        <small>{item.packagePrice} · {item.licenseType}</small>
+                        <em>View Featured Listing ›</em>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
             </div>
 
             <aside className="business-market-sidebar" id="buyer-match">
