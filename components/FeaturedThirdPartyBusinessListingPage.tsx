@@ -81,6 +81,14 @@ function phoneHref(phone: string) {
   return "tel:" + phone.replace(/[^\d+]/g, "");
 }
 
+const FLLM_SITE_URL = "https://www.floridaliquorlicensemarket.com";
+
+function absoluteFeaturedImageUrl(photo?: string) {
+  if (!photo) return "";
+  if (/^https?:\/\//i.test(photo)) return photo;
+  return `${FLLM_SITE_URL}${photo.startsWith("/") ? photo : `/${photo}`}`;
+}
+
 function standardizeBusinessMetrics(
   metrics: FeaturedBusinessMetric[],
   isSpanish: boolean,
@@ -186,6 +194,44 @@ export default function FeaturedThirdPartyBusinessListingPage({
   const usesFllmMedian = Boolean(
     config.marketMedianAskingPrice && config.marketMedianAskingPriceNumber,
   );
+  const featuredImageUrl = absoluteFeaturedImageUrl(config.broker.photo);
+  const featuredImageStructuredData = featuredImageUrl
+    ? [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: config.businessLabel,
+          url: `${FLLM_SITE_URL}${config.canonicalPath}`,
+          image: featuredImageUrl,
+          primaryImageOfPage: {
+            "@type": "ImageObject",
+            url: featuredImageUrl,
+            contentUrl: featuredImageUrl,
+            caption: `${config.broker.name} — ${config.businessLabel}`,
+          },
+          about: {
+            "@type": "Thing",
+            name: config.businessLabel,
+          },
+          isPartOf: {
+            "@type": "WebSite",
+            name: "Florida Liquor License Market",
+            url: FLLM_SITE_URL,
+          },
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: config.broker.name,
+          image: featuredImageUrl,
+          worksFor: {
+            "@type": "Organization",
+            name: config.broker.brokerage,
+          },
+          url: `${FLLM_SITE_URL}${config.canonicalPath}`,
+        },
+      ]
+    : [];
 
   return (
     <main
@@ -197,6 +243,15 @@ export default function FeaturedThirdPartyBusinessListingPage({
       data-approval-preview={config.approvalPreview ? "true" : undefined}
       lang={isSpanish ? "es" : "en"}
     >
+      {featuredImageStructuredData.length ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(featuredImageStructuredData).replaceAll("<", "\\u003c"),
+          }}
+        />
+      ) : null}
+
       <FeaturedBrokerBusinessInteractions
         listingReference={config.listingReference}
       />
