@@ -168,7 +168,8 @@ export default function LicenseLookupClient() {
 
           <div className="lookup-grid">
             <div><span>License</span><strong>{result.licenseNumber}</strong></div>
-            <div><span>DBPR Rank</span><strong>{result.series || "Not listed"}</strong></div>
+            <div><span>DBPR Type</span><strong>{result.series || "Not listed"}</strong></div>
+            <div className="lookup-grid-class"><span>License Class</span><strong>{classification.shortLabel}</strong></div>
             <div><span>DBPR Modifier</span><strong>{result.modifier || "None shown"}</strong></div>
             <div><span>County</span><strong>{result.county}</strong></div>
             <div><span>City</span><strong>{result.city || "Not listed"}</strong></div>
@@ -223,13 +224,12 @@ export default function LicenseLookupClient() {
         .lookup-classification.special{border-color:#597087;background:#eef5fa;color:#17334b}.lookup-classification.special span{color:#3c627f}
         .lookup-classification.beerwine{border-color:#4d7d73;background:#eef8f4;color:#173c34}.lookup-classification.beerwine span{color:#3e7167}
         .lookup-classification.unknown{border-color:#8b969e;background:#f4f6f7;color:#394650}.lookup-classification.unknown span{color:#66747d}
-        .lookup-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:22px;border:1px solid #dce2e6;border-radius:8px;overflow:hidden}
-        .lookup-grid>div{padding:17px 18px;border-right:1px solid #e1e6e9;border-bottom:1px solid #e1e6e9;background:#fafbfa}.lookup-grid>div:nth-child(4n){border-right:0}.lookup-grid>div:nth-last-child(-n+4){border-bottom:0}
+        .lookup-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:22px;border:1px solid #dce2e6;border-radius:8px;overflow:hidden}\n        .lookup-grid>div{padding:17px 18px;border-right:1px solid #e1e6e9;border-bottom:1px solid #e1e6e9;background:#fafbfa}.lookup-grid>div:nth-child(3n){border-right:0}.lookup-grid>div:nth-last-child(-n+3){border-bottom:0}\n        .lookup-grid-class{background:#fff8df!important}.lookup-grid-class strong{color:#8b5500!important;font-size:15px!important}
         .lookup-grid span{display:block;margin-bottom:5px;color:#d26500;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.lookup-grid strong{color:#0b263d;font-size:14px}
         .lookup-classification-note{margin-top:20px;padding:17px 18px;border-left:4px solid #f6a700;background:#f8f4e8}.lookup-classification-note strong{color:#071827}.lookup-classification-note p{margin:6px 0 0;color:#4f5d67;line-height:1.6}
         .lookup-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:20px}.lookup-actions a{display:inline-flex;min-height:42px;align-items:center;padding:0 14px;border:1px solid #cf8700;border-radius:5px;color:#8b5500;font-size:12px;font-weight:900;text-decoration:none}.lookup-actions a:first-child{color:#071827;background:linear-gradient(145deg,#ffc32d,#ed9200)}
         .lookup-warning{margin-top:22px;padding:17px 18px;border-left:3px solid #f6a700;background:#fff7df}.lookup-warning strong{color:#071827}.lookup-warning p{margin:6px 0 0;color:#475862;font-size:13px;line-height:1.6}
-        @media(max-width:900px){.lookup-search-card{grid-template-columns:1fr}.lookup-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lookup-grid>div:nth-child(4n){border-right:1px solid #e1e6e9}.lookup-grid>div:nth-child(2n){border-right:0}.lookup-grid>div:nth-last-child(-n+4){border-bottom:1px solid #e1e6e9}.lookup-grid>div:nth-last-child(-n+2){border-bottom:0}.lookup-result-top{display:grid}.lookup-classification{min-width:0}}
+        @media(max-width:900px){.lookup-search-card{grid-template-columns:1fr}.lookup-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lookup-grid>div:nth-child(3n){border-right:1px solid #e1e6e9}.lookup-grid>div:nth-child(2n){border-right:0}.lookup-grid>div:nth-last-child(-n+3){border-bottom:1px solid #e1e6e9}.lookup-grid>div:last-child{border-bottom:0}.lookup-result-top{display:grid}.lookup-classification{min-width:0}}
         @media(max-width:620px){.lookup-shell{width:min(100% - 24px,1240px);padding-top:24px}.lookup-search-card,.lookup-result{padding:20px}.lookup-form>div{display:grid}.lookup-grid{grid-template-columns:1fr}.lookup-grid>div{border-right:0!important;border-bottom:1px solid #e1e6e9!important}.lookup-grid>div:last-child{border-bottom:0!important}}
       `}</style>
     </div>
