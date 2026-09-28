@@ -162,7 +162,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
       },
       {
         label: "License Offer",
-        value: "Offer Separately w/ Seller Financing",
+        value: "Offered w/Seller Financing",
         description:
           "The 4COP Quota license is offered separately from the restaurant business. Seller financing is available, with final price, down payment, interest rate, term, amortization, security and documentation subject to seller-approved terms.",
       },
