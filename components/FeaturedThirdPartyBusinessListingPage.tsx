@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { countyListingDescription } from "@/lib/county-listing-descriptions";
 
 import FloridaCountyMap from "@/components/FloridaCountyMap";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
@@ -999,6 +1000,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
 
               <section className="marketplace-listing-section">
                 <h2>{isSpanish ? `Contexto del mercado del ${config.county}` : `${config.county} Market Context`}</h2>
+                {!isSpanish ? <p>{countyListingDescription(config.county)}</p> : null}
                 <p>{config.countyContext}</p>
                 {config.countyPopulation ? (
                   <p>
