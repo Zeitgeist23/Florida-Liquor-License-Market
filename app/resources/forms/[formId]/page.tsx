@@ -45,11 +45,11 @@ export async function generateMetadata(
 export default async function FloridaAbtFormWorkspacePage(
   context: {
     params: Promise<{ formId: string }>;
-    searchParams: Promise<{ transactionId?: string }>;
+    searchParams: Promise<{ transactionId?: string; licenseNumber?: string; ownerName?: string; businessName?: string }>;
   }
 ) {
   const { formId } = await context.params;
-  const { transactionId } = await context.searchParams;
+  const { transactionId, licenseNumber, ownerName, businessName } = await context.searchParams;
   const form = getAbtForm(formId.toLowerCase());
   if (!form) notFound();
 
@@ -95,7 +95,14 @@ export default async function FloridaAbtFormWorkspacePage(
         </div>
 
         {form.id === "abt-6023" ? (
-          <Abt6023BrowserForm officialPdfUrl={form.officialPdfUrl} />
+          <Abt6023BrowserForm
+            officialPdfUrl={form.officialPdfUrl}
+            initialValues={{
+              licenseNumber: licenseNumber || "",
+              ownerName: ownerName || "",
+              businessName: businessName || "",
+            }}
+          />
         ) : form.id === "abt-6033" ? (
           <Abt6033OfficialPdfViewer officialPdfUrl={form.officialPdfUrl} />
         ) : (
