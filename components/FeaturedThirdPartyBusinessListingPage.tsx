@@ -459,79 +459,88 @@ export default function FeaturedThirdPartyBusinessListingPage({
 
               <div
                 className="marketplace-listing-facts"
-                aria-label={tr("Specific listing details", "Detalles específicos del anuncio")}
+                aria-label={tr("Specific license details", "Detalles específicos de la licencia")}
               >
-                <div>
-                  <span>{usesBusinessFinancing || isSeparateQuotaOffer ? tr("Business Asking Price", "Precio de venta del negocio") : tr("Business + License Package", "Paquete de negocio + licencia")}</span>
-                  <strong>{config.packagePrice}</strong>
-                </div>
-                <div
-                  className={isNonQuotaBusiness ? "marketplace-listing-education-card marketplace-listing-license-type-card" : "marketplace-listing-tooltip-card"}
-                  tabIndex={!isNonQuotaBusiness ? 0 : undefined}
-                >
-                  <span>{isNonQuotaBusiness ? tr("Liquor License Type", "Tipo de licencia de bebidas alcohólicas") : tr("License Type", "Tipo de licencia")}</span>
-                  <strong>{is2copListing ? tr("2COP Beer & Wine", "2COP Cerveza y Vino") : shortLicenseType}</strong>
-                  {!isNonQuotaBusiness ? (
-                    <span className="marketplace-listing-card-tooltip" role="tooltip">
-                      {tr("A Florida quota license is county-limited. The 4COP series supports full-liquor consumption on premises and package sales within its approved privileges; a change to the 3PS package-sales series requires DBPR/ABT approval.", "Una licencia de cupo de Florida está limitada por condado. La serie 4COP permite bebidas alcohólicas completas para consumo en el local y ventas en paquete dentro de sus privilegios aprobados; un cambio a la serie 3PS requiere aprobación de DBPR/ABT.")}
-                    </span>
-                  ) : null}
-                  {isSfsListing ? (
-                    <>
-                      <span
-                        id="sfs-license-type-tooltip"
-                        className="marketplace-listing-license-type-tooltip"
-                        role="tooltip"
-                      >
-                        <span>{tr("Series: 4COP (Consumption on Premises)", "Serie: 4COP (consumo en el local)")}</span>
-                        <span>{tr("Status: SFS / SRX", "Estado: SFS / SRX")}</span>
+                {isNonQuotaBusiness ? (
+                  <>
+                    <div>
+                      <span>{tr("Business Asking Price", "Precio de venta del negocio")}</span>
+                      <strong>{config.packagePrice}</strong>
+                    </div>
+                    <div className="marketplace-listing-education-card marketplace-listing-license-type-card">
+                      <span>{tr("Liquor License Type", "Tipo de licencia de bebidas alcohólicas")}</span>
+                      <strong>{is2copListing ? tr("2COP Beer & Wine", "2COP Cerveza y Vino") : shortLicenseType}</strong>
+                      {isSfsListing ? (
+                        <>
+                          <span
+                            id="sfs-license-type-tooltip"
+                            className="marketplace-listing-license-type-tooltip"
+                            role="tooltip"
+                          >
+                            <span>{tr("Series: 4COP (Consumption on Premises)", "Serie: 4COP (consumo en el local)")}</span>
+                            <span>{tr("Status: SFS / SRX", "Estado: SFS / SRX")}</span>
+                          </span>
+                          <Link
+                            className="marketplace-listing-education-link"
+                            href="/license-types/4cop-sfs-restaurant"
+                            aria-label="Learn about 4COP SFS / SRX full-liquor licenses"
+                            aria-describedby="sfs-license-type-tooltip"
+                          >
+                            <span>{tr("Learn more →", "Más información →")}</span>
+                          </Link>
+                        </>
+                      ) : null}
+                    </div>
+                    <div className="marketplace-listing-education-card">
+                      <span>{tr("License Classification", "Clasificación de la licencia")}</span>
+                      <strong>{is2copListing ? tr("Non-quota · no separate value", "Sin cupo · sin valor separado") : tr("Location-specific", "Vinculada al local")}</strong>
+                      {isSfsListing ? (
+                        <Link
+                          className="marketplace-listing-education-link"
+                          href="/license-types/4cop-sfs-restaurant"
+                          aria-label="Learn about location-specific 4COP SFS / SRX licenses"
+                        >
+                          <span>Learn more →</span>
+                        </Link>
+                      ) : null}
+                    </div>
+                    <div>
+                      <span>{tr("Marketplace Status", "Estado en el mercado")}</span>
+                      <strong>{statusCardLabel}</strong>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="marketplace-listing-tooltip-card" tabIndex={0}>
+                      <span>{tr("License Type", "Tipo de licencia")}</span>
+                      <strong>{shortLicenseType}</strong>
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr("A Florida 4COP quota license is a county-limited transferable full-liquor license, subject to DBPR/ABT approval and applicable premises requirements.", "Una licencia de cupo 4COP de Florida es una licencia transferible de bebidas alcohólicas completas limitada por condado, sujeta a aprobación de DBPR/ABT y a los requisitos aplicables del local.")}
                       </span>
-                      <Link
-                        className="marketplace-listing-education-link"
-                        href="/license-types/4cop-sfs-restaurant"
-                        aria-label="Learn about 4COP SFS / SRX full-liquor licenses"
-                        aria-describedby="sfs-license-type-tooltip"
-                      >
-                        <span>{tr("Learn more →", "Más información →")}</span>
-                      </Link>
-                    </>
-                  ) : null}
-                </div>
-                <div
-                  className={isNonQuotaBusiness ? "marketplace-listing-education-card" : "marketplace-listing-tooltip-card"}
-                  tabIndex={!isNonQuotaBusiness ? 0 : undefined}
-                >
-                  <span>{isQuotaLeaseOnly ? tr("License Arrangement", "Modalidad de la licencia") : isNonQuotaBusiness ? tr("License Classification", "Clasificación de la licencia") : usesFllmMedian ? tr("FLLM County Median Ask", "Mediana FLLM del condado") : tr("Allocated License Value", "Valor asignado de la licencia")}</span>
-                  <strong>{isQuotaLeaseOnly ? tr("Available via lease", "Disponible mediante arrendamiento") : is2copListing ? tr("Non-quota · no separate value", "Sin cupo · sin valor separado") : isSfsListing ? tr("Location-specific", "Vinculada al local") : quotaMarketReference}</strong>
-                  {!isNonQuotaBusiness ? (
-                    <span className="marketplace-listing-card-tooltip" role="tooltip">
-                      {isQuotaLeaseOnly
-                        ? tr(
-                            "The 4COP quota license is available via lease rather than being sold with the restaurant. Buyers should confirm the license owner, lease terms, transfer or placement requirements, liens, current status and DBPR/ABT approval requirements.",
-                            "El anuncio de origen describe la licencia 4COP de cupo como disponible mediante arrendamiento en lugar de venderse con el restaurante. Los compradores deben confirmar el titular, los términos del arrendamiento, los requisitos de transferencia o colocación, gravámenes, estado actual y requisitos de aprobación de DBPR/ABT.",
-                          )
-                        : usesFllmMedian
-                        ? tr(
-                            "This is FLLM's median disclosed asking price for comparable standalone quota-license inventory in the county. It is market context, not an appraisal or an allocated value for the license included in this business transaction.",
-                            "Esta es la mediana de precios publicados de FLLM para inventario comparable de licencias de cupo independientes en el condado. Es contexto de mercado, no una tasación ni un valor asignado a la licencia incluida en esta transacción comercial.",
-                          )
-                        : tr("This is the license value allocated within the business-and-license package. Buyers should confirm the exact license series, current status, ownership, liens, transferability and negotiated allocation before closing.", "Este es el valor de la licencia asignado dentro del paquete de negocio y licencia. Los compradores deben confirmar la serie exacta, estado actual, titularidad, gravámenes, transferibilidad y asignación negociada antes del cierre.")}
-                    </span>
-                  ) : null}
-                  {isSfsListing ? (
-                    <Link
-                      className="marketplace-listing-education-link"
-                      href="/license-types/4cop-sfs-restaurant"
-                      aria-label="Learn about location-specific 4COP SFS / SRX licenses"
-                    >
-                      <span>Learn more →</span>
-                    </Link>
-                  ) : null}
-                </div>
-                <div>
-                  <span>{tr("Marketplace Status", "Estado en el mercado")}</span>
-                  <strong>{statusCardLabel}</strong>
-                </div>
+                    </div>
+                    <div className="marketplace-listing-tooltip-card" tabIndex={0}>
+                      <span>{tr("Beverage Privileges", "Privilegios de bebidas")}</span>
+                      <strong>{tr("Beer · Wine · Spirits", "Cerveza · Vino · Licores")}</strong>
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr("Full-liquor quota privileges include beer, wine and distilled spirits within the approved 4COP series and premises.", "Los privilegios de una licencia de cupo de bebidas alcohólicas completas incluyen cerveza, vino y licores destilados dentro de la serie 4COP y el local aprobados.")}
+                      </span>
+                    </div>
+                    <div className="marketplace-listing-tooltip-card" tabIndex={0}>
+                      <span>{tr("Authorized Use", "Uso autorizado")}</span>
+                      <strong>{tr("On- or Off-Premises", "Dentro o fuera del local")}</strong>
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr("A 4COP quota license can support on-premises consumption and package sales for off-premises consumption within its approved privileges.", "Una licencia 4COP de cupo puede permitir consumo en el local y ventas en paquete para consumo fuera del local dentro de sus privilegios aprobados.")}
+                      </span>
+                    </div>
+                    <div className="marketplace-listing-tooltip-card" tabIndex={0}>
+                      <span>{tr("Transferability", "Transferibilidad")}</span>
+                      <strong>{tr("Same County", "Mismo condado")}</strong>
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {tr(`Quota licenses are county-specific. A ${config.county} quota license generally remains within ${config.county}, subject to DBPR/ABT transfer and location approval.`, `Las licencias de cupo son específicas por condado. Una licencia de cupo de ${config.county} generalmente permanece dentro de ${config.county}, sujeta a la aprobación de transferencia y ubicación de DBPR/ABT.`)}
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
 
               <section
