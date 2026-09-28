@@ -159,7 +159,7 @@ export default function AdminLienSearchClient() {
       if (!response.ok) throw new Error(payload.error || "Lien-search workflow failed.");
       setMessage(
         payload.message ||
-          "DBPR identity captured and Florida UCC research completed. Official ABT-6023 status remains separate.",
+          "DBPR identity captured. Florida UCC research status is shown in the audit trail.",
       );
       setLicenseNumber("");
       setAppraisalRef("");
