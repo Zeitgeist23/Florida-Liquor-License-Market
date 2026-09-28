@@ -916,7 +916,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 ) : null}
               </section>
 
-              {usesBusinessFinancing ? (
+              {isNonQuotaBusiness ? (
                 <section className="marketplace-listing-section">
                   <h2>{is2copListing ? tr("2COP Beer & Wine License Resources", "Recursos sobre la licencia 2COP de cerveza y vino") : tr("4COP SFS / SRX License Resources", "Recursos sobre licencias 4COP SFS / SRX")}</h2>
                   <p>
