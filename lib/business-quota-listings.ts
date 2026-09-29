@@ -76,6 +76,7 @@ export type BusinessQuotaListing = {
   listingReference: string;
   inventoryReferences?: readonly string[];
   href: string;
+  sourceListingUrls?: readonly string[];
   county: string;
   countyHref: string;
   licenseType: "4COP Quota" | "3PS Quota / Package Store" | "4COP SFS/SRX" | "2COP Beer & Wine";
@@ -115,6 +116,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   {
     listingReference: "FLLM-ANTEZZA",
     href: "/listings/fllm-antezza",
+    sourceListingUrls: ["https://sunshineagle.com/deal-listing/upscale-cocktail-lounge-with-4cop-quota-license/?back=https%3A%2F%2Fsunshineagle.com%2Fpremium-listings%2F&source&listing_button_text=Inquire%20About%20This%20Listing&listing_button_color&css_source=7799&json_url=https://sunshineagle.dealrelations.com/listings/upscale-cocktail-lounge-with-4cop-quota-license.json?item_id=5534"],
     county: "Pinellas County",
     countyHref: "/counties/pinellas",
     licenseType: "4COP Quota",
@@ -136,6 +138,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   {
     listingReference: "FLLM-DESAMOURS",
     href: "/listings/fllm-desamours",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/iconic-jensen-beach-bar-for-sale-w-4-cop-license/2486902/", "https://myexitplan.com/listing/iconic-jensen-beach-bar-for-sale-w-4-cop-license/"],
     county: "Martin County",
     countyHref: "/counties/martin",
     licenseType: "4COP Quota",
@@ -157,6 +160,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   {
     listingReference: "FLLM-NEGOVAN",
     href: "/listings/fllm-negovan",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/premium-miami-adult-nightclub/2506980/"],
     county: "Miami-Dade County",
     countyHref: "/counties/miami-dade",
     licenseType: "4COP Quota",
@@ -178,6 +182,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   {
     listingReference: "FLLM-PAQUET",
     href: "/listings/villejust",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/prime-italian-restaurant-for-sale-miami-beach/2552485/"],
     county: "Miami-Dade County",
     countyHref: "/counties/miami-dade",
     licenseType: "4COP Quota",
@@ -204,6 +209,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     listingReference: "FLLM-MELLO",
     inventoryReferences: ["FLLM-265072"],
     href: "/listings/fllm-mello",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/delray-beach-restaurant-for-sale-steps-from-atlantic-ave/2543468/", "https://www.wesellrestaurants.com/restaurant-for-sale/delray-beach-restaurant-for-sale-steps-from-atlantic-ave/33116"],
     county: "Palm Beach County",
     countyHref: "/counties/palm-beach",
     licenseType: "4COP Quota",
@@ -225,6 +231,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   {
     listingReference: "FLLM-ZOBERG",
     href: "/listings/fllm-zoberg",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/turnkey-mexican-latin-dining-and-entertainment-concept-with-full-liquor/2545461/"],
     county: "Miami-Dade County",
     countyHref: "/counties/miami-dade",
     licenseType: "4COP SFS/SRX",
@@ -247,6 +254,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     listingReference: "FLLM-SOLANO",
     inventoryReferences: ["FLLM-MKT-SFS-018"],
     href: "/listings/fllm-solano",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/restaurant-bar-with-outside-seating-on-main-boulevard-in-hollywood-fl/2543711/"],
     county: "Broward County",
     countyHref: "/counties/broward",
     licenseType: "4COP SFS/SRX",
