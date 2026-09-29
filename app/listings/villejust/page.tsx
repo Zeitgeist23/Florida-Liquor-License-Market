@@ -36,22 +36,22 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Prime Italian Restaurant for Sale – Miami Beach + 4COP Quota | FLLM",
   description:
-    "Broker-review FLLM mockup for a $590,000 Miami Beach Italian restaurant with $1.35M gross revenue, $255,891 SDE and a separately offered 4COP Quota license with seller financing available.",
+    "Featured FLLM broker listing for a $590,000 Miami Beach Italian restaurant with $1.35M gross revenue, $255,891 SDE and a separately offered 4COP Quota license with seller financing available.",
   alternates: { canonical: canonicalUrl },
-  robots: { index: false, follow: false, noarchive: true },
+  robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
     title: "Prime Italian Restaurant for Sale – Miami Beach + 4COP Quota",
     description:
-      "FLLM third-party broker page mockup for Terry de Villejust. $590,000 Miami Beach restaurant opportunity with a separately offered 4COP Quota license and seller financing available.",
+      "FLLM featured third-party broker listing for Terry de Villejust. $590,000 Miami Beach restaurant opportunity with a separately offered 4COP Quota license and seller financing available.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary",
     title: "Prime Italian Restaurant for Sale – Miami Beach + 4COP Quota",
     description:
-      "FLLM broker-page mockup for a $590,000 South of Fifth Miami Beach restaurant opportunity.",
+      "FLLM featured broker listing for a $590,000 South of Fifth Miami Beach restaurant opportunity.",
   },
 };
 
@@ -232,7 +232,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     confidentialityText:
       "serious inquiries only; confidentiality assured. Buyers should independently review financial statements, lease documents, licensing records, seller-financing terms, included-asset schedules and all transaction documents directly through the listing broker.",
     sourceDisclosure:
-      "Featured third-party broker-page mockup for the Prime Italian Restaurant for Sale – Miami Beach. Business, financial, license, financing and lease information should be independently verified during due diligence before reliance or closing.",
+      "Featured third-party broker listing for the Prime Italian Restaurant for Sale – Miami Beach. Business, financial, license, financing and lease information should be independently verified during due diligence before reliance or closing.",
     countyContext:
       "Cities in Miami-Dade County include Miami, Miami Beach, Hialeah, Homestead, Doral, Coral Gables, Aventura and Miami Gardens.",
     singleExternalLinks: true,
@@ -240,7 +240,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
   };
 }
 
-export default async function TerryVillejustFeaturedListingMockupPage() {
+export default async function TerryVillejustFeaturedListingPage() {
   const config = await buildConfig();
   return <FeaturedThirdPartyBusinessListingPage config={config} />;
 }
