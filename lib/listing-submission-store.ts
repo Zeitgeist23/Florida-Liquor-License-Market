@@ -44,6 +44,21 @@ export type ListingSubmission = {
   updatedAt: string;
 };
 
+type ManualLeadRow = {
+  id: string;
+  full_name: string;
+  email: string;
+  phone: string | null;
+  inquiry_date: string;
+  preferred_county: string | null;
+  inquiry_type: string | null;
+  source: string;
+  status: string;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 type SubmissionRow = {
   id: string;
   submission_ref: string;
@@ -226,6 +241,102 @@ function toSubmission(row: SubmissionRow): ListingSubmission {
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
+}
+
+function manualLeadListingRef(row: ManualLeadRow) {
+  const text = `${row.inquiry_type ?? ""} ${row.notes ?? ""}`;
+  return text.match(/\b(?:FLLM|BBS)-[A-Z0-9-]+\b/i)?.[0]?.toUpperCase() ?? null;
+}
+
+function manualLeadLicenseType(row: ManualLeadRow) {
+  const text = `${row.inquiry_type ?? ""} ${row.notes ?? ""}`;
+  if (/\b3PS\b/i.test(text)) return "3PS Quota / Package Store";
+  if (/\b4COP\b/i.test(text)) return "4COP Quota";
+  return "";
+}
+
+function manualLeadIsBuyer(row: ManualLeadRow) {
+  const text = `${row.inquiry_type ?? ""} ${row.notes ?? ""}`;
+  return /\b(buy|buyer|purchase|investment|invest)\b/i.test(text);
+}
+
+function manualLeadToSubmission(row: ManualLeadRow): ListingSubmission {
+  const listingReference = manualLeadListingRef(row);
+  const licenseType = manualLeadLicenseType(row);
+  const county = row.preferred_county?.trim() || "Florida";
+  const approvedLicenseType: ListingSubmission["approvedLicenseType"] =
+    licenseType === "4COP Quota" || licenseType === "3PS Quota / Package Store"
+      ? licenseType
+      : null;
+  const firstName = row.full_name.trim().split(/\s+/)[0] || "there";
+
+  return {
+    id: `manual-${row.id}`,
+    submissionRef: `FLLM-BUYER-CRM-${row.id.slice(0, 8).toUpperCase()}`,
+    fullName: row.full_name,
+    firstName,
+    email: row.email,
+    phone: row.phone ?? "",
+    county,
+    licenseType,
+    askingPrice: null,
+    askingPriceText: null,
+    licenseStatus: "Buyer inquiry",
+    preferredTiming: null,
+    message: JSON.stringify({
+      kind: "manual_buyer_lead",
+      inquiryType: row.inquiry_type,
+      source: row.source,
+      crmStatus: row.status,
+      notes: row.notes,
+    }),
+    status: "pending_payment",
+    stripeCheckoutSessionId: null,
+    stripePaymentIntentId: null,
+    stripeCustomerEmail: null,
+    paidAt: null,
+    paymentEmailStatus: "pending",
+    paymentEmailSentAt: null,
+    listingTitle: [listingReference, county, licenseType].filter(Boolean).join(" — "),
+    approvedLicenseType,
+    approvedAskingPrice: null,
+    liveListingRef: listingReference,
+    liveListingUrl: null,
+    approvedAt: null,
+    approvalEmailStatus: "pending",
+    approvalEmailSentAt: null,
+    lastError: null,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+function leadIdentity(lead: ListingSubmission) {
+  const contact =
+    lead.email.trim().toLowerCase() ||
+    lead.phone.replace(/\D/g, "") ||
+    lead.fullName.trim().toLowerCase();
+  const target =
+    lead.liveListingRef?.trim().toUpperCase() ||
+    `${lead.county.trim().toLowerCase()}|${lead.licenseType.trim().toLowerCase()}`;
+  return `${contact}|${target}`;
+}
+
+async function listManualBuyerLeads() {
+  const response = await fetch(
+    endpoint(
+      "fllm_leads?select=id,full_name,email,phone,inquiry_date,preferred_county,inquiry_type,source,status,notes,created_at,updated_at&order=created_at.desc&limit=500",
+    ),
+    { headers: supabaseHeaders(), cache: "no-store" },
+  );
+
+  if (!response.ok) {
+    console.warn(`Could not load fllm_leads for Lead Match: ${response.status}`);
+    return [] as ListingSubmission[];
+  }
+
+  const rows = (await response.json()) as ManualLeadRow[];
+  return rows.filter(manualLeadIsBuyer).map(manualLeadToSubmission);
 }
 
 function cleanText(value: string | null | undefined, maxLength: number) {
@@ -913,11 +1024,27 @@ export async function listListingSubmissions() {
 
 export async function listLeadSubmissions() {
   requireDatabase();
-  const response = await fetch(
-    endpoint("listing_submissions?select=*&order=created_at.desc&limit=500"),
-    { headers: supabaseHeaders(), cache: "no-store" },
-  );
+  const [response, manualBuyerLeads] = await Promise.all([
+    fetch(
+      endpoint("listing_submissions?select=*&order=created_at.desc&limit=500"),
+      { headers: supabaseHeaders(), cache: "no-store" },
+    ),
+    listManualBuyerLeads(),
+  ]);
+
   if (!response.ok)
     throw new Error(`Could not list submissions: ${response.status}`);
-  return ((await response.json()) as SubmissionRow[]).map(toSubmission);
+
+  const submissions = ((await response.json()) as SubmissionRow[]).map(toSubmission);
+  const identities = new Set(submissions.map(leadIdentity));
+  const mergedManualLeads = manualBuyerLeads.filter((lead) => {
+    const identity = leadIdentity(lead);
+    if (identities.has(identity)) return false;
+    identities.add(identity);
+    return true;
+  });
+
+  return [...submissions, ...mergedManualLeads].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  );
 }
