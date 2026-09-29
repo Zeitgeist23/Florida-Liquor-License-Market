@@ -79,3 +79,58 @@ function applyOfficialShell(html: string) {
   if (!enhanced.includes("contact-official-shell.js")) enhanced = enhanced.replace("</body>", `${OFFICIAL_SHELL_SCRIPT}</body>`);
   return enhanced;
 }
+
+function addCareersEntryPoint(html: string) {
+  if (html.includes('class="contact-careers-entry"')) return html;
+  const marker = '<span class="contact-direct-link">Use the secure form to contact us directly.</span>';
+  return html.replace(marker, `${marker}${CAREERS_ENTRY}`);
+}
+
+async function loadContactSource(request: Request) {
+  const sourcePath = path.join(process.cwd(), "public", "contact", "index.html");
+  try {
+    return await readFile(sourcePath, "utf8");
+  } catch (fileError) {
+    const sourceUrl = new URL("/contact/index.html", request.url);
+    sourceUrl.searchParams.set("fllm_raw", "1");
+    const response = await fetch(sourceUrl, {
+      cache: "no-store",
+      headers: { "x-fllm-contact-source": "1" },
+    });
+    if (!response.ok) throw fileError;
+    return await response.text();
+  }
+}
+
+function addSmsConsent(html: string) {
+  if (html.includes('class="contact-sms-consent"')) return html;
+  const submitButton = '<button class="btn btn-gold contact-submit" type="submit">Submit Confidential Inquiry</button>';
+  const disclosure = '<label class="contact-sms-consent"><input type="checkbox" name="sms_consent" value="yes"/><span>I agree to receive conversational text messages from Florida Liquor License Market about my inquiry and requested FLLM marketplace or professional services, including liquor license and business listing inquiries, appraisal inquiries, and transaction-related follow-up. Message frequency varies. Message and data rates may apply. Reply STOP to opt out. Reply HELP for help. Consent is not a condition of purchase. <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> · <a href="/terms-of-use" target="_blank" rel="noopener noreferrer">Terms of Use</a></span></label>';
+  return html.replace(submitButton, disclosure + submitButton);
+}
+
+function applyCareersMode(html: string) {
+  return html
+    .replace("<h1>Contact Florida Liquor License Market</h1>", "<h1>Apply to Join Florida Liquor License Market</h1>")
+    .replace("Whether you are buying, selling, financing, investing, or simply exploring your options, tell us how we can help. A marketplace representative will follow up directly.", "Tell us about your sales or business-development background, the Florida counties or markets you know best, and how you would like to contribute to the FLLM marketplace.")
+    .replace("Use the secure form to contact us directly.", "Use the secure form to submit your FLLM application.")
+    .replace("<h2>How Can We Help?</h2>", "<h2>FLLM Careers Application</h2>")
+    .replace('name="_subject" value="Florida Liquor License Market — New Contact Inquiry"', 'name="_subject" value="FLLM Careers — Marketplace Representative Application"')
+    .replace('<option value="" disabled="" selected="">Select an option</option>', '<option value="" disabled="">Select an option</option><option selected="">Careers / Join FLLM</option>')
+    .replace("<span>Preferred County</span>", "<span>Florida County / Market You Know Best</span>")
+    .replace("<span>How can we help? *</span>", "<span>Tell us about your sales or business-development background *</span>")
+    .replace("Submit Confidential Inquiry", "Submit FLLM Application");
+}
+
+export async function GET(request: Request) {
+  try {
+    const requestUrl = new URL(request.url);
+    const careersMode = requestUrl.searchParams.get("careers") === "1";
+    let html = applyOfficialShell(await loadContactSource(request));
+    html = careersMode ? applyCareersMode(html) : addSmsConsent(addCareersEntryPoint(html));
+    return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store, max-age=0", "X-Content-Type-Options": "nosniff" } });
+  } catch (error) {
+    console.error("Contact page enhancement failed", error);
+    return Response.redirect(new URL("/contact/index.html", request.url), 307);
+  }
+}
