@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { sendPaymentReceivedEmail } from "@/lib/fllm-email";
 import {
+  ensureFormalLicenseAppraisalCase,
   isFormalLicenseAppraisalOrder,
   sendFormalLicenseAppraisalPaymentEmails,
 } from "@/lib/formal-license-appraisal";
@@ -115,6 +116,17 @@ async function processPaidCheckout(session: StripeCheckoutSession) {
     customerEmail:
       session.customer_details?.email || session.customer_email || null,
   });
+
+  if (isFormalLicenseAppraisalOrder(submission)) {
+    try {
+      await ensureFormalLicenseAppraisalCase(submission);
+    } catch (error) {
+      // Payment processing must not fail because the internal workfile could
+      // not be created. The order remains paid and the admin can create/recover
+      // the case manually from the Appraisal Workbench.
+      console.error("Automatic formal appraisal workfile creation failed", error);
+    }
+  }
 
   const claimed = await claimPaymentEmail(submission.id);
   if (claimed) {
