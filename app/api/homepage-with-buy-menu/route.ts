@@ -209,7 +209,7 @@ function injectServerMenus(html: string) {
     const contactPattern = /<a\b([^>]*class="[^"]*\bbtn-outline\b[^"]*"[^>]*)href="\/contact"([^>]*)>\s*(<span[^>]*class="[^"]*\bcontact-phone\b[^"]*"[^>]*>☎<\/span>)?\s*Contact Us\s*<\/a>/i;
     updated = updated.replace(
       contactPattern,
-      '<div class="home-contact-wrap"><a class="btn btn-outline" href="/contact"><span class="contact-phone" aria-hidden="true">☎</span>Contact Us</a><div class="home-contact-menu" aria-label="Contact Florida Liquor License Market"><a href="mailto:clientservices@floridaliquorlicensemarket.com"><span aria-hidden="true">✉</span>Email FLLM</a><a href="tel:+14075895522"><span aria-hidden="true">☎</span>(407) 589-5522</a></div></div>'
+      '<div class="home-contact-wrap"><a class="btn btn-outline" href="/contact"><span class="contact-phone" aria-hidden="true">☎</span>Contact Us</a><div class="home-contact-menu" aria-label="Contact Florida Liquor License Market"><a href="/contact"><span aria-hidden="true">✉</span>Email FLLM</a><a href="tel:+14075895522"><span aria-hidden="true">☎</span>(407) 589-5522</a></div></div>'
     );
   }
   return updated;
