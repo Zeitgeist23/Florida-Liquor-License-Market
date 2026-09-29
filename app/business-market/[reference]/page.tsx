@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import BusinessPackageHeatMap, {
   type BusinessPackageHeatMapRow,
 } from "@/components/BusinessPackageHeatMap";
+import BusinessMarketHeroMap from "@/components/BusinessMarketHeroMap";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
 import { countySlug, floridaCounties } from "@/data/florida-counties";
@@ -278,6 +279,12 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
   const county = countyFor(listing);
   const canonicalPath = businessMarketRecordHref(listing);
   const primaryMarkets = county?.primaryCities ?? [];
+  const otherCountyListingsCount = businessQuotaListingRecords.filter(
+    (candidate) =>
+      candidate.publicationStatus === "published" &&
+      candidate.county === listing.county &&
+      candidate.listingReference !== listing.listingReference,
+  ).length;
   const mapListings = businessQuotaListingRecords.filter(
     (candidate) =>
       candidate.publicationStatus === "published" &&
@@ -423,22 +430,15 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               </div>
             </div>
 
-            <div className="business-market-map-card">
-              <span className="business-market-map-label">Florida Market</span>
-              <Image
-                src={`/api/county-map?county=${encodeURIComponent(listing.county)}&transparent=1`}
-                alt={`Florida map highlighting ${listing.county}`}
-                width={640}
-                height={360}
-                unoptimized
-              />
-              <strong>{listing.county}</strong>
-              {primaryMarkets.length ? (
-                <span className="business-market-city-line">{primaryMarkets.join(" · ")}</span>
-              ) : (
-                <span className="business-market-city-line">Florida business market</span>
-              )}
-            </div>
+            <BusinessMarketHeroMap
+              county={listing.county}
+              primaryMarkets={primaryMarkets}
+              title={listing.title}
+              packagePrice={listing.packagePrice}
+              licenseType={listing.licenseType}
+              businessType={listing.businessType}
+              otherListingsCount={otherCountyListingsCount}
+            />
           </div>
         </div>
       </section>
