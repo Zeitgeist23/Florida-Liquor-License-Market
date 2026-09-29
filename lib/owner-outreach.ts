@@ -147,7 +147,13 @@ export function buildOwnerOutreachMessage(prospect: OwnerProspect) {
   const business = businessLabel(prospect);
   const type = prospect.business_type?.trim().toLowerCase() || "hospitality business";
   const unsubscribe = `${SITE_URL}/api/owner-outreach/unsubscribe?id=${encodeURIComponent(prospect.id)}&email=${encodeURIComponent(prospect.owner_email || "")}`;
-  const subject = "Florida Restaurant & Liquor License Marketing Opportunities";
+  const subject = prospect.business_type === "Restaurant"
+    ? "Florida Restaurant & Liquor License Marketing Opportunities"
+    : prospect.business_type === "Bar"
+      ? "Florida Bar & Liquor License Marketing Opportunities"
+      : prospect.business_type === "Liquor Store"
+        ? "Florida Liquor Store & Liquor License Marketing Opportunities"
+        : "Florida Business & Liquor License Marketing Opportunities";
   const greetingText = prospect.owner_name?.trim() ? `Dear ${prospect.owner_name.trim()},` : "Hello,";
 
   const text = `${greetingText}
