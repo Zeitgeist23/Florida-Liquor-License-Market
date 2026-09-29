@@ -10,6 +10,9 @@ import {
   businessQuotaListings,
   FLLM_QUOTA_LISTING_OPERATING_RULES,
 } from "@/lib/business-quota-listings";
+import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
+import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
 import "../fllm-official-template.css";
 import "../fllm-design-system.css";
@@ -82,8 +85,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BusinessesWithQuotaLicensesPage() {
-  const structuredBusinessListings = businessQuotaListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
+export default async function BusinessesWithQuotaLicensesPage() {
+  const standaloneListings = getVisibleAvailableMarketplaceListings(
+    await getMarketplaceListings(),
+  );
+  const businessListingsWithValues = withMarketLicenseValues(
+    businessQuotaListings,
+    standaloneListings,
+  );
+  const structuredBusinessListings = businessListingsWithValues.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -168,7 +178,7 @@ export default function BusinessesWithQuotaLicensesPage() {
 
       <section className="business-quota-inventory" id="business-inventory">
         <div className="business-quota-shell">
-          <BusinessQuotaInventory listings={businessQuotaListings} />
+          <BusinessQuotaInventory listings={businessListingsWithValues} />
         </div>
       </section>
 
