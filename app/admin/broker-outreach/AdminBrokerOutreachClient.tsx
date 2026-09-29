@@ -203,6 +203,7 @@ export default function AdminBrokerOutreachClient() {
           <p>Prospect database, broker-specific email builder and weekly draft campaign queue.</p>
         </div>
         <nav>
+          <Link href="/admin/owner-outreach">Owner Outreach</Link>
           <Link href="/admin/leads">Lead Database</Link>
           <Link href="/admin/listing-submissions">Listing Review</Link>
           <button type="button" onClick={() => void load()} disabled={working}>Refresh</button>
