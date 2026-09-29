@@ -769,18 +769,14 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 <strong>{config.sellerDirect ? tr("Direct seller disclosure", "Divulgación de venta directa") : tr("Third-party broker disclosure", "Divulgación sobre corredor externo")}</strong>
                 {config.sellerDirect ? <p>{tr(`This business is offered directly by ${config.broker.name}. Florida Liquor License Market provides marketplace exposure and is not acting as the seller’s broker or transaction representative. Availability, package terms, license status and transfer requirements should be confirmed directly with the seller.`, `Este negocio es ofrecido directamente por ${config.broker.name}. Florida Liquor License Market proporciona exposición en el mercado y no actúa como corredor ni representante de la vendedora. La disponibilidad, los términos del paquete, el estado de la licencia y los requisitos de cambio de titularidad deben confirmarse directamente con la vendedora.`)}</p> : <p>
                   {tr("This featured listing is represented by", "Este anuncio destacado está representado por")} {config.broker.name} {tr("of", "de")}{" "}
-                  {config.singleExternalLinks ? (
-                    <strong>{config.broker.brokerage}</strong>
-                  ) : (
-                    <a
-                      className={`featured-business-disclosure-link${isWeSellRestaurantsBroker ? " we-sell-restaurants-disclosure-link" : ""}`}
-                      href={isWeSellRestaurantsBroker ? config.broker.website : config.broker.listingUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {config.broker.brokerage}
-                    </a>
-                  )}
+                  <a
+                    className={`featured-business-disclosure-link${isWeSellRestaurantsBroker ? " we-sell-restaurants-disclosure-link" : ""}`}
+                    href={config.singleExternalLinks ? config.broker.website : (isWeSellRestaurantsBroker ? config.broker.website : config.broker.listingUrl)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {config.broker.brokerage}
+                  </a>
                   . {tr("Florida Liquor License Market is providing marketplace exposure and is not acting as the seller’s broker or transaction representative. Availability, package terms, license status, transferability, and all transaction information should be confirmed directly with the listing broker.", "Florida Liquor License Market proporciona exposición en el mercado y no actúa como corredor del vendedor ni como representante de la transacción. La disponibilidad, los términos del paquete, el estado y la transferibilidad de la licencia y toda la información de la transacción deben confirmarse directamente con el corredor del anuncio.")}
                 </p>}
               </div>
