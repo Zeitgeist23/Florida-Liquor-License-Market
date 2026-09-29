@@ -379,6 +379,18 @@ export default function ListingBrokerInquiryForm({
             required
           />
         </label>
+        <label className="marketplace-listing-sms-consent">
+          <input type="checkbox" name="sms_consent" value="yes" />
+          <span>
+            {tr(
+              "I agree to receive text messages from Florida Liquor License Market regarding my inquiry and requested FLLM services. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. Consent is not a condition of purchase.",
+              "Acepto recibir mensajes de texto de Florida Liquor License Market sobre mi solicitud y los servicios de FLLM que solicite. La frecuencia de los mensajes varía. Pueden aplicarse tarifas de mensajes y datos. Responda STOP para cancelar o HELP para obtener ayuda. El consentimiento no es una condición de compra."
+            )}{" "}
+            <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">{tr("Privacy Policy", "Política de privacidad")}</a>
+            {" · "}
+            <a href="/terms-of-use" target="_blank" rel="noopener noreferrer">{tr("Terms of Use", "Términos de uso")}</a>
+          </span>
+        </label>
         <button type="submit" disabled={status === "submitting"}>
           {status === "submitting" ? tr("Sending…", "Enviando…") : isSeller ? tr("Send Message to Seller", "Enviar mensaje al vendedor") : tr("Send Inquiry", "Enviar solicitud")}
         </button>
