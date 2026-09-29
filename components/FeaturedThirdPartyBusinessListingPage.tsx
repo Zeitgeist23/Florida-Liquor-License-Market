@@ -80,6 +80,8 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   confidentialityText: string;
   sourceDisclosure?: string;
   countyContext: string;
+  singleExternalLinks?: boolean;
+  sourceListingLinkLabel?: string;
 };
 
 function phoneHref(phone: string) {
@@ -767,14 +769,18 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 <strong>{config.sellerDirect ? tr("Direct seller disclosure", "Divulgación de venta directa") : tr("Third-party broker disclosure", "Divulgación sobre corredor externo")}</strong>
                 {config.sellerDirect ? <p>{tr(`This business is offered directly by ${config.broker.name}. Florida Liquor License Market provides marketplace exposure and is not acting as the seller’s broker or transaction representative. Availability, package terms, license status and transfer requirements should be confirmed directly with the seller.`, `Este negocio es ofrecido directamente por ${config.broker.name}. Florida Liquor License Market proporciona exposición en el mercado y no actúa como corredor ni representante de la vendedora. La disponibilidad, los términos del paquete, el estado de la licencia y los requisitos de cambio de titularidad deben confirmarse directamente con la vendedora.`)}</p> : <p>
                   {tr("This featured listing is represented by", "Este anuncio destacado está representado por")} {config.broker.name} {tr("of", "de")}{" "}
-                  <a
-                    className={`featured-business-disclosure-link${isWeSellRestaurantsBroker ? " we-sell-restaurants-disclosure-link" : ""}`}
-                    href={isWeSellRestaurantsBroker ? config.broker.website : config.broker.listingUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {config.broker.brokerage}
-                  </a>
+                  {config.singleExternalLinks ? (
+                    <strong>{config.broker.brokerage}</strong>
+                  ) : (
+                    <a
+                      className={`featured-business-disclosure-link${isWeSellRestaurantsBroker ? " we-sell-restaurants-disclosure-link" : ""}`}
+                      href={isWeSellRestaurantsBroker ? config.broker.website : config.broker.listingUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {config.broker.brokerage}
+                    </a>
+                  )}
                   . {tr("Florida Liquor License Market is providing marketplace exposure and is not acting as the seller’s broker or transaction representative. Availability, package terms, license status, transferability, and all transaction information should be confirmed directly with the listing broker.", "Florida Liquor License Market proporciona exposición en el mercado y no actúa como corredor del vendedor ni como representante de la transacción. La disponibilidad, los términos del paquete, el estado y la transferibilidad de la licencia y toda la información de la transacción deben confirmarse directamente con el corredor del anuncio.")}
                 </p>}
               </div>
@@ -783,7 +789,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 <h2>{tr("About This Business & License Listing", "Acerca de este anuncio de negocio y licencia")}</h2>
                 <p>
                   <strong className={isSfsListing ? "featured-business-sfs-lead" : undefined}>{is2copListing ? tr("Business & 2COP Beer & Wine License:", "Negocio y licencia 2COP de cerveza y vino:") : isSfsListing ? tr("Business & 4COP SFS / SRX Full-Liquor License:", "Negocio y licencia completa de bebidas alcohólicas 4COP SFS / SRX:") : tr("Business purchase required:", "Compra del negocio requerida:")}</strong>{is2copListing ? tr(" the seller offers the 2COP beer-and-wine license with the operating ", " la vendedora ofrece la licencia 2COP de cerveza y vino junto con el ") : isSfsListing ? tr(" the license is tied to the qualifying restaurant operation and licensed premises associated with the ", " la licencia está vinculada a la operación del restaurante que cumple los requisitos y al local autorizado asociado con el ") : isQuotaLeaseOnly ? tr(" the operating business is offered for sale and a 4COP Quota license is available via lease for the associated ", " el negocio operativo se ofrece a la venta y una licencia 4COP de cupo está disponible mediante arrendamiento para el negocio asociado ") : isSeparateQuotaOffer ? tr(" the operating business is offered for sale, and the 4COP Quota license is also offered separately for the associated ", " el negocio operativo se ofrece a la venta y la licencia 4COP de cupo también se ofrece por separado para el negocio asociado ") : tr(" the license is being offered only in connection with the acquisition of the associated ", " la licencia se ofrece únicamente junto con la adquisición del negocio asociado ")}
-                  {config.businessLabelLinkUrl ? (
+                  {config.businessLabelLinkUrl && !config.singleExternalLinks ? (
                     <a
                       className="featured-business-label-link featured-business-label-link--body"
                       href={config.businessLabelLinkUrl}
@@ -876,27 +882,35 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   {isSeparateQuotaOffer ? (
                     <>
                       {tr("The operating business is offered at", "El negocio operativo se ofrece por")}{" "}
-                      <a
-                        className="package-listing-link"
-                        href={config.broker.listingUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {config.packagePrice}
-                      </a>
+                      {config.singleExternalLinks ? (
+                        <strong>{config.packagePrice}</strong>
+                      ) : (
+                        <a
+                          className="package-listing-link"
+                          href={config.broker.listingUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {config.packagePrice}
+                        </a>
+                      )}
                       . {config.packageIncludes}
                     </>
                   ) : (
                     <>
                       {tr("The total asking price for the", "El precio total solicitado por el")}{" "}
-                      <a
-                        className="package-listing-link"
-                        href={config.broker.listingUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}
-                      </a>
+                      {config.singleExternalLinks ? (
+                        <strong>{tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}</strong>
+                      ) : (
+                        <a
+                          className="package-listing-link"
+                          href={config.broker.listingUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}
+                        </a>
+                      )}
                       . {config.packageIncludes}
                     </>
                   )}
@@ -1132,6 +1146,16 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 >
                   {config.sellerDirect ? tr("View Original Seller Advertisement →", "Ver el anuncio original de la vendedora →") : tr("Visit Listing Broker Website →", "Visitar el sitio web del corredor →")}
                 </a>
+                {!config.sellerDirect && config.singleExternalLinks ? (
+                  <a
+                    className="marketplace-listing-text-link"
+                    href={config.broker.listingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {config.sourceListingLinkLabel || tr("View Original Listing →", "Ver anuncio original →")}
+                  </a>
+                ) : null}
                 <ListingBrokerInquiryForm
                   listingReference={config.listingReference}
                   listingRequested={isNonQuotaBusiness
