@@ -113,7 +113,7 @@ export default function FormsSiteHeader({
               <span className="contact-phone" aria-hidden="true">☎</span>Contact Us
             </a>
             <div className="fllm-contact-us-menu" aria-label="Contact Florida Liquor License Market">
-              <a href="mailto:clientservices@floridaliquorlicensemarket.com">
+              <a href="/contact">
                 <span aria-hidden="true">✉</span>Email FLLM
               </a>
               <a href="tel:+14075895522">
