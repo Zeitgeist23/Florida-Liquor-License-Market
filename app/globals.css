@@ -455,11 +455,8 @@ footer .fllm-footer-phone {
 }
 
 footer .fllm-footer-phone::before {
-  content: "·";
-  display: inline-block;
-  margin: 0 10px 0 8px;
-  color: #7f98aa;
-  font-weight: 700;
+  content: none;
+  display: none;
 }
 
 footer .fllm-footer-phone:hover,
@@ -478,10 +475,6 @@ footer .fllm-footer-phone-row {
 }
 
 @media (max-width: 650px) {
-  footer .fllm-footer-phone::before {
-    margin-left: 6px;
-  }
-
   footer .fllm-footer-phone-row {
     width: min(calc(100% - 24px), 1240px);
     text-align: center;
