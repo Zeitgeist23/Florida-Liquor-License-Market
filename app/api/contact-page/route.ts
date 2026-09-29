@@ -27,7 +27,7 @@ const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v3">
 
 const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=5" defer></script>';
 const OFFICIAL_SHELL_STYLES = '<link rel="stylesheet" href="/assets/contact-official-shell.css?v=22"/>';
-const OFFICIAL_SHELL_SCRIPT = '<script src="/assets/contact-official-shell.js?v=18" defer></script>';
+const OFFICIAL_SHELL_SCRIPT = '<script src="/assets/contact-official-shell.js?v=19" defer></script>';
 
 const OFFICIAL_HEADER = `<header class="site-header forms-site-header page-shell fllm-official-contact-header">
   <a class="brand-lockup" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market"/></a>
@@ -104,7 +104,7 @@ async function loadContactSource(request: Request) {
 function addSmsConsent(html: string) {
   if (html.includes('class="contact-sms-consent"')) return html;
   const submitButton = '<button class="btn btn-gold contact-submit" type="submit">Submit Confidential Inquiry</button>';
-  const disclosure = '<label class="contact-sms-consent"><input type="checkbox" name="sms_consent" value="yes"/><span>I agree to receive text messages from Florida Liquor License Market regarding my inquiry and requested FLLM services. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. Consent is not a condition of purchase. <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> · <a href="/terms-of-use" target="_blank" rel="noopener noreferrer">Terms of Use</a></span></label>';
+  const disclosure = '<label class="contact-sms-consent"><input type="checkbox" name="sms_consent" value="yes"/><span>I agree to receive conversational text messages from Florida Liquor License Market about my inquiry and requested FLLM marketplace or professional services, including liquor license and business listing inquiries, appraisal inquiries, and transaction-related follow-up. Message frequency varies. Message and data rates may apply. Reply STOP to opt out. Reply HELP for help. Consent is not a condition of purchase. <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> · <a href="/terms-of-use" target="_blank" rel="noopener noreferrer">Terms of Use</a></span></label>';
   return html.replace(submitButton, disclosure + submitButton);
 }
 
