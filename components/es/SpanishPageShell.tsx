@@ -23,7 +23,7 @@ export default function SpanishPageShell({ eyebrow, title, intro, children }: Sp
         <p>Esta versión en español se ofrece para facilitar el acceso a la información. Los estatutos, formularios, registros públicos, contratos y términos oficiales en inglés prevalecen si existe alguna diferencia.</p>
       </aside>
       <footer className="es-footer">
-        <div><strong>Florida Liquor License Market</strong><span>Comprar · Vender · Financiar · Informarse</span></div>
+        <div><strong>Florida Liquor License Market</strong><span>Comprar · Vender · Financiar · Informarse</span><a className="fllm-footer-phone" data-fllm-footer-phone="true" href="tel:+14075895522" aria-label="Llamar a Florida Liquor License Market al 407 589 5522">(407) 589-5522</a></div>
         <div><Link href="/es">Inicio en español</Link><Link href="/">English</Link><Link href="/contact">Contacto</Link></div>
       </footer>
     </main>
