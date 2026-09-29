@@ -145,7 +145,7 @@ export default function ListingsSeoAuthorityBridge() {
           <Link href="/" aria-label="Florida Liquor License Market home">
             <Image src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width={130} height={53} />
           </Link>
-          <span>© Florida Liquor License Market</span>
+          <span>© Florida Liquor License Market</span><a className="fllm-footer-phone" data-fllm-footer-phone="true" href="tel:+14075895522" aria-label="Call Florida Liquor License Market at 407 589 5522">(407) 589-5522</a>
         </div>
         <nav aria-label="Footer navigation">
           <Link href="/">Home</Link>
