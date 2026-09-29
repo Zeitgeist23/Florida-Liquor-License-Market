@@ -244,19 +244,21 @@ export async function POST(
 
     if (action === "sync_liens") {
       const lienSearch = await syncLienRecord(appraisalCase.caseRef);
-      if (
-        lienSearch &&
-        ["no_filings_reported", "filings_found"].includes(String(lienSearch.ucc_status))
-      ) {
-        appraisalCase = await updateAppraisalCase(
-          appraisalCase.id,
-          { status: appraisalCase.status === "LIEN_RESEARCH" ? "MARKET_RESEARCH" : appraisalCase.status },
-          "LIEN_RESEARCH_SYNCED",
-          {
-            uccStatus: lienSearch.ucc_status,
-            abtStatus: lienSearch.abt_status,
-          },
-        );
+      if (lienSearch) {
+        const lienShape = lienSearch as unknown as Record<string, unknown>;
+        const syncedUccStatus = String(lienShape.ucc_status || lienShape.uccStatus || "");
+        const syncedAbtStatus = String(lienShape.abt_status || lienShape.abtStatus || "");
+        if (["no_filings_reported", "filings_found"].includes(syncedUccStatus)) {
+          appraisalCase = await updateAppraisalCase(
+            appraisalCase.id,
+            { status: appraisalCase.status === "LIEN_RESEARCH" ? "MARKET_RESEARCH" : appraisalCase.status },
+            "LIEN_RESEARCH_SYNCED",
+            {
+              uccStatus: syncedUccStatus,
+              abtStatus: syncedAbtStatus,
+            },
+          );
+        }
       }
       return NextResponse.json({ appraisalCase, lienSearch });
     }
