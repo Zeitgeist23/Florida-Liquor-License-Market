@@ -255,6 +255,30 @@
     apply();
   }
 
+  function ensureSmsConsent(){
+    var form=document.querySelector('form.contact-page-form');
+    if(!(form instanceof HTMLFormElement)) return;
+    if(form.querySelector('.contact-sms-consent')) return;
+
+    var submit=form.querySelector('button.contact-submit');
+    if(!(submit instanceof HTMLButtonElement)) return;
+
+    var label=document.createElement('label');
+    label.className='contact-sms-consent';
+
+    var checkbox=document.createElement('input');
+    checkbox.type='checkbox';
+    checkbox.name='sms_consent';
+    checkbox.value='yes';
+
+    var copy=document.createElement('span');
+    copy.innerHTML='I agree to receive text messages from Florida Liquor License Market regarding my inquiry and requested FLLM services. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. Consent is not a condition of purchase. <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> · <a href="/terms-of-use" target="_blank" rel="noopener noreferrer">Terms of Use</a>';
+
+    label.appendChild(checkbox);
+    label.appendChild(copy);
+    submit.insertAdjacentElement('beforebegin',label);
+  }
+
   function wireContactHoverSelects(){
     var inquiry=document.querySelector('form.contact-page-form select[name="inquiry_type"]');
     var county=document.querySelector('form.contact-page-form select[name="preferred_county"]');
@@ -278,6 +302,7 @@
     positionResourcesMenus();
     wireContactHoverSelects();
     wireContactPhone();
+    ensureSmsConsent();
 
     var footer=document.querySelector('.fllm-official-contact-footer');
     if(!footer){
