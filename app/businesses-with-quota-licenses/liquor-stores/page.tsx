@@ -5,6 +5,9 @@ import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
 import BusinessPackageLocalMarkets from "@/components/BusinessPackageLocalMarkets";
 import { FllmPageShell } from "@/components/FllmDesignSystem";
 import { BUSINESS_LISTING_DISPLAY_LIMIT, businessQuotaListings } from "@/lib/business-quota-listings";
+import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
+import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
 import "../../fllm-official-template.css";
 import "../../fllm-design-system.css";
@@ -14,11 +17,6 @@ import "../bars/bars.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/businesses-with-quota-licenses/liquor-stores`;
-
-const allLiquorStoreListings = businessQuotaListings.filter(
-  (listing) => listing.businessCategory === "Liquor Store",
-);
-const liquorStoreListings = allLiquorStoreListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
 
 const faqs = [
   {
@@ -65,7 +63,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LiquorStoresWithQuotaLicensesPage() {
+export default async function LiquorStoresWithQuotaLicensesPage() {
+  const standaloneListings = getVisibleAvailableMarketplaceListings(
+    await getMarketplaceListings(),
+  );
+  const quotaListingsWithValues = withMarketLicenseValues(
+    businessQuotaListings,
+    standaloneListings,
+  );
+  const allLiquorStoreListings = quotaListingsWithValues.filter(
+    (listing) => listing.businessCategory === "Liquor Store",
+  );
+  const liquorStoreListings = allLiquorStoreListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
+
   const structuredData = [
     {
       "@context": "https://schema.org",
