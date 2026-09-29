@@ -4,11 +4,11 @@ const menuStyles = `<style id="home-list-license-menu-styles">
 .site-header,.site-header .header-actions{overflow:visible!important}
 .header-actions .home-contact-wrap{position:relative;display:inline-flex;align-items:center;flex:0 0 auto;padding-bottom:9px;margin-bottom:-9px}
 .header-actions .home-contact-wrap::after{content:"";position:absolute;top:100%;left:0;width:100%;height:10px}
-.header-actions .home-contact-menu{position:absolute;top:100%;left:0;z-index:50020;display:none;width:164px;padding:6px;border:1px solid #f6a700;border-radius:7px;background:#061728;box-shadow:0 18px 42px rgba(0,0,0,.46)}
+.header-actions .home-contact-menu{position:absolute;top:100%;left:0;z-index:50020;display:none;width:205px;padding:6px;border:1px solid #f6a700;border-radius:7px;background:#061728;box-shadow:0 18px 42px rgba(0,0,0,.46)}
 .header-actions .home-contact-wrap:hover .home-contact-menu,.header-actions .home-contact-wrap:focus-within .home-contact-menu{display:grid;gap:4px}
 .header-actions .home-contact-menu::before{content:"";position:absolute;top:-6px;left:34px;width:10px;height:10px;transform:rotate(45deg);border-left:1px solid #f6a700;border-top:1px solid #f6a700;background:#061728}
-.header-actions .home-contact-menu a{position:relative;z-index:1;display:flex;align-items:center;gap:8px;width:100%;min-height:39px;padding:0 11px;border:1px solid rgba(255,255,255,.10);border-radius:5px;background:#0b2134;color:#fff!important;font:800 11px/1 Arial,Helvetica,sans-serif;text-decoration:none!important;text-transform:none!important;white-space:nowrap}
-.header-actions .home-contact-menu a span{color:#f6a700;font-size:12px}
+.header-actions .home-contact-menu a{position:relative;z-index:1;display:flex;align-items:center;gap:8px;width:100%;min-height:46px;padding:0 14px;border:1px solid rgba(255,255,255,.10);border-radius:5px;background:#0b2134;color:#fff!important;font:800 13px/1 Arial,Helvetica,sans-serif;text-decoration:none!important;text-transform:none!important;white-space:nowrap}
+.header-actions .home-contact-menu a span{color:#f6a700;font-size:14px}
 .header-actions .home-contact-menu a:hover,.header-actions .home-contact-menu a:focus-visible{background:#112c43;border-color:#f6a700;color:#f6a700!important;outline:none;transform:translateY(-1px)}
 .header-actions .home-list-license-wrap{position:relative;display:inline-flex;align-items:center;flex:0 0 auto}
 .header-actions .home-list-license-wrap::after{content:"";position:absolute;top:100%;right:0;width:100%;height:10px}
@@ -125,7 +125,7 @@ const contactMenuInstallerScript = `<script id="home-contact-menu-installer">
     menu.className='home-contact-menu';
     menu.setAttribute('aria-label','Contact Florida Liquor License Market');
     menu.appendChild(makeContactLink('Email FLLM','mailto:clientservices@floridaliquorlicensemarket.com','✉'));
-    menu.appendChild(makeContactLink('(407)589-5522','tel:+14075895522','☎'));
+    menu.appendChild(makeContactLink('(407) 589-5522','tel:+14075895522','☎'));
     wrap.appendChild(menu);
   }
 
