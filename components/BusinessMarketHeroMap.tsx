@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useState } from "react";
 
 import { FLORIDA_COUNTY_PATHS } from "@/components/FloridaCountyMap";
 
@@ -26,23 +26,28 @@ export default function BusinessMarketHeroMap({
   otherListingsCount: number;
 }) {
   const target = normalizeCounty(county);
-  const activePathRef = useRef<SVGPathElement | null>(null);
-  const [pin, setPin] = useState<{ x: number; y: number } | null>(null);
   const [open, setOpen] = useState(true);
-
-  const viewBox = useMemo(
-    () => ({ minX: 90, minY: -10, width: 380, height: 300 }),
-    [],
+  const activeCounty = FLORIDA_COUNTY_PATHS.find(
+    (item) => normalizeCounty(item.name) === target,
   );
 
-  useLayoutEffect(() => {
-    const path = activePathRef.current;
-    if (!path) return;
-    const box = path.getBBox();
-    const x = ((box.x + box.width / 2 - viewBox.minX) / viewBox.width) * 100;
-    const y = ((box.y + box.height / 2 - viewBox.minY) / viewBox.height) * 100;
-    setPin({ x, y });
-  }, [county, viewBox]);
+  const pin = (() => {
+    if (!activeCounty) return null;
+    const numbers = (activeCounty.path.match(/-?\\d+(?:\\.\\d+)?/g) ?? []).map(Number);
+    const xs: number[] = [];
+    const ys: number[] = [];
+    for (let index = 0; index + 1 < numbers.length; index += 2) {
+      xs.push(numbers[index]);
+      ys.push(numbers[index + 1]);
+    }
+    if (!xs.length || !ys.length) return null;
+    const centerX = (Math.min(...xs) + Math.max(...xs)) / 2;
+    const centerY = (Math.min(...ys) + Math.max(...ys)) / 2;
+    return {
+      x: ((centerX - 90) / 380) * 100,
+      y: ((centerY + 10) / 300) * 100,
+    };
+  })();
 
   const tooltipSide = pin && pin.x > 58 ? "left" : "right";
   const tooltipVertical =
@@ -88,7 +93,6 @@ export default function BusinessMarketHeroMap({
               return (
                 <path
                   key={item.id}
-                  ref={active ? activePathRef : undefined}
                   d={item.path}
                   fill={active ? "#f5a400" : "#dce4ea"}
                   stroke={active ? "#ffd76a" : "#71869a"}
