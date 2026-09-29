@@ -78,7 +78,7 @@ async function syncLienRecord(caseRef: string) {
       }
       try {
         const run = await getTinyFishRun(entry.runId);
-        return { debtorName: entry.debtorName, runId: entry.runId, ...run };
+        return { debtorName: entry.debtorName, ...run };
       } catch (error) {
         return {
           debtorName: entry.debtorName,
