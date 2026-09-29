@@ -118,6 +118,11 @@ export default function AdminOwnerOutreachClient(){
     {error&&<p className="owner-error">{error}</p>}
     {notice&&<p className="owner-notice">{notice}</p>}
 
+    <aside className="owner-protection-note">
+      <strong>Broker relationship protection:</strong>
+      <span>FLLM broker featured listings are automatically excluded from this owner-email system. Owner research and direct owner outreach must not be used to bypass or compete with an FLLM featured broker relationship.</span>
+    </aside>
+
     <section className="owner-workflow">
       <div><b>1</b><span><strong>Capture listing</strong><small>BizBuySell, BizQuest, broker site or other public source.</small></span></div>
       <div><b>2</b><span><strong>Research identity</strong><small>Match clues; verify DBPR, Sunbiz and public sources.</small></span></div>
