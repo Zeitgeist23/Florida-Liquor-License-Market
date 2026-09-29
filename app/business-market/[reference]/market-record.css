@@ -6,7 +6,24 @@
 }
 .business-market-page *{box-sizing:border-box}
 .business-market-shell{width:min(1180px,calc(100% - 40px));margin:0 auto}
-.business-market-header{position:relative;z-index:20;background:#061728}
+.business-market-header{
+  position:relative;
+  z-index:1200;
+  width:100%;
+  border-bottom:1px solid #765613;
+  background:
+    radial-gradient(circle at 82% 35%,rgba(19,54,77,.2),transparent 30%),
+    linear-gradient(90deg,#010810 0%,#020c14 48%,#061522 100%);
+  box-shadow:0 5px 15px rgba(0,0,0,.22);
+}
+
+/* Match the approved FLLM landing-page action order on Market Record pages. */
+.business-market-header .forms-site-header .header-actions .fllm-header-list-cta{
+  order:1 !important;
+}
+.business-market-header .forms-site-header .header-actions .fllm-contact-us-wrap{
+  order:2 !important;
+}
 
 .business-market-hero{
   padding:44px 0 46px;
