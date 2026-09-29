@@ -23,6 +23,10 @@ const emptyForm={
   identification_confidence:"",ownership_notes:"",notes:""
 };
 
+function sourceHost(url:string){
+  try{return new URL(url).hostname.replace(/^www\./,"");}catch{return "Public source";}
+}
+
 export default function AdminOwnerOutreachClient(){
   const [authenticated,setAuthenticated]=useState<boolean|null>(null);
   const [prospects,setProspects]=useState<Prospect[]>([]);
@@ -175,7 +179,7 @@ export default function AdminOwnerOutreachClient(){
           </div>
 
           {selected.ownership_notes&&<div className="research-notes"><span>Research notes</span><p>{selected.ownership_notes}</p></div>}
-          {selected.source_urls?.length>0&&<div className="source-links"><span>Public record sources</span>{selected.source_urls.map((url,i)=><a key={url+i} href={url} target="_blank">{new URL(url).hostname.replace(/^www\./,"")} ↗</a>)}</div>}
+          {selected.source_urls?.length>0&&<div className="source-links"><span>Public record sources</span>{selected.source_urls.map((url,i)=><a key={url+i} href={url} target="_blank">{sourceHost(url)} ↗</a>)}</div>}
 
           <div className="email-panel">
             <div className="section-title"><span>Corporate Outreach</span><h2>Neutral owner introduction</h2></div>
