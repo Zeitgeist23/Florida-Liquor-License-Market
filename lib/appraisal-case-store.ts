@@ -197,6 +197,18 @@ export async function getAppraisalCase(id: string) {
   return rows[0] ? toCase(rows[0]) : null;
 }
 
+
+export async function getAppraisalCaseByOrderRef(orderRef: string) {
+  if (!orderRef.trim()) return null;
+  const response = await fetch(
+    endpoint(`appraisal_cases?order_ref=eq.${encodeURIComponent(orderRef.trim())}&select=*&limit=1`),
+    { headers: headers(), cache: "no-store" },
+  );
+  if (!response.ok) throw new Error(`Could not load appraisal case by order reference: ${response.status} ${await response.text()}`);
+  const rows = (await response.json()) as Row[];
+  return rows[0] ? toCase(rows[0]) : null;
+}
+
 export async function createAppraisalCase(values: Record<string, unknown>) {
   const response = await fetch(endpoint("appraisal_cases"), {
     method: "POST",
