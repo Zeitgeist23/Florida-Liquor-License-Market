@@ -364,8 +364,8 @@ export async function GET(
     );
     y -= 28;
     y = sectionTitle(p3, bold, "Lien & Encumbrance Research", y);
-    const uccStatus = String(lienSearch?.ucc_status || "not recorded").replaceAll("_", " ");
-    const abtStatus = String(lienSearch?.abt_status || "not recorded").replaceAll("_", " ");
+    const uccStatus = String(lienSearch?.ucc_status || lienSearch?.uccStatus || "not recorded").replaceAll("_", " ");
+    const abtStatus = String(lienSearch?.abt_status || lienSearch?.abtStatus || "not recorded").replaceAll("_", " ");
     metric(p3, font, bold, "Florida UCC", uccStatus.toUpperCase(), 42, y, 253);
     metric(p3, font, bold, "Official ABT-6023", abtStatus.toUpperCase(), 306, y, 264);
     y -= 66;
