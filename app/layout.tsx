@@ -77,6 +77,7 @@ const globalStructuredData = [
     name: "Florida Liquor License Market",
     url: siteUrl,
     logo: `${siteUrl}/assets/brand-sharp.svg`,
+    telephone: "+1-407-589-5522",
     description: marketplaceDescription,
   },
   {
