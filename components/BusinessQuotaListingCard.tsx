@@ -160,7 +160,7 @@ export default function BusinessQuotaListingCard({
           </Link>
           {isMarketListing ? (
             <Link className="business-quota-card-market-view" href={marketViewHref}>
-              Market View ›
+              View Heat Map ›
             </Link>
           ) : null}
         </div>
