@@ -2,6 +2,7 @@ import "server-only";
 
 import { emailShell, sendFllmEmail } from "@/lib/fllm-email";
 import { supabaseServiceSettings } from "@/lib/supabase-settings";
+import { brokerFeaturedOwnerOutreachProtection } from "@/lib/owner-outreach-protection";
 
 export type OwnerProspect = {
   id: string;
@@ -83,14 +84,28 @@ function businessLabel(p: OwnerProspect) {
 }
 
 export async function listOwnerOutreachData() {
-  const [prospects, messages] = await Promise.all([
+  const [allProspects, allMessages] = await Promise.all([
     rest<OwnerProspect[]>("owner_outreach_prospects?select=*&order=created_at.desc&limit=1000"),
     rest<OwnerMessage[]>("owner_outreach_messages?select=*&order=created_at.desc&limit=1000"),
   ]);
+  const protectedIds = new Set(
+    allProspects
+      .filter((prospect) => brokerFeaturedOwnerOutreachProtection(prospect))
+      .map((prospect) => prospect.id),
+  );
+  const prospects = allProspects.filter((prospect) => !protectedIds.has(prospect.id));
+  const messages = allMessages.filter((message) => !protectedIds.has(message.prospect_id));
   return { prospects, messages };
 }
 
 export async function createOwnerProspect(input: Partial<OwnerProspect>) {
+  const protection = brokerFeaturedOwnerOutreachProtection(input);
+  if (protection) {
+    throw new Error(
+      `Owner outreach is blocked for ${protection.listingReference}. This is an FLLM broker featured listing represented by ${protection.brokerName}; use the broker relationship instead.`,
+    );
+  }
+
   const row = {
     business_name: input.business_name?.trim() || null,
     legal_entity_name: input.legal_entity_name?.trim() || null,
@@ -127,6 +142,14 @@ export async function createOwnerProspect(input: Partial<OwnerProspect>) {
 }
 
 export async function updateOwnerProspect(id: string, patch: Partial<OwnerProspect>) {
+  const currentRows = await rest<OwnerProspect[]>(
+    `owner_outreach_prospects?select=*&id=eq.${encodeURIComponent(id)}&limit=1`,
+  );
+  const current = currentRows[0];
+  if (!current) throw new Error("Owner prospect not found.");
+
+  const merged = { ...current, ...patch };
+  const protection = brokerFeaturedOwnerOutreachProtection(merged);
   const allowed: Record<string, unknown> = {};
   for (const key of [
     "business_name","legal_entity_name","owner_name","owner_email","owner_phone","website_url","business_type","county","city",
@@ -136,6 +159,18 @@ export async function updateOwnerProspect(id: string, patch: Partial<OwnerProspe
   ] as const) {
     if (patch[key] !== undefined) allowed[key] = patch[key];
   }
+
+  if (protection) {
+    allowed.do_not_contact = true;
+    allowed.status = "invalid";
+    const protectedNote =
+      `OWNER OUTREACH BLOCKED — ${protection.listingReference} is an FLLM broker featured listing represented by ${protection.brokerName}. Do not contact the owner directly from the FLLM owner-outreach system.`;
+    const existingNotes = String(patch.notes ?? current.notes ?? "").trim();
+    allowed.notes = existingNotes.includes("OWNER OUTREACH BLOCKED")
+      ? existingNotes
+      : [existingNotes, protectedNote].filter(Boolean).join("\n");
+  }
+
   allowed.updated_at = new Date().toISOString();
   const rows = await rest<OwnerProspect[]>(`owner_outreach_prospects?id=eq.${encodeURIComponent(id)}`, {
     method: "PATCH", headers: { Prefer: "return=representation" }, body: JSON.stringify(allowed),
@@ -192,6 +227,12 @@ export async function createOwnerMessage(prospectId: string) {
   const prospects = await rest<OwnerProspect[]>(`owner_outreach_prospects?select=*&id=eq.${encodeURIComponent(prospectId)}&limit=1`);
   const prospect = prospects[0];
   if (!prospect) throw new Error("Owner prospect not found.");
+  const protection = brokerFeaturedOwnerOutreachProtection(prospect);
+  if (protection) {
+    throw new Error(
+      `Owner email drafting is disabled for ${protection.listingReference}; this is an FLLM broker featured listing.`,
+    );
+  }
   const built = buildOwnerOutreachMessage(prospect);
   const rows = await rest<OwnerMessage[]>("owner_outreach_messages", {
     method: "POST",
@@ -221,6 +262,12 @@ async function messageWithProspect(messageId: string) {
 
 export async function regenerateOwnerMessage(messageId: string) {
   const { message, prospect } = await messageWithProspect(messageId);
+  const protection = brokerFeaturedOwnerOutreachProtection(prospect);
+  if (protection) {
+    throw new Error(
+      `Owner email drafting is disabled for ${protection.listingReference}; this is an FLLM broker featured listing.`,
+    );
+  }
   const built = buildOwnerOutreachMessage(prospect);
   const rows = await rest<OwnerMessage[]>(`owner_outreach_messages?id=eq.${encodeURIComponent(message.id)}`, {
     method: "PATCH", headers: { Prefer: "return=representation" },
@@ -231,6 +278,12 @@ export async function regenerateOwnerMessage(messageId: string) {
 
 export async function sendOwnerMessage(messageId: string) {
   const { message, prospect } = await messageWithProspect(messageId);
+  const protection = brokerFeaturedOwnerOutreachProtection(prospect);
+  if (protection) {
+    throw new Error(
+      `Owner outreach is blocked for ${protection.listingReference}; this FLLM featured listing is controlled through the broker relationship with ${protection.brokerName}.`,
+    );
+  }
   if (prospect.do_not_contact || prospect.status === "opted_out") throw new Error("This owner has opted out of FLLM outreach.");
   if (!prospect.owner_email) throw new Error("This owner prospect has no public business email address.");
   if (message.status === "sent") return message;
