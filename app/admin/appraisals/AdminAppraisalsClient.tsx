@@ -539,7 +539,7 @@ export default function AdminAppraisalsClient() {
                           <span>{String(filing.filing_date || filing.filingDate || "")}</span>
                           <p>Secured party: {Array.isArray(filing.secured_parties) ? filing.secured_parties.join(", ") : String(filing.secured_party || "Not returned")}</p>
                           <p>Collateral: {String(filing.collateral_summary || "Review source document")}</p>
-                          {filing.source_url && <a href={String(filing.source_url)} target="_blank" rel="noreferrer">Source ↗</a>}
+                          {Boolean(filing.source_url) && <a href={String(filing.source_url)} target="_blank" rel="noreferrer">Source ↗</a>}
                         </article>
                       ))}
                     </div>
