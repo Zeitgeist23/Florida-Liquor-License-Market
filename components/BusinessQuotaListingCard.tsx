@@ -83,11 +83,32 @@ export default function BusinessQuotaListingCard({
             <span>Package Price</span>
             <strong>{listing.packagePrice}</strong>
           </div>
-          <div>
+          <div
+            className={
+              isMarketListing && !usesClassification
+                ? "business-quota-card-license-estimate"
+                : undefined
+            }
+            tabIndex={isMarketListing && !usesClassification ? 0 : undefined}
+            aria-describedby={
+              isMarketListing && !usesClassification
+                ? `${listing.listingReference.toLowerCase()}-license-value-tooltip`
+                : undefined
+            }
+          >
             <span>{licenseMetricLabel}</span>
             <strong className={usesClassification ? "business-quota-card-classification-value" : undefined}>
               {licenseMetricValue}
             </strong>
+            {isMarketListing && !usesClassification ? (
+              <span
+                id={`${listing.listingReference.toLowerCase()}-license-value-tooltip`}
+                className="business-quota-card-license-value-tooltip"
+                role="tooltip"
+              >
+                FLLM Est. License Value — marketplace estimate only, not an appraisal.
+              </span>
+            ) : null}
           </div>
         </div>
 
