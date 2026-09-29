@@ -243,6 +243,13 @@
     input.setAttribute('inputmode','tel');
     input.setAttribute('maxlength','13');
     input.setAttribute('placeholder','(555)555-5555');
+    input.required=true;
+    input.setAttribute('aria-required','true');
+    var phoneLabel=input.closest('label');
+    var phoneLabelText=phoneLabel&&phoneLabel.querySelector('span');
+    if(phoneLabelText && !/\*/.test(phoneLabelText.textContent||'')){
+      phoneLabelText.textContent='Phone *';
+    }
 
     var apply=function(){
       var formatted=formatContactPhone(input.value);
