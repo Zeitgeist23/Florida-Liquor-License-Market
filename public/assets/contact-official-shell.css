@@ -1398,6 +1398,10 @@
   content:none;
   display:none;
 }
+
+.fllm-official-contact-footer .directory-footer-brand > .fllm-footer-phone{
+  margin-left:-10px!important;
+}
 .fllm-official-contact-footer .fllm-footer-phone:hover,
 .fllm-official-contact-footer .fllm-footer-phone:focus-visible{
   color:#f1a600!important;
