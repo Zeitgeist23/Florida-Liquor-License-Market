@@ -137,8 +137,8 @@ export function evaluateAppraisalQc(
   appraisalCase: AppraisalCase,
   lienSearch: Record<string, unknown> | null,
 ) {
-  const uccStatus = String(lienSearch?.ucc_status || "not_run");
-  const abtStatus = String(lienSearch?.abt_status || "not_requested");
+  const uccStatus = String(lienSearch?.ucc_status || lienSearch?.uccStatus || "not_run");
+  const abtStatus = String(lienSearch?.abt_status || lienSearch?.abtStatus || "not_requested");
   const primaryCount = Number(appraisalCase.marketSnapshot?.primaryCount || 0);
   const includedCount = appraisalCase.comparables.filter((item) => item.included).length;
   const adjustmentNeedsReason = Math.abs(appraisalCase.reviewerAdjustment || 0) > 0;
