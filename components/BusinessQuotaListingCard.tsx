@@ -29,19 +29,28 @@ export default function BusinessQuotaListingCard({
   const isMarketListing = listing.listingTier === "market";
   const actionHref = listing.href;
   const usesClassification = listing.licenseClass === "sfs" || listing.licenseClass === "2cop";
-  const licenseMetricLabel = usesClassification
-    ? "License Classification"
-    : listing.marketMedianLicenseValue
-      ? "FLLM Median 4COP Ask"
-      : isMarketListing
-        ? "License Value Est."
-        : "License Value";
-  const licenseMetricValue =
+  const rawLicenseMetricValue =
     listing.licenseClass === "sfs"
       ? "Location-Specific"
       : listing.licenseClass === "2cop"
         ? "Non-Quota"
         : listing.marketMedianLicenseValue ?? listing.allocatedLicenseValue;
+  const hasEstimatedValueSuffix =
+    typeof rawLicenseMetricValue === "string" &&
+    /\s+est\.?$/i.test(rawLicenseMetricValue);
+  const licenseMetricLabel = usesClassification
+    ? "License Classification"
+    : listing.marketMedianLicenseValue
+      ? "FLLM Median 4COP Ask"
+      : isMarketListing || hasEstimatedValueSuffix
+        ? "License Value Est."
+        : "License Value";
+  const licenseMetricValue =
+    hasEstimatedValueSuffix && typeof rawLicenseMetricValue === "string"
+      ? rawLicenseMetricValue.replace(/\s+est\.?$/i, "")
+      : rawLicenseMetricValue;
+  const showEstimateTooltip =
+    !usesClassification && (isMarketListing || hasEstimatedValueSuffix);
 
   return (
     <article
@@ -84,13 +93,13 @@ export default function BusinessQuotaListingCard({
           </div>
           <div
             className={
-              isMarketListing && !usesClassification
+              showEstimateTooltip
                 ? "business-quota-card-license-estimate"
                 : undefined
             }
-            tabIndex={isMarketListing && !usesClassification ? 0 : undefined}
+            tabIndex={showEstimateTooltip ? 0 : undefined}
             aria-describedby={
-              isMarketListing && !usesClassification
+              showEstimateTooltip
                 ? `${listing.listingReference.toLowerCase()}-license-value-tooltip`
                 : undefined
             }
@@ -99,7 +108,7 @@ export default function BusinessQuotaListingCard({
             <strong className={usesClassification ? "business-quota-card-classification-value" : undefined}>
               {licenseMetricValue}
             </strong>
-            {isMarketListing && !usesClassification ? (
+            {showEstimateTooltip ? (
               <span
                 id={`${listing.listingReference.toLowerCase()}-license-value-tooltip`}
                 className="business-quota-card-license-value-tooltip"
