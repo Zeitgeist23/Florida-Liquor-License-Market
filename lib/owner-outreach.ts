@@ -76,9 +76,7 @@ function escapeHtml(value: string | null | undefined) {
 }
 function ownerGreeting(name?: string | null) {
   const cleaned = (name || "").trim();
-  if (!cleaned) return "Hello,";
-  const parts = cleaned.split(/\s+/);
-  return `Dear ${escapeHtml(parts.length > 1 ? `Ms./Mr. ${parts[parts.length - 1]}` : cleaned)},`;
+  return cleaned ? `Dear ${escapeHtml(cleaned)},` : "Hello,";
 }
 function businessLabel(p: OwnerProspect) {
   return p.business_name?.trim() || p.legal_entity_name?.trim() || "your business";
