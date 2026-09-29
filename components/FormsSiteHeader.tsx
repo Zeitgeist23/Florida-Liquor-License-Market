@@ -108,9 +108,19 @@ export default function FormsSiteHeader({
         </button>
         <HeaderNavMenus className={menuOpen ? "primary-nav is-open" : "primary-nav"} />
         <div className="header-actions">
-          <a className="btn btn-outline fllm-header-contact-cta" href="/contact">
-            <span className="contact-phone" aria-hidden="true">☎</span>Contact Us
-          </a>
+          <div className="fllm-contact-us-wrap">
+            <a className="btn btn-outline fllm-header-contact-cta" href="/contact">
+              <span className="contact-phone" aria-hidden="true">☎</span>Contact Us
+            </a>
+            <div className="fllm-contact-us-menu" aria-label="Contact Florida Liquor License Market">
+              <a href="mailto:clientservices@floridaliquorlicensemarket.com">
+                <span aria-hidden="true">✉</span>Email FLLM
+              </a>
+              <a href="tel:+14075895522">
+                <span aria-hidden="true">☎</span>Call FLLM
+              </a>
+            </div>
+          </div>
           <a className="btn btn-gold fllm-header-list-cta" href={effectivePrimaryActionHref}>{effectivePrimaryActionLabel}</a>
         </div>
       </header>
