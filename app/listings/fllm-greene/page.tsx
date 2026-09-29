@@ -82,25 +82,25 @@ const config = defineOfficial4CopSfsBusinessListing({
   additionalSellerIntro:
     "Turnkey restaurant and local nightlife opportunity in Sanford, Florida, positioned in a high-visibility, high-foot-traffic corridor with a strong local following and a layout designed for high-volume dining and nightlife service.",
   packageIncludes:
-    "The advertised business package includes the operating Mexican restaurant and lounge, approximately $230,000 of furniture, fixtures and equipment, the leasehold position, commercial kitchen and bar/lounge infrastructure, and the associated location-specific 4COP SFS / SRX full-liquor license. The SFS / SRX license is qualification-based and tied to the qualifying restaurant operation and approved premises rather than being an independently transferable quota asset. Buyers should confirm the exact DBPR license number, current classification, food-service qualification and transfer or ownership-change requirements directly with the listing broker and DBPR.",
+    "The business package includes the operating Mexican restaurant and lounge, approximately $230,000 of furniture, fixtures and equipment, the leasehold position, commercial kitchen and bar/lounge infrastructure, and the associated location-specific 4COP SFS / SRX full-liquor license. The SFS / SRX license is qualification-based and tied to the qualifying restaurant operation and approved premises rather than being an independently transferable quota asset.",
   businessMetrics: [
     {
       label: "Business Asking Price",
       value: "$350,000",
       description:
-        "The complete operating-business package is advertised at $350,000. Buyers should confirm the final transaction structure and included assets directly with the listing broker.",
+        "The complete operating-business package is offered at $350,000.",
     },
     {
       label: "Gross Revenue",
       value: "$1,425,056",
       description:
-        "Annual gross revenue is advertised at $1,425,056. Buyers should reconcile revenue to tax returns, financial statements and supporting records during due diligence.",
+        "Annual gross revenue is $1,425,056.",
     },
     {
       label: "Cash Flow (SDE)",
       value: "$293,050",
       description:
-        "Seller's Discretionary Earnings are advertised at $293,050. Buyers should verify the calculation methodology, add-backs and supporting financial records.",
+        "Seller's Discretionary Earnings are $293,050.",
     },
     {
       label: "EBITDA",
@@ -132,13 +132,13 @@ const config = defineOfficial4CopSfsBusinessListing({
       label: "Furniture, Fixtures & Equipment",
       value: "$230,000 included",
       description:
-        "The source listing states that approximately $230,000 of furniture, fixtures and equipment are included in the asking price.",
+        "Approximately $230,000 of furniture, fixtures and equipment are included in the asking price.",
     },
     {
       label: "Employees",
       value: "27 · 3 full-time · 24 part-time",
       description:
-        "The source listing reports 27 employees consisting of three full-time and 24 part-time employees. Buyers should verify payroll, roles, schedules and continued employment.",
+        "The business has 27 employees consisting of three full-time and 24 part-time employees.",
     },
     {
       label: "Premises",
@@ -150,7 +150,7 @@ const config = defineOfficial4CopSfsBusinessListing({
       label: "Monthly Rent",
       value: "$16,000",
       description:
-        "The source listing states monthly rent of $16,000. Buyers should confirm whether CAM, taxes, insurance, percentage rent or other occupancy costs are included.",
+        "Monthly rent is $16,000.",
     },
     {
       label: "Real Estate",
@@ -162,13 +162,13 @@ const config = defineOfficial4CopSfsBusinessListing({
       label: "Support & Training",
       value: "10 business days",
       description:
-        "The source listing states that the seller will provide 10 business days of training and support.",
+        "The seller will provide 10 business days of training and support.",
     },
     {
       label: "Reason for Selling",
       value: "Retiring",
       description:
-        "The source listing states that the seller is retiring.",
+        "The seller is retiring.",
     },
   ],
   opportunitiesHeading: "Offering Highlights",
@@ -180,7 +180,7 @@ const config = defineOfficial4CopSfsBusinessListing({
     "Continue full-liquor restaurant operations subject to DBPR approval and continuing 4COP SFS / SRX qualification.",
   ],
   transitionText:
-    "The source listing states that the seller is retiring and will provide 10 business days of training and support.",
+    "The seller is retiring and will provide 10 business days of training and support.",
   confidentialityText:
     "NDA and proof of funds are required for additional confidential information. Buyers should independently review financial statements, lease documents, licensing records, food-service qualification, included-asset schedules and all transaction documents directly through the listing broker.",
   sourceDisclosure:
