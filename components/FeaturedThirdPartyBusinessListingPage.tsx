@@ -532,9 +532,20 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         </>
                       ) : null}
                     </div>
-                    <div className="marketplace-listing-education-card">
+                    <div className="marketplace-listing-education-card marketplace-listing-tooltip-card" tabIndex={0}>
                       <span>{tr("License Classification", "Clasificación de la licencia")}</span>
                       <strong>{is2copListing ? tr("Non-quota", "Sin cupo") : tr("Location-specific", "Vinculada al local")}</strong>
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {is2copListing
+                          ? tr(
+                              "A 2COP beer-and-wine license is a non-quota license series and is not a separately transferable county quota-license asset.",
+                              "Una licencia 2COP de cerveza y vino es una serie sin cupo y no es un activo de licencia de cupo del condado transferible por separado.",
+                            )
+                          : tr(
+                              "This 4COP SFS / SRX license is tied to the approved business location and qualifying restaurant operation. It is not a separately transferable county quota-license asset.",
+                              "Esta licencia 4COP SFS / SRX está vinculada a la ubicación comercial aprobada y a la operación de restaurante que cumple los requisitos. No es un activo de licencia de cupo del condado transferible por separado.",
+                            )}
+                      </span>
                       {isSfsListing ? (
                         <Link
                           className="marketplace-listing-education-link"
@@ -545,13 +556,35 @@ export default function FeaturedThirdPartyBusinessListingPage({
                         </Link>
                       ) : null}
                     </div>
-                    <div>
+                    <div className="marketplace-listing-tooltip-card" tabIndex={0}>
                       <span>{tr("License Privileges", "Privilegios de la licencia")}</span>
                       <strong>{is2copListing ? tr("Beer · Wine", "Cerveza · Vino") : tr("Beer · Wine · Spirits", "Cerveza · Vino · Licores")}</strong>
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {is2copListing
+                          ? tr(
+                              "A 2COP license authorizes the sale of beer and wine within the privileges approved for the licensed premises; it does not authorize distilled spirits.",
+                              "Una licencia 2COP autoriza la venta de cerveza y vino dentro de los privilegios aprobados para el local autorizado; no autoriza licores destilados.",
+                            )
+                          : tr(
+                              "This license authorizes the sale and service of beer, wine, and distilled spirits for consumption on the licensed premises, subject to DBPR approval and continuing compliance with the applicable 4COP SFS / SRX requirements.",
+                              "Esta licencia autoriza la venta y el servicio de cerveza, vino y licores destilados para consumo en el local autorizado, sujeto a la aprobación del DBPR y al cumplimiento continuo de los requisitos aplicables de 4COP SFS / SRX.",
+                            )}
+                      </span>
                     </div>
-                    <div>
+                    <div className="marketplace-listing-tooltip-card" tabIndex={0}>
                       <span>{tr("License Basis", "Base de la licencia")}</span>
                       <strong>{is2copListing ? tr("Non-quota license series", "Serie de licencia sin cupo") : tr("Qualifying restaurant + premises", "Restaurante y local que califican")}</strong>
+                      <span className="marketplace-listing-card-tooltip" role="tooltip">
+                        {is2copListing
+                          ? tr(
+                              "The license is issued under a non-quota license series and depends on the licensed premises and continuing compliance with applicable DBPR requirements.",
+                              "La licencia se emite bajo una serie sin cupo y depende del local autorizado y del cumplimiento continuo de los requisitos aplicables del DBPR.",
+                            )
+                          : tr(
+                              "This license depends on both the restaurant's qualifying food-service operation and the approved licensed premises. If the business or premises no longer meet the applicable requirements, the license status may be affected.",
+                              "Esta licencia depende tanto de la operación de servicio de alimentos del restaurante que cumple los requisitos como del local autorizado aprobado. Si el negocio o el local dejan de cumplir los requisitos aplicables, el estado de la licencia puede verse afectado.",
+                            )}
+                      </span>
                     </div>
                   </>
                 ) : (
