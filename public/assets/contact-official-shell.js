@@ -139,7 +139,7 @@
         }
       },true);
       document.addEventListener('pointerdown',function(event){
-        var current=document.querySelector('.contact-page > .fllm-official-contact-header');
+        var current=document.querySelector('.contact-page > .fllm-official-contact-header, .legal-page > .fllm-official-contact-header');
         if(current && !current.contains(event.target)){
           current.querySelectorAll('.native-nav-dropdown.is-open').forEach(function(item){
             item.classList.remove('is-open');
@@ -156,7 +156,7 @@
       });
       document.addEventListener('keydown',function(event){
         if(event.key!=='Escape')return;
-        var current=document.querySelector('.contact-page > .fllm-official-contact-header');
+        var current=document.querySelector('.contact-page > .fllm-official-contact-header, .legal-page > .fllm-official-contact-header');
         if(!current)return;
         current.querySelectorAll('.native-nav-dropdown.is-open').forEach(function(item){
           item.classList.remove('is-open');
@@ -263,8 +263,9 @@
   }
 
   function ensureOfficialShell(){
-    var main=document.querySelector('main.contact-page');
+    var main=document.querySelector('main.contact-page, main.legal-page');
     if(!main)return false;
+    if(main.classList.contains('legal-page')) main.classList.add('contact-page');
 
     var header=main.querySelector(':scope > header');
     if(!header || !header.classList.contains('fllm-official-contact-header')){
