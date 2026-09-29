@@ -58,6 +58,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   const preferredCounty = value(formData, "preferred_county", 100);
   const message = value(formData, "message", 5000);
   const listingReference = value(formData, "listing_reference", 100);
+  const smsConsent = value(formData, "sms_consent", 20) === "yes";
 
   if (!fullName || !email || !inquiryType || !message) {
     return NextResponse.json(
@@ -135,7 +136,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     ? `\nSelected license details:\n${listingDetails.map(([label, detail]) => `${label}: ${detail}`).join("\n")}\n`
     : "";
 
-  const text = `A new confidential inquiry was submitted through Florida Liquor License Market.\n\nName: ${fullName}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\nInquiry type: ${inquiryType}\nPreferred county: ${preferredCounty || "Not selected"}\n${textListingDetails}\nMessage:\n${message}`;
+  const text = `A new confidential inquiry was submitted through Florida Liquor License Market.\n\nName: ${fullName}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\nInquiry type: ${inquiryType}\nPreferred county: ${preferredCounty || "Not selected"}\nSMS consent: ${smsConsent ? "Yes — optional website checkbox selected" : "No"}\n${textListingDetails}\nMessage:\n${message}`;
 
   const listingRows = listingDetails
     .map(([label, detail]) => {
@@ -150,7 +151,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #d6dde2;border-top:5px solid #f6a700;padding:24px;">
       <div style="margin-bottom:20px;color:#f1a600;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;">Florida Liquor License Market</div>
       <h1 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.15;">${isBusinessMarketBuyerMatch ? "Business Market Buyer Lead" : resolvedListingReference ? "Specific License Inquiry" : "New Confidential Inquiry"}</h1>
-      <p style="margin:0 0 18px;line-height:1.65;"><strong>Name:</strong> ${escapeHtml(fullName)}<br><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a><br><strong>Phone:</strong> ${escapeHtml(phone || "Not provided")}<br><strong>Inquiry type:</strong> ${escapeHtml(inquiryType)}<br><strong>Preferred county:</strong> ${escapeHtml(preferredCounty || "Not selected")}</p>
+      <p style="margin:0 0 18px;line-height:1.65;"><strong>Name:</strong> ${escapeHtml(fullName)}<br><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a><br><strong>Phone:</strong> ${escapeHtml(phone || "Not provided")}<br><strong>Inquiry type:</strong> ${escapeHtml(inquiryType)}<br><strong>Preferred county:</strong> ${escapeHtml(preferredCounty || "Not selected")}<br><strong>SMS consent:</strong> ${smsConsent ? "Yes — optional website checkbox selected" : "No"}</p>
       ${listingRows ? `<h2 style="margin:24px 0 10px;font-size:17px;">Selected License Details</h2><table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border:1px solid #d9dee2;border-collapse:collapse;">${listingRows}</table>` : ""}
       <h2 style="margin:24px 0 8px;font-size:17px;">Message</h2>
       <p style="margin:0;white-space:pre-wrap;line-height:1.7;">${escapeHtml(message)}</p>
