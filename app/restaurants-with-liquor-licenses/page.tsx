@@ -45,6 +45,12 @@ const restaurantListings = allRestaurantListings.slice(0, BUSINESS_LISTING_DISPL
 const stJohnsRestaurantListings = allRestaurantListings.filter(
   (listing) => listing.county === "St. Johns County",
 );
+const miamiRestaurantListings = allRestaurantListings.filter(
+  (listing) => listing.county === "Miami-Dade County",
+);
+const miamiQuotaRestaurantListings = allQuotaRestaurantListings.filter(
+  (listing) => listing.county === "Miami-Dade County",
+);
 
 export const metadata: Metadata = {
   title: "Florida Restaurants for Sale With Liquor Licenses | 4COP, SFS & 2COP | FLLM",
@@ -52,6 +58,13 @@ export const metadata: Metadata = {
     "Browse Florida restaurants for sale with 4COP quota liquor licenses, 4COP SFS / SRX licenses and 2COP beer-and-wine licenses. Compare active restaurant opportunities by license type and county.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
+  keywords: [
+    "Miami restaurant with quota license for sale",
+    "Miami restaurant for sale with 4COP quota license",
+    "Miami-Dade restaurant for sale with quota liquor license",
+    "Florida restaurant for sale with liquor license",
+    "4COP quota restaurant for sale",
+  ],
   openGraph: {
     type: "website",
     url: canonicalUrl,
@@ -239,6 +252,51 @@ export default function RestaurantsWithLiquorLicensesPage() {
               <p>Use the listing categories above to monitor new restaurant opportunities as they are published.</p>
             </FllmCard>
           )}
+        </div>
+      </section>
+
+      <section className="fllm-template-section" id="miami-dade-quota-restaurants">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Miami & Miami-Dade County"
+            title="Miami restaurants for sale with 4COP quota liquor licenses"
+            copy={
+              <p>
+                FLLM keeps Miami-Dade restaurant opportunities with transferable 4COP quota licenses separate from
+                non-quota 4COP SFS / SRX and 2COP restaurant listings. A 4COP quota license is a county-limited
+                transferable full-liquor license; 4COP SFS / SRX and 2COP licenses are different license structures
+                and should not be treated as quota inventory.
+              </p>
+            }
+          />
+
+          {miamiQuotaRestaurantListings.length ? (
+            <div className="business-quota-grid">
+              {miamiQuotaRestaurantListings.map((listing) => (
+                <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
+              ))}
+            </div>
+          ) : (
+            <FllmCard title="No published Miami-Dade restaurant + 4COP quota package is currently available on FLLM." variant="gold">
+              <p>
+                Current Miami-Dade restaurant inventory on FLLM includes other license structures, but those listings
+                are not quota licenses. Buyers seeking a transferable 4COP quota restaurant package can monitor this
+                section, review the Miami-Dade quota-license market, or request an alert for new inventory.
+              </p>
+              <div className="fllm-ui-actions">
+                <FllmButton href="/counties/miami-dade" variant="outline">Miami-Dade Quota License Market</FllmButton>
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/license-alerts">Get a License Alert</Link>
+              </div>
+            </FllmCard>
+          )}
+
+          {miamiRestaurantListings.length ? (
+            <div className="fllm-ui-actions">
+              <Link className="btn btn-gold fllm-ui-official-gold-button" href="#restaurant-inventory">
+                View All Miami-Dade Restaurant License Types
+              </Link>
+            </div>
+          ) : null}
         </div>
       </section>
 
