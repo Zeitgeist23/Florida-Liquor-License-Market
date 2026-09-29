@@ -210,16 +210,49 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
           overflow:hidden;
           min-height:690px;
           padding:54px 0 58px;
-          background:linear-gradient(135deg,var(--fllm-ink) 0%,var(--fllm-deep-navy) 58%,#173649 100%);
+          background:
+            radial-gradient(circle at 78% 24%,rgba(246,167,0,.06),transparent 32%),
+            linear-gradient(135deg,var(--fllm-ink) 0%,var(--fllm-deep-navy) 58%,#173649 100%);
         }
         .litigation-value-page .litigation-value-hero::before{
           content:"";
           position:absolute;
-          inset:0;
+          top:0;
+          right:0;
+          bottom:0;
+          width:60%;
           z-index:0;
           pointer-events:none;
-          background:url("/assets/fllm-expert-witness-litigation-hero.webp") 58% 42%/cover no-repeat;
+          background:url("/assets/fllm-expert-witness-litigation-hero.webp") right 32%/auto 96% no-repeat;
           filter:contrast(1.08) saturate(1.05) brightness(1.025);
+          -webkit-mask-image:linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(0,0,0,.03) 10%,
+            rgba(0,0,0,.13) 20%,
+            rgba(0,0,0,.32) 31%,
+            rgba(0,0,0,.58) 42%,
+            rgba(0,0,0,.8) 52%,
+            rgba(0,0,0,.94) 61%,
+            #000 68%,
+            #000 100%
+          );
+          mask-image:linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(0,0,0,.03) 10%,
+            rgba(0,0,0,.13) 20%,
+            rgba(0,0,0,.32) 31%,
+            rgba(0,0,0,.58) 42%,
+            rgba(0,0,0,.8) 52%,
+            rgba(0,0,0,.94) 61%,
+            #000 68%,
+            #000 100%
+          );
+          -webkit-mask-repeat:no-repeat;
+          mask-repeat:no-repeat;
+          -webkit-mask-size:100% 100%;
+          mask-size:100% 100%;
         }
         .litigation-value-page .litigation-value-hero::after{
           content:"";
@@ -231,83 +264,102 @@ export default function FloridaLiquorLicenseValueExpertWitnessPage() {
             linear-gradient(
               90deg,
               rgba(3,18,31,1) 0%,
-              rgba(3,18,31,.995) 27%,
-              rgba(3,18,31,.96) 36%,
-              rgba(4,22,38,.88) 44%,
-              rgba(4,24,41,.72) 52%,
-              rgba(5,27,46,.50) 60%,
-              rgba(5,28,47,.30) 68%,
-              rgba(5,28,47,.13) 76%,
-              rgba(5,28,47,.045) 84%,
-              rgba(5,28,47,0) 92%
+              rgba(3,18,31,.995) 31%,
+              rgba(4,22,38,.95) 40%,
+              rgba(4,24,41,.82) 48%,
+              rgba(5,27,46,.62) 56%,
+              rgba(5,28,47,.39) 64%,
+              rgba(5,28,47,.19) 72%,
+              rgba(5,28,47,.075) 80%,
+              rgba(5,28,47,.02) 88%,
+              rgba(5,28,47,0) 96%
             ),
-            linear-gradient(180deg,rgba(2,12,21,.03),rgba(2,12,21,.12));
+            linear-gradient(180deg,rgba(2,12,21,.025),rgba(2,12,21,.1));
         }
         .litigation-value-page .litigation-value-hero .fllm-template-shell{
           position:relative;
           z-index:2;
         }
         .litigation-value-hero-copy{
-          width:min(56%,860px);
+          width:min(57%,880px);
           min-width:0;
         }
         .litigation-value-page .litigation-value-hero .fllm-template-hero-title{
-          max-width:830px;
-          font-size:clamp(44px,5.05vw,70px);
+          max-width:840px;
+          font-size:clamp(44px,5.1vw,71px);
           line-height:.99;
         }
         .litigation-value-page .litigation-value-hero .fllm-template-hero-copy{
-          max-width:800px;
+          max-width:815px;
           font-size:16px;
           line-height:1.72;
         }
         @media(max-width:1120px){
           .litigation-value-page .litigation-value-hero{min-height:640px}
           .litigation-value-page .litigation-value-hero::before{
-            background-position:61% 40%;
+            width:58%;
+            background-position:right 30%;
+            background-size:auto 94%;
           }
           .litigation-value-page .litigation-value-hero::after{
             background:
               linear-gradient(
                 90deg,
                 rgba(3,18,31,1) 0%,
-                rgba(3,18,31,.995) 31%,
-                rgba(4,22,38,.94) 41%,
-                rgba(4,24,41,.80) 50%,
-                rgba(5,27,46,.58) 60%,
-                rgba(5,28,47,.34) 70%,
-                rgba(5,28,47,.13) 82%,
-                rgba(5,28,47,0) 94%
+                rgba(3,18,31,.99) 35%,
+                rgba(4,23,40,.9) 46%,
+                rgba(5,27,46,.68) 57%,
+                rgba(5,28,47,.43) 68%,
+                rgba(5,28,47,.18) 80%,
+                rgba(5,28,47,.04) 90%,
+                rgba(5,28,47,0) 100%
               ),
-              linear-gradient(180deg,rgba(2,12,21,.03),rgba(2,12,21,.12));
+              linear-gradient(180deg,rgba(2,12,21,.025),rgba(2,12,21,.1));
           }
-          .litigation-value-hero-copy{width:min(62%,740px)}
+          .litigation-value-hero-copy{width:min(63%,750px)}
           .litigation-value-page .litigation-value-hero .fllm-template-hero-title{font-size:clamp(42px,5vw,62px)}
         }
         @media(max-width:820px){
           .litigation-value-page .litigation-value-hero{
             min-height:0;
-            padding:40px 0 340px;
+            padding:40px 0 350px;
           }
           .litigation-value-page .litigation-value-hero::before{
             top:auto;
-            left:0;
             right:0;
             bottom:0;
+            width:100%;
             height:360px;
-            background-position:64% center;
-            background-size:cover;
-            filter:contrast(1.07) saturate(1.04) brightness(1.02);
+            background-position:center 28%;
+            background-size:auto 100%;
+            -webkit-mask-image:linear-gradient(
+              180deg,
+              transparent 0%,
+              rgba(0,0,0,.12) 10%,
+              rgba(0,0,0,.46) 20%,
+              rgba(0,0,0,.78) 30%,
+              #000 42%,
+              #000 100%
+            );
+            mask-image:linear-gradient(
+              180deg,
+              transparent 0%,
+              rgba(0,0,0,.12) 10%,
+              rgba(0,0,0,.46) 20%,
+              rgba(0,0,0,.78) 30%,
+              #000 42%,
+              #000 100%
+            );
           }
           .litigation-value-page .litigation-value-hero::after{
             background:
               linear-gradient(
                 180deg,
                 rgba(3,18,31,1) 0%,
-                rgba(3,18,31,.99) 47%,
-                rgba(5,28,47,.84) 58%,
-                rgba(5,28,47,.56) 70%,
-                rgba(5,28,47,.22) 84%,
+                rgba(3,18,31,.99) 48%,
+                rgba(5,28,47,.83) 59%,
+                rgba(5,28,47,.52) 71%,
+                rgba(5,28,47,.18) 85%,
                 rgba(5,28,47,0) 100%
               );
           }
