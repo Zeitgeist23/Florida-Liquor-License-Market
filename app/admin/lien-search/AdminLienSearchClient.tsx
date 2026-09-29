@@ -213,6 +213,7 @@ export default function AdminLienSearchClient() {
         </div>
         <nav>
           <Link href="/admin/leads">Lead Desk</Link>
+          <Link href="/admin/appraisals">Appraisals</Link>
           <Link href="/resources/forms/abt-6023">ABT-6023</Link>
         </nav>
       </header>
