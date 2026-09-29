@@ -5,6 +5,17 @@ import { randomBytes } from "node:crypto";
 import { floridaCounties } from "@/data/florida-counties";
 import { sendFllmEmail } from "@/lib/fllm-email";
 import type { ListingSubmission } from "@/lib/listing-submission-store";
+import {
+  createAppraisalCase,
+  getAppraisalCaseByOrderRef,
+  makeAppraisalCaseRef,
+} from "@/lib/appraisal-case-store";
+import {
+  APPRAISAL_METHODOLOGY_VERSION,
+  classifyQuotaLicense,
+} from "@/lib/appraisal-methodology";
+import { canonicalFloridaCountyName } from "@/lib/county-normalization";
+import { lookupFloridaRetailLicense } from "@/lib/license-fee-lookup";
 
 export const FORMAL_LICENSE_APPRAISAL_PRICE_CENTS = 49_500;
 export const FORMAL_LICENSE_APPRAISAL_PRICE_LABEL = "$495";
@@ -120,6 +131,102 @@ export function formalLicenseAppraisalDetails(submission: Pick<ListingSubmission
     return JSON.parse(submission.message || "{}") as StoredAppraisalDetails;
   } catch {
     return {} as StoredAppraisalDetails;
+  }
+}
+
+export async function ensureFormalLicenseAppraisalCase(submission: ListingSubmission) {
+  if (!isFormalLicenseAppraisalOrder(submission)) return null;
+
+  const existing = await getAppraisalCaseByOrderRef(submission.submissionRef);
+  if (existing) return existing;
+
+  const details = formalLicenseAppraisalDetails(submission);
+  const licenseNumber = (details.licenseNumber || submission.liveListingRef || "").trim().toUpperCase();
+  if (!licenseNumber) return null;
+
+  const clientName = submission.fullName || submission.email || "Formal appraisal client";
+  const intendedUse = details.intendedUse || submission.preferredTiming || "Formal Appraisal";
+  const institutionName = details.institutionName || null;
+  const effectiveDate = details.effectiveDate || null;
+
+  try {
+    const record = await lookupFloridaRetailLicense(licenseNumber);
+    const licenseType = record ? classifyQuotaLicense(record.series, record.modifier) : null;
+
+    if (record && licenseType) {
+      const verifiedAt = new Date().toISOString();
+      return createAppraisalCase({
+        case_ref: makeAppraisalCaseRef(record.licenseNumber),
+        order_ref: submission.submissionRef,
+        methodology_version: APPRAISAL_METHODOLOGY_VERSION,
+        status: "DBPR_VERIFIED",
+        client_name: clientName,
+        intended_use: intendedUse,
+        institution_name: institutionName,
+        effective_date: effectiveDate,
+        license_number: record.licenseNumber,
+        license_type: licenseType,
+        owner_name: record.ownerName,
+        dba: record.dba,
+        county: canonicalFloridaCountyName(record.county),
+        city: record.city || null,
+        series: record.series,
+        modifier: record.modifier || null,
+        primary_status: record.primaryStatus,
+        secondary_status: record.secondaryStatus,
+        expiration_date: record.expirationDate || null,
+        dbpr_verified_at: verifiedAt,
+        dbpr_snapshot: {
+          ...record,
+          canonicalCounty: canonicalFloridaCountyName(record.county),
+          verifiedAt,
+          source: "Florida DBPR alcoholic-beverage public extract",
+        },
+        review_status: "pending",
+      });
+    }
+
+    return createAppraisalCase({
+      case_ref: makeAppraisalCaseRef(licenseNumber),
+      order_ref: submission.submissionRef,
+      methodology_version: APPRAISAL_METHODOLOGY_VERSION,
+      status: "INTAKE",
+      client_name: clientName,
+      intended_use: intendedUse,
+      institution_name: institutionName,
+      effective_date: effectiveDate,
+      license_number: licenseNumber,
+      license_type: submission.licenseType || null,
+      owner_name: details.currentHolderOfRecord || null,
+      county: submission.county || null,
+      dbpr_snapshot: {
+        verificationStatus: record ? "unsupported_classification" : "not_found",
+        attemptedAt: new Date().toISOString(),
+      },
+      review_status: "pending",
+    });
+  } catch (error) {
+    console.error("Automatic formal appraisal workfile creation could not complete DBPR verification", error);
+    return createAppraisalCase({
+      case_ref: makeAppraisalCaseRef(licenseNumber),
+      order_ref: submission.submissionRef,
+      methodology_version: APPRAISAL_METHODOLOGY_VERSION,
+      status: "INTAKE",
+      client_name: clientName,
+      intended_use: intendedUse,
+      institution_name: institutionName,
+      effective_date: effectiveDate,
+      license_number: licenseNumber,
+      license_type: submission.licenseType || null,
+      owner_name: details.currentHolderOfRecord || null,
+      county: submission.county || null,
+      dbpr_snapshot: {
+        verificationStatus: "error",
+        attemptedAt: new Date().toISOString(),
+        error: error instanceof Error ? error.message : "DBPR verification failed.",
+      },
+      review_status: "pending",
+    });
   }
 }
 
