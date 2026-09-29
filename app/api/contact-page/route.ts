@@ -27,7 +27,7 @@ const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v3">
 
 const CONTACT_CONTEXT_SCRIPT = '<script src="/assets/contact-listing-context.js?v=5" defer></script>';
 const OFFICIAL_SHELL_STYLES = '<link rel="stylesheet" href="/assets/contact-official-shell.css?v=22"/>';
-const OFFICIAL_SHELL_SCRIPT = '<script src="/assets/contact-official-shell.js?v=16" defer></script>';
+const OFFICIAL_SHELL_SCRIPT = '<script src="/assets/contact-official-shell.js?v=17" defer></script>';
 
 const OFFICIAL_HEADER = `<header class="site-header forms-site-header page-shell fllm-official-contact-header">
   <a class="brand-lockup" href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market"/></a>
