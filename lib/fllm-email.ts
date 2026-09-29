@@ -85,8 +85,9 @@ function corporateSignatureHtml() {
                 <div style="font-family:Georgia,'Times New Roman',serif;font-size:13px;line-height:15px;font-weight:bold;white-space:nowrap">Florida Liquor License Market</div>
                 <div style="font-family:Georgia,'Times New Roman',serif;font-size:13px;line-height:15px;font-weight:bold;white-space:nowrap">Client Services</div>
                 <div style="margin-top:1px;font-size:9.5px;line-height:12px;font-style:italic;color:rgb(184,115,0);white-space:nowrap">Florida’s marketplace for buying, selling and financing liquor licenses</div>
-                <div style="margin-top:3px;font-size:10.5px;line-height:13px">✉&nbsp;&nbsp;<a href="mailto:clientservices@floridaliquorlicensemarket.com" style="color:rgb(7,26,58);text-decoration:none" target="_blank">clientservices@floridaliquorlicensemarket.com</a></div>
-                <div style="font-size:10.5px;line-height:13px">●&nbsp;&nbsp;<a href="${origin}/" style="color:rgb(7,26,58);text-decoration:none" target="_blank">www.floridaliquorlicensemarket.com</a></div>
+                <div style="margin-top:3px;font-size:10.5px;line-height:13px;white-space:nowrap"><span style="color:rgb(196,42,42)">☎</span>&nbsp;&nbsp;<a href="tel:+14075895522" style="color:rgb(27,91,169);text-decoration:underline" target="_blank">(407) 589-5522</a></div>
+                <div style="font-size:10.5px;line-height:13px;white-space:nowrap"><span style="color:rgb(119,146,169)">✉</span>&nbsp;&nbsp;<a href="mailto:clientservices@floridaliquorlicensemarket.com" style="color:rgb(7,26,58);text-decoration:none" target="_blank">clientservices@floridaliquorlicensemarket.com</a></div>
+                <div style="font-size:10.5px;line-height:13px;white-space:nowrap">●&nbsp;&nbsp;<a href="${origin}/" style="color:rgb(7,26,58);text-decoration:none" target="_blank">www.floridaliquorlicensemarket.com</a></div>
               </td>
             </tr>
           </tbody>
