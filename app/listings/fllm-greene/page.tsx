@@ -99,6 +99,8 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     packagePrice: "$350,000",
     packagePriceNumber: 350_000,
     businessLabel: "Popular Mexican Restaurant and Lounge in Downtown Sanford Area",
+    businessLabelLinkUrl: sourceListingUrl,
+    businessLabelBodyBold: true,
     heroSummary:
       "Turnkey Mexican restaurant and lounge opportunity in the Downtown Sanford area with an established local following, commercial kitchen, bar/lounge buildout and an advertised Seminole County 4COP liquor license included with the business package.",
     broker: {
@@ -222,7 +224,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
       "Featured third-party broker-page mockup for the Popular Mexican Restaurant and Lounge in Downtown Sanford Area listing. Business, financial, lease, asset and liquor-license information is based on the source advertisement and public broker information and should be independently verified during due diligence before reliance or closing.",
     countyContext:
       "Seminole County includes Sanford, Lake Mary, Altamonte Springs, Oviedo, Winter Springs, Longwood and surrounding Central Florida communities.",
-    singleExternalLinks: true,
+    singleExternalLinks: false,
     sourceListingLinkLabel: "View Original BizBuySell Listing →",
   };
 }
