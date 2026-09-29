@@ -312,8 +312,22 @@
     return true;
   }
 
+  var smsConsentObserver=null;
+
+  function startSmsConsentObserver(){
+    if(smsConsentObserver) return;
+    smsConsentObserver=new MutationObserver(function(){
+      var form=document.querySelector('form.contact-page-form');
+      if(form && !form.querySelector('.contact-sms-consent')){
+        ensureSmsConsent();
+      }
+    });
+    smsConsentObserver.observe(document.documentElement,{childList:true,subtree:true});
+  }
+
   function stabilize(){
-    [0,60,180,420,900,1600,2800,4500].forEach(function(delay){
+    startSmsConsentObserver();
+    [0,60,180,420,900,1600,2800,4500,7000,10000].forEach(function(delay){
       setTimeout(ensureOfficialShell,delay);
     });
   }
