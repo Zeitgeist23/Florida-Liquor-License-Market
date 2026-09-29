@@ -49,6 +49,7 @@ const OFFICIAL_FOOTER = `<footer class="directory-footer sell-license-page-foote
     <div class="directory-footer-brand">
       <a href="/" aria-label="Florida Liquor License Market home"><img src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width="130" height="53"/></a>
       <span>© Florida Liquor License Market</span>
+      <a class="fllm-footer-phone" data-fllm-footer-phone="true" href="tel:+14075895522" aria-label="Call Florida Liquor License Market at 407 589 5522">(407) 589-5522</a>
     </div>
     <nav aria-label="Footer navigation">
       <a href="/">Home</a>
