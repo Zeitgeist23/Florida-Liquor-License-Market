@@ -45,6 +45,8 @@ export default function BusinessMarketHeroMap({
   }, [county, viewBox]);
 
   const tooltipSide = pin && pin.x > 58 ? "left" : "right";
+  const tooltipVertical =
+    pin && pin.y > 66 ? "lower" : pin && pin.y < 28 ? "upper" : "middle";
   const otherLabel =
     otherListingsCount === 1
       ? "1 other FLLM listing in this county"
@@ -116,7 +118,7 @@ export default function BusinessMarketHeroMap({
 
             <aside
               id="business-market-hero-map-tooltip"
-              className={`business-market-hero-tooltip is-${tooltipSide}${open ? " is-visible" : ""}`}
+              className={`business-market-hero-tooltip is-${tooltipSide} is-${tooltipVertical}${open ? " is-visible" : ""}`}
               style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
               role="tooltip"
             >
