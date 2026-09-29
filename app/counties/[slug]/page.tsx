@@ -13,6 +13,7 @@ import {
   countyListingDescription,
 } from "@/lib/county-listing-descriptions";
 import { businessLicenseListingsForCounty } from "@/lib/business-quota-listings";
+import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
 import { listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleMarketplaceListings } from "@/lib/visible-marketplace-listings";
@@ -282,7 +283,10 @@ export default async function CountyPage({ params }: PageProps) {
   if (!county) notFound();
 
   const { available, sold, lowest, highest, medianPrice } = await getCountyListingSnapshot(county.name);
-  const businessPackages = businessLicenseListingsForCounty(county.name);
+  const businessPackages = withMarketLicenseValues(
+    businessLicenseListingsForCounty(county.name),
+    available,
+  );
   const barBusinessPackages = businessPackages.filter(
     (listing) =>
       listing.businessCategory === "Bar" ||
