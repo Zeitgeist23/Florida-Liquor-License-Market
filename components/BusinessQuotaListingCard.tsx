@@ -158,11 +158,7 @@ export default function BusinessQuotaListingCard({
                 ? "View Business + License Options"
                 : "View Business + License Package"} <span aria-hidden="true">›</span>
           </Link>
-          {isMarketListing ? (
-            <Link className="business-quota-card-market-view" href={marketViewHref}>
-              View Heat Map ›
-            </Link>
-          ) : null}
+
         </div>
       </div>
 
