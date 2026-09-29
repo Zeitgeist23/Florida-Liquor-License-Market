@@ -467,10 +467,6 @@ export default function FeaturedThirdPartyBusinessListingPage({
               >
                 {isNonQuotaBusiness ? (
                   <>
-                    <div>
-                      <span>{tr("Business Asking Price", "Precio de venta del negocio")}</span>
-                      <strong>{config.packagePrice}</strong>
-                    </div>
                     <div className="marketplace-listing-education-card marketplace-listing-license-type-card">
                       <span>{tr("Liquor License Type", "Tipo de licencia de bebidas alcohólicas")}</span>
                       <strong>{is2copListing ? tr("2COP Beer & Wine", "2COP Cerveza y Vino") : shortLicenseType}</strong>
@@ -497,7 +493,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     </div>
                     <div className="marketplace-listing-education-card">
                       <span>{tr("License Classification", "Clasificación de la licencia")}</span>
-                      <strong>{is2copListing ? tr("Non-quota · no separate value", "Sin cupo · sin valor separado") : tr("Location-specific", "Vinculada al local")}</strong>
+                      <strong>{is2copListing ? tr("Non-quota", "Sin cupo") : tr("Location-specific", "Vinculada al local")}</strong>
                       {isSfsListing ? (
                         <Link
                           className="marketplace-listing-education-link"
@@ -509,8 +505,12 @@ export default function FeaturedThirdPartyBusinessListingPage({
                       ) : null}
                     </div>
                     <div>
-                      <span>{tr("Marketplace Status", "Estado en el mercado")}</span>
-                      <strong>{statusCardLabel}</strong>
+                      <span>{tr("License Privileges", "Privilegios de la licencia")}</span>
+                      <strong>{is2copListing ? tr("Beer · Wine", "Cerveza · Vino") : tr("Beer · Wine · Spirits", "Cerveza · Vino · Licores")}</strong>
+                    </div>
+                    <div>
+                      <span>{tr("License Basis", "Base de la licencia")}</span>
+                      <strong>{is2copListing ? tr("Non-quota license series", "Serie de licencia sin cupo") : tr("Qualifying restaurant + premises", "Restaurante y local que califican")}</strong>
                     </div>
                   </>
                 ) : (
