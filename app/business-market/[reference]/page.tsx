@@ -76,7 +76,7 @@ function licenseContext(listing: BusinessQuotaListing) {
     return "The advertised package includes a 3PS quota / package-store license. Buyers should confirm the license status, county, transfer eligibility, liens, transaction structure, premises, and package-store operating requirements before relying on the advertised terms.";
   }
   if (listing.licenseType === "4COP SFS/SRX") {
-    return "The advertised business uses a 4COP SFS / SRX restaurant license classification. Unlike a transferable quota license, this classification is tied to the qualifying restaurant operation and approved premises, so buyers should verify continuing eligibility and transfer requirements for the specific location.";
+    return "The advertised business uses a 4COP SFS / SRX restaurant license classification. This is a non-quota, restaurant-qualified license and should not be confused with a transferable 4COP quota license. It is tied to the qualifying restaurant operation and approved premises, so buyers should verify continuing eligibility and transfer requirements for the specific location.";
   }
   return "The advertised business uses a 2COP beer-and-wine license classification. Buyers should confirm the current license record, premises, transfer process, local requirements, and whether the proposed concept remains eligible for the same license privileges.";
 }
@@ -122,7 +122,32 @@ function buildMarketMapRows(
     );
 }
 
+function isStJohnsQuotaTarget(listing: BusinessQuotaListing) {
+  return listing.listingReference === "FLLM-MKT-Q-004";
+}
+
+function isStJohnsSfs(listing: BusinessQuotaListing) {
+  return listing.county === "St. Johns County" && listing.licenseClass === "sfs";
+}
+
+function metadataTitle(listing: BusinessQuotaListing) {
+  if (isStJohnsQuotaTarget(listing)) {
+    return "Restaurant for Sale in St. Johns County with 4COP Quota License | FLLM";
+  }
+  if (isStJohnsSfs(listing)) {
+    return `${listing.title} | Non-Quota Restaurant License | FLLM`;
+  }
+  return `${listing.title} | FLLM Market Record`;
+}
+
 function marketDescription(listing: BusinessQuotaListing) {
+  if (isStJohnsQuotaTarget(listing)) {
+    return "St. Augustine restaurant for sale in St. Johns County, Florida with a 4COP quota liquor license. Advertised package price $999,000. FLLM market record for a sports bar and restaurant business package that includes a county-specific transferable quota license.";
+  }
+  if (isStJohnsSfs(listing)) {
+    return `FLLM market record for an advertised ${listing.businessType.toLowerCase()} opportunity in St. Johns County with a non-quota, restaurant-qualified 4COP SFS/SRX license. This is not a transferable 4COP quota license. Advertised package price: ${listing.packagePrice}.`;
+  }
+
   const county = countyFor(listing);
   const cityText = county?.primaryCities.length
     ? ` Major markets in the county include ${county.primaryCities.join(", ")}.`
@@ -145,14 +170,28 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description = marketDescription(listing);
 
   return {
-    title: `${listing.title} | FLLM Market Record`,
+    title: metadataTitle(listing),
     description,
     alternates: { canonical: `${siteUrl}${canonicalPath}` },
     robots: { index: true, follow: true },
+    keywords: isStJohnsQuotaTarget(listing)
+      ? [
+          "restaurant for sale in St. Johns County Florida with quota license",
+          "St. Augustine restaurant for sale with 4COP quota license",
+          "St. Johns County 4COP quota restaurant",
+          "St. Augustine bar restaurant 4COP quota license",
+        ]
+      : isStJohnsSfs(listing)
+        ? [
+            "St. Johns County restaurant 4COP SFS",
+            "St. Augustine restaurant 4COP SFS SRX",
+            "non-quota restaurant liquor license",
+          ]
+        : undefined,
     openGraph: {
       type: "website",
       url: `${siteUrl}${canonicalPath}`,
-      title: listing.title,
+      title: metadataTitle(listing),
       description,
       siteName: "Florida Liquor License Market",
     },
@@ -276,8 +315,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               <span className="business-market-eyebrow">FLLM Market Opportunity</span>
               <h1>{listing.title}</h1>
               <p className="business-market-hero-copy">
-                Explore this {listing.businessCategory.toLowerCase()} opportunity in {listing.county},
-                including the advertised package price, liquor-license classification and local market context.
+                {isStJohnsQuotaTarget(listing)
+                  ? "Restaurant for sale in St. Johns County, Florida with a 4COP Quota liquor license, located in the St. Augustine market. Review the advertised $999,000 business package, quota-license classification and local market context."
+                  : isStJohnsSfs(listing)
+                    ? `Explore this ${listing.businessCategory.toLowerCase()} opportunity in St. Johns County with a non-quota 4COP SFS/SRX restaurant license. This classification is restaurant-qualified and is not a transferable 4COP quota license.`
+                    : `Explore this ${listing.businessCategory.toLowerCase()} opportunity in ${listing.county}, including the advertised package price, liquor-license classification and local market context.`}
               </p>
 
               <div className="business-market-hero-stats">
@@ -340,9 +382,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   <h2>{listing.businessCategory} + {listing.licenseType}</h2>
                 </div>
                 <p>
-                  FLLM is tracking an advertised {listing.businessType.toLowerCase()} opportunity in
-                  {" "}{listing.county} at {listing.packagePrice}. The business package includes a
-                  {" "}{listing.licenseType}.
+                  {isStJohnsQuotaTarget(listing)
+                    ? "FLLM is tracking this St. Augustine restaurant and sports-bar opportunity in St. Johns County at an advertised package price of $999,000. The business package includes a 4COP Quota liquor license, a county-specific transferable quota license subject to regulatory approval and buyer qualification."
+                    : isStJohnsSfs(listing)
+                      ? `FLLM is tracking an advertised ${listing.businessType.toLowerCase()} opportunity in St. Johns County at ${listing.packagePrice}. The business uses a 4COP SFS/SRX restaurant license, which is non-quota and tied to the qualifying restaurant operation rather than a separately transferable quota license.`
+                      : `FLLM is tracking an advertised ${listing.businessType.toLowerCase()} opportunity in ${listing.county} at ${listing.packagePrice}. The business package includes a ${listing.licenseType}.`}
                 </p>
 
                 <div className="business-market-fact-grid">
@@ -372,7 +416,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
 
               <section className="business-market-panel business-market-license-panel">
                 <div className="business-market-section-heading">
-                  <span>License Included</span>
+                  <span>{isStJohnsSfs(listing) ? "Non-Quota Restaurant License" : "License Included"}</span>
                   <h2>{listing.licenseType}</h2>
                 </div>
                 <p>{licenseContext(listing)}</p>
@@ -384,6 +428,9 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   ) : null}
                   {listing.businessCategory === "Restaurant" && listing.licenseType === "4COP Quota" ? (
                     <Link href="/restaurants-with-liquor-licenses#quota-restaurant-inventory">More Florida restaurants for sale with 4COP quota licenses ›</Link>
+                  ) : null}
+                  {isStJohnsSfs(listing) ? (
+                    <Link href="/business-market/fllm-mkt-q-004">Looking for a St. Johns County restaurant with a 4COP Quota license? ›</Link>
                   ) : null}
                 </div>
               </section>
