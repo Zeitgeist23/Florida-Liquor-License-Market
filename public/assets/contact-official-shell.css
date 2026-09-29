@@ -1383,3 +1383,26 @@
   text-decoration:underline!important;
   text-underline-offset:2px!important;
 }
+
+.fllm-official-contact-footer .fllm-footer-phone{
+  display:inline-flex!important;
+  align-items:center!important;
+  color:#f3f7fa!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.35!important;
+  text-decoration:none!important;
+  white-space:nowrap!important;
+}
+.fllm-official-contact-footer .fllm-footer-phone::before{
+  content:"·";
+  display:inline-block;
+  margin:0 10px 0 8px;
+  color:#7f98aa;
+  font-weight:700;
+}
+.fllm-official-contact-footer .fllm-footer-phone:hover,
+.fllm-official-contact-footer .fllm-footer-phone:focus-visible{
+  color:#f1a600!important;
+  outline:none!important;
+}
