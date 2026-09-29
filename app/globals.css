@@ -442,6 +442,52 @@ nextjs-portal { display: none !important; }
 /* Full-width header background (overrides .page-shell's max-width) */
 .results-page > .results-header { width: 100%; max-width: none; padding-inline: max(18px, calc(50% - 512px)); margin-inline: 0; }
 
+/* Official FLLM footer phone — installed sitewide on every footer. */
+footer .fllm-footer-phone {
+  display: inline-flex;
+  align-items: center;
+  color: #f3f7fa !important;
+  font-size: inherit;
+  font-weight: 800;
+  line-height: 1.35;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+footer .fllm-footer-phone::before {
+  content: "·";
+  display: inline-block;
+  margin: 0 10px 0 8px;
+  color: #7f98aa;
+  font-weight: 700;
+}
+
+footer .fllm-footer-phone:hover,
+footer .fllm-footer-phone:focus-visible {
+  color: #f1a600 !important;
+  outline: none;
+}
+
+footer .fllm-footer-phone-row {
+  box-sizing: border-box;
+  width: min(1240px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 0 0 14px;
+  color: #e4eef5;
+  font-size: 12px;
+}
+
+@media (max-width: 650px) {
+  footer .fllm-footer-phone::before {
+    margin-left: 6px;
+  }
+
+  footer .fllm-footer-phone-row {
+    width: min(calc(100% - 24px), 1240px);
+    text-align: center;
+  }
+}
+
 /* Sitewide national marketplace link — keeps FLLM Florida-focused while connecting to LLM. */
 .national-marketplace-footer-link {
   width: min(1024px, calc(100% - 36px));
