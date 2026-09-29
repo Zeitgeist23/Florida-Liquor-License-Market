@@ -279,7 +279,7 @@
     checkbox.value='yes';
 
     var copy=document.createElement('span');
-    copy.innerHTML='I agree to receive text messages from Florida Liquor License Market regarding my inquiry and requested FLLM services. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. Consent is not a condition of purchase. <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> · <a href="/terms-of-use" target="_blank" rel="noopener noreferrer">Terms of Use</a>';
+    copy.innerHTML='I agree to receive conversational text messages from Florida Liquor License Market about my inquiry and requested FLLM marketplace or professional services, including liquor license and business listing inquiries, appraisal inquiries, and transaction-related follow-up. Message frequency varies. Message and data rates may apply. Reply STOP to opt out. Reply HELP for help. Consent is not a condition of purchase. <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> · <a href="/terms-of-use" target="_blank" rel="noopener noreferrer">Terms of Use</a>';
 
     label.appendChild(checkbox);
     label.appendChild(copy);
