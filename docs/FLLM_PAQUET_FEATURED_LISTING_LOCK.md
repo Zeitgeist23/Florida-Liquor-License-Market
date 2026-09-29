@@ -1,11 +1,11 @@
-# FLLM Thierry Paquet de Villejust Featured Broker Listing Lock
+# FLLM Terry de Villejust Featured Broker Listing Lock
 
 **Status:** LOCKED / BROKER-REVIEW MOCKUP  
 **Locked:** September 28, 2026  
 **Canonical preview:** `/listings/fllm-paquet`  
 **Template:** `FeaturedThirdPartyBusinessListingPage`
 
-This page is locked as the current FLLM Featured Third-Party Broker listing mockup for Thierry Paquet de Villejust and the Prime Italian Restaurant for Sale – Miami Beach opportunity.
+This page is locked as the current FLLM Featured Third-Party Broker listing mockup for Terry de Villejust and the Prime Italian Restaurant for Sale – Miami Beach opportunity.
 
 ## Locked presentation
 
@@ -35,7 +35,7 @@ The page must retain the shared FLLM Featured Third-Party Broker listing structu
 - Liquor license offer: Offered w/Seller Financing
 - License is offered separately from the restaurant business
 - FLLM Miami-Dade 4COP Quota median: dynamically calculated from current active FLLM county inventory
-- Broker: Thierry Paquet de Villejust
+- Broker: Terry de Villejust
 - Phone: 407-928-0725
 - Email: Thierry@businessbrokerofmiami.com
 - Broker/business website link: https://casaamoremiami.com/
@@ -56,3 +56,11 @@ The page must retain the shared FLLM Featured Third-Party Broker listing structu
 ## Change control
 
 Do not redesign, restyle, reorder, resize, recolor, alter the standardized license cards, or otherwise change this page unless the user explicitly requests a change. Shared-template improvements must preserve the locked FLLM Featured Third-Party Broker design and must not remove Thierry-specific approved elements.
+
+
+## Broker-approved external-link treatment (2026-09-29)
+
+- Do not add listing photos to this page.
+- Use one outbound link to the original BizBuySell listing.
+- Use one outbound link to Terry de Villejust's brokerage website at https://bbofm.com/.
+- Display broker name as **Terry de Villejust**.
