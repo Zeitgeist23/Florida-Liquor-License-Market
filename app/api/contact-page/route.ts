@@ -19,6 +19,9 @@ const CONTACT_PAGE_STYLES = `<style id="contact-page-enhancements-v3">
   .contact-license-context p{margin:14px 0 0;color:#cbd5dc;font-size:12px;line-height:1.55}
   .contact-license-context>a{display:inline-flex;margin-top:11px;color:#f6a700;font-size:11px;font-weight:900;text-decoration:none}
   .contact-license-context>a:hover,.contact-license-context>a:focus-visible{text-decoration:underline}
+  .contact-sms-consent{display:grid;grid-template-columns:18px minmax(0,1fr);gap:9px;align-items:start;margin:2px 0 10px;padding:11px 12px;border:1px solid rgba(255,255,255,.16);border-radius:5px;background:rgba(2,16,27,.56);color:#cbd5dc;font-size:11px;line-height:1.5}
+  .contact-sms-consent input{width:16px;height:16px;margin:2px 0 0;accent-color:#f6a700}
+  .contact-sms-consent a{color:#75e8ff;font-weight:800;text-decoration:underline;text-underline-offset:2px}
   @media(max-width:620px){.contact-license-context-grid{grid-template-columns:1fr}.contact-license-context-heading h3{font-size:19px}}
 </style>`;
 
@@ -98,6 +101,13 @@ async function loadContactSource(request: Request) {
   }
 }
 
+function addSmsConsent(html: string) {
+  if (html.includes('class="contact-sms-consent"')) return html;
+  const submitButton = '<button class="btn btn-gold contact-submit" type="submit">Submit Confidential Inquiry</button>';
+  const disclosure = '<label class="contact-sms-consent"><input type="checkbox" name="sms_consent" value="yes"/><span>I agree to receive text messages from Florida Liquor License Market regarding my inquiry and requested FLLM services. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. Consent is not a condition of purchase. <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> · <a href="/terms-of-use" target="_blank" rel="noopener noreferrer">Terms of Use</a></span></label>';
+  return html.replace(submitButton, disclosure + submitButton);
+}
+
 function applyCareersMode(html: string) {
   return html
     .replace("<h1>Contact Florida Liquor License Market</h1>", "<h1>Apply to Join Florida Liquor License Market</h1>")
@@ -116,7 +126,7 @@ export async function GET(request: Request) {
     const requestUrl = new URL(request.url);
     const careersMode = requestUrl.searchParams.get("careers") === "1";
     let html = applyOfficialShell(await loadContactSource(request));
-    html = careersMode ? applyCareersMode(html) : addCareersEntryPoint(html);
+    html = careersMode ? applyCareersMode(html) : addSmsConsent(addCareersEntryPoint(html));
     return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store, max-age=0", "X-Content-Type-Options": "nosniff" } });
   } catch (error) {
     console.error("Contact page enhancement failed", error);
