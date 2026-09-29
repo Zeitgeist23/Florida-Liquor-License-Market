@@ -124,7 +124,7 @@ const contactMenuInstallerScript = `<script id="home-contact-menu-installer">
     var menu=document.createElement('div');
     menu.className='home-contact-menu';
     menu.setAttribute('aria-label','Contact Florida Liquor License Market');
-    menu.appendChild(makeContactLink('Email FLLM','mailto:clientservices@floridaliquorlicensemarket.com','✉'));
+    menu.appendChild(makeContactLink('Email FLLM','/contact','✉'));
     menu.appendChild(makeContactLink('(407) 589-5522','tel:+14075895522','☎'));
     wrap.appendChild(menu);
   }
