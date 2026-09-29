@@ -202,7 +202,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerage: "The Business Broker of Miami",
     featured: true,
     listingTier: "featured",
-    publicationStatus: "preview",
+    publicationStatus: "published",
     classification: "business_package",
   },
   {
