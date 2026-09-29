@@ -15,6 +15,9 @@ import {
   businessQuotaListingRecords,
   type BusinessQuotaListing,
 } from "@/lib/business-quota-listings";
+import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
+import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
 import "@/app/fllm-official-template.css";
 import "@/app/fllm-design-system.css";
@@ -273,8 +276,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BusinessMarketRecordPage({ params }: PageProps) {
   const { reference } = await params;
-  const listing = recordFor(reference);
-  if (!listing) notFound();
+  const rawListing = recordFor(reference);
+  if (!rawListing) notFound();
+
+  const standaloneListings = getVisibleAvailableMarketplaceListings(
+    await getMarketplaceListings(),
+  );
+  const listing =
+    withMarketLicenseValues([rawListing], standaloneListings)[0] ?? rawListing;
 
   const county = countyFor(listing);
   const canonicalPath = businessMarketRecordHref(listing);
@@ -449,6 +458,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
           licenseType={listing.licenseType}
           listingType={mapListingType}
           businessTypeLabel={listing.businessCategory}
+          selectedCounty={listing.county}
+          selectedListingTitle={listing.title}
+          selectedPackagePrice={listing.packagePrice}
+          selectedLicenseValue={listing.allocatedLicenseValue}
+          selectedListingReference={listing.listingReference}
         />
       </div>
 
