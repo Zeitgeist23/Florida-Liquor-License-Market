@@ -88,6 +88,84 @@
   white-space:nowrap !important;
 }
 
+.fllm-official-shared-header .fllm-contact-us-wrap{
+  order:1 !important;
+  position:relative !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  flex:0 0 auto !important;
+  padding-bottom:8px !important;
+  margin-bottom:-8px !important;
+}
+
+.fllm-official-shared-header .fllm-contact-us-menu{
+  position:absolute !important;
+  top:calc(100% + 6px) !important;
+  left:0 !important;
+  z-index:1315 !important;
+  display:none !important;
+  width:164px !important;
+  padding:6px !important;
+  border:1px solid #e8a000 !important;
+  border-radius:7px !important;
+  background:#061728 !important;
+  box-shadow:0 18px 42px rgba(0,0,0,.46),0 0 0 1px rgba(246,167,0,.10) !important;
+}
+
+.fllm-official-shared-header .fllm-contact-us-wrap:hover .fllm-contact-us-menu,
+.fllm-official-shared-header .fllm-contact-us-wrap:focus-within .fllm-contact-us-menu{
+  display:grid !important;
+  gap:5px !important;
+}
+
+.fllm-official-shared-header .fllm-contact-us-menu::before{
+  content:"" !important;
+  position:absolute !important;
+  top:-6px !important;
+  left:34px !important;
+  width:10px !important;
+  height:10px !important;
+  transform:rotate(45deg) !important;
+  border-left:1px solid #e8a000 !important;
+  border-top:1px solid #e8a000 !important;
+  background:#061728 !important;
+}
+
+.fllm-official-shared-header .fllm-contact-us-menu a{
+  position:relative !important;
+  z-index:1 !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  min-height:39px !important;
+  padding:0 11px !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+  border-radius:5px !important;
+  background:#0b2134 !important;
+  color:#fff !important;
+  font-size:11px !important;
+  font-weight:850 !important;
+  line-height:1 !important;
+  text-decoration:none !important;
+  text-transform:none !important;
+  white-space:nowrap !important;
+  transition:background .15s ease,border-color .15s ease,color .15s ease,transform .15s ease !important;
+}
+
+.fllm-official-shared-header .fllm-contact-us-menu a span{
+  color:#f6b21a !important;
+  font-size:12px !important;
+}
+
+.fllm-official-shared-header .fllm-contact-us-menu a:hover,
+.fllm-official-shared-header .fllm-contact-us-menu a:focus-visible{
+  border-color:#f6a700 !important;
+  background:#112c43 !important;
+  color:#f6a700 !important;
+  outline:none !important;
+  transform:translateY(-1px) !important;
+}
+
 .fllm-official-shared-header .header-actions .fllm-header-contact-cta{
   width:100px !important;
   min-width:100px !important;
@@ -99,6 +177,7 @@
 }
 
 .fllm-official-shared-header .header-actions .fllm-header-list-cta{
+  order:2 !important;
   width:116px !important;
   min-width:116px !important;
   padding:0 9px !important;
