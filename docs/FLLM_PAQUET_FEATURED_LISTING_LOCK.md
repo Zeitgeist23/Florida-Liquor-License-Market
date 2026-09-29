@@ -2,7 +2,7 @@
 
 **Status:** LOCKED / BROKER-REVIEW MOCKUP  
 **Locked:** September 28, 2026  
-**Canonical preview:** `/listings/fllm-paquet`  
+**Canonical preview:** `/listings/villejust`  
 **Template:** `FeaturedThirdPartyBusinessListingPage`
 
 This page is locked as the current FLLM Featured Third-Party Broker listing mockup for Terry de Villejust and the Prime Italian Restaurant for Sale – Miami Beach opportunity.
