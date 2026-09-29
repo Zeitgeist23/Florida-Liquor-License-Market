@@ -51,6 +51,9 @@ const miamiRestaurantListings = allRestaurantListings.filter(
 const miamiQuotaRestaurantListings = allQuotaRestaurantListings.filter(
   (listing) => listing.county === "Miami-Dade County",
 );
+const orlandoRestaurantListings = allRestaurantListings.filter(
+  (listing) => listing.county === "Orange County",
+);
 
 export const metadata: Metadata = {
   title: "Florida Restaurants for Sale With Liquor Licenses | 4COP, SFS & 2COP | FLLM",
@@ -64,6 +67,9 @@ export const metadata: Metadata = {
     "Miami-Dade restaurant for sale with quota liquor license",
     "Florida restaurant for sale with liquor license",
     "4COP quota restaurant for sale",
+    "Orlando restaurants for sale with liquor license",
+    "Orlando restaurant for sale with 4COP SFS SRX license",
+    "Orange County restaurant for sale with liquor license",
   ],
   openGraph: {
     type: "website",
@@ -299,6 +305,36 @@ export default function RestaurantsWithLiquorLicensesPage() {
           ) : null}
         </div>
       </section>
+
+      {orlandoRestaurantListings.length ? (
+        <section className="fllm-template-section fllm-template-section--deep" id="orlando-restaurant-listings">
+          <div className="fllm-template-shell">
+            <FllmSectionHeading
+              eyebrow="Orlando & Orange County"
+              title="Orlando restaurants for sale with liquor licenses"
+              copy={
+                <p>
+                  Browse FLLM's Orlando and Orange County restaurant opportunities by license structure. Current
+                  restaurant inventory may include non-quota 4COP SFS / SRX full-liquor restaurant licenses and
+                  2COP beer-and-wine licenses. These classifications are kept separate from transferable 4COP quota
+                  licenses so buyers can compare the correct license path for each Orlando restaurant opportunity.
+                </p>
+              }
+            />
+            <div className="business-quota-grid">
+              {orlandoRestaurantListings.map((listing) => (
+                <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
+              ))}
+            </div>
+            <div className="fllm-ui-actions">
+              <FllmButton href="/counties/orange" variant="outline">Orange County Liquor License Market</FllmButton>
+              <Link className="btn btn-gold fllm-ui-official-gold-button" href="/listings?county=Orange%20County">
+                View Orange County Listings
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {stJohnsRestaurantListings.length ? (
         <section className="fllm-template-section">
