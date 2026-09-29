@@ -1395,11 +1395,8 @@
   white-space:nowrap!important;
 }
 .fllm-official-contact-footer .fllm-footer-phone::before{
-  content:"·";
-  display:inline-block;
-  margin:0 10px 0 8px;
-  color:#7f98aa;
-  font-weight:700;
+  content:none;
+  display:none;
 }
 .fllm-official-contact-footer .fllm-footer-phone:hover,
 .fllm-official-contact-footer .fllm-footer-phone:focus-visible{
