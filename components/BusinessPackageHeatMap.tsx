@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { FLORIDA_COUNTY_PATHS } from "@/components/FloridaCountyMap";
 
@@ -58,13 +58,23 @@ export default function BusinessPackageHeatMap({
   licenseType,
   listingType,
   businessTypeLabel,
+  selectedCounty,
+  selectedListingTitle,
+  selectedPackagePrice,
+  selectedLicenseValue,
+  selectedListingReference,
 }: {
   rows: BusinessPackageHeatMapRow[];
   licenseType: string;
   listingType: "businesses" | "businesses-sfs" | "businesses-2cop";
   businessTypeLabel: string;
+  selectedCounty?: string;
+  selectedListingTitle?: string;
+  selectedPackagePrice?: string;
+  selectedLicenseValue?: string;
+  selectedListingReference?: string;
 }) {
-  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [activeSlug, setActiveSlug] = useState<string | null>(selectedCounty ?? null);
   const [mapPin, setMapPin] = useState<{ x: number; y: number; color: string } | null>(null);
   const [inventoryBand, setInventoryBand] = useState<number | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -116,6 +126,50 @@ export default function BusinessPackageHeatMap({
     return `/listings?${params.toString()}#business-package-results`;
   }
 
+  function selectedRow() {
+    return selectedCounty
+      ? rowsByCounty.get(countyKey(selectedCounty)) ?? null
+      : null;
+  }
+
+  function restoreSelectedCounty() {
+    const row = selectedRow();
+    const stage = stageRef.current;
+    if (!row || !stage) {
+      setActiveSlug(null);
+      setMapPin(null);
+      return;
+    }
+
+    const countyPath = Array.from(
+      stage.querySelectorAll<SVGPathElement>(".county-availability-map-svg path"),
+    ).find((path) => path.dataset.county === row.name);
+    const countyLink = countyPath?.closest("a");
+    if (!countyPath || !countyLink) return;
+
+    const bounds = countyPath.getBBox();
+    setActiveSlug(row.name);
+    setMapPin({
+      x: bounds.x + bounds.width / 2,
+      y: bounds.y + bounds.height / 2,
+      color: inventoryColor(row.listingCount),
+    });
+
+    window.requestAnimationFrame(() => {
+      const clientBounds = countyLink.getBoundingClientRect();
+      positionTooltip(
+        countyLink,
+        clientBounds.top + clientBounds.height / 2,
+      );
+    });
+  }
+
+  useEffect(() => {
+    restoreSelectedCounty();
+    // The selected record is intentionally restored whenever its county changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCounty, rows]);
+
   function cancelDeactivate() {
     if (deactivateTimerRef.current !== null) {
       window.clearTimeout(deactivateTimerRef.current);
@@ -126,8 +180,7 @@ export default function BusinessPackageHeatMap({
   function scheduleDeactivate() {
     cancelDeactivate();
     deactivateTimerRef.current = window.setTimeout(() => {
-      setActiveSlug(null);
-      setMapPin(null);
+      restoreSelectedCounty();
       deactivateTimerRef.current = null;
     }, 180);
   }
@@ -212,14 +265,17 @@ export default function BusinessPackageHeatMap({
 
   function deactivateCounty() {
     cancelDeactivate();
-    setActiveSlug(null);
-    setMapPin(null);
+    restoreSelectedCounty();
   }
 
   function setBand(index: number | null) {
     setInventoryBand(index);
-    setActiveSlug(null);
-    setMapPin(null);
+    if (index === null) {
+      restoreSelectedCounty();
+    } else {
+      setActiveSlug(null);
+      setMapPin(null);
+    }
   }
 
   return (
@@ -391,37 +447,65 @@ export default function BusinessPackageHeatMap({
                       aria-label={`View matching ${activeRow.licenseType} business packages in ${activeRow.name}`}
                     >
                       <span>{activeRow.name}</span>
-                      <strong>
-                        {activeRow.listingCount} similar business
-                        {activeRow.listingCount === 1
-                          ? " package"
-                          : " packages"}
-                      </strong>
-                      <dl>
-                        <div>
-                          <dt>License type</dt>
-                          <dd>{activeRow.licenseType}</dd>
-                        </div>
-                        <div>
-                          <dt>Avg. Package Price</dt>
-                          <dd>{money(activeRow.averagePrice)}</dd>
-                        </div>
-                        <div>
-                          <dt>Active packages</dt>
-                          <dd>{activeRow.listingCount}</dd>
-                        </div>
-                        <div>
-                          <dt>Business types</dt>
-                          <dd>
-                            {activeRow.businessCategories.length ||
-                              "—"}
-                          </dd>
-                        </div>
-                      </dl>
-                      <small>
-                        {activeRow.businessCategories.join(" · ")}
-                      </small>
-                      <em>View matching listings →</em>
+                      {selectedCounty &&
+                      activeRow.name === selectedCounty &&
+                      selectedListingTitle ? (
+                        <>
+                          <strong>{selectedListingTitle}</strong>
+                          <dl>
+                            <div>
+                              <dt>Listing Price</dt>
+                              <dd>{selectedPackagePrice ?? "—"}</dd>
+                            </div>
+                            <div>
+                              <dt>License Type</dt>
+                              <dd>{licenseType}</dd>
+                            </div>
+                            <div>
+                              <dt>FLLM Est. License Value</dt>
+                              <dd>{selectedLicenseValue || "Market data unavailable"}</dd>
+                            </div>
+                            <div>
+                              <dt>Other Similar Listings</dt>
+                              <dd>{Math.max(0, activeRow.listingCount - 1)}</dd>
+                            </div>
+                          </dl>
+                          <small>
+                            {selectedListingReference ? `${selectedListingReference} · ` : ""}
+                            {activeRow.businessCategories.join(" · ")}
+                          </small>
+                          <em>View similar listings in {activeRow.name} →</em>
+                        </>
+                      ) : (
+                        <>
+                          <strong>
+                            {activeRow.listingCount} similar business
+                            {activeRow.listingCount === 1
+                              ? " package"
+                              : " packages"}
+                          </strong>
+                          <dl>
+                            <div>
+                              <dt>License type</dt>
+                              <dd>{activeRow.licenseType}</dd>
+                            </div>
+                            <div>
+                              <dt>Avg. Package Price</dt>
+                              <dd>{money(activeRow.averagePrice)}</dd>
+                            </div>
+                            <div>
+                              <dt>Active packages</dt>
+                              <dd>{activeRow.listingCount}</dd>
+                            </div>
+                            <div>
+                              <dt>Business types</dt>
+                              <dd>{activeRow.businessCategories.length || "—"}</dd>
+                            </div>
+                          </dl>
+                          <small>{activeRow.businessCategories.join(" · ")}</small>
+                          <em>View matching listings →</em>
+                        </>
+                      )}
                     </a>
                   ) : null}
                 </aside>
