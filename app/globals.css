@@ -459,6 +459,11 @@ footer .fllm-footer-phone::before {
   display: none;
 }
 
+footer .directory-footer-brand > .fllm-footer-phone,
+footer .listings-directory-footer-brand > .fllm-footer-phone {
+  margin-left: -7px;
+}
+
 footer .fllm-footer-phone:hover,
 footer .fllm-footer-phone:focus-visible {
   color: #f1a600 !important;
