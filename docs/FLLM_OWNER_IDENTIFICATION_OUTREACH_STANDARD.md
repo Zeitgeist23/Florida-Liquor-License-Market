@@ -10,6 +10,18 @@ FLLM may independently research public business-for-sale advertisements to ident
 
 The workflow is an independent public-record research process. It does not represent that a broker disclosed a confidential business identity to FLLM.
 
+## Broker featured listing protection
+
+FLLM broker featured listings are excluded from the owner-identification email workflow.
+
+- If a public source listing is already registered as an FLLM broker featured listing, the owner-outreach system must not create a new owner prospect for it.
+- Existing owner-research records that later match a protected broker featured listing are automatically treated as do-not-contact/invalid for owner outreach and omitted from the owner-outreach dashboard.
+- Draft generation, regeneration and sending are blocked for protected broker featured listings.
+- Protection applies to both published and preview FLLM featured broker listings so FLLM does not bypass a broker relationship while a listing is being prepared or reviewed.
+- Seller-direct featured listings are not treated as broker-protected solely because they are featured.
+- The canonical business-package registry stores source-listing URLs for protected broker featured listings so exact external source URLs can be matched automatically.
+- When a new broker featured listing is added to FLLM, its source listing URL should be registered in the canonical business-package record at the same time.
+
 ## Required workflow
 
 1. **Capture the public source listing.**
