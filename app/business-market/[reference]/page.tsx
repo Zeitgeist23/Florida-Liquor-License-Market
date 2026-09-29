@@ -138,9 +138,20 @@ function isMiamiNonQuotaRestaurant(listing: BusinessQuotaListing) {
   );
 }
 
+function isOrlandoRestaurant(listing: BusinessQuotaListing) {
+  return (
+    listing.county === "Orange County" &&
+    listing.businessCategory === "Restaurant" &&
+    (listing.licenseClass === "sfs" || listing.licenseClass === "2cop")
+  );
+}
+
 function localMarketOverview(listing: BusinessQuotaListing, county: ReturnType<typeof countyFor>) {
   if (isMiamiNonQuotaRestaurant(listing)) {
     return "Miami-Dade County is one of Florida's largest restaurant and hospitality markets. This page covers a non-quota restaurant license classification, so the business opportunity should be evaluated separately from Miami-Dade's transferable 4COP quota-license market.";
+  }
+  if (isOrlandoRestaurant(listing)) {
+    return "Orlando and Orange County form one of Florida's largest tourism, convention, dining and entertainment markets. This restaurant page covers a non-quota license classification; buyers looking specifically for a transferable 4COP quota license should evaluate Orange County quota inventory separately.";
   }
   return county?.marketOverview ?? null;
 }
@@ -154,6 +165,11 @@ function metadataTitle(listing: BusinessQuotaListing) {
   }
   if (isMiamiNonQuotaRestaurant(listing)) {
     return `${listing.title} | Non-Quota Restaurant License | FLLM`;
+  }
+  if (isOrlandoRestaurant(listing)) {
+    return listing.licenseClass === "2cop"
+      ? "Orlando Restaurant for Sale With 2COP Beer & Wine License | FLLM"
+      : "Orlando Restaurant for Sale With 4COP SFS/SRX Liquor License | FLLM";
   }
   return `${listing.title} | FLLM Market Record`;
 }
@@ -171,6 +187,13 @@ function marketDescription(listing: BusinessQuotaListing) {
         ? "non-quota 2COP beer-and-wine license"
         : "non-quota, restaurant-qualified 4COP SFS/SRX license";
     return `Miami-Dade restaurant business opportunity with a ${licenseLabel}. This page is not a Miami 4COP quota-license listing and should not be confused with a restaurant package that includes a transferable 4COP quota license. Advertised package price: ${listing.packagePrice}.`;
+  }
+  if (isOrlandoRestaurant(listing)) {
+    const licenseLabel =
+      listing.licenseClass === "2cop"
+        ? "2COP Beer & Wine license"
+        : "4COP SFS/SRX full-liquor restaurant license";
+    return `Orlando restaurant for sale in Orange County, Florida with a ${licenseLabel}. Advertised package price: ${listing.packagePrice}. This is a non-quota restaurant-license opportunity, with local Orlando market context and FLLM buyer matching.`;
   }
 
   const county = countyFor(listing);
@@ -224,7 +247,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
                 "Miami-Dade restaurant SFS license",
                 "non-quota restaurant liquor license Miami",
               ]
-          : undefined,
+          : isOrlandoRestaurant(listing)
+            ? listing.licenseClass === "2cop"
+              ? [
+                  "Orlando restaurant for sale with liquor license",
+                  "Orlando restaurant for sale 2COP",
+                  "Orange County restaurant 2COP license",
+                ]
+              : [
+                  "Orlando restaurants for sale with liquor license",
+                  "Orlando restaurant for sale 4COP SFS SRX",
+                  "Orange County restaurant full liquor license",
+                ]
+            : undefined,
     openGraph: {
       type: "website",
       url: `${siteUrl}${canonicalPath}`,
@@ -360,7 +395,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                       ? listing.licenseClass === "2cop"
                         ? "Explore this Miami-Dade restaurant opportunity with a non-quota 2COP Beer & Wine license. A 2COP license does not provide distilled-spirit privileges and is not a transferable 4COP quota license."
                         : "Explore this Miami-Dade restaurant opportunity with a non-quota, restaurant-qualified 4COP SFS/SRX license. This is not a transferable 4COP quota license."
-                      : `Explore this ${listing.businessCategory.toLowerCase()} opportunity in ${listing.county}, including the advertised package price, liquor-license classification and local market context.`}
+                      : isOrlandoRestaurant(listing)
+                        ? listing.licenseClass === "2cop"
+                          ? "Orlando restaurant for sale with a 2COP Beer & Wine license in Orange County, Florida. Review the advertised package price, non-quota license classification and local Orlando restaurant market context."
+                          : "Orlando restaurant for sale with a 4COP SFS/SRX full-liquor restaurant license in Orange County, Florida. Review the advertised package price, non-quota restaurant-license classification and local Orlando market context."
+                        : `Explore this ${listing.businessCategory.toLowerCase()} opportunity in ${listing.county}, including the advertised package price, liquor-license classification and local market context.`}
               </p>
 
               <div className="business-market-hero-stats">
@@ -431,7 +470,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                         ? listing.licenseClass === "2cop"
                           ? `FLLM is tracking an advertised ${listing.businessType.toLowerCase()} opportunity in Miami-Dade County at ${listing.packagePrice}. The business uses a 2COP Beer & Wine license, a non-quota license that should not be confused with a transferable 4COP quota license.`
                           : `FLLM is tracking an advertised ${listing.businessType.toLowerCase()} opportunity in Miami-Dade County at ${listing.packagePrice}. The business uses a 4COP SFS/SRX restaurant license, a non-quota classification tied to the qualifying restaurant operation and premises.`
-                        : `FLLM is tracking an advertised ${listing.businessType.toLowerCase()} opportunity in ${listing.county} at ${listing.packagePrice}. The business package includes a ${listing.licenseType}.`}
+                        : isOrlandoRestaurant(listing)
+                          ? listing.licenseClass === "2cop"
+                            ? `FLLM is tracking this Orlando restaurant opportunity in Orange County at ${listing.packagePrice}. The business uses a 2COP Beer & Wine license, a non-quota restaurant license for beer-and-wine privileges.`
+                            : `FLLM is tracking this Orlando restaurant and bar opportunity in Orange County at ${listing.packagePrice}. The business uses a 4COP SFS/SRX restaurant license, a non-quota full-liquor classification tied to the qualifying restaurant operation and approved premises.`
+                          : `FLLM is tracking an advertised ${listing.businessType.toLowerCase()} opportunity in ${listing.county} at ${listing.packagePrice}. The business package includes a ${listing.licenseType}.`}
                 </p>
 
                 <div className="business-market-fact-grid">
@@ -461,7 +504,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
 
               <section className="business-market-panel business-market-license-panel">
                 <div className="business-market-section-heading">
-                  <span>{isStJohnsSfs(listing) || isMiamiNonQuotaRestaurant(listing) ? "Non-Quota Restaurant License" : "License Included"}</span>
+                  <span>{isStJohnsSfs(listing) || isMiamiNonQuotaRestaurant(listing) || isOrlandoRestaurant(listing) ? "Non-Quota Restaurant License" : "License Included"}</span>
                   <h2>{listing.licenseType}</h2>
                 </div>
                 <p>{licenseContext(listing)}</p>
@@ -479,6 +522,9 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   ) : null}
                   {isMiamiNonQuotaRestaurant(listing) ? (
                     <Link href="/restaurants-with-liquor-licenses#miami-dade-quota-restaurants">Looking for a Miami restaurant with a transferable 4COP Quota license? ›</Link>
+                  ) : null}
+                  {isOrlandoRestaurant(listing) ? (
+                    <Link href="/restaurants-with-liquor-licenses#orlando-restaurant-listings">More Orlando restaurants for sale with liquor licenses ›</Link>
                   ) : null}
                 </div>
               </section>
