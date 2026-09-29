@@ -28,7 +28,6 @@ export default function BusinessQuotaListingCard({
   const categoryClassName = categoryClassNames[listing.businessCategory];
   const isMarketListing = listing.listingTier === "market";
   const actionHref = listing.href;
-  const marketViewHref = listing.marketViewHref ?? "/market-data/heat-map";
   const usesClassification = listing.licenseClass === "sfs" || listing.licenseClass === "2cop";
   const licenseMetricLabel = usesClassification
     ? "License Classification"
