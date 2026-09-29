@@ -198,6 +198,17 @@ const calculatorLinkFixScript = `<script id="home-finance-calculator-link-fix">
 
 function injectEnhancement(html: string) {
   let updated = html;
+  if (!updated.includes('data-fllm-footer-phone="true"')) {
+    const phoneMarkup = '<a class="fllm-footer-phone" data-fllm-footer-phone="true" href="tel:+14075895522" aria-label="Call Florida Liquor License Market at 407 589 5522">(407) 589-5522</a>';
+    updated = updated.replace(
+      /(© 2026 Florida Liquor License Market\. All rights reserved\.)(<\/div>)/,
+      `$1${phoneMarkup}$2`,
+    );
+    updated = updated.replace(
+      /(© Florida Liquor License Market)(<\/span>|<\/div>)/,
+      `$1${phoneMarkup}$2`,
+    );
+  }
   if (!updated.includes('id="home-list-license-menu-styles"')) {
     updated = updated.replace("</head>", `${menuStyles}</head>`);
   }
