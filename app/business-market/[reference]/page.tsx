@@ -78,7 +78,7 @@ function licenseContext(listing: BusinessQuotaListing) {
   if (listing.licenseType === "4COP SFS/SRX") {
     return "The advertised business uses a 4COP SFS / SRX restaurant license classification. This is a non-quota, restaurant-qualified license and should not be confused with a transferable 4COP quota license. It is tied to the qualifying restaurant operation and approved premises, so buyers should verify continuing eligibility and transfer requirements for the specific location.";
   }
-  return "The advertised business uses a 2COP beer-and-wine license classification. Buyers should confirm the current license record, premises, transfer process, local requirements, and whether the proposed concept remains eligible for the same license privileges.";
+  return "The advertised business uses a 2COP beer-and-wine license classification. This is a non-quota license and is not a transferable 4COP quota license. It authorizes beer-and-wine privileges rather than distilled spirits, subject to the approved premises and regulatory requirements. Buyers should confirm the current license record, premises, transfer process, local requirements, and whether the proposed concept remains eligible for the same license privileges.";
 }
 
 function buildMarketMapRows(
@@ -130,11 +130,29 @@ function isStJohnsSfs(listing: BusinessQuotaListing) {
   return listing.county === "St. Johns County" && listing.licenseClass === "sfs";
 }
 
+function isMiamiNonQuotaRestaurant(listing: BusinessQuotaListing) {
+  return (
+    listing.county === "Miami-Dade County" &&
+    listing.businessCategory === "Restaurant" &&
+    (listing.licenseClass === "sfs" || listing.licenseClass === "2cop")
+  );
+}
+
+function localMarketOverview(listing: BusinessQuotaListing, county: ReturnType<typeof countyFor>) {
+  if (isMiamiNonQuotaRestaurant(listing)) {
+    return "Miami-Dade County is one of Florida's largest restaurant and hospitality markets. This page covers a non-quota restaurant license classification, so the business opportunity should be evaluated separately from Miami-Dade's transferable 4COP quota-license market.";
+  }
+  return county?.marketOverview ?? null;
+}
+
 function metadataTitle(listing: BusinessQuotaListing) {
   if (isStJohnsQuotaTarget(listing)) {
     return "Restaurant for Sale in St. Johns County with 4COP Quota License | FLLM";
   }
   if (isStJohnsSfs(listing)) {
+    return `${listing.title} | Non-Quota Restaurant License | FLLM`;
+  }
+  if (isMiamiNonQuotaRestaurant(listing)) {
     return `${listing.title} | Non-Quota Restaurant License | FLLM`;
   }
   return `${listing.title} | FLLM Market Record`;
@@ -146,6 +164,13 @@ function marketDescription(listing: BusinessQuotaListing) {
   }
   if (isStJohnsSfs(listing)) {
     return `FLLM market record for an advertised ${listing.businessType.toLowerCase()} opportunity in St. Johns County with a non-quota, restaurant-qualified 4COP SFS/SRX license. This is not a transferable 4COP quota license. Advertised package price: ${listing.packagePrice}.`;
+  }
+  if (isMiamiNonQuotaRestaurant(listing)) {
+    const licenseLabel =
+      listing.licenseClass === "2cop"
+        ? "non-quota 2COP beer-and-wine license"
+        : "non-quota, restaurant-qualified 4COP SFS/SRX license";
+    return `Miami-Dade restaurant business opportunity with a ${licenseLabel}. This page is not a Miami 4COP quota-license listing and should not be confused with a restaurant package that includes a transferable 4COP quota license. Advertised package price: ${listing.packagePrice}.`;
   }
 
   const county = countyFor(listing);
@@ -187,7 +212,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             "St. Augustine restaurant 4COP SFS SRX",
             "non-quota restaurant liquor license",
           ]
-        : undefined,
+        : isMiamiNonQuotaRestaurant(listing)
+          ? listing.licenseClass === "2cop"
+            ? [
+                "Miami restaurant 2COP beer wine license",
+                "Miami-Dade restaurant 2COP license",
+                "non-quota restaurant liquor license Miami",
+              ]
+            : [
+                "Miami restaurant 4COP SFS SRX",
+                "Miami-Dade restaurant SFS license",
+                "non-quota restaurant liquor license Miami",
+              ]
+          : undefined,
     openGraph: {
       type: "website",
       url: `${siteUrl}${canonicalPath}`,
@@ -319,7 +356,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   ? "Restaurant for sale in St. Johns County, Florida with a 4COP Quota liquor license, located in the St. Augustine market. Review the advertised $999,000 business package, quota-license classification and local market context."
                   : isStJohnsSfs(listing)
                     ? `Explore this ${listing.businessCategory.toLowerCase()} opportunity in St. Johns County with a non-quota 4COP SFS/SRX restaurant license. This classification is restaurant-qualified and is not a transferable 4COP quota license.`
-                    : `Explore this ${listing.businessCategory.toLowerCase()} opportunity in ${listing.county}, including the advertised package price, liquor-license classification and local market context.`}
+                    : isMiamiNonQuotaRestaurant(listing)
+                      ? listing.licenseClass === "2cop"
+                        ? "Explore this Miami-Dade restaurant opportunity with a non-quota 2COP Beer & Wine license. A 2COP license does not provide distilled-spirit privileges and is not a transferable 4COP quota license."
+                        : "Explore this Miami-Dade restaurant opportunity with a non-quota, restaurant-qualified 4COP SFS/SRX license. This is not a transferable 4COP quota license."
+                      : `Explore this ${listing.businessCategory.toLowerCase()} opportunity in ${listing.county}, including the advertised package price, liquor-license classification and local market context.`}
               </p>
 
               <div className="business-market-hero-stats">
@@ -386,7 +427,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                     ? "FLLM is tracking this St. Augustine restaurant and sports-bar opportunity in St. Johns County at an advertised package price of $999,000. The business package includes a 4COP Quota liquor license, a county-specific transferable quota license subject to regulatory approval and buyer qualification."
                     : isStJohnsSfs(listing)
                       ? `FLLM is tracking an advertised ${listing.businessType.toLowerCase()} opportunity in St. Johns County at ${listing.packagePrice}. The business uses a 4COP SFS/SRX restaurant license, which is non-quota and tied to the qualifying restaurant operation rather than a separately transferable quota license.`
-                      : `FLLM is tracking an advertised ${listing.businessType.toLowerCase()} opportunity in ${listing.county} at ${listing.packagePrice}. The business package includes a ${listing.licenseType}.`}
+                      : isMiamiNonQuotaRestaurant(listing)
+                        ? listing.licenseClass === "2cop"
+                          ? `FLLM is tracking an advertised ${listing.businessType.toLowerCase()} opportunity in Miami-Dade County at ${listing.packagePrice}. The business uses a 2COP Beer & Wine license, a non-quota license that should not be confused with a transferable 4COP quota license.`
+                          : `FLLM is tracking an advertised ${listing.businessType.toLowerCase()} opportunity in Miami-Dade County at ${listing.packagePrice}. The business uses a 4COP SFS/SRX restaurant license, a non-quota classification tied to the qualifying restaurant operation and premises.`
+                        : `FLLM is tracking an advertised ${listing.businessType.toLowerCase()} opportunity in ${listing.county} at ${listing.packagePrice}. The business package includes a ${listing.licenseType}.`}
                 </p>
 
                 <div className="business-market-fact-grid">
@@ -410,13 +455,13 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 ) : null}
 
                 <p>{county?.introduction ?? `${listing.county} is part of Florida's active hospitality and business-acquisition market.`}</p>
-                {county?.marketOverview ? <p>{county.marketOverview}</p> : null}
+                {localMarketOverview(listing, county) ? <p>{localMarketOverview(listing, county)}</p> : null}
                 <p>{categoryContext(listing)}</p>
               </section>
 
               <section className="business-market-panel business-market-license-panel">
                 <div className="business-market-section-heading">
-                  <span>{isStJohnsSfs(listing) ? "Non-Quota Restaurant License" : "License Included"}</span>
+                  <span>{isStJohnsSfs(listing) || isMiamiNonQuotaRestaurant(listing) ? "Non-Quota Restaurant License" : "License Included"}</span>
                   <h2>{listing.licenseType}</h2>
                 </div>
                 <p>{licenseContext(listing)}</p>
@@ -431,6 +476,9 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   ) : null}
                   {isStJohnsSfs(listing) ? (
                     <Link href="/business-market/fllm-mkt-q-004">Looking for a St. Johns County restaurant with a 4COP Quota license? ›</Link>
+                  ) : null}
+                  {isMiamiNonQuotaRestaurant(listing) ? (
+                    <Link href="/restaurants-with-liquor-licenses#miami-dade-quota-restaurants">Looking for a Miami restaurant with a transferable 4COP Quota license? ›</Link>
                   ) : null}
                 </div>
               </section>
