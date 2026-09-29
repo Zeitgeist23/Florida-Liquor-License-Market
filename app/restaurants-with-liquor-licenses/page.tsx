@@ -16,6 +16,9 @@ import {
   businessQuotaListings,
   businessSfsListings,
 } from "@/lib/business-quota-listings";
+import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
+import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
 import "../fllm-official-template.css";
 import "../fllm-design-system.css";
@@ -24,36 +27,6 @@ import "../businesses-with-quota-licenses/business-inventory.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/restaurants-with-liquor-licenses`;
-
-const allRestaurantListings = [
-  ...businessQuotaListings,
-  ...businessSfsListings,
-  ...business2copListings,
-].filter(
-  (listing) =>
-    listing.businessCategory === "Restaurant" ||
-    /restaurant/i.test(`${listing.title} ${listing.businessType}`),
-);
-const allQuotaRestaurantListings = businessQuotaListings.filter(
-  (listing) =>
-    listing.licenseType === "4COP Quota" &&
-    (listing.businessCategory === "Restaurant" ||
-      /restaurant/i.test(`${listing.title} ${listing.businessType}`)),
-);
-const quotaRestaurantListings = allQuotaRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
-const restaurantListings = allRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
-const stJohnsRestaurantListings = allRestaurantListings.filter(
-  (listing) => listing.county === "St. Johns County",
-);
-const miamiRestaurantListings = allRestaurantListings.filter(
-  (listing) => listing.county === "Miami-Dade County",
-);
-const miamiQuotaRestaurantListings = allQuotaRestaurantListings.filter(
-  (listing) => listing.county === "Miami-Dade County",
-);
-const orlandoRestaurantListings = allRestaurantListings.filter(
-  (listing) => listing.county === "Orange County",
-);
 
 export const metadata: Metadata = {
   title: "Florida Restaurants for Sale With Liquor Licenses | 4COP, SFS & 2COP | FLLM",
@@ -81,7 +54,52 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RestaurantsWithLiquorLicensesPage() {
+export default async function RestaurantsWithLiquorLicensesPage() {
+  const standaloneListings = getVisibleAvailableMarketplaceListings(
+    await getMarketplaceListings(),
+  );
+  const quotaListingsWithValues = withMarketLicenseValues(
+    businessQuotaListings,
+    standaloneListings,
+  );
+  const sfsListingsWithValues = withMarketLicenseValues(
+    businessSfsListings,
+    standaloneListings,
+  );
+  const twoCopListingsWithValues = withMarketLicenseValues(
+    business2copListings,
+    standaloneListings,
+  );
+  const allRestaurantListings = [
+    ...quotaListingsWithValues,
+    ...sfsListingsWithValues,
+    ...twoCopListingsWithValues,
+  ].filter(
+    (listing) =>
+      listing.businessCategory === "Restaurant" ||
+      /restaurant/i.test(`${listing.title} ${listing.businessType}`),
+  );
+  const allQuotaRestaurantListings = quotaListingsWithValues.filter(
+    (listing) =>
+      listing.licenseType === "4COP Quota" &&
+      (listing.businessCategory === "Restaurant" ||
+        /restaurant/i.test(`${listing.title} ${listing.businessType}`)),
+  );
+  const quotaRestaurantListings = allQuotaRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
+  const restaurantListings = allRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
+  const stJohnsRestaurantListings = allRestaurantListings.filter(
+    (listing) => listing.county === "St. Johns County",
+  );
+  const miamiRestaurantListings = allRestaurantListings.filter(
+    (listing) => listing.county === "Miami-Dade County",
+  );
+  const miamiQuotaRestaurantListings = allQuotaRestaurantListings.filter(
+    (listing) => listing.county === "Miami-Dade County",
+  );
+  const orlandoRestaurantListings = allRestaurantListings.filter(
+    (listing) => listing.county === "Orange County",
+  );
+
   const structuredData = [
     {
       "@context": "https://schema.org",
