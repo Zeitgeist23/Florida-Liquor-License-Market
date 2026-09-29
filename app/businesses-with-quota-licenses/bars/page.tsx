@@ -5,6 +5,9 @@ import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
 import BusinessPackageLocalMarkets from "@/components/BusinessPackageLocalMarkets";
 import { FllmPageShell } from "@/components/FllmDesignSystem";
 import { BUSINESS_LISTING_DISPLAY_LIMIT, businessQuotaListings } from "@/lib/business-quota-listings";
+import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
+import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
 import "../../fllm-official-template.css";
 import "../../fllm-design-system.css";
@@ -14,14 +17,6 @@ import "./bars.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/businesses-with-quota-licenses/bars`;
-
-const allBarPackageListings = businessQuotaListings.filter((listing) =>
-  /bar|pub|tavern|lounge|nightclub/i.test(`${listing.title} ${listing.businessType}`),
-);
-const barPackageListings = allBarPackageListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
-const duvalBarPackageListings = allBarPackageListings.filter(
-  (listing) => listing.county === "Duval County",
-);
 
 const faqs = [
   {
@@ -73,7 +68,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BarsWithQuotaLicensesPage() {
+export default async function BarsWithQuotaLicensesPage() {
+  const standaloneListings = getVisibleAvailableMarketplaceListings(
+    await getMarketplaceListings(),
+  );
+  const quotaListingsWithValues = withMarketLicenseValues(
+    businessQuotaListings,
+    standaloneListings,
+  );
+  const allBarPackageListings = quotaListingsWithValues.filter((listing) =>
+    /bar|pub|tavern|lounge|nightclub/i.test(`${listing.title} ${listing.businessType}`),
+  );
+  const barPackageListings = allBarPackageListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
+  const duvalBarPackageListings = allBarPackageListings.filter(
+    (listing) => listing.county === "Duval County",
+  );
+
   const structuredData = [
     {
       "@context": "https://schema.org",
