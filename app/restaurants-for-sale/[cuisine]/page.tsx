@@ -104,6 +104,24 @@ export default async function RestaurantCuisinePage({ params }: PageProps) {
   );
   const canonicalUrl = `${siteUrl}${restaurantCuisineHref(definition.slug)}`;
 
+  const cuisineFaqs =
+    definition.slug === "italian"
+      ? [
+          {
+            question: "Where can I find Italian restaurants for sale in Florida?",
+            answer: "FLLM organizes observed Italian restaurant market activity by county and liquor-license structure, including transferable 4COP quota, 4COP SFS / SRX and 2COP beer-and-wine classifications when present.",
+          },
+          {
+            question: "Where can I find Italian restaurants for sale in Broward County?",
+            answer: "FLLM's Italian restaurant market page includes Broward County market activity and links to Broward and Weston location pages while preserving the actual city or county associated with each Market View.",
+          },
+          {
+            question: "Can an Italian restaurant for sale include a full-liquor license?",
+            answer: "Yes. A Florida Italian restaurant may operate with a transferable 4COP quota license or, when eligible, a location-specific 4COP SFS / SRX full-liquor restaurant license. FLLM keeps those license structures separate.",
+          },
+        ]
+      : [];
+
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -117,6 +135,17 @@ export default async function RestaurantCuisinePage({ params }: PageProps) {
         url: siteUrl,
       },
     },
+    ...(cuisineFaqs.length
+      ? [{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: cuisineFaqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: { "@type": "Answer", text: faq.answer },
+          })),
+        }]
+      : []),
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -232,10 +261,9 @@ export default async function RestaurantCuisinePage({ params }: PageProps) {
               variant="gold"
             >
               <p>
-                This cuisine page is designed to rank for Italian restaurant searches across Florida and Broward County.
-                For location-specific searches around Weston, use FLLM&apos;s dedicated Weston restaurant market page,
-                which organizes nearby restaurant inventory by full-liquor privileges, 4COP structure, cuisine and
-                actual business location.
+                This FLLM-created cuisine page is the primary research page for Italian restaurant searches across Florida
+                and Broward County. For location-specific Weston searches, use the dedicated Weston restaurant market page,
+                which organizes nearby Market Views by full-liquor privileges, 4COP structure, cuisine and actual location.
               </p>
               <div className="fllm-ui-actions">
                 <FllmButton href="/counties/broward" variant="outline">
