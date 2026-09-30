@@ -58,9 +58,10 @@ const businessQuotaFaqs = [
     question: "Where can I find Florida businesses for sale with liquor licenses?",
     answer: (
       <>
-        FLLM's business marketplace is built for buyers searching for Florida businesses for sale with liquor licenses,
-        including bars, restaurants, liquor stores, nightclubs and other hospitality businesses. Use the business inventory
-        on this page to compare operating-business opportunities and the liquor-license component included with each package.
+        FLLM's original business-market hub is built for buyers searching for Florida businesses for sale with liquor licenses,
+        including bars, restaurants, liquor stores, nightclubs and other hospitality businesses. FLLM separates Featured broker
+        listings from Market Views of observed business-and-license activity so buyers can compare county, business category,
+        advertised asking price and liquor-license type without treating every Market View as an FLLM broker listing.
       </>
     ),
   },
@@ -126,7 +127,7 @@ export default async function BusinessesWithQuotaLicensesPage() {
             typeof item.answer === "string"
               ? item.answer
               : item.question === "Where can I find Florida businesses for sale with liquor licenses?"
-                ? "FLLM publishes Florida businesses for sale with liquor licenses, including bars, restaurants, liquor stores, nightclubs and other hospitality businesses. Buyers can compare the operating business and the included liquor-license component in the separate business inventory."
+                ? "FLLM provides an original Florida business-and-liquor-license market hub covering bars, restaurants, liquor stores, nightclubs and other hospitality businesses. Featured broker listings are identified separately from FLLM Market Views of observed market activity."
                 : item.question === "Is a 4COP quota license the same as a 4COP SFS / SRX restaurant license?"
                   ? "No. A 4COP quota license is a county-limited transferable quota asset. A 4COP SFS / SRX license is a qualification-based restaurant license tied to the qualifying operation and approved premises."
                   : item.question === "Is a 4COP quota license transferable when a Florida business is sold?"
@@ -166,12 +167,13 @@ export default async function BusinessesWithQuotaLicensesPage() {
           <span className="business-quota-kicker">Florida Operating Businesses + Liquor Licenses</span>
           <h1>Florida Businesses for Sale<br /><em>With Liquor Licenses</em></h1>
           <p>
-            Browse Florida bars, restaurants, liquor stores, nightclubs and other operating businesses for sale with
-            liquor licenses. FLLM separates these business acquisitions from standalone license inventory while showing
-            the included 4COP, 3PS or other liquor-license component and available county market data.
+            Search Florida bars, restaurants, liquor stores, nightclubs and other businesses for sale with liquor licenses.
+            This FLLM-created market hub separates standalone license inventory, Featured broker listings and FLLM Market Views.
+            Market Views summarize observed business-and-license activity using limited factual fields such as county,
+            business category, advertised asking price and liquor-license type, while Featured listings are identified separately.
           </p>
           <div className="business-quota-hero-actions">
-            <Link className="business-quota-primary fllm-ui-official-gold-button" href="#business-inventory">View Business Packages</Link>
+            <Link className="business-quota-primary fllm-ui-official-gold-button" href="#business-inventory">View Business Market</Link>
             <Link className="business-quota-secondary" href="/businesses-with-quota-licenses/bars">Bars + 4COP Packages</Link>
             <Link className="business-quota-secondary" href="/listings">View Standalone Quota Licenses</Link>
             <Link className="fllm-ui-link-card" href="/businesses-with-quota-licenses/gentlemens-clubs">
@@ -196,9 +198,10 @@ export default async function BusinessesWithQuotaLicensesPage() {
               <h2>Florida Businesses for Sale With Liquor Licenses</h2>
               <div className="fllm-ui-heading-copy">
                 <p>
-                  FLLM publishes operating-business opportunities that include liquor licenses while keeping them separate
-                  from standalone license inventory. Buyers can browse businesses by type, county and license classification,
-                  then contact the listing broker or seller directly from the individual business page.
+                  FLLM's original business-market pages are designed to capture buyer searches for Florida businesses for sale
+                  with liquor licenses while keeping Market Views distinct from broker-authorized Featured listings. Buyers can
+                  browse by business type, county and license classification, review county and license-market information, and
+                  request FLLM information about the relevant license type without implying FLLM represents a Market View business.
                 </p>
               </div>
             </div>
@@ -244,7 +247,7 @@ export default async function BusinessesWithQuotaLicensesPage() {
       <footer className="business-quota-footer">
         <div className="business-quota-shell">
           <div><Link href="/" aria-label="Florida Liquor License Market home"><Image src="/assets/brand-sharp.svg" alt="Florida Liquor License Market" width={130} height={53} /></Link><span>© Florida Liquor License Market</span></div>
-          <nav aria-label="Footer navigation"><Link href="/listings">Standalone Licenses</Link><Link href="/businesses-with-quota-licenses">Business Packages</Link><Link href="/counties">Counties</Link><Link href="/contact">Contact</Link></nav>
+          <nav aria-label="Footer navigation"><Link href="/listings">Standalone Licenses</Link><Link href="/businesses-with-quota-licenses">Business Market</Link><Link href="/counties">Counties</Link><Link href="/contact">Contact</Link></nav>
         </div>
       </footer>
     </main>
