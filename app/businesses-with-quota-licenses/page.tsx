@@ -7,6 +7,7 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 import { FllmFaqGrid } from "@/components/FllmDesignSystem";
 import {
   BUSINESS_LISTING_DISPLAY_LIMIT,
+  businessMarketDisplayTitle,
   businessQuotaListings,
   FLLM_QUOTA_LISTING_OPERATING_RULES,
 } from "@/lib/business-quota-listings";
@@ -142,7 +143,7 @@ export default async function BusinessesWithQuotaLicensesPage() {
       itemListElement: structuredBusinessListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: listing.title,
+        name: businessMarketDisplayTitle(listing),
         url: `${siteUrl}${listing.href}`,
       })),
     },
