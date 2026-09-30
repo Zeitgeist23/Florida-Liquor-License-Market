@@ -54,34 +54,35 @@ const businessQuotaFaqs = [
     ),
   },
   {
-    question: "Where can I find Florida restaurants for sale with liquor licenses?",
+    question: "Where can I find Florida businesses for sale with liquor licenses?",
     answer: (
       <>
-        Use FLLM's <Link href="/restaurants-with-liquor-licenses">Florida Restaurants For Sale With Liquor Licenses</Link>
-        {" "}hub to compare restaurant opportunities involving 4COP quota, 4COP SFS / SRX, and 2COP beer-and-wine licenses.
+        FLLM's business marketplace is built for buyers searching for Florida businesses for sale with liquor licenses,
+        including bars, restaurants, liquor stores, nightclubs and other hospitality businesses. Use the business inventory
+        on this page to compare operating-business opportunities and the liquor-license component included with each package.
       </>
     ),
   },
 ];
 
 export const metadata: Metadata = {
-  title: "Florida Businesses for Sale With 4COP & 3PS Quota Licenses",
+  title: "Florida Businesses for Sale With Liquor Licenses | FLLM",
   description:
-    "Browse Florida operating businesses for sale with included 4COP or 3PS quota liquor licenses. These packages are separate from FLLM's standalone liquor-license inventory.",
+    "Browse Florida businesses for sale with liquor licenses, including bars, restaurants, liquor stores, nightclubs and hospitality businesses with 4COP, 3PS and other license types.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Businesses for Sale With Quota Liquor Licenses",
+    title: "Florida Businesses for Sale With Liquor Licenses",
     description:
-      "Operating businesses offered with included Florida 4COP or 3PS quota licenses, shown separately from standalone license inventory.",
+      "Browse operating Florida businesses for sale with liquor licenses, including bars, restaurants, liquor stores, nightclubs and other hospitality businesses.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Florida Businesses With Quota Liquor Licenses",
-    description: "Browse business acquisitions that include Florida 4COP or 3PS quota licenses.",
+    title: "Florida Businesses for Sale With Liquor Licenses",
+    description: "Browse Florida operating businesses for sale with 4COP, 3PS and other liquor-license types.",
   },
 };
 
@@ -98,10 +99,10 @@ export default async function BusinessesWithQuotaLicensesPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Florida Businesses for Sale With Quota Liquor Licenses",
+      name: "Florida Businesses for Sale With Liquor Licenses",
       url: canonicalUrl,
       description:
-        "Operating Florida businesses for sale with included 4COP or 3PS quota liquor licenses, presented separately from standalone license inventory.",
+        "Florida operating businesses for sale with liquor licenses, including bars, restaurants, liquor stores, nightclubs and hospitality businesses with included 4COP, 3PS and other license types.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
@@ -109,7 +110,7 @@ export default async function BusinessesWithQuotaLicensesPage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Businesses With Quota Licenses", item: canonicalUrl },
+        { "@type": "ListItem", position: 2, name: "Businesses for Sale With Liquor Licenses", item: canonicalUrl },
       ],
     },
     {
@@ -123,8 +124,8 @@ export default async function BusinessesWithQuotaLicensesPage() {
           text:
             typeof item.answer === "string"
               ? item.answer
-              : item.question === "Where can I find Florida restaurants for sale with liquor licenses?"
-                ? "Use FLLM's Florida Restaurants For Sale With Liquor Licenses hub to compare restaurant opportunities involving 4COP quota, 4COP SFS / SRX, and 2COP beer-and-wine licenses."
+              : item.question === "Where can I find Florida businesses for sale with liquor licenses?"
+                ? "FLLM publishes Florida businesses for sale with liquor licenses, including bars, restaurants, liquor stores, nightclubs and other hospitality businesses. Buyers can compare the operating business and the included liquor-license component in the separate business inventory."
                 : item.question === "Is a 4COP quota license the same as a 4COP SFS / SRX restaurant license?"
                   ? "No. A 4COP quota license is a county-limited transferable quota asset. A 4COP SFS / SRX license is a qualification-based restaurant license tied to the qualifying operation and approved premises."
                   : item.question === "Is a 4COP quota license transferable when a Florida business is sold?"
@@ -136,7 +137,7 @@ export default async function BusinessesWithQuotaLicensesPage() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Florida businesses with included quota liquor licenses",
+      name: "Florida businesses for sale with liquor licenses",
       numberOfItems: structuredBusinessListings.length,
       itemListElement: structuredBusinessListings.map((listing, index) => ({
         "@type": "ListItem",
@@ -159,14 +160,14 @@ export default async function BusinessesWithQuotaLicensesPage() {
       <section className="business-quota-hero">
         <div className="business-quota-shell">
           <div className="business-quota-breadcrumbs">
-            <Link href="/">Home</Link><span>›</span><strong>Businesses With Quota Licenses</strong>
+            <Link href="/">Home</Link><span>›</span><strong>Businesses for Sale With Liquor Licenses</strong>
           </div>
-          <span className="business-quota-kicker">Separate Business Acquisition Inventory</span>
-          <h1>Florida Businesses for Sale<br /><em>With Quota Liquor Licenses</em></h1>
+          <span className="business-quota-kicker">Florida Operating Businesses + Liquor Licenses</span>
+          <h1>Florida Businesses for Sale<br /><em>With Liquor Licenses</em></h1>
           <p>
-            This inventory is reserved for operating businesses whose sale includes a Florida 4COP or
-            3PS quota liquor license. The package price represents the business acquisition; any stated
-            license value is an allocated component and does not mean the license is offered separately.
+            Browse Florida bars, restaurants, liquor stores, nightclubs and other operating businesses for sale with
+            liquor licenses. FLLM separates these business acquisitions from standalone license inventory while showing
+            the included 4COP, 3PS or other liquor-license component and available county market data.
           </p>
           <div className="business-quota-hero-actions">
             <Link className="business-quota-primary fllm-ui-official-gold-button" href="#business-inventory">View Business Packages</Link>
@@ -186,12 +187,13 @@ export default async function BusinessesWithQuotaLicensesPage() {
         <div className="business-quota-shell">
           <div className="fllm-ui-heading fllm-ui-heading--center">
             <div>
-              <span className="fllm-template-eyebrow">4COP Business Types</span>
-              <h2>Businesses With 4COP Quota Liquor Licenses in Florida</h2>
+              <span className="fllm-template-eyebrow">Operating Businesses for Sale</span>
+              <h2>Florida Businesses for Sale With Liquor Licenses</h2>
               <div className="fllm-ui-heading-copy">
                 <p>
-                  FLLM separates operating-business packages from standalone quota licenses so buyers can compare the
-                  business opportunity and the included license without mixing the two markets.
+                  FLLM publishes operating-business opportunities that include liquor licenses while keeping them separate
+                  from standalone license inventory. Buyers can browse businesses by type, county and license classification,
+                  then contact the listing broker or seller directly from the individual business page.
                 </p>
               </div>
             </div>
