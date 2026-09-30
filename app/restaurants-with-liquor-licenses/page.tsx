@@ -31,7 +31,7 @@ const canonicalUrl = `${siteUrl}/restaurants-with-liquor-licenses`;
 export const metadata: Metadata = {
   title: "Florida Restaurants for Sale With Liquor Licenses | 4COP, SFS & 2COP | FLLM",
   description:
-    "Browse Florida restaurants for sale with 4COP quota liquor licenses, 4COP SFS / SRX licenses and 2COP beer-and-wine licenses. Compare active restaurant opportunities by license type and county.",
+    "Browse Florida restaurants for sale with full-liquor privileges, including 4COP quota and 4COP SFS / SRX licenses, plus 2COP beer-and-wine restaurant opportunities by county.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
@@ -39,6 +39,10 @@ export const metadata: Metadata = {
     "Miami restaurant for sale with 4COP quota license",
     "Miami-Dade restaurant for sale with quota liquor license",
     "Florida restaurant for sale with liquor license",
+    "Florida restaurants for sale with full liquor",
+    "restaurants for sale with full liquor Florida",
+    "restaurant for sale with full liquor license",
+    "full liquor restaurant for sale",
     "4COP quota restaurant for sale",
     "Orlando restaurants for sale with liquor license",
     "Orlando restaurant for sale with 4COP SFS SRX license",
@@ -49,7 +53,7 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Florida Restaurants for Sale With Liquor Licenses | 4COP, SFS & 2COP | FLLM",
     description:
-      "Browse Florida restaurants for sale with transferable 4COP quota licenses, 4COP SFS / SRX restaurant licenses, and 2COP beer-and-wine licenses.",
+      "Browse Florida restaurants for sale with full-liquor privileges, including transferable 4COP quota licenses and qualifying 4COP SFS / SRX restaurant licenses, plus 2COP beer-and-wine opportunities.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -107,7 +111,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       name: "Florida Restaurants for Sale With Liquor Licenses",
       url: canonicalUrl,
       description:
-        "Florida restaurants for sale with 4COP quota liquor licenses, 4COP SFS / SRX licenses, and 2COP beer-and-wine licenses.",
+        "Florida restaurants for sale with full-liquor privileges, including 4COP quota and 4COP SFS / SRX licenses, plus 2COP beer-and-wine restaurant opportunities.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
@@ -116,6 +120,20 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
         { "@type": "ListItem", position: 2, name: "Restaurants With Liquor Licenses", item: canonicalUrl },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What does full liquor mean when searching for a Florida restaurant for sale?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Full liquor is common marketplace shorthand rather than a Florida license-series name. A restaurant with distilled-spirit privileges may operate with a transferable 4COP quota license or, when the premises and business qualify, a location-specific 4COP SFS / SRX license. FLLM identifies the license structure on each listing.",
+          },
+        },
       ],
     },
     {
@@ -160,9 +178,10 @@ export default async function RestaurantsWithLiquorLicensesPage() {
           <h1 className="fllm-template-hero-title">Florida Restaurants for Sale With Liquor Licenses</h1>
           <p className="fllm-template-hero-copy">
             Browse Florida restaurants and restaurant/bar businesses for sale with 4COP quota liquor licenses,
-            4COP SFS / SRX licenses and 2COP beer-and-wine licenses. FLLM keeps transferable quota-license packages
-            separate from qualification-based restaurant licenses while bringing all three restaurant license paths
-            into one marketplace hub.
+            4COP SFS / SRX licenses and 2COP beer-and-wine licenses. Buyers often search for these opportunities as
+            restaurants for sale with full liquor. In Florida, full-liquor restaurant privileges may come through a
+            transferable 4COP quota license or, when the premises and business qualify, a location-specific 4COP SFS / SRX
+            license. FLLM keeps those license structures separate while bringing the restaurant market into one marketplace hub.
           </p>
           <div className="fllm-ui-actions">
             <Link className="btn btn-gold fllm-ui-official-gold-button" href="#restaurant-inventory">View Restaurant Listings</Link>
@@ -380,6 +399,35 @@ export default async function RestaurantsWithLiquorLicensesPage() {
           </div>
         </section>
       ) : null}
+
+      <section className="fllm-template-section" id="full-liquor-restaurants">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Full-Liquor Restaurant Search"
+            title="Restaurants for sale with full liquor in Florida"
+            copy={
+              <p>
+                “Full liquor” is common buyer and broker search language, but it is not a Florida license-series name.
+                Restaurant opportunities with distilled-spirit privileges may involve a transferable 4COP quota license
+                or, when the premises and business qualify, a location-specific 4COP SFS / SRX restaurant license.
+                FLLM identifies the license structure separately so buyers can compare the correct type of opportunity.
+              </p>
+            }
+          />
+          <FllmCard
+            eyebrow={<span className="restaurant-card-cyan-label">Full liquor FAQ</span>}
+            title="What does “full liquor” mean when searching for a Florida restaurant for sale?"
+            variant="gold"
+          >
+            <p>
+              Buyers often use “full liquor” to describe a restaurant that can sell distilled spirits in addition to beer
+              and wine. In Florida, that privilege may be associated with a transferable 4COP quota license or a qualifying
+              4COP SFS / SRX license tied to the restaurant premises and operating requirements. FLLM labels each listing by
+              its actual license structure rather than treating all full-liquor restaurant opportunities as the same.
+            </p>
+          </FllmCard>
+        </div>
+      </section>
 
       <section className="fllm-ui-final-cta">
         <div className="fllm-template-shell">
