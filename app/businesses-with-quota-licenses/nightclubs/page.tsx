@@ -4,7 +4,7 @@ import Link from "next/link";
 import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
 import BusinessPackageLocalMarkets from "@/components/BusinessPackageLocalMarkets";
 import { FllmPageShell } from "@/components/FllmDesignSystem";
-import { BUSINESS_LISTING_DISPLAY_LIMIT, businessQuotaListings } from "@/lib/business-quota-listings";
+import { BUSINESS_LISTING_DISPLAY_LIMIT, businessMarketDisplayTitle, businessQuotaListings } from "@/lib/business-quota-listings";
 import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
@@ -108,7 +108,7 @@ export default async function NightclubsWithQuotaLicensesPage() {
       itemListElement: nightclubListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: listing.title,
+        name: businessMarketDisplayTitle(listing),
         url: `${siteUrl}${listing.href}`,
       })),
     },
