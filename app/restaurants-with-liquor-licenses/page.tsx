@@ -101,6 +101,15 @@ export default async function RestaurantsWithLiquorLicensesPage() {
   const stJohnsRestaurantListings = allRestaurantListings.filter(
     (listing) => listing.county === "St. Johns County",
   );
+  const stJohnsQuotaRestaurantListings = allQuotaRestaurantListings.filter(
+    (listing) => listing.county === "St. Johns County",
+  );
+  const stJohnsRestaurantPrices = stJohnsRestaurantListings
+    .map((listing) => listing.packagePriceNumber)
+    .filter((price) => Number.isFinite(price) && price > 0);
+  const stJohnsRestaurantPriceLow = stJohnsRestaurantPrices.length ? Math.min(...stJohnsRestaurantPrices) : null;
+  const stJohnsRestaurantPriceHigh = stJohnsRestaurantPrices.length ? Math.max(...stJohnsRestaurantPrices) : null;
+  const stJohnsRestaurantLicenseTypes = Array.from(new Set(stJohnsRestaurantListings.map((listing) => listing.licenseType)));
   const miamiRestaurantListings = allRestaurantListings.filter(
     (listing) => listing.county === "Miami-Dade County",
   );
@@ -181,6 +190,18 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       name: "Miami and Miami-Dade restaurants for sale with liquor licenses",
       numberOfItems: miamiRestaurantListings.length,
       itemListElement: miamiRestaurantListings.map((listing, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: listing.title,
+        url: `${siteUrl}${listing.href}`,
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "St. Augustine and St. Johns County restaurants for sale with quota liquor licenses",
+      numberOfItems: stJohnsRestaurantListings.length,
+      itemListElement: stJohnsRestaurantListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: listing.title,
@@ -495,27 +516,61 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       ) : null}
 
       {stJohnsRestaurantListings.length ? (
-        <section className="fllm-template-section">
+        <section className="fllm-template-section" id="st-augustine-quota-restaurants">
           <div className="fllm-template-shell">
             <FllmSectionHeading
               eyebrow="St. Augustine & St. Johns County"
-              title="Restaurants for sale with liquor licenses in St. Augustine and St. Johns County"
+              title="St. Augustine restaurants for sale with quota liquor licenses"
               copy={
                 <p>
-                  FLLM currently tracks {stJohnsRestaurantListings.length} restaurant or restaurant/bar business
-                  package{stJohnsRestaurantListings.length === 1 ? "" : "s"} in St. Johns County, including
-                  transferable 4COP quota and qualification-based 4COP SFS / SRX opportunities. These business
-                  packages are kept separate from standalone St. Johns County liquor-license inventory.
+                  FLLM tracks St. Augustine and St. Johns County restaurant and restaurant/bar opportunities by the
+                  alcoholic-beverage license included with the business. Current listings can include transferable
+                  4COP quota licenses as well as other restaurant license structures, while standalone St. Johns County
+                  quota-license inventory remains separate from operating-business packages.
                 </p>
               }
             />
+
+            <FllmCardGrid columns={3}>
+              <FllmCard eyebrow={<span className="restaurant-card-cyan-label">Current St. Johns Inventory</span>} title={`${stJohnsRestaurantListings.length} published restaurant opportunit${stJohnsRestaurantListings.length === 1 ? "y" : "ies"}`} variant="gold">
+                <p>Operating-business listings currently published on FLLM for St. Augustine and St. Johns County.</p>
+              </FllmCard>
+              <FllmCard eyebrow={<span className="restaurant-card-cyan-label">Advertised Package Prices</span>} title={stJohnsRestaurantPriceLow !== null && stJohnsRestaurantPriceHigh !== null ? `${formatCurrency(stJohnsRestaurantPriceLow)} – ${formatCurrency(stJohnsRestaurantPriceHigh)}` : "See current listings"} variant="gold">
+                <p>Package prices refer to the operating business. Any separately stated quota-license value is identified on the listing.</p>
+              </FllmCard>
+              <FllmCard eyebrow={<span className="restaurant-card-cyan-label">License Types in Current Inventory</span>} title={stJohnsRestaurantLicenseTypes.length ? stJohnsRestaurantLicenseTypes.join(" • ") : "No current inventory"} variant="gold">
+                <p>FLLM distinguishes transferable 4COP quota licenses from qualification-based or beer-and-wine restaurant licenses.</p>
+              </FllmCard>
+            </FllmCardGrid>
+
+            <div className="business-quota-grid">
+              {stJohnsRestaurantListings.map((listing) => (
+                <BusinessQuotaListingCard key={`st-johns-${listing.listingReference}`} listing={listing} />
+              ))}
+            </div>
+
+            {stJohnsQuotaRestaurantListings.length ? (
+              <FllmCard
+                eyebrow={<span className="restaurant-card-cyan-label">4COP Quota Restaurant Package</span>}
+                title="St. Augustine restaurant businesses with transferable 4COP quota licenses"
+                variant="gold"
+              >
+                <p>
+                  FLLM currently identifies {stJohnsQuotaRestaurantListings.length} St. Johns County restaurant or
+                  restaurant/bar package{stJohnsQuotaRestaurantListings.length === 1 ? "" : "s"} with an included
+                  transferable 4COP quota license. These are operating-business opportunities rather than standalone
+                  quota-license listings.
+                </p>
+              </FllmCard>
+            ) : null}
+
             <div className="fllm-ui-actions">
-              <Link className="btn btn-gold fllm-ui-official-gold-button" href="#restaurant-inventory">
-                View St. Johns Restaurant Packages
-              </Link>
               <FllmButton href="/counties/st-johns" variant="outline">
-                St. Johns County License Market
+                St. Johns County Liquor License Market
               </FllmButton>
+              <Link className="btn btn-gold fllm-ui-official-gold-button" href="/license-alerts">
+                Get a St. Johns License Alert
+              </Link>
             </div>
           </div>
         </section>
