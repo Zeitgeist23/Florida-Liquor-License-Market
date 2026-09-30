@@ -221,6 +221,12 @@
   font-weight: 650 !important;
 }
 
+.results-page .results-filters label > span {
+  display: block;
+  width: 100%;
+  text-align: center !important;
+}
+
 .results-page .results-filters select {
   height: 48px !important;
   padding: 0 14px !important;
