@@ -39,7 +39,15 @@ export const metadata: Metadata = {
   title: "Downtown Hollywood Nightclub + 4COP Quota License | Broker Preview",
   description:
     "Private broker-review FLLM mockup for Mariya Vlasova's Downtown Hollywood nightclub opportunity offered at $790,000 with $1.1M gross revenue and an included Broward County 4COP quota liquor license.",
-  alternates: { canonical: canonicalUrl },
+  alternates: {
+    canonical: canonicalUrl,
+    languages: {
+      "en-US": canonicalUrl,
+      "es-US": `${siteUrl}/es/listings/vlasova`,
+      "ru-RU": `${siteUrl}/ru/listings/vlasova`,
+      "x-default": canonicalUrl,
+    },
+  },
   robots: {
     index: false,
     follow: false,
@@ -118,6 +126,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     licenseType: "4COP Quota",
     licenseAvailableSeparately: false,
     approvalPreview: true,
+    languageAlternates: { en: "/listings/vlasova", es: "/es/listings/vlasova", ru: "/ru/listings/vlasova" },
     businessLabel: "Turnkey Downtown Hollywood Nightclub",
     businessLabelLinkUrl: sourceListingUrl,
     businessLabelBodyBold: false,
