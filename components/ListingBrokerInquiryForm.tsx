@@ -116,7 +116,7 @@ export function ListingSidebarLoanCalculator({
       <p className="antezza-sidebar-calculator__intro">
         {isSbaBusiness
           ? tr("Compare estimated principal-and-interest payments for financing the operating-business purchase.", "Compare pagos estimados de capital e intereses para financiar la compra del negocio en operación.")
-          : tr("Model an estimated payment for the displayed liquor-license component of this listing.", "Calcule un pago estimado para el componente de licencia mostrado en este anuncio.")}
+          : tr("Model an estimated payment for a Florida liquor-license purchase amount.", "Calcule un pago estimado para el monto de compra de una licencia de bebidas alcohólicas de Florida.")}
       </p>
 
       <div className="antezza-sidebar-calculator__fields">
