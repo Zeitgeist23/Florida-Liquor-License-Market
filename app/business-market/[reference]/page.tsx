@@ -60,6 +60,24 @@ function moneyValue(value?: string) {
   return Number.isFinite(numeric) ? numeric : 0;
 }
 
+function median(values: number[]) {
+  if (!values.length) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0
+    ? Math.round((sorted[middle - 1] + sorted[middle]) / 2)
+    : sorted[middle];
+}
+
+function money(value: number | null) {
+  if (value === null) return "No disclosed asks";
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
 function buildMarketMapRows(
   listings: BusinessQuotaListing[],
   licenseType: string,
@@ -256,6 +274,22 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
   const licenseGuide = licenseBuyerGuide(listing);
   const countySummary = countyMarketSummary(listing, county);
 
+  const countyLicenseListings = standaloneListings.filter(
+    (candidate) =>
+      candidate.county === listing.county &&
+      candidate.type === listing.licenseType,
+  );
+  const countyLicensePrices = countyLicenseListings
+    .map((candidate) => candidate.price)
+    .filter((price): price is number => typeof price === "number" && Number.isFinite(price) && price > 0);
+  const countyLicenseMedianAsk = median(countyLicensePrices);
+
+  const countyBusinessPackages = marketRecords.filter(
+    (candidate) =>
+      candidate.county === listing.county &&
+      candidate.licenseType === listing.licenseType,
+  );
+
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -390,19 +424,47 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
             <div className="business-market-main">
               <section className="business-market-panel">
                 <div className="business-market-section-heading">
-                  <span>County Market Context</span>
-                  <h2>{listing.county} liquor-license market</h2>
+                  <span>County License Market Data</span>
+                  <h2>{listing.county} · {listing.licenseType}</h2>
                 </div>
-                <p>{countySummary.intro}</p>
-                <p>{countySummary.overview}</p>
+                <p>
+                  FLLM separates the transferable liquor-license market from operating-business package
+                  advertisements so buyers and sellers can evaluate the license component on its own.
+                </p>
+
                 <div className="business-market-fact-grid">
-                  <div><span>Primary Markets</span><strong>{countySummary.cities}</strong></div>
-                  <div><span>License Type</span><strong>{listing.licenseType}</strong></div>
-                  <div><span>Advertised Package Price</span><strong>{listing.packagePrice}</strong></div>
-                  <div><span>FLLM Market Reference</span><strong>{listing.listingReference}</strong></div>
+                  <div>
+                    <span>Median Disclosed License Ask</span>
+                    <strong>{money(countyLicenseMedianAsk)}</strong>
+                  </div>
+                  <div>
+                    <span>Standalone Licenses on Market</span>
+                    <strong>{countyLicenseListings.length}</strong>
+                  </div>
+                  <div>
+                    <span>Business + {listing.licenseType} Packages</span>
+                    <strong>{countyBusinessPackages.length}</strong>
+                  </div>
+                  <div>
+                    <span>Primary County Markets</span>
+                    <strong>{countySummary.cities}</strong>
+                  </div>
                 </div>
+
+                <div className="business-market-disclosure">
+                  <strong>Market-data disclosure</strong>
+                  <p>
+                    The business-package counts shown on FLLM Market View pages may include opportunities
+                    observed on third-party public marketplaces. Those businesses are not FLLM-listed businesses
+                    unless a page expressly identifies an authorized FLLM listing. Florida Liquor License Market
+                    is not a Florida real estate broker or business broker and does not participate in, share,
+                    or receive real-estate or business-broker commissions. FLLM provides liquor-license market
+                    information, advertising, valuation, financing, and transaction-support resources.
+                  </p>
+                </div>
+
                 <div className="business-market-license-links">
-                  <Link href={listing.countyHref}>Open {listing.county} market data ›</Link>
+                  <Link href={listing.countyHref}>Open {listing.county} license market data ›</Link>
                   <Link href="/counties">Compare all Florida counties ›</Link>
                 </div>
               </section>
