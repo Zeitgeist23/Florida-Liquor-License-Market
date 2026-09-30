@@ -141,7 +141,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter((definition) =>
       businessQuotaListingRecords.some(
         (listing) =>
-          listing.publicationStatus === "published" &&
+          passesBusinessMarketSourcePolicy(listing) &&
           listing.businessCategory === "Restaurant" &&
           listing.cuisines?.includes(definition.label),
       ),
