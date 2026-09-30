@@ -244,9 +244,12 @@ export default async function RestaurantCuisinePage({ params }: PageProps) {
                   <FllmButton href="/counties/broward" variant="outline">
                     Broward County Market
                   </FllmButton>
-                  <Link className="btn btn-gold fllm-ui-official-gold-button" href="/license-alerts">
-                    Get a Listing Alert
+                  <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/weston">
+                    Weston Restaurant Market
                   </Link>
+                  <FllmButton href="/license-alerts" variant="outline">
+                    Get a Listing Alert
+                  </FllmButton>
                 </div>
               </FllmCard>
             ) : null}
