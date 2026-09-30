@@ -54,8 +54,8 @@ export default function BusinessMarketHeroMap({
     pin && pin.y > 66 ? "lower" : pin && pin.y < 28 ? "upper" : "middle";
   const otherLabel =
     otherListingsCount === 1
-      ? "1 other FLLM listing in this county"
-      : `${otherListingsCount} other FLLM listings in this county`;
+      ? "1 other FLLM Market View in this county"
+      : `${otherListingsCount} other FLLM Market Views in this county`;
 
   return (
     <div className="business-market-map-card">
@@ -69,7 +69,7 @@ export default function BusinessMarketHeroMap({
           className="business-market-hero-map-svg"
           viewBox="90 -10 380 300"
           role="img"
-          aria-label={`Florida map highlighting ${county} with a listing pin`}
+          aria-label={`Florida map highlighting ${county} with a Market View pin`}
         >
           <defs>
             <filter
@@ -110,7 +110,7 @@ export default function BusinessMarketHeroMap({
               type="button"
               className="business-market-hero-pin"
               style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
-              aria-label={`Show listing details for ${county}`}
+              aria-label={`Show Market View details for ${county}`}
               aria-describedby="business-market-hero-map-tooltip"
               onClick={() => setOpen((value) => !value)}
               onFocus={() => setOpen(true)}
@@ -126,11 +126,11 @@ export default function BusinessMarketHeroMap({
               style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
               role="tooltip"
             >
-              <span>FLLM Market Listing</span>
+              <span>FLLM Market View</span>
               <strong>{title}</strong>
               <dl>
                 <div>
-                  <dt>Package Price</dt>
+                  <dt>Advertised Ask</dt>
                   <dd>{packagePrice}</dd>
                 </div>
                 <div>
@@ -142,7 +142,7 @@ export default function BusinessMarketHeroMap({
                   <dd>{businessType}</dd>
                 </div>
                 <div>
-                  <dt>Other County Listings</dt>
+                  <dt>Other County Views</dt>
                   <dd>{otherListingsCount}</dd>
                 </div>
               </dl>
