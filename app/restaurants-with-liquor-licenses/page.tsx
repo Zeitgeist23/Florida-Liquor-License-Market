@@ -107,6 +107,14 @@ export default async function RestaurantsWithLiquorLicensesPage() {
   const miamiQuotaRestaurantListings = allQuotaRestaurantListings.filter(
     (listing) => listing.county === "Miami-Dade County",
   );
+  const miamiRestaurantPrices = miamiRestaurantListings
+    .map((listing) => listing.packagePriceNumber)
+    .filter((price) => Number.isFinite(price) && price > 0);
+  const miamiRestaurantPriceLow = miamiRestaurantPrices.length ? Math.min(...miamiRestaurantPrices) : null;
+  const miamiRestaurantPriceHigh = miamiRestaurantPrices.length ? Math.max(...miamiRestaurantPrices) : null;
+  const miamiRestaurantLicenseTypes = Array.from(new Set(miamiRestaurantListings.map((listing) => listing.licenseType)));
+  const formatCurrency = (value: number) =>
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
   const orlandoRestaurantListings = allRestaurantListings.filter(
     (listing) => listing.county === "Orange County",
   );
@@ -161,6 +169,18 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       name: "Florida restaurant businesses with liquor licenses",
       numberOfItems: restaurantListings.length,
       itemListElement: restaurantListings.map((listing, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: listing.title,
+        url: `${siteUrl}${listing.href}`,
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "Miami and Miami-Dade restaurants for sale with liquor licenses",
+      numberOfItems: miamiRestaurantListings.length,
+      itemListElement: miamiRestaurantListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: listing.title,
@@ -382,16 +402,37 @@ export default async function RestaurantsWithLiquorLicensesPage() {
         <div className="fllm-template-shell">
           <FllmSectionHeading
             eyebrow="Miami & Miami-Dade County"
-            title="Miami restaurants for sale with 4COP quota liquor licenses"
+            title="Miami restaurants for sale with liquor licenses"
             copy={
               <p>
-                FLLM keeps Miami-Dade restaurant opportunities with transferable 4COP quota licenses separate from
-                non-quota 4COP SFS / SRX and 2COP restaurant listings. A 4COP quota license is a county-limited
-                transferable full-liquor license; 4COP SFS / SRX and 2COP licenses are different license structures
-                and should not be treated as quota inventory.
+                FLLM tracks Miami and Miami-Dade restaurant businesses for sale by the actual alcoholic-beverage
+                license included with the opportunity. Current inventory can include transferable 4COP quota licenses,
+                location-specific 4COP SFS / SRX full-liquor licenses, and 2COP beer-and-wine licenses. Quota-license
+                opportunities remain clearly separated from non-quota restaurant licenses.
               </p>
             }
           />
+
+          {miamiRestaurantListings.length ? (
+            <>
+              <FllmCardGrid columns={3}>
+                <FllmCard eyebrow={<span className="restaurant-card-cyan-label">Current Miami-Dade Inventory</span>} title={`${miamiRestaurantListings.length} published restaurant opportunit${miamiRestaurantListings.length === 1 ? "y" : "ies"}`} variant="gold">
+                  <p>Operating-business listings currently published on FLLM for Miami-Dade County, separate from standalone liquor-license offers.</p>
+                </FllmCard>
+                <FllmCard eyebrow={<span className="restaurant-card-cyan-label">Advertised Package Prices</span>} title={miamiRestaurantPriceLow !== null && miamiRestaurantPriceHigh !== null ? `${formatCurrency(miamiRestaurantPriceLow)} – ${formatCurrency(miamiRestaurantPriceHigh)}` : "See current listings"} variant="gold">
+                  <p>Package prices refer to the advertised business opportunity; any separately stated license value is identified on the listing.</p>
+                </FllmCard>
+                <FllmCard eyebrow={<span className="restaurant-card-cyan-label">License Types in Current Inventory</span>} title={miamiRestaurantLicenseTypes.length ? miamiRestaurantLicenseTypes.join(" • ") : "No current inventory"} variant="gold">
+                  <p>FLLM labels each Miami restaurant by its actual license structure so buyers can distinguish quota, SFS / SRX, and 2COP opportunities.</p>
+                </FllmCard>
+              </FllmCardGrid>
+              <div className="business-quota-grid">
+                {miamiRestaurantListings.map((listing) => (
+                  <BusinessQuotaListingCard key={`miami-${listing.listingReference}`} listing={listing} />
+                ))}
+              </div>
+            </>
+          ) : null}
 
           {miamiQuotaRestaurantListings.length ? (
             <div className="business-quota-grid">
