@@ -3,6 +3,7 @@ import { ABT_FORMS } from "@/data/abt-forms";
 import { countyValuationGuideHref, countyValuationGuideSlugs } from "@/data/county-valuation-guides";
 import { indexableCounties } from "@/data/florida-counties";
 import { NEWS_ARTICLES } from "@/data/news-articles";
+import { restaurantCuisines, restaurantCuisineHref } from "@/data/restaurant-cuisines";
 import { indexableListingPages, listingPageHref } from "@/lib/listing-page-urls";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import {
@@ -134,6 +135,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
+  const restaurantCuisinePages: MetadataRoute.Sitemap = restaurantCuisines
+    .filter((definition) =>
+      businessQuotaListingRecords.some(
+        (listing) =>
+          listing.publicationStatus === "published" &&
+          listing.businessCategory === "Restaurant" &&
+          listing.cuisines?.includes(definition.label),
+      ),
+    )
+    .map((definition) => ({
+      url: `${siteUrl}${restaurantCuisineHref(definition.slug)}`,
+      lastModified,
+      changeFrequency: "daily" as const,
+      priority: 0.84,
+    }));
+
   const businessMarketRecordPages: MetadataRoute.Sitemap = businessQuotaListingRecords
     .filter(
       (listing) =>
@@ -154,6 +171,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...countyPages,
     ...countyValuationPages,
     ...listingPages,
+    ...restaurantCuisinePages,
     ...businessMarketRecordPages,
   ];
 }
