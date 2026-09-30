@@ -85,6 +85,8 @@ export type BusinessQuotaListing = {
   inventoryReferences?: readonly string[];
   href: string;
   sourceListingUrls?: readonly string[];
+  independentVerificationUrls?: readonly string[];
+  sourceVerification?: "legacy_pre_policy" | "independently_verified" | "broker_authorized" | "discovery_only";
   county: string;
   countyHref: string;
   licenseType: "4COP Quota" | "3PS Quota / Package Store" | "4COP SFS/SRX" | "2COP Beer & Wine";
@@ -2846,7 +2848,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerage: "",
     featured: false,
     listingTier: "market",
-    publicationStatus: "published",
+    sourceVerification: "discovery_only",
+    publicationStatus: "preview",
     classification: "business_package",
   },
   {
@@ -2872,7 +2875,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerage: "",
     featured: false,
     listingTier: "market",
-    publicationStatus: "published",
+    sourceVerification: "discovery_only",
+    publicationStatus: "preview",
     classification: "business_package",
   },
   {
@@ -2898,7 +2902,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerage: "",
     featured: false,
     listingTier: "market",
-    publicationStatus: "published",
+    sourceVerification: "discovery_only",
+    publicationStatus: "preview",
     classification: "business_2cop",
   },
   {
@@ -2925,7 +2930,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerage: "",
     featured: false,
     listingTier: "market",
-    publicationStatus: "published",
+    sourceVerification: "discovery_only",
+    publicationStatus: "preview",
     classification: "business_2cop",
   },
   {
@@ -3000,6 +3006,31 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
 
 export const BUSINESS_LISTING_DISPLAY_LIMIT = 24;
 
+const MARKET_SOURCE_POLICY_EFFECTIVE_LIMITS = {
+  Q: 42,
+  SFS: 42,
+  "2COP": 32,
+} as const;
+
+function isLegacyPrePolicyMarketReference(reference: string) {
+  const match = reference.match(/^FLLM-MKT-(Q|SFS|2COP)-(\d+)$/i);
+  if (!match) return false;
+  const group = match[1].toUpperCase() as keyof typeof MARKET_SOURCE_POLICY_EFFECTIVE_LIMITS;
+  const sequence = Number(match[2]);
+  return Number.isInteger(sequence) && sequence <= MARKET_SOURCE_POLICY_EFFECTIVE_LIMITS[group];
+}
+
+export function passesBusinessMarketSourcePolicy(listing: BusinessQuotaListing) {
+  if (listing.listingTier !== "market") return true;
+  if (listing.publicationStatus !== "published") return false;
+  if (isLegacyPrePolicyMarketReference(listing.listingReference)) return true;
+  if (listing.sourceVerification === "broker_authorized") return true;
+  return (
+    listing.sourceVerification === "independently_verified" &&
+    Boolean(listing.independentVerificationUrls?.length)
+  );
+}
+
 export function businessMarketDisplayTitle(
   listing: Pick<
     BusinessQuotaListing,
@@ -3040,19 +3071,19 @@ function withBusinessMarketHref(listing: BusinessQuotaListing): BusinessQuotaLis
 
 export const businessQuotaListings = businessQuotaListingRecords
   .filter(
-    (listing) => listing.publicationStatus === "published" && listing.licenseClass === "quota",
+    (listing) => passesBusinessMarketSourcePolicy(listing) && listing.licenseClass === "quota",
   )
   .map(withBusinessMarketHref);
 
 export const businessSfsListings = businessQuotaListingRecords
   .filter(
-    (listing) => listing.publicationStatus === "published" && listing.licenseClass === "sfs",
+    (listing) => passesBusinessMarketSourcePolicy(listing) && listing.licenseClass === "sfs",
   )
   .map(withBusinessMarketHref);
 
 export const business2copListings = businessQuotaListingRecords
   .filter(
-    (listing) => listing.publicationStatus === "published" && listing.licenseClass === "2cop",
+    (listing) => passesBusinessMarketSourcePolicy(listing) && listing.licenseClass === "2cop",
   )
   .map(withBusinessMarketHref);
 
