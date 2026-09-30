@@ -351,6 +351,33 @@ export default async function RestaurantsWithLiquorLicensesPage() {
         </div>
       </section>
 
+      <section className="fllm-template-section" id="weston-restaurant-market">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Weston & Broward County"
+            title="Restaurants for sale in the Weston, Florida market"
+            copy={
+              <p>
+                FLLM organizes Weston-area restaurant searches around the buyer language used in the market, including
+                full liquor, Italian restaurants, 4COP restaurant opportunities, and nearby Broward County inventory.
+                Listing cards retain the actual location and license structure of each business.
+              </p>
+            }
+          />
+          <div className="fllm-ui-actions">
+            <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/weston">
+              Explore Weston Restaurant Market
+            </Link>
+            <FllmButton href="/restaurants-for-sale/italian" variant="outline">
+              Italian Restaurants
+            </FllmButton>
+            <FllmButton href="/counties/broward" variant="outline">
+              Broward County Market
+            </FllmButton>
+          </div>
+        </div>
+      </section>
+
       <section className="fllm-template-section" id="miami-dade-quota-restaurants">
         <div className="fllm-template-shell">
           <FllmSectionHeading
