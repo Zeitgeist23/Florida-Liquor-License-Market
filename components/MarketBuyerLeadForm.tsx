@@ -48,8 +48,8 @@ export default function MarketBuyerLeadForm({
     formData.set(
       "message",
       [
-        `Buyer requested matching opportunities for: ${businessType} in ${county}.`,
-        `Market record: ${listingReference} — ${listingTitle}.`,
+        `Buyer requested ${county} ${businessType.toLowerCase()} listings with ${licenseType} licenses and FLLM license-value market data.`,
+        `Market-record context viewed: ${listingReference} — ${listingTitle}.`,
         `Budget range: ${budget || "Not specified"}.`,
         `Financing: ${financing || "Not specified"}.`,
         notes ? `Buyer notes: ${notes}` : "",
@@ -83,14 +83,15 @@ export default function MarketBuyerLeadForm({
 
   return (
     <form className="business-market-lead-form" onSubmit={submit}>
-      <span className="business-market-form-eyebrow">Opportunity Inquiry</span>
-      <h2>Interested in this {businessType} opportunity?</h2>
+      <span className="business-market-form-eyebrow">County Market Inquiry</span>
+      <h2>Inquire About {county} {businessType} Listings With {licenseType} Licenses</h2>
       <p>
-        Send FLLM your contact information and any questions about this specific market listing.
-        We’ll review the opportunity and follow up with you.
+        Tell FLLM what you’re looking for. We can help you review matching {county} listings,
+        compare FLLM license-value market data, and identify similar business-and-license opportunities.
+        Market records are informational and current availability must be confirmed.
       </p>
 
-      <input type="hidden" name="inquiry_type" value="Business Market Opportunity Inquiry" />
+      <input type="hidden" name="inquiry_type" value="County Business + License Market Inquiry" />
       <input type="hidden" name="preferred_county" value={county} />
       <input type="hidden" name="listing_reference" value={listingReference} />
       <input type="hidden" name="listing_requested" value={listingTitle} />
@@ -168,12 +169,12 @@ export default function MarketBuyerLeadForm({
       </label>
 
       <button type="submit" disabled={status === "submitting"}>
-        {status === "submitting" ? "Submitting…" : "Request Information"}
+        {status === "submitting" ? "Submitting…" : "Request County Market Matches"}
       </button>
 
       {status === "sent" ? (
         <p className="business-market-form-status success" role="status">
-          Your inquiry was received. FLLM will review this opportunity and follow up.
+          Your inquiry was received. FLLM will review matching county listings and market data and follow up.
         </p>
       ) : null}
 
@@ -184,7 +185,7 @@ export default function MarketBuyerLeadForm({
       ) : null}
 
       <small>
-        FLLM may contact you about this opportunity and, if requested, similar business-and-license opportunities.
+        FLLM may contact you about matching listings, county license-value data, and related business-and-license opportunities.
       </small>
     </form>
   );
