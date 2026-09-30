@@ -9,6 +9,7 @@ import { getMarketplaceListings } from "@/lib/listing-store";
 import {
   businessMarketRecordHref,
   businessQuotaListingRecords,
+  passesBusinessMarketSourcePolicy,
 } from "@/lib/business-quota-listings";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -155,8 +156,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const businessMarketRecordPages: MetadataRoute.Sitemap = businessQuotaListingRecords
     .filter(
       (listing) =>
-        listing.publicationStatus === "published" &&
-        listing.listingTier === "market",
+        listing.listingTier === "market" &&
+        passesBusinessMarketSourcePolicy(listing),
     )
     .map((listing) => ({
       url: `${siteUrl}${businessMarketRecordHref(listing)}`,
