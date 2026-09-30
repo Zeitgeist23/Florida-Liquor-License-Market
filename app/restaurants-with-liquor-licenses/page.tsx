@@ -12,6 +12,7 @@ import {
 } from "@/components/FllmDesignSystem";
 import {
   BUSINESS_LISTING_DISPLAY_LIMIT,
+  businessMarketDisplayTitle,
   business2copListings,
   businessQuotaListings,
   businessSfsListings,
@@ -168,7 +169,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       itemListElement: quotaRestaurantListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: listing.title,
+        name: businessMarketDisplayTitle(listing),
         url: `${siteUrl}${listing.href}`,
       })),
     },
@@ -180,7 +181,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       itemListElement: restaurantListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: listing.title,
+        name: businessMarketDisplayTitle(listing),
         url: `${siteUrl}${listing.href}`,
       })),
     },
@@ -192,7 +193,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       itemListElement: miamiRestaurantListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: listing.title,
+        name: businessMarketDisplayTitle(listing),
         url: `${siteUrl}${listing.href}`,
       })),
     },
@@ -204,7 +205,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       itemListElement: stJohnsRestaurantListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: listing.title,
+        name: businessMarketDisplayTitle(listing),
         url: `${siteUrl}${listing.href}`,
       })),
     },
