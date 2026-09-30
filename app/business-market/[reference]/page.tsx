@@ -30,8 +30,7 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const marketRecords = businessQuotaListingRecords.filter(
   (listing) =>
     listing.publicationStatus === "published" &&
-    listing.listingTier === "market" &&
-    listing.businessCategory !== "Gentlemen's Club",
+    listing.listingTier === "market",
 );
 
 type PageProps = {
