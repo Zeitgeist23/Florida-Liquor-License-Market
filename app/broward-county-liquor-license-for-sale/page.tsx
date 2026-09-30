@@ -188,9 +188,9 @@ export default async function BrowardCountyLiquorLicenseForSalePage() {
         .broward-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.broward-actions a{display:inline-flex;min-height:46px;align-items:center;justify-content:center;padding:0 18px;border-radius:6px;font-weight:900;text-decoration:none}.broward-actions .gold{border:1px solid #f0ab1c;color:#071521;background:linear-gradient(145deg,#ffc441,#e99b06);box-shadow:0 8px 18px rgba(0,0,0,.22)}.broward-actions .dark{border:1px solid rgba(255,255,255,.25);color:#fff;background:#071d31}
         .broward-inventory{padding:62px 0;background:#061827}.broward-heading{display:grid;grid-template-columns:1fr minmax(280px,480px);gap:28px;align-items:end;margin-bottom:26px}.broward-heading span,.broward-info span{color:#f1aa1c;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.broward-heading h2,.broward-info h2,.broward-faq h2{margin:7px 0 0;font-size:clamp(30px,4vw,42px)}.broward-heading p{margin:0;color:#b9c7d1;line-height:1.65}
         .broward-results-scope{min-height:0!important;background:transparent!important;color:inherit!important}.broward-results-scope .results-grid{margin:0!important}.broward-empty{padding:28px;border:1px solid #9b741d;border-radius:8px;background:linear-gradient(145deg,#0b263b,#061725);box-shadow:0 10px 28px rgba(0,0,0,.28)}.broward-empty h3{margin:0 0 8px;color:#f3a700}.broward-empty p{color:#d2dce3}.broward-empty a{color:#f1aa1c;font-weight:900}
-        .broward-info{padding:62px 0;background:#04111d}.broward-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.broward-info article{padding:26px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#071d31}.broward-info p,.broward-info li{color:#c8d3db;line-height:1.72}.broward-info ul{display:grid;gap:9px;padding-left:20px}
+        .broward-business-market{padding:62px 0;background:#071d31}.broward-business-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:24px}.broward-business-grid a{display:block;padding:22px;border:1px solid rgba(241,170,28,.36);border-radius:9px;background:#061827;color:#fff;text-decoration:none}.broward-business-grid strong{display:block;color:#f1aa1c;font-size:18px}.broward-business-grid span{display:block;margin-top:8px;color:#bfccd5;line-height:1.55}.broward-info{padding:62px 0;background:#04111d}.broward-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.broward-info article{padding:26px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#071d31}.broward-info p,.broward-info li{color:#c8d3db;line-height:1.72}.broward-info ul{display:grid;gap:9px;padding-left:20px}
         .broward-faq{padding:60px 0 70px;background:#061827}.broward-faq details{border-bottom:1px solid rgba(255,255,255,.1)}.broward-faq summary{padding:18px 0;font-weight:850;cursor:pointer}.broward-faq details p{margin:0;padding:0 0 18px;color:#bfccd5;line-height:1.72}.broward-related{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.broward-related a{color:#f1aa1c;text-decoration:underline;text-underline-offset:3px}
-        @media(max-width:760px){.broward-heading,.broward-info-grid{grid-template-columns:1fr}.broward-shell{width:min(100% - 30px,1480px)}.broward-hero{padding-top:42px}}
+        @media(max-width:760px){.broward-heading,.broward-info-grid,.broward-business-grid{grid-template-columns:1fr}.broward-shell{width:min(100% - 30px,1480px)}.broward-hero{padding-top:42px}}
       `}</style>
 
       <div className="abt-header-wrap">
@@ -255,6 +255,36 @@ export default async function BrowardCountyLiquorLicenseForSalePage() {
         </div>
       </section>
 
+      <section className="broward-business-market">
+        <div className="broward-shell">
+          <span className="broward-kicker">Broward Business + Restaurant Market</span>
+          <h2>Restaurants for sale, full liquor and business Market Views in Broward County</h2>
+          <p>
+            FLLM keeps business-search SEO on original county, cuisine and location market pages. Use these FLLM
+            research pages for Broward County restaurant searches, full-liquor restaurant terminology, Italian
+            restaurant searches and the Weston local market, while individual Market Views remain limited factual records.
+          </p>
+          <div className="broward-business-grid">
+            <Link href="/restaurants-with-liquor-licenses">
+              <strong>Restaurants With Liquor Licenses</strong>
+              <span>Florida restaurant market data for 4COP quota, 4COP SFS / SRX, 2COP and full-liquor searches.</span>
+            </Link>
+            <Link href="/restaurants-for-sale/italian">
+              <strong>Italian Restaurants for Sale</strong>
+              <span>Florida and Broward County Italian restaurant market activity organized by license structure.</span>
+            </Link>
+            <Link href="/restaurants-for-sale/weston">
+              <strong>Weston Restaurant Market</strong>
+              <span>Weston buyer searches for restaurants for sale, full liquor, 4COP and nearby Broward activity.</span>
+            </Link>
+            <Link href="/businesses-with-quota-licenses">
+              <strong>Businesses With Liquor Licenses</strong>
+              <span>Bars, restaurants, nightlife, liquor stores and other Florida business-and-license market data.</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="broward-info">
         <div className="broward-shell broward-info-grid">
           <article>
@@ -294,6 +324,8 @@ export default async function BrowardCountyLiquorLicenseForSalePage() {
           <div className="broward-related">
             <Link href="/counties/broward">Broward County liquor-license market data</Link>
             <Link href="/listings?county=Broward%20County&status=available">Filter all Broward listings</Link>
+            <Link href="/restaurants-with-liquor-licenses">Broward restaurant and full-liquor market</Link>
+            <Link href="/restaurants-for-sale/weston">Weston restaurant market</Link>
             <Link href="/florida-liquor-license-value">Florida liquor-license value estimator</Link>
             <Link href="/contact">Contact FLLM</Link>
           </div>
