@@ -19,6 +19,7 @@ import {
 import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
+import { restaurantCuisines, restaurantCuisineHref } from "@/data/restaurant-cuisines";
 
 import "../fllm-official-template.css";
 import "../fllm-design-system.css";
@@ -82,6 +83,12 @@ export default async function RestaurantsWithLiquorLicensesPage() {
     (listing) =>
       listing.businessCategory === "Restaurant" ||
       /restaurant/i.test(`${listing.title} ${listing.businessType}`),
+  );
+  const publishedCuisineLabels = new Set(
+    allRestaurantListings.flatMap((listing) => listing.cuisines ?? []),
+  );
+  const activeCuisineDefinitions = restaurantCuisines.filter((definition) =>
+    publishedCuisineLabels.has(definition.label),
   );
   const allQuotaRestaurantListings = quotaListingsWithValues.filter(
     (listing) =>
@@ -237,6 +244,52 @@ export default async function RestaurantsWithLiquorLicensesPage() {
                 <FllmButton href="/license-types/2cop-beer-wine" variant="outline">2COP Guide</FllmButton>
               </div>
             </FllmCard>
+          </FllmCardGrid>
+        </div>
+      </section>
+
+      <section className="fllm-template-section" id="restaurant-cuisines">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Browse Restaurants by Cuisine"
+            title="Search Florida restaurant opportunities by cuisine and license type"
+            copy={
+              <p>
+                FLLM now organizes restaurant inventory by cuisine as well as county and alcoholic-beverage license
+                structure. Cuisine pages show the actual location of each listing and keep transferable 4COP quota,
+                location-specific 4COP SFS / SRX, and 2COP beer-and-wine licenses clearly separated.
+              </p>
+            }
+            align="center"
+          />
+
+          <FllmCardGrid columns={3}>
+            {activeCuisineDefinitions.map((definition) => {
+              const count = allRestaurantListings.filter((listing) =>
+                listing.cuisines?.includes(definition.label),
+              ).length;
+              return (
+                <FllmCard
+                  key={definition.slug}
+                  eyebrow={<span className="restaurant-card-cyan-label">Cuisine Marketplace</span>}
+                  title={`${definition.label} Restaurants for Sale`}
+                  variant="gold"
+                >
+                  <p>
+                    {definition.shortDescription} {count} published opportunit{count === 1 ? "y" : "ies"} currently
+                    match this cuisine on FLLM.
+                  </p>
+                  <div className="fllm-ui-actions">
+                    <Link
+                      className="btn btn-gold fllm-ui-official-gold-button"
+                      href={restaurantCuisineHref(definition.slug)}
+                    >
+                      Browse {definition.label} Restaurants
+                    </Link>
+                  </div>
+                </FllmCard>
+              );
+            })}
           </FllmCardGrid>
         </div>
       </section>
