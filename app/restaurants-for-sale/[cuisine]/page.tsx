@@ -101,9 +101,6 @@ export default async function RestaurantCuisinePage({ params }: PageProps) {
   const browardListings = allRestaurantListings.filter(
     (listing) => listing.county === "Broward County",
   );
-  const hasWestonListing = browardListings.some((listing) =>
-    /\bweston\b/i.test(`${listing.title} ${listing.businessType}`),
-  );
   const canonicalUrl = `${siteUrl}${restaurantCuisineHref(definition.slug)}`;
 
   const structuredData = [
@@ -228,31 +225,26 @@ export default async function RestaurantCuisinePage({ params }: PageProps) {
               }
             />
 
-            {!hasWestonListing ? (
-              <FllmCard
-                eyebrow={<span className="restaurant-card-cyan-label">Weston search note</span>}
-                title="Searching for an Italian restaurant for sale in Weston?"
-                variant="gold"
-              >
-                <p>
-                  FLLM does not currently show a published Italian restaurant listing physically located in Weston.
-                  The current Broward Italian inventory is shown by its actual location rather than being relabeled
-                  as a Weston listing. Buyers searching Weston can review nearby Broward County opportunities and
-                  monitor FLLM for new Weston inventory.
-                </p>
-                <div className="fllm-ui-actions">
-                  <FllmButton href="/counties/broward" variant="outline">
-                    Broward County Market
-                  </FllmButton>
-                  <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/weston">
-                    Weston Restaurant Market
-                  </Link>
-                  <FllmButton href="/license-alerts" variant="outline">
-                    Get a Listing Alert
-                  </FllmButton>
-                </div>
-              </FllmCard>
-            ) : null}
+            <FllmCard
+              eyebrow={<span className="restaurant-card-cyan-label">Local Market Coverage</span>}
+              title="Explore Broward restaurant markets by location"
+              variant="gold"
+            >
+              <p>
+                This cuisine page is designed to rank for Italian restaurant searches across Florida and Broward County.
+                For location-specific searches around Weston, use FLLM&apos;s dedicated Weston restaurant market page,
+                which organizes nearby restaurant inventory by full-liquor privileges, 4COP structure, cuisine and
+                actual business location.
+              </p>
+              <div className="fllm-ui-actions">
+                <FllmButton href="/counties/broward" variant="outline">
+                  Broward County Market
+                </FllmButton>
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/weston">
+                  Weston Restaurant Market
+                </Link>
+              </div>
+            </FllmCard>
           </div>
         </section>
       ) : null}
