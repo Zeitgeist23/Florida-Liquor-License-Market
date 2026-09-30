@@ -14,6 +14,7 @@ import {
   businessMarketDisplayTitle,
   businessMarketRecordHref,
   businessQuotaListingRecords,
+  passesBusinessMarketSourcePolicy,
   type BusinessQuotaListing,
 } from "@/lib/business-quota-listings";
 import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
@@ -30,8 +31,8 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 
 const marketRecords = businessQuotaListingRecords.filter(
   (listing) =>
-    listing.publicationStatus === "published" &&
-    listing.listingTier === "market",
+    listing.listingTier === "market" &&
+    passesBusinessMarketSourcePolicy(listing),
 );
 
 type PageProps = {
@@ -286,13 +287,13 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
   const primaryMarkets = county?.primaryCities ?? [];
   const otherCountyListingsCount = businessQuotaListingRecords.filter(
     (candidate) =>
-      candidate.publicationStatus === "published" &&
+      passesBusinessMarketSourcePolicy(candidate) &&
       candidate.county === listing.county &&
       candidate.listingReference !== listing.listingReference,
   ).length;
   const mapListings = businessQuotaListingRecords.filter(
     (candidate) =>
-      candidate.publicationStatus === "published" &&
+      passesBusinessMarketSourcePolicy(candidate) &&
       candidate.licenseType === listing.licenseType &&
       candidate.businessCategory === listing.businessCategory,
   );
