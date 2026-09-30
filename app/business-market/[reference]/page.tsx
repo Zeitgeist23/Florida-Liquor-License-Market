@@ -45,11 +45,11 @@ function countyFor(listing: BusinessQuotaListing) {
 }
 
 function marketViewTitle(listing: BusinessQuotaListing) {
-  return `${listing.county} ${listing.businessCategory} Market View`;
+  return `${listing.county} ${listing.businessCategory} Market`;
 }
 
 function marketViewDescription(listing: BusinessQuotaListing) {
-  return `FLLM Market View for a ${listing.businessCategory.toLowerCase()} opportunity in ${listing.county}. Advertised asking price: ${listing.packagePrice}. Liquor-license type: ${listing.licenseType}. Request FLLM information about this license type and county market.`;
+  return `FLLM Market View of observed ${listing.businessCategory.toLowerCase()} and liquor-license market activity in ${listing.county}. Advertised asking price: ${listing.packagePrice}. Liquor-license type: ${listing.licenseType}. Request FLLM information about this license type and county market.`;
 }
 
 function moneyValue(value?: string) {
@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!listing) return {};
 
   const canonicalPath = businessMarketRecordHref(listing);
-  const title = `${marketViewTitle(listing)} | FLLM`;
+  const title = `${marketViewTitle(listing)} | FLLM Market View`;
   const description = marketViewDescription(listing);
 
   return {
@@ -136,7 +136,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
         {
           "@type": "ListItem",
           position: 2,
-          name: "Business Packages",
+          name: "Business Market Data",
           item: `${siteUrl}/businesses-with-quota-licenses`,
         },
         {
@@ -167,20 +167,20 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
           <div className="business-market-breadcrumbs">
             <Link href="/">Home</Link>
             <span>›</span>
-            <Link href="/businesses-with-quota-licenses">Business Packages</Link>
+            <Link href="/businesses-with-quota-licenses">Business Market Data</Link>
             <span>›</span>
             <strong>Market View</strong>
           </div>
 
           <div className="business-market-hero-grid">
             <div className="business-market-hero-copy-block">
-              <span className="business-market-eyebrow">FLLM Market View</span>
+              <span className="business-market-eyebrow">FLLM MARKET VIEW</span>
               <h1>{title}</h1>
               <p className="business-market-hero-copy">
-                This Market View presents limited factual market information together with
-                FLLM liquor-license and county-market resources. It is not a broker listing
-                and does not state or imply that FLLM represents the business, seller, broker,
-                or source advertisement.
+                This Market View presents observed business-and-license market activity using
+                limited factual fields, together with FLLM liquor-license and county-market
+                intelligence. It is not a broker listing and does not state or imply that FLLM
+                represents the business, seller, broker, or source advertisement.
               </p>
 
               <div className="business-market-hero-stats">
@@ -231,7 +231,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
             <div className="business-market-main">
               <section className="business-market-panel business-market-overview">
                 <div className="business-market-section-heading">
-                  <span>Market View Facts</span>
+                  <span>Observed Market Activity</span>
                   <h2>{listing.businessCategory} · {listing.county}</h2>
                 </div>
 
@@ -255,10 +255,10 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 </div>
 
                 <p>
-                  FLLM Market View pages are market-research pages. FLLM does not reproduce a
-                  third-party advertisement headline or descriptive sales copy on this page.
-                  Market availability and asking prices can change and should be independently
-                  confirmed before reliance.
+                  FLLM Market View pages are market-intelligence records, not reproduced
+                  classified advertisements. FLLM does not reproduce a third-party advertisement
+                  headline or descriptive sales copy on this page. Market availability and asking
+                  prices can change and should be independently confirmed before reliance.
                 </p>
 
                 <div className="business-market-license-links">
@@ -346,7 +346,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
           </div>
           <nav aria-label="Footer navigation">
             <Link href="/listings">Standalone Licenses</Link>
-            <Link href="/businesses-with-quota-licenses">Business Packages</Link>
+            <Link href="/businesses-with-quota-licenses">Business Market Data</Link>
             <Link href="/counties">County Markets</Link>
             <Link href="/contact">Contact</Link>
           </nav>
