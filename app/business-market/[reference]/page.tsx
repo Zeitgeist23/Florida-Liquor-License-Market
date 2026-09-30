@@ -101,6 +101,93 @@ function buildMarketMapRows(
     );
 }
 
+
+function licenseBuyerGuide(listing: BusinessQuotaListing) {
+  if (listing.licenseType === "4COP Quota") {
+    return {
+      heading: "What a 4COP Quota License Means",
+      copy:
+        "A 4COP quota license is a county-specific transferable full-liquor license that can authorize beer, wine, and distilled spirits for on-premises consumption, subject to the approved premises and regulatory requirements. The quota license is a distinct asset from the operating business and can carry substantial market value.",
+      buyerPoints: [
+        "Confirm the exact license number, ownership, county, current status, and transfer eligibility.",
+        "Evaluate the quota-license component separately from the operating business asking price.",
+        "Confirm zoning, premises eligibility, local approvals, and intended use before closing.",
+        "Review liens, security interests, tax-clearance issues, and DBPR/ABT transfer requirements.",
+      ],
+      sellerPoints: [
+        "Keep the license component clearly identified in the transaction documents.",
+        "Provide current license records and disclose whether the license is included, financed, or separately valued.",
+        "Coordinate transfer timing with the business closing so the buyer can obtain required approvals.",
+      ],
+    };
+  }
+  if (listing.licenseType === "3PS Quota / Package Store") {
+    return {
+      heading: "What a 3PS Quota License Means",
+      copy:
+        "A 3PS quota license is a transferable package-store quota license used for off-premises sales of beer, wine, and distilled spirits. It is county-specific and remains subject to buyer qualification, premises approval, transfer requirements, and local land-use rules.",
+      buyerPoints: [
+        "Verify the license series, county, current status, and transfer eligibility.",
+        "Confirm the proposed retail premises qualifies for package-store use.",
+        "Separate license value from inventory, leasehold, real estate, and operating-business value.",
+        "Review liens, tax issues, and DBPR/ABT transfer requirements before closing.",
+      ],
+      sellerPoints: [
+        "State clearly whether inventory, real estate, or other business assets are included.",
+        "Keep the quota-license asking price and operating-business terms separately identifiable.",
+        "Prepare current transfer and ownership documentation for buyer diligence.",
+      ],
+    };
+  }
+  if (listing.licenseType === "4COP SFS/SRX") {
+    return {
+      heading: "What a 4COP SFS / SRX License Means",
+      copy:
+        "A 4COP SFS / SRX license is a qualification-based restaurant license tied to the qualifying operation and approved premises. It is not the same independently transferable county quota asset as a 4COP quota license.",
+      buyerPoints: [
+        "Confirm the restaurant continues to meet the applicable food-service and premises requirements.",
+        "Verify the license classification and approved location before assuming full-liquor privileges continue.",
+        "Do not assign a separate quota-license asset value to an SFS / SRX license.",
+        "Confirm DBPR/ABT transfer or change-of-ownership requirements for the specific premises.",
+      ],
+      sellerPoints: [
+        "Describe the license as premises- and qualification-dependent rather than as a transferable quota asset.",
+        "Provide operating records needed to support continuing restaurant qualification.",
+        "Separate the business value from any claimed liquor-license value.",
+      ],
+    };
+  }
+  return {
+    heading: "What a 2COP Beer & Wine License Means",
+    copy:
+      "A 2COP license generally authorizes beer and wine sales for consumption on the licensed premises and package sales as allowed by the license. It does not provide distilled-spirit privileges and is not a transferable quota asset.",
+    buyerPoints: [
+      "Confirm the exact license classification and current premises approval.",
+      "Verify that the intended concept does not require distilled-spirit privileges.",
+      "Do not treat the 2COP license as a separately valuable quota asset.",
+      "Confirm transfer, zoning, and local operating requirements before closing.",
+    ],
+    sellerPoints: [
+      "Describe the license accurately as beer-and-wine rather than full liquor.",
+      "Keep the business asking price separate from any unsupported standalone license value.",
+      "Provide current DBPR/ABT license records for buyer diligence.",
+    ],
+  };
+}
+
+function countyMarketSummary(listing: BusinessQuotaListing, county: ReturnType<typeof countyFor>) {
+  const cities = county?.primaryCities?.length ? county.primaryCities.join(", ") : listing.county;
+  return {
+    cities,
+    intro:
+      county?.introduction ??
+      `${listing.county} is part of Florida's active hospitality, retail, and liquor-license market.`,
+    overview:
+      county?.marketOverview ??
+      `Buyers and sellers in ${listing.county} should compare current license availability, asking-price context, premises requirements, and transfer timing before relying on a transaction.`,
+  };
+}
+
 export function generateStaticParams() {
   return marketRecords.map((listing) => ({
     reference: listing.listingReference.toLowerCase(),
@@ -166,6 +253,8 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
       : listing.licenseClass === "2cop"
         ? "businesses-2cop"
         : "businesses";
+  const licenseGuide = licenseBuyerGuide(listing);
+  const countySummary = countyMarketSummary(listing, county);
 
   const structuredData = [
     {
@@ -298,7 +387,79 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
       <section className="business-market-content">
         <div className="business-market-shell">
           <div className="business-market-grid">
-            <div className="business-market-main" />
+            <div className="business-market-main">
+              <section className="business-market-panel">
+                <div className="business-market-section-heading">
+                  <span>County Market Context</span>
+                  <h2>{listing.county} liquor-license market</h2>
+                </div>
+                <p>{countySummary.intro}</p>
+                <p>{countySummary.overview}</p>
+                <div className="business-market-fact-grid">
+                  <div><span>Primary Markets</span><strong>{countySummary.cities}</strong></div>
+                  <div><span>License Type</span><strong>{listing.licenseType}</strong></div>
+                  <div><span>Advertised Package Price</span><strong>{listing.packagePrice}</strong></div>
+                  <div><span>FLLM Market Reference</span><strong>{listing.listingReference}</strong></div>
+                </div>
+                <div className="business-market-license-links">
+                  <Link href={listing.countyHref}>Open {listing.county} market data ›</Link>
+                  <Link href="/counties">Compare all Florida counties ›</Link>
+                </div>
+              </section>
+
+              <section className="business-market-panel business-market-license-panel">
+                <div className="business-market-section-heading">
+                  <span>License Type Explained</span>
+                  <h2>{licenseGuide.heading}</h2>
+                </div>
+                <p>{licenseGuide.copy}</p>
+                <div className="business-market-license-links">
+                  {listing.licenseType === "4COP Quota" ? (
+                    <Link href="/license-types/4cop-quota">4COP Quota guide ›</Link>
+                  ) : listing.licenseType === "3PS Quota / Package Store" ? (
+                    <Link href="/license-types/3ps-package-store">3PS Quota guide ›</Link>
+                  ) : listing.licenseType === "4COP SFS/SRX" ? (
+                    <Link href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX guide ›</Link>
+                  ) : (
+                    <Link href="/license-types/2cop-beer-wine">2COP Beer & Wine guide ›</Link>
+                  )}
+                  <Link href="/resources/florida-liquor-license-types">Compare Florida license types ›</Link>
+                </div>
+              </section>
+
+              <section className="business-market-panel">
+                <div className="business-market-section-heading">
+                  <span>Buyer Due Diligence</span>
+                  <h2>What buyers should verify before relying on this market opportunity</h2>
+                </div>
+                <div className="business-market-checklist">
+                  {licenseGuide.buyerPoints.map((point) => (
+                    <div key={point}><span>✓</span><p>{point}</p></div>
+                  ))}
+                </div>
+                <div className="business-market-license-links">
+                  <Link href="/transaction-services">FLLM transaction resources ›</Link>
+                  <Link href="/florida-liquor-license-appraisal">Liquor-license appraisal ›</Link>
+                  <Link href="/resources/application-center">DBPR / ABT application center ›</Link>
+                </div>
+              </section>
+
+              <section className="business-market-panel">
+                <div className="business-market-section-heading">
+                  <span>Seller & Broker Considerations</span>
+                  <h2>How to present the liquor-license component clearly</h2>
+                </div>
+                <div className="business-market-checklist">
+                  {licenseGuide.sellerPoints.map((point) => (
+                    <div key={point}><span>✓</span><p>{point}</p></div>
+                  ))}
+                </div>
+                <div className="business-market-license-links">
+                  <Link href="/brokers/list-your-license">List with FLLM ›</Link>
+                  <Link href="/florida-liquor-license-value">Review FLLM license-value data ›</Link>
+                </div>
+              </section>
+            </div>
 
             <aside className="business-market-sidebar" id="license-information">
               <MarketBuyerLeadForm
