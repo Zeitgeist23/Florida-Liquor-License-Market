@@ -173,6 +173,10 @@ export default async function BusinessesWithQuotaLicensesPage() {
             <Link className="business-quota-primary fllm-ui-official-gold-button" href="#business-inventory">View Business Packages</Link>
             <Link className="business-quota-secondary" href="/businesses-with-quota-licenses/bars">Bars + 4COP Packages</Link>
             <Link className="business-quota-secondary" href="/listings">View Standalone Quota Licenses</Link>
+            <Link className="fllm-ui-link-card" href="/businesses-with-quota-licenses/gentlemens-clubs">
+              <strong>Gentlemen's Clubs for Sale in Florida</strong>
+              <span>Browse adult-entertainment business packages for sale, including opportunities with transferable 4COP quota licenses.</span>
+            </Link>
           </div>
         </div>
       </section>
