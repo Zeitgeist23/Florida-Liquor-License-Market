@@ -88,7 +88,7 @@ export default function BusinessQuotaListingCard({
 
         <div className={`business-quota-card-pricing${isMarketListing ? " business-quota-card-pricing--market" : ""}`}>
           <div>
-            <span>Package Price</span>
+            <span>{isMarketListing ? "Advertised Asking Price" : "Package Price"}</span>
             <strong>{listing.packagePrice}</strong>
           </div>
           <div
@@ -123,16 +123,10 @@ export default function BusinessQuotaListingCard({
         {isMarketListing ? (
           <>
             <p className="business-quota-card-condition">
-              {listing.licenseClass === "2cop" ? (
-                <>{listing.licenseType} included<br />with advertised business package.</>
-              ) : listing.licenseClass === "sfs" ? (
-                <>4COP SFS/SRX license included<br />with advertised business package.</>
-              ) : (
-                <>{listing.licenseType} liquor license included<br />and not offered separately.</>
-              )}
+              {listing.licenseType} reported with<br />observed business-market activity.
             </p>
             <p className="business-quota-card-broker business-quota-card-market-label">
-              Market Listing
+              FLLM Market View
             </p>
           </>
         ) : (
@@ -161,7 +155,7 @@ export default function BusinessQuotaListingCard({
         <div className="business-quota-card-actions">
           <Link className="business-quota-card-action" href={actionHref}>
             {isMarketListing
-              ? "View Market Listing"
+              ? "View Market View"
               : listing.licenseAvailableSeparately
                 ? "View Business + License Options"
                 : "View Business + License Package"} <span aria-hidden="true">›</span>
