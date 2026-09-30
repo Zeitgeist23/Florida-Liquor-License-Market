@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import FeaturedThirdPartyBusinessListingPage, {
   type FeaturedThirdPartyBusinessListingConfig,
 } from "@/components/FeaturedThirdPartyBusinessListingPage";
+import MariyaGlobalTranslator from "@/components/MariyaGlobalTranslator";
 import { buildFloridaMarketIndex, marketPriceStats } from "@/lib/florida-market-index";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
@@ -39,15 +40,7 @@ export const metadata: Metadata = {
   title: "Downtown Hollywood Nightclub + 4COP Quota License | Broker Preview",
   description:
     "Private broker-review FLLM mockup for Mariya Vlasova's Downtown Hollywood nightclub opportunity offered at $790,000 with $1.1M gross revenue and an included Broward County 4COP quota liquor license.",
-  alternates: {
-    canonical: canonicalUrl,
-    languages: {
-      "en-US": canonicalUrl,
-      "es-US": `${siteUrl}/es/listings/vlasova`,
-      "ru-RU": `${siteUrl}/ru/listings/vlasova`,
-      "x-default": canonicalUrl,
-    },
-  },
+  alternates: { canonical: canonicalUrl },
   robots: {
     index: false,
     follow: false,
@@ -126,7 +119,6 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     licenseType: "4COP Quota",
     licenseAvailableSeparately: false,
     approvalPreview: true,
-    languageAlternates: { en: "/listings/vlasova", es: "/es/listings/vlasova", ru: "/ru/listings/vlasova" },
     businessLabel: "Turnkey Downtown Hollywood Nightclub",
     businessLabelLinkUrl: sourceListingUrl,
     businessLabelBodyBold: false,
@@ -252,5 +244,10 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
 
 export default async function MariyaVlasovaFeaturedListingPreviewPage() {
   const config = await buildConfig();
-  return <FeaturedThirdPartyBusinessListingPage config={config} />;
+  return (
+    <>
+      <MariyaGlobalTranslator />
+      <FeaturedThirdPartyBusinessListingPage config={config} />
+    </>
+  );
 }
