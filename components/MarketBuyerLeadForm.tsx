@@ -40,19 +40,17 @@ export default function MarketBuyerLeadForm({
 
     const firstName = String(formData.get("first_name") || "").trim();
     const lastName = String(formData.get("last_name") || "").trim();
-    const budget = String(formData.get("budget_range") || "").trim();
-    const financing = String(formData.get("financing_needed") || "").trim();
     const notes = String(formData.get("buyer_notes") || "").trim();
 
     formData.set("name", `${firstName} ${lastName}`.trim());
     formData.set(
       "message",
       [
-        `Buyer requested ${county} ${businessType.toLowerCase()} listings with ${licenseType} licenses and FLLM license-value market data.`,
-        `Market-record context viewed: ${listingReference} — ${listingTitle}.`,
-        `Budget range: ${budget || "Not specified"}.`,
-        `Financing: ${financing || "Not specified"}.`,
-        notes ? `Buyer notes: ${notes}` : "",
+        `Prospect requested information about ${licenseType} licenses in ${county}.`,
+        `Market View context: ${listingReference} — ${listingTitle}.`,
+        `Business category shown: ${businessType}.`,
+        `Advertised asking price shown on Market View: ${askingPrice}.`,
+        notes ? `Prospect notes: ${notes}` : "",
       ].filter(Boolean).join("\n"),
     );
 
@@ -71,7 +69,7 @@ export default function MarketBuyerLeadForm({
         body: formData,
       });
 
-      if (!response.ok) throw new Error("Unable to submit buyer match request");
+      if (!response.ok) throw new Error("Unable to submit license information request");
 
       setStatus("sent");
       form.reset();
@@ -83,24 +81,35 @@ export default function MarketBuyerLeadForm({
 
   return (
     <form className="business-market-lead-form" onSubmit={submit}>
-      <span className="business-market-form-eyebrow">County Market Inquiry</span>
-      <h2>Inquire About {county} {businessType} Listings With {licenseType} Licenses</h2>
+      <span className="business-market-form-eyebrow">License Information Request</span>
+      <h2>Request Information About {licenseType} Licenses in {county}</h2>
       <p>
-        Tell FLLM what you’re looking for. We can help you review matching {county} listings,
-        compare FLLM license-value market data, and identify similar business-and-license opportunities.
-        Market records are informational and current availability must be confirmed.
+        If you would like license-specific information about this type of liquor license,
+        fill out the form below. FLLM can provide county market information, license-type
+        information, and information about available opportunities involving {licenseType}.
+      </p>
+      <p>
+        This request does not imply that FLLM represents the business, seller, broker,
+        or any third-party advertisement associated with this Market View.
       </p>
 
-      <input type="hidden" name="inquiry_type" value="County Business + License Market Inquiry" />
+      <input type="hidden" name="inquiry_type" value="License Type Information Request" />
       <input type="hidden" name="preferred_county" value={county} />
       <input type="hidden" name="listing_reference" value={listingReference} />
       <input type="hidden" name="listing_requested" value={listingTitle} />
       <input type="hidden" name="listing_county" value={county} />
       <input type="hidden" name="license_type" value={licenseType} />
       <input type="hidden" name="asking_price" value={askingPrice} />
-      <input type="hidden" name="listing_status" value="Market record — availability requires confirmation" />
+      <input type="hidden" name="listing_status" value="FLLM Market View — informational market record" />
       <input type="hidden" name="listing_url" value={listingUrl} />
-      <input className="business-market-honey" type="text" name="_honey" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+      <input
+        className="business-market-honey"
+        type="text"
+        name="_honey"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+      />
 
       <div className="business-market-form-row">
         <label>
@@ -133,48 +142,22 @@ export default function MarketBuyerLeadForm({
         </label>
       </div>
 
-      <div className="business-market-form-row">
-        <label>
-          <span>Budget range</span>
-          <select name="budget_range" defaultValue="">
-            <option value="">Select budget</option>
-            <option>Under $250,000</option>
-            <option>$250,000–$500,000</option>
-            <option>$500,000–$1,000,000</option>
-            <option>$1,000,000–$2,000,000</option>
-            <option>Over $2,000,000</option>
-          </select>
-        </label>
-        <label>
-          <span>Financing</span>
-          <select name="financing_needed" defaultValue="">
-            <option value="">Select financing</option>
-            <option>Cash / no financing needed</option>
-            <option>SBA 7(a) financing</option>
-            <option>Conventional financing</option>
-            <option>Seller financing preferred</option>
-            <option>Need financing guidance</option>
-            <option>Unsure</option>
-          </select>
-        </label>
-      </div>
-
       <label>
-        <span>What are you looking for?</span>
+        <span>What license information would you like?</span>
         <textarea
           name="buyer_notes"
           rows={5}
-          placeholder="Preferred city, size, concept, timing, real-estate preference, or other requirements."
+          placeholder="County market value, license availability, financing, transfer requirements, or other questions."
         />
       </label>
 
       <button type="submit" disabled={status === "submitting"}>
-        {status === "submitting" ? "Submitting…" : "Request County Market Matches"}
+        {status === "submitting" ? "Submitting…" : "Request License Information"}
       </button>
 
       {status === "sent" ? (
         <p className="business-market-form-status success" role="status">
-          Your inquiry was received. FLLM will review matching county listings and market data and follow up.
+          Your request was received. FLLM will review the license type and county market information and follow up.
         </p>
       ) : null}
 
@@ -185,7 +168,8 @@ export default function MarketBuyerLeadForm({
       ) : null}
 
       <small>
-        FLLM may contact you about matching listings, county license-value data, and related business-and-license opportunities.
+        FLLM may contact you about {licenseType} market information, county license-value data,
+        and available liquor-license opportunities.
       </small>
     </form>
   );
