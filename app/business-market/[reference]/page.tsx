@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import BusinessPackageHeatMap, { type BusinessPackageHeatMapRow } from "@/components/BusinessPackageHeatMap";
 import BusinessMarketHeroMap from "@/components/BusinessMarketHeroMap";
+import BusinessMarketLicenseFeatureCards from "@/components/BusinessMarketLicenseFeatureCards";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
 import { ListingSidebarLoanCalculator } from "@/components/ListingBrokerInquiryForm";
@@ -475,6 +476,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   <h2>{licenseGuide.heading}</h2>
                 </div>
                 <p>{licenseGuide.copy}</p>
+                <BusinessMarketLicenseFeatureCards listing={listing} />
                 <div className="business-market-license-links">
                   {listing.licenseType === "4COP Quota" ? (
                     <Link href="/license-types/4cop-quota">4COP Quota guide ›</Link>
