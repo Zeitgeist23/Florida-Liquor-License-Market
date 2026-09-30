@@ -298,49 +298,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
       <section className="business-market-content">
         <div className="business-market-shell">
           <div className="business-market-grid">
-            <div className="business-market-main">
-              <section className="business-market-panel business-market-overview">
-                <div className="business-market-section-heading">
-                  <span>Observed Market Activity</span>
-                  <h2>{listing.businessCategory} · {listing.county}</h2>
-                </div>
-
-                <div className="business-market-fact-grid">
-                  <div>
-                    <span>Business Category</span>
-                    <strong>{listing.businessCategory}</strong>
-                  </div>
-                  <div>
-                    <span>County Location</span>
-                    <strong>{listing.county}</strong>
-                  </div>
-                  <div>
-                    <span>Advertised Asking Price</span>
-                    <strong>{listing.packagePrice}</strong>
-                  </div>
-                  <div>
-                    <span>Liquor License Type</span>
-                    <strong>{listing.licenseType}</strong>
-                  </div>
-                </div>
-
-                <p>
-                  FLLM Market View pages are market-intelligence records, not reproduced
-                  classified advertisements. FLLM does not reproduce a third-party advertisement
-                  headline or descriptive sales copy on this page. Market availability and asking
-                  prices can change and should be independently confirmed before reliance.
-                </p>
-
-                <div className="business-market-license-links">
-                  <Link href={listing.countyHref}>
-                    View {listing.county} liquor-license market ›
-                  </Link>
-                  <Link href="/resources/florida-liquor-license-types">
-                    Compare Florida liquor-license types ›
-                  </Link>
-                </div>
-              </section>
-            </div>
+            <div className="business-market-main" />
 
             <aside className="business-market-sidebar" id="license-information">
               <MarketBuyerLeadForm
