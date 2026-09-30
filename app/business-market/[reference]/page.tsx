@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import BusinessPackageHeatMap, { type BusinessPackageHeatMapRow } from "@/components/BusinessPackageHeatMap";
 import BusinessMarketHeroMap from "@/components/BusinessMarketHeroMap";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
 import { ListingSidebarLoanCalculator } from "@/components/ListingBrokerInquiryForm";
-import { floridaCounties } from "@/data/florida-counties";
+import { countySlug, floridaCounties } from "@/data/florida-counties";
 import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
@@ -21,6 +22,7 @@ import {
 import "@/app/fllm-official-template.css";
 import "@/app/fllm-design-system.css";
 import "@/app/counties/counties-page.css";
+import "@/app/market-data/heat-map/business-package-heat-map.css";
 import "./market-record.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -56,6 +58,47 @@ function moneyValue(value?: string) {
   if (!value) return 0;
   const numeric = Number(value.replace(/[^0-9.]/g, ""));
   return Number.isFinite(numeric) ? numeric : 0;
+}
+
+function buildMarketMapRows(
+  listings: BusinessQuotaListing[],
+  licenseType: string,
+): BusinessPackageHeatMapRow[] {
+  const grouped = new Map<string, BusinessQuotaListing[]>();
+
+  for (const listing of listings) {
+    const group = grouped.get(listing.county) ?? [];
+    group.push(listing);
+    grouped.set(listing.county, group);
+  }
+
+  return Array.from(grouped.entries())
+    .map(([county, countyListings]) => {
+      const prices = countyListings
+        .map((item) => item.packagePriceNumber)
+        .filter(
+          (price): price is number =>
+            typeof price === "number" && Number.isFinite(price) && price > 0,
+        );
+
+      return {
+        name: county,
+        slug: countySlug(county),
+        listingCount: countyListings.length,
+        averagePrice: prices.length
+          ? prices.reduce((sum, price) => sum + price, 0) / prices.length
+          : null,
+        licenseType,
+        businessCategories: Array.from(
+          new Set(countyListings.map((item) => item.businessCategory)),
+        ).sort(),
+      };
+    })
+    .sort(
+      (left, right) =>
+        right.listingCount - left.listingCount ||
+        left.name.localeCompare(right.name),
+    );
 }
 
 export function generateStaticParams() {
@@ -110,6 +153,19 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
   ).length;
   const quotaLicenseFinancingAmount =
     listing.licenseClass === "quota" ? moneyValue(listing.allocatedLicenseValue) : 0;
+
+  const mapListings = marketRecords.filter(
+    (candidate) =>
+      candidate.licenseType === listing.licenseType &&
+      candidate.businessCategory === listing.businessCategory,
+  );
+  const mapRows = buildMarketMapRows(mapListings, listing.licenseType);
+  const mapListingType: "businesses" | "businesses-sfs" | "businesses-2cop" =
+    listing.licenseClass === "sfs"
+      ? "businesses-sfs"
+      : listing.licenseClass === "2cop"
+        ? "businesses-2cop"
+        : "businesses";
 
   const structuredData = [
     {
@@ -224,6 +280,20 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      <div className="business-market-interactive-map">
+        <BusinessPackageHeatMap
+          rows={mapRows}
+          licenseType={listing.licenseType}
+          listingType={mapListingType}
+          businessTypeLabel={listing.businessCategory}
+          selectedCounty={listing.county}
+          selectedListingTitle={title}
+          selectedPackagePrice={listing.packagePrice}
+          selectedLicenseValue={listing.allocatedLicenseValue}
+          selectedListingReference={listing.listingReference}
+        />
+      </div>
 
       <section className="business-market-content">
         <div className="business-market-shell">
