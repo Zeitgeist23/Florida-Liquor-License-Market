@@ -59,6 +59,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   businessLabelLinkUrl?: string;
   businessLabelBodyBold?: boolean;
   packagePriceExternalLink?: boolean;
+  packagePricePhrase?: string;
   heroSummary: string;
   broker: {
     name: string;
@@ -998,10 +999,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}
+                          {config.packagePricePhrase ?? tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}
                         </a>
                       ) : config.singleExternalLinks ? (
-                        <strong>{tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}</strong>
+                        <strong>{config.packagePricePhrase ?? tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}</strong>
                       ) : (
                         <a
                           className="package-listing-link"
@@ -1009,7 +1010,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}
+                          {config.packagePricePhrase ?? tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}
                         </a>
                       )}
                       . {config.packageIncludes}
