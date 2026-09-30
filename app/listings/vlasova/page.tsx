@@ -124,7 +124,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     packagePriceExternalLink: true,
     packagePricePhrase: "nightclub + 4COP quota liquor license package is",
     heroSummary:
-      "Turnkey Downtown Hollywood nightlife opportunity offered as an operating restaurant, bar, lounge, and nightclub business with an included Broward County 4COP quota liquor license. The business asking price is $790,000.",
+      "Turnkey Downtown Hollywood nightlife opportunity offered as an operating restaurant, bar, lounge, and nightclub business with an included Broward County 4COP quota liquor license. Business + 4COP Quota Liquor License package: $790,000.",
     broker: {
       name: "Mariya Vlasova",
       brokerage: "Mariya Vlasova Real Estate",
