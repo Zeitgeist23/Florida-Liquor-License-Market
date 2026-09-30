@@ -124,7 +124,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     packagePriceExternalLink: true,
     packagePricePhrase: "nightclub + 4COP quota liquor license package is",
     heroSummary:
-      "Turnkey Downtown Hollywood nightlife opportunity offered as an operating restaurant, bar, lounge, and nightclub business with an included Broward County 4COP quota liquor license. The advertised business asking price is $790,000.",
+      "Turnkey Downtown Hollywood nightlife opportunity offered as an operating restaurant, bar, lounge, and nightclub business with an included Broward County 4COP quota liquor license. The business asking price is $790,000.",
     broker: {
       name: "Mariya Vlasova",
       brokerage: "Mariya Vlasova Real Estate",
@@ -138,13 +138,13 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     additionalSellerIntro:
       "Turnkey Downtown Hollywood restaurant, bar, lounge, and nightclub opportunity in a prime entertainment location with an included full-liquor 4COP quota license.",
     packageIncludes:
-      `The advertised $790,000 business package includes the operating nightlife business, the Broward County 4COP quota license, furniture, fixtures and equipment, bar setup, kitchen equipment, dining and lounge seating, décor, lighting, sound and entertainment setup, website, branding, and existing business infrastructure. The broker states that the business is offered without real estate. FLLM's current Broward County median disclosed 4COP asking price is ${medianLabel}; this is market context only, not an allocated license value or appraisal.`,
+      `The $790,000 business package includes the operating nightlife business, the Broward County 4COP quota license, furniture, fixtures and equipment, bar setup, kitchen equipment, dining and lounge seating, décor, lighting, sound and entertainment setup, website, branding, and existing business infrastructure. The business is offered without real estate. FLLM's current Broward County median disclosed 4COP asking price is ${medianLabel}; this is market context only, not an allocated license value or appraisal.`,
     businessMetrics: [
       {
         label: "Gross Revenue",
         value: "$1,100,000",
         description:
-          "Annual gross revenue is advertised at $1,100,000. Buyers should reconcile revenue to financial statements, tax returns, and supporting records during due diligence.",
+          "Annual gross revenue is $1,100,000. Buyers should reconcile revenue to financial statements, tax returns, and supporting records during due diligence.",
       },
       {
         label: "Cash Flow (SDE)",
@@ -156,7 +156,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
         label: "Business Asking Price",
         value: "$790,000",
         description:
-          "The broker advertises the operating business package at $790,000. Buyers should confirm the final transaction structure and included assets directly with the listing broker.",
+          "The operating business package is offered at $790,000. Buyers should confirm the final transaction structure and included assets directly with the listing broker.",
       },
       {
         label: "EBITDA",
@@ -167,13 +167,13 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
         label: "Established",
         value: "2021",
         description:
-          "The broker states that the business was established in 2021.",
+          "The business was established in 2021.",
       },
       {
         label: "Liquor License Classification",
         value: "4COP Quota",
         description:
-          "The broker states that a hard-liquor license is included. A 4COP quota license is a county-limited transferable quota license that may support full-liquor privileges subject to the approved series, premises, zoning, and DBPR/ABT approval.",
+          "A hard-liquor license is included. A 4COP quota license is a county-limited transferable quota license that may support full-liquor privileges subject to the approved series, premises, zoning, and DBPR/ABT approval.",
         href: "/license-types/4cop-quota",
       },
       {
@@ -187,53 +187,53 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
         label: "Furniture, Fixtures & Equipment",
         value: "$200,000 included",
         description:
-          "The broker states that approximately $200,000 of furniture, fixtures, and equipment is included in the asking price.",
+          "Approximately $200,000 of furniture, fixtures, and equipment is included in the asking price.",
       },
       {
         label: "Employees",
         value: "8 full-time",
         description:
-          "The broker states that the business has eight full-time employees. Buyers should verify payroll, roles, benefits, and continued employment during due diligence.",
+          "The business has eight full-time employees. Buyers should verify payroll, roles, benefits, and continued employment during due diligence.",
       },
       {
         label: "Premises",
         value: "7,828 SF leased",
         description:
-          "The broker states that the operating premises contain approximately 7,828 square feet and are leased.",
+          "The operating premises contain approximately 7,828 square feet and are leased.",
       },
       {
         label: "Monthly Rent",
         value: "$17,490",
         description:
-          "The broker states monthly rent of $17,490. Buyers should verify the lease, assignment rights, options, CAM, and landlord requirements.",
+          "Monthly rent is $17,490. Buyers should verify the lease, assignment rights, options, CAM, and landlord requirements.",
       },
       {
         label: "Real Estate",
         value: "Not Included",
         description:
-          "The broker states that the opportunity is a business-only sale and that the real estate is not included.",
+          "This is a business-only sale; real estate is not included.",
       },
       {
         label: "Reason for Selling",
         value: "Other business interests",
         description:
-          "The broker states that the seller is pursuing other business interests.",
+          "The seller is pursuing other business interests.",
       },
     ],
     opportunitiesHeading: "Offering Highlights",
     opportunities: [
       "Acquire a turnkey Downtown Hollywood restaurant, bar, lounge, and nightclub operation in an established nightlife district.",
       "Operate with an included Broward County 4COP quota full-liquor license, subject to buyer qualification, premises, zoning, and DBPR/ABT approval.",
-      "Acquire approximately $200,000 of advertised furniture, fixtures, and equipment included in the asking price.",
-      "Build on advertised annual gross revenue of $1,100,000 and the venue's existing dining, nightlife, entertainment, and event infrastructure.",
+      "Acquire approximately $200,000 of furniture, fixtures, and equipment included in the asking price.",
+      "Build on annual gross revenue of $1,100,000 and the venue's existing dining, nightlife, entertainment, and event infrastructure.",
       "Pursue additional private events, VIP reservations, digital marketing, entertainment programming, themed nights, strategic partnerships, and extended brand promotion.",
     ],
     transitionText:
-      "The broker states that the seller is willing to provide a reasonable transition period to familiarize the buyer with daily operations, staff workflow, vendor relationships, menu concept, event format, and general business procedures.",
+      "The seller is willing to provide a reasonable transition period to familiarize the buyer with daily operations, staff workflow, vendor relationships, menu concept, event format, and general business procedures.",
     confidentialityText:
       "serious inquiries should confirm business identity, financial records, lease documents, licensing records, included assets, and transaction terms directly through the listing broker before reliance.",
     sourceDisclosure:
-      "Broker-review preview for the Turnkey Downtown Hollywood Nightclub opportunity. Business, financial, lease, license, and operating information is drawn from the broker's public advertisement and should be independently verified during due diligence before reliance or closing.",
+      "Business, financial, lease, license, and operating information should be independently verified during due diligence before reliance or closing.",
     countyContext:
       "Broward County includes Hollywood, Fort Lauderdale, Pompano Beach, Pembroke Pines, Coral Springs, Miramar, and other major South Florida hospitality and nightlife markets.",
     singleExternalLinks: true,
