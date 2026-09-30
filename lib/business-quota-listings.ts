@@ -3000,6 +3000,31 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
 
 export const BUSINESS_LISTING_DISPLAY_LIMIT = 24;
 
+export function businessMarketDisplayTitle(
+  listing: Pick<
+    BusinessQuotaListing,
+    "title" | "listingTier" | "county" | "businessCategory" | "licenseType" | "cuisines"
+  >,
+) {
+  if (listing.listingTier !== "market") return listing.title;
+
+  const categoryLabel =
+    listing.businessCategory === "Restaurant" && listing.cuisines?.length
+      ? `${listing.cuisines[0]} Restaurant`
+      : listing.businessCategory === "Other Hospitality"
+        ? "Hospitality Business"
+        : listing.businessCategory;
+
+  const licenseLabel =
+    listing.licenseType === "3PS Quota / Package Store"
+      ? "3PS Quota License"
+      : listing.licenseType === "2COP Beer & Wine"
+        ? "2COP Beer & Wine"
+        : listing.licenseType;
+
+  return `${listing.county} ${categoryLabel} + ${licenseLabel}`;
+}
+
 export function businessMarketRecordHref(
   listing: Pick<BusinessQuotaListing, "listingReference" | "listingTier" | "href">,
 ) {
