@@ -208,6 +208,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
 }) {
   const isSpanish = config.locale === "es";
   const isRussian = config.locale === "ru";
+  const russianAlternate = config.languageAlternates?.ru;
   const ruUi: Record<string, string> = {
     "Florida Liquor License Market home": "Главная Florida Liquor License Market",
     "Listing language": "Язык объявления",
@@ -428,13 +429,13 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     <circle cx="12" cy="12" r="9" />
                     <path d="M3 12h18M12 3c3 3.1 4.2 6.1 4.2 9S15 17.9 12 21M12 3C9 6.1 7.8 9.1 7.8 12S9 17.9 12 21" />
                   </svg>
-                  {config.locale === "en" ? <span aria-current="page">EN</span> : <Link href={config.languageAlternates.en}>EN</Link>}
+                  {!isSpanish && !isRussian ? <span aria-current="page">EN</span> : <Link href={config.languageAlternates.en}>EN</Link>}
                   <span className="featured-business-language-divider">|</span>
                   {config.locale === "es" ? <span aria-current="page">ES</span> : <Link href={config.languageAlternates.es}>ES</Link>}
-                  {config.languageAlternates.ru ? (
+                  {russianAlternate ? (
                     <>
                       <span className="featured-business-language-divider">|</span>
-                      {config.locale === "ru" ? <span aria-current="page">RU</span> : <Link href={config.languageAlternates.ru}>RU</Link>}
+                      {config.locale === "ru" ? <span aria-current="page">RU</span> : <Link href={russianAlternate}>RU</Link>}
                     </>
                   ) : null}
                 </nav>
