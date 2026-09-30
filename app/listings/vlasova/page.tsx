@@ -120,6 +120,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     approvalPreview: true,
     businessLabel: "Turnkey Downtown Hollywood Nightclub",
     businessLabelLinkUrl: sourceListingUrl,
+    packagePriceExternalLink: true,
     heroSummary:
       "Turnkey Downtown Hollywood nightlife opportunity offered as an operating restaurant, bar, lounge, and nightclub business with an included Broward County 4COP quota liquor license. The advertised business asking price is $790,000.",
     broker: {
