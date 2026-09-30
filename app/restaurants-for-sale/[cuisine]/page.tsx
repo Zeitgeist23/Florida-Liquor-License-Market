@@ -17,6 +17,7 @@ import {
 } from "@/data/restaurant-cuisines";
 import {
   business2copListings,
+  businessMarketDisplayTitle,
   businessQuotaListings,
   businessSfsListings,
 } from "@/lib/business-quota-listings";
@@ -143,7 +144,7 @@ export default async function RestaurantCuisinePage({ params }: PageProps) {
       itemListElement: allRestaurantListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: listing.title,
+        name: businessMarketDisplayTitle(listing),
         url: `${siteUrl}${listing.href}`,
       })),
     },
