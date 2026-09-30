@@ -58,6 +58,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   businessLabel: string;
   businessLabelLinkUrl?: string;
   businessLabelBodyBold?: boolean;
+  packagePriceExternalLink?: boolean;
   heroSummary: string;
   broker: {
     name: string;
@@ -990,7 +991,16 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   ) : (
                     <>
                       {tr("The total asking price for the", "El precio total solicitado por el")}{" "}
-                      {config.singleExternalLinks ? (
+                      {config.packagePriceExternalLink ? (
+                        <a
+                          className="featured-business-seller-link featured-business-glimmer-link"
+                          href={config.broker.listingUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}
+                        </a>
+                      ) : config.singleExternalLinks ? (
                         <strong>{tr("business and license package is", "paquete de negocio y licencia es")} {config.packagePrice}</strong>
                       ) : (
                         <a
