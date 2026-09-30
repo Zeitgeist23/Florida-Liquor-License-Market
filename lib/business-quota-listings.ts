@@ -72,6 +72,14 @@ export type BusinessQuotaCategory =
   | "Country Club"
   | "Other Hospitality";
 
+export type RestaurantCuisine =
+  | "Italian"
+  | "Mexican"
+  | "Latin"
+  | "Peruvian"
+  | "Mediterranean"
+  | "Sushi";
+
 export type BusinessQuotaListing = {
   listingReference: string;
   inventoryReferences?: readonly string[];
@@ -84,6 +92,7 @@ export type BusinessQuotaListing = {
   title: string;
   businessType: string;
   businessCategory: BusinessQuotaCategory;
+  cuisines?: readonly RestaurantCuisine[];
   summaryBusinessType: string;
   transactionType: string;
   packagePrice: string;
@@ -190,6 +199,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     title: "Prime Italian Restaurant – Miami Beach + 4COP Quota",
     businessType: "Prime Italian restaurant in South of Fifth",
     businessCategory: "Restaurant",
+    cuisines: ["Italian"],
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale + Separate License",
     packagePrice: "$590,000",
@@ -239,6 +249,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     title: "Miami-Dade Mexican Restaurant + 4COP SFS / SRX License",
     businessType: "Mexican-Latin restaurant and entertainment venue",
     businessCategory: "Restaurant",
+    cuisines: ["Mexican", "Latin"],
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
     packagePrice: "$1,200,000",
@@ -284,6 +295,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     title: "Miami Peruvian Restaurant + 2COP Beer & Wine License",
     businessType: "Peruvian-Mediterranean restaurant",
     businessCategory: "Restaurant",
+    cuisines: ["Peruvian", "Mediterranean"],
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
     packagePrice: "$599,999",
@@ -307,6 +319,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     title: "Sanford Mexican Restaurant & Lounge + 4COP SFS / SRX License",
     businessType: "Mexican restaurant and lounge",
     businessCategory: "Restaurant",
+    cuisines: ["Mexican"],
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
     packagePrice: "$350,000",
@@ -445,6 +458,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     title: "Fort Lauderdale Italian Restaurant + 4COP SFS",
     businessType: "Italian restaurant",
     businessCategory: "Restaurant",
+    cuisines: ["Italian"],
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
     packagePrice: "$400,000",
@@ -583,6 +597,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     title: "Brevard County Restaurant + 2COP Beer & Wine",
     businessType: "Italian restaurant and wine bar",
     businessCategory: "Restaurant",
+    cuisines: ["Italian"],
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
     packagePrice: "$315,000",
@@ -1021,6 +1036,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     title: "East Fort Lauderdale Italian Restaurant + 4COP SFS/SRX",
     businessType: "Italian restaurant",
     businessCategory: "Restaurant",
+    cuisines: ["Italian"],
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
     packagePrice: "$400,000",
@@ -1113,6 +1129,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     title: "Punta Gorda Sushi Restaurant + 2COP Beer & Wine",
     businessType: "Sushi restaurant",
     businessCategory: "Restaurant",
+    cuisines: ["Sushi"],
     summaryBusinessType: "Restaurant",
     transactionType: "Asset Sale",
     packagePrice: "$110,000",
