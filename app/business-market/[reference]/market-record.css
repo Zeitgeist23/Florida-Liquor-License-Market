@@ -399,6 +399,29 @@
   border-color:rgba(239,170,16,.48);
   background:linear-gradient(145deg,#0e3555,#08243c);
 }
+.business-market-quota-conversion{
+  margin-top:16px;
+}
+.business-market-license-series-link{
+  font-weight:400;
+  text-decoration:none;
+  border-bottom:0;
+  transition:color .16s ease,text-shadow .16s ease,filter .16s ease;
+}
+.business-market-license-series-link--4cop{
+  color:#69d6ff;
+}
+.business-market-license-series-link--3ps{
+  color:#5cff9d;
+  text-shadow:0 0 7px rgba(92,255,157,.16);
+}
+.business-market-license-series-link:hover,
+.business-market-license-series-link:focus-visible{
+  filter:brightness(1.16);
+  text-decoration:none;
+  outline:none;
+}
+
 .business-market-license-links{
   display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;
 }
