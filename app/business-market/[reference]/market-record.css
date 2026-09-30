@@ -422,6 +422,40 @@
   outline:none;
 }
 
+
+.business-market-checklist{
+  display:grid;
+  gap:10px;
+  margin-top:16px;
+}
+.business-market-checklist>div{
+  display:grid;
+  grid-template-columns:24px minmax(0,1fr);
+  gap:10px;
+  align-items:start;
+  padding:11px 12px;
+  border:1px solid rgba(103,216,247,.22);
+  border-radius:6px;
+  background:rgba(4,25,41,.5);
+}
+.business-market-checklist>div>span{
+  display:grid;
+  place-items:center;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#f1a600;
+  color:#07101a;
+  font-size:12px;
+  font-weight:900;
+}
+.business-market-checklist>div>p{
+  margin:1px 0 0;
+  color:#d2dee6;
+  font-size:13px;
+  line-height:1.55;
+}
+
 .business-market-license-links{
   display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;
 }
