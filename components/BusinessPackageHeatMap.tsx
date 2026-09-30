@@ -303,7 +303,7 @@ export default function BusinessPackageHeatMap({
             <h3>Active {licenseType} business packages by county</h3>
           </div>
           <div className="business-package-map-context">
-            <span>{businessTypeLabel}</span>
+            <span>{businessTypeLabel} + {licenseType} License</span>
             <strong>
               {totalPackages} active package{totalPackages === 1 ? "" : "s"}
             </strong>
