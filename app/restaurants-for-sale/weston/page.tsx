@@ -88,6 +88,21 @@ export default async function WestonRestaurantsForSalePage() {
     (listing) => !exactWestonListings.includes(listing),
   );
 
+  const westonFaqs = [
+    {
+      question: "Where can I search for restaurants for sale in Weston, Florida?",
+      answer: "FLLM's Weston restaurant market page organizes Weston buyer searches around Broward County restaurant activity, full-liquor privileges, 4COP license structures and cuisine while preserving the actual location of each Market View.",
+    },
+    {
+      question: "What does full liquor mean for a restaurant for sale in Weston?",
+      answer: "Full liquor is common buyer language. In Florida, distilled-spirit restaurant privileges may involve a transferable 4COP quota license or a qualifying location-specific 4COP SFS / SRX restaurant license.",
+    },
+    {
+      question: "Where can I find Italian restaurants for sale near Weston?",
+      answer: "FLLM links Weston restaurant searches to its Broward County and Italian restaurant market pages. Nearby Market Views retain their actual city and county rather than being presented as businesses physically located in Weston.",
+    },
+  ];
+
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -101,6 +116,15 @@ export default async function WestonRestaurantsForSalePage() {
         name: "Florida Liquor License Market",
         url: siteUrl,
       },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: westonFaqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+      })),
     },
     {
       "@context": "https://schema.org",
@@ -142,13 +166,13 @@ export default async function WestonRestaurantsForSalePage() {
           <p className="fllm-template-hero-copy">
             Search the Weston restaurant-for-sale market through FLLM by restaurant concept, cuisine and
             alcoholic-beverage license structure. FLLM connects Weston search demand to current Broward County
-            restaurant inventory while keeping each listing&apos;s actual location explicit. Buyers can compare
-            full-liquor opportunities, 4COP quota and 4COP SFS / SRX structures, Italian restaurant inventory,
+            restaurant Market Views while keeping each listing&apos;s actual location explicit. Buyers can compare
+            full-liquor opportunities, 4COP quota and 4COP SFS / SRX structures, Italian restaurant Market Views,
             and other nearby Broward County restaurant businesses.
           </p>
           <div className="fllm-ui-actions">
             <Link className="btn btn-gold fllm-ui-official-gold-button" href="#weston-market-inventory">
-              View Weston-Area Restaurant Inventory
+              View Weston-Area Restaurant Market Views
             </Link>
             <FllmButton href="/counties/broward" variant="outline">
               Broward County Market
@@ -232,8 +256,8 @@ export default async function WestonRestaurantsForSalePage() {
             copy={
               <p>
                 {exactWestonListings.length
-                  ? `FLLM currently shows ${exactWestonListings.length} restaurant listing${exactWestonListings.length === 1 ? "" : "s"} explicitly located in Weston, plus additional Broward County restaurant inventory.`
-                  : "FLLM does not currently show a published restaurant listing explicitly located in Weston. The inventory below is current Broward County restaurant inventory displayed with its actual location so Weston buyers can compare nearby opportunities without location ambiguity."}
+                  ? `FLLM currently shows ${exactWestonListings.length} restaurant Market View${exactWestonListings.length === 1 ? "" : "s"} explicitly located in Weston, plus additional Broward County restaurant Market Views.`
+                  : "FLLM does not currently show a published restaurant Market View explicitly located in Weston. The inventory below is current Broward County restaurant Market Views displayed with its actual location so Weston buyers can compare nearby opportunities without location ambiguity."}
               </p>
             }
           />
@@ -287,7 +311,7 @@ export default async function WestonRestaurantsForSalePage() {
               ))}
             </div>
           ) : (
-            <FllmCard title="No current Broward full-liquor restaurant inventory." variant="gold">
+            <FllmCard title="No current Broward full-liquor restaurant Market Views." variant="gold">
               <p>FLLM will show qualifying 4COP restaurant opportunities here as they are published.</p>
             </FllmCard>
           )}
@@ -302,9 +326,8 @@ export default async function WestonRestaurantsForSalePage() {
               title="Italian restaurants for sale in the Weston and Broward County market"
               copy={
                 <p>
-                  FLLM currently tracks Italian restaurant opportunities in Broward County. The cards below preserve the
-                  actual listing location while making those businesses discoverable to buyers searching the broader Weston
-                  restaurant market.
+                  FLLM currently tracks observed Italian restaurant market activity in Broward County. The Market Views below
+                  preserve the actual location while helping buyers research the broader Weston restaurant market.
                 </p>
               }
             />
