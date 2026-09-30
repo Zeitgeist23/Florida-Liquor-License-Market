@@ -668,6 +668,94 @@
 .business-market-footer a{color:#f3f7fa;font-size:12px;font-weight:800;text-decoration:none}
 .business-market-footer a:hover{color:#f1a600}
 
+
+/* Compact the embedded statewide business-package map on Market View pages.
+   Preserve the heading, context card, legend, map, pins, tooltip and rankings,
+   but remove the county-directory spacing that created large empty gaps here. */
+.business-market-interactive-map .county-availability-map-section{
+  padding:30px 0 34px;
+}
+.business-market-interactive-map .county-availability-map-heading{
+  gap:6px;
+  margin-bottom:14px;
+}
+.business-market-interactive-map .county-availability-map-heading h2{
+  margin-top:4px;
+  font-size:clamp(34px,4vw,48px);
+  line-height:1.02;
+}
+.business-market-interactive-map .county-availability-map-heading>p{
+  max-width:900px;
+  font-size:13px;
+  line-height:1.45;
+}
+.business-market-interactive-map .county-heatmap-toolbar{
+  gap:10px;
+  margin-bottom:10px;
+}
+.business-market-interactive-map .county-heatmap-current-metric h3{
+  margin-top:6px;
+  font-size:24px;
+}
+.business-market-interactive-map .business-package-map-context{
+  min-width:250px;
+  padding:9px 14px;
+}
+.business-market-interactive-map .business-package-map-context strong{
+  margin-top:3px;
+  font-size:17px;
+}
+.business-market-interactive-map .county-availability-map-layout{
+  max-width:1080px;
+}
+.business-market-interactive-map .county-heatmap-module-grid{
+  grid-template-columns:minmax(220px,250px) minmax(0,1fr);
+  gap:24px;
+  align-items:start;
+}
+.business-market-interactive-map .county-availability-map-stage{
+  min-height:430px;
+  height:430px;
+  margin-top:0;
+  align-self:start;
+}
+.business-market-interactive-map .county-availability-map-svg{
+  height:420px;
+  max-width:760px;
+  transform:translate(-38px,0) scale(1.05);
+}
+.business-market-interactive-map .county-availability-map-legend{
+  align-self:start;
+  padding:16px 16px 12px;
+}
+.business-market-interactive-map .county-availability-map-legend h4{
+  margin:4px 0 10px;
+  font-size:23px;
+}
+.business-market-interactive-map .county-availability-map-legend ul{
+  gap:6px;
+}
+.business-market-interactive-map .county-heatmap-module--inventory .county-availability-map-legend ul{
+  gap:7px;
+}
+.business-market-interactive-map .county-heatmap-module--inventory .county-availability-map-legend>ul li i{
+  height:18px;
+}
+.business-market-interactive-map .county-heatmap-ranking{
+  margin-top:12px;
+  padding-top:10px;
+}
+.business-market-interactive-map .county-heatmap-ranking ol{
+  gap:6px;
+}
+.business-market-interactive-map .county-availability-map-note{
+  margin-top:10px;
+  line-height:1.35;
+}
+.business-market-interactive-map + .business-market-content{
+  padding-top:26px;
+}
+
 @media(max-width:980px){
   .business-market-hero-grid,.business-market-grid{grid-template-columns:1fr}
   .business-market-sidebar{position:static}
