@@ -11,6 +11,7 @@ import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
 import { countySlug, floridaCounties } from "@/data/florida-counties";
 import {
+  businessMarketDisplayTitle,
   businessMarketRecordHref,
   businessQuotaListingRecords,
   type BusinessQuotaListing,
@@ -164,18 +165,12 @@ function metadataTitle(listing: BusinessQuotaListing) {
   if (isStJohnsQuotaTarget(listing)) {
     return "Restaurant for Sale in St. Johns County with 4COP Quota License | FLLM";
   }
-  if (isStJohnsSfs(listing)) {
-    return `${listing.title} | Non-Quota Restaurant License | FLLM`;
-  }
-  if (isMiamiNonQuotaRestaurant(listing)) {
-    return `${listing.title} | Non-Quota Restaurant License | FLLM`;
-  }
   if (isOrlandoRestaurant(listing)) {
     return listing.licenseClass === "2cop"
       ? "Orlando Restaurant for Sale With 2COP Beer & Wine License | FLLM"
       : "Orlando Restaurant for Sale With 4COP SFS/SRX Liquor License | FLLM";
   }
-  return `${listing.title} | FLLM Market Record`;
+  return `${businessMarketDisplayTitle(listing)} | FLLM Market Listing`;
 }
 
 function marketDescription(listing: BusinessQuotaListing) {
@@ -287,6 +282,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
 
   const county = countyFor(listing);
   const canonicalPath = businessMarketRecordHref(listing);
+  const displayTitle = businessMarketDisplayTitle(listing);
   const primaryMarkets = county?.primaryCities ?? [];
   const otherCountyListingsCount = businessQuotaListingRecords.filter(
     (candidate) =>
@@ -341,7 +337,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: listing.title,
+      name: displayTitle,
       url: `${siteUrl}${canonicalPath}`,
       description: marketDescription(listing),
       about: {
@@ -368,7 +364,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
         {
           "@type": "ListItem",
           position: 3,
-          name: listing.title,
+          name: displayTitle,
           item: `${siteUrl}${canonicalPath}`,
         },
       ],
@@ -401,7 +397,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
           <div className="business-market-hero-grid">
             <div className="business-market-hero-copy-block">
               <span className="business-market-eyebrow">FLLM Market Opportunity</span>
-              <h1>{listing.title}</h1>
+              <h1>{displayTitle}</h1>
               <p className="business-market-hero-copy">
                 {isStJohnsQuotaTarget(listing)
                   ? "Restaurant for sale in St. Johns County, Florida with a 4COP Quota liquor license, located in the St. Augustine market. Review the advertised $999,000 business package, quota-license classification and local market context."
@@ -442,7 +438,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
             <BusinessMarketHeroMap
               county={listing.county}
               primaryMarkets={primaryMarkets}
-              title={listing.title}
+              title={displayTitle}
               packagePrice={listing.packagePrice}
               licenseType={listing.licenseType}
               businessType={listing.businessType}
@@ -459,7 +455,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
           listingType={mapListingType}
           businessTypeLabel={listing.businessCategory}
           selectedCounty={listing.county}
-          selectedListingTitle={listing.title}
+          selectedListingTitle={displayTitle}
           selectedPackagePrice={listing.packagePrice}
           selectedLicenseValue={listing.allocatedLicenseValue}
           selectedListingReference={listing.listingReference}
@@ -591,7 +587,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
             <aside className="business-market-sidebar" id="buyer-match">
               <MarketBuyerLeadForm
                 listingReference={listing.listingReference}
-                listingTitle={listing.title}
+                listingTitle={displayTitle}
                 county={listing.county}
                 businessType={listing.businessCategory}
                 licenseType={listing.licenseType}
