@@ -6,7 +6,11 @@ import { notFound } from "next/navigation";
 import BusinessMarketHeroMap from "@/components/BusinessMarketHeroMap";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
+import { ListingSidebarLoanCalculator } from "@/components/ListingBrokerInquiryForm";
 import { floridaCounties } from "@/data/florida-counties";
+import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
+import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import {
   businessMarketRecordHref,
   businessQuotaListingRecords,
@@ -48,6 +52,12 @@ function marketViewDescription(listing: BusinessQuotaListing) {
   return `FLLM Market View for a ${listing.businessCategory.toLowerCase()} opportunity in ${listing.county}. Advertised asking price: ${listing.packagePrice}. Liquor-license type: ${listing.licenseType}. Request FLLM information about this license type and county market.`;
 }
 
+function moneyValue(value?: string) {
+  if (!value) return 0;
+  const numeric = Number(value.replace(/[^0-9.]/g, ""));
+  return Number.isFinite(numeric) ? numeric : 0;
+}
+
 export function generateStaticParams() {
   return marketRecords.map((listing) => ({
     reference: listing.listingReference.toLowerCase(),
@@ -80,8 +90,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BusinessMarketRecordPage({ params }: PageProps) {
   const { reference } = await params;
-  const listing = recordFor(reference);
-  if (!listing) notFound();
+  const rawListing = recordFor(reference);
+  if (!rawListing) notFound();
+
+  const standaloneListings = getVisibleAvailableMarketplaceListings(
+    await getMarketplaceListings(),
+  );
+  const listing =
+    withMarketLicenseValues([rawListing], standaloneListings)[0] ?? rawListing;
 
   const county = countyFor(listing);
   const canonicalPath = businessMarketRecordHref(listing);
@@ -92,6 +108,8 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
       candidate.county === listing.county &&
       candidate.listingReference !== listing.listingReference,
   ).length;
+  const quotaLicenseFinancingAmount =
+    listing.licenseClass === "quota" ? moneyValue(listing.allocatedLicenseValue) : 0;
 
   const structuredData = [
     {
@@ -264,6 +282,34 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 askingPrice={listing.packagePrice}
                 listingUrl={canonicalPath}
               />
+
+              {listing.licenseClass === "quota" ? (
+                <>
+                  <div className="business-market-side-card">
+                    <span>License Financing</span>
+                    <strong>Finance the License Component</strong>
+                    <p>
+                      Request FLLM information about financing a transferable quota liquor
+                      license. Financing is separate from the advertised business asking price
+                      and is subject to lender underwriting, collateral review, transaction
+                      structure, and approval.
+                    </p>
+                    <Link className="business-market-primary" href="/financing#request-financing">
+                      Request License Financing
+                    </Link>
+                  </div>
+
+                  <ListingSidebarLoanCalculator
+                    initialPurchasePrice={quotaLicenseFinancingAmount}
+                    initialDownPayment={
+                      quotaLicenseFinancingAmount > 0
+                        ? Math.round(quotaLicenseFinancingAmount * 0.2)
+                        : 0
+                    }
+                    mode="license"
+                  />
+                </>
+              ) : null}
 
               <div className="business-market-side-card">
                 <span>Market View Notice</span>
