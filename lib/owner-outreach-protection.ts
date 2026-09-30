@@ -1,6 +1,7 @@
 import "server-only";
 
 import { businessQuotaListingRecords, type BusinessQuotaListing } from "@/lib/business-quota-listings";
+import { isFllmMarketingExcluded } from "@/lib/fllm-marketing-exclusions";
 
 const SITE_URL = "https://www.floridaliquorlicensemarket.com";
 
@@ -64,6 +65,19 @@ function recordUrls(record: BusinessQuotaListing) {
 export function brokerFeaturedOwnerOutreachProtection(
   input: OwnerOutreachProtectionInput,
 ): BrokerFeaturedProtectionMatch | null {
+  if (isFllmMarketingExcluded({
+    broker_name: input.broker_name,
+    brokerage: input.brokerage,
+  })) {
+    return {
+      protected: true,
+      listingReference: "FLLM-INTERNAL-EXCLUSION",
+      title: input.listing_title || input.business_name || "Excluded prospect",
+      brokerName: input.broker_name || "Excluded broker",
+      brokerage: input.brokerage || "Excluded brokerage",
+      reason: "FLLM internal do-not-market / do-not-contact exclusion.",
+    };
+  }
   const candidateUrls = [input.listing_url, input.source_url].map(normalizeUrl).filter(Boolean);
   const candidateTitle = normalizeText(input.listing_title || input.business_name);
   const candidateBroker = normalizeText(input.broker_name);
