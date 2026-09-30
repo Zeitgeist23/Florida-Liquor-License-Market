@@ -167,28 +167,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_package",
   },
   {
-    listingReference: "FLLM-NEGOVAN",
-    href: "/listings/fllm-negovan",
-    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/premium-miami-adult-nightclub/2506980/"],
-    county: "Miami-Dade County",
-    countyHref: "/counties/miami-dade",
-    licenseType: "4COP Quota",
-    licenseClass: "quota",
-    title: "Miami Adult Nightclub + 4COP Quota License",
-    businessType: "Premium adult-entertainment business",
-    businessCategory: "Gentlemen's Club",
-    summaryBusinessType: "Gentlemen's Club",
-    transactionType: "Business Package",
-    packagePrice: "$3,500,000",
-    packagePriceNumber: 3_500_000,
-    allocatedLicenseValue: "$250,000",
-    brokerName: "Julie Negovan",
-    brokerage: "Patricia Burnside Realty",
-    featured: true,
-    publicationStatus: "preview",
-    classification: "business_package",
-  },
-  {
     listingReference: "FLLM-PAQUET",
     href: "/listings/villejust",
     sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/prime-italian-restaurant-for-sale-miami-beach/2552485/"],
@@ -1373,29 +1351,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     classification: "business_package",
   },
   {
-    listingReference: "FLLM-MKT-Q-016",
-    href: "/market-data/heat-map",
-    marketViewHref: "/market-data/heat-map",
-    county: "Volusia County",
-    countyHref: "/counties/volusia",
-    licenseType: "4COP Quota",
-    licenseClass: "quota",
-    title: "Daytona Beach Adult Nightclub + Real Estate + 4COP Quota",
-    businessType: "Adult nightclub with real estate",
-    businessCategory: "Gentlemen's Club",
-    summaryBusinessType: "Gentlemen's Club",
-    transactionType: "Business + Real Estate Sale",
-    packagePrice: "$2,300,000",
-    packagePriceNumber: 2_300_000,
-    allocatedLicenseValue: "",
-    brokerName: "",
-    brokerage: "",
-    featured: false,
-    listingTier: "market",
-    publicationStatus: "published",
-    classification: "business_package",
-  },
-  {
     listingReference: "FLLM-MKT-Q-017",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
@@ -1479,29 +1434,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$1,650,000",
     packagePriceNumber: 1_650_000,
-    allocatedLicenseValue: "",
-    brokerName: "",
-    brokerage: "",
-    featured: false,
-    listingTier: "market",
-    publicationStatus: "published",
-    classification: "business_package",
-  },
-  {
-    listingReference: "FLLM-MKT-Q-019",
-    href: "/market-data/heat-map",
-    marketViewHref: "/market-data/heat-map",
-    county: "Brevard County",
-    countyHref: "/counties/brevard",
-    licenseType: "4COP Quota",
-    licenseClass: "quota",
-    title: "Palm Bay Adult Nightclub + Real Estate + 4COP Quota",
-    businessType: "Adult nightclub with real estate",
-    businessCategory: "Gentlemen's Club",
-    summaryBusinessType: "Gentlemen's Club",
-    transactionType: "Business + Real Estate Sale",
-    packagePrice: "$2,300,000",
-    packagePriceNumber: 2_300_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
@@ -1686,29 +1618,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$595,000",
     packagePriceNumber: 595_000,
-    allocatedLicenseValue: "",
-    brokerName: "",
-    brokerage: "",
-    featured: false,
-    listingTier: "market",
-    publicationStatus: "published",
-    classification: "business_package",
-  },
-  {
-    listingReference: "FLLM-MKT-Q-022",
-    href: "/market-data/heat-map",
-    marketViewHref: "/market-data/heat-map",
-    county: "Pasco County",
-    countyHref: "/counties/pasco",
-    licenseType: "4COP Quota",
-    licenseClass: "quota",
-    title: "Holiday Pub + Adult Nightclub + 4COP Quota License",
-    businessType: "Pub and adult entertainment nightclub",
-    businessCategory: "Gentlemen's Club",
-    summaryBusinessType: "Gentlemen's Club",
-    transactionType: "Business Asset Sale",
-    packagePrice: "$750,000",
-    packagePriceNumber: 750_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
@@ -1916,29 +1825,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$800,000",
     packagePriceNumber: 800_000,
-    allocatedLicenseValue: "",
-    brokerName: "",
-    brokerage: "",
-    featured: false,
-    listingTier: "market",
-    publicationStatus: "published",
-    classification: "business_package",
-  },
-  {
-    listingReference: "FLLM-MKT-Q-024",
-    href: "/market-data/heat-map",
-    marketViewHref: "/market-data/heat-map",
-    county: "Broward County",
-    countyHref: "/counties/broward",
-    licenseType: "4COP Quota",
-    licenseClass: "quota",
-    title: "Pompano Beach Gentlemen's Cabaret + 4COP License",
-    businessType: "Nightlife entertainment venue",
-    businessCategory: "Gentlemen's Club",
-    summaryBusinessType: "Gentlemen's Club",
-    transactionType: "Asset Sale",
-    packagePrice: "$700,000",
-    packagePriceNumber: 700_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
@@ -3061,19 +2947,28 @@ function withBusinessMarketHref(listing: BusinessQuotaListing): BusinessQuotaLis
 
 export const businessQuotaListings = businessQuotaListingRecords
   .filter(
-    (listing) => listing.publicationStatus === "published" && listing.licenseClass === "quota",
+    (listing) =>
+      listing.publicationStatus === "published" &&
+      listing.licenseClass === "quota" &&
+      listing.businessCategory !== "Gentlemen's Club",
   )
   .map(withBusinessMarketHref);
 
 export const businessSfsListings = businessQuotaListingRecords
   .filter(
-    (listing) => listing.publicationStatus === "published" && listing.licenseClass === "sfs",
+    (listing) =>
+      listing.publicationStatus === "published" &&
+      listing.licenseClass === "sfs" &&
+      listing.businessCategory !== "Gentlemen's Club",
   )
   .map(withBusinessMarketHref);
 
 export const business2copListings = businessQuotaListingRecords
   .filter(
-    (listing) => listing.publicationStatus === "published" && listing.licenseClass === "2cop",
+    (listing) =>
+      listing.publicationStatus === "published" &&
+      listing.licenseClass === "2cop" &&
+      listing.businessCategory !== "Gentlemen's Club",
   )
   .map(withBusinessMarketHref);
 
