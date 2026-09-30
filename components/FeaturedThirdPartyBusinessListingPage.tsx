@@ -32,8 +32,8 @@ type SbaFinancingDisclosure = {
 export type FeaturedThirdPartyBusinessListingConfig = {
   listingReference: string;
   canonicalPath: string;
-  locale?: "en" | "es" | "ru";
-  languageAlternates?: { en: string; es: string; ru?: string };
+  locale?: "en" | "es";
+  languageAlternates?: { en: string; es: string };
   county: string;
   countyHref: string;
   countyValueHref: string;
@@ -207,49 +207,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
   config: FeaturedThirdPartyBusinessListingConfig;
 }) {
   const isSpanish = config.locale === "es";
-  const isRussian = config.locale === "ru";
-  const russianAlternate = config.languageAlternates?.ru;
-  const ruUi: Record<string, string> = {
-    "Florida Liquor License Market home": "Главная Florida Liquor License Market",
-    "Listing language": "Язык объявления",
-    "Seller review preview": "Предварительный просмотр для продавца",
-    "Broker review preview": "Предварительный просмотр для брокера",
-    "Available / Seller confirmation required": "Доступно / требуется подтверждение продавца",
-    "Available / Broker confirmation required": "Доступно / требуется подтверждение брокера",
-    "Preview": "Предпросмотр",
-    "Available": "Доступно",
-    "Seller Review Preview": "Предпросмотр для продавца",
-    "Broker Review Preview": "Предпросмотр для брокера",
-    "Featured Listing": "Рекомендуемое объявление",
-    "Direct Seller Business Listing": "Объявление напрямую от продавца",
-    "Featured Third-Party Broker Listing": "Рекомендуемое объявление стороннего брокера",
-    "Businesses With 2COP Beer & Wine Licenses": "Бизнесы с лицензиями 2COP на пиво и вино",
-    "Businesses With 4COP SFS / SRX Licenses": "Бизнесы с лицензиями 4COP SFS / SRX",
-    "Businesses With Quota Licenses": "Бизнесы с квотными лицензиями",
-    "County": "Округ",
-    "Population": "Население",
-    "License Type": "Тип лицензии",
-    "Package Price": "Цена пакета",
-    "Business + license package": "Бизнес + пакет лицензии",
-    "Business Details": "Сведения о бизнесе",
-    "Offering Highlights": "Основные преимущества предложения",
-    "About This License Listing": "Об этой лицензии",
-    "Additional Seller Details": "Дополнительная информация продавца",
-    "License Highlights": "Основные сведения о лицензии",
-    "Request Information": "Запросить информацию",
-    "Call Listing Broker": "Позвонить брокеру",
-    "Broker Website": "Сайт брокера",
-    "Email Listing Broker": "Написать брокеру",
-    "View Original BizBuySell Listing →": "Открыть исходное объявление BizBuySell →",
-    "Market Context": "Рыночный контекст",
-    "FLLM Market Data": "Рыночные данные FLLM",
-    "Financing": "Финансирование",
-    "License Value": "Стоимость лицензии",
-    "No independent transferable value": "Нет самостоятельной передаваемой стоимости",
-    "Included in package": "Включено в пакет",
-    "Not Disclosed": "Не раскрыто",
-  };
-  const tr = (english: string, spanish: string) => isSpanish ? spanish : isRussian ? (ruUi[english] ?? english) : english;
+  const tr = (english: string, spanish: string) => isSpanish ? spanish : english;
   const statusLabel = config.approvalPreview
     ? config.sellerDirect
       ? tr("Seller review preview", "Vista previa para revisión de la vendedora")
@@ -429,15 +387,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                     <circle cx="12" cy="12" r="9" />
                     <path d="M3 12h18M12 3c3 3.1 4.2 6.1 4.2 9S15 17.9 12 21M12 3C9 6.1 7.8 9.1 7.8 12S9 17.9 12 21" />
                   </svg>
-                  {!isSpanish && !isRussian ? <span aria-current="page">EN</span> : <Link href={config.languageAlternates.en}>EN</Link>}
+                  {isSpanish ? <Link href={config.languageAlternates.en}>EN</Link> : <span aria-current="page">EN</span>}
                   <span className="featured-business-language-divider">|</span>
-                  {config.locale === "es" ? <span aria-current="page">ES</span> : <Link href={config.languageAlternates.es}>ES</Link>}
-                  {russianAlternate ? (
-                    <>
-                      <span className="featured-business-language-divider">|</span>
-                      {config.locale === "ru" ? <span aria-current="page">RU</span> : <Link href={russianAlternate}>RU</Link>}
-                    </>
-                  ) : null}
+                  {isSpanish ? <span aria-current="page">ES</span> : <Link href={config.languageAlternates.es}>ES</Link>}
                 </nav>
               ) : null}
             </div>
