@@ -522,6 +522,27 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   <h2>{listing.licenseType}</h2>
                 </div>
                 <p>{licenseContext(listing)}</p>
+                {listing.licenseClass === "quota" ? (
+                  <p className="business-market-quota-conversion">
+                    A Florida quota license may generally be changed between the{" "}
+                    <Link
+                      className="business-market-license-series-link business-market-license-series-link--4cop"
+                      href="/license-types/4cop-quota"
+                    >
+                      4COP Quota
+                    </Link>{" "}
+                    series and the{" "}
+                    <Link
+                      className="business-market-license-series-link business-market-license-series-link--3ps"
+                      href="/license-types/3ps-package-store"
+                    >
+                      3PS Quota
+                    </Link>{" "}
+                    series through a DBPR-approved change of license series,
+                    subject to applicable premises, zoning, applicant, and
+                    regulatory requirements.
+                  </p>
+                ) : null}
                 <div className="business-market-license-links">
                   <Link href={listing.countyHref}>View {listing.county} license market ›</Link>
                   <Link href="/resources/florida-liquor-license-types">Compare Florida license types ›</Link>
