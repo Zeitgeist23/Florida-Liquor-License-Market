@@ -448,7 +448,7 @@
 .results-page.marketplace-listing-page[data-featured-broker-business-listing="true"] .featured-business-seller-link {
   display: inline-block;
   position: relative;
-  font-weight: 900 !important;
+  font-weight: 400 !important;
   text-decoration: none !important;
   background-image: linear-gradient(
     105deg,
