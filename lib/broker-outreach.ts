@@ -2,6 +2,7 @@ import "server-only";
 
 import { emailShell, sendFllmEmail } from "@/lib/fllm-email";
 import { supabaseServiceSettings } from "@/lib/supabase-settings";
+import { FLLM_MARKETING_EXCLUSION_REASON, isFllmMarketingExcluded } from "@/lib/fllm-marketing-exclusions";
 
 export type BrokerTemplateMode = "female" | "male" | "neutral";
 export type BrokerListingKind = "license_only" | "business_with_license" | "unknown";
@@ -400,15 +401,25 @@ ${unsubscribe}`;
 }
 
 export async function listBrokerOutreachData() {
-  const [prospects, campaigns, messages] = await Promise.all([
+  const [allProspects, campaigns, allMessages] = await Promise.all([
     rest<BrokerProspect[]>("broker_outreach_prospects?select=*&order=created_at.desc&limit=1000"),
     rest<BrokerCampaign[]>("broker_outreach_campaigns?select=*&order=campaign_week.desc&limit=100"),
     rest<BrokerMessage[]>("broker_outreach_messages?select=*&order=created_at.desc&limit=1000"),
   ]);
-  return { prospects, campaigns, messages };
+  const excludedIds = new Set(
+    allProspects.filter((prospect) => isFllmMarketingExcluded(prospect)).map((prospect) => prospect.id),
+  );
+  return {
+    prospects: allProspects.filter((prospect) => !excludedIds.has(prospect.id)),
+    campaigns,
+    messages: allMessages.filter((message) => !excludedIds.has(message.prospect_id)),
+  };
 }
 
 export async function createBrokerProspect(input: Partial<BrokerProspect> & { full_name: string }) {
+  if (isFllmMarketingExcluded(input)) {
+    throw new Error(FLLM_MARKETING_EXCLUSION_REASON);
+  }
   const row = {
     full_name: input.full_name.trim(),
     email: input.email?.trim().toLowerCase() || null,
@@ -439,6 +450,25 @@ export async function createBrokerProspect(input: Partial<BrokerProspect> & { fu
 }
 
 export async function updateBrokerProspect(id: string, patch: Partial<BrokerProspect>) {
+  const currentRows = await rest<BrokerProspect[]>(
+    `broker_outreach_prospects?select=*&id=eq.${encodeURIComponent(id)}&limit=1`,
+  );
+  const current = currentRows[0];
+  if (!current) throw new Error("Broker prospect not found.");
+  if (isFllmMarketingExcluded({ ...current, ...patch })) {
+    const rows = await rest<BrokerProspect[]>(`broker_outreach_prospects?id=eq.${encodeURIComponent(id)}`, {
+      method: "PATCH",
+      headers: { Prefer: "return=representation" },
+      body: JSON.stringify({
+        do_not_contact: true,
+        status: "opted_out",
+        next_contact_at: null,
+        notes: [current.notes, FLLM_MARKETING_EXCLUSION_REASON].filter(Boolean).join("\n"),
+        updated_at: new Date().toISOString(),
+      }),
+    });
+    return rows[0];
+  }
   const allowed: Partial<BrokerProspect> = {};
   for (const key of [
     "full_name","email","phone","brokerage","website_url","source_platform","source_url","listing_title","listing_url","county","license_type","listing_kind","languages","outreach_template","template_basis","status","do_not_contact","last_contacted_at","next_contact_at","notes",
@@ -460,6 +490,7 @@ async function eligibleProspects() {
   );
   const now = Date.now();
   return prospects.filter((prospect) => {
+    if (isFllmMarketingExcluded(prospect)) return false;
     if (!prospect.email) return false;
     if (!["new", "queued", "follow_up"].includes(prospect.status)) return false;
     if (prospect.next_contact_at && new Date(prospect.next_contact_at).getTime() > now) return false;
@@ -530,6 +561,7 @@ async function messageWithProspect(messageId: string) {
 
 export async function regenerateBrokerMessage(messageId: string) {
   const { message, prospect } = await messageWithProspect(messageId);
+  if (isFllmMarketingExcluded(prospect)) throw new Error(FLLM_MARKETING_EXCLUSION_REASON);
   const built = buildBrokerOutreachMessage(prospect);
   const rows = await rest<BrokerMessage[]>(
     `broker_outreach_messages?id=eq.${encodeURIComponent(message.id)}`,
@@ -553,6 +585,7 @@ export async function regenerateBrokerMessage(messageId: string) {
 
 export async function sendBrokerMessage(messageId: string) {
   const { message, prospect } = await messageWithProspect(messageId);
+  if (isFllmMarketingExcluded(prospect)) throw new Error(FLLM_MARKETING_EXCLUSION_REASON);
   if (prospect.do_not_contact) throw new Error("This broker has opted out of outreach.");
   if (!prospect.email) throw new Error("This broker prospect has no email address.");
   if (message.status === "sent") return message;
@@ -613,6 +646,14 @@ export async function addAndSendBrokerProspect(input: QuickBrokerOutreachInput) 
   const licenseType = input.license_type.trim();
 
   if (!fullName) throw new Error("Broker name is required.");
+  if (isFllmMarketingExcluded({
+    full_name: fullName,
+    brokerage: input.brokerage,
+    email,
+    phone: input.phone,
+  })) {
+    throw new Error(FLLM_MARKETING_EXCLUSION_REASON);
+  }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     throw new Error("A valid broker email address is required.");
   }
