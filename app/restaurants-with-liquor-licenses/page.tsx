@@ -156,7 +156,23 @@ export default async function RestaurantsWithLiquorLicensesPage() {
           name: "What does full liquor mean when searching for a Florida restaurant for sale?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Full liquor is common marketplace shorthand rather than a Florida license-series name. A restaurant with distilled-spirit privileges may operate with a transferable 4COP quota license or, when the premises and business qualify, a location-specific 4COP SFS / SRX license. FLLM identifies the license structure on each listing.",
+            text: "Full liquor is common marketplace shorthand rather than a Florida license-series name. A restaurant with distilled-spirit privileges may operate with a transferable 4COP quota license or, when the premises and business qualify, a location-specific 4COP SFS / SRX license. FLLM identifies the license structure separately.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Where can I find Florida restaurants for sale with full liquor?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "FLLM organizes Florida restaurant-market information by county, cuisine and liquor-license structure. Buyers can compare restaurant opportunities involving transferable 4COP quota licenses, location-specific 4COP SFS / SRX licenses and 2COP beer-and-wine licenses.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Where can I search restaurants for sale by city or cuisine in Florida?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "FLLM provides original location and cuisine market pages, including dedicated Weston and Italian restaurant market pages, so city and cuisine searches are handled by FLLM market-intelligence pages rather than individual Market Views.",
           },
         },
       ],
@@ -233,7 +249,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
             license. FLLM keeps those license structures separate while bringing the restaurant market into one marketplace hub.
           </p>
           <div className="fllm-ui-actions">
-            <Link className="btn btn-gold fllm-ui-official-gold-button" href="#restaurant-inventory">View Restaurant Listings</Link>
+            <Link className="btn btn-gold fllm-ui-official-gold-button" href="#restaurant-inventory">View Restaurant Market</Link>
             <FllmButton href="#license-paths" variant="outline">Compare License Paths</FllmButton>
           </div>
         </div>
@@ -284,6 +300,68 @@ export default async function RestaurantsWithLiquorLicensesPage() {
               <div className="fllm-ui-actions">
                 <Link className="btn btn-gold fllm-ui-official-gold-button" href="/listings?type=businesses-2cop">Browse 2COP Listings</Link>
                 <FllmButton href="/license-types/2cop-beer-wine" variant="outline">2COP Guide</FllmButton>
+              </div>
+            </FllmCard>
+          </FllmCardGrid>
+        </div>
+      </section>
+
+      <section className="fllm-template-section fllm-template-section--deep" id="restaurant-search-intent">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Florida Restaurant Search"
+            title="Search restaurants for sale by full liquor, cuisine and local market"
+            copy={
+              <p>
+                FLLM concentrates buyer-intent SEO on original market pages rather than individual Market Views.
+                Use these research paths for common searches such as restaurants for sale with full liquor,
+                Italian restaurants for sale, 4COP restaurant opportunities and city-specific restaurant markets.
+              </p>
+            }
+            align="center"
+          />
+          <FllmCardGrid columns={3}>
+            <FllmCard
+              eyebrow={<span className="restaurant-card-cyan-label">Full Liquor</span>}
+              title="Restaurants for Sale With Full Liquor"
+              variant="gold"
+            >
+              <p>
+                Compare Florida restaurant-market activity involving transferable 4COP quota licenses and
+                qualifying 4COP SFS / SRX full-liquor restaurant licenses.
+              </p>
+              <div className="fllm-ui-actions">
+                <FllmButton href="#full-liquor-restaurants" variant="outline">Full-Liquor Restaurant Guide</FllmButton>
+              </div>
+            </FllmCard>
+            <FllmCard
+              eyebrow={<span className="restaurant-card-cyan-label">Cuisine</span>}
+              title="Italian Restaurants for Sale"
+              variant="gold"
+            >
+              <p>
+                Use FLLM&apos;s Italian restaurant market page for Florida and Broward County cuisine searches,
+                with license types and actual market locations kept distinct.
+              </p>
+              <div className="fllm-ui-actions">
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/italian">
+                  Italian Restaurant Market
+                </Link>
+              </div>
+            </FllmCard>
+            <FllmCard
+              eyebrow={<span className="restaurant-card-cyan-label">Local Market</span>}
+              title="Weston, Florida Restaurants for Sale"
+              variant="gold"
+            >
+              <p>
+                Search the Weston and Broward County restaurant market for full-liquor, 4COP and Italian restaurant
+                activity without relabeling nearby Broward businesses as Weston locations.
+              </p>
+              <div className="fllm-ui-actions">
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/weston">
+                  Weston Restaurant Market
+                </Link>
               </div>
             </FllmCard>
           </FllmCardGrid>
