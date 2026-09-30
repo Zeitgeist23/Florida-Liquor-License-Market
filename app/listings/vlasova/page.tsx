@@ -120,6 +120,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     approvalPreview: true,
     businessLabel: "Turnkey Downtown Hollywood Nightclub",
     businessLabelLinkUrl: sourceListingUrl,
+    businessLabelBodyBold: false,
     packagePriceExternalLink: true,
     heroSummary:
       "Turnkey Downtown Hollywood nightlife opportunity offered as an operating restaurant, bar, lounge, and nightclub business with an included Broward County 4COP quota liquor license. The advertised business asking price is $790,000.",
@@ -136,7 +137,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     additionalSellerIntro:
       "Turnkey Downtown Hollywood restaurant, bar, lounge, and nightclub opportunity in a prime entertainment location with an included full-liquor 4COP quota license.",
     packageIncludes:
-      `The advertised $790,000 business package includes the operating nightlife business, the Broward County 4COP quota license, furniture, fixtures and equipment, bar setup, kitchen equipment, dining and lounge seating, décor, lighting, sound and entertainment setup, website, branding, and existing business infrastructure. The source listing states that the business is offered without real estate. FLLM's current Broward County median disclosed 4COP asking price is ${medianLabel}; this is market context only, not an allocated license value or appraisal.`,
+      `The advertised $790,000 business package includes the operating nightlife business, the Broward County 4COP quota license, furniture, fixtures and equipment, bar setup, kitchen equipment, dining and lounge seating, décor, lighting, sound and entertainment setup, website, branding, and existing business infrastructure. The broker states that the business is offered without real estate. FLLM's current Broward County median disclosed 4COP asking price is ${medianLabel}; this is market context only, not an allocated license value or appraisal.`,
     businessMetrics: [
       {
         label: "Gross Revenue",
@@ -148,30 +149,30 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
         label: "Cash Flow (SDE)",
         value: "Not Disclosed",
         description:
-          "Seller's discretionary earnings are not disclosed in the source listing.",
+          "The broker has not disclosed seller's discretionary earnings.",
       },
       {
         label: "Business Asking Price",
         value: "$790,000",
         description:
-          "The source listing advertises the operating business package at $790,000. Buyers should confirm the final transaction structure and included assets directly with the listing broker.",
+          "The broker advertises the operating business package at $790,000. Buyers should confirm the final transaction structure and included assets directly with the listing broker.",
       },
       {
         label: "EBITDA",
         value: "Not Disclosed",
-        description: "EBITDA is not disclosed in the source listing.",
+        description: "The broker has not disclosed EBITDA.",
       },
       {
         label: "Established",
         value: "2021",
         description:
-          "The source listing states that the business was established in 2021.",
+          "The broker states that the business was established in 2021.",
       },
       {
         label: "Liquor License Classification",
         value: "4COP Quota",
         description:
-          "The source listing states that a hard-liquor license is included. A 4COP quota license is a county-limited transferable quota license that may support full-liquor privileges subject to the approved series, premises, zoning, and DBPR/ABT approval.",
+          "The broker states that a hard-liquor license is included. A 4COP quota license is a county-limited transferable quota license that may support full-liquor privileges subject to the approved series, premises, zoning, and DBPR/ABT approval.",
         href: "/license-types/4cop-quota",
       },
       {
@@ -185,37 +186,37 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
         label: "Furniture, Fixtures & Equipment",
         value: "$200,000 included",
         description:
-          "The source listing states that approximately $200,000 of furniture, fixtures, and equipment is included in the asking price.",
+          "The broker states that approximately $200,000 of furniture, fixtures, and equipment is included in the asking price.",
       },
       {
         label: "Employees",
         value: "8 full-time",
         description:
-          "The source listing states that the business has eight full-time employees. Buyers should verify payroll, roles, benefits, and continued employment during due diligence.",
+          "The broker states that the business has eight full-time employees. Buyers should verify payroll, roles, benefits, and continued employment during due diligence.",
       },
       {
         label: "Premises",
         value: "7,828 SF leased",
         description:
-          "The source listing states that the operating premises contain approximately 7,828 square feet and are leased.",
+          "The broker states that the operating premises contain approximately 7,828 square feet and are leased.",
       },
       {
         label: "Monthly Rent",
         value: "$17,490",
         description:
-          "The source listing states monthly rent of $17,490. Buyers should verify the lease, assignment rights, options, CAM, and landlord requirements.",
+          "The broker states monthly rent of $17,490. Buyers should verify the lease, assignment rights, options, CAM, and landlord requirements.",
       },
       {
         label: "Real Estate",
         value: "Not Included",
         description:
-          "The source listing states that the opportunity is a business-only sale and that the real estate is not included.",
+          "The broker states that the opportunity is a business-only sale and that the real estate is not included.",
       },
       {
         label: "Reason for Selling",
         value: "Other business interests",
         description:
-          "The source listing states that the seller is pursuing other business interests.",
+          "The broker states that the seller is pursuing other business interests.",
       },
     ],
     opportunitiesHeading: "Offering Highlights",
@@ -227,7 +228,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
       "Pursue additional private events, VIP reservations, digital marketing, entertainment programming, themed nights, strategic partnerships, and extended brand promotion.",
     ],
     transitionText:
-      "The source listing states that the seller is willing to provide a reasonable transition period to familiarize the buyer with daily operations, staff workflow, vendor relationships, menu concept, event format, and general business procedures.",
+      "The broker states that the seller is willing to provide a reasonable transition period to familiarize the buyer with daily operations, staff workflow, vendor relationships, menu concept, event format, and general business procedures.",
     confidentialityText:
       "serious inquiries should confirm business identity, financial records, lease documents, licensing records, included assets, and transaction terms directly through the listing broker before reliance.",
     sourceDisclosure:
