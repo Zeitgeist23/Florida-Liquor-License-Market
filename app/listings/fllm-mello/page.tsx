@@ -30,24 +30,24 @@ const socialImageUrl = "https://www.floridaliquorlicensemarket.com/assets/broker
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Delray Beach Restaurant + 4COP Quota License | $359,000 Package",
+  title: "Delray Beach Restaurant with Full Liquor License for Sale | 4COP Quota",
   description:
-    "Featured Leonard Mello broker listing for a Delray Beach restaurant and bar offered as a $359,000 business + 4COP quota license package. Business component $159,000; allocated license value $200,000.",
+    "Delray Beach restaurant with full liquor license for sale: turnkey restaurant and bar with a transferable Palm Beach County 4COP Quota full-liquor license. $359,000 total package.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Delray Beach Restaurant + 4COP Quota License",
+    title: "Delray Beach Restaurant with Full Liquor License | 4COP Quota",
     description:
-      "Featured Leonard Mello broker listing. $359,000 total package: $159,000 business component plus a Palm Beach County 4COP quota license allocated at $200,000.",
+      "Turnkey Delray Beach restaurant and bar for sale with a transferable Palm Beach County 4COP Quota full-liquor license. $359,000 total package.",
     siteName: "Florida Liquor License Market",
     images: [{ url: socialImageUrl, alt: "Leonard Mello — FLLM featured listing" }],
   },
   twitter: {
     card: "summary_large_image",
     images: [socialImageUrl],
-    title: "Delray Beach Restaurant + 4COP Quota License",
+    title: "Delray Beach Restaurant with Full Liquor License | 4COP Quota",
     description:
       "Delray Beach restaurant and bar + Palm Beach County 4COP quota license package represented by Leonard Mello of We Sell Restaurants.",
   },
@@ -69,7 +69,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   businessLabelLinkUrl:
     "https://www.bizbuysell.com/business-opportunity/delray-beach-restaurant-for-sale-steps-from-atlantic-ave/2543468/",
   heroSummary:
-    "Palm Beach County 4COP quota liquor license available with the acquisition of the associated turnkey Delray Beach restaurant and leasehold rights. The business is offered at $159,000, and the transferable license is separately stated at $200,000.",
+    "Turnkey Delray Beach restaurant and bar for sale with an included transferable Palm Beach County 4COP Quota full liquor license. Located just off Atlantic Avenue, the business is offered at $159,000 and the transferable license is separately stated at $200,000.",
   broker: {
     name: "Leonard Mello",
     brokerage: "We Sell Restaurants",
@@ -83,7 +83,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     credential: "Florida sales associate license SL3659241",
   },
   additionalSellerIntro:
-    "Opportunity to acquire turnkey restaurant and bar leasehold rights just off Atlantic Avenue in Delray Beach together with the associated transferable Palm Beach County 4COP quota liquor license.",
+    "Opportunity to acquire a turnkey Delray Beach restaurant and bar with a full liquor license, located just off Atlantic Avenue. The package includes the associated transferable Palm Beach County 4COP Quota liquor license, distinguishing it from a premises-qualified 4COP SFS/SRX restaurant license.",
   packageIncludes:
     "The broker-reported offering consists of the restaurant leasehold rights, furniture, fixtures and equipment, the operating restaurant and bar infrastructure, and the transferable 4COP liquor license. The current restaurant name, recipes, menu and concept are not included. The business asking price is $159,000; the license is separately stated at $200,000 and is described as seller-financed at 6% interest-only, with the stated $1,000 monthly license payment included in rent, subject to definitive transaction documents and broker confirmation.",
   businessMetrics: [
