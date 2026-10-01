@@ -42,7 +42,7 @@ const brokerFaqs = [
 const sellerFaqs = [
   {
     q: "How do I list a Florida liquor license for sale?",
-    a: "A Florida liquor-license owner can use FLLM to request broker-assisted representation or choose a self-directed marketplace listing, depending on how much transaction support the seller wants.",
+    a: "An owner of a standalone transferable 4COP Quota or 3PS liquor license can use FLLM to request broker-assisted representation or choose a self-directed marketplace listing. FLLM does not broker restaurants or other operating businesses.",
   },
   {
     q: "Can I sell a Florida liquor license online myself?",
