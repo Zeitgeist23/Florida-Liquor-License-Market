@@ -9,6 +9,7 @@
     listing: (params.get("listing") || "").trim(),
     county: (params.get("county") || "").trim(),
     licenseType: (params.get("license_type") || "").trim(),
+    businessType: (params.get("business_type") || "").trim(),
     askingPrice: (params.get("asking_price") || "").trim(),
     status: (params.get("listing_status") || "").trim(),
     listingUrl: (params.get("listing_url") || "").trim(),
@@ -94,9 +95,14 @@
   function defaultMessage() {
     const summary = selectedLicenseSummary();
     if (isFeaturedBusinessPackage) {
-      return summary
-        ? `I am interested in ${summary}. Please contact me with current availability and additional details about this featured business package.`
-        : "I am interested in the featured business package. Please contact me with current availability and additional details.";
+      const businessAndLicense = [context.businessType, context.licenseType]
+        .filter(Boolean)
+        .join(" + ");
+      return businessAndLicense
+        ? `I am interested in this ${businessAndLicense} business package in ${context.county || "Florida"} at ${context.askingPrice || "the listed asking price"}. Please contact me with current availability and additional details about this featured business package.`
+        : summary
+          ? `I am interested in ${summary}. Please contact me with current availability and additional details about this featured business package.`
+          : "I am interested in the featured business package. Please contact me with current availability and additional details.";
     }
     return summary
       ? `I am interested in ${summary}. Please contact me with current availability and additional details about this specific license.`
@@ -135,6 +141,7 @@
       detailItem("Listing Reference", context.reference),
       detailItem("Asking Price", context.askingPrice),
       detailItem("County", context.county),
+      detailItem("Business Type", context.businessType),
       detailItem("License Type", context.licenseType),
       detailItem("Status", context.status),
     ].filter(Boolean).forEach((item) => grid.appendChild(item));
