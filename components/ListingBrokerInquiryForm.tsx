@@ -217,6 +217,7 @@ type Props = {
   financingDownPayment?: number;
   locale?: "en" | "es";
   previewCaptureOnly?: boolean;
+  inquiryTypeOverride?: string;
 };
 
 export default function ListingBrokerInquiryForm({
@@ -234,6 +235,7 @@ export default function ListingBrokerInquiryForm({
   financingDownPayment,
   locale = "en",
   previewCaptureOnly = false,
+  inquiryTypeOverride,
 }: Props) {
   const [status, setStatus] = useState<SubmitState>("idle");
   const [phone, setPhone] = useState("");
@@ -325,11 +327,11 @@ export default function ListingBrokerInquiryForm({
         <input
           type="hidden"
           name="inquiry_type"
-          value={previewCaptureOnly
+          value={inquiryTypeOverride || (previewCaptureOnly
             ? "Broker Preview Buyer Inquiry"
             : isSeller
               ? "Self-Directed Seller Listing Inquiry"
-              : "Third-Party Broker Listing Inquiry"}
+              : "Third-Party Broker Listing Inquiry")}
         />
         <input type="hidden" name="listing_reference" value={listingReference} />
         <input type="hidden" name="listing_requested" value={listingRequested} />
