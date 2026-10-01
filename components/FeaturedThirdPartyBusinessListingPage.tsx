@@ -189,7 +189,7 @@ function businessMetricTooltipDescription(
 
 function buildInquiryHref(config: FeaturedThirdPartyBusinessListingConfig) {
   const params = new URLSearchParams({
-    source: "specific-license",
+    source: "featured-business-package",
     listing: `${config.listingReference} — ${config.county} — ${config.licenseType} — ${config.askingPrice}`,
     ref: config.listingReference,
     county: config.county,
