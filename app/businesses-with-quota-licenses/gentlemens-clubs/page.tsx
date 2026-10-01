@@ -25,6 +25,11 @@ const faqs = [
       "FLLM's Florida Gentlemen's Clubs for Sale page displays active adult-entertainment business packages classified as Gentlemen's Club, including opportunities with transferable 4COP quota liquor licenses, leasehold interests, real estate, and other negotiated business assets when disclosed.",
   },
   {
+    question: "Does FLLM broker the sale of gentlemen's clubs or adult-entertainment businesses?",
+    answer:
+      "No. Florida Liquor License Market is not a business broker and does not broker gentlemen's clubs, adult-entertainment businesses, nightclubs, restaurants, or other operating businesses. The business sale remains with the owner and/or the owner's licensed business broker. FLLM brokerage services are limited to standalone transferable 4COP Quota and 3PS liquor licenses.",
+  },
+  {
     question: "What does it mean when a Florida gentlemen's club is sold with a 4COP quota license?",
     answer:
       "It means the operating adult-entertainment business is being offered with a transferable county quota full-liquor license as part of the acquisition. The business and the quota-license component can have separate values even when they are marketed together.",
@@ -208,7 +213,10 @@ export default async function GentlemensClubsWithQuotaLicensesPage() {
           </div>
 
           <div className="fllm-template-disclosure bar-package-disclosure">
-            <strong>Important distinction:</strong> this page is transactional business inventory. FLLM's separate
+            <strong>Important distinction:</strong> FLLM is not a business broker and does not broker gentlemen's clubs
+            or other operating businesses. Business-sale negotiations remain with the owner and/or the independent
+            licensed business broker representing the business. FLLM brokerage services are limited to standalone
+            transferable 4COP Quota and 3PS liquor licenses. FLLM's separate
             <Link href="/license-types/gentlemens-clubs-4cop-quota"> 4COP Gentlemen's Club license guide</Link> explains
             the licensing framework in more detail.
           </div>
@@ -317,8 +325,9 @@ export default async function GentlemensClubsWithQuotaLicensesPage() {
             ))}
           </div>
           <div className="fllm-template-disclosure">
-            <strong>Scope of FLLM services:</strong> FLLM provides marketplace, market-data, valuation/appraisal,
-            financing and transaction-resource services. Legal, zoning, adult-use, tax, accounting and escrow questions
+            <strong>Scope of FLLM services:</strong> FLLM provides marketplace advertising, market-data, valuation/appraisal,
+            financing and transaction-resource services for business packages, but does not broker the operating business.
+            FLLM brokerage is limited to standalone transferable 4COP Quota and 3PS liquor licenses. Legal, zoning, adult-use, tax, accounting and escrow questions
             should be handled by the appropriate independent professionals and local authorities. DBPR/DABT makes
             alcoholic-beverage licensing and transfer decisions.
           </div>
