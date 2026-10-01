@@ -11,7 +11,7 @@ const canonicalUrl = `${siteUrl}/how-to-sell-florida-liquor-license`;
 export const metadata: Metadata = {
   title: "How to Sell a Florida Liquor License | 7-Step Seller Guide",
   description:
-    "Learn how to sell a Florida liquor license in 7 steps. Choose full-service broker-assisted representation or self-directed selling, price the license, market it, negotiate terms, review ABT-6002 transfer requirements and coordinate closing.",
+    "Learn how to sell a standalone transferable Florida 4COP Quota or 3PS liquor license in 7 steps. Choose FLLM license brokerage or self-directed selling, price the license, market it, negotiate terms and coordinate the ABT transfer.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -172,7 +172,7 @@ export default function HowToSellFloridaLiquorLicensePage() {
         <div className="seo-market-shell buy-guide-quick">
           <article>
             <span className="seo-market-section-kicker">Quick Answer</span>
-            <h2>Choose full-service broker representation or self-directed control</h2>
+            <h2>Choose standalone quota-license brokerage or self-directed control</h2>
             <p>
               Full-service broker-assisted representation can include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, transaction coordination and coordination with the professionals involved in the transfer and closing. The exact scope and compensation are defined in a separate written brokerage agreement.
             </p>
