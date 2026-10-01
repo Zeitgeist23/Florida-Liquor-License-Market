@@ -18,6 +18,12 @@ function medianPrice(values: number[]) {
     : Math.round((sorted[midpoint - 1] + sorted[midpoint]) / 2);
 }
 
+const FLLM_3PS_TO_4COP_MATCHED_MARKET_FACTOR = 0.985;
+
+function roundToNearestFiveThousand(value: number) {
+  return Math.round(value / 5_000) * 5_000;
+}
+
 export function withMarketLicenseValues(
   listings: BusinessQuotaListing[],
   standaloneListings: Listing[],
@@ -33,10 +39,10 @@ export function withMarketLicenseValues(
       return { ...listing, allocatedLicenseValue: "No separate quota value" };
     }
 
-    const comparableType =
-      listing.licenseType === "3PS Quota / Package Store"
-        ? "3PS Quota / Package Store"
-        : "4COP Quota";
+    const is3ps = listing.licenseType === "3PS Quota / Package Store";
+    const comparableType = is3ps
+      ? "3PS Quota / Package Store"
+      : "4COP Quota";
 
     const countyPrices = standaloneListings
       .filter(
@@ -48,12 +54,48 @@ export function withMarketLicenseValues(
       )
       .map((marketListing) => marketListing.price as number);
 
-    const median = medianPrice(countyPrices);
+    const directMedian = medianPrice(countyPrices);
+
+    if (directMedian !== null) {
+      return {
+        ...listing,
+        allocatedLicenseValue: formatMoney(directMedian),
+        licenseValueBasis: is3ps
+          ? "county_3ps_median"
+          : "county_4cop_median",
+      };
+    }
+
+    if (is3ps) {
+      const county4copPrices = standaloneListings
+        .filter(
+          (marketListing) =>
+            marketListing.county === listing.county &&
+            marketListing.type === "4COP Quota" &&
+            typeof marketListing.price === "number" &&
+            Number.isFinite(marketListing.price),
+        )
+        .map((marketListing) => marketListing.price as number);
+
+      const county4copMedian = medianPrice(county4copPrices);
+
+      if (county4copMedian !== null) {
+        const proxyValue = roundToNearestFiveThousand(
+          county4copMedian * FLLM_3PS_TO_4COP_MATCHED_MARKET_FACTOR,
+        );
+
+        return {
+          ...listing,
+          allocatedLicenseValue: formatMoney(proxyValue),
+          licenseValueBasis: "county_4cop_series_proxy",
+        };
+      }
+    }
 
     return {
       ...listing,
-      allocatedLicenseValue:
-        median === null ? "Market data unavailable" : formatMoney(median),
+      allocatedLicenseValue: "Market data unavailable",
+      licenseValueBasis: "unavailable",
     };
   });
 }
