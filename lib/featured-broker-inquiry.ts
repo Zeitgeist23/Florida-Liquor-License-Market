@@ -50,40 +50,12 @@ const STATIC_FEATURED_BROKERS: Record<string, FeaturedBrokerRecipient> = {
     email: "JRDesAmours@myexitplan.com",
     phone: "(772) 356-2926",
   },
-  "FLLM-DIFRANCESCO": {
-    listingReference: "FLLM-DIFRANCESCO",
-    brokerName: "Nick DiFrancesco",
-    brokerage: "Business Exit Advisors",
-    email: "nick@myexitplan.com",
-    phone: "(561) 578-0584",
-  },
-  "FLLM-DINENO": {
-    listingReference: "FLLM-DINENO",
-    brokerName: "Chris DiNeno",
-    brokerage: "Restaurant Traders",
-    email: "ChrisD@EnterDine.com",
-    phone: "(813) 789-2468",
-  },
-  "FLLM-GREENE": {
-    listingReference: "FLLM-GREENE",
-    brokerName: "Mek Greene",
-    brokerage: "Results Real Estate Partners, LLC",
-    email: "mek@resultsrepartners.com",
-    phone: "(386) 216-9466",
-  },
   "FLLM-MELLO": {
     listingReference: "FLLM-MELLO",
     brokerName: "Leonard Mello",
     brokerage: "We Sell Restaurants",
     email: "Leonard@wesellrestaurants.com",
     phone: "(754) 262-3368",
-  },
-  "FLLM-NEGOVAN": {
-    listingReference: "FLLM-NEGOVAN",
-    brokerName: "Julie Negovan",
-    brokerage: "Patricia Burnside Realty",
-    email: "julie@patsburnside.com",
-    phone: "(305) 389-5800",
   },
   "FLLM-SOLANO": {
     listingReference: "FLLM-SOLANO",
@@ -105,20 +77,6 @@ const STATIC_FEATURED_BROKERS: Record<string, FeaturedBrokerRecipient> = {
     brokerage: "The Business Broker of Miami",
     email: "Thierry@businessbrokerofmiami.com",
     phone: "407-928-0725",
-  },
-  "FLLM-RUMIJA": {
-    listingReference: "FLLM-RUMIJA",
-    brokerName: "Marjan Rumija",
-    brokerage: "Krise Commercial Group, LLC",
-    email: "marjanflrealtor@gmail.com",
-    phone: "(239) 285-8922",
-  },
-  "FLLM-VLASOVA": {
-    listingReference: "FLLM-VLASOVA",
-    brokerName: "Mariya Vlasova",
-    brokerage: "Mariya Vlasova Real Estate",
-    email: "vlasovarealestate@gmail.com",
-    phone: "(321) 209-7182",
   },
 };
 
