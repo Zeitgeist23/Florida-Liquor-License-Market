@@ -3,8 +3,8 @@ import LicenseTypeExplainerPage from "@/components/LicenseTypeExplainerPage";
 import LicenseTypeCountyDirectory from "@/components/LicenseTypeCountyDirectory";
 
 export const metadata: Metadata = {
-  title: "What Is a Florida 4COP Quota Liquor License? | FLLM",
-  description: "Understand what a Florida 4COP quota liquor license is, what it allows, how it can potentially change to a 3PS quota package-sales series with DBPR approval, and how inactive ownership works.",
+  title: "Florida 4COP Quota Full-Liquor License Guide | FLLM",
+  description: "Understand Florida 4COP quota liquor licenses, commonly described in business listings as full-liquor or full liquor licenses, including privileges, transferability, series changes and inactive ownership.",
   alternates: { canonical: "https://www.floridaliquorlicensemarket.com/license-types/4cop-quota" },
 };
 
@@ -18,7 +18,7 @@ export default function Page() {
       imageAlt="Sharp interior view of a bar and lounge representing businesses that commonly use a Florida 4COP quota liquor license"
       definition="A Florida 4COP quota license is a county-limited full-liquor quota license recorded in the 4COP consumption-on-premises series. It can authorize beer, wine and distilled spirits for consumption on the licensed premises and, within its approved privileges, package sales for off-premises consumption."
       populationRule={{ text: "Florida’s quota system generally makes one additional quota license available for each increase of 7,500 residents in a county, subject to the statute’s census baseline and exceptions.", href: "https://www.flsenate.gov/Laws/Statutes/2025/561.20", citation: "Fla. Stat. § 561.20(1)(a)" }}
-      plainEnglish="Think of the quota license as the scarce county license interest and 4COP as the operating series used when that quota license is approved for full-liquor consumption on premises. That is why people commonly say they are buying a 4COP, even though the quota status and 4COP series describe different aspects of the license."
+      plainEnglish="Think of the quota license as the scarce county license interest and 4COP as the operating series used when that quota license is approved for full-liquor consumption on premises. Business brokers and sellers often describe this as a “full liquor license” or “full-liquor license,” but those are marketplace terms rather than Florida license-series names. That is why FLLM keeps the 4COP quota classification visible even when matching the language buyers actually search."
       plainEnglishHighlights={["quota status", "4COP series"]}
       seriesMeaning="In 4COP, COP stands for Consumption on Premises."
       organizedSummary
@@ -111,8 +111,8 @@ export default function Page() {
         { href: "/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law", label: "Florida cocktails-to-go: current restaurant rules", description: "Review the current food-order, sealing, packaging and delivery rules that can matter to qualifying restaurant operations." }
       ]}
       researchLinks={[
-        { href: "/restaurants-with-liquor-licenses#quota-restaurant-inventory", label: "Restaurants for Sale With 4COP Quota Licenses", description: "Browse Florida restaurant and bar-and-grill business packages that include transferable 4COP quota liquor licenses." },
-        { href: "/businesses-with-quota-licenses", label: "Florida Businesses for Sale With 4COP Quota Liquor Licenses", description: "Browse operating Florida business packages that include transferable quota liquor licenses, kept separate from FLLM's standalone license inventory." },
+        { href: "/restaurants-with-liquor-licenses#quota-restaurant-inventory", label: "Restaurants for Sale With Full-Liquor / 4COP Quota Licenses", description: "Browse Florida restaurant and bar-and-grill business packages advertised with full-liquor privileges and identified by FLLM as transferable 4COP quota liquor-license opportunities." },
+        { href: "/businesses-with-quota-licenses", label: "Florida Businesses for Sale With Full-Liquor / 4COP Licenses", description: "Browse operating Florida business packages using the full-liquor search language common in broker advertising while keeping transferable 4COP quota licenses distinct from other license structures." },
         { href: "/resources/florida-liquor-license-laws#cocktails-to-go", label: "Cocktails-to-Go Statutes Explained by FLLM", description: "Review FLLM's explanation of SB 148, section 565.045 and the related open-container provision." },
         { href: "/license-types/4cop-sfs-restaurant", label: "Compare 4COP-SFS", description: "Compare the transferable quota license with the qualification-based restaurant license." },
         { href: "/license-types/gentlemens-clubs-4cop-quota", label: "4COP Quota Licenses for Gentlemen's Clubs", description: "See how a 4COP quota license can fit into an adult-entertainment transaction while zoning and adult-use approvals remain separate." }
