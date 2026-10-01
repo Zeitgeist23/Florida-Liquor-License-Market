@@ -34,10 +34,11 @@ const faqs = [
     question: "Does FLLM act as the business broker for my restaurant?",
     answer: (
       <p>
-        Not merely because a restaurant appears on FLLM. FLLM provides marketplace advertising, liquor-license market
-        information, valuation, financing and transaction-support resources. A separate written agreement would be
-        required for any professional representation that is lawfully offered; otherwise the restaurant owner or the
-        owner&apos;s business broker remains responsible for the business sale.
+        No. Florida Liquor License Market is not a business broker and does not broker the sale of restaurants or other
+        operating businesses. Restaurant and business sales remain the responsibility of the owner and/or the owner&apos;s
+        licensed business broker. FLLM provides marketplace advertising, liquor-license market information, valuation,
+        financing and transaction-support resources. FLLM brokerage services are limited to standalone transferable
+        Florida quota liquor licenses, including 4COP Quota and 3PS licenses.
       </p>
     ),
   },
@@ -114,7 +115,7 @@ export default function SellFloridaRestaurantPage() {
             faq.question === "Can I advertise a Florida restaurant for sale through FLLM?"
               ? "FLLM accepts restaurant-business opportunities where the alcoholic-beverage license is an important part of the sale or operating structure, with the actual Florida license type identified."
               : faq.question === "Does FLLM act as the business broker for my restaurant?"
-                ? "Not merely because a restaurant appears on FLLM. FLLM provides marketplace advertising and liquor-license resources; any professional representation requires a separate lawful written agreement."
+                ? "No. Florida Liquor License Market is not a business broker and does not broker restaurants or operating businesses. Restaurant and business sales remain with the owner or the owner's licensed business broker. FLLM brokerage services are limited to standalone transferable 4COP Quota and 3PS liquor licenses."
                 : faq.question === "Can a business broker list a restaurant on FLLM?"
                   ? "Yes. Featured third-party broker listings identify the broker and brokerage and direct buyer inquiries to the listing broker."
                   : "FLLM separates license type and license-market information because Florida liquor-license structures differ significantly in transferability and value.",
@@ -276,10 +277,10 @@ export default function SellFloridaRestaurantPage() {
             </div>
 
             <FllmDisclosure>
-              <strong>FLLM marketplace role:</strong> Florida Liquor License Market is not holding itself out as the
-              business broker for every restaurant displayed on the platform. Market Views provide market intelligence;
-              broker-authorized Featured Listings identify the broker representing the business. Any separate professional
-              representation requires the appropriate written engagement.
+              <strong>FLLM marketplace role:</strong> Florida Liquor License Market is not a business broker and does not
+              broker restaurants or other operating businesses. Market Views provide market intelligence, and
+              broker-authorized Featured Listings identify the independent business broker representing the business.
+              FLLM brokerage services are limited to standalone transferable 4COP Quota and 3PS liquor licenses.
             </FllmDisclosure>
           </div>
         </section>
