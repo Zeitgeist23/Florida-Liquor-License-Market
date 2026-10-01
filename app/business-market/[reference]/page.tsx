@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import BusinessPackageHeatMap, { type BusinessPackageHeatMapRow } from "@/components/BusinessPackageHeatMap";
 import BusinessMarketHeroMap from "@/components/BusinessMarketHeroMap";
 import BusinessMarketLicenseFeatureCards from "@/components/BusinessMarketLicenseFeatureCards";
+import BusinessMarketplaceRoleDisclosure from "@/components/BusinessMarketplaceRoleDisclosure";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
 import { ListingSidebarLoanCalculator } from "@/components/ListingBrokerInquiryForm";
@@ -452,14 +453,15 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   </div>
                 </div>
 
+                <BusinessMarketplaceRoleDisclosure />
+
                 <div className="business-market-disclosure">
                   <strong>Market-data disclosure</strong>
                   <p>
                     The business-package counts shown on FLLM Market View pages may include opportunities
                     observed on third-party public marketplaces. Those businesses are not FLLM-listed businesses
-                    unless a page expressly identifies an authorized FLLM listing. Florida Liquor License Market
-                    is not a Florida real estate broker or business broker and does not participate in, share,
-                    or receive real-estate or business-broker commissions. FLLM provides liquor-license market
+                    unless a page expressly identifies an authorized FLLM listing. FLLM does not participate in,
+                    share, or receive real-estate or business-broker commissions. FLLM provides liquor-license market
                     information, advertising, valuation, financing, and transaction-support resources.
                   </p>
                 </div>
