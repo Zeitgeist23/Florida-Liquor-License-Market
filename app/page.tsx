@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Florida Liquor License Market | Buy, Sell & Broker-Assisted Representation",
   description:
-    "Florida Liquor License Market is a specialized statewide marketplace where sellers can request full-service broker-assisted representation through FLLM itself or choose a self-directed listing. Browse Florida liquor licenses, market data, financing and valuation resources.",
+    "Florida Liquor License Market is a specialized statewide marketplace for Florida liquor licenses and business-package advertising. FLLM broker-assisted representation is limited to standalone transferable 4COP Quota and 3PS liquor licenses; operating-business sales remain with the owner or independent business broker.",
   alternates: {
     canonical: "https://www.floridaliquorlicensemarket.com/",
   },
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: "https://www.floridaliquorlicensemarket.com/",
     title: "Florida Liquor License Market | Buy, Sell & Broker-Assisted Representation",
     description:
-      "Choose full-service broker-assisted representation through FLLM or a self-directed marketplace listing, with statewide liquor-license inventory, market data, financing and valuation resources.",
+      "Choose FLLM broker-assisted representation for standalone transferable 4COP Quota and 3PS liquor licenses or use self-directed marketplace advertising. Operating-business sales remain with the owner or independent business broker.",
     siteName: "Florida Liquor License Market",
   },
 };
