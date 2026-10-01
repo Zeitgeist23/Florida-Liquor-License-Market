@@ -1108,3 +1108,11 @@
   width: 100%;
   text-align: center;
 }
+
+
+/* Sell a Florida Restaurant: center bold white titles in license and seller/broker cards. */
+.sell-florida-restaurant-page .sell-restaurant-license-type-cards .fllm-template-card-title,
+.sell-florida-restaurant-page #seller-options .fllm-ui-step-card h3 {
+  width: 100%;
+  text-align: center;
+}
