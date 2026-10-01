@@ -1282,6 +1282,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                   listingStatus={statusLabel}
                   listingUrl={config.canonicalPath}
                   recipientKind={config.sellerDirect ? "seller" : "broker"}
+                  inquiryTypeOverride={config.sellerDirect ? undefined : "Specific Buyer Featured Business Package Inquiry"}
                   locale={config.locale}
                   previewCaptureOnly={Boolean(config.approvalPreview)}
                   showFinancingCalculator={usesBusinessFinancing && (!config.approvalPreview || Boolean(config.showPreviewFinancingCalculator))}
