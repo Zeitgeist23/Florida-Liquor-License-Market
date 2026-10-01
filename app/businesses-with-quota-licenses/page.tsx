@@ -66,6 +66,17 @@ const businessQuotaFaqs = [
     ),
   },
   {
+    question: "Does FLLM broker the sale of operating businesses shown in its business marketplace?",
+    answer: (
+      <>
+        No. Florida Liquor License Market is not a business broker and does not broker restaurants, bars, nightclubs,
+        gentlemen&apos;s clubs or other operating businesses. Business sales remain with the owner and/or the independent
+        licensed business broker representing the business. FLLM brokerage services are limited to standalone transferable
+        4COP Quota and 3PS liquor licenses.
+      </>
+    ),
+  },
+  {
     question: "Where can I find Florida businesses for sale with liquor licenses?",
     answer: (
       <>
