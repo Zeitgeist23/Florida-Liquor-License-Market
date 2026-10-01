@@ -36,6 +36,17 @@ const businessQuotaFaqs = [
     ),
   },
   {
+    question: "What does “full liquor license” mean in a Florida business-for-sale listing?",
+    answer: (
+      <>
+        “Full liquor” and “full liquor license” are common buyer, seller and business-broker terms for alcoholic-beverage
+        privileges that include distilled spirits as well as beer and wine. In Florida, the exact license structure still matters:
+        a transferable 4COP quota license is different from a location-specific 4COP SFS / SRX restaurant license. FLLM keeps
+        the technical classification visible while also using the search language buyers commonly use.
+      </>
+    ),
+  },
+  {
     question: "Is a 4COP quota license transferable when a Florida business is sold?",
     answer: (
       <>
@@ -70,7 +81,7 @@ const businessQuotaFaqs = [
 export const metadata: Metadata = {
   title: "Florida Businesses for Sale With Liquor Licenses | FLLM",
   description:
-    "Browse Florida businesses for sale with liquor licenses, including bars, restaurants, liquor stores, nightclubs and hospitality businesses with 4COP, 3PS and other license types.",
+    "Browse Florida businesses for sale with liquor licenses, including full-liquor bars, restaurants and nightclubs with 4COP quota or SFS/SRX licenses, plus 3PS and 2COP opportunities.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -78,13 +89,13 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Florida Businesses for Sale With Liquor Licenses",
     description:
-      "Browse operating Florida businesses for sale with liquor licenses, including bars, restaurants, liquor stores, nightclubs and other hospitality businesses.",
+      "Browse operating Florida businesses for sale with liquor licenses, including full-liquor bars, restaurants and nightclubs, plus 4COP, 3PS, SFS/SRX and 2COP license structures.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary_large_image",
     title: "Florida Businesses for Sale With Liquor Licenses",
-    description: "Browse Florida operating businesses for sale with 4COP, 3PS and other liquor-license types.",
+    description: "Browse Florida businesses for sale with full-liquor, 4COP, 3PS, SFS/SRX and other liquor-license types.",
   },
 };
 
@@ -104,7 +115,7 @@ export default async function BusinessesWithQuotaLicensesPage() {
       name: "Florida Businesses for Sale With Liquor Licenses",
       url: canonicalUrl,
       description:
-        "Florida operating businesses for sale with liquor licenses, including bars, restaurants, liquor stores, nightclubs and hospitality businesses with included 4COP, 3PS and other license types.",
+        "Florida operating businesses for sale with liquor licenses, including full-liquor bars, restaurants and nightclubs with 4COP quota or SFS/SRX structures, plus 3PS and 2COP opportunities.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
@@ -128,7 +139,9 @@ export default async function BusinessesWithQuotaLicensesPage() {
               ? item.answer
               : item.question === "Where can I find Florida businesses for sale with liquor licenses?"
                 ? "FLLM provides an original Florida business-and-liquor-license market hub covering bars, restaurants, liquor stores, nightclubs and other hospitality businesses. Featured broker listings are identified separately from FLLM Market Views of observed market activity."
-                : item.question === "Is a 4COP quota license the same as a 4COP SFS / SRX restaurant license?"
+                : item.question === "What does “full liquor license” mean in a Florida business-for-sale listing?"
+                  ? "Full liquor and full liquor license are common marketplace terms for privileges that include distilled spirits, beer and wine. In Florida, the exact license classification still matters because a transferable 4COP quota license differs from a location-specific 4COP SFS / SRX restaurant license."
+                  : item.question === "Is a 4COP quota license the same as a 4COP SFS / SRX restaurant license?"
                   ? "No. A 4COP quota license is a county-limited transferable quota asset. A 4COP SFS / SRX license is a qualification-based restaurant license tied to the qualifying operation and approved premises."
                   : item.question === "Is a 4COP quota license transferable when a Florida business is sold?"
                     ? "A 4COP quota license is a transferable county quota asset, but the transaction still requires the applicable Florida DBPR / Division of Alcoholic Beverages and Tobacco transfer process and approvals."
