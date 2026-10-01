@@ -181,7 +181,7 @@ export default function SeoAuthorityEnhancements() {
             <span>Online Florida Liquor License Marketplace</span>
             <h2 id="fllm-online-marketplace-title">List a Florida liquor license for sale online</h2>
             <p>
-              Florida Liquor License Market gives owners a specialized statewide place to advertise transferable 4COP quota and 3PS package-store licenses online. Sellers can choose a self-directed marketplace listing or request full-service broker-assisted representation, while buyers can <Link href="/listings">browse Florida liquor licenses for sale online</Link> by county and license type.
+              Florida Liquor License Market gives owners a specialized statewide place to advertise transferable 4COP quota and 3PS package-store licenses online. Owners of standalone transferable 4COP Quota and 3PS licenses can choose a self-directed marketplace listing or request FLLM broker-assisted representation. FLLM does not broker operating businesses. Buyers can <Link href="/listings">browse Florida liquor licenses for sale online</Link> by county and license type.
             </p>
             <div className="fllm-online-marketplace-faq__items">
               <details>
