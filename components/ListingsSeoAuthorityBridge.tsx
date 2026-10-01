@@ -31,7 +31,7 @@ const resourceGroups = [
   },
   {
     title: "Sell or Advertise a License",
-    description: "Choose self-directed advertising, broker-assisted representation or a client-license listing.",
+    description: "Choose self-directed advertising, standalone 4COP/3PS license brokerage or a client-license listing. Operating-business sales remain with the owner or independent business broker.",
     links: [
       { href: "/sell-your-license", label: "List Your License" },
       { href: "/florida-liquor-license-broker", label: "FLLM Broker Services" },
