@@ -42,7 +42,7 @@ const faqs = [
   {
     question: "How can FLLM assist a business broker or attorney handling a bar sale?",
     answer:
-      "FLLM can provide quota-license market data, valuation and appraisal resources, transfer-process references, FDOR and ABT preparation resources, financing coordination and independent professional referrals. The broker or attorney remains responsible for the business transaction and any professional services within their scope.",
+      "FLLM is not a business broker and does not broker bar businesses or other operating businesses. FLLM can provide quota-license market data, valuation and appraisal resources, transfer-process references, FDOR and ABT preparation resources, financing coordination and independent professional referrals. The owner, licensed business broker and counsel remain responsible for the business transaction. FLLM brokerage is limited to standalone transferable 4COP Quota and 3PS liquor licenses.",
   },
   {
     question: "Where can I find bars for sale with liquor licenses in Duval County, Florida?",
