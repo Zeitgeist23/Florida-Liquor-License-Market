@@ -154,7 +154,7 @@ export default function SellFloridaRestaurantPage() {
                 </div>
               </div>
 
-              <aside className="seo-market-snapshot" aria-label="Restaurant and liquor-license overview">
+              <aside className="seo-market-snapshot sell-restaurant-license-snapshot" aria-label="Restaurant and liquor-license overview">
                 <span>Restaurant + License Structure</span>
                 <div className="seo-market-snapshot-grid">
                   <div><strong>4COP Quota</strong><small>Transferable county quota asset</small></div>
