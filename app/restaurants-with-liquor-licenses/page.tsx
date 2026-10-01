@@ -49,6 +49,10 @@ export const metadata: Metadata = {
     "Orlando restaurants for sale with liquor license",
     "Orlando restaurant for sale with 4COP SFS SRX license",
     "Orange County restaurant for sale with liquor license",
+    "South Florida restaurants for sale with full liquor license",
+    "Miami restaurants for sale with full liquor license",
+    "Fort Lauderdale restaurants for sale with full liquor license",
+    "Delray Beach restaurants for sale with full liquor license",
   ],
   openGraph: {
     type: "website",
@@ -361,6 +365,66 @@ export default async function RestaurantsWithLiquorLicensesPage() {
               <div className="fllm-ui-actions">
                 <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/weston">
                   Weston Restaurant Market
+                </Link>
+              </div>
+            </FllmCard>
+            <FllmCard
+              eyebrow={<span className="restaurant-card-cyan-label">Regional Market</span>}
+              title="South Florida Restaurants With Full Liquor"
+              variant="gold"
+            >
+              <p>
+                Compare restaurant opportunities across Miami-Dade, Broward and Palm Beach counties using the buyer-language phrase
+                “full liquor” while preserving the actual 4COP Quota or 4COP SFS / SRX license structure.
+              </p>
+              <div className="fllm-ui-actions">
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/south-florida">
+                  South Florida Restaurant Market
+                </Link>
+              </div>
+            </FllmCard>
+            <FllmCard
+              eyebrow={<span className="restaurant-card-cyan-label">Miami-Dade</span>}
+              title="Miami Restaurants for Sale With Full Liquor"
+              variant="gold"
+            >
+              <p>
+                Browse Miami and Miami-Dade restaurant opportunities with full-liquor privileges, including transferable 4COP Quota
+                and qualification-based 4COP SFS / SRX structures.
+              </p>
+              <div className="fllm-ui-actions">
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/miami">
+                  Miami Restaurant Market
+                </Link>
+              </div>
+            </FllmCard>
+            <FllmCard
+              eyebrow={<span className="restaurant-card-cyan-label">Broward County</span>}
+              title="Fort Lauderdale Restaurants With Full Liquor"
+              variant="gold"
+            >
+              <p>
+                Explore Fort Lauderdale and nearby Broward County restaurant opportunities with full-liquor privileges and clearly
+                identified 4COP license structures.
+              </p>
+              <div className="fllm-ui-actions">
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/fort-lauderdale">
+                  Fort Lauderdale Restaurant Market
+                </Link>
+              </div>
+            </FllmCard>
+            <FllmCard
+              eyebrow={<span className="restaurant-card-cyan-label">Palm Beach County</span>}
+              title="Delray Beach Restaurants With Full Liquor"
+              variant="gold"
+            >
+              <p>
+                Research Delray Beach and Palm Beach County restaurant opportunities with full-liquor licenses, including the
+                transferable 4COP Quota structure featured in FLLM broker listings such as the Mello opportunity.
+              </p>
+              <div className="fllm-ui-actions">
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/delray-beach">
+                  Delray Beach Restaurant Market
                 </Link>
               </div>
             </FllmCard>
