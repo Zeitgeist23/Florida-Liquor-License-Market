@@ -194,6 +194,7 @@ function buildInquiryHref(config: FeaturedThirdPartyBusinessListingConfig) {
     ref: config.listingReference,
     county: config.county,
     license_type: config.licenseType,
+    business_type: config.businessLabel,
     asking_price: config.packagePrice,
     listing_status: "Available / Broker confirmation required",
     listing_url: config.canonicalPath,
