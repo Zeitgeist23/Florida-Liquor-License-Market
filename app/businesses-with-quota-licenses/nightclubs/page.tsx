@@ -85,6 +85,9 @@ export default async function NightclubsWithQuotaLicensesPage() {
     (listing) => listing.businessCategory === "Nightclub",
   );
   const nightclubListings = allNightclubListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
+  const miamiDadeNightclubListings = allNightclubListings.filter(
+    (listing) => listing.county === "Miami-Dade County",
+  );
 
   const structuredData = [
     {
@@ -235,7 +238,21 @@ export default async function NightclubsWithQuotaLicensesPage() {
             </strong>
           </div>
 
-          <BusinessPackageLocalMarkets listings={allNightclubListings} />
+          <BusinessPackageLocalMarkets
+            listings={allNightclubListings}
+            label="Nightclub / full-liquor markets in current inventory"
+          />
+
+          {miamiDadeNightclubListings.length > 0 ? (
+            <p className="business-package-local-markets">
+              <strong>Miami-Dade full-liquor nightclub market:</strong> FLLM currently tracks{" "}
+              {miamiDadeNightclubListings.length} Miami-Dade County nightclub business package
+              {miamiDadeNightclubListings.length === 1 ? "" : "s"} in this category. Buyers searching for a
+              nightclub for sale with a full liquor license in Miami should verify whether the package uses a
+              transferable 4COP quota license or another full-liquor structure and compare the license component
+              separately from the business asking price.
+            </p>
+          ) : null}
 
           <div className="business-quota-separation-note">
             <strong>Business package ≠ standalone license listing</strong>
