@@ -63,7 +63,7 @@ export default async function SouthFloridaRestaurantsForSalePage() {
     ...withMarketLicenseValues(business2copListings, standaloneListings),
   ].filter(
     (listing) =>
-      ["Miami-Dade County", "South Florida", "Palm Beach County"].includes(listing.county) &&
+      ["Miami-Dade County", "Broward County", "Palm Beach County"].includes(listing.county) &&
       (listing.businessCategory === "Restaurant" ||
         /restaurant/i.test(`${listing.title} ${listing.businessType}`)),
   );
@@ -80,15 +80,15 @@ export default async function SouthFloridaRestaurantsForSalePage() {
       /italian/i.test(`${listing.title} ${listing.businessType}`),
   );
 
-  const exactSouth FloridaListings = browardRestaurantListings.filter((listing) =>
-    /\bsouth-florida\b/i.test(`${listing.title} ${listing.businessType}`),
+  const exactSouthFloridaListings = browardRestaurantListings.filter((listing) =>
+    /\bsouth florida\b/i.test(`${listing.title} ${listing.businessType}`),
   );
 
   const nearbyBrowardListings = browardRestaurantListings.filter(
-    (listing) => !exactSouth FloridaListings.includes(listing),
+    (listing) => !exactSouthFloridaListings.includes(listing),
   );
 
-  const south-floridaFaqs = [
+  const southFloridaFaqs = [
     {
       question: "Where can I search for restaurants for sale in South Florida?",
       answer: "FLLM's South Florida restaurant market page organizes South Florida buyer searches around South Florida restaurant activity, full-liquor privileges, 4COP license structures and cuisine while preserving the actual location of each Market View.",
@@ -120,7 +120,7 @@ export default async function SouthFloridaRestaurantsForSalePage() {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: south-floridaFaqs.map((faq) => ({
+      mainEntity: southFloridaFaqs.map((faq) => ({
         "@type": "Question",
         name: faq.question,
         acceptedAnswer: { "@type": "Answer", text: faq.answer },
@@ -255,8 +255,8 @@ export default async function SouthFloridaRestaurantsForSalePage() {
             title="Restaurant opportunities relevant to South Florida buyers"
             copy={
               <p>
-                {exactSouth FloridaListings.length
-                  ? `FLLM currently shows ${exactSouth FloridaListings.length} restaurant Market View${exactSouth FloridaListings.length === 1 ? "" : "s"} within the South Florida tri-county market, plus additional South Florida restaurant Market Views.`
+                {exactSouthFloridaListings.length
+                  ? `FLLM currently shows ${exactSouthFloridaListings.length} restaurant Market View${exactSouthFloridaListings.length === 1 ? "" : "s"} within the South Florida tri-county market, plus additional South Florida restaurant Market Views.`
                   : "FLLM does not currently show a published restaurant Market View within the South Florida tri-county market. The inventory below is current Miami-Dade, Broward and Palm Beach restaurant Market Views displayed with its actual location so South Florida buyers can compare opportunities without location ambiguity."}
               </p>
             }
@@ -267,9 +267,9 @@ export default async function SouthFloridaRestaurantsForSalePage() {
             label="South Florida restaurant markets represented in current inventory"
           />
 
-          {exactSouth FloridaListings.length ? (
+          {exactSouthFloridaListings.length ? (
             <div className="business-quota-grid">
-              {exactSouth FloridaListings.map((listing) => (
+              {exactSouthFloridaListings.map((listing) => (
                 <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
               ))}
             </div>
