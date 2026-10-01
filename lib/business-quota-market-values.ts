@@ -27,8 +27,8 @@ function roundToNearestFiveThousand(value: number) {
 export function withMarketLicenseValues(
   listings: BusinessQuotaListing[],
   standaloneListings: Listing[],
-) {
-  return listings.map((listing) => {
+): BusinessQuotaListing[] {
+  return listings.map((listing): BusinessQuotaListing => {
     if (listing.listingTier !== "market") return listing;
 
     if (listing.licenseClass === "sfs") {
