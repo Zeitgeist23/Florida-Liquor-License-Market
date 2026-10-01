@@ -4,6 +4,7 @@
 
   const params = new URLSearchParams(window.location.search);
   const context = {
+    source: (params.get("source") || "").trim(),
     reference: (params.get("ref") || "").trim(),
     listing: (params.get("listing") || "").trim(),
     county: (params.get("county") || "").trim(),
@@ -12,6 +13,8 @@
     status: (params.get("listing_status") || "").trim(),
     listingUrl: (params.get("listing_url") || "").trim(),
   };
+
+  const isFeaturedBusinessPackage = context.source === "featured-business-package";
 
   const hasListingContext = Boolean(
     context.reference ||
@@ -90,6 +93,11 @@
 
   function defaultMessage() {
     const summary = selectedLicenseSummary();
+    if (isFeaturedBusinessPackage) {
+      return summary
+        ? `I am interested in ${summary}. Please contact me with current availability and additional details about this featured business package.`
+        : "I am interested in the featured business package. Please contact me with current availability and additional details.";
+    }
     return summary
       ? `I am interested in ${summary}. Please contact me with current availability and additional details about this specific license.`
       : "I am interested in the selected liquor license. Please contact me with current availability and additional details.";
@@ -99,12 +107,12 @@
     const panel = document.createElement("section");
     panel.className = "contact-license-context";
     panel.dataset.fllmListingContext = "true";
-    panel.setAttribute("aria-label", "Selected license details");
+    panel.setAttribute("aria-label", isFeaturedBusinessPackage ? "Selected business package details" : "Selected license details");
 
     const heading = document.createElement("div");
     heading.className = "contact-license-context-heading";
     const eyebrow = document.createElement("span");
-    eyebrow.textContent = "Selected License";
+    eyebrow.textContent = isFeaturedBusinessPackage ? "Selected Business Package" : "Selected License";
     const title = document.createElement("h3");
     const titleText = context.county && context.licenseType
       ? `${context.county} · ${context.licenseType}`
@@ -132,14 +140,16 @@
     ].filter(Boolean).forEach((item) => grid.appendChild(item));
 
     const note = document.createElement("p");
-    note.textContent = "These specific license details will be included with your confidential inquiry.";
+    note.textContent = isFeaturedBusinessPackage
+      ? "These featured business package details will be included with your confidential buyer inquiry."
+      : "These specific license details will be included with your confidential inquiry.";
 
     panel.append(heading, grid, note);
 
     if (listingPath) {
       const link = document.createElement("a");
       link.href = listingPath;
-      link.textContent = "Return to this license page →";
+      link.textContent = isFeaturedBusinessPackage ? "Return to this featured business package →" : "Return to this license page →";
       panel.appendChild(link);
     }
 
@@ -172,8 +182,11 @@
       if (!(form instanceof HTMLFormElement)) return false;
 
       const formHeading = form.querySelector(".seller-form-heading h2");
-      if (formHeading && formHeading.textContent?.trim() !== "Inquire About This License") {
-        formHeading.textContent = "Inquire About This License";
+      const desiredHeading = isFeaturedBusinessPackage
+        ? "Inquire About This Featured Business Package"
+        : "Inquire About This License";
+      if (formHeading && formHeading.textContent?.trim() !== desiredHeading) {
+        formHeading.textContent = desiredHeading;
       }
 
       let panel = form.querySelector('[data-fllm-listing-context="true"]');
@@ -188,14 +201,32 @@
       installSubmitSync(form);
 
       const subject = form.querySelector('input[name="_subject"]');
-      const subjectValue = context.reference
-        ? `FLLM License Inquiry — ${context.reference}`
-        : "Florida Liquor License Market — Specific License Inquiry";
+      const subjectValue = isFeaturedBusinessPackage
+        ? context.reference
+          ? `Specific Buyer Featured Business Package Inquiry — ${context.reference}`
+          : "Florida Liquor License Market — Specific Buyer Featured Business Package Inquiry"
+        : context.reference
+          ? `FLLM License Inquiry — ${context.reference}`
+          : "Florida Liquor License Market — Specific License Inquiry";
       if (subject instanceof HTMLInputElement && subject.value !== subjectValue) {
         subject.value = subjectValue;
       }
 
-      setSelectValue(form.querySelector('select[name="inquiry_type"]'), "Buy a License");
+      const inquirySelect = form.querySelector('select[name="inquiry_type"]');
+      if (isFeaturedBusinessPackage && inquirySelect instanceof HTMLSelectElement) {
+        let packageOption = Array.from(inquirySelect.options).find(
+          (option) => option.value === "Specific Buyer Featured Business Package Inquiry",
+        );
+        if (!packageOption) {
+          packageOption = document.createElement("option");
+          packageOption.value = "Specific Buyer Featured Business Package Inquiry";
+          packageOption.textContent = "Specific Buyer Featured Business Package Inquiry";
+          inquirySelect.appendChild(packageOption);
+        }
+        setSelectValue(inquirySelect, "Specific Buyer Featured Business Package Inquiry");
+      } else {
+        setSelectValue(inquirySelect, "Buy a License");
+      }
       setSelectValue(form.querySelector('select[name="preferred_county"]'), context.county);
 
       const phone = form.querySelector('input[name="phone"]');
