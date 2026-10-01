@@ -101,6 +101,11 @@ export type BusinessQuotaListing = {
   packagePriceNumber: number;
   allocatedLicenseValue: string;
   marketMedianLicenseValue?: string;
+  licenseValueBasis?:
+    | "county_3ps_median"
+    | "county_4cop_median"
+    | "county_4cop_series_proxy"
+    | "unavailable";
   licenseAvailableSeparately?: boolean;
   sellerFinancingAvailable?: boolean;
   brokerName: string;
