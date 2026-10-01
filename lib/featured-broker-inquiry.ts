@@ -211,8 +211,9 @@ export async function sendFeaturedBrokerInquiry(input: {
   return sendFllmEmail({
     to: recipient.email,
     replyTo: inquiry.buyerEmail,
-    subject: inquiry.inquiryType === "Specific Buyer Featured Business Package Inquiry"
-      ? `Specific Buyer Featured Business Package Inquiry — ${recipient.listingReference} — ${inquiry.listingCounty}`
+    subject: inquiry.inquiryType === "Specific Buyer Featured Business Package Inquiry" ||
+      inquiry.inquiryType === "Specific Buyer Standard Business Package Inquiry"
+      ? `${inquiry.inquiryType} — ${recipient.listingReference} — ${inquiry.listingCounty}`
       : `FLLM Buyer Inquiry — ${recipient.listingReference} — ${inquiry.listingCounty}`,
     text,
     html: emailShell(content),
