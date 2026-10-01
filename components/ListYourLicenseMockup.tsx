@@ -87,10 +87,10 @@ const pathDetails = {
     note: "$14.95 one-time listing-submission fee. No brokerage representation is included.",
   },
   broker: {
-    eyebrow: "Full-Service Broker-Assisted Representation",
-    title: "Request full-service broker-assisted representation",
+    eyebrow: "Standalone Quota License Broker Representation",
+    title: "Request broker representation for a standalone quota license",
     copy:
-      "Tell us your goals and an FLLM-affiliated broker can contact you about pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, documentation, transaction coordination, and coordination with the professionals involved in the transfer and closing.",
+      "For standalone transferable 4COP Quota and 3PS liquor licenses, tell us your goals and an FLLM-affiliated broker can contact you about pricing strategy, license marketing, buyer communications, negotiation, documentation and liquor-license transaction coordination. FLLM does not broker operating businesses.",
     button: "Request Full-Service Broker Consultation",
     note: "Representation, scope of services, and compensation begin only under a separate written brokerage agreement.",
   },
