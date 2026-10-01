@@ -67,7 +67,7 @@ const GOOGLE_ANALYTICS_ID = "G-PKP8PXCDWF";
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 
 const marketplaceDescription =
-  "Florida Liquor License Market is a specialized statewide marketplace where sellers can request full-service broker-assisted representation through FLLM itself or choose a self-directed listing, with market data, financing and valuation resources for Florida liquor-license transactions.";
+  "Florida Liquor License Market is a specialized statewide marketplace for Florida liquor-license transactions and business-package advertising. FLLM broker-assisted representation is limited to standalone transferable 4COP Quota and 3PS liquor licenses; FLLM does not broker operating businesses.";
 
 const globalStructuredData = [
   {
@@ -99,7 +99,7 @@ const globalStructuredData = [
     areaServed: { "@type": "State", name: "Florida" },
     url: `${siteUrl}/sell-your-license`,
     description:
-      "Florida liquor-license sellers can request full-service broker-assisted representation through FLLM itself. Depending on the written brokerage agreement, services may include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, due-diligence coordination, document organization and transaction coordination.",
+      "Owners of standalone transferable 4COP Quota and 3PS liquor licenses can request FLLM broker-assisted representation. FLLM does not broker restaurants, bars, nightclubs, gentlemen's clubs or other operating businesses. Depending on the written license-brokerage agreement, services may include pricing strategy, marketing, buyer communications, negotiation and liquor-license transaction coordination.",
   },
 ];
 
