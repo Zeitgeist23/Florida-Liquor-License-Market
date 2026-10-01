@@ -1,0 +1,45 @@
+{
+  "version": "v1",
+  "approvedDate": "2026-10-01",
+  "templateName": "FLLM Standalone License Buyer-Lead Referral",
+  "canonicalBuilder": "lib/standalone-buyer-lead-referral.ts#buildStandaloneBuyerLeadReferralEmail",
+  "sender": "clientservices@floridaliquorlicensemarket.com",
+  "trigger": {
+    "inquiryScope": "Standalone liquor-license buyer inquiry",
+    "requiredMatch": [
+      "county",
+      "licenseType"
+    ],
+    "requiredVerification": "FLLM must confirm matching broker inventory by direct phone call or email exchange before referral.",
+    "allowedVerificationMethods": [
+      "phone",
+      "email"
+    ]
+  },
+  "disclosureRules": [
+    "Do not disclose the specific FLLM listing reference that generated the buyer inquiry.",
+    "Do not disclose the original source advertisement or marketplace.",
+    "Do not disclose the specific asking price or imply the buyer requested the broker's particular license.",
+    "Present the lead as a county + license-type buyer inquiry.",
+    "Do not mention commissions, referral fees, compensation, or commission sharing in the first lead referral email.",
+    "Do not say FLLM represents the buyer.",
+    "Do not promise that the buyer will transact with the broker."
+  ],
+  "requiredBuyerFields": [
+    "buyerName",
+    "buyerEmail",
+    "buyerPhone",
+    "county",
+    "licenseType"
+  ],
+  "requiredInternalVerificationFields": [
+    "brokerEmail",
+    "confirmedBy",
+    "confirmedAt",
+    "availabilityConfirmed"
+  ],
+  "brokerCTA": {
+    "label": "Featured Broker Listing options",
+    "url": "https://www.floridaliquorlicensemarket.com/brokers/list-your-license"
+  }
+}
