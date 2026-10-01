@@ -25,6 +25,11 @@ const faqs = [
       "It means the operating business acquisition includes a transferable county quota liquor license as part of the package. The business, furniture, leasehold rights, goodwill and other assets may have separate value from the license component, and the exact transaction structure should be documented in the purchase and transfer materials.",
   },
   {
+    question: "What does “full liquor license” mean when a Florida bar is listed for sale?",
+    answer:
+      "Business brokers and sellers commonly use “full liquor” or “full liquor license” to describe distilled-spirit privileges in addition to beer and wine. For many Florida bar transactions, that may mean a transferable 4COP quota license. FLLM uses the actual license classification so buyers can distinguish a quota asset from other full-liquor license structures.",
+  },
+  {
     question: "Is the liquor license automatically transferred when the bar closes?",
     answer:
       "No. A Florida quota-license transfer remains subject to the applicable DBPR Division of Alcoholic Beverages and Tobacco process, buyer qualification, supporting documentation, fees and approval. The business closing and the regulatory transfer need to be coordinated rather than treated as the same event.",
@@ -47,17 +52,17 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "Bars for Sale With 4COP Quota Licenses in Florida | FLLM",
+  title: "Bars for Sale With Full Liquor & 4COP Licenses in Florida | FLLM",
   description:
-    "Florida bars for sale with included 4COP quota liquor licenses, including Jacksonville, Atlantic Beach and Duval County opportunities. Compare business packages and FLLM transaction resources.",
+    "Browse Florida bars for sale with full-liquor licenses, including transferable 4COP quota liquor licenses. Compare bar packages, county markets, license values and transaction resources.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Bars for Sale With 4COP Quota Licenses | FLLM",
+    title: "Florida Bars for Sale With Full Liquor & 4COP Licenses | FLLM",
     description:
-      "Browse bar and lounge business packages that include Florida 4COP quota licenses and review FLLM transaction services for the liquor-license component.",
+      "Browse bar and lounge business packages with full-liquor privileges, including Florida 4COP quota licenses, and review FLLM county and license-market information.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
@@ -88,10 +93,10 @@ export default async function BarsWithQuotaLicensesPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Bars for Sale With 4COP Quota Licenses in Florida",
+      name: "Bars for Sale With Full Liquor and 4COP Quota Licenses in Florida",
       url: canonicalUrl,
       description:
-        "Florida bars and lounges for sale with included 4COP quota liquor licenses, plus transaction resources for valuing and transferring the license component.",
+        "Florida bars and lounges for sale with full-liquor privileges, including transferable 4COP quota liquor licenses, plus market information for the license component.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
