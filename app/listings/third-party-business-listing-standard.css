@@ -586,6 +586,14 @@
   margin-top: 109px;
 }
 
+/* Rumija broker-review preview uses Terry-style top alignment for the sidebar. */
+@media (min-width: 901px) {
+  .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-RUMIJA"]
+    .marketplace-listing-aside-broker.marketplace-listing-aside-sfs {
+    margin-top: 0;
+  }
+}
+
 /* Slightly reduce the direct-seller inquiry button text on Marianella's 2COP preview. */
 .results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-KOPP"]
   .marketplace-listing-broker-inquiry button {
