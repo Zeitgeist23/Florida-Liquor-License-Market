@@ -46,7 +46,7 @@ export type FeaturedThirdPartyBusinessListingConfig = {
   marketMedianAskingPriceNumber?: number;
   packagePrice: string;
   packagePriceNumber: number;
-  licenseType: "4COP Quota" | "3PS Quota / Package Store" | "4COP SFS/SRX" | "2COP Beer & Wine";
+  licenseType: "4COP Quota" | "3PS Quota / Package Store" | "4COP SFS/SRX" | "2COP Beer & Wine" | "Liquor License Included";
   licenseClass?: "quota" | "sfs" | "2cop";
   sellerDirect?: boolean;
   approvalPreview?: boolean;
@@ -225,7 +225,10 @@ export default function FeaturedThirdPartyBusinessListingPage({
       ? "4COP Quota"
       : config.licenseType === "4COP SFS/SRX"
         ? "4COP SFS / SRX"
-        : "3PS Quota";
+        : config.licenseType === "Liquor License Included"
+          ? "Liquor License"
+          : "3PS Quota";
+  const isUnknownLicense = config.licenseType === "Liquor License Included";
   const isSfsListing = config.licenseClass === "sfs" || config.licenseType === "4COP SFS/SRX";
   const is2copListing = config.licenseClass === "2cop" || config.licenseType === "2COP Beer & Wine";
   const isNonQuotaBusiness = isSfsListing || is2copListing;
@@ -405,7 +408,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 {config.businessLabel}
               </span>
               <span className="marketplace-listing-title-line">
-                {isSpanish && isSfsListing ? (
+                {isUnknownLicense ? (
+                  <>+ <span className="marketplace-license-series">Liquor License Included</span></>
+                ) : isSpanish && isSfsListing ? (
                   <>+ Licencia completa de bebidas alcohólicas{" "}<span className="marketplace-license-series">{shortLicenseType.replace(" Quota", "")}</span></>
                 ) : isSpanish && is2copListing ? (
                   <>+ Licencia <span className="marketplace-license-series">{shortLicenseType}</span> de cerveza y vino</>
@@ -428,7 +433,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 </span>
               )}
               <span>
-                {is2copListing ? (
+                {isUnknownLicense ? (
+                  <>Liquor license included with business · <strong>Exact license type not yet specified</strong></>
+                ) : is2copListing ? (
                   <>{tr("Beer-and-wine privileges only", "Solo cerveza y vino")} · <strong>{tr("No separate quota-license value", "Sin valor separado de licencia de cupo")}</strong></>
                 ) : isSfsListing ? (
                   <>{tr("Business asking price", "Precio de venta del negocio")} · <strong>{tr("4COP SFS / SRX full-liquor license included", "Licencia completa de bebidas alcohólicas 4COP SFS / SRX incluida")}</strong></>
@@ -471,9 +478,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
               )}
               <Link
                 className="marketplace-listing-secondary"
-                href={isNonQuotaBusiness ? "#license-details" : config.countyHref}
+                href={isNonQuotaBusiness || isUnknownLicense ? "#license-details" : config.countyHref}
               >
-                {isNonQuotaBusiness
+                {isNonQuotaBusiness || isUnknownLicense
                   ? tr("View License Details", "Ver detalles de la licencia")
                   : <>{tr("View", "Ver mercado de licencias de")} {countyShort}</>}
               </Link>
@@ -498,10 +505,16 @@ export default function FeaturedThirdPartyBusinessListingPage({
               <div className="marketplace-listing-heading">
                 <span>{tr("Specific License Details", "Detalles específicos de la licencia")}</span>
                 <h2>
-                  <span className="marketplace-license-series">
-                    {shortLicenseType.replace(" Quota", "")}
-                  </span>{" "}
-                  {is2copListing ? tr("Beer & Wine License", "Licencia de cerveza y vino") : isSfsListing ? tr("Full-Liquor License", "Licencia completa de bebidas alcohólicas") : tr("Quota", "Cupo")} {tr("in", "en")} {config.county}
+                  {isUnknownLicense ? (
+                    <>Liquor License Included {tr("in", "en")} {config.county}</>
+                  ) : (
+                    <>
+                      <span className="marketplace-license-series">
+                        {shortLicenseType.replace(" Quota", "")}
+                      </span>{" "}
+                      {is2copListing ? tr("Beer & Wine License", "Licencia de cerveza y vino") : isSfsListing ? tr("Full-Liquor License", "Licencia completa de bebidas alcohólicas") : tr("Quota", "Cupo")} {tr("in", "en")} {config.county}
+                    </>
+                  )}
                 </h2>
               </div>
 
@@ -509,8 +522,22 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 className="marketplace-listing-facts"
                 aria-label={tr("Specific license details", "Detalles específicos de la licencia")}
               >
-                {isNonQuotaBusiness ? (
+                {isNonQuotaBusiness || isUnknownLicense ? (
                   <>
+                    {isUnknownLicense ? (
+                      <>
+                        <div className="marketplace-listing-education-card marketplace-listing-license-type-card">
+                          <span>Liquor License</span>
+                          <strong>Included With Business</strong>
+                          <small>Exact Florida alcoholic-beverage license classification has not yet been specified.</small>
+                        </div>
+                        <div className="marketplace-listing-education-card marketplace-listing-license-type-card">
+                          <span>License Classification</span>
+                          <strong>To Be Confirmed</strong>
+                          <small>The broker will review and approve the final listing information before publication.</small>
+                        </div>
+                      </>
+                    ) : null}
                     <div className="marketplace-listing-education-card marketplace-listing-license-type-card">
                       <span>{tr("Liquor License Type", "Tipo de licencia de bebidas alcohólicas")}</span>
                       <strong>{is2copListing ? tr("2COP Beer & Wine", "2COP Cerveza y Vino") : shortLicenseType}</strong>
@@ -624,7 +651,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 )}
               </div>
 
-              {!isNonQuotaBusiness ? (
+              {!isNonQuotaBusiness && !isUnknownLicense ? (
                 <section
                   className="marketplace-listing-highlights quota-license-highlights"
                   aria-labelledby="quota-license-highlights-heading"
@@ -674,7 +701,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 </section>
               ) : null}
 
-              {isNonQuotaBusiness ? (
+              {isNonQuotaBusiness && !isUnknownLicense ? (
                               <section
                                 className="marketplace-listing-highlights"
                                 aria-labelledby="license-highlights-heading"
