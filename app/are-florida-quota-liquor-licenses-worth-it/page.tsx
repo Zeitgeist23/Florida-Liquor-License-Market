@@ -133,7 +133,7 @@ const faqs = [
   {
     question: "How can FLLM help an owner sell a quota license?",
     answer:
-      "FLLM can assist with county market analysis, license valuation and appraisal, marketing and listing, broker-assisted representation, buyer outreach, transaction resources, financing coordination and ABT transfer-process support. Independent legal, tax, escrow and other regulated professional services remain separate.",
+      "FLLM can assist with county market analysis, license valuation and appraisal, marketing and listing, and broker-assisted representation for standalone transferable 4COP Quota and 3PS liquor licenses, plus financing and ABT transfer-process resources. FLLM does not broker operating businesses.",
   },
 ];
 
@@ -427,7 +427,7 @@ export default async function AreFloridaQuotaLicensesWorthItPage() {
             <Link className="fllm-ui-link-card" href="/florida-liquor-license-value"><strong>Valuation</strong><span>County market evidence and preliminary value analysis.</span></Link>
             <Link className="fllm-ui-link-card" href="/florida-liquor-license-appraisal"><strong>Appraisal</strong><span>License-specific appraisal resources for supported valuation needs.</span></Link>
             <Link className="fllm-ui-link-card" href="/sell-your-license"><strong>Marketing & Listing</strong><span>Place the license in front of Florida quota-license buyers.</span></Link>
-            <Link className="fllm-ui-link-card" href="/florida-liquor-license-broker"><strong>Brokerage</strong><span>Broker-assisted representation when the owner wants transaction support.</span></Link>
+            <Link className="fllm-ui-link-card" href="/florida-liquor-license-broker"><strong>Standalone License Brokerage</strong><span>Broker-assisted representation for standalone transferable 4COP Quota and 3PS liquor licenses only.</span></Link>
             <Link className="fllm-ui-link-card" href="/transaction-services"><strong>Transaction Services</strong><span>Coordinate valuation, financing, FDOR, ABT transfer and closing resources.</span></Link>
             <Link className="fllm-ui-link-card" href="/dbpr-abt-6002"><strong>ABT Transfer Process</strong><span>Review the ownership-transfer workflow and ABT-6002 preparation resources.</span></Link>
           </div>
