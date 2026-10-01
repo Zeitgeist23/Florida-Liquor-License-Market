@@ -975,15 +975,15 @@
 /* Sell a Florida Restaurant: content-specific hero snapshot sizing.
    Uses the locked FLLM snapshot visual system; only layout/wrapping is adjusted. */
 @media (min-width: 981px) {
-  .sell-florida-restaurant-page .seo-market-hero-grid {
+  :is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .seo-market-hero-grid {
     grid-template-columns: minmax(0, 1.2fr) minmax(410px, .8fr);
   }
 
-  .sell-florida-restaurant-page .sell-restaurant-license-snapshot {
+  :is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-license-snapshot {
     min-width: 0;
   }
 
-  .sell-florida-restaurant-page .sell-restaurant-license-snapshot .seo-market-snapshot-grid strong {
+  :is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-license-snapshot .seo-market-snapshot-grid strong {
     white-space: normal;
     overflow-wrap: normal;
     word-break: normal;
@@ -991,14 +991,14 @@
     font-size: clamp(20px, 1.25vw, 24px);
   }
 
-  .sell-florida-restaurant-page .sell-restaurant-license-snapshot .seo-market-snapshot-grid small {
+  :is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-license-snapshot .seo-market-snapshot-grid small {
     min-height: 48px;
     align-items: center;
   }
 }
 
 @media (max-width: 980px) {
-  .sell-florida-restaurant-page .sell-restaurant-license-snapshot .seo-market-snapshot-grid strong {
+  :is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-license-snapshot .seo-market-snapshot-grid strong {
     white-space: normal;
     line-height: 1.08;
   }
@@ -1006,7 +1006,7 @@
 
 
 /* Sell a Florida Restaurant: approved hover depth for the four license snapshot tiles. */
-.sell-florida-restaurant-page .sell-restaurant-license-snapshot .seo-market-snapshot-grid > div {
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-license-snapshot .seo-market-snapshot-grid > div {
   cursor: default;
   background:
     linear-gradient(180deg, rgba(255,255,255,.035), transparent 18%),
@@ -1025,8 +1025,8 @@
     background .18s ease;
 }
 
-.sell-florida-restaurant-page .sell-restaurant-license-snapshot .seo-market-snapshot-grid > div:hover,
-.sell-florida-restaurant-page .sell-restaurant-license-snapshot .seo-market-snapshot-grid > div:focus-within {
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-license-snapshot .seo-market-snapshot-grid > div:hover,
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-license-snapshot .seo-market-snapshot-grid > div:focus-within {
   z-index: 2;
   transform: translateY(-6px) scale(1.03);
   border-color: var(--fllm-gold-bright);
@@ -1046,7 +1046,7 @@
 
 
 /* Sell a Florida Restaurant: center the license-structure panel heading. */
-.sell-florida-restaurant-page .sell-restaurant-license-snapshot > span {
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-license-snapshot > span {
   display: block;
   width: 100%;
   text-align: center;
@@ -1054,7 +1054,7 @@
 
 
 /* Sell a Florida Restaurant: dimensional service cards with internal hover light-up. */
-.sell-florida-restaurant-page .sell-restaurant-services-block .fllm-template-card {
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-services-block .fllm-template-card {
   background:
     linear-gradient(180deg, rgba(255,255,255,.035), transparent 18%),
     linear-gradient(145deg, #0b2945 0%, #071d31 58%, #051725 100%);
@@ -1071,8 +1071,8 @@
     background .18s ease;
 }
 
-.sell-florida-restaurant-page .sell-restaurant-services-block .fllm-template-card:hover,
-.sell-florida-restaurant-page .sell-restaurant-services-block .fllm-template-card:focus-within {
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-services-block .fllm-template-card:hover,
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-services-block .fllm-template-card:focus-within {
   transform: translateY(-5px) scale(1.02);
   border-color: var(--fllm-gold-bright);
   background:
@@ -1088,14 +1088,14 @@
   filter: brightness(1.06);
 }
 
-.sell-florida-restaurant-page .sell-restaurant-services-block .fllm-template-card a {
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-services-block .fllm-template-card a {
   color: var(--fllm-cyan);
   font-weight: 850;
   text-decoration: none;
 }
 
-.sell-florida-restaurant-page .sell-restaurant-services-block .fllm-template-card a:hover,
-.sell-florida-restaurant-page .sell-restaurant-services-block .fllm-template-card a:focus-visible {
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-services-block .fllm-template-card a:hover,
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-services-block .fllm-template-card a:focus-visible {
   color: #a8e9ff;
   text-shadow: 0 0 10px rgba(105,214,255,.24);
   outline: none;
@@ -1103,16 +1103,16 @@
 
 
 /* Sell a Florida Restaurant: center cyan kicker headings inside the two card groups. */
-.sell-florida-restaurant-page .sell-restaurant-intro-cards .fllm-ui-card-kicker,
-.sell-florida-restaurant-page .sell-restaurant-license-type-cards .fllm-ui-card-kicker {
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-intro-cards .fllm-ui-card-kicker,
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-license-type-cards .fllm-ui-card-kicker {
   width: 100%;
   text-align: center;
 }
 
 
 /* Sell a Florida Restaurant: center bold white titles in license and seller/broker cards. */
-.sell-florida-restaurant-page .sell-restaurant-license-type-cards .fllm-template-card-title,
-.sell-florida-restaurant-page #seller-options .fllm-ui-step-card h3 {
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) .sell-restaurant-license-type-cards .fllm-template-card-title,
+:is(.sell-florida-restaurant-page,.buy-florida-restaurant-page) :is(#seller-options,#buyer-options) .fllm-ui-step-card h3 {
   width: 100%;
   text-align: center;
 }
