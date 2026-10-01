@@ -117,12 +117,16 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     inquiryType === "Business Market Opportunity Inquiry";
   const isFeaturedBusinessPackageInquiry =
     inquiryType === "Specific Buyer Featured Business Package Inquiry";
+  const isStandardBusinessPackageInquiry =
+    inquiryType === "Specific Buyer Standard Business Package Inquiry";
+  const isBusinessPackageInquiry =
+    isFeaturedBusinessPackageInquiry || isStandardBusinessPackageInquiry;
 
   const subject = resolvedListingReference
     ? isBusinessMarketBuyerMatch
       ? `Business Market Buyer Lead — ${resolvedListingReference} — ${listingCounty || listingRequested}`
-      : isFeaturedBusinessPackageInquiry
-        ? `Specific Buyer Featured Business Package Inquiry — ${resolvedListingReference} — ${listingCounty || listingRequested}`
+      : isBusinessPackageInquiry
+        ? `${inquiryType} — ${resolvedListingReference} — ${listingCounty || listingRequested}`
         : `Specific License Inquiry — ${resolvedListingReference} — ${listingCounty || listingRequested}`
     : value(formData, "_subject", 240) || `FLLM Contact Inquiry — ${inquiryType}`;
 
@@ -137,7 +141,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   ].filter(([, detail]) => Boolean(detail));
 
   const textListingDetails = listingDetails.length
-    ? `\n${isFeaturedBusinessPackageInquiry ? "Selected business package details" : "Selected license details"}:\n${listingDetails.map(([label, detail]) => `${label}: ${detail}`).join("\n")}\n`
+    ? `\n${isBusinessPackageInquiry ? "Selected business package details" : "Selected license details"}:\n${listingDetails.map(([label, detail]) => `${label}: ${detail}`).join("\n")}\n`
     : "";
 
   const text = `A new confidential inquiry was submitted through Florida Liquor License Market.\n\nName: ${fullName}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\nInquiry type: ${inquiryType}\nPreferred county: ${preferredCounty || "Not selected"}\nSMS consent: ${smsConsent ? "Yes — optional website checkbox selected" : "No"}\n${textListingDetails}\nMessage:\n${message}`;
@@ -154,9 +158,9 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#f4f6f7;font-family:Arial,Helvetica,sans-serif;color:#071a3a;">
     <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #d6dde2;border-top:5px solid #f6a700;padding:24px;">
       <div style="margin-bottom:20px;color:#f1a600;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;">Florida Liquor License Market</div>
-      <h1 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.15;">${isBusinessMarketBuyerMatch ? "Business Market Buyer Lead" : isFeaturedBusinessPackageInquiry ? "Specific Buyer Featured Business Package Inquiry" : resolvedListingReference ? "Specific License Inquiry" : "New Confidential Inquiry"}</h1>
+      <h1 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.15;">${isBusinessMarketBuyerMatch ? "Business Market Buyer Lead" : isBusinessPackageInquiry ? inquiryType : resolvedListingReference ? "Specific License Inquiry" : "New Confidential Inquiry"}</h1>
       <p style="margin:0 0 18px;line-height:1.65;"><strong>Name:</strong> ${escapeHtml(fullName)}<br><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a><br><strong>Phone:</strong> ${escapeHtml(phone || "Not provided")}<br><strong>Inquiry type:</strong> ${escapeHtml(inquiryType)}<br><strong>Preferred county:</strong> ${escapeHtml(preferredCounty || "Not selected")}<br><strong>SMS consent:</strong> ${smsConsent ? "Yes — optional website checkbox selected" : "No"}</p>
-      ${listingRows ? `<h2 style="margin:24px 0 10px;font-size:17px;">${isFeaturedBusinessPackageInquiry ? "Selected Business Package Details" : "Selected License Details"}</h2><table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border:1px solid #d9dee2;border-collapse:collapse;">${listingRows}</table>` : ""}
+      ${listingRows ? `<h2 style="margin:24px 0 10px;font-size:17px;">${isBusinessPackageInquiry ? "Selected Business Package Details" : "Selected License Details"}</h2><table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border:1px solid #d9dee2;border-collapse:collapse;">${listingRows}</table>` : ""}
       <h2 style="margin:24px 0 8px;font-size:17px;">Message</h2>
       <p style="margin:0;white-space:pre-wrap;line-height:1.7;">${escapeHtml(message)}</p>
     </div>
@@ -249,8 +253,10 @@ async function submitContactInquiry(request: Request, formData: FormData) {
         message,
         source: isBusinessMarketBuyerMatch
           ? "business_market_record"
-          : isFeaturedBusinessPackageInquiry
-            ? "featured_business_package_inquiry"
+          : isBusinessPackageInquiry
+            ? isFeaturedBusinessPackageInquiry
+              ? "featured_business_package_inquiry"
+              : "standard_business_package_inquiry"
             : "specific_listing_contact_inquiry",
       });
     } catch (trackingError) {
