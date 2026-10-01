@@ -11,7 +11,7 @@ const canonicalUrl = `${siteUrl}/florida-liquor-license-broker-fees`;
 export const metadata: Metadata = {
   title: "Florida Liquor License Broker Fees & Commissions | FLLM",
   description:
-    "How much does a broker charge to sell a Florida liquor license? Learn broker fee structures, commission illustrations and full-service broker-assisted representation, plus how FLLM marketplace listing fees differ from brokerage compensation.",
+    "How much does a broker charge to sell a standalone transferable Florida 4COP Quota or 3PS liquor license? Learn license-broker fee structures, commission illustrations and how FLLM marketplace listing fees differ from brokerage compensation.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
@@ -327,9 +327,9 @@ export default function FloridaLiquorLicenseBrokerFeesPage() {
         <div className="fee-shell">
           <div className="fee-heading">
             <span className="fee-kicker">FLLM Service Levels</span>
-            <h2>Full-service broker representation and marketplace advertising are separate FLLM paths</h2>
+            <h2>Standalone quota-license brokerage and marketplace advertising are separate FLLM paths</h2>
             <p>
-              FLLM is a specialized Florida liquor-license marketplace and transaction-services ecosystem, not merely a low-cost listing board. License owners can request full-service broker-assisted representation, while experienced sellers and independent brokers can also choose advertising-only marketplace paths when that better fits the transaction.
+              FLLM is a specialized Florida liquor-license marketplace and transaction-services ecosystem. Owners of standalone transferable 4COP Quota and 3PS liquor licenses can request FLLM license-broker representation, while sellers and independent business brokers can also use advertising-only marketplace paths. FLLM does not broker operating businesses.
             </p>
           </div>
 
