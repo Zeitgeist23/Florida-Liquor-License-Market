@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Delray BeachRestaurantsForSalePage() {
+export default async function DelrayBeachRestaurantsForSalePage() {
   const standaloneListings = getVisibleAvailableMarketplaceListings(
     await getMarketplaceListings(),
   );
@@ -80,15 +80,15 @@ export default async function Delray BeachRestaurantsForSalePage() {
       /italian/i.test(`${listing.title} ${listing.businessType}`),
   );
 
-  const exactDelray BeachListings = browardRestaurantListings.filter((listing) =>
-    /\bdelray-beach\b/i.test(`${listing.title} ${listing.businessType}`),
+  const exactDelrayBeachListings = browardRestaurantListings.filter((listing) =>
+    /\bdelray beach\b/i.test(`${listing.title} ${listing.businessType}`),
   );
 
   const nearbyBrowardListings = browardRestaurantListings.filter(
-    (listing) => !exactDelray BeachListings.includes(listing),
+    (listing) => !exactDelrayBeachListings.includes(listing),
   );
 
-  const delray-beachFaqs = [
+  const delrayBeachFaqs = [
     {
       question: "Where can I search for restaurants for sale in Delray Beach, Florida?",
       answer: "FLLM's Delray Beach restaurant market page organizes Delray Beach buyer searches around Palm Beach County restaurant activity, full-liquor privileges, 4COP license structures and cuisine while preserving the actual location of each Market View.",
@@ -120,7 +120,7 @@ export default async function Delray BeachRestaurantsForSalePage() {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: delray-beachFaqs.map((faq) => ({
+      mainEntity: delrayBeachFaqs.map((faq) => ({
         "@type": "Question",
         name: faq.question,
         acceptedAnswer: { "@type": "Answer", text: faq.answer },
@@ -254,8 +254,8 @@ export default async function Delray BeachRestaurantsForSalePage() {
             title="Restaurant opportunities relevant to Delray Beach buyers"
             copy={
               <p>
-                {exactDelray BeachListings.length
-                  ? `FLLM currently shows ${exactDelray BeachListings.length} restaurant Market View${exactDelray BeachListings.length === 1 ? "" : "s"} explicitly located in Delray Beach, plus additional Palm Beach County restaurant Market Views.`
+                {exactDelrayBeachListings.length
+                  ? `FLLM currently shows ${exactDelrayBeachListings.length} restaurant Market View${exactDelrayBeachListings.length === 1 ? "" : "s"} explicitly located in Delray Beach, plus additional Palm Beach County restaurant Market Views.`
                   : "FLLM does not currently show a published restaurant Market View explicitly located in Delray Beach. The inventory below is current Palm Beach County restaurant Market Views displayed with its actual location so Delray Beach buyers can compare nearby opportunities without location ambiguity."}
               </p>
             }
@@ -266,9 +266,9 @@ export default async function Delray BeachRestaurantsForSalePage() {
             label="Palm Beach County restaurant markets represented in current inventory"
           />
 
-          {exactDelray BeachListings.length ? (
+          {exactDelrayBeachListings.length ? (
             <div className="business-quota-grid">
-              {exactDelray BeachListings.map((listing) => (
+              {exactDelrayBeachListings.map((listing) => (
                 <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
               ))}
             </div>
