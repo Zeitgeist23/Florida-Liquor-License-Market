@@ -73,14 +73,15 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   askingPriceNumber: 0,
   packagePrice: "Price Upon Request",
   packagePriceNumber: 0,
-  licenseType: "Liquor License Included",
+  licenseType: "4COP SFS/SRX",
+  licenseClass: "sfs",
   licenseAvailableSeparately: false,
   approvalPreview: true,
   businessLabel: "Semi-Absentee Pizzeria",
   businessLabelLinkUrl: sourceListingUrl,
   businessLabelBodyBold: false,
   heroSummary:
-    "Semi-absentee Lee County pizzeria opportunity with $400,000 in annual Cash Flow (SDE), leased premises and an included liquor license. The business requires a cash buyer and is not SBA financeable.",
+    "Semi-absentee Lee County pizzeria opportunity with $400,000 in annual Cash Flow (SDE), leased premises and an included 4COP SFS / SRX full-liquor license, pending broker confirmation. The business requires a cash buyer and is not SBA financeable.",
   broker: {
     name: "Marjan Rumija",
     brokerage: "Krise Commercial Group, LLC",
@@ -93,7 +94,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   additionalSellerIntro:
     "Semi-absentee pizzeria opportunity in Lee County, Florida with strong owner benefit, leased premises, recently remodeled operations and an included liquor license.",
   packageIncludes:
-    "The business includes approximately $160,000 in furniture, fixtures and equipment, approximately $36,000 in inventory, the existing restaurant operating infrastructure and an included liquor license. The exact Florida alcoholic-beverage license classification has not yet been specified. Monthly rent is $7,300. The opportunity requires a cash buyer and is not SBA financeable.",
+    "The business includes approximately $160,000 in furniture, fixtures and equipment, approximately $36,000 in inventory, the existing restaurant operating infrastructure and an included 4COP SFS / SRX full-liquor license, pending broker confirmation. Monthly rent is $7,300. The opportunity requires a cash buyer and is not SBA financeable.",
   businessMetrics: [
     {
       label: "Cash Flow (SDE)",
@@ -129,13 +130,14 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
       label: "Liquor License",
       value: "Included",
       description:
-        "A liquor license is included with the business. The exact Florida alcoholic-beverage license classification has not yet been specified.",
+        "A full-liquor license is included with the business.",
     },
     {
       label: "Liquor License Classification",
-      value: "Not Yet Specified",
+      value: "4COP SFS / SRX (pending broker confirmation)",
       description:
-        "The exact Florida alcoholic-beverage license classification will be confirmed before final publication.",
+        "The working classification for this broker-review mockup is 4COP SFS / SRX. Marjan will confirm or correct the classification before final publication.",
+      href: "/license-types/4cop-sfs-restaurant",
     },
     {
       label: "Furniture, Fixtures & Equipment",
@@ -198,7 +200,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "Build on $400,000 in annual Cash Flow (SDE).",
     "Acquire approximately $160,000 in furniture, fixtures and equipment plus approximately $36,000 in inventory.",
     "Operate from leased premises with monthly rent of $7,300 and a restaurant remodeled in 2024.",
-    "Acquire the business with an included liquor license; the exact Florida license classification will be confirmed before final publication.",
+    "Acquire the business with an included 4COP SFS / SRX full-liquor license, pending broker confirmation before final publication.",
     "Pursue the opportunity as a cash buyer; the business is not SBA financeable.",
   ],
   transitionText:
