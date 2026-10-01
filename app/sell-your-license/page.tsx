@@ -13,19 +13,19 @@ const canonicalUrl = `${siteUrl}/sell-your-license`;
 const onlineListingFaq = {
   question: "Can I list a Florida liquor license for sale online?",
   answer:
-    "Yes. Florida Liquor License Market gives sellers two primary paths: full-service broker-assisted representation under a separate written brokerage agreement, or a self-directed online marketplace listing for sellers who prefer to manage the transaction themselves.",
+    "Yes. Owners of standalone transferable 4COP Quota and 3PS liquor licenses can request FLLM broker-assisted representation under a separate written license-brokerage agreement or choose a self-directed online marketplace listing. FLLM does not broker restaurants or other operating businesses.",
 };
 
 const fullServiceFaq = {
   question: "Does FLLM offer full-service broker-assisted representation?",
   answer:
-    "Yes. Sellers who want professional representation can request a broker consultation through FLLM. Depending on the written engagement, full-service broker-assisted representation may include pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, transaction coordination, document organization, and coordination with the legal, licensing, financing, escrow or closing professionals involved in the transaction.",
+    "Yes, for standalone transferable 4COP Quota and 3PS liquor licenses. FLLM does not broker restaurants or other operating businesses. Depending on the written license-brokerage engagement, representation may include pricing strategy, license marketing, buyer communications, negotiation, document organization and liquor-license transaction coordination.",
 };
 
 export const metadata: Metadata = {
   title: "Sell Your Florida Liquor License | Full-Service or Self-Directed | FLLM",
   description:
-    "Sell a Florida liquor license through FLLM with full-service broker-assisted representation for pricing, marketing, buyer communications, negotiation and transaction coordination, or choose a self-directed online marketplace listing.",
+    "Sell a standalone transferable Florida 4COP Quota or 3PS liquor license through FLLM with broker-assisted representation, or choose a self-directed online marketplace listing. FLLM does not broker operating businesses.",
   alternates: {
     canonical: canonicalUrl,
   },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Sell Your Florida Liquor License | Full-Service or Self-Directed | FLLM",
     description:
-      "Choose full-service broker-assisted representation or a self-directed Florida liquor-license marketplace listing based on the level of professional help you want.",
+      "Choose broker-assisted representation for a standalone transferable 4COP Quota or 3PS liquor license, or a self-directed marketplace listing. FLLM does not broker operating businesses.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -48,7 +48,7 @@ export default function SellYourLicensePage() {
       name: "Sell Your Florida Liquor License",
       url: canonicalUrl,
       description:
-        "Sell a Florida liquor license through FLLM using full-service broker-assisted representation or a self-directed online marketplace listing.",
+        "Sell a standalone transferable 4COP Quota or 3PS liquor license through FLLM using broker-assisted representation or a self-directed online marketplace listing.",
       publisher: {
         "@type": "Organization",
         name: "Florida Liquor License Market",
@@ -120,13 +120,13 @@ export default function SellYourLicensePage() {
                 marginBottom: 8,
               }}
             >
-              Full-Service Broker-Assisted Representation
+              Standalone Quota License Broker Representation
             </strong>
             <h2 style={{ margin: "0 0 12px", color: "#fff", fontSize: "clamp(30px,4vw,42px)", lineHeight: 1.1 }}>
               Want professional help from pricing strategy through transaction coordination?
             </h2>
             <p style={{ margin: "0 0 13px", color: "#c5d1da", fontSize: 17, lineHeight: 1.75, maxWidth: 790 }}>
-              FLLM is not limited to self-service listings. Sellers who want hands-on professional representation can request a broker consultation. Depending on the written brokerage agreement, services may include market positioning and pricing strategy, confidential or public marketing, buyer screening and communications, negotiation, transaction coordination, document organization, and coordination with the professionals involved in the transfer and closing.
+              Owners of standalone transferable 4COP Quota and 3PS liquor licenses can request hands-on FLLM broker representation. FLLM is not a business broker and does not broker restaurants, bars, nightclubs, gentlemen's clubs or other operating businesses. Depending on the written license-brokerage agreement, services may include market positioning, pricing strategy, license marketing, buyer communications, negotiation, document organization and liquor-license transaction coordination.
             </p>
             <p style={{ margin: 0, color: "#aebdca", lineHeight: 1.7, maxWidth: 790 }}>
               Representation, exclusivity, scope of services and compensation are established only in a separate written brokerage agreement. Selecting the broker-assisted path on FLLM is a request for contact and does not by itself create a brokerage relationship.
@@ -149,7 +149,7 @@ export default function SellYourLicensePage() {
                 textAlign: "center",
               }}
             >
-              Request Full-Service Broker Representation
+              Request Standalone License Broker Representation
             </Link>
             <Link
               href="/florida-liquor-license-broker"
