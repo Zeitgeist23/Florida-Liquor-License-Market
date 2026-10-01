@@ -1100,3 +1100,11 @@
   text-shadow: 0 0 10px rgba(105,214,255,.24);
   outline: none;
 }
+
+
+/* Sell a Florida Restaurant: center cyan kicker headings inside the two card groups. */
+.sell-florida-restaurant-page .sell-restaurant-intro-cards .fllm-ui-card-kicker,
+.sell-florida-restaurant-page .sell-restaurant-license-type-cards .fllm-ui-card-kicker {
+  width: 100%;
+  text-align: center;
+}
