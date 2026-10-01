@@ -366,8 +366,9 @@ export default async function NightclubsWithQuotaLicensesPage() {
             ))}
           </div>
           <div className="fllm-template-disclosure">
-            <strong>Scope of FLLM services:</strong> FLLM provides marketplace, market-data, valuation/appraisal,
-            financing and transaction-resource services. Legal, zoning, tax, accounting and escrow questions should
+            <strong>Scope of FLLM services:</strong> FLLM is not a business broker and does not broker nightclubs or other operating
+            businesses. FLLM provides marketplace advertising, market-data, valuation/appraisal, financing and transaction-resource
+            services; FLLM brokerage is limited to standalone transferable 4COP Quota and 3PS liquor licenses. Legal, zoning, tax, accounting and escrow questions should
             be handled by the appropriate independent professionals and local authorities. DBPR/DABT makes licensing
             and transfer decisions.
           </div>
