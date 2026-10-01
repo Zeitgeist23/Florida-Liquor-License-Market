@@ -167,7 +167,7 @@ export default function SellFloridaRestaurantPage() {
           </div>
         </section>
 
-        <section className="fllm-template-section">
+        <section className="fllm-template-section sell-restaurant-intro-cards">
           <div className="fllm-template-shell">
             <FllmSectionHeading
               eyebrow="Built for Florida Restaurant Transactions"
@@ -204,7 +204,7 @@ export default function SellFloridaRestaurantPage() {
           </div>
         </section>
 
-        <section className="fllm-template-section fllm-template-section--deep">
+        <section className="fllm-template-section fllm-template-section--deep sell-restaurant-license-type-cards">
           <div className="fllm-template-shell">
             <FllmSectionHeading
               eyebrow="Florida Restaurant License Types"
