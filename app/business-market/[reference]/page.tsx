@@ -360,8 +360,8 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               <p className="business-market-hero-copy">
                 This Market View presents observed business-and-license market activity using
                 limited factual fields, together with FLLM liquor-license and county-market
-                intelligence. It is not a broker listing and does not state or imply that FLLM
-                represents the business, seller, broker, or source advertisement.
+                intelligence. It is not an FLLM Featured Broker Listing and does not state or imply
+                that FLLM represents the business, seller, or listing broker.
               </p>
 
               <div className="business-market-hero-stats">
