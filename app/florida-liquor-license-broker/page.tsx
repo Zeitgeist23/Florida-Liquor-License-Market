@@ -13,7 +13,7 @@ const canonicalUrl = `${siteUrl}/florida-liquor-license-broker`;
 export const metadata: Metadata = {
   title: "Florida Liquor License Broker | Sell Your License | FLLM",
   description:
-    "Sell your Florida liquor license with FLLM broker-assisted representation. Get statewide marketing, pricing strategy, buyer outreach, negotiation and transaction coordination for 4COP and 3PS quota licenses.",
+    "Sell a standalone transferable 4COP Quota or 3PS liquor license with FLLM broker-assisted representation. FLLM does not broker restaurants or other operating businesses.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
