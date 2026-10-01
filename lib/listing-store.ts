@@ -209,6 +209,34 @@ export function marketplaceSubmissionBrokerage(submission: ListingSubmission) {
   return submissionMessageValue(submission.message, "Brokerage");
 }
 
+export function marketplaceSubmissionBusinessType(submission: ListingSubmission) {
+  const value = submissionMessageValue(submission.message, "Business type");
+  return value && !/^not applicable$/i.test(value) ? value : null;
+}
+
+export function marketplaceSubmissionOfferingStructure(submission: ListingSubmission) {
+  return submissionMessageValue(submission.message, "Offering structure");
+}
+
+export function marketplaceSubmissionListingOption(submission: ListingSubmission) {
+  return submissionMessageValue(submission.message, "Listing option");
+}
+
+export function isBrokerBusinessPackageSubmission(submission: ListingSubmission) {
+  if (!isThirdPartyBrokerSubmission(submission)) return false;
+  const businessType = marketplaceSubmissionBusinessType(submission);
+  const purchaseRequired = submissionMessageValue(submission.message, "Business purchase required");
+  const packagePrice = submissionMessageValue(
+    submission.message,
+    "Total business + license package asking price",
+  );
+  return Boolean(
+    businessType ||
+    /^(yes|optional)/i.test(purchaseRequired || "") ||
+    (packagePrice && !/^not applicable$/i.test(packagePrice)),
+  );
+}
+
 type ApprovedListingDetailsRow = {
   submission_ref: string;
   license_status: string | null;
