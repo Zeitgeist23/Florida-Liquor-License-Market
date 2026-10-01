@@ -43,6 +43,13 @@ const STATIC_FEATURED_BROKERS: Record<string, FeaturedBrokerRecipient> = {
     email: "info@sunshineagle.com",
     phone: "(941) 416-4580",
   },
+  "FLLM-ZOBERG": {
+    listingReference: "FLLM-ZOBERG",
+    brokerName: "Brian Zoberg",
+    brokerage: "Suncoast Business Consultants",
+    email: "Brian@suncoastbiz.net",
+    phone: "(305) 301-2443",
+  },
 };
 
 function messageValue(message: string | null, label: string) {
@@ -204,7 +211,9 @@ export async function sendFeaturedBrokerInquiry(input: {
   return sendFllmEmail({
     to: recipient.email,
     replyTo: inquiry.buyerEmail,
-    subject: `FLLM Buyer Inquiry — ${recipient.listingReference} — ${inquiry.listingCounty}`,
+    subject: inquiry.inquiryType === "Specific Buyer Featured Business Package Inquiry"
+      ? `Specific Buyer Featured Business Package Inquiry — ${recipient.listingReference} — ${inquiry.listingCounty}`
+      : `FLLM Buyer Inquiry — ${recipient.listingReference} — ${inquiry.listingCounty}`,
     text,
     html: emailShell(content),
   });
