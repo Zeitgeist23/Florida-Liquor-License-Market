@@ -51,6 +51,12 @@ export default function BusinessQuotaListingCard({
       : rawLicenseMetricValue;
   const showEstimateTooltip =
     !usesClassification && (isMarketListing || hasEstimatedValueSuffix);
+  const estimateTooltipText =
+    listing.licenseValueBasis === "county_4cop_series_proxy"
+      ? "FLLM Est. 3PS Quota Value — derived from this county's current 4COP quota median using FLLM's current matched-market 3PS/4COP series factor (98.5%). Marketplace estimate only; not an appraisal. Any series change remains subject to DBPR approval and applicable premises, zoning, and regulatory requirements."
+      : listing.licenseValueBasis === "county_3ps_median"
+        ? "FLLM Est. 3PS Quota Value — based on the current median disclosed asking price for standalone 3PS quota licenses in this county. Marketplace estimate only; not an appraisal."
+        : "FLLM Est. License Value — marketplace estimate only, not an appraisal.";
 
   return (
     <article
@@ -114,7 +120,7 @@ export default function BusinessQuotaListingCard({
                 className="business-quota-card-license-value-tooltip"
                 role="tooltip"
               >
-                FLLM Est. License Value — marketplace estimate only, not an appraisal.
+                {estimateTooltipText}
               </span>
             ) : null}
           </div>
