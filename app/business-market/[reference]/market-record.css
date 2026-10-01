@@ -891,3 +891,31 @@
 .business-market-license-detail-card:hover .business-market-license-card-tooltip,.business-market-license-detail-card:focus-visible .business-market-license-card-tooltip,.business-market-license-highlight-card:hover .business-market-license-card-tooltip,.business-market-license-highlight-card:focus-visible .business-market-license-card-tooltip{opacity:1;visibility:visible;transform:translateY(0)}
 @media(max-width:900px){.business-market-license-detail-grid,.business-market-license-highlight-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.business-market-license-highlight-card:nth-child(2){border-right:0}.business-market-license-highlight-card:nth-child(-n+2){border-bottom:1px solid rgba(197,140,18,.38)}}
 @media(max-width:560px){.business-market-license-detail-grid,.business-market-license-highlight-grid{grid-template-columns:1fr}.business-market-license-highlight-card{border-right:0;border-bottom:1px solid rgba(197,140,18,.38)}.business-market-license-highlight-card:last-child{border-bottom:0}}
+
+
+.business-market-role-disclosure{
+  margin:18px 0;
+  padding:18px 20px;
+  border:1px solid rgba(241,166,0,.62);
+  border-radius:8px;
+  background:linear-gradient(145deg,#0b2a45,#071a2b);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 12px 26px rgba(0,0,0,.22);
+}
+.business-market-role-disclosure>strong{
+  display:block;
+  margin-bottom:10px;
+  color:#f1a600;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+}
+.business-market-role-disclosure ul{
+  margin:0;
+  padding-left:20px;
+  color:#e5eef3;
+  font-size:14px;
+  line-height:1.65;
+}
+.business-market-role-disclosure li+li{margin-top:6px}
+.business-market-role-disclosure li::marker{color:#69d6ff}
