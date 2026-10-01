@@ -80,6 +80,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   businessLabel: "Semi-Absentee Pizzeria",
   businessLabelLinkUrl: sourceListingUrl,
   businessLabelBodyBold: false,
+  packagePriceExternalLink: true,
   heroSummary:
     "Semi-absentee Lee County pizzeria opportunity with $400,000 in annual Cash Flow (SDE), leased premises and an included 4COP SFS / SRX full-liquor license, pending broker confirmation. The business requires a cash buyer and is not SBA financeable.",
   broker: {
