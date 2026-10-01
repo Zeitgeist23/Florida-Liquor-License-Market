@@ -28,6 +28,9 @@ import {
   getMarketplaceListings,
   isThirdPartyBrokerSubmission,
   marketplaceSubmissionBrokerage,
+  marketplaceSubmissionBusinessType,
+  marketplaceSubmissionListingOption,
+  isBrokerBusinessPackageSubmission,
   marketplaceSubmissionDisclosure,
 } from "@/lib/listing-store";
 import { getApprovedSubmissionByPublicRef } from "@/lib/listing-submission-store";
@@ -265,6 +268,20 @@ export default async function Page({ params }: PageProps) {
   const isThirdPartyBrokerListing = Boolean(
     verifiedBroker || (exchangeSubmission && isThirdPartyBrokerSubmission(exchangeSubmission)),
   );
+  const isThirdPartyBrokerBusinessPackage = Boolean(
+    exchangeSubmission && isBrokerBusinessPackageSubmission(exchangeSubmission),
+  );
+  const standardBrokerBusinessType = exchangeSubmission
+    ? marketplaceSubmissionBusinessType(exchangeSubmission)
+    : null;
+  const brokerListingOption = exchangeSubmission
+    ? marketplaceSubmissionListingOption(exchangeSubmission)
+    : null;
+  const brokerBusinessPackageInquiryType = isThirdPartyBrokerBusinessPackage
+    ? /featured/i.test(brokerListingOption || "")
+      ? "Specific Buyer Featured Business Package Inquiry"
+      : "Specific Buyer Standard Business Package Inquiry"
+    : undefined;
   const listingBrokerage = verifiedBroker?.brokerage || (exchangeSubmission
     ? marketplaceSubmissionBrokerage(exchangeSubmission)
     : null);
@@ -574,12 +591,15 @@ export default async function Page({ params }: PageProps) {
                 {isThirdPartyBrokerListing && (
                   <ListingBrokerInquiryForm
                     listingReference={selectedReference}
-                    listingRequested={`${selected.county} ${selected.type}`}
+                    listingRequested={isThirdPartyBrokerBusinessPackage
+                      ? `${standardBrokerBusinessType || "Business"} + ${selected.type} — ${selected.county}`
+                      : `${selected.county} ${selected.type}`}
                     listingCounty={selected.county}
                     licenseType={selected.type}
                     askingPrice={selected.priceLabel}
                     listingStatus={statusLabel}
                     listingUrl={canonicalPath}
+                    inquiryTypeOverride={brokerBusinessPackageInquiryType}
                   />
                 )}
                 {!isThirdPartyBrokerListing && <Link className="marketplace-listing-text-link" href={countyHref}>Compare {selected.county} liquor-license prices and inventory →</Link>}
