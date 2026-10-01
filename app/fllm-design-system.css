@@ -970,3 +970,36 @@
   width:100%;
   text-align:center !important;
 }
+
+
+/* Sell a Florida Restaurant: content-specific hero snapshot sizing.
+   Uses the locked FLLM snapshot visual system; only layout/wrapping is adjusted. */
+@media (min-width: 981px) {
+  .sell-florida-restaurant-page .seo-market-hero-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(410px, .8fr);
+  }
+
+  .sell-florida-restaurant-page .sell-restaurant-license-snapshot {
+    min-width: 0;
+  }
+
+  .sell-florida-restaurant-page .sell-restaurant-license-snapshot .seo-market-snapshot-grid strong {
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+    line-height: 1.08;
+    font-size: clamp(20px, 1.25vw, 24px);
+  }
+
+  .sell-florida-restaurant-page .sell-restaurant-license-snapshot .seo-market-snapshot-grid small {
+    min-height: 48px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 980px) {
+  .sell-florida-restaurant-page .sell-restaurant-license-snapshot .seo-market-snapshot-grid strong {
+    white-space: normal;
+    line-height: 1.08;
+  }
+}
