@@ -9,12 +9,12 @@ import {
   FllmFaqGrid,
   FllmPageShell,
   FllmSectionHeading,
+  FllmStepCard,
 } from "@/components/FllmDesignSystem";
 
 import "@/app/fllm-official-template.css";
 import "@/app/fllm-design-system.css";
 import "@/app/florida-quota-liquor-license-cost/header-footer-standard.css";
-import "./sell-florida-restaurant.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/sell-florida-restaurant`;
@@ -131,39 +131,43 @@ export default function SellFloridaRestaurantPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
         />
 
-        <section className="sell-restaurant-hero">
-          <div className="sell-restaurant-shell sell-restaurant-hero-grid">
-            <div>
-              <div className="sell-restaurant-breadcrumbs">
-                <Link href="/">Home</Link><span>›</span><strong>Sell a Florida Restaurant</strong>
+        <section className="seo-market-hero">
+          <div className="seo-market-shell">
+            <div className="seo-market-hero-grid">
+              <div>
+                <div className="fllm-ui-breadcrumbs">
+                  <Link href="/">Home</Link><span>›</span><strong>Sell a Florida Restaurant</strong>
+                </div>
+                <span className="seo-market-kicker">Florida Restaurant Seller & Broker Marketplace</span>
+                <h1 className="fllm-ui-hero-title--long">
+                  Sell a Florida Restaurant <em>With the Liquor-License Details Buyers Need</em>
+                </h1>
+                <p>
+                  Florida Liquor License Market gives restaurant owners and business brokers a focused place to present
+                  restaurant opportunities where the liquor license matters to the transaction. FLLM keeps the operating
+                  business, the license type and the liquor-license market context clearly separated so buyers can understand
+                  what is actually being offered.
+                </p>
+                <div className="fllm-ui-actions">
+                  <FllmButton href="/contact?inquiry=sell-florida-restaurant">Submit a Restaurant Opportunity</FllmButton>
+                  <FllmButton href="/restaurants-with-liquor-licenses" variant="outline">View Restaurant Market</FllmButton>
+                </div>
               </div>
-              <span className="fllm-template-eyebrow">Florida Restaurant Seller & Broker Marketplace</span>
-              <h1>Sell a Florida Restaurant <em>With the Liquor-License Details Buyers Need</em></h1>
-              <p>
-                Florida Liquor License Market gives restaurant owners and business brokers a focused place to present
-                restaurant opportunities where the liquor license matters to the transaction. FLLM keeps the operating
-                business, the license type and the liquor-license market context clearly separated so buyers can understand
-                what is actually being offered.
-              </p>
-              <div className="sell-restaurant-actions">
-                <FllmButton href="/contact?inquiry=sell-florida-restaurant">Submit a Restaurant Opportunity</FllmButton>
-                <FllmButton href="/restaurants-with-liquor-licenses" variant="outline">View Restaurant Market</FllmButton>
-              </div>
-            </div>
 
-            <aside className="sell-restaurant-hero-card">
-              <span>Restaurant + License Structure</span>
-              <strong>One FLLM presentation. The correct license classification.</strong>
-              <div className="sell-restaurant-license-stack">
-                <div><b>4COP Quota</b><small>Transferable county quota asset</small></div>
-                <div><b>4COP SFS / SRX</b><small>Qualifying restaurant + premises</small></div>
-                <div><b>2COP Beer & Wine</b><small>Beer-and-wine operating privileges</small></div>
-              </div>
-            </aside>
+              <aside className="seo-market-snapshot" aria-label="Restaurant and liquor-license overview">
+                <span>Restaurant + License Structure</span>
+                <div className="seo-market-snapshot-grid">
+                  <div><strong>4COP Quota</strong><small>Transferable county quota asset</small></div>
+                  <div><strong>4COP SFS / SRX</strong><small>Qualifying restaurant + premises</small></div>
+                  <div><strong>2COP</strong><small>Beer-and-wine operating privileges</small></div>
+                  <div><strong>FLLM</strong><small>Business + license market context</small></div>
+                </div>
+              </aside>
+            </div>
           </div>
         </section>
 
-        <section className="fllm-template-section sell-restaurant-intro">
+        <section className="fllm-template-section">
           <div className="fllm-template-shell">
             <FllmSectionHeading
               eyebrow="Built for Florida Restaurant Transactions"
@@ -200,7 +204,7 @@ export default function SellFloridaRestaurantPage() {
           </div>
         </section>
 
-        <section className="fllm-template-section fllm-template-section--deep sell-restaurant-license-section">
+        <section className="fllm-template-section fllm-template-section--deep">
           <div className="fllm-template-shell">
             <FllmSectionHeading
               eyebrow="Florida Restaurant License Types"
@@ -213,39 +217,33 @@ export default function SellFloridaRestaurantPage() {
               }
             />
 
-            <div className="sell-restaurant-license-grid">
-              <article>
-                <span>Transferable Quota Asset</span>
-                <h3>4COP Quota</h3>
+            <FllmCardGrid columns={3}>
+              <FllmCard eyebrow="Transferable Quota Asset" title="4COP Quota" variant="gold">
                 <p>
                   A county-limited transferable full-liquor quota license commonly associated with restaurants, bars,
                   lounges and nightlife concepts. The license can have a market value separate from the operating business.
                 </p>
-                <Link href="/license-types/4cop-quota">4COP Quota guide →</Link>
-              </article>
-              <article>
-                <span>Qualifying Restaurant License</span>
-                <h3>4COP SFS / SRX</h3>
+                <p><Link href="/license-types/4cop-quota">4COP Quota guide →</Link></p>
+              </FllmCard>
+              <FllmCard eyebrow="Qualifying Restaurant License" title="4COP SFS / SRX" variant="gold">
                 <p>
                   A full-liquor restaurant license tied to the qualifying food-service operation and approved premises.
                   It is not the same freestanding transferable county quota asset as a standard 4COP quota license.
                 </p>
-                <Link href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX guide →</Link>
-              </article>
-              <article>
-                <span>Beer & Wine</span>
-                <h3>2COP</h3>
+                <p><Link href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX guide →</Link></p>
+              </FllmCard>
+              <FllmCard eyebrow="Beer & Wine" title="2COP" variant="gold">
                 <p>
                   A non-quota beer-and-wine license that may fit restaurants that do not require distilled-spirit
                   privileges. FLLM keeps these opportunities separate from full-liquor restaurant inventory.
                 </p>
-                <Link href="/license-types/2cop-beer-wine">2COP guide →</Link>
-              </article>
-            </div>
+                <p><Link href="/license-types/2cop-beer-wine">2COP guide →</Link></p>
+              </FllmCard>
+            </FllmCardGrid>
           </div>
         </section>
 
-        <section className="fllm-template-section sell-restaurant-paths" id="seller-options">
+        <section className="fllm-template-section fllm-template-section--gradient" id="seller-options">
           <div className="fllm-template-shell">
             <FllmSectionHeading
               eyebrow="Choose the Right Listing Path"
@@ -253,29 +251,31 @@ export default function SellFloridaRestaurantPage() {
               copy={<p>FLLM keeps the seller path and broker-authorized advertising path distinct.</p>}
             />
 
-            <div className="sell-restaurant-path-grid">
-              <article className="sell-restaurant-path-card">
-                <span>Restaurant Owner / Seller</span>
-                <h3>Tell FLLM what you are selling</h3>
+            <div className="fllm-ui-grid fllm-ui-grid--2">
+              <FllmStepCard
+                eyebrow="Restaurant Owner / Seller"
+                title="Tell FLLM what you are selling"
+                actions={<FllmButton href="/contact?inquiry=restaurant-owner">Submit Restaurant Details</FllmButton>}
+              >
                 <p>
                   Start with the restaurant concept, county, asking price and current liquor-license type. FLLM can then
                   determine the appropriate marketplace and liquor-license presentation.
                 </p>
-                <FllmButton href="/contact?inquiry=restaurant-owner">Submit Restaurant Details</FllmButton>
-              </article>
+              </FllmStepCard>
 
-              <article className="sell-restaurant-path-card">
-                <span>Licensed Business Broker</span>
-                <h3>Create a Featured Broker Listing</h3>
+              <FllmStepCard
+                eyebrow="Licensed Business Broker"
+                title="Create a Featured Broker Listing"
+                actions={<FllmButton href="/brokers/list-your-license">Broker Listing Options</FllmButton>}
+              >
                 <p>
                   Featured Broker Listings preserve the broker&apos;s identity, brokerage, contact information and buyer
                   routing while adding FLLM&apos;s liquor-license presentation and market context.
                 </p>
-                <FllmButton href="/brokers/list-your-license">Broker Listing Options</FllmButton>
-              </article>
+              </FllmStepCard>
             </div>
 
-            <FllmDisclosure className="sell-restaurant-disclosure">
+            <FllmDisclosure>
               <strong>FLLM marketplace role:</strong> Florida Liquor License Market is not holding itself out as the
               business broker for every restaurant displayed on the platform. Market Views provide market intelligence;
               broker-authorized Featured Listings identify the broker representing the business. Any separate professional
@@ -284,7 +284,7 @@ export default function SellFloridaRestaurantPage() {
           </div>
         </section>
 
-        <section className="fllm-template-section fllm-template-section--gradient sell-restaurant-services">
+        <section className="fllm-template-section fllm-template-section--deep">
           <div className="fllm-template-shell">
             <FllmSectionHeading
               eyebrow="Beyond the Restaurant Advertisement"
@@ -294,25 +294,25 @@ export default function SellFloridaRestaurantPage() {
             <FllmCardGrid columns={4}>
               <FllmCard eyebrow="01" title="License Value">
                 <p>Review county pricing and the potential value of a transferable quota-license component.</p>
-                <Link href="/florida-liquor-license-value">Value resources →</Link>
+                <p><Link href="/florida-liquor-license-value">Value resources →</Link></p>
               </FllmCard>
               <FllmCard eyebrow="02" title="Appraisal">
                 <p>Use a formal liquor-license appraisal when lenders, transaction parties or advisers need support.</p>
-                <Link href="/florida-liquor-license-appraisal">Appraisal services →</Link>
+                <p><Link href="/florida-liquor-license-appraisal">Appraisal services →</Link></p>
               </FllmCard>
               <FllmCard eyebrow="03" title="Transfer Resources">
                 <p>Review ABT forms, transfer requirements and transaction-support resources.</p>
-                <Link href="/resources/application-center">Application center →</Link>
+                <p><Link href="/resources/application-center">Application center →</Link></p>
               </FllmCard>
               <FllmCard eyebrow="04" title="Financing">
                 <p>Explore financing resources where liquor-license value is part of the acquisition or refinance.</p>
-                <Link href="/financing">Financing resources →</Link>
+                <p><Link href="/financing">Financing resources →</Link></p>
               </FllmCard>
             </FllmCardGrid>
           </div>
         </section>
 
-        <section className="fllm-template-section fllm-template-section--deep sell-restaurant-faq">
+        <section className="fllm-template-section fllm-template-section--deep">
           <div className="fllm-template-shell">
             <FllmSectionHeading
               eyebrow="Seller & Broker Questions"
@@ -322,7 +322,7 @@ export default function SellFloridaRestaurantPage() {
           </div>
         </section>
 
-        <section className="fllm-ui-final-cta sell-restaurant-final-cta">
+        <section className="fllm-ui-final-cta">
           <div className="fllm-template-shell">
             <div>
               <span className="fllm-template-eyebrow">Florida Restaurant Market</span>
