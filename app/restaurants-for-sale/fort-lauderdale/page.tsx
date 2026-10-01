@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Fort LauderdaleRestaurantsForSalePage() {
+export default async function FortLauderdaleRestaurantsForSalePage() {
   const standaloneListings = getVisibleAvailableMarketplaceListings(
     await getMarketplaceListings(),
   );
@@ -80,15 +80,15 @@ export default async function Fort LauderdaleRestaurantsForSalePage() {
       /italian/i.test(`${listing.title} ${listing.businessType}`),
   );
 
-  const exactFort LauderdaleListings = browardRestaurantListings.filter((listing) =>
-    /\bfort-lauderdale\b/i.test(`${listing.title} ${listing.businessType}`),
+  const exactFortLauderdaleListings = browardRestaurantListings.filter((listing) =>
+    /\bfort lauderdale\b/i.test(`${listing.title} ${listing.businessType}`),
   );
 
   const nearbyBrowardListings = browardRestaurantListings.filter(
-    (listing) => !exactFort LauderdaleListings.includes(listing),
+    (listing) => !exactFortLauderdaleListings.includes(listing),
   );
 
-  const fort-lauderdaleFaqs = [
+  const fortLauderdaleFaqs = [
     {
       question: "Where can I search for restaurants for sale in Fort Lauderdale, Florida?",
       answer: "FLLM's Fort Lauderdale restaurant market page organizes Fort Lauderdale buyer searches around Broward County restaurant activity, full-liquor privileges, 4COP license structures and cuisine while preserving the actual location of each Market View.",
@@ -120,7 +120,7 @@ export default async function Fort LauderdaleRestaurantsForSalePage() {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: fort-lauderdaleFaqs.map((faq) => ({
+      mainEntity: fortLauderdaleFaqs.map((faq) => ({
         "@type": "Question",
         name: faq.question,
         acceptedAnswer: { "@type": "Answer", text: faq.answer },
@@ -254,8 +254,8 @@ export default async function Fort LauderdaleRestaurantsForSalePage() {
             title="Restaurant opportunities relevant to Fort Lauderdale buyers"
             copy={
               <p>
-                {exactFort LauderdaleListings.length
-                  ? `FLLM currently shows ${exactFort LauderdaleListings.length} restaurant Market View${exactFort LauderdaleListings.length === 1 ? "" : "s"} explicitly located in Fort Lauderdale, plus additional Broward County restaurant Market Views.`
+                {exactFortLauderdaleListings.length
+                  ? `FLLM currently shows ${exactFortLauderdaleListings.length} restaurant Market View${exactFortLauderdaleListings.length === 1 ? "" : "s"} explicitly located in Fort Lauderdale, plus additional Broward County restaurant Market Views.`
                   : "FLLM does not currently show a published restaurant Market View explicitly located in Fort Lauderdale. The inventory below is current Broward County restaurant Market Views displayed with its actual location so Fort Lauderdale buyers can compare nearby opportunities without location ambiguity."}
               </p>
             }
@@ -266,9 +266,9 @@ export default async function Fort LauderdaleRestaurantsForSalePage() {
             label="Broward County restaurant markets represented in current inventory"
           />
 
-          {exactFort LauderdaleListings.length ? (
+          {exactFortLauderdaleListings.length ? (
             <div className="business-quota-grid">
-              {exactFort LauderdaleListings.map((listing) => (
+              {exactFortLauderdaleListings.map((listing) => (
                 <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
               ))}
             </div>
