@@ -1043,3 +1043,11 @@
     0 0 18px rgba(241,166,0,.16);
   filter: brightness(1.08);
 }
+
+
+/* Sell a Florida Restaurant: center the license-structure panel heading. */
+.sell-florida-restaurant-page .sell-restaurant-license-snapshot > span {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
