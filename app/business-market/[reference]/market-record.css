@@ -101,6 +101,15 @@
   font-size:16px;
   line-height:1.25;
 }
+.business-market-observation-note{
+  display:block;
+  margin-top:6px;
+  color:#8fa7b6;
+  font-size:10px;
+  line-height:1.35;
+  text-transform:none;
+  letter-spacing:0;
+}
 .business-market-hero-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:24px}
 .business-market-primary,.business-market-secondary{
   min-height:44px;
