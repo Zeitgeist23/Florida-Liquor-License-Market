@@ -29,13 +29,17 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/nightclubs-for-sale-with-liquor-licenses`;
 
 export const metadata: Metadata = {
-  title: "Florida Nightclubs for Sale With Liquor Licenses | 4COP & More | FLLM",
+  title: "Florida Nightclubs With Full Liquor for Sale | 4COP | FLLM",
   description:
-    "Browse Florida nightclubs for sale with liquor licenses. Compare transferable 4COP quota nightclub packages and other nightclub opportunities by actual license class and county.",
+    "Browse Florida nightclubs with full liquor for sale, including transferable 4COP quota nightclub packages and other nightclub opportunities organized by actual license class and county.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
+    "Florida nightclubs with full liquor for sale",
+    "Florida nightclub with full liquor for sale",
     "Florida nightclubs for sale",
+    "nightclub with full liquor for sale Florida",
+    "turnkey nightclub with full liquor Florida",
     "Florida nightclub for sale with liquor license",
     "Florida nightclubs for sale with liquor licenses",
     "nightclub for sale Florida full liquor license",
@@ -47,9 +51,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Nightclubs for Sale With Liquor Licenses | FLLM",
+    title: "Florida Nightclubs With Full Liquor for Sale | FLLM",
     description:
-      "Florida nightclub opportunities organized by actual liquor-license structure, including transferable 4COP quota licenses.",
+      "Florida nightclubs with full liquor for sale, organized by actual liquor-license structure including transferable 4COP quota licenses.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -104,10 +108,10 @@ export default async function FloridaNightclubsForSaleWithLiquorLicensesPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Florida Nightclubs for Sale With Liquor Licenses",
+      name: "Florida Nightclubs With Full Liquor for Sale",
       url: canonicalUrl,
       description:
-        "Florida nightclubs for sale organized by liquor-license structure, including transferable 4COP quota licenses and other clearly identified license classes.",
+        "Florida nightclubs with full liquor for sale organized by actual liquor-license structure, including transferable 4COP quota licenses and other clearly identified license classes.",
       isPartOf: {
         "@type": "WebSite",
         name: "Florida Liquor License Market",
@@ -170,10 +174,10 @@ export default async function FloridaNightclubsForSaleWithLiquorLicensesPage() {
         <div className="fllm-template-shell">
           <div className="fllm-ui-breadcrumbs">
             <Link href="/">Home</Link><span>›</span>
-            <strong>Florida Nightclubs for Sale</strong>
+            <strong>Florida Nightclubs With Full Liquor for Sale</strong>
           </div>
-          <span className="fllm-template-eyebrow">Florida Nightclubs + Liquor License Market</span>
-          <h1 className="fllm-template-hero-title">Florida Nightclubs for Sale With Liquor Licenses</h1>
+          <span className="fllm-template-eyebrow">Florida Nightclubs With Full Liquor for Sale</span>
+          <h1 className="fllm-template-hero-title">Florida Nightclubs With Full Liquor for Sale</h1>
           <p className="fllm-template-hero-copy">
             Browse Florida nightclub opportunities while keeping the actual liquor-license class visible.
             Many full-liquor nightclub transactions involve a transferable 4COP quota license, but buyers should
