@@ -99,25 +99,71 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
     <FllmPageShell className="restaurants-with-liquor-licenses-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
-      <section
-        className="fllm-template-hero"
-        style={{
-          backgroundImage:
-            "linear-gradient(90deg, rgba(2, 21, 36, 0.99) 0%, rgba(2, 21, 36, 0.97) 38%, rgba(2, 21, 36, 0.84) 55%, rgba(2, 21, 36, 0.58) 68%, rgba(2, 21, 36, 0.18) 100%), url('/assets/orlando-restaurant-hero.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center right",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="fllm-template-shell">
+      <style>{`
+        .orlando-restaurant-hero {
+          position: relative;
+          overflow: hidden;
+          background: #021524;
+        }
+        .orlando-restaurant-hero__photo,
+        .orlando-restaurant-hero__overlay {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+        .orlando-restaurant-hero__photo {
+          background-image: url('/assets/orlando-restaurant-hero.webp');
+          background-size: cover;
+          background-position: center right;
+          background-repeat: no-repeat;
+          filter: contrast(1.16) saturate(1.08) brightness(1.025);
+          transform: scale(1.008);
+          transform-origin: center right;
+        }
+        .orlando-restaurant-hero__overlay {
+          background: linear-gradient(
+            90deg,
+            rgba(2, 21, 36, 0.99) 0%,
+            rgba(2, 21, 36, 0.96) 34%,
+            rgba(2, 21, 36, 0.78) 52%,
+            rgba(2, 21, 36, 0.42) 69%,
+            rgba(2, 21, 36, 0.12) 100%
+          );
+        }
+        .orlando-restaurant-hero__content {
+          position: relative;
+          z-index: 2;
+        }
+      `}</style>
+
+      <section className="fllm-template-hero orlando-restaurant-hero">
+        <div className="orlando-restaurant-hero__photo" aria-hidden="true" />
+        <div className="orlando-restaurant-hero__overlay" aria-hidden="true" />
+        <div className="fllm-template-shell orlando-restaurant-hero__content">
           <div className="fllm-ui-breadcrumbs">
             <Link href="/">Home</Link><span>›</span>
             <Link href="/restaurants-with-liquor-licenses">Restaurants</Link><span>›</span>
             <strong>Orlando</strong>
           </div>
           <span className="fllm-template-eyebrow">Orlando · Orange County Restaurant Market</span>
-          <h1 className="fllm-template-hero-title">Orlando Restaurants for Sale With Full Liquor Licenses</h1>
-          <p className="fllm-template-hero-copy">
+          <h1
+            className="fllm-template-hero-title"
+            style={{
+              fontSize: "clamp(42px, 4.4vw, 70px)",
+              lineHeight: 0.98,
+              maxWidth: "920px",
+            }}
+          >
+            Orlando Restaurants for Sale With Full Liquor Licenses
+          </h1>
+          <p
+            className="fllm-template-hero-copy"
+            style={{
+              fontSize: "clamp(16px, 1.15vw, 19px)",
+              lineHeight: 1.58,
+              maxWidth: "900px",
+            }}
+          >
             Search Orlando restaurants for sale with full liquor licenses through FLLM. Compare transferable
             4COP Quota restaurant packages with qualifying 4COP SFS / SRX full-liquor restaurant opportunities,
             plus 2COP beer-and-wine businesses in Orange County. FLLM keeps the actual license structure visible
