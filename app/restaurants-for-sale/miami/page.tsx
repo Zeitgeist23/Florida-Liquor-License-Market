@@ -28,9 +28,9 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/restaurants-for-sale/miami`;
 
 export const metadata: Metadata = {
-  title: "Miami, FL Restaurants for Sale | Full Liquor & Italian Market | FLLM",
+  title: "Miami Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
   description:
-    "Explore the Miami, Florida restaurant-for-sale market through FLLM, including full-liquor, 4COP, restaurant and nearby Miami-Dade County opportunities. Exact listing locations are identified on each card.",
+    "Find Miami restaurants for sale with liquor licenses in Miami-Dade County. Compare 4COP quota, 4COP SFS / SRX full-liquor and 2COP restaurant opportunities on FLLM.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Miami, FL Restaurants for Sale | Full Liquor & Italian Market | FLLM",
+    title: "Miami Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
     description:
       "Miami and Miami-Dade County restaurant opportunities organized by cuisine, business type and liquor-license structure.",
     siteName: "Florida Liquor License Market",
@@ -162,7 +162,7 @@ export default async function MiamiRestaurantsForSalePage() {
             <strong>Miami</strong>
           </div>
           <span className="fllm-template-eyebrow">Miami · Miami-Dade County Restaurant Market</span>
-          <h1 className="fllm-template-hero-title">Restaurants for Sale in Miami, Florida</h1>
+          <h1 className="fllm-template-hero-title">Miami Restaurant With Liquor License for Sale</h1>
           <p className="fllm-template-hero-copy">
             Search the Miami restaurant-for-sale market through FLLM by restaurant concept, cuisine and
             alcoholic-beverage license structure. FLLM connects Miami search demand to current Miami-Dade County
@@ -250,7 +250,7 @@ export default async function MiamiRestaurantsForSalePage() {
       <section className="fllm-template-section fllm-template-section--deep" id="miami-market-inventory">
         <div className="fllm-template-shell">
           <FllmSectionHeading
-            eyebrow="Current Miami & Broward Restaurant Market"
+            eyebrow="Current Miami & Miami-Dade Restaurant Market"
             title="Restaurant opportunities relevant to Miami buyers"
             copy={
               <p>
