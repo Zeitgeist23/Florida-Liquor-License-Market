@@ -20,7 +20,13 @@ export default function BusinessPackageLocalMarkets({
 
   return (
     <p className="business-package-local-markets">
-      <strong>{label}:</strong> {cities.join(" · ")}
+      <strong>{label}:</strong>{" "}
+      {cities.map((city, index) => (
+        <span key={city}>
+          <span className="business-package-local-market-city">{city}</span>
+          {index < cities.length - 1 ? <span className="business-package-local-market-separator"> · </span> : null}
+        </span>
+      ))}
     </p>
   );
 }
