@@ -34,18 +34,26 @@ function getHeatMapApi() {
   return (window as HeatMapWindow).FLLMHeatMap;
 }
 
-function businessPackageHeatMapHref(button: HTMLButtonElement) {
-  const listingType = button.dataset.heatMapType;
-  if (listingType !== "businesses-sfs" && listingType !== "businesses-2cop") {
-    return null;
+function dedicatedHeatMapHref(button: HTMLButtonElement) {
+  const listingType = button.dataset.heatMapType || "quota";
+
+  if (listingType === "businesses-sfs" || listingType === "businesses-2cop") {
+    const params = new URLSearchParams({ view: listingType });
+    const businessType = button.dataset.heatMapBusinessType?.trim();
+    if (businessType && businessType !== "all") {
+      params.set("businessType", businessType);
+    }
+    const county = button.dataset.heatMapCounty?.trim();
+    if (county && county !== "all") params.set("county", county);
+    return `/market-data/heat-map?${params.toString()}`;
   }
 
-  const params = new URLSearchParams({ view: listingType });
-  const businessType = button.dataset.heatMapBusinessType?.trim();
-  if (businessType && businessType !== "all") {
-    params.set("businessType", businessType);
-  }
-
+  const params = new URLSearchParams({ view: "licenses" });
+  const county = button.dataset.heatMapCounty?.trim();
+  if (county && county !== "all") params.set("county", county);
+  params.set("licenseType", listingType);
+  const status = button.dataset.heatMapStatus?.trim();
+  if (status) params.set("status", status);
   return `/market-data/heat-map?${params.toString()}`;
 }
 
@@ -119,16 +127,9 @@ export default function ListingsHeatMapEnhancement() {
       button.setAttribute("aria-busy", "true");
 
       try {
-        const packageHeatMapHref = businessPackageHeatMapHref(button);
-        if (packageHeatMapHref) {
-          window.location.assign(packageHeatMapHref);
-          return;
-        }
-
-        await Promise.all(SCRIPT_ASSETS.map((asset) => ensureScript(asset.id, asset.src)));
-        const heatMap = getHeatMapApi();
-        if (!heatMap) throw new Error("Shared heat map API was not initialized");
-        openDedicatedHeatMap(heatMap, button);
+        const heatMapHref = dedicatedHeatMapHref(button);
+        window.location.assign(heatMapHref);
+        return;
       } catch (error) {
         console.error("Listings heat map could not open", error);
       } finally {
