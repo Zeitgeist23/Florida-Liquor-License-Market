@@ -322,6 +322,7 @@ export default async function FloridaNightclubsForSaleWithLiquorLicensesPage() {
                 from FLLM&apos;s standalone liquor-license brokerage services.
               </p>
             }
+            align="center"
           />
           <div className="fllm-ui-actions">
             <FllmButton href="/contact" variant="outline">Contact FLLM</FllmButton>
