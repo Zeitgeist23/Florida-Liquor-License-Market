@@ -338,15 +338,22 @@ export default async function RestaurantsWithLiquorLicensesPage() {
         .florida-restaurants-hero__photo,
         .florida-restaurants-hero__overlay {
           position: absolute;
-          inset: 0;
           pointer-events: none;
         }
         .florida-restaurants-hero__photo {
+          top: 0;
+          bottom: 0;
+          left: 42%;
+          right: -4%;
           background-image: url('/assets/florida-restaurants-beachside-hero.webp');
-          background-size: cover;
-          background-position: center right;
+          background-size: 118% auto;
+          background-position: 72% center;
           background-repeat: no-repeat;
-          filter: contrast(1.12) saturate(1.08) brightness(1.03);
+          background-color: #021524;
+          filter: contrast(1.18) saturate(1.12) brightness(1.04);
+        }
+        .florida-restaurants-hero__overlay {
+          inset: 0;
         }
         .florida-restaurants-hero__overlay {
           background: linear-gradient(
@@ -360,7 +367,10 @@ export default async function RestaurantsWithLiquorLicensesPage() {
         }
         @media (max-width: 900px) {
           .florida-restaurants-hero__photo {
-            background-position: 64% center;
+            left: 30%;
+            right: -10%;
+            background-size: 135% auto;
+            background-position: 68% center;
           }
           .florida-restaurants-hero__overlay {
             background: linear-gradient(
