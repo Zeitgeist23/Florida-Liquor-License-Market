@@ -18,9 +18,9 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/restaurants-for-sale/orlando`;
 
 export const metadata: Metadata = {
-  title: "Orlando Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
+  title: "Orlando Restaurants for Sale With Full Liquor Licenses | 4COP & SFS/SRX | FLLM",
   description:
-    "Find Orlando restaurants for sale with liquor licenses in Orange County, Florida. Compare 4COP quota, 4COP SFS / SRX full-liquor and 2COP restaurant opportunities on FLLM.",
+    "Find Orlando restaurants for sale with full liquor licenses in Orange County, Florida. Compare transferable 4COP Quota and qualifying 4COP SFS / SRX restaurant opportunities on FLLM.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Orlando Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
+    title: "Orlando Restaurants for Sale With Full Liquor Licenses | 4COP & SFS/SRX | FLLM",
     description:
-      "Orlando and Orange County restaurant opportunities organized by business type and Florida liquor-license structure.",
+      "Orlando and Orange County restaurants for sale with full-liquor privileges, organized by 4COP Quota, 4COP SFS / SRX and 2COP license structure.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -65,10 +65,10 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Orlando Restaurant With Liquor License for Sale",
+      name: "Orlando Restaurants for Sale With Full Liquor Licenses",
       url: canonicalUrl,
       description:
-        "Orlando and Orange County, Florida restaurant opportunities with 4COP quota, 4COP SFS / SRX and 2COP liquor-license structures.",
+        "Orlando and Orange County restaurants for sale with full liquor licenses, including transferable 4COP Quota and qualification-based 4COP SFS / SRX opportunities.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
@@ -107,11 +107,12 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
             <strong>Orlando</strong>
           </div>
           <span className="fllm-template-eyebrow">Orlando · Orange County Restaurant Market</span>
-          <h1 className="fllm-template-hero-title">Orlando Restaurant With Liquor License for Sale</h1>
+          <h1 className="fllm-template-hero-title">Orlando Restaurants for Sale With Full Liquor Licenses</h1>
           <p className="fllm-template-hero-copy">
-            Search Orlando restaurant opportunities with liquor licenses through FLLM. Compare restaurants and
-            restaurant/bar businesses involving transferable 4COP quota licenses, qualifying 4COP SFS / SRX
-            full-liquor restaurant licenses, and 2COP beer-and-wine licenses in Orange County, Florida.
+            Search Orlando restaurants for sale with full liquor licenses through FLLM. Compare transferable
+            4COP Quota restaurant packages with qualifying 4COP SFS / SRX full-liquor restaurant opportunities,
+            plus 2COP beer-and-wine businesses in Orange County. FLLM keeps the actual license structure visible
+            so buyers can distinguish a transferable quota asset from a qualification-based restaurant license.
           </p>
           <div className="fllm-ui-actions">
             <Link className="btn btn-gold fllm-ui-official-gold-button" href="#orlando-restaurant-inventory">
@@ -126,7 +127,7 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
         <div className="fllm-template-shell">
           <FllmSectionHeading
             eyebrow="Current Orlando Restaurant Market"
-            title="Orlando and Orange County restaurant opportunities"
+            title="Orlando restaurants for sale with full liquor licenses"
             copy={
               <p>
                 FLLM currently tracks {allRestaurantListings.length} Orange County restaurant Market View{allRestaurantListings.length === 1 ? "" : "s"}.
@@ -145,6 +146,28 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
           </div>
         </div>
       </section>
+      <section className="fllm-template-section fllm-template-section--deep">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Orlando Full-Liquor Restaurant Search"
+            title="4COP Quota vs. 4COP SFS / SRX in the Orlando restaurant market"
+            copy={
+              <p>
+                Buyers often search simply for an Orlando restaurant with a full liquor license. In Florida, that
+                phrase can refer to two materially different structures: a transferable Orange County 4COP Quota
+                license included with a business acquisition, or a location-specific 4COP SFS / SRX license available
+                to a qualifying restaurant. FLLM identifies which structure applies to each opportunity.
+              </p>
+            }
+          />
+          <div className="fllm-ui-actions">
+            <FllmButton href="/license-types/4cop-quota" variant="outline">4COP Quota Guide</FllmButton>
+            <FllmButton href="/license-types/4cop-sfs-restaurant" variant="outline">4COP SFS / SRX Guide</FllmButton>
+            <FllmButton href="/counties/orange" variant="outline">Orange County Market</FllmButton>
+          </div>
+        </div>
+      </section>
+
     </FllmPageShell>
   );
 }
