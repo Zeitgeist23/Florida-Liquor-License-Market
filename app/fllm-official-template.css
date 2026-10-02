@@ -403,3 +403,38 @@
     transition: none;
   }
 }
+
+
+/* Orlando restaurant hero refinements */
+.orlando-restaurant-hero .fllm-template-shell {
+  padding-top: 42px !important;
+  padding-bottom: 42px !important;
+}
+
+.orlando-restaurant-hero .fllm-template-hero-title {
+  font-size: clamp(32px, 3vw, 48px) !important;
+  line-height: 1.02 !important;
+  max-width: 760px !important;
+}
+
+.orlando-restaurant-hero .fllm-template-hero-copy {
+  font-size: clamp(14px, .9vw, 15px) !important;
+  line-height: 1.48 !important;
+  max-width: 680px !important;
+}
+
+.orlando-restaurant-hero__photo {
+  background-position: 66% center !important;
+  filter: contrast(1.10) saturate(1.06) brightness(1.02) !important;
+}
+
+.orlando-restaurant-hero__overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(2, 21, 36, .99) 0%,
+    rgba(2, 21, 36, .95) 32%,
+    rgba(2, 21, 36, .70) 48%,
+    rgba(2, 21, 36, .28) 66%,
+    rgba(2, 21, 36, .08) 100%
+  ) !important;
+}
