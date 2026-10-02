@@ -29,12 +29,15 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/gentlemens-clubs-for-sale-with-liquor-licenses`;
 
 export const metadata: Metadata = {
-  title: "Florida Gentlemen's Clubs for Sale With Liquor Licenses | FLLM",
+  title: "Florida Gentlemen's Clubs With Full Liquor for Sale | FLLM",
   description:
-    "Browse Florida gentlemen's clubs for sale with liquor licenses. Compare adult-entertainment business packages by actual license class, county and disclosed license component.",
+    "Browse Florida gentlemen's clubs with full liquor for sale. Compare adult-entertainment business packages by actual liquor-license class, county and disclosed license component.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
+    "Florida gentlemen's clubs with full liquor for sale",
+    "Florida gentlemen's club with full liquor for sale",
+    "Florida strip club with full liquor for sale",
     "Florida gentlemen's clubs for sale",
     "Florida strip clubs for sale",
     "Florida adult entertainment business for sale",
@@ -46,9 +49,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Gentlemen's Clubs for Sale With Liquor Licenses | FLLM",
+    title: "Florida Gentlemen's Clubs With Full Liquor for Sale | FLLM",
     description:
-      "Florida gentlemen's-club opportunities organized by actual liquor-license structure, including transferable 4COP quota licenses.",
+      "Florida gentlemen's clubs with full liquor for sale, organized by actual liquor-license structure including transferable 4COP quota licenses.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -103,10 +106,10 @@ export default async function GentlemensClubsForSaleWithLiquorLicensesPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Florida Gentlemen's Clubs for Sale With Liquor Licenses",
+      name: "Florida Gentlemen's Clubs With Full Liquor for Sale",
       url: canonicalUrl,
       description:
-        "Florida gentlemen's clubs and adult-entertainment businesses for sale organized by actual liquor-license structure.",
+        "Florida gentlemen's clubs and adult-entertainment businesses with full liquor for sale, organized by actual liquor-license structure.",
       isPartOf: {
         "@type": "WebSite",
         name: "Florida Liquor License Market",
@@ -169,10 +172,10 @@ export default async function GentlemensClubsForSaleWithLiquorLicensesPage() {
         <div className="fllm-template-shell">
           <div className="fllm-ui-breadcrumbs">
             <Link href="/">Home</Link><span>›</span>
-            <strong>Florida Gentlemen&apos;s Clubs for Sale</strong>
+            <strong>Florida Gentlemen&apos;s Clubs With Full Liquor for Sale</strong>
           </div>
-          <span className="fllm-template-eyebrow">Florida Gentlemen&apos;s Club + Liquor License Market</span>
-          <h1 className="fllm-template-hero-title">Florida Gentlemen&apos;s Clubs for Sale With Liquor Licenses</h1>
+          <span className="fllm-template-eyebrow">Florida Gentlemen&apos;s Clubs With Full Liquor for Sale</span>
+          <h1 className="fllm-template-hero-title">Florida Gentlemen&apos;s Clubs With Full Liquor for Sale</h1>
           <p className="fllm-template-hero-copy">
             Browse Florida gentlemen&apos;s-club opportunities while keeping the actual liquor-license structure visible.
             Many adult-entertainment venues use transferable 4COP quota licenses, but buyers should not assume every club
