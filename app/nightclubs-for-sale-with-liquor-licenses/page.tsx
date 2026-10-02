@@ -161,7 +161,7 @@ export default async function FloridaNightclubsForSaleWithLiquorLicensesPage() {
         className="fllm-template-hero"
         style={{
           backgroundImage:
-            'linear-gradient(90deg, rgba(2, 16, 29, 0.99) 0%, rgba(2, 16, 29, 0.96) 38%, rgba(2, 16, 29, 0.82) 52%, rgba(2, 16, 29, 0.48) 68%, rgba(2, 16, 29, 0.20) 100%), url("https://images.pexels.com/photos/18675118/pexels-photo-18675118/free-photo-of-interior-of-a-bar.jpeg?auto=compress&dpr=1&h=1200&w=2200")',
+            'linear-gradient(90deg, rgba(2, 16, 29, 0.96) 0%, rgba(2, 16, 29, 0.88) 38%, rgba(2, 16, 29, 0.60) 56%, rgba(2, 16, 29, 0.18) 76%, rgba(2, 16, 29, 0.05) 100%), url("/assets/nightclub-hero.webp")',
           backgroundSize: "cover",
           backgroundPosition: "center right",
           backgroundRepeat: "no-repeat",
