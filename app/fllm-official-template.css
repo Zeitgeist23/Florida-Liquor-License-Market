@@ -424,8 +424,8 @@
 }
 
 .orlando-restaurant-hero__photo {
-  background-position: 66% center !important;
-  filter: contrast(1.10) saturate(1.06) brightness(1.02) !important;
+  background-position: center center !important;
+  filter: none !important;
 }
 
 .orlando-restaurant-hero__overlay {
