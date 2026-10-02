@@ -104,8 +104,8 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
         style={{
           backgroundImage:
             "linear-gradient(90deg, rgba(2, 21, 36, 0.99) 0%, rgba(2, 21, 36, 0.97) 38%, rgba(2, 21, 36, 0.84) 55%, rgba(2, 21, 36, 0.58) 68%, rgba(2, 21, 36, 0.18) 100%), url('/assets/orlando-restaurant-hero.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center right",
+          backgroundSize: "100% 100%, auto 100%",
+          backgroundPosition: "center, right center",
           backgroundRepeat: "no-repeat",
         }}
       >
