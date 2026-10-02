@@ -30,11 +30,9 @@ export default function BusinessQuotaListingCard({
   const actionHref = listing.href;
   const usesClassification = listing.licenseClass === "sfs" || listing.licenseClass === "2cop";
   const rawLicenseMetricValue =
-    listing.licenseClass === "sfs"
+    listing.licenseClass === "sfs" || listing.licenseClass === "2cop"
       ? "Location-Specific"
-      : listing.licenseClass === "2cop"
-        ? "Non-Quota"
-        : listing.marketMedianLicenseValue ?? listing.allocatedLicenseValue;
+      : listing.marketMedianLicenseValue ?? listing.allocatedLicenseValue;
   const hasEstimatedValueSuffix =
     typeof rawLicenseMetricValue === "string" &&
     /\s+est\.?$/i.test(rawLicenseMetricValue);
