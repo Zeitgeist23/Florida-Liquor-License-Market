@@ -137,3 +137,245 @@
   .county-license-snapshot-stats{grid-template-columns:1fr}
   .county-license-estimated-value,.county-license-snapshot-link{grid-column:auto}
 }
+
+
+/* County snapshot: centered, dimensional metric cards */
+.county-license-snapshot-stats>div{
+  display:flex;
+  min-height:112px;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  border-color:rgba(91,227,244,.34);
+  background:linear-gradient(145deg,#0b3657 0%,#082944 58%,#061b2d 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 -1px 0 rgba(0,0,0,.24),
+    0 10px 22px rgba(0,0,0,.18);
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.county-license-snapshot-stats>div:hover{
+  transform:translateY(-2px) scale(1.01);
+  border-color:rgba(91,227,244,.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    0 14px 28px rgba(0,0,0,.26),
+    0 0 18px rgba(91,227,244,.08);
+}
+.county-license-snapshot-stats span,
+.county-license-snapshot-stats strong,
+.county-license-snapshot-stats small,
+.county-license-snapshot-link a{
+  text-align:center;
+}
+.county-license-snapshot-link a{margin-left:auto;margin-right:auto}
+.county-license-estimated-value{
+  min-height:136px!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 12px 26px rgba(0,0,0,.22),
+    0 0 18px rgba(241,166,0,.05)!important;
+}
+
+/* Match the existing FLLM cyan map-pin language and reveal the market summary on hover/focus. */
+.county-license-map-pin{
+  position:absolute;
+  z-index:8;
+  width:30px;
+  height:50px;
+  padding:0;
+  border:0;
+  background:transparent;
+  transform:translate(-50%,-86%);
+  cursor:pointer;
+  filter:drop-shadow(0 3px 4px rgba(0,0,0,.65));
+}
+.county-license-map-pin:focus-visible{
+  outline:2px solid #69d6ff;
+  outline-offset:3px;
+  border-radius:999px;
+}
+.county-license-map-pin-head{
+  position:absolute;
+  left:50%;
+  top:0;
+  width:15px;
+  height:15px;
+  border:2px solid #dffbff;
+  border-radius:50%;
+  background:#69d6ff;
+  box-shadow:0 0 0 3px rgba(105,214,255,.18),0 0 13px rgba(105,214,255,.72);
+  transform:translateX(-50%);
+}
+.county-license-map-pin-head::after{
+  content:"";
+  position:absolute;
+  left:3px;
+  top:2px;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:rgba(255,255,255,.9);
+}
+.county-license-map-pin-stem{
+  position:absolute;
+  left:50%;
+  top:14px;
+  width:2px;
+  height:27px;
+  background:#e8fbff;
+  box-shadow:0 0 4px rgba(105,214,255,.72);
+  transform:translateX(-50%);
+}
+.county-license-map-pin-point{
+  position:absolute;
+  left:50%;
+  bottom:1px;
+  width:8px;
+  height:8px;
+  border:1px solid #e8fbff;
+  border-radius:50%;
+  background:#69d6ff;
+  box-shadow:0 0 8px rgba(105,214,255,.6);
+  transform:translateX(-50%);
+}
+.county-license-map-tooltip{
+  position:absolute;
+  z-index:9;
+  width:224px;
+  padding:12px 13px 11px;
+  border:1px solid #69d6ff;
+  border-radius:7px;
+  background:linear-gradient(145deg,rgba(6,23,39,.985),rgba(14,53,85,.985));
+  box-shadow:0 15px 30px rgba(0,0,0,.42),0 0 18px rgba(105,214,255,.12);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;
+}
+.county-license-map-pin:hover + .county-license-map-tooltip,
+.county-license-map-pin:focus + .county-license-map-tooltip{opacity:1}
+.county-license-map-tooltip.is-left{transform:translate(calc(-100% - 18px),-50%)}
+.county-license-map-tooltip.is-right{transform:translate(18px,-50%)}
+.county-license-map-tooltip.is-left.is-upper{transform:translate(calc(-100% - 18px),-18%)}
+.county-license-map-tooltip.is-right.is-upper{transform:translate(18px,-18%)}
+.county-license-map-tooltip.is-left.is-lower{transform:translate(calc(-100% - 18px),-82%)}
+.county-license-map-tooltip.is-right.is-lower{transform:translate(18px,-82%)}
+.county-license-map-tooltip>span{
+  display:block;
+  color:#69d6ff;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.county-license-map-tooltip>strong{
+  display:block;
+  margin-top:5px;
+  color:#fff;
+  font:700 15px/1.22 Georgia,"Times New Roman",serif;
+}
+.county-license-map-tooltip dl{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px 9px;
+  margin:10px 0 8px;
+}
+.county-license-map-tooltip dt{
+  color:#91a9b8;
+  font-size:8px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+.county-license-map-tooltip dd{
+  margin:2px 0 0;
+  color:#e9f7fd;
+  font-size:10px;
+  font-weight:800;
+}
+.county-license-map-tooltip>small{
+  display:block;
+  color:#ffc13b;
+  font-size:9px;
+  font-weight:850;
+  line-height:1.35;
+}
+
+/* Selected county pin on the larger statewide heat map */
+.unified-selected-market-pin line{
+  stroke:#e8fbff;
+  stroke-width:1.25;
+  filter:drop-shadow(0 0 2px rgba(105,214,255,.7));
+}
+.unified-selected-market-pin .pin-head{
+  fill:#69d6ff;
+  stroke:#e8fbff;
+  stroke-width:1.2;
+  filter:drop-shadow(0 0 4px rgba(105,214,255,.8));
+}
+.unified-selected-market-pin .pin-shine{fill:#fff}
+.unified-selected-market-pin .pin-point{
+  fill:#69d6ff;
+  stroke:#e8fbff;
+  stroke-width:.7;
+}
+.unified-selected-market-tooltip{
+  opacity:0;
+  overflow:visible;
+  pointer-events:none;
+  transition:opacity .15s ease;
+}
+.unified-selected-market-pin:hover + .unified-selected-market-tooltip,
+.unified-selected-market-pin:focus + .unified-selected-market-tooltip{
+  opacity:1;
+}
+.unified-selected-market-tooltip-card{
+  box-sizing:border-box;
+  width:100%;
+  height:100%;
+  padding:7px 8px;
+  border:1px solid #69d6ff;
+  border-radius:6px;
+  background:linear-gradient(145deg,rgba(6,23,39,.985),rgba(14,53,85,.985));
+  box-shadow:0 8px 18px rgba(0,0,0,.42),0 0 10px rgba(105,214,255,.12);
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+}
+.unified-selected-market-tooltip-card>span{
+  display:block;
+  color:#69d6ff;
+  font-size:4.8px;
+  font-weight:900;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.unified-selected-market-tooltip-card>strong{
+  display:block;
+  margin:2px 0 4px;
+  font:700 6.8px/1.15 Georgia,"Times New Roman",serif;
+}
+.unified-selected-market-tooltip-card dl{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px 4px;
+  margin:0;
+}
+.unified-selected-market-tooltip-card dt{
+  color:#91a9b8;
+  font-size:4.2px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+.unified-selected-market-tooltip-card dd{
+  margin:0;
+  color:#fff;
+  font-size:5.2px;
+  font-weight:800;
+}
+.unified-selected-market-tooltip-card small{
+  display:block;
+  margin-top:4px;
+  color:#ffc13b;
+  font-size:4.6px;
+  font-weight:900;
+}
