@@ -104,6 +104,11 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
           position: relative;
           overflow: hidden;
           background: #021524;
+          min-height: 0;
+        }
+        .orlando-restaurant-hero .fllm-template-shell {
+          padding-top: 54px;
+          padding-bottom: 54px;
         }
         .orlando-restaurant-hero__photo,
         .orlando-restaurant-hero__overlay {
@@ -116,8 +121,8 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
           background-size: cover;
           background-position: center right;
           background-repeat: no-repeat;
-          filter: contrast(1.16) saturate(1.08) brightness(1.025);
-          transform: scale(1.008);
+          filter: contrast(1.26) saturate(1.10) brightness(1.035);
+          transform: scale(1.002);
           transform-origin: center right;
         }
         .orlando-restaurant-hero__overlay {
@@ -125,8 +130,8 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
             90deg,
             rgba(2, 21, 36, 0.99) 0%,
             rgba(2, 21, 36, 0.96) 34%,
-            rgba(2, 21, 36, 0.78) 52%,
-            rgba(2, 21, 36, 0.42) 69%,
+            rgba(2, 21, 36, 0.74) 50%,
+            rgba(2, 21, 36, 0.34) 68%,
             rgba(2, 21, 36, 0.12) 100%
           );
         }
@@ -149,9 +154,9 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
           <h1
             className="fllm-template-hero-title"
             style={{
-              fontSize: "clamp(42px, 4.4vw, 70px)",
-              lineHeight: 0.98,
-              maxWidth: "920px",
+              fontSize: "clamp(36px, 3.55vw, 58px)",
+              lineHeight: 1.0,
+              maxWidth: "820px",
             }}
           >
             Orlando Restaurants for Sale With Full Liquor Licenses
@@ -159,9 +164,9 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
           <p
             className="fllm-template-hero-copy"
             style={{
-              fontSize: "clamp(16px, 1.15vw, 19px)",
-              lineHeight: 1.58,
-              maxWidth: "900px",
+              fontSize: "clamp(15px, 1vw, 17px)",
+              lineHeight: 1.52,
+              maxWidth: "790px",
             }}
           >
             Search Orlando restaurants for sale with full liquor licenses through FLLM. Compare transferable
