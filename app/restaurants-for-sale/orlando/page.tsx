@@ -161,15 +161,16 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
             eyebrow="Orlando Full-Liquor Restaurant Search"
             title="4COP Quota vs. 4COP SFS / SRX in the Orlando restaurant market"
             copy={
-              <p>
+              <p style={{ fontSize: "19px", lineHeight: 1.75, maxWidth: "1120px", marginInline: "auto", color: "#f7fbff" }}>
                 Buyers often search simply for an Orlando restaurant with a full liquor license. In Florida, that
                 phrase can refer to two materially different structures: a transferable Orange County 4COP Quota
                 license included with a business acquisition, or a location-specific 4COP SFS / SRX license available
                 to a qualifying restaurant. FLLM identifies which structure applies to each opportunity.
               </p>
             }
+            align="center"
           />
-          <div className="fllm-ui-actions">
+          <div className="fllm-ui-actions" style={{ justifyContent: "center" }}>
             <FllmButton href="/license-types/4cop-quota" variant="outline">4COP Quota Guide</FllmButton>
             <FllmButton href="/license-types/4cop-sfs-restaurant" variant="outline">4COP SFS / SRX Guide</FllmButton>
             <FllmButton href="/counties/orange" variant="outline">Orange County Market</FllmButton>
