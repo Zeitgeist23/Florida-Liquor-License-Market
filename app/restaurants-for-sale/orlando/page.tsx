@@ -103,7 +103,7 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
         className="fllm-template-hero"
         style={{
           backgroundImage:
-            "linear-gradient(90deg, rgba(2, 21, 36, 0.98) 0%, rgba(2, 21, 36, 0.94) 38%, rgba(2, 21, 36, 0.66) 58%, rgba(2, 21, 36, 0.18) 100%), url('/assets/orlando-restaurant-hero.webp')",
+            "linear-gradient(90deg, rgba(2, 21, 36, 0.99) 0%, rgba(2, 21, 36, 0.97) 38%, rgba(2, 21, 36, 0.84) 55%, rgba(2, 21, 36, 0.58) 68%, rgba(2, 21, 36, 0.18) 100%), url('/assets/orlando-restaurant-hero.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center right",
           backgroundRepeat: "no-repeat",
