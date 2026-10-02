@@ -242,19 +242,77 @@ export default async function RestaurantsWithLiquorLicensesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <section className="fllm-template-hero">
+      <style>{`
+        .florida-restaurants-hero {
+          position: relative;
+          overflow: hidden;
+          background: #021524;
+          min-height: 0;
+        }
+        .florida-restaurants-hero .fllm-template-shell {
+          position: relative;
+          z-index: 2;
+          padding-top: 54px;
+          padding-bottom: 54px;
+        }
+        .florida-restaurants-hero__photo,
+        .florida-restaurants-hero__overlay {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+        .florida-restaurants-hero__photo {
+          background-image: url('/assets/florida-restaurants-beachside-hero.webp');
+          background-size: cover;
+          background-position: center right;
+          background-repeat: no-repeat;
+          filter: contrast(1.12) saturate(1.08) brightness(1.03);
+        }
+        .florida-restaurants-hero__overlay {
+          background: linear-gradient(
+            90deg,
+            rgba(2, 21, 36, 0.995) 0%,
+            rgba(2, 21, 36, 0.98) 33%,
+            rgba(2, 21, 36, 0.80) 49%,
+            rgba(2, 21, 36, 0.38) 66%,
+            rgba(2, 21, 36, 0.10) 100%
+          );
+        }
+        @media (max-width: 900px) {
+          .florida-restaurants-hero__photo {
+            background-position: 64% center;
+          }
+          .florida-restaurants-hero__overlay {
+            background: linear-gradient(
+              90deg,
+              rgba(2, 21, 36, 0.995) 0%,
+              rgba(2, 21, 36, 0.95) 58%,
+              rgba(2, 21, 36, 0.58) 100%
+            );
+          }
+        }
+      `}</style>
+
+      <section className="fllm-template-hero florida-restaurants-hero">
+        <div className="florida-restaurants-hero__photo" aria-hidden="true" />
+        <div className="florida-restaurants-hero__overlay" aria-hidden="true" />
         <div className="fllm-template-shell">
           <div className="fllm-ui-breadcrumbs">
             <Link href="/">Home</Link><span>›</span><strong>Restaurants With Liquor Licenses</strong>
           </div>
           <span className="fllm-template-eyebrow">Florida Restaurants for Sale + Liquor License Market</span>
-          <h1 className="fllm-template-hero-title">Florida Restaurants for Sale With Liquor Licenses</h1>
-          <p className="fllm-template-hero-copy">
-            Browse Florida restaurants and restaurant/bar businesses for sale with 4COP quota liquor licenses,
-            4COP SFS / SRX licenses and 2COP beer-and-wine licenses. Buyers often search for these opportunities as
-            restaurants for sale with full liquor. In Florida, full-liquor restaurant privileges may come through a
-            transferable 4COP quota license or, when the premises and business qualify, a location-specific 4COP SFS / SRX
-            license. FLLM keeps those license structures separate while bringing the restaurant market into one marketplace hub.
+          <h1
+            className="fllm-template-hero-title"
+            style={{ fontSize: "clamp(36px, 3.55vw, 58px)", lineHeight: 1.0, maxWidth: "820px" }}
+          >
+            Florida Restaurants for Sale With Liquor Licenses
+          </h1>
+          <p
+            className="fllm-template-hero-copy"
+            style={{ fontSize: "clamp(15px, 1vw, 17px)", lineHeight: 1.52, maxWidth: "760px" }}
+          >
+            Browse Florida restaurants for sale with 4COP quota, 4COP SFS / SRX, and 2COP beer-and-wine licenses.
+            FLLM separates these license paths while bringing Florida restaurant opportunities into one marketplace hub.
           </p>
           <div className="fllm-ui-actions">
             <Link className="btn btn-gold fllm-ui-official-gold-button" href="#restaurant-inventory">View Restaurant Market</Link>
