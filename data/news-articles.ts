@@ -33,9 +33,9 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     slug: "florida-cocktails-to-go-sb-148-current-law",
     eyebrow: "Beverage Law & Restaurant Operations",
     title: "Florida's cocktails-to-go law: from COVID emergency order to permanent Beverage Law",
-    date: "Reviewed August 29, 2026",
+    date: "Reviewed October 2, 2026",
     publishedDate: "2026-08-29",
-    reviewedDate: "2026-08-29",
+    reviewedDate: "2026-10-02",
     summary:
       "Florida made qualifying restaurant alcohol-to-go sales permanent through SB 148 in 2021. FLLM connects the pandemic-era history to the current rules for 4COP quota and special food service licensees.",
     intro:
@@ -81,7 +81,7 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     officialSourceLabel: "PS Law Group — Cocktails-to-Go",
     sourceType: "publisher",
     sourceNote:
-      "FLLM verified the article's legislative history against Florida Senate records for SB 148 and checked its operating summary against the 2026 versions of sections 561.20, 565.045, and 316.1936. The article's 2,500-square-foot and 150-person SFS figures describe the law when published, not the current statewide threshold.",
+      "FLLM verified the article's legislative history against Florida Senate records for SB 148 and rechecked its operating summary on October 2, 2026 against the 2026 versions of sections 561.20, 565.045, and 316.1936. The article's 2,500-square-foot and 150-person SFS figures describe the law when published, not the current statewide threshold.",
     relatedLinks: [
       {
         href: "/resources/florida-liquor-license-laws#cocktails-to-go",
