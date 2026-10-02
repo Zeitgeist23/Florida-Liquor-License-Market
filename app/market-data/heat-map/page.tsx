@@ -5,10 +5,11 @@ import Link from "next/link";
 import BusinessPackageHeatMap, {
   type BusinessPackageHeatMapRow,
 } from "@/components/BusinessPackageHeatMap";
+import CountyLicenseMarketSnapshot from "@/components/CountyLicenseMarketSnapshot";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import UnifiedMarketHeatMap from "@/components/UnifiedMarketHeatMap";
 import UnifiedHeatMapPriceScaleInteraction from "@/components/UnifiedHeatMapPriceScaleInteraction";
-import { countySlug } from "@/data/florida-counties";
+import { countySlug, floridaCounties } from "@/data/florida-counties";
 import {
   business2copListings,
   businessSfsListings,
@@ -51,6 +52,15 @@ type HeatMapPageProps = {
 
 function firstSearchParam(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
+}
+
+function median(values: number[]) {
+  if (!values.length) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2
+    ? sorted[middle]
+    : Math.round((sorted[middle - 1] + sorted[middle]) / 2);
 }
 
 function buildBusinessPackageRows(
@@ -101,6 +111,8 @@ export default async function HeatMapPage({
 }: HeatMapPageProps) {
   const params = await searchParams;
   const requestedView = firstSearchParam(params.view);
+  const requestedCounty = firstSearchParam(params.county)?.trim() || "";
+  const requestedLicenseType = firstSearchParam(params.licenseType)?.trim() || "quota";
   const isSfsBusinessMap = requestedView === "businesses-sfs";
   const is2copBusinessMap = requestedView === "businesses-2cop";
   const isBusinessPackageMap = isSfsBusinessMap || is2copBusinessMap;
@@ -151,6 +163,35 @@ export default async function HeatMapPage({
   const listings = isBusinessPackageMap
     ? []
     : getVisibleAvailableMarketplaceListings(await getMarketplaceListings());
+
+  const selectedCountyRecord = !isBusinessPackageMap && requestedCounty
+    ? floridaCounties.find((county) => county.name === requestedCounty) ?? null
+    : null;
+
+  const selectedCountyListings = selectedCountyRecord
+    ? listings.filter((listing) => {
+        if (listing.county !== selectedCountyRecord.name) return false;
+        if (requestedLicenseType === "4COP Quota") return listing.type === "4COP Quota";
+        if (requestedLicenseType === "3PS Quota / Package Store") {
+          return listing.type === "3PS Quota / Package Store";
+        }
+        return listing.type === "4COP Quota" || listing.type === "3PS Quota / Package Store";
+      })
+    : [];
+
+  const selectedCountyPrices = selectedCountyListings
+    .map((listing) => listing.price)
+    .filter((price): price is number => typeof price === "number" && Number.isFinite(price) && price > 0);
+
+  const selectedCountyLow = selectedCountyPrices.length ? Math.min(...selectedCountyPrices) : null;
+  const selectedCountyHigh = selectedCountyPrices.length ? Math.max(...selectedCountyPrices) : null;
+  const selectedCountyMedian = median(selectedCountyPrices);
+  const selectedLicenseLabel =
+    requestedLicenseType === "4COP Quota"
+      ? "4COP Quota"
+      : requestedLicenseType === "3PS Quota / Package Store"
+        ? "3PS Quota / Package Store"
+        : "All Quota Liquor Licenses";
 
   const snapshot = isBusinessPackageMap
     ? null
@@ -237,6 +278,19 @@ export default async function HeatMapPage({
       </section>
 
       <div className="market-heat-map-shell">
+        {!isBusinessPackageMap && selectedCountyRecord ? (
+          <CountyLicenseMarketSnapshot
+            county={selectedCountyRecord.name}
+            cities={selectedCountyRecord.primaryCities}
+            licenseLabel={selectedLicenseLabel}
+            availableCount={selectedCountyListings.length}
+            low={selectedCountyLow}
+            median={selectedCountyMedian}
+            high={selectedCountyHigh}
+            estimatedValue={selectedCountyMedian}
+          />
+        ) : null}
+
         {isBusinessPackageMap ? (
           <BusinessPackageHeatMap
             rows={businessPackageRows}
