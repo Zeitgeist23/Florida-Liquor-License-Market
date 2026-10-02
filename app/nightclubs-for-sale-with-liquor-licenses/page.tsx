@@ -157,7 +157,16 @@ export default async function FloridaNightclubsForSaleWithLiquorLicensesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <section className="fllm-template-hero">
+      <section
+        className="fllm-template-hero"
+        style={{
+          backgroundImage:
+            'linear-gradient(90deg, rgba(2, 16, 29, 0.99) 0%, rgba(2, 16, 29, 0.96) 38%, rgba(2, 16, 29, 0.82) 52%, rgba(2, 16, 29, 0.48) 68%, rgba(2, 16, 29, 0.20) 100%), url("https://images.pexels.com/photos/18675118/pexels-photo-18675118/free-photo-of-interior-of-a-bar.jpeg?auto=compress&dpr=1&h=1200&w=2200")',
+          backgroundSize: "cover",
+          backgroundPosition: "center right",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <div className="fllm-template-shell">
           <div className="fllm-ui-breadcrumbs">
             <Link href="/">Home</Link><span>›</span>
