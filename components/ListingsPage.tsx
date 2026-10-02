@@ -355,6 +355,25 @@ export default function ListingsPage({
     setType(value);
   }
 
+  function openHeatMap(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.nativeEvent.stopImmediatePropagation();
+
+    if (type === "businesses-sfs" || type === "businesses-2cop") {
+      const params = new URLSearchParams({ view: type });
+      if (businessType !== "all") params.set("businessType", businessType);
+      if (county !== "all") params.set("county", county);
+      window.location.assign(`/market-data/heat-map?${params.toString()}`);
+      return;
+    }
+
+    const params = new URLSearchParams({ view: "licenses", licenseType: type });
+    if (county !== "all") params.set("county", county);
+    if (status) params.set("status", status);
+    window.location.assign(`/market-data/heat-map?${params.toString()}`);
+  }
+
   return (
     <main className="results-page fllm-official-page" data-fllm-template="county-v1">
       <div className="listings-header-band"><FormsSiteHeader /></div>
@@ -465,14 +484,15 @@ export default function ListingsPage({
             )}
             <button
               className="btn btn-gold"
-              type="submit"
+              type="button"
+              onClick={openHeatMap}
               data-heat-map-type={type}
               data-heat-map-business-type={businessType}
               data-heat-map-county={county}
               data-heat-map-status={status}
               data-heat-map-price={price}
             >
-              Apply Filters
+              Heat Map
             </button>
           </form>
           <div className="inventory-disclaimer">
