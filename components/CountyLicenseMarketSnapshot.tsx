@@ -54,6 +54,19 @@ export default function CountyLicenseMarketSnapshot({
 }) {
   const target = normalizeCounty(county);
   const pin = pinForCounty(county);
+  const pinPercent = pin
+    ? {
+        left: ((pin.x - 90) / 380) * 100,
+        top: ((pin.y + 10) / 300) * 100,
+      }
+    : null;
+  const tooltipSide = pinPercent && pinPercent.left > 58 ? "left" : "right";
+  const tooltipVertical =
+    pinPercent && pinPercent.top > 66
+      ? "lower"
+      : pinPercent && pinPercent.top < 30
+        ? "upper"
+        : "middle";
 
   return (
     <section className="county-license-snapshot" aria-labelledby="county-license-snapshot-title">
@@ -100,14 +113,38 @@ export default function CountyLicenseMarketSnapshot({
                   );
                 })}
               </g>
-              {pin ? (
-                <g transform={`translate(${pin.x} ${pin.y - 8})`}>
-                  <circle r="7" fill="#f5a400" stroke="#fff2c2" strokeWidth="2" />
-                  <line x1="0" y1="7" x2="0" y2="28" stroke="#f7fbff" strokeWidth="2" />
-                  <path d="M-4 28 L4 28 L0 35 Z" fill="#f5a400" stroke="#fff2c2" strokeWidth="1" />
-                </g>
-              ) : null}
-            </svg>
+              </svg>
+            {pinPercent ? (
+              <>
+                <button
+                  type="button"
+                  className="county-license-map-pin"
+                  style={{ left: `${pinPercent.left}%`, top: `${pinPercent.top}%` }}
+                  aria-label={`Show ${county} market summary`}
+                  aria-describedby="county-license-map-tooltip"
+                >
+                  <span className="county-license-map-pin-head" />
+                  <span className="county-license-map-pin-stem" />
+                  <span className="county-license-map-pin-point" />
+                </button>
+                <aside
+                  id="county-license-map-tooltip"
+                  className={`county-license-map-tooltip is-${tooltipSide} is-${tooltipVertical}`}
+                  style={{ left: `${pinPercent.left}%`, top: `${pinPercent.top}%` }}
+                  role="tooltip"
+                >
+                  <span>FLLM County Market</span>
+                  <strong>{county} · {licenseLabel}</strong>
+                  <dl>
+                    <div><dt>Available</dt><dd>{availableCount}</dd></div>
+                    <div><dt>Low Ask</dt><dd>{money(low)}</dd></div>
+                    <div><dt>Median Ask</dt><dd>{money(median)}</dd></div>
+                    <div><dt>High Ask</dt><dd>{money(high)}</dd></div>
+                  </dl>
+                  <small>FLLM Est. License Value: {money(estimatedValue)}</small>
+                </aside>
+              </>
+            ) : null}
           </div>
           <strong>{county}</strong>
           <div className="county-license-city-list">
