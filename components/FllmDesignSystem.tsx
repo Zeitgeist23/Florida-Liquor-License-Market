@@ -36,7 +36,7 @@ export function FllmSectionHeading({
   eyebrow,
   title,
   copy,
-  align = "left",
+  align = "center",
   action,
 }: {
   eyebrow?: string;
