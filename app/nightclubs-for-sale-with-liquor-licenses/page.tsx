@@ -266,6 +266,7 @@ export default async function FloridaNightclubsForSaleWithLiquorLicensesPage() {
                 nightclub appears somewhere in a restaurant or bar description.
               </p>
             }
+            align="center"
           />
 
           <BusinessPackageLocalMarkets
