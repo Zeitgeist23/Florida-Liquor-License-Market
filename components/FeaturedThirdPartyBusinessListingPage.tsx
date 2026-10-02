@@ -727,7 +727,7 @@ export default function FeaturedThirdPartyBusinessListingPage({
                                       ) : null}
                                       {isSfsListing ? (
                                         <span className="marketplace-listing-card-tooltip" role="tooltip">
-                                          {tr("A 4COP SFS / SRX license authorizes beer, wine and distilled spirits for consumption on the licensed premises, subject to the restaurant maintaining the applicable SFS / SRX qualification and DBPR approval.", "Una licencia 4COP SFS / SRX autoriza cerveza, vino y licores destilados para consumo en el local autorizado, sujeta a que el restaurante mantenga la calificación SFS / SRX aplicable y la aprobación del DBPR.")}
+                                          {tr("A 4COP SFS / SRX license authorizes beer, wine and distilled spirits for consumption on the licensed premises and can also support qualifying sealed alcohol-to-go sales with food under current Florida law, subject to the restaurant maintaining the applicable SFS / SRX qualification and DBPR approval.", "Una licencia 4COP SFS / SRX autoriza cerveza, vino y licores destilados para consumo en el local autorizado y también puede permitir ventas calificadas de alcohol sellado para llevar con alimentos conforme a la ley vigente de Florida, sujeta a que el restaurante mantenga la calificación SFS / SRX aplicable y la aprobación del DBPR.")}
                                         </span>
                                       ) : null}
                                       {isSfsListing ? (
