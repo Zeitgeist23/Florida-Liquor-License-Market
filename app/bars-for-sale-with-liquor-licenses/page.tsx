@@ -63,8 +63,7 @@ function isBarRelated(listing: {
   return (
     listing.businessCategory === "Bar" ||
     listing.businessCategory === "Cocktail Lounge" ||
-    listing.businessCategory === "Nightclub" ||
-    /bar|pub|tavern|lounge|nightclub/i.test(`${listing.title} ${listing.businessType}`)
+    listing.businessCategory === "Nightclub"
   );
 }
 
