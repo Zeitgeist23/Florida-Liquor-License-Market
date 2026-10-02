@@ -30,7 +30,15 @@ function headers(key: string, extra: HeadersInit = {}): HeadersInit {
   };
 }
 
-function mapRow(row: any): MarketListingObservation {
+type MarketListingObservationRow = {
+  listing_key: string;
+  first_seen_at: string;
+  last_seen_at: string;
+  removed_at: string | null;
+  status: MarketListingObservation["status"];
+};
+
+function mapRow(row: MarketListingObservationRow): MarketListingObservation {
   return {
     listingKey: row.listing_key,
     firstSeenAt: row.first_seen_at,
@@ -57,7 +65,7 @@ export async function getOrStartMarketListingObservation(
     });
 
     if (existingResponse.ok) {
-      const rows = (await existingResponse.json()) as any[];
+      const rows = (await existingResponse.json()) as MarketListingObservationRow[];
       if (rows[0]) return mapRow(rows[0]);
     }
 
@@ -90,7 +98,7 @@ export async function getOrStartMarketListingObservation(
     );
 
     if (insertResponse.ok) {
-      const rows = (await insertResponse.json()) as any[];
+      const rows = (await insertResponse.json()) as MarketListingObservationRow[];
       if (rows[0]) return mapRow(rows[0]);
     }
 
@@ -99,7 +107,7 @@ export async function getOrStartMarketListingObservation(
       cache: "no-store",
     });
     if (!retryResponse.ok) return null;
-    const retryRows = (await retryResponse.json()) as any[];
+    const retryRows = (await retryResponse.json()) as MarketListingObservationRow[];
     return retryRows[0] ? mapRow(retryRows[0]) : null;
   } catch (error) {
     console.error("Market listing observation tracking failed", error);
