@@ -145,7 +145,8 @@ export default function BusinessMarketLicenseFeatureCards({ listing }: Props) {
             <DetailCard
               label="License Privileges"
               value="Beer · Wine · Spirits"
-              tooltip="This license authorizes the sale and service of beer, wine, and distilled spirits for consumption on the licensed premises, subject to DBPR approval and continuing compliance with the applicable 4COP SFS / SRX requirements."
+              tooltip="This license authorizes beer, wine and distilled spirits for consumption on the licensed premises and can also authorize qualifying restaurant-prepared wine- and liquor-based drinks for off-premises consumption when sold with food and sealed and packaged as required by Florida law. It does not authorize ordinary package-store sales of manufacturer-sealed bottles of distilled spirits."
+              href="/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law"
             />
             <DetailCard
               label="License Basis"
@@ -220,10 +221,10 @@ export default function BusinessMarketLicenseFeatureCards({ listing }: Props) {
               />
               <HighlightCard
                 icon={premisesIcon}
-                line1="Qualifying restaurant"
-                line2="premises"
-                tooltip="This license is tied to a qualifying restaurant operation and its approved licensed premises. The restaurant and location must continue to meet the applicable DBPR requirements for SFS / SRX qualification."
-                href="/license-types/4cop-sfs-restaurant"
+                line1="On-premises +"
+                line2="sealed drinks to go"
+                tooltip="A qualifying 4COP SFS / SRX restaurant may serve beer, wine and spirits on premises and may also sell or deliver restaurant-prepared wine- or liquor-based drinks for off-premises consumption when the order includes food and the drink is securely sealed, placed in tamper-evident outer packaging and accompanied by the required dated receipt. This authority does not permit ordinary package-store sales of manufacturer-sealed bottles of distilled spirits."
+                href="/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law"
               />
               <HighlightCard
                 icon={rulesIcon}
