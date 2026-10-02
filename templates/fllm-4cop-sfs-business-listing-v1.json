@@ -2,6 +2,7 @@
   "id": "fllm-4cop-sfs-business-listing-v1",
   "status": "official",
   "lockedOn": "2026-09-24",
+  "revisedOn": "2026-10-02",
   "canonicalReference": {
     "englishPath": "/listings/fllm-zoberg",
     "spanishPath": "/es/listings/fllm-zoberg",
@@ -19,7 +20,7 @@
     "hero composition, typography, map card, badges and language toggle",
     "section order and heading hierarchy",
     "four specific-license fact cards",
-    "four License Highlights cards",
+    "four License Highlights cards, including the current SFS / SRX sealed alcohol-to-go privilege and its food, sealing and packaging conditions",
     "third-party broker disclosure",
     "About This Business & License Listing",
     "Business Offering Details and business metric cards",
@@ -46,6 +47,7 @@
       "business asking price",
       "qualifying restaurant premises",
       "qualification-based",
+      "qualifying sealed restaurant-prepared alcohol-to-go with food",
       "not an independently transferable quota license",
       "no independent transferable value",
       "FLLM assigns no separate value to the license"
