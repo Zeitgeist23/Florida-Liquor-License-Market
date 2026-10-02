@@ -52,15 +52,24 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "Bars for Sale With Full Liquor & 4COP Licenses in Florida | FLLM",
+  title: "Florida Bars for Sale With 4COP Quota Liquor Licenses | FLLM",
   description:
-    "Browse Florida bars for sale with full-liquor licenses, including transferable 4COP quota liquor licenses. Compare bar packages, county markets, license values and transaction resources.",
+    "Browse Florida bars for sale with transferable 4COP Quota liquor licenses. Compare bar and lounge business packages, county markets, license values and current FLLM inventory.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
+  keywords: [
+    "Florida bar 4COP quota",
+    "Florida bar for sale with 4COP quota license",
+    "Florida bars for sale with liquor license",
+    "bar with 4COP license for sale Florida",
+    "4COP quota bar for sale",
+    "Florida pub for sale with liquor license",
+    "Florida lounge for sale with 4COP quota license",
+  ],
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Bars for Sale With Full Liquor & 4COP Licenses | FLLM",
+    title: "Florida Bars for Sale With 4COP Quota Liquor Licenses | FLLM",
     description:
       "Browse bar and lounge business packages with full-liquor privileges, including Florida 4COP quota licenses, and review FLLM county and license-market information.",
     siteName: "Florida Liquor License Market",
@@ -93,7 +102,7 @@ export default async function BarsWithQuotaLicensesPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Bars for Sale With Full Liquor and 4COP Quota Licenses in Florida",
+      name: "Florida Bars for Sale With 4COP Quota Liquor Licenses",
       url: canonicalUrl,
       description:
         "Florida bars and lounges for sale with full-liquor privileges, including transferable 4COP quota liquor licenses, plus market information for the license component.",
@@ -152,12 +161,12 @@ export default async function BarsWithQuotaLicensesPage() {
               <strong>Bars</strong>
             </div>
             <span className="seo-market-kicker">Florida Business + 4COP Quota License Packages</span>
-            <h1 >Bars for Sale With <em>4COP Quota Licenses</em> in Florida</h1>
+            <h1>Florida Bars for Sale With <em>4COP Quota Liquor Licenses</em></h1>
             <p >
-              A bar acquisition can combine an operating hospitality business with a valuable, transferable
-              county quota liquor license. FLLM keeps these business packages separate from standalone license
-              inventory while giving brokers, attorneys, buyers and sellers tools to identify, value, transfer
-              and document the liquor-license component of the transaction.
+              Search Florida bars for sale with 4COP Quota liquor licenses, including bar, pub, tavern and lounge
+              business packages where a transferable county quota license is part of the transaction. FLLM keeps
+              these business packages separate from standalone license inventory while showing county, asking-price
+              and license-value context for the 4COP component.
             </p>
             <div className="seo-market-actions">
               <a className="seo-market-button seo-market-button-gold" href="#current-packages">View Bar + License Packages</a>
@@ -177,6 +186,28 @@ export default async function BarsWithQuotaLicensesPage() {
             </div>
           </aside>
         </div></div>
+      </section>
+
+      <section className="fllm-template-section fllm-template-section--deep">
+        <div className="fllm-template-shell">
+          <div className="fllm-template-heading">
+            <div>
+              <span className="fllm-template-eyebrow">Florida Bar + 4COP Quota Search</span>
+              <h2>Looking for a Florida bar with a transferable 4COP quota license?</h2>
+            </div>
+          </div>
+          <p className="fllm-template-card-copy">
+            A generic search such as “Florida bar 4COP quota” usually means the buyer is looking for an operating
+            bar or lounge that can convey full-liquor privileges through a transferable county quota license.
+            FLLM separates those business packages from qualification-based restaurant licenses and from standalone
+            license-only inventory so the transaction structure remains clear.
+          </p>
+          <div className="fllm-ui-actions">
+            <Link className="fllm-template-button" href="#current-packages">Browse Florida Bar + 4COP Packages</Link>
+            <Link className="fllm-template-button fllm-template-button--outline" href="/license-types/4cop-quota">4COP Quota Guide</Link>
+            <Link className="fllm-template-button fllm-template-button--outline" href="/listings">Standalone 4COP Licenses</Link>
+          </div>
+        </div>
       </section>
 
       <section className="fllm-template-section bar-package-overview">
