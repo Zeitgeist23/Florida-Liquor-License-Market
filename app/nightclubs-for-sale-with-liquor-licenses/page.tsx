@@ -254,13 +254,28 @@ export default async function FloridaNightclubsForSaleWithLiquorLicensesPage() {
         </div>
       </section>
 
+      <style>{`
+        #current-nightclub-market .business-package-local-markets {
+          font-size: 17px;
+          line-height: 1.65;
+        }
+        #current-nightclub-market .business-package-local-market-city {
+          color: #ffffff;
+          font-weight: 800;
+        }
+        #current-nightclub-market .business-package-local-market-separator {
+          color: #ffffff;
+          font-weight: 700;
+        }
+      `}</style>
+
       <section className="fllm-template-section fllm-template-section--deep" id="current-nightclub-market">
         <div className="fllm-template-shell">
           <FllmSectionHeading
             eyebrow="Current Florida Nightclub Market"
             title="Nightclub opportunities by actual liquor-license structure"
             copy={
-              <p>
+              <p style={{ fontSize: "18px", lineHeight: 1.75, maxWidth: "1120px", marginInline: "auto" }}>
                 FLLM currently shows {allNightclubs.length} published nightclub Market View{allNightclubs.length === 1 ? "" : "s"}.
                 Listings are included because their actual business category is Nightclub, not merely because the word
                 nightclub appears somewhere in a restaurant or bar description.
