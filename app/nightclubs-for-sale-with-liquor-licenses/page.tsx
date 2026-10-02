@@ -276,18 +276,18 @@ export default async function FloridaNightclubsForSaleWithLiquorLicensesPage() {
 
           <div className="fllm-template-card-grid">
             <article className="fllm-template-card fllm-template-card--gold">
-              <span className="fllm-ui-card-kicker">4COP Quota</span>
-              <strong className="fllm-template-card-title">{quotaNightclubs.length} Current Nightclub Market View{quotaNightclubs.length === 1 ? "" : "s"}</strong>
+              <span className="fllm-ui-card-kicker" style={{ textAlign: "center", display: "block" }}>4COP Quota</span>
+              <strong className="fllm-template-card-title" style={{ textAlign: "center", display: "block" }}>{quotaNightclubs.length} Current Nightclub Market View{quotaNightclubs.length === 1 ? "" : "s"}</strong>
               <p className="fllm-template-card-copy">Transferable county quota-license nightclub packages.</p>
             </article>
             <article className="fllm-template-card fllm-template-card--gold">
-              <span className="fllm-ui-card-kicker">4COP SFS / SRX</span>
-              <strong className="fllm-template-card-title">{sfsNightclubs.length} Current Nightclub Market View{sfsNightclubs.length === 1 ? "" : "s"}</strong>
+              <span className="fllm-ui-card-kicker" style={{ textAlign: "center", display: "block" }}>4COP SFS / SRX</span>
+              <strong className="fllm-template-card-title" style={{ textAlign: "center", display: "block" }}>{sfsNightclubs.length} Current Nightclub Market View{sfsNightclubs.length === 1 ? "" : "s"}</strong>
               <p className="fllm-template-card-copy">Qualifying restaurant-nightlife opportunities explicitly categorized as Nightclub.</p>
             </article>
             <article className="fllm-template-card fllm-template-card--gold">
-              <span className="fllm-ui-card-kicker">2COP Beer & Wine</span>
-              <strong className="fllm-template-card-title">{twoCopNightclubs.length} Current Nightclub Market View{twoCopNightclubs.length === 1 ? "" : "s"}</strong>
+              <span className="fllm-ui-card-kicker" style={{ textAlign: "center", display: "block" }}>2COP Beer & Wine</span>
+              <strong className="fllm-template-card-title" style={{ textAlign: "center", display: "block" }}>{twoCopNightclubs.length} Current Nightclub Market View{twoCopNightclubs.length === 1 ? "" : "s"}</strong>
               <p className="fllm-template-card-copy">Beer-and-wine-only nightlife opportunities explicitly categorized as Nightclub.</p>
             </article>
           </div>
