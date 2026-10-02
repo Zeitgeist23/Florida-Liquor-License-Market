@@ -468,6 +468,9 @@ export default function ListingsPage({
               type="submit"
               data-heat-map-type={type}
               data-heat-map-business-type={businessType}
+              data-heat-map-county={county}
+              data-heat-map-status={status}
+              data-heat-map-price={price}
             >
               Apply Filters
             </button>
