@@ -29,13 +29,17 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/bars-for-sale-with-liquor-licenses`;
 
 export const metadata: Metadata = {
-  title: "Florida Bars for Sale With Liquor Licenses | 4COP, SFS/SRX & 2COP | FLLM",
+  title: "Florida Bars With Full Liquor for Sale | 4COP & Bar Listings | FLLM",
   description:
-    "Browse Florida bars for sale with liquor licenses. Compare transferable 4COP quota bars, qualifying 4COP SFS/SRX restaurant-bars, and 2COP beer-and-wine bar opportunities.",
+    "Browse Florida bars with full liquor for sale, including transferable 4COP quota bars and qualifying full-liquor restaurant-bars, with beer-and-wine-only opportunities clearly identified.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
+    "Florida bars with full liquor for sale",
+    "Florida bar with full liquor for sale",
     "Florida bars for sale",
+    "bar and lounge with full liquor for sale Florida",
+    "turnkey bar with full liquor Florida",
     "Florida bars for sale with liquor licenses",
     "bar for sale Florida liquor license",
     "Florida bar with liquor license for sale",
@@ -48,9 +52,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Bars for Sale With Liquor Licenses | FLLM",
+    title: "Florida Bars With Full Liquor for Sale | FLLM",
     description:
-      "Florida bar and lounge opportunities organized by liquor-license structure: 4COP quota, 4COP SFS/SRX and 2COP beer-and-wine.",
+      "Florida bars with full liquor for sale, organized by actual license structure including transferable 4COP quota, qualifying full-liquor restaurant-bar and beer-and-wine-only opportunities.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -117,10 +121,10 @@ export default async function FloridaBarsForSaleWithLiquorLicensesPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Florida Bars for Sale With Liquor Licenses",
+      name: "Florida Bars With Full Liquor for Sale",
       url: canonicalUrl,
       description:
-        "Florida bars, pubs, taverns and lounges for sale organized by liquor-license structure, including 4COP quota, 4COP SFS / SRX and 2COP beer-and-wine licenses.",
+        "Florida bars, pubs, taverns and lounges with full liquor for sale, organized by actual liquor-license structure including 4COP quota and qualifying full-liquor restaurant-bar licenses.",
       isPartOf: {
         "@type": "WebSite",
         name: "Florida Liquor License Market",
@@ -174,10 +178,10 @@ export default async function FloridaBarsForSaleWithLiquorLicensesPage() {
         <div className="fllm-template-shell">
           <div className="fllm-ui-breadcrumbs">
             <Link href="/">Home</Link><span>›</span>
-            <strong>Florida Bars for Sale</strong>
+            <strong>Florida Bars With Full Liquor for Sale</strong>
           </div>
-          <span className="fllm-template-eyebrow">Florida Bars + Liquor License Market</span>
-          <h1 className="fllm-template-hero-title">Florida Bars for Sale With Liquor Licenses</h1>
+          <span className="fllm-template-eyebrow">Florida Bars With Full Liquor for Sale</span>
+          <h1 className="fllm-template-hero-title">Florida Bars With Full Liquor for Sale</h1>
           <p className="fllm-template-hero-copy">
             Browse Florida bars, pubs, taverns and lounges for sale while distinguishing the liquor-license
             structure included with the business. Not every Florida bar requires a transferable quota license:
