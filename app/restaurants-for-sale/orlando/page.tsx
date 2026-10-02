@@ -117,7 +117,7 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
           pointer-events: none;
         }
         .orlando-restaurant-hero__photo {
-          background-image: url('/assets/orlando-restaurant-hero-approved.webp');
+          background-image: url('/assets/orlando-restaurant-hero.webp');
           background-size: cover;
           background-position: center right;
           background-repeat: no-repeat;
