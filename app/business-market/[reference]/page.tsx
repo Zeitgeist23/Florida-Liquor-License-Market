@@ -163,10 +163,11 @@ function licenseBuyerGuide(listing: BusinessQuotaListing) {
     return {
       heading: "What a 4COP SFS / SRX License Means",
       copy:
-        "A 4COP SFS / SRX license is a qualification-based restaurant license tied to the qualifying operation and approved premises. It is not the same independently transferable county quota asset as a 4COP quota license.",
+        "A 4COP SFS / SRX license is a qualification-based restaurant license tied to the qualifying operation and approved premises. It supports full-liquor service on premises and, under current Florida law, can also permit qualifying restaurant-prepared wine- and liquor-based drinks for off-premises consumption when sold with food and packaged as required by law. It is not the same independently transferable county quota asset as a 4COP quota license.",
       buyerPoints: [
         "Confirm the restaurant continues to meet the applicable food-service and premises requirements.",
         "Verify the license classification and approved location before assuming full-liquor privileges continue.",
+        "If the restaurant offers alcohol to go, verify that orders include food and that prepared wine- or liquor-based drinks follow the statutory sealing, tamper-evident packaging, receipt and delivery rules; the SFS authority does not permit ordinary package-store sales of manufacturer-sealed bottles of distilled spirits.",
         "Do not assign a separate quota-license asset value to an SFS / SRX license.",
         "Confirm DBPR/ABT transfer or change-of-ownership requirements for the specific premises.",
       ],
