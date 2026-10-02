@@ -209,6 +209,7 @@ export default async function FloridaNightclubsForSaleWithLiquorLicensesPage() {
               eyebrow={<span className="restaurant-card-cyan-label">Typical Full-Liquor Path</span>}
               title="4COP Quota"
               variant="gold"
+              className="nightclub-license-path-card"
             >
               <p>
                 A transferable county-specific quota license commonly used by standalone nightclubs selling beer,
@@ -224,6 +225,7 @@ export default async function FloridaNightclubsForSaleWithLiquorLicensesPage() {
               eyebrow={<span className="restaurant-card-cyan-label">Restaurant-Nightlife Hybrid</span>}
               title="4COP SFS / SRX"
               variant="gold"
+              className="nightclub-license-path-card"
             >
               <p>
                 A qualifying restaurant operation may have location-specific full-liquor privileges under a 4COP SFS / SRX
@@ -238,6 +240,7 @@ export default async function FloridaNightclubsForSaleWithLiquorLicensesPage() {
               eyebrow={<span className="restaurant-card-cyan-label">Beer & Wine Only</span>}
               title="2COP"
               variant="gold"
+              className="nightclub-license-path-card"
             >
               <p>
                 A nightlife concept that sells beer and wine but not distilled spirits may use an appropriate
