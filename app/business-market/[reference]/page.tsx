@@ -196,6 +196,62 @@ function licenseBuyerGuide(listing: BusinessQuotaListing) {
   };
 }
 
+function categoryMarketHub(listing: BusinessQuotaListing) {
+  if (listing.businessCategory === "Restaurant") {
+    if (listing.licenseType === "2COP Beer & Wine") {
+      return {
+        href: "/restaurants-with-liquor-licenses#2cop-restaurant-inventory",
+        label: "Florida restaurants with 2COP beer and wine licenses for sale",
+      };
+    }
+    if (listing.licenseType === "4COP SFS/SRX") {
+      return {
+        href: "/restaurants-with-liquor-licenses#sfs-restaurant-inventory",
+        label: "Florida restaurants with 4COP SFS / SRX full-liquor licenses for sale",
+      };
+    }
+    if (listing.licenseType === "4COP Quota") {
+      return {
+        href: "/restaurants-with-liquor-licenses#quota-restaurant-inventory",
+        label: "Florida restaurants with 4COP quota liquor licenses for sale",
+      };
+    }
+    return {
+      href: "/restaurants-with-liquor-licenses",
+      label: "Florida restaurants for sale with liquor licenses",
+    };
+  }
+
+  if (
+    listing.businessCategory === "Bar" ||
+    listing.businessCategory === "Cocktail Lounge"
+  ) {
+    return {
+      href: "/bars-for-sale-with-liquor-licenses",
+      label: "Florida bars with full liquor for sale",
+    };
+  }
+
+  if (listing.businessCategory === "Nightclub") {
+    return {
+      href: "/nightclubs-for-sale-with-liquor-licenses",
+      label: "Florida nightclubs with full liquor for sale",
+    };
+  }
+
+  if (listing.businessCategory === "Gentlemen's Club") {
+    return {
+      href: "/gentlemens-clubs-for-sale-with-liquor-licenses",
+      label: "Florida gentlemen's clubs with full liquor for sale",
+    };
+  }
+
+  return {
+    href: "/businesses-with-quota-licenses",
+    label: "Florida businesses for sale with liquor licenses",
+  };
+}
+
 function countyMarketSummary(listing: BusinessQuotaListing, county: ReturnType<typeof countyFor>) {
   const cities = county?.primaryCities?.length ? county.primaryCities.join(", ") : listing.county;
   return {
@@ -276,6 +332,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
         : "businesses";
   const licenseGuide = licenseBuyerGuide(listing);
   const countySummary = countyMarketSummary(listing, county);
+  const marketHub = categoryMarketHub(listing);
 
   const countyLicenseListings = standaloneListings.filter(
     (candidate) =>
@@ -468,6 +525,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 </div>
 
                 <div className="business-market-license-links">
+                  <Link href={marketHub.href}>{marketHub.label} ›</Link>
                   <Link href={listing.countyHref}>Open {listing.county} license market data ›</Link>
                   <Link href="/counties">Compare all Florida counties ›</Link>
                 </div>
