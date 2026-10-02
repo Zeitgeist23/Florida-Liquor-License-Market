@@ -216,7 +216,7 @@ export default function BusinessMarketLicenseFeatureCards({ listing }: Props) {
                 icon={fullLiquorIcon}
                 line1="Full-liquor"
                 line2="license"
-                tooltip="A 4COP SFS / SRX license authorizes beer, wine and distilled spirits for consumption on the licensed premises, subject to the restaurant maintaining the applicable SFS / SRX qualification and DBPR approval."
+                tooltip="A 4COP SFS / SRX license authorizes beer, wine and distilled spirits for consumption on the licensed premises and can also support qualifying sealed alcohol-to-go sales with food under current Florida law, subject to the restaurant maintaining the applicable SFS / SRX qualification and DBPR approval."
                 href="/license-types/4cop-sfs-restaurant"
               />
               <HighlightCard
