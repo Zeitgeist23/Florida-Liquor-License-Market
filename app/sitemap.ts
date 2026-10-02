@@ -31,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/bars-for-sale-with-liquor-licenses`, lastModified, changeFrequency: "daily", priority: 0.93 },
     { url: `${siteUrl}/businesses-with-quota-licenses/liquor-stores`, lastModified, changeFrequency: "weekly", priority: 0.86 },
     { url: `${siteUrl}/businesses-with-quota-licenses/nightclubs`, lastModified, changeFrequency: "weekly", priority: 0.86 },
+    { url: `${siteUrl}/nightclubs-for-sale-with-liquor-licenses`, lastModified, changeFrequency: "daily", priority: 0.92 },
     { url: `${siteUrl}/businesses-with-quota-licenses/gentlemens-clubs`, lastModified, changeFrequency: "weekly", priority: 0.86 },
     { url: `${siteUrl}/businesses-with-quota-licenses/marinas`, lastModified, changeFrequency: "weekly", priority: 0.82 },
     { url: `${siteUrl}/restaurants-with-liquor-licenses`, lastModified, changeFrequency: "daily", priority: 0.9 },
