@@ -99,7 +99,16 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
     <FllmPageShell className="restaurants-with-liquor-licenses-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
-      <section className="fllm-template-hero">
+      <section
+        className="fllm-template-hero"
+        style={{
+          backgroundImage:
+            "linear-gradient(90deg, rgba(2, 21, 36, 0.98) 0%, rgba(2, 21, 36, 0.94) 38%, rgba(2, 21, 36, 0.66) 58%, rgba(2, 21, 36, 0.18) 100%), url('/assets/orlando-restaurant-hero.webp')",
+          backgroundSize: "cover",
+          backgroundPosition: "center right",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <div className="fllm-template-shell">
           <div className="fllm-ui-breadcrumbs">
             <Link href="/">Home</Link><span>›</span>
