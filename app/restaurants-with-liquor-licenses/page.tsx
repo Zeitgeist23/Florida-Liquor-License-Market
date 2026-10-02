@@ -109,7 +109,20 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       (listing.businessCategory === "Restaurant" ||
         /restaurant/i.test(`${listing.title} ${listing.businessType}`)),
   );
+  const allSfsRestaurantListings = sfsListingsWithValues.filter(
+    (listing) =>
+      listing.businessCategory === "Restaurant" ||
+      /restaurant/i.test(`${listing.title} ${listing.businessType}`),
+  );
+  const allTwoCopRestaurantListings = twoCopListingsWithValues.filter(
+    (listing) =>
+      listing.licenseType === "2COP Beer & Wine" &&
+      (listing.businessCategory === "Restaurant" ||
+        /restaurant/i.test(`${listing.title} ${listing.businessType}`)),
+  );
   const quotaRestaurantListings = allQuotaRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
+  const sfsRestaurantListings = allSfsRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
+  const twoCopRestaurantListings = allTwoCopRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
   const restaurantListings = allRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
   const stJohnsRestaurantListings = allRestaurantListings.filter(
     (listing) => listing.county === "St. Johns County",
@@ -187,6 +200,30 @@ export default async function RestaurantsWithLiquorLicensesPage() {
             text: "FLLM provides original location and cuisine market pages, including dedicated Weston and Italian restaurant market pages, so city and cuisine searches are handled by FLLM market-intelligence pages rather than individual Market Views.",
           },
         },
+        {
+          "@type": "Question",
+          name: "What is a 2COP liquor license in Florida?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "A Florida 2COP is a non-quota beer-and-wine license that generally supports beer and wine sales for consumption on the licensed premises and package sales within the approved privileges. It does not authorize distilled spirits and is not a transferable quota asset.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How much does a 4COP liquor license cost in Florida?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "There is no single statewide market price for a transferable 4COP quota license. Quota-license supply and asking prices are county-specific, so FLLM compares current county market data and disclosed asks rather than presenting one statewide value.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Where can I find restaurants for sale in Florida?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "FLLM organizes Florida restaurant opportunities by county, city, cuisine and liquor-license structure, including restaurants with transferable 4COP quota licenses, qualifying 4COP SFS / SRX full-liquor privileges and 2COP beer-and-wine licenses.",
+          },
+        },
       ],
     },
     {
@@ -195,6 +232,18 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       name: "Restaurants for Sale With 4COP Quota Licenses in Florida",
       numberOfItems: quotaRestaurantListings.length,
       itemListElement: quotaRestaurantListings.map((listing, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: businessMarketDisplayTitle(listing),
+        url: `${siteUrl}${listing.href}`,
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "Florida Restaurants With 2COP Beer & Wine Licenses for Sale",
+      numberOfItems: twoCopRestaurantListings.length,
+      itemListElement: twoCopRestaurantListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: businessMarketDisplayTitle(listing),
@@ -369,8 +418,8 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       <section className="fllm-template-section" id="license-paths">
         <div className="fllm-template-shell">
           <FllmSectionHeading
-            eyebrow="Restaurant License Paths"
-            title="One restaurant market. Different Florida license structures."
+            eyebrow="Search Florida Restaurants by License Type"
+            title="4COP Quota · 4COP SFS / SRX · 2COP Beer & Wine"
             copy={
               <p>
                 The appropriate license depends on the alcohol privileges, operating model, premises and regulatory
@@ -398,7 +447,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
                 special food-service framework.
               </p>
               <div className="fllm-ui-actions">
-                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/listings?type=businesses-sfs">Browse SFS / SRX Listings</Link>
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="#sfs-restaurant-inventory">Browse SFS / SRX Restaurants</Link>
                 <FllmButton href="/license-types/4cop-sfs-restaurant" variant="outline">SFS / SRX Guide</FllmButton>
               </div>
             </FllmCard>
@@ -409,7 +458,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
                 listings remain separate from quota-license inventory.
               </p>
               <div className="fllm-ui-actions">
-                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/listings?type=businesses-2cop">Browse 2COP Listings</Link>
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="#2cop-restaurant-inventory">Browse 2COP Restaurants</Link>
                 <FllmButton href="/license-types/2cop-beer-wine" variant="outline">2COP Guide</FllmButton>
               </div>
             </FllmCard>
@@ -615,6 +664,73 @@ export default async function RestaurantsWithLiquorLicensesPage() {
               <p>FLLM will display qualifying restaurant acquisitions with included transferable 4COP quota licenses here as they are published.</p>
             </FllmCard>
           )}
+        </div>
+      </section>
+
+      <section className="fllm-template-section" id="sfs-restaurant-inventory">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Full-Liquor Restaurant Licenses"
+            title="Florida Restaurants With 4COP SFS / SRX Licenses for Sale"
+            copy={
+              <p>
+                Browse qualifying Florida restaurant opportunities operating with location-specific 4COP SFS / SRX
+                full-liquor privileges. These restaurant licenses are tied to the qualifying operation and premises and
+                are not the same independently transferable county quota asset as a 4COP quota license.
+              </p>
+            }
+          />
+          {sfsRestaurantListings.length ? (
+            <div className="business-quota-grid">
+              {sfsRestaurantListings.map((listing) => (
+                <BusinessQuotaListingCard key={`sfs-${listing.listingReference}`} listing={listing} />
+              ))}
+            </div>
+          ) : (
+            <FllmCard title="No published 4COP SFS / SRX restaurant opportunities are available right now." variant="gold">
+              <p>FLLM will display qualifying full-liquor restaurant opportunities here as they are published.</p>
+            </FllmCard>
+          )}
+          <div className="fllm-ui-actions">
+            <FllmButton href="/license-types/4cop-sfs-restaurant" variant="outline">4COP SFS / SRX Guide</FllmButton>
+          </div>
+        </div>
+      </section>
+
+      <section className="fllm-template-section fllm-template-section--deep" id="2cop-restaurant-inventory">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Beer & Wine Restaurant Market"
+            title="Florida Restaurants With 2COP Beer & Wine Licenses for Sale"
+            copy={
+              <p>
+                Browse Florida restaurants for sale with included 2COP beer-and-wine licenses. A 2COP is a non-quota
+                beer-and-wine license and does not authorize distilled spirits. FLLM keeps these opportunities separate
+                from transferable 4COP quota packages and 4COP SFS / SRX full-liquor restaurant licenses.
+              </p>
+            }
+          />
+          <BusinessPackageLocalMarkets
+            listings={allTwoCopRestaurantListings}
+            label="Florida markets for restaurants with 2COP beer-and-wine licenses in current inventory"
+          />
+          {twoCopRestaurantListings.length ? (
+            <div className="business-quota-grid">
+              {twoCopRestaurantListings.map((listing) => (
+                <BusinessQuotaListingCard key={`2cop-${listing.listingReference}`} listing={listing} />
+              ))}
+            </div>
+          ) : (
+            <FllmCard title="No published restaurant + 2COP packages are available right now." variant="gold">
+              <p>FLLM will display qualifying restaurant opportunities with included 2COP beer-and-wine licenses here as they are published.</p>
+            </FllmCard>
+          )}
+          <div className="fllm-ui-actions">
+            <FllmButton href="/license-types/2cop-beer-wine" variant="outline">What Is a 2COP License?</FllmButton>
+            <Link className="btn btn-gold fllm-ui-official-gold-button" href="/listings?type=businesses-2cop">
+              View All 2COP Business Listings
+            </Link>
+          </div>
         </div>
       </section>
 
