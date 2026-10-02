@@ -596,8 +596,8 @@ export default function FeaturedThirdPartyBusinessListingPage({
                               "Una licencia 2COP autoriza la venta de cerveza y vino dentro de los privilegios aprobados para el local autorizado; no autoriza licores destilados.",
                             )
                           : tr(
-                              "This license authorizes the sale and service of beer, wine, and distilled spirits for consumption on the licensed premises, subject to DBPR approval and continuing compliance with the applicable 4COP SFS / SRX requirements.",
-                              "Esta licencia autoriza la venta y el servicio de cerveza, vino y licores destilados para consumo en el local autorizado, sujeto a la aprobación del DBPR y al cumplimiento continuo de los requisitos aplicables de 4COP SFS / SRX.",
+                              "This license authorizes beer, wine, and distilled spirits for consumption on the licensed premises and can also authorize qualifying restaurant-prepared wine- and liquor-based drinks for off-premises consumption when sold with food and sealed and packaged as required by Florida law. It does not authorize ordinary package-store sales of manufacturer-sealed bottles of distilled spirits.",
+                              "Esta licencia autoriza cerveza, vino y licores destilados para consumo en el local autorizado y también puede autorizar bebidas de vino o licor preparadas por el restaurante para consumo fuera del local cuando se venden con alimentos y se sellan y empacan según la ley de Florida. No autoriza ventas ordinarias de botellas de licores destilados selladas por el fabricante.",
                             )}
                       </span>
                     </div>
@@ -748,9 +748,9 @@ export default function FeaturedThirdPartyBusinessListingPage({
                                         <path d="M8 18h32l-4-9H12zM11 18v22h26V18M17 40V27h14v13M9 18c0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0 0 4 6 4 6 0" />
                                       </svg>
                                       <strong>
-                                        {is2copListing ? tr("On-premises", "Consumo en el local") : isSfsListing ? tr("Qualifying restaurant", "Local de restaurante") : tr("On- or", "Dentro o")}
+                                        {is2copListing ? tr("On-premises", "Consumo en el local") : isSfsListing ? tr("On-premises +", "En el local +") : tr("On- or", "Dentro o")}
                                         <br />
-                                        {is2copListing ? tr("beer & wine", "cerveza y vino") : isSfsListing ? tr("premises", "que cumple requisitos") : tr("off-premises use", "fuera del local")}
+                                        {is2copListing ? tr("beer & wine", "cerveza y vino") : isSfsListing ? tr("sealed drinks to go", "bebidas selladas para llevar") : tr("off-premises use", "fuera del local")}
                                       </strong>
                                       {!isNonQuotaBusiness ? (
                                         <span className="marketplace-listing-card-tooltip" role="tooltip">
@@ -759,14 +759,14 @@ export default function FeaturedThirdPartyBusinessListingPage({
                                       ) : null}
                                       {isSfsListing ? (
                                         <span className="marketplace-listing-card-tooltip" role="tooltip">
-                                          {tr("This license is tied to a qualifying restaurant operation and its approved licensed premises. The restaurant and location must continue to meet the applicable DBPR requirements for SFS / SRX qualification.", "Esta licencia está vinculada a una operación de restaurante que cumple los requisitos y a su local autorizado. El restaurante y la ubicación deben seguir cumpliendo los requisitos aplicables del DBPR para la calificación SFS / SRX.")}
+                                          {tr("A qualifying 4COP SFS / SRX restaurant may serve beer, wine and spirits on premises and may also sell or deliver restaurant-prepared wine- or liquor-based drinks for off-premises consumption when the order includes food and the drink is securely sealed, placed in tamper-evident outer packaging and accompanied by the required dated receipt. This authority does not permit ordinary package-store sales of manufacturer-sealed bottles of distilled spirits.", "Un restaurante que califica con licencia 4COP SFS / SRX puede servir cerveza, vino y licores en el local y también puede vender o entregar bebidas de vino o licor preparadas por el restaurante para consumo fuera del local cuando el pedido incluye alimentos y la bebida está debidamente sellada, colocada en un empaque exterior con evidencia de manipulación y acompañada del recibo fechado requerido. Esta autorización no permite ventas ordinarias de botellas de licores destilados selladas por el fabricante.")}
                                         </span>
                                       ) : null}
                                       {isSfsListing ? (
                                         <Link
                                           className="marketplace-listing-education-link"
-                                          href="/license-types/4cop-sfs-restaurant"
-                                          aria-label="Learn about restaurant and premises requirements for 4COP SFS / SRX licenses"
+                                          href="/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law"
+                                          aria-label="Learn about Florida cocktails-to-go rules for 4COP SFS / SRX restaurants"
                                         >
                                           <span>Learn more →</span>
                                         </Link>
@@ -951,6 +951,16 @@ export default function FeaturedThirdPartyBusinessListingPage({
                 </p> : is2copListing ? <p>{isSpanish ? <>La <Link href="/license-types/2cop-beer-wine">licencia 2COP de cerveza y vino</Link> de Florida es una serie sin cupo para cerveza y vino. No autoriza bebidas destiladas. Confirme el registro de la licencia, el local autorizado, los requisitos del comprador y los requisitos de la transacción con el DBPR.</> : <>Florida&apos;s <Link href="/license-types/2cop-beer-wine">2COP beer-and-wine license</Link> is a non-quota series for beer and wine privileges. It does not authorize spirits. Confirm the license record, licensed premises, buyer qualifications, and transaction requirements with DBPR.</>}</p> : <p>
                   {isSpanish ? (<>Una licencia completa de bebidas alcohólicas <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> se emite para un restaurante que cumple los requisitos y permanece vinculada a la operación de servicio de alimentos que cumple los requisitos, el local aprobado, la aprobación de cambios de propiedad o entidad y el cumplimiento continuo de los requisitos aplicables del DBPR, incluida la prueba de ventas de alimentos y bebidas no alcohólicas.</>) : (<>A <Link className="featured-business-sfs-classification" href="/license-types/4cop-sfs-restaurant">4COP SFS / SRX</Link> full-liquor license is issued to a qualifying restaurant and remains dependent on the qualifying food-service operation, approved premises, ownership or entity-change approval, and continuing compliance with applicable DBPR requirements, including the food-and-nonalcoholic-beverage sales test.</>)}
                 </p>}
+
+                {isSfsListing ? (
+                  <p>
+                    {isSpanish ? (
+                      <>La ley vigente de Florida también permite a un restaurante 4COP SFS / SRX que cumple los requisitos vender o entregar ciertas bebidas de vino o licor preparadas por el restaurante para consumo fuera del local cuando se venden con alimentos y se cumplen los requisitos de sellado, empaque y recibo. Esta autorización no convierte la licencia en una licencia de tienda de licores ni permite, bajo esta disposición, la venta de botellas de licores destilados selladas por el fabricante. <Link href="/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law">Ver las reglas de bebidas para llevar de Florida →</Link></>
+                    ) : (
+                      <>Current Florida law also allows a qualifying 4COP SFS / SRX restaurant to sell or deliver certain restaurant-prepared wine- or liquor-based drinks for off-premises consumption when sold with food and the statutory sealing, packaging and receipt requirements are satisfied. This authority does not turn the license into a package-store license or authorize manufacturer-sealed bottles of distilled spirits under the SFS provision. <Link href="/florida-liquor-license-news/florida-cocktails-to-go-sb-148-current-law">Read FLLM&apos;s Florida cocktails-to-go guide →</Link></>
+                    )}
+                  </p>
+                ) : null}
 
                 {isSfsListing && config.annualLicenseFee ? (
                   <p className="featured-business-renewal-fee">
