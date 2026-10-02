@@ -9,11 +9,13 @@ import BusinessMarketLicenseFeatureCards from "@/components/BusinessMarketLicens
 import BusinessMarketplaceRoleDisclosure from "@/components/BusinessMarketplaceRoleDisclosure";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
+import ObservedDaysOnMarket from "@/components/ObservedDaysOnMarket";
 import { ListingSidebarLoanCalculator } from "@/components/ListingBrokerInquiryForm";
 import { countySlug, floridaCounties } from "@/data/florida-counties";
 import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
+import { getOrStartMarketListingObservation } from "@/lib/market-listing-observation";
 import {
   businessMarketRecordHref,
   businessQuotaListingRecords,
@@ -333,6 +335,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
   const licenseGuide = licenseBuyerGuide(listing);
   const countySummary = countyMarketSummary(listing, county);
   const marketHub = categoryMarketHub(listing);
+  const marketObservation = await getOrStartMarketListingObservation(listing);
 
   const countyLicenseListings = standaloneListings.filter(
     (candidate) =>
@@ -438,6 +441,23 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 <div>
                   <span>Liquor License Type</span>
                   <strong>{listing.licenseType}</strong>
+                </div>
+                <div>
+                  <span>Observed Days on Market</span>
+                  <strong>
+                    {marketObservation ? (
+                      <ObservedDaysOnMarket
+                        firstSeenAt={marketObservation.firstSeenAt}
+                        removedAt={marketObservation.removedAt}
+                        status={marketObservation.status}
+                      />
+                    ) : (
+                      "Tracking started"
+                    )}
+                  </strong>
+                  <small className="business-market-observation-note">
+                    FLLM observation period; not the broker&apos;s original listing date.
+                  </small>
                 </div>
               </div>
 
