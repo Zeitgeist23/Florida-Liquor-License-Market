@@ -161,6 +161,9 @@ export default async function GentlemensClubsWithQuotaLicensesPage() {
               <Link className="seo-market-button seo-market-button-dark" href="/transaction-services">
                 Explore Transaction Services
               </Link>
+              <Link className="seo-market-button seo-market-button-dark" href="/gentlemens-clubs-for-sale-with-liquor-licenses">
+                All Florida Gentlemen&apos;s Club License Paths
+              </Link>
             </div>
           </div>
 
