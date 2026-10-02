@@ -17,6 +17,16 @@ type Mode = "inventory" | "median" | "highest";
 type Series = "4cop" | "3ps";
 type MapPin = { x: number; y: number; color: string } | null;
 
+export type SelectedCountySnapshot = {
+  county: string;
+  licenseLabel: string;
+  availableCount: number;
+  low: number | null;
+  median: number | null;
+  high: number | null;
+  estimatedValue: number | null;
+};
+
 const INVENTORY_LEGEND = [
   ["#193552", "0 listings"],
   ["#195b86", "1–2 listings"],
@@ -97,7 +107,13 @@ function highestColor(value: number | null, hasListing: boolean) {
   return "#439848";
 }
 
-export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow[] }) {
+export default function UnifiedMarketHeatMap({
+  rows,
+  selectedCountySnapshot = null,
+}: {
+  rows: UnifiedHeatMapRow[];
+  selectedCountySnapshot?: SelectedCountySnapshot | null;
+}) {
   const [mode, setMode] = useState<Mode>("inventory");
   const [series, setSeries] = useState<Series>("4cop");
   const [active, setActive] = useState<UnifiedHeatMapRow | null>(null);
@@ -110,6 +126,25 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
     () => new Map(rows.map((row) => [key(row.name), row])),
     [rows],
   );
+
+  const selectedCountyPin = useMemo(() => {
+    if (!selectedCountySnapshot) return null;
+    const target = key(selectedCountySnapshot.county);
+    const county = FLORIDA_COUNTY_PATHS.find((item) => key(item.name) === target);
+    if (!county) return null;
+    const numbers = (county.path.match(/-?\d+(?:\.\d+)?/g) ?? []).map(Number);
+    const xs: number[] = [];
+    const ys: number[] = [];
+    for (let index = 0; index + 1 < numbers.length; index += 2) {
+      xs.push(numbers[index]);
+      ys.push(numbers[index + 1]);
+    }
+    if (!xs.length || !ys.length) return null;
+    return {
+      x: (Math.min(...xs) + Math.max(...xs)) / 2,
+      y: (Math.min(...ys) + Math.max(...ys)) / 2,
+    };
+  }, [selectedCountySnapshot]);
 
   const seriesLabel = series === "4cop" ? "4COP" : "3PS";
   const medianValue = (row: UnifiedHeatMapRow) =>
@@ -539,7 +574,42 @@ export default function UnifiedMarketHeatMap({ rows }: { rows: UnifiedHeatMapRow
               })}
             </g>
 
-            {pin ? (
+            {selectedCountySnapshot && selectedCountyPin ? (
+              <>
+                <g
+                  transform={`translate(${selectedCountyPin.x} ${selectedCountyPin.y})`}
+                  className="unified-selected-market-pin"
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`Show ${selectedCountySnapshot.county} market summary`}
+                >
+                  <line x1="0" y1="-23" x2="0" y2="-3" />
+                  <circle className="pin-head" cx="0" cy="-27" r="5.4" />
+                  <circle className="pin-shine" cx="-1.5" cy="-28.5" r="1.2" />
+                  <circle className="pin-point" cx="0" cy="0" r="1.8" />
+                </g>
+                <foreignObject
+                  className="unified-selected-market-tooltip"
+                  x={selectedCountyPin.x > 330 ? selectedCountyPin.x - 126 : selectedCountyPin.x + 10}
+                  y={Math.max(18, Math.min(selectedCountyPin.y - 56, 190))}
+                  width="116"
+                  height="86"
+                  aria-hidden="true"
+                >
+                  <div className="unified-selected-market-tooltip-card">
+                    <span>FLLM County Market</span>
+                    <strong>{selectedCountySnapshot.county} · {selectedCountySnapshot.licenseLabel}</strong>
+                    <dl>
+                      <div><dt>Available</dt><dd>{selectedCountySnapshot.availableCount}</dd></div>
+                      <div><dt>Low Ask</dt><dd>{money(selectedCountySnapshot.low)}</dd></div>
+                      <div><dt>Median</dt><dd>{money(selectedCountySnapshot.median)}</dd></div>
+                      <div><dt>High Ask</dt><dd>{money(selectedCountySnapshot.high)}</dd></div>
+                    </dl>
+                    <small>FLLM Est. Value: {money(selectedCountySnapshot.estimatedValue)}</small>
+                  </div>
+                </foreignObject>
+              </>
+            ) : pin ? (
               <g transform={`translate(${pin.x} ${pin.y})`} aria-hidden="true" className="unified-heat-map-pin">
                 <line x1="0" y1="-23" x2="0" y2="-3" />
                 <circle className="unified-heat-map-pin-head" cx="0" cy="-27" r="5.4" fill={pin.color} />
