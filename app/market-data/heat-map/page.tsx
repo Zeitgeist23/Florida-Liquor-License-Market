@@ -300,7 +300,22 @@ export default async function HeatMapPage({
           />
         ) : (
           <>
-            <UnifiedMarketHeatMap rows={rows} />
+            <UnifiedMarketHeatMap
+              rows={rows}
+              selectedCountySnapshot={
+                selectedCountyRecord
+                  ? {
+                      county: selectedCountyRecord.name,
+                      licenseLabel: selectedLicenseLabel,
+                      availableCount: selectedCountyListings.length,
+                      low: selectedCountyLow,
+                      median: selectedCountyMedian,
+                      high: selectedCountyHigh,
+                      estimatedValue: selectedCountyMedian,
+                    }
+                  : null
+              }
+            />
             <UnifiedHeatMapPriceScaleInteraction />
           </>
         )}
