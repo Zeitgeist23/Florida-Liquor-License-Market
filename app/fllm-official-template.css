@@ -438,3 +438,15 @@
     rgba(2, 21, 36, .08) 100%
   ) !important;
 }
+
+
+/* Orlando inventory anchor: keep the section heading fully clear of the sticky site header */
+#orlando-restaurant-inventory {
+  scroll-margin-top: 118px;
+  padding-top: 84px;
+}
+
+#orlando-restaurant-inventory .fllm-template-heading {
+  margin-top: 0;
+  padding-top: 0;
+}
