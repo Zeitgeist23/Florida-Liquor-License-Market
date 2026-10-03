@@ -22,7 +22,8 @@ const tables = [
 ];
 
 const archiveDate = process.env.FLLM_ARCHIVE_DATE || new Date().toISOString().slice(0, 10);
-const outputDir = resolve(process.cwd(), "data", "market-intelligence", "archives", archiveDate);
+const outputRoot = process.env.FLLM_ARCHIVE_DIR || resolve(process.cwd(), ".fllm-private-archives");
+const outputDir = resolve(outputRoot, archiveDate);
 await mkdir(outputDir, { recursive: true });
 
 const headers = {
@@ -69,7 +70,7 @@ const manifest = {
   archive_date: archiveDate,
   exported_at: new Date().toISOString(),
   purpose:
-    "Independent FLLM-owned portable archive of the market-intelligence dataset. Supabase is the operational database, not the sole custodian of historical market data.",
+    "Independent FLLM-owned portable archive of the market-intelligence dataset. This archive is intentionally written outside the public repository tree unless FLLM_ARCHIVE_DIR is explicitly set to a private destination.",
   format_version: 1,
   tables: {},
 };
