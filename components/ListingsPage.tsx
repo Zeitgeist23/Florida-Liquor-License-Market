@@ -360,7 +360,7 @@ export default function ListingsPage({
     event.stopPropagation();
     event.nativeEvent.stopImmediatePropagation();
 
-    if (type === "businesses-sfs" || type === "businesses-2cop") {
+    if (type === "businesses" || type === "businesses-sfs" || type === "businesses-2cop") {
       const params = new URLSearchParams({ view: type });
       if (businessType !== "all") params.set("businessType", businessType);
       if (county !== "all") params.set("county", county);
