@@ -83,11 +83,11 @@ export default async function ResearchPage() {
             <span>FLLM Research Center</span>
             <h1>Florida Liquor License Data &amp; Research</h1>
             <p>
-              A source-transparent research hub for Florida quota liquor-license inventory, asking prices, county markets, regulatory references and downloadable market data.
+              A source-transparent research hub for Florida quota liquor-license inventory, asking prices, county markets and regulatory references. Public market insights are free; downloadable historical datasets and advanced analytics are premium FLLM data products.
             </p>
             <div className="research-actions">
               <Link href="/florida-liquor-license-market-index">Open Market Index</Link>
-              <a href={csvUrl}>Download Current CSV</a>
+              <Link href="/data-access">Premium Data Access</Link>
             </div>
           </div>
           <aside>
@@ -109,7 +109,7 @@ export default async function ResearchPage() {
           <p>Each resource is designed to give professionals and researchers a specific source page to cite rather than relying on generic marketing copy.</p>
         </div>
         <div className="research-card-grid">
-          <Link href="/florida-liquor-license-market-index"><b>01</b><strong>Florida Liquor License Market Index</strong><p>Statewide 4COP and 3PS inventory, disclosed asking-price medians, county rankings and downloadable CSV data.</p><span>Open index ›</span></Link>
+          <Link href="/florida-liquor-license-market-index"><b>01</b><strong>Florida Liquor License Market Index</strong><p>Statewide 4COP and 3PS inventory, disclosed asking-price medians and county rankings, with premium historical datasets available separately.</p><span>Open index ›</span></Link>
           <Link href="/counties"><b>02</b><strong>All 67 County Markets</strong><p>County population, active inventory, 4COP and 3PS asking-price evidence and local market pages.</p><span>Browse county data ›</span></Link>
           <Link href="/florida-liquor-license-lottery"><b>03</b><strong>Quota Drawing Data</strong><p>Current Florida quota drawing information with official DBPR references and county availability.</p><span>View quota data ›</span></Link>
           <Link href="/resources/license-fees"><b>04</b><strong>Florida Liquor License Fees</strong><p>Reference material for state license fees and related regulatory costs.</p><span>Review fees ›</span></Link>
@@ -178,7 +178,7 @@ export default async function ResearchPage() {
             <strong>Suggested Market Index citation</strong>
             <p>{`Florida Liquor License Market, “Florida Liquor License Market Index — ${snapshot.snapshotLabel},” accessed ${currentDate}.`}</p>
             <code>{marketIndexUrl}</code>
-            <a href={csvUrl}>Download supporting CSV ›</a>
+            <Link href="/data-access">Request premium dataset access ›</Link>
           </aside>
         </div>
       </section>
@@ -192,7 +192,7 @@ export default async function ResearchPage() {
           <article><strong>Attorneys &amp; CPAs</strong><p>Link clients to current county market evidence, forms, fee references and DBPR source material without presenting a market snapshot as legal or valuation advice.</p></article>
           <article><strong>Restaurant consultants</strong><p>Use county inventory and 4COP/3PS supply data as a starting point for operators researching Florida markets.</p></article>
           <article><strong>Lenders</strong><p>Reference current advertised market evidence while conducting independent collateral, lien and transaction diligence.</p></article>
-          <article><strong>Journalists &amp; researchers</strong><p>Use the Market Index and downloadable county CSV as a dated source for stories about quota-license supply and advertised pricing.</p></article>
+          <article><strong>Journalists &amp; researchers</strong><p>Use the public Market Index as a dated source for quota-license supply and advertised pricing; premium historical datasets are available under paid data access.</p></article>
         </div>
       </section>
 
