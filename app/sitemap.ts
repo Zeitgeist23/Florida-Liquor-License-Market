@@ -38,6 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/restaurants-with-liquor-licenses`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/sell-florida-restaurant`, lastModified, changeFrequency: "weekly", priority: 0.88 },
     { url: `${siteUrl}/buy-florida-restaurant`, lastModified, changeFrequency: "daily", priority: 0.9 },
+    { url: `${siteUrl}/where-to-find-florida-restaurants-for-sale-with-liquor-licenses`, lastModified, changeFrequency: "daily", priority: 0.91 },
     { url: `${siteUrl}/restaurants-for-sale/weston`, lastModified, changeFrequency: "daily", priority: 0.88 },
     { url: `${siteUrl}/restaurants-for-sale/south-florida`, lastModified, changeFrequency: "daily", priority: 0.91 },
     { url: `${siteUrl}/restaurants-for-sale/miami`, lastModified, changeFrequency: "daily", priority: 0.9 },
