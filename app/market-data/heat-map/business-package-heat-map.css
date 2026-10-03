@@ -221,3 +221,62 @@
 .business-package-tooltip-link:focus-visible {
   outline: none;
 }
+
+
+.business-package-license-component {
+  margin-top: 46px;
+  padding-top: 34px;
+  border-top: 1px solid rgba(241,166,0,.5);
+}
+
+.business-package-license-component-heading {
+  max-width: 980px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+.business-package-license-component-heading > span {
+  display: block;
+  color: #f6a700;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.business-package-license-component-heading h2 {
+  margin: 7px 0 10px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.08;
+}
+
+.business-package-license-component-heading p {
+  margin: 0 auto;
+  max-width: 900px;
+  color: #d7e3ec;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.business-package-license-component-note {
+  margin: 42px 0 12px;
+  padding: 22px 24px;
+  border: 1px solid rgba(241,166,0,.55);
+  border-radius: 7px;
+  background: rgba(5,24,42,.58);
+  text-align: center;
+}
+
+.business-package-license-component-note strong {
+  color: #f6a700;
+  font-size: 16px;
+}
+
+.business-package-license-component-note p {
+  margin: 8px auto 0;
+  max-width: 850px;
+  color: #d7e3ec;
+  line-height: 1.65;
+}
