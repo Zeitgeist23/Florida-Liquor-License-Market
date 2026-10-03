@@ -47,13 +47,13 @@ Market observations are historical facts about what FLLM observed at a point in 
 
 Supabase is FLLM's operational database, but it must never be the sole custodian of FLLM's historical market-intelligence asset.
 
-FLLM maintains a portable independent archive under `data/market-intelligence/archives/`. Archives are exported in both JSON and CSV with a dated manifest. The export format is intentionally vendor-neutral so the dataset can be restored, analyzed, or migrated without dependence on Supabase.
+FLLM maintains portable independent archives in a private destination outside the public website repository. Archives are exported in both JSON and CSV with a dated manifest. The export format is intentionally vendor-neutral so the dataset can be restored, analyzed, or migrated without dependence on Supabase.
 
-The FLLM source repository also contains the archive/export logic and documentation necessary to reproduce the dataset structure.
+The public FLLM source repository may contain the archive/export logic and documentation, but it must not contain the raw proprietary historical dataset. Public pages may display selected market insights; bulk exports and historical datasets are premium products.
 
 ## Archive cadence
 
-- Scheduled archive: weekly
+- Scheduled archive: weekly to a private FLLM-controlled destination
 - Additional archive: before material schema changes or migrations
 - Retention: permanent unless a record must be removed for a specific legal or data-quality reason
 - Each archive contains a manifest with export time and row counts
