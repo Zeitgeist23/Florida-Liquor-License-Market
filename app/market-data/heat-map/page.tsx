@@ -12,6 +12,7 @@ import UnifiedHeatMapPriceScaleInteraction from "@/components/UnifiedHeatMapPric
 import { countySlug, floridaCounties } from "@/data/florida-counties";
 import {
   business2copListings,
+  businessQuotaListings,
   businessSfsListings,
   type BusinessQuotaListing,
 } from "@/lib/business-quota-listings";
@@ -66,6 +67,7 @@ function median(values: number[]) {
 function buildBusinessPackageRows(
   listings: BusinessQuotaListing[],
   licenseType: string,
+  countyMedians: Map<string, { fourCopMedian: number | null; threePsMedian: number | null }>,
 ): BusinessPackageHeatMapRow[] {
   const grouped = new Map<string, BusinessQuotaListing[]>();
 
@@ -88,12 +90,23 @@ function buildBusinessPackageRows(
         ? prices.reduce((sum, price) => sum + price, 0) / prices.length
         : null;
 
+      const licenseTypes = Array.from(
+        new Set(countyListings.map((listing) => listing.licenseType)),
+      ).sort();
+      const countyMarket = countyMedians.get(county) ?? {
+        fourCopMedian: null,
+        threePsMedian: null,
+      };
+
       return {
         name: county,
         slug: countySlug(county),
         listingCount: countyListings.length,
         averagePrice,
         licenseType,
+        licenseTypes,
+        fourCopMedian: countyMarket.fourCopMedian,
+        threePsMedian: countyMarket.threePsMedian,
         businessCategories: Array.from(
           new Set(countyListings.map((listing) => listing.businessCategory)),
         ).sort(),
@@ -113,21 +126,44 @@ export default async function HeatMapPage({
   const requestedView = firstSearchParam(params.view);
   const requestedCounty = firstSearchParam(params.county)?.trim() || "";
   const requestedLicenseType = firstSearchParam(params.licenseType)?.trim() || "quota";
+  const isQuotaBusinessMap =
+    requestedView === "businesses" ||
+    (requestedView === "licenses" && requestedLicenseType === "businesses");
   const isSfsBusinessMap = requestedView === "businesses-sfs";
   const is2copBusinessMap = requestedView === "businesses-2cop";
-  const isBusinessPackageMap = isSfsBusinessMap || is2copBusinessMap;
+  const isBusinessPackageMap =
+    isQuotaBusinessMap || isSfsBusinessMap || is2copBusinessMap;
+
+  const listings = getVisibleAvailableMarketplaceListings(
+    await getMarketplaceListings(),
+  );
+  const snapshot = buildFloridaMarketIndex(listings);
+  const countyMedians = new Map(
+    snapshot.countyRows.map((row) => [
+      row.county,
+      {
+        fourCopMedian: row.fourCop.median,
+        threePsMedian: row.threePs.median,
+      },
+    ]),
+  );
 
   let businessPackageRows: BusinessPackageHeatMapRow[] = [];
   let businessPackageLicenseType = "";
   let businessTypeLabel = "All Business Types";
 
   if (isBusinessPackageMap) {
-    const sourceListings = isSfsBusinessMap
-      ? businessSfsListings
-      : business2copListings;
-    businessPackageLicenseType = isSfsBusinessMap
-      ? "4COP SFS / SRX"
-      : "2COP Beer & Wine";
+    const sourceListings = isQuotaBusinessMap
+      ? businessQuotaListings
+      : isSfsBusinessMap
+        ? businessSfsListings
+        : business2copListings;
+
+    businessPackageLicenseType = isQuotaBusinessMap
+      ? "4COP / 3PS Quota"
+      : isSfsBusinessMap
+        ? "4COP SFS / SRX"
+        : "2COP Beer & Wine";
 
     const requestedBusinessType =
       firstSearchParam(params.businessType)?.trim() || "all";
@@ -157,12 +193,9 @@ export default async function HeatMapPage({
     businessPackageRows = buildBusinessPackageRows(
       scopedListings,
       businessPackageLicenseType,
+      countyMedians,
     );
   }
-
-  const listings = isBusinessPackageMap
-    ? []
-    : getVisibleAvailableMarketplaceListings(await getMarketplaceListings());
 
   const selectedCountyRecord = !isBusinessPackageMap && requestedCounty
     ? floridaCounties.find((county) => county.name === requestedCounty) ?? null
@@ -193,12 +226,8 @@ export default async function HeatMapPage({
         ? "3PS Quota / Package Store"
         : "All Quota Liquor Licenses";
 
-  const snapshot = isBusinessPackageMap
-    ? null
-    : buildFloridaMarketIndex(listings);
-
   const rows =
-    snapshot?.countyRows.map((row) => ({
+    snapshot.countyRows.map((row) => ({
       name: row.county,
       slug: row.slug,
       listingCount: row.activeListings,
@@ -211,7 +240,7 @@ export default async function HeatMapPage({
           ? Math.max(row.fourCop.high ?? 0, 995000)
           : row.fourCop.high,
       threePsHigh: row.threePs.high,
-    })) ?? [];
+    }));
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -295,8 +324,9 @@ export default async function HeatMapPage({
           <BusinessPackageHeatMap
             rows={businessPackageRows}
             licenseType={businessPackageLicenseType}
-            listingType={isSfsBusinessMap ? "businesses-sfs" : "businesses-2cop"}
+            listingType={isQuotaBusinessMap ? "businesses" : isSfsBusinessMap ? "businesses-sfs" : "businesses-2cop"}
             businessTypeLabel={businessTypeLabel}
+            selectedCounty={requestedCounty || undefined}
           />
         ) : (
           <>
