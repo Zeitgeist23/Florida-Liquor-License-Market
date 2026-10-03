@@ -43,6 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/restaurants-for-sale/south-florida`, lastModified, changeFrequency: "daily", priority: 0.91 },
     { url: `${siteUrl}/restaurants-for-sale/miami`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/restaurants-for-sale/orlando`, lastModified, changeFrequency: "daily", priority: 0.9 },
+    { url: `${siteUrl}/cities/saint-augustine`, lastModified, changeFrequency: "daily", priority: 0.88 },
     { url: `${siteUrl}/restaurants-for-sale/fort-lauderdale`, lastModified, changeFrequency: "daily", priority: 0.89 },
     { url: `${siteUrl}/restaurants-for-sale/broward-county`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/restaurants-for-sale/tampa`, lastModified, changeFrequency: "daily", priority: 0.9 },
