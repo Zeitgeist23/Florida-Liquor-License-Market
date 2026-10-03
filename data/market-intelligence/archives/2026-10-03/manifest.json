@@ -1,0 +1,26 @@
+{
+  "archive_date": "2026-10-03",
+  "exported_at": "2026-10-03T15:35:02.200Z",
+  "purpose": "Independent portable FLLM-owned archive baseline; Supabase remains the operational database, not the sole custodian.",
+  "format_version": 1,
+  "tables": {
+    "fllm_market_sources": {
+      "row_count": 2
+    },
+    "quota_license_market_observations": {
+      "row_count": 5
+    },
+    "quota_license_sales": {
+      "row_count": 0
+    },
+    "quota_license_financing": {
+      "row_count": 0
+    },
+    "business_quota_market_observations": {
+      "row_count": 81
+    },
+    "quota_market_snapshots": {
+      "row_count": 5
+    }
+  }
+}
