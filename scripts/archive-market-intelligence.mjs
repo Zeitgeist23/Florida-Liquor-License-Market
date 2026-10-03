@@ -14,6 +14,9 @@ const tables = [
   "quota_license_financing",
   "business_quota_market_observations",
   "quota_market_snapshots",
+  "quota_license_ownership_history",
+  "quota_license_lien_events",
+  "business_outcome_history",
 ];
 
 const archiveDate = process.env.FLLM_ARCHIVE_DATE || new Date().toISOString().slice(0, 10);
