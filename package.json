@@ -10,7 +10,8 @@
     "build": "npm run check:fllm-design && next build",
     "start": "next start",
     "lint": "eslint .",
-    "check:fllm-design": "node scripts/check-fllm-design-system.mjs"
+    "check:fllm-design": "node scripts/check-fllm-design-system.mjs",
+    "archive:market-data": "node scripts/archive-market-intelligence.mjs"
   },
   "dependencies": {
     "next": "15.5.21",
