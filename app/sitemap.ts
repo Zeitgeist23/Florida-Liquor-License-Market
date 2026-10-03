@@ -92,6 +92,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/florida-quota-liquor-license-market-report`, lastModified, changeFrequency: "daily", priority: 0.96 },
     { url: `${siteUrl}/florida-liquor-license-market-index`, lastModified, changeFrequency: "daily", priority: 0.94 },
     { url: `${siteUrl}/research`, lastModified, changeFrequency: "weekly", priority: 0.82 },
+    { url: `${siteUrl}/data-access`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/sell-your-license`, lastModified, changeFrequency: "monthly", priority: 0.82 },
     { url: `${siteUrl}/brokers/list-your-license`, lastModified, changeFrequency: "weekly", priority: 0.82 },
     { url: `${siteUrl}/financing`, lastModified, changeFrequency: "monthly", priority: 0.72 },
