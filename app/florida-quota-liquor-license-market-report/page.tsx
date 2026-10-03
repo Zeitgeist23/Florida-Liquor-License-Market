@@ -146,7 +146,7 @@ export default async function FloridaQuotaLiquorLicenseMarketReportPage() {
             <div className="quota-report-actions">
               <Link href="/listings">Browse current Florida liquor licenses for sale</Link>
               <Link href="/florida-liquor-license-market-index">Open the full 67-county market index</Link>
-              <a href={csvUrl}>Download current CSV</a>
+              <Link href="/data-access">Premium Data Access</Link>
             </div>
           </div>
           <aside className="quota-report-snapshot">
@@ -226,7 +226,7 @@ export default async function FloridaQuotaLiquorLicenseMarketReportPage() {
             <article><b>01</b><strong>Current marketplace inventory</strong><p>Counts use currently available FLLM marketplace listings. Inventory can change as listings are added, repriced, sold or withdrawn.</p></article>
             <article><b>02</b><strong>Asking prices, not verified closings</strong><p>Price statistics use disclosed advertised asking prices. They are market evidence, not appraisals, guaranteed sale prices or verified transaction values.</p></article>
             <article><b>03</b><strong>County-specific Florida licenses</strong><p>Quota liquor licenses are county-specific. Statewide figures provide context; transaction analysis should use exact-county and exact-license-type evidence.</p></article>
-            <article><b>04</b><strong>Recurring series</strong><p>The stable report URL updates with the current monthly edition while the full Market Index and CSV provide the underlying live county-level data.</p></article>
+            <article><b>04</b><strong>Recurring series</strong><p>The stable report URL updates with the current monthly edition. Public headline analytics remain available on FLLM, while downloadable historical datasets and advanced analytics are premium data products.</p></article>
           </div>
         </div>
       </section>
