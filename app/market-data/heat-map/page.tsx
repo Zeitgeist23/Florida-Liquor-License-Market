@@ -197,7 +197,7 @@ export default async function HeatMapPage({
     );
   }
 
-  const selectedCountyRecord = !isBusinessPackageMap && requestedCounty
+  const selectedCountyRecord = requestedCounty
     ? floridaCounties.find((county) => county.name === requestedCounty) ?? null
     : null;
 
@@ -300,7 +300,9 @@ export default async function HeatMapPage({
           </h1>
           <p>
             {isBusinessPackageMap
-              ? `View the statewide inventory of operating businesses offered with ${businessPackageLicenseType} privileges. This map uses business-package asking prices and county package counts; it does not use stand-alone quota-license values. Hover a county pin for the number of similar packages and the county average listing price.`
+              ? isQuotaBusinessMap
+                ? `Compare two layers of the market: first, the number of matching ${businessTypeLabel.toLowerCase()} business packages by county; then the standalone 4COP and 3PS quota-license market below so buyers can evaluate the license component separately.`
+                : `View the statewide inventory of operating businesses offered with ${businessPackageLicenseType} privileges. This map uses business-package asking prices and county package counts; it does not use stand-alone quota-license values.`
               : "Use one statewide interactive map to compare current marketplace inventory and switch between 4COP and 3PS median or highest current asking-price views by Florida county. Select any county to open its dedicated market page."}
           </p>
         </div>
@@ -321,13 +323,52 @@ export default async function HeatMapPage({
         ) : null}
 
         {isBusinessPackageMap ? (
-          <BusinessPackageHeatMap
-            rows={businessPackageRows}
-            licenseType={businessPackageLicenseType}
-            listingType={isQuotaBusinessMap ? "businesses" : isSfsBusinessMap ? "businesses-sfs" : "businesses-2cop"}
-            businessTypeLabel={businessTypeLabel}
-            selectedCounty={requestedCounty || undefined}
-          />
+          <>
+            <BusinessPackageHeatMap
+              rows={businessPackageRows}
+              licenseType={businessPackageLicenseType}
+              listingType={isQuotaBusinessMap ? "businesses" : isSfsBusinessMap ? "businesses-sfs" : "businesses-2cop"}
+              businessTypeLabel={businessTypeLabel}
+              selectedCounty={requestedCounty || undefined}
+            />
+
+            {isQuotaBusinessMap ? (
+              <section className="business-package-license-component">
+                <div className="business-package-license-component-heading">
+                  <span>Standalone License Component Market</span>
+                  <h2>Compare the underlying 4COP and 3PS quota-license market</h2>
+                  <p>
+                    This second heat map shows FLLM&apos;s standalone quota-license inventory and asking-price data by county.
+                    Use the 4COP / 3PS controls to compare the license component separately from the operating-business package above.
+                  </p>
+                </div>
+                <UnifiedMarketHeatMap
+                  rows={rows}
+                  selectedCountySnapshot={
+                    selectedCountyRecord
+                      ? {
+                          county: selectedCountyRecord.name,
+                          licenseLabel: "Standalone Quota Market",
+                          availableCount: selectedCountyListings.length,
+                          low: selectedCountyLow,
+                          median: selectedCountyMedian,
+                          high: selectedCountyHigh,
+                          estimatedValue: selectedCountyMedian,
+                        }
+                      : null
+                  }
+                />
+                <UnifiedHeatMapPriceScaleInteraction />
+              </section>
+            ) : (
+              <section className="business-package-license-component-note">
+                <strong>{businessPackageLicenseType} is not a transferable standalone quota-license market.</strong>
+                <p>
+                  FLLM therefore keeps the business-package inventory above separate and does not create a standalone license-value heat map for this premises-dependent license type.
+                </p>
+              </section>
+            )}
+          </>
         ) : (
           <>
             <UnifiedMarketHeatMap
