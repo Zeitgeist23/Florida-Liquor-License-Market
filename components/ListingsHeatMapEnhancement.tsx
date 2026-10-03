@@ -5,7 +5,7 @@ import { useEffect } from "react";
 function dedicatedHeatMapHref(button: HTMLButtonElement) {
   const listingType = button.dataset.heatMapType || "quota";
 
-  if (listingType === "businesses-sfs" || listingType === "businesses-2cop") {
+  if (listingType === "businesses" || listingType === "businesses-sfs" || listingType === "businesses-2cop") {
     const params = new URLSearchParams({ view: listingType });
     const businessType = button.dataset.heatMapBusinessType?.trim();
     if (businessType && businessType !== "all") {
