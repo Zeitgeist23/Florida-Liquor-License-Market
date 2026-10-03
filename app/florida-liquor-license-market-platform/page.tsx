@@ -9,18 +9,18 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/florida-liquor-license-market-platform`;
 
 const positioningLine =
-  "Florida Liquor License Market — licenses, businesses, market data, valuation, and transaction resources for Florida’s licensed hospitality market.";
+  "Florida Liquor License Market is a Florida liquor-license data analytics and market-intelligence platform, with marketplace, valuation, financing and transaction resources built around its historical dataset.";
 
 export const metadata: Metadata = {
-  title: "Florida Liquor License Market Platform | Licenses, Businesses & Market Data",
+  title: "Florida Liquor License Market Intelligence | Data Analytics Platform",
   description:
-    "Explore the Florida Liquor License Market platform: standalone liquor licenses, businesses with liquor licenses, county market data, valuation resources and transaction support.",
+    "Florida Liquor License Market is a data analytics platform tracking Florida liquor-license inventory, asking prices, transactions, financing, valuation evidence and licensed-business market activity across all 67 counties.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Liquor License Market Platform | Licenses, Businesses & Market Data",
+    title: "Florida Liquor License Market Intelligence | Data Analytics Platform",
     description: positioningLine,
     siteName: "Florida Liquor License Market",
   },
@@ -488,17 +488,17 @@ export default function FloridaLiquorLicenseMarketPlatformPage() {
             <div className="county-breadcrumbs">
               <Link href="/">Home</Link><span>›</span><strong>FLLM Platform</strong>
             </div>
-            <span className="county-kicker">One Market · Two Connected Verticals</span>
-            <h1>Florida Liquor License Market</h1>
+            <span className="county-kicker">Florida Liquor License Data & Market Intelligence</span>
+            <h1>Florida Liquor License Market Intelligence</h1>
             <ul className="platform-hero-scope" aria-label="Florida Liquor License Market platform scope">
-              <li>Standalone liquor licenses</li>
-              <li>Businesses with liquor licenses</li>
-              <li>Market data and county intelligence</li>
-              <li>Valuation and appraisal</li>
-              <li>Transaction resources for Florida’s licensed hospitality market</li>
+              <li>Historical county inventory and asking-price analytics</li>
+              <li>Documented sales and financing evidence</li>
+              <li>Standalone liquor-license market data</li>
+              <li>Businesses with liquor-license market data</li>
+              <li>Valuation, appraisal and transaction intelligence</li>
             </ul>
             <p>
-              FLLM covers both the market for Florida liquor licenses themselves and the broader landscape of Florida businesses whose operations and value are connected to liquor-license privileges.
+              FLLM is a data-analytics platform at its core. The marketplace, brokerage, appraisal, financing and transaction-resource functions are built around a growing historical dataset of Florida liquor-license inventory, pricing, sales, financing and licensed-business market activity.
             </p>
             <div className="county-hero-actions">
               <Link className="county-button county-button-gold" href="/listings">Browse Standalone Licenses</Link>
@@ -508,8 +508,8 @@ export default function FloridaLiquorLicenseMarketPlatformPage() {
           </div>
 
           <aside className="county-map-card platform-hero-card" aria-label="FLLM marketplace verticals">
-            <span>FLLM Marketplace Structure</span>
-            <strong>Two connected markets</strong>
+            <span>FLLM Data Platform</span>
+            <strong>One historical dataset, two connected markets</strong>
             <div className="platform-vertical">
               <b>Standalone Liquor Licenses</b>
               <small>County-specific license inventory, pricing, valuation, financing and transfer resources.</small>
@@ -523,11 +523,25 @@ export default function FloridaLiquorLicenseMarketPlatformPage() {
       </section>
 
       <section className="platform-pillars-strip" aria-label="FLLM platform areas">
+        <div><span>Core Asset</span><strong>Market Data</strong></div>
         <div><span>Marketplace</span><strong>Licenses</strong></div>
         <div><span>Operating Market</span><strong>Businesses</strong></div>
-        <div><span>Intelligence</span><strong>Market Data</strong></div>
         <div><span>Pricing</span><strong>Valuation</strong></div>
         <div><span>Execution</span><strong>Transactions</strong></div>
+      </section>
+
+      <section className="platform-verticals">
+        <div className="county-shell">
+          <div className="county-section-heading">
+            <div>
+              <span>FLLM Mission</span>
+              <h2>Build Florida&apos;s permanent liquor-license market-intelligence record</h2>
+            </div>
+          </div>
+          <p className="platform-section-copy">
+            Florida Liquor License Market exists to build and maintain a historical, source-traceable market-intelligence database covering liquor-license inventory, asking prices, documented transactions, financing evidence, valuation data and licensed-business market activity across all 67 Florida counties. Supabase supports the live application, while FLLM maintains independent portable archives so no database vendor is the sole custodian of the historical data asset.
+          </p>
+        </div>
       </section>
 
       <section className="platform-verticals">
