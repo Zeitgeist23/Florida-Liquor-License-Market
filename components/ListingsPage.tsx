@@ -502,7 +502,7 @@ export default function ListingsPage({
                   ? "These listings are restaurant-business acquisitions involving location-specific 4COP SFS / SRX privileges—not sales of transferable quota licenses. Confirm the premises, food-service qualifications, license status, ownership-change requirements, and transaction terms. "
                   : showing2copBusinessListings
                     ? "These are operating businesses with a beer-and-wine license, not standalone quota-license assets. Confirm the license status, premises, approvals, included assets, and purchase terms. "
-                  : "These listings are business acquisition packages that include a quota liquor license. Confirm the assets, premises, real estate, license allocation, and transaction terms included in each sale. "}
+                  : "These listings are business acquisition packages that include a quota liquor license. Market observations are based on publicly available listing information. FLLM is not the listing broker and does not represent the seller. Confirm the assets, premises, real estate, license allocation, and transaction terms included in each sale. "}
                 <Link href={showing2copBusinessListings ? "/license-types/2cop-beer-wine" : showingSfsBusinessListings ? "/license-types/4cop-sfs-restaurant" : "/businesses-with-quota-licenses"}>
                   {showingSfsBusinessListings
                     ? "Review Florida 4COP SFS / SRX restaurant licensing"
