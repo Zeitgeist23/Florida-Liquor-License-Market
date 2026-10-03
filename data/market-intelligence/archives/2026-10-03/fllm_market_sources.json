@@ -1,0 +1,36 @@
+[
+  {
+    "id": "89f80222-6530-4a46-a2e7-71f04a76e24f",
+    "notes": "Backfill provenance record for historical business-package market observations already stored in Supabase before the market-intelligence schema was created.",
+    "county": null,
+    "metadata": {
+      "legacy_table": "public.market_listing_observations"
+    },
+    "created_at": "2026-10-03T15:17:59.973888+00:00",
+    "source_url": null,
+    "observed_at": "2026-10-03T15:17:59.973888+00:00",
+    "source_name": "FLLM legacy market_listing_observations ledger",
+    "source_type": "listing",
+    "document_date": null,
+    "recording_book": null,
+    "recording_page": null,
+    "document_number": null
+  },
+  {
+    "id": "e7473d14-83ba-4531-9624-2a1d36099b0f",
+    "notes": "Backfill provenance record for approved self-directed standalone quota-license listings.",
+    "county": null,
+    "metadata": {
+      "legacy_table": "public.listing_submissions"
+    },
+    "created_at": "2026-10-03T15:17:59.973888+00:00",
+    "source_url": null,
+    "observed_at": "2026-10-03T15:17:59.973888+00:00",
+    "source_name": "FLLM approved seller listing submissions ledger",
+    "source_type": "listing",
+    "document_date": null,
+    "recording_book": null,
+    "recording_page": null,
+    "document_number": null
+  }
+]
