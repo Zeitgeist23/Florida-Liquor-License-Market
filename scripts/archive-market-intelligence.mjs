@@ -17,6 +17,8 @@ const tables = [
   "quota_license_ownership_history",
   "quota_license_lien_events",
   "business_outcome_history",
+  "business_listing_legal_filings",
+  "business_listing_status_events",
 ];
 
 const archiveDate = process.env.FLLM_ARCHIVE_DATE || new Date().toISOString().slice(0, 10);
