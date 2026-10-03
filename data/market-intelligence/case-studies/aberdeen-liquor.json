@@ -1,0 +1,36 @@
+{
+  "caseStudyId": "aberdeen-liquor-st-johns",
+  "entity": {
+    "legalName": "ABERDEEN LIQUOR INC.",
+    "dba": "Aberdeen Liquor",
+    "floridaDocumentNumber": "P21000076512",
+    "corporateStatus": {
+      "status": "ACTIVE",
+      "observedDate": "2026-10-03",
+      "source": "Florida Division of Corporations / Sunbiz public entity record",
+      "note": "Corporate status is distinct from the operating status of the retail liquor store."
+    }
+  },
+  "location": {
+    "address": "3735 Longleaf Pine Pkwy 218-220, St. Johns, FL 32259",
+    "county": "St. Johns County"
+  },
+  "operatingStatus": {
+    "status": "PERMANENTLY CLOSED",
+    "lastDayOfOperation": "2025-06-15",
+    "evidence": "Public Facebook closing announcement and Google result captured 2026-10-03"
+  },
+  "licenseContext": {
+    "aberdeenOperatingLicense": "6500053",
+    "licenseType": "3PS",
+    "separateBeachwayDisputedLicense": "BEV6500-184",
+    "note": "FLLM treats Aberdeen's operating license 6500053 separately from the Beachway license BEV6500-184."
+  },
+  "litigationContext": {
+    "filingDate": "2024-06-28",
+    "caseCaption": "BEACHWAY RESTAURANTS LLC v ABERDEEN LIQUOR INC",
+    "category": "Commercial and Trade - Debt Collection",
+    "note": "Existence of filing only; no merits conclusion is implied."
+  },
+  "lastUpdated": "2026-10-03"
+}
