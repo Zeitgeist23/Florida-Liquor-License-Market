@@ -10,6 +10,9 @@ export type BusinessPackageHeatMapRow = {
   listingCount: number;
   averagePrice: number | null;
   licenseType: string;
+  licenseTypes: string[];
+  fourCopMedian: number | null;
+  threePsMedian: number | null;
   businessCategories: string[];
 };
 
@@ -51,6 +54,18 @@ function money(value: number | null) {
     currency: "USD",
     maximumFractionDigits: 0,
   }).format(value);
+}
+
+function licenseMedianSummary(row: BusinessPackageHeatMapRow) {
+  const includes4cop = row.licenseTypes.includes("4COP Quota");
+  const includes3ps = row.licenseTypes.includes("3PS Quota / Package Store");
+
+  if (includes4cop && includes3ps) {
+    return `4COP ${money(row.fourCopMedian)} · 3PS ${money(row.threePsMedian)}`;
+  }
+  if (includes4cop) return money(row.fourCopMedian);
+  if (includes3ps) return money(row.threePsMedian);
+  return "Not a standalone quota-license market";
 }
 
 export default function BusinessPackageHeatMap({
@@ -490,16 +505,16 @@ export default function BusinessPackageHeatMap({
                               <dd>{activeRow.licenseType}</dd>
                             </div>
                             <div>
-                              <dt>Avg. Package Price</dt>
-                              <dd>{money(activeRow.averagePrice)}</dd>
+                              <dt>FLLM Median License Ask</dt>
+                              <dd>{licenseMedianSummary(activeRow)}</dd>
                             </div>
                             <div>
-                              <dt>Active packages</dt>
+                              <dt>{businessTypeLabel === "All Business Types" ? "Matching Businesses" : businessTypeLabel + "s On Market"}</dt>
                               <dd>{activeRow.listingCount}</dd>
                             </div>
                             <div>
-                              <dt>Business types</dt>
-                              <dd>{activeRow.businessCategories.length || "—"}</dd>
+                              <dt>License type</dt>
+                              <dd>{activeRow.licenseTypes.join(" / ") || activeRow.licenseType}</dd>
                             </div>
                           </dl>
                           <small>{activeRow.businessCategories.join(" · ")}</small>
