@@ -152,7 +152,7 @@ export default async function FloridaLiquorLicenseMarketIndexPage() {
             <div className="index-hero-actions">
               <a className="index-button index-button-gold" href="#county-index">Explore County Rankings</a>
               <Link className="index-button index-button-dark" href="/research">Methodology &amp; Research</Link>
-              <a className="index-button index-button-dark" href={csvUrl}>Download Current CSV</a>
+              <Link className="index-button index-button-dark" href="/data-access">Premium Data Access</Link>
             </div>
           </div>
           <aside className="index-snapshot-card">
