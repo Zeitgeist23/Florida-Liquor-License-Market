@@ -3014,6 +3014,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     sourceListingUrls: [
       "https://www.bizquest.com/business-for-sale/20-year-established-adult-club/BW2551511/",
     ],
+    independentVerificationUrls: [
+      "https://www.businessesforsale.com/search/tennis-clubs-and-strip-clubs-for-sale",
+    ],
     county: "Pasco County",
     countyHref: "/counties/pasco",
     licenseType: "4COP Quota",
