@@ -18,6 +18,9 @@ FLLM should preserve, where supportable and sourced:
 - recorded financing tied to quota-license purchases or collateral
 - private-lender, seller-financing, commercial-bank, credit-union, and SBA-related evidence
 - lien releases and satisfactions when documented
+- complete licensee / ownership / entity / address / status histories where supportable
+- operator classification, including independent, regional chain, national chain, and big-box acquisitions where evidence supports the classification
+- business outcome events associated with financed or transferred licenses, including continued operation, closure, resale, relocation, dissolution, bankruptcy, foreclosure, or reopening where documented
 - business-package asking prices involving quota licenses
 - business-package revenue, SDE/cash flow, FF&E, and estimated license component when available
 - provenance for every market observation
@@ -67,6 +70,8 @@ County pages and business-market pages should evolve into market dashboards show
 - documented closed sales
 - documented financing activity
 - lender mix
+- ownership concentration and large-chain acquisition activity
+- financing-to-outcome analysis and business survival intervals where the evidence permits
 - time-on-market measures
 
 The long-term FLLM asset is the historical dataset and the analytics built from it, not merely the current listings displayed on the website.
