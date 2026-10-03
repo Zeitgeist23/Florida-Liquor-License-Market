@@ -107,8 +107,8 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
           min-height: 0;
         }
         .orlando-restaurant-hero .fllm-template-shell {
-          padding-top: 54px;
-          padding-bottom: 54px;
+          padding-top: 42px;
+          padding-bottom: 42px;
         }
         .orlando-restaurant-hero__photo,
         .orlando-restaurant-hero__overlay {
@@ -117,9 +117,9 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
           pointer-events: none;
         }
         .orlando-restaurant-hero__photo {
-          background-image: url('/api/orlando-restaurant-hero');
+          background-image: url('/assets/orlando-restaurant-hero-final.webp');
           background-size: cover;
-          background-position: center center;
+          background-position: center right;
           background-repeat: no-repeat;
           filter: none;
           transform: scale(1);
@@ -154,9 +154,9 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
           <h1
             className="fllm-template-hero-title"
             style={{
-              fontSize: "clamp(34px, 3.25vw, 54px)",
+              fontSize: "clamp(32px, 3vw, 48px)",
               lineHeight: 1.0,
-              maxWidth: "820px",
+              maxWidth: "760px",
             }}
           >
             Orlando Restaurants for Sale With Full Liquor Licenses
@@ -164,9 +164,9 @@ export default async function OrlandoRestaurantWithLiquorLicensePage() {
           <p
             className="fllm-template-hero-copy"
             style={{
-              fontSize: "clamp(14px, 0.95vw, 16px)",
+              fontSize: "clamp(14px, 0.9vw, 15px)",
               lineHeight: 1.52,
-              maxWidth: "740px",
+              maxWidth: "680px",
             }}
           >
             Search Orlando restaurants for sale with full liquor licenses through FLLM. Compare transferable
