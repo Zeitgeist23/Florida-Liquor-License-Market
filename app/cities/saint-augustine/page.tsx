@@ -40,7 +40,7 @@ export default function SaintAugustineCityPage() {
         .sa-hero__photo{
           position:absolute;
           inset:0 0 0 39%;
-          background-image:url("/assets/saint-augustine/hero-street.svg");
+          background-image:url("https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Flagler_College.jpg");
           background-size:cover;
           background-position:center 50%;
           background-repeat:no-repeat;
