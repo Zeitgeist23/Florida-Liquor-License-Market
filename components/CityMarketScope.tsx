@@ -66,6 +66,27 @@ export default function CityMarketScope(props: Props) {
           </p>
         </header>
 
+        <section className="market-scope-glance" aria-label="Market Scope at a Glance">
+          <div className="market-scope-section-heading">
+            <span>Market Scope at a Glance</span>
+            <h3>Saint Augustine + St. Johns County headline figures</h3>
+          </div>
+          <div className="market-scope-glance-grid">
+            <p><b>{props.dbpr.countyTotalRetailLicenses ?? "—"}</b> St. Johns County retail alcoholic-beverage licenses</p>
+            <p><b>{props.dbpr.county4copInEffect ?? "—"}</b> 4COP quota licenses in effect</p>
+            <p><b>{props.dbpr.county4copInUse ?? "—"}</b> active / in use</p>
+            <p><b>{props.dbpr.county4copInactive ?? "—"}</b> inactive</p>
+            <p><b>{props.dbpr.county3psInEffect ?? "—"}</b> 3PS quota licenses in effect</p>
+            <p><b>{props.dbpr.county3psInUse ?? "—"}</b> active / in use</p>
+            <p><b>{props.dbpr.county3psInactive ?? "—"}</b> inactive</p>
+            <p><b>{props.dbpr.cityTotalRetailLicenses ?? "—"}</b> active licenses in the official City of St. Augustine grouping</p>
+            <p><b>{props.dbpr.city4copInUse ?? "—"}</b> active Saint Augustine 4COP quota establishments</p>
+            <p><b>{props.dbpr.city3psInUse ?? "—"}</b> active Saint Augustine 3PS establishments</p>
+            <p><b>{props.dbpr.citySfsInUse ?? "—"}</b> active SFS/SRX establishments</p>
+            <p><b>{props.dbpr.city2copInUse ?? "—"}</b> active 2COP establishments</p>
+          </div>
+        </section>
+
         <section className="market-scope-primary">
           <div className="market-scope-section-heading">
             <span>License Census + Utilization</span>
