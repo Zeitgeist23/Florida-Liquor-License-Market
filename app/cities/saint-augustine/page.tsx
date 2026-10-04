@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
-import hero1 from "./hero-chunk-1";
-import hero2 from "./hero-chunk-2";
-import hero3 from "./hero-chunk-3";
-import hero4 from "./hero-chunk-4";
-
 import "../../fllm-official-template.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/cities/saint-augustine`;
-const streetHero = `data:image/webp;base64,${hero1}${hero2}${hero3}${hero4}`;
 
 export const metadata: Metadata = {
   title: "Saint Augustine Liquor License Market Data | St. Johns County | FLLM",
@@ -46,7 +40,7 @@ export default function SaintAugustineCityPage() {
         .sa-hero__photo{
           position:absolute;
           inset:0 0 0 39%;
-          background-image:url("${streetHero}");
+          background-image:url("/assets/saint-augustine/hero-street.svg");
           background-size:cover;
           background-position:center 50%;
           background-repeat:no-repeat;
