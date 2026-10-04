@@ -77,7 +77,7 @@ export default function SaintAugustineCityPage() {
         .sa-hero__copy{
           width:min(58%,820px);
           margin-left:clamp(12px,2vw,30px);
-          padding:10px 0 30px;
+          padding:2px 0 38px;
         }
 
         .sa-hero__eyebrow{
@@ -103,7 +103,7 @@ export default function SaintAugustineCityPage() {
         }
 
         .sa-hero__description{
-          margin:0 0 22px;
+          margin:0 0 16px;
           max-width:640px;
           color:#f3f7fa;
           font-size:16px;
