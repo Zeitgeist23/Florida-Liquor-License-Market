@@ -51,9 +51,11 @@ function FloridaMarketMap({
             />
           );
         })}
-        <g transform="translate(365 64)">
-          <path d="M0 -12 C7 -12 12 -7 12 0 C12 8 0 20 0 20 C0 20 -12 8 -12 0 C-12 -7 -7 -12 0 -12Z" fill="#ef334e" stroke="#fff" strokeWidth="2"/>
-          <circle cx="0" cy="0" r="4" fill="#fff"/>
+        <g transform="translate(365 52)" filter={"url(#" + filterId + ")"}>
+          <circle cx="0" cy="0" r="8" fill="#69d6ff" stroke="#dffbff" strokeWidth="2" />
+          <circle cx="-2" cy="-2" r="2.2" fill="rgba(255,255,255,.9)" />
+          <line x1="0" y1="8" x2="0" y2="31" stroke="#e8fbff" strokeWidth="2" />
+          <circle cx="0" cy="35" r="4.5" fill="#69d6ff" stroke="#e8fbff" strokeWidth="1.4" />
         </g>
       </svg>
 
