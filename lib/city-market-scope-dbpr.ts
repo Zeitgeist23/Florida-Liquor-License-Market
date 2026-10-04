@@ -49,7 +49,7 @@ const ST_JOHNS_VERIFIED_QUOTA_FALLBACK: CityDbprMarketScope = {
   county3psInEffect: 30,
   county3psInUse: 23,
   county3psInactive: 7,
-  city4copInUse: 9,
+  city4copInUse: 10,
   city3psInUse: 1,
   citySfsInUse: null,
   city2copInUse: null,
