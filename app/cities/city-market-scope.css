@@ -1,0 +1,109 @@
+.market-scope{
+  padding:54px 0 70px;
+  background:linear-gradient(180deg,#082238 0%,#071d31 48%,#061728 100%);
+  border-top:1px solid rgba(105,214,255,.18);
+  color:#fff;
+}
+.market-scope-shell{width:min(1240px,calc(100% - 40px));margin:0 auto}
+.market-scope-heading{max-width:940px;margin-bottom:26px}
+.market-scope-heading>span,.market-scope-label,.market-scope-block-heading>span{
+  display:block;color:#69d6ff;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase
+}
+.market-scope-heading h2,.market-scope-block-heading h3{
+  margin:8px 0 10px;color:#fff;font-family:Georgia,"Times New Roman",serif;line-height:1.05
+}
+.market-scope-heading h2{font-size:clamp(34px,4vw,52px)}
+.market-scope-block-heading h3{font-size:clamp(27px,3vw,38px)}
+.market-scope-heading p,.market-scope-public-records>p{
+  margin:0;color:#c9d8e2;font-size:14px;line-height:1.65
+}
+.market-scope-top{display:grid;grid-template-columns:minmax(360px,.9fr) minmax(0,1.1fr);gap:20px}
+.market-scope-map-card{
+  min-width:0;padding:19px;border:1px solid rgba(105,214,255,.48);border-radius:10px;
+  background:linear-gradient(145deg,#0b3657,#082944 60%,#061b2d);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 16px 32px rgba(0,0,0,.24)
+}
+.market-scope-map-card svg{display:block;width:100%;height:295px}
+.market-scope-map-card>strong{display:block;margin-top:4px;text-align:center;font:700 25px/1.1 Georgia,"Times New Roman",serif}
+.market-scope-map-card>small{display:block;margin-top:6px;color:#9fc0d2;text-align:center;font-size:10px}
+.market-scope-stat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.market-scope-stat-grid article,.market-scope-market-grid article{
+  min-width:0;min-height:128px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:18px;border:1px solid rgba(105,214,255,.30);border-radius:9px;text-align:center;
+  background:linear-gradient(145deg,#0b3657 0%,#082944 58%,#061b2d 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 10px 22px rgba(0,0,0,.18)
+}
+.market-scope-stat-grid article.forecast{border-color:rgba(241,166,0,.72)}
+.market-scope-stat-grid span,.market-scope-market-grid span{
+  color:#7ce6ff;font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase
+}
+.market-scope-stat-grid strong,.market-scope-market-grid strong{
+  display:block;margin-top:7px;color:#fff;font-size:29px;line-height:1.05;font-variant-numeric:tabular-nums
+}
+.market-scope-stat-grid .forecast strong{color:#ffc13b}
+.market-scope-stat-grid small,.market-scope-market-grid small{
+  display:block;margin-top:7px;color:#9fb5c3;font-size:9.5px;line-height:1.4
+}
+.market-scope-block{
+  margin-top:24px;padding:24px;border:1px solid rgba(105,214,255,.22);border-radius:10px;
+  background:linear-gradient(145deg,#0a2c49,#071f35)
+}
+.market-scope-license-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.market-scope-license-grid article{
+  min-width:0;padding:18px;border:1px solid rgba(105,214,255,.38);border-radius:8px;
+  background:linear-gradient(145deg,#0c3a5f,#082944);box-shadow:0 10px 22px rgba(0,0,0,.16)
+}
+.market-scope-license-grid article>span{
+  display:block;color:#69d6ff;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase
+}
+.market-scope-license-grid article>strong{display:block;margin-top:7px;color:#fff;font:700 20px/1.15 Georgia,"Times New Roman",serif}
+.market-scope-license-grid article>p{margin:9px 0 0;color:#c9d8e2;font-size:12px;line-height:1.55}
+.market-scope-market-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:18px}
+.market-scope-market-grid article{min-height:112px;padding:14px}
+.market-scope-market-grid strong{font-size:23px}
+.market-scope-business-list{display:grid;gap:9px;margin-top:16px}
+.market-scope-business-row{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px;padding:14px 16px;
+  border:1px solid rgba(105,214,255,.19);border-radius:7px;background:#082842;text-decoration:none;
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease
+}
+.market-scope-business-row:hover{transform:translateY(-2px);border-color:#69d6ff;box-shadow:0 10px 20px rgba(0,0,0,.2)}
+.market-scope-business-row>div:first-child{min-width:0}
+.market-scope-business-row strong{display:block;margin-top:6px;color:#fff;font-size:14px}
+.market-scope-business-row>div:last-child{text-align:right}
+.market-scope-business-row>div:last-child span{display:block;color:#8fe9ff;font-size:10px;font-weight:900}
+.market-scope-business-row b{display:block;margin-top:5px;color:#ffc13b;font-size:15px}
+.scope-category{
+  display:inline-flex;align-items:center;min-height:22px;padding:0 8px;border-radius:999px;
+  font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#061728;background:#69d6ff
+}
+.scope-category--bar{background:#69d6ff}
+.scope-category--restaurant{background:#93e6b0}
+.scope-category--cocktail-lounge{background:#c7a6ff}
+.scope-category--nightclub{background:#ff83c6}
+.scope-category--liquor-store{background:#ffd56b}
+.scope-category--gentlemen-s-club{background:#f1a600}
+.scope-category--hotel-motel{background:#9ed1ff}
+.scope-category--marina{background:#66e0d0}
+.market-scope-empty{margin:16px 0 0;color:#b5c6d0;font-size:13px}
+.market-scope-record-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:18px}
+.market-scope-record-fields span{
+  display:grid;place-items:center;min-height:44px;padding:8px;border:1px solid rgba(105,214,255,.25);
+  border-radius:6px;background:#082842;color:#dff9ff;font-size:10px;font-weight:900;text-align:center
+}
+.market-scope-verification{
+  margin-top:16px;padding:15px 16px;border-left:3px solid #69d6ff;background:rgba(105,214,255,.06)
+}
+.market-scope-verification strong{color:#69d6ff;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.market-scope-verification p{margin:5px 0 0;color:#bfd0da;font-size:11px;line-height:1.55}
+@media(max-width:980px){
+  .market-scope-top{grid-template-columns:1fr}
+  .market-scope-license-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .market-scope-market-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:650px){
+  .market-scope-shell{width:min(100% - 24px,1240px)}
+  .market-scope-stat-grid,.market-scope-license-grid,.market-scope-market-grid,.market-scope-record-fields{grid-template-columns:1fr}
+  .market-scope-business-row{grid-template-columns:1fr}
+  .market-scope-business-row>div:last-child{text-align:left}
+}
