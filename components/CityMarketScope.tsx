@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { CityDbprMarketScope } from "@/lib/city-market-scope-dbpr";
 
 type MarketBusiness = {
   title: string;
@@ -26,6 +27,7 @@ type Props = {
   standaloneMedian: number | null;
   standaloneHigh: number | null;
   marketBusinesses: MarketBusiness[];
+  dbpr: CityDbprMarketScope;
 };
 
 function money(value: number | null) {
@@ -75,19 +77,19 @@ export default function CityMarketScope(props: Props) {
           </div>
 
           <div className="market-scope-census-grid">
-            <article><span>Total alcoholic-beverage licenses</span><strong>DBPR</strong><small>{props.county} total in effect</small></article>
-            <article><span>4COP Quota — in effect</span><strong>DBPR</strong><small>Total county quota series</small></article>
-            <article><span>4COP Quota — in use</span><strong>DBPR</strong><small>Active operating locations</small></article>
+            <article><span>Total alcoholic-beverage licenses</span><strong>{props.dbpr.countyTotalRetailLicenses ?? "—"}</strong><small>{props.county} retail licenses in DBPR extract</small></article>
+            <article><span>4COP Quota — in effect</span><strong>{props.dbpr.county4copInEffect ?? "—"}</strong><small>Total county quota series</small></article>
+            <article><span>4COP Quota — in use</span><strong>{props.dbpr.county4copInUse ?? "—"}</strong><small>DBPR secondary status Active</small></article>
             <article><span>4COP Quota — for sale</span><strong>{props.standalone4cop}</strong><small>Current FLLM standalone inventory</small></article>
-            <article><span>3PS Quota — in effect</span><strong>DBPR</strong><small>Total county quota series</small></article>
-            <article><span>3PS Quota — in use</span><strong>DBPR</strong><small>Active package-store locations</small></article>
+            <article><span>3PS Quota — in effect</span><strong>{props.dbpr.county3psInEffect ?? "—"}</strong><small>Total county quota series</small></article>
+            <article><span>3PS Quota — in use</span><strong>{props.dbpr.county3psInUse ?? "—"}</strong><small>DBPR secondary status Active</small></article>
             <article><span>3PS Quota — for sale</span><strong>{props.standalone3ps}</strong><small>Current FLLM standalone inventory</small></article>
-            <article><span>Other active license classes</span><strong>DBPR</strong><small>SFS/SRX, 2COP and other series</small></article>
+            <article><span>Saint Augustine active retail licenses</span><strong>{props.dbpr.cityTotalRetailLicenses ?? "—"}</strong><small>DBPR city-location records</small></article>
           </div>
 
           <p className="market-scope-verification-note">
-            DBPR census values are not estimated from marketplace listings. They will populate only from the independently verified
-            active-license dataset so “in effect,” “in use,” and “for sale” remain separate measures.
+            DBPR census values come from the Division&apos;s retail alcoholic-beverage license extract. “In use” means the DBPR
+            secondary status is Active. “For sale” is separate FLLM marketplace inventory and is not inferred from DBPR status.
           </p>
         </section>
 
@@ -104,22 +106,34 @@ export default function CityMarketScope(props: Props) {
           </div>
 
           <div className="market-scope-license-summary">
-            <article><span>4COP Quota operating establishments</span><strong>DBPR</strong></article>
-            <article><span>3PS Quota operating establishments</span><strong>DBPR</strong></article>
-            <article><span>4COP SFS / SRX establishments</span><strong>DBPR</strong></article>
-            <article><span>2COP establishments</span><strong>DBPR</strong></article>
+            <article><span>4COP Quota operating establishments</span><strong>{props.dbpr.city4copInUse ?? "—"}</strong></article>
+            <article><span>3PS Quota operating establishments</span><strong>{props.dbpr.city3psInUse ?? "—"}</strong></article>
+            <article><span>4COP SFS / SRX establishments</span><strong>{props.dbpr.citySfsInUse ?? "—"}</strong></article>
+            <article><span>2COP establishments</span><strong>{props.dbpr.city2copInUse ?? "—"}</strong></article>
           </div>
 
           <div className="market-scope-table-head">
             <span>Establishment</span>
             <span>Category</span>
             <span>License</span>
-            <span>DBPR Licensee / Sunbiz Entity</span>
+            <span>DBPR Licensee / Public-Record Entity</span>
             <span>Sq. Ft.</span>
           </div>
-          <div className="market-scope-data-pending">
-            Verified DBPR + Sunbiz + public-property records will populate here after record matching.
-          </div>
+          {props.dbpr.cityQuotaEstablishments.length ? (
+            <div className="market-scope-table-body">
+              {props.dbpr.cityQuotaEstablishments.map((row) => (
+                <div className="market-scope-table-row" key={row.licenseNumber}>
+                  <div><strong>{row.dba}</strong><small>{row.address}{row.zip ? ` · ${row.zip}` : ""}</small></div>
+                  <div><span className={"scope-category scope-category--" + categoryClass(row.category)}>{row.category}</span></div>
+                  <div><strong>{row.series}</strong><small>{row.licenseNumber}</small></div>
+                  <div><strong>{row.licensee}</strong><small>DBPR licensee / owner-primary name</small></div>
+                  <div><strong>—</strong><small>Public property match pending</small></div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="market-scope-data-pending">DBPR city quota-license records are temporarily unavailable.</div>
+          )}
         </section>
 
         <section className="market-scope-sale-market">
