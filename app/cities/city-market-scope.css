@@ -1,5 +1,5 @@
 .market-scope{padding:42px 0 66px;background:linear-gradient(180deg,#082238 0%,#071d31 52%,#061728 100%);border-top:1px solid rgba(105,214,255,.18);color:#fff}
-.market-scope-shell{width:min(1240px,calc(100% - 40px));margin:0 auto}
+.market-scope-shell{width:min(1460px,calc(100% - 32px));margin:0 auto}
 .market-scope-heading{max-width:940px;margin-bottom:18px}
 .market-scope-heading>span,.market-scope-panel-heading span,.market-scope-overview-card>span{display:block;color:#69d6ff;font-size:13px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
 .market-scope-heading h2{margin:6px 0 8px;font:700 clamp(34px,4vw,50px)/1.03 Georgia,"Times New Roman",serif}
@@ -16,16 +16,16 @@
   transform:translateY(-3px) scale(1.01);border-color:#69d6ff;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 18px 38px rgba(0,0,0,.28),0 0 18px rgba(105,214,255,.12)
 }
-.market-scope-overview-card{padding:22px 24px}
+.market-scope-overview-card{padding:26px 28px}
 .market-scope-overview-card h3,.market-scope-panel-heading h3{margin:6px 0 10px;color:#fff;font:700 30px/1.08 Georgia,"Times New Roman",serif}
 .market-scope-overview-card ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:10px}
 .market-scope-overview-card li{position:relative;padding-left:18px;color:#e4edf3;font-size:16px;line-height:1.5}
 .market-scope-overview-card li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:#f5aa00;box-shadow:0 0 10px rgba(245,170,0,.32)}
 .market-scope-overview-card li b{color:#fff;font-size:18px}
 
-.market-scope-panel{margin-top:16px;padding:22px}
+.market-scope-panel{margin-top:18px;padding:26px 28px}
 .market-scope-panel-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.65fr);gap:22px;align-items:end}
-.market-scope-panel-heading p{margin:0;color:#c9d8e2;font-size:14px;line-height:1.55}
+.market-scope-panel-heading p{margin:0;color:#c9d8e2;font-size:15px;line-height:1.6}
 
 .market-scope-stat-grid,.market-scope-license-summary{display:grid;gap:12px;margin-top:16px}
 .market-scope-stat-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
@@ -41,9 +41,9 @@
   transform:translateY(-3px) scale(1.025);border-color:#7ce6ff;filter:brightness(1.08);
   box-shadow:0 12px 26px rgba(0,0,0,.24),0 0 16px rgba(105,214,255,.13)
 }
-.market-scope-stat-grid span,.market-scope-license-summary span{color:#7ce6ff;font-size:11px;font-weight:900;line-height:1.25;letter-spacing:.05em;text-transform:uppercase}
+.market-scope-stat-grid span,.market-scope-license-summary span{color:#7ce6ff;font-size:12px;font-weight:900;line-height:1.3;letter-spacing:.05em;text-transform:uppercase}
 .market-scope-stat-grid strong,.market-scope-license-summary strong{display:block;margin-top:8px;color:#fff;font-size:26px;line-height:1}
-.market-scope-stat-grid small{display:block;margin-top:7px;color:#b2c4cf;font-size:11px;line-height:1.35}
+.market-scope-stat-grid small{display:block;margin-top:7px;color:#b2c4cf;font-size:12px;line-height:1.4}
 .market-scope-stat-grid .forecast{border-color:rgba(241,166,0,.72)}
 .market-scope-stat-grid .forecast strong{color:#ffc13b}
 
