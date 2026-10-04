@@ -39,10 +39,10 @@ export default function SaintAugustineCityPage() {
 
         .sa-hero__photo{
           position:absolute;
-          inset:0 0 0 27%;
+          inset:0;
           background-image:url("https://upload.wikimedia.org/wikipedia/commons/4/4a/The_Flagler_College.jpg");
           background-size:cover;
-          background-position:center 50%;
+          background-position:58% 50%;
           background-repeat:no-repeat;
         }
 
@@ -52,13 +52,13 @@ export default function SaintAugustineCityPage() {
           background:
             linear-gradient(
               90deg,
-              #061a2a 0%,
-              #061a2a 23%,
-              rgba(6,26,42,.98) 31%,
-              rgba(6,26,42,.88) 39%,
-              rgba(6,26,42,.66) 49%,
-              rgba(6,26,42,.38) 60%,
-              rgba(6,26,42,.15) 70%,
+              rgba(6,26,42,1) 0%,
+              rgba(6,26,42,.98) 18%,
+              rgba(6,26,42,.91) 30%,
+              rgba(6,26,42,.76) 41%,
+              rgba(6,26,42,.52) 52%,
+              rgba(6,26,42,.28) 62%,
+              rgba(6,26,42,.10) 71%,
               rgba(6,26,42,0) 80%
             );
         }
