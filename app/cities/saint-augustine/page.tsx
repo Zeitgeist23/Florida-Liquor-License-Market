@@ -43,7 +43,7 @@ export default function SaintAugustineCityPage() {
         .sa-hero__photo{
           position:absolute;
           inset:0 0 0 41%;
-          background-image:url("https://fl-historic-coast.imgix.net/images/View-of-St-Aug-from-Bridge-v1561728408.jpg?auto=compress%2Cformat&crop=focalpoint&fit=min&fp-x=0.5&fp-y=0.5&h=683&q=80&s=00d15fec678d98db2bd2b92da1fe78a0&w=1024");
+          background-image:url("https://commons.wikimedia.org/wiki/Special:Redirect/file/St_Aug_Flagler_College_pano01.jpg");
           background-size:cover;
           background-position:center 48%;
           background-repeat:no-repeat;
@@ -255,11 +255,11 @@ export default function SaintAugustineCityPage() {
 
         <Link
           className="sa-hero__credit"
-          href="https://www.floridashistoriccoast.com/things-to-do/history/"
+          href="https://commons.wikimedia.org/wiki/File:St_Aug_Flagler_College_pano01.jpg"
           target="_blank"
           rel="noreferrer"
         >
-          Photo: Florida&apos;s Historic Coast
+          Photo: Ebyabe / Wikimedia Commons
         </Link>
       </section>
 
