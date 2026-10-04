@@ -16,6 +16,7 @@ The purpose of v2 is to stop page-by-page visual reinvention. New FLLM pages mus
 6. `app/fllm-official-header.css` — the locked sitewide header geometry and typography.
 7. `components/SellPageOfficialFooter.tsx` — the approved footer implementation for registered routes.
 8. `templates/fllm-design-system-v2.json` — machine-readable design contract.
+9. `docs/FLLM_CITY_PAGE_STANDARD.md` — locked city-page hero, header, image, fade, copy, and bullet standard; reference route: `/cities/saint-augustine`.
 
 ## Mandatory rule for new pages
 
