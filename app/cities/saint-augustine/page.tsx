@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import CityMarketScope from "@/components/CityMarketScope";
+import CityMarketOverviewMaps from "@/components/CityMarketOverviewMaps";
 import { QUOTA_DRAWING_2026 } from "@/data/quota-drawing-2026";
 import { countyPopulations2024 } from "@/data/county-populations-2024";
 import {
@@ -11,6 +12,7 @@ import {
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import "../../fllm-official-template.css";
+import "../city-market-overview.css";
 import "../city-market-scope.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
@@ -37,18 +39,20 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function SaintAugustineCityPage() {
-  const standalone = getVisibleAvailableMarketplaceListings(await getMarketplaceListings())
-    .filter((listing) => listing.county === "St. Johns County");
+  const allStandalone = getVisibleAvailableMarketplaceListings(await getMarketplaceListings());
+  const standalone = allStandalone.filter((listing) => listing.county === "St. Johns County");
+
+  const allBusinesses = [
+    ...businessQuotaListings,
+    ...businessSfsListings,
+    ...business2copListings,
+  ];
 
   const standalonePrices = standalone
     .map((listing) => listing.price)
     .filter((price): price is number => typeof price === "number" && Number.isFinite(price));
 
-  const businessInventory = [
-    ...businessQuotaListings,
-    ...businessSfsListings,
-    ...business2copListings,
-  ]
+  const businessInventory = allBusinesses
     .filter((listing) => listing.county === "St. Johns County")
     .filter((listing) =>
       /\b(?:st\.?|saint)\s+augustine\b/i.test(`${listing.title} ${listing.businessType}`),
@@ -313,6 +317,12 @@ export default async function SaintAugustineCityPage() {
           <small>Florida · America&apos;s Oldest City</small>
         </div>
       </section>
+
+      <CityMarketOverviewMaps
+        standalone={allStandalone}
+        businesses={allBusinesses}
+        county="St. Johns County"
+      />
 
       <CityMarketScope
         city="Saint Augustine"
