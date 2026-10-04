@@ -52,14 +52,13 @@ export default function SaintAugustineCityPage() {
           background:
             linear-gradient(
               90deg,
-              rgba(6,26,42,1) 0%,
-              rgba(6,26,42,.98) 18%,
-              rgba(6,26,42,.91) 30%,
-              rgba(6,26,42,.76) 41%,
-              rgba(6,26,42,.52) 52%,
-              rgba(6,26,42,.28) 62%,
-              rgba(6,26,42,.10) 71%,
-              rgba(6,26,42,0) 80%
+              rgba(6,26,42,.93) 0%,
+              rgba(6,26,42,.86) 20%,
+              rgba(6,26,42,.70) 38%,
+              rgba(6,26,42,.48) 52%,
+              rgba(6,26,42,.22) 65%,
+              rgba(6,26,42,.04) 76%,
+              rgba(6,26,42,0) 84%
             );
         }
 
@@ -71,13 +70,13 @@ export default function SaintAugustineCityPage() {
           min-height:430px;
           display:flex;
           align-items:center;
-          padding-left:40px;
-          padding-right:40px;
+          padding:38px clamp(38px,6vw,96px);
         }
 
         .sa-hero__copy{
-          width:43%;
-          padding:34px 0 38px;
+          width:min(64%,900px);
+          margin-left:clamp(18px,3vw,52px);
+          padding:28px 0 32px;
         }
 
         .sa-hero__eyebrow{
@@ -93,21 +92,22 @@ export default function SaintAugustineCityPage() {
 
         .sa-hero h1{
           margin:0 0 20px;
-          max-width:620px;
+          max-width:820px;
           color:#fff;
           font-family:Georgia,"Times New Roman",serif;
-          font-size:clamp(48px,4.55vw,70px);
-          line-height:.97;
-          letter-spacing:-.025em;
-          text-shadow:0 3px 14px rgba(0,0,0,.34);
+          font-size:clamp(60px,5.5vw,88px);
+          line-height:.94;
+          letter-spacing:-.03em;
+          text-shadow:0 4px 18px rgba(0,0,0,.62);
         }
 
         .sa-hero__description{
           margin:0 0 18px;
-          max-width:540px;
+          max-width:700px;
           color:#f3f7fa;
-          font-size:14px;
-          line-height:1.58;
+          font-size:16px;
+          line-height:1.55;
+          text-shadow:0 2px 10px rgba(0,0,0,.58);
         }
 
         .sa-hero__location{
@@ -182,7 +182,8 @@ export default function SaintAugustineCityPage() {
           }
 
           .sa-hero__copy{
-            width:72%;
+            width:min(82%,760px);
+            margin-left:0;
           }
         }
 
@@ -196,7 +197,7 @@ export default function SaintAugustineCityPage() {
           }
 
           .sa-hero h1{
-            font-size:42px;
+            font-size:46px;
           }
 
           .sa-hero__citymark{
@@ -219,16 +220,12 @@ export default function SaintAugustineCityPage() {
             <h1>
               Saint Augustine
               <br />
-              Liquor License
-              <br />
-              Market Data
+              Liquor License Market Data
             </h1>
             <p className="sa-hero__description">
-              Explore current marketplace inventory and key market data for liquor
-              license business packages and standalone quota licenses in Saint
-              Augustine, Florida, located in St. Johns County. Compare listings,
-              view county-level insights, and make more informed buying or selling
-              decisions.
+              Explore current liquor-license market activity in Saint Augustine and
+              St. Johns County, including business-package opportunities, standalone
+              quota inventory, and local pricing context.
             </p>
             <p className="sa-hero__location">
               <span className="sa-hero__pin" aria-hidden="true">●</span>
