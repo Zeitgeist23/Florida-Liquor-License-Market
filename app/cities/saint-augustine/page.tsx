@@ -40,7 +40,7 @@ export default function SaintAugustineCityPage() {
         .sa-hero__photo{
           position:absolute;
           inset:0;
-          background-image:url("/assets/saint-augustine/historic-street-hero.webp");
+          background-image:url("https://upload.wikimedia.org/wikipedia/commons/4/4a/The_Flagler_College.jpg");
           background-size:cover;
           background-position:58% 50%;
           background-repeat:no-repeat;
@@ -74,9 +74,9 @@ export default function SaintAugustineCityPage() {
         }
 
         .sa-hero__copy{
-          width:min(64%,900px);
-          margin-left:clamp(18px,3vw,52px);
-          padding:28px 0 32px;
+          width:min(72%,980px);
+          margin-left:clamp(48px,7vw,120px);
+          padding:22px 0 28px;
         }
 
         .sa-hero__eyebrow{
@@ -92,10 +92,10 @@ export default function SaintAugustineCityPage() {
 
         .sa-hero h1{
           margin:0 0 20px;
-          max-width:820px;
+          max-width:960px;
           color:#fff;
           font-family:Georgia,"Times New Roman",serif;
-          font-size:clamp(60px,5.5vw,88px);
+          font-size:clamp(66px,6.2vw,96px);
           line-height:.94;
           letter-spacing:-.03em;
           text-shadow:0 4px 18px rgba(0,0,0,.62);
@@ -103,7 +103,7 @@ export default function SaintAugustineCityPage() {
 
         .sa-hero__description{
           margin:0 0 18px;
-          max-width:700px;
+          max-width:760px;
           color:#f3f7fa;
           font-size:16px;
           line-height:1.55;
