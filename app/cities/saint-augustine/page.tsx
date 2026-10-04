@@ -96,7 +96,7 @@ export default function SaintAugustineCityPage() {
           max-width:780px;
           color:#fff;
           font-family:Georgia,"Times New Roman",serif;
-          font-size:clamp(55px,5.05vw,77px);
+          font-size:clamp(53px,4.9vw,74px);
           line-height:.94;
           letter-spacing:-.03em;
           text-shadow:0 4px 18px rgba(0,0,0,.62);
@@ -106,8 +106,8 @@ export default function SaintAugustineCityPage() {
           margin:0 0 16px;
           max-width:640px;
           color:#f3f7fa;
-          font-size:16px;
-          line-height:1.58;
+          font-size:16.5px;
+          line-height:1.6;
           text-shadow:0 2px 10px rgba(0,0,0,.58);
         }
 
@@ -122,8 +122,8 @@ export default function SaintAugustineCityPage() {
           gap:9px;
           margin:0;
           color:#fff;
-          font-size:13px;
-          line-height:1.35;
+          font-size:13.5px;
+          line-height:1.4;
           font-weight:700;
         }
 
