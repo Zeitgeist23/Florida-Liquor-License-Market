@@ -71,12 +71,12 @@ export default function SaintAugustineCityPage() {
           min-height:390px;
           display:flex;
           align-items:center;
-          padding:30px clamp(38px,5vw,78px);
+          padding:30px clamp(22px,2.6vw,40px);
         }
 
         .sa-hero__copy{
           width:min(58%,820px);
-          margin-left:clamp(26px,4vw,64px);
+          margin-left:clamp(12px,2vw,30px);
           padding:18px 0 22px;
         }
 
