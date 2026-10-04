@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import hero1 from "./hero-chunk-1";
+import hero2 from "./hero-chunk-2";
+import hero3 from "./hero-chunk-3";
+import hero4 from "./hero-chunk-4";
 
 import "../../fllm-official-template.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/cities/saint-augustine`;
+const streetHero = `data:image/webp;base64,${hero1}${hero2}${hero3}${hero4}`;
 
 export const metadata: Metadata = {
   title: "Saint Augustine Liquor License Market Data | St. Johns County | FLLM",
@@ -42,10 +45,10 @@ export default function SaintAugustineCityPage() {
 
         .sa-hero__photo{
           position:absolute;
-          inset:0 0 0 41%;
-          background-image:url("https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Flagler_College.jpg");
+          inset:0 0 0 39%;
+          background-image:url("${streetHero}");
           background-size:cover;
-          background-position:center 42%;
+          background-position:center 50%;
           background-repeat:no-repeat;
         }
 
@@ -155,17 +158,6 @@ export default function SaintAugustineCityPage() {
           text-transform:uppercase;
         }
 
-        .sa-hero__credit{
-          position:absolute;
-          right:14px;
-          bottom:7px;
-          z-index:3;
-          color:rgba(255,255,255,.72);
-          font-size:8px;
-          line-height:1;
-          text-decoration:none;
-        }
-
         .sa-under-hero{
           min-height:150px;
           background:#082238;
@@ -254,14 +246,6 @@ export default function SaintAugustineCityPage() {
           Saint Augustine
           <small>Florida · America&apos;s Oldest City</small>
         </div>
-
-        <Link
-          className="sa-hero__credit"
-          href="https://commons.wikimedia.org/wiki/File:The_Flagler_College.jpg"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Photo: David Gutierrez / Wikimedia Commons</Link>
       </section>
 
       <div className="sa-under-hero" aria-hidden="true" />
