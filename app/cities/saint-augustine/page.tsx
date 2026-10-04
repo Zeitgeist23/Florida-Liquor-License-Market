@@ -43,7 +43,7 @@ export default function SaintAugustineCityPage() {
         .sa-hero__photo{
           position:absolute;
           inset:0 0 0 41%;
-          background-image:url("https://upload.wikimedia.org/wikipedia/commons/1/1e/Bridge_of_lions_at_sunset.jpg");
+          background-image:url("https://fl-historic-coast.imgix.net/images/View-of-St-Aug-from-Bridge-v1561728408.jpg?auto=compress%2Cformat&crop=focalpoint&fit=min&fp-x=0.5&fp-y=0.5&h=683&q=80&s=00d15fec678d98db2bd2b92da1fe78a0&w=1024");
           background-size:cover;
           background-position:center 48%;
           background-repeat:no-repeat;
@@ -255,11 +255,11 @@ export default function SaintAugustineCityPage() {
 
         <Link
           className="sa-hero__credit"
-          href="https://commons.wikimedia.org/wiki/File:Bridge_of_lions_at_sunset.jpg"
+          href="https://www.floridashistoriccoast.com/things-to-do/history/"
           target="_blank"
           rel="noreferrer"
         >
-          Photo: Jerry Stratton / CC BY 4.0
+          Photo: Florida&apos;s Historic Coast
         </Link>
       </section>
 
