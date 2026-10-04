@@ -1,6 +1,17 @@
 import type { Metadata } from "next";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
+import CityMarketScope from "@/components/CityMarketScope";
+import { QUOTA_DRAWING_2026 } from "@/data/quota-drawing-2026";
+import { countyPopulations2024 } from "@/data/county-populations-2024";
+import {
+  business2copListings,
+  businessQuotaListings,
+  businessSfsListings,
+} from "@/lib/business-quota-listings";
+import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import "../../fllm-official-template.css";
+import "../city-market-scope.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/cities/saint-augustine`;
@@ -13,7 +24,54 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function SaintAugustineCityPage() {
+function median(values: number[]) {
+  if (!values.length) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const midpoint = Math.floor(sorted.length / 2);
+  return sorted.length % 2
+    ? sorted[midpoint]
+    : Math.round((sorted[midpoint - 1] + sorted[midpoint]) / 2);
+}
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export default async function SaintAugustineCityPage() {
+  const standalone = getVisibleAvailableMarketplaceListings(await getMarketplaceListings())
+    .filter((listing) => listing.county === "St. Johns County");
+
+  const standalonePrices = standalone
+    .map((listing) => listing.price)
+    .filter((price): price is number => typeof price === "number" && Number.isFinite(price));
+
+  const businessInventory = [
+    ...businessQuotaListings,
+    ...businessSfsListings,
+    ...business2copListings,
+  ]
+    .filter((listing) => listing.county === "St. Johns County")
+    .filter((listing) =>
+      /\b(?:st\.?|saint)\s+augustine\b/i.test(`${listing.title} ${listing.businessType}`),
+    )
+    .map((listing) => ({
+      title: listing.title,
+      category: listing.businessCategory,
+      licenseType: listing.licenseType,
+      price: listing.packagePrice,
+      href: listing.marketViewHref || listing.href,
+    }));
+
+  const drawing2026 =
+    QUOTA_DRAWING_2026.counties.find((item) => item.county === "St. Johns")?.licenses ?? 0;
+
+  // BEBR 2024 projection series: 337,375 (2025) to 385,504 (2030).
+  const bebr2025 = 337_375;
+  const bebr2030 = 385_504;
+  const growthRate = ((bebr2030 / bebr2025) - 1) * 100;
+  const annualGrowthFactor = Math.pow(bebr2030 / bebr2025, 1 / 5);
+  const projected2027Population = Math.round(bebr2025 * Math.pow(annualGrowthFactor, 2));
+  const forecast2027 = Math.max(1, Math.round((projected2027Population - bebr2025) / 7_500));
+
   return (
     <main className="sa-page fllm-official-page">
       <style>{`
@@ -256,7 +314,26 @@ export default function SaintAugustineCityPage() {
         </div>
       </section>
 
-      <div className="sa-under-hero" aria-hidden="true" />
+      <CityMarketScope
+        city="Saint Augustine"
+        county="St. Johns County"
+        countyPopulation={countyPopulations2024["St. Johns County"]}
+        cityPopulation={16_141}
+        cityPopulationYear={2025}
+        projection2030={bebr2030}
+        projectedGrowthRate={growthRate}
+        projected2027Population={projected2027Population}
+        lottery2026={drawing2026}
+        lotteryVerified={QUOTA_DRAWING_2026.lastVerified}
+        forecast2027={forecast2027}
+        standaloneCount={standalone.length}
+        standalone4cop={standalone.filter((listing) => listing.type === "4COP Quota").length}
+        standalone3ps={standalone.filter((listing) => listing.type === "3PS Quota / Package Store").length}
+        standaloneLow={standalonePrices.length ? Math.min(...standalonePrices) : null}
+        standaloneMedian={median(standalonePrices)}
+        standaloneHigh={standalonePrices.length ? Math.max(...standalonePrices) : null}
+        marketBusinesses={businessInventory}
+      />
     </main>
   );
 }
