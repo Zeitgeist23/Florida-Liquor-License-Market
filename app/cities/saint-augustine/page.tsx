@@ -111,6 +111,11 @@ export default function SaintAugustineCityPage() {
           text-shadow:0 2px 10px rgba(0,0,0,.58);
         }
 
+        .sa-hero__bullets{
+          display:grid;
+          gap:8px;
+        }
+
         .sa-hero__location{
           display:flex;
           align-items:center;
@@ -228,10 +233,20 @@ export default function SaintAugustineCityPage() {
               St. Johns County, including standalone liquor licenses for sale,
               businesses + liquor licenses for sale, and local pricing context.
             </p>
-            <p className="sa-hero__location">
-              <span className="sa-hero__pin" aria-hidden="true">●</span>
-              Serving Saint Augustine, Florida in St. Johns County.
-            </p>
+            <div className="sa-hero__bullets">
+              <p className="sa-hero__location">
+                <span className="sa-hero__pin" aria-hidden="true">●</span>
+                Serving Saint Augustine, Florida in St. Johns County.
+              </p>
+              <p className="sa-hero__location">
+                <span className="sa-hero__pin" aria-hidden="true">●</span>
+                Standalone liquor licenses for sale.
+              </p>
+              <p className="sa-hero__location">
+                <span className="sa-hero__pin" aria-hidden="true">●</span>
+                Businesses + liquor licenses for sale.
+              </p>
+            </div>
           </div>
         </div>
 
