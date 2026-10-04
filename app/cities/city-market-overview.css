@@ -1,15 +1,15 @@
-.city-market-overview-shell{width:min(1240px,calc(100% - 40px));margin:18px auto 0;display:grid;gap:18px}
+.city-market-overview-shell{width:min(1460px,calc(100% - 32px));margin:18px auto 0;display:grid;gap:18px}
 .city-market-overview-panel{border:1px solid rgba(241,166,0,.72);border-radius:10px;background:linear-gradient(135deg,#082338 0%,#071d2f 100%);overflow:hidden;box-shadow:inset 0 0 40px rgba(20,116,155,.06)}
 .city-market-overview-grid{display:grid;grid-template-columns:1.03fr .97fr;min-height:390px}
-.city-market-overview-copy{padding:28px 28px 24px}
+.city-market-overview-copy{padding:34px 34px 30px}
 .city-market-overview-copy>span{display:block;color:#69d6ff;font-size:11px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;margin-bottom:9px}
 .city-market-overview-copy h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(33px,3vw,45px);line-height:1.03;color:#fff;margin:0 0 14px}
-.city-market-overview-copy>p{font-size:13px;line-height:1.52;color:#d9e9f2;max-width:630px;margin:0 0 17px}
+.city-market-overview-copy>p{font-size:15px;line-height:1.6;color:#d9e9f2;max-width:720px;margin:0 0 20px}
 .city-market-stat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:17px}
 .city-market-stat-grid--two{grid-template-columns:repeat(2,minmax(0,1fr));max-width:585px}
 .city-market-stat-card{position:relative;display:flex;flex-direction:column;justify-content:center;min-height:108px;padding:14px;border:1px solid #16d5e8;border-radius:7px;background:linear-gradient(145deg,#082a40,#061c2c);box-shadow:0 0 18px rgba(22,213,232,.15);text-decoration:none}
 .city-market-stat-card strong{font-family:Georgia,serif;color:#fff;font-size:32px;line-height:1;font-weight:700}
-.city-market-stat-card span{color:#fff;font-size:10px;line-height:1.25;margin-top:7px;max-width:150px}
+.city-market-stat-card span{color:#fff;font-size:12px;line-height:1.35;margin-top:8px;max-width:190px}
 .city-market-stat-card b{position:absolute;right:13px;bottom:11px;color:#16d5e8;font-size:20px}
 .city-market-map-stage{position:relative;min-height:390px;display:flex;align-items:center;justify-content:center;padding:18px 8px;background:radial-gradient(circle at 63% 46%,rgba(22,213,232,.12),transparent 39%)}
 .city-market-map-stage svg{width:100%;max-height:345px;filter:drop-shadow(0 10px 20px rgba(0,0,0,.35))}
