@@ -32,13 +32,12 @@ function normalize(value) {
   return String(value || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
 }
 
-function isSaintAugustine(value) {
-  const v = normalize(value);
-  return v === "SAINTAUGUSTINE" || v === "STAUGUSTINE";
+function isSpecial4cop(modifier) {
+  return String(modifier || "").trim().length > 0;
 }
 
-function isSpecial4cop(modifier) {
-  return /(SFS|SRX|SPECIAL|HOTEL|MOTEL|CLUB|GOLF|AIRPORT|THEME|CATER|CIVIC|PERFORM|BOWLING|RACE|VESSEL)/i.test(modifier || "");
+function isSfs4cop(modifier) {
+  return /^(SFS|SRX)$/i.test(String(modifier || "").trim());
 }
 
 function quotaClass(series, modifier) {
@@ -70,6 +69,52 @@ const response = await fetch(DBPR_URL, {
 if (!response.ok) throw new Error(`DBPR fetch failed: ${response.status}`);
 
 const csv = await response.text();
+
+async function officialSaintAugustineLicenseNumbers() {
+  const quarterUrls = [
+    "https://www2.myfloridalicense.com/abt/documents/CityFeeDistribution1stQtr2025-2026.pdf",
+    "https://www2.myfloridalicense.com/abt/documents/CityFeeDistribution2ndQtr2025-2026.pdf",
+    "https://www2.myfloridalicense.com/abt/documents/CityFeeDistribution3rdQtr2025-2026.pdf",
+    "https://www2.myfloridalicense.com/abt/documents/CityFeeDistribution4thQtr2025-2026.pdf",
+  ];
+  const { execFile } = await import("node:child_process");
+  const { promisify } = await import("node:util");
+  const { tmpdir } = await import("node:os");
+  const execFileAsync = promisify(execFile);
+  const ids = new Set();
+
+  for (let i = 0; i < quarterUrls.length; i += 1) {
+    const pdfPath = path.join(tmpdir(), `fllm-staug-q${i + 1}.pdf`);
+    const txtPath = path.join(tmpdir(), `fllm-staug-q${i + 1}.txt`);
+    const pdfResponse = await fetch(quarterUrls[i], {
+      headers: { "User-Agent": "Mozilla/5.0 FLLM-Market-Scope/1.0" },
+    });
+    if (!pdfResponse.ok) throw new Error(`City fee distribution fetch failed: ${pdfResponse.status}`);
+    await fs.writeFile(pdfPath, Buffer.from(await pdfResponse.arrayBuffer()));
+    await execFileAsync("pdftotext", ["-layout", pdfPath, txtPath]);
+    const text = await fs.readFile(txtPath, "utf8");
+
+    const starts = [];
+    const marker = "City of St. Augustine";
+    let from = 0;
+    while (true) {
+      const idx = text.indexOf(marker, from);
+      if (idx < 0) break;
+      starts.push(idx);
+      from = idx + marker.length;
+    }
+
+    for (const start of starts) {
+      const nextCity = text.indexOf("City/County Code:", start + marker.length);
+      const segment = text.slice(start, nextCity > start ? nextCity : undefined);
+      for (const match of segment.matchAll(/\b65\d{5}\b/g)) ids.add(match[0]);
+    }
+  }
+
+  return ids;
+}
+
+const officialCityLicenseNumbers = await officialSaintAugustineLicenseNumbers();
 const countyRows = [];
 const cityRows = [];
 
@@ -101,18 +146,19 @@ for (const line of csv.split(/\n/)) {
   };
 
   countyRows.push(record);
-  if (isSaintAugustine(city)) cityRows.push(record);
+  const bareLicenseNumber = record.licenseNumber.replace(/^BEV/i, "");
+  if (officialCityLicenseNumbers.has(bareLicenseNumber)) cityRows.push(record);
 }
 
 const county4cop = countyRows.filter((r) => r.quotaClass === "4COP Quota");
 const county3ps = countyRows.filter((r) => r.quotaClass === "3PS Quota");
 const city4cop = cityRows.filter((r) => r.quotaClass === "4COP Quota" && r.active);
 const city3ps = cityRows.filter((r) => r.quotaClass === "3PS Quota" && r.active);
-const citySfs = cityRows.filter((r) => r.series.toUpperCase() === "4COP" && isSpecial4cop(r.modifier) && r.active);
+const citySfs = cityRows.filter((r) => r.series.toUpperCase() === "4COP" && isSfs4cop(r.modifier) && r.active);
 const city2cop = cityRows.filter((r) => r.series.toUpperCase() === "2COP" && r.active);
 
 const snapshot = {
-  source: "Florida DBPR / ABT retail license extract",
+  source: "Florida DBPR / ABT retail license extract + City of St. Augustine fee-distribution code 795",
   generatedAt: new Date().toISOString(),
   county: "St. Johns County",
   city: "Saint Augustine",
