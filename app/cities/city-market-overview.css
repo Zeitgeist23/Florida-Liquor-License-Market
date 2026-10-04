@@ -7,19 +7,19 @@
 .city-market-overview-copy>p{font-size:15px;line-height:1.6;color:#d9e9f2;max-width:720px;margin:0 0 20px}
 .city-market-stat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:17px}
 .city-market-stat-grid--two{grid-template-columns:repeat(2,minmax(0,1fr));max-width:585px}
-.city-market-stat-card{position:relative;display:flex;flex-direction:column;justify-content:center;min-height:108px;padding:14px;border:1px solid #16d5e8;border-radius:7px;background:linear-gradient(145deg,#082a40,#061c2c);box-shadow:0 0 18px rgba(22,213,232,.15);text-decoration:none}
-.city-market-stat-card strong{font-family:Georgia,serif;color:#fff;font-size:32px;line-height:1;font-weight:700}
-.city-market-stat-card span{color:#fff;font-size:12px;line-height:1.35;margin-top:8px;max-width:190px}
+.city-market-stat-card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:116px;padding:16px 18px;border:1px solid #16d5e8;border-radius:7px;background:linear-gradient(145deg,#082a40,#061c2c);box-shadow:0 0 18px rgba(22,213,232,.15);text-align:center;text-decoration:none}
+.city-market-stat-card strong{display:block;width:100%;font-family:Georgia,serif;color:#fff;font-size:34px;line-height:1;font-weight:700;text-align:center}
+.city-market-stat-card span{display:block;width:100%;color:#fff;font-size:14px;line-height:1.4;margin-top:9px;max-width:none;text-align:center}
 .city-market-stat-card b{position:absolute;right:13px;bottom:11px;color:#16d5e8;font-size:20px}
 .city-market-map-stage{position:relative;min-height:390px;display:flex;align-items:center;justify-content:center;padding:18px 8px;background:radial-gradient(circle at 63% 46%,rgba(22,213,232,.12),transparent 39%)}
 .city-market-map-stage svg{width:100%;max-height:345px;filter:drop-shadow(0 10px 20px rgba(0,0,0,.35))}
 .city-market-map-tooltip{position:absolute;right:10px;top:20px;z-index:4;min-width:185px;padding:10px 11px;border:1px solid #17d9eb;border-radius:7px;background:rgba(3,25,41,.96);box-shadow:0 0 18px rgba(23,217,235,.2)}
 .city-market-map-tooltip strong{display:block;font:700 16px/1.1 Georgia,serif;color:#fff;margin-bottom:7px}
-.city-market-map-tooltip span{display:block;color:#edfaff;font-size:8px;line-height:1.8;white-space:nowrap}
-.city-market-map-tooltip b{display:inline-block;width:25px;color:#fff;font-size:12px}
-.city-market-map-legend{position:absolute;left:42px;bottom:27px;z-index:4;min-width:150px;padding:11px 12px;border:1px solid #a67800;border-radius:7px;background:rgba(4,25,40,.94)}
-.city-market-map-legend strong{display:block;color:#f5aa00;font-size:8px;line-height:1.15;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
-.city-market-map-legend span{display:flex;align-items:center;gap:6px;color:#fff;font-size:8px;line-height:1.55}
-.city-market-map-legend i{display:block;width:21px;height:13px;border:1px solid rgba(255,255,255,.32);border-radius:2px}
+.city-market-map-tooltip span{display:block;color:#edfaff;font-size:10px;line-height:1.75;white-space:nowrap}
+.city-market-map-tooltip b{display:inline-block;width:28px;color:#fff;font-size:14px}
+.city-market-map-legend{position:absolute;left:42px;bottom:24px;z-index:4;min-width:190px;padding:14px 16px 15px;border:1px solid #a67800;border-radius:8px;background:rgba(4,25,40,.96);box-shadow:0 10px 22px rgba(0,0,0,.24)}
+.city-market-map-legend strong{display:block;color:#f5aa00;font-size:10px;line-height:1.35;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.city-market-map-legend span{display:flex;align-items:center;gap:8px;color:#fff;font-size:10px;line-height:1.75;min-height:20px}
+.city-market-map-legend i{display:block;flex:0 0 25px;width:25px;height:15px;border:1px solid rgba(255,255,255,.32);border-radius:2px}
 @media(max-width:980px){.city-market-overview-grid{grid-template-columns:1fr}.city-market-stat-grid{grid-template-columns:1fr 1fr}.city-market-stat-grid .city-market-stat-card:last-child{grid-column:1/-1}.city-market-stat-grid--two .city-market-stat-card:last-child{grid-column:auto}}
 @media(max-width:680px){.city-market-overview-shell{width:min(100% - 24px,1240px)}.city-market-overview-copy{padding:22px 16px}.city-market-stat-grid,.city-market-stat-grid--two{grid-template-columns:1fr}.city-market-stat-grid .city-market-stat-card:last-child{grid-column:auto}.city-market-map-tooltip{position:relative;right:auto;top:auto;margin:8px auto 0;width:calc(100% - 20px)}.city-market-map-stage{display:block;padding-bottom:8px}.city-market-map-legend{left:12px;bottom:12px}}
