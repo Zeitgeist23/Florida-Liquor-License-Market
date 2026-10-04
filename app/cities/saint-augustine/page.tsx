@@ -43,9 +43,9 @@ export default function SaintAugustineCityPage() {
         .sa-hero__photo{
           position:absolute;
           inset:0 0 0 41%;
-          background-image:url("https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Aerial_panorama_of_St._Augustine%2C_FL_2025-05-20.jpg/3840px-Aerial_panorama_of_St._Augustine%2C_FL_2025-05-20.jpg");
+          background-image:url("https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Flagler_College.jpg");
           background-size:cover;
-          background-position:center 43%;
+          background-position:center 42%;
           background-repeat:no-repeat;
         }
 
@@ -68,11 +68,13 @@ export default function SaintAugustineCityPage() {
         .sa-hero__inner{
           position:relative;
           z-index:2;
-          width:min(1120px,calc(100% - 48px));
-          margin:0 auto;
+          width:100%;
+          margin:0;
           min-height:430px;
           display:flex;
           align-items:center;
+          padding-left:40px;
+          padding-right:40px;
         }
 
         .sa-hero__copy{
@@ -255,11 +257,11 @@ export default function SaintAugustineCityPage() {
 
         <Link
           className="sa-hero__credit"
-          href="https://commons.wikimedia.org/wiki/File:Aerial_panorama_of_St._Augustine,_FL_2025-05-20.jpg"
+          href="https://commons.wikimedia.org/wiki/File:The_Flagler_College.jpg"
           target="_blank"
           rel="noreferrer"
         >
-          Photo: Schwerdf / Wikimedia Commons</Link>
+          Photo: David Gutierrez / Wikimedia Commons</Link>
       </section>
 
       <div className="sa-under-hero" aria-hidden="true" />
