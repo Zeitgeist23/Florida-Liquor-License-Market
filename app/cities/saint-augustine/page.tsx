@@ -77,7 +77,7 @@ export default function SaintAugustineCityPage() {
         .sa-hero__copy{
           width:min(58%,820px);
           margin-left:clamp(12px,2vw,30px);
-          padding:18px 0 22px;
+          padding:10px 0 30px;
         }
 
         .sa-hero__eyebrow{
@@ -96,18 +96,18 @@ export default function SaintAugustineCityPage() {
           max-width:780px;
           color:#fff;
           font-family:Georgia,"Times New Roman",serif;
-          font-size:clamp(58px,5.4vw,82px);
+          font-size:clamp(55px,5.05vw,77px);
           line-height:.94;
           letter-spacing:-.03em;
           text-shadow:0 4px 18px rgba(0,0,0,.62);
         }
 
         .sa-hero__description{
-          margin:0 0 18px;
+          margin:0 0 22px;
           max-width:640px;
           color:#f3f7fa;
-          font-size:15px;
-          line-height:1.55;
+          font-size:16px;
+          line-height:1.58;
           text-shadow:0 2px 10px rgba(0,0,0,.58);
         }
 
