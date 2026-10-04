@@ -32,14 +32,14 @@ export default function SaintAugustineCityPage() {
         .sa-hero{
           position:relative;
           overflow:hidden;
-          min-height:430px;
+          min-height:390px;
           background:#061a2a;
           border-bottom:1px solid rgba(229,157,0,.68);
         }
 
         .sa-hero__photo{
           position:absolute;
-          inset:0;
+          inset:0 0 0 34%;
           background-image:url("https://upload.wikimedia.org/wikipedia/commons/4/4a/The_Flagler_College.jpg");
           background-size:cover;
           background-position:58% 50%;
@@ -52,13 +52,14 @@ export default function SaintAugustineCityPage() {
           background:
             linear-gradient(
               90deg,
-              rgba(6,26,42,.93) 0%,
-              rgba(6,26,42,.86) 20%,
-              rgba(6,26,42,.70) 38%,
-              rgba(6,26,42,.48) 52%,
-              rgba(6,26,42,.22) 65%,
-              rgba(6,26,42,.04) 76%,
-              rgba(6,26,42,0) 84%
+              #061a2a 0%,
+              #061a2a 28%,
+              rgba(6,26,42,.96) 36%,
+              rgba(6,26,42,.82) 45%,
+              rgba(6,26,42,.56) 55%,
+              rgba(6,26,42,.28) 65%,
+              rgba(6,26,42,.08) 74%,
+              rgba(6,26,42,0) 82%
             );
         }
 
@@ -67,16 +68,16 @@ export default function SaintAugustineCityPage() {
           z-index:2;
           width:100%;
           margin:0;
-          min-height:430px;
+          min-height:390px;
           display:flex;
           align-items:center;
-          padding:38px clamp(38px,6vw,96px);
+          padding:30px clamp(38px,5vw,78px);
         }
 
         .sa-hero__copy{
-          width:min(72%,980px);
-          margin-left:clamp(48px,7vw,120px);
-          padding:22px 0 28px;
+          width:min(58%,820px);
+          margin-left:clamp(26px,4vw,64px);
+          padding:18px 0 22px;
         }
 
         .sa-hero__eyebrow{
@@ -92,10 +93,10 @@ export default function SaintAugustineCityPage() {
 
         .sa-hero h1{
           margin:0 0 20px;
-          max-width:960px;
+          max-width:780px;
           color:#fff;
           font-family:Georgia,"Times New Roman",serif;
-          font-size:clamp(66px,6.2vw,96px);
+          font-size:clamp(58px,5.4vw,82px);
           line-height:.94;
           letter-spacing:-.03em;
           text-shadow:0 4px 18px rgba(0,0,0,.62);
@@ -103,9 +104,9 @@ export default function SaintAugustineCityPage() {
 
         .sa-hero__description{
           margin:0 0 18px;
-          max-width:760px;
+          max-width:640px;
           color:#f3f7fa;
-          font-size:16px;
+          font-size:15px;
           line-height:1.55;
           text-shadow:0 2px 10px rgba(0,0,0,.58);
         }
