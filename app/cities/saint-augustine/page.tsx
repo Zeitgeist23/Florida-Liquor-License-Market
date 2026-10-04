@@ -225,8 +225,8 @@ export default function SaintAugustineCityPage() {
             </h1>
             <p className="sa-hero__description">
               Explore current liquor-license market activity in Saint Augustine and
-              St. Johns County, including business-package opportunities, standalone
-              quota inventory, and local pricing context.
+              St. Johns County, including standalone liquor licenses for sale,
+              businesses + liquor licenses for sale, and local pricing context.
             </p>
             <p className="sa-hero__location">
               <span className="sa-hero__pin" aria-hidden="true">●</span>
