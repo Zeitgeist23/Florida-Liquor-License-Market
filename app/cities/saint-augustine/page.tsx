@@ -92,7 +92,7 @@ export default function SaintAugustineCityPage() {
         }
 
         .sa-hero h1{
-          margin:0 0 20px;
+          margin:0 0 15px;
           max-width:780px;
           color:#fff;
           font-family:Georgia,"Times New Roman",serif;
