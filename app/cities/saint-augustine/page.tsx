@@ -91,8 +91,12 @@ export default async function SaintAugustineCityPage() {
         }
 
         .sa-header-wrap{
+          position:sticky;
+          top:0;
+          z-index:1400;
           background:#020b12;
           border-bottom:1px solid rgba(241,166,0,.62);
+          box-shadow:0 5px 15px rgba(0,0,0,.22);
         }
 
         .sa-hero{
