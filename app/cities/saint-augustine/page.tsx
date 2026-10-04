@@ -334,7 +334,6 @@ export default async function SaintAugustineCityPage() {
         countyPopulation={countyPopulations2024["St. Johns County"]}
         cityPopulation={16_141}
         cityPopulationYear={2025}
-        projection2030={bebr2030}
         projectedGrowthRate={growthRate}
         projected2027Population={projected2027Population}
         lottery2026={drawing2026}
