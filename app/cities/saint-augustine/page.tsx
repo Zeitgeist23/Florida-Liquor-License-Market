@@ -236,15 +236,15 @@ export default function SaintAugustineCityPage() {
             <div className="sa-hero__bullets">
               <p className="sa-hero__location">
                 <span className="sa-hero__pin" aria-hidden="true">●</span>
-                Serving Saint Augustine, Florida in St. Johns County.
-              </p>
-              <p className="sa-hero__location">
-                <span className="sa-hero__pin" aria-hidden="true">●</span>
                 Standalone liquor licenses for sale.
               </p>
               <p className="sa-hero__location">
                 <span className="sa-hero__pin" aria-hidden="true">●</span>
                 Businesses + liquor licenses for sale.
+              </p>
+              <p className="sa-hero__location">
+                <span className="sa-hero__pin" aria-hidden="true">●</span>
+                St. Johns County liquor-license pricing and market data.
               </p>
             </div>
           </div>
