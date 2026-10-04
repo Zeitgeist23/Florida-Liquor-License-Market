@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import CityMarketScope from "@/components/CityMarketScope";
 import CityMarketOverviewMaps from "@/components/CityMarketOverviewMaps";
+import { getSaintAugustineDbprMarketScope } from "@/lib/city-market-scope-dbpr";
 import { QUOTA_DRAWING_2026 } from "@/data/quota-drawing-2026";
 import { countyPopulations2024 } from "@/data/county-populations-2024";
 import {
@@ -39,7 +40,10 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function SaintAugustineCityPage() {
-  const allStandalone = getVisibleAvailableMarketplaceListings(await getMarketplaceListings());
+  const [allStandalone, dbprMarketScope] = await Promise.all([
+    getMarketplaceListings().then(getVisibleAvailableMarketplaceListings),
+    getSaintAugustineDbprMarketScope(),
+  ]);
   const standalone = allStandalone.filter((listing) => listing.county === "St. Johns County");
 
   const allBusinesses = [
@@ -343,6 +347,7 @@ export default async function SaintAugustineCityPage() {
         standaloneMedian={median(standalonePrices)}
         standaloneHigh={standalonePrices.length ? Math.max(...standalonePrices) : null}
         marketBusinesses={businessInventory}
+        dbpr={dbprMarketScope}
       />
     </main>
   );
