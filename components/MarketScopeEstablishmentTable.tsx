@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 
 type EstablishmentRow = {
@@ -55,6 +55,22 @@ export default function MarketScopeEstablishmentTable({
   const [expanded, setExpanded] = useState(false);
   const [selectedRow, setSelectedRow] = useState<EstablishmentRow | null>(null);
   const [copiedLicense, setCopiedLicense] = useState(false);
+
+  useEffect(() => {
+    const handler = (event: Event) => {
+      const custom = event as CustomEvent<{ licenseType?: string; category?: string }>;
+      const nextLicense = custom.detail?.licenseType ?? "All";
+      const nextCategory = custom.detail?.category ?? "All";
+      setLicenseFilter(nextLicense);
+      setCategoryFilter(nextCategory);
+      setExpanded(false);
+      window.setTimeout(() => {
+        document.getElementById("operating-establishments-table")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 0);
+    };
+    window.addEventListener("fllm-market-scope-filter", handler as EventListener);
+    return () => window.removeEventListener("fllm-market-scope-filter", handler as EventListener);
+  }, []);
 
   const categories = useMemo(() => {
     const ordered = ["Restaurant", "Bar", "Nightclub", "Liquor Store", "Marina", "Country Club", "Hotel / Motel", "Other Hospitality"];
@@ -143,7 +159,7 @@ export default function MarketScopeEstablishmentTable({
   }
 
   return (
-    <div className="market-scope-table-wrap">
+    <div className="market-scope-table-wrap" id="operating-establishments-table">
       {summaryCounts ? (
         <div className="market-scope-license-summary">
           <button type="button" className="market-scope-license-card" onClick={() => selectLicense("4COP Quota")}>
