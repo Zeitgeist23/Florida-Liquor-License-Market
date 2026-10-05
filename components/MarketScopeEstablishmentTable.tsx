@@ -95,7 +95,7 @@ export default function MarketScopeEstablishmentTable({
   }, [rows]);
 
   const licenseTypes = useMemo(
-    () => ["All", ...Array.from(new Set(rows.map(displayLicense))).sort()],
+    () => ["All", "All Quota Licenses", ...Array.from(new Set(rows.map(displayLicense))).sort()],
     [rows],
   );
 
@@ -103,7 +103,12 @@ export default function MarketScopeEstablishmentTable({
     const sourceRows = statusFilter === "Inactive" && inactiveRows.length ? inactiveRows : rows;
     return sourceRows
       .filter((row) => categoryFilter === "All" || row.category === categoryFilter)
-      .filter((row) => licenseFilter === "All" || displayLicense(row) === licenseFilter)
+      .filter((row) =>
+        licenseFilter === "All" ||
+        (licenseFilter === "All Quota Licenses" &&
+          (displayLicense(row) === "4COP Quota" || displayLicense(row) === "3PS Quota")) ||
+        displayLicense(row) === licenseFilter
+      )
       .filter((row) =>
         statusFilter === "All" ||
         (statusFilter === "Active" && row.active) ||
