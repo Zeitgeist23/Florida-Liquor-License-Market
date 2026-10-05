@@ -28,9 +28,9 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/restaurants-for-sale/miami`;
 
 export const metadata: Metadata = {
-  title: "Miami Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
+  title: "Miami Restaurants for Sale | Miami-Dade Restaurant Market | FLLM",
   description:
-    "Find Miami restaurants for sale with liquor licenses in Miami-Dade County. Compare 4COP quota, 4COP SFS / SRX full-liquor and 2COP restaurant opportunities on FLLM.",
+    "Browse Miami restaurants for sale in Miami-Dade County by concept, cuisine and asking-price signal. FLLM also shows the actual liquor-license structure, including 4COP quota, 4COP SFS / SRX and 2COP.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Miami Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
+    title: "Miami Restaurants for Sale | FLLM",
     description:
       "Miami and Miami-Dade County restaurant opportunities organized by cuisine, business type and liquor-license structure.",
     siteName: "Florida Liquor License Market",
@@ -162,10 +162,10 @@ export default async function MiamiRestaurantsForSalePage() {
             <strong>Miami</strong>
           </div>
           <span className="fllm-template-eyebrow">Miami · Miami-Dade County Restaurant Market</span>
-          <h1 className="fllm-template-hero-title">Miami Restaurant With Liquor License for Sale</h1>
+          <h1 className="fllm-template-hero-title">Miami Restaurants for Sale</h1>
           <p className="fllm-template-hero-copy">
-            Search the Miami restaurant-for-sale market through FLLM by restaurant concept, cuisine and
-            alcoholic-beverage license structure. FLLM connects Miami search demand to current Miami-Dade County
+            Search the Miami restaurant-for-sale market through FLLM by restaurant concept, cuisine, asking-price signal and
+            location. FLLM then adds the alcoholic-beverage license structure so buyers can compare Miami-Dade County
             restaurant Market Views while keeping each listing&apos;s actual location explicit. Buyers can compare
             full-liquor opportunities, 4COP quota and 4COP SFS / SRX structures, restaurant Market Views,
             and other nearby Miami-Dade County restaurant businesses.
