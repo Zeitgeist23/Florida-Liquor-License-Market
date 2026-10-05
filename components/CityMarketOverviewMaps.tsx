@@ -59,13 +59,13 @@ function FloridaMarketMap({
         })}
         <g transform={"translate(" + markerX + " " + markerY + ")"}>
           <path
-            d="M0,-18 C-7.9,-18 -14.2,-11.7 -14.2,-3.8 C-14.2,4.5 -8.8,10.2 -4.2,13.8 L0,29 L4.2,13.8 C8.8,10.2 14.2,4.5 14.2,-3.8 C14.2,-11.7 7.9,-18 0,-18 Z"
-            fill="#e3322c"
+            d="M0,-22 C-6.7,-22 -12,-16.7 -12,-10 C-12,0.8 -4.6,10.4 0,22 C4.6,10.4 12,0.8 12,-10 C12,-16.7 6.7,-22 0,-22 Z"
+            fill="#e52b25"
             stroke="#ffffff"
-            strokeWidth="2"
+            strokeWidth="1.6"
             strokeLinejoin="round"
           />
-          <circle cx="0" cy="-4" r="4.1" fill="#ffffff" />
+          <circle cx="0" cy="-10" r="3.8" fill="#ffffff" />
         </g>
       </svg>
 
