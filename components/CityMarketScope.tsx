@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MarketScopeEstablishmentTable from "@/components/MarketScopeEstablishmentTable";
 import type { CityDbprMarketScope } from "@/lib/city-market-scope-dbpr";
 
 type MarketBusiness = {
@@ -47,26 +48,11 @@ function categoryClass(category: string) {
   return category.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 }
 
-function EstablishmentRow({ row }: { row: CityDbprMarketScope["cityQuotaEstablishments"][number] }) {
-  return (
-    <div className="market-scope-table-row">
-      <div><strong>{row.dba}</strong><small>{row.address}{row.zip ? ` · ${row.zip}` : ""}</small></div>
-      <div><span className={"scope-category scope-category--" + categoryClass(row.category)}>{row.category}</span></div>
-      <div><strong>{row.series}</strong><small>{row.licenseNumber}</small></div>
-      <div><strong>{row.licensee}</strong><small>DBPR licensee / owner-primary name</small></div>
-      <div><strong>—</strong><small>Public property match pending</small></div>
-    </div>
-  );
-}
-
 export default function CityMarketScope(props: Props) {
   const business4cop = props.marketBusinesses.filter((item) => item.licenseType === "4COP Quota").length;
   const business3ps = props.marketBusinesses.filter((item) => item.licenseType.includes("3PS")).length;
   const businessSfs = props.marketBusinesses.filter((item) => item.licenseType.includes("SFS")).length;
   const business2cop = props.marketBusinesses.filter((item) => item.licenseType.includes("2COP")).length;
-  const visibleRows = props.dbpr.cityQuotaEstablishments.slice(0, 10);
-  const hiddenRows = props.dbpr.cityQuotaEstablishments.slice(10);
-
   return (
     <section className="market-scope" aria-labelledby="market-scope-title">
       <div className="market-scope-shell">
@@ -154,21 +140,7 @@ export default function CityMarketScope(props: Props) {
             <article><span>2COP</span><strong>{props.dbpr.city2copInUse ?? "—"}</strong></article>
           </div>
 
-          <div className="market-scope-table-head">
-            <span>Establishment</span><span>Category</span><span>License</span><span>DBPR Licensee / Public-Record Entity</span><span>Sq. Ft.</span>
-          </div>
-          <div className="market-scope-table-body">
-            {visibleRows.map((row) => <EstablishmentRow row={row} key={row.licenseNumber} />)}
-          </div>
-
-          {hiddenRows.length ? (
-            <details className="market-scope-more-records">
-              <summary>View all {props.dbpr.cityQuotaEstablishments.length} quota establishments</summary>
-              <div className="market-scope-table-body market-scope-table-body--expanded">
-                {hiddenRows.map((row) => <EstablishmentRow row={row} key={row.licenseNumber} />)}
-              </div>
-            </details>
-          ) : null}
+          <MarketScopeEstablishmentTable rows={props.dbpr.cityQuotaEstablishments} />
         </section>
 
         <section className="market-scope-panel market-scope-context">
