@@ -37,9 +37,11 @@ function displayLicense(row: EstablishmentRow) {
 
 export default function MarketScopeEstablishmentTable({
   rows,
+  inactiveRows = [],
   summaryCounts,
 }: {
   rows: EstablishmentRow[];
+  inactiveRows?: EstablishmentRow[];
   summaryCounts?: {
     fourCopQuota: number;
     threePsQuota: number;
@@ -87,7 +89,8 @@ export default function MarketScopeEstablishmentTable({
   );
 
   const filteredRows = useMemo(() => {
-    return rows
+    const sourceRows = statusFilter === "Inactive" && inactiveRows.length ? inactiveRows : rows;
+    return sourceRows
       .filter((row) => categoryFilter === "All" || row.category === categoryFilter)
       .filter((row) => licenseFilter === "All" || displayLicense(row) === licenseFilter)
       .filter((row) =>
@@ -121,7 +124,7 @@ export default function MarketScopeEstablishmentTable({
         const result = left.localeCompare(right, undefined, { numeric: true, sensitivity: "base" });
         return sortDirection === "asc" ? result : -result;
       });
-  }, [rows, categoryFilter, licenseFilter, statusFilter, searchQuery, sortKey, sortDirection]);
+  }, [rows, inactiveRows, categoryFilter, licenseFilter, statusFilter, searchQuery, sortKey, sortDirection]);
 
   const shownRows = expanded ? filteredRows : filteredRows.slice(0, 10);
 
