@@ -29,6 +29,8 @@ import "../businesses-with-quota-licenses/business-inventory.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/restaurants-with-liquor-licenses`;
+const RESTAURANT_HUB_LISTING_LIMIT = 6;
+const RESTAURANT_LOCAL_PREVIEW_LIMIT = 3;
 
 export const metadata: Metadata = {
   title: "Florida Restaurants for Sale | Restaurants & Bars for Sale in Florida | FLLM",
@@ -134,10 +136,10 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       (listing.businessCategory === "Restaurant" ||
         /restaurant/i.test(`${listing.title} ${listing.businessType}`)),
   );
-  const quotaRestaurantListings = allQuotaRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
-  const sfsRestaurantListings = allSfsRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
-  const twoCopRestaurantListings = allTwoCopRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
-  const restaurantListings = allRestaurantListings.slice(0, BUSINESS_LISTING_DISPLAY_LIMIT);
+  const quotaRestaurantListings = allQuotaRestaurantListings.slice(0, RESTAURANT_HUB_LISTING_LIMIT);
+  const sfsRestaurantListings = allSfsRestaurantListings.slice(0, RESTAURANT_HUB_LISTING_LIMIT);
+  const twoCopRestaurantListings = allTwoCopRestaurantListings.slice(0, RESTAURANT_HUB_LISTING_LIMIT);
+  const restaurantListings = allRestaurantListings.slice(0, RESTAURANT_HUB_LISTING_LIMIT);
   const stJohnsRestaurantListings = allRestaurantListings.filter(
     (listing) => listing.county === "St. Johns County",
   );
@@ -185,6 +187,10 @@ export default async function RestaurantsWithLiquorLicensesPage() {
   const orlandoRestaurantListings = allRestaurantListings.filter(
     (listing) => listing.county === "Orange County",
   );
+  const miamiRestaurantPreviewListings = miamiRestaurantListings.slice(0, RESTAURANT_LOCAL_PREVIEW_LIMIT);
+  const miamiQuotaRestaurantPreviewListings = miamiQuotaRestaurantListings.slice(0, RESTAURANT_LOCAL_PREVIEW_LIMIT);
+  const stJohnsRestaurantPreviewListings = stJohnsRestaurantListings.slice(0, RESTAURANT_LOCAL_PREVIEW_LIMIT);
+  const orlandoRestaurantPreviewListings = orlandoRestaurantListings.slice(0, RESTAURANT_LOCAL_PREVIEW_LIMIT);
 
   const structuredData = [
     {
@@ -322,8 +328,8 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       "@context": "https://schema.org",
       "@type": "ItemList",
       name: "Miami and Miami-Dade restaurants for sale with liquor licenses",
-      numberOfItems: miamiRestaurantListings.length,
-      itemListElement: miamiRestaurantListings.map((listing, index) => ({
+      numberOfItems: miamiRestaurantPreviewListings.length,
+      itemListElement: miamiRestaurantPreviewListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: businessMarketDisplayTitle(listing),
@@ -334,8 +340,8 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       "@context": "https://schema.org",
       "@type": "ItemList",
       name: "St. Augustine and St. Johns County restaurants for sale with quota liquor licenses",
-      numberOfItems: stJohnsRestaurantListings.length,
-      itemListElement: stJohnsRestaurantListings.map((listing, index) => ({
+      numberOfItems: stJohnsRestaurantPreviewListings.length,
+      itemListElement: stJohnsRestaurantPreviewListings.map((listing, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: businessMarketDisplayTitle(listing),
@@ -786,11 +792,18 @@ export default async function RestaurantsWithLiquorLicensesPage() {
           />
 
           {quotaRestaurantListings.length ? (
-            <div className="business-quota-grid">
-              {quotaRestaurantListings.map((listing) => (
-                <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
-              ))}
-            </div>
+            <>
+              <div className="business-quota-grid">
+                {quotaRestaurantListings.map((listing) => (
+                  <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
+                ))}
+              </div>
+              <div className="fllm-ui-actions">
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/listings?type=businesses-4cop">
+                  View All 4COP Quota Restaurant Listings
+                </Link>
+              </div>
+            </>
           ) : (
             <FllmCard title="No published restaurant + 4COP quota packages are available right now." variant="gold">
               <p>FLLM will display qualifying restaurant acquisitions with included transferable 4COP quota licenses here as they are published.</p>
@@ -813,11 +826,13 @@ export default async function RestaurantsWithLiquorLicensesPage() {
             }
           />
           {sfsRestaurantListings.length ? (
-            <div className="business-quota-grid">
-              {sfsRestaurantListings.map((listing) => (
-                <BusinessQuotaListingCard key={`sfs-${listing.listingReference}`} listing={listing} />
-              ))}
-            </div>
+            <>
+              <div className="business-quota-grid">
+                {sfsRestaurantListings.map((listing) => (
+                  <BusinessQuotaListingCard key={`sfs-${listing.listingReference}`} listing={listing} />
+                ))}
+              </div>
+            </>
           ) : (
             <FllmCard title="No published 4COP SFS / SRX restaurant opportunities are available right now." variant="gold">
               <p>FLLM will display qualifying full-liquor restaurant opportunities here as they are published.</p>
@@ -946,7 +961,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
                 </FllmCard>
               </FllmCardGrid>
               <div className="business-quota-grid">
-                {miamiRestaurantListings.map((listing) => (
+                {miamiRestaurantPreviewListings.map((listing) => (
                   <BusinessQuotaListingCard key={`miami-${listing.listingReference}`} listing={listing} />
                 ))}
               </div>
@@ -955,7 +970,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
 
           {miamiQuotaRestaurantListings.length ? (
             <div className="business-quota-grid">
-              {miamiQuotaRestaurantListings.map((listing) => (
+              {miamiQuotaRestaurantPreviewListings.map((listing) => (
                 <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
               ))}
             </div>
@@ -999,7 +1014,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
               }
             />
             <div className="business-quota-grid">
-              {orlandoRestaurantListings.map((listing) => (
+              {orlandoRestaurantPreviewListings.map((listing) => (
                 <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
               ))}
             </div>
@@ -1042,7 +1057,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
             </FllmCardGrid>
 
             <div className="business-quota-grid">
-              {stJohnsRestaurantListings.map((listing) => (
+              {stJohnsRestaurantPreviewListings.map((listing) => (
                 <BusinessQuotaListingCard key={`st-johns-${listing.listingReference}`} listing={listing} />
               ))}
             </div>
