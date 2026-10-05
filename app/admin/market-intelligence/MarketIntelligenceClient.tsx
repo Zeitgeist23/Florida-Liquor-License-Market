@@ -104,6 +104,7 @@ export default function MarketIntelligenceClient() {
   const [status, setStatus] = useState("active");
   const [identityFilter, setIdentityFilter] = useState("all");
   const [selected, setSelected] = useState<RecordRow | null>(null);
+  const [page, setPage] = useState(1);
   const [form, setForm] = useState(emptyForm);
 
   const load = useCallback(async () => {
@@ -147,6 +148,16 @@ export default function MarketIntelligenceClient() {
       ].some((value) => (value || "").toLowerCase().includes(q));
     });
   }, [records, query, county, license, status, identityFilter]);
+
+  useEffect(() => { setPage(1); }, [query, county, license, status, identityFilter]);
+
+  const pageSize = 10;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const currentPage = Math.min(page, totalPages);
+  const visibleRows = useMemo(
+    () => filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize),
+    [filtered, currentPage],
+  );
 
   const stats = useMemo(() => ({
     total: records.length,
@@ -335,7 +346,7 @@ export default function MarketIntelligenceClient() {
           <table>
             <thead><tr><th>FLLM Best Guess / Confidence</th><th>County / type</th><th>License</th><th>Economics</th><th>Broker</th><th>Owner</th><th>Public records</th><th>Status</th></tr></thead>
             <tbody>
-              {filtered.map((r) => (
+              {visibleRows.map((r) => (
                 <tr key={r.listing_reference} onClick={() => editRecord(r)}>
                   <td><strong>{r.business_name || "NO BEST GUESS YET"}</strong><small>{r.source_listing_title || r.listing_reference}</small><small>{r.listing_reference}</small><span className="confidence">{r.verification_status === "insufficient" ? "Reviewed — insufficient evidence" : r.identification_confidence === null ? "Needs identity research" : `${r.identification_confidence}% BEST-GUESS MATCH`}</span></td>
                   <td><strong>{r.county}</strong><small>{[r.city,r.business_type].filter(Boolean).join(" · ")}</small></td>
@@ -347,9 +358,15 @@ export default function MarketIntelligenceClient() {
                   <td><span className={`status ${r.market_status}`}>{r.market_status}</span><small>{r.verification_status}</small><small>Seen {date(r.last_seen_at)}</small></td>
                 </tr>
               ))}
-              {!filtered.length && <tr><td colSpan={8} className="empty">No records match these filters.</td></tr>}
+              {!visibleRows.length && <tr><td colSpan={8} className="empty">No records match these filters.</td></tr>}
             </tbody>
           </table>
+        </div>
+        <div className="intel-pagination" aria-label="Market intelligence pagination">
+          <button type="button" disabled={currentPage <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>Previous 10</button>
+          <span>Showing {filtered.length ? (currentPage - 1) * pageSize + 1 : 0}–{Math.min(currentPage * pageSize, filtered.length)} of {filtered.length}</span>
+          <strong>Page {currentPage} of {totalPages}</strong>
+          <button type="button" disabled={currentPage >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>Next 10</button>
         </div>
       </section>
     </main>
