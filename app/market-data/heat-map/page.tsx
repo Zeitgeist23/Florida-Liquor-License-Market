@@ -126,6 +126,7 @@ export default async function HeatMapPage({
   const requestedView = firstSearchParam(params.view);
   const requestedCounty = firstSearchParam(params.county)?.trim() || "";
   const requestedLicenseType = firstSearchParam(params.licenseType)?.trim() || "quota";
+  const requestedListingReference = firstSearchParam(params.listing)?.trim() || "";
   const isQuotaBusinessMap =
     requestedView === "businesses" ||
     (requestedView === "licenses" && requestedLicenseType === "businesses");
@@ -196,6 +197,17 @@ export default async function HeatMapPage({
       countyMedians,
     );
   }
+
+  const allBusinessListings = [
+    ...businessQuotaListings,
+    ...businessSfsListings,
+    ...business2copListings,
+  ];
+  const selectedBusinessListing = requestedListingReference
+    ? allBusinessListings.find(
+        (listing) => listing.listingReference === requestedListingReference,
+      ) ?? null
+    : null;
 
   const selectedCountyRecord = !isBusinessPackageMap && requestedCounty
     ? floridaCounties.find((county) => county.name === requestedCounty) ?? null
@@ -326,7 +338,34 @@ export default async function HeatMapPage({
             licenseType={businessPackageLicenseType}
             listingType={isQuotaBusinessMap ? "businesses" : isSfsBusinessMap ? "businesses-sfs" : "businesses-2cop"}
             businessTypeLabel={businessTypeLabel}
-            selectedCounty={requestedCounty || undefined}
+            selectedCounty={requestedCounty || selectedBusinessListing?.county || undefined}
+            selectedListingTitle={selectedBusinessListing?.title}
+            selectedPackagePrice={selectedBusinessListing?.packagePrice}
+            selectedLicenseValue={
+              selectedBusinessListing
+                ? selectedBusinessListing.licenseClass === "quota"
+                  ? selectedBusinessListing.allocatedLicenseValue ||
+                    (() => {
+                      const market = countyMedians.get(selectedBusinessListing.county);
+                      const value =
+                        selectedBusinessListing.licenseType === "3PS Quota / Package Store"
+                          ? market?.threePsMedian
+                          : market?.fourCopMedian;
+                      return value
+                        ? new Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                            maximumFractionDigits: 0,
+                          }).format(value)
+                        : "Market data unavailable";
+                    })()
+                  : selectedBusinessListing.allocatedLicenseValue ||
+                    (selectedBusinessListing.licenseClass === "sfs"
+                      ? "Location-specific"
+                      : "No separate quota value")
+                : undefined
+            }
+            selectedListingReference={selectedBusinessListing?.listingReference}
           />
         ) : (
           <>
