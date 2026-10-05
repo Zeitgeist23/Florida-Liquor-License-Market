@@ -203,24 +203,24 @@ function categoryMarketHub(listing: BusinessQuotaListing) {
     if (listing.licenseType === "2COP Beer & Wine") {
       return {
         href: "/restaurants-with-liquor-licenses#2cop-restaurant-inventory",
-        label: "Florida restaurants with 2COP beer and wine licenses for sale",
+        label: "Florida Restaurants for Sale — 2COP Beer & Wine",
       };
     }
     if (listing.licenseType === "4COP SFS/SRX") {
       return {
         href: "/restaurants-with-liquor-licenses#sfs-restaurant-inventory",
-        label: "Florida restaurants with 4COP SFS / SRX full-liquor licenses for sale",
+        label: "Florida Restaurants for Sale — 4COP SFS / SRX",
       };
     }
     if (listing.licenseType === "4COP Quota") {
       return {
         href: "/restaurants-with-liquor-licenses#quota-restaurant-inventory",
-        label: "Florida restaurants with 4COP quota liquor licenses for sale",
+        label: "Florida Restaurants for Sale — 4COP Quota",
       };
     }
     return {
       href: "/restaurants-with-liquor-licenses",
-      label: "Florida restaurants for sale with liquor licenses",
+      label: "Florida Restaurants for Sale",
     };
   }
 
