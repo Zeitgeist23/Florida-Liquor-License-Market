@@ -18,15 +18,15 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/restaurants-for-sale/broward-county`;
 
 export const metadata: Metadata = {
-  title: "Broward Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
-  description: "Find Broward County restaurants for sale with liquor licenses. Compare Fort Lauderdale-area 4COP quota, 4COP SFS / SRX full-liquor and 2COP restaurant opportunities on FLLM.",
+  title: "Broward County Restaurants for Sale | Restaurant Market | FLLM",
+  description: "Browse Broward County restaurants for sale by city, business type and asking-price signal. FLLM also identifies 4COP quota, 4COP SFS / SRX and 2COP license structures.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: ["Broward restaurant with liquor license for sale","Broward County restaurant with liquor license for sale","Broward restaurant for sale with full liquor","Fort Lauderdale restaurant with liquor license for sale","Broward 4COP restaurant for sale","Broward SFS SRX restaurant for sale"],
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Broward Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
+    title: "Broward County Restaurants for Sale | FLLM",
     description: "Find Broward County restaurants for sale with liquor licenses. Compare Fort Lauderdale-area 4COP quota, 4COP SFS / SRX full-liquor and 2COP restaurant opportunities on FLLM.",
     siteName: "Florida Liquor License Market",
   },
@@ -111,10 +111,10 @@ export default async function LocalRestaurantWithLiquorLicensePage() {
             <strong>Broward County</strong>
           </div>
           <span className="fllm-template-eyebrow">Broward County Restaurant Market</span>
-          <h1 className="fllm-template-hero-title">Broward County Restaurant With Liquor License for Sale</h1>
+          <h1 className="fllm-template-hero-title">Broward County Restaurants for Sale</h1>
           <p className="fllm-template-hero-copy">
-            Search Broward County restaurant opportunities with liquor licenses through FLLM. Compare restaurants and
-            restaurant/bar businesses involving transferable 4COP quota licenses, qualifying 4COP SFS / SRX
+            Search Broward County restaurants for sale through FLLM by city, business type and asking-price signal.
+            FLLM also identifies restaurant/bar businesses involving transferable 4COP quota licenses, qualifying 4COP SFS / SRX
             full-liquor restaurant licenses, and 2COP beer-and-wine licenses. Market Views retain their actual
             location and license structure so buyers can distinguish the business package from the liquor-license component.
           </p>
