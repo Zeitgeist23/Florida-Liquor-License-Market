@@ -823,3 +823,47 @@
   bottom:auto;
   z-index:60;
 }
+
+
+.market-scope-license-market-tooltip{
+  text-transform:none !important;
+  letter-spacing:0 !important;
+  font-size:12px;
+  line-height:1.45;
+  font-weight:500;
+  width:300px;
+  padding:12px 14px;
+}
+.market-scope-license-market-tooltip>strong{
+  display:block;
+  margin-bottom:6px;
+  color:#fff;
+  font-size:12px;
+  line-height:1.35;
+  font-weight:800;
+  text-transform:none;
+  letter-spacing:0;
+}
+.market-scope-license-market-tooltip>span{
+  display:block;
+  margin-top:3px;
+  color:#e7f5fb;
+  font-size:12px;
+  line-height:1.4;
+  font-weight:500;
+  text-transform:none;
+  letter-spacing:0;
+}
+.market-scope-license-market-tooltip>span b{
+  font-weight:800;
+}
+.market-scope-license-market-tooltip>small{
+  display:block;
+  margin-top:6px;
+  color:#bdd4df;
+  font-size:10.5px;
+  line-height:1.4;
+  font-weight:500;
+  text-transform:none;
+  letter-spacing:0;
+}
