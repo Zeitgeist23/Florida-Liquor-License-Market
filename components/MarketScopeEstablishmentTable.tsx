@@ -26,7 +26,12 @@ function categoryClass(category: string) {
 }
 
 function displayLicense(row: EstablishmentRow) {
-  return row.quotaClass ?? row.series;
+  const series = row.series.trim().toUpperCase();
+  const modifier = row.modifier.trim().toUpperCase();
+  if (row.quotaClass) return row.quotaClass;
+  if (series === "4COP" && /^(SFS|SRX)$/.test(modifier)) return "4COP SFS / SRX";
+  if (series === "2COP") return "2COP";
+  return modifier ? `${series} · ${modifier}` : series;
 }
 
 export default function MarketScopeEstablishmentTable({
@@ -38,6 +43,7 @@ export default function MarketScopeEstablishmentTable({
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [licenseFilter, setLicenseFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const [expanded, setExpanded] = useState(false);
 
   const categories = useMemo(
@@ -54,6 +60,12 @@ export default function MarketScopeEstablishmentTable({
     return rows
       .filter((row) => categoryFilter === "All" || row.category === categoryFilter)
       .filter((row) => licenseFilter === "All" || displayLicense(row) === licenseFilter)
+      .filter((row) => {
+        const query = searchQuery.trim().toLowerCase();
+        if (!query) return true;
+        return [row.dba, row.licensee, row.licenseNumber, displayLicense(row), row.category]
+          .some((value) => value.toLowerCase().includes(query));
+      })
       .sort((a, b) => {
         const left =
           sortKey === "dba"
@@ -74,7 +86,7 @@ export default function MarketScopeEstablishmentTable({
         const result = left.localeCompare(right, undefined, { numeric: true, sensitivity: "base" });
         return sortDirection === "asc" ? result : -result;
       });
-  }, [rows, categoryFilter, licenseFilter, sortKey, sortDirection]);
+  }, [rows, categoryFilter, licenseFilter, searchQuery, sortKey, sortDirection]);
 
   const shownRows = expanded ? filteredRows : filteredRows.slice(0, 10);
 
@@ -94,6 +106,19 @@ export default function MarketScopeEstablishmentTable({
 
   return (
     <div className="market-scope-table-wrap">
+      <div className="market-scope-table-search">
+        <label>
+          <span>Search Establishments</span>
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Search DBA, corporation, license number, category…"
+            aria-label="Search establishments by DBA, corporation or license number"
+          />
+        </label>
+      </div>
+
       <div className="market-scope-table-controls">
         <label>
           <span>Business Type</span>
