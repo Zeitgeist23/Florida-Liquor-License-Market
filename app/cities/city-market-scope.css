@@ -113,7 +113,7 @@
 .market-scope-table-wrap{margin-top:16px}
 .market-scope-table-controls{
   display:grid;grid-template-columns:repeat(2,minmax(220px,320px)) minmax(180px,1fr);
-  gap:12px;align-items:end;margin-bottom:12px
+  gap:10px;align-items:end;margin-bottom:12px
 }
 .market-scope-table-controls label{display:grid;gap:6px}
 .market-scope-table-controls label>span{
@@ -369,11 +369,11 @@
 }
 .market-scope-detail-modal{
   position:relative;
-  width:min(35vw,580px);
-  min-width:460px;
-  max-height:min(82vh,760px);
-  overflow:auto;
-  padding:30px 30px 28px;
+  width:min(48vw,760px);
+  min-width:620px;
+  max-height:calc(100vh - 140px);
+  overflow:hidden;
+  padding:26px 28px 24px;
   border:1px solid rgba(105,214,255,.62);
   border-radius:14px;
   background:
@@ -421,8 +421,8 @@
   line-height:1.08;
 }
 .market-scope-detail-license-number{
-  margin:0 auto 22px;
-  padding:14px 18px;
+  margin:0 auto 16px;
+  padding:12px 18px;
   border:1px solid rgba(245,168,0,.66);
   border-radius:9px;
   background:rgba(245,168,0,.08);
@@ -444,11 +444,11 @@
 }
 .market-scope-detail-grid{
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-columns:repeat(3,minmax(0,1fr));
   gap:12px;
 }
 .market-scope-detail-grid>div{
-  padding:13px 14px;
+  padding:11px 12px;
   border:1px solid rgba(105,214,255,.22);
   border-radius:8px;
   background:rgba(4,24,40,.58);
@@ -457,22 +457,27 @@
 .market-scope-detail-grid>div.wide{
   grid-column:1/-1;
 }
+.market-scope-detail-grid>div.span-2{
+  grid-column:span 2;
+}
 .market-scope-detail-grid strong{
   display:block;
   color:#fff;
-  font-size:13px;
+  font-size:12.5px;
   line-height:1.42;
   word-break:break-word;
 }
 @media(max-width:900px){
   .market-scope-detail-modal{
-    width:min(92vw,580px);
+    width:min(92vw,700px);
     min-width:0;
+    overflow:auto;
   }
 }
 @media(max-width:560px){
   .market-scope-detail-backdrop{padding:12px}
   .market-scope-detail-modal{padding:26px 16px 20px}
   .market-scope-detail-grid{grid-template-columns:1fr}
-  .market-scope-detail-grid>div.wide{grid-column:auto}
+  .market-scope-detail-grid>div.wide,
+  .market-scope-detail-grid>div.span-2{grid-column:auto}
 }
