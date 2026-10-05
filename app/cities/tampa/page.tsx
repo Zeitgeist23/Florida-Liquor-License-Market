@@ -58,6 +58,20 @@ export default async function TampaCityPage() {
     .map((listing) => listing.price)
     .filter((price): price is number => typeof price === "number" && Number.isFinite(price));
 
+  const standalone4copListings = standalone.filter((listing) => listing.type === "4COP Quota");
+  const standalone3psListings = standalone.filter((listing) => listing.type === "3PS Quota / Package Store");
+  const standalone4copPrices = standalone4copListings
+    .map((listing) => listing.price)
+    .filter((price): price is number => typeof price === "number" && Number.isFinite(price));
+  const standalone3psPrices = standalone3psListings
+    .map((listing) => listing.price)
+    .filter((price): price is number => typeof price === "number" && Number.isFinite(price));
+  const standalone4copMedian = median(standalone4copPrices);
+  const standalone3psMedianDirect = median(standalone3psPrices);
+  const standalone3psMedianEstimate =
+    standalone3psMedianDirect ??
+    (standalone4copMedian === null ? null : Math.round(standalone4copMedian * 0.985));
+
   const businessInventory = allBusinesses
     .filter((listing) => listing.county === "Hillsborough County")
     .filter((listing) =>
@@ -363,8 +377,11 @@ export default async function TampaCityPage() {
         lotteryVerified={QUOTA_DRAWING_2026.lastVerified}
         forecast2027={forecast2027}
         standaloneCount={standalone.length}
-        standalone4cop={standalone.filter((listing) => listing.type === "4COP Quota").length}
-        standalone3ps={standalone.filter((listing) => listing.type === "3PS Quota / Package Store").length}
+        standalone4cop={standalone4copListings.length}
+        standalone3ps={standalone3psListings.length}
+        standalone4copMedian={standalone4copMedian}
+        standalone3psMedian={standalone3psMedianEstimate}
+        standalone3psMedianIsProxy={standalone3psMedianDirect === null && standalone3psMedianEstimate !== null}
         standaloneLow={standalonePrices.length ? Math.min(...standalonePrices) : null}
         standaloneMedian={median(standalonePrices)}
         standaloneHigh={standalonePrices.length ? Math.max(...standalonePrices) : null}
