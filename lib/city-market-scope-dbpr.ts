@@ -37,7 +37,15 @@ export type CityDbprMarketScope = {
 };
 
 export async function getSaintAugustineDbprMarketScope(): Promise<CityDbprMarketScope> {
-  return saintAugustineDbprSnapshot as unknown as CityDbprMarketScope;
+  const snapshot = saintAugustineDbprSnapshot as typeof saintAugustineDbprSnapshot & {
+    generatedAt?: string;
+  };
+
+  return {
+    ...(snapshot as unknown as CityDbprMarketScope),
+    available: true,
+    fetchedAt: snapshot.generatedAt ?? null,
+  };
 }
 
 const DBPR_RETAIL_EXTRACT =
