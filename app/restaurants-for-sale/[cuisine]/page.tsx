@@ -302,8 +302,8 @@ export default async function RestaurantCuisinePage({ params }: PageProps) {
             <FllmButton href="/businesses-with-quota-licenses/bars" variant="outline">
               Bars
             </FllmButton>
-            <FllmButton href="/businesses-with-quota-licenses/nightclubs" variant="outline">
-              Nightclubs
+            <FllmButton href="/nightclubs-for-sale-with-liquor-licenses" variant="outline">
+              Florida Nightclubs for Sale
             </FllmButton>
           </div>
         </div>
