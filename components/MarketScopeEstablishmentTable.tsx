@@ -69,6 +69,7 @@ export default function MarketScopeEstablishmentTable({
   const [expanded, setExpanded] = useState(false);
   const [selectedRow, setSelectedRow] = useState<EstablishmentRow | null>(null);
   const [copiedLicense, setCopiedLicense] = useState(false);
+  const [licenseMarketOpen, setLicenseMarketOpen] = useState(false);
 
   useEffect(() => {
     const handler = (event: Event) => {
@@ -310,7 +311,7 @@ export default function MarketScopeEstablishmentTable({
             type="button"
             className="market-scope-table-row market-scope-table-row--interactive"
             key={row.licenseNumber}
-            onClick={() => { setSelectedRow(row); setCopiedLicense(false); }}
+            onClick={() => { setSelectedRow(row); setCopiedLicense(false); setLicenseMarketOpen(false); }}
             aria-label={`View details for ${row.dba}`}
           >
             <div><strong>{row.dba}</strong><small>{row.address}{row.zip ? ` · ${row.zip}` : ""}</small></div>
@@ -363,18 +364,21 @@ export default function MarketScopeEstablishmentTable({
                 const market = selectedStandaloneMarket(selectedRow);
                 return (
                   <div className="market-scope-detail-license-copy-row">
-                    <a
-                      className="market-scope-detail-license-market-link"
-                      href={market.href}
-                      aria-describedby="market-scope-license-market-tooltip"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        window.location.assign(market.href);
-                      }}
-                    >
-                      <strong>{selectedRow.licenseNumber}</strong>
+                    <div className="market-scope-detail-license-market-wrap">
+                      <button
+                        type="button"
+                        className="market-scope-detail-license-market-link"
+                        aria-describedby="market-scope-license-market-tooltip"
+                        onMouseEnter={() => setLicenseMarketOpen(true)}
+                        onMouseLeave={() => setLicenseMarketOpen(false)}
+                        onFocus={() => setLicenseMarketOpen(true)}
+                        onBlur={() => setLicenseMarketOpen(false)}
+                        onClick={() => window.location.assign(market.href)}
+                      >
+                        <strong>{selectedRow.licenseNumber}</strong>
+                      </button>
                       <span
-                        className="market-scope-license-market-tooltip"
+                        className={"market-scope-license-market-tooltip" + (licenseMarketOpen ? " is-visible" : "")}
                         id="market-scope-license-market-tooltip"
                         role="tooltip"
                       >
@@ -386,7 +390,7 @@ export default function MarketScopeEstablishmentTable({
                         <br />
                         <small>Click the license number to view standalone listings.</small>
                       </span>
-                    </a>
+                    </div>
                     <button
                       type="button"
                       className="market-scope-detail-copy-button"
