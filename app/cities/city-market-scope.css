@@ -242,3 +242,14 @@
 .market-scope-overview-card li::before{
   margin-top:.58em;
 }
+
+/* Balance the two primary Market Scope cards under centered headings. */
+.market-scope-overview-card ul{
+  width:min(100% - 64px,720px);
+  margin:16px auto 0;
+}
+.market-scope-overview-card li{
+  width:100%;
+  justify-content:flex-start;
+  text-align:left;
+}
