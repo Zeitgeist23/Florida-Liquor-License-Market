@@ -239,11 +239,11 @@ export default function MarketScopeEstablishmentTable({
   function selectedStandaloneMarket(row: EstablishmentRow) {
     if (!standaloneMarket) {
       return {
-        interactive: false,
+        interactive: true,
         count: 0,
         median: null as number | null,
-        label: "",
-        href: "",
+        label: "Standalone license market",
+        href: "/listings#listing-results",
         proxy: false,
       };
     }
@@ -271,11 +271,11 @@ export default function MarketScopeEstablishmentTable({
     }
 
     return {
-      interactive: false,
-      count: 0,
-      median: null as number | null,
-      label: "",
-      href: "",
+      interactive: true,
+      count: standaloneMarket.totalCount,
+      median: standaloneMarket.overallMedian,
+      label: `${standaloneMarket.county} standalone license market`,
+      href: `/listings?county=${encodeURIComponent(standaloneMarket.county)}#listing-results`,
       proxy: false,
     };
   }
