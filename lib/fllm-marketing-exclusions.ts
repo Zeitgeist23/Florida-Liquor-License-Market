@@ -20,18 +20,11 @@ function normalizePhone(value?: string | null) {
   return (value || "").replace(/\D/g, "");
 }
 
-const BLOCKED_NAMES = new Set([
-  "tina desanctis",
-  "tina de sanctis",
-]);
+const BLOCKED_NAMES = new Set<string>([]);
 
-const BLOCKED_BROKERAGES = new Set([
-  "confidential real estate",
-]);
+const BLOCKED_BROKERAGES = new Set<string>([]);
 
-const BLOCKED_PHONES = new Set([
-  "5614732039",
-]);
+const BLOCKED_PHONES = new Set<string>([]);
 
 export function isFllmMarketingExcluded(input: FllmMarketingIdentity) {
   const names = [
