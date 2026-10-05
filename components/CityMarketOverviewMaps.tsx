@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { FLORIDA_COUNTY_PATHS } from "@/components/FloridaCountyMap";
 import type { BusinessQuotaListing } from "@/lib/business-quota-listings";
@@ -14,6 +17,17 @@ function bandColor(count: number) {
   if (count >= 3) return "#1ca9d2";
   if (count >= 1) return "#1590be";
   return "#173752";
+}
+
+type LegendBand = 0 | 1 | 3 | 6 | 11 | 21;
+
+function bandKey(count: number): LegendBand {
+  if (count >= 21) return 21;
+  if (count >= 11) return 11;
+  if (count >= 6) return 6;
+  if (count >= 3) return 3;
+  if (count >= 1) return 1;
+  return 0;
 }
 
 function FloridaMarketMap({
@@ -35,6 +49,8 @@ function FloridaMarketMap({
   markerX: number;
   markerY: number;
 }) {
+  const [hoverBand, setHoverBand] = useState<LegendBand | null>(null);
+
   return (
     <div className="city-market-map-stage" aria-label="Florida county market map">
       <svg viewBox="90 -6 380 294" role="img" aria-label={"Florida county market map with " + county + " highlighted"}>
@@ -48,14 +64,30 @@ function FloridaMarketMap({
           const key = countyKey(item.name);
           const count = counts.get(key) ?? 0;
           const active = key === countyKey(county);
+          const highlightedByLegend = hoverBand !== null && bandKey(count) === hoverBand;
+          const dimmedByLegend = hoverBand !== null && !highlightedByLegend;
           return (
             <path
               key={item.id}
               d={item.path}
               fill={active ? "#20d4e5" : bandColor(count)}
-              stroke={active ? "#e7fdff" : "#7897b0"}
-              strokeWidth={active ? 1.9 : 0.7}
-              filter={active ? "url(#" + filterId + ")" : undefined}
+              stroke={
+                highlightedByLegend
+                  ? "#ffffff"
+                  : active
+                    ? "#e7fdff"
+                    : "#7897b0"
+              }
+              strokeWidth={highlightedByLegend ? 1.65 : active ? 1.9 : 0.7}
+              opacity={dimmedByLegend ? 0.10 : 1}
+              filter={
+                highlightedByLegend || active
+                  ? "url(#" + filterId + ")"
+                  : undefined
+              }
+              style={{
+                transition: "opacity .14s ease, stroke-width .14s ease, filter .14s ease",
+              }}
             />
           );
         })}
@@ -81,14 +113,25 @@ function FloridaMarketMap({
       <div className="city-market-map-legend">
         <strong>{title}</strong>
         {[
-          ["#173752", "0 listings"],
-          ["#1590be", "1–2 listings"],
-          ["#1ca9d2", "3–5 listings"],
-          ["#6279ea", "6–10 listings"],
-          ["#8757e9", "11–20 listings"],
-          ["#b14fe2", "21+ listings"],
-        ].map(([color, label]) => (
-          <span key={label}><i style={{ background: color }} />{label}</span>
+          ["#173752", "0 listings", 0],
+          ["#1590be", "1–2 listings", 1],
+          ["#1ca9d2", "3–5 listings", 3],
+          ["#6279ea", "6–10 listings", 6],
+          ["#8757e9", "11–20 listings", 11],
+          ["#b14fe2", "21+ listings", 21],
+        ].map(([color, label, key]) => (
+          <button
+            type="button"
+            className={"city-market-map-legend-row" + (hoverBand === key ? " is-active" : "")}
+            key={label}
+            onMouseEnter={() => setHoverBand(key as LegendBand)}
+            onMouseLeave={() => setHoverBand(null)}
+            onFocus={() => setHoverBand(key as LegendBand)}
+            onBlur={() => setHoverBand(null)}
+          >
+            <i style={{ background: color as string }} />
+            {label}
+          </button>
         ))}
       </div>
     </div>
