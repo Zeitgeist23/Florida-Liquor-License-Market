@@ -28,9 +28,9 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/restaurants-for-sale/fort-lauderdale`;
 
 export const metadata: Metadata = {
-  title: "Fort Lauderdale Restaurant With Liquor License for Sale | Broward | FLLM",
+  title: "Fort Lauderdale Restaurants for Sale | Broward Restaurant Market | FLLM",
   description:
-    "Find Fort Lauderdale restaurants for sale with liquor licenses in Broward County. Compare 4COP quota, 4COP SFS / SRX full-liquor and 2COP restaurant opportunities on FLLM.",
+    "Browse Fort Lauderdale restaurants for sale in Broward County by concept, cuisine and asking-price signal. FLLM also identifies 4COP quota, 4COP SFS / SRX and 2COP license structures.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Fort Lauderdale Restaurant With Liquor License for Sale | Broward | FLLM",
+    title: "Fort Lauderdale Restaurants for Sale | FLLM",
     description:
       "Fort Lauderdale and Broward County restaurant opportunities organized by cuisine, business type and liquor-license structure.",
     siteName: "Florida Liquor License Market",
@@ -162,10 +162,10 @@ export default async function FortLauderdaleRestaurantsForSalePage() {
             <strong>Fort Lauderdale</strong>
           </div>
           <span className="fllm-template-eyebrow">Fort Lauderdale · Broward County Restaurant Market</span>
-          <h1 className="fllm-template-hero-title">Fort Lauderdale Restaurant With Liquor License for Sale</h1>
+          <h1 className="fllm-template-hero-title">Fort Lauderdale Restaurants for Sale</h1>
           <p className="fllm-template-hero-copy">
-            Search the Fort Lauderdale restaurant-for-sale market through FLLM by restaurant concept, cuisine and
-            alcoholic-beverage license structure. FLLM connects Fort Lauderdale search demand to current Broward County
+            Search the Fort Lauderdale restaurant-for-sale market through FLLM by restaurant concept, cuisine, asking-price signal and
+            location. FLLM then adds the alcoholic-beverage license structure to current Broward County
             restaurant Market Views while keeping each listing&apos;s actual location explicit. Buyers can compare
             full-liquor opportunities, 4COP quota and 4COP SFS / SRX structures, Italian restaurant Market Views,
             and other nearby Broward County restaurant businesses.
