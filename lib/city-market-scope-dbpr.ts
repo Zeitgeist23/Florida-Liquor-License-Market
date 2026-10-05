@@ -40,11 +40,20 @@ export async function getSaintAugustineDbprMarketScope(): Promise<CityDbprMarket
   const snapshot = saintAugustineDbprSnapshot as typeof saintAugustineDbprSnapshot & {
     generatedAt?: string;
   };
+  const base = snapshot as unknown as CityDbprMarketScope;
+
+  const recategorize = (rows: CityDbprLicenseRecord[] = []) =>
+    rows.map((row) => ({
+      ...row,
+      category: categoryFor(row.dba, row.series, row.modifier),
+    }));
 
   return {
-    ...(snapshot as unknown as CityDbprMarketScope),
+    ...base,
     available: true,
     fetchedAt: snapshot.generatedAt ?? null,
+    cityEstablishments: recategorize(base.cityEstablishments ?? []),
+    cityQuotaEstablishments: recategorize(base.cityQuotaEstablishments ?? []),
   };
 }
 
@@ -91,13 +100,25 @@ function quotaClass(series: string, modifier: string): CityDbprLicenseRecord["qu
 }
 
 function categoryFor(dba: string, series: string, modifier: string) {
-  const text = dba.toUpperCase();
-  if (/LIQUOR|SPIRITS|PACKAGE|BOTTLE SHOP|WINE & SPIRITS/.test(text) || series === "3PS") return "Liquor Store";
+  const text = dba.toUpperCase().replace(/[’']/g, "");
+
+  if (
+    /LIQUOR|SPIRITS|PACKAGE|BOTTLE SHOP|WINE\s*&\s*SPIRITS|FINE WINE|LIQUORS\b/.test(text) ||
+    series === "3PS"
+  ) return "Liquor Store";
+
   if (/MARINA/.test(text)) return "Marina";
-  if (/HOTEL|MOTEL|RESORT|INN\b/.test(text)) return "Hotel / Motel";
-  if (/NIGHTCLUB|NIGHT CLUB/.test(text)) return "Nightclub";
-  if (/LOUNGE|TAVERN|PUB|SALOON|BAR\b/.test(text)) return "Bar";
-  if (/RESTAURANT|GRILL|CAFE|KITCHEN|DINER|BISTRO|STEAK|SEAFOOD|PIZZA/.test(text)) return "Restaurant";
+  if (/HOTEL|MOTEL|RESORT|INN\b|BED\s*&\s*BREAKFAST|B\s*&\s*B\b/.test(text)) return "Hotel / Motel";
+  if (/NIGHTCLUB|NIGHT CLUB|DANCE CLUB/.test(text)) return "Nightclub";
+
+  if (
+    /\bBAR\b|LOUNGE|TAVERN|\bPUB\b|PUBLIC HOUSE|SALOON|TAPROOM|TAP ROOM|COCKTAIL|BREWING|BREWERY|ALE HOUSE|SPORTS BAR/.test(text)
+  ) return "Bar";
+
+  if (
+    /RESTAURANT|GRILL|CAFE|COFFEE|KITCHEN|DINER|BISTRO|STEAK|SEAFOOD|PIZZA|PIZZERIA|TACO|BURRITO|SUSHI|DELI|EATERY|BRUNCH|BAKERY|BBQ|BAR B QUE|BAR-B-QUE|THAI|MEXICAN|ITALIAN|RAMEN|NOODLE|CHICKEN|WINGS|SANDWICH|FOOD|DINING|CUISINE|KABOB|KEBAB|HIBACHI|TERIYAKI|DONUT|ICE CREAM|CREAMERY/.test(text)
+  ) return "Restaurant";
+
   if (/COUNTRY CLUB|GOLF/.test(text)) return "Country Club";
   if (/SFS|SRX/i.test(modifier)) return "Restaurant";
   return "Other Hospitality";
