@@ -661,3 +661,37 @@
 .market-scope-detail-license-market-link{
   z-index:30;
 }
+
+
+.market-scope-detail-license-market-wrap{
+  position:relative;
+  grid-column:2;
+  justify-self:center;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.market-scope-detail-license-market-link{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  border:0;
+  border-bottom:1px solid transparent;
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  font:inherit;
+  text-decoration:none;
+}
+.market-scope-detail-license-market-link:hover,
+.market-scope-detail-license-market-link:focus-visible{
+  border-bottom-color:#fff;
+  outline:none;
+}
+.market-scope-license-market-tooltip.is-visible{
+  opacity:1;
+  visibility:visible;
+  transform:translateX(-50%) translateY(0);
+}
