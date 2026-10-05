@@ -104,6 +104,7 @@ export default function MarketIntelligenceClient() {
   const [status, setStatus] = useState("active");
   const [identityFilter, setIdentityFilter] = useState("all");
   const [selected, setSelected] = useState<RecordRow | null>(null);
+  const [detailRecord, setDetailRecord] = useState<RecordRow | null>(null);
   const [page, setPage] = useState(1);
   const [form, setForm] = useState(emptyForm);
 
@@ -237,6 +238,11 @@ export default function MarketIntelligenceClient() {
     setRecords([]);
   }
 
+  function detailValue(value: string | number | null | undefined) {
+    if (value === null || value === undefined || value === "") return "—";
+    return String(value);
+  }
+
   if (authenticated === false) {
     return <main className="intel-page"><AdminCodeLogin title="Market Intelligence Room" onAuthenticated={load} /></main>;
   }
@@ -347,7 +353,7 @@ export default function MarketIntelligenceClient() {
             <thead><tr><th>FLLM Best Guess / Confidence</th><th>County / type</th><th>License</th><th>Economics</th><th>Broker</th><th>Owner</th><th>Public records</th><th>Status</th></tr></thead>
             <tbody>
               {visibleRows.map((r) => (
-                <tr key={r.listing_reference} onClick={() => editRecord(r)}>
+                <tr key={r.listing_reference} onClick={() => setDetailRecord(r)}>
                   <td><strong>{r.business_name || "NO BEST GUESS YET"}</strong><small>{r.source_listing_title || r.listing_reference}</small><small>{r.listing_reference}</small><span className="confidence">{r.verification_status === "insufficient" ? "Reviewed — insufficient evidence" : r.identification_confidence === null ? "Needs identity research" : `${r.identification_confidence}% BEST-GUESS MATCH`}</span></td>
                   <td><strong>{r.county}</strong><small>{[r.city,r.business_type].filter(Boolean).join(" · ")}</small></td>
                   <td><strong>{r.license_type || "—"}</strong><small>{r.license_number || "License # not matched"}</small><small>{r.license_holder || ""}</small></td>
@@ -369,6 +375,104 @@ export default function MarketIntelligenceClient() {
           <button type="button" disabled={currentPage >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>Next 10</button>
         </div>
       </section>
+      {detailRecord && (
+        <div className="intel-detail-overlay" role="presentation" onClick={() => setDetailRecord(null)}>
+          <aside className="intel-detail-drawer" role="dialog" aria-modal="true" aria-label="Market intelligence record details" onClick={(e) => e.stopPropagation()}>
+            <div className="intel-detail-header">
+              <div>
+                <span>Private intelligence record</span>
+                <h2>{detailRecord.business_name || detailRecord.source_listing_title || detailRecord.listing_reference}</h2>
+                <p>{detailRecord.listing_reference}</p>
+              </div>
+              <button type="button" aria-label="Close record details" onClick={() => setDetailRecord(null)}>×</button>
+            </div>
+
+            <div className="intel-detail-section">
+              <h3>Identity</h3>
+              <dl>
+                <div><dt>FLLM best guess</dt><dd>{detailValue(detailRecord.business_name)}</dd></div>
+                <div><dt>Confidence</dt><dd>{detailRecord.identification_confidence === null ? "—" : `${detailRecord.identification_confidence}%`}</dd></div>
+                <div><dt>Verification</dt><dd>{detailValue(detailRecord.verification_status)}</dd></div>
+                <div><dt>Source ad headline</dt><dd>{detailValue(detailRecord.source_listing_title)}</dd></div>
+                <div className="wide"><dt>Identification basis</dt><dd>{detailValue(detailRecord.identification_basis)}</dd></div>
+                <div><dt>Legal entity</dt><dd>{detailValue(detailRecord.legal_entity_name)}</dd></div>
+              </dl>
+            </div>
+
+            <div className="intel-detail-section">
+              <h3>Business & Market</h3>
+              <dl>
+                <div><dt>County</dt><dd>{detailValue(detailRecord.county)}</dd></div>
+                <div><dt>City</dt><dd>{detailValue(detailRecord.city)}</dd></div>
+                <div><dt>Business type</dt><dd>{detailValue(detailRecord.business_type)}</dd></div>
+                <div><dt>Market status</dt><dd>{detailValue(detailRecord.market_status)}</dd></div>
+                <div><dt>First seen</dt><dd>{date(detailRecord.first_seen_at)}</dd></div>
+                <div><dt>Last seen</dt><dd>{date(detailRecord.last_seen_at)}</dd></div>
+              </dl>
+            </div>
+
+            <div className="intel-detail-section">
+              <h3>Liquor License</h3>
+              <dl>
+                <div><dt>License type</dt><dd>{detailValue(detailRecord.license_type)}</dd></div>
+                <div><dt>License number</dt><dd>{detailValue(detailRecord.license_number)}</dd></div>
+                <div className="wide"><dt>License holder</dt><dd>{detailValue(detailRecord.license_holder)}</dd></div>
+                <div><dt>FLLM Est. License Value</dt><dd>{money(detailRecord.fllm_est_license_value)}</dd></div>
+              </dl>
+            </div>
+
+            <div className="intel-detail-section">
+              <h3>Economics</h3>
+              <dl>
+                <div><dt>Asking price</dt><dd>{money(detailRecord.asking_price)}</dd></div>
+                <div><dt>Gross revenue</dt><dd>{money(detailRecord.gross_revenue)}</dd></div>
+                <div><dt>SDE / Cash flow</dt><dd>{money(detailRecord.sde_cash_flow)}</dd></div>
+              </dl>
+            </div>
+
+            <div className="intel-detail-section">
+              <h3>Broker</h3>
+              <dl>
+                <div><dt>Name</dt><dd>{detailValue(detailRecord.broker_name)}</dd></div>
+                <div><dt>Brokerage</dt><dd>{detailValue(detailRecord.brokerage)}</dd></div>
+                <div><dt>Phone</dt><dd>{detailRecord.broker_phone ? <a href={tel(detailRecord.broker_phone)}>{detailRecord.broker_phone}</a> : "—"}</dd></div>
+                <div><dt>Email</dt><dd>{detailRecord.broker_email ? <a href={`mailto:${detailRecord.broker_email}`}>{detailRecord.broker_email}</a> : "—"}</dd></div>
+              </dl>
+            </div>
+
+            <div className="intel-detail-section">
+              <h3>Owner / Principal</h3>
+              <dl>
+                <div><dt>Name</dt><dd>{detailValue(detailRecord.owner_name)}</dd></div>
+                <div><dt>Phone</dt><dd>{detailRecord.owner_phone ? <a href={tel(detailRecord.owner_phone)}>{detailRecord.owner_phone}</a> : "—"}</dd></div>
+                <div className="wide"><dt>Email</dt><dd>{detailRecord.owner_email ? <a href={`mailto:${detailRecord.owner_email}`}>{detailRecord.owner_email}</a> : "—"}</dd></div>
+              </dl>
+            </div>
+
+            <div className="intel-detail-section">
+              <h3>Public Records & Sources</h3>
+              <div className="intel-detail-links">
+                {detailRecord.source_listing_url && <a href={detailRecord.source_listing_url} target="_blank" rel="noreferrer">Open Sale Listing</a>}
+                {detailRecord.dbpr_url && <a href={detailRecord.dbpr_url} target="_blank" rel="noreferrer">Open DBPR / ABT</a>}
+                {detailRecord.sunbiz_url && <a href={detailRecord.sunbiz_url} target="_blank" rel="noreferrer">Open Sunbiz</a>}
+                {detailRecord.property_url && <a href={detailRecord.property_url} target="_blank" rel="noreferrer">Open County Record</a>}
+              </div>
+            </div>
+
+            {detailRecord.notes && (
+              <div className="intel-detail-section">
+                <h3>Private Notes</h3>
+                <p className="intel-detail-notes">{detailRecord.notes}</p>
+              </div>
+            )}
+
+            <div className="intel-detail-actions">
+              <button type="button" onClick={() => { const row = detailRecord; setDetailRecord(null); editRecord(row); }}>Edit Record</button>
+              <button type="button" className="secondary" onClick={() => setDetailRecord(null)}>Close</button>
+            </div>
+          </aside>
+        </div>
+      )}
     </main>
   );
 }
