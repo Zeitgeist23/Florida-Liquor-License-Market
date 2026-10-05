@@ -240,7 +240,7 @@ export default function MarketScopeEstablishmentTable({
             <div className="market-scope-detail-grid">
               <div><span>Business Type</span><strong>{selectedRow.category}</strong></div>
               <div><span>License Type</span><strong>{displayLicense(selectedRow)}</strong></div>
-              <div><span>DBPR Licensee / Public-Record Entity</span><strong>{selectedRow.licensee}</strong></div>
+              <div className="span-2"><span>DBPR Licensee / Public-Record Entity</span><strong>{selectedRow.licensee}</strong></div>
               <div><span>Status</span><strong>{selectedRow.active ? "Active" : "Inactive"}</strong></div>
               <div className="wide"><span>Business Address</span><strong>{selectedRow.address}{selectedRow.zip ? ` · ${selectedRow.zip}` : ""}</strong></div>
               <div><span>City</span><strong>{selectedRow.city || "—"}</strong></div>
@@ -248,7 +248,7 @@ export default function MarketScopeEstablishmentTable({
               <div><span>Modifier</span><strong>{selectedRow.modifier || "None"}</strong></div>
               <div><span>Primary Status</span><strong>{selectedRow.primaryStatus || "—"}</strong></div>
               <div><span>Secondary Status</span><strong>{selectedRow.secondaryStatus || "—"}</strong></div>
-              <div className="wide"><span>Public Property Match</span><strong>Pending</strong></div>
+              <div><span>Property Match</span><strong>Pending</strong></div>
             </div>
           </section>
         </div>
