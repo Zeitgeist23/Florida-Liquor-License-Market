@@ -39,3 +39,161 @@ export type CityDbprMarketScope = {
 export async function getSaintAugustineDbprMarketScope(): Promise<CityDbprMarketScope> {
   return saintAugustineDbprSnapshot as unknown as CityDbprMarketScope;
 }
+
+const DBPR_RETAIL_EXTRACT =
+  "https://www2.myfloridalicense.com/sto/file_download/extracts/bd4006lic.csv";
+
+function parseCsvRow(line: string) {
+  const cells: string[] = [];
+  let cell = "";
+  let quoted = false;
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (quoted && line[i + 1] === '"') {
+        cell += '"';
+        i += 1;
+      } else {
+        quoted = !quoted;
+      }
+    } else if (ch === "," && !quoted) {
+      cells.push(cell);
+      cell = "";
+    } else {
+      cell += ch;
+    }
+  }
+  cells.push(cell.replace(/\r$/, ""));
+  return cells;
+}
+
+function isSpecial4cop(modifier: string) {
+  return modifier.trim().length > 0;
+}
+
+function isSfs4cop(modifier: string) {
+  return /^(SFS|SRX)$/i.test(modifier.trim());
+}
+
+function quotaClass(series: string, modifier: string): CityDbprLicenseRecord["quotaClass"] {
+  const normalizedSeries = series.trim().toUpperCase();
+  if (normalizedSeries === "4COP" && !isSpecial4cop(modifier)) return "4COP Quota";
+  if (normalizedSeries === "3PS") return "3PS Quota";
+  return null;
+}
+
+function categoryFor(dba: string, series: string, modifier: string) {
+  const text = dba.toUpperCase();
+  if (/LIQUOR|SPIRITS|PACKAGE|BOTTLE SHOP|WINE & SPIRITS/.test(text) || series === "3PS") return "Liquor Store";
+  if (/MARINA/.test(text)) return "Marina";
+  if (/HOTEL|MOTEL|RESORT|INN\b/.test(text)) return "Hotel / Motel";
+  if (/NIGHTCLUB|NIGHT CLUB/.test(text)) return "Nightclub";
+  if (/LOUNGE|TAVERN|PUB|SALOON|BAR\b/.test(text)) return "Bar";
+  if (/RESTAURANT|GRILL|CAFE|KITCHEN|DINER|BISTRO|STEAK|SEAFOOD|PIZZA/.test(text)) return "Restaurant";
+  if (/COUNTRY CLUB|GOLF/.test(text)) return "Country Club";
+  if (/SFS|SRX/i.test(modifier)) return "Restaurant";
+  return "Other Hospitality";
+}
+
+function unavailableScope(): CityDbprMarketScope {
+  return {
+    available: false,
+    fetchedAt: null,
+    countyTotalRetailLicenses: null,
+    cityTotalRetailLicenses: null,
+    county4copInEffect: null,
+    county4copInUse: null,
+    county4copInactive: null,
+    county3psInEffect: null,
+    county3psInUse: null,
+    county3psInactive: null,
+    city4copInUse: null,
+    city3psInUse: null,
+    citySfsInUse: null,
+    city2copInUse: null,
+    cityEstablishments: [],
+    cityQuotaEstablishments: [],
+  };
+}
+
+export async function getTampaDbprMarketScope(): Promise<CityDbprMarketScope> {
+  try {
+    const response = await fetch(DBPR_RETAIL_EXTRACT, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 FLLM-Market-Scope/1.0",
+        Accept: "text/csv,*/*",
+      },
+      next: { revalidate: 86_400 },
+    });
+    if (!response.ok) return unavailableScope();
+
+    const csv = await response.text();
+    const countyRows: CityDbprLicenseRecord[] = [];
+    const cityRows: CityDbprLicenseRecord[] = [];
+
+    for (const line of csv.split(/\n/)) {
+      if (!line.trim()) continue;
+      const row = parseCsvRow(line);
+      if (row.length < 23) continue;
+
+      const countyCode = String(row[19] || row[11] || "").trim();
+      if (countyCode !== "39") continue;
+
+      const series = String(row[3] || "").trim().toUpperCase();
+      const modifier = String(row[4] || "").trim().toUpperCase();
+      const city = String(row[16] || "").trim();
+      const secondaryStatus = String(row[22] || "").trim();
+      const record: CityDbprLicenseRecord = {
+        licenseNumber: String(row[20] || "").trim(),
+        licensee: String(row[2] || "").trim() || "Not listed",
+        dba: String(row[12] || "").trim() || "Not listed",
+        series,
+        modifier,
+        city,
+        address: [row[13], row[14], row[15]].filter(Boolean).join(" ").trim(),
+        zip: String(row[18] || "").trim(),
+        primaryStatus: String(row[21] || "").trim(),
+        secondaryStatus,
+        active: secondaryStatus === "20",
+        quotaClass: quotaClass(series, modifier),
+        category: categoryFor(String(row[12] || "").trim(), series, modifier),
+      };
+
+      countyRows.push(record);
+      if (/^TAMPA$/i.test(city)) cityRows.push(record);
+    }
+
+    const county4cop = countyRows.filter((record) => record.quotaClass === "4COP Quota");
+    const county3ps = countyRows.filter((record) => record.quotaClass === "3PS Quota");
+    const cityActive = cityRows.filter((record) => record.active);
+    const city4cop = cityActive.filter((record) => record.quotaClass === "4COP Quota");
+    const city3ps = cityActive.filter((record) => record.quotaClass === "3PS Quota");
+    const citySfs = cityActive.filter(
+      (record) => record.series === "4COP" && isSfs4cop(record.modifier),
+    );
+    const city2cop = cityActive.filter((record) => record.series === "2COP");
+
+    return {
+      available: true,
+      fetchedAt: new Date().toISOString(),
+      countyTotalRetailLicenses: countyRows.length,
+      cityTotalRetailLicenses: cityActive.length,
+      county4copInEffect: county4cop.length,
+      county4copInUse: county4cop.filter((record) => record.active).length,
+      county4copInactive: county4cop.filter((record) => !record.active).length,
+      county3psInEffect: county3ps.length,
+      county3psInUse: county3ps.filter((record) => record.active).length,
+      county3psInactive: county3ps.filter((record) => !record.active).length,
+      city4copInUse: city4cop.length,
+      city3psInUse: city3ps.length,
+      citySfsInUse: citySfs.length,
+      city2copInUse: city2cop.length,
+      cityEstablishments: cityActive.sort((a, b) => a.dba.localeCompare(b.dba)),
+      cityQuotaEstablishments: [...city4cop, ...city3ps].sort((a, b) =>
+        a.dba.localeCompare(b.dba),
+      ),
+    };
+  } catch {
+    return unavailableScope();
+  }
+}
