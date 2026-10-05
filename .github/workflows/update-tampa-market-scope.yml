@@ -1,0 +1,38 @@
+name: Update Tampa Market Scope
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/update-tampa-market-scope.yml"
+      - "scripts/update-tampa-market-scope.mjs"
+  schedule:
+    - cron: "27 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Refresh Tampa DBPR snapshot
+        run: node scripts/update-tampa-market-scope.mjs
+      - name: Commit snapshot if changed
+        run: |
+          if git diff --quiet -- data/market-scope/tampa-dbpr.json; then
+            echo "No Tampa DBPR snapshot changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/market-scope/tampa-dbpr.json
+          git commit -m "Refresh Tampa DBPR Market Scope snapshot"
+          git pull --rebase origin main
+          git push
