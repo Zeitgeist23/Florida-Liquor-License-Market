@@ -370,7 +370,8 @@ export default async function RestaurantsWithLiquorLicensesPage() {
           pointer-events: none;
           background-image: url("/assets/florida-restaurants-oceanfront-exact.webp");
           background-size: cover;
-          background-position: 58% 50%;
+          background-position: 64% 50%;
+          filter: contrast(1.10) saturate(1.08) brightness(1.04);
           background-repeat: no-repeat;
         }
         .florida-restaurants-hero__overlay {
@@ -382,12 +383,12 @@ export default async function RestaurantsWithLiquorLicensesPage() {
               90deg,
               #061a2a 0%,
               #061a2a 31%,
-              rgba(6,26,42,.97) 40%,
-              rgba(6,26,42,.84) 50%,
-              rgba(6,26,42,.60) 60%,
-              rgba(6,26,42,.32) 70%,
-              rgba(6,26,42,.10) 79%,
-              rgba(6,26,42,0) 88%
+              rgba(6,26,42,.95) 38%,
+              rgba(6,26,42,.76) 47%,
+              rgba(6,26,42,.48) 57%,
+              rgba(6,26,42,.20) 67%,
+              rgba(6,26,42,.05) 75%,
+              rgba(6,26,42,0) 82%
             );
         }
         @media (max-width: 900px) {
@@ -416,13 +417,13 @@ export default async function RestaurantsWithLiquorLicensesPage() {
           <span className="fllm-template-eyebrow">Florida Restaurant Market</span>
           <h1
             className="fllm-template-hero-title"
-            style={{ fontSize: "clamp(36px, 3.55vw, 58px)", lineHeight: 1.0, maxWidth: "820px" }}
+            style={{ fontSize: "clamp(36px, 3.55vw, 58px)", lineHeight: 1.0, maxWidth: "790px" }}
           >
             Florida Restaurants for Sale
           </h1>
           <p
             className="fllm-template-hero-copy"
-            style={{ fontSize: "clamp(15px, 1vw, 17px)", lineHeight: 1.52, maxWidth: "760px" }}
+            style={{ fontSize: "clamp(15px, 1vw, 17px)", lineHeight: 1.52, maxWidth: "700px" }}
           >
             Browse Florida restaurants and restaurant/bar businesses for sale by city, county, cuisine and asking-price signal. FLLM adds liquor-license intelligence to the broader restaurant-for-sale market by identifying transferable 4COP quota licenses, location-specific 4COP SFS / SRX privileges and 2COP beer-and-wine licenses separately.
           </p>
