@@ -191,3 +191,37 @@
   .market-scope-table-row{grid-template-columns:1fr}
   .market-scope-table-row>div{text-align:left}
 }
+
+/* Center Market Scope intro + two primary overview cards */
+.market-scope-heading{
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
+.market-scope-heading>span,
+.market-scope-heading h2,
+.market-scope-heading p{
+  text-align:center;
+}
+.market-scope-overview-card{
+  text-align:center;
+}
+.market-scope-overview-card>span,
+.market-scope-overview-card h3{
+  text-align:center;
+}
+.market-scope-overview-card ul{
+  justify-items:center;
+}
+.market-scope-overview-card li{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding-left:0;
+  text-align:center;
+}
+.market-scope-overview-card li::before{
+  position:static;
+  flex:0 0 7px;
+}
