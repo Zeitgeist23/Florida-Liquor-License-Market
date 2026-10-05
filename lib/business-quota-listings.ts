@@ -2831,7 +2831,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     featured: false,
     listingTier: "market",
     sourceVerification: "discovery_only",
-    publicationStatus: "published",
+    publicationStatus: "preview",
     classification: "business_package",
   },
   {
@@ -2858,7 +2858,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     featured: false,
     listingTier: "market",
     sourceVerification: "discovery_only",
-    publicationStatus: "published",
+    publicationStatus: "preview",
     classification: "business_package",
   },
   {
