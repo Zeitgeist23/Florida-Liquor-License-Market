@@ -159,11 +159,68 @@ export default function CityMarketScope(props: Props) {
             <p>Search and filter the full City of {props.city} operating-license dataset by business type, license type, DBA, legal entity or license number.</p>
           </div>
 
+          <style>{`
+            .market-scope-license-summary .market-scope-license-card{
+              position:relative;
+              overflow:hidden;
+              border:1px solid rgba(124,230,255,.62) !important;
+              background:
+                linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,0) 34%),
+                linear-gradient(145deg,#114b76 0%,#0b3557 58%,#071f35 100%) !important;
+              box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.16),
+                inset 0 -2px 0 rgba(0,0,0,.34),
+                0 3px 0 rgba(2,12,22,.55),
+                0 12px 24px rgba(0,0,0,.26) !important;
+              transform:translateY(0) scale(1);
+              transition:
+                transform .18s ease,
+                border-color .18s ease,
+                box-shadow .18s ease,
+                filter .18s ease,
+                background .18s ease !important;
+            }
+            .market-scope-license-summary .market-scope-license-card::before{
+              content:"";
+              position:absolute;
+              inset:0;
+              pointer-events:none;
+              opacity:.42;
+              background:
+                radial-gradient(circle at 50% 0%,rgba(124,230,255,.19),transparent 52%);
+              transition:opacity .18s ease;
+            }
+            .market-scope-license-summary .market-scope-license-card:hover{
+              transform:translateY(-5px) scale(1.035) !important;
+              border-color:#8ff0ff !important;
+              filter:brightness(1.16) saturate(1.08);
+              background:
+                linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,0) 36%),
+                linear-gradient(145deg,#17618d 0%,#0e446b 58%,#092b48 100%) !important;
+              box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.22),
+                inset 0 -2px 0 rgba(0,0,0,.28),
+                0 4px 0 rgba(2,12,22,.5),
+                0 18px 34px rgba(0,0,0,.32),
+                0 0 30px rgba(105,214,255,.30) !important;
+            }
+            .market-scope-license-summary .market-scope-license-card:hover::before{
+              opacity:.9;
+            }
+            .market-scope-license-summary .market-scope-license-card:hover span{
+              color:#e0fbff !important;
+              text-shadow:0 0 12px rgba(105,214,255,.65);
+            }
+            .market-scope-license-summary .market-scope-license-card:hover strong{
+              color:#fff !important;
+              text-shadow:0 0 12px rgba(255,255,255,.3);
+            }
+          `}</style>
           <div className="market-scope-license-summary">
-            <article><span>4COP Quota</span><strong>{props.dbpr.city4copInUse ?? "—"}</strong></article>
-            <article><span>3PS Quota</span><strong>{props.dbpr.city3psInUse ?? "—"}</strong></article>
-            <article><span>4COP SFS / SRX</span><strong>{props.dbpr.citySfsInUse ?? "—"}</strong></article>
-            <article><span>2COP</span><strong>{props.dbpr.city2copInUse ?? "—"}</strong></article>
+            <article className="market-scope-license-card"><span>4COP Quota</span><strong>{props.dbpr.city4copInUse ?? "—"}</strong></article>
+            <article className="market-scope-license-card"><span>3PS Quota</span><strong>{props.dbpr.city3psInUse ?? "—"}</strong></article>
+            <article className="market-scope-license-card"><span>4COP SFS / SRX</span><strong>{props.dbpr.citySfsInUse ?? "—"}</strong></article>
+            <article className="market-scope-license-card"><span>2COP</span><strong>{props.dbpr.city2copInUse ?? "—"}</strong></article>
           </div>
 
           <MarketScopeEstablishmentTable rows={props.dbpr.cityEstablishments ?? props.dbpr.cityQuotaEstablishments} />
