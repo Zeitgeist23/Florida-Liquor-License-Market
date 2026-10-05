@@ -102,6 +102,7 @@ export default function MarketIntelligenceClient() {
   const [county, setCounty] = useState("all");
   const [license, setLicense] = useState("all");
   const [status, setStatus] = useState("active");
+  const [identityFilter, setIdentityFilter] = useState("all");
   const [selected, setSelected] = useState<RecordRow | null>(null);
   const [form, setForm] = useState(emptyForm);
 
@@ -137,13 +138,15 @@ export default function MarketIntelligenceClient() {
       if (county !== "all" && r.county !== county) return false;
       if (license !== "all" && r.license_type !== license) return false;
       if (status !== "all" && r.market_status !== status) return false;
+      if (identityFilter === "identified" && !r.business_name) return false;
+      if (identityFilter === "needs-research" && r.business_name) return false;
       if (!q) return true;
       return [
         r.business_name,r.source_listing_title,r.identification_basis,r.legal_entity_name,r.city,r.county,r.business_type,r.license_type,r.license_number,
         r.broker_name,r.brokerage,r.broker_phone,r.owner_name,r.owner_phone,r.listing_reference,
       ].some((value) => (value || "").toLowerCase().includes(q));
     });
-  }, [records, query, county, license, status]);
+  }, [records, query, county, license, status, identityFilter]);
 
   const stats = useMemo(() => ({
     total: records.length,
@@ -319,13 +322,13 @@ export default function MarketIntelligenceClient() {
       <section className="intel-database">
         <div className="intel-toolbar">
           <div>
-            <span>Private inventory</span>
+            <span>{identityFilter === "needs-research" ? "Needs Identity Research Queue" : identityFilter === "identified" ? "Identified Businesses" : "Private inventory — identified businesses first"}</span>
             <strong>{filtered.length} records shown</strong>
           </div>
           <input aria-label="Search intelligence records" placeholder="Search business, owner, broker, phone, license #…" value={query} onChange={(e) => setQuery(e.target.value)} />
           <select value={county} onChange={(e) => setCounty(e.target.value)}><option value="all">All counties</option>{counties.map((x) => <option key={x}>{x}</option>)}</select>
           <select value={license} onChange={(e) => setLicense(e.target.value)}><option value="all">All license types</option>{licenseTypes.map((x) => <option key={x}>{x}</option>)}</select>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}><option value="all">All statuses</option><option value="active">Active</option><option value="unknown">Unknown</option><option value="pending">Pending</option><option value="sold">Sold</option><option value="removed">Removed</option><option value="withdrawn">Withdrawn</option><option value="preview">Preview</option></select>
+          <select value={identityFilter} onChange={(e) => setIdentityFilter(e.target.value)}><option value="all">Identified first</option><option value="identified">Best guesses only</option><option value="needs-research">Needs identity research</option></select><select value={status} onChange={(e) => setStatus(e.target.value)}><option value="all">All statuses</option><option value="active">Active</option><option value="unknown">Unknown</option><option value="pending">Pending</option><option value="sold">Sold</option><option value="removed">Removed</option><option value="withdrawn">Withdrawn</option><option value="preview">Preview</option></select>
         </div>
 
         <div className="intel-table-wrap">
