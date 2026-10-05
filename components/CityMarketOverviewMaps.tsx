@@ -59,12 +59,13 @@ function FloridaMarketMap({
         })}
         <g transform={"translate(" + markerX + " " + markerY + ")"} filter={"url(#" + filterId + ")"}>
           <path
-            d="M0,-11 C-6.6,-11 -12,-5.6 -12,1 C-12,9 0,22 0,22 C0,22 12,9 12,1 C12,-5.6 6.6,-11 0,-11 Z"
+            d="M0,-16 C-7.2,-16 -13,-10.2 -13,-3 C-13,7.2 -4.2,17.8 0,24 C4.2,17.8 13,7.2 13,-3 C13,-10.2 7.2,-16 0,-16 Z"
             fill="#e53935"
             stroke="#ffffff"
             strokeWidth="2.2"
+            strokeLinejoin="round"
           />
-          <circle cx="0" cy="0" r="4.2" fill="#ffffff" />
+          <circle cx="0" cy="-3" r="4.2" fill="#ffffff" />
         </g>
       </svg>
 
