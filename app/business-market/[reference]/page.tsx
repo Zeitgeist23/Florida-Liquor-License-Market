@@ -237,7 +237,7 @@ function categoryMarketHub(listing: BusinessQuotaListing) {
   if (listing.businessCategory === "Nightclub") {
     return {
       href: "/nightclubs-for-sale-with-liquor-licenses",
-      label: "Florida nightclubs with full liquor for sale",
+      label: "Florida Nightclubs for Sale",
     };
   }
 
