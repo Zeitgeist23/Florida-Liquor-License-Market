@@ -174,6 +174,9 @@ const snapshot = {
   city3psInUse: city3ps.length,
   citySfsInUse: citySfs.length,
   city2copInUse: city2cop.length,
+  cityEstablishments: cityRows
+    .filter((r) => r.active)
+    .sort((a, b) => a.dba.localeCompare(b.dba)),
   cityQuotaEstablishments: [...city4cop, ...city3ps].sort((a, b) => a.dba.localeCompare(b.dba)),
 };
 
@@ -186,5 +189,6 @@ console.log(JSON.stringify({
   county4copInUse: snapshot.county4copInUse,
   county3psInEffect: snapshot.county3psInEffect,
   county3psInUse: snapshot.county3psInUse,
+  cityEstablishments: snapshot.cityEstablishments.length,
   cityQuotaEstablishments: snapshot.cityQuotaEstablishments.length,
 }, null, 2));
