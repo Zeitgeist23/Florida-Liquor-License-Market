@@ -229,14 +229,15 @@ export default function CityMarketScope(props: Props) {
               text-shadow:0 0 12px rgba(255,255,255,.3);
             }
           `}</style>
-          <div className="market-scope-license-summary">
-            <article className="market-scope-license-card"><span>4COP Quota</span><strong>{props.dbpr.city4copInUse ?? "—"}</strong></article>
-            <article className="market-scope-license-card"><span>3PS Quota</span><strong>{props.dbpr.city3psInUse ?? "—"}</strong></article>
-            <article className="market-scope-license-card"><span>4COP SFS / SRX</span><strong>{props.dbpr.citySfsInUse ?? "—"}</strong></article>
-            <article className="market-scope-license-card"><span>2COP</span><strong>{props.dbpr.city2copInUse ?? "—"}</strong></article>
-          </div>
-
-          <MarketScopeEstablishmentTable rows={props.dbpr.cityEstablishments ?? props.dbpr.cityQuotaEstablishments} />
+          <MarketScopeEstablishmentTable
+            rows={props.dbpr.cityEstablishments ?? props.dbpr.cityQuotaEstablishments}
+            summaryCounts={{
+              fourCopQuota: props.dbpr.city4copInUse ?? 0,
+              threePsQuota: props.dbpr.city3psInUse ?? 0,
+              sfs: props.dbpr.citySfsInUse ?? 0,
+              twoCop: props.dbpr.city2copInUse ?? 0,
+            }}
+          />
         </section>
 
         <section className="market-scope-panel market-scope-context">
