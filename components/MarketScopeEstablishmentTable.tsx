@@ -416,43 +416,43 @@ export default function MarketScopeEstablishmentTable({
 
             <span className="market-scope-detail-eyebrow">Establishment Record</span>
             <h3 id="market-scope-detail-title">{selectedRow.dba}</h3>
-            <div className="market-scope-detail-license-number">
-              <span>License Number</span>
-              {(() => {
-                const market = selectedStandaloneMarket(selectedRow);
-                return (
+            {(() => {
+              const market = selectedStandaloneMarket(selectedRow);
+              return (
+                <div
+                  className={"market-scope-detail-license-number market-scope-detail-license-number--interactive" + (licenseMarketOpen ? " is-hovered" : "")}
+                  role="link"
+                  tabIndex={0}
+                  aria-describedby="market-scope-license-market-tooltip"
+                  onMouseEnter={() => setLicenseMarketOpen(true)}
+                  onMouseLeave={() => setLicenseMarketOpen(false)}
+                  onFocus={() => setLicenseMarketOpen(true)}
+                  onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                      setLicenseMarketOpen(false);
+                    }
+                  }}
+                  onClick={(event) => {
+                    if ((event.target as HTMLElement).closest(".market-scope-detail-copy-button")) return;
+                    window.location.assign(market.href);
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      window.location.assign(market.href);
+                    }
+                  }}
+                >
+                  <span>License Number</span>
                   <div className="market-scope-detail-license-copy-row">
-                    <div className="market-scope-detail-license-market-wrap">
-                      <button
-                        type="button"
-                        className="market-scope-detail-license-market-link"
-                        aria-describedby="market-scope-license-market-tooltip"
-                        onMouseEnter={() => setLicenseMarketOpen(true)}
-                        onMouseLeave={() => setLicenseMarketOpen(false)}
-                        onFocus={() => setLicenseMarketOpen(true)}
-                        onBlur={() => setLicenseMarketOpen(false)}
-                        onClick={() => window.location.assign(market.href)}
-                      >
-                        <strong>{selectedRow.licenseNumber}</strong>
-                      </button>
-                      <span
-                        className={"market-scope-license-market-tooltip" + (licenseMarketOpen ? " is-visible" : "")}
-                        id="market-scope-license-market-tooltip"
-                        role="tooltip"
-                      >
-                        <b>{market.count}</b> {market.label} currently for sale
-                        <br />
-                        FLLM Est. median value: <b>{money(market.median)}</b>
-                        {market.proxy ? <><br /><small>3PS estimate uses FLLM&apos;s 98.5% matched-market proxy from the county 4COP median.</small></> : null}
-                        {market.nonQuotaContext ? <><br /><small>This license is non-quota; the figure shown is county quota-market context, not a value estimate for this license.</small></> : null}
-                        <br />
-                        <small>Click the license number to view standalone listings.</small>
-                      </span>
-                    </div>
+                    <strong className="market-scope-detail-license-value">{selectedRow.licenseNumber}</strong>
                     <button
                       type="button"
                       className="market-scope-detail-copy-button"
-                      onClick={() => void copyLicenseNumber(selectedRow.licenseNumber)}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        void copyLicenseNumber(selectedRow.licenseNumber);
+                      }}
                       aria-label="Copy license number"
                       title="Copy license number"
                     >
@@ -465,9 +465,23 @@ export default function MarketScopeEstablishmentTable({
                       Copied
                     </span>
                   </div>
-                );
-              })()}
-            </div>
+
+                  <span
+                    className={"market-scope-license-market-tooltip" + (licenseMarketOpen ? " is-visible" : "")}
+                    id="market-scope-license-market-tooltip"
+                    role="tooltip"
+                  >
+                    <b>{market.count}</b> {market.label} currently for sale
+                    <br />
+                    FLLM Est. median value: <b>{money(market.median)}</b>
+                    {market.proxy ? <><br /><small>3PS estimate uses FLLM&apos;s 98.5% matched-market proxy from the county 4COP median.</small></> : null}
+                    {market.nonQuotaContext ? <><br /><small>This license is non-quota; the figure shown is county quota-market context, not a value estimate for this license.</small></> : null}
+                    <br />
+                    <small>Click anywhere in this license box to view standalone listings.</small>
+                  </span>
+                </div>
+              );
+            })()}
 
             <div className="market-scope-detail-grid">
               <div><span>Business Type</span><strong>{selectedRow.category}</strong></div>
