@@ -239,44 +239,44 @@ export default function MarketScopeEstablishmentTable({
   function selectedStandaloneMarket(row: EstablishmentRow) {
     if (!standaloneMarket) {
       return {
+        interactive: false,
         count: 0,
         median: null as number | null,
-        label: "Standalone quota licenses",
-        href: "/listings#listing-results",
+        label: "",
+        href: "",
         proxy: false,
-        nonQuotaContext: false,
       };
     }
 
     if (row.quotaClass === "4COP Quota") {
       return {
+        interactive: true,
         count: standaloneMarket.fourCopCount,
         median: standaloneMarket.fourCopMedian,
-        label: "4COP Quota licenses",
+        label: `${standaloneMarket.county} 4COP Quota market`,
         href: `/listings?county=${encodeURIComponent(standaloneMarket.county)}&type=4COP+Quota#listing-results`,
         proxy: false,
-        nonQuotaContext: false,
       };
     }
 
     if (row.quotaClass === "3PS Quota") {
       return {
+        interactive: true,
         count: standaloneMarket.threePsCount,
         median: standaloneMarket.threePsMedian,
-        label: "3PS Quota licenses",
+        label: `${standaloneMarket.county} 3PS Quota market`,
         href: `/listings?county=${encodeURIComponent(standaloneMarket.county)}&type=3PS+Quota+%2F+Package+Store#listing-results`,
         proxy: standaloneMarket.threePsMedianIsProxy ?? false,
-        nonQuotaContext: false,
       };
     }
 
     return {
-      count: standaloneMarket.totalCount,
-      median: standaloneMarket.overallMedian,
-      label: `standalone quota licenses in ${standaloneMarket.county}`,
-      href: `/listings?county=${encodeURIComponent(standaloneMarket.county)}#listing-results`,
+      interactive: false,
+      count: 0,
+      median: null as number | null,
+      label: "",
+      href: "",
       proxy: false,
-      nonQuotaContext: true,
     };
   }
 
@@ -418,25 +418,35 @@ export default function MarketScopeEstablishmentTable({
             <h3 id="market-scope-detail-title">{selectedRow.dba}</h3>
             {(() => {
               const market = selectedStandaloneMarket(selectedRow);
+              const interactive = market.interactive;
               return (
                 <div
-                  className={"market-scope-detail-license-number market-scope-detail-license-number--interactive" + (licenseMarketOpen ? " is-hovered" : "")}
-                  role="link"
-                  tabIndex={0}
-                  aria-describedby="market-scope-license-market-tooltip"
-                  onMouseEnter={() => setLicenseMarketOpen(true)}
-                  onMouseLeave={() => setLicenseMarketOpen(false)}
-                  onFocus={() => setLicenseMarketOpen(true)}
+                  className={
+                    "market-scope-detail-license-number" +
+                    (interactive ? " market-scope-detail-license-number--interactive" : "") +
+                    (interactive && licenseMarketOpen ? " is-hovered" : "")
+                  }
+                  role={interactive ? "link" : undefined}
+                  tabIndex={interactive ? 0 : undefined}
+                  aria-describedby={interactive ? "market-scope-license-market-tooltip" : undefined}
+                  onMouseEnter={() => { if (interactive) setLicenseMarketOpen(true); }}
+                  onMouseLeave={() => { if (interactive) setLicenseMarketOpen(false); }}
+                  onFocus={() => { if (interactive) setLicenseMarketOpen(true); }}
                   onBlur={(event) => {
-                    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                    if (
+                      interactive &&
+                      !event.currentTarget.contains(event.relatedTarget as Node | null)
+                    ) {
                       setLicenseMarketOpen(false);
                     }
                   }}
                   onClick={(event) => {
+                    if (!interactive) return;
                     if ((event.target as HTMLElement).closest(".market-scope-detail-copy-button")) return;
                     window.location.assign(market.href);
                   }}
                   onKeyDown={(event) => {
+                    if (!interactive) return;
                     if (event.key === "Enter" || event.key === " ") {
                       event.preventDefault();
                       window.location.assign(market.href);
@@ -466,19 +476,21 @@ export default function MarketScopeEstablishmentTable({
                     </span>
                   </div>
 
-                  <span
-                    className={"market-scope-license-market-tooltip" + (licenseMarketOpen ? " is-visible" : "")}
-                    id="market-scope-license-market-tooltip"
-                    role="tooltip"
-                  >
-                    <b>{market.count}</b> {market.label} currently for sale
-                    <br />
-                    FLLM Est. median value: <b>{money(market.median)}</b>
-                    {market.proxy ? <><br /><small>3PS estimate uses FLLM&apos;s 98.5% matched-market proxy from the county 4COP median.</small></> : null}
-                    {market.nonQuotaContext ? <><br /><small>This license is non-quota; the figure shown is county quota-market context, not a value estimate for this license.</small></> : null}
-                    <br />
-                    <small>Click anywhere in this license box to view standalone listings.</small>
-                  </span>
+                  {interactive ? (
+                    <span
+                      className={"market-scope-license-market-tooltip" + (licenseMarketOpen ? " is-visible" : "")}
+                      id="market-scope-license-market-tooltip"
+                      role="tooltip"
+                    >
+                      <strong>{market.label}</strong>
+                      <span><b>{market.count}</b> standalone license{market.count === 1 ? "" : "s"} currently for sale</span>
+                      <span>FLLM Est. median value: <b>{money(market.median)}</b></span>
+                      {market.proxy ? (
+                        <small>3PS estimate uses FLLM&apos;s 98.5% matched-market proxy from the county 4COP median.</small>
+                      ) : null}
+                      <small>Click the license box to view standalone listings.</small>
+                    </span>
+                  ) : null}
                 </div>
               );
             })()}
