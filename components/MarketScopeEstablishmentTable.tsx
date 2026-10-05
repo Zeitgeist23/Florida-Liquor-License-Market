@@ -36,8 +36,15 @@ function displayLicense(row: EstablishmentRow) {
 
 export default function MarketScopeEstablishmentTable({
   rows,
+  summaryCounts,
 }: {
   rows: EstablishmentRow[];
+  summaryCounts?: {
+    fourCopQuota: number;
+    threePsQuota: number;
+    sfs: number;
+    twoCop: number;
+  };
 }) {
   const [sortKey, setSortKey] = useState<SortKey>("dba");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
@@ -105,8 +112,32 @@ export default function MarketScopeEstablishmentTable({
     return sortDirection === "asc" ? "↑" : "↓";
   }
 
+  function selectLicense(next: string) {
+    setLicenseFilter(next);
+    setExpanded(false);
+    window.setTimeout(() => {
+      document.querySelector(".market-scope-table-search")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+  }
+
   return (
     <div className="market-scope-table-wrap">
+      {summaryCounts ? (
+        <div className="market-scope-license-summary">
+          <button type="button" className="market-scope-license-card" onClick={() => selectLicense("4COP Quota")}>
+            <span>4COP Quota</span><strong>{summaryCounts.fourCopQuota}</strong>
+          </button>
+          <button type="button" className="market-scope-license-card" onClick={() => selectLicense("3PS Quota")}>
+            <span>3PS Quota</span><strong>{summaryCounts.threePsQuota}</strong>
+          </button>
+          <button type="button" className="market-scope-license-card" onClick={() => selectLicense("4COP SFS / SRX")}>
+            <span>4COP SFS / SRX</span><strong>{summaryCounts.sfs}</strong>
+          </button>
+          <button type="button" className="market-scope-license-card" onClick={() => selectLicense("2COP")}>
+            <span>2COP</span><strong>{summaryCounts.twoCop}</strong>
+          </button>
+        </div>
+      ) : null}
       <div className="market-scope-table-search">
         <label>
           <span>Search Establishments</span>
