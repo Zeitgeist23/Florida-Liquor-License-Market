@@ -53,6 +53,7 @@ export default function MarketScopeEstablishmentTable({
   const [searchQuery, setSearchQuery] = useState("");
   const [expanded, setExpanded] = useState(false);
   const [selectedRow, setSelectedRow] = useState<EstablishmentRow | null>(null);
+  const [copiedLicense, setCopiedLicense] = useState(false);
 
   const categories = useMemo(() => {
     const ordered = ["Restaurant", "Bar", "Nightclub", "Liquor Store", "Marina", "Country Club", "Hotel / Motel", "Other Hospitality"];
@@ -121,6 +122,25 @@ export default function MarketScopeEstablishmentTable({
     }, 0);
   }
 
+  async function copyLicenseNumber(value: string) {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedLicense(true);
+      window.setTimeout(() => setCopiedLicense(false), 1400);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = value;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      setCopiedLicense(true);
+      window.setTimeout(() => setCopiedLicense(false), 1400);
+    }
+  }
+
   return (
     <div className="market-scope-table-wrap">
       {summaryCounts ? (
@@ -185,7 +205,7 @@ export default function MarketScopeEstablishmentTable({
             type="button"
             className="market-scope-table-row market-scope-table-row--interactive"
             key={row.licenseNumber}
-            onClick={() => setSelectedRow(row)}
+            onClick={() => { setSelectedRow(row); setCopiedLicense(false); }}
             aria-label={`View details for ${row.dba}`}
           >
             <div><strong>{row.dba}</strong><small>{row.address}{row.zip ? ` · ${row.zip}` : ""}</small></div>
@@ -234,7 +254,24 @@ export default function MarketScopeEstablishmentTable({
             <h3 id="market-scope-detail-title">{selectedRow.dba}</h3>
             <div className="market-scope-detail-license-number">
               <span>License Number</span>
-              <strong>{selectedRow.licenseNumber}</strong>
+              <div className="market-scope-detail-license-copy-row">
+                <strong>{selectedRow.licenseNumber}</strong>
+                <button
+                  type="button"
+                  className="market-scope-detail-copy-button"
+                  onClick={() => void copyLicenseNumber(selectedRow.licenseNumber)}
+                  aria-label="Copy license number"
+                  title="Copy license number"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="9" y="9" width="10" height="10" rx="2" />
+                    <rect x="5" y="5" width="10" height="10" rx="2" />
+                  </svg>
+                </button>
+                <span className={"market-scope-detail-copy-status" + (copiedLicense ? " is-visible" : "")}>
+                  Copied
+                </span>
+              </div>
             </div>
 
             <div className="market-scope-detail-grid">
