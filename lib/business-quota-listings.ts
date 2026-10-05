@@ -2831,7 +2831,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     featured: false,
     listingTier: "market",
     sourceVerification: "discovery_only",
-    publicationStatus: "preview",
+    publicationStatus: "published",
     classification: "business_package",
   },
   {
@@ -2858,7 +2858,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     featured: false,
     listingTier: "market",
     sourceVerification: "discovery_only",
-    publicationStatus: "preview",
+    publicationStatus: "published",
     classification: "business_package",
   },
   {
@@ -2945,6 +2945,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     listingReference: "FLLM-MKT-Q-019",
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/adult-nightclub-in-palm-bay-florida/2443916/"],
     county: "Brevard County",
     countyHref: "/counties/brevard",
     licenseType: "4COP Quota",
