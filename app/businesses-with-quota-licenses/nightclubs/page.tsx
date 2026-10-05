@@ -166,7 +166,7 @@ export default async function NightclubsWithQuotaLicensesPage() {
                 Explore Transaction Services
               </Link>
               <Link className="seo-market-button seo-market-button-dark" href="/nightclubs-for-sale-with-liquor-licenses">
-                All Florida Nightclub License Paths
+                Florida Nightclubs for Sale
               </Link>
             </div>
           </div>
