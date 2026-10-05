@@ -52,6 +52,7 @@ export default function MarketScopeEstablishmentTable({
   const [licenseFilter, setLicenseFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [expanded, setExpanded] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<EstablishmentRow | null>(null);
 
   const categories = useMemo(() => {
     const ordered = ["Restaurant", "Bar", "Nightclub", "Liquor Store", "Marina", "Country Club", "Hotel / Motel", "Other Hospitality"];
@@ -180,13 +181,19 @@ export default function MarketScopeEstablishmentTable({
 
       <div className="market-scope-table-body">
         {shownRows.map((row) => (
-          <div className="market-scope-table-row" key={row.licenseNumber}>
+          <button
+            type="button"
+            className="market-scope-table-row market-scope-table-row--interactive"
+            key={row.licenseNumber}
+            onClick={() => setSelectedRow(row)}
+            aria-label={`View details for ${row.dba}`}
+          >
             <div><strong>{row.dba}</strong><small>{row.address}{row.zip ? ` · ${row.zip}` : ""}</small></div>
             <div><span className={"scope-category scope-category--" + categoryClass(row.category)}>{row.category}</span></div>
             <div><strong>{displayLicense(row)}</strong><small>{row.licenseNumber}</small></div>
             <div><strong>{row.licensee}</strong><small>DBPR licensee / owner-primary name</small></div>
             <div><strong>—</strong><small>Public property match pending</small></div>
-          </div>
+          </button>
         ))}
       </div>
 
@@ -198,6 +205,53 @@ export default function MarketScopeEstablishmentTable({
         >
           {expanded ? "Show first 10 establishments" : `View all ${filteredRows.length} establishments`}
         </button>
+      ) : null}
+
+      {selectedRow ? (
+        <div
+          className="market-scope-detail-backdrop"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setSelectedRow(null);
+          }}
+        >
+          <section
+            className="market-scope-detail-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="market-scope-detail-title"
+          >
+            <button
+              type="button"
+              className="market-scope-detail-close"
+              onClick={() => setSelectedRow(null)}
+              aria-label="Close establishment details"
+            >
+              ×
+            </button>
+
+            <span className="market-scope-detail-eyebrow">Establishment Record</span>
+            <h3 id="market-scope-detail-title">{selectedRow.dba}</h3>
+            <div className="market-scope-detail-license-number">
+              <span>License Number</span>
+              <strong>{selectedRow.licenseNumber}</strong>
+            </div>
+
+            <div className="market-scope-detail-grid">
+              <div><span>Business Type</span><strong>{selectedRow.category}</strong></div>
+              <div><span>License Type</span><strong>{displayLicense(selectedRow)}</strong></div>
+              <div><span>DBPR Licensee / Public-Record Entity</span><strong>{selectedRow.licensee}</strong></div>
+              <div><span>Status</span><strong>{selectedRow.active ? "Active" : "Inactive"}</strong></div>
+              <div className="wide"><span>Business Address</span><strong>{selectedRow.address}{selectedRow.zip ? ` · ${selectedRow.zip}` : ""}</strong></div>
+              <div><span>City</span><strong>{selectedRow.city || "—"}</strong></div>
+              <div><span>Series</span><strong>{selectedRow.series || "—"}</strong></div>
+              <div><span>Modifier</span><strong>{selectedRow.modifier || "None"}</strong></div>
+              <div><span>Primary Status</span><strong>{selectedRow.primaryStatus || "—"}</strong></div>
+              <div><span>Secondary Status</span><strong>{selectedRow.secondaryStatus || "—"}</strong></div>
+              <div className="wide"><span>Public Property Match</span><strong>Pending</strong></div>
+            </div>
+          </section>
+        </div>
       ) : null}
     </div>
   );
