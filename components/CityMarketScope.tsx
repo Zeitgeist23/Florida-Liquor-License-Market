@@ -69,24 +69,40 @@ export default function CityMarketScope(props: Props) {
           <article className="market-scope-overview-card">
             <span>{props.county}</span>
             <h3>County License Market</h3>
-            <ul>
-              <li><b>{props.dbpr.countyTotalRetailLicenses ?? "—"}</b> retail alcoholic-beverage licenses</li>
-              <li><b>{props.dbpr.county4copInEffect ?? "—"}</b> 4COP quota in effect · <b>{props.dbpr.county4copInUse ?? "—"}</b> active · <b>{props.dbpr.county4copInactive ?? "—"}</b> inactive</li>
-              <li><b>{props.dbpr.county3psInEffect ?? "—"}</b> 3PS quota in effect · <b>{props.dbpr.county3psInUse ?? "—"}</b> active · <b>{props.dbpr.county3psInactive ?? "—"}</b> inactive</li>
-              <li><b>{props.standaloneCount}</b> standalone quota licenses currently for sale</li>
-            </ul>
+            {props.dbpr.available ? (
+              <ul>
+                <li><b>{props.dbpr.countyTotalRetailLicenses}</b> retail alcoholic-beverage licenses</li>
+                <li><b>{props.dbpr.county4copInEffect}</b> 4COP quota in effect · <b>{props.dbpr.county4copInUse}</b> active · <b>{props.dbpr.county4copInactive}</b> inactive</li>
+                <li><b>{props.dbpr.county3psInEffect}</b> 3PS quota in effect · <b>{props.dbpr.county3psInUse}</b> active · <b>{props.dbpr.county3psInactive}</b> inactive</li>
+                <li><b>{props.standaloneCount}</b> standalone quota licenses currently for sale</li>
+              </ul>
+            ) : (
+              <div className="market-scope-data-pending">
+                <strong>{props.standaloneCount}</strong>
+                <span>standalone quota licenses currently for sale</span>
+                <small>Official DBPR operating-license totals are refreshing.</small>
+              </div>
+            )}
           </article>
 
           <article className="market-scope-overview-card">
             <span>City of {props.city}</span>
             <h3>Operating License Landscape</h3>
-            <ul>
-              <li><b>{props.dbpr.cityTotalRetailLicenses ?? "—"}</b> active licenses in the official city grouping</li>
-              <li><b>{props.dbpr.city4copInUse ?? "—"}</b> active 4COP quota establishments</li>
-              <li><b>{props.dbpr.city3psInUse ?? "—"}</b> active 3PS establishments</li>
-              <li><b>{props.dbpr.citySfsInUse ?? "—"}</b> active SFS/SRX establishments</li>
-              <li><b>{props.dbpr.city2copInUse ?? "—"}</b> active 2COP establishments</li>
-            </ul>
+            {props.dbpr.available ? (
+              <ul>
+                <li><b>{props.dbpr.cityTotalRetailLicenses}</b> active licenses in the official city grouping</li>
+                <li><b>{props.dbpr.city4copInUse}</b> active 4COP quota establishments</li>
+                <li><b>{props.dbpr.city3psInUse}</b> active 3PS establishments</li>
+                <li><b>{props.dbpr.citySfsInUse}</b> active SFS/SRX establishments</li>
+                <li><b>{props.dbpr.city2copInUse}</b> active 2COP establishments</li>
+              </ul>
+            ) : (
+              <div className="market-scope-data-pending">
+                <strong>DBPR</strong>
+                <span>operating-license data refreshing</span>
+                <small>The city license census will repopulate automatically when the official feed responds.</small>
+              </div>
+            )}
           </article>
         </section>
 
