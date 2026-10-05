@@ -58,10 +58,13 @@ function FloridaMarketMap({
           );
         })}
         <g transform={"translate(" + markerX + " " + markerY + ")"} filter={"url(#" + filterId + ")"}>
-          <circle cx="0" cy="0" r="8" fill="#69d6ff" stroke="#dffbff" strokeWidth="2" />
-          <circle cx="-2" cy="-2" r="2.2" fill="rgba(255,255,255,.9)" />
-          <line x1="0" y1="8" x2="0" y2="31" stroke="#e8fbff" strokeWidth="2" />
-          <circle cx="0" cy="35" r="4.5" fill="#69d6ff" stroke="#e8fbff" strokeWidth="1.4" />
+          <circle cx="0" cy="0" r="10" fill="#061a2a" opacity=".92" />
+          <circle cx="0" cy="0" r="8" fill="#f5a800" stroke="#ffffff" strokeWidth="2.2" />
+          <circle cx="0" cy="0" r="3" fill="#ffffff" />
+          <line x1="0" y1="8" x2="0" y2="31" stroke="#061a2a" strokeWidth="5" />
+          <line x1="0" y1="8" x2="0" y2="31" stroke="#f5a800" strokeWidth="2.4" />
+          <circle cx="0" cy="35" r="6" fill="#061a2a" />
+          <circle cx="0" cy="35" r="4.5" fill="#f5a800" stroke="#ffffff" strokeWidth="1.6" />
         </g>
       </svg>
 
