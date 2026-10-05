@@ -286,6 +286,7 @@ export default function CityMarketScope(props: Props) {
           `}</style>
           <MarketScopeEstablishmentTable
             rows={props.dbpr.cityEstablishments ?? props.dbpr.cityQuotaEstablishments}
+            inactiveRows={props.dbpr.countyInactiveEstablishments ?? []}
             summaryCounts={{
               fourCopQuota: props.dbpr.city4copInUse ?? 0,
               threePsQuota: props.dbpr.city3psInUse ?? 0,
