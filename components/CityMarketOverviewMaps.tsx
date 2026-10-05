@@ -22,6 +22,7 @@ function FloridaMarketMap({
   tooltipRows,
   filterId,
   county,
+  tooltipTitle,
   markerX,
   markerY,
 }: {
@@ -30,6 +31,7 @@ function FloridaMarketMap({
   tooltipRows: Array<{ value: number; label: string }>;
   filterId: string;
   county: string;
+  tooltipTitle?: string;
   markerX: number;
   markerY: number;
 }) {
@@ -70,7 +72,7 @@ function FloridaMarketMap({
       </svg>
 
       <div className="city-market-map-tooltip">
-        <strong>{county}</strong>
+        <strong>{tooltipTitle ?? county}</strong>
         {tooltipRows.map((row) => (
           <span key={row.label}><b>{row.value}</b>{row.label}</span>
         ))}
@@ -163,6 +165,7 @@ export default function CityMarketOverviewMaps({
             ]}
             filterId={"city-business-map-glow-" + countyKey(county).toLowerCase().replace(/[^a-z0-9]+/g, "-")}
             county={county}
+            tooltipTitle={city}
             markerX={markerX}
             markerY={markerY}
           />
