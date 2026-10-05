@@ -175,9 +175,10 @@ const snapshot = {
   citySfsInUse: citySfs.length,
   city2copInUse: city2cop.length,
   cityEstablishments: cityRows
-    .filter((r) => r.active)
     .sort((a, b) => a.dba.localeCompare(b.dba)),
-  cityQuotaEstablishments: [...city4cop, ...city3ps].sort((a, b) => a.dba.localeCompare(b.dba)),
+  cityQuotaEstablishments: cityRows
+    .filter((r) => r.quotaClass === "4COP Quota" || r.quotaClass === "3PS Quota")
+    .sort((a, b) => a.dba.localeCompare(b.dba)),
 };
 
 await fs.mkdir(path.dirname(OUT), { recursive: true });
