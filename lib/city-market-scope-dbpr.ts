@@ -33,6 +33,7 @@ export type CityDbprMarketScope = {
   citySfsInUse: number | null;
   city2copInUse: number | null;
   cityEstablishments?: CityDbprLicenseRecord[];
+  countyInactiveEstablishments?: CityDbprLicenseRecord[];
   cityQuotaEstablishments: CityDbprLicenseRecord[];
 };
 
@@ -53,6 +54,7 @@ export async function getSaintAugustineDbprMarketScope(): Promise<CityDbprMarket
     available: true,
     fetchedAt: snapshot.generatedAt ?? null,
     cityEstablishments: recategorize(base.cityEstablishments ?? []),
+    countyInactiveEstablishments: recategorize(base.countyInactiveEstablishments ?? []),
     cityQuotaEstablishments: recategorize(base.cityQuotaEstablishments ?? []),
   };
 }
