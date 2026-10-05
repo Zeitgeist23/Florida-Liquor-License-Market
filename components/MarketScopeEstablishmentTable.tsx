@@ -46,10 +46,11 @@ export default function MarketScopeEstablishmentTable({
   const [searchQuery, setSearchQuery] = useState("");
   const [expanded, setExpanded] = useState(false);
 
-  const categories = useMemo(
-    () => ["All", ...Array.from(new Set(rows.map((row) => row.category))).sort()],
-    [rows],
-  );
+  const categories = useMemo(() => {
+    const ordered = ["Restaurant", "Bar", "Nightclub", "Liquor Store", "Marina", "Country Club", "Hotel / Motel", "Other Hospitality"];
+    const available = new Set(rows.map((row) => row.category));
+    return ["All", ...ordered.filter((category) => available.has(category))];
+  }, [rows]);
 
   const licenseTypes = useMemo(
     () => ["All", ...Array.from(new Set(rows.map(displayLicense))).sort()],
