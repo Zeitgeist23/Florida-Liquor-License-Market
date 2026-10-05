@@ -67,7 +67,7 @@ export default function CityMarketScope(props: Props) {
 
         <section className="market-scope-overview">
           <article className="market-scope-overview-card">
-            <span>St. Johns County</span>
+            <span>{props.county}</span>
             <h3>County License Market</h3>
             <ul>
               <li><b>{props.dbpr.countyTotalRetailLicenses ?? "—"}</b> retail alcoholic-beverage licenses</li>
@@ -78,7 +78,7 @@ export default function CityMarketScope(props: Props) {
           </article>
 
           <article className="market-scope-overview-card">
-            <span>City of St. Augustine</span>
+            <span>City of {props.city}</span>
             <h3>Operating License Landscape</h3>
             <ul>
               <li><b>{props.dbpr.cityTotalRetailLicenses ?? "—"}</b> active licenses in the official city grouping</li>
@@ -131,7 +131,7 @@ export default function CityMarketScope(props: Props) {
               <span>Operating Establishments</span>
               <h3>Verified alcoholic-beverage establishments</h3>
             </div>
-            <p>Search and filter the full City of St. Augustine operating-license dataset by business type, license type, DBA, legal entity or license number.</p>
+            <p>Search and filter the full City of {props.city} operating-license dataset by business type, license type, DBA, legal entity or license number.</p>
           </div>
 
           <div className="market-scope-license-summary">
