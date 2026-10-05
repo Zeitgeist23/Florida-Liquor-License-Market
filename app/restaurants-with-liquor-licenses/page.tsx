@@ -364,7 +364,15 @@ export default async function RestaurantsWithLiquorLicensesPage() {
           padding-top: 54px;
           padding-bottom: 54px;
         }
-        .florida-restaurants-hero__photo,
+        .florida-restaurants-hero__photo {
+          position: absolute;
+          inset: 0 0 0 34%;
+          pointer-events: none;
+          background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/56/DZ6_2666_Golden_hour_at_a_beachfront_caf%C3%A9_-_empty_chairs_the_sound_of_waves_and_the_sun_slipping_quietly_into_the_horizon.jpg");
+          background-size: cover;
+          background-position: 58% 50%;
+          background-repeat: no-repeat;
+        }
         .florida-restaurants-hero__overlay {
           position: absolute;
           inset: 0;
