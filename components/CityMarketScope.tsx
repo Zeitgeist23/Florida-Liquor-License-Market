@@ -129,9 +129,9 @@ export default function CityMarketScope(props: Props) {
           <div className="market-scope-panel-heading">
             <div>
               <span>Operating Establishments</span>
-              <h3>Verified quota-license establishments</h3>
+              <h3>Verified alcoholic-beverage establishments</h3>
             </div>
-            <p>Showing the first 10 records by default. Expand the table only when you want the full list.</p>
+            <p>Search and filter the full City of St. Augustine operating-license dataset by business type, license type, DBA, legal entity or license number.</p>
           </div>
 
           <div className="market-scope-license-summary">
@@ -141,7 +141,7 @@ export default function CityMarketScope(props: Props) {
             <article><span>2COP</span><strong>{props.dbpr.city2copInUse ?? "—"}</strong></article>
           </div>
 
-          <MarketScopeEstablishmentTable rows={props.dbpr.cityQuotaEstablishments} />
+          <MarketScopeEstablishmentTable rows={props.dbpr.cityEstablishments ?? props.dbpr.cityQuotaEstablishments} />
         </section>
 
         <section className="market-scope-panel market-scope-context">
