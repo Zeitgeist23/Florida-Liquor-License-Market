@@ -18,15 +18,15 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/restaurants-for-sale/jacksonville`;
 
 export const metadata: Metadata = {
-  title: "Jacksonville Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
-  description: "Find Jacksonville restaurants for sale with liquor licenses in Duval County. Compare 4COP quota, 4COP SFS / SRX full-liquor and 2COP restaurant opportunities on FLLM.",
+  title: "Jacksonville Restaurants for Sale | Duval Restaurant Market | FLLM",
+  description: "Browse Jacksonville restaurants for sale in Duval County by business type and asking-price signal. FLLM also identifies 4COP quota, 4COP SFS / SRX and 2COP license structures.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: ["Jacksonville restaurant with liquor license for sale","Jacksonville restaurant for sale with liquor license","Jacksonville restaurant with full liquor license for sale","Duval County restaurant with liquor license for sale","Jacksonville 4COP restaurant for sale","Jacksonville SFS SRX restaurant for sale"],
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Jacksonville Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
+    title: "Jacksonville Restaurants for Sale | FLLM",
     description: "Find Jacksonville restaurants for sale with liquor licenses in Duval County. Compare 4COP quota, 4COP SFS / SRX full-liquor and 2COP restaurant opportunities on FLLM.",
     siteName: "Florida Liquor License Market",
   },
@@ -111,10 +111,10 @@ export default async function LocalRestaurantWithLiquorLicensePage() {
             <strong>Jacksonville</strong>
           </div>
           <span className="fllm-template-eyebrow">Jacksonville · Duval County Restaurant Market</span>
-          <h1 className="fllm-template-hero-title">Jacksonville Restaurant With Liquor License for Sale</h1>
+          <h1 className="fllm-template-hero-title">Jacksonville Restaurants for Sale</h1>
           <p className="fllm-template-hero-copy">
-            Search Jacksonville restaurant opportunities with liquor licenses through FLLM. Compare restaurants and
-            restaurant/bar businesses involving transferable 4COP quota licenses, qualifying 4COP SFS / SRX
+            Search Jacksonville restaurants for sale through FLLM by business type, asking-price signal and Duval County market.
+            FLLM also identifies restaurant/bar businesses involving transferable 4COP quota licenses, qualifying 4COP SFS / SRX
             full-liquor restaurant licenses, and 2COP beer-and-wine licenses. Market Views retain their actual
             location and license structure so buyers can distinguish the business package from the liquor-license component.
           </p>
