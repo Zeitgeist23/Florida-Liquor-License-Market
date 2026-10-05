@@ -313,3 +313,31 @@
   color:#fff;
   text-shadow:0 0 12px rgba(255,255,255,.18);
 }
+
+
+.market-scope-business-more{
+  margin:0;
+}
+.market-scope-business-more>summary{
+  list-style:none;
+  cursor:pointer;
+}
+.market-scope-business-more>summary::-webkit-details-marker{
+  display:none;
+}
+.market-scope-business-more>summary .market-scope-business-meta span::after{
+  content:"";
+}
+.market-scope-business-more[open]>summary{
+  border-color:#69d6ff;
+  background:#0a2c47;
+  box-shadow:0 10px 22px rgba(0,0,0,.2),0 0 14px rgba(105,214,255,.1);
+}
+.market-scope-business-more[open]>summary .market-scope-business-copy strong{
+  color:#69d6ff;
+}
+.market-scope-business-more-list{
+  display:grid;
+  gap:10px;
+  margin-top:10px;
+}
