@@ -31,12 +31,23 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/restaurants-with-liquor-licenses`;
 
 export const metadata: Metadata = {
-  title: "Florida Restaurant With Liquor License for Sale | 4COP, SFS & 2COP | FLLM",
+  title: "Florida Restaurants for Sale | Restaurants & Bars for Sale in Florida | FLLM",
   description:
-    "Find a Florida restaurant with a liquor license for sale. Compare full-liquor 4COP quota and 4COP SFS / SRX opportunities plus clearly identified 2COP beer-and-wine restaurant listings by county.",
+    "Browse Florida restaurants for sale by city, county, cuisine and asking-price signal. Compare current restaurant opportunities with FLLM liquor-license intelligence for 4COP quota, 4COP SFS / SRX and 2COP licenses.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
+    "Florida restaurants for sale",
+    "Florida restaurant for sale",
+    "restaurants for sale Florida",
+    "restaurant businesses for sale Florida",
+    "buy a restaurant in Florida",
+    "Miami restaurants for sale",
+    "Orlando restaurants for sale",
+    "Tampa restaurants for sale",
+    "Jacksonville restaurants for sale",
+    "Fort Lauderdale restaurants for sale",
+    "Broward restaurants for sale",
     "Miami restaurant with quota license for sale",
     "Miami restaurant for sale with 4COP quota license",
     "Miami-Dade restaurant for sale with quota liquor license",
@@ -68,9 +79,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Florida Restaurant With Liquor License for Sale | FLLM",
+    title: "Florida Restaurants for Sale | FLLM",
     description:
-      "Find a Florida restaurant with a liquor license for sale and compare transferable 4COP quota, qualifying 4COP SFS / SRX full-liquor, and 2COP beer-and-wine opportunities.",
+      "Florida restaurant-for-sale market inventory by city, county and cuisine, with FLLM liquor-license structure and market intelligence kept visible.",
     siteName: "Florida Liquor License Market",
   },
 };
@@ -153,6 +164,24 @@ export default async function RestaurantsWithLiquorLicensesPage() {
   const miamiRestaurantLicenseTypes = Array.from(new Set(miamiRestaurantListings.map((listing) => listing.licenseType)));
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+  const statewideRestaurantPrices = allRestaurantListings
+    .map((listing) => listing.packagePriceNumber)
+    .filter((price) => Number.isFinite(price) && price > 0)
+    .sort((a, b) => a - b);
+  const statewideRestaurantMedian = statewideRestaurantPrices.length
+    ? statewideRestaurantPrices.length % 2
+      ? statewideRestaurantPrices[Math.floor(statewideRestaurantPrices.length / 2)]
+      : Math.round(
+          (statewideRestaurantPrices[statewideRestaurantPrices.length / 2 - 1] +
+            statewideRestaurantPrices[statewideRestaurantPrices.length / 2]) /
+            2,
+        )
+    : null;
+  const statewideRestaurantLow = statewideRestaurantPrices.length ? statewideRestaurantPrices[0] : null;
+  const statewideRestaurantHigh = statewideRestaurantPrices.length
+    ? statewideRestaurantPrices[statewideRestaurantPrices.length - 1]
+    : null;
+  const statewideRestaurantCounties = new Set(allRestaurantListings.map((listing) => listing.county)).size;
   const orlandoRestaurantListings = allRestaurantListings.filter(
     (listing) => listing.county === "Orange County",
   );
@@ -161,10 +190,10 @@ export default async function RestaurantsWithLiquorLicensesPage() {
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "Florida Restaurant With Liquor License for Sale",
+      name: "Florida Restaurants for Sale",
       url: canonicalUrl,
       description:
-        "Florida restaurants with liquor licenses for sale, including full-liquor 4COP quota and 4COP SFS / SRX opportunities plus 2COP beer-and-wine restaurant listings.",
+        "Florida restaurants for sale organized by city, county, cuisine, asking-price signals and actual liquor-license structure.",
       isPartOf: { "@type": "WebSite", name: "Florida Liquor License Market", url: siteUrl },
     },
     {
@@ -172,7 +201,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Restaurants With Liquor Licenses", item: canonicalUrl },
+        { "@type": "ListItem", position: 2, name: "Florida Restaurants for Sale", item: canonicalUrl },
       ],
     },
     {
@@ -388,24 +417,61 @@ export default async function RestaurantsWithLiquorLicensesPage() {
         <div className="florida-restaurants-hero__overlay" aria-hidden="true" />
         <div className="fllm-template-shell">
           <div className="fllm-ui-breadcrumbs">
-            <Link href="/">Home</Link><span>›</span><strong>Restaurants With Full Liquor for Sale</strong>
+            <Link href="/">Home</Link><span>›</span><strong>Florida Restaurants for Sale</strong>
           </div>
-          <span className="fllm-template-eyebrow">Florida Restaurants With Full Liquor for Sale</span>
+          <span className="fllm-template-eyebrow">Florida Restaurant Market</span>
           <h1
             className="fllm-template-hero-title"
             style={{ fontSize: "clamp(36px, 3.55vw, 58px)", lineHeight: 1.0, maxWidth: "820px" }}
           >
-            Florida Restaurants With Full Liquor for Sale
+            Florida Restaurants for Sale
           </h1>
           <p
             className="fllm-template-hero-copy"
             style={{ fontSize: "clamp(15px, 1vw, 17px)", lineHeight: 1.52, maxWidth: "760px" }}
           >
-            Browse Florida restaurants with full liquor for sale, including businesses with transferable 4COP quota licenses and qualifying 4COP SFS / SRX full-liquor privileges. FLLM also identifies 2COP beer-and-wine opportunities separately so buyers can distinguish the actual Florida license structure.
+            Browse Florida restaurants and restaurant/bar businesses for sale by city, county, cuisine and asking-price signal. FLLM adds liquor-license intelligence to the broader restaurant-for-sale market by identifying transferable 4COP quota licenses, location-specific 4COP SFS / SRX privileges and 2COP beer-and-wine licenses separately.
           </p>
           <div className="fllm-ui-actions">
             <Link className="btn btn-gold fllm-ui-official-gold-button" href="#restaurant-inventory">View Restaurant Market</Link>
             <FllmButton href="#license-paths" variant="outline">Compare License Paths</FllmButton>
+          </div>
+        </div>
+      </section>
+
+      <section className="fllm-template-section fllm-template-section--deep" id="florida-restaurant-market-intelligence">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Florida Restaurant Market Intelligence"
+            title="Current restaurant-for-sale signals tracked by FLLM"
+            copy={
+              <p>
+                These figures summarize FLLM&apos;s current published restaurant Market Views and update with observed
+                inventory. Business asking prices are shown separately from standalone liquor-license values.
+              </p>
+            }
+            align="center"
+          />
+          <FllmCardGrid columns={4}>
+            <FllmCard eyebrow={<span className="restaurant-card-cyan-label">Observed Inventory</span>} title={String(allRestaurantListings.length)} variant="gold">
+              <p>Published Florida restaurant Market Views currently tracked by FLLM.</p>
+            </FllmCard>
+            <FllmCard eyebrow={<span className="restaurant-card-cyan-label">Markets Represented</span>} title={String(statewideRestaurantCounties)} variant="gold">
+              <p>Florida counties represented in current restaurant inventory.</p>
+            </FllmCard>
+            <FllmCard eyebrow={<span className="restaurant-card-cyan-label">Median Asking Price</span>} title={statewideRestaurantMedian !== null ? formatCurrency(statewideRestaurantMedian) : "N/A"} variant="gold">
+              <p>Median observed package asking price among current restaurant Market Views with disclosed prices.</p>
+            </FllmCard>
+            <FllmCard eyebrow={<span className="restaurant-card-cyan-label">Observed Range</span>} title={statewideRestaurantLow !== null && statewideRestaurantHigh !== null ? `${formatCurrency(statewideRestaurantLow)} – ${formatCurrency(statewideRestaurantHigh)}` : "N/A"} variant="gold">
+              <p>Observed business-package range; not a standalone liquor-license valuation range.</p>
+            </FllmCard>
+          </FllmCardGrid>
+          <div className="fllm-ui-actions">
+            <Link className="btn btn-gold fllm-ui-official-gold-button" href="/restaurants-for-sale/miami">Miami Restaurants for Sale</Link>
+            <FllmButton href="/restaurants-for-sale/orlando" variant="outline">Orlando Restaurants</FllmButton>
+            <FllmButton href="/restaurants-for-sale/tampa" variant="outline">Tampa Restaurants</FllmButton>
+            <FllmButton href="/restaurants-for-sale/jacksonville" variant="outline">Jacksonville Restaurants</FllmButton>
+            <FllmButton href="/restaurants-for-sale/fort-lauderdale" variant="outline">Fort Lauderdale Restaurants</FllmButton>
           </div>
         </div>
       </section>
