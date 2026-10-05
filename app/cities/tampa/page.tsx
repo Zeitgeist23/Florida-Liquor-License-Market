@@ -355,6 +355,7 @@ export default async function TampaCityPage() {
         standaloneMedian={median(standalonePrices)}
         standaloneHigh={standalonePrices.length ? Math.max(...standalonePrices) : null}
         marketBusinesses={businessInventory}
+        marketBusinessesVisible={1}
         dbpr={dbprMarketScope}
       />
     </main>
