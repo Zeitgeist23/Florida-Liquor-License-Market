@@ -32,6 +32,7 @@ export type CityDbprMarketScope = {
   city3psInUse: number | null;
   citySfsInUse: number | null;
   city2copInUse: number | null;
+  cityEstablishments?: CityDbprLicenseRecord[];
   cityQuotaEstablishments: CityDbprLicenseRecord[];
 };
 
