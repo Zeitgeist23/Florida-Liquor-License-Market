@@ -44,7 +44,7 @@ function HoverSelect({
 }: {
   label: string;
   value: string;
-  options: string[];
+  options: Array<{ label: string; value: string }>;
   onChange: (value: string) => void;
 }) {
   const [open, setOpen] = useState(false);
@@ -67,7 +67,7 @@ function HoverSelect({
         aria-expanded={open}
         onClick={() => setOpen((current) => !current)}
       >
-        <span>{value}</span>
+        <span>{options.find((option) => option.value === value)?.label ?? value}</span>
         <b aria-hidden="true">⌄</b>
       </button>
       <div className={"market-scope-hover-select-menu" + (open ? " is-open" : "")} role="listbox" aria-label={label}>
@@ -75,16 +75,16 @@ function HoverSelect({
           <button
             type="button"
             role="option"
-            aria-selected={option === value}
-            className={"market-scope-hover-select-option" + (option === value ? " is-selected" : "")}
-            key={option}
+            aria-selected={option.value === value}
+            className={"market-scope-hover-select-option" + (option.value === value ? " is-selected" : "")}
+            key={option.value}
             onMouseDown={(event) => event.preventDefault()}
             onClick={() => {
-              onChange(option);
+              onChange(option.value);
               setOpen(false);
             }}
           >
-            {option}
+            {option.label}
           </button>
         ))}
       </div>
@@ -154,10 +154,20 @@ export default function MarketScopeEstablishmentTable({
 
   const licenseTypes = useMemo(() => {
     const allRows = [...rows, ...inactiveRows];
-    const individual = Array.from(new Set(allRows.map(displayLicense)))
-      .filter((license) => license !== "All" && license !== "All Quota Licenses")
-      .sort();
-    return ["All", "All Quota Licenses", ...individual];
+    const available = Array.from(new Set(allRows.map(displayLicense))).sort();
+    const prioritized = [
+      { label: "All", value: "All" },
+      { label: "All Quota Licenses", value: "All Quota Licenses" },
+      { label: "4COP Quota Licenses", value: "4COP Quota" },
+      { label: "3PS Quota Licenses", value: "3PS Quota" },
+      { label: "4COP SFS/SRX Licenses", value: "4COP SFS / SRX" },
+      { label: "2COP Beer & Wine Licenses", value: "2COP" },
+    ];
+    const prioritizedValues = new Set(prioritized.map((option) => option.value));
+    const others = available
+      .filter((license) => !prioritizedValues.has(license))
+      .map((license) => ({ label: license, value: license }));
+    return [...prioritized, ...others];
   }, [rows, inactiveRows]);
 
   const filteredRows = useMemo(() => {
@@ -334,7 +344,7 @@ export default function MarketScopeEstablishmentTable({
         <HoverSelect
           label="Business Type"
           value={categoryFilter}
-          options={categories}
+          options={categories.map((category) => ({ label: category, value: category }))}
           onChange={(value) => { setCategoryFilter(value); setExpanded(false); }}
         />
         <HoverSelect
@@ -346,7 +356,11 @@ export default function MarketScopeEstablishmentTable({
         <HoverSelect
           label="License Status"
           value={statusFilter}
-          options={["All", "Active", "Inactive"]}
+          options={[
+            { label: "All", value: "All" },
+            { label: "Active", value: "Active" },
+            { label: "Inactive", value: "Inactive" },
+          ]}
           onChange={(value) => { setStatusFilter(value); setExpanded(false); }}
         />
         <div className="market-scope-table-result-count">
