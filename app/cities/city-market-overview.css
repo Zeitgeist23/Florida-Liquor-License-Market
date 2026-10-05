@@ -53,7 +53,7 @@
 .city-market-map-stage{position:relative;min-height:390px;display:flex;align-items:center;justify-content:center;padding:18px 8px;background:radial-gradient(circle at 63% 46%,rgba(22,213,232,.12),transparent 39%)}
 .city-market-map-stage svg{width:100%;max-height:345px;filter:drop-shadow(0 10px 20px rgba(0,0,0,.35))}
 .city-market-map-tooltip{position:absolute;right:10px;top:20px;z-index:4;min-width:185px;padding:10px 11px;border:1px solid #17d9eb;border-radius:7px;background:rgba(3,25,41,.96);box-shadow:0 0 18px rgba(23,217,235,.2)}
-.city-market-map-tooltip strong{display:block;font:700 16px/1.1 Georgia,serif;color:#fff;margin-bottom:7px}
+.city-market-map-tooltip strong{display:block;font:700 16px/1.1 Georgia,serif;color:#fff;margin-bottom:7px;text-align:center}
 .city-market-map-tooltip span{display:block;color:#edfaff;font-size:10px;line-height:1.75;white-space:nowrap}
 .city-market-map-tooltip b{display:inline-block;width:28px;color:#fff;font-size:14px}
 .city-market-map-legend{position:absolute;left:42px;bottom:24px;z-index:4;min-width:190px;padding:14px 16px 15px;border:1px solid #a67800;border-radius:8px;background:rgba(4,25,40,.96);box-shadow:0 10px 22px rgba(0,0,0,.24)}
