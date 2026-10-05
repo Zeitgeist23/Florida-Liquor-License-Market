@@ -28,6 +28,7 @@ type Props = {
   standaloneMedian: number | null;
   standaloneHigh: number | null;
   marketBusinesses: MarketBusiness[];
+  marketBusinessesVisible?: number;
   dbpr: CityDbprMarketScope;
 };
 
@@ -53,6 +54,11 @@ export default function CityMarketScope(props: Props) {
   const business3ps = props.marketBusinesses.filter((item) => item.licenseType.includes("3PS")).length;
   const businessSfs = props.marketBusinesses.filter((item) => item.licenseType.includes("SFS")).length;
   const business2cop = props.marketBusinesses.filter((item) => item.licenseType.includes("2COP")).length;
+  const visibleMarketBusinesses =
+    typeof props.marketBusinessesVisible === "number"
+      ? props.marketBusinesses.slice(0, props.marketBusinessesVisible)
+      : props.marketBusinesses;
+  const hiddenMarketBusinesses = props.marketBusinesses.length - visibleMarketBusinesses.length;
   return (
     <section className="market-scope" aria-labelledby="market-scope-title">
       <div className="market-scope-shell">
@@ -115,7 +121,7 @@ export default function CityMarketScope(props: Props) {
 
           {props.marketBusinesses.length ? (
             <div className="market-scope-business-list">
-              {props.marketBusinesses.map((item) => (
+              {visibleMarketBusinesses.map((item) => (
                 <Link href={item.href} key={item.title} className="market-scope-business-row">
                   <div className="market-scope-business-copy">
                     <span className={"scope-category scope-category--" + categoryClass(item.category)}>{item.category}</span>
@@ -127,6 +133,19 @@ export default function CityMarketScope(props: Props) {
                   </div>
                 </Link>
               ))}
+              {hiddenMarketBusinesses > 0 ? (
+                <Link
+                  href={"/listings?type=businesses&county=" + encodeURIComponent(props.county) + "#business-package-results"}
+                  className="market-scope-business-row market-scope-business-row--more"
+                >
+                  <div className="market-scope-business-copy">
+                    <strong>View all {props.marketBusinesses.length} business + license packages</strong>
+                  </div>
+                  <div className="market-scope-business-meta">
+                    <span>{hiddenMarketBusinesses} more</span>
+                  </div>
+                </Link>
+              ) : null}
             </div>
           ) : null}
         </section>
