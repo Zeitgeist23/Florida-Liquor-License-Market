@@ -481,3 +481,59 @@
   .market-scope-detail-grid>div.wide,
   .market-scope-detail-grid>div.span-2{grid-column:auto}
 }
+
+
+.market-scope-detail-license-copy-row{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:30px;
+}
+.market-scope-detail-copy-button{
+  width:32px;
+  height:32px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(105,214,255,.42);
+  border-radius:7px;
+  background:#071f35;
+  color:#fff;
+  cursor:pointer;
+  transition:transform .15s ease,border-color .15s ease,background .15s ease,box-shadow .15s ease;
+}
+.market-scope-detail-copy-button:hover,
+.market-scope-detail-copy-button:focus-visible{
+  transform:translateY(-1px);
+  border-color:#69d6ff;
+  background:#0d466c;
+  box-shadow:0 0 14px rgba(105,214,255,.18);
+  outline:none;
+}
+.market-scope-detail-copy-button svg{
+  width:17px;
+  height:17px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+}
+.market-scope-detail-copy-status{
+  position:absolute;
+  left:50%;
+  top:34px;
+  transform:translateX(-50%) translateY(-3px);
+  opacity:0;
+  color:#7ce6ff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  transition:opacity .15s ease,transform .15s ease;
+  pointer-events:none;
+}
+.market-scope-detail-copy-status.is-visible{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
