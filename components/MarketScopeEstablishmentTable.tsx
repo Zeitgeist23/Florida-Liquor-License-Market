@@ -51,6 +51,7 @@ export default function MarketScopeEstablishmentTable({
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [licenseFilter, setLicenseFilter] = useState("All");
+  const [statusFilter, setStatusFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [expanded, setExpanded] = useState(false);
   const [selectedRow, setSelectedRow] = useState<EstablishmentRow | null>(null);
@@ -58,11 +59,13 @@ export default function MarketScopeEstablishmentTable({
 
   useEffect(() => {
     const handler = (event: Event) => {
-      const custom = event as CustomEvent<{ licenseType?: string; category?: string }>;
+      const custom = event as CustomEvent<{ licenseType?: string; category?: string; status?: string }>;
       const nextLicense = custom.detail?.licenseType ?? "All";
       const nextCategory = custom.detail?.category ?? "All";
+      const nextStatus = custom.detail?.status ?? "All";
       setLicenseFilter(nextLicense);
       setCategoryFilter(nextCategory);
+      setStatusFilter(nextStatus);
       setExpanded(false);
       window.setTimeout(() => {
         document.getElementById("operating-establishments-table")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -87,6 +90,11 @@ export default function MarketScopeEstablishmentTable({
     return rows
       .filter((row) => categoryFilter === "All" || row.category === categoryFilter)
       .filter((row) => licenseFilter === "All" || displayLicense(row) === licenseFilter)
+      .filter((row) =>
+        statusFilter === "All" ||
+        (statusFilter === "Active" && row.active) ||
+        (statusFilter === "Inactive" && !row.active)
+      )
       .filter((row) => {
         const query = searchQuery.trim().toLowerCase();
         if (!query) return true;
@@ -113,7 +121,7 @@ export default function MarketScopeEstablishmentTable({
         const result = left.localeCompare(right, undefined, { numeric: true, sensitivity: "base" });
         return sortDirection === "asc" ? result : -result;
       });
-  }, [rows, categoryFilter, licenseFilter, searchQuery, sortKey, sortDirection]);
+  }, [rows, categoryFilter, licenseFilter, statusFilter, searchQuery, sortKey, sortDirection]);
 
   const shownRows = expanded ? filteredRows : filteredRows.slice(0, 10);
 
@@ -200,6 +208,14 @@ export default function MarketScopeEstablishmentTable({
           <span>License Type</span>
           <select value={licenseFilter} onChange={(event) => setLicenseFilter(event.target.value)}>
             {licenseTypes.map((license) => <option key={license}>{license}</option>)}
+          </select>
+        </label>
+        <label>
+          <span>License Status</span>
+          <select value={statusFilter} onChange={(event) => { setStatusFilter(event.target.value); setExpanded(false); }}>
+            <option>All</option>
+            <option>Active</option>
+            <option>Inactive</option>
           </select>
         </label>
         <div className="market-scope-table-result-count">
