@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 
 type EstablishmentRow = {
   licenseNumber: string;
@@ -227,7 +228,7 @@ export default function MarketScopeEstablishmentTable({
         </button>
       ) : null}
 
-      {selectedRow ? (
+      {selectedRow && typeof document !== "undefined" ? createPortal(
         <div
           className="market-scope-detail-backdrop"
           role="presentation"
@@ -288,7 +289,8 @@ export default function MarketScopeEstablishmentTable({
               <div><span>Property Match</span><strong>Pending</strong></div>
             </div>
           </section>
-        </div>
+        </div>,
+        document.body,
       ) : null}
     </div>
   );
