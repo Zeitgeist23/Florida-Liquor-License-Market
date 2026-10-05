@@ -63,13 +63,27 @@ export default async function TampaCityPage() {
     .filter((listing) =>
       /\btampa\b/i.test(`${listing.title} ${listing.businessType}`),
     )
-    .map((listing) => ({
-      title: listing.title,
-      category: listing.businessCategory,
-      licenseType: listing.licenseType,
-      price: listing.packagePrice,
-      href: listing.marketViewHref || listing.href,
-    }));
+    .map((listing) => {
+      const view =
+        listing.licenseClass === "quota"
+          ? "businesses"
+          : listing.licenseClass === "sfs"
+            ? "businesses-sfs"
+            : "businesses-2cop";
+      const params = new URLSearchParams({
+        view,
+        county: listing.county,
+        listing: listing.listingReference,
+      });
+
+      return {
+        title: listing.title,
+        category: listing.businessCategory,
+        licenseType: listing.licenseType,
+        price: listing.packagePrice,
+        href: `/market-data/heat-map?${params.toString()}#business-package-map-title`,
+      };
+    });
 
   const drawing2026 =
     QUOTA_DRAWING_2026.counties.find((item) => item.county === "Hillsborough")?.licenses ?? 0;
