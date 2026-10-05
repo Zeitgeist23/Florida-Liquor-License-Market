@@ -968,13 +968,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
             </>
           ) : null}
 
-          {miamiQuotaRestaurantListings.length ? (
-            <div className="business-quota-grid">
-              {miamiQuotaRestaurantPreviewListings.map((listing) => (
-                <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
-              ))}
-            </div>
-          ) : (
+          {!miamiQuotaRestaurantListings.length ? (
             <FllmCard title="No published Miami-Dade restaurant + 4COP quota package is currently available on FLLM." variant="gold">
               <p>
                 Current Miami-Dade restaurant inventory on FLLM includes other license structures, but those listings
@@ -986,7 +980,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
                 <Link className="btn btn-gold fllm-ui-official-gold-button" href="/license-alerts">Get a License Alert</Link>
               </div>
             </FllmCard>
-          )}
+          ) : null}
 
           {miamiRestaurantListings.length ? (
             <div className="fllm-ui-actions">
