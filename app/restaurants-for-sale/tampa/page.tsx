@@ -18,15 +18,15 @@ const siteUrl = "https://www.floridaliquorlicensemarket.com";
 const canonicalUrl = `${siteUrl}/restaurants-for-sale/tampa`;
 
 export const metadata: Metadata = {
-  title: "Tampa Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
-  description: "Find Tampa restaurants for sale with liquor licenses in Hillsborough County. Compare 4COP quota, 4COP SFS / SRX full-liquor and 2COP restaurant opportunities on FLLM.",
+  title: "Tampa Restaurants for Sale | Hillsborough Restaurant Market | FLLM",
+  description: "Browse Tampa restaurants for sale in Hillsborough County by business type and asking-price signal. FLLM also identifies 4COP quota, 4COP SFS / SRX and 2COP license structures.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: ["Tampa restaurant with liquor license for sale","Tampa restaurant for sale with liquor license","Tampa restaurant with full liquor license for sale","Hillsborough County restaurant with liquor license for sale","Tampa 4COP restaurant for sale","Tampa SFS SRX restaurant for sale"],
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Tampa Restaurant With Liquor License for Sale | 4COP & SFS/SRX | FLLM",
+    title: "Tampa Restaurants for Sale | FLLM",
     description: "Find Tampa restaurants for sale with liquor licenses in Hillsborough County. Compare 4COP quota, 4COP SFS / SRX full-liquor and 2COP restaurant opportunities on FLLM.",
     siteName: "Florida Liquor License Market",
   },
@@ -111,10 +111,10 @@ export default async function LocalRestaurantWithLiquorLicensePage() {
             <strong>Tampa</strong>
           </div>
           <span className="fllm-template-eyebrow">Tampa · Hillsborough County Restaurant Market</span>
-          <h1 className="fllm-template-hero-title">Tampa Restaurant With Liquor License for Sale</h1>
+          <h1 className="fllm-template-hero-title">Tampa Restaurants for Sale</h1>
           <p className="fllm-template-hero-copy">
-            Search Tampa restaurant opportunities with liquor licenses through FLLM. Compare restaurants and
-            restaurant/bar businesses involving transferable 4COP quota licenses, qualifying 4COP SFS / SRX
+            Search Tampa restaurants for sale through FLLM by business type, asking-price signal and Hillsborough County market.
+            FLLM also identifies restaurant/bar businesses involving transferable 4COP quota licenses, qualifying 4COP SFS / SRX
             full-liquor restaurant licenses, and 2COP beer-and-wine licenses. Market Views retain their actual
             location and license structure so buyers can distinguish the business package from the liquor-license component.
           </p>
