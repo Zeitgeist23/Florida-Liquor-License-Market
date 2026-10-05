@@ -21,15 +21,21 @@ function FloridaMarketMap({
   title,
   tooltipRows,
   filterId,
+  county,
+  markerX,
+  markerY,
 }: {
   counts: Map<string, number>;
   title: string;
   tooltipRows: Array<{ value: number; label: string }>;
   filterId: string;
+  county: string;
+  markerX: number;
+  markerY: number;
 }) {
   return (
     <div className="city-market-map-stage" aria-label="Florida county market map">
-      <svg viewBox="90 -6 380 294" role="img" aria-label="Florida county market map with St. Johns County highlighted">
+      <svg viewBox="90 -6 380 294" role="img" aria-label={"Florida county market map with " + county + " highlighted"}>
         <defs>
           <filter id={filterId} x="-45%" y="-45%" width="190%" height="190%">
             <feGaussianBlur stdDeviation="4.5" result="blur" />
@@ -39,7 +45,7 @@ function FloridaMarketMap({
         {FLORIDA_COUNTY_PATHS.map((item) => {
           const key = countyKey(item.name);
           const count = counts.get(key) ?? 0;
-          const active = key === "St. Johns";
+          const active = key === countyKey(county);
           return (
             <path
               key={item.id}
@@ -51,7 +57,7 @@ function FloridaMarketMap({
             />
           );
         })}
-        <g transform="translate(365 52)" filter={"url(#" + filterId + ")"}>
+        <g transform={"translate(" + markerX + " " + markerY + ")"} filter={"url(#" + filterId + ")"}>
           <circle cx="0" cy="0" r="8" fill="#69d6ff" stroke="#dffbff" strokeWidth="2" />
           <circle cx="-2" cy="-2" r="2.2" fill="rgba(255,255,255,.9)" />
           <line x1="0" y1="8" x2="0" y2="31" stroke="#e8fbff" strokeWidth="2" />
@@ -60,7 +66,7 @@ function FloridaMarketMap({
       </svg>
 
       <div className="city-market-map-tooltip">
-        <strong>St. Johns County</strong>
+        <strong>{county}</strong>
         {tooltipRows.map((row) => (
           <span key={row.label}><b>{row.value}</b>{row.label}</span>
         ))}
@@ -96,11 +102,17 @@ function StatCard({ value, label, href }: { value: number; label: string; href: 
 export default function CityMarketOverviewMaps({
   standalone,
   businesses,
+  city = "Saint Augustine",
   county = "St. Johns County",
+  markerX = 365,
+  markerY = 52,
 }: {
   standalone: Listing[];
   businesses: BusinessQuotaListing[];
+  city?: string;
   county?: string;
+  markerX?: number;
+  markerY?: number;
 }) {
   const quotaBusinesses = businesses.filter((listing) => listing.county === county && listing.licenseClass === "quota").length;
   const sfsBusinesses = businesses.filter((listing) => listing.county === county && listing.licenseClass === "sfs").length;
@@ -126,15 +138,15 @@ export default function CityMarketOverviewMaps({
         <div className="city-market-overview-grid">
           <div className="city-market-overview-copy">
             <span>Business Market Overview</span>
-            <h2>Businesses on the Market in Saint Augustine</h2>
+            <h2>Businesses on the Market in {city}</h2>
             <p>
-              Current FLLM-observed business + liquor-license opportunities in St. Johns County,
+              Current FLLM-observed business + liquor-license opportunities in {county},
               separated by license structure so buyers can distinguish quota, SFS/SRX and 2COP inventory.
             </p>
             <div className="city-market-stat-grid">
-              <StatCard value={quotaBusinesses} label="Businesses with Quota Licenses" href="/listings?type=businesses&county=St.+Johns+County#business-package-results" />
-              <StatCard value={sfsBusinesses} label="Businesses with 4COP SFS/SRX Licenses" href="/listings?type=businesses-sfs&county=St.+Johns+County#business-package-results" />
-              <StatCard value={twoCopBusinesses} label="Businesses with 2COP Beer & Wine Licenses" href="/listings?type=businesses-2cop&county=St.+Johns+County#business-package-results" />
+              <StatCard value={quotaBusinesses} label="Businesses with Quota Licenses" href={"/listings?type=businesses&county=" + encodeURIComponent(county) + "#business-package-results"} />
+              <StatCard value={sfsBusinesses} label="Businesses with 4COP SFS/SRX Licenses" href={"/listings?type=businesses-sfs&county=" + encodeURIComponent(county) + "#business-package-results"} />
+              <StatCard value={twoCopBusinesses} label="Businesses with 2COP Beer & Wine Licenses" href={"/listings?type=businesses-2cop&county=" + encodeURIComponent(county) + "#business-package-results"} />
             </div>
           </div>
           <FloridaMarketMap
@@ -145,7 +157,10 @@ export default function CityMarketOverviewMaps({
               { value: sfsBusinesses, label: "Businesses w/ 4COP SFS/SRX" },
               { value: twoCopBusinesses, label: "Businesses w/ 2COP" },
             ]}
-            filterId="city-business-map-glow"
+            filterId={"city-business-map-glow-" + countyKey(county).toLowerCase().replace(/[^a-z0-9]+/g, "-")}
+            county={county}
+            markerX={markerX}
+            markerY={markerY}
           />
         </div>
       </section>
@@ -154,14 +169,14 @@ export default function CityMarketOverviewMaps({
         <div className="city-market-overview-grid">
           <div className="city-market-overview-copy">
             <span>Quota License Market Overview</span>
-            <h2>Standalone Quota Liquor Licenses in St. Johns County</h2>
+            <h2>Standalone Quota Liquor Licenses in {county}</h2>
             <p>
-              Current standalone quota-license inventory underlying the Saint Augustine market,
+              Current standalone quota-license inventory underlying the {city} market,
               separated between 4COP full-liquor quota licenses and 3PS package-store quota licenses.
             </p>
             <div className="city-market-stat-grid city-market-stat-grid--two">
-              <StatCard value={fourCopLicenses} label="4COP Quota Licenses for Sale" href="/listings?county=St.+Johns+County&type=4COP+Quota#listing-results" />
-              <StatCard value={threePsLicenses} label="3PS Quota Licenses for Sale" href="/listings?county=St.+Johns+County&type=3PS+Quota+%2F+Package+Store#listing-results" />
+              <StatCard value={fourCopLicenses} label="4COP Quota Licenses for Sale" href={"/listings?county=" + encodeURIComponent(county) + "&type=4COP+Quota#listing-results"} />
+              <StatCard value={threePsLicenses} label="3PS Quota Licenses for Sale" href={"/listings?county=" + encodeURIComponent(county) + "&type=3PS+Quota+%2F+Package+Store#listing-results"} />
             </div>
           </div>
           <FloridaMarketMap
@@ -171,7 +186,10 @@ export default function CityMarketOverviewMaps({
               { value: fourCopLicenses, label: "4COP Quota Licenses" },
               { value: threePsLicenses, label: "3PS Quota Licenses" },
             ]}
-            filterId="city-license-map-glow"
+            filterId={"city-license-map-glow-" + countyKey(county).toLowerCase().replace(/[^a-z0-9]+/g, "-")}
+            county={county}
+            markerX={markerX}
+            markerY={markerY}
           />
         </div>
       </section>
