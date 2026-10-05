@@ -183,6 +183,7 @@ export default function MarketScopeEstablishmentTable({
         label: "Standalone quota licenses",
         href: "/listings#listing-results",
         proxy: false,
+        nonQuotaContext: false,
       };
     }
 
@@ -193,6 +194,7 @@ export default function MarketScopeEstablishmentTable({
         label: "4COP Quota licenses",
         href: `/listings?county=${encodeURIComponent(standaloneMarket.county)}&type=4COP+Quota#listing-results`,
         proxy: false,
+        nonQuotaContext: false,
       };
     }
 
@@ -203,15 +205,17 @@ export default function MarketScopeEstablishmentTable({
         label: "3PS Quota licenses",
         href: `/listings?county=${encodeURIComponent(standaloneMarket.county)}&type=3PS+Quota+%2F+Package+Store#listing-results`,
         proxy: standaloneMarket.threePsMedianIsProxy ?? false,
+        nonQuotaContext: false,
       };
     }
 
     return {
       count: standaloneMarket.totalCount,
       median: standaloneMarket.overallMedian,
-      label: "Standalone quota licenses",
+      label: `standalone quota licenses in ${standaloneMarket.county}`,
       href: `/listings?county=${encodeURIComponent(standaloneMarket.county)}#listing-results`,
       proxy: false,
+      nonQuotaContext: true,
     };
   }
 
@@ -363,6 +367,10 @@ export default function MarketScopeEstablishmentTable({
                       className="market-scope-detail-license-market-link"
                       href={market.href}
                       aria-describedby="market-scope-license-market-tooltip"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        window.location.assign(market.href);
+                      }}
                     >
                       <strong>{selectedRow.licenseNumber}</strong>
                       <span
@@ -374,6 +382,7 @@ export default function MarketScopeEstablishmentTable({
                         <br />
                         FLLM Est. median value: <b>{money(market.median)}</b>
                         {market.proxy ? <><br /><small>3PS estimate uses FLLM&apos;s 98.5% matched-market proxy from the county 4COP median.</small></> : null}
+                        {market.nonQuotaContext ? <><br /><small>This license is non-quota; the figure shown is county quota-market context, not a value estimate for this license.</small></> : null}
                         <br />
                         <small>Click the license number to view standalone listings.</small>
                       </span>
