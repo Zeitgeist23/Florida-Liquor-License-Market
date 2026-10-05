@@ -176,6 +176,9 @@ const snapshot = {
   city2copInUse: city2cop.length,
   cityEstablishments: cityRows
     .sort((a, b) => a.dba.localeCompare(b.dba)),
+  countyInactiveEstablishments: countyRows
+    .filter((r) => !r.active)
+    .sort((a, b) => a.dba.localeCompare(b.dba)),
   cityQuotaEstablishments: cityRows
     .filter((r) => r.quotaClass === "4COP Quota" || r.quotaClass === "3PS Quota")
     .sort((a, b) => a.dba.localeCompare(b.dba)),
