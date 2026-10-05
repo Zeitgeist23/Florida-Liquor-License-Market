@@ -225,3 +225,20 @@
   position:static;
   flex:0 0 7px;
 }
+
+/* Keep overview headings centered, but left-align the market facts for faster scanning. */
+.market-scope-overview-card ul{
+  justify-items:stretch;
+}
+.market-scope-overview-card li{
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-start;
+  width:100%;
+  gap:10px;
+  padding-left:0;
+  text-align:left;
+}
+.market-scope-overview-card li::before{
+  margin-top:.58em;
+}
