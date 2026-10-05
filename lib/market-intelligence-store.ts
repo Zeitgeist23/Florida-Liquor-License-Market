@@ -7,6 +7,8 @@ export type MarketIntelligenceRecord = {
   id: string | null;
   listing_reference: string;
   business_name: string | null;
+  source_listing_title: string | null;
+  identification_basis: string | null;
   legal_entity_name: string | null;
   county: string;
   city: string | null;
@@ -88,6 +90,8 @@ function registryRow(record: (typeof businessQuotaListingRecords)[number]): Mark
     id: null,
     listing_reference: record.listingReference,
     business_name: null,
+    source_listing_title: record.title,
+    identification_basis: null,
     legal_entity_name: null,
     county: record.county,
     city: null,
@@ -147,13 +151,20 @@ export async function listMarketIntelligence(): Promise<MarketIntelligenceRecord
     .map((row) => ({ ...row, origin: "private_database" as const }));
 
   return [...privateOnly, ...registry].sort((a, b) => {
+    const aNamed = Boolean(a.business_name);
+    const bNamed = Boolean(b.business_name);
+    if (aNamed !== bNamed) return aNamed ? -1 : 1;
+    if (aNamed && bNamed) {
+      const confidenceDelta = (b.identification_confidence ?? -1) - (a.identification_confidence ?? -1);
+      if (confidenceDelta) return confidenceDelta;
+    }
     if (a.market_status === b.market_status) return a.county.localeCompare(b.county);
     return a.market_status === "active" ? -1 : 1;
   });
 }
 
 const editableFields = [
-  "business_name","legal_entity_name","county","city","business_type","license_type","license_number","license_holder",
+  "business_name","source_listing_title","identification_basis","legal_entity_name","county","city","business_type","license_type","license_number","license_holder",
   "asking_price","gross_revenue","sde_cash_flow","fllm_est_license_value","broker_name","brokerage","broker_phone","broker_email",
   "owner_name","owner_phone","owner_email","source_listing_url","dbpr_url","sunbiz_url","property_url","source_urls",
   "identification_confidence","verification_status","market_status","first_seen_at","last_seen_at","notes",
