@@ -25,6 +25,9 @@ type Props = {
   standaloneCount: number;
   standalone4cop: number;
   standalone3ps: number;
+  standalone4copMedian: number | null;
+  standalone3psMedian: number | null;
+  standalone3psMedianIsProxy?: boolean;
   standaloneLow: number | null;
   standaloneMedian: number | null;
   standaloneHigh: number | null;
@@ -287,6 +290,16 @@ export default function CityMarketScope(props: Props) {
           <MarketScopeEstablishmentTable
             rows={props.dbpr.cityEstablishments ?? props.dbpr.cityQuotaEstablishments}
             inactiveRows={props.dbpr.countyInactiveEstablishments ?? []}
+            standaloneMarket={{
+              county: props.county,
+              totalCount: props.standaloneCount,
+              overallMedian: props.standaloneMedian,
+              fourCopCount: props.standalone4cop,
+              fourCopMedian: props.standalone4copMedian,
+              threePsCount: props.standalone3ps,
+              threePsMedian: props.standalone3psMedian,
+              threePsMedianIsProxy: props.standalone3psMedianIsProxy ?? false,
+            }}
             summaryCounts={{
               fourCopQuota: props.dbpr.city4copInUse ?? 0,
               threePsQuota: props.dbpr.city3psInUse ?? 0,
