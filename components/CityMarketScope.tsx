@@ -134,17 +134,30 @@ export default function CityMarketScope(props: Props) {
                 </Link>
               ))}
               {hiddenMarketBusinesses > 0 ? (
-                <Link
-                  href={"/listings?type=businesses&county=" + encodeURIComponent(props.county) + "#business-package-results"}
-                  className="market-scope-business-row market-scope-business-row--more"
-                >
-                  <div className="market-scope-business-copy">
-                    <strong>View all {props.marketBusinesses.length} business + license packages</strong>
+                <details className="market-scope-business-more">
+                  <summary className="market-scope-business-row market-scope-business-row--more">
+                    <div className="market-scope-business-copy">
+                      <strong>View all {props.marketBusinesses.length} business + license packages</strong>
+                    </div>
+                    <div className="market-scope-business-meta">
+                      <span>{hiddenMarketBusinesses} more</span>
+                    </div>
+                  </summary>
+                  <div className="market-scope-business-more-list">
+                    {props.marketBusinesses.slice(visibleMarketBusinesses.length).map((item) => (
+                      <Link href={item.href} key={item.title} className="market-scope-business-row">
+                        <div className="market-scope-business-copy">
+                          <span className={"scope-category scope-category--" + categoryClass(item.category)}>{item.category}</span>
+                          <strong>{item.title}</strong>
+                        </div>
+                        <div className="market-scope-business-meta">
+                          <span>{item.licenseType}</span>
+                          <b>{item.price}</b>
+                        </div>
+                      </Link>
+                    ))}
                   </div>
-                  <div className="market-scope-business-meta">
-                    <span>{hiddenMarketBusinesses} more</span>
-                  </div>
-                </Link>
+                </details>
               ) : null}
             </div>
           ) : null}
