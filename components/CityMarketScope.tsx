@@ -82,19 +82,45 @@ export default function CityMarketScope(props: Props) {
                   <b>{props.dbpr.available ? props.dbpr.countyTotalRetailLicenses : "Refreshing"}</b> retail alcoholic-beverage licenses
                 </MarketScopeMetricLink>
               </li>
-              <li>
+              <li className="market-scope-metric-segments">
                 <MarketScopeMetricLink licenseType="4COP Quota" ariaLabel={`Show ${props.city} 4COP quota establishments`}>
                   <b>{props.dbpr.available ? props.dbpr.county4copInEffect : "Refreshing"}</b> 4COP quota in effect
-                  {props.dbpr.available ? <> · <b>{props.dbpr.county4copInUse}</b> active · <b>{props.dbpr.county4copInactive}</b> inactive</> : null}
                 </MarketScopeMetricLink>
+                {props.dbpr.available ? (
+                  <>
+                    <span className="market-scope-metric-separator">·</span>
+                    <MarketScopeMetricLink licenseType="4COP Quota" ariaLabel={`Show active ${props.city} 4COP quota establishments`}>
+                      <b>{props.dbpr.county4copInUse}</b> active
+                    </MarketScopeMetricLink>
+                    <span className="market-scope-metric-separator">·</span>
+                    <MarketScopeMetricLink licenseType="4COP Quota" ariaLabel={`Show inactive 4COP quota license records`}>
+                      <b>{props.dbpr.county4copInactive}</b> inactive
+                    </MarketScopeMetricLink>
+                  </>
+                ) : null}
               </li>
-              <li>
+              <li className="market-scope-metric-segments">
                 <MarketScopeMetricLink licenseType="3PS Quota" ariaLabel={`Show ${props.city} 3PS establishments`}>
                   <b>{props.dbpr.available ? props.dbpr.county3psInEffect : "Refreshing"}</b> 3PS quota in effect
-                  {props.dbpr.available ? <> · <b>{props.dbpr.county3psInUse}</b> active · <b>{props.dbpr.county3psInactive}</b> inactive</> : null}
                 </MarketScopeMetricLink>
+                {props.dbpr.available ? (
+                  <>
+                    <span className="market-scope-metric-separator">·</span>
+                    <MarketScopeMetricLink licenseType="3PS Quota" ariaLabel={`Show active ${props.city} 3PS establishments`}>
+                      <b>{props.dbpr.county3psInUse}</b> active
+                    </MarketScopeMetricLink>
+                    <span className="market-scope-metric-separator">·</span>
+                    <MarketScopeMetricLink licenseType="3PS Quota" ariaLabel="Show inactive 3PS license records">
+                      <b>{props.dbpr.county3psInactive}</b> inactive
+                    </MarketScopeMetricLink>
+                  </>
+                ) : null}
               </li>
-              <li><b>{props.standaloneCount}</b> standalone quota licenses currently for sale</li>
+              <li>
+                <a className="market-scope-metric-link" href="#current-for-sale-market">
+                  <b>{props.standaloneCount}</b> standalone quota licenses currently for sale
+                </a>
+              </li>
             </ul>
           </article>
 
@@ -131,7 +157,7 @@ export default function CityMarketScope(props: Props) {
           </article>
         </section>
 
-        <section className="market-scope-panel">
+        <section className="market-scope-panel" id="current-for-sale-market">
           <div className="market-scope-panel-heading">
             <div>
               <span>Current For-Sale Market</span>
