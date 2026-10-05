@@ -176,8 +176,8 @@ export default async function SaintAugustineCityPage() {
           margin:0 0 16px;
           max-width:640px;
           color:#f3f7fa;
-          font-size:16.5px;
-          line-height:1.6;
+          font-size:18px;
+          line-height:1.62;
           text-shadow:0 2px 10px rgba(0,0,0,.58);
         }
 
@@ -192,8 +192,8 @@ export default async function SaintAugustineCityPage() {
           gap:9px;
           margin:0;
           color:#fff;
-          font-size:13.5px;
-          line-height:1.4;
+          font-size:15px;
+          line-height:1.45;
           font-weight:700;
         }
 
