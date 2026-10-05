@@ -391,6 +391,15 @@ export default async function RestaurantsWithLiquorLicensesPage() {
               rgba(6,26,42,0) 82%
             );
         }
+        .restaurants-with-liquor-licenses-page .fllm-ui-heading-copy p {
+          font-size: clamp(16px, 1.02vw, 18px);
+          line-height: 1.72;
+          font-weight: 500;
+          color: rgba(255,255,255,.94);
+        }
+        .restaurants-with-liquor-licenses-page .fllm-template-section--deep .fllm-ui-heading-copy p {
+          color: rgba(255,255,255,.96);
+        }
         @media (max-width: 900px) {
           .florida-restaurants-hero__photo {
             inset: 0 0 0 28%;
@@ -423,7 +432,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
           </h1>
           <p
             className="fllm-template-hero-copy"
-            style={{ fontSize: "clamp(15px, 1vw, 17px)", lineHeight: 1.52, maxWidth: "700px" }}
+            style={{ fontSize: "clamp(17px, 1.08vw, 19px)", lineHeight: 1.62, maxWidth: "720px", fontWeight: 500, color: "rgba(255,255,255,.96)", textShadow: "0 1px 2px rgba(0,0,0,.42)" }}
           >
             Browse Florida restaurants and restaurant/bar businesses for sale by city, county, cuisine and asking-price signal. FLLM adds liquor-license intelligence to the broader restaurant-for-sale market by identifying transferable 4COP quota licenses, location-specific 4COP SFS / SRX privileges and 2COP beer-and-wine licenses separately.
           </p>
