@@ -152,7 +152,7 @@ export default function MarketIntelligenceClient() {
     total: records.length,
     active: records.filter((r) => r.market_status === "active").length,
     identified: records.filter((r) => Boolean(r.business_name)).length,
-    needsResearch: records.filter((r) => !r.business_name || !r.license_number || !r.owner_name).length,
+    reviewedInsufficient: records.filter((r) => r.verification_status === "insufficient").length,
   }), [records]);
 
   function editRecord(row: RecordRow) {
@@ -253,7 +253,7 @@ export default function MarketIntelligenceClient() {
         <div><span>Total intelligence records</span><strong>{stats.total}</strong></div>
         <div><span>Observed active</span><strong>{stats.active}</strong></div>
         <div><span>Best-guess identities</span><strong>{stats.identified}</strong></div>
-        <div><span>Needs more research</span><strong>{stats.needsResearch}</strong></div>
+        <div><span>Reviewed — insufficient evidence</span><strong>{stats.reviewedInsufficient}</strong></div>
       </section>
 
       <section className="intel-editor">
@@ -337,7 +337,7 @@ export default function MarketIntelligenceClient() {
             <tbody>
               {filtered.map((r) => (
                 <tr key={r.listing_reference} onClick={() => editRecord(r)}>
-                  <td><strong>{r.business_name || "NO BEST GUESS YET"}</strong><small>{r.source_listing_title || r.listing_reference}</small><small>{r.listing_reference}</small><span className="confidence">{r.identification_confidence === null ? "Needs identity research" : `${r.identification_confidence}% BEST-GUESS MATCH`}</span></td>
+                  <td><strong>{r.business_name || "NO BEST GUESS YET"}</strong><small>{r.source_listing_title || r.listing_reference}</small><small>{r.listing_reference}</small><span className="confidence">{r.verification_status === "insufficient" ? "Reviewed — insufficient evidence" : r.identification_confidence === null ? "Needs identity research" : `${r.identification_confidence}% BEST-GUESS MATCH`}</span></td>
                   <td><strong>{r.county}</strong><small>{[r.city,r.business_type].filter(Boolean).join(" · ")}</small></td>
                   <td><strong>{r.license_type || "—"}</strong><small>{r.license_number || "License # not matched"}</small><small>{r.license_holder || ""}</small></td>
                   <td><strong>{money(r.asking_price)}</strong><small>Revenue {money(r.gross_revenue)}</small><small>SDE {money(r.sde_cash_flow)}</small><small>Lic. est. {money(r.fllm_est_license_value)}</small></td>
