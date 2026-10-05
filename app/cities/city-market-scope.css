@@ -537,3 +537,34 @@
   opacity:1;
   transform:translateX(-50%) translateY(0);
 }
+
+
+.market-scope-metric-link{
+  display:inline-flex;
+  align-items:baseline;
+  gap:7px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:inherit;
+  font:inherit;
+  line-height:inherit;
+  text-align:left;
+  cursor:pointer;
+  text-decoration:none;
+  text-underline-offset:4px;
+  text-decoration-thickness:1.5px;
+  transition:color .15s ease,text-decoration-color .15s ease,text-shadow .15s ease;
+}
+.market-scope-metric-link:hover,
+.market-scope-metric-link:focus-visible{
+  color:#ffffff;
+  text-decoration-line:underline;
+  text-decoration-color:#69d6ff;
+  text-shadow:0 0 10px rgba(105,214,255,.18);
+  outline:none;
+}
+.market-scope-metric-link:hover b,
+.market-scope-metric-link:focus-visible b{
+  color:#ffffff;
+}
