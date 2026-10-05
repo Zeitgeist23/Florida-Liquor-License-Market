@@ -39,9 +39,20 @@ export default function MarketScopeEstablishmentTable({
   rows,
   inactiveRows = [],
   summaryCounts,
+  standaloneMarket,
 }: {
   rows: EstablishmentRow[];
   inactiveRows?: EstablishmentRow[];
+  standaloneMarket?: {
+    county: string;
+    totalCount: number;
+    overallMedian: number | null;
+    fourCopCount: number;
+    fourCopMedian: number | null;
+    threePsCount: number;
+    threePsMedian: number | null;
+    threePsMedianIsProxy?: boolean;
+  };
   summaryCounts?: {
     fourCopQuota: number;
     threePsQuota: number;
@@ -148,6 +159,55 @@ export default function MarketScopeEstablishmentTable({
     window.setTimeout(() => {
       document.querySelector(".market-scope-table-search")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 0);
+  }
+
+  function money(value: number | null | undefined) {
+    if (value === null || value === undefined) return "—";
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }).format(value);
+  }
+
+  function selectedStandaloneMarket(row: EstablishmentRow) {
+    if (!standaloneMarket) {
+      return {
+        count: 0,
+        median: null as number | null,
+        label: "Standalone quota licenses",
+        href: "/listings#listing-results",
+        proxy: false,
+      };
+    }
+
+    if (row.quotaClass === "4COP Quota") {
+      return {
+        count: standaloneMarket.fourCopCount,
+        median: standaloneMarket.fourCopMedian,
+        label: "4COP Quota licenses",
+        href: `/listings?county=${encodeURIComponent(standaloneMarket.county)}&type=4COP+Quota#listing-results`,
+        proxy: false,
+      };
+    }
+
+    if (row.quotaClass === "3PS Quota") {
+      return {
+        count: standaloneMarket.threePsCount,
+        median: standaloneMarket.threePsMedian,
+        label: "3PS Quota licenses",
+        href: `/listings?county=${encodeURIComponent(standaloneMarket.county)}&type=3PS+Quota+%2F+Package+Store#listing-results`,
+        proxy: standaloneMarket.threePsMedianIsProxy ?? false,
+      };
+    }
+
+    return {
+      count: standaloneMarket.totalCount,
+      median: standaloneMarket.overallMedian,
+      label: "Standalone quota licenses",
+      href: `/listings?county=${encodeURIComponent(standaloneMarket.county)}#listing-results`,
+      proxy: false,
+    };
   }
 
   async function copyLicenseNumber(value: string) {
@@ -290,24 +350,47 @@ export default function MarketScopeEstablishmentTable({
             <h3 id="market-scope-detail-title">{selectedRow.dba}</h3>
             <div className="market-scope-detail-license-number">
               <span>License Number</span>
-              <div className="market-scope-detail-license-copy-row">
-                <strong>{selectedRow.licenseNumber}</strong>
-                <button
-                  type="button"
-                  className="market-scope-detail-copy-button"
-                  onClick={() => void copyLicenseNumber(selectedRow.licenseNumber)}
-                  aria-label="Copy license number"
-                  title="Copy license number"
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="9" y="9" width="10" height="10" rx="2" />
-                    <rect x="5" y="5" width="10" height="10" rx="2" />
-                  </svg>
-                </button>
-                <span className={"market-scope-detail-copy-status" + (copiedLicense ? " is-visible" : "")}>
-                  Copied
-                </span>
-              </div>
+              {(() => {
+                const market = selectedStandaloneMarket(selectedRow);
+                return (
+                  <div className="market-scope-detail-license-copy-row">
+                    <a
+                      className="market-scope-detail-license-market-link"
+                      href={market.href}
+                      aria-describedby="market-scope-license-market-tooltip"
+                    >
+                      <strong>{selectedRow.licenseNumber}</strong>
+                      <span
+                        className="market-scope-license-market-tooltip"
+                        id="market-scope-license-market-tooltip"
+                        role="tooltip"
+                      >
+                        <b>{market.count}</b> {market.label} currently for sale
+                        <br />
+                        FLLM Est. median value: <b>{money(market.median)}</b>
+                        {market.proxy ? <><br /><small>3PS estimate uses FLLM&apos;s 98.5% matched-market proxy from the county 4COP median.</small></> : null}
+                        <br />
+                        <small>Click the license number to view standalone listings.</small>
+                      </span>
+                    </a>
+                    <button
+                      type="button"
+                      className="market-scope-detail-copy-button"
+                      onClick={() => void copyLicenseNumber(selectedRow.licenseNumber)}
+                      aria-label="Copy license number"
+                      title="Copy license number"
+                    >
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="9" y="9" width="10" height="10" rx="2" />
+                        <rect x="5" y="5" width="10" height="10" rx="2" />
+                      </svg>
+                    </button>
+                    <span className={"market-scope-detail-copy-status" + (copiedLicense ? " is-visible" : "")}>
+                      Copied
+                    </span>
+                  </div>
+                );
+              })()}
             </div>
 
             <div className="market-scope-detail-grid">
