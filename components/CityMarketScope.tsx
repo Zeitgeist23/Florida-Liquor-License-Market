@@ -84,7 +84,8 @@ export default function CityMarketScope(props: Props) {
               <li><b>{props.dbpr.cityTotalRetailLicenses ?? "—"}</b> active licenses in the official city grouping</li>
               <li><b>{props.dbpr.city4copInUse ?? "—"}</b> active 4COP quota establishments</li>
               <li><b>{props.dbpr.city3psInUse ?? "—"}</b> active 3PS establishments</li>
-              <li><b>{props.dbpr.citySfsInUse ?? "—"}</b> SFS/SRX · <b>{props.dbpr.city2copInUse ?? "—"}</b> 2COP establishments</li>
+              <li><b>{props.dbpr.citySfsInUse ?? "—"}</b> active SFS/SRX establishments</li>
+              <li><b>{props.dbpr.city2copInUse ?? "—"}</b> active 2COP establishments</li>
             </ul>
           </article>
         </section>
