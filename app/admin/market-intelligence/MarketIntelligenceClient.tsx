@@ -9,6 +9,8 @@ type RecordRow = {
   id: string | null;
   listing_reference: string;
   business_name: string | null;
+  source_listing_title: string | null;
+  identification_basis: string | null;
   legal_entity_name: string | null;
   county: string;
   city: string | null;
@@ -46,6 +48,8 @@ type Payload = { records: RecordRow[]; error?: string };
 const emptyForm = {
   listing_reference: "",
   business_name: "",
+  source_listing_title: "",
+  identification_basis: "",
   legal_entity_name: "",
   county: "",
   city: "",
@@ -135,7 +139,7 @@ export default function MarketIntelligenceClient() {
       if (status !== "all" && r.market_status !== status) return false;
       if (!q) return true;
       return [
-        r.business_name,r.legal_entity_name,r.city,r.county,r.business_type,r.license_type,r.license_number,
+        r.business_name,r.source_listing_title,r.identification_basis,r.legal_entity_name,r.city,r.county,r.business_type,r.license_type,r.license_number,
         r.broker_name,r.brokerage,r.broker_phone,r.owner_name,r.owner_phone,r.listing_reference,
       ].some((value) => (value || "").toLowerCase().includes(q));
     });
@@ -144,7 +148,7 @@ export default function MarketIntelligenceClient() {
   const stats = useMemo(() => ({
     total: records.length,
     active: records.filter((r) => r.market_status === "active").length,
-    verified: records.filter((r) => r.verification_status === "verified").length,
+    identified: records.filter((r) => Boolean(r.business_name)).length,
     needsResearch: records.filter((r) => !r.business_name || !r.license_number || !r.owner_name).length,
   }), [records]);
 
@@ -153,6 +157,8 @@ export default function MarketIntelligenceClient() {
     setForm({
       listing_reference: row.listing_reference || "",
       business_name: row.business_name || "",
+      source_listing_title: row.source_listing_title || "",
+      identification_basis: row.identification_basis || "",
       legal_entity_name: row.legal_entity_name || "",
       county: row.county || "",
       city: row.city || "",
@@ -243,7 +249,7 @@ export default function MarketIntelligenceClient() {
       <section className="intel-stats">
         <div><span>Total intelligence records</span><strong>{stats.total}</strong></div>
         <div><span>Observed active</span><strong>{stats.active}</strong></div>
-        <div><span>Public-record verified</span><strong>{stats.verified}</strong></div>
+        <div><span>Best-guess identities</span><strong>{stats.identified}</strong></div>
         <div><span>Needs more research</span><strong>{stats.needsResearch}</strong></div>
       </section>
 
@@ -261,8 +267,8 @@ export default function MarketIntelligenceClient() {
           <fieldset>
             <legend>Business + identification</legend>
             <label><span>Listing reference</span><input value={form.listing_reference} onChange={(e) => setForm({ ...form, listing_reference: e.target.value })} placeholder="BBS-1234567 or FLLM reference" /></label>
-            <label><span>Business name</span><input value={form.business_name} onChange={(e) => setForm({ ...form, business_name: e.target.value })} /></label>
-            <label><span>Legal entity</span><input value={form.legal_entity_name} onChange={(e) => setForm({ ...form, legal_entity_name: e.target.value })} /></label>
+            <label><span>Best guess business name</span><input value={form.business_name} onChange={(e) => setForm({ ...form, business_name: e.target.value })} /></label>
+            <label><span>Source ad headline</span><input value={form.source_listing_title} onChange={(e) => setForm({ ...form, source_listing_title: e.target.value })} /></label><label><span>Why FLLM thinks this is the business</span><input value={form.identification_basis} onChange={(e) => setForm({ ...form, identification_basis: e.target.value })} /></label><label><span>Legal entity</span><input value={form.legal_entity_name} onChange={(e) => setForm({ ...form, legal_entity_name: e.target.value })} /></label>
             <label><span>Business type</span><input required value={form.business_type} onChange={(e) => setForm({ ...form, business_type: e.target.value })} placeholder="Restaurant, Bar, Nightclub…" /></label>
             <label><span>County</span><input required value={form.county} onChange={(e) => setForm({ ...form, county: e.target.value })} /></label>
             <label><span>City</span><input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} /></label>
@@ -324,11 +330,11 @@ export default function MarketIntelligenceClient() {
 
         <div className="intel-table-wrap">
           <table>
-            <thead><tr><th>Business / confidence</th><th>County / type</th><th>License</th><th>Economics</th><th>Broker</th><th>Owner</th><th>Public records</th><th>Status</th></tr></thead>
+            <thead><tr><th>FLLM Best Guess / Confidence</th><th>County / type</th><th>License</th><th>Economics</th><th>Broker</th><th>Owner</th><th>Public records</th><th>Status</th></tr></thead>
             <tbody>
               {filtered.map((r) => (
                 <tr key={r.listing_reference} onClick={() => editRecord(r)}>
-                  <td><strong>{r.business_name || "Identity not yet verified"}</strong><small>{r.listing_reference}</small><span className="confidence">{r.identification_confidence === null ? "Research needed" : `${r.identification_confidence}% match`}</span></td>
+                  <td><strong>{r.business_name || "NO BEST GUESS YET"}</strong><small>{r.source_listing_title || r.listing_reference}</small><small>{r.listing_reference}</small><span className="confidence">{r.identification_confidence === null ? "Needs identity research" : `${r.identification_confidence}% BEST-GUESS MATCH`}</span></td>
                   <td><strong>{r.county}</strong><small>{[r.city,r.business_type].filter(Boolean).join(" · ")}</small></td>
                   <td><strong>{r.license_type || "—"}</strong><small>{r.license_number || "License # not matched"}</small><small>{r.license_holder || ""}</small></td>
                   <td><strong>{money(r.asking_price)}</strong><small>Revenue {money(r.gross_revenue)}</small><small>SDE {money(r.sde_cash_flow)}</small><small>Lic. est. {money(r.fllm_est_license_value)}</small></td>
