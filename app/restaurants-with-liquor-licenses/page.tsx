@@ -367,44 +367,25 @@ export default async function RestaurantsWithLiquorLicensesPage() {
         .florida-restaurants-hero__photo,
         .florida-restaurants-hero__overlay {
           position: absolute;
-          pointer-events: none;
-        }
-        .florida-restaurants-hero__photo {
-          top: 0;
-          bottom: 0;
-          left: 40%;
-          right: 0;
-          overflow: hidden;
-          background-color: #021524;
-        }
-        .florida-restaurants-hero__photo img {
-          width: 100%;
-          height: 100%;
-          display: block;
-          object-fit: cover;
-          object-position: 58% center;
-          filter: contrast(1.06) saturate(1.05) brightness(1.02);
-        }
-        .florida-restaurants-hero__overlay {
           inset: 0;
-        }
-        .florida-restaurants-hero__overlay {
-          background: linear-gradient(
-            90deg,
-            rgba(2, 21, 36, 0.995) 0%,
-            rgba(2, 21, 36, 0.98) 33%,
-            rgba(2, 21, 36, 0.80) 49%,
-            rgba(2, 21, 36, 0.38) 66%,
-            rgba(2, 21, 36, 0.10) 100%
-          );
+          pointer-events: none;
+          background:
+            linear-gradient(
+              90deg,
+              #061a2a 0%,
+              #061a2a 31%,
+              rgba(6,26,42,.97) 40%,
+              rgba(6,26,42,.84) 50%,
+              rgba(6,26,42,.60) 60%,
+              rgba(6,26,42,.32) 70%,
+              rgba(6,26,42,.10) 79%,
+              rgba(6,26,42,0) 88%
+            );
         }
         @media (max-width: 900px) {
           .florida-restaurants-hero__photo {
-            left: 30%;
-            right: -10%;
-          }
-          .florida-restaurants-hero__photo img {
-            object-position: center right;
+            inset: 0 0 0 28%;
+            background-position: 64% 50%;
           }
           .florida-restaurants-hero__overlay {
             background: linear-gradient(
@@ -418,9 +399,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
       `}</style>
 
       <section className="fllm-template-hero florida-restaurants-hero">
-        <div className="florida-restaurants-hero__photo" aria-hidden="true">
-          <img src="data:image/webp;base64,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[... huge omitted in analysis?]" alt="" />
-        </div>
+        <div className="florida-restaurants-hero__photo" aria-hidden="true" />
         <div className="florida-restaurants-hero__overlay" aria-hidden="true" />
         <div className="fllm-template-shell">
           <div className="fllm-ui-breadcrumbs">
