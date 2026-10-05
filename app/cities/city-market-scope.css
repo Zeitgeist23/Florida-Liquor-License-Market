@@ -253,3 +253,18 @@
   justify-content:flex-start;
   text-align:left;
 }
+
+.market-scope-table-search{margin-top:16px;margin-bottom:12px}
+.market-scope-table-search label{display:grid;gap:7px}
+.market-scope-table-search label>span{
+  color:#7ce6ff;font-size:11px;font-weight:900;letter-spacing:.05em;text-transform:uppercase
+}
+.market-scope-table-search input{
+  width:100%;min-height:46px;padding:0 15px;border:1px solid rgba(105,214,255,.45);border-radius:8px;
+  background:#071f35;color:#fff;font-size:14px;font-weight:700;outline:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 6px 14px rgba(0,0,0,.12)
+}
+.market-scope-table-search input::placeholder{color:#8ea9b8;font-weight:600}
+.market-scope-table-search input:focus{
+  border-color:#69d6ff;box-shadow:0 0 0 2px rgba(105,214,255,.13),0 8px 18px rgba(0,0,0,.16)
+}
