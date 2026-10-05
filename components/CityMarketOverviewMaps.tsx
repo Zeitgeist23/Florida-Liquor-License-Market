@@ -57,15 +57,15 @@ function FloridaMarketMap({
             />
           );
         })}
-        <g transform={"translate(" + markerX + " " + markerY + ")"}>
+        <g transform={"translate(" + markerX + " " + markerY + ") scale(0.76)"}>
           <path
-            d="M0,-22 C-6.7,-22 -12,-16.7 -12,-10 C-12,0.8 -4.6,10.4 0,22 C4.6,10.4 12,0.8 12,-10 C12,-16.7 6.7,-22 0,-22 Z"
-            fill="#e52b25"
+            d="M0,-25 C-4.8,-25 -8.6,-21.2 -8.6,-16.4 C-8.6,-7.2 -3.8,0.2 0,12.8 C3.8,0.2 8.6,-7.2 8.6,-16.4 C8.6,-21.2 4.8,-25 0,-25 Z"
+            fill="#e3342f"
             stroke="#ffffff"
-            strokeWidth="1.6"
+            strokeWidth="1.3"
             strokeLinejoin="round"
           />
-          <circle cx="0" cy="-10" r="3.8" fill="#ffffff" />
+          <circle cx="0" cy="-16.2" r="2.8" fill="#ffffff" />
         </g>
       </svg>
 
