@@ -1,5 +1,6 @@
 import Link from "next/link";
 import MarketScopeEstablishmentTable from "@/components/MarketScopeEstablishmentTable";
+import MarketScopeMetricLink from "@/components/MarketScopeMetricLink";
 import type { CityDbprMarketScope } from "@/lib/city-market-scope-dbpr";
 
 type MarketBusiness = {
@@ -76,14 +77,22 @@ export default function CityMarketScope(props: Props) {
             <span>{props.county}</span>
             <h3>County License Market</h3>
             <ul>
-              <li><b>{props.dbpr.available ? props.dbpr.countyTotalRetailLicenses : "Refreshing"}</b> retail alcoholic-beverage licenses</li>
               <li>
-                <b>{props.dbpr.available ? props.dbpr.county4copInEffect : "Refreshing"}</b> 4COP quota in effect
-                {props.dbpr.available ? <> · <b>{props.dbpr.county4copInUse}</b> active · <b>{props.dbpr.county4copInactive}</b> inactive</> : null}
+                <MarketScopeMetricLink ariaLabel={`Show all ${props.city} establishments`}>
+                  <b>{props.dbpr.available ? props.dbpr.countyTotalRetailLicenses : "Refreshing"}</b> retail alcoholic-beverage licenses
+                </MarketScopeMetricLink>
               </li>
               <li>
-                <b>{props.dbpr.available ? props.dbpr.county3psInEffect : "Refreshing"}</b> 3PS quota in effect
-                {props.dbpr.available ? <> · <b>{props.dbpr.county3psInUse}</b> active · <b>{props.dbpr.county3psInactive}</b> inactive</> : null}
+                <MarketScopeMetricLink licenseType="4COP Quota" ariaLabel={`Show ${props.city} 4COP quota establishments`}>
+                  <b>{props.dbpr.available ? props.dbpr.county4copInEffect : "Refreshing"}</b> 4COP quota in effect
+                  {props.dbpr.available ? <> · <b>{props.dbpr.county4copInUse}</b> active · <b>{props.dbpr.county4copInactive}</b> inactive</> : null}
+                </MarketScopeMetricLink>
+              </li>
+              <li>
+                <MarketScopeMetricLink licenseType="3PS Quota" ariaLabel={`Show ${props.city} 3PS establishments`}>
+                  <b>{props.dbpr.available ? props.dbpr.county3psInEffect : "Refreshing"}</b> 3PS quota in effect
+                  {props.dbpr.available ? <> · <b>{props.dbpr.county3psInUse}</b> active · <b>{props.dbpr.county3psInactive}</b> inactive</> : null}
+                </MarketScopeMetricLink>
               </li>
               <li><b>{props.standaloneCount}</b> standalone quota licenses currently for sale</li>
             </ul>
@@ -93,11 +102,31 @@ export default function CityMarketScope(props: Props) {
             <span>City of {props.city}</span>
             <h3>Operating License Landscape</h3>
             <ul>
-              <li><b>{props.dbpr.available ? props.dbpr.cityTotalRetailLicenses : "Refreshing"}</b> active licenses in the official city grouping</li>
-              <li><b>{props.dbpr.available ? props.dbpr.city4copInUse : "Refreshing"}</b> active 4COP quota establishments</li>
-              <li><b>{props.dbpr.available ? props.dbpr.city3psInUse : "Refreshing"}</b> active 3PS establishments</li>
-              <li><b>{props.dbpr.available ? props.dbpr.citySfsInUse : "Refreshing"}</b> active SFS/SRX establishments</li>
-              <li><b>{props.dbpr.available ? props.dbpr.city2copInUse : "Refreshing"}</b> active 2COP establishments</li>
+              <li>
+                <MarketScopeMetricLink ariaLabel={`Show all ${props.city} establishments`}>
+                  <b>{props.dbpr.available ? props.dbpr.cityTotalRetailLicenses : "Refreshing"}</b> active licenses in the official city grouping
+                </MarketScopeMetricLink>
+              </li>
+              <li>
+                <MarketScopeMetricLink licenseType="4COP Quota" ariaLabel="Show active 4COP quota establishments">
+                  <b>{props.dbpr.available ? props.dbpr.city4copInUse : "Refreshing"}</b> active 4COP quota establishments
+                </MarketScopeMetricLink>
+              </li>
+              <li>
+                <MarketScopeMetricLink licenseType="3PS Quota" ariaLabel="Show active 3PS establishments">
+                  <b>{props.dbpr.available ? props.dbpr.city3psInUse : "Refreshing"}</b> active 3PS establishments
+                </MarketScopeMetricLink>
+              </li>
+              <li>
+                <MarketScopeMetricLink licenseType="4COP SFS / SRX" ariaLabel="Show active SFS/SRX establishments">
+                  <b>{props.dbpr.available ? props.dbpr.citySfsInUse : "Refreshing"}</b> active SFS/SRX establishments
+                </MarketScopeMetricLink>
+              </li>
+              <li>
+                <MarketScopeMetricLink licenseType="2COP" ariaLabel="Show active 2COP establishments">
+                  <b>{props.dbpr.available ? props.dbpr.city2copInUse : "Refreshing"}</b> active 2COP establishments
+                </MarketScopeMetricLink>
+              </li>
             </ul>
           </article>
         </section>
