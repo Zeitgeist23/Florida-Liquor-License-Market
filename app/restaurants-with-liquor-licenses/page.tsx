@@ -371,7 +371,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
           background-image: url("/assets/florida-restaurants-oceanfront-exact.webp");
           background-size: cover;
           background-position: 64% 50%;
-          filter: contrast(1.10) saturate(1.08) brightness(1.04);
+          filter: contrast(1.06) saturate(1.03) brightness(0.98);
           background-repeat: no-repeat;
         }
         .florida-restaurants-hero__overlay {
@@ -417,7 +417,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
           <span className="fllm-template-eyebrow">Florida Restaurant Market</span>
           <h1
             className="fllm-template-hero-title"
-            style={{ fontSize: "clamp(36px, 3.55vw, 58px)", lineHeight: 1.0, maxWidth: "790px" }}
+            style={{ fontSize: "clamp(34px, 3.25vw, 56px)", lineHeight: 1.0, maxWidth: "930px" }}
           >
             Florida Restaurants for Sale
           </h1>
