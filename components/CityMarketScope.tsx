@@ -9,6 +9,7 @@ type MarketBusiness = {
   licenseType: string;
   price: string;
   href: string;
+  featuredThirdParty?: boolean;
 };
 
 type Props = {
