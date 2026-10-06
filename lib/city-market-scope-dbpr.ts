@@ -312,3 +312,11 @@ export async function getJacksonvilleDbprMarketScope(): Promise<CityDbprMarketSc
     cityNames: ["JACKSONVILLE"],
   });
 }
+
+
+export async function getOrlandoDbprMarketScope(): Promise<CityDbprMarketScope> {
+  return buildDbprCityMarketScope({
+    countyCode: "58",
+    cityNames: ["ORLANDO"],
+  });
+}
