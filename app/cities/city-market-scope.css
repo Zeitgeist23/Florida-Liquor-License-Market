@@ -765,7 +765,7 @@
   position:absolute;
   left:0;
   right:0;
-  top:calc(100% + 2px);
+  top:100%;
   z-index:80;
   display:none;
   max-height:340px;
@@ -982,4 +982,17 @@
 .scope-category--restaurant-bar{
   --category-color:#70e0d0;
   --category-surface:rgba(43,157,145,.20);
+}
+
+
+/* Keep hover dropdown physically connected to its trigger so the pointer
+   can move anywhere through the menu without crossing a dead gap. */
+.market-scope-hover-select{
+  padding-bottom:1px;
+}
+.market-scope-hover-select-menu{
+  margin-top:-1px;
+}
+.market-scope-hover-select-option{
+  display:block;
 }
