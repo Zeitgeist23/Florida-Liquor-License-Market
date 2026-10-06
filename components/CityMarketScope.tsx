@@ -1,4 +1,3 @@
-import Link from "next/link";
 import MarketScopeEstablishmentTable from "@/components/MarketScopeEstablishmentTable";
 import MarketScopeMetricLink from "@/components/MarketScopeMetricLink";
 import CityMarketBusinessInventory from "@/components/CityMarketBusinessInventory";
@@ -50,20 +49,12 @@ function number(value: number) {
   return new Intl.NumberFormat("en-US").format(Math.round(value));
 }
 
-function categoryClass(category: string) {
-  return category.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-}
 
 export default function CityMarketScope(props: Props) {
   const business4cop = props.marketBusinesses.filter((item) => item.licenseType === "4COP Quota").length;
   const business3ps = props.marketBusinesses.filter((item) => item.licenseType.includes("3PS")).length;
   const businessSfs = props.marketBusinesses.filter((item) => item.licenseType.includes("SFS")).length;
   const business2cop = props.marketBusinesses.filter((item) => item.licenseType.includes("2COP")).length;
-  const visibleMarketBusinesses =
-    typeof props.marketBusinessesVisible === "number"
-      ? props.marketBusinesses.slice(0, props.marketBusinessesVisible)
-      : props.marketBusinesses;
-  const hiddenMarketBusinesses = props.marketBusinesses.length - visibleMarketBusinesses.length;
   return (
     <section className="market-scope" aria-labelledby="market-scope-title">
       <div className="market-scope-shell">
