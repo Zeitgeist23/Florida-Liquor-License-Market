@@ -224,3 +224,109 @@ When the user says **“Make a City page for [City]”**, that instruction means
 - populate and validate city/county data;
 - use the shared components and data engine;
 - do not stop after producing a visually correct shell.
+
+
+# Locked City-Page Additions — October 6, 2026
+
+These rules are now part of the City-page method and apply to every existing and future City page unless the user explicitly requests a one-off exception.
+
+## Marketplace Business Inventory
+- Business + license package inventory on a City page is county-level.
+- Do not exclude a valid county listing merely because the City name does not appear in the listing title or business-type text.
+- Example: a listing titled "Pinellas County Cocktail Lounge + 4COP Quota License" must still appear on relevant Pinellas County City pages.
+- Current For-Sale Market business inventory must use the shared `CityMarketBusinessInventory` component.
+- The business inventory includes:
+  - Search Businesses text search.
+  - Business Category filter.
+  - License Type filter.
+  - live count in the form "Showing X of Y business + license packages."
+  - 10 results initially.
+  - incremental pagination using "Show next N of R results."
+- Business-package filters must use the same hover-open and click-open interaction standard as the Operating Establishments filters.
+
+## Locked Business Category Menu
+The Business Category dropdown always shows the complete shared taxonomy, even when a category currently has zero listings in the county.
+
+Order:
+1. All
+2. Restaurant
+3. Restaurant / Bar
+4. Bar
+5. Cocktail Lounge
+6. Nightclub
+7. Gentlemen's Club
+8. Liquor Store
+9. Convenience Store
+10. Marina
+11. Hotel / Motel
+12. Country Club
+13. Bowling Alley
+14. Other Hospitality
+
+- Restaurant filtering includes Restaurant / Bar hybrids where appropriate.
+- Convenience Store and Restaurant / Bar are first-class supported categories.
+- The dropdown must not shrink to only categories present in the current result set.
+
+## Locked Business License-Type Menu
+Order:
+1. All
+2. All Quota Licenses
+3. 4COP Quota Licenses
+4. 3PS Quota Licenses
+5. 4COP SFS/SRX Licenses
+6. 2COP Beer & Wine Licenses
+7. remaining supported license types
+
+## Featured Third-Party Broker Badge
+- A qualifying featured third-party broker listing displays a blue FEATURED badge immediately to the right of its business-category badge.
+- The badge appears only when the shared listing record is featured, is not seller-direct, and has an identified broker.
+- Category badge remains visually primary; FEATURED remains secondary.
+- Maintain approximately 10px extra horizontal separation between the category badge and FEATURED badge.
+- FEATURED is slightly smaller and slightly less bright than the category badge.
+- FEATURED uses the shared blue/cyan gradient treatment and brightens subtly with the card on hover.
+- Market-observation, seller-direct, and ordinary non-featured records do not receive this badge.
+
+## Inactive-License Count Clarification
+- County overview inactive figures for 4COP Quota and 3PS Quota are quota-only counts.
+- The Operating Establishments table's Inactive filter includes all inactive license classes in the county.
+- The shared note explaining this difference is mandatory wherever both appear.
+- Table math must reconcile: if the page says "Showing 10 of 51 establishments," the next-results control must reflect 41 remaining.
+
+## Operating Establishment Result Behavior
+- First 10 rows display initially.
+- Result counter uses "Showing X of Y establishments."
+- Pagination uses "Show next N of R results."
+- Active/inactive metric links must set the correct license-type and status filters, not merely scroll.
+- Dropdown menus must remain open while the pointer travels anywhere inside the menu, not only directly over option text.
+
+## Shared-Implementation Rule
+- A change requested on one City page that is clearly part of the City-page method must be implemented in shared City components/styles so other City pages inherit it.
+- City-specific pages should supply city/county inputs, hero content, map marker, population/projection inputs, and aliases—not fork the shared interaction or marketplace logic.
+- Use the shared DBPR ingestion engine for operating-license data.
+- Use the shared City business-inventory component for Current For-Sale Market filtering and pagination.
+
+## Completion Validation
+Before a new City page is considered complete, verify:
+- county and City DBPR data populate;
+- 4COP Quota, 3PS, 4COP SFS/SRX, and 2COP counts are plausible;
+- inactive records are accessible and deduplicated;
+- quota-only inactive counts are clearly distinguished from all-class inactive results;
+- business + license inventory is populated at county level;
+- known county featured-broker listings appear even if the City name is absent from the listing title;
+- qualifying featured listings display the blue FEATURED badge;
+- the full locked Business Category menu is present;
+- business inventory count, visible cards, filters, and pagination reconcile;
+- standalone inventory and asking-price statistics remain separate from DBPR operating-license census;
+- no source/parsing failure is displayed as a false zero.
+
+## Command Meaning
+When the user says "Make a City page for [City]," the instruction now means:
+- apply the complete Presentation Standard;
+- apply the complete Data-Method Standard;
+- use the shared City components and shared DBPR engine;
+- populate county-level standalone and business + license marketplace inventory;
+- include shared business search/category/license filters;
+- include the full locked business-category taxonomy;
+- display featured third-party broker status correctly;
+- preserve inactive-count clarification;
+- validate counts, filters, pagination, and badge states before treating the page as complete.
