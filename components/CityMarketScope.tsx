@@ -221,7 +221,7 @@ export default function CityMarketScope(props: Props) {
           ) : null}
         </section>
 
-        <section className="market-scope-panel">
+        <section className="market-scope-panel market-scope-panel--operating">
           <div className="market-scope-panel-heading">
             <div>
               <span>Operating Establishments</span>
