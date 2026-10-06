@@ -10,6 +10,8 @@ type CityMarketPageShellProps = {
   heroImagePosition?: string;
   cityMark: string;
   cityMarkTagline: string;
+  heroImageCredit?: string;
+  heroImageCreditHref?: string;
   children: ReactNode;
 };
 
@@ -22,6 +24,8 @@ export default function CityMarketPageShell({
   heroImagePosition = "58% 50%",
   cityMark,
   cityMarkTagline,
+  heroImageCredit,
+  heroImageCreditHref,
   children,
 }: CityMarketPageShellProps) {
   const pageStyle = {
@@ -59,6 +63,21 @@ export default function CityMarketPageShell({
           {cityMark}
           <small>{cityMarkTagline}</small>
         </div>
+
+        {heroImageCredit ? (
+          heroImageCreditHref ? (
+            <a
+              className="city-page-hero__credit"
+              href={heroImageCreditHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {heroImageCredit}
+            </a>
+          ) : (
+            <span className="city-page-hero__credit">{heroImageCredit}</span>
+          )
+        ) : null}
       </section>
 
       {children}
