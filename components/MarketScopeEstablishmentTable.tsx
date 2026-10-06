@@ -36,6 +36,37 @@ function displayLicense(row: EstablishmentRow) {
 }
 
 
+function dedupeByLicenseNumber(rows: EstablishmentRow[]) {
+  const seen = new Map<string, EstablishmentRow>();
+
+  for (const row of rows) {
+    const key = row.licenseNumber.trim().toUpperCase();
+    if (!key) continue;
+
+    const existing = seen.get(key);
+    if (!existing) {
+      seen.set(key, row);
+      continue;
+    }
+
+    // Prefer the record with a more specific DBA/address rather than generic
+    // inactive/escrow placeholders when DBPR supplies multiple rows for one license.
+    const score = (item: EstablishmentRow) => {
+      const dba = item.dba.trim().toUpperCase();
+      let value = 0;
+      if (dba && !/^INACTIVE\b/.test(dba) && dba !== "ESCROW") value += 3;
+      if (item.address && !/^INACTIVE\b/i.test(item.address)) value += 2;
+      if (item.licensee) value += 1;
+      return value;
+    };
+
+    if (score(row) > score(existing)) seen.set(key, row);
+  }
+
+  return Array.from(seen.values());
+}
+
+
 function HoverSelect({
   label,
   value,
@@ -171,7 +202,9 @@ export default function MarketScopeEstablishmentTable({
   }, [rows, inactiveRows]);
 
   const filteredRows = useMemo(() => {
-    const sourceRows = statusFilter === "Inactive" && inactiveRows.length ? inactiveRows : rows;
+    const sourceRows = dedupeByLicenseNumber(
+      statusFilter === "Inactive" && inactiveRows.length ? inactiveRows : rows,
+    );
     return sourceRows
       .filter((row) => categoryFilter === "All" || row.category === categoryFilter)
       .filter((row) =>
@@ -382,7 +415,7 @@ export default function MarketScopeEstablishmentTable({
           <button
             type="button"
             className="market-scope-table-row market-scope-table-row--interactive"
-            key={row.licenseNumber}
+            key={`${row.licenseNumber}-${row.dba}-${row.licensee}`}
             onClick={() => { setSelectedRow(row); setCopiedLicense(false); setLicenseMarketOpen(false); }}
             aria-label={`View details for ${row.dba}`}
           >
