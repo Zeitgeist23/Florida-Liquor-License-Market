@@ -1157,3 +1157,19 @@
 .market-scope-featured-broker-badge{
   margin-left:10px;
 }
+
+
+/* Refine City FEATURED badge: slightly smaller and less visually dominant. */
+.market-scope-featured-broker-badge{
+  min-height:23px;
+  padding:0 8px;
+  border-color:#58cfe6;
+  background:linear-gradient(180deg,#147c9e 0%,#0a5875 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 3px 7px rgba(0,0,0,.22),0 0 8px rgba(88,207,230,.08);
+  font-size:9px;
+}
+.market-scope-business-row:hover .market-scope-featured-broker-badge{
+  border-color:#7edff0;
+  filter:brightness(1.07);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 4px 9px rgba(0,0,0,.24),0 0 12px rgba(88,207,230,.16);
+}
