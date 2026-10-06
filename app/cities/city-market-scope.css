@@ -996,3 +996,14 @@
 .market-scope-hover-select-option{
   display:block;
 }
+
+
+.market-scope-scope-note{
+  margin:14px 0 0;
+  padding-top:12px;
+  border-top:1px solid rgba(124,230,255,.18);
+  color:rgba(236,247,253,.78);
+  font-size:12px;
+  line-height:1.5;
+  text-align:center;
+}
