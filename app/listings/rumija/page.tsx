@@ -90,6 +90,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     email: "marjanflrealtor@gmail.com",
     website: "https://totalcommercial.com/agents/21455",
     listingUrl: sourceListingUrl,
+    photo: "https://totalcommercial.com/media/142055/legacy-photo-505945.jpg",
     credential: "Florida real estate professional",
   },
   additionalSellerIntro:
