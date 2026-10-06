@@ -167,3 +167,25 @@
   .city-page-hero h1{font-size:46px}
   .city-page-hero__citymark{display:none}
 }
+
+
+.city-page-hero__credit{
+  position:absolute;
+  right:34px;
+  bottom:6px;
+  z-index:3;
+  color:rgba(255,255,255,.72);
+  font-size:9px;
+  line-height:1.2;
+  text-decoration:none;
+  text-shadow:0 1px 5px rgba(0,0,0,.8);
+}
+.city-page-hero__credit:hover,
+.city-page-hero__credit:focus-visible{
+  color:#fff;
+  text-decoration:underline;
+  outline:none;
+}
+@media(max-width:620px){
+  .city-page-hero__credit{display:none}
+}
