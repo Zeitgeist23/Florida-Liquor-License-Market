@@ -93,3 +93,9 @@
 }
 @media(max-width:980px){.city-market-overview-grid{grid-template-columns:1fr}.city-market-stat-grid{grid-template-columns:1fr 1fr}.city-market-stat-grid .city-market-stat-card:last-child{grid-column:1/-1}.city-market-stat-grid--two .city-market-stat-card:last-child{grid-column:auto}}
 @media(max-width:680px){.city-market-overview-shell{width:min(100% - 24px,1240px)}.city-market-overview-copy{padding:22px 16px}.city-market-stat-grid,.city-market-stat-grid--two{grid-template-columns:1fr}.city-market-stat-grid .city-market-stat-card:last-child{grid-column:auto}.city-market-map-tooltip{position:relative;right:auto;top:auto;margin:8px auto 0;width:calc(100% - 20px)}.city-market-map-stage{display:block;padding-bottom:8px}.city-market-map-legend{left:12px;bottom:12px}}
+
+
+/* Major City Market Overview eyebrows use FLLM gold */
+.city-market-overview-copy>span{
+  color:#f5aa00 !important;
+}
