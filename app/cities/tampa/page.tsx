@@ -75,31 +75,14 @@ export default async function TampaCityPage() {
 
   const businessInventory = allBusinesses
     .filter((listing) => listing.county === "Hillsborough County")
-    .filter((listing) =>
-      /\btampa\b/i.test(`${listing.title} ${listing.businessType}`),
-    )
-    .map((listing) => {
-      const view =
-        listing.licenseClass === "quota"
-          ? "businesses"
-          : listing.licenseClass === "sfs"
-            ? "businesses-sfs"
-            : "businesses-2cop";
-      const params = new URLSearchParams({
-        view,
-        county: listing.county,
-        listing: listing.listingReference,
-      });
-
-      return {
-        title: listing.title,
-        category: listing.businessCategory,
-        licenseType: listing.licenseType,
-        price: listing.packagePrice,
-        href: `/market-data/heat-map?${params.toString()}#business-package-map-title`,
-        featuredThirdParty: Boolean(listing.featured && !listing.sellerDirect && listing.brokerName?.trim()),
-      };
-    });
+    .map((listing) => ({
+      title: listing.title,
+      category: listing.businessCategory,
+      licenseType: listing.licenseType,
+      price: listing.packagePrice,
+      href: listing.marketViewHref || listing.href,
+      featuredThirdParty: Boolean(listing.featured && !listing.sellerDirect && listing.brokerName?.trim()),
+    }));
 
   const drawing2026 =
     QUOTA_DRAWING_2026.counties.find((item) => item.county === "Hillsborough")?.licenses ?? 0;
@@ -167,7 +150,6 @@ export default async function TampaCityPage() {
         standaloneMedian={median(standalonePrices)}
         standaloneHigh={standalonePrices.length ? Math.max(...standalonePrices) : null}
         marketBusinesses={businessInventory}
-        marketBusinessesVisible={1}
         dbpr={dbprMarketScope}
       />
     </CityMarketPageShell>
