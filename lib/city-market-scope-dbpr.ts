@@ -319,3 +319,11 @@ export async function getOrlandoDbprMarketScope(): Promise<CityDbprMarketScope> 
     cityNames: ["ORLANDO"],
   });
 }
+
+
+export async function getClearwaterDbprMarketScope(): Promise<CityDbprMarketScope> {
+  return buildDbprCityMarketScope({
+    countyCode: "62",
+    cityNames: ["CLEARWATER"],
+  });
+}
