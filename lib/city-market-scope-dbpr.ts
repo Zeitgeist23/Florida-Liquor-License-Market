@@ -266,7 +266,12 @@ export async function getJacksonvilleDbprMarketScope(): Promise<CityDbprMarketSc
       if (row.length < 23) continue;
 
       const countyCode = String(row[19] || row[11] || "").trim();
-      if (countyCode !== "26") continue;
+      const rawLicenseNumber = String(row[20] || "").trim().toUpperCase();
+
+      // Duval retail beverage license numbers carry the 26 county prefix.
+      // Use both the DBPR county field and the license-number prefix so this
+      // page remains resilient if the extract shifts/omits the county field.
+      if (countyCode !== "26" && !/^BEV26\d+/i.test(rawLicenseNumber)) continue;
 
       const series = String(row[3] || "").trim().toUpperCase();
       const modifier = String(row[4] || "").trim().toUpperCase();
