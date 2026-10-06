@@ -31,34 +31,27 @@ const sourceListingUrl =
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Lee County Pizzeria + Liquor License | Broker Preview | FLLM",
+  title: "Lee County Semi-Absentee Pizzeria for Sale + 4COP SFS/SRX | FLLM",
   description:
-    "Private broker-review FLLM mockup for a semi-absentee Lee County pizzeria offered at $900,000 with $400,000 Cash Flow (SDE), leased premises, an included 4COP SFS/SRX full-liquor license pending broker confirmation, and cash-buyer or seller-financing terms.",
+    "Lee County semi-absentee pizzeria for sale at $900,000 with $400,000 Cash Flow (SDE), leased premises, an included 4COP SFS/SRX full-liquor license, and seller financing available with 50% down.",
   alternates: { canonical: canonicalUrl },
   robots: {
-    index: false,
-    follow: false,
-    noarchive: true,
-    googleBot: {
-      index: false,
-      follow: false,
-      noarchive: true,
-      noimageindex: true,
-    },
+    index: true,
+    follow: true,
   },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Lee County Pizzeria + Liquor License | Broker Preview",
+    title: "Lee County Semi-Absentee Pizzeria for Sale + 4COP SFS/SRX",
     description:
-      "Private FLLM broker-review mockup represented by Marjan Rumija of Krise Commercial Group, LLC.",
+      "Featured broker listing represented by Marjan Rumija of Krise Commercial Group, LLC: $900,000 asking price, $400,000 Cash Flow (SDE), leased premises and an included 4COP SFS/SRX full-liquor license.",
     siteName: "Florida Liquor License Market",
   },
   twitter: {
     card: "summary",
-    title: "Lee County Pizzeria + Liquor License | Broker Preview",
+    title: "Lee County Semi-Absentee Pizzeria for Sale + 4COP SFS/SRX",
     description:
-      "Private FLLM broker-review mockup for a Lee County pizzeria opportunity.",
+      "Featured Lee County pizzeria business listing with $400,000 Cash Flow (SDE) and an included 4COP SFS/SRX full-liquor license.",
   },
 };
 
@@ -76,13 +69,13 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   licenseType: "4COP SFS/SRX",
   licenseClass: "sfs",
   licenseAvailableSeparately: false,
-  approvalPreview: true,
+  approvalPreview: false,
   businessLabel: "Semi-Absentee Pizzeria",
   businessLabelLinkUrl: sourceListingUrl,
   businessLabelBodyBold: false,
   packagePriceExternalLink: true,
   heroSummary:
-    "Semi-absentee Lee County pizzeria opportunity for sale for $900,000 with $400,000 in annual Cash Flow (SDE), leased premises and an included 4COP SFS / SRX full-liquor license, pending broker confirmation. The business requires a cash buyer or seller financing with 50% down and is not SBA financeable.",
+    "Semi-absentee Lee County pizzeria opportunity for sale for $900,000 with $400,000 in annual Cash Flow (SDE), leased premises and an included 4COP SFS / SRX full-liquor license. The business requires a cash buyer or seller financing with 50% down and is not SBA financeable.",
   broker: {
     name: "Marjan Rumija",
     brokerage: "Krise Commercial Group, LLC",
@@ -94,9 +87,9 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     credential: "Florida real estate professional",
   },
   additionalSellerIntro:
-    "Semi-absentee pizzeria opportunity in Lee County, Florida offered at $900,000 with $400,000 in annual Cash Flow (SDE), leased premises, recently remodeled operations and an included full-liquor license, pending broker confirmation.",
+    "Semi-absentee pizzeria opportunity in Lee County, Florida offered at $900,000 with $400,000 in annual Cash Flow (SDE), leased premises, recently remodeled operations and an included 4COP SFS / SRX full-liquor license.",
   packageIncludes:
-    "The business includes approximately $160,000 in furniture, fixtures and equipment, approximately $36,000 in inventory, the existing restaurant operating infrastructure and an included 4COP SFS / SRX full-liquor license, pending broker confirmation. Monthly rent is $7,300. The opportunity requires a cash buyer or seller financing with 50% down and is not SBA financeable.",
+    "The business includes approximately $160,000 in furniture, fixtures and equipment, approximately $36,000 in inventory, the existing restaurant operating infrastructure and an included 4COP SFS / SRX full-liquor license. Monthly rent is $7,300. The opportunity requires a cash buyer or seller financing with 50% down and is not SBA financeable.",
   businessMetrics: [
     {
       label: "Cash Flow (SDE)",
@@ -136,9 +129,9 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     },
     {
       label: "Liquor License Classification",
-      value: "4COP SFS / SRX (pending broker confirmation)",
+      value: "4COP SFS / SRX",
       description:
-        "The working classification for this broker-review mockup is 4COP SFS / SRX. Marjan will confirm or correct the classification before final publication.",
+        "The included full-liquor license is identified as a 4COP SFS / SRX license for this featured broker listing.",
       href: "/license-types/4cop-sfs-restaurant",
     },
     {
@@ -208,7 +201,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "Build on $400,000 in annual Cash Flow (SDE).",
     "Acquire approximately $160,000 in furniture, fixtures and equipment plus approximately $36,000 in inventory.",
     "Operate from leased premises with monthly rent of $7,300 and a restaurant remodeled in 2024.",
-    "Acquire the business with an included 4COP SFS / SRX full-liquor license, pending broker confirmation before final publication.",
+    "Acquire the business with an included 4COP SFS / SRX full-liquor license.",
     "Pursue the opportunity as a cash buyer or with seller financing at 50% down; the business is not SBA financeable.",
   ],
   sellerFinancing: {
@@ -229,6 +222,6 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   sourceListingLinkLabel: "View Original BizBuySell Listing →",
 };
 
-export default function MarjanRumijaFeaturedListingPreviewPage() {
+export default function MarjanRumijaFeaturedListingPage() {
   return <FeaturedThirdPartyBusinessListingPage config={config} />;
 }
