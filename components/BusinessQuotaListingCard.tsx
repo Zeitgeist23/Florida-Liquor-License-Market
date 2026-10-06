@@ -11,6 +11,8 @@ const categoryClassNames: Record<BusinessQuotaCategory, string> = {
   "Cocktail Lounge": "cocktail-lounge",
   Nightclub: "nightclub",
   Restaurant: "restaurant",
+  "Restaurant / Bar": "restaurant-bar",
+  "Convenience Store": "convenience-store",
   "Bowling Alley": "bowling-alley",
   "Liquor Store": "liquor-store",
   Marina: "marina",
