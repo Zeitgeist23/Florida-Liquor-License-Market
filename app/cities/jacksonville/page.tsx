@@ -79,9 +79,6 @@ export default async function JacksonvilleCityPage() {
 
   const businessInventory = allBusinesses
     .filter((listing) => listing.county === "Duval County")
-    .filter((listing) =>
-      /\bjacksonville\b/i.test(`${listing.title} ${listing.businessType}`),
-    )
     .map((listing) => ({
       title: listing.title,
       category: listing.businessCategory,
