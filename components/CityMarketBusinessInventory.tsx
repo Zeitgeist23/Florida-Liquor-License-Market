@@ -9,6 +9,7 @@ type MarketBusiness = {
   licenseType: string;
   price: string;
   href: string;
+  featuredThirdParty?: boolean;
 };
 
 function categoryClass(category: string) {
@@ -203,7 +204,12 @@ export default function CityMarketBusinessInventory({
         {shown.map((item) => (
           <Link href={item.href} key={item.title} className="market-scope-business-row">
             <div className="market-scope-business-copy">
-              <span className={"scope-category scope-category--" + categoryClass(item.category)}>{item.category}</span>
+              <div className="market-scope-business-badge-row">
+                <span className={"scope-category scope-category--" + categoryClass(item.category)}>{item.category}</span>
+                {item.featuredThirdParty ? (
+                  <span className="market-scope-featured-broker-badge">Featured</span>
+                ) : null}
+              </div>
               <strong>{item.title}</strong>
             </div>
             <div className="market-scope-business-meta">
