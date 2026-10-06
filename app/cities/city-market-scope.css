@@ -1007,3 +1007,108 @@
   line-height:1.5;
   text-align:center;
 }
+
+
+/* Search and filter controls for Current For-Sale Market business packages */
+.market-scope-business-inventory{
+  margin-top:16px;
+}
+.market-scope-business-search{
+  margin-bottom:12px;
+}
+.market-scope-business-search label{
+  display:grid;
+  gap:7px;
+}
+.market-scope-business-search label>span{
+  color:#7ce6ff;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+.market-scope-business-search input{
+  width:100%;
+  min-height:46px;
+  padding:0 15px;
+  border:1px solid rgba(105,214,255,.45);
+  border-radius:8px;
+  background:#071f35;
+  color:#fff;
+  font-size:14px;
+  font-weight:700;
+  outline:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 6px 14px rgba(0,0,0,.12);
+}
+.market-scope-business-search input::placeholder{
+  color:#8ea9b8;
+  font-weight:600;
+}
+.market-scope-business-search input:focus{
+  border-color:#69d6ff;
+  box-shadow:0 0 0 2px rgba(105,214,255,.13),0 8px 18px rgba(0,0,0,.16);
+}
+.market-scope-business-controls{
+  display:grid;
+  grid-template-columns:minmax(220px,1fr) minmax(220px,1fr) minmax(250px,.95fr);
+  gap:10px;
+  align-items:end;
+  margin-bottom:12px;
+}
+.market-scope-business-result-count{
+  min-height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+  color:#c9d8e2;
+  font-size:12px;
+  text-align:right;
+}
+.market-scope-business-result-count strong{
+  color:#fff;
+  font-size:18px;
+}
+.market-scope-business-expand{
+  width:100%;
+  min-height:46px;
+  margin-top:12px;
+  border:1px solid rgba(105,214,255,.42);
+  border-radius:8px;
+  background:#0a2c47;
+  color:#7ce6ff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 7px 16px rgba(0,0,0,.15);
+  transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease,color .16s ease;
+}
+.market-scope-business-expand:hover,
+.market-scope-business-expand:focus-visible{
+  transform:translateY(-2px);
+  border-color:#8ff0ff;
+  background:#0e4267;
+  color:#fff;
+  box-shadow:0 10px 22px rgba(0,0,0,.22),0 0 18px rgba(105,214,255,.14);
+  outline:none;
+}
+@media(max-width:900px){
+  .market-scope-business-controls{
+    grid-template-columns:1fr 1fr;
+  }
+  .market-scope-business-result-count{
+    grid-column:1/-1;
+    justify-content:flex-start;
+    text-align:left;
+  }
+}
+@media(max-width:650px){
+  .market-scope-business-controls{
+    grid-template-columns:1fr;
+  }
+  .market-scope-business-result-count{
+    grid-column:auto;
+  }
+}
