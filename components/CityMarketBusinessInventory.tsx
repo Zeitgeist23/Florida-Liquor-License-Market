@@ -88,20 +88,20 @@ export default function CityMarketBusinessInventory({
       "Bar",
       "Cocktail Lounge",
       "Nightclub",
+      "Gentlemen's Club",
       "Liquor Store",
+      "Convenience Store",
       "Marina",
       "Hotel / Motel",
       "Country Club",
       "Bowling Alley",
-      "Gentlemen's Club",
       "Other Hospitality",
     ];
     const available = new Set(businesses.map((item) => item.category));
-    const known = preferred.filter((category) => available.has(category));
     const extras = Array.from(available)
       .filter((category) => !preferred.includes(category))
       .sort((a, b) => a.localeCompare(b));
-    return ["All", ...known, ...extras];
+    return ["All", ...preferred, ...extras];
   }, [businesses]);
 
   const licenseOptions = useMemo(() => {
