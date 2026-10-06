@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/nightclubs-for-sale-with-liquor-licenses`, lastModified, changeFrequency: "daily", priority: 0.92 },
     { url: `${siteUrl}/nightclubs-for-sale/miami`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/cities/orlando`, lastModified, changeFrequency: "daily", priority: 0.92 },
-    { url: `${siteUrl}/cities/clearwater`, lastModified, changeFrequency: "daily", priority: 0.9 },
+    { url: `${siteUrl}/cities/clearwater`, lastModified, changeFrequency: "daily", priority: 0.9 },\n    { url: `${siteUrl}/cities/st-petersburg`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/nightclubs-for-sale/broward`, lastModified, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/nightclubs-for-sale/orlando`, lastModified, changeFrequency: "daily", priority: 0.88 },
     { url: `${siteUrl}/nightclubs-for-sale/tampa`, lastModified, changeFrequency: "daily", priority: 0.88 },
