@@ -1,0 +1,36 @@
+name: Sync Orlando Market Scope
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/update-orlando-market-scope.mjs"
+      - ".github/workflows/sync-orlando-market-scope.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build Orlando DBPR snapshot
+        run: node scripts/update-orlando-market-scope.mjs
+      - name: Commit refreshed snapshot
+        run: |
+          if git diff --quiet -- data/market-scope/orlando-dbpr.json; then
+            echo "No Orlando snapshot changes"
+            exit 0
+          fi
+          git config user.name "FLLM Market Data Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/market-scope/orlando-dbpr.json
+          git commit -m "Refresh Orlando DBPR market scope snapshot"
+          git push
