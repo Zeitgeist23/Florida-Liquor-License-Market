@@ -1112,3 +1112,13 @@
     grid-column:auto;
   }
 }
+
+
+.scope-category--restaurant-bar{
+  --category-color:#6ce6d6;
+  --category-surface:rgba(40,168,150,.20);
+}
+.scope-category--convenience-store{
+  --category-color:#f0cf66;
+  --category-surface:rgba(181,145,42,.18);
+}
