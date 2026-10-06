@@ -397,8 +397,8 @@ export default function MarketScopeEstablishmentTable({
           onChange={(value) => { setStatusFilter(value); setExpanded(false); }}
         />
         <div className="market-scope-table-result-count">
-          <strong>{filteredRows.length}</strong>
-          <span>matching establishments</span>
+          <strong>Showing {shownRows.length} of {filteredRows.length}</strong>
+          <span>establishments</span>
         </div>
       </div>
 
