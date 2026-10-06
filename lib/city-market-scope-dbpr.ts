@@ -327,3 +327,11 @@ export async function getClearwaterDbprMarketScope(): Promise<CityDbprMarketScop
     cityNames: ["CLEARWATER"],
   });
 }
+
+
+export async function getSaintPetersburgDbprMarketScope(): Promise<CityDbprMarketScope> {
+  return buildDbprCityMarketScope({
+    countyCode: "62",
+    cityNames: ["ST PETERSBURG", "ST. PETERSBURG", "SAINT PETERSBURG"],
+  });
+}
