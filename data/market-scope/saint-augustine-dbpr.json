@@ -1,13 +1,13 @@
 {
   "source": "Florida DBPR / ABT retail license extract + City of St. Augustine fee-distribution code 795",
-  "generatedAt": "2026-10-05T21:22:05.774Z",
+  "generatedAt": "2026-10-06T13:20:37.476Z",
   "county": "St. Johns County",
   "city": "Saint Augustine",
   "countyTotalRetailLicenses": 826,
-  "cityTotalRetailLicenses": 391,
-  "county4copInEffect": 43,
+  "cityTotalRetailLicenses": 392,
+  "county4copInEffect": 44,
   "county4copInUse": 41,
-  "county4copInactive": 2,
+  "county4copInactive": 3,
   "county3psInEffect": 36,
   "county3psInUse": 29,
   "county3psInactive": 7,
@@ -160,9 +160,9 @@
       "city": "SAINT AUGUSTINE",
       "address": "150 HAMPTON POINT DR",
       "zip": "32092",
-      "primaryStatus": "21",
-      "secondaryStatus": "37",
-      "active": false,
+      "primaryStatus": "20",
+      "secondaryStatus": "20",
+      "active": true,
       "quotaClass": null,
       "category": "Other Hospitality"
     },
@@ -5027,21 +5027,6 @@
       "category": "Other Hospitality"
     },
     {
-      "licenseNumber": "BEV6501733",
-      "licensee": "SPEEDWAY LLC",
-      "dba": "SPEEDWAY LLC",
-      "series": "2APS",
-      "modifier": "",
-      "city": "SAINT AUGUSTINE",
-      "address": "150 HAMPTON POINT DRIVE",
-      "zip": "32092",
-      "primaryStatus": "20",
-      "secondaryStatus": "35",
-      "active": false,
-      "quotaClass": null,
-      "category": "Other Hospitality"
-    },
-    {
       "licenseNumber": "BEV6502601",
       "licensee": "SPINSTER ABBOTT'S LLC",
       "dba": "SPINSTER ABBOTT'S",
@@ -6019,21 +6004,6 @@
       "category": "Restaurant"
     },
     {
-      "licenseNumber": "BEV6501733",
-      "licensee": "7 ELEVEN INC AND OM KSR ENTERPRISES LLC",
-      "dba": "7-ELEVEN STORE #43477 A",
-      "series": "2APS",
-      "modifier": "",
-      "city": "SAINT AUGUSTINE",
-      "address": "150 HAMPTON POINT DR",
-      "zip": "32092",
-      "primaryStatus": "21",
-      "secondaryStatus": "37",
-      "active": false,
-      "quotaClass": null,
-      "category": "Other Hospitality"
-    },
-    {
       "licenseNumber": "BEV6500053",
       "licensee": "ABERDEEN LIQUOR INC",
       "dba": "ABERDEEN LIQUOR",
@@ -6079,6 +6049,21 @@
       "category": "Other Hospitality"
     },
     {
+      "licenseNumber": "BEV6502662",
+      "licensee": "BUDDY BOYS LIQUORS INC",
+      "dba": "BUDDY BOYS LIQUORS INC",
+      "series": "4COP",
+      "modifier": "",
+      "city": "SAINT AUGUSTINE",
+      "address": "8410 COUNTY RD 13 N STE 100",
+      "zip": "32092",
+      "primaryStatus": "21",
+      "secondaryStatus": "34",
+      "active": false,
+      "quotaClass": "4COP Quota",
+      "category": "Liquor Store"
+    },
+    {
       "licenseNumber": "BEV6502480",
       "licensee": "CAJUN CRAB HUT INC",
       "dba": "CAJUN CRAB HUT",
@@ -6107,6 +6092,21 @@
       "active": false,
       "quotaClass": null,
       "category": "Restaurant"
+    },
+    {
+      "licenseNumber": "BEV6502812",
+      "licensee": "HOLIDAY CVS LLC",
+      "dba": "CVS PHARMACY # 3631",
+      "series": "2APS",
+      "modifier": "",
+      "city": "PONTE VEDRA BEACH",
+      "address": "152 FRONT STREET",
+      "zip": "32082",
+      "primaryStatus": "21",
+      "secondaryStatus": "37",
+      "active": false,
+      "quotaClass": null,
+      "category": "Other Hospitality"
     },
     {
       "licenseNumber": "BEV6502808",
@@ -6148,7 +6148,7 @@
       "address": "INACTIVE- ST JOHNS",
       "zip": "32092",
       "primaryStatus": "41",
-      "secondaryStatus": "10",
+      "secondaryStatus": "35",
       "active": false,
       "quotaClass": "4COP Quota",
       "category": "Other Hospitality"
@@ -6259,21 +6259,6 @@
       "category": "Other Hospitality"
     },
     {
-      "licenseNumber": "BEV6502815",
-      "licensee": "NEW SUN ONE LLC",
-      "dba": "PACIFIC ASIAN BISTRO",
-      "series": "2COP",
-      "modifier": "",
-      "city": "SAINT AUGUSTINE",
-      "address": "159 PALENCIA VILLAGE DRIVE SUITE 111",
-      "zip": "32095",
-      "primaryStatus": "21",
-      "secondaryStatus": "37",
-      "active": false,
-      "quotaClass": null,
-      "category": "Restaurant"
-    },
-    {
       "licenseNumber": "BEV6502736",
       "licensee": "PONTE VEDRA WINE BAR LLC",
       "dba": "PONTE VEDRA WINE BAR",
@@ -6317,21 +6302,6 @@
       "active": false,
       "quotaClass": null,
       "category": "Restaurant"
-    },
-    {
-      "licenseNumber": "BEV6501733",
-      "licensee": "SPEEDWAY LLC",
-      "dba": "SPEEDWAY LLC",
-      "series": "2APS",
-      "modifier": "",
-      "city": "SAINT AUGUSTINE",
-      "address": "150 HAMPTON POINT DRIVE",
-      "zip": "32092",
-      "primaryStatus": "20",
-      "secondaryStatus": "35",
-      "active": false,
-      "quotaClass": null,
-      "category": "Other Hospitality"
     },
     {
       "licenseNumber": "BEV6502809",
