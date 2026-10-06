@@ -92,11 +92,11 @@ export default function CityMarketScope(props: Props) {
                 {props.dbpr.available ? (
                   <>
                     <span className="market-scope-metric-separator">·</span>
-                    <MarketScopeMetricLink licenseType="4COP Quota" ariaLabel={`Show active ${props.city} 4COP quota establishments`}>
+                    <MarketScopeMetricLink licenseType="4COP Quota" status="Active" ariaLabel={`Show active ${props.city} 4COP quota establishments`}>
                       <b>{props.dbpr.county4copInUse}</b> active
                     </MarketScopeMetricLink>
                     <span className="market-scope-metric-separator">·</span>
-                    <MarketScopeMetricLink licenseType="4COP Quota" ariaLabel={`Show inactive 4COP quota license records`}>
+                    <MarketScopeMetricLink licenseType="4COP Quota" status="Inactive" ariaLabel={`Show inactive 4COP quota license records`}>
                       <b>{props.dbpr.county4copInactive}</b> inactive
                     </MarketScopeMetricLink>
                   </>
@@ -109,11 +109,11 @@ export default function CityMarketScope(props: Props) {
                 {props.dbpr.available ? (
                   <>
                     <span className="market-scope-metric-separator">·</span>
-                    <MarketScopeMetricLink licenseType="3PS Quota" ariaLabel={`Show active ${props.city} 3PS establishments`}>
+                    <MarketScopeMetricLink licenseType="3PS Quota" status="Active" ariaLabel={`Show active ${props.city} 3PS establishments`}>
                       <b>{props.dbpr.county3psInUse}</b> active
                     </MarketScopeMetricLink>
                     <span className="market-scope-metric-separator">·</span>
-                    <MarketScopeMetricLink licenseType="3PS Quota" ariaLabel="Show inactive 3PS license records">
+                    <MarketScopeMetricLink licenseType="3PS Quota" status="Inactive" ariaLabel="Show inactive 3PS license records">
                       <b>{props.dbpr.county3psInactive}</b> inactive
                     </MarketScopeMetricLink>
                   </>
