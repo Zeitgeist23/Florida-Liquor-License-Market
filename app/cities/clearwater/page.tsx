@@ -132,12 +132,10 @@ export default async function ClearwaterCityPage() {
         "Standalone Pinellas County 4COP and 3PS quota liquor licenses for sale.",
         "Pinellas County liquor-license pricing, operating-license and growth context.",
       ]}
-      heroImage="https://commons.wikimedia.org/wiki/Special:FilePath/Clearwater-beach-florida-pier-60.jpg"
-      heroImagePosition="67% 50%"
+      heroImage="https://images.openai.com/static-rsc-4/0sUXtWeias-ThieTH1PTJG2BQ1za5KEQuvRNEsCwGZ1VhLWBwcToLm_QEgWh01BLjx79fylcEBnFSTb0ne-W9vrquhlkorEAYjoBXTYH5zEMi9lbT2QewvmdLbY-R_1ce_AjLglM4Dt3S6BWxCA4XuaEHyV4L0keMB-HUDA5KQQVee2PfVF2ZE4w65DUHH1w?purpose=fullsize"
+      heroImagePosition="66% 50%"
       cityMark="Clearwater"
       cityMarkTagline="Florida · America’s Beach"
-      heroImageCredit="Pier 60 at Clearwater Beach · TampaThings.com / CC BY-SA 4.0"
-      heroImageCreditHref="https://commons.wikimedia.org/wiki/File:Clearwater-beach-florida-pier-60.jpg"
     >
       <CityMarketOverviewMaps
         standalone={allStandalone}
