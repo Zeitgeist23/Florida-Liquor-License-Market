@@ -83,9 +83,6 @@ export default async function OrlandoCityPage() {
 
   const businessInventory = allBusinesses
     .filter((listing) => listing.county === "Orange County")
-    .filter((listing) =>
-      /\borlando\b/i.test(`${listing.title} ${listing.businessType}`),
-    )
     .map((listing) => ({
       title: listing.title,
       category: listing.businessCategory,
