@@ -157,7 +157,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
         label: "Business Asking Price",
         value: "$650,000",
         description:
-          "The operating business package is offered at $650,000. Buyers should confirm the final transaction structure and included assets directly with the listing broker.",
+          "The current business + 4COP Quota package asking price is $650,000, as confirmed by the listing broker. Buyers should confirm the final transaction structure and included assets directly with the listing broker.",
       },
       {
         label: "EBITDA",
