@@ -97,6 +97,7 @@ export default async function TampaCityPage() {
         licenseType: listing.licenseType,
         price: listing.packagePrice,
         href: `/market-data/heat-map?${params.toString()}#business-package-map-title`,
+        featuredThirdParty: Boolean(listing.featured && !listing.sellerDirect && listing.brokerName?.trim()),
       };
     });
 
