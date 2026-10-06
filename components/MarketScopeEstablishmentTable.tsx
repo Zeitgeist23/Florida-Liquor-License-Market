@@ -154,7 +154,7 @@ export default function MarketScopeEstablishmentTable({
   const [licenseFilter, setLicenseFilter] = useState("All");
   const [statusFilter, setStatusFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [expanded, setExpanded] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(10);
   const [selectedRow, setSelectedRow] = useState<EstablishmentRow | null>(null);
   const [copiedLicense, setCopiedLicense] = useState(false);
   const [licenseMarketOpen, setLicenseMarketOpen] = useState(false);
@@ -168,7 +168,7 @@ export default function MarketScopeEstablishmentTable({
       setLicenseFilter(nextLicense);
       setCategoryFilter(nextCategory);
       setStatusFilter(nextStatus);
-      setExpanded(false);
+      setVisibleCount(10);
       window.setTimeout(() => {
         document.getElementById("operating-establishments-table")?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 0);
@@ -246,7 +246,9 @@ export default function MarketScopeEstablishmentTable({
       });
   }, [rows, inactiveRows, categoryFilter, licenseFilter, statusFilter, searchQuery, sortKey, sortDirection]);
 
-  const shownRows = expanded ? filteredRows : filteredRows.slice(0, 10);
+  const shownRows = filteredRows.slice(0, visibleCount);
+  const remainingRows = Math.max(filteredRows.length - shownRows.length, 0);
+  const nextBatchSize = Math.min(10, remainingRows);
 
   function changeSort(next: SortKey) {
     if (next === sortKey) {
@@ -264,7 +266,7 @@ export default function MarketScopeEstablishmentTable({
 
   function selectLicense(next: string) {
     setLicenseFilter(next);
-    setExpanded(false);
+    setVisibleCount(10);
     window.setTimeout(() => {
       document.querySelector(".market-scope-table-search")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 0);
@@ -378,13 +380,13 @@ export default function MarketScopeEstablishmentTable({
           label="Business Type"
           value={categoryFilter}
           options={categories.map((category) => ({ label: category, value: category }))}
-          onChange={(value) => { setCategoryFilter(value); setExpanded(false); }}
+          onChange={(value) => { setCategoryFilter(value); setVisibleCount(10); }}
         />
         <HoverSelect
           label="License Type"
           value={licenseFilter}
           options={licenseTypes}
-          onChange={(value) => { setLicenseFilter(value); setExpanded(false); }}
+          onChange={(value) => { setLicenseFilter(value); setVisibleCount(10); }}
         />
         <HoverSelect
           label="License Status"
@@ -394,7 +396,7 @@ export default function MarketScopeEstablishmentTable({
             { label: "Active", value: "Active" },
             { label: "Inactive", value: "Inactive" },
           ]}
-          onChange={(value) => { setStatusFilter(value); setExpanded(false); }}
+          onChange={(value) => { setStatusFilter(value); setVisibleCount(10); }}
         />
         <div className="market-scope-table-result-count">
           <strong>Showing {shownRows.length} of {filteredRows.length}</strong>
@@ -428,13 +430,13 @@ export default function MarketScopeEstablishmentTable({
         ))}
       </div>
 
-      {filteredRows.length > 10 ? (
+      {remainingRows > 0 ? (
         <button
           className="market-scope-table-expand"
           type="button"
-          onClick={() => setExpanded((current) => !current)}
+          onClick={() => setVisibleCount((current) => Math.min(current + 10, filteredRows.length))}
         >
-          {expanded ? "Show first 10 establishments" : `View all ${filteredRows.length} establishments`}
+          Show next {nextBatchSize} of {remainingRows} results
         </button>
       ) : null}
 
