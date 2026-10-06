@@ -1151,3 +1151,9 @@
   filter:brightness(1.12);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 4px 10px rgba(0,0,0,.26),0 0 16px rgba(102,230,255,.24);
 }
+
+
+/* Give the FEATURED badge a little more separation from the business-type pill. */
+.market-scope-featured-broker-badge{
+  margin-left:10px;
+}
