@@ -12,7 +12,7 @@
 - Broker: Marjan Rumija
 - Brokerage: Krise Commercial Group, LLC
 - Phone: (239) 285-8922
-- Email: marjanflrealtor@gmail.com
+- Email: OnlyCommercialProperties@gmail.com
 - Broker photo: TotalCommercial profile headshot
 - Cash Flow (SDE): $400,000
 - FF&E: $160,000
