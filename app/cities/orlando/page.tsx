@@ -132,12 +132,12 @@ export default async function OrlandoCityPage() {
         "Standalone Orange County 4COP and 3PS quota liquor licenses for sale.",
         "Orange County liquor-license pricing, operating-license and growth context.",
       ]}
-      heroImage="https://commons.wikimedia.org/wiki/Special:FilePath/Cinderella%20Castle%20%2843259407382%29.jpg"
-      heroImagePosition="58% 48%"
+      heroImage="https://commons.wikimedia.org/wiki/Special:FilePath/Cinderella_castle_day.jpg"
+      heroImagePosition="67% 48%"
       cityMark="Orlando"
       cityMarkTagline="Florida · Central Florida"
-      heroImageCredit="Cinderella Castle · HarshLight / CC BY 2.0"
-      heroImageCreditHref="https://commons.wikimedia.org/wiki/File:Cinderella_Castle_(43259407382).jpg"
+      heroImageCredit="Cinderella Castle by day · SteamFan / CC BY 2.5"
+      heroImageCreditHref="https://commons.wikimedia.org/wiki/File:Cinderella_castle_day.jpg"
     >
       <CityMarketOverviewMaps
         standalone={allStandalone}
