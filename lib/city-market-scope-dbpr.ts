@@ -162,90 +162,47 @@ function unavailableScope(): CityDbprMarketScope {
   };
 }
 
-export async function getTampaDbprMarketScope(): Promise<CityDbprMarketScope> {
-  try {
-    const response = await fetch(DBPR_RETAIL_EXTRACT, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 FLLM-Market-Scope/1.0",
-        Accept: "text/csv,*/*",
-      },
-      next: { revalidate: 86_400 },
-    });
-    if (!response.ok) return unavailableScope();
 
-    const csv = await response.text();
-    const countyRows: CityDbprLicenseRecord[] = [];
-    const cityRows: CityDbprLicenseRecord[] = [];
+type DbprCityScopeConfig = {
+  countyCode: string;
+  cityNames: string[];
+};
 
-    for (const line of csv.split(/\n/)) {
-      if (!line.trim()) continue;
-      const row = parseCsvRow(line);
-      if (row.length < 23) continue;
-
-      const countyCode = String(row[19] || row[11] || "").trim();
-      if (countyCode !== "39") continue;
-
-      const series = String(row[3] || "").trim().toUpperCase();
-      const modifier = String(row[4] || "").trim().toUpperCase();
-      const city = String(row[16] || "").trim();
-      const secondaryStatus = String(row[22] || "").trim();
-      const record: CityDbprLicenseRecord = {
-        licenseNumber: String(row[20] || "").trim(),
-        licensee: String(row[2] || "").trim() || "Not listed",
-        dba: String(row[12] || "").trim() || "Not listed",
-        series,
-        modifier,
-        city,
-        address: [row[13], row[14], row[15]].filter(Boolean).join(" ").trim(),
-        zip: String(row[18] || "").trim(),
-        primaryStatus: String(row[21] || "").trim(),
-        secondaryStatus,
-        active: secondaryStatus === "20",
-        quotaClass: quotaClass(series, modifier),
-        category: categoryFor(String(row[12] || "").trim(), series, modifier),
-      };
-
-      countyRows.push(record);
-      if (/^TAMPA$/i.test(city)) cityRows.push(record);
-    }
-
-    const county4cop = countyRows.filter((record) => record.quotaClass === "4COP Quota");
-    const county3ps = countyRows.filter((record) => record.quotaClass === "3PS Quota");
-    const cityActive = cityRows.filter((record) => record.active);
-    const city4cop = cityActive.filter((record) => record.quotaClass === "4COP Quota");
-    const city3ps = cityActive.filter((record) => record.quotaClass === "3PS Quota");
-    const citySfs = cityActive.filter(
-      (record) => record.series === "4COP" && isSfs4cop(record.modifier),
-    );
-    const city2cop = cityActive.filter((record) => record.series === "2COP");
-
-    return {
-      available: true,
-      fetchedAt: new Date().toISOString(),
-      countyTotalRetailLicenses: countyRows.length,
-      cityTotalRetailLicenses: cityActive.length,
-      county4copInEffect: county4cop.length,
-      county4copInUse: county4cop.filter((record) => record.active).length,
-      county4copInactive: county4cop.filter((record) => !record.active).length,
-      county3psInEffect: county3ps.length,
-      county3psInUse: county3ps.filter((record) => record.active).length,
-      county3psInactive: county3ps.filter((record) => !record.active).length,
-      city4copInUse: city4cop.length,
-      city3psInUse: city3ps.length,
-      citySfsInUse: citySfs.length,
-      city2copInUse: city2cop.length,
-      cityEstablishments: cityActive.sort((a, b) => a.dba.localeCompare(b.dba)),
-      cityQuotaEstablishments: [...city4cop, ...city3ps].sort((a, b) =>
-        a.dba.localeCompare(b.dba),
-      ),
-    };
-  } catch {
-    return unavailableScope();
-  }
+function normalizeLicenseKey(value: string) {
+  return value.trim().toUpperCase();
 }
 
+function dedupeDbprRecords(rows: CityDbprLicenseRecord[]) {
+  const byLicense = new Map<string, CityDbprLicenseRecord>();
 
-export async function getJacksonvilleDbprMarketScope(): Promise<CityDbprMarketScope> {
+  for (const row of rows) {
+    const key = normalizeLicenseKey(row.licenseNumber);
+    if (!key) continue;
+
+    const existing = byLicense.get(key);
+    if (!existing) {
+      byLicense.set(key, row);
+      continue;
+    }
+
+    const score = (item: CityDbprLicenseRecord) => {
+      let value = item.active ? 10 : 0;
+      if (item.dba && item.dba !== "Not listed") value += 3;
+      if (item.address) value += 2;
+      if (item.licensee && item.licensee !== "Not listed") value += 1;
+      return value;
+    };
+
+    if (score(row) > score(existing)) byLicense.set(key, row);
+  }
+
+  return Array.from(byLicense.values());
+}
+
+async function buildDbprCityMarketScope({
+  countyCode,
+  cityNames,
+}: DbprCityScopeConfig): Promise<CityDbprMarketScope> {
   try {
     const response = await fetch(DBPR_RETAIL_EXTRACT, {
       headers: {
@@ -257,21 +214,20 @@ export async function getJacksonvilleDbprMarketScope(): Promise<CityDbprMarketSc
     if (!response.ok) return unavailableScope();
 
     const csv = await response.text();
-    const countyRows: CityDbprLicenseRecord[] = [];
-    const cityRows: CityDbprLicenseRecord[] = [];
+    const rawCountyRows: CityDbprLicenseRecord[] = [];
+    const rawCityRows: CityDbprLicenseRecord[] = [];
+    const normalizedCityNames = new Set(cityNames.map((name) => name.trim().toUpperCase()));
 
     for (const line of csv.split(/\n/)) {
       if (!line.trim()) continue;
       const row = parseCsvRow(line);
       if (row.length < 23) continue;
 
-      const countyCode = String(row[19] || row[11] || "").trim();
+      const rowCountyCode = String(row[19] || row[11] || "").trim();
       const rawLicenseNumber = String(row[20] || "").trim().toUpperCase();
+      const hasCountyPrefix = rawLicenseNumber.startsWith("BEV" + countyCode);
 
-      // Duval retail beverage license numbers carry the 26 county prefix.
-      // Use both the DBPR county field and the license-number prefix so this
-      // page remains resilient if the extract shifts/omits the county field.
-      if (countyCode !== "26" && !/^BEV26\d+/i.test(rawLicenseNumber)) continue;
+      if (rowCountyCode !== countyCode && !hasCountyPrefix) continue;
 
       const series = String(row[3] || "").trim().toUpperCase();
       const modifier = String(row[4] || "").trim().toUpperCase();
@@ -279,7 +235,7 @@ export async function getJacksonvilleDbprMarketScope(): Promise<CityDbprMarketSc
       const secondaryStatus = String(row[22] || "").trim();
 
       const record: CityDbprLicenseRecord = {
-        licenseNumber: String(row[20] || "").trim(),
+        licenseNumber: rawLicenseNumber,
         licensee: String(row[2] || "").trim() || "Not listed",
         dba: String(row[12] || "").trim() || "Not listed",
         series,
@@ -294,9 +250,14 @@ export async function getJacksonvilleDbprMarketScope(): Promise<CityDbprMarketSc
         category: categoryFor(String(row[12] || "").trim(), series, modifier),
       };
 
-      countyRows.push(record);
-      if (/^JACKSONVILLE$/i.test(city)) cityRows.push(record);
+      rawCountyRows.push(record);
+      if (normalizedCityNames.has(city.toUpperCase())) rawCityRows.push(record);
     }
+
+    const countyRows = dedupeDbprRecords(rawCountyRows);
+    const cityRows = dedupeDbprRecords(rawCityRows);
+
+    if (countyRows.length > 0 && cityRows.length === 0) return unavailableScope();
 
     const county4cop = countyRows.filter((record) => record.quotaClass === "4COP Quota");
     const county3ps = countyRows.filter((record) => record.quotaClass === "3PS Quota");
@@ -334,4 +295,20 @@ export async function getJacksonvilleDbprMarketScope(): Promise<CityDbprMarketSc
   } catch {
     return unavailableScope();
   }
+}
+
+export async function getTampaDbprMarketScope(): Promise<CityDbprMarketScope> {
+  return buildDbprCityMarketScope({
+    countyCode: "39",
+    cityNames: ["TAMPA"],
+  });
+}
+
+
+
+export async function getJacksonvilleDbprMarketScope(): Promise<CityDbprMarketScope> {
+  return buildDbprCityMarketScope({
+    countyCode: "26",
+    cityNames: ["JACKSONVILLE"],
+  });
 }
