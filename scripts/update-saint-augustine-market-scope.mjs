@@ -62,7 +62,7 @@ function categoryFor(dba, series, modifier) {
 
 const response = await fetch(DBPR_URL, {
   headers: {
-    "User-Agent": "Mozilla/5.0 FLLM-Market-Scope/1.0",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
     Accept: "text/csv,*/*",
   },
 });
@@ -87,7 +87,7 @@ async function officialSaintAugustineLicenseNumbers() {
     const pdfPath = path.join(tmpdir(), `fllm-staug-q${i + 1}.pdf`);
     const txtPath = path.join(tmpdir(), `fllm-staug-q${i + 1}.txt`);
     const pdfResponse = await fetch(quarterUrls[i], {
-      headers: { "User-Agent": "Mozilla/5.0 FLLM-Market-Scope/1.0" },
+      headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36" },
     });
     if (!pdfResponse.ok) throw new Error(`City fee distribution fetch failed: ${pdfResponse.status}`);
     await fs.writeFile(pdfPath, Buffer.from(await pdfResponse.arrayBuffer()));
