@@ -64,6 +64,8 @@ export type BusinessQuotaCategory =
   | "Cocktail Lounge"
   | "Nightclub"
   | "Restaurant"
+  | "Restaurant / Bar"
+  | "Convenience Store"
   | "Bowling Alley"
   | "Liquor Store"
   | "Marina"
