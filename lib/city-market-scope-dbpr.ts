@@ -104,6 +104,18 @@ function quotaClass(series: string, modifier: string): CityDbprLicenseRecord["qu
 function categoryFor(dba: string, series: string, modifier: string) {
   const text = dba.toUpperCase().replace(/[’']/g, "");
 
+  // Strong restaurant / food-service signals take precedence over "bar" or
+  // package-store words when the DBA clearly describes a food-led operation.
+  if (
+    /RESTAURANT|GRILL|CAFE|COFFEE|KITCHEN|DINER|BISTRO|STEAK|SEAFOOD|PIZZA|PIZZERIA|TACO|BURRITO|SUSHI|DELI|EATERY|BRUNCH|BAKERY|BBQ|BAR B QUE|BAR-B-QUE|THAI|MEXICAN|ITALIAN|RAMEN|NOODLE|CHICKEN|WINGS|SANDWICH|FOOD|DINING|CUISINE|KABOB|KEBAB|HIBACHI|TERIYAKI|DONUT|ICE CREAM|CREAMERY/.test(text)
+  ) return "Restaurant";
+
+  // A few Saint Augustine DBAs are well-known restaurant-led venues whose
+  // names do not contain an obvious food keyword.
+  if (
+    /CONCH HOUSE MARINA RESORT|CHATSWORTH/.test(text)
+  ) return "Restaurant";
+
   if (
     /LIQUOR|SPIRITS|PACKAGE|BOTTLE SHOP|WINE\s*&\s*SPIRITS|FINE WINE|LIQUORS\b/.test(text) ||
     series === "3PS"
@@ -116,10 +128,6 @@ function categoryFor(dba: string, series: string, modifier: string) {
   if (
     /\bBAR\b|LOUNGE|TAVERN|\bPUB\b|PUBLIC HOUSE|SALOON|TAPROOM|TAP ROOM|COCKTAIL|BREWING|BREWERY|ALE HOUSE|SPORTS BAR/.test(text)
   ) return "Bar";
-
-  if (
-    /RESTAURANT|GRILL|CAFE|COFFEE|KITCHEN|DINER|BISTRO|STEAK|SEAFOOD|PIZZA|PIZZERIA|TACO|BURRITO|SUSHI|DELI|EATERY|BRUNCH|BAKERY|BBQ|BAR B QUE|BAR-B-QUE|THAI|MEXICAN|ITALIAN|RAMEN|NOODLE|CHICKEN|WINGS|SANDWICH|FOOD|DINING|CUISINE|KABOB|KEBAB|HIBACHI|TERIYAKI|DONUT|ICE CREAM|CREAMERY/.test(text)
-  ) return "Restaurant";
 
   if (/COUNTRY CLUB|GOLF/.test(text)) return "Country Club";
   if (/SFS|SRX/i.test(modifier)) return "Restaurant";
