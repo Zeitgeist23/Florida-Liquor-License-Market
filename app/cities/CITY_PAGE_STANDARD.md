@@ -2,6 +2,13 @@
 
 The Saint Augustine City page is the canonical model for all FLLM City pages.
 
+A City page standard has **two inseparable parts**:
+
+1. **Presentation Standard** — the visual design, layout, interactions, hierarchy, hero, maps, cards, controls, tables, modal, header/footer, colors, dimensions, hover behavior, and responsive behavior.
+2. **Data-Method Standard** — the method used to identify the correct county/city license population, classify license types and business types, distinguish active/inactive records, deduplicate records, calculate market metrics, validate the result, and prevent false zero counts.
+
+A City page is not considered complete unless **both standards** are satisfied.
+
 ## Structural rule
 All City pages must use:
 - `CityMarketPageShell` for official header + hero treatment
@@ -109,3 +116,111 @@ Do not independently restyle a City page unless the shared template itself is in
 
 ## Implementation rule
 If a future City page needs a design change that would alter any of the above, change the shared component/style only after confirming that the new behavior should apply to every City page. City-specific pages should provide data and city-specific content, not fork the design system.
+
+
+# Data-Method Standard
+
+The data method is part of the City-page template and must carry over whenever a new City page is created.
+
+## 1. Authoritative operating-license source
+- Start from the Florida DBPR / Division of Alcoholic Beverages and Tobacco retail-license extract.
+- Parse the same fields and status codes used by the Saint Augustine method.
+- Preserve license number, DBA, legal licensee/public-record entity, series, modifier, city, address, ZIP, primary status, secondary status, active/inactive state, quota classification, and FLLM business classification.
+
+## 2. County identification
+- Identify the county using the DBPR county field.
+- Also validate/fallback against the BEV license-number county prefix when available.
+- Never rely on only one fragile CSV column when a second county signal exists.
+- County counts must be based on unique license numbers after deduplication.
+
+## 3. City identification
+- Match the intended municipality using the DBPR city value or a stronger official city-membership source when available.
+- City aliases may be supplied when DBPR uses more than one valid city spelling.
+- When an official local-government license list, fee-distribution report, or comparable official city grouping is available, use it to reconcile the DBPR population, as Saint Augustine does.
+- Do not silently substitute the whole county for the city.
+
+## 4. False-zero protection
+- A City page must not publish a zero operating-license census merely because city matching or source parsing failed.
+- If the county loads but the city unexpectedly resolves to zero records, return an unavailable/refreshing state instead of publishing false zeros.
+- A new City page must be checked for plausible nonzero operating counts before it is treated as complete.
+
+## 5. Deduplication
+- Deduplicate DBPR rows by license number before calculating headline totals.
+- If DBPR exposes more than one row for a license number, prefer the current/active record and the record with the more complete DBA/address/entity information.
+- Table counts and headline counts must refer to unique licenses, not raw duplicated rows.
+
+## 6. License classification
+- 4COP with no special modifier = **4COP Quota**.
+- 3PS = **3PS Quota**.
+- 4COP with SFS or SRX modifier = **4COP SFS/SRX**.
+- 2COP remains its own beer-and-wine class.
+- Other license series remain available in the detailed table and filters.
+- Do not relabel a non-quota license as quota simply to attach quota-market context.
+
+## 7. Active / inactive method
+- Use the same DBPR status-code method used by the shared City data engine.
+- Preserve inactive county records so the user can select License Status → Inactive.
+- Clicking an active/inactive metric must set both license type and status in the table, not merely scroll to the table.
+- Inactive counts shown in overview cards must reconcile with the inactive records accessible in the table.
+
+## 8. Business-type classification
+- Apply the shared FLLM classifier to DBA/business names.
+- Food-led concepts such as restaurant, grill, cafe, kitchen, pizza, taco, sushi, BBQ, etc. classify as Restaurant.
+- Restaurant/bar hybrids use **Restaurant / Bar** rather than being forced into pure Bar.
+- The Restaurant filter includes both Restaurant and Restaurant / Bar.
+- Pure bars, liquor stores, marinas, hotels/motels, nightclubs, country clubs, and genuine Other Hospitality remain separate.
+- City-specific overrides may be used only when the business type is reasonably supportable; do not invent identities or categories.
+
+## 9. Marketplace data separation
+- DBPR operating-license census and FLLM marketplace inventory are separate datasets.
+- Standalone-license counts, asking-price medians, business-package counts, and operating-license counts must never be blended into one total.
+- The page must continue to state that marketplace inventory is separate from the DBPR operating-license census.
+
+## 10. Standalone-license market method
+- Pull visible/available marketplace listings for the City page's county.
+- Separate 4COP Quota and 3PS Quota inventory.
+- Calculate low, median, and high asking-price signals from current visible inventory.
+- Calculate license-type medians separately.
+- If a 3PS median uses the approved FLLM 4COP-to-3PS proxy, label it as an estimate/proxy in the tooltip rather than presenting it as a directly observed 3PS median.
+
+## 11. Business + license market method
+- Pull the shared FLLM business-market datasets for quota, SFS/SRX, and 2COP business packages.
+- Restrict public City-page counts to the intended county/city market scope.
+- Keep Market Listings / market observations separate from authorized Featured Broker Listings.
+- Reuse the shared business/license category and presentation rules.
+
+## 12. Growth and quota-drawing context
+- Use the shared county population dataset where available.
+- Use an identified city population estimate with the displayed estimate year.
+- Use the same projection method for projected growth and projected population.
+- Use the current FLLM quota-drawing dataset for the county.
+- Clearly label FLLM future quota figures as forecasts, not announced DBPR allocations.
+
+## 13. Required validation before a City page is considered complete
+For every new City page, verify:
+- county is correct;
+- city/county DBPR records actually populate;
+- city 4COP Quota count is plausible and nonzero where expected;
+- city 3PS, SFS/SRX, and 2COP counts populate where present;
+- inactive county records are available;
+- duplicate license numbers do not inflate counts;
+- Restaurant / Restaurant-Bar classification produces plausible results;
+- standalone listings and market-price signals are county-specific;
+- map marker points to the intended city/county;
+- headline counts agree with the filterable table;
+- no section displays a false zero because a source failed.
+
+## 14. Shared implementation rule
+- Use the shared City DBPR ingestion engine for ordinary City pages.
+- A city may provide county code, city name/aliases, and optional stronger official city-membership evidence.
+- Saint Augustine remains the reference for enhanced official city reconciliation.
+- Do not create an ad-hoc City DBPR parser when the shared engine can support the city.
+- If a new city exposes a source quirk, improve the shared engine so the fix benefits future City pages whenever appropriate.
+
+## Command behavior
+When the user says **“Make a City page for [City]”**, that instruction means:
+- apply the full Presentation Standard;
+- apply the full Data-Method Standard;
+- populate and validate city/county data;
+- use the shared components and data engine;
+- do not stop after producing a visually correct shell.
