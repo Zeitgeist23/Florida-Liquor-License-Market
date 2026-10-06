@@ -33,7 +33,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Lee County Pizzeria + Liquor License | Broker Preview | FLLM",
   description:
-    "Private broker-review FLLM mockup for a Lee County pizzeria with $400,000 cash flow, $160,000 FF&E, $36,000 inventory and an included liquor license.",
+    "Private broker-review FLLM mockup for a semi-absentee Lee County pizzeria offered at $900,000 with $400,000 Cash Flow (SDE), leased premises, an included 4COP SFS/SRX full-liquor license pending broker confirmation, and cash-buyer or seller-financing terms.",
   alternates: { canonical: canonicalUrl },
   robots: {
     index: false,
@@ -71,8 +71,8 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   countyCities: "Fort Myers · Cape Coral · Bonita Springs · Estero",
   askingPrice: "Included with business",
   askingPriceNumber: 0,
-  packagePrice: "Price Upon Request",
-  packagePriceNumber: 0,
+  packagePrice: "$900,000",
+  packagePriceNumber: 900_000,
   licenseType: "4COP SFS/SRX",
   licenseClass: "sfs",
   licenseAvailableSeparately: false,
@@ -82,7 +82,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   businessLabelBodyBold: false,
   packagePriceExternalLink: true,
   heroSummary:
-    "Semi-absentee Lee County pizzeria opportunity with $400,000 in annual Cash Flow (SDE), leased premises and an included 4COP SFS / SRX full-liquor license, pending broker confirmation. The business requires a cash buyer and is not SBA financeable.",
+    "Semi-absentee Lee County pizzeria opportunity for sale for $900,000 with $400,000 in annual Cash Flow (SDE), leased premises and an included 4COP SFS / SRX full-liquor license, pending broker confirmation. The business requires a cash buyer or seller financing with 50% down and is not SBA financeable.",
   broker: {
     name: "Marjan Rumija",
     brokerage: "Krise Commercial Group, LLC",
@@ -93,9 +93,9 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     credential: "Florida real estate professional",
   },
   additionalSellerIntro:
-    "Semi-absentee pizzeria opportunity in Lee County, Florida with strong owner benefit, leased premises, recently remodeled operations and an included liquor license.",
+    "Semi-absentee pizzeria opportunity in Lee County, Florida offered at $900,000 with $400,000 in annual Cash Flow (SDE), leased premises, recently remodeled operations and an included full-liquor license, pending broker confirmation.",
   packageIncludes:
-    "The business includes approximately $160,000 in furniture, fixtures and equipment, approximately $36,000 in inventory, the existing restaurant operating infrastructure and an included 4COP SFS / SRX full-liquor license, pending broker confirmation. Monthly rent is $7,300. The opportunity requires a cash buyer and is not SBA financeable.",
+    "The business includes approximately $160,000 in furniture, fixtures and equipment, approximately $36,000 in inventory, the existing restaurant operating infrastructure and an included 4COP SFS / SRX full-liquor license, pending broker confirmation. Monthly rent is $7,300. The opportunity requires a cash buyer or seller financing with 50% down and is not SBA financeable.",
   businessMetrics: [
     {
       label: "Cash Flow (SDE)",
@@ -111,9 +111,9 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     },
     {
       label: "Business Asking Price",
-      value: "Price Upon Request",
+      value: "$900,000",
       description:
-        "The business asking price is available through the listing broker.",
+        "The business asking price is $900,000.",
     },
     {
       label: "EBITDA",
@@ -172,13 +172,19 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     },
     {
       label: "Buyer Requirement",
-      value: "Cash Buyer",
+      value: "Cash Buyer or Seller Financing",
       description:
-        "The opportunity requires a cash buyer.",
+        "The opportunity requires either a cash buyer or seller financing with 50% down.",
+    },
+    {
+      label: "Seller Financing",
+      value: "Available — 50% Down",
+      description:
+        "Seller financing is available with 50% down. Buyers should confirm final financing terms and qualification requirements directly with the listing broker.",
     },
     {
       label: "SBA Financing",
-      value: "Not Available",
+      value: "Not SBA Financeable",
       description:
         "The business is not SBA financeable.",
     },
@@ -202,8 +208,14 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     "Acquire approximately $160,000 in furniture, fixtures and equipment plus approximately $36,000 in inventory.",
     "Operate from leased premises with monthly rent of $7,300 and a restaurant remodeled in 2024.",
     "Acquire the business with an included 4COP SFS / SRX full-liquor license, pending broker confirmation before final publication.",
-    "Pursue the opportunity as a cash buyer; the business is not SBA financeable.",
+    "Pursue the opportunity as a cash buyer or with seller financing at 50% down; the business is not SBA financeable.",
   ],
+  sellerFinancing: {
+    offered: true,
+    source: "broker-reported",
+    termsSummary:
+      "Seller financing is available with 50% down. Final financing terms and buyer qualification should be confirmed directly with the listing broker.",
+  },
   transitionText:
     "Support and training are available to help transition the business to a qualified buyer.",
   confidentialityText:
