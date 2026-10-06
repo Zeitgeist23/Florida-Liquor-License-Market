@@ -964,3 +964,9 @@
 .market-scope-panel > .market-scope-heading > span{
   color:#f5aa00 !important;
 }
+
+
+/* Give the Operating Establishments eyebrow a little more breathing room */
+.market-scope-panel--operating .market-scope-panel-heading > div > span{
+  margin-bottom:5px;
+}
