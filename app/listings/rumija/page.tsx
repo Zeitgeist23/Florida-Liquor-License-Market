@@ -87,7 +87,7 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     name: "Marjan Rumija",
     brokerage: "Krise Commercial Group, LLC",
     phone: "(239) 285-8922",
-    email: "marjanflrealtor@gmail.com",
+    email: "OnlyCommercialProperties@gmail.com",
     website: "https://totalcommercial.com/agents/21455",
     listingUrl: sourceListingUrl,
     photo: "https://totalcommercial.com/media/142055/legacy-photo-505945.jpg",
