@@ -970,3 +970,10 @@
 .market-scope-panel--operating .market-scope-panel-heading > div > span{
   margin-bottom:5px;
 }
+
+
+/* Major Market Scope structure eyebrows use FLLM gold */
+.market-scope-heading>span,
+.market-scope-overview-card>span{
+  color:#f5aa00 !important;
+}
