@@ -1,6 +1,7 @@
 import Link from "next/link";
 import MarketScopeEstablishmentTable from "@/components/MarketScopeEstablishmentTable";
 import MarketScopeMetricLink from "@/components/MarketScopeMetricLink";
+import CityMarketBusinessInventory from "@/components/CityMarketBusinessInventory";
 import type { CityDbprMarketScope } from "@/lib/city-market-scope-dbpr";
 
 type MarketBusiness = {
@@ -180,48 +181,7 @@ export default function CityMarketScope(props: Props) {
             <article><span>Business + license packages</span><strong>{props.marketBusinesses.length}</strong><small>{business4cop} 4COP · {business3ps} 3PS · {businessSfs} SFS/SRX · {business2cop} 2COP</small></article>
           </div>
 
-          {props.marketBusinesses.length ? (
-            <div className="market-scope-business-list">
-              {visibleMarketBusinesses.map((item) => (
-                <Link href={item.href} key={item.title} className="market-scope-business-row">
-                  <div className="market-scope-business-copy">
-                    <span className={"scope-category scope-category--" + categoryClass(item.category)}>{item.category}</span>
-                    <strong>{item.title}</strong>
-                  </div>
-                  <div className="market-scope-business-meta">
-                    <span>{item.licenseType}</span>
-                    <b>{item.price}</b>
-                  </div>
-                </Link>
-              ))}
-              {hiddenMarketBusinesses > 0 ? (
-                <details className="market-scope-business-more">
-                  <summary className="market-scope-business-row market-scope-business-row--more">
-                    <div className="market-scope-business-copy">
-                      <strong>View all {props.marketBusinesses.length} business + license packages</strong>
-                    </div>
-                    <div className="market-scope-business-meta">
-                      <span>{hiddenMarketBusinesses} more</span>
-                    </div>
-                  </summary>
-                  <div className="market-scope-business-more-list">
-                    {props.marketBusinesses.slice(visibleMarketBusinesses.length).map((item) => (
-                      <Link href={item.href} key={item.title} className="market-scope-business-row">
-                        <div className="market-scope-business-copy">
-                          <span className={"scope-category scope-category--" + categoryClass(item.category)}>{item.category}</span>
-                          <strong>{item.title}</strong>
-                        </div>
-                        <div className="market-scope-business-meta">
-                          <span>{item.licenseType}</span>
-                          <b>{item.price}</b>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </details>
-              ) : null}
-            </div>
-          ) : null}
+          <CityMarketBusinessInventory businesses={props.marketBusinesses} />
         </section>
 
         <section className="market-scope-panel market-scope-panel--operating">
