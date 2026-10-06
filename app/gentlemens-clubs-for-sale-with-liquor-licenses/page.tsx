@@ -339,6 +339,7 @@ export default async function GentlemensClubsForSaleWithLiquorLicensesPage() {
             align="center"
           />
           <div className="fllm-ui-actions" style={{ justifyContent: "center" }}>
+            <FllmButton href="/miami-gentlemens-clubs-for-sale-with-liquor-license" variant="outline">Miami-Dade Gentlemen&apos;s Club Market</FllmButton>
             <FllmButton href="/contact" variant="outline">Contact FLLM</FllmButton>
             <FllmButton href="/brokers/list-your-license" variant="outline">Broker Resources</FllmButton>
           </div>
