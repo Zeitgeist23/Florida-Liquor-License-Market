@@ -73,9 +73,6 @@ export default async function SaintAugustineCityPage() {
 
   const businessInventory = allBusinesses
     .filter((listing) => listing.county === "St. Johns County")
-    .filter((listing) =>
-      /\b(?:st\.?|saint)\s+augustine\b/i.test(`${listing.title} ${listing.businessType}`),
-    )
     .map((listing) => ({
       title: listing.title,
       category: listing.businessCategory,
