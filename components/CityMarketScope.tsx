@@ -33,7 +33,6 @@ type Props = {
   standaloneMedian: number | null;
   standaloneHigh: number | null;
   marketBusinesses: MarketBusiness[];
-  marketBusinessesVisible?: number;
   dbpr: CityDbprMarketScope;
 };
 
