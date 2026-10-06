@@ -116,6 +116,13 @@ function categoryFor(dba: string, series: string, modifier: string) {
     /CONCH HOUSE MARINA RESORT|CHATSWORTH/.test(text)
   ) return "Restaurant";
 
+  // Restaurant/bar hybrids are common among Florida quota-license users.
+  // Keep them separate from pure bars, but include them in Restaurant filtering.
+  if (
+    /BAR\s*&\s*GRILL|BAR N GRILL|PUBLIC HOUSE|TAVERN|BAR B QUE|BAR-B-QUE|BBQ|SPORTS BAR/.test(text) ||
+    /FORGOTTEN TONIC|ICE PLANT|TRADEWINDS|WHITE LION|SHANGHAI NOBBYS|17 KING|COLONIAL QUARTER|TREASURY ON THE PLAZA|WHITE ROOM/.test(text)
+  ) return "Restaurant / Bar";
+
   if (
     /LIQUOR|SPIRITS|PACKAGE|BOTTLE SHOP|WINE\s*&\s*SPIRITS|FINE WINE|LIQUORS\b/.test(text) ||
     series === "3PS"
@@ -126,7 +133,7 @@ function categoryFor(dba: string, series: string, modifier: string) {
   if (/NIGHTCLUB|NIGHT CLUB|DANCE CLUB/.test(text)) return "Nightclub";
 
   if (
-    /\bBAR\b|LOUNGE|TAVERN|\bPUB\b|PUBLIC HOUSE|SALOON|TAPROOM|TAP ROOM|COCKTAIL|BREWING|BREWERY|ALE HOUSE|SPORTS BAR/.test(text)
+    /\bBAR\b|LOUNGE|\bPUB\b|SALOON|TAPROOM|TAP ROOM|COCKTAIL|BREWING|BREWERY|ALE HOUSE/.test(text)
   ) return "Bar";
 
   if (/COUNTRY CLUB|GOLF/.test(text)) return "Country Club";
