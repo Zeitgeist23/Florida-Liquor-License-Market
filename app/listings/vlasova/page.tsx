@@ -39,7 +39,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Downtown Hollywood Nightclub + 4COP Quota License | Broker Preview",
   description:
-    "Private broker-review FLLM mockup for Mariya Vlasova's Downtown Hollywood nightclub opportunity offered at $790,000 with $1.1M gross revenue and an included Broward County 4COP quota liquor license.",
+    "Private broker-review FLLM mockup for Mariya Vlasova's Downtown Hollywood nightclub opportunity offered at $650,000 with $1.1M gross revenue and an included Broward County 4COP quota liquor license.",
   alternates: { canonical: canonicalUrl },
   robots: {
     index: false,
@@ -114,8 +114,8 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     askingPriceNumber: 0,
     marketMedianAskingPrice: medianLabel,
     marketMedianAskingPriceNumber: medianValue,
-    packagePrice: "$790,000",
-    packagePriceNumber: 790_000,
+    packagePrice: "$650,000",
+    packagePriceNumber: 650_000,
     licenseType: "4COP Quota",
     licenseAvailableSeparately: false,
     approvalPreview: true,
@@ -125,7 +125,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     packagePriceExternalLink: true,
     packagePricePhrase: "nightclub + 4COP quota liquor license package is",
     heroSummary:
-      "Turnkey Downtown Hollywood nightlife opportunity offered as an operating restaurant, bar, lounge, and nightclub business with an included Broward County 4COP quota liquor license. Business + 4COP Quota Liquor License package: $790,000.",
+      "Turnkey Downtown Hollywood nightlife opportunity offered as an operating restaurant, bar, lounge, and nightclub business with an included Broward County 4COP quota liquor license. Business + 4COP Quota Liquor License package: $650,000.",
     broker: {
       name: "Mariya Vlasova",
       brokerage: "Mariya Vlasova Real Estate",
@@ -139,7 +139,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     additionalSellerIntro:
       "Turnkey Downtown Hollywood restaurant, bar, lounge, and nightclub opportunity in a prime entertainment location with an included full-liquor 4COP quota license.",
     packageIncludes:
-      `The $790,000 business package includes the operating nightlife business, the Broward County 4COP quota license, furniture, fixtures and equipment, bar setup, kitchen equipment, dining and lounge seating, décor, lighting, sound and entertainment setup, website, branding, and existing business infrastructure. The business is offered without real estate. FLLM's current Broward County median disclosed 4COP asking price is ${medianLabel}; this is market context only, not an allocated license value or appraisal.`,
+      `The $650,000 business package includes the operating nightlife business, the Broward County 4COP quota license, furniture, fixtures and equipment, bar setup, kitchen equipment, dining and lounge seating, décor, lighting, sound and entertainment setup, website, branding, and existing business infrastructure. The business is offered without real estate. FLLM's current Broward County median disclosed 4COP asking price is ${medianLabel}; this is market context only, not an allocated license value or appraisal.`,
     businessMetrics: [
       {
         label: "Gross Revenue",
@@ -155,9 +155,9 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
       },
       {
         label: "Business Asking Price",
-        value: "$790,000",
+        value: "$650,000",
         description:
-          "The operating business package is offered at $790,000. Buyers should confirm the final transaction structure and included assets directly with the listing broker.",
+          "The operating business package is offered at $650,000. Buyers should confirm the final transaction structure and included assets directly with the listing broker.",
       },
       {
         label: "EBITDA",
