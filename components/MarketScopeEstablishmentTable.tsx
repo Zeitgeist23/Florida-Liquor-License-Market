@@ -178,7 +178,7 @@ export default function MarketScopeEstablishmentTable({
   }, []);
 
   const categories = useMemo(() => {
-    const ordered = ["Restaurant", "Bar", "Nightclub", "Liquor Store", "Marina", "Country Club", "Hotel / Motel", "Other Hospitality"];
+    const ordered = ["Restaurant", "Restaurant / Bar", "Bar", "Nightclub", "Liquor Store", "Marina", "Country Club", "Hotel / Motel", "Other Hospitality"];
     const available = new Set(rows.map((row) => row.category));
     return ["All", ...ordered.filter((category) => available.has(category))];
   }, [rows]);
@@ -206,7 +206,11 @@ export default function MarketScopeEstablishmentTable({
       statusFilter === "Inactive" && inactiveRows.length ? inactiveRows : rows,
     );
     return sourceRows
-      .filter((row) => categoryFilter === "All" || row.category === categoryFilter)
+      .filter((row) =>
+        categoryFilter === "All" ||
+        row.category === categoryFilter ||
+        (categoryFilter === "Restaurant" && row.category === "Restaurant / Bar")
+      )
       .filter((row) =>
         licenseFilter === "All" ||
         (licenseFilter === "All Quota Licenses" &&
