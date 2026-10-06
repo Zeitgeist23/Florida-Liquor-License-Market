@@ -19,11 +19,12 @@
 - Monthly rent: $7,300
 - Premises: Leased
 - Remodeled: 2024
-- Buyer requirement: Cash buyer
+- Buyer requirement: Cash buyer or seller financing
+- Seller financing: Available with 50% down
 - SBA financing: Not available
 - Liquor license: Included
 - Working license classification: 4COP SFS / SRX (pending broker confirmation)
-- Asking price: Price Upon Request
+- Asking price: $900,000
 - Package-price text links to the BizBuySell source ad in light red, regular weight
 - Sidebar desktop offset: 73px, visually aligned with the main license-detail boxes
 - Preview remains noindex until broker approval/publication
