@@ -85,6 +85,7 @@ export default async function JacksonvilleCityPage() {
       licenseType: listing.licenseType,
       price: listing.packagePrice,
       href: listing.marketViewHref || listing.href,
+      featuredThirdParty: Boolean(listing.featured && !listing.sellerDirect && listing.brokerName?.trim()),
     }));
 
   const drawing2026 =
