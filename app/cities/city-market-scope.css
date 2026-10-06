@@ -977,3 +977,9 @@
 .market-scope-overview-card>span{
   color:#f5aa00 !important;
 }
+
+
+.scope-category--restaurant-bar{
+  --category-color:#70e0d0;
+  --category-surface:rgba(43,157,145,.20);
+}
