@@ -79,6 +79,7 @@ export default async function SaintAugustineCityPage() {
       licenseType: listing.licenseType,
       price: listing.packagePrice,
       href: listing.marketViewHref || listing.href,
+      featuredThirdParty: Boolean(listing.featured && !listing.sellerDirect && listing.brokerName?.trim()),
     }));
 
   const drawing2026 =
