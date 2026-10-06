@@ -83,9 +83,6 @@ export default async function SaintPetersburgCityPage() {
 
   const businessInventory = allBusinesses
     .filter((listing) => listing.county === "Pinellas County")
-    .filter((listing) =>
-      /\b(st\.?|saint)\s+petersburg\b/i.test(`${listing.title} ${listing.businessType}`),
-    )
     .map((listing) => ({
       title: listing.title,
       category: listing.businessCategory,
