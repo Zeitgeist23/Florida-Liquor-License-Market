@@ -30,15 +30,15 @@ const socialImageUrl = "https://sunshineagle.com/wp-content/uploads/2024/02/DSC0
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Pinellas Cocktail Lounge + 4COP Quota License | $999,000",
+  title: "Pinellas Cocktail Lounge + 4COP Quota License | $899,000",
   description:
-    "Buy an upscale Pinellas County cocktail lounge with its included 4COP quota liquor license for $999,000. The allocated license value is $460,000; the license is not offered separately.",
+    "Buy an upscale Pinellas County cocktail lounge with its included 4COP quota liquor license for $899,000. The allocated license value is $460,000; the license is not offered separately.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Pinellas Cocktail Lounge + 4COP Quota License | $999,000",
+    title: "Pinellas Cocktail Lounge + 4COP Quota License | $899,000",
     description:
       "Featured business package represented by Alessandro Antezza. The included 4COP quota license has a $460,000 allocated value and is not separately offered.",
     siteName: "Florida Liquor License Market",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     images: [socialImageUrl],
-    title: "Pinellas Cocktail Lounge + 4COP Quota License | $999,000",
+    title: "Pinellas Cocktail Lounge + 4COP Quota License | $899,000",
     description:
       "Featured third-party broker listing represented by Alessandro Antezza of SUNSHINEAGLE LLC.",
   },
@@ -62,8 +62,8 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   countyCities: "St. Petersburg · Clearwater · Largo · Gulf Beaches",
   askingPrice: "$460,000",
   askingPriceNumber: 460000,
-  packagePrice: "$999,000",
-  packagePriceNumber: 999000,
+  packagePrice: "$899,000",
+  packagePriceNumber: 899000,
   licenseType: "4COP Quota",
   businessLabel: "cocktail lounge",
   heroSummary:
@@ -130,7 +130,7 @@ export default function AlessandroAntezzaFeaturedListingPage() {
     ],
     offers: {
       "@type": "Offer",
-      price: 999000,
+      price: 899000,
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
       url: canonicalUrl,
