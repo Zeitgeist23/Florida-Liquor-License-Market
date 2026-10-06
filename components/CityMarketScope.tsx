@@ -125,6 +125,9 @@ export default function CityMarketScope(props: Props) {
                 </a>
               </li>
             </ul>
+            <p className="market-scope-scope-note">
+              Inactive figures above cover quota licenses only. The table&apos;s Inactive filter includes all license classes in {props.county}.
+            </p>
           </article>
 
           <article className="market-scope-overview-card">
