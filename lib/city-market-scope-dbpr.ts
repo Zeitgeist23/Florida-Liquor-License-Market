@@ -335,3 +335,11 @@ export async function getSaintPetersburgDbprMarketScope(): Promise<CityDbprMarke
     cityNames: ["ST PETERSBURG", "ST. PETERSBURG", "SAINT PETERSBURG"],
   });
 }
+
+
+export async function getMiamiDbprMarketScope(): Promise<CityDbprMarketScope> {
+  return buildDbprCityMarketScope({
+    countyCode: "23",
+    cityNames: ["MIAMI"],
+  });
+}
