@@ -341,7 +341,8 @@ export default function BrokerIntelligenceClient() {
   const [query, setQuery] = useState("");
   const [selectedKey, setSelectedKey] = useState("");
   const [reportMode, setReportMode] = useState(false);
-  const [copied, setCopied] = useState(false);\n  const [detailRow, setDetailRow] = useState<RecordRow | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [detailRow, setDetailRow] = useState<RecordRow | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
