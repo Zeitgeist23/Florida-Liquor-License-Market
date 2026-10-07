@@ -419,6 +419,50 @@ export async function researchPriorityIdentityQueue(limit = 4) {
   return output;
 }
 
+export async function researchScheduledIdentityBatch(limit = 3) {
+  const records = await listMarketIntelligence();
+  const recentRuns = await rest<Array<{ listing_reference: string; started_at: string }>>(
+    "identity_web_research_runs?select=listing_reference,started_at&order=started_at.desc&limit=2000",
+  );
+
+  const lastRun = new Map<string, number>();
+  for (const run of recentRuns) {
+    if (lastRun.has(run.listing_reference)) continue;
+    const ts = new Date(run.started_at).getTime();
+    if (Number.isFinite(ts)) lastRun.set(run.listing_reference, ts);
+  }
+
+  const now = Date.now();
+  const staleAfterMs = 14 * 24 * 60 * 60 * 1000;
+  const targets = records
+    .filter((r) => {
+      const last = lastRun.get(r.listing_reference) || 0;
+      return !r.business_name
+        || (r.identification_confidence || 0) < 95
+        || now - last > staleAfterMs;
+    })
+    .sort((a, b) => {
+      const aPriority = !a.business_name ? -100 : (a.identification_confidence || 0);
+      const bPriority = !b.business_name ? -100 : (b.identification_confidence || 0);
+      if (aPriority !== bPriority) return aPriority - bPriority;
+      return (lastRun.get(a.listing_reference) || 0) - (lastRun.get(b.listing_reference) || 0);
+    })
+    .slice(0, Math.max(1, Math.min(limit, 4)));
+
+  const output = [];
+  for (const target of targets) {
+    try {
+      output.push(await researchIdentityOnOpenWeb(target.listing_reference, { autoApply: true }));
+    } catch (error) {
+      output.push({
+        listing_reference: target.listing_reference,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+  return output;
+}
+
 export async function recentWebResearch(listingReference: string) {
   return rest<unknown[]>(
     `identity_web_research_runs?listing_reference=eq.${encodeURIComponent(listingReference)}&select=*&order=started_at.desc&limit=10`,
