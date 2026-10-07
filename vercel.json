@@ -19,6 +19,10 @@
     {
       "path": "/api/cron/business-buyer-alerts",
       "schedule": "27 * * * *"
+    },
+    {
+      "path": "/api/cron/identity-research",
+      "schedule": "40 12 * * *"
     }
   ]
 }
