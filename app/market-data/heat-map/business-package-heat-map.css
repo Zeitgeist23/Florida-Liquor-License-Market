@@ -351,3 +351,33 @@
   color: #69d6ff;
   text-shadow: 0 0 8px rgba(105,214,255,.12);
 }
+
+
+/* Selected Market View card: centered hierarchy and green business asking price. */
+.business-package-county-map .county-availability-tooltip .business-package-tooltip-link{
+  text-align:center;
+}
+.business-package-county-map .business-package-tooltip-link > span,
+.business-package-county-map .business-package-tooltip-link > strong,
+.business-package-county-map .business-package-tooltip-link > small,
+.business-package-county-map .business-package-tooltip-link > em{
+  text-align:center;
+}
+.business-package-county-map .business-package-tooltip-link dl{
+  align-items:start;
+  text-align:center;
+}
+.business-package-county-map .business-package-tooltip-link dl > div{
+  text-align:center;
+}
+.business-package-county-map .business-package-tooltip-link dt,
+.business-package-county-map .business-package-tooltip-link dd{
+  text-align:center;
+}
+.business-package-county-map .business-package-tooltip-link .business-package-listing-price dd{
+  color:#5cff9d;
+  text-shadow:0 0 8px rgba(92,255,157,.14);
+}
+.business-package-county-map .business-package-tooltip-link .business-package-market-metric--wide{
+  grid-column:1 / -1;
+}
