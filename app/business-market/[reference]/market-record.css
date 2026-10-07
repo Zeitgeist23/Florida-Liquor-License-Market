@@ -772,14 +772,35 @@
   margin-top:3px;
   font-size:17px;
 }
+.business-market-interactive-map .directory-shell{
+  width:min(1360px,calc(100% - 56px));
+}
 .business-market-interactive-map .county-availability-map-layout{
-  max-width:1080px;
+  max-width:1320px;
 }
 .business-market-interactive-map .county-heatmap-module-grid{
-  grid-template-columns:minmax(220px,250px) minmax(0,1fr);
-  gap:24px;
+  grid-template-columns:minmax(220px,250px) minmax(430px,1fr) minmax(330px,370px);
+  gap:28px;
   align-items:start;
 }
+@media(max-width:1180px){
+  .business-market-interactive-map .directory-shell{
+    width:min(1180px,calc(100% - 40px));
+  }
+  .business-market-interactive-map .county-heatmap-module-grid{
+    grid-template-columns:minmax(210px,235px) minmax(390px,1fr) minmax(280px,320px);
+    gap:20px;
+  }
+}
+@media(max-width:980px){
+  .business-market-interactive-map .county-heatmap-module-grid{
+    grid-template-columns:minmax(210px,235px) minmax(0,1fr);
+  }
+  .business-market-interactive-map .business-package-band-county-list{
+    display:none;
+  }
+}
+
 .business-market-interactive-map .county-availability-map-stage{
   min-height:430px;
   height:430px;
@@ -788,8 +809,8 @@
 }
 .business-market-interactive-map .county-availability-map-svg{
   height:420px;
-  max-width:760px;
-  transform:translate(-82px,0) scale(1.05);
+  max-width:720px;
+  transform:translate(-8px,0) scale(1.02);
 }
 .business-market-interactive-map .county-availability-map-legend{
   align-self:start;
