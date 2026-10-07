@@ -462,11 +462,11 @@ export default function BusinessPackageHeatMap({
                               <dd>{selectedLicenseValue || "Market data unavailable"}</dd>
                             </div>
                             <div className="business-package-market-metric">
-                              <dt>Matching Packages in {activeRow.name}</dt>
+                              <dt>{activeRow.name} Matches</dt>
                               <dd>{activeRow.listingCount}</dd>
                             </div>
                             <div className="business-package-market-metric business-package-market-metric--wide">
-                              <dt>Additional Packages Statewide</dt>
+                              <dt>Other Packages Statewide</dt>
                               <dd>{Math.max(0, totalPackages - activeRow.listingCount)}</dd>
                             </div>
                           </dl>
