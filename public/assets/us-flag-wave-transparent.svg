@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 210" role="img" aria-label="American flag">
+  <defs>
+    <clipPath id="wave">
+      <path d="M12 26 C78 8 142 34 208 18 C250 8 286 12 308 20 L300 176 C262 184 226 178 190 188 C126 204 72 180 12 194 Z"/>
+    </clipPath>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity=".28"/>
+    </filter>
+  </defs>
+  <g clip-path="url(#wave)" filter="url(#shadow)">
+    <rect width="320" height="210" fill="#f4f4f2"/>
+    <g fill="#b22234">
+      <rect y="0" width="320" height="16"/>
+      <rect y="32" width="320" height="16"/>
+      <rect y="64" width="320" height="16"/>
+      <rect y="96" width="320" height="16"/>
+      <rect y="128" width="320" height="16"/>
+      <rect y="160" width="320" height="16"/>
+      <rect y="192" width="320" height="18"/>
+    </g>
+    <path d="M0 0 H142 V112 H0 Z" fill="#3c3b6e"/>
+    <g fill="#fff" opacity=".95">
+      <circle cx="14" cy="14" r="3"/><circle cx="36" cy="14" r="3"/><circle cx="58" cy="14" r="3"/><circle cx="80" cy="14" r="3"/><circle cx="102" cy="14" r="3"/><circle cx="124" cy="14" r="3"/><circle cx="25" cy="34" r="3"/><circle cx="47" cy="34" r="3"/><circle cx="69" cy="34" r="3"/><circle cx="91" cy="34" r="3"/><circle cx="113" cy="34" r="3"/><circle cx="135" cy="34" r="3"/><circle cx="14" cy="54" r="3"/><circle cx="36" cy="54" r="3"/><circle cx="58" cy="54" r="3"/><circle cx="80" cy="54" r="3"/><circle cx="102" cy="54" r="3"/><circle cx="124" cy="54" r="3"/><circle cx="25" cy="74" r="3"/><circle cx="47" cy="74" r="3"/><circle cx="69" cy="74" r="3"/><circle cx="91" cy="74" r="3"/><circle cx="113" cy="74" r="3"/><circle cx="135" cy="74" r="3"/><circle cx="14" cy="94" r="3"/><circle cx="36" cy="94" r="3"/><circle cx="58" cy="94" r="3"/><circle cx="80" cy="94" r="3"/><circle cx="102" cy="94" r="3"/><circle cx="124" cy="94" r="3"/>
+    </g>
+  </g>
+</svg>
