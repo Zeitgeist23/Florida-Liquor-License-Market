@@ -462,8 +462,8 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               </div>
 
               <div className="business-market-hero-actions">
-                <a className="business-market-primary" href="#license-information">
-                  Request License Information
+                <a className="business-market-primary" href="#buyer-alert">
+                  Create Buyer Alert
                 </a>
                 <Link className="business-market-secondary" href={listing.countyHref}>
                   Explore {listing.county}
@@ -606,7 +606,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               </section>
             </div>
 
-            <aside className="business-market-sidebar" id="license-information">
+            <aside className="business-market-sidebar" id="buyer-alert">
               <MarketBuyerLeadForm
                 listingReference={listing.listingReference}
                 listingTitle={title}
