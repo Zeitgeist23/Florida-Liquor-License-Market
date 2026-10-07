@@ -928,3 +928,204 @@
 }
 .business-market-role-disclosure li+li{margin-top:6px}
 .business-market-role-disclosure li::marker{color:#69d6ff}
+
+
+/* MARKET VIEW BUYER ALERT — primary lead capture without implying business representation */
+.business-market-alert-section{
+  min-width:0;
+  margin:15px 0;
+  padding:14px;
+  border:1px solid rgba(105,214,255,.24);
+  border-radius:7px;
+  background:rgba(4,25,41,.38);
+}
+.business-market-alert-section legend{
+  padding:0 5px;
+  color:#f1a600;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+}
+.business-market-alert-section legend small{
+  color:#9fb0bd;
+  font-size:9px;
+}
+.business-market-alert-section>p{
+  margin:1px 0 11px;
+  color:#aebfca;
+  font-size:11px;
+  line-height:1.5;
+}
+.business-market-alert-options{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px;
+}
+.business-market-alert-options label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+  min-height:39px;
+  margin:0;
+  padding:8px 9px;
+  border:1px solid #365a72;
+  border-radius:5px;
+  background:#071d31;
+  cursor:pointer;
+  transition:border-color .16s ease,background .16s ease,transform .16s ease;
+}
+.business-market-alert-options label:hover,
+.business-market-alert-options label.selected{
+  border-color:#69d6ff;
+  background:#0b3555;
+  transform:translateY(-1px);
+}
+.business-market-alert-options label>input{
+  width:15px!important;
+  min-height:15px!important;
+  height:15px;
+  flex:0 0 15px;
+  margin:0;
+  padding:0;
+  accent-color:#f1a600;
+}
+.business-market-alert-options label>span{
+  display:block!important;
+  margin:0!important;
+  color:#e5eef3!important;
+  font-size:10px!important;
+  font-weight:800!important;
+  line-height:1.25;
+  letter-spacing:0!important;
+  text-transform:none!important;
+}
+.business-market-alert-county-picker{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  gap:7px;
+  align-items:stretch;
+}
+.business-market-alert-county-picker select{
+  min-width:0;
+}
+.business-market-lead-form .business-market-alert-secondary{
+  width:auto;
+  min-height:42px;
+  margin:0;
+  padding:8px 10px;
+  white-space:nowrap;
+  border-color:#45687f;
+  background:#0a2943;
+  color:#dce8ef;
+  box-shadow:none;
+  text-transform:none;
+  letter-spacing:0;
+}
+.business-market-lead-form .business-market-alert-secondary:hover{
+  transform:none;
+  border-color:#69d6ff;
+  box-shadow:none;
+}
+.business-market-alert-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:9px;
+}
+.business-market-lead-form .business-market-alert-chips button{
+  width:auto;
+  min-height:29px;
+  margin:0;
+  padding:5px 9px;
+  border:1px solid rgba(105,214,255,.4);
+  border-radius:999px;
+  background:#0b3555;
+  color:#dce8ef;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:0;
+  text-transform:none;
+  box-shadow:none;
+}
+.business-market-lead-form .business-market-alert-chips button:hover{
+  transform:none;
+  border-color:#69d6ff;
+  box-shadow:none;
+}
+.business-market-alert-chips button span{color:#f1a600}
+.business-market-alert-money-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+}
+.business-market-alert-money-grid label{margin:0}
+.business-market-alert-money{
+  display:grid;
+  grid-template-columns:28px minmax(0,1fr);
+  align-items:center;
+  overflow:hidden;
+  border:1px solid #45687f;
+  border-radius:5px;
+  background:#071d31;
+}
+.business-market-alert-money:focus-within{
+  border-color:#70dcfa;
+  box-shadow:0 0 0 2px rgba(112,220,250,.12);
+}
+.business-market-alert-money b{
+  text-align:center;
+  color:#f1a600;
+  font-size:13px;
+}
+.business-market-alert-money input{
+  min-height:40px!important;
+  border:0!important;
+  border-left:1px solid #304f64!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.business-market-alert-field-note{
+  margin-top:9px!important;
+  color:#9fb0bd!important;
+}
+.business-market-alert-consent{
+  display:grid!important;
+  grid-template-columns:18px minmax(0,1fr);
+  gap:9px;
+  align-items:start;
+  margin:15px 0 4px!important;
+  padding:12px;
+  border:1px solid rgba(241,166,0,.34);
+  border-radius:6px;
+  background:rgba(241,166,0,.05);
+}
+.business-market-alert-consent input{
+  width:16px!important;
+  min-height:16px!important;
+  height:16px;
+  margin:2px 0 0;
+  padding:0;
+  accent-color:#f1a600;
+}
+.business-market-alert-consent>span{
+  margin:0!important;
+  color:#d4e0e7!important;
+  font-size:10px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+}
+.business-market-alert-disclosure{
+  padding-top:2px;
+  color:#9fb0bd!important;
+}
+.business-market-alert-success strong{color:#f1a600}
+@media(max-width:620px){
+  .business-market-alert-options,
+  .business-market-alert-money-grid{grid-template-columns:1fr}
+  .business-market-alert-county-picker{grid-template-columns:1fr}
+  .business-market-lead-form .business-market-alert-secondary{width:100%}
+}
