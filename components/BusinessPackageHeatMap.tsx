@@ -300,12 +300,12 @@ export default function BusinessPackageHeatMap({
         <div className="county-heatmap-toolbar">
           <div className="county-heatmap-current-metric" aria-live="polite">
             <span>Inventory View</span>
-            <h3>Active {licenseType} business packages by county</h3>
+            <h3>Active {licenseType} Business Packages Across Florida</h3>
           </div>
           <div className="business-package-map-context">
             <span>{businessTypeLabel} + {licenseType} License</span>
             <strong>
-              {totalPackages} active package{totalPackages === 1 ? "" : "s"}
+              {totalPackages} Active Package{totalPackages === 1 ? "" : "s"} Statewide
             </strong>
           </div>
         </div>
@@ -466,15 +466,19 @@ export default function BusinessPackageHeatMap({
                               <dd>{selectedLicenseValue || "Market data unavailable"}</dd>
                             </div>
                             <div>
-                              <dt>Other Similar Listings</dt>
-                              <dd>{Math.max(0, activeRow.listingCount - 1)}</dd>
+                              <dt>Matching Packages in {activeRow.name}</dt>
+                              <dd>{activeRow.listingCount}</dd>
+                            </div>
+                            <div>
+                              <dt>Additional Packages Statewide</dt>
+                              <dd>{Math.max(0, totalPackages - activeRow.listingCount)}</dd>
                             </div>
                           </dl>
                           <small>
                             {selectedListingReference ? `${selectedListingReference} · ` : ""}
                             {activeRow.businessCategories.join(" · ")}
                           </small>
-                          <em>View similar listings in {activeRow.name} →</em>
+                          <em>View matching packages in {activeRow.name} →</em>
                         </>
                       ) : (
                         <>
