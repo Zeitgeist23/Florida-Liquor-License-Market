@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import AdminCodeLogin from "@/components/AdminCodeLogin";
+import { listings as standaloneListings } from "@/data/listings";
 
 type RecordRow = {
   id: string | null;
@@ -81,9 +82,89 @@ function daysObserved(row: RecordRow) {
   return Math.max(0, Math.round((end - start) / 86400000));
 }
 
+function median(values: number[]) {
+  if (!values.length) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const midpoint = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[midpoint] : Math.round((sorted[midpoint - 1] + sorted[midpoint]) / 2);
+}
+
+function normalizedLicenseType(row: RecordRow) {
+  return (row.license_type || "").trim().toLowerCase();
+}
+
+function isNonQuota(row: RecordRow) {
+  const value = normalizedLicenseType(row);
+  return value.includes("sfs") || value.includes("srx") || value.includes("2cop");
+}
+
+function is3ps(row: RecordRow) {
+  return normalizedLicenseType(row).includes("3ps");
+}
+
 function isQuota(row: RecordRow) {
-  const value = (row.license_type || "").toLowerCase();
-  return value.includes("4cop") || value.includes("3ps") || value.includes("quota");
+  const value = normalizedLicenseType(row);
+  if (!value || isNonQuota(row)) return false;
+  return value.includes("3ps") || value.includes("quota") || value.includes("4cop");
+}
+
+type EffectiveLicenseValue = {
+  value: number | null;
+  label: string;
+  basis: "record_specific" | "county_4cop_median" | "county_3ps_median" | "county_4cop_series_proxy" | "non_quota" | "unavailable";
+};
+
+function countyMedian(county: string, type: "4COP Quota" | "3PS Quota / Package Store") {
+  return median(
+    standaloneListings
+      .filter((listing) => listing.county === county && listing.type === type && typeof listing.price === "number" && Number.isFinite(listing.price))
+      .map((listing) => listing.price as number),
+  );
+}
+
+function effectiveLicenseValue(row: RecordRow): EffectiveLicenseValue {
+  if (typeof row.fllm_est_license_value === "number" && Number.isFinite(row.fllm_est_license_value) && row.fllm_est_license_value > 0) {
+    return { value: row.fllm_est_license_value, label: money(row.fllm_est_license_value), basis: "record_specific" };
+  }
+
+  if (isNonQuota(row)) {
+    const label = normalizedLicenseType(row).includes("2cop") ? "No separate quota value" : "Location-specific / non-quota";
+    return { value: null, label, basis: "non_quota" };
+  }
+
+  if (!isQuota(row)) {
+    return { value: null, label: "Market data unavailable", basis: "unavailable" };
+  }
+
+  if (is3ps(row)) {
+    const direct3ps = countyMedian(row.county, "3PS Quota / Package Store");
+    if (direct3ps !== null) {
+      return { value: direct3ps, label: money(direct3ps), basis: "county_3ps_median" };
+    }
+    const fourCop = countyMedian(row.county, "4COP Quota");
+    if (fourCop !== null) {
+      const proxy = Math.round((fourCop * 0.985) / 5000) * 5000;
+      return { value: proxy, label: money(proxy), basis: "county_4cop_series_proxy" };
+    }
+    return { value: null, label: "Market data unavailable", basis: "unavailable" };
+  }
+
+  const fourCop = countyMedian(row.county, "4COP Quota");
+  if (fourCop !== null) {
+    return { value: fourCop, label: money(fourCop), basis: "county_4cop_median" };
+  }
+
+  return { value: null, label: "Market data unavailable", basis: "unavailable" };
+}
+
+function licenseValueBasisLabel(row: RecordRow) {
+  const basis = effectiveLicenseValue(row).basis;
+  if (basis === "record_specific") return "Record-specific FLLM estimate";
+  if (basis === "county_4cop_median") return "County 4COP median";
+  if (basis === "county_3ps_median") return "County 3PS median";
+  if (basis === "county_4cop_series_proxy") return "3PS proxy from county 4COP median";
+  if (basis === "non_quota") return "Non-quota license";
+  return "No county market estimate available";
 }
 
 function cleanBrokerName(row: RecordRow) {
@@ -94,7 +175,7 @@ function opportunityScore(records: RecordRow[]) {
   const active = records.filter((r) => r.market_status === "active");
   const quota = active.filter(isQuota).length;
   const counties = new Set(active.map((r) => r.county).filter(Boolean)).size;
-  const totalLicenseValue = active.reduce((sum, r) => sum + (r.fllm_est_license_value || 0), 0);
+  const totalLicenseValue = active.reduce((sum, r) => sum + (effectiveLicenseValue(r).value || 0), 0);
   const aged = active.filter((r) => daysObserved(r) >= 60).length;
   const score =
     Math.min(active.length * 4, 32) +
@@ -274,7 +355,7 @@ export default function BrokerIntelligenceClient() {
         quotaCount: activeRecords.filter(isQuota).length,
         counties: new Set(activeRecords.map((r) => r.county).filter(Boolean)).size,
         totalAsk: activeRecords.reduce((sum, r) => sum + (r.asking_price || 0), 0),
-        totalLicenseValue: activeRecords.reduce((sum, r) => sum + (r.fllm_est_license_value || 0), 0),
+        totalLicenseValue: activeRecords.reduce((sum, r) => sum + (effectiveLicenseValue(r).value || 0), 0),
         averageDays: activeRecords.length ? Math.round(totalDays / activeRecords.length) : 0,
         reductions: 0,
         opportunityScore: opportunityScore(rows),
@@ -299,8 +380,9 @@ export default function BrokerIntelligenceClient() {
   const licenseData = useMemo(() => selected ? groupCounts(selected.activeRecords, (r) => r.license_type || "Unknown") : [], [selected]);
   const businessData = useMemo(() => selected ? groupCounts(selected.activeRecords, (r) => r.business_type || "Unknown") : [], [selected]);
   const valueData = useMemo(() => selected ? selected.activeRecords
-    .filter((r) => (r.fllm_est_license_value || 0) > 0)
-    .map((r) => ({ label: r.listing_reference || r.source_listing_title || r.county, value: r.fllm_est_license_value || 0 }))
+    .map((r) => ({ row: r, effective: effectiveLicenseValue(r) }))
+    .filter(({ effective }) => (effective.value || 0) > 0)
+    .map(({ row, effective }) => ({ label: row.listing_reference || row.source_listing_title || row.county, value: effective.value || 0 }))
     .sort((a, b) => b.value - a.value) : [], [selected]);
 
   const portfolioStats = useMemo(() => ({
@@ -389,7 +471,7 @@ export default function BrokerIntelligenceClient() {
                     <td>{row.business_type || "—"}</td>
                     <td>{row.license_type || "—"}</td>
                     <td>{row.asking_price ? money(row.asking_price) : "—"}</td>
-                    <td>{row.fllm_est_license_value ? money(row.fllm_est_license_value) : "—"}</td>
+                    <td><strong>{effectiveLicenseValue(row).label}</strong><small>{licenseValueBasisLabel(row)}</small></td>
                     <td>{daysObserved(row)}</td>
                   </tr>
                 ))}
@@ -508,7 +590,7 @@ export default function BrokerIntelligenceClient() {
                         <td>{row.business_type || "—"}</td>
                         <td>{row.license_type || "—"}</td>
                         <td>{row.asking_price ? money(row.asking_price) : "—"}</td>
-                        <td>{row.fllm_est_license_value ? money(row.fllm_est_license_value) : "—"}</td>
+                        <td><strong>{effectiveLicenseValue(row).label}</strong><small>{licenseValueBasisLabel(row)}</small></td>
                         <td>{row.identification_confidence === null ? "—" : `${row.identification_confidence}%`}</td>
                         <td><span className={`bi-status ${row.market_status}`}>{row.market_status}</span></td>
                       </tr>
