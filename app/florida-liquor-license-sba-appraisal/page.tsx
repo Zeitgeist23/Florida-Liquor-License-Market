@@ -138,7 +138,18 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-appraisal-steps h3{margin:0 0 9px;color:#fff}.sba-appraisal-steps p{margin:0;line-height:1.65}.sba-appraisal-steps strong{color:#ffb400}
         .sba-appraisal-faq{display:grid;gap:12px;margin-top:22px}.sba-appraisal-faq article{padding:20px;border:1px solid #dde3e7;border-radius:12px;background:#fff}.sba-appraisal-faq h3{margin:0 0 8px;color:#0a2942}.sba-appraisal-faq p{margin:0;color:#536571;line-height:1.68}
         .sba-appraisal-source{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}.sba-appraisal-source a{padding:12px 15px;border:1px solid #d89200;border-radius:7px;background:#fff;color:#0a2942;font-weight:800;text-decoration:none}
-        @media(max-width:820px){.sba-appraisal-grid,.sba-appraisal-steps{grid-template-columns:1fr}}
+        .sba-change-table-wrap{margin-top:24px;overflow-x:auto;border:1px solid #cfd8df;border-radius:14px;background:#fff;box-shadow:0 12px 28px rgba(5,22,35,.1)}
+        .sba-change-table{width:100%;min-width:760px;border-collapse:collapse;text-align:left}
+        .sba-change-table th{padding:16px 18px;background:linear-gradient(145deg,#0a2942,#061827);color:#fff;font-size:13px;letter-spacing:.035em;text-transform:uppercase}
+        .sba-change-table th:first-child{color:#ffbd21}
+        .sba-change-table td{padding:17px 18px;border-top:1px solid #e3e8ec;color:#465966;line-height:1.58;vertical-align:top}
+        .sba-change-table tbody tr:nth-child(even){background:#f7f9fa}
+        .sba-change-table tbody tr:hover{background:#fff4d9}
+        .sba-change-table td:first-child{width:20%;color:#0a2942;font-weight:900}
+        .sba-change-table td:nth-child(2),.sba-change-table td:nth-child(3){width:40%}
+        .sba-change-scope{margin-top:16px;padding:17px 19px;border:1px solid rgba(0,165,205,.38);border-radius:10px;background:#edfaff;color:#294654;line-height:1.65}
+        .sba-change-scope strong{color:#087b9b}
+        @media(max-width:820px){.sba-appraisal-grid,.sba-appraisal-steps{grid-template-columns:1fr}.sba-change-table th,.sba-change-table td{padding:14px}}
       `}</style>
 
       <div className="abt-header-wrap">
@@ -191,6 +202,67 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
           </div>
           <p className="sba-appraisal-note">
             <strong>Important:</strong> FLLM&apos;s report addresses the liquor-license component only. It does not value the operating business, establish SBA eligibility, or guarantee lender acceptance. A lender may require a separate business valuation, a credentialed independent valuation professional, real-estate or equipment appraisals, or additional scope. Confirm the lender&apos;s requirements before ordering.
+          </p>
+        </div>
+      </section>
+
+      <section className="seo-market-counties" aria-labelledby="sop-change-heading">
+        <div className="seo-market-shell">
+          <span className="seo-market-section-kicker">Effective October 1, 2026</span>
+          <h2 id="sop-change-heading">What SBA SOP 50 10 8.1 changes for business acquisitions</h2>
+          <p>
+            The new procedure places 7(a) changes of ownership into Appendix 15 and applies more specific underwriting standards according to the transaction type. The comparison below highlights the changes most relevant to Florida businesses purchased with a 4COP or 3PS quota license.
+          </p>
+          <div className="sba-change-table-wrap">
+            <table className="sba-change-table">
+              <thead>
+                <tr>
+                  <th scope="col">Area</th>
+                  <th scope="col">Prior SOP 50 10 8 approach</th>
+                  <th scope="col">SOP 50 10 8.1</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Transaction categories</td>
+                  <td>Change-of-ownership rules appeared throughout the loan-program chapters.</td>
+                  <td>Appendix 15 organizes transactions as Initial Acquisition, Business Expansion, Owner Buyout, or ESOP and Cooperative.</td>
+                </tr>
+                <tr>
+                  <td>Debt-service coverage</td>
+                  <td>Generally 1.15× for Standard 7(a) underwriting, with qualifying reliance on historical or projected cash flow.</td>
+                  <td>Generally 1.25× for Initial Acquisitions, Owner Buyouts, and ESOP or Cooperative transactions; 1.15× for qualifying Business Expansions, based on historical or properly adjusted results.</td>
+                </tr>
+                <tr>
+                  <td>Buyer equity</td>
+                  <td>A 10% equity injection generally applied to complete changes of ownership, subject to the former transaction rules.</td>
+                  <td>An Initial Acquisition requires at least 10% of total project cost, and the lender may not reduce or eliminate that requirement.</td>
+                </tr>
+                <tr>
+                  <td>Business valuation</td>
+                  <td>The lender could perform its own valuation when the financed amount, after specified real-estate or equipment deductions, was $250,000 or less.</td>
+                  <td>The lender may perform its own valuation when the Business Purchase Price is $350,000 or less and the parties are not closely related. Above that amount, an independent Qualified Source is required.</td>
+                </tr>
+                <tr>
+                  <td>Valuation shortfall</td>
+                  <td>The former rules did not apply the new Appendix 15 acquisition-debt ceiling.</td>
+                  <td>Total acquisition debt is limited by the supported business value. A purchase-price amount above that value generally must be covered by additional equity.</td>
+                </tr>
+                <tr>
+                  <td>Quality of Earnings</td>
+                  <td>No specific SBA Quality of Earnings requirement applied.</td>
+                  <td>A lender-ordered independent Quality of Earnings report is required for qualifying Initial Acquisitions and Business Expansions with a Business Purchase Price of $3 million or more.</td>
+                </tr>
+                <tr>
+                  <td>Mixed-use maturity</td>
+                  <td>A transaction meeting the former real-estate percentage test could receive a 25-year maturity for the combined loan.</td>
+                  <td>The real-estate and business-acquisition portions use separate permitted maturities or a weighted blended maturity.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="sba-change-scope">
+            <strong>Scope for FLLM:</strong> These Appendix 15 changes principally concern changes of ownership. A pure refinance without an ownership change does not automatically trigger the acquisition rules shown above. In either transaction, a lender may request an FLLM quota-license appraisal to document the 4COP or 3PS component, subject to the lender&apos;s approval of the assignment and report.
           </p>
         </div>
       </section>
