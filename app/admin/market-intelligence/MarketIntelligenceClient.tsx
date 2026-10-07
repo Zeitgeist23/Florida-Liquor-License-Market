@@ -45,6 +45,36 @@ type RecordRow = {
 
 type Payload = { records: RecordRow[]; error?: string };
 
+type EngineResult = {
+  candidate_id: string;
+  candidate_name: string;
+  score: number;
+  confidence: number;
+  band: string;
+  matched_signals: { label: string; weight: number; detail: string }[];
+  contradictions: { label: string; weight: number; detail: string }[];
+  margin_to_runner_up?: number;
+};
+
+type EnginePayload = {
+  listing_reference: string;
+  result_count: number;
+  auto_applied: boolean;
+  results: EngineResult[];
+  error?: string;
+};
+
+const emptyEngineFacts = {
+  established_year: "",
+  square_feet: "",
+  seats: "",
+  employees: "",
+  monthly_rent: "",
+  operating_days: "",
+  keywords: "",
+  notes: "",
+};
+
 const emptyForm = {
   listing_reference: "",
   business_name: "",
@@ -107,6 +137,11 @@ export default function MarketIntelligenceClient() {
   const [detailRecord, setDetailRecord] = useState<RecordRow | null>(null);
   const [page, setPage] = useState(1);
   const [form, setForm] = useState(emptyForm);
+  const [engineReference, setEngineReference] = useState("");
+  const [engineFacts, setEngineFacts] = useState(emptyEngineFacts);
+  const [engineResults, setEngineResults] = useState<EngineResult[]>([]);
+  const [engineRunning, setEngineRunning] = useState(false);
+  const [engineMessage, setEngineMessage] = useState("");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -232,6 +267,86 @@ export default function MarketIntelligenceClient() {
     }
   }
 
+  async function saveEngineFacts() {
+    if (!engineReference) {
+      setEngineMessage("Choose an intelligence record first.");
+      return;
+    }
+    setEngineRunning(true);
+    setEngineMessage("");
+    try {
+      const response = await fetch("/api/admin/identity-resolution", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "save-facts",
+          listing_reference: engineReference,
+          ...engineFacts,
+          operating_days: engineFacts.operating_days.split(",").map((x) => x.trim()).filter(Boolean),
+          keywords: engineFacts.keywords.split(",").map((x) => x.trim()).filter(Boolean),
+        }),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || "Could not save identity facts.");
+      setEngineMessage("Identity facts saved.");
+    } catch (cause) {
+      setEngineMessage(cause instanceof Error ? cause.message : "Could not save identity facts.");
+    } finally {
+      setEngineRunning(false);
+    }
+  }
+
+  async function runIdentityEngine(autoApply = false) {
+    if (!engineReference) {
+      setEngineMessage("Choose an intelligence record first.");
+      return;
+    }
+    setEngineRunning(true);
+    setEngineMessage("");
+    setEngineResults([]);
+    try {
+      const response = await fetch("/api/admin/identity-resolution", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "run",
+          listing_reference: engineReference,
+          auto_apply: autoApply,
+        }),
+      });
+      const payload = await response.json() as EnginePayload;
+      if (!response.ok) throw new Error(payload.error || "Identity engine failed.");
+      setEngineResults(payload.results || []);
+      setEngineMessage(payload.auto_applied
+        ? "High-confidence winner was automatically written to the private intelligence record."
+        : `Scored ${payload.result_count || 0} candidate businesses. Review the ranked matches below.`);
+      if (payload.auto_applied) await load();
+    } catch (cause) {
+      setEngineMessage(cause instanceof Error ? cause.message : "Identity engine failed.");
+    } finally {
+      setEngineRunning(false);
+    }
+  }
+
+  async function syncIdentityCandidates() {
+    setEngineRunning(true);
+    setEngineMessage("");
+    try {
+      const response = await fetch("/api/admin/identity-resolution", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "sync-candidates" }),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || "Could not sync identity candidates.");
+      setEngineMessage(`Candidate pool refreshed from ${payload.synced || 0} known FLLM identities.`);
+    } catch (cause) {
+      setEngineMessage(cause instanceof Error ? cause.message : "Could not sync candidate pool.");
+    } finally {
+      setEngineRunning(false);
+    }
+  }
+
   async function logout() {
     await fetch("/api/admin/session", { method: "DELETE" });
     setAuthenticated(false);
@@ -271,6 +386,51 @@ export default function MarketIntelligenceClient() {
         <div><span>Observed active</span><strong>{stats.active}</strong></div>
         <div><span>Best-guess identities</span><strong>{stats.identified}</strong></div>
         <div><span>Reviewed — insufficient evidence</span><strong>{stats.reviewedInsufficient}</strong></div>
+      </section>
+
+      <section className="intel-engine">
+        <div className="intel-engine-heading">
+          <div>
+            <span>FLLM proprietary identity-resolution engine</span>
+            <h2>Automated Business Identity Search</h2>
+            <p>Scores anonymous listings against FLLM's private candidate library using license class and number, county, city, business type, establishment year, footprint, seats, employees, rent, financials, operating schedule and concept keywords. Hard contradictions reduce confidence automatically.</p>
+          </div>
+          <button type="button" onClick={() => void syncIdentityCandidates()} disabled={engineRunning}>Refresh Candidate Pool</button>
+        </div>
+
+        <div className="intel-engine-grid">
+          <label><span>Listing to resolve</span><select value={engineReference} onChange={(e) => { setEngineReference(e.target.value); setEngineResults([]); setEngineMessage(""); }}>
+            <option value="">Choose record…</option>
+            {records.map((r) => <option key={r.listing_reference} value={r.listing_reference}>{r.listing_reference} — {r.source_listing_title || r.business_name || r.county}</option>)}
+          </select></label>
+          <label><span>Established year</span><input type="number" value={engineFacts.established_year} onChange={(e)=>setEngineFacts({...engineFacts,established_year:e.target.value})} /></label>
+          <label><span>Square feet</span><input type="number" value={engineFacts.square_feet} onChange={(e)=>setEngineFacts({...engineFacts,square_feet:e.target.value})} /></label>
+          <label><span>Seats</span><input type="number" value={engineFacts.seats} onChange={(e)=>setEngineFacts({...engineFacts,seats:e.target.value})} /></label>
+          <label><span>Employees</span><input type="number" value={engineFacts.employees} onChange={(e)=>setEngineFacts({...engineFacts,employees:e.target.value})} /></label>
+          <label><span>Monthly rent</span><input type="number" value={engineFacts.monthly_rent} onChange={(e)=>setEngineFacts({...engineFacts,monthly_rent:e.target.value})} /></label>
+          <label><span>Operating days</span><input value={engineFacts.operating_days} onChange={(e)=>setEngineFacts({...engineFacts,operating_days:e.target.value})} placeholder="Wed, Thu, Fri, Sat" /></label>
+          <label><span>Concept keywords</span><input value={engineFacts.keywords} onChange={(e)=>setEngineFacts({...engineFacts,keywords:e.target.value})} placeholder="waterfront, live music, patio, Italian" /></label>
+          <label className="wide"><span>Research notes / extra discriminators</span><input value={engineFacts.notes} onChange={(e)=>setEngineFacts({...engineFacts,notes:e.target.value})} placeholder="Any unusual listing clues that should influence keyword matching" /></label>
+        </div>
+
+        <div className="intel-engine-actions">
+          <button type="button" onClick={() => void saveEngineFacts()} disabled={engineRunning || !engineReference}>Save Search Facts</button>
+          <button type="button" onClick={() => void runIdentityEngine(false)} disabled={engineRunning || !engineReference}>{engineRunning ? "Working…" : "Run Identity Engine"}</button>
+          <button type="button" className="engine-auto" onClick={() => void runIdentityEngine(true)} disabled={engineRunning || !engineReference}>Run + Auto-Apply 90%+</button>
+        </div>
+
+        {engineMessage && <p className="intel-engine-message">{engineMessage}</p>}
+
+        {engineResults.length > 0 && <div className="intel-engine-results">
+          {engineResults.slice(0,5).map((result, index) => <article key={result.candidate_id}>
+            <div><span>#{index + 1} candidate</span><strong>{result.candidate_name}</strong></div>
+            <div className="engine-score"><strong>{result.confidence}%</strong><span>{result.band}</span></div>
+            <div className="engine-signals">
+              {result.matched_signals.slice(0,4).map((s)=><small key={`m-${s.label}-${s.detail}`}>+{s.weight} {s.label}: {s.detail}</small>)}
+              {result.contradictions.slice(0,3).map((s)=><small className="conflict" key={`c-${s.label}-${s.detail}`}>{s.weight} {s.label}: {s.detail}</small>)}
+            </div>
+          </article>)}
+        </div>}
       </section>
 
       <section className="intel-editor">
