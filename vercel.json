@@ -22,7 +22,7 @@
     },
     {
       "path": "/api/cron/identity-research",
-      "schedule": "40 12 * * *"
+      "schedule": "40 */6 * * *"
     }
   ]
 }
