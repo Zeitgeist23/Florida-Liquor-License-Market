@@ -407,6 +407,8 @@ export async function runIdentityResolution(listingReference: string, options?: 
     if (candidate) {
       await saveMarketIntelligence({
         listing_reference: listingReference,
+        county: listing.county,
+        business_type: listing.business_type,
         business_name: candidate.business_name,
         legal_entity_name: candidate.legal_entity_name,
         city: listing.city || candidate.city,
