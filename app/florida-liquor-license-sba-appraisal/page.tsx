@@ -136,7 +136,6 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-hero{position:relative;overflow:hidden;padding:26px 0 0;border-top:1px solid rgba(238,166,18,.56);border-bottom:1px solid rgba(238,166,18,.65);background:
           linear-gradient(90deg,rgba(3,18,31,.98) 0%,rgba(3,18,31,.95) 34%,rgba(3,18,31,.80) 54%,rgba(3,18,31,.44) 76%,rgba(3,18,31,.30) 100%),
           url("https://upload.wikimedia.org/wikipedia/commons/d/d6/United_States_Capitol_Building_%28not_a_unit_of_the_National_Park_Service%29_USCA8539.jpg") center 48%/cover no-repeat}
-        .sba-hero::after{content:"";position:absolute;right:-36px;bottom:-42px;width:420px;height:360px;background:url("/assets/us-flag-wave-transparent.svg") center center/contain no-repeat;opacity:.92;transform:rotate(-5deg);filter:saturate(.98) contrast(1.03);pointer-events:none}
         .sba-hero .sba-shell{position:relative;z-index:2}
         .sba-breadcrumbs{display:flex;gap:8px;align-items:center;margin-bottom:15px;color:#d2e3ec;font-size:12px}
         .sba-breadcrumbs a{color:#f5a900;text-decoration:none}
@@ -239,7 +238,6 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         @media(max-width:650px){
           .sba-shell{width:min(100% - 28px,1280px)}
           .sba-hero{padding:22px 0 0;background-position:62% center}
-          .sba-hero::after{right:-120px;bottom:-70px;width:330px;height:300px;opacity:.68}
           .sba-hero h1{font-size:38px}
           .sba-hero p{font-size:14px}
           .sba-section{padding:28px 0}
