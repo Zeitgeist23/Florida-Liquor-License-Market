@@ -261,6 +261,7 @@ export default async function HeatMapPage({
       ? `Florida ${businessPackageLicenseType} Business Package Inventory Map`
       : "Florida Liquor License Market Heat Map",
     url: canonicalUrl,
+      license: "https://www.floridaliquorlicensemarket.com/terms-of-use",
     description: isBusinessPackageMap
       ? `Interactive county-level Florida inventory map for operating businesses advertised with ${businessPackageLicenseType} privileges, including package counts and average asking prices.`
       : "Interactive county-level Florida liquor-license marketplace inventory and 4COP/3PS asking-price heat maps.",
