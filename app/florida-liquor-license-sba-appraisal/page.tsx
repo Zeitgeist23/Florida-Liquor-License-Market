@@ -72,11 +72,13 @@ const reviewItems = [
   ["Lender requirements", "Any lender-specified reliance language, credential requirement or supplemental scope should be confirmed before engagement.", "people"],
 ] as const;
 
-function Icon({ name }: { name: (typeof reviewItems)[number][2] | "license" | "business" | "lender" | "info" }) {
+function Icon({ name }: { name: (typeof reviewItems)[number][2] | "license" | "business" | "lender" | "info" | "glass" | "handshake" }) {
   const common = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
   if (name === "doc" || name === "license") return <svg viewBox="0 0 24 24" aria-hidden="true"><path {...common} d="M7 3h7l4 4v14H7z"/><path {...common} d="M14 3v5h5M10 12h5M10 16h5"/></svg>;
   if (name === "pin") return <svg viewBox="0 0 24 24" aria-hidden="true"><path {...common} d="M12 21s6-5.6 6-11A6 6 0 1 0 6 10c0 5.4 6 11 6 11z"/><circle {...common} cx="12" cy="10" r="2"/></svg>;
   if (name === "chart" || name === "business") return <svg viewBox="0 0 24 24" aria-hidden="true"><path {...common} d="M4 20V9h4v11M10 20V4h4v16M16 20v-7h4v7M3 20h18"/></svg>;
+  if (name === "glass") return <svg viewBox="0 0 24 24" aria-hidden="true"><path {...common} d="M6 4h12l-2 7a4 4 0 0 1-8 0zM12 15v5M8 20h8"/></svg>;
+  if (name === "handshake") return <svg viewBox="0 0 24 24" aria-hidden="true"><path {...common} d="M3 8l4-3 4 2 2-1 4 2 4-1v7l-5 5-3-2-2 1-3-2-2 1-3-3z"/><path {...common} d="M8 10l3 2 3-2M7 14l2 2M11 15l2 2"/></svg>;
   if (name === "shield") return <svg viewBox="0 0 24 24" aria-hidden="true"><path {...common} d="M12 3l7 3v5c0 4.8-3 8.2-7 10-4-1.8-7-5.2-7-10V6z"/></svg>;
   if (name === "calc") return <svg viewBox="0 0 24 24" aria-hidden="true"><rect {...common} x="5" y="3" width="14" height="18" rx="2"/><path {...common} d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M16 15h0M8 19h2M12 19h4"/></svg>;
   if (name === "people" || name === "lender") return <svg viewBox="0 0 24 24" aria-hidden="true"><circle {...common} cx="9" cy="8" r="3"/><circle {...common} cx="16" cy="9" r="2.5"/><path {...common} d="M3.5 20c.6-4 3-6 5.5-6s5 2 5.5 6M13.5 20c.4-2.8 1.9-4.5 4-4.5 1.6 0 3 1 3.8 2.7"/></svg>;
@@ -211,9 +213,9 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
           <span className="sba-kicker">The SBA Transaction Distinction</span>
           <h2 className="sba-title">Liquor-license appraisal versus business valuation</h2>
           <div className="sba-three">
-            <article className="sba-card"><span className="ico"><Icon name="license" /></span><h3>License-specific valuation</h3><p>FLLM values the Florida liquor license (4COP or 3PS) as a separate asset for lender consideration.</p></article>
+            <article className="sba-card"><span className="ico"><Icon name="glass" /></span><h3>License-specific valuation</h3><p>FLLM values the Florida liquor license (4COP or 3PS) as a separate asset for lender consideration.</p></article>
             <article className="sba-card"><span className="ico"><Icon name="business" /></span><h3>Operating-business valuation</h3><p>A separate business valuation addresses the operating business, financials, and other assets and liabilities.</p></article>
-            <article className="sba-card"><span className="ico"><Icon name="lender" /></span><h3>Lender acceptance</h3><p>The lender determines what appraisals and documentation are required for the loan file.</p></article>
+            <article className="sba-card"><span className="ico"><Icon name="handshake" /></span><h3>Lender acceptance</h3><p>The lender determines what appraisals and documentation are required for the loan file.</p></article>
           </div>
           <div className="sba-note"><span className="ico"><Icon name="info" /></span><strong>Important:</strong> FLLM&apos;s report addresses the liquor-license component only. It does not value the operating business, establish SBA eligibility, or guarantee lender acceptance. A lender may require a separate business valuation, a credentialed independent valuation professional, real-estate or equipment appraisals, or additional scope. Confirm the lender&apos;s requirements before ordering.</div>
         </div>
