@@ -108,13 +108,13 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     countyValueHref: "/counties/broward/liquor-license-value",
     countyCities: "Wilton Manors · Fort Lauderdale · Hollywood · Pompano Beach · Oakland Park",
     countyPopulation,
-    askingPrice: "4COP license included / seller financing advertised",
+    askingPrice: "Included in package",
     askingPriceNumber: 0,
     marketMedianAskingPrice: medianLabel,
     marketMedianAskingPriceNumber: medianValue,
     packagePrice: "$875,000",
     packagePriceNumber: 875_000,
-    licenseType: "Liquor License Included",
+    licenseType: "4COP Quota",
     licenseAvailableSeparately: false,
     approvalPreview: true,
     businessLabel: "Restaurant/Bar Opportunity — Wilton Manors",
@@ -136,7 +136,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     additionalSellerIntro:
       "Established restaurant and bar opportunity in Wilton Manors, Florida, positioned in a prime Broward County hospitality market with six years of continuous operating history, an established customer base, and a turnkey operating framework.",
     packageIncludes:
-      `The current source listing presents the operating restaurant/bar business, leased premises, existing operating infrastructure and a 4COP full-liquor license. Seller financing is advertised for the 4COP liquor-license purchase. FLLM's current Broward County median disclosed standalone 4COP Quota asking price is ${medianLabel}; that figure is market context only and should not be treated as an allocated value for this license unless the broker confirms that the included 4COP license is a transferable quota license.`,
+      `The current source listing presents the operating restaurant/bar business, leased premises, existing operating infrastructure and an included Broward County 4COP Quota full-liquor license. Robert G. MacKilligan confirmed the 4COP Quota classification by phone on October 6, 2026. Seller financing is advertised for the 4COP liquor-license purchase. FLLM's current Broward County median disclosed standalone 4COP Quota asking price is ${medianLabel}; this is market context only, not an allocated license value or appraisal.`,
     businessMetrics: [
       {
         label: "Business Asking Price",
@@ -169,16 +169,16 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
           "The source listing states that the business was established in 2019.",
       },
       {
-        label: "Liquor License",
-        value: "4COP full-liquor",
+        label: "Liquor License Classification",
+        value: "4COP Quota",
         description:
-          "The source listing advertises a 4COP liquor license. FLLM is intentionally leaving the exact quota/SFS/SRX series classification pending broker confirmation before public publication.",
+          "Robert G. MacKilligan confirmed by phone on October 6, 2026 that the included liquor license is a Broward County 4COP Quota license. A 4COP Quota license is a county-limited transferable full-liquor license, subject to buyer qualification, premises, zoning and DBPR/ABT approval.",
       },
       {
         label: "FLLM Broward 4COP Quota Median",
         value: medianLabel,
         description:
-          `Calculated from current active standalone 4COP Quota inventory in Broward County. Current disclosed 4COP asks included in the calculation: ${fourCopStats.count}. This is market context only and applies directly to this listing only if the broker confirms that the advertised 4COP license is a transferable quota license.`,
+          `Calculated from current active standalone 4COP Quota inventory in Broward County. Current disclosed 4COP asks included in the calculation: ${fourCopStats.count}. This is market context only, not an appraisal or an allocated value for the included license.`,
         href: "/counties/broward/liquor-license-value",
       },
       {
@@ -229,15 +229,15 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
       "Acquire an established Wilton Manors restaurant/bar operation in a prime Broward County hospitality market.",
       "Build on advertised annual gross revenue of $1,280,000 and an operating history dating to 2019.",
       "Operate from an approximately 1,100-square-foot leased location with 59-seat capacity and advertised base rent of $2,800 per month.",
-      "Continue full-liquor service through the advertised 4COP license, subject to exact series confirmation, buyer qualification, premises, zoning and DBPR/ABT approval.",
+      "Continue full-liquor service through the included Broward County 4COP Quota license, subject to buyer qualification, premises, zoning and DBPR/ABT approval.",
       "Evaluate seller financing advertised for the 4COP liquor-license component directly with the listing broker.",
     ],
     transitionText:
       "The stated reason for sale is owner retirement. Qualified buyers should discuss seller transition support and operating handoff directly with the listing broker.",
     confidentialityText:
-      "financial documentation and detailed operational information are represented as available to qualified buyers subject to appropriate confidentiality agreements. Buyers should independently review financial statements, lease documents, licensing records, the exact 4COP series and license number, seller-financing terms, included assets and all transaction documents directly through the listing broker.",
+      "financial documentation and detailed operational information are represented as available to qualified buyers subject to appropriate confidentiality agreements. Buyers should independently review financial statements, lease documents, licensing records, the 4COP Quota license number and status, seller-financing terms, included assets and all transaction documents directly through the listing broker.",
     sourceDisclosure:
-      "Private FLLM broker-review mockup based on the current public Restaurant/Bar Opportunity listing in Wilton Manors and public broker information. The source listing currently displays a $875,000 headline asking price while its narrative text still references $900,000. Exact 4COP series classification, license number, transaction structure and final asking price should be confirmed by the listing broker before any public FLLM publication.",
+      "Private FLLM broker-review mockup based on the current public Restaurant/Bar Opportunity listing in Wilton Manors and public broker information. The source listing currently displays an $875,000 headline asking price while its narrative text still references $900,000. Robert G. MacKilligan confirmed by phone on October 6, 2026 that the included liquor license is a 4COP Quota license. License number, transaction structure and final asking price should be confirmed by the listing broker before any public FLLM publication.",
     countyContext:
       "Broward County includes Wilton Manors, Fort Lauderdale, Hollywood, Pompano Beach, Oakland Park, Pembroke Pines, Coral Springs, Miramar and other major South Florida restaurant, nightlife and hospitality markets.",
     singleExternalLinks: true,
