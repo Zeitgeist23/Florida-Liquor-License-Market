@@ -13,6 +13,7 @@ import { refreshKnownListings } from "@/lib/listing-refresh";
 import { upsertMarketplaceListings } from "@/lib/listing-store";
 import { runDueLicenseReminders } from "@/lib/license-renewal-reminders";
 import { discoverQuotaPhraseListings } from "@/lib/quota-listing-discovery";
+import { notifyMatchingBusinessBuyerAlerts } from "@/lib/business-buyer-alert-notifications";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
@@ -108,10 +109,11 @@ export async function GET(request: NextRequest) {
       autoDiscoveryEnabled && tavilyApiKey ? discoverPublicListings(tavilyApiKey) : Promise.resolve(null),
       autoDiscoveryEnabled && tavilyApiKey ? discoverQuotaPhraseListings(tavilyApiKey) : Promise.resolve(null),
       tavilyApiKey ? refreshKnownListings(tavilyApiKey) : Promise.resolve(null),
-      runDueLicenseReminders()
+      runDueLicenseReminders(),
+      notifyMatchingBusinessBuyerAlerts()
     ] as const);
 
-    const [feedResults, [directResult, primaryResult, supplementalResult, refreshResult, reminderResult]] = await Promise.all([
+    const [feedResults, [directResult, primaryResult, supplementalResult, refreshResult, reminderResult, businessAlertResult]] = await Promise.all([
       feedPromise,
       maintenancePromise
     ]);
@@ -201,7 +203,11 @@ export async function GET(request: NextRequest) {
       },
       renewalReminders: reminders ?? {
         error: resultError(reminderResult)
-      }
+      },
+      businessBuyerAlerts:
+        businessAlertResult.status === "fulfilled"
+          ? businessAlertResult.value
+          : { error: resultError(businessAlertResult) }
     };
 
     await finishDiscoveryRun(runId, "succeeded", response);
