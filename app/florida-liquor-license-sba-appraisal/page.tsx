@@ -231,15 +231,22 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-note .ico{position:static;display:inline-flex;width:20px;height:20px;vertical-align:-5px;margin-right:8px;color:#ffbd28}
         .sba-note .ico svg{width:100%;height:100%}
         .sba-note strong{color:#ffbd28;font-weight:950}
-        .sba-order-band{margin-top:18px;padding:22px 24px;border:1px solid rgba(255,193,38,.8);border-radius:10px;background:
+        .sba-order-band{margin-top:18px;padding:24px 26px;border:1px solid rgba(255,193,38,.8);border-radius:10px;background:
           radial-gradient(circle at 50% 35%,rgba(59,195,234,.10),transparent 60%),
           linear-gradient(145deg,#0e466d 0%,#0a3556 58%,#082943 100%);
           box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 14px 30px rgba(0,0,0,.24);transition:transform .17s ease,box-shadow .17s ease,filter .17s ease}
         .sba-order-band:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 18px 34px rgba(0,0,0,.3),0 0 18px rgba(241,166,0,.10);filter:brightness(1.03)}
-        .sba-order-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center}
-        .sba-order-band h3{margin:0;color:#fff;font:700 27px/1.08 Georgia,"Times New Roman",serif}
-        .sba-order-band p{max-width:820px;margin:8px 0 0;color:#f2f8fb;font-size:14px;line-height:1.62}
-        .sba-price{display:block;color:#ffbd28;font-size:13px;font-weight:950;letter-spacing:.09em;text-transform:uppercase}
+        .sba-order-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(270px,.8fr);gap:30px;align-items:center}
+        .sba-order-copy{text-align:center}
+        .sba-order-band h3{max-width:800px;margin:5px auto 10px;color:#fff;font:700 30px/1.08 Georgia,"Times New Roman",serif;text-align:center}
+        .sba-order-band p{max-width:820px;margin:0 auto;color:#f2f8fb;font-size:14px;line-height:1.68;text-align:center}
+        .sba-price{display:block;color:#ffbd28;font-size:13px;font-weight:950;letter-spacing:.09em;text-align:center;text-transform:uppercase}
+        .sba-order-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+        .sba-order-preview{display:flex;width:min(100%,310px);min-height:220px;align-items:center;justify-content:center;padding:14px;border:1px solid rgba(95,211,242,.55);border-radius:10px;background:
+          radial-gradient(circle at 50% 42%,rgba(78,213,244,.14),transparent 62%),
+          linear-gradient(145deg,#0b3859,#082943);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 14px 28px rgba(0,0,0,.26)}
+        .sba-order-preview img{display:block;max-width:100%;max-height:220px;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 12px 20px rgba(0,0,0,.32))}
+        .sba-order-visual .sba-btn{min-width:260px}
         .sba-inline-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:20px}
         .sba-link-btn{display:inline-flex;min-height:44px;align-items:center;justify-content:center;padding:0 18px;border:1px solid rgba(241,166,0,.78);border-radius:7px;background:linear-gradient(145deg,#0f446b 0%,#0b3556 58%,#082a46 100%);color:#ffbd28!important;font-size:11px;font-weight:950;letter-spacing:.04em;text-decoration:none;text-transform:uppercase;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 22px rgba(0,0,0,.2);transition:transform .17s ease,border-color .17s ease,box-shadow .17s ease,filter .17s ease}
         .sba-link-btn:hover{transform:translateY(-3px) scale(1.02);border-color:#ffc13b;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 16px 30px rgba(0,0,0,.28),0 0 16px rgba(241,166,0,.14);filter:brightness(1.05)}
@@ -406,12 +413,17 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
 
           <div className="sba-order-band">
             <div className="sba-order-grid">
-              <div>
+              <div className="sba-order-copy">
                 <span className="sba-price">Formal license-specific appraisal · $495</span>
-                <h3>Order the quota-license appraisal after confirming the lender's scope.</h3>
+                <h3>Order the quota-license appraisal after confirming the lender&apos;s scope.</h3>
                 <p>FLLM can prepare the license component for a Florida 4COP or 3PS quota license in a qualifying purchase or refinance. If the lender has specific reliance language, credential requirements or a custom scope, provide those requirements before the engagement begins.</p>
               </div>
-              <Link className="sba-btn" href="/florida-liquor-license-appraisal#order-form">Order License Appraisal — $495</Link>
+              <div className="sba-order-visual">
+                <div className="sba-order-preview">
+                  <img src="/assets/fllm-formal-appraisal-preview-v1.webp" alt="FLLM formal liquor license appraisal report books" />
+                </div>
+                <Link className="sba-btn" href="/florida-liquor-license-appraisal#order-form">Order License Appraisal — $495</Link>
+              </div>
             </div>
           </div>
         </div>
