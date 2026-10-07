@@ -265,7 +265,12 @@ async function upsertObservations(rows: BrokerInventoryObservation[]) {
 export async function ingestWsrFloridaInventory(options?: { batchSize?: number; cursor?: number }) {
   const discovered = await discoverWsrFloridaListingUrls();
   const batchSize = Math.max(1, Math.min(60, Math.round(options?.batchSize || 30)));
-  const cursor = Math.max(0, Math.round(options?.cursor || 0));
+  const existing = await listBrokerInventoryObservations();
+  const existingWsr = existing.filter((row) => row.source_domain === "wesellrestaurants.com").length;
+  const requestedCursor = options?.cursor;
+  const cursor = requestedCursor === undefined
+    ? (discovered.listings.length ? existingWsr % discovered.listings.length : 0)
+    : Math.max(0, Math.round(requestedCursor));
   const batch = discovered.listings.slice(cursor, cursor + batchSize);
 
   const parsed: BrokerInventoryObservation[] = [];
