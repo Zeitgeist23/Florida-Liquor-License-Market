@@ -141,19 +141,20 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
           background-position:center center}
         .sba-breadcrumbs{display:flex;gap:8px;align-items:center;margin-bottom:15px;color:#d2e3ec;font-size:12px}
         .sba-breadcrumbs a{color:#f5a900;text-decoration:none}
-        .sba-hero-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,.55fr);gap:28px;align-items:stretch}
+        .sba-hero-grid{display:block}
         .sba-hero h1{max-width:860px;margin:7px 0 14px;color:#fff;font:700 clamp(40px,4.2vw,60px)/1.01 Georgia,"Times New Roman",serif;letter-spacing:-.028em}
         .sba-hero p{max-width:830px;margin:0;color:#dce9f0;font-size:15px;line-height:1.62}
         .sba-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:18px}
         .sba-btn{display:inline-flex;min-height:43px;align-items:center;justify-content:center;padding:0 18px;border:1px solid #ffc32d;border-radius:5px;background:linear-gradient(145deg,#ffc443,#ed9a00);color:#06131f!important;font-size:11px;font-weight:950;letter-spacing:.02em;text-decoration:none;text-transform:uppercase;box-shadow:inset 0 1px 0 rgba(255,246,204,.62),0 8px 18px rgba(0,0,0,.24);transition:transform .16s ease,filter .16s ease,box-shadow .16s ease}
         .sba-btn.secondary{border-color:rgba(95,210,242,.65);background:linear-gradient(145deg,#104b73,#0a3554);color:#fff!important}
         .sba-btn:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.08);box-shadow:0 12px 24px rgba(0,0,0,.29)}
-        .sba-hero-panel{height:100%;padding:19px;border:1px solid rgba(96,211,242,.58);border-radius:10px;background:linear-gradient(145deg,rgba(13,67,103,.96),rgba(7,42,69,.97));box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 14px 30px rgba(0,0,0,.24)}
-        .sba-hero-panel h2{margin:0 0 12px;color:#fff;font-size:17px}
-        .sba-hero-panel-row{padding:11px 0;border-top:1px solid rgba(255,255,255,.1)}
-        .sba-hero-panel-row:first-of-type{border-top:0;padding-top:0}
-        .sba-hero-panel-row strong{display:block;margin-bottom:4px;color:#f5a900;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
-        .sba-hero-panel-row span{display:block;color:#d9e7ee;font-size:13px;line-height:1.48}
+        .sba-answer-strip{padding:18px 0 20px;border-bottom:1px solid rgba(238,166,18,.52);background:#082f4e}
+        .sba-answer-heading{margin:0 0 11px;color:#fff;font-size:17px;font-weight:900}
+        .sba-answer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+        .sba-answer-card{padding:15px 16px;border:1px solid rgba(96,211,242,.52);border-radius:8px;background:linear-gradient(145deg,#0d4165,#082c49);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 8px 18px rgba(0,0,0,.17);transition:transform .16s ease,border-color .16s ease,filter .16s ease}
+        .sba-answer-card:hover{transform:translateY(-2px) scale(1.015);border-color:#69d7f3;filter:brightness(1.06)}
+        .sba-answer-card strong{display:block;margin-bottom:5px;color:#f5a900;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+        .sba-answer-card span{display:block;color:#d9e7ee;font-size:13px;line-height:1.48}
         .sba-key-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-top:17px}
         .sba-key{padding:15px 16px;border:1px solid rgba(91,210,242,.5);border-radius:8px;background:linear-gradient(145deg,#0d3e62,#072943);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 9px 20px rgba(0,0,0,.18);transition:transform .16s ease,border-color .16s ease,filter .16s ease}
         .sba-key:hover{transform:translateY(-2px) scale(1.02);border-color:#69d7f3;filter:brightness(1.06)}
@@ -204,7 +205,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         @media(max-width:980px){
           .sba-hero-grid,.sba-order-grid{grid-template-columns:1fr}
           .sba-key-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-          .sba-three,.sba-six,.sba-faq{grid-template-columns:1fr}
+          .sba-three,.sba-six,.sba-faq,.sba-answer-grid{grid-template-columns:1fr}
           .sba-card{min-height:auto}
         }
         @media(max-width:650px){
@@ -234,12 +235,17 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
                 <Link className="sba-btn secondary" href="/sba-7a-liquor-license-business-financing">SBA 7(a) Financing Guide</Link>
               </div>
             </div>
-            <aside className="sba-hero-panel" aria-label="What this page explains">
-              <h2>What this page answers</h2>
-              <div className="sba-hero-panel-row"><strong>What changed</strong><span>The acquisition and valuation rules most relevant to an SBA-financed Florida business purchase.</span></div>
-              <div className="sba-hero-panel-row"><strong>What FLLM appraises</strong><span>The transferable 4COP or 3PS quota-license component as a separate market asset.</span></div>
-              <div className="sba-hero-panel-row"><strong>What the lender decides</strong><span>Required scope, appraiser qualifications, reliance language and whether the report is acceptable for the loan file.</span></div>
-            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section className="sba-answer-strip" aria-label="What this page answers">
+        <div className="sba-shell">
+          <h2 className="sba-answer-heading">What this page answers</h2>
+          <div className="sba-answer-grid">
+            <div className="sba-answer-card"><strong>What changed</strong><span>The acquisition and valuation rules most relevant to an SBA-financed Florida business purchase.</span></div>
+            <div className="sba-answer-card"><strong>What FLLM appraises</strong><span>The transferable 4COP or 3PS quota-license component as a separate market asset.</span></div>
+            <div className="sba-answer-card"><strong>What the lender decides</strong><span>Required scope, appraiser qualifications, reliance language and whether the report is acceptable for the loan file.</span></div>
           </div>
         </div>
       </section>
