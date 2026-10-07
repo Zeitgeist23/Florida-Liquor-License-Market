@@ -62,6 +62,7 @@ type BrokerRow = {
   quotaCount: number;
   standaloneQuotaCount: number;
   quotaBusinessPackageCount: number;
+  nonQuotaOnly: boolean;
   counties: number;
   totalAsk: number;
   totalLicenseValue: number;
@@ -390,6 +391,7 @@ export default function BrokerIntelligenceClient() {
         quotaCount: activeRecords.filter(isQuota).length,
         standaloneQuotaCount: activeRecords.filter(isStandaloneQuotaRecord).length,
         quotaBusinessPackageCount: activeRecords.filter((r) => isQuota(r) && !isStandaloneQuotaRecord(r)).length,
+        nonQuotaOnly: activeRecords.length > 0 && activeRecords.every((r) => isNonQuota(r)),
         counties: new Set(activeRecords.map((r) => r.county).filter(Boolean)).size,
         totalAsk: activeRecords.reduce((sum, r) => sum + (r.asking_price || 0), 0),
         totalLicenseValue: activeRecords.reduce((sum, r) => sum + (effectiveLicenseValue(r).value || 0), 0),
@@ -483,7 +485,7 @@ export default function BrokerIntelligenceClient() {
             <div><span>FLLM identified active records</span><strong>{selected.activeCount}</strong></div>
             <div><span>Counties represented</span><strong>{selected.counties}</strong></div>
             <div><span>Total quota licenses</span><strong>{selected.quotaCount}</strong><small>{selected.standaloneQuotaCount} standalone · {selected.quotaBusinessPackageCount} business packages</small></div>
-            <div className="quota-value"><span>Total quota license value</span><strong>{shortMoney(selected.totalLicenseValue)}</strong><small>{selected.quotaCount} currently matched quota records</small></div>
+            <div className="quota-value"><span>Total quota license value</span><strong>{selected.nonQuotaOnly ? "Non-quota inventory only" : shortMoney(selected.totalLicenseValue)}</strong><small>{selected.nonQuotaOnly ? "SFS/SRX and/or 2COP only" : `${selected.quotaCount} currently matched quota records`}</small></div>
             <div><span>Observed asking inventory</span><strong>{shortMoney(selected.totalAsk)}</strong></div>
             <div><span>Avg. days observed</span><strong>{selected.averageDays}</strong></div>
           </section>
@@ -564,7 +566,7 @@ export default function BrokerIntelligenceClient() {
                 <div className="bi-broker-copy">
                   <strong>{broker.name}</strong>
                   <small>{broker.activeCount} FLLM-matched active · {broker.quotaCount} quota · {broker.counties} counties</small>
-                  <em>{shortMoney(broker.totalLicenseValue)} total quota license value</em>
+                  <em>{broker.nonQuotaOnly ? "Non-quota inventory only" : `${shortMoney(broker.totalLicenseValue)} total quota license value`}</em>
                 </div>
               </button>
             ))}
@@ -605,7 +607,7 @@ export default function BrokerIntelligenceClient() {
               <div><span>Matched quota licenses</span><strong>{selected.quotaCount}</strong><small>{selected.standaloneQuotaCount} standalone · {selected.quotaBusinessPackageCount} business packages</small></div>
               <div><span>Counties</span><strong>{selected.counties}</strong></div>
               <div><span>Observed asking inventory</span><strong>{shortMoney(selected.totalAsk)}</strong></div>
-              <div className="quota-value"><span>Total quota license value</span><strong>{shortMoney(selected.totalLicenseValue)}</strong><small>{selected.quotaCount} currently matched quota records</small></div>
+              <div className="quota-value"><span>Total quota license value</span><strong>{selected.nonQuotaOnly ? "Non-quota inventory only" : shortMoney(selected.totalLicenseValue)}</strong><small>{selected.nonQuotaOnly ? "SFS/SRX and/or 2COP only" : `${selected.quotaCount} currently matched quota records`}</small></div>
               <div><span>Avg. days observed</span><strong>{selected.averageDays}</strong></div>
             </section>
 
