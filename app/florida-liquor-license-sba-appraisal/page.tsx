@@ -295,7 +295,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         <div className="sba-shell">
           <h2 className="sba-answer-heading">What this page answers</h2>
           <div className="sba-answer-grid">
-            <div className="sba-answer-card"><strong>What changed</strong><span>The acquisition and valuation rules most relevant to an SBA-financed Florida business purchase.</span></div>
+            <div className="sba-answer-card"><strong>What changed in SBA SOP 50 10 8.1</strong><span>The acquisition and valuation rules most relevant to an SBA-financed Florida business purchase.</span></div>
             <div className="sba-answer-card"><strong>What FLLM appraises</strong><span>The transferable 4COP or 3PS quota-license component as a separate market asset.</span></div>
             <div className="sba-answer-card"><strong>What the lender decides</strong><span>Required scope, appraiser qualifications, reliance language and whether the report is acceptable for the loan file.</span></div>
           </div>
