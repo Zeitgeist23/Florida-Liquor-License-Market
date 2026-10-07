@@ -148,13 +148,21 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-btn{display:inline-flex;min-height:43px;align-items:center;justify-content:center;padding:0 18px;border:1px solid #ffc32d;border-radius:5px;background:linear-gradient(145deg,#ffc443,#ed9a00);color:#06131f!important;font-size:11px;font-weight:950;letter-spacing:.02em;text-decoration:none;text-transform:uppercase;box-shadow:inset 0 1px 0 rgba(255,246,204,.62),0 8px 18px rgba(0,0,0,.24);transition:transform .16s ease,filter .16s ease,box-shadow .16s ease}
         .sba-btn.secondary{border-color:rgba(95,210,242,.65);background:linear-gradient(145deg,#104b73,#0a3554);color:#fff!important}
         .sba-btn:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.08);box-shadow:0 12px 24px rgba(0,0,0,.29)}
-        .sba-answer-strip{padding:18px 0 20px;border-bottom:1px solid rgba(238,166,18,.52);background:#082f4e}
-        .sba-answer-heading{margin:0 0 11px;color:#fff;font-size:17px;font-weight:900}
-        .sba-answer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
-        .sba-answer-card{padding:15px 16px;border:1px solid rgba(96,211,242,.52);border-radius:8px;background:linear-gradient(145deg,#0d4165,#082c49);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 8px 18px rgba(0,0,0,.17);transition:transform .16s ease,border-color .16s ease,filter .16s ease}
-        .sba-answer-card:hover{transform:translateY(-2px) scale(1.015);border-color:#69d7f3;filter:brightness(1.06)}
-        .sba-answer-card strong{display:block;margin-bottom:5px;color:#f5a900;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
-        .sba-answer-card span{display:block;color:#d9e7ee;font-size:13px;line-height:1.48}
+        .sba-answer-strip{padding:22px 0 24px;border-bottom:1px solid rgba(238,166,18,.58);background:linear-gradient(180deg,#0a3556 0%,#082c49 100%)}
+        .sba-answer-heading{margin:0 0 14px;color:#fff;font-size:19px;font-weight:950;text-align:center;letter-spacing:.01em}
+        .sba-answer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+        .sba-answer-card{position:relative;display:flex;min-height:118px;flex-direction:column;align-items:center;justify-content:center;padding:18px 22px;border:1px solid rgba(95,211,242,.62);border-radius:10px;background:
+          radial-gradient(circle at 50% 38%,rgba(59,195,234,.10),transparent 58%),
+          linear-gradient(145deg,#0e466d 0%,#0a3353 58%,#082943 100%);
+          box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -10px 24px rgba(2,16,28,.16),0 10px 24px rgba(0,0,0,.24);
+          text-align:center;transition:transform .17s ease,border-color .17s ease,box-shadow .17s ease,background .17s ease,filter .17s ease}
+        .sba-answer-card::after{content:"";position:absolute;inset:1px;border-radius:9px;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.025)}
+        .sba-answer-card:hover{transform:translateY(-3px) scale(1.025);border-color:#7ce0f7;background:
+          radial-gradient(circle at 50% 42%,rgba(78,213,244,.24),transparent 62%),
+          linear-gradient(145deg,#12527c 0%,#0d3d61 58%,#0a3150 100%);
+          box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 30px rgba(49,201,238,.12),0 16px 32px rgba(0,0,0,.32),0 0 22px rgba(65,204,239,.16);filter:brightness(1.05)}
+        .sba-answer-card strong{display:block;margin-bottom:8px;color:#ffbd28;font-size:12px;font-weight:950;text-transform:uppercase;letter-spacing:.065em;text-align:center}
+        .sba-answer-card span{display:block;max-width:430px;color:#f2f8fb;font-size:14px;font-weight:600;line-height:1.58;text-align:center;text-shadow:0 1px 0 rgba(0,0,0,.26)}
         .sba-key-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-top:17px}
         .sba-key{padding:15px 16px;border:1px solid rgba(91,210,242,.5);border-radius:8px;background:linear-gradient(145deg,#0d3e62,#072943);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 9px 20px rgba(0,0,0,.18);transition:transform .16s ease,border-color .16s ease,filter .16s ease}
         .sba-key:hover{transform:translateY(-2px) scale(1.02);border-color:#69d7f3;filter:brightness(1.06)}
