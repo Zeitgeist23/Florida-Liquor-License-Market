@@ -208,22 +208,38 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         @media(min-width:981px){.sba-table-wrap{overflow:visible}}
         .sba-scope{margin-top:12px;padding:16px 18px;border:1px solid rgba(241,166,0,.72);border-radius:8px;background:linear-gradient(145deg,#0f446b 0%,#0b3556 58%,#082a46 100%);color:#f5f9fb;font-size:14px;font-weight:600;line-height:1.68;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 24px rgba(0,0,0,.22)}
         .sba-scope strong{color:#ffbd28;font-weight:950}
-        .sba-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:17px}
-        .sba-six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:17px}
-        .sba-card{position:relative;min-height:126px;padding:19px 18px 19px 62px;border:1px solid rgba(94,210,242,.48);border-radius:9px;background:linear-gradient(145deg,#0d3e62,#072943);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 10px 22px rgba(0,0,0,.2);transition:transform .16s ease,border-color .16s ease,filter .16s ease,box-shadow .16s ease}
-        .sba-card:hover{transform:translateY(-2px) scale(1.02);border-color:#65d7f3;filter:brightness(1.07);box-shadow:0 14px 28px rgba(0,0,0,.27)}
-        .sba-card .ico{position:absolute;left:18px;top:20px;width:28px;height:28px;color:#ffbe2a}
+        .sba-centered-section .sba-kicker{text-align:center;font-size:14px;letter-spacing:.12em}
+        .sba-centered-section .sba-title{text-align:center}
+        .sba-centered-section .sba-copy{margin:11px auto 0;text-align:center;max-width:1040px}
+        .sba-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
+        .sba-six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
+        .sba-card{position:relative;display:flex;min-height:132px;flex-direction:column;align-items:center;justify-content:center;padding:19px 22px;border:1px solid rgba(95,211,242,.62);border-radius:10px;background:
+          radial-gradient(circle at 50% 38%,rgba(59,195,234,.10),transparent 58%),
+          linear-gradient(145deg,#0e466d 0%,#0a3353 58%,#082943 100%);
+          box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -10px 24px rgba(2,16,28,.16),0 10px 24px rgba(0,0,0,.24);
+          text-align:center;transition:transform .17s ease,border-color .17s ease,box-shadow .17s ease,background .17s ease,filter .17s ease}
+        .sba-card::after{content:"";position:absolute;inset:1px;border-radius:9px;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.025)}
+        .sba-card:hover{transform:translateY(-3px) scale(1.025);border-color:#7ce0f7;background:
+          radial-gradient(circle at 50% 42%,rgba(78,213,244,.24),transparent 62%),
+          linear-gradient(145deg,#12527c 0%,#0d3d61 58%,#0a3150 100%);
+          box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 30px rgba(49,201,238,.12),0 16px 32px rgba(0,0,0,.32),0 0 22px rgba(65,204,239,.16);filter:brightness(1.05)}
+        .sba-card .ico{position:static;display:flex;width:31px;height:31px;align-items:center;justify-content:center;margin:0 auto 9px;color:#ffbd28}
         .sba-card .ico svg{width:100%;height:100%}
-        .sba-card h3{margin:0 0 7px;color:#fff;font-size:15px}
-        .sba-card p{margin:0;color:#d3e1e9;font-size:12.5px;line-height:1.55}
-        .sba-note{margin-top:12px;padding:13px 15px 13px 47px;border:1px solid rgba(246,167,0,.6);border-left:5px solid #ffb400;border-radius:7px;background:#0a304e;color:#dce8ee;font-size:12.5px;line-height:1.56;position:relative}
-        .sba-note .ico{position:absolute;left:16px;top:14px;width:22px;height:22px;color:#ffbf2f}
+        .sba-card h3{margin:0 0 8px;color:#ffbd28;font-size:14px;font-weight:950;line-height:1.3;text-align:center}
+        .sba-card p{max-width:400px;margin:0;color:#f2f8fb;font-size:14px;font-weight:600;line-height:1.58;text-align:center;text-shadow:0 1px 0 rgba(0,0,0,.26)}
+        .sba-note{position:relative;margin-top:14px;padding:16px 20px;border:1px solid rgba(241,166,0,.72);border-radius:8px;background:linear-gradient(145deg,#0f446b 0%,#0b3556 58%,#082a46 100%);color:#f5f9fb;font-size:14px;font-weight:600;line-height:1.68;text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 24px rgba(0,0,0,.22)}
+        .sba-note .ico{position:static;display:inline-flex;width:20px;height:20px;vertical-align:-5px;margin-right:8px;color:#ffbd28}
         .sba-note .ico svg{width:100%;height:100%}
-        .sba-order-band{margin-top:18px;padding:20px 22px;border:1px solid rgba(255,193,38,.8);border-radius:10px;background:linear-gradient(145deg,#0c4166,#082c49);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 14px 28px rgba(0,0,0,.22)}
+        .sba-note strong{color:#ffbd28;font-weight:950}
+        .sba-order-band{margin-top:18px;padding:22px 24px;border:1px solid rgba(255,193,38,.8);border-radius:10px;background:
+          radial-gradient(circle at 50% 35%,rgba(59,195,234,.10),transparent 60%),
+          linear-gradient(145deg,#0e466d 0%,#0a3556 58%,#082943 100%);
+          box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 14px 30px rgba(0,0,0,.24);transition:transform .17s ease,box-shadow .17s ease,filter .17s ease}
+        .sba-order-band:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 18px 34px rgba(0,0,0,.3),0 0 18px rgba(241,166,0,.10);filter:brightness(1.03)}
         .sba-order-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center}
         .sba-order-band h3{margin:0;color:#fff;font:700 27px/1.08 Georgia,"Times New Roman",serif}
-        .sba-order-band p{max-width:820px;margin:8px 0 0;color:#d5e4ec;font-size:13px;line-height:1.58}
-        .sba-price{display:block;color:#f5a900;font-size:12px;font-weight:950;letter-spacing:.08em;text-transform:uppercase}
+        .sba-order-band p{max-width:820px;margin:8px 0 0;color:#f2f8fb;font-size:14px;line-height:1.62}
+        .sba-price{display:block;color:#ffbd28;font-size:13px;font-weight:950;letter-spacing:.09em;text-transform:uppercase}
         .sba-inline-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}
         .sba-link-btn{display:inline-flex;min-height:42px;align-items:center;padding:0 17px;border:1px solid #f5a900;border-radius:5px;background:linear-gradient(145deg,#ffc33c,#e89300);color:#06131f!important;font-size:10px;font-weight:950;text-decoration:none;text-transform:uppercase;transition:transform .16s ease,filter .16s ease}
         .sba-link-btn:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.08)}
@@ -350,7 +366,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         </div>
       </section>
 
-      <section className="sba-section">
+      <section className="sba-section sba-centered-section">
         <div className="sba-shell">
           <span className="sba-kicker">The SBA Transaction Distinction</span>
           <h2 className="sba-title">Liquor-license appraisal versus business valuation</h2>
@@ -364,7 +380,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         </div>
       </section>
 
-      <section className="sba-section">
+      <section className="sba-section sba-centered-section">
         <div className="sba-shell">
           <span className="sba-kicker">What the Report Contains</span>
           <h2 className="sba-title">What an FLLM 4COP or 3PS license appraisal documents</h2>
