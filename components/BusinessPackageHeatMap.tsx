@@ -449,7 +449,7 @@ export default function BusinessPackageHeatMap({
                         <>
                           <strong>{selectedListingTitle}</strong>
                           <dl>
-                            <div>
+                            <div className="business-package-listing-price">
                               <dt>Listing Price</dt>
                               <dd>{selectedPackagePrice ?? "—"}</dd>
                             </div>
@@ -465,7 +465,7 @@ export default function BusinessPackageHeatMap({
                               <dt>Matching Packages in {activeRow.name}</dt>
                               <dd>{activeRow.listingCount}</dd>
                             </div>
-                            <div className="business-package-market-metric">
+                            <div className="business-package-market-metric business-package-market-metric--wide">
                               <dt>Additional Packages Statewide</dt>
                               <dd>{Math.max(0, totalPackages - activeRow.listingCount)}</dd>
                             </div>
