@@ -470,9 +470,16 @@ export default function BusinessPackageHeatMap({
                               <dd>{Math.max(0, totalPackages - activeRow.listingCount)}</dd>
                             </div>
                           </dl>
-                          <small>
-                            {selectedListingReference ? `${selectedListingReference} · ` : ""}
-                            {activeRow.businessCategories.join(" · ")}
+                          <small className="business-package-reference-row">
+                            {selectedListingReference ? <span className="business-package-reference">{selectedListingReference}</span> : null}
+                            {activeRow.businessCategories.map((category) => (
+                              <span
+                                key={category}
+                                className={`business-package-category-badge${category === "Bar" ? " business-package-category-badge--bar" : ""}`}
+                              >
+                                {category}
+                              </span>
+                            ))}
                           </small>
                           <em>View matching packages in {activeRow.name} →</em>
                         </>
