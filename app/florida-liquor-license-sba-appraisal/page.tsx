@@ -238,9 +238,9 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-order-band:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 18px 34px rgba(0,0,0,.3),0 0 18px rgba(241,166,0,.10);filter:brightness(1.03)}
         .sba-order-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(270px,.8fr);gap:30px;align-items:center}
         .sba-order-copy{text-align:center}
-        .sba-order-band h3{max-width:800px;margin:5px auto 10px;color:#fff;font:700 30px/1.08 Georgia,"Times New Roman",serif;text-align:center}
-        .sba-order-band p{max-width:820px;margin:0 auto;color:#f2f8fb;font-size:14px;line-height:1.68;text-align:center}
-        .sba-price{display:block;color:#ffbd28;font-size:13px;font-weight:950;letter-spacing:.09em;text-align:center;text-transform:uppercase}
+        .sba-order-band h3{max-width:860px;margin:8px auto 14px;color:#fff;font:700 36px/1.1 Georgia,"Times New Roman",serif;text-align:center}
+        .sba-order-band p{max-width:880px;margin:0 auto;color:#f2f8fb;font-size:17px;line-height:1.7;text-align:center}
+        .sba-price{display:block;color:#ffbd28;font-size:16px;font-weight:950;letter-spacing:.09em;text-align:center;text-transform:uppercase}
         .sba-order-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
         .sba-order-preview{display:flex;width:min(100%,310px);min-height:220px;align-items:center;justify-content:center;padding:14px;border:1px solid rgba(95,211,242,.55);border-radius:10px;background:
           radial-gradient(circle at 50% 42%,rgba(78,213,244,.14),transparent 62%),
