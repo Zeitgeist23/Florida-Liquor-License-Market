@@ -61,8 +61,12 @@ export default async function ResearchPage() {
     mainEntity: {
       "@type": "Dataset",
       name: "Florida Liquor License Market Index",
+      description:
+        "Current Florida quota liquor-license asking-price and inventory data by county and license type, including 4COP and 3PS market statistics.",
       url: marketIndexUrl,
       dateModified: snapshot.generatedAt,
+      creator: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
+      license: "https://www.floridaliquorlicensemarket.com/terms-of-use",
       distribution: {
         "@type": "DataDownload",
         encodingFormat: "text/csv",
