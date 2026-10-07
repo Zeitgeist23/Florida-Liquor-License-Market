@@ -16,7 +16,6 @@ const exactAuthorityPaths = new Set([
 
 const sbaAppraisalAuthorityPaths = new Set([
   "/florida-liquor-license-appraisal",
-  "/florida-liquor-license-sba-appraisal",
   "/sba-7a-liquor-license-business-financing",
   "/how-to-finance-florida-liquor-license",
   "/finance-a-license",
