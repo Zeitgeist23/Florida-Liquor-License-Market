@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import BusinessQuotaListingCard from "@/components/BusinessQuotaListingCard";
 import {
   FllmButton,
   FllmCard,
@@ -12,7 +11,6 @@ import {
   FllmSectionHeading,
   FllmStepCard,
 } from "@/components/FllmDesignSystem";
-import { business2copListings, businessQuotaListings, businessSfsListings } from "@/lib/business-quota-listings";
 
 import "@/app/fllm-official-template.css";
 import "@/app/fllm-design-system.css";
@@ -79,11 +77,6 @@ export const metadata: Metadata = {
 };
 
 export default function BuyFloridaRestaurantPage() {
-  const restaurantInventory = [...businessQuotaListings, ...businessSfsListings, ...business2copListings]
-    .filter((listing) => listing.businessCategory === "Restaurant" || listing.businessCategory === "Restaurant / Bar")
-    .sort((left, right) => Number(Boolean(right.featured)) - Number(Boolean(left.featured)) || right.packagePriceNumber - left.packagePriceNumber)
-    .slice(0, 12);
-
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -152,7 +145,7 @@ export default function BuyFloridaRestaurantPage() {
                   deciding which opportunities fit your acquisition strategy.
                 </p>
                 <div className="fllm-ui-actions">
-                  <FllmButton href="#restaurant-inventory">Browse Restaurant Inventory</FllmButton>
+                  <FllmButton href="/restaurants-with-liquor-licenses">Browse Restaurant Inventory</FllmButton>
                   <FllmButton href="/contact?inquiry=buy-florida-restaurant" variant="outline">Tell FLLM What You Want</FllmButton>
                 </div>
               </div>
@@ -167,39 +160,6 @@ export default function BuyFloridaRestaurantPage() {
                 </div>
               </aside>
             </div>
-          </div>
-        </section>
-
-        <section className="fllm-template-section fllm-template-section--deep" id="restaurant-inventory">
-          <div className="fllm-template-shell">
-            <FllmSectionHeading
-              eyebrow="Current Florida Restaurant Inventory"
-              title="See available restaurant opportunities without leaving this page"
-              copy={
-                <p>
-                  Filter-free preview of current FLLM restaurant and restaurant/bar opportunities across 4COP Quota,
-                  4COP SFS / SRX and 2COP license structures. Select <strong>I&apos;m Interested</strong> on any card to
-                  send FLLM your contact information and save matching buyer criteria immediately.
-                </p>
-              }
-            />
-            {restaurantInventory.length ? (
-              <>
-                <div className="business-quota-grid">
-                  {restaurantInventory.map((listing) => (
-                    <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
-                  ))}
-                </div>
-                <div className="fllm-ui-actions">
-                  <FllmButton href="/restaurants-with-liquor-licenses" variant="outline">View All Restaurant Inventory</FllmButton>
-                  <FllmButton href="/license-alerts">Create a Buyer Alert</FllmButton>
-                </div>
-              </>
-            ) : (
-              <FllmCard title="No restaurant opportunities are currently published." variant="gold">
-                <p>Create a buyer alert and FLLM can notify you when matching restaurant inventory is published.</p>
-              </FllmCard>
-            )}
           </div>
         </section>
 
@@ -289,7 +249,7 @@ export default function BuyFloridaRestaurantPage() {
               <FllmStepCard
                 eyebrow="Browse Current Opportunities"
                 title="Explore Florida restaurant inventory"
-                actions={<FllmButton href="#restaurant-inventory">Browse Restaurant Inventory</FllmButton>}
+                actions={<FllmButton href="/restaurants-with-liquor-licenses">Browse Restaurant Inventory</FllmButton>}
               >
                 <p>
                   Review current restaurant opportunities across 4COP Quota, 4COP SFS / SRX and 2COP categories and compare
@@ -366,7 +326,7 @@ export default function BuyFloridaRestaurantPage() {
               </p>
             </div>
             <div className="fllm-ui-final-actions">
-              <FllmButton href="#restaurant-inventory">Browse Restaurant Inventory</FllmButton>
+              <FllmButton href="/restaurants-with-liquor-licenses">Browse Restaurant Inventory</FllmButton>
               <FllmButton href="/contact?inquiry=buy-florida-restaurant" variant="outline">Submit Buyer Interest</FllmButton>
             </div>
           </div>
