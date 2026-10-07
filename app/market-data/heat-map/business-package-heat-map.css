@@ -431,7 +431,7 @@
   position:absolute;
   z-index:6;
   top:50%;
-  right:-248px;
+  right:-115px;
   width:400px;
   max-height:430px;
   padding:0;
@@ -519,7 +519,7 @@
 }
 @media(max-width:1320px){
   .business-package-band-county-list{
-    right:-188px;
+    right:-75px;
     width:350px;
   }
   .business-package-band-county-list>strong{font-size:28px}
@@ -528,7 +528,7 @@
 }
 @media(max-width:1120px){
   .business-package-band-county-list{
-    right:-112px;
+    right:-30px;
     width:300px;
   }
   .business-package-band-county-list>span{font-size:12px}
@@ -540,7 +540,7 @@
 }
 @media(max-width:980px){
   .business-package-band-county-list{
-    right:-50px;
+    right:0;
     width:250px;
   }
   .business-package-band-county-list ul{grid-template-columns:1fr}
