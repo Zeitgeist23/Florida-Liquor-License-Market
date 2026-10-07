@@ -435,7 +435,7 @@ export async function researchScheduledIdentityBatch(limit = 3) {
   }
 
   const now = Date.now();
-  const staleAfterMs = 14 * 24 * 60 * 60 * 1000;
+  const staleAfterMs = 7 * 24 * 60 * 60 * 1000;
   const targets = records
     .filter((r) => {
       const last = lastRun.get(r.listing_reference) || 0;
@@ -449,7 +449,7 @@ export async function researchScheduledIdentityBatch(limit = 3) {
       if (aPriority !== bPriority) return aPriority - bPriority;
       return (lastRun.get(a.listing_reference) || 0) - (lastRun.get(b.listing_reference) || 0);
     })
-    .slice(0, Math.max(1, Math.min(limit, 4)));
+    .slice(0, Math.max(1, Math.min(limit, 6)));
 
   const output = [];
   for (const target of targets) {
