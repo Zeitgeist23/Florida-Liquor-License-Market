@@ -341,7 +341,7 @@ export default function BrokerIntelligenceClient() {
   const [query, setQuery] = useState("");
   const [selectedKey, setSelectedKey] = useState("");
   const [reportMode, setReportMode] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState(false);\n  const [detailRow, setDetailRow] = useState<RecordRow | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -504,7 +504,7 @@ export default function BrokerIntelligenceClient() {
               <thead><tr><th>Reference</th><th>County / City</th><th>Business type</th><th>License type</th><th>Asking price</th><th>FLLM est. license value</th><th>Days observed</th></tr></thead>
               <tbody>
                 {selected.activeRecords.map((row) => (
-                  <tr key={row.listing_reference}>
+                  <tr key={row.listing_reference} onClick={() => setDetailRow(row)} className="bi-clickable-row">
                     <td><strong>{row.listing_reference}</strong>{row.source_listing_title && <small>{row.source_listing_title}</small>}</td>
                     <td>{row.county}{row.city ? ` / ${row.city}` : ""}</td>
                     <td>{row.business_type || "—"}</td>
@@ -648,6 +648,90 @@ export default function BrokerIntelligenceClient() {
           </>}
         </section>
       </section>
+
+      {detailRow && <div className="bi-detail-overlay" onClick={() => setDetailRow(null)}>
+        <section className="bi-detail-modal" onClick={(event) => event.stopPropagation()}>
+          <header className="bi-detail-header">
+            <div>
+              <span>Private broker intelligence record</span>
+              <h2>{detailRow.business_name || detailRow.source_listing_title || detailRow.listing_reference}</h2>
+              <p>{detailRow.listing_reference}</p>
+            </div>
+            <button type="button" aria-label="Close detail window" onClick={() => setDetailRow(null)}>×</button>
+          </header>
+
+          <div className="bi-detail-grid">
+            <article>
+              <h3>Identity</h3>
+              <dl>
+                <div><dt>Private best guess</dt><dd>{detailRow.business_name || "Not privately resolved"}</dd></div>
+                <div><dt>Source listing title</dt><dd>{detailRow.source_listing_title || "—"}</dd></div>
+                <div><dt>Legal entity</dt><dd>{detailRow.legal_entity_name || "—"}</dd></div>
+                <div><dt>Identification confidence</dt><dd>{detailRow.identification_confidence === null ? "—" : `${detailRow.identification_confidence}%`}</dd></div>
+              </dl>
+            </article>
+
+            <article>
+              <h3>Location + classification</h3>
+              <dl>
+                <div><dt>County</dt><dd>{detailRow.county || "—"}</dd></div>
+                <div><dt>City</dt><dd>{detailRow.city || "—"}</dd></div>
+                <div><dt>Business type</dt><dd>{detailRow.business_type || "—"}</dd></div>
+                <div><dt>Market status</dt><dd><span className={`bi-status ${detailRow.market_status}`}>{detailRow.market_status}</span></dd></div>
+              </dl>
+            </article>
+
+            <article>
+              <h3>Liquor license</h3>
+              <dl>
+                <div><dt>License type</dt><dd>{detailRow.license_type || "—"}</dd></div>
+                <div><dt>License number</dt><dd>{detailRow.license_number || "—"}</dd></div>
+                <div><dt>License holder</dt><dd>{detailRow.license_holder || "—"}</dd></div>
+                <div><dt>Verification</dt><dd>{detailRow.verification_status || "—"}</dd></div>
+              </dl>
+            </article>
+
+            <article>
+              <h3>Economics</h3>
+              <dl>
+                <div><dt>Asking price</dt><dd>{detailRow.asking_price ? money(detailRow.asking_price) : "—"}</dd></div>
+                <div><dt>FLLM est. license value</dt><dd className="bi-detail-green">{effectiveLicenseValue(detailRow).label}</dd></div>
+                <div><dt>Valuation basis</dt><dd>{licenseValueBasisLabel(detailRow)}</dd></div>
+                <div><dt>Gross revenue</dt><dd>{detailRow.gross_revenue ? money(detailRow.gross_revenue) : "—"}</dd></div>
+                <div><dt>SDE / Cash flow</dt><dd>{detailRow.sde_cash_flow ? money(detailRow.sde_cash_flow) : "—"}</dd></div>
+              </dl>
+            </article>
+
+            <article>
+              <h3>Broker</h3>
+              <dl>
+                <div><dt>Broker</dt><dd>{detailRow.broker_name || "—"}</dd></div>
+                <div><dt>Brokerage</dt><dd>{detailRow.brokerage || "—"}</dd></div>
+                <div><dt>Phone</dt><dd>{detailRow.broker_phone || "—"}</dd></div>
+                <div><dt>Email</dt><dd>{detailRow.broker_email || "—"}</dd></div>
+              </dl>
+            </article>
+
+            <article>
+              <h3>Observation</h3>
+              <dl>
+                <div><dt>First seen</dt><dd>{detailRow.first_seen_at ? new Date(detailRow.first_seen_at).toLocaleDateString("en-US") : "—"}</dd></div>
+                <div><dt>Last seen</dt><dd>{detailRow.last_seen_at ? new Date(detailRow.last_seen_at).toLocaleDateString("en-US") : "—"}</dd></div>
+                <div><dt>Days observed</dt><dd>{daysObserved(detailRow)}</dd></div>
+                <div><dt>Source</dt><dd>{detailRow.source_listing_url ? <a href={detailRow.source_listing_url} target="_blank" rel="noreferrer">Open source listing</a> : "—"}</dd></div>
+              </dl>
+            </article>
+
+            {(detailRow.identification_basis || detailRow.notes) && <article className="bi-detail-wide">
+              <h3>Private research notes</h3>
+              <dl>
+                {detailRow.identification_basis && <div><dt>Identification basis</dt><dd>{detailRow.identification_basis}</dd></div>}
+                {detailRow.notes && <div><dt>Notes / evidence</dt><dd>{detailRow.notes}</dd></div>}
+              </dl>
+            </article>}
+          </div>
+        </section>
+      </div>}
     </main>
   );
 }
