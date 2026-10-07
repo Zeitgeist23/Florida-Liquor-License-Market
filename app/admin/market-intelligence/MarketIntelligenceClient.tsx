@@ -422,6 +422,7 @@ export default function MarketIntelligenceClient() {
           <p>Confidential working database linking observed businesses for sale to liquor-license records, brokers, owners and public-record verification.</p>
         </div>
         <nav>
+          <Link href="/admin/broker-intelligence">Broker Intelligence</Link>
           <Link href="/admin/leads">Lead Desk</Link>
           <Link href="/admin/owner-outreach">Owner Outreach</Link>
           <button type="button" onClick={() => void load()} disabled={loading}>{loading ? "Refreshing…" : "Refresh"}</button>
