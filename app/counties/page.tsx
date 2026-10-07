@@ -96,6 +96,7 @@ export default async function CountiesPage() {
       name: "Florida Liquor License Market Data by County",
       description: "Current Florida 4COP and 3PS asking-price data, active inventory, 2024 county population estimates and 2026 DBPR quota drawing availability by county.",
       url: canonicalUrl,
+      license: "https://www.floridaliquorlicensemarket.com/terms-of-use",
       creator: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
       spatialCoverage: { "@type": "Place", name: "Florida, United States" },
       variableMeasured: ["Active liquor license listings", "4COP asking prices", "3PS asking prices", "County population", "2026 quota drawing licenses"],
