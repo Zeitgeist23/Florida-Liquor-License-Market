@@ -398,24 +398,28 @@
   font-weight:900;
 }
 .business-package-category-badge{
+  --category-color:#7d91a0;
+  --category-surface:rgba(125,145,160,.14);
   display:inline-flex;
   align-items:center;
   justify-content:center;
   min-height:22px;
-  padding:3px 9px;
-  border:1px solid rgba(105,214,255,.55);
+  margin:0;
+  padding:4px 11px;
+  border:1px solid color-mix(in srgb,var(--category-color) 72%,transparent);
   border-radius:999px;
-  background:#0b3555;
-  color:#fff;
+  background:var(--category-surface);
+  color:var(--category-color);
+  font-family:Arial,Helvetica,sans-serif;
   font-size:10px;
-  font-weight:950;
-  letter-spacing:.045em;
+  font-weight:900;
   line-height:1;
+  letter-spacing:.055em;
   text-transform:uppercase;
+  white-space:nowrap;
 }
 .business-package-category-badge--bar{
-  border-color:#ef4444;
-  background:#b91c1c;
-  color:#fff;
-  box-shadow:0 0 10px rgba(239,68,68,.18);
+  --category-color:#ff7777;
+  --category-surface:rgba(183,54,54,.18);
+  box-shadow:none;
 }
