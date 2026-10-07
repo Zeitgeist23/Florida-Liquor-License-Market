@@ -259,7 +259,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
               <h1>
                 <span className="sba-hero-title-line">Florida 4COP &amp; 3PS License</span>
                 <span className="sba-hero-title-line">Appraisal for SBA 7(a)</span>
-                <span className="sba-hero-title-line">Transactions</span>
+                <span className="sba-hero-title-line">Financing</span>
               </h1>
               <p>FLLM prepares a formal, license-specific appraisal report for the Florida quota-license component of a business purchase or eligible refinance. The report is designed for lender review and remains separate from any business valuation, real-estate appraisal, equipment appraisal or other analysis the lender requires.</p>
               <div className="sba-actions">
