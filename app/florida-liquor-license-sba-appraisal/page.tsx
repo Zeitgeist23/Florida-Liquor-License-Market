@@ -133,6 +133,9 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-kicker{display:block;margin-bottom:8px;color:#f5a900;font-size:12px;font-weight:950;letter-spacing:.11em;text-transform:uppercase}
         .sba-title{margin:0;color:#fff;font:700 clamp(32px,3.2vw,44px)/1.06 Georgia,"Times New Roman",serif;letter-spacing:-.02em}
         .sba-copy{max-width:1040px;margin:11px 0 0;color:#d7e6ef;font-size:14px;line-height:1.65}
+        #sop-changes .sba-kicker{text-align:center}
+        #sop-changes .sba-title{text-align:center}
+        #sop-changes .sba-copy{margin:11px auto 0;text-align:center}
         .sba-hero{position:relative;overflow:hidden;padding:26px 0 0;border-top:1px solid rgba(238,166,18,.56);border-bottom:1px solid rgba(238,166,18,.65);background:
           linear-gradient(90deg,rgba(3,18,31,.98) 0%,rgba(3,18,31,.95) 34%,rgba(3,18,31,.80) 54%,rgba(3,18,31,.44) 76%,rgba(3,18,31,.30) 100%),
           url("https://upload.wikimedia.org/wikipedia/commons/d/d6/United_States_Capitol_Building_%28not_a_unit_of_the_National_Park_Service%29_USCA8539.jpg") center 48%/cover no-repeat}
