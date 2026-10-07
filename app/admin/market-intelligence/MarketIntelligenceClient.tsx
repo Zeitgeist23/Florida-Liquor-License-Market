@@ -347,6 +347,57 @@ export default function MarketIntelligenceClient() {
     }
   }
 
+  async function runWebResearch(autoApply = true) {
+    if (!engineReference) {
+      setEngineMessage("Choose an intelligence record first.");
+      return;
+    }
+    setEngineRunning(true);
+    setEngineMessage("");
+    setEngineResults([]);
+    try {
+      const response = await fetch("/api/admin/identity-resolution", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "research-web",
+          listing_reference: engineReference,
+          auto_apply: autoApply,
+        }),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || "Open-web identity research failed.");
+      setEngineResults(payload.results || []);
+      setEngineMessage(`Open-web research checked ${payload.pages_found || 0} pages, discovered ${payload.candidates_discovered || 0} candidate(s), and rescored the listing.`);
+      await load();
+    } catch (cause) {
+      setEngineMessage(cause instanceof Error ? cause.message : "Open-web identity research failed.");
+    } finally {
+      setEngineRunning(false);
+    }
+  }
+
+  async function runPriorityWebResearch() {
+    setEngineRunning(true);
+    setEngineMessage("");
+    try {
+      const response = await fetch("/api/admin/identity-resolution", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "research-priority-web", limit: 4 }),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || "Priority web research failed.");
+      const count = Array.isArray(payload.results) ? payload.results.length : 0;
+      setEngineMessage(`Autonomous web research completed for ${count} priority record(s). Evidence and candidate scores were saved privately.`);
+      await load();
+    } catch (cause) {
+      setEngineMessage(cause instanceof Error ? cause.message : "Priority web research failed.");
+    } finally {
+      setEngineRunning(false);
+    }
+  }
+
   async function logout() {
     await fetch("/api/admin/session", { method: "DELETE" });
     setAuthenticated(false);
@@ -393,7 +444,7 @@ export default function MarketIntelligenceClient() {
           <div>
             <span>FLLM proprietary identity-resolution engine</span>
             <h2>Automated Business Identity Search</h2>
-            <p>Scores anonymous listings against FLLM's private candidate library using license class and number, county, city, business type, establishment year, footprint, seats, employees, rent, financials, operating schedule and concept keywords. Hard contradictions reduce confidence automatically.</p>
+            <p>Independently searches the open web, stores source evidence, discovers candidate businesses, and then scores them against FLLM's private candidate library using license class and number, county, city, business type, establishment year, footprint, seats, employees, rent, financials, operating schedule and concept keywords. Hard contradictions reduce confidence automatically.</p>
           </div>
           <button type="button" onClick={() => void syncIdentityCandidates()} disabled={engineRunning}>Refresh Candidate Pool</button>
         </div>
@@ -416,6 +467,8 @@ export default function MarketIntelligenceClient() {
         <div className="intel-engine-actions">
           <button type="button" onClick={() => void saveEngineFacts()} disabled={engineRunning || !engineReference}>Save Search Facts</button>
           <button type="button" onClick={() => void runIdentityEngine(false)} disabled={engineRunning || !engineReference}>{engineRunning ? "Working…" : "Run Identity Engine"}</button>
+          <button type="button" onClick={() => void runWebResearch(true)} disabled={engineRunning || !engineReference}>Crawl Open Web + Rescore</button>
+          <button type="button" onClick={() => void runPriorityWebResearch()} disabled={engineRunning}>Research Priority Queue</button>
           <button type="button" className="engine-auto" onClick={() => void runIdentityEngine(true)} disabled={engineRunning || !engineReference}>Run + Auto-Apply 90%+</button>
         </div>
 
