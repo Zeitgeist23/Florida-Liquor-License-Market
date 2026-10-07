@@ -7,6 +7,11 @@ import {
   saveIdentityFacts,
   syncKnownIdentitiesToCandidatePool,
 } from "@/lib/identity-resolution-engine";
+import {
+  recentWebResearch,
+  researchIdentityOnOpenWeb,
+  researchPriorityIdentityQueue,
+} from "@/lib/identity-web-research";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -22,9 +27,13 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    return NextResponse.json({ runs: await recentIdentityRuns(listingReference) });
+    const [runs, webResearch] = await Promise.all([
+      recentIdentityRuns(listingReference),
+      recentWebResearch(listingReference),
+    ]);
+    return NextResponse.json({ runs, webResearch });
   } catch (error) {
-    console.error("Could not load identity-resolution runs", error);
+    console.error("Could not load identity-resolution history", error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Could not load identity-resolution history." },
       { status: 500 },
@@ -44,6 +53,11 @@ export async function POST(request: NextRequest) {
     if (action === "sync-candidates") {
       const count = await syncKnownIdentitiesToCandidatePool();
       return NextResponse.json({ ok: true, synced: count });
+    }
+
+    if (action === "research-priority-web") {
+      const results = await researchPriorityIdentityQueue(Number(body.limit || 4));
+      return NextResponse.json({ ok: true, results });
     }
 
     if (action === "save-facts") {
@@ -68,6 +82,13 @@ export async function POST(request: NextRequest) {
 
     if (!body.listing_reference) {
       return NextResponse.json({ error: "listing_reference is required." }, { status: 400 });
+    }
+
+    if (action === "research-web") {
+      const result = await researchIdentityOnOpenWeb(String(body.listing_reference), {
+        autoApply: Boolean(body.auto_apply),
+      });
+      return NextResponse.json(result);
     }
 
     const result = await runIdentityResolution(String(body.listing_reference), {
