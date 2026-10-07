@@ -752,9 +752,9 @@
   line-height:1.02;
 }
 .business-market-interactive-map .county-availability-map-heading>p{
-  max-width:900px;
-  font-size:13px;
-  line-height:1.45;
+  max-width:980px;
+  font-size:16px;
+  line-height:1.5;
 }
 .business-market-interactive-map .county-heatmap-toolbar{
   gap:10px;
