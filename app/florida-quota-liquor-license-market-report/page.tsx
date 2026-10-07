@@ -106,6 +106,7 @@ export default async function FloridaQuotaLiquorLicenseMarketReportPage() {
       description:
         "Current Florida quota liquor-license inventory and disclosed asking-price evidence by county and license type.",
       url: marketIndexUrl,
+      license: "https://www.floridaliquorlicensemarket.com/terms-of-use",
       dateModified: snapshot.generatedAt,
       creator: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
       spatialCoverage: { "@type": "Place", name: "Florida, United States" },
