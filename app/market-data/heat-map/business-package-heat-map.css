@@ -381,3 +381,41 @@
 .business-package-county-map .business-package-tooltip-link .business-package-market-metric--wide{
   grid-column:1 / -1;
 }
+
+
+/* Selected Market View reference + category badge */
+.business-package-tooltip-link > .business-package-reference-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:2px;
+}
+.business-package-reference{
+  color:#69d6ff;
+  font-size:12px;
+  font-weight:900;
+}
+.business-package-category-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:22px;
+  padding:3px 9px;
+  border:1px solid rgba(105,214,255,.55);
+  border-radius:999px;
+  background:#0b3555;
+  color:#fff;
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:.045em;
+  line-height:1;
+  text-transform:uppercase;
+}
+.business-package-category-badge--bar{
+  border-color:#ef4444;
+  background:#b91c1c;
+  color:#fff;
+  box-shadow:0 0 10px rgba(239,68,68,.18);
+}
