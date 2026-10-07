@@ -171,6 +171,39 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-section.is-relative{position:relative;overflow:hidden}
         @media(max-width:900px){.sba-hero-grid,.sba-three,.sba-six,.sba-faq{grid-template-columns:1fr}.sba-logo-card{justify-content:flex-start}.sba-logo-card img{max-width:280px}.sba-card{min-height:auto}}
         @media(max-width:650px){.sba-shell{width:min(100% - 26px,1240px)}.sba-hero h1{font-size:43px}.sba-section{padding:38px 0}}
+        /* Exact attached-mockup geometry */
+        .sba-shell{width:min(1320px,calc(100% - 80px))}
+        .sba-hero{padding:24px 0 30px;background:
+          linear-gradient(90deg,rgba(4,27,45,.97) 0%,rgba(4,27,45,.94) 43%,rgba(4,27,45,.50) 69%,rgba(4,27,45,.68) 100%),
+          url("/assets/hero-skyline-clean.png") center 56%/cover no-repeat}
+        .sba-hero-grid{grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);gap:34px;align-items:start}
+        .sba-hero h1{max-width:710px;font-size:clamp(48px,4.9vw,72px);line-height:.96;margin:8px 0 18px}
+        .sba-hero p{max-width:690px;font-size:14px;line-height:1.62}
+        .sba-hero-side{position:relative;min-height:255px;align-content:start}
+        .sba-hero-florida{position:absolute;right:-4px;top:6px;width:175px;height:160px;opacity:.48}
+        .sba-logo-card{position:relative;z-index:2;justify-content:flex-start;padding-left:46px}
+        .sba-logo-card img{width:255px;max-width:255px}
+        .sba-summary{position:relative;z-index:3;max-width:515px;padding:18px 22px}
+        .sba-section{padding:24px 0 28px}
+        .sba-title{font-size:clamp(31px,3.2vw,45px)}
+        .sba-copy{font-size:12px;line-height:1.58}
+        .sba-three{gap:12px;margin-top:16px}
+        .sba-card{min-height:116px;padding:17px 16px 17px 58px;border-color:rgba(74,202,238,.56)}
+        .sba-card .ico{left:17px;top:18px;width:27px;height:27px}
+        .sba-card h3{font-size:14px}.sba-card p{font-size:11px;line-height:1.5}
+        .sba-note{margin-top:10px;padding:12px 14px 12px 45px;font-size:11px;line-height:1.5}
+        .sba-table-wrap{margin-top:14px}
+        .sba-table th{padding:11px 12px}.sba-table td{padding:11px 12px;font-size:11px;line-height:1.45}
+        .sba-scope{margin-top:8px;padding:11px 13px;font-size:11px;line-height:1.5}
+        .sba-six{gap:9px;margin-top:14px}.sba-six .sba-card{min-height:105px}
+        .sba-inline-actions{margin-top:14px}
+        .sba-map-accent{position:absolute;right:3%;bottom:-10px;width:145px;height:132px;opacity:.22;filter:none}
+        .sba-reference-links{margin-top:13px}
+        .sba-faq{gap:7px 9px;margin-top:12px}
+        .sba-faq summary{padding:10px 38px 10px 14px;font-size:10px}
+        @media(max-width:900px){.sba-hero-florida{right:2%;top:0}.sba-logo-card{padding-left:0}}
+        @media(max-width:650px){.sba-shell{width:min(100% - 28px,1320px)}}
+
       `}</style>
 
       <div className="abt-header-wrap">
