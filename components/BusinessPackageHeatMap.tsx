@@ -514,7 +514,11 @@ export default function BusinessPackageHeatMap({
               <aside className="county-availability-map-legend">
                 <span>Listing Scale</span>
                 <h4>Business package availability</h4>
-                <ul aria-label="Active business package color scale">
+                <ul
+                  aria-label="Active business package color scale"
+                  onPointerLeave={() => setBand(null)}
+                  onMouseLeave={() => setBand(null)}
+                >
                   {INVENTORY_LEGEND.map((item, index) => (
                     <li
                       key={item.label}
@@ -528,9 +532,7 @@ export default function BusinessPackageHeatMap({
                         type="button"
                         aria-label={`Highlight counties with ${item.label}`}
                         onPointerEnter={() => setBand(index)}
-                        onPointerLeave={() => setBand(null)}
                         onMouseEnter={() => setBand(index)}
-                        onMouseLeave={() => setBand(null)}
                         onFocus={() => setBand(index)}
                         onBlur={() => setBand(null)}
                         style={{
