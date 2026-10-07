@@ -181,7 +181,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
           <div className="sba-hero-grid">
             <div>
               <span className="sba-kicker">SBA 7(a) SOP 50 10 8.1 · Effective October 1, 2026</span>
-              <h1>SBA 7(a) Liquor License Valuation Support for Florida 4COP &amp; 3PS Licenses</h1>
+              <h1>SBA 7(a) Liquor License<br />Valuation Support for<br />Florida 4COP &amp; 3PS<br />Licenses</h1>
               <p>FLLM provides a formal, license-specific report for a Florida 4COP or 3PS quota license included in a business purchase or eligible refinance. It documents the license component for lender consideration and remains separate from any business valuation or other appraisal the lender requires.</p>
               <div className="sba-actions">
                 <Link className="sba-btn" href="/florida-liquor-license-appraisal#order-form">Order License Appraisal — $495</Link>
@@ -189,6 +189,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
               </div>
             </div>
             <aside className="sba-hero-side">
+              <FloridaGhost className="sba-hero-florida" />
               <div className="sba-logo-card">
                 <a href="https://www.sba.gov/loans/7a-loans" target="_blank" rel="noopener noreferrer">
                   <Image src="/assets/sba-logo-horizontal-blue.svg" alt="U.S. Small Business Administration" width={520} height={190} />
@@ -261,7 +262,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
             <Link className="sba-link-btn" href="/florida-liquor-license-market-index">Florida Market Index</Link>
             <Link className="sba-link-btn" href="/counties">County Market Data</Link>
           </div>
-          <Image className="sba-map-accent" src="/assets/listing-miami.png" alt="" width={220} height={220} aria-hidden="true" />
+          <FloridaGhost className="sba-map-accent" />
         </div>
       </section>
 
