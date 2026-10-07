@@ -453,19 +453,19 @@ export default function BusinessPackageHeatMap({
                               <dt>Listing Price</dt>
                               <dd>{selectedPackagePrice ?? "—"}</dd>
                             </div>
-                            <div>
+                            <div className="business-package-market-metric">
                               <dt>License Type</dt>
                               <dd>{licenseType}</dd>
                             </div>
-                            <div>
+                            <div className="business-package-market-metric">
                               <dt>FLLM Est. License Value</dt>
                               <dd>{selectedLicenseValue || "Market data unavailable"}</dd>
                             </div>
-                            <div>
+                            <div className="business-package-market-metric">
                               <dt>Matching Packages in {activeRow.name}</dt>
                               <dd>{activeRow.listingCount}</dd>
                             </div>
-                            <div>
+                            <div className="business-package-market-metric">
                               <dt>Additional Packages Statewide</dt>
                               <dd>{Math.max(0, totalPackages - activeRow.listingCount)}</dd>
                             </div>
