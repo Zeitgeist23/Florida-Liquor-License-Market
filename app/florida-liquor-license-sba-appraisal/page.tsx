@@ -134,11 +134,11 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-title{margin:0;color:#fff;font:700 clamp(32px,3.2vw,44px)/1.06 Georgia,"Times New Roman",serif;letter-spacing:-.02em}
         .sba-copy{max-width:1040px;margin:11px 0 0;color:#d7e6ef;font-size:14px;line-height:1.65}
         .sba-hero{padding:24px 0 30px;border-top:1px solid rgba(238,166,18,.56);border-bottom:1px solid rgba(238,166,18,.65);background-image:
-          linear-gradient(90deg,rgba(4,27,45,.93) 0%,rgba(4,27,45,.86) 42%,rgba(4,27,45,.38) 68%,rgba(4,27,45,.50) 100%),
-          url("/assets/hero-skyline-clean.png");
+          linear-gradient(90deg,rgba(4,27,45,.90) 0%,rgba(4,27,45,.80) 38%,rgba(4,27,45,.46) 66%,rgba(4,27,45,.36) 100%),
+          url("/assets/fllm-exchange-board-hero-approved.jpg");
           background-size:cover;
           background-repeat:no-repeat;
-          background-position:78% 18%}
+          background-position:center center}
         .sba-breadcrumbs{display:flex;gap:8px;align-items:center;margin-bottom:15px;color:#d2e3ec;font-size:12px}
         .sba-breadcrumbs a{color:#f5a900;text-decoration:none}
         .sba-hero-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,.55fr);gap:28px;align-items:stretch}
