@@ -16,14 +16,15 @@ export default function BusinessPackageLegendCountyListEnhancer({ routeKey }: { 
     const cleanups: Array<() => void> = [];
 
     document.querySelectorAll<HTMLElement>(".business-package-county-map").forEach((mapRoot) => {
+      const grid = mapRoot.querySelector<HTMLElement>(".county-heatmap-module-grid");
       const stage = mapRoot.querySelector<HTMLElement>(".county-availability-map-stage");
       const legend = mapRoot.querySelector<HTMLElement>(".county-availability-map-legend ul");
-      if (!stage || !legend) return;
+      if (!grid || !stage || !legend) return;
 
       const panel = document.createElement("aside");
       panel.className = "business-package-band-county-list";
       panel.setAttribute("aria-hidden", "true");
-      stage.appendChild(panel);
+      grid.appendChild(panel);
 
       const buttons = Array.from(
         legend.querySelectorAll<HTMLButtonElement>('button[aria-label^="Highlight counties with"]'),
