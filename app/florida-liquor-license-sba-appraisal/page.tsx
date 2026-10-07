@@ -251,10 +251,10 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-link-btn{display:inline-flex;min-height:44px;align-items:center;justify-content:center;padding:0 18px;border:1px solid rgba(241,166,0,.78);border-radius:7px;background:linear-gradient(145deg,#0f446b 0%,#0b3556 58%,#082a46 100%);color:#ffbd28!important;font-size:11px;font-weight:950;letter-spacing:.04em;text-decoration:none;text-transform:uppercase;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 22px rgba(0,0,0,.2);transition:transform .17s ease,border-color .17s ease,box-shadow .17s ease,filter .17s ease}
         .sba-link-btn:hover{transform:translateY(-3px) scale(1.02);border-color:#ffc13b;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 16px 30px rgba(0,0,0,.28),0 0 16px rgba(241,166,0,.14);filter:brightness(1.05)}
         .sba-reference-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
-        .sba-reference-links a{display:flex;min-height:112px;align-items:center;justify-content:center;padding:26px 24px;border:1px solid rgba(95,211,242,.62);border-radius:10px;background:
+        .sba-reference-links a{display:flex;min-height:118px;align-items:center;justify-content:center;padding:28px 26px;border:1px solid rgba(95,211,242,.62);border-radius:10px;background:
           radial-gradient(circle at 50% 38%,rgba(59,195,234,.10),transparent 58%),
           linear-gradient(145deg,#0e466d 0%,#0a3353 58%,#082943 100%);
-          color:#f2f8fb;text-align:center;text-decoration:none;font-size:16px;font-weight:900;line-height:1.55;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -10px 24px rgba(2,16,28,.16),0 10px 24px rgba(0,0,0,.24);transition:transform .17s ease,border-color .17s ease,box-shadow .17s ease,background .17s ease,filter .17s ease}
+          color:#fff;text-align:center;text-decoration:none;font-size:19px;font-weight:900;line-height:1.45;letter-spacing:.005em;text-shadow:0 1px 0 rgba(0,0,0,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -10px 24px rgba(2,16,28,.16),0 10px 24px rgba(0,0,0,.24);transition:transform .17s ease,border-color .17s ease,box-shadow .17s ease,background .17s ease,filter .17s ease}
         .sba-reference-links a:hover{transform:translateY(-3px) scale(1.02);border-color:#7ce0f7;background:
           radial-gradient(circle at 50% 42%,rgba(78,213,244,.24),transparent 62%),
           linear-gradient(145deg,#12527c 0%,#0d3d61 58%,#0a3150 100%);
@@ -270,7 +270,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
           radial-gradient(circle at 50% 42%,rgba(78,213,244,.24),transparent 62%),
           linear-gradient(145deg,#12527c 0%,#0d3d61 58%,#0a3150 100%);
           box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 30px rgba(49,201,238,.12),0 16px 32px rgba(0,0,0,.32),0 0 22px rgba(65,204,239,.16);filter:brightness(1.05)}
-        .sba-faq summary{position:relative;z-index:1;padding:17px 46px 17px 20px;color:#ffbd28;font-size:14px;font-weight:950;line-height:1.4;text-align:center;cursor:pointer;list-style:none}
+        .sba-faq summary{position:relative;z-index:1;padding:17px 46px 17px 20px;color:#fff;font-size:15px;font-weight:950;line-height:1.4;text-align:center;cursor:pointer;list-style:none}
         .sba-faq summary::-webkit-details-marker{display:none}
         .sba-faq summary::after{content:"⌄";position:absolute;right:18px;top:50%;transform:translateY(-50%);color:#ffbd28;font-size:16px}
         .sba-faq details[open] summary::after{content:"⌃"}
