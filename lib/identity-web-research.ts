@@ -360,6 +360,8 @@ export async function researchIdentityOnOpenWeb(
       if (researchFloor > current) {
         await saveMarketIntelligence({
           listing_reference: listingReference,
+          county: record.county,
+          business_type: record.business_type,
           identification_confidence: researchFloor,
           identification_basis: [
             record.identification_basis || "",
