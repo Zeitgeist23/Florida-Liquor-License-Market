@@ -1,0 +1,13 @@
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-MACKILLIGAN"] .featured-business-seller-link,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-MACKILLIGAN"] .featured-business-seller-link:visited{
+  color:#54dbc8 !important;
+  -webkit-text-fill-color:#54dbc8 !important;
+  text-shadow:none !important;
+}
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-MACKILLIGAN"] .featured-business-seller-link:hover,
+.results-page.marketplace-listing-page[data-featured-broker-listing="FLLM-MACKILLIGAN"] .featured-business-seller-link:focus-visible{
+  color:#7be8d8 !important;
+  -webkit-text-fill-color:#7be8d8 !important;
+  text-decoration:underline !important;
+  outline:none;
+}
