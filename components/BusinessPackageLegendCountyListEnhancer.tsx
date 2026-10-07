@@ -36,6 +36,11 @@ export default function BusinessPackageLegendCountyListEnhancer({ routeKey }: { 
 
       buttons.forEach((button, index) => {
         const show = () => {
+          if (index === 0) {
+            hide();
+            return;
+          }
+
           const rows = Array.from(
             stage.querySelectorAll<SVGPathElement>(".county-availability-map-svg path[data-county][data-listing-count]"),
           )
