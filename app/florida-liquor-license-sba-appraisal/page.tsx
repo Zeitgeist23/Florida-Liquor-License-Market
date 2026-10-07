@@ -134,12 +134,14 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-title{margin:0;color:#fff;font:700 clamp(32px,3.2vw,44px)/1.06 Georgia,"Times New Roman",serif;letter-spacing:-.02em}
         .sba-copy{max-width:1040px;margin:11px 0 0;color:#d7e6ef;font-size:14px;line-height:1.65}
         .sba-hero{position:relative;padding:28px 0 0;border-top:1px solid rgba(238,166,18,.56);border-bottom:1px solid rgba(238,166,18,.65);background:
-          linear-gradient(90deg,rgba(4,19,34,.97) 0%,rgba(4,19,34,.90) 42%,rgba(4,19,34,.42) 70%,rgba(4,19,34,.24) 100%),
-          url("/assets/sba-hero-capitol-flag.svg") center center/cover no-repeat;overflow:hidden}
-        .sba-hero-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(410px,.8fr);gap:42px;align-items:center}
-        .sba-hero-logo-wrap{display:flex;align-items:center;justify-content:center;min-height:300px;padding:10px 0 18px}
-        .sba-hero-logo{display:block;width:min(100%,520px);height:auto;filter:drop-shadow(0 16px 30px rgba(0,0,0,.32))}
-        .sba-hero h1{max-width:820px;margin:7px 0 16px;color:#fff;font:700 clamp(44px,4.1vw,58px)/.99 Georgia,"Times New Roman",serif;letter-spacing:-.03em}
+          linear-gradient(90deg,rgba(4,18,32,.98) 0%,rgba(4,18,32,.94) 38%,rgba(4,18,32,.72) 58%,rgba(4,18,32,.44) 76%,rgba(4,18,32,.30) 100%),
+          url("https://upload.wikimedia.org/wikipedia/commons/5/52/US_capitol_dome.jpg") center 46%/cover no-repeat;overflow:hidden}
+        .sba-hero-grid{display:grid;grid-template-columns:minmax(0,1.16fr) minmax(390px,.84fr);gap:46px;align-items:center}
+        .sba-hero-logo-wrap{display:flex;min-height:320px;flex-direction:column;align-items:center;justify-content:center;padding:14px 10px 20px;text-align:center}
+        .sba-hero-logo{display:block;width:min(100%,245px);height:auto;filter:drop-shadow(0 14px 26px rgba(0,0,0,.38))}
+        .sba-hero-agency{margin-top:15px;color:#fff;font-size:21px;font-weight:800;line-height:1.18;letter-spacing:.01em;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+        .sba-hero-agency span{display:block}
+        .sba-hero h1{max-width:820px;margin:7px 0 16px;color:#fff;font:700 clamp(43px,4vw,57px)/.99 Georgia,"Times New Roman",serif;letter-spacing:-.03em}
         .sba-hero-title-line{display:block;white-space:nowrap}
         .sba-hero p{max-width:820px;margin:0;color:#e7eff4;font-size:16px;line-height:1.64;text-shadow:0 1px 0 rgba(0,0,0,.25)}
         .sba-hero-trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:24px;border-top:1px solid rgba(255,255,255,.14);background:rgba(3,18,31,.42);backdrop-filter:blur(2px)}
@@ -221,8 +223,9 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         @media(max-width:980px){
           .sba-hero-grid,.sba-order-grid{grid-template-columns:1fr}
           .sba-hero-title-line{white-space:normal}
-          .sba-hero-logo-wrap{min-height:auto;padding:8px 0 10px;justify-content:flex-start}
-          .sba-hero-logo{max-width:430px}
+          .sba-hero-logo-wrap{min-height:auto;padding:12px 0 14px;justify-content:flex-start;align-items:flex-start;text-align:left}
+          .sba-hero-logo{max-width:220px}
+          .sba-hero-agency{font-size:18px}
           .sba-hero-trust{grid-template-columns:1fr}
           .sba-hero-trust-item{border-right:0;border-bottom:1px solid rgba(255,255,255,.13)}
           .sba-hero-trust-item:last-child{border-bottom:0}
@@ -263,7 +266,8 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
               </div>
             </div>
             <aside className="sba-hero-logo-wrap" aria-label="U.S. Small Business Administration">
-              <img className="sba-hero-logo" src="/assets/sba-logo-red-accent.svg" alt="SBA U.S. Small Business Administration" />
+              <img className="sba-hero-logo" src="/assets/sba-mark-red-accent.svg" alt="SBA" />
+              <div className="sba-hero-agency"><span>U.S. Small Business</span><span>Administration</span></div>
             </aside>
           </div>
 
