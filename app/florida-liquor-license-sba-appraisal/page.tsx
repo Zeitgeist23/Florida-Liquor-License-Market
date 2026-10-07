@@ -336,7 +336,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
           <div className="sba-hero-trust" aria-label="SBA appraisal strengths">
             <div className="sba-hero-trust-item">
               <span className="sba-hero-trust-icon"><Icon name="shield" /></span>
-              <span className="sba-hero-trust-copy"><strong>SBA-Compliant</strong><span>Meets SOP 50 10 8.1</span></span>
+              <span className="sba-hero-trust-copy"><strong>SOP 50 10 8.1 Focused</strong><span>Designed for Lender Review</span></span>
             </div>
             <div className="sba-hero-trust-item">
               <span className="sba-hero-trust-icon"><FloridaGhost className="sba-trust-florida" /></span>
@@ -365,7 +365,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         <div className="sba-shell">
           <span className="sba-kicker">Effective October 1, 2026</span>
           <h2 className="sba-title">What changed under SBA SOP 50 10 8.1</h2>
-          <p className="sba-copy">SOP 50 10 8.1 reorganizes change-of-ownership requirements and changes several underwriting and valuation thresholds. These are the provisions most likely to matter when a Florida business acquisition includes a valuable 4COP or 3PS quota license.</p>
+          <p className="sba-copy">SOP 50 10 8.1 reorganizes change-of-ownership requirements and changes several underwriting and valuation thresholds. These are the provisions most likely to matter when a Florida business acquisition includes a valuable 4COP or 3PS quota license. The figures below reflect SBA SOP 50 10 8.1 with Technical Updates, effective October 1, 2026.</p>
 
           <div className="sba-key-grid">
             <div className="sba-key"><strong>1.25×</strong><span>General DSCR standard for Initial Acquisitions, Owner Buyouts and ESOP or Cooperative transactions described in Appendix 15.</span></div>
@@ -420,13 +420,14 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
               <div className="sba-order-copy">
                 <span className="sba-price">Formal license-specific appraisal · $495</span>
                 <h3>Order the quota-license appraisal after confirming the lender&apos;s scope.</h3>
-                <p>FLLM can prepare the license component for a Florida 4COP or 3PS quota license in a qualifying purchase or refinance. If the lender has specific reliance language, credential requirements or a custom scope, provide those requirements before the engagement begins.</p>
+                <p>Before engagement, FLLM confirms the lender&apos;s required report scope, intended use, reliance language and any appraiser or valuation-provider qualification requirements. FLLM can then prepare the license component for a Florida 4COP or 3PS quota license in a qualifying purchase or refinance, subject to the lender&apos;s requirements.</p>
               </div>
               <div className="sba-order-visual">
                 <div className="sba-order-preview">
                   <img src="/assets/fllm-formal-appraisal-preview-v1.webp" alt="FLLM formal liquor license appraisal report books" />
                 </div>
                 <Link className="sba-btn" href="/florida-liquor-license-appraisal#order-form">Order License Appraisal — $495</Link>
+                <Link className="sba-btn secondary" href="/contact">Lender or Broker? Confirm Report Scope</Link>
               </div>
             </div>
           </div>
@@ -454,7 +455,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
           <p className="sba-copy">SBA SOP 50 10 8.1 became effective October 1, 2026, and governs lender and development-company origination procedures for 7(a) and 504 loans. For a 7(a) business purchase or refinance, the lender determines the required business valuation, collateral analysis and supporting reports. FLLM's assignment is limited to the Florida quota-license component unless a broader written scope is separately agreed.</p>
           <div className="sba-reference-links">
             <a href="https://www.sba.gov/loans/7a-loans" target="_blank" rel="noopener noreferrer">Official SBA 7(a) Program ↗</a>
-            <a href="https://legacy.sba.gov/document/sop-50-10-lender-development-company-loan-programs" target="_blank" rel="noopener noreferrer">Official SBA SOP 50 10, including Version 8.1 ↗</a>
+            <a href="https://legacy.sba.gov/document/sop-50-10-lender-development-company-loan-programs" target="_blank" rel="noopener noreferrer">Official SBA SOP 50 10, including Version 8.1 with Technical Updates ↗</a>
             <a href="https://www.sba.gov/sba-lenders" target="_blank" rel="noopener noreferrer">SBA Lender Guidance ↗</a>
           </div>
         </div>
