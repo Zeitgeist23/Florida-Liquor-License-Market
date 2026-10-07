@@ -133,12 +133,14 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-kicker{display:block;margin-bottom:8px;color:#f5a900;font-size:12px;font-weight:950;letter-spacing:.11em;text-transform:uppercase}
         .sba-title{margin:0;color:#fff;font:700 clamp(32px,3.2vw,44px)/1.06 Georgia,"Times New Roman",serif;letter-spacing:-.02em}
         .sba-copy{max-width:1040px;margin:11px 0 0;color:#d7e6ef;font-size:14px;line-height:1.65}
-        .sba-hero{padding:24px 0 30px;border-top:1px solid rgba(238,166,18,.56);border-bottom:1px solid rgba(238,166,18,.65);background-image:
-          linear-gradient(90deg,rgba(4,27,45,.90) 0%,rgba(4,27,45,.80) 38%,rgba(4,27,45,.46) 66%,rgba(4,27,45,.36) 100%),
-          url("/assets/fllm-exchange-board-hero-approved.jpg");
-          background-size:cover;
-          background-repeat:no-repeat;
-          background-position:center center}
+        .sba-hero{position:relative;padding:0;border-top:1px solid rgba(238,166,18,.56);border-bottom:1px solid rgba(238,166,18,.65);background:#061b31;overflow:hidden}
+        .sba-hero-art{position:relative;width:min(1200px,100%);aspect-ratio:16/9;margin:0 auto;background:url("/assets/sba-liquor-license-appraisal-hero.webp") center center/100% 100% no-repeat}
+        .sba-hero-mobile{display:none}
+        .sba-visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+        .sba-hero-hotspot{position:absolute;z-index:3;display:block;border-radius:4px;background:transparent;text-decoration:none}
+        .sba-hero-hotspot:focus-visible{outline:3px solid #ffbd28;outline-offset:3px;background:rgba(255,189,40,.08)}
+        .sba-hero-hotspot.request{left:4.8%;top:62.8%;width:22.8%;height:8.4%}
+        .sba-hero-hotspot.learn{left:28.5%;top:62.8%;width:15.8%;height:8.4%}
         .sba-breadcrumbs{display:flex;gap:8px;align-items:center;margin-bottom:15px;color:#d2e3ec;font-size:12px}
         .sba-breadcrumbs a{color:#f5a900;text-decoration:none}
         .sba-hero-grid{display:block}
@@ -218,7 +220,9 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         }
         @media(max-width:650px){
           .sba-shell{width:min(100% - 28px,1280px)}
-          .sba-hero{padding:20px 0 24px}
+          .sba-hero{padding:20px 0 24px;background:#061b31}
+          .sba-hero-art{display:none}
+          .sba-hero-mobile{display:block}
           .sba-hero h1{font-size:39px}
           .sba-section{padding:28px 0}
           .sba-key-grid{grid-template-columns:1fr}
@@ -230,8 +234,18 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
       </div>
 
 
-      <section className="sba-hero">
-        <div className="sba-shell">
+      <section className="sba-hero" aria-label="SBA 7(a) Florida liquor license appraisal">
+        <div
+          className="sba-hero-art"
+          role="img"
+          aria-label="Florida 4COP and 3PS License Appraisal for SBA 7(a) Transactions, with SBA program identification, U.S. Capitol imagery and a U.S. flag."
+        >
+          <h1 className="sba-visually-hidden">Florida 4COP &amp; 3PS License Appraisal for SBA 7(a) Transactions</h1>
+          <a className="sba-hero-hotspot request" href="/florida-liquor-license-appraisal#order-form"><span className="sba-visually-hidden">Request an appraisal</span></a>
+          <a className="sba-hero-hotspot learn" href="#sop-changes"><span className="sba-visually-hidden">Learn more about SBA SOP 50 10 8.1</span></a>
+        </div>
+
+        <div className="sba-shell sba-hero-mobile">
           <div className="sba-breadcrumbs"><Link href="/">Home</Link><span>›</span><Link href="/florida-liquor-license-appraisal">Appraisal</Link><span>›</span><strong>SBA Appraisal</strong></div>
           <div className="sba-hero-grid">
             <div>
