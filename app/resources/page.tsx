@@ -54,6 +54,7 @@ const resourceGroups = [
       { href: "/florida-quota-liquor-license-cost", title: "Florida Liquor License Cost by County", copy: "Compare disclosed 3PS and 4COP asking prices, county supply and market differences." },
       { href: "/florida-liquor-license-value", title: "Florida Liquor License Value Estimator", copy: "Use county-level market data to establish an initial value range before ordering a formal appraisal." },
       { href: "/florida-liquor-license-appraisal", title: "Liquor License Appraisal", copy: "Review appraisal options for purchases, refinances, lender files and transaction support." },
+      { href: "/florida-liquor-license-sba-appraisal", title: "SBA Liquor License Appraisal", copy: "Understand how liquor-license value may be documented in an SBA-financed business transaction." },
       { href: "/resources/quota-transfer-fee-calculator", title: "Quota Transfer Fee Calculator", copy: "Estimate Florida's quota-license transfer surcharge based on transaction value." },
       { href: "/florida-liquor-license-market-index", title: "Florida Liquor License Market Index", copy: "Review FLLM's statewide market index, inventory concentration and county pricing context." },
     ],
