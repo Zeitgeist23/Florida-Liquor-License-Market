@@ -789,7 +789,7 @@
 .business-market-interactive-map .county-availability-map-svg{
   height:420px;
   max-width:760px;
-  transform:translate(-38px,0) scale(1.05);
+  transform:translate(-82px,0) scale(1.05);
 }
 .business-market-interactive-map .county-availability-map-legend{
   align-self:start;
