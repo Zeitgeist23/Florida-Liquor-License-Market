@@ -403,7 +403,7 @@ export async function researchIdentityOnOpenWeb(
 export async function researchPriorityIdentityQueue(limit = 4) {
   const records = await listMarketIntelligence();
   const targets = records
-    .filter((r) => !r.business_name || (r.identification_confidence || 0) < 90)
+    .filter((r) => !r.business_name || (r.identification_confidence || 0) < 95)
     .sort((a, b) => (a.identification_confidence || 0) - (b.identification_confidence || 0))
     .slice(0, Math.max(1, Math.min(limit, 6)));
 
