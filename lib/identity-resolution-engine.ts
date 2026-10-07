@@ -300,7 +300,7 @@ export async function syncKnownIdentitiesToCandidatePool() {
   const rows = records
     .filter((r) => r.business_name && r.county)
     .map((r) => ({
-      business_name: r.business_name,
+      business_name: r.business_name!,
       legal_entity_name: r.legal_entity_name,
       county: r.county,
       city: r.city,
