@@ -83,6 +83,19 @@ function Icon({ name }: { name: (typeof reviewItems)[number][2] | "license" | "b
   return <svg viewBox="0 0 24 24" aria-hidden="true"><circle {...common} cx="12" cy="12" r="9"/><path {...common} d="M12 10v6M12 7h.01"/></svg>;
 }
 
+
+function FloridaGhost({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="130 0 320 292" aria-hidden="true">
+      <g fill="#1f9ac8" stroke="#55bde1" strokeWidth="0.55">
+        {FLORIDA_COUNTY_PATHS.map((county) => (
+          <path key={county.id} d={county.path} />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
 export default function FloridaLiquorLicenseSbaAppraisalPage() {
   const structuredData = [
     {
