@@ -492,24 +492,33 @@ export default function BusinessPackageHeatMap({
                               : " packages"}
                           </strong>
                           <dl>
-                            <div>
-                              <dt>License type</dt>
+                            <div className="business-package-market-metric">
+                              <dt>License Type</dt>
                               <dd>{activeRow.licenseType}</dd>
                             </div>
-                            <div>
+                            <div className="business-package-listing-price">
                               <dt>Avg. Package Price</dt>
                               <dd>{money(activeRow.averagePrice)}</dd>
                             </div>
-                            <div>
-                              <dt>Active packages</dt>
+                            <div className="business-package-market-metric">
+                              <dt>Active Packages</dt>
                               <dd>{activeRow.listingCount}</dd>
                             </div>
-                            <div>
-                              <dt>Business types</dt>
+                            <div className="business-package-market-metric">
+                              <dt>Business Types</dt>
                               <dd>{activeRow.businessCategories.length || "—"}</dd>
                             </div>
                           </dl>
-                          <small>{activeRow.businessCategories.join(" · ")}</small>
+                          <small className="business-package-reference-row">
+                            {activeRow.businessCategories.map((category) => (
+                              <span
+                                key={category}
+                                className={`business-package-category-badge${category === "Bar" ? " business-package-category-badge--bar" : ""}`}
+                              >
+                                {category}
+                              </span>
+                            ))}
+                          </small>
                           <em>View matching listings →</em>
                         </>
                       )}
