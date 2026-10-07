@@ -436,7 +436,7 @@ export async function runIdentityResolution(listingReference: string, options?: 
 }
 
 export async function recentIdentityRuns(listingReference: string) {
-  return rest<any[]>(
+  return rest<unknown[]>(
     `identity_resolution_runs?listing_reference=eq.${encodeURIComponent(listingReference)}&select=*&order=created_at.desc&limit=10`,
   );
 }
