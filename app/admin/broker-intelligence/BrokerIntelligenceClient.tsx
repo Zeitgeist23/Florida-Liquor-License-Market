@@ -174,6 +174,14 @@ function licenseValueBasisLabel(row: RecordRow) {
   return "No county market estimate available";
 }
 
+const brokerCoverageBenchmarks: Record<string, { active: number; label: string; source: string }> = {
+  "We Sell Restaurants": {
+    active: 441,
+    label: "Public Florida active listings reported by We Sell Restaurants",
+    source: "wesellrestaurants.com Florida Restaurants for Sale page",
+  },
+};
+
 function cleanBrokerName(row: RecordRow) {
   const urls = [row.source_listing_url, ...(row.source_urls || [])]
     .filter(Boolean)
@@ -480,10 +488,10 @@ export default function BrokerIntelligenceClient() {
           </header>
 
           <section className="bi-report-kpis">
-            <div><span>Active opportunities</span><strong>{selected.activeCount}</strong></div>
+            <div><span>FLLM identified active records</span><strong>{selected.activeCount}</strong></div>
             <div><span>Counties represented</span><strong>{selected.counties}</strong></div>
             <div><span>Total quota licenses</span><strong>{selected.quotaCount}</strong><small>{selected.standaloneQuotaCount} standalone · {selected.quotaBusinessPackageCount} business packages</small></div>
-            <div><span>Total quota license value</span><strong>{shortMoney(selected.totalLicenseValue)}</strong><small>{selected.quotaCount} active quota licenses</small></div>
+            <div className="quota-value"><span>Total quota license value</span><strong>{shortMoney(selected.totalLicenseValue)}</strong><small>{selected.quotaCount} currently matched quota records</small></div>
             <div><span>Observed asking inventory</span><strong>{shortMoney(selected.totalAsk)}</strong></div>
             <div><span>Avg. days observed</span><strong>{selected.averageDays}</strong></div>
           </section>
@@ -545,7 +553,7 @@ export default function BrokerIntelligenceClient() {
 
       <section className="bi-global-kpis">
         <div><span>Brokers identified</span><strong>{portfolioStats.brokers}</strong></div>
-        <div><span>Active broker inventory</span><strong>{portfolioStats.activeInventory}</strong></div>
+        <div><span>FLLM matched active records</span><strong>{portfolioStats.activeInventory}</strong></div>
         <div><span>Quota packages</span><strong>{portfolioStats.quotaInventory}</strong></div>
         <div><span>Combined quota license value</span><strong>{shortMoney(portfolioStats.estimatedLicenseValue)}</strong></div>
       </section>
@@ -563,7 +571,7 @@ export default function BrokerIntelligenceClient() {
                 <div className="bi-rank"><span>#{index + 1}</span><strong>{broker.opportunityScore}</strong></div>
                 <div className="bi-broker-copy">
                   <strong>{broker.name}</strong>
-                  <small>{broker.activeCount} active · {broker.quotaCount} quota · {broker.counties} counties</small>
+                  <small>{broker.activeCount} FLLM-matched active · ${broker.quotaCount} quota · ${broker.counties} counties</small>
                   <em>{shortMoney(broker.totalLicenseValue)} total quota license value</em>
                 </div>
               </button>
@@ -596,12 +604,16 @@ export default function BrokerIntelligenceClient() {
               <span>This dashboard may use FLLM's private identity-resolution database internally. Generated Broker Reports omit inferred business identities, confidence scores, owner data, evidence chains, source-research notes and internal matching logic.</span>
             </section>
 
+            {brokerCoverageBenchmarks[selected.name] && <section className="bi-coverage-warning">
+              <strong>Coverage warning:</strong> this broker dashboard currently contains <span className="coverage-number">{selected.activeCount}</span> FLLM-identified active records for {selected.name}, while {brokerCoverageBenchmarks[selected.name].label.toLowerCase()} is <span className="coverage-number">{brokerCoverageBenchmarks[selected.name].active}</span>. The current broker total is therefore a matched-subset total, not the brokerage&apos;s complete statewide inventory. FLLM should not present it as complete until the remaining public inventory has been classified and attributed.
+            </section>}
+
             <section className="bi-kpis">
-              <div><span>Active listings</span><strong>{selected.activeCount}</strong></div>
+              <div><span>FLLM identified active records</span><strong>{selected.activeCount}</strong></div>
               <div><span>Quota packages</span><strong>{selected.quotaCount}</strong></div>
               <div><span>Counties</span><strong>{selected.counties}</strong></div>
               <div><span>Observed asking inventory</span><strong>{shortMoney(selected.totalAsk)}</strong></div>
-              <div><span>Total quota license value</span><strong>{shortMoney(selected.totalLicenseValue)}</strong><small>{selected.quotaCount} active quota licenses</small></div>
+              <div className="quota-value"><span>Total quota license value</span><strong>{shortMoney(selected.totalLicenseValue)}</strong><small>{selected.quotaCount} currently matched quota records</small></div>
               <div><span>Avg. days observed</span><strong>{selected.averageDays}</strong></div>
             </section>
 
