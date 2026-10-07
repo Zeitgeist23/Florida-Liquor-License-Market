@@ -462,7 +462,7 @@
   display:block;
   margin-bottom:3px;
   color:#ffc13b;
-  font-size:11px;
+  font-size:12.65px;
   font-weight:950;
   letter-spacing:.07em;
   line-height:1.2;
@@ -473,7 +473,7 @@
   margin:0;
   color:#fff;
   font-family:Georgia,"Times New Roman",serif;
-  font-size:23px;
+  font-size:26.45px;
   font-weight:700;
   line-height:1.08;
 }
@@ -481,7 +481,7 @@
   display:block;
   margin-top:5px;
   color:#c1d4df;
-  font-size:11px;
+  font-size:12.65px;
   font-weight:850;
   line-height:1.2;
 }
@@ -500,7 +500,7 @@
   min-width:0;
   padding-left:13px;
   color:#f8fbfd;
-  font-size:10.5px;
+  font-size:12.075px;
   line-height:1.28;
 }
 .business-package-band-county-list li::before{
@@ -509,7 +509,7 @@
   left:0;
   top:0;
   color:#ffc13b;
-  font-size:15px;
+  font-size:17.25px;
   font-weight:950;
   line-height:1;
 }
@@ -521,7 +521,7 @@
   flex:0 0 auto;
   margin-left:5px;
   color:#5cff9d;
-  font-size:10.5px;
+  font-size:12.075px;
   font-weight:950;
 }
 @media(max-width:1320px){
@@ -529,19 +529,19 @@
     left:calc(50% + 285px);
     width:255px;
   }
-  .business-package-band-county-list>strong{font-size:21px}
+  .business-package-band-county-list>strong{font-size:24.15px}
   .business-package-band-county-list ul{gap:8px 10px;margin-top:12px}
-  .business-package-band-county-list li{font-size:10px;padding-left:12px}
-  .business-package-band-county-list li b{font-size:10px}
+  .business-package-band-county-list li{font-size:11.5px;padding-left:12px}
+  .business-package-band-county-list li b{font-size:11.5px}
 }
 @media(max-width:1180px){
   .business-package-band-county-list{
     left:calc(50% + 260px);
     width:235px;
   }
-  .business-package-band-county-list>span{font-size:10px}
-  .business-package-band-county-list>strong{font-size:19px}
-  .business-package-band-county-list>small{font-size:10px}
+  .business-package-band-county-list>span{font-size:11.5px}
+  .business-package-band-county-list>strong{font-size:21.85px}
+  .business-package-band-county-list>small{font-size:11.5px}
   .business-package-band-county-list ul{grid-template-columns:1fr;gap:6px;margin-top:10px}
 }
 @media(max-width:1080px){
