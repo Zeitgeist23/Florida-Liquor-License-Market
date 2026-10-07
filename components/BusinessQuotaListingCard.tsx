@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import BusinessBuyerInterestButton from "@/components/BusinessBuyerInterestButton";
 import type {
   BusinessQuotaCategory,
   BusinessQuotaListing,
@@ -166,7 +167,14 @@ export default function BusinessQuotaListingCard({
                 ? "View Business + License Options"
                 : "View Business + License Package"} <span aria-hidden="true">›</span>
           </Link>
-
+          <BusinessBuyerInterestButton
+            listingReference={listing.listingReference}
+            listingTitle={listing.title}
+            county={listing.county}
+            businessType={listing.businessCategory}
+            licenseType={listing.licenseType}
+            askingPrice={listing.packagePrice}
+          />
         </div>
       </div>
 
