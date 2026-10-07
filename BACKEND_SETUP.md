@@ -71,3 +71,25 @@ The crawler identifies itself as `FLLM-InventoryBot`, follows a source's publish
 For an existing database, run `supabase/migrations/20260802_listing_refresh_indexes.sql` once. The indexes are optional for correctness but keep exact source matching and oldest-first refresh selection fast as inventory grows.
 
 Only add direct feeds or APIs that authorize automated retrieval and republication. Restricted third-party listing websites should not be scraped without permission.
+
+## 6. Automatic FLLM business identity engine
+
+The private Market Intelligence Room has an autonomous identity-resolution pipeline. Vercel calls `/api/cron/identity-research` every six hours. The job:
+
+1. Prioritizes unnamed records, then records below 95% confidence, then records whose open-web evidence has not been refreshed in seven days.
+2. Builds multiple search queries from county, city, business type, liquor-license class/number, asking price, revenue, SDE, and any saved discriminating facts such as square footage, seats, employees, rent, operating days, and concept keywords.
+3. Searches the open web through Tavily advanced search, retaining raw evidence, source URL, source domain, query, candidate name, and search score in the private Supabase evidence tables.
+4. Expands FLLM's private candidate pool with newly discovered business names.
+5. Scores candidates with weighted positive signals and explicit contradiction penalties. Exact liquor-license numbers receive the strongest positive weight; county or license-class conflicts receive strong negative weights.
+6. Automatically writes a best-guess identity only when confidence is at least 90%, the winning candidate leads the runner-up by at least 10 points, and no hard contradiction is present.
+7. Leaves weaker matches in the private review queue instead of publishing them as facts.
+8. Continues cycling through all intelligence records so older 95-100% matches are periodically rechecked against newly available public evidence.
+
+Optional environment controls:
+
+- `IDENTITY_RESEARCH_ENABLED=false` stops the autonomous identity job without removing its code.
+- `IDENTITY_RESEARCH_BATCH_SIZE` controls the number of records researched per run; default is 4 and the hard maximum is 6.
+- `TAVILY_API_KEY` is required for open-web discovery.
+- `CRON_SECRET` protects the scheduled route.
+
+All identity candidates, evidence, confidence scores, contradictions, and research-run history remain private owner/admin data. They are not exposed on public FLLM market-listing pages unless a separate public feature is deliberately built.
