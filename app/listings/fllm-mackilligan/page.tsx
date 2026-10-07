@@ -33,6 +33,7 @@ const sourceListingUrl =
   "https://www.bizbuysell.com/business-opportunity/restaurant-bar-opportunity/2440698/";
 const brokerProfileUrl =
   "https://galleriarealtors.com/agents/robert-mackilligan";
+const objectiveAdRevision = "2026-10-06-objective-v2";
 
 export const dynamic = "force-dynamic";
 
@@ -99,6 +100,8 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     browardMarket?.population ?? 2_037_472
   ).toLocaleString("en-US");
 
+  void objectiveAdRevision;
+
   return {
     listingReference: "FLLM-MACKILLIGAN",
     canonicalPath,
@@ -148,7 +151,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
         label: "Gross Revenue",
         value: "$1,280,000",
         description:
-          "Annual gross revenue is listed at $1,280,000. Buyers should reconcile revenue to financial statements, tax returns and supporting records during due diligence.",
+          "Annual gross revenue is $1,280,000. Buyers should reconcile revenue to financial statements, tax returns and supporting records during due diligence.",
       },
       {
         label: "Cash Flow (SDE)",
@@ -237,7 +240,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
     confidentialityText:
       "financial documentation and detailed operational information are available to qualified buyers subject to appropriate confidentiality agreements. Buyers should independently review financial statements, lease documents, licensing records, the 4COP Quota license number and status, seller-financing terms, included assets and all transaction documents.",
     sourceDisclosure:
-      "Private FLLM broker-review mockup for a Wilton Manors restaurant/bar opportunity offered at $875,000 with an included Broward County 4COP Quota license. Business, financial, lease, licensing, financing and operating information should be independently verified during due diligence before reliance or closing.",
+      "Business, financial, lease, licensing, financing and operating information should be independently verified during due diligence before reliance or closing.",
     countyContext:
       "Broward County includes Wilton Manors, Fort Lauderdale, Hollywood, Pompano Beach, Oakland Park, Pembroke Pines, Coral Springs, Miramar and other major South Florida restaurant, nightlife and hospitality markets.",
     singleExternalLinks: true,
