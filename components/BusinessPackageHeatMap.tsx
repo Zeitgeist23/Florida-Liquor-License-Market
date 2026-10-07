@@ -297,11 +297,7 @@ export default function BusinessPackageHeatMap({
           </p>
         </div>
 
-        <div className="county-heatmap-toolbar">
-          <div className="county-heatmap-current-metric" aria-live="polite">
-            <span>Inventory View</span>
-            <h3>Active {licenseType} Business Packages Across Florida</h3>
-          </div>
+        <div className="county-heatmap-toolbar county-heatmap-toolbar--statewide-summary">
           <div className="business-package-map-context">
             <span>{businessTypeLabel} + {licenseType} License</span>
             <strong>
