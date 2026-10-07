@@ -28,7 +28,6 @@ const officialFooterPaths = new Set([
   "/florida-liquor-license-market-platform",
   "/are-florida-quota-liquor-licenses-worth-it",
   "/florida-liquor-license-value-expert-witness",
-  "/florida-liquor-license-sba-appraisal",
   "/cities/saint-augustine",
 ]);
 
