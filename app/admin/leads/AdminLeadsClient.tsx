@@ -40,7 +40,25 @@ type ListingMatch = {
 
 type MatchMode = "all" | "buyer_name" | "county" | "listing_ref" | "buyer_ref";
 
+type BuyerAlertDetails = {
+  first_name?: string;
+  last_name?: string;
+  business_types?: string[];
+  license_types?: string[];
+  counties?: string[];
+  max_purchase_price?: number | null;
+  min_gross_revenue?: number | null;
+  min_sde?: number | null;
+  min_ebitda?: number | null;
+  financing_preferences?: string[];
+  notes?: string;
+  source_market_view_ref?: string;
+  status?: string;
+};
+
 type BuyerDetails = {
+  kind?: string;
+  alert?: BuyerAlertDetails;
   purchaseMethod?: string | null;
   targetClosing?: string | null;
   proofOfFunds?: string | null;
@@ -156,6 +174,7 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
   const buyer = isBuyer(lead);
   const valuation = isValuation(lead);
   const details = buyerDetails(lead);
+  const buyerAlert = details.kind === "business_buyer_alert" ? details.alert : undefined;
   const valuationData = valuationDetails(lead);
   const amount = lead.approvedAskingPrice ?? lead.askingPrice;
   const valuationLicenseNumber = lead.liveListingRef || valuationData.licenseNumber || "Not provided";
@@ -167,7 +186,7 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
         <div>
           <div className="lead-tags">
             <span className={`lead-type ${buyer ? "buyer" : valuation ? "valuation" : "seller"}`}>{buyer ? "Buyer lead" : valuation ? "Valuation lead" : "Seller lead"}</span>
-            <span className="lead-stage">{buyer ? "Verification pending" : sellerStage(lead)}</span>
+            <span className="lead-stage">{buyerAlert ? "Active buyer alert" : buyer ? "Verification pending" : sellerStage(lead)}</span>
             {contactCount > 1 && <span className="lead-repeat">{contactCount} submissions from this contact</span>}
           </div>
           <h2>{lead.fullName}</h2>
@@ -179,13 +198,22 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
       <div className="lead-primary-grid">
         <div><strong>Email</strong><a href={`mailto:${lead.email}`}>{lead.email}</a></div>
         <div><strong>Phone</strong><a href={`tel:${lead.phone}`}>{lead.phone}</a></div>
-        <div><strong>{buyer ? "Listing" : "County"}</strong><span>{buyer ? lead.listingTitle || `${lead.county} ${lead.licenseType}` : lead.county}</span></div>
-        <div><strong>{buyer ? "Offer" : valuation ? "Target Price" : "Asking Price"}</strong><span className="lead-money">{money(amount)}</span></div>
-        <div><strong>License Type</strong><span>{lead.licenseType}</span></div>
-        <div><strong>{buyer ? "Listing Reference" : "Timing"}</strong><span>{buyer ? lead.liveListingRef || "Not provided" : lead.preferredTiming || "Not provided"}</span></div>
+        <div><strong>{buyerAlert ? "Buyer Profile" : buyer ? "Listing" : "County"}</strong><span>{buyerAlert ? "Business + Liquor License Alert" : buyer ? lead.listingTitle || `${lead.county} ${lead.licenseType}` : lead.county}</span></div>
+        <div><strong>{buyerAlert ? "Max Budget" : buyer ? "Offer" : valuation ? "Target Price" : "Asking Price"}</strong><span className="lead-money">{buyerAlert ? buyerAlert.max_purchase_price === null || buyerAlert.max_purchase_price === undefined ? "No maximum" : money(buyerAlert.max_purchase_price) : money(amount)}</span></div>
+        <div><strong>License Type</strong><span>{buyerAlert ? buyerAlert.license_types?.join(", ") || lead.licenseType : lead.licenseType}</span></div>
+        <div><strong>{buyerAlert ? "Source Market View" : buyer ? "Listing Reference" : "Timing"}</strong><span>{buyerAlert ? buyerAlert.source_market_view_ref || lead.liveListingRef || "Not provided" : buyer ? lead.liveListingRef || "Not provided" : lead.preferredTiming || "Not provided"}</span></div>
       </div>
 
-      {buyer ? (
+      {buyerAlert ? (
+        <div className="lead-secondary-grid">
+          <div><strong>Business Types</strong><span>{buyerAlert.business_types?.join(", ") || "Not provided"}</span></div>
+          <div><strong>Counties</strong><span>{buyerAlert.counties?.join(", ") || lead.county}</span></div>
+          <div><strong>Minimum Gross Sales</strong><span>{buyerAlert.min_gross_revenue === null || buyerAlert.min_gross_revenue === undefined ? "No minimum" : money(buyerAlert.min_gross_revenue)}</span></div>
+          <div><strong>Minimum SDE / Cash Flow</strong><span>{buyerAlert.min_sde === null || buyerAlert.min_sde === undefined ? "No minimum" : money(buyerAlert.min_sde)}</span></div>
+          <div><strong>Minimum EBITDA</strong><span>{buyerAlert.min_ebitda === null || buyerAlert.min_ebitda === undefined ? "No minimum" : money(buyerAlert.min_ebitda)}</span></div>
+          <div><strong>Financing Preference</strong><span>{buyerAlert.financing_preferences?.join(", ") || "Any"}</span></div>
+        </div>
+      ) : buyer ? (
         <div className="lead-secondary-grid">
           <div><strong>Purchase Method</strong><span>{details.purchaseMethod || "Not provided"}</span></div>
           <div><strong>Target Closing</strong><span>{details.targetClosing || lead.preferredTiming || "Not provided"}</span></div>
@@ -210,10 +238,10 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
         </div>
       )}
 
-      {(details.contingencies || details.notes || (!buyer && !valuation && lead.message)) && (
+      {(details.contingencies || details.notes || buyerAlert?.notes || (!buyer && !valuation && lead.message)) && (
         <div className="lead-notes">
           {details.contingencies && <p><strong>Contingencies</strong>{details.contingencies}</p>}
-          {(details.notes || (!buyer && !valuation && lead.message)) && <p><strong>Notes</strong>{details.notes || lead.message}</p>}
+          {(buyerAlert?.notes || details.notes || (!buyer && !valuation && lead.message)) && <p><strong>Notes</strong>{buyerAlert?.notes || details.notes || lead.message}</p>}
         </div>
       )}
     </article>
