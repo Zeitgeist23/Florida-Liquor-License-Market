@@ -133,7 +133,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
         .sba-kicker{display:block;margin-bottom:8px;color:#f5a900;font-size:12px;font-weight:950;letter-spacing:.11em;text-transform:uppercase}
         .sba-title{margin:0;color:#fff;font:700 clamp(32px,3.2vw,44px)/1.06 Georgia,"Times New Roman",serif;letter-spacing:-.02em}
         .sba-copy{max-width:1040px;margin:11px 0 0;color:#d7e6ef;font-size:14px;line-height:1.65}
-        #sop-changes .sba-kicker{text-align:center}
+        #sop-changes .sba-kicker{text-align:center;font-size:14px;letter-spacing:.12em}
         #sop-changes .sba-title{text-align:center}
         #sop-changes .sba-copy{margin:11px auto 0;text-align:center}
         .sba-hero{position:relative;overflow:hidden;padding:26px 0 0;border-top:1px solid rgba(238,166,18,.56);border-bottom:1px solid rgba(238,166,18,.65);background:
@@ -189,7 +189,7 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
           radial-gradient(circle at 50% 40%,rgba(86,224,252,.30),transparent 62%),
           linear-gradient(145deg,#17618f 0%,#104b72 52%,#0b3655 100%);
           box-shadow:inset 0 1px 0 rgba(255,255,255,.15),inset 0 0 34px rgba(72,216,246,.18),0 18px 36px rgba(0,0,0,.35),0 0 24px rgba(74,210,244,.20);filter:brightness(1.07)}
-        .sba-key strong{display:block;color:#ffbd28;font-size:29px;font-weight:950;line-height:1.05;text-align:center;text-shadow:0 1px 0 rgba(0,0,0,.28)}
+        .sba-key strong{display:block;color:#ffbd28;font-size:26px;font-weight:950;line-height:1.05;text-align:center;text-shadow:0 1px 0 rgba(0,0,0,.28)}
         .sba-key span{display:block;max-width:305px;margin-top:9px;color:#f7fbfd;font-size:14px;font-weight:650;line-height:1.58;text-align:center;text-shadow:0 1px 0 rgba(0,0,0,.28)}
         .sba-table-wrap{margin-top:16px;overflow-x:auto;border:1px solid rgba(255,255,255,.22);border-radius:8px;background:#fff;box-shadow:0 14px 28px rgba(0,0,0,.2)}
         .sba-table{width:100%;min-width:820px;border-collapse:collapse}
