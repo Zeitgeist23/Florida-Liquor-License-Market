@@ -627,7 +627,10 @@ export default function BrokerIntelligenceClient() {
                   <tbody>
                     {selected.records.map((row) => (
                       <tr key={row.listing_reference}>
-                        <td><strong>{row.business_name || "Unresolved"}</strong><small>{row.legal_entity_name || row.source_listing_title || ""}</small></td>
+                        <td>
+                          <strong>{row.business_name || row.source_listing_title || "Identity unresolved"}</strong>
+                          <small>{row.business_name ? (row.legal_entity_name || row.source_listing_title || "") : "Source listing — private identity not yet resolved"}</small>
+                        </td>
                         <td>{row.listing_reference}</td>
                         <td>{row.county}{row.city ? <small>{row.city}</small> : null}</td>
                         <td>{row.business_type || "—"}</td>
