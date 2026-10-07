@@ -4,7 +4,10 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import AdminCodeLogin from "@/components/AdminCodeLogin";
-import { listings as standaloneListings } from "@/data/listings";
+import { listings } from "@/data/listings";
+import { additionalListings } from "@/data/additional-listings";
+import { latestListings } from "@/data/latest-listings";
+import { marketAdditions } from "@/data/market-additions";
 
 type RecordRow = {
   id: string | null;
@@ -57,6 +60,8 @@ type BrokerRow = {
   activeRecords: RecordRow[];
   activeCount: number;
   quotaCount: number;
+  standaloneQuotaCount: number;
+  quotaBusinessPackageCount: number;
   counties: number;
   totalAsk: number;
   totalLicenseValue: number;
@@ -114,9 +119,11 @@ type EffectiveLicenseValue = {
   basis: "record_specific" | "county_4cop_median" | "county_3ps_median" | "county_4cop_series_proxy" | "non_quota" | "unavailable";
 };
 
+const allStandaloneListings = [...listings, ...additionalListings, ...latestListings, ...marketAdditions];
+
 function countyMedian(county: string, type: "4COP Quota" | "3PS Quota / Package Store") {
   return median(
-    standaloneListings
+    allStandaloneListings
       .filter((listing) => listing.county === county && listing.type === type && typeof listing.price === "number" && Number.isFinite(listing.price))
       .map((listing) => listing.price as number),
   );
@@ -168,7 +175,35 @@ function licenseValueBasisLabel(row: RecordRow) {
 }
 
 function cleanBrokerName(row: RecordRow) {
-  return (row.brokerage || row.broker_name || "").trim();
+  const urls = [row.source_listing_url, ...(row.source_urls || [])]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+  const brokerage = (row.brokerage || "").trim();
+  const broker = (row.broker_name || "").trim();
+
+  if (urls.includes("wesellrestaurants.com") || /\bwe\s*sell\s*restaurants\b/i.test(brokerage)) {
+    return "We Sell Restaurants";
+  }
+  if (/\bbusiness\s+exit\s+advisors\b/i.test(brokerage)) return "Business Exit Advisors";
+  if (/\bsunshineagle\b/i.test(brokerage)) return "SUNSHINEAGLE LLC";
+  if (/\bresults\s+real\s+estate\s+partners\b/i.test(brokerage)) return "Results Real Estate Partners, LLC";
+  if (/\bsoutheast\s+florida\s+realty/i.test(brokerage)) return "Southeast Florida Realty & Management Corp";
+  return brokerage || broker;
+}
+
+function isStandaloneQuotaRecord(row: RecordRow) {
+  if (!isQuota(row)) return false;
+  const businessType = (row.business_type || "").toLowerCase();
+  const title = (row.source_listing_title || "").toLowerCase();
+  return (
+    businessType.includes("standalone") ||
+    businessType.includes("liquor license") ||
+    businessType.includes("license only") ||
+    title.includes("license only") ||
+    title.includes("standalone") ||
+    (!businessType || businessType === "license")
+  );
 }
 
 function opportunityScore(records: RecordRow[]) {
@@ -353,6 +388,8 @@ export default function BrokerIntelligenceClient() {
         activeRecords,
         activeCount: activeRecords.length,
         quotaCount: activeRecords.filter(isQuota).length,
+        standaloneQuotaCount: activeRecords.filter(isStandaloneQuotaRecord).length,
+        quotaBusinessPackageCount: activeRecords.filter((r) => isQuota(r) && !isStandaloneQuotaRecord(r)).length,
         counties: new Set(activeRecords.map((r) => r.county).filter(Boolean)).size,
         totalAsk: activeRecords.reduce((sum, r) => sum + (r.asking_price || 0), 0),
         totalLicenseValue: activeRecords.reduce((sum, r) => sum + (effectiveLicenseValue(r).value || 0), 0),
@@ -406,7 +443,7 @@ export default function BrokerIntelligenceClient() {
       `${selected.counties} counties represented`,
       `${selected.quotaCount} quota-license packages`,
       `${money(selected.totalAsk)} combined observed asking-price inventory`,
-      `${money(selected.totalLicenseValue)} FLLM estimated combined liquor-license value`,
+      `${money(selected.totalLicenseValue)} FLLM estimated total quota-license value across ${selected.quotaCount} active quota records`,
       `${selected.averageDays} average days observed`,
       "",
       "Prepared by Florida Liquor License Market from FLLM market-observation data. This report excludes FLLM private identity-resolution evidence and internal research notes.",
@@ -445,8 +482,8 @@ export default function BrokerIntelligenceClient() {
           <section className="bi-report-kpis">
             <div><span>Active opportunities</span><strong>{selected.activeCount}</strong></div>
             <div><span>Counties represented</span><strong>{selected.counties}</strong></div>
-            <div><span>Quota-license packages</span><strong>{selected.quotaCount}</strong></div>
-            <div><span>FLLM est. license value</span><strong>{shortMoney(selected.totalLicenseValue)}</strong></div>
+            <div><span>Total quota licenses</span><strong>{selected.quotaCount}</strong><small>{selected.standaloneQuotaCount} standalone · {selected.quotaBusinessPackageCount} business packages</small></div>
+            <div><span>Total quota license value</span><strong>{shortMoney(selected.totalLicenseValue)}</strong><small>{selected.quotaCount} active quota licenses</small></div>
             <div><span>Observed asking inventory</span><strong>{shortMoney(selected.totalAsk)}</strong></div>
             <div><span>Avg. days observed</span><strong>{selected.averageDays}</strong></div>
           </section>
@@ -510,7 +547,7 @@ export default function BrokerIntelligenceClient() {
         <div><span>Brokers identified</span><strong>{portfolioStats.brokers}</strong></div>
         <div><span>Active broker inventory</span><strong>{portfolioStats.activeInventory}</strong></div>
         <div><span>Quota packages</span><strong>{portfolioStats.quotaInventory}</strong></div>
-        <div><span>Combined est. license value</span><strong>{shortMoney(portfolioStats.estimatedLicenseValue)}</strong></div>
+        <div><span>Combined quota license value</span><strong>{shortMoney(portfolioStats.estimatedLicenseValue)}</strong></div>
       </section>
 
       <section className="bi-workspace">
@@ -527,7 +564,7 @@ export default function BrokerIntelligenceClient() {
                 <div className="bi-broker-copy">
                   <strong>{broker.name}</strong>
                   <small>{broker.activeCount} active · {broker.quotaCount} quota · {broker.counties} counties</small>
-                  <em>{shortMoney(broker.totalLicenseValue)} est. license value</em>
+                  <em>{shortMoney(broker.totalLicenseValue)} total quota license value</em>
                 </div>
               </button>
             ))}
@@ -564,7 +601,7 @@ export default function BrokerIntelligenceClient() {
               <div><span>Quota packages</span><strong>{selected.quotaCount}</strong></div>
               <div><span>Counties</span><strong>{selected.counties}</strong></div>
               <div><span>Observed asking inventory</span><strong>{shortMoney(selected.totalAsk)}</strong></div>
-              <div><span>FLLM est. license value</span><strong>{shortMoney(selected.totalLicenseValue)}</strong></div>
+              <div><span>Total quota license value</span><strong>{shortMoney(selected.totalLicenseValue)}</strong><small>{selected.quotaCount} active quota licenses</small></div>
               <div><span>Avg. days observed</span><strong>{selected.averageDays}</strong></div>
             </section>
 
