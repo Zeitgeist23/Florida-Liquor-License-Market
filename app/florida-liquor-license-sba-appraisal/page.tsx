@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import FormsSiteHeader from "@/components/FormsSiteHeader";
@@ -129,86 +128,95 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
       <style>{`
         .sba-mockup-page{min-height:100vh;background:#082a46;color:#f2f7fa;font-family:Arial,Helvetica,sans-serif}
         .sba-mockup-page *{box-sizing:border-box}
-        .sba-shell{width:min(1240px,calc(100% - 44px));margin:0 auto}
-        .sba-section{padding:46px 0;border-top:1px solid rgba(238,166,18,.62);background:linear-gradient(145deg,#0c3b60 0%,#082d4c 58%,#06243e 100%)}
-        .sba-kicker{display:block;margin-bottom:8px;color:#f5a900;font-size:11px;font-weight:950;letter-spacing:.12em;text-transform:uppercase}
-        .sba-title{margin:0;color:#fff;font:700 42px/1.08 Georgia,"Times New Roman",serif;letter-spacing:-.02em}
-        .sba-copy{margin:12px 0 0;color:#d7e6ef;font-size:14px;line-height:1.7}
-        .sba-hero{padding:26px 0 30px;border-top:1px solid rgba(238,166,18,.56);border-bottom:1px solid rgba(238,166,18,.65);background:
-          linear-gradient(90deg,rgba(4,27,45,.96) 0%,rgba(4,27,45,.93) 42%,rgba(4,27,45,.55) 68%,rgba(4,27,45,.7) 100%),
-          url("/assets/hero-skyline-clean.png") center right/cover no-repeat}
-        .sba-breadcrumbs{display:flex;gap:8px;align-items:center;margin-bottom:16px;color:#d2e3ec;font-size:11px}
+        .sba-shell{width:min(1280px,calc(100% - 64px));margin:0 auto}
+        .sba-section{padding:34px 0;border-top:1px solid rgba(238,166,18,.52);background:linear-gradient(145deg,#0c3b60 0%,#082d4c 58%,#06243e 100%)}
+        .sba-kicker{display:block;margin-bottom:8px;color:#f5a900;font-size:12px;font-weight:950;letter-spacing:.11em;text-transform:uppercase}
+        .sba-title{margin:0;color:#fff;font:700 clamp(32px,3.2vw,44px)/1.06 Georgia,"Times New Roman",serif;letter-spacing:-.02em}
+        .sba-copy{max-width:1040px;margin:11px 0 0;color:#d7e6ef;font-size:14px;line-height:1.65}
+        .sba-hero{padding:24px 0 30px;border-top:1px solid rgba(238,166,18,.56);border-bottom:1px solid rgba(238,166,18,.65);background:
+          linear-gradient(90deg,rgba(4,27,45,.98) 0%,rgba(4,27,45,.94) 49%,rgba(4,27,45,.72) 100%),
+          url("/assets/hero-skyline-clean.png") center 55%/cover no-repeat}
+        .sba-breadcrumbs{display:flex;gap:8px;align-items:center;margin-bottom:15px;color:#d2e3ec;font-size:12px}
         .sba-breadcrumbs a{color:#f5a900;text-decoration:none}
-        .sba-hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);gap:44px;align-items:center}
-        .sba-hero h1{max-width:760px;margin:8px 0 16px;color:#fff;font:700 clamp(46px,5.4vw,72px)/.96 Georgia,"Times New Roman",serif;letter-spacing:-.03em}
-        .sba-hero p{max-width:720px;margin:0;color:#dce9f0;font-size:15px;line-height:1.66}
-        .sba-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
-        .sba-btn{display:inline-flex;min-height:43px;align-items:center;justify-content:center;padding:0 18px;border:1px solid #ffc32d;border-radius:4px;background:linear-gradient(145deg,#ffc443,#ed9a00);color:#06131f!important;font-size:11px;font-weight:950;letter-spacing:.02em;text-decoration:none;text-transform:uppercase;box-shadow:inset 0 1px 0 rgba(255,246,204,.62),0 8px 18px rgba(0,0,0,.24);transition:transform .16s ease,filter .16s ease}
-        .sba-btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
-        .sba-hero-side{display:grid;gap:14px;justify-items:center}
-        .sba-logo-card{display:flex;width:100%;align-items:center;justify-content:center}
-        .sba-logo-card img{width:min(100%,330px);height:auto;filter:drop-shadow(0 10px 24px rgba(0,0,0,.34))}
-        .sba-summary{width:100%;padding:22px 24px;border:1px solid rgba(116,225,255,.72);border-radius:10px;background:linear-gradient(145deg,#0c456c,#082d4b);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 14px 30px rgba(0,0,0,.24)}
-        .sba-summary .mini-icon{float:left;width:38px;height:38px;margin:1px 16px 0 0;color:#ffbd27}.sba-summary .mini-icon svg{width:100%;height:100%}
-        .sba-summary span{display:block;color:#f5a900;font-size:10px;font-weight:950;letter-spacing:.09em;text-transform:uppercase}
-        .sba-summary strong{display:block;margin-top:5px;color:#fff;font-size:17px}.sba-summary p{margin:6px 0 0!important;color:#d7e5ed!important;font-size:12px!important;line-height:1.5!important}
-        .sba-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
-        .sba-card{position:relative;min-height:130px;padding:19px 18px 19px 62px;border:1px solid rgba(94,210,242,.46);border-radius:8px;background:linear-gradient(145deg,#0d3e62,#072943);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 10px 22px rgba(0,0,0,.2)}
-        .sba-card .ico{position:absolute;left:18px;top:20px;width:28px;height:28px;color:#ffbe2a}.sba-card .ico svg{width:100%;height:100%}
-        .sba-card h3{margin:0 0 7px;color:#fff;font-size:15px}.sba-card p{margin:0;color:#d3e1e9;font-size:12px;line-height:1.55}
-        .sba-note{margin-top:16px;padding:14px 16px 14px 48px;border:1px solid rgba(246,167,0,.6);border-left:5px solid #ffb400;border-radius:6px;background:#0a304e;color:#dce8ee;font-size:12px;line-height:1.55;position:relative}
-        .sba-note .ico{position:absolute;left:16px;top:14px;width:22px;height:22px;color:#ffbf2f}.sba-note .ico svg{width:100%;height:100%}
-        .sba-table-wrap{margin-top:20px;overflow-x:auto;border:1px solid rgba(255,255,255,.22);border-radius:8px;background:#fff;box-shadow:0 14px 28px rgba(0,0,0,.2)}
-        .sba-table{width:100%;min-width:780px;border-collapse:collapse}.sba-table th{padding:13px 14px;background:#092a45;color:#fff;font-size:10px;text-align:left;text-transform:uppercase;letter-spacing:.04em}.sba-table th:first-child{color:#ffbc26}.sba-table td{padding:13px 14px;border-top:1px solid #dfe6ea;color:#40515d;font-size:12px;line-height:1.5;vertical-align:top}.sba-table tbody tr:nth-child(even){background:#f2f5f6}.sba-table td:first-child{width:21%;color:#082844;font-weight:900}.sba-table td:nth-child(2),.sba-table td:nth-child(3){width:39.5%}
-        .sba-scope{margin-top:12px;padding:14px 16px;border:1px solid rgba(75,207,241,.48);border-radius:7px;background:#eaf8fd;color:#264754;font-size:12px;line-height:1.55}.sba-scope strong{color:#007c9c}
-        .sba-six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}.sba-six .sba-card{min-height:118px}
-        .sba-inline-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-        .sba-link-btn{display:inline-flex;min-height:42px;align-items:center;padding:0 17px;border:1px solid #f5a900;border-radius:4px;background:linear-gradient(145deg,#ffc33c,#e89300);color:#06131f!important;font-size:10px;font-weight:950;text-decoration:none;text-transform:uppercase}
-        .sba-reference-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:17px}.sba-reference-links a{display:inline-flex;min-height:38px;align-items:center;padding:0 13px;border:1px solid #d79c16;border-radius:4px;background:#062239;color:#fff;text-decoration:none;font-size:10px;font-weight:850}
-        .sba-faq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
-        .sba-faq details{border:1px solid rgba(74,205,239,.46);border-radius:6px;background:#0a3556;overflow:hidden}.sba-faq summary{position:relative;padding:13px 42px 13px 16px;color:#fff;font-size:11px;font-weight:900;cursor:pointer;list-style:none}.sba-faq summary::-webkit-details-marker{display:none}.sba-faq summary::after{content:"⌄";position:absolute;right:15px;color:#f5a900}.sba-faq details[open] summary::after{content:"⌃"}.sba-faq details p{margin:0;padding:0 16px 15px;color:#cfdde6;font-size:12px;line-height:1.6}
-        .sba-map-accent{position:absolute;right:6%;bottom:8%;width:120px;height:120px;opacity:.18;filter:saturate(.8)}
+        .sba-hero-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,.55fr);gap:28px;align-items:stretch}
+        .sba-hero h1{max-width:860px;margin:7px 0 14px;color:#fff;font:700 clamp(40px,4.2vw,60px)/1.01 Georgia,"Times New Roman",serif;letter-spacing:-.028em}
+        .sba-hero p{max-width:830px;margin:0;color:#dce9f0;font-size:15px;line-height:1.62}
+        .sba-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:18px}
+        .sba-btn{display:inline-flex;min-height:43px;align-items:center;justify-content:center;padding:0 18px;border:1px solid #ffc32d;border-radius:5px;background:linear-gradient(145deg,#ffc443,#ed9a00);color:#06131f!important;font-size:11px;font-weight:950;letter-spacing:.02em;text-decoration:none;text-transform:uppercase;box-shadow:inset 0 1px 0 rgba(255,246,204,.62),0 8px 18px rgba(0,0,0,.24);transition:transform .16s ease,filter .16s ease,box-shadow .16s ease}
+        .sba-btn.secondary{border-color:rgba(95,210,242,.65);background:linear-gradient(145deg,#104b73,#0a3554);color:#fff!important}
+        .sba-btn:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.08);box-shadow:0 12px 24px rgba(0,0,0,.29)}
+        .sba-hero-panel{height:100%;padding:19px;border:1px solid rgba(96,211,242,.58);border-radius:10px;background:linear-gradient(145deg,rgba(13,67,103,.96),rgba(7,42,69,.97));box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 14px 30px rgba(0,0,0,.24)}
+        .sba-hero-panel h2{margin:0 0 12px;color:#fff;font-size:17px}
+        .sba-hero-panel-row{padding:11px 0;border-top:1px solid rgba(255,255,255,.1)}
+        .sba-hero-panel-row:first-of-type{border-top:0;padding-top:0}
+        .sba-hero-panel-row strong{display:block;margin-bottom:4px;color:#f5a900;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+        .sba-hero-panel-row span{display:block;color:#d9e7ee;font-size:13px;line-height:1.48}
+        .sba-key-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-top:17px}
+        .sba-key{padding:15px 16px;border:1px solid rgba(91,210,242,.5);border-radius:8px;background:linear-gradient(145deg,#0d3e62,#072943);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 9px 20px rgba(0,0,0,.18);transition:transform .16s ease,border-color .16s ease,filter .16s ease}
+        .sba-key:hover{transform:translateY(-2px) scale(1.02);border-color:#69d7f3;filter:brightness(1.06)}
+        .sba-key strong{display:block;color:#fff;font-size:20px;line-height:1.05}
+        .sba-key span{display:block;margin-top:6px;color:#cfe0e8;font-size:12px;line-height:1.45}
+        .sba-table-wrap{margin-top:16px;overflow-x:auto;border:1px solid rgba(255,255,255,.22);border-radius:8px;background:#fff;box-shadow:0 14px 28px rgba(0,0,0,.2)}
+        .sba-table{width:100%;min-width:820px;border-collapse:collapse}
+        .sba-table th{padding:12px 14px;background:#092a45;color:#fff;font-size:11px;text-align:left;text-transform:uppercase;letter-spacing:.04em}
+        .sba-table th:first-child{color:#ffbc26}
+        .sba-table td{padding:13px 14px;border-top:1px solid #dfe6ea;color:#344b59;font-size:12.5px;line-height:1.52;vertical-align:top;transition:background .14s ease}
+        .sba-table tbody tr:nth-child(even){background:#f2f5f6}
+        .sba-table tbody tr:hover td{background:#e9f7fb}
+        .sba-table td:first-child{width:20%;color:#082844;font-weight:900}
+        .sba-table td:nth-child(2),.sba-table td:nth-child(3){width:40%}
+        .sba-scope{margin-top:10px;padding:13px 15px;border:1px solid rgba(75,207,241,.48);border-radius:7px;background:#eaf8fd;color:#244653;font-size:12.5px;line-height:1.56}
+        .sba-scope strong{color:#007c9c}
+        .sba-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:17px}
+        .sba-six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:17px}
+        .sba-card{position:relative;min-height:126px;padding:19px 18px 19px 62px;border:1px solid rgba(94,210,242,.48);border-radius:9px;background:linear-gradient(145deg,#0d3e62,#072943);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 10px 22px rgba(0,0,0,.2);transition:transform .16s ease,border-color .16s ease,filter .16s ease,box-shadow .16s ease}
+        .sba-card:hover{transform:translateY(-2px) scale(1.02);border-color:#65d7f3;filter:brightness(1.07);box-shadow:0 14px 28px rgba(0,0,0,.27)}
+        .sba-card .ico{position:absolute;left:18px;top:20px;width:28px;height:28px;color:#ffbe2a}
+        .sba-card .ico svg{width:100%;height:100%}
+        .sba-card h3{margin:0 0 7px;color:#fff;font-size:15px}
+        .sba-card p{margin:0;color:#d3e1e9;font-size:12.5px;line-height:1.55}
+        .sba-note{margin-top:12px;padding:13px 15px 13px 47px;border:1px solid rgba(246,167,0,.6);border-left:5px solid #ffb400;border-radius:7px;background:#0a304e;color:#dce8ee;font-size:12.5px;line-height:1.56;position:relative}
+        .sba-note .ico{position:absolute;left:16px;top:14px;width:22px;height:22px;color:#ffbf2f}
+        .sba-note .ico svg{width:100%;height:100%}
+        .sba-order-band{margin-top:18px;padding:20px 22px;border:1px solid rgba(255,193,38,.8);border-radius:10px;background:linear-gradient(145deg,#0c4166,#082c49);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 14px 28px rgba(0,0,0,.22)}
+        .sba-order-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center}
+        .sba-order-band h3{margin:0;color:#fff;font:700 27px/1.08 Georgia,"Times New Roman",serif}
+        .sba-order-band p{max-width:820px;margin:8px 0 0;color:#d5e4ec;font-size:13px;line-height:1.58}
+        .sba-price{display:block;color:#f5a900;font-size:12px;font-weight:950;letter-spacing:.08em;text-transform:uppercase}
+        .sba-inline-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}
+        .sba-link-btn{display:inline-flex;min-height:42px;align-items:center;padding:0 17px;border:1px solid #f5a900;border-radius:5px;background:linear-gradient(145deg,#ffc33c,#e89300);color:#06131f!important;font-size:10px;font-weight:950;text-decoration:none;text-transform:uppercase;transition:transform .16s ease,filter .16s ease}
+        .sba-link-btn:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.08)}
+        .sba-reference-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+        .sba-reference-links a{display:inline-flex;min-height:40px;align-items:center;padding:0 14px;border:1px solid #d79c16;border-radius:5px;background:#062239;color:#fff;text-decoration:none;font-size:11px;font-weight:850;transition:transform .16s ease,border-color .16s ease,filter .16s ease}
+        .sba-reference-links a:hover{transform:translateY(-2px) scale(1.02);border-color:#f5a900;filter:brightness(1.08)}
+        .sba-faq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 11px;margin-top:15px}
+        .sba-faq details{border:1px solid rgba(74,205,239,.46);border-radius:7px;background:#0a3556;overflow:hidden}
+        .sba-faq summary{position:relative;padding:13px 42px 13px 16px;color:#fff;font-size:12px;font-weight:900;cursor:pointer;list-style:none}
+        .sba-faq summary::-webkit-details-marker{display:none}
+        .sba-faq summary::after{content:"⌄";position:absolute;right:15px;color:#f5a900}
+        .sba-faq details[open] summary::after{content:"⌃"}
+        .sba-faq details p{margin:0;padding:0 16px 15px;color:#cfdde6;font-size:12.5px;line-height:1.62}
+        .sba-map-accent{position:absolute;right:3%;bottom:-8px;width:145px;height:132px;opacity:.2}
         .sba-section.is-relative{position:relative;overflow:hidden}
-        @media(max-width:900px){.sba-hero-grid,.sba-three,.sba-six,.sba-faq{grid-template-columns:1fr}.sba-logo-card{justify-content:flex-start}.sba-logo-card img{max-width:280px}.sba-card{min-height:auto}}
-        @media(max-width:650px){.sba-shell{width:min(100% - 26px,1240px)}.sba-hero h1{font-size:43px}.sba-section{padding:38px 0}}
-        /* Exact attached-mockup geometry */
-        .sba-shell{width:min(1320px,calc(100% - 80px))}
-        .sba-hero{padding:24px 0 30px;background:
-          linear-gradient(90deg,rgba(4,27,45,.97) 0%,rgba(4,27,45,.94) 43%,rgba(4,27,45,.50) 69%,rgba(4,27,45,.68) 100%),
-          url("/assets/hero-skyline-clean.png") center 56%/cover no-repeat}
-        .sba-hero-grid{grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);gap:34px;align-items:start}
-        .sba-hero h1{max-width:710px;font-size:clamp(48px,4.9vw,72px);line-height:.96;margin:8px 0 18px}
-        .sba-hero p{max-width:690px;font-size:14px;line-height:1.62}
-        .sba-hero-side{position:relative;min-height:255px;align-content:start}
-        .sba-hero-florida{position:absolute;right:-4px;top:6px;width:175px;height:160px;opacity:.48}
-        .sba-logo-card{position:relative;z-index:2;justify-content:flex-start;padding-left:46px}
-        .sba-logo-card img{width:255px;max-width:255px}
-        .sba-summary{position:relative;z-index:3;max-width:515px;padding:18px 22px}
-        .sba-section{padding:24px 0 28px}
-        .sba-title{font-size:clamp(31px,3.2vw,45px)}
-        .sba-copy{font-size:12px;line-height:1.58}
-        .sba-three{gap:12px;margin-top:16px}
-        .sba-card{min-height:116px;padding:17px 16px 17px 58px;border-color:rgba(74,202,238,.56)}
-        .sba-card .ico{left:17px;top:18px;width:27px;height:27px}
-        .sba-card h3{font-size:14px}.sba-card p{font-size:11px;line-height:1.5}
-        .sba-note{margin-top:10px;padding:12px 14px 12px 45px;font-size:11px;line-height:1.5}
-        .sba-table-wrap{margin-top:14px}
-        .sba-table th{padding:11px 12px}.sba-table td{padding:11px 12px;font-size:11px;line-height:1.45}
-        .sba-scope{margin-top:8px;padding:11px 13px;font-size:11px;line-height:1.5}
-        .sba-six{gap:9px;margin-top:14px}.sba-six .sba-card{min-height:105px}
-        .sba-inline-actions{margin-top:14px}
-        .sba-map-accent{position:absolute;right:3%;bottom:-10px;width:145px;height:132px;opacity:.22;filter:none}
-        .sba-reference-links{margin-top:13px}
-        .sba-faq{gap:7px 9px;margin-top:12px}
-        .sba-faq summary{padding:10px 38px 10px 14px;font-size:10px}
-        @media(max-width:900px){.sba-hero-florida{right:2%;top:0}.sba-logo-card{padding-left:0}}
-        @media(max-width:650px){.sba-shell{width:min(100% - 28px,1320px)}}
-
-      `}</style>
+        @media(max-width:980px){
+          .sba-hero-grid,.sba-order-grid{grid-template-columns:1fr}
+          .sba-key-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+          .sba-three,.sba-six,.sba-faq{grid-template-columns:1fr}
+          .sba-card{min-height:auto}
+        }
+        @media(max-width:650px){
+          .sba-shell{width:min(100% - 28px,1280px)}
+          .sba-hero{padding:20px 0 24px}
+          .sba-hero h1{font-size:39px}
+          .sba-section{padding:28px 0}
+          .sba-key-grid{grid-template-columns:1fr}
+        }
+`}</style>
 
       <div className="abt-header-wrap">
         <FormsSiteHeader primaryActionHref="/florida-liquor-license-appraisal#order-form" primaryActionLabel="Order Appraisal" />
       </div>
+
 
       <section className="sba-hero">
         <div className="sba-shell">
@@ -216,49 +224,36 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
           <div className="sba-hero-grid">
             <div>
               <span className="sba-kicker">SBA 7(a) SOP 50 10 8.1 · Effective October 1, 2026</span>
-              <h1>SBA 7(a) Liquor License<br />Valuation Support for<br />Florida 4COP &amp; 3PS<br />Licenses</h1>
-              <p>FLLM provides a formal, license-specific report for a Florida 4COP or 3PS quota license included in a business purchase or eligible refinance. It documents the license component for lender consideration and remains separate from any business valuation or other appraisal the lender requires.</p>
+              <h1>Florida 4COP &amp; 3PS License Appraisal for SBA 7(a) Transactions</h1>
+              <p>FLLM prepares a formal, license-specific appraisal report for the Florida quota-license component of a business purchase or eligible refinance. The report is designed for lender review and remains separate from any business valuation, real-estate appraisal, equipment appraisal or other analysis the lender requires.</p>
               <div className="sba-actions">
-                <Link className="sba-btn" href="/florida-liquor-license-appraisal#order-form">Order License Appraisal — $495</Link>
-                <Link className="sba-btn" href="/sba-7a-liquor-license-business-financing">SBA 7(a) Financing Guide</Link>
+                <a className="sba-btn" href="#sop-changes">See SOP 50 10 8.1 Changes</a>
+                <Link className="sba-btn secondary" href="/sba-7a-liquor-license-business-financing">SBA 7(a) Financing Guide</Link>
               </div>
             </div>
-            <aside className="sba-hero-side">
-              <FloridaGhost className="sba-hero-florida" />
-              <div className="sba-logo-card">
-                <a href="https://www.sba.gov/loans/7a-loans" target="_blank" rel="noopener noreferrer">
-                  <Image src="/assets/sba-logo-horizontal-blue.svg" alt="U.S. Small Business Administration" width={520} height={190} />
-                </a>
-              </div>
-              <div className="sba-summary">
-                <span className="mini-icon"><Icon name="license" /></span>
-                <span>What FLLM Values</span>
-                <strong>The quota-license component</strong>
-                <p>A documented license-specific value analysis for lender consideration. The lender determines whether it meets the requirements for the loan file.</p>
-              </div>
+            <aside className="sba-hero-panel" aria-label="What this page explains">
+              <h2>What this page answers</h2>
+              <div className="sba-hero-panel-row"><strong>What changed</strong><span>The acquisition and valuation rules most relevant to an SBA-financed Florida business purchase.</span></div>
+              <div className="sba-hero-panel-row"><strong>What FLLM appraises</strong><span>The transferable 4COP or 3PS quota-license component as a separate market asset.</span></div>
+              <div className="sba-hero-panel-row"><strong>What the lender decides</strong><span>Required scope, appraiser qualifications, reliance language and whether the report is acceptable for the loan file.</span></div>
             </aside>
           </div>
         </div>
       </section>
 
-      <section className="sba-section">
-        <div className="sba-shell">
-          <span className="sba-kicker">The SBA Transaction Distinction</span>
-          <h2 className="sba-title">Liquor-license appraisal versus business valuation</h2>
-          <div className="sba-three">
-            <article className="sba-card"><span className="ico"><Icon name="glass" /></span><h3>License-specific valuation</h3><p>FLLM values the Florida liquor license (4COP or 3PS) as a separate asset for lender consideration.</p></article>
-            <article className="sba-card"><span className="ico"><Icon name="business" /></span><h3>Operating-business valuation</h3><p>A separate business valuation addresses the operating business, financials, and other assets and liabilities.</p></article>
-            <article className="sba-card"><span className="ico"><Icon name="handshake" /></span><h3>Lender acceptance</h3><p>The lender determines what appraisals and documentation are required for the loan file.</p></article>
-          </div>
-          <div className="sba-note"><span className="ico"><Icon name="info" /></span><strong>Important:</strong> FLLM&apos;s report addresses the liquor-license component only. It does not value the operating business, establish SBA eligibility, or guarantee lender acceptance. A lender may require a separate business valuation, a credentialed independent valuation professional, real-estate or equipment appraisals, or additional scope. Confirm the lender&apos;s requirements before ordering.</div>
-        </div>
-      </section>
-
-      <section className="sba-section">
+      <section className="sba-section" id="sop-changes">
         <div className="sba-shell">
           <span className="sba-kicker">Effective October 1, 2026</span>
-          <h2 className="sba-title">What SBA SOP 50 10 8.1 changes for business acquisitions</h2>
-          <p className="sba-copy">The new procedure places 7(a) changes of ownership into Appendix 15 and applies more specific underwriting standards according to the transaction type. The comparison below highlights the changes most relevant to Florida businesses purchased with a 4COP or 3PS quota license.</p>
+          <h2 className="sba-title">What changed under SBA SOP 50 10 8.1</h2>
+          <p className="sba-copy">SOP 50 10 8.1 reorganizes change-of-ownership requirements and changes several underwriting and valuation thresholds. These are the provisions most likely to matter when a Florida business acquisition includes a valuable 4COP or 3PS quota license.</p>
+
+          <div className="sba-key-grid">
+            <div className="sba-key"><strong>1.25×</strong><span>General DSCR standard for Initial Acquisitions, Owner Buyouts and ESOP or Cooperative transactions described in Appendix 15.</span></div>
+            <div className="sba-key"><strong>10%</strong><span>Minimum equity injection for an Initial Acquisition; the lender may not reduce or eliminate that requirement.</span></div>
+            <div className="sba-key"><strong>$350K</strong><span>Business Purchase Price threshold at or below which the lender may perform its own valuation when the parties are not closely related.</span></div>
+            <div className="sba-key"><strong>$3M+</strong><span>Qualifying Initial Acquisitions and Business Expansions require a lender-ordered independent Quality of Earnings report.</span></div>
+          </div>
+
           <div className="sba-table-wrap">
             <table className="sba-table">
               <thead><tr><th>Area</th><th>Prior SOP 50 10 8 approach</th><th>SOP 50 10 8.1</th></tr></thead>
@@ -273,16 +268,42 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
               </tbody>
             </table>
           </div>
-          <div className="sba-scope"><strong>Scope for FLLM:</strong> These Appendix 15 changes principally concern changes of ownership. A pure refinance without an ownership change does not automatically trigger the acquisition rules shown above. In either transaction, a lender may request an FLLM quota-license appraisal to document the 4COP or 3PS component, subject to the lender&apos;s approval of the assignment and report.</div>
+          <div className="sba-scope"><strong>Why the license matters:</strong> the SOP changes do not turn a quota license into the business valuation. They make it more important to document what each material asset in the transaction is worth. FLLM can isolate the 4COP or 3PS quota-license component for lender consideration, subject to the lender approving the assignment and report scope.</div>
         </div>
       </section>
 
       <section className="sba-section">
         <div className="sba-shell">
-          <span className="sba-kicker">Lender-Focused Evidence</span>
-          <h2 className="sba-title">What a Florida quota-license appraisal can document</h2>
+          <span className="sba-kicker">The SBA Transaction Distinction</span>
+          <h2 className="sba-title">Liquor-license appraisal versus business valuation</h2>
+          <p className="sba-copy">These are different assignments. FLLM's report is intended to support the license component of the transaction, not to replace the operating-business valuation.</p>
+          <div className="sba-three">
+            <article className="sba-card"><span className="ico"><Icon name="glass" /></span><h3>1. FLLM license appraisal</h3><p>Values the Florida 4COP or 3PS quota license as a separate transferable asset using license-specific and county-specific market evidence.</p></article>
+            <article className="sba-card"><span className="ico"><Icon name="business" /></span><h3>2. Business valuation</h3><p>Addresses the operating enterprise, including cash flow, goodwill, furniture, fixtures, equipment and other business assets or liabilities.</p></article>
+            <article className="sba-card"><span className="ico"><Icon name="lender" /></span><h3>3. Lender determination</h3><p>The SBA lender determines which valuations and appraisals are required, who may prepare them and whether each report satisfies the loan file.</p></article>
+          </div>
+          <div className="sba-note"><span className="ico"><Icon name="info" /></span><strong>Important:</strong> FLLM does not claim SBA endorsement or automatic lender acceptance. Before ordering, the borrower or lender should confirm any required credentials, reliance language, effective date, intended use and supplemental scope.</div>
+        </div>
+      </section>
+
+      <section className="sba-section">
+        <div className="sba-shell">
+          <span className="sba-kicker">What the Report Contains</span>
+          <h2 className="sba-title">What an FLLM 4COP or 3PS license appraisal documents</h2>
+          <p className="sba-copy">The report is built around the subject license and the market in the county where that license is issued. It is intended to give the lender a documented, reviewable basis for the concluded license value.</p>
           <div className="sba-six">
             {reviewItems.map(([title,text,icon],index)=><article className="sba-card" key={title}><span className="ico"><Icon name={icon} /></span><h3>{index+1}. {title}</h3><p>{text}</p></article>)}
+          </div>
+
+          <div className="sba-order-band">
+            <div className="sba-order-grid">
+              <div>
+                <span className="sba-price">Formal license-specific appraisal · $495</span>
+                <h3>Order the quota-license appraisal after confirming the lender's scope.</h3>
+                <p>FLLM can prepare the license component for a Florida 4COP or 3PS quota license in a qualifying purchase or refinance. If the lender has specific reliance language, credential requirements or a custom scope, provide those requirements before the engagement begins.</p>
+              </div>
+              <Link className="sba-btn" href="/florida-liquor-license-appraisal#order-form">Order License Appraisal — $495</Link>
+            </div>
           </div>
         </div>
       </section>
@@ -290,8 +311,8 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
       <section className="sba-section is-relative">
         <div className="sba-shell">
           <span className="sba-kicker">Why County Evidence Matters</span>
-          <h2 className="sba-title">Florida 4COP and 3PS quota licenses are county-specific market assets</h2>
-          <p className="sba-copy">A useful Florida liquor license SBA appraisal should not rely on a generic statewide number. Quota-license supply, asking prices and transaction evidence vary by county. FLLM&apos;s formal license-specific report identifies the subject county and license series, reviews same-county evidence and separately explains any cross-series 3PS/4COP evidence used in the reconciliation.</p>
+          <h2 className="sba-title">Florida quota-license value is county-specific</h2>
+          <p className="sba-copy">A useful Florida liquor license appraisal should not rely on a generic statewide number. Quota-license supply, asking prices, transaction evidence and marketability vary by county. FLLM identifies the subject county and license series, reviews same-county evidence and separately explains any cross-series 3PS/4COP evidence used in the reconciliation.</p>
           <div className="sba-inline-actions">
             <Link className="sba-link-btn" href="/florida-liquor-license-appraisal">Review FLLM Appraisal Methodology</Link>
             <Link className="sba-link-btn" href="/florida-liquor-license-market-index">Florida Market Index</Link>
@@ -304,8 +325,8 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
       <section className="sba-section">
         <div className="sba-shell">
           <span className="sba-kicker">Current SBA References</span>
-          <h2 className="sba-title">Current SBA SOP 50 10 8.1 and lender review</h2>
-          <p className="sba-copy">SBA SOP 50 10 8.1 became effective October 1, 2026, and governs lender and development-company origination procedures for 7(a) and 504 loans. For a 7(a) business purchase or refinance, the lender determines what business valuation, collateral analysis and supporting reports are required for that transaction. FLLM&apos;s report isolates the Florida quota-license component; it does not replace a separate business valuation or other appraisal the lender requires. Ask the lender to confirm the applicable SOP requirements and acceptability of the report before ordering.</p>
+          <h2 className="sba-title">SOP 50 10 8.1 and lender review</h2>
+          <p className="sba-copy">SBA SOP 50 10 8.1 became effective October 1, 2026, and governs lender and development-company origination procedures for 7(a) and 504 loans. For a 7(a) business purchase or refinance, the lender determines the required business valuation, collateral analysis and supporting reports. FLLM's assignment is limited to the Florida quota-license component unless a broader written scope is separately agreed.</p>
           <div className="sba-reference-links">
             <a href="https://www.sba.gov/loans/7a-loans" target="_blank" rel="noopener noreferrer">Official SBA 7(a) Program ↗</a>
             <a href="https://legacy.sba.gov/document/sop-50-10-lender-development-company-loan-programs" target="_blank" rel="noopener noreferrer">Official SBA SOP 50 10, including Version 8.1 ↗</a>
