@@ -14,8 +14,11 @@ function authorized(request: NextRequest) {
 export async function GET(request: NextRequest) {
   if (!authorized(request)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   try {
-    const cursor = Number(request.nextUrl.searchParams.get("cursor") || "0");
-    const result = await ingestWsrFloridaInventory({ batchSize: 40, cursor });
+    const cursorParam = request.nextUrl.searchParams.get("cursor");
+    const result = await ingestWsrFloridaInventory({
+      batchSize: 60,
+      cursor: cursorParam === null ? undefined : Number(cursorParam),
+    });
     return NextResponse.json({ ok: true, ...result, ran_at: new Date().toISOString() });
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : "Broker inventory ingestion failed." }, { status: 500 });
