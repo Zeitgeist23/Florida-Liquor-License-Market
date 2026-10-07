@@ -101,6 +101,9 @@ export type BusinessQuotaListing = {
   transactionType: string;
   packagePrice: string;
   packagePriceNumber: number;
+  grossRevenueNumber?: number;
+  sdeNumber?: number;
+  ebitdaNumber?: number;
   allocatedLicenseValue: string;
   marketMedianLicenseValue?: string;
   licenseValueBasis?:
@@ -241,10 +244,37 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$1,200,000",
     packagePriceNumber: 1_200_000,
+    sdeNumber: 362_000,
     allocatedLicenseValue: "Location-specific",
     brokerName: "Brian Zoberg",
     brokerage: "Suncoast Business Consultants",
     featured: true,
+    publicationStatus: "published",
+    classification: "business_sfs",
+  },
+  {
+    listingReference: "FLLM-RUMIJA",
+    href: "/listings/rumija",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/semi-absentee-restaurant-for-sale/2524432/"],
+    sourceVerification: "broker_authorized",
+    county: "Lee County",
+    countyHref: "/counties/lee",
+    licenseType: "4COP SFS/SRX",
+    licenseClass: "sfs",
+    title: "Lee County Semi-Absentee Pizzeria + 4COP SFS / SRX License",
+    businessType: "Semi-absentee pizzeria",
+    businessCategory: "Restaurant",
+    summaryBusinessType: "Restaurant",
+    transactionType: "Business Sale",
+    packagePrice: "$900,000",
+    packagePriceNumber: 900_000,
+    sdeNumber: 400_000,
+    allocatedLicenseValue: "Location-specific",
+    sellerFinancingAvailable: true,
+    brokerName: "Marjan Rumija",
+    brokerage: "Krise Commercial Group, LLC",
+    featured: true,
+    listingTier: "featured",
     publicationStatus: "published",
     classification: "business_sfs",
   },
