@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import HeaderNavMenus from "@/components/HeaderNavMenus";
+import BusinessPackageLegendCountyListEnhancer from "@/components/BusinessPackageLegendCountyListEnhancer";
 
 type FormsSiteHeaderProps = {
   primaryActionHref?: string;
@@ -124,6 +125,7 @@ export default function FormsSiteHeader({
           <a className="btn btn-gold fllm-header-list-cta" href={effectivePrimaryActionHref}>{effectivePrimaryActionLabel}</a>
         </div>
       </header>
+      <BusinessPackageLegendCountyListEnhancer routeKey={pathname} />
     </>
   );
 }
