@@ -11,7 +11,7 @@ const canonicalUrl = `${siteUrl}/florida-liquor-license-sba-appraisal`;
 export const metadata: Metadata = {
   title: "Florida Liquor License SBA Appraisal | 4COP & 3PS Valuation",
   description:
-    "Florida liquor license SBA appraisal and lender valuation guidance for 4COP and 3PS quota licenses used in SBA 7(a) business acquisitions, refinancing and collateral review.",
+    "SBA 7(a) SOP 50 10 8.1 guidance and lender-review support for Florida 4COP and 3PS quota-license valuations in business purchases and eligible refinances.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   keywords: [
@@ -28,16 +28,16 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     title: "Florida Liquor License SBA Appraisal | 4COP & 3PS Valuation",
     description:
-      "How Florida quota-license valuation can support SBA lender review while remaining distinct from any separate business valuation or credentialed appraisal the lender may require.",
+      "How FLLM's Florida quota-license appraisal can support SBA 7(a) lender review under SOP 50 10 8.1, while remaining separate from a required business valuation.",
     siteName: "Florida Liquor License Market",
   },
 };
 
 const faqs = [
   {
-    question: "What is a Florida liquor license SBA appraisal?",
+    question: "What changed with SBA SOP 50 10 8.1?",
     answer:
-      "In an SBA-financed Florida business transaction, a lender may need reliable support for the value of a 3PS or 4COP quota liquor license included in the transaction or considered in collateral analysis. A license-specific market appraisal or valuation focuses on the license itself, its county, series, market evidence, transferability and related regulatory facts. It is separate from any broader business valuation required for the operating company.",
+      "SBA SOP 50 10 8.1, Lender and Development Company Loan Programs, took effect October 1, 2026. It is the current SBA origination-procedure reference for 7(a) and 504 lending. The SOP does not make an FLLM report automatically SBA-approved or lender-accepted; the lender must confirm the requirements and report scope for the specific loan.",
   },
   {
     question: "Does an SBA lender always require a separate liquor license appraisal?",
@@ -45,9 +45,9 @@ const faqs = [
       "No single rule should be assumed for every transaction. The participating lender determines the required valuation scope based on the transaction, current SBA program requirements, its credit policy and the assets being financed. Borrowers should confirm the lender's exact appraisal and business-valuation requirements before ordering.",
   },
   {
-    question: "Can FLLM prepare a Florida liquor license valuation for lender review?",
+    question: "Can FLLM provide a lender-review-ready quota-license appraisal?",
     answer:
-      "Yes. FLLM can prepare a license-specific market valuation report using the subject license, county-specific 3PS and 4COP evidence, available transaction data, DBPR research and a reconciled value conclusion. The receiving lender decides whether the report satisfies its requirements and may require different credentials or additional scope.",
+      "FLLM offers a formal, license-specific report designed to document the market value of a Florida 4COP or 3PS quota license for lender consideration. The report can include subject-license research, county-specific market evidence, DBPR review, transfer and conversion considerations, a valuation date, methodology and a reconciled conclusion. The lender decides whether the report, its author qualifications and its scope meet that lender's requirements. FLLM does not claim SBA endorsement or automatic acceptance.",
   },
   {
     question: "Is a liquor license valuation the same as the SBA business valuation?",
@@ -75,11 +75,11 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "Florida Liquor License SBA Appraisal",
+      headline: "SBA 7(a) Florida Quota Liquor License Valuation Support",
       description:
-        "Florida liquor license appraisal and valuation guidance for SBA 7(a) lender review of 4COP and 3PS quota licenses.",
+        "FLLM lender-review support for Florida 4COP and 3PS quota-license values in SBA 7(a) business purchases and eligible refinances, with guidance on current SOP 50 10 8.1.",
       datePublished: "2026-08-30",
-      dateModified: "2026-08-30",
+      dateModified: "2026-10-07",
       mainEntityOfPage: canonicalUrl,
       author: { "@type": "Organization", name: "Florida Liquor License Market" },
       publisher: { "@type": "Organization", name: "Florida Liquor License Market", url: siteUrl },
@@ -152,10 +152,10 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
           </div>
           <div className="seo-market-hero-grid">
             <div>
-              <span className="seo-market-kicker">SBA 7(a) & Lender Valuation Support</span>
-              <h1>Florida Liquor License SBA Appraisal</h1>
+              <span className="seo-market-kicker">SBA 7(a) SOP 50 10 8.1 · Effective October 1, 2026</span>
+              <h1>SBA 7(a) Liquor License Valuation Support for Florida 4COP &amp; 3PS Licenses</h1>
               <p>
-                A Florida liquor license SBA appraisal or license-specific market valuation can help document the standalone market value of a 4COP or 3PS quota license when the license is part of an SBA-financed business acquisition, refinance or lender collateral review. The liquor-license analysis is distinct from any separate operating-business valuation the lender may require.
+                FLLM provides a formal, license-specific report for a Florida 4COP or 3PS quota license included in a business purchase or eligible refinance. It documents the license component for lender consideration and remains separate from any business valuation or other appraisal the lender requires.
               </p>
               <div className="seo-market-actions">
                 <Link className="seo-market-button seo-market-button-gold" href="/florida-liquor-license-appraisal#order-form">Order License Appraisal — $995</Link>
@@ -164,8 +164,8 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
             </div>
             <aside className="sba-appraisal-summary">
               <span>What FLLM Values</span>
-              <strong>The Florida quota liquor license itself</strong>
-              <p>County-specific 4COP or 3PS market evidence, subject-license research and a reconciled license-value conclusion prepared for professional review.</p>
+              <strong>The quota-license component</strong>
+              <p>A documented license-specific value analysis for lender consideration. The lender determines whether it meets the requirements for the loan file.</p>
             </aside>
           </div>
         </div>
@@ -186,11 +186,11 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
             </article>
             <article>
               <h3>Lender acceptance</h3>
-              <p>The SBA participating lender determines what valuation work, credentials, reliance language and supplemental reports are required for its particular loan file.</p>
+              <p>The SBA participating lender determines the required valuation work, accepted credentials, reliance language and supplemental reports for its particular loan file.</p>
             </article>
           </div>
           <p className="sba-appraisal-note">
-            <strong>Important:</strong> FLLM does not represent that its license-specific market valuation automatically satisfies every SBA or lender appraisal requirement. A lender may require a credentialed independent appraiser, a separate business valuation, real-estate or equipment appraisals, or other scope. Confirm the lender&apos;s requirements before ordering whenever possible.
+            <strong>Important:</strong> FLLM&apos;s report addresses the liquor-license component only. It does not value the operating business, establish SBA eligibility, or guarantee lender acceptance. A lender may require a separate business valuation, a credentialed independent valuation professional, real-estate or equipment appraisals, or additional scope. Confirm the lender&apos;s requirements before ordering.
           </p>
         </div>
       </section>
@@ -229,12 +229,13 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
       <section className="seo-market-intro">
         <div className="seo-market-shell">
           <span className="seo-market-section-kicker">Current SBA References</span>
-          <h2>SBA 7(a) policy is administered through participating lenders</h2>
+          <h2>Current SBA SOP 50 10 8.1 and lender review</h2>
           <p>
-            The SBA describes 7(a) as its primary business loan program and permits eligible uses that include changes of ownership and multiple-purpose loans. Current origination requirements are governed by SBA SOP 50 10 and related lender guidance. Because lender and SBA requirements can change, transaction-specific appraisal requirements should be confirmed with the participating lender.
+            SBA SOP 50 10 8.1 became effective October 1, 2026, and governs lender and development-company origination procedures for 7(a) and 504 loans. For a 7(a) business purchase or refinance, the lender determines what business valuation, collateral analysis and supporting reports are required for that transaction. FLLM&apos;s report isolates the Florida quota-license component; it does not replace a separate business valuation or other appraisal the lender requires. Ask the lender to confirm the applicable SOP requirements and acceptability of the report before ordering.
           </p>
           <div className="sba-appraisal-source">
             <a href="https://www.sba.gov/loans/7a-loans" target="_blank" rel="noopener noreferrer">Official SBA 7(a) Program ↗</a>
+            <a href="https://legacy.sba.gov/document/sop-50-10-lender-development-company-loan-programs" target="_blank" rel="noopener noreferrer">Official SBA SOP 50 10, including Version 8.1 ↗</a>
             <a href="https://www.sba.gov/sba-lenders" target="_blank" rel="noopener noreferrer">SBA Lender Guidance ↗</a>
           </div>
         </div>
