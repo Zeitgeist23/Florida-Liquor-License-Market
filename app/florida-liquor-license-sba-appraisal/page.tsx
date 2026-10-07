@@ -271,8 +271,9 @@ export default function FloridaLiquorLicenseSbaAppraisalPage() {
           linear-gradient(145deg,#12527c 0%,#0d3d61 58%,#0a3150 100%);
           box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 30px rgba(49,201,238,.12),0 16px 32px rgba(0,0,0,.32),0 0 22px rgba(65,204,239,.16);filter:brightness(1.05)}
         .sba-faq summary{position:relative;z-index:1;padding:17px 46px 17px 20px;color:#fff;font-size:15px;font-weight:950;line-height:1.4;text-align:center;cursor:pointer;list-style:none}
-        /* FAQ color lock: questions white, accent gold. */
+        /* FAQ color lock: closed questions white; open question gold. */
         .sba-faq summary,.sba-faq summary:visited{color:#fff!important;-webkit-text-fill-color:#fff!important}
+        .sba-faq details[open] summary{color:#ffbd28!important;-webkit-text-fill-color:#ffbd28!important}
         .sba-faq summary::after{color:#ffbd28!important}
         .sba-faq summary::-webkit-details-marker{display:none}
         .sba-faq summary::after{content:"⌄";position:absolute;right:18px;top:50%;transform:translateY(-50%);color:#ffbd28;font-size:16px}
