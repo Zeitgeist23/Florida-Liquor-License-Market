@@ -84,7 +84,8 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
     email: "tom@prakascompany.com",
     website: "https://prakascompany.com/",
     listingUrl: sourceListingUrl,
-    credential: "Florida business and commercial real estate broker",
+    photo: "https://prakascompany.com/wp-content/uploads/2022/08/TomPrakasBio-1.jpg",
+    credential: "Owner/Founder — Prakas & Co.",
   },
   additionalSellerIntro:
     "Established neighborhood sports bar and grill opportunity in northern Palm Beach County operating from an approximately 4,750-square-foot freestanding building on a high-traffic corridor.",
