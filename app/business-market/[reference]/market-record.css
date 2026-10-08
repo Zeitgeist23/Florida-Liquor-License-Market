@@ -1689,3 +1689,16 @@
     inset 0 0 25px rgba(74,196,230,.13),
     0 10px 21px rgba(0,0,0,.26),0 0 13px rgba(225,169,48,.13);
 }
+
+/* Keep financial tooltips entirely readable above the information grid. */
+.business-market-hero-stats{isolation:isolate}
+.business-market-hero-stats .business-market-tooltip-card:hover,
+.business-market-hero-stats .business-market-tooltip-card:focus,
+.business-market-hero-stats .business-market-tooltip-card:focus-within{z-index:20}
+.business-market-hero-stats .business-market-bottom-stat>.business-market-card-tooltip{top:auto;bottom:calc(100% + 10px)}
+.business-market-hero-stats .business-market-bottom-stat:nth-child(5)>.business-market-card-tooltip{left:0;transform:none}
+.business-market-hero-stats .business-market-bottom-stat:nth-child(6)>.business-market-card-tooltip{left:auto;right:0;transform:none}
+.business-market-valuation-strip>.business-market-valuation-primary>.business-market-card-tooltip{top:auto;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%)}
+@media(max-width:679px){
+  .business-market-hero-stats .business-market-bottom-stat>.business-market-card-tooltip{left:50%;right:auto;transform:translateX(-50%)}
+}
