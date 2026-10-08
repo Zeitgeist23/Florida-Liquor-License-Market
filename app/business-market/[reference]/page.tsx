@@ -419,7 +419,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               <span className="business-market-eyebrow">FLLM MARKET VIEW</span>
               <h1>{listing.county} {listing.businessCategory}</h1>
               <p className="business-market-hero-copy">
-                Explore observed {listing.businessCategory.toLowerCase()} opportunities with a {listing.licenseType} liquor license in {listing.county}. Compare the advertised package asking price with FLLM county and liquor-license market intelligence.
+                Review this {listing.county} {listing.businessCategory.toLowerCase()} opportunity with a {listing.licenseType} liquor license, including the advertised asking price and FLLM&apos;s independent license-market intelligence.
               </p>
 
               <div className="business-market-hero-stats">
@@ -442,11 +442,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   <strong className={listing.licenseType === "4COP Quota" ? "business-market-green-license" : undefined}>{listing.licenseType}</strong>
                 </div>
                 <div className="business-market-bottom-stat">
-                  <span>Gross Annual Revenue</span>
+                  <span>Gross Annual Revenue <span className="business-market-financial-help" tabIndex={0} aria-label="Gross annual revenue information">ⓘ<span role="tooltip">Advertised annual gross revenue, when publicly disclosed. FLLM has not independently verified these figures. Not Disclosed means no supported figure is available in this market record.</span></span></span>
                   <strong>{typeof listing.grossRevenueNumber === "number" && listing.grossRevenueNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.grossRevenueNumber) : "Not Disclosed"}</strong>
                 </div>
                 <div className="business-market-bottom-stat">
-                  <span>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? "SDE / Cash Flow" : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? "EBITDA" : "SDE / Cash Flow"}</span>
+                  <span>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? "SDE / Cash Flow" : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? "EBITDA" : "SDE / Cash Flow"} <span className="business-market-financial-help" tabIndex={0} aria-label="Earnings information">ⓘ<span role="tooltip">Advertised SDE, cash flow, or EBITDA as identified in the market record. These financial metrics are not interchangeable. FLLM has not independently verified the figures.</span></span></span>
                   <strong>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.sdeNumber) : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.ebitdaNumber) : "Not Disclosed"}</strong>
                 </div>
               </div>
