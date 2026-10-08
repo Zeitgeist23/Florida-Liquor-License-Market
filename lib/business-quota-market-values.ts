@@ -31,12 +31,14 @@ export function withMarketLicenseValues(
   return listings.map((listing): BusinessQuotaListing => {
     if (listing.listingTier !== "market") return listing;
 
-    if (listing.licenseClass === "sfs") {
-      return { ...listing, allocatedLicenseValue: "Location-specific" };
-    }
-
-    if (listing.licenseClass === "2cop") {
-      return { ...listing, allocatedLicenseValue: "No separate quota value" };
+    if (listing.licenseClass === "sfs" || listing.licenseClass === "2cop") {
+      // Location-specific licenses must never carry an inherited quota valuation.
+      return {
+        ...listing,
+        allocatedLicenseValue: "",
+        marketMedianLicenseValue: undefined,
+        licenseValueBasis: "unavailable",
+      };
     }
 
     const is3ps = listing.licenseType === "3PS Quota / Package Store";
