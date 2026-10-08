@@ -1587,3 +1587,13 @@
 .business-market-hero-stats>div:nth-child(4){position:relative;justify-content:flex-start;align-items:center;text-align:center}
 .business-market-hero-stats>div:nth-child(4)>span{text-align:center;align-self:stretch}
 .business-market-hero-stats>div:nth-child(4)>strong{position:absolute;top:calc(54% + 8px);left:50%;width:calc(100% - 24px);margin:0;transform:translate(-50%,-50%);text-align:center}
+
+/* Six equal market-view statistics: 3 columns x 2 rows. */
+@media (min-width:680px){
+  .business-market-hero-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .business-market-hero-stats>div,.business-market-hero-stats>div:nth-child(4),.business-market-hero-stats>div:nth-child(5){grid-column:auto}
+}
+.business-market-hero-stats .business-market-bottom-stat{position:relative;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;text-align:center}
+.business-market-hero-stats .business-market-bottom-stat>span{align-self:stretch;text-align:center}
+.business-market-hero-stats .business-market-bottom-stat>strong{position:absolute;top:calc(54% + 5px);left:50%;width:calc(100% - 20px);transform:translate(-50%,-50%);margin:0;text-align:center}
+.business-market-hero-stats .business-market-bottom-stat>strong.business-market-green-license{color:#70d78c}
