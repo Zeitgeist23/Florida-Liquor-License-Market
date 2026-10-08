@@ -461,9 +461,6 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                       <span id="market-valuation-help" className="business-market-card-tooltip" role="tooltip">FLLM county market-based estimate of the quota liquor-license component, not a formal appraisal. It does not mean the license is available for separate purchase. The advertised Business + License Price is for the overall package.</span>
                       <strong>{moneyValue(listing.marketMedianLicenseValue || listing.allocatedLicenseValue) > 0 ? money(moneyValue(listing.marketMedianLicenseValue || listing.allocatedLicenseValue)) : "Estimate Unavailable"}</strong>
                     </div>
-                    <div className="business-market-valuation-context">
-                      <span>{listing.county} · {listing.licenseType} · Market-based estimate</span>
-                    </div>
                   </>
                 ) : (
                   <>
