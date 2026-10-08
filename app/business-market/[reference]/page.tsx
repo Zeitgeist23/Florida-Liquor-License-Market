@@ -636,7 +636,19 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   askingPrice={listing.packagePrice}
                   listingUrl={canonicalPath}
                 />
-              ) : null}
+              ) : (
+                <figure className="business-market-approved-dashboard-image">
+                  <Image
+                    src="/images/fllm-buyer-match-dashboard-martin.png"
+                    alt="Approved FLLM Buyer Match Dashboard design with four horizontal criteria panels for business and location, liquor license type, financial requirements, and deal structure"
+                    width={1672}
+                    height={941}
+                    unoptimized
+                    sizes="(max-width: 1100px) 100vw, 1460px"
+                  />
+                  <figcaption>Dashboard design preview. The example counts and depicted controls are illustrative, not live interactive tools.</figcaption>
+                </figure>
+              )}
 
               {listing.licenseClass === "quota" ? (
                 <>
