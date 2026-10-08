@@ -441,21 +441,24 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   <span>Liquor License Type</span>
                   <strong className={listing.licenseType === "4COP Quota" ? "business-market-green-license" : undefined}>{listing.licenseType}</strong>
                 </div>
-                <div className="business-market-bottom-stat">
-                  <span>Gross Annual Revenue <span className="business-market-financial-help" tabIndex={0} aria-label="Gross annual revenue information">ⓘ<span role="tooltip">Advertised annual gross revenue, when publicly disclosed. FLLM has not independently verified these figures. Not Disclosed means no supported figure is available in this market record.</span></span></span>
+                <div className="business-market-bottom-stat business-market-tooltip-card" tabIndex={0} aria-describedby="market-revenue-help">
+                  <span>Gross Annual Revenue</span>
+                  <span id="market-revenue-help" className="business-market-card-tooltip" role="tooltip">Advertised annual gross revenue, when publicly disclosed. FLLM has not independently verified these figures. Not Disclosed means no supported figure is available in this market record.</span>
                   <strong>{typeof listing.grossRevenueNumber === "number" && listing.grossRevenueNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.grossRevenueNumber) : "Not Disclosed"}</strong>
                 </div>
-                <div className="business-market-bottom-stat">
-                  <span>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? "SDE / Cash Flow" : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? "EBITDA" : "SDE / Cash Flow"} <span className="business-market-financial-help" tabIndex={0} aria-label="Earnings information">ⓘ<span role="tooltip">Advertised SDE, cash flow, or EBITDA as identified in the market record. These financial metrics are not interchangeable. FLLM has not independently verified the figures.</span></span></span>
+                <div className="business-market-bottom-stat business-market-tooltip-card" tabIndex={0} aria-describedby="market-earnings-help">
+                  <span>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? "SDE / Cash Flow" : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? "EBITDA" : "SDE / Cash Flow"}</span>
+                  <span id="market-earnings-help" className="business-market-card-tooltip" role="tooltip">Advertised SDE, cash flow, or EBITDA as identified in the market record. These financial metrics are not interchangeable. FLLM has not independently verified the figures.</span>
                   <strong>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.sdeNumber) : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.ebitdaNumber) : "Not Disclosed"}</strong>
                 </div>
               </div>
 
-              <section className="business-market-valuation-strip" aria-label="FLLM estimated license value">
+              <section className="business-market-valuation-strip business-market-tooltip-card" tabIndex={0} aria-label="FLLM estimated license value" aria-describedby="market-valuation-help">
                 {listing.licenseClass === "quota" ? (
                   <>
                     <div className="business-market-valuation-primary">
-                      <span>FLLM Est. License Value <span className="business-market-valuation-help" tabIndex={0} aria-label="License valuation explanation">ⓘ<span role="tooltip">FLLM county market-based estimate of the quota liquor-license component, not a formal appraisal. It does not mean the license is available for separate purchase. The advertised Business + License Price is for the overall package.</span></span></span>
+                      <span>FLLM Est. License Value</span>
+                      <span id="market-valuation-help" className="business-market-card-tooltip" role="tooltip">FLLM county market-based estimate of the quota liquor-license component, not a formal appraisal. It does not mean the license is available for separate purchase. The advertised Business + License Price is for the overall package.</span>
                       <strong>{moneyValue(listing.marketMedianLicenseValue || listing.allocatedLicenseValue) > 0 ? money(moneyValue(listing.marketMedianLicenseValue || listing.allocatedLicenseValue)) : "Estimate Unavailable"}</strong>
                     </div>
                     <div className="business-market-valuation-context">
