@@ -1646,3 +1646,12 @@
 .business-market-valuation-primary>span{font-size:11px}
 .business-market-valuation-primary>strong{font-size:18px;font-weight:400}
 .business-market-valuation-context{font-size:10px}
+
+/* Card-based hover/focus tooltips: no small info icons. */
+.business-market-hero-stats .business-market-tooltip-card,.business-market-valuation-strip.business-market-tooltip-card{position:relative;cursor:help;overflow:visible}
+.business-market-tooltip-card:focus-visible{outline:2px solid #62dfff;outline-offset:3px}
+.business-market-card-tooltip{position:absolute!important;z-index:25;left:50%;top:calc(100% + 9px);width:280px;max-width:min(280px,calc(100vw - 32px));box-sizing:border-box;transform:translateX(-50%);padding:12px 14px;border:1px solid #55cae4;border-radius:9px;background:#082b42;color:#e9f8ff!important;font-size:12px!important;line-height:1.5!important;font-weight:500!important;letter-spacing:normal!important;text-transform:none!important;text-align:left!important;white-space:normal!important;box-shadow:0 14px 28px rgba(0,0,0,.35);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,visibility .16s ease}
+.business-market-tooltip-card:hover>.business-market-card-tooltip,.business-market-tooltip-card:focus>.business-market-card-tooltip,.business-market-tooltip-card:focus-within>.business-market-card-tooltip,.business-market-valuation-strip:hover .business-market-card-tooltip,.business-market-valuation-strip:focus .business-market-card-tooltip{opacity:1;visibility:visible}
+.business-market-valuation-strip.business-market-tooltip-card{transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;transform-origin:center}
+.business-market-valuation-strip.business-market-tooltip-card:hover,.business-market-valuation-strip.business-market-tooltip-card:focus{transform:scale(1.02);border-color:#efbe51;background:linear-gradient(145deg,rgba(10,51,75,.95),rgba(5,28,46,.95));box-shadow:0 9px 22px rgba(0,0,0,.25),inset 0 0 20px rgba(72,195,232,.12),0 0 12px rgba(239,170,16,.14);z-index:8}
+@media(prefers-reduced-motion:reduce){.business-market-valuation-strip.business-market-tooltip-card,.business-market-card-tooltip{transition:none}}
