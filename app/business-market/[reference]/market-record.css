@@ -1791,3 +1791,42 @@
   min-height:32px;
   margin:0;
 }
+
+/* Martin pilot: strict shared label/value baselines and balanced one-line navigation. */
+.business-market-county-panel--refined .business-market-fact-grid>div{
+  display:grid;
+  grid-template-rows:34px 34px;
+  align-content:center;
+  justify-items:stretch;
+  align-items:stretch;
+  row-gap:0;
+}
+.business-market-county-panel--refined .business-market-fact-grid>div>span{
+  display:flex;align-items:center;justify-content:center;
+  height:34px;min-height:34px;margin:0;
+  font-size:12px;line-height:1.2;text-align:center;
+}
+.business-market-county-panel--refined .business-market-fact-grid>div>strong{
+  display:flex;align-items:center;justify-content:center;
+  min-height:34px;height:34px;margin:0;
+  line-height:1.2;text-align:center;
+}
+.business-market-county-panel--refined .business-market-license-links{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  width:100%;
+  max-width:1250px;
+  margin:14px auto 0;
+}
+.business-market-county-panel--refined .business-market-license-links>a{
+  width:100%;max-width:none;min-width:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:10px 8px;min-height:48px;
+  font-size:clamp(11px,1vw,14px);
+  line-height:1.15;white-space:nowrap;text-align:center;
+}
+@media(max-width:850px){
+ .business-market-county-panel--refined .business-market-license-links{grid-template-columns:1fr;max-width:620px}
+ .business-market-county-panel--refined .business-market-license-links>a{font-size:14px}
+}
