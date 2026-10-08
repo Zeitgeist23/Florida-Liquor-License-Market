@@ -1637,3 +1637,12 @@
 
 /* Valuation figure should remain green without bold emphasis. */
 .business-market-valuation-primary>strong{font-weight:400}
+
+/* Final unified visual scale for the six statistics and compact valuation strip. */
+.business-market-hero-stats>div>span{font-size:11px}
+.business-market-hero-stats>div>strong:not(.business-market-category-badge){font-size:18px;font-weight:800}
+.business-market-hero-stats .business-market-category-badge{font-size:13px}
+.business-market-valuation-strip{border-color:rgba(183,139,43,.55)}
+.business-market-valuation-primary>span{font-size:11px}
+.business-market-valuation-primary>strong{font-size:18px;font-weight:400}
+.business-market-valuation-context{font-size:10px}
