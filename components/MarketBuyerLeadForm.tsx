@@ -50,6 +50,7 @@ type Props = {
   licenseType: string;
   askingPrice: string;
   listingUrl: string;
+  horizontalMarketView?: boolean;
 };
 
 export default function MarketBuyerLeadForm({
@@ -60,6 +61,7 @@ export default function MarketBuyerLeadForm({
   licenseType,
   askingPrice,
   listingUrl,
+  horizontalMarketView = false,
 }: Props) {
   const initialBusinessType = businessTypes.includes(businessType as (typeof businessTypes)[number])
     ? businessType
@@ -229,25 +231,33 @@ export default function MarketBuyerLeadForm({
   return (
     <>
       <section id="specific-market-inquiry" className="business-market-specific-inquiry" aria-labelledby="business-market-inquiry-title">
-        <span className="business-market-form-eyebrow">Specific Business + License Inquiry</span>
-        <h2 id="business-market-inquiry-title">Interested in This Business + Liquor License?</h2>
-        <p>Ask FLLM about this observed {businessType.toLowerCase()} and {licenseType} opportunity in {county}. Your inquiry will be linked to this Market View.</p>
+        <span className="business-market-form-eyebrow">{horizontalMarketView ? "FLLM Buyer Inquiry" : "Specific Business + License Inquiry"}</span>
+        <h2 id="business-market-inquiry-title">{horizontalMarketView ? "Request Information About This Market Opportunity" : "Interested in This Business + Liquor License?"}</h2>
+        <p>{horizontalMarketView ? `Interested in ${county} ${businessType.toLowerCase()} opportunities with ${licenseType} licenses? Ask FLLM about independent license-market information and relevant buyer opportunities.` : `Ask FLLM about this observed ${businessType.toLowerCase()} and ${licenseType} opportunity in ${county}. Your inquiry will be linked to this Market View.`}</p>
         <div className="business-market-specific-inquiry-context">
-          <span>{county}</span><span>{licenseType}</span><span>{askingPrice}</span>
+          <span>{county}</span><span>{licenseType}</span>{!horizontalMarketView && <span>{askingPrice}</span>}
         </div>
         {inquiryStatus === "sent" ? (
           <div role="status" className="business-market-specific-inquiry-result">Thank you. FLLM received your inquiry and will follow up regarding available market information and next steps.</div>
         ) : (
-          <form onSubmit={submitSpecificInquiry} className="business-market-specific-inquiry-form">
-            <label htmlFor="market-contact-name">Your name</label>
-            <input id="market-contact-name" name="name" required maxLength={160} autoComplete="name" placeholder="Full name" />
-            <label htmlFor="market-contact-email">Email address</label>
-            <input id="market-contact-email" name="email" type="email" required maxLength={254} autoComplete="email" placeholder="you@example.com" />
-            <label htmlFor="market-contact-phone">Phone (optional)</label>
-            <input id="market-contact-phone" name="phone" type="tel" maxLength={60} autoComplete="tel" placeholder="(555) 555-5555" />
-            <label htmlFor="market-contact-message">What would you like to know?</label>
-            <textarea id="market-contact-message" name="message" required maxLength={5000} rows={3} defaultValue={`I'm interested in the ${businessType} with a ${licenseType} license in ${county}. Please contact me about this Market View and any available next steps.`} />
-            <button type="submit" disabled={inquiryStatus === "submitting"}>{inquiryStatus === "submitting" ? "Sending inquiry…" : "Request Info About This Opportunity →"}</button>
+          <form onSubmit={submitSpecificInquiry} className={`business-market-specific-inquiry-form${horizontalMarketView ? " business-market-specific-inquiry-form--horizontal" : ""}`}>
+            <div className="business-market-inquiry-field">
+              <label htmlFor="market-contact-name">Your name</label>
+              <input id="market-contact-name" name="name" required maxLength={160} autoComplete="name" placeholder="Full name" />
+            </div>
+            <div className="business-market-inquiry-field">
+              <label htmlFor="market-contact-email">Email address</label>
+              <input id="market-contact-email" name="email" type="email" required maxLength={254} autoComplete="email" placeholder="you@example.com" />
+            </div>
+            <div className="business-market-inquiry-field">
+              <label htmlFor="market-contact-phone">Phone (optional)</label>
+              <input id="market-contact-phone" name="phone" type="tel" maxLength={60} autoComplete="tel" placeholder="(555) 555-5555" />
+            </div>
+            <div className="business-market-inquiry-field business-market-inquiry-field--message">
+              <label htmlFor="market-contact-message">What would you like to know?</label>
+              <textarea id="market-contact-message" name="message" required maxLength={5000} rows={3} defaultValue={horizontalMarketView ? `I'm interested in ${businessType.toLowerCase()} and ${licenseType} opportunities in ${county}. Please contact me about available market information and possible next steps.` : `I'm interested in the ${businessType} with a ${licenseType} license in ${county}. Please contact me about this Market View and any available next steps.`} />
+            </div>
+            <button type="submit" disabled={inquiryStatus === "submitting"}>{inquiryStatus === "submitting" ? "Sending inquiry…" : horizontalMarketView ? "Request Information →" : "Request Info About This Opportunity →"}</button>
             {inquiryStatus === "error" && <p className="business-market-specific-inquiry-error" role="alert">{inquiryError}</p>}
           </form>
         )}
