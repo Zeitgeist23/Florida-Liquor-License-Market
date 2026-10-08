@@ -1766,50 +1766,48 @@
 @media(max-width:650px){.business-market-county-panel--refined .business-market-license-links a{flex-basis:100%;max-width:none}}
 @media(prefers-reduced-motion:reduce){.business-market-county-panel--refined .business-market-license-links a{transition:none}}
 
-/* Martin four-card market statistics: shared heading and value alignment. */
+/* Single authoritative Martin card baseline rule: top-anchored labels and values. */
 .business-market-county-panel--refined .business-market-fact-grid>div{
-  display:grid;
-  grid-template-rows:36px 32px;
-  align-content:center;
-  align-items:center;
-  justify-items:center;
-  row-gap:4px;
+  position:relative;
+  display:block;
+  height:99px;
+  min-height:99px;
+  padding:0 12px;
+  box-sizing:border-box;
 }
 .business-market-county-panel--refined .business-market-fact-grid>div>span{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:100%;
-  height:36px;
+  position:absolute;
+  top:22px;
+  left:10px;
+  right:10px;
+  display:block;
+  width:auto;
+  height:auto;
+  min-height:0;
   margin:0;
+  padding:0;
+  font-size:12px;
+  line-height:16px;
+  text-align:center;
 }
 .business-market-county-panel--refined .business-market-fact-grid>div>strong{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:100%;
-  min-height:32px;
+  position:absolute;
+  top:52px;
+  left:10px;
+  right:10px;
+  display:block;
+  width:auto;
+  height:auto;
+  min-height:0;
   margin:0;
+  padding:0;
+  font-size:clamp(19px,1.55vw,23px);
+  line-height:26px;
+  text-align:center;
 }
-
-/* Martin pilot: strict shared label/value baselines and balanced one-line navigation. */
-.business-market-county-panel--refined .business-market-fact-grid>div{
-  display:grid;
-  grid-template-rows:34px 34px;
-  align-content:center;
-  justify-items:stretch;
-  align-items:stretch;
-  row-gap:0;
-}
-.business-market-county-panel--refined .business-market-fact-grid>div>span{
-  display:flex;align-items:center;justify-content:center;
-  height:34px;min-height:34px;margin:0;
-  font-size:12px;line-height:1.2;text-align:center;
-}
-.business-market-county-panel--refined .business-market-fact-grid>div>strong{
-  display:flex;align-items:center;justify-content:center;
-  min-height:34px;height:34px;margin:0;
-  line-height:1.2;text-align:center;
+.business-market-county-panel--refined .business-market-fact-grid>div:nth-child(4)>strong{
+  font-size:clamp(17px,1.3vw,20px);
+  font-weight:650;
 }
 .business-market-county-panel--refined .business-market-license-links{
   display:grid;
