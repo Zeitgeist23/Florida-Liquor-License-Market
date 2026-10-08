@@ -9,7 +9,6 @@ import BusinessMarketLicenseFeatureCards from "@/components/BusinessMarketLicens
 import BusinessMarketplaceRoleDisclosure from "@/components/BusinessMarketplaceRoleDisclosure";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
-import MarketBuyerAcquisitionDashboard from "@/components/MarketBuyerAcquisitionDashboard";
 import ObservedDaysOnMarket from "@/components/ObservedDaysOnMarket";
 import { ListingSidebarLoanCalculator } from "@/components/ListingBrokerInquiryForm";
 import { countySlug, floridaCounties } from "@/data/florida-counties";
@@ -625,20 +624,17 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
             </div>
 
             <aside className="business-market-sidebar" id="buyer-alert">
-              {listing.listingReference === "FLLM-MKT-Q-001" ? (
-                <MarketBuyerAcquisitionDashboard listingReference={listing.listingReference} listingUrl={canonicalPath} county={listing.county} businessType={listing.businessCategory} licenseType={listing.licenseType}/>
-              ) : (
-              <MarketBuyerLeadForm
-                listingReference={listing.listingReference}
-                horizontalMarketView={listing.listingReference === "FLLM-MKT-Q-001"}
-                listingTitle={title}
-                county={listing.county}
-                businessType={listing.businessCategory}
-                licenseType={listing.licenseType}
-                askingPrice={listing.packagePrice}
-                listingUrl={canonicalPath}
-              />
-              )}
+              {listing.listingReference !== "FLLM-MKT-Q-001" ? (
+                <MarketBuyerLeadForm
+                  listingReference={listing.listingReference}
+                  listingTitle={title}
+                  county={listing.county}
+                  businessType={listing.businessCategory}
+                  licenseType={listing.licenseType}
+                  askingPrice={listing.packagePrice}
+                  listingUrl={canonicalPath}
+                />
+              ) : null}
 
               {listing.licenseClass === "quota" ? (
                 <>
