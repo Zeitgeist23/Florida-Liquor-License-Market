@@ -434,7 +434,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   <strong>{listing.county}</strong>
                 </div>
                 <div>
-                  <span>Advertised Asking Price</span>
+                  <span>Business + License Price</span>
                   <strong>{listing.packagePrice}</strong>
                 </div>
                 <div className="business-market-bottom-stat">
