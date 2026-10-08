@@ -419,7 +419,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               <span className="business-market-eyebrow">FLLM MARKET VIEW</span>
               <h1>{listing.county} {listing.businessCategory}</h1>
               <p className="business-market-hero-copy">
-                Review this {listing.county} {listing.businessCategory.toLowerCase()} opportunity with a {listing.licenseType} liquor license, including the advertised asking price and FLLM&apos;s independent license-market intelligence.
+                Review this {listing.county} {listing.businessCategory.toLowerCase()} opportunity with a {listing.licenseType} liquor license, including the advertised business + license package price and FLLM&apos;s independent license-market intelligence.
               </p>
 
               <div className="business-market-hero-stats">
