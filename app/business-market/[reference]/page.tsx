@@ -419,10 +419,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               <span className="business-market-eyebrow">FLLM MARKET VIEW</span>
               <h1>{title}</h1>
               <p className="business-market-hero-copy">
-                This Market View presents observed business-and-license market activity using
-                limited factual fields, together with FLLM liquor-license and county-market
-                intelligence. It is not an FLLM Featured Broker Listing and does not state or imply
-                that FLLM represents the business, seller, or listing broker.
+                Explore observed {listing.businessCategory.toLowerCase()} opportunities with a {listing.licenseType} liquor license in {listing.county}. Compare the advertised package asking price with FLLM county and liquor-license market intelligence.
               </p>
 
               <div className="business-market-hero-stats">
@@ -464,13 +461,14 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               </div>
 
               <div className="business-market-hero-actions">
-                <a className="business-market-primary" href="#buyer-alert">
-                  Create Buyer Alert
+                <a className="business-market-primary" href="#specific-market-inquiry">
+                  Request Information
                 </a>
                 <Link className="business-market-secondary" href={listing.countyHref}>
                   Explore {listing.county}
                 </Link>
               </div>
+              <p className="business-market-hero-disclosure">Independent FLLM Market View only. FLLM does not represent the business, seller, or broker.</p>
             </div>
 
             <BusinessMarketHeroMap
