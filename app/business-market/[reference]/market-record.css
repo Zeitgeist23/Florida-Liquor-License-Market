@@ -1557,3 +1557,7 @@
 .business-market-hero-disclosure{margin:12px 0 0;max-width:740px;color:#afc3d1;font-size:12px;line-height:1.5}
 #specific-market-inquiry{scroll-margin-top:110px}
 @media (max-width:679px){.business-market-hero-stats{grid-template-columns:1fr}}
+
+/* Requested Market View category badge adjustment */
+.business-market-hero-stats .business-market-category-stat{position:relative;justify-content:flex-start;align-items:stretch;text-align:left}
+.business-market-hero-stats .business-market-category-stat .business-market-category-badge{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%) scale(.85);transform-origin:center;margin:0;max-width:calc(100% - 16px)}
