@@ -426,9 +426,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               </p>
 
               <div className="business-market-hero-stats">
-                <div>
+                <div className="business-market-category-stat">
                   <span>Business Category</span>
-                  <strong>{listing.businessCategory}</strong>
+                  <strong className={`business-market-category-badge business-market-category-badge--${listing.businessCategory.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}>
+                    {listing.businessCategory}
+                  </strong>
                 </div>
                 <div>
                   <span>County Location</span>
