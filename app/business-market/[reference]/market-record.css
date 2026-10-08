@@ -1629,3 +1629,8 @@
 .business-market-valuation-context>span:after{content:" · "}
 .business-market-valuation-context small{font-size:11px}
 @media(max-width:550px){.business-market-valuation-primary{gap:6px}.business-market-valuation-context{flex-direction:column}.business-market-valuation-context>span:after{content:""}}
+
+/* Reduce valuation strip typography while preserving centered compact layout. */
+.business-market-valuation-primary>span{font-size:10px}
+.business-market-valuation-primary>strong{font-size:17px}
+.business-market-valuation-context,.business-market-valuation-context small{font-size:10px;line-height:1.35}
