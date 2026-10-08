@@ -1582,3 +1582,8 @@
 
 /* Equalize free space above and below the Bar badge beneath its heading. */
 .business-market-hero-stats .business-market-category-stat .business-market-category-badge{top:calc(54% + 8px)}
+
+/* Align Liquor License Type card with the top-row heading/value presentation. */
+.business-market-hero-stats>div:nth-child(4){position:relative;justify-content:flex-start;align-items:center;text-align:center}
+.business-market-hero-stats>div:nth-child(4)>span{text-align:center;align-self:stretch}
+.business-market-hero-stats>div:nth-child(4)>strong{position:absolute;top:calc(54% + 8px);left:50%;width:calc(100% - 24px);margin:0;transform:translate(-50%,-50%);text-align:center}
