@@ -530,7 +530,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
 
                 <div className="business-market-fact-grid">
                   <div>
-                    <span>Median Disclosed License Ask</span>
+                    <span>{listing.listingReference === "FLLM-MKT-Q-001" ? "FLLM Median License Asking Price" : "Median Disclosed License Ask"}</span>
                     <strong>{money(countyLicenseMedianAsk)}</strong>
                   </div>
                   <div>
