@@ -1522,7 +1522,7 @@
 
 /* Category badges reuse the exact color and surface values from business inventory cards. */
 .business-market-hero-stats .business-market-category-stat{display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:flex-start}
-.business-market-hero-stats .business-market-category-badge{--market-category-color:#7d91a0;--market-category-surface:rgba(125,145,160,.14);display:inline-flex;justify-content:center;align-items:center;align-self:center;width:max-content;max-width:100%;margin:13px auto 0;padding:8px 15px;min-height:34px;border:1px solid var(--market-category-color);border-radius:999px;background:var(--market-category-surface);color:var(--market-category-color);font:900 13px/1.1 Arial,Helvetica,sans-serif;letter-spacing:.055em;text-transform:uppercase;white-space:normal;text-align:center}
+.business-market-hero-stats .business-market-category-badge{display:inline-flex;justify-content:center;align-items:center;align-self:center;width:max-content;max-width:100%;margin:13px auto 0;padding:8px 15px;min-height:34px;border:1px solid var(--market-category-color);border-radius:999px;background:var(--market-category-surface);color:var(--market-category-color);font:900 13px/1.1 Arial,Helvetica,sans-serif;letter-spacing:.055em;text-transform:uppercase;white-space:normal;text-align:center}
 .business-market-category-badge--bar{--market-category-color:#ff7777;--market-category-surface:rgba(183,54,54,.18)}
 .business-market-category-badge--cocktail-lounge{--market-category-color:#c08cff;--market-category-surface:rgba(137,76,201,.18)}
 .business-market-category-badge--nightclub{--market-category-color:#ff72cf;--market-category-surface:rgba(199,54,151,.18)}
@@ -1533,3 +1533,27 @@
 .business-market-category-badge--gentlemens-club{--market-category-color:#e883a5;--market-category-surface:rgba(165,55,91,.18)}
 .business-market-category-badge--hotel-motel{--market-category-color:#91a5ff;--market-category-surface:rgba(78,99,190,.18)}
 .business-market-category-badge--country-club{--market-category-color:#78d6a2;--market-category-surface:rgba(50,145,92,.18)}
+
+/* Harmonized five-card hero: three on row one, two equal-width on row two. */
+@media (min-width: 680px){
+  .business-market-hero-stats{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .business-market-hero-stats>div{grid-column:span 2}
+  .business-market-hero-stats>div:nth-child(4),.business-market-hero-stats>div:nth-child(5){grid-column:span 3}
+}
+.business-market-hero-stats>div{min-height:93px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
+.business-market-hero-stats .business-market-category-stat{--market-category-color:#7d91a0;--market-category-surface:rgba(125,145,160,.14)}
+.business-market-hero-stats .business-market-category-stat:has(.business-market-category-badge--bar){--market-category-color:#ff7777;--market-category-surface:rgba(183,54,54,.18)}
+.business-market-hero-stats .business-market-category-stat:has(.business-market-category-badge--cocktail-lounge){--market-category-color:#c08cff;--market-category-surface:rgba(137,76,201,.18)}
+.business-market-hero-stats .business-market-category-stat:has(.business-market-category-badge--nightclub){--market-category-color:#ff72cf;--market-category-surface:rgba(199,54,151,.18)}
+.business-market-hero-stats .business-market-category-stat:has(.business-market-category-badge--restaurant){--market-category-color:#54dbc8;--market-category-surface:rgba(40,168,150,.18)}
+.business-market-hero-stats .business-market-category-stat:has(.business-market-category-badge--liquor-store){--market-category-color:#70d78c;--market-category-surface:rgba(55,151,82,.18)}
+.business-market-hero-stats .business-market-category-stat:has(.business-market-category-badge--marina){--market-category-color:#67bfff;--market-category-surface:rgba(49,132,191,.18)}
+.business-market-hero-stats .business-market-category-stat:has(.business-market-category-badge--gentlemens-club){--market-category-color:#e883a5;--market-category-surface:rgba(165,55,91,.18)}
+.business-market-hero-stats .business-market-category-stat:has(.business-market-category-badge--hotel-motel){--market-category-color:#91a5ff;--market-category-surface:rgba(78,99,190,.18)}
+.business-market-hero-stats .business-market-category-stat:has(.business-market-category-badge--country-club){--market-category-color:#78d6a2;--market-category-surface:rgba(50,145,92,.18)}
+.business-market-hero-stats .business-market-category-stat:has(.business-market-category-badge--bowling-alley){--market-category-color:#ffab5c;--market-category-surface:rgba(190,103,34,.18)}
+.business-market-hero-stats .business-market-category-stat>span{align-self:stretch;text-align:left}
+.business-market-hero-stats .business-market-category-stat strong{color:var(--market-category-color);border-color:var(--market-category-color);background:var(--market-category-surface)}
+.business-market-hero-disclosure{margin:12px 0 0;max-width:740px;color:#afc3d1;font-size:12px;line-height:1.5}
+#specific-market-inquiry{scroll-margin-top:110px}
+@media (max-width:679px){.business-market-hero-stats{grid-template-columns:1fr}}
