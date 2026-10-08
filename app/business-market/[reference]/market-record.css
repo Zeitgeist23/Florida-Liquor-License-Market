@@ -1702,3 +1702,24 @@
 @media(max-width:679px){
   .business-market-hero-stats .business-market-bottom-stat>.business-market-card-tooltip{left:50%;right:auto;transform:translateX(-50%)}
 }
+
+/* Martin Market View pilot only: full-width inquiry following county market facts. */
+.business-market-grid--martin-horizontal{display:flex;flex-direction:column;gap:18px}
+.business-market-grid--martin-horizontal>.business-market-main,
+.business-market-grid--martin-horizontal>.business-market-sidebar{display:contents}
+.business-market-grid--martin-horizontal .business-market-main>.business-market-panel:first-child{order:1}
+.business-market-grid--martin-horizontal .business-market-sidebar>.business-market-specific-inquiry{order:2}
+.business-market-grid--martin-horizontal .business-market-main>.business-market-panel:not(:first-child){order:3}
+.business-market-grid--martin-horizontal .business-market-sidebar>.business-market-alert-card{order:4}
+.business-market-grid--martin-horizontal .business-market-sidebar>.business-market-side-card,
+.business-market-grid--martin-horizontal .business-market-sidebar>.antezza-sidebar-calculator{order:5}
+.business-market-grid--martin-horizontal .business-market-specific-inquiry{width:100%;max-width:none;box-sizing:border-box;padding:25px 30px}
+.business-market-grid--martin-horizontal .business-market-specific-inquiry h2{font-size:clamp(22px,2.5vw,30px)}
+.business-market-grid--martin-horizontal .business-market-specific-inquiry>p{max-width:860px}
+.business-market-inquiry-field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.business-market-inquiry-field label{font-size:14px}
+.business-market-specific-inquiry-form--horizontal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 20px}
+.business-market-specific-inquiry-form--horizontal .business-market-inquiry-field--message{grid-column:1/-1}
+.business-market-specific-inquiry-form--horizontal button{grid-column:1/-1;width:min(100%,460px);justify-self:center}
+.business-market-specific-inquiry-form--horizontal .business-market-specific-inquiry-error{grid-column:1/-1}
+@media(max-width:650px){.business-market-grid--martin-horizontal .business-market-specific-inquiry{padding:18px}.business-market-specific-inquiry-form--horizontal{grid-template-columns:1fr}.business-market-specific-inquiry-form--horizontal .business-market-inquiry-field--message,.business-market-specific-inquiry-form--horizontal button{grid-column:1}}
