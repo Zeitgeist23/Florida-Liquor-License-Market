@@ -505,7 +505,7 @@ export default function BrokerIntelligenceClient() {
               <thead><tr><th>Reference</th><th>County / City</th><th>Business type</th><th>License type</th><th>Asking price</th><th>FLLM est. license value</th><th>Days observed</th></tr></thead>
               <tbody>
                 {selected.activeRecords.map((row) => (
-                  <tr key={row.listing_reference} onClick={() => setDetailRow(row)} className="bi-clickable-row">
+                  <tr key={row.listing_reference}>
                     <td><strong>{row.listing_reference}</strong>{row.source_listing_title && <small>{row.source_listing_title}</small>}</td>
                     <td>{row.county}{row.city ? ` / ${row.city}` : ""}</td>
                     <td>{row.business_type || "—"}</td>
@@ -627,7 +627,7 @@ export default function BrokerIntelligenceClient() {
                   <thead><tr><th>Private best guess</th><th>Reference</th><th>County</th><th>Type</th><th>License</th><th>Ask</th><th>FLLM value</th><th>Confidence</th><th>Status</th></tr></thead>
                   <tbody>
                     {selected.records.map((row) => (
-                      <tr key={row.listing_reference}>
+                      <tr key={row.listing_reference} onClick={() => setDetailRow(row)} className="bi-clickable-row" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") setDetailRow(row); }}>
                         <td>
                           <strong>{row.business_name || row.source_listing_title || "Identity unresolved"}</strong>
                           <small>{row.business_name ? (row.legal_entity_name || row.source_listing_title || "") : "Source listing — private identity not yet resolved"}</small>
