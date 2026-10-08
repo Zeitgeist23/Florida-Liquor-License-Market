@@ -1581,4 +1581,4 @@
 .business-market-hero-stats>div:nth-child(2)>strong,.business-market-hero-stats>div:nth-child(3)>strong{position:absolute;top:calc(54% + 5px);left:50%;width:calc(100% - 24px);margin:0;transform:translate(-50%,-50%);text-align:center}
 
 /* Equalize free space above and below the Bar badge beneath its heading. */
-.business-market-hero-stats .business-market-category-stat .business-market-category-badge{top:calc(54% + 10px)}
+.business-market-hero-stats .business-market-category-stat .business-market-category-badge{top:calc(54% + 8px)}
