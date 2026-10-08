@@ -437,26 +437,17 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   <span>Advertised Asking Price</span>
                   <strong>{listing.packagePrice}</strong>
                 </div>
-                <div>
+                <div className="business-market-bottom-stat">
                   <span>Liquor License Type</span>
-                  <strong>{listing.licenseType}</strong>
+                  <strong className={listing.licenseType === "4COP Quota" ? "business-market-green-license" : undefined}>{listing.licenseType}</strong>
                 </div>
-                <div>
-                  <span>Observed Days on Market</span>
-                  <strong>
-                    {marketObservation ? (
-                      <ObservedDaysOnMarket
-                        firstSeenAt={marketObservation.firstSeenAt}
-                        removedAt={marketObservation.removedAt}
-                        status={marketObservation.status}
-                      />
-                    ) : (
-                      "Tracking started"
-                    )}
-                  </strong>
-                  <small className="business-market-observation-note">
-                    FLLM observation period; not the broker&apos;s original listing date.
-                  </small>
+                <div className="business-market-bottom-stat">
+                  <span>Gross Annual Revenue</span>
+                  <strong>{typeof listing.grossRevenueNumber === "number" && listing.grossRevenueNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.grossRevenueNumber) : "Not Disclosed"}</strong>
+                </div>
+                <div className="business-market-bottom-stat">
+                  <span>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? "SDE / Cash Flow" : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? "EBITDA" : "SDE / Cash Flow"}</span>
+                  <strong>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.sdeNumber) : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.ebitdaNumber) : "Not Disclosed"}</strong>
                 </div>
               </div>
 
