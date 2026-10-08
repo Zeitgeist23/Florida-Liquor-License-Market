@@ -1655,3 +1655,10 @@
 .business-market-valuation-strip.business-market-tooltip-card{transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;transform-origin:center}
 .business-market-valuation-strip.business-market-tooltip-card:hover,.business-market-valuation-strip.business-market-tooltip-card:focus{transform:scale(1.02);border-color:#efbe51;background:linear-gradient(145deg,rgba(10,51,75,.95),rgba(5,28,46,.95));box-shadow:0 9px 22px rgba(0,0,0,.25),inset 0 0 20px rgba(72,195,232,.12),0 0 12px rgba(239,170,16,.14);z-index:8}
 @media(prefers-reduced-motion:reduce){.business-market-valuation-strip.business-market-tooltip-card,.business-market-card-tooltip{transition:none}}
+
+/* Approved one-line, low-profile quota valuation strip. Tooltip remains card-hover based. */
+.business-market-valuation-strip:has(.business-market-valuation-primary){min-height:52px;padding:8px 14px;gap:0;flex-direction:row;align-items:center;justify-content:center}
+.business-market-valuation-strip .business-market-valuation-primary{display:flex;align-items:center;justify-content:center;flex-direction:row;flex-wrap:nowrap;gap:12px;width:100%}
+.business-market-valuation-strip .business-market-valuation-primary>strong{font-size:16px;font-weight:400;white-space:nowrap}
+.business-market-valuation-strip .business-market-valuation-primary>span:first-child{font-size:11px;white-space:nowrap}
+@media(max-width:550px){.business-market-valuation-strip .business-market-valuation-primary{gap:7px;flex-wrap:wrap}}
