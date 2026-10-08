@@ -228,7 +228,7 @@ export default function MarketBuyerLeadForm({
 
   return (
     <>
-      <section className="business-market-specific-inquiry" aria-labelledby="business-market-inquiry-title">
+      <section id="specific-market-inquiry" className="business-market-specific-inquiry" aria-labelledby="business-market-inquiry-title">
         <span className="business-market-form-eyebrow">Specific Business + License Inquiry</span>
         <h2 id="business-market-inquiry-title">Interested in This Business + Liquor License?</h2>
         <p>Ask FLLM about this observed {businessType.toLowerCase()} and {licenseType} opportunity in {county}. Your inquiry will be linked to this Market View.</p>
