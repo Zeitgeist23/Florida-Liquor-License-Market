@@ -516,7 +516,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
 
       <section className="business-market-content">
         <div className="business-market-shell">
-          <div className="business-market-grid">
+          <div className={`business-market-grid${listing.listingReference === "FLLM-MKT-Q-001" ? " business-market-grid--martin-horizontal" : ""}`}>
             <div className="business-market-main">
               <section className="business-market-panel">
                 <div className="business-market-section-heading">
@@ -625,6 +625,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
             <aside className="business-market-sidebar" id="buyer-alert">
               <MarketBuyerLeadForm
                 listingReference={listing.listingReference}
+                horizontalMarketView={listing.listingReference === "FLLM-MKT-Q-001"}
                 listingTitle={title}
                 county={listing.county}
                 businessType={listing.businessCategory}
