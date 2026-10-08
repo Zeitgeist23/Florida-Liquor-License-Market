@@ -1606,3 +1606,16 @@
 .business-market-hero-stats .business-market-financial-help:hover>span[role="tooltip"],.business-market-hero-stats .business-market-financial-help:focus>span[role="tooltip"]{visibility:visible;opacity:1}
 .business-market-hero-stats .business-market-financial-help:focus-visible{outline:2px solid #f3b426;outline-offset:3px;border-radius:2px}
 @media(prefers-reduced-motion:reduce){.business-market-hero-stats>div,.business-market-hero-stats .business-market-financial-help>span[role="tooltip"]{transition:none}}
+
+/* Independent valuation strip: a separate component value, not the package purchase price. */
+.business-market-valuation-strip{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:13px;padding:16px 20px;border:1px solid #b78b2b;border-radius:10px;background:linear-gradient(115deg,#082a42,#061d30);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 8px 20px rgba(0,0,0,.12)}
+.business-market-valuation-primary{display:flex;flex-direction:column;gap:6px}
+.business-market-valuation-primary>span{font-size:11px;font-weight:900;letter-spacing:.055em;color:#f4b527;text-transform:uppercase}
+.business-market-valuation-primary>strong{font-size:26px;font-weight:900;color:#61e6a0;line-height:1.2}
+.business-market-valuation-context{text-align:right;display:flex;flex-direction:column;gap:5px;color:#abc5d2;font-size:12px;font-weight:750}
+.business-market-valuation-context small{font-size:11px;font-weight:500;color:#abc5d2}
+.business-market-valuation-help{position:relative;display:inline-block;cursor:help;color:#7bddf3;font-size:14px;margin-left:4px}
+.business-market-valuation-help>span[role="tooltip"]{visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);width:260px;max-width:calc(100vw - 36px);padding:12px;border-radius:8px;border:1px solid #55cae4;background:#082b42;box-shadow:0 12px 25px rgba(0,0,0,.35);color:#e8f8ff;text-align:left;font-size:12px;font-weight:500;line-height:1.5;letter-spacing:normal;text-transform:none;white-space:normal;z-index:15;pointer-events:none}
+.business-market-valuation-help:hover>span[role="tooltip"],.business-market-valuation-help:focus>span[role="tooltip"]{visibility:visible;opacity:1}
+.business-market-valuation-help:focus-visible{outline:2px solid #f3b426;outline-offset:3px}
+@media(max-width:550px){.business-market-valuation-strip{padding:14px}.business-market-valuation-context{text-align:left}}
