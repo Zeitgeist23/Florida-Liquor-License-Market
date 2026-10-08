@@ -1634,3 +1634,6 @@
 .business-market-valuation-primary>span{font-size:10px}
 .business-market-valuation-primary>strong{font-size:17px}
 .business-market-valuation-context,.business-market-valuation-context small{font-size:10px;line-height:1.35}
+
+/* Valuation figure should remain green without bold emphasis. */
+.business-market-valuation-primary>strong{font-weight:400}
