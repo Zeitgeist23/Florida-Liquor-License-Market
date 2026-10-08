@@ -1619,3 +1619,13 @@
 .business-market-valuation-help:hover>span[role="tooltip"],.business-market-valuation-help:focus>span[role="tooltip"]{visibility:visible;opacity:1}
 .business-market-valuation-help:focus-visible{outline:2px solid #f3b426;outline-offset:3px}
 @media(max-width:550px){.business-market-valuation-strip{padding:14px}.business-market-valuation-context{text-align:left}}
+
+/* Compact valuation callout: keep all valuation details together rather than split across the hero. */
+.business-market-valuation-strip{width:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;margin-top:12px;padding:10px 16px;border-radius:8px;text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.05);background:rgba(4,24,40,.58)}
+.business-market-valuation-primary{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px}
+.business-market-valuation-primary>span{font-size:11px;line-height:1.35}
+.business-market-valuation-primary>strong{font-size:21px;line-height:1.25}
+.business-market-valuation-context{width:100%;display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:center;gap:5px;text-align:center;font-size:11px;font-weight:600}
+.business-market-valuation-context>span:after{content:" · "}
+.business-market-valuation-context small{font-size:11px}
+@media(max-width:550px){.business-market-valuation-primary{gap:6px}.business-market-valuation-context{flex-direction:column}.business-market-valuation-context>span:after{content:""}}
