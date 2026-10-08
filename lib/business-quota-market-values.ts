@@ -62,6 +62,7 @@ export function withMarketLicenseValues(
       return {
         ...listing,
         allocatedLicenseValue: formatMoney(directMedian),
+        marketMedianLicenseValue: formatMoney(directMedian),
         licenseValueBasis: is3ps
           ? "county_3ps_median"
           : "county_4cop_median",
@@ -89,6 +90,7 @@ export function withMarketLicenseValues(
         return {
           ...listing,
           allocatedLicenseValue: formatMoney(proxyValue),
+          marketMedianLicenseValue: formatMoney(proxyValue),
           licenseValueBasis: "county_4cop_series_proxy",
         };
       }
@@ -97,6 +99,7 @@ export function withMarketLicenseValues(
     return {
       ...listing,
       allocatedLicenseValue: "Market data unavailable",
+      marketMedianLicenseValue: undefined,
       licenseValueBasis: "unavailable",
     };
   });
