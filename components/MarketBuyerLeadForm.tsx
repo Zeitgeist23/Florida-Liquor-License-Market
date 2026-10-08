@@ -54,9 +54,11 @@ type Props = {
 
 export default function MarketBuyerLeadForm({
   listingReference,
+  listingTitle,
   county,
   businessType,
   licenseType,
+  askingPrice,
   listingUrl,
 }: Props) {
   const initialBusinessType = businessTypes.includes(businessType as (typeof businessTypes)[number])
@@ -67,6 +69,8 @@ export default function MarketBuyerLeadForm({
     : "4COP Quota";
 
   const [open, setOpen] = useState(false);
+  const [inquiryStatus, setInquiryStatus] = useState<SubmitState>("idle");
+  const [inquiryError, setInquiryError] = useState("");
   const [status, setStatus] = useState<SubmitState>("idle");
   const [error, setError] = useState("");
   const [currentMatches, setCurrentMatches] = useState(0);
@@ -134,6 +138,33 @@ export default function MarketBuyerLeadForm({
     setCountyToAdd("");
   }
 
+  async function submitSpecificInquiry(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setInquiryStatus("submitting");
+    setInquiryError("");
+    try {
+      const form = new FormData(event.currentTarget);
+      form.set("inquiry_type", "Business Market Opportunity Inquiry");
+      form.set("listing_reference", listingReference);
+      form.set("listing_requested", listingTitle);
+      form.set("listing_county", county);
+      form.set("preferred_county", county);
+      form.set("license_type", licenseType);
+      form.set("asking_price", askingPrice);
+      form.set("listing_url", listingUrl);
+      form.set("listing_status", "Independent FLLM Market View — no broker representation");
+      const response = await fetch("/api/inquiry", { method: "POST", body: form });
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "Unable to submit inquiry.");
+      }
+      setInquiryStatus("sent");
+    } catch (error) {
+      setInquiryError(error instanceof Error ? error.message : "Unable to submit inquiry.");
+      setInquiryStatus("error");
+    }
+  }
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
@@ -197,6 +228,31 @@ export default function MarketBuyerLeadForm({
 
   return (
     <>
+      <section className="business-market-specific-inquiry" aria-labelledby="business-market-inquiry-title">
+        <span className="business-market-form-eyebrow">Specific Business + License Inquiry</span>
+        <h2 id="business-market-inquiry-title">Interested in This Business + Liquor License?</h2>
+        <p>Ask FLLM about this observed {businessType.toLowerCase()} and {licenseType} opportunity in {county}. Your inquiry will be linked to this Market View.</p>
+        <div className="business-market-specific-inquiry-context">
+          <span>{county}</span><span>{licenseType}</span><span>{askingPrice}</span>
+        </div>
+        {inquiryStatus === "sent" ? (
+          <div role="status" className="business-market-specific-inquiry-result">Thank you. FLLM received your inquiry and will follow up regarding available market information and next steps.</div>
+        ) : (
+          <form onSubmit={submitSpecificInquiry} className="business-market-specific-inquiry-form">
+            <label htmlFor="market-contact-name">Your name</label>
+            <input id="market-contact-name" name="name" required maxLength={160} autoComplete="name" placeholder="Full name" />
+            <label htmlFor="market-contact-email">Email address</label>
+            <input id="market-contact-email" name="email" type="email" required maxLength={254} autoComplete="email" placeholder="you@example.com" />
+            <label htmlFor="market-contact-phone">Phone (optional)</label>
+            <input id="market-contact-phone" name="phone" type="tel" maxLength={60} autoComplete="tel" placeholder="(555) 555-5555" />
+            <label htmlFor="market-contact-message">What would you like to know?</label>
+            <textarea id="market-contact-message" name="message" required maxLength={5000} rows={3} defaultValue={`I'm interested in the ${businessType} with a ${licenseType} license in ${county}. Please contact me about this Market View and any available next steps.`} />
+            <button type="submit" disabled={inquiryStatus === "submitting"}>{inquiryStatus === "submitting" ? "Sending inquiry…" : "Request Info About This Opportunity →"}</button>
+            {inquiryStatus === "error" && <p className="business-market-specific-inquiry-error" role="alert">{inquiryError}</p>}
+          </form>
+        )}
+        <small>FLLM provides independent market information and buyer matching. This is not an authorized seller or broker listing; FLLM cannot guarantee that the business is available or arrange contact with its seller.</small>
+      </section>
       <section className="business-market-alert-card" aria-labelledby="buyer-alert-title">
         <span className="business-market-form-eyebrow">FLLM Buyer Alerts</span>
         <h2 id="buyer-alert-title">Get New Opportunities Like This</h2>
