@@ -451,6 +451,32 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 </div>
               </div>
 
+              <section className="business-market-valuation-strip" aria-label="FLLM estimated license value">
+                {listing.licenseClass === "quota" ? (
+                  <>
+                    <div className="business-market-valuation-primary">
+                      <span>FLLM Est. License Value <span className="business-market-valuation-help" tabIndex={0} aria-label="License valuation explanation">ⓘ<span role="tooltip">FLLM county market-based estimate of the quota liquor-license component, not a formal appraisal. It does not mean the license is available for separate purchase. The advertised Business + License Price is for the overall package.</span></span></span>
+                      <strong>{moneyValue(listing.marketMedianLicenseValue || listing.allocatedLicenseValue) > 0 ? money(moneyValue(listing.marketMedianLicenseValue || listing.allocatedLicenseValue)) : "Estimate Unavailable"}</strong>
+                    </div>
+                    <div className="business-market-valuation-context">
+                      <span>{listing.licenseType} · {listing.county}</span>
+                      <small>County market-based estimate · License component only</small>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="business-market-valuation-primary">
+                      <span>License Classification</span>
+                      <strong>{listing.licenseType}</strong>
+                    </div>
+                    <div className="business-market-valuation-context">
+                      <span>Location-specific license classification</span>
+                      <small>No separate transferable quota-license value implied</small>
+                    </div>
+                  </>
+                )}
+              </section>
+
               <div className="business-market-hero-actions">
                 <a className="business-market-primary" href="#specific-market-inquiry">
                   Request Information
