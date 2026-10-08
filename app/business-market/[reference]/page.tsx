@@ -477,9 +477,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               </section>
 
               <div className="business-market-hero-actions">
-                <a className="business-market-primary" href="#specific-market-inquiry">
-                  Request Information
-                </a>
+                {listing.listingReference !== "FLLM-MKT-Q-001" ? (
+                  <a className="business-market-primary" href="#specific-market-inquiry">
+                    Request Information
+                  </a>
+                ) : null}
                 <Link className="business-market-secondary" href={listing.countyHref}>
                   Explore {listing.county}
                 </Link>
