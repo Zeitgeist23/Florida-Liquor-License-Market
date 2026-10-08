@@ -1571,3 +1571,7 @@
 /* Center County Location and Advertised Asking Price labels and values in their respective header cards. */
 .business-market-hero-stats>div:nth-child(2),.business-market-hero-stats>div:nth-child(3){align-items:center;text-align:center}
 .business-market-hero-stats>div:nth-child(2)>span,.business-market-hero-stats>div:nth-child(3)>span{text-align:center}
+
+/* Align the County Location and Asking Price headings to the Business Category heading's top baseline. */
+.business-market-hero-stats>div:nth-child(2),.business-market-hero-stats>div:nth-child(3){justify-content:flex-start}
+.business-market-hero-stats>div:nth-child(2)>span,.business-market-hero-stats>div:nth-child(3)>span{padding-top:0}
