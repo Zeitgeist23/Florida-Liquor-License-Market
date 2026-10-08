@@ -417,7 +417,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
           <div className="business-market-hero-grid">
             <div className="business-market-hero-copy-block">
               <span className="business-market-eyebrow">FLLM MARKET VIEW</span>
-              <h1>{title}</h1>
+              <h1>{listing.county} {listing.businessCategory}</h1>
               <p className="business-market-hero-copy">
                 Explore observed {listing.businessCategory.toLowerCase()} opportunities with a {listing.licenseType} liquor license in {listing.county}. Compare the advertised package asking price with FLLM county and liquor-license market intelligence.
               </p>
