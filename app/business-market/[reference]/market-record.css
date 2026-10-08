@@ -1502,3 +1502,20 @@
     grid-template-columns:1fr;
   }
 }
+
+/* Specific Market View inquiry: primary buyer conversion, independent of broker listings */
+.business-market-specific-inquiry{border:1px solid #35d7ec;border-radius:16px;background:linear-gradient(155deg,#0d3452,#071c32);padding:24px;box-shadow:0 12px 30px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.09);color:#e5f5fc}
+.business-market-specific-inquiry h2{color:#7cefff;font-size:clamp(22px,2vw,29px);line-height:1.2;margin:8px 0 12px}
+.business-market-specific-inquiry p{font-size:15px;line-height:1.55;color:#e5f5fc;margin:0 0 16px}
+.business-market-specific-inquiry-context{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+.business-market-specific-inquiry-context span{border:1px solid #246f88;border-radius:8px;padding:7px 10px;color:#fff;font-size:13px;font-weight:800;background:#0e3854}
+.business-market-specific-inquiry-form{display:grid;gap:8px}
+.business-market-specific-inquiry-form label{font-size:13px;color:#b9f3ff;font-weight:800;margin-top:4px}
+.business-market-specific-inquiry-form input,.business-market-specific-inquiry-form textarea{width:100%;box-sizing:border-box;border:1px solid #63a2b8;border-radius:9px;background:#fff;color:#082239;padding:12px;font:inherit;font-size:15px;line-height:1.4}
+.business-market-specific-inquiry-form input:focus,.business-market-specific-inquiry-form textarea:focus{outline:3px solid #f3b722;outline-offset:1px}
+.business-market-specific-inquiry-form button{border:1px solid #ffc54a;border-radius:10px;min-height:50px;margin-top:8px;background:linear-gradient(180deg,#ffca49,#e9a411);color:#09243a;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 4px 0 #a66d0b;transition:transform .17s ease,filter .17s ease}
+.business-market-specific-inquiry-form button:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.business-market-specific-inquiry-form button:disabled{opacity:.6;cursor:wait}
+.business-market-specific-inquiry>small{display:block;margin-top:14px;color:#bed3de;font-size:12px;line-height:1.5}
+.business-market-specific-inquiry-result{border:1px solid #79dbc4;background:#103f43;padding:16px;border-radius:10px;color:#d0fff4}
+.business-market-specific-inquiry-error{color:#ffb5b5!important}
