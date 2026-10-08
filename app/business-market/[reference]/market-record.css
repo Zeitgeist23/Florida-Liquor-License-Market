@@ -1567,3 +1567,7 @@
 
 /* Shift the market-view category badge down exactly five pixels. */
 .business-market-hero-stats .business-market-category-stat .business-market-category-badge{top:calc(54% + 5px)}
+
+/* Center County Location and Advertised Asking Price labels and values in their respective header cards. */
+.business-market-hero-stats>div:nth-child(2),.business-market-hero-stats>div:nth-child(3){align-items:center;text-align:center}
+.business-market-hero-stats>div:nth-child(2)>span,.business-market-hero-stats>div:nth-child(3)>span{text-align:center}
