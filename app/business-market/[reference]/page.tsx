@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -28,6 +27,7 @@ import "@/app/fllm-design-system.css";
 import "@/app/counties/counties-page.css";
 import "@/app/market-data/heat-map/business-package-heat-map.css";
 import "./market-record.css";
+import "./fllm-capture.css";
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 
@@ -637,17 +637,16 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   listingUrl={canonicalPath}
                 />
               ) : (
-                <figure className="business-market-approved-dashboard-image">
-                  <Image
-                    src="/images/fllm-buyer-match-dashboard-martin.png"
-                    alt="Approved FLLM Buyer Match Dashboard design with four horizontal criteria panels for business and location, liquor license type, financial requirements, and deal structure"
-                    width={1672}
-                    height={941}
-                    unoptimized
-                    sizes="(max-width: 1100px) 100vw, 1460px"
-                  />
-                  <figcaption>Dashboard design preview. The example counts and depicted controls are illustrative, not live interactive tools.</figcaption>
-                </figure>
+                <MarketBuyerLeadForm
+                  listingReference={listing.listingReference}
+                  listingTitle={title}
+                  county={listing.county}
+                  businessType={listing.businessCategory}
+                  licenseType={listing.licenseType}
+                  askingPrice={listing.packagePrice}
+                  listingUrl={canonicalPath}
+                  horizontalMarketView
+                />
               )}
 
               {listing.licenseClass === "quota" ? (
