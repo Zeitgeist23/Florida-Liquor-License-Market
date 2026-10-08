@@ -1808,7 +1808,8 @@
 .business-market-county-panel--refined .business-market-fact-grid>div:nth-child(4)>strong{
   font-size:clamp(17px,1.3vw,20px);
   font-weight:650;
-  top:46px;
+  top:42px;
+  line-height:22px;
 }
 .business-market-county-panel--refined .business-market-license-links{
   display:grid;
