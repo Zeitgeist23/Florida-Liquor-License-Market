@@ -459,8 +459,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                       <strong>{moneyValue(listing.marketMedianLicenseValue || listing.allocatedLicenseValue) > 0 ? money(moneyValue(listing.marketMedianLicenseValue || listing.allocatedLicenseValue)) : "Estimate Unavailable"}</strong>
                     </div>
                     <div className="business-market-valuation-context">
-                      <span>{listing.licenseType} · {listing.county}</span>
-                      <small>County market-based estimate · License component only</small>
+                      <span>{listing.county} · {listing.licenseType} · Market-based estimate</span>
                     </div>
                   </>
                 ) : (
