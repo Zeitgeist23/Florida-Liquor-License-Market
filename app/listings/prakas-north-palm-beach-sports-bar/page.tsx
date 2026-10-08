@@ -78,14 +78,14 @@ const config: FeaturedThirdPartyBusinessListingConfig = {
   heroSummary:
     "North Palm Beach-area freestanding sports bar and grill offered at $395,000 with an included full-liquor 4COP SFS / SRX restaurant license, approximately 4,750 square feet, a recent buildout, all FF&E in place and a long-term lease.",
   broker: {
-    name: "Tom Prakas",
+    name: "Nick Prakas",
     brokerage: "Prakas & Co.",
-    phone: "(954) 953-3676",
-    email: "tom@prakascompany.com",
-    website: "https://prakascompany.com/",
+    phone: "(561) 665-1402",
+    email: "nick@prakascompany.com",
+    website: "https://prakascompany.com/nick-prakas/",
     listingUrl: sourceListingUrl,
-    photo: "https://prakascompany.com/wp-content/uploads/2022/08/TomPrakasBio-1.jpg",
-    credential: "Owner/Founder — Prakas & Co.",
+    photo: "https://prakascompany.com/wp-content/uploads/2023/05/nick-lo-res-1-1.jpg",
+    credential: "Senior VP of Commercial Leasing — Prakas & Co.",
   },
   additionalSellerIntro:
     "Established neighborhood sports bar and grill opportunity in northern Palm Beach County operating from an approximately 4,750-square-foot freestanding building on a high-traffic corridor.",
