@@ -1723,3 +1723,8 @@
 .business-market-specific-inquiry-form--horizontal button{grid-column:1/-1;width:min(100%,460px);justify-self:center}
 .business-market-specific-inquiry-form--horizontal .business-market-specific-inquiry-error{grid-column:1/-1}
 @media(max-width:650px){.business-market-grid--martin-horizontal .business-market-specific-inquiry{padding:18px}.business-market-specific-inquiry-form--horizontal{grid-template-columns:1fr}.business-market-specific-inquiry-form--horizontal .business-market-inquiry-field--message,.business-market-specific-inquiry-form--horizontal button{grid-column:1}}
+
+/* Keep any ancillary sidebar components after the pilot inquiry, regardless of component class. */
+.business-market-grid--martin-horizontal>.business-market-sidebar>*{order:5}
+.business-market-grid--martin-horizontal>.business-market-sidebar>.business-market-specific-inquiry{order:2}
+.business-market-grid--martin-horizontal>.business-market-sidebar>.business-market-alert-card{order:4}
