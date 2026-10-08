@@ -230,6 +230,36 @@ export default function MarketBuyerLeadForm({
 
   return (
     <>
+      {horizontalMarketView ? (
+        <section id="specific-market-inquiry" className="fllm-capture" aria-labelledby="fllm-capture-title">
+          <div className="fllm-capture-kicker">FLORIDA LIQUOR LICENSE MARKET</div>
+          <h2 id="fllm-capture-title">REQUEST INFORMATION ABOUT THIS OPPORTUNITY</h2>
+          <p className="fllm-capture-description">Tell us what you’re looking for and we’ll help match you with relevant<br className="fllm-capture-wide" /> Florida business and liquor-license opportunities.</p>
+          <div className="fllm-capture-feature fllm-capture-feature--lt"><span className="fllm-capture-feature-icon">▤</span><strong>EXPERT GUIDANCE</strong><span>Get matched with<br/>relevant opportunities</span></div>
+          <div className="fllm-capture-feature fllm-capture-feature--lb"><span className="fllm-capture-feature-icon">◎</span><strong>SAVE TIME</strong><span>Let us find the best<br/>matches for you</span></div>
+          <div className="fllm-capture-feature fllm-capture-feature--rt"><span className="fllm-capture-feature-icon">♧</span><strong>RELEVANT MATCHES</strong><span>Opportunities based<br/>on your criteria</span></div>
+          <div className="fllm-capture-feature fllm-capture-feature--rb"><span className="fllm-capture-feature-icon">▥</span><strong>CONFIDENTIAL<br/>&amp; SECURE</strong><span>Your information<br/>stays private</span></div>
+          {inquiryStatus === "sent" ? <div className="fllm-capture-success" role="status">Thank you. FLLM received your inquiry and will follow up about relevant market information.</div> : (
+            <form className="fllm-capture-form" onSubmit={submitSpecificInquiry}>
+              <div className="fllm-capture-row">
+                <label>Name<input name="name" placeholder="♟   Your full name" autoComplete="name" maxLength={160} required /></label>
+                <label>Email<input name="email" type="email" placeholder="✉   you@example.com" autoComplete="email" maxLength={254} required /></label>
+                <label>Phone<input name="phone" type="tel" placeholder="☎   (555) 123-4567" autoComplete="tel" maxLength={60}/></label>
+              </div>
+              <label className="fllm-capture-county">County<select name="county" defaultValue={county}>{counties.map((item)=><option key={item} value={item}>{item}</option>)}</select></label>
+              <label className="fllm-capture-message">Message<textarea name="message" rows={4} maxLength={5000} placeholder="Tell us about what you’re looking for..." required /></label>
+              <button className="fllm-capture-submit" type="submit" disabled={inquiryStatus==="submitting"}>➤ &nbsp; {inquiryStatus==="submitting"?"Sending inquiry…":"Submit Buyer Inquiry"} &nbsp; →</button>
+              {inquiryStatus==="error"&&<p className="fllm-capture-error" role="alert">{inquiryError}</p>}
+            </form>
+          )}
+          <div className="fllm-capture-or"><span>OR</span></div>
+          <button className="fllm-capture-advanced" type="button" onClick={()=>{setStatus("idle");setError("");setOpen(true);}}>⌕ &nbsp; Advanced Search Options</button>
+          <p className="fllm-capture-advanced-note">Open the full Buyer Match Dashboard for more filters and options.</p>
+          <div className="fllm-capture-preview" aria-hidden="true"><strong>Buyer Match Dashboard</strong><div className="fllm-capture-preview-body"><span>▥<br/>☑<br/>☑<br/>☑</span><span>━━━━━━<br/>━━━━<br/>━━━━━━<br/>━━━━</span><span>FL</span></div></div>
+          <div className="fllm-capture-preview-callout">More filters<br/>More opportunities<br/>Same powerful data</div>
+          <div className="fllm-capture-foot"><span>◆ &nbsp; Independent Market View</span><span>✓ &nbsp; No Broker-Authorized Listing Required</span><span>♟ &nbsp; Real Opportunities. Real Businesses.</span></div>
+        </section>
+      ) : (
       <section id="specific-market-inquiry" className="business-market-specific-inquiry" aria-labelledby="business-market-inquiry-title">
         <span className="business-market-form-eyebrow">{horizontalMarketView ? "FLLM Buyer Inquiry" : "Specific Business + License Inquiry"}</span>
         <h2 id="business-market-inquiry-title">{horizontalMarketView ? "Request Information About This Market Opportunity" : "Interested in This Business + Liquor License?"}</h2>
@@ -263,7 +293,8 @@ export default function MarketBuyerLeadForm({
         )}
         <small>FLLM provides independent market information and buyer matching. This is not an authorized seller or broker listing; FLLM cannot guarantee that the business is available or arrange contact with its seller.</small>
       </section>
-      <section className="business-market-alert-card" aria-labelledby="buyer-alert-title">
+      )}
+      {!horizontalMarketView && <section className="business-market-alert-card" aria-labelledby="buyer-alert-title">
         <span className="business-market-form-eyebrow">FLLM Buyer Alerts</span>
         <h2 id="buyer-alert-title">Get New Opportunities Like This</h2>
         <p>
@@ -282,7 +313,7 @@ export default function MarketBuyerLeadForm({
           Customize business type, license type, counties, purchase price, gross sales,
           SDE / cash flow, EBITDA and financing preference.
         </small>
-      </section>
+      </section>}
 
       {open ? (
         <div className="business-market-alert-modal-backdrop" role="presentation" onMouseDown={(event) => {
