@@ -33,3 +33,14 @@ Never compute a quota median from operating business-and-license package asking 
 - Quota estimates must use FLLM's data method, not hard-coded values or manual external verification.
 - The record's `listingTier` and authorization metadata control contact behavior. An unauthorised market observation must never inherit featured-broker copy, specific-seller contact routing, or broker commissions.
 - Preserve consistent canonical URLs and content templates; classifications may change by record without manual page editing.
+
+
+## E. Permanent readable market-data section standard (approved October 8, 2026)
+- Market-data section headings and eyebrow labels are centered. Center statistical labels, figures, and action groups.
+- Desktop market statistics use four consistent dimensional cards in one row when width permits; two per row on narrower layouts, one per row on mobile.
+- Card labels: 12–14px minimum; numeric values: 20–24px target; body copy: 15–16px; disclosures: at least 13–14px.
+- Use established FLLM navy gradients, clear borders, subtle internal lighting and 102% hover enlargement. Support reduced-motion preference.
+- Avoid long, repetitive legal/disclosure panels. Retain one concise and accurate FLLM role clarification close to the market data, keeping authorization caveats visible.
+- Center and proportionally size navigation buttons; preserve legibility and keyboard access.
+- Long-form explanatory paragraphs may remain left-aligned when that improves reading; do not mechanically center every paragraph or use tiny text to fit content.
+- The October 8 Martin County Market View is the scoped pilot implementation. Apply the presentation standard to additional Market Views only after explicit authorization; the design specification itself remains the permanent FLLM standard for future work.
