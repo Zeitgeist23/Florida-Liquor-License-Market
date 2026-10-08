@@ -1564,3 +1564,6 @@
 
 /* Center the category eyebrow without moving the badge. */
 .business-market-hero-stats .business-market-category-stat>span{text-align:center;align-self:stretch}
+
+/* Shift the market-view category badge down exactly five pixels. */
+.business-market-hero-stats .business-market-category-stat .business-market-category-badge{top:calc(54% + 5px)}
