@@ -1597,3 +1597,12 @@
 .business-market-hero-stats .business-market-bottom-stat>span{align-self:stretch;text-align:center}
 .business-market-hero-stats .business-market-bottom-stat>strong{position:absolute;top:calc(54% + 5px);left:50%;width:calc(100% - 20px);transform:translate(-50%,-50%);margin:0;text-align:center}
 .business-market-hero-stats .business-market-bottom-stat>strong.business-market-green-license{color:#70d78c}
+
+/* Market View six-card dimensional hover treatment and accessible financial tooltips. */
+.business-market-hero-stats>div{position:relative;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease;transform-origin:center;z-index:1}
+.business-market-hero-stats>div:hover,.business-market-hero-stats>div:focus-within{transform:scale(1.02);z-index:5;border-color:#efbe51;background:linear-gradient(145deg,rgba(10,51,75,.95),rgba(5,28,46,.95));box-shadow:0 9px 22px rgba(0,0,0,.25),inset 0 0 20px rgba(72,195,232,.12),0 0 12px rgba(239,170,16,.14)}
+.business-market-hero-stats .business-market-financial-help{display:inline-block;position:relative;vertical-align:baseline;color:#83deef;font-size:13px;line-height:1;cursor:help;margin-left:4px;letter-spacing:0;text-transform:none}
+.business-market-hero-stats .business-market-financial-help>span[role="tooltip"]{visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);width:245px;max-width:calc(100vw - 36px);box-sizing:border-box;padding:12px;border:1px solid #55cae4;border-radius:9px;background:#092c43;box-shadow:0 12px 25px rgba(0,0,0,.35);color:#e8f8ff;font-size:12px;line-height:1.5;text-align:left;font-weight:500;letter-spacing:normal;text-transform:none;white-space:normal;pointer-events:none;transition:opacity .15s ease}
+.business-market-hero-stats .business-market-financial-help:hover>span[role="tooltip"],.business-market-hero-stats .business-market-financial-help:focus>span[role="tooltip"]{visibility:visible;opacity:1}
+.business-market-hero-stats .business-market-financial-help:focus-visible{outline:2px solid #f3b426;outline-offset:3px;border-radius:2px}
+@media(prefers-reduced-motion:reduce){.business-market-hero-stats>div,.business-market-hero-stats .business-market-financial-help>span[role="tooltip"]{transition:none}}
