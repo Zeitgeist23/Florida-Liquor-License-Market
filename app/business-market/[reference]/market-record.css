@@ -1938,3 +1938,28 @@
 .buyer-terminal-match-features span{font-size:10px}
 @media(max-width:1280px){.buyer-terminal-header--approved{grid-template-columns:1fr}.buyer-terminal-command{max-width:850px;width:100%;margin-left:auto}.buyer-terminal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.buyer-terminal-panel{min-height:365px}}
 @media(max-width:680px){.buyer-terminal-kpis{grid-template-columns:repeat(2,1fr)}.buyer-terminal-grid,.buyer-terminal-matchbar{grid-template-columns:1fr}.buyer-terminal-panel{min-height:0}.buyer-terminal-top-actions{flex-wrap:wrap}.buyer-terminal-header--approved{grid-template-columns:1fr}.buyer-terminal-dealgrid{grid-template-columns:1fr 1fr}}
+
+/* Martin County only: exact approved static Buyer Match Dashboard image. */
+.business-market-grid--martin-horizontal > .business-market-sidebar > .business-market-approved-dashboard-image{
+  order:2;
+  width:100%;
+  max-width:100%;
+  margin:0;
+  padding:0;
+  overflow:visible;
+  box-sizing:border-box;
+}
+.business-market-approved-dashboard-image img{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:11px;
+  object-fit:contain;
+}
+.business-market-approved-dashboard-image figcaption{
+  margin:10px 0 0;
+  text-align:center;
+  font-size:13px;
+  line-height:1.45;
+  color:#a9cbd7;
+}
