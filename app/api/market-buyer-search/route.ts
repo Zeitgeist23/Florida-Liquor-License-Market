@@ -29,6 +29,7 @@ export async function POST(request: Request) {
     } catch (error) {
       console.error("Financial lookup unavailable", error);
     }
+    const diagnostics={eligibleBeforeEarnings:eligible.length,missingEarnings:0,belowEarningsMinimum:0};
     const matching=eligible.filter(x=>{
       const enriched=approved.get(x.listingReference);
       const displayed=x.featured ? featuredFinancials[x.listingReference] : undefined;
@@ -36,11 +37,13 @@ export async function POST(request: Request) {
       const sde=displayed?.sde ?? x.sdeNumber ?? enriched?.sde;
       const ebitda=displayed?.ebitda ?? x.ebitdaNumber;
       const earnings = [sde, ebitda].filter((v): v is number => typeof v === "number" && Number.isFinite(v));
+      if(earningsMinimum>0 && earnings.length===0) diagnostics.missingEarnings++;
+      else if(earningsMinimum>0 && !earnings.some(value=>value>=earningsMinimum)) diagnostics.belowEarningsMinimum++;
       return (minRevenue===null || (typeof gross==="number" && gross>=minRevenue))
         && (earningsMinimum===0 || earnings.some(value=>value>=earningsMinimum));
     });
     return NextResponse.json({
-      total:matching.length,potentialCount:0,shown:matching.length,
+      total:matching.length,potentialCount:0,shown:matching.length,diagnostics,
       results:matching.slice(0,30).map(x=>({
         reference:x.listingReference,county:x.county,businessType:x.businessCategory,
         licenseType:x.licenseType,price:x.packagePrice,
