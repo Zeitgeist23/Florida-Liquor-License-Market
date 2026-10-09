@@ -557,3 +557,14 @@
 
 /* Keep the short package-price heading aligned with the license-type heading. */
 .business-package-county-map .business-package-tooltip-link .business-package-listing-price dt{white-space:nowrap;font-size:10px;letter-spacing:0;}
+
+/* Align market-map category pills with their corresponding Market View hero pills. */
+.business-package-category-badge--restaurant{--category-color:#54dbc8;--category-surface:rgba(40,168,150,.18)}
+.business-package-category-badge--cocktail-lounge{--category-color:#c08cff;--category-surface:rgba(137,76,201,.18)}
+.business-package-category-badge--nightclub{--category-color:#ff72cf;--category-surface:rgba(199,54,151,.18)}
+.business-package-category-badge--liquor-store{--category-color:#70d78c;--category-surface:rgba(55,151,82,.18)}
+.business-package-category-badge--marina{--category-color:#67bfff;--category-surface:rgba(49,132,191,.18)}
+.business-package-category-badge--gentlemen-s-club,.business-package-category-badge--gentlemens-club{--category-color:#e883a5;--category-surface:rgba(165,55,91,.18)}
+.business-package-category-badge--hotel-motel{--category-color:#91a5ff;--category-surface:rgba(78,99,190,.18)}
+.business-package-category-badge--bowling-alley{--category-color:#ffab5c;--category-surface:rgba(190,103,34,.18)}
+.business-package-category-badge--country-club{--category-color:#78d6a2;--category-surface:rgba(50,145,92,.18)}
