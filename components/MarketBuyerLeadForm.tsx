@@ -99,6 +99,7 @@ export default function MarketBuyerLeadForm({
   const [financialTab, setFinancialTab] = useState("Asking Price");
   const [buyerName, setBuyerName] = useState("");
   const [buyerEmail, setBuyerEmail] = useState("");
+  const [inventoryCount, setInventoryCount] = useState<number | null>(null);
   const [searching, setSearching] = useState(false);
   const [searchError, setSearchError] = useState("");
   const [searchResults, setSearchResults] = useState<{total:number;results:{reference:string;county:string;businessType:string;licenseType:string;price:string;href:string;source:string}[]} | null>(null);
@@ -107,6 +108,11 @@ export default function MarketBuyerLeadForm({
     () => counties.filter((item) => !selectedCounties.includes(item)),
     [selectedCounties],
   );
+
+  useEffect(() => {
+    if (!open) return;
+    fetch("/api/market-buyer-search",{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(data=>setInventoryCount(typeof data.activeListings==="number"?data.activeListings:null)).catch(()=>setInventoryCount(null));
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -367,7 +373,7 @@ export default function MarketBuyerLeadForm({
               <form className="fllm-match" onSubmit={submit}>
                 <header className="fllm-match-top">
                   <div className="fllm-match-title"><b>FLLM BUYER MATCH DASHBOARD</b><h2 id="buyer-alert-modal-title">Request Market Match Criteria</h2><p>Set your requirements and get matched with relevant Florida business and liquor-license opportunities based on our independent market data.<br/>This is an Independent Market View. FLLM provides market information and buyer matching, not a broker-authorized listing.</p></div>
-                  <div className="fllm-match-right"><div className="fllm-match-metrics"><div className="green"><strong>—</strong><span>Active Listings<br/>Data pending</span></div><div className="blue"><strong>—</strong><span>New This Month<br/>Data pending</span></div><div className="red"><strong>—</strong><span>Price Reductions<br/>Data pending</span></div><div className="blue"><strong>🔔</strong><span>Buyer Alerts<br/>Available</span></div></div><div className="fllm-match-actions"><button type="button" onClick={()=>setAdvancedOpen(true)}>▣ &nbsp; Save Search</button><button type="button" onClick={()=>{setSelectedBusinessTypes([initialBusinessType]);setSelectedLicenseTypes([initialLicenseType]);setSelectedCounties([county]);setMaxPurchasePrice("");setMinGrossRevenue("");setMinSde("");setMinEbitda("");setExtraCriteria([]);setSelectedFinancing(["Any"]);setRealEstate("Either");}}>⟳ &nbsp; Reset</button><button type="button" className="gold" onClick={findMatches} disabled={searching}>{searching?"Searching Listings…":"Find Matching Opportunities →"}</button></div></div>
+                  <div className="fllm-match-right"><div className="fllm-match-metrics"><div className="green"><strong>{inventoryCount===null?"—":inventoryCount.toLocaleString()}</strong><span>Active Listings{inventoryCount===null?<><br/>Unavailable</>:null}</span></div><div className="blue"><strong>—</strong><span>New This Month<br/>Not tracked</span></div><div className="red"><strong>—</strong><span>Price Reductions<br/>Not tracked</span></div><div className="blue"><strong>🔔</strong><span>Buyer Alerts<br/>Available</span></div></div><div className="fllm-match-actions"><button type="button" onClick={()=>setAdvancedOpen(true)}>▣ &nbsp; Save Search</button><button type="button" onClick={()=>{setSelectedBusinessTypes([initialBusinessType]);setSelectedLicenseTypes([initialLicenseType]);setSelectedCounties([county]);setMaxPurchasePrice("");setMinGrossRevenue("");setMinSde("");setMinEbitda("");setExtraCriteria([]);setSelectedFinancing(["Any"]);setRealEstate("Either");}}>⟳ &nbsp; Reset</button><button type="button" className="gold" onClick={findMatches} disabled={searching}>{searching?"Searching Listings…":"Find Matching Opportunities →"}</button></div></div>
                 </header>
                 {searchError&&<p className="fllm-match-search-error" role="alert">{searchError}</p>}
                 {searchResults&&<section id="fllm-live-search-results" className="fllm-match-results" aria-live="polite"><div className="fllm-match-results-header"><h3>{searchResults.total} Matching Opportunities</h3><button type="button" onClick={()=>setSearchResults(null)}>Close Results ×</button></div>{searchResults.total===0?<p>No current published records meet all selected criteria. Try broadening a county, license type or financial threshold.</p>:<div className="fllm-match-result-grid">{searchResults.results.map(item=><a key={item.reference} href={item.href}><b>{item.businessType} · {item.licenseType}</b><span>{item.county} · {item.price}</span><small>{item.source} · {item.reference} ↗</small></a>)}</div>}{searchResults.total>searchResults.results.length&&<p>Showing the first {searchResults.results.length} matching records.</p>}<button type="button" className="fllm-match-save-results" onClick={()=>setAdvancedOpen(true)}>Save Search and Receive Buyer Alerts →</button></section>}
