@@ -200,6 +200,31 @@ export default async function FloridaBarsForSaleWithLiquorLicensesPage() {
         </div>
       </section>
 
+      <section className="fllm-template-section" id="find-full-liquor-bars">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Find a Florida Bar With Full Liquor"
+            title="Search bars for sale by liquor-license type and county"
+            copy={<p>Looking for a Florida bar for sale with a full liquor license? Start with current bar Market Views below, then compare the included 4COP license class and the county's estimated quota-license market value. Asking prices and earnings are shown when available; they are not independently verified by FLLM.</p>}
+          />
+          <FllmCardGrid columns={3}>
+            <FllmCard eyebrow="Current market" title="Browse bar opportunities" variant="gold">
+              <p>Review current asking-price information and the license structure disclosed for each bar-related opportunity.</p>
+              <FllmButton href="#current-bar-market" variant="outline">View Florida Bar Listings</FllmButton>
+            </FllmCard>
+            <FllmCard eyebrow="Quota intelligence" title="Compare 4COP license values" variant="gold">
+              <p>See 4COP quota bar Market Views with FLLM estimated license value, kept distinct from the total business asking price.</p>
+              <FllmButton href="/businesses-with-quota-licenses/bars" variant="outline">Compare Quota Bars</FllmButton>
+            </FllmCard>
+            <FllmCard eyebrow="New opportunities" title="Get county-specific alerts" variant="gold">
+              <p>Choose counties and license types to learn when matching liquor-license opportunities are added.</p>
+              <FllmButton href="/license-alerts" variant="outline">Set Up License Alerts</FllmButton>
+            </FllmCard>
+          </FllmCardGrid>
+          <p style={{ marginTop: "1rem" }}>FLLM provides market intelligence and authorized featured listings; third-party Market Views do not mean FLLM represents the business seller.</p>
+        </div>
+      </section>
+
       <section className="fllm-template-section" id="license-paths">
         <div className="fllm-template-shell">
           <FllmSectionHeading
