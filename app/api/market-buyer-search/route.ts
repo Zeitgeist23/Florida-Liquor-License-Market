@@ -30,7 +30,7 @@ export async function POST(request: Request) {
       console.error("Financial lookup unavailable", error);
     }
     const diagnostics={eligibleBeforeEarnings:eligible.length,missingEarnings:0,belowEarningsMinimum:0};
-    let observed = new Map<string,{gross:number|null;sde:number|null}>();
+    let observed = new Map<string,{gross:number|null;sde:number|null;ebitda:number|null}>();
     try {
       observed = await getSourcedObservedFinancials(eligible.filter(x=>x.listingTier==="market").map(x=>x.listingReference));
     } catch(error) {
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
       const sourced=observed.get(x.listingReference);
       const gross=displayed?.gross ?? x.grossRevenueNumber ?? enriched?.gross ?? sourced?.gross;
       const sde=displayed?.sde ?? x.sdeNumber ?? enriched?.sde ?? sourced?.sde;
-      const ebitda=displayed?.ebitda ?? x.ebitdaNumber;
+      const ebitda=displayed?.ebitda ?? x.ebitdaNumber ?? sourced?.ebitda;
       const earnings = [sde, ebitda].filter((v): v is number => typeof v === "number" && Number.isFinite(v));
       if(earningsMinimum>0 && earnings.length===0) diagnostics.missingEarnings++;
       else if(earningsMinimum>0 && !earnings.some(value=>value>=earningsMinimum)) diagnostics.belowEarningsMinimum++;
