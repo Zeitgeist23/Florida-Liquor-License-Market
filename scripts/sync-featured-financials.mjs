@@ -17,11 +17,10 @@ const numeric=(text)=>{
 const kind=(label)=>{
  const lower=label.toLowerCase().replace(/\s+/g," ").trim();
  if(/\b(ebitda)\b/.test(lower))return "ebitda";
- if(/\b(sde|seller.?s discretionary earnings|cash flow|cashflow)\b/.test(lower))return "sde";
+ if(/\b(sde|seller(?:.?s)? discretionary earnings|cash flow|cashflow)\b/.test(lower))return "sde";
  if(/\b(gross revenue|gross sales|annual revenue|annual sales|annual gross revenue)\b/.test(lower))return "gross";
  return null;
 };
-const listingRx=/listingReference:\s*"([^"]+)"[\s\S]*?href:\s*"\/listings\/([^"]+)"[\s\S]*?listingTier:\s*"featured"/g;
 // Listing tier is often omitted on approved featured listings. Collect reference and
 // page path from each registry object without searching across the next record.
 const chunks=registry.split(/\n\s*\{\s*\n\s*listingReference:\s*/).slice(1);
