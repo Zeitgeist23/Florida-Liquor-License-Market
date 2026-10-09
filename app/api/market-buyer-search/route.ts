@@ -25,27 +25,23 @@ export async function POST(request: Request) {
     } catch (error) {
       console.error("Financial lookup unavailable", error);
     }
-    const thresholds=[{minimum:minRevenue,field:"grossRevenueNumber"},{minimum:minSde,field:"sdeNumber"},{minimum:minEbitda,field:"ebitdaNumber"}] as const;
-    const tested=eligible.map(x=>{
+    const matching=eligible.filter(x=>{
       const enriched=approved.get(x.listingReference);
-      const values={grossRevenueNumber:enriched?.gross ?? x.grossRevenueNumber,sdeNumber:enriched?.sde ?? x.sdeNumber,ebitdaNumber:x.ebitdaNumber};
-      const active=thresholds.filter(t=>t.minimum!==null);
-      const disclosed=active.filter(t=>typeof values[t.field]==="number");
-      const fails=disclosed.some(t=>(values[t.field] as number)<(t.minimum as number));
-      const unknown=active.some(t=>typeof values[t.field]!=="number");
-      return {x,matchStatus:fails?"excluded":unknown?"financials_unverified":"verified"};
-    }).filter(v=>v.matchStatus!=="excluded");
-    const verified=tested.filter(v=>v.matchStatus==="verified");
-    const potential=tested.filter(v=>v.matchStatus==="financials_unverified");
-    const ordered=[...verified,...potential];
+      const gross=enriched?.gross ?? x.grossRevenueNumber;
+      const sde=enriched?.sde ?? x.sdeNumber;
+      const ebitda=x.ebitdaNumber;
+      return (minRevenue===null || (typeof gross==="number" && gross>=minRevenue))
+        && (minSde===null || (typeof sde==="number" && sde>=minSde))
+        && (minEbitda===null || (typeof ebitda==="number" && ebitda>=minEbitda));
+    });
     return NextResponse.json({
-      total:verified.length,potentialCount:potential.length,shown:ordered.length,
-      results:ordered.slice(0,30).map(({x,matchStatus})=>({
+      total:matching.length,potentialCount:0,shown:matching.length,
+      results:matching.slice(0,30).map(x=>({
         reference:x.listingReference,county:x.county,businessType:x.businessCategory,
         licenseType:x.licenseType,price:x.packagePrice,
         href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,
         source:x.listingTier==="market"?"Independent Market View":"Featured Listing",
-        matchStatus,financialNote:matchStatus==="financials_unverified"?"Financial criteria not verified — revenue, SDE or EBITDA not disclosed":"All available financial criteria verified"
+        matchStatus:"verified",financialNote:"All selected financial thresholds satisfied"
       }))
     },{headers:{"Cache-Control":"no-store"}});
 
