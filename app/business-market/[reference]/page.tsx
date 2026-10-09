@@ -16,6 +16,7 @@ import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
 import { getMarketplaceListings } from "@/lib/listing-store";
 import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 import { getOrStartMarketListingObservation } from "@/lib/market-listing-observation";
+import { getSourcedObservedFinancials } from "@/lib/market-intelligence-store";
 import {
   businessMarketRecordHref,
   businessQuotaListingRecords,
@@ -306,8 +307,22 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
   const standaloneListings = getVisibleAvailableMarketplaceListings(
     await getMarketplaceListings(),
   );
-  const listing =
+  const baseListing =
     withMarketLicenseValues([rawListing], standaloneListings)[0] ?? rawListing;
+  let listing = baseListing;
+  try {
+    const financials = await getSourcedObservedFinancials([baseListing.listingReference]);
+    const observed = financials.get(baseListing.listingReference);
+    if (observed) {
+      listing = {
+        ...baseListing,
+        grossRevenueNumber: observed.gross ?? baseListing.grossRevenueNumber,
+        sdeNumber: observed.sde ?? baseListing.sdeNumber,
+      };
+    }
+  } catch (error) {
+    console.error("Market View financial enrichment unavailable", error);
+  }
 
   const county = countyFor(listing);
   const canonicalPath = businessMarketRecordHref(listing);
