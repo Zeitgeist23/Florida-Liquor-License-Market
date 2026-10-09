@@ -187,7 +187,7 @@ export default async function FloridaLiquorLicenseAppraisalPage({ searchParams }
   ];
 
   return (
-    <main className="seo-market-page">
+    <main className="seo-market-page appraisal-report-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
