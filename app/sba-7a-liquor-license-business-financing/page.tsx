@@ -100,6 +100,16 @@ export default function SbaSevenALiquorLicenseBusinessFinancingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c") }}
       />
       <style>{`
+        /* Isolate the SBA page from shared SEO shell flex overrides. */
+        .sba-finance-page .seo-market-shell{display:block;box-sizing:border-box;width:min(1240px,calc(100% - 48px));max-width:1240px;margin-left:auto;margin-right:auto}
+        .sba-finance-page .seo-market-hero-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(310px,.72fr);gap:clamp(28px,4vw,64px);align-items:center}
+        .sba-finance-page .seo-market-hero-grid>*{min-width:0}
+        .sba-finance-page .seo-market-hero h1{max-width:770px;font-size:clamp(39px,4vw,58px);line-height:1.05;margin:14px 0 22px}
+        .sba-finance-page .seo-market-hero-grid>div>p{max-width:760px;font-size:16px;line-height:1.7}
+        .sba-finance-page .sba-identity{box-sizing:border-box;width:100%;max-width:100%}
+        .sba-finance-page .seo-market-intro h2{max-width:1030px;font-size:clamp(30px,3.2vw,44px);line-height:1.14}
+        @media(max-width:850px){.sba-finance-page .seo-market-hero-grid{grid-template-columns:1fr;gap:25px}.sba-finance-page .seo-market-hero h1{font-size:clamp(36px,6vw,52px)}}
+        @media(max-width:520px){.sba-finance-page .seo-market-shell{width:calc(100% - 28px)}}
         .sba-finance-page{background:#f7f7f5;color:#111820}
         .sba-finance-page .seo-market-hero{background:radial-gradient(circle at 84% 16%,rgba(246,167,0,.18),transparent 30%),linear-gradient(135deg,#020b12 0%,#061728 55%,#0a2237 100%);border-top:1px solid rgba(246,167,0,.38);border-bottom:1px solid rgba(246,167,0,.46)}
         .sba-finance-page .seo-market-breadcrumbs,.sba-finance-page .seo-market-hero p{color:#dce5ec}
