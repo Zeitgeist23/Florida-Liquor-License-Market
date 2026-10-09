@@ -616,8 +616,8 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 </svg>
               </div>
               <span>RETIREMENT ACCOUNT SERVICES</span>
-              <h3>IRA Rollover Assistance</h3>
-              <p>Learn about self-directed IRA account setup and rollover coordination, subject to custodian requirements and independent professional advice.</p>
+              <h3>Self-Directed IRA Assistance</h3>
+              <p>Explore using a Self-Directed IRA to buy a business or Florida quota liquor license. FLLM helps arrange Self-Directed IRA account setup and rollover paperwork.</p>
               <Link href="/self-directed-ira-liquor-license-lending#ira-setup-assistance" className="fllm-ui-official-gold-button">Explore IRA Assistance →</Link>
             </article>
           </div>
