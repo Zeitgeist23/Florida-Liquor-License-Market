@@ -2065,3 +2065,15 @@
 /* Keep tall market-map listing tooltips within their 430px stage. */
 .business-market-page .county-availability-map-stage{position:relative}
 .business-market-page .county-availability-map-stage .county-availability-tooltip{max-height:calc(100% - 20px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+
+/* Market View service-row vertical rhythm only; no page-wide redesign. */
+.business-market-content{padding-bottom:18px}
+.business-market-service-grid{margin-top:18px;margin-bottom:12px;align-items:stretch}
+.business-market-service-card{min-height:0;padding-top:16px;padding-bottom:18px}
+.business-market-service-media{height:120px;margin-bottom:10px}
+.business-market-service-media--appraisal img{height:118px}
+.business-market-service-media--sba img{height:99px;max-height:99px}
+.business-market-service-media--ira svg{height:108px}
+.business-market-service-card h3{margin:6px 0 9px}
+.business-market-service-card p{margin-bottom:12px}
+@media(max-width:620px){.business-market-service-card{min-height:0}}
