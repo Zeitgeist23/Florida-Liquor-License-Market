@@ -452,7 +452,7 @@ export default function BusinessPackageHeatMap({
                       activeRow.name === selectedCounty &&
                       selectedListingTitle ? (
                         <>
-                          <strong>{selectedListingTitle}</strong>
+                          <strong>{selectedListingTitle.replace(/\s*\|\s*FLLM-MKT-[A-Z0-9-]+\s*$/i, "")}</strong>
                           <dl>
                             <div className="business-package-listing-price">
                               <dt>Business + License</dt>
@@ -476,7 +476,6 @@ export default function BusinessPackageHeatMap({
                             </div>
                           </dl>
                           <small className="business-package-reference-row">
-                            {selectedListingReference ? <span className="business-package-reference">{selectedListingReference}</span> : null}
                             {activeRow.businessCategories.map((category) => (
                               <span
                                 key={category}
