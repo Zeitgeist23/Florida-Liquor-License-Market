@@ -92,3 +92,5 @@
 .fllm-match-range:not(.fllm-match-range--active) .fllm-match-slider-row input[type=range]{opacity:.76}
 
 .fllm-match-county-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.fllm-match-county-actions .fllm-match-add{margin-top:9px;font-size:13px!important}.fllm-match-county-actions .fllm-match-add:hover{text-decoration:underline;color:#7feaff!important}
+
+.fllm-match-coverage{margin:8px 0 15px!important;color:#bdd9e9!important;font-size:13px!important;line-height:1.5!important;text-align:left!important;max-width:100%}
