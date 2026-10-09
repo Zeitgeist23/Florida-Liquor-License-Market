@@ -16,6 +16,7 @@ export async function POST(request: Request) {
     const types=selected(body.businessTypes), licenses=selected(body.licenseTypes), counties=selected(body.counties);
     const amount=(value:unknown)=>{if(!value)return null;const n=Number(String(value).replace(/[^\d.]/g,""));return Number.isFinite(n)&&n>0?n:null;};
     const maxPrice=amount(body.maxPurchasePrice),minRevenue=amount(body.minGrossRevenue),minSde=amount(body.minSde),minEbitda=amount(body.minEbitda);
+    const earningsMinimum = Math.max(minSde ?? 0, minEbitda ?? 0);
     const eligible=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x)
       && (types.length===0||types.includes(x.businessCategory))
       && (licenses.length===0||licenses.includes(x.licenseType))
@@ -34,9 +35,9 @@ export async function POST(request: Request) {
       const gross=displayed?.gross ?? x.grossRevenueNumber ?? enriched?.gross;
       const sde=displayed?.sde ?? x.sdeNumber ?? enriched?.sde;
       const ebitda=displayed?.ebitda ?? x.ebitdaNumber;
+      const earnings = [sde, ebitda].filter((v): v is number => typeof v === "number" && Number.isFinite(v));
       return (minRevenue===null || (typeof gross==="number" && gross>=minRevenue))
-        && (minSde===null || (typeof sde==="number" && sde>=minSde))
-        && (minEbitda===null || (typeof ebitda==="number" && ebitda>=minEbitda));
+        && (earningsMinimum===0 || earnings.some(value=>value>=earningsMinimum));
     });
     return NextResponse.json({
       total:matching.length,potentialCount:0,shown:matching.length,
@@ -45,7 +46,7 @@ export async function POST(request: Request) {
         licenseType:x.licenseType,price:x.packagePrice,
         href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,
         source:x.listingTier==="market"?"Independent Market View":"Featured Listing",
-        matchStatus:"verified",financialNote:"Published financial figures meet the selected thresholds; not independently audited"
+        matchStatus:"verified",financialNote:"A disclosed SDE, cash-flow, or EBITDA figure meets the earnings-search minimum; these metrics are not accounting equivalents"
       }))
     },{headers:{"Cache-Control":"no-store"}});
 
