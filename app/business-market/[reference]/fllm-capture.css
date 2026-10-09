@@ -58,3 +58,14 @@
 .fllm-match-right{align-self:flex-end!important;width:min(100%,660px)!important}
 .fllm-match-actions{justify-content:flex-end!important}
 @media(max-width:690px){.fllm-match-right{align-self:stretch!important}}
+
+/* Restore compact reference-dashboard header; no large empty band above panels. */
+.fllm-match-top{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(460px,.8fr)!important;align-items:start!important;gap:16px!important;margin:5px 10px 13px!important}
+.fllm-match-title{width:auto!important;text-align:left!important}
+.fllm-match-title>b{display:block!important;text-align:left!important}
+.fllm-match-title h2{width:auto!important;text-align:left!important;margin:8px 0!important;font-size:clamp(28px,3vw,47px)!important}
+.fllm-match-title p{max-width:none!important;text-align:left!important;margin:0!important}
+.fllm-match-right{align-self:stretch!important;width:100%!important}
+.fllm-match-actions{justify-content:flex-end!important}
+@media(max-width:1200px){.fllm-match-top{grid-template-columns:1fr!important}.fllm-match-title,.fllm-match-title>b,.fllm-match-title h2,.fllm-match-title p{text-align:center!important}.fllm-match-right{max-width:700px;margin:auto}}
+@media(max-width:690px){.fllm-match-top{display:flex!important;flex-direction:column!important}.fllm-match-right{max-width:100%}}
