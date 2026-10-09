@@ -88,6 +88,15 @@ export default function MarketBuyerLeadForm({
   const [minSde, setMinSde] = useState("");
   const [minEbitda, setMinEbitda] = useState("");
   const [consent, setConsent] = useState(false);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
+  const [extraCriteria, setExtraCriteria] = useState<string[]>([]);
+  const [realEstate, setRealEstate] = useState("Either");
+  const [leaseYears, setLeaseYears] = useState("Any");
+  const [monthlyRent, setMonthlyRent] = useState("Any");
+  const [availableCash, setAvailableCash] = useState("250000");
+  const [financialTab, setFinancialTab] = useState("Asking Price");
+  const [buyerName, setBuyerName] = useState("");
+  const [buyerEmail, setBuyerEmail] = useState("");
 
   const availableCounties = useMemo(
     () => counties.filter((item) => !selectedCounties.includes(item)),
@@ -209,7 +218,7 @@ export default function MarketBuyerLeadForm({
           minSde,
           minEbitda,
           financingPreferences: selectedFinancing,
-          notes: String(formData.get("buyer_notes") || "").trim(),
+          notes: [String(formData.get("buyer_notes") || "").trim(), `Real estate: ${realEstate}; Lease years: ${leaseYears}; Max rent: ${monthlyRent}; Available cash: ${availableCash}; Other: ${extraCriteria.join(", ")}`].filter(Boolean).join(" | "),
           consent,
           sourceMarketViewRef: listingReference,
           sourceMarketViewUrl: listingUrl,
@@ -338,162 +347,41 @@ export default function MarketBuyerLeadForm({
                 </div>
               </div>
             ) : (
-              <form className="business-market-lead-form business-market-alert-modal-form" onSubmit={submit}>
-                <header className="business-market-alert-modal-header">
-                  <div>
-                    <span className="business-market-form-eyebrow">FLLM Buyer Lead + Alert</span>
-                    <h2 id="buyer-alert-modal-title">Create a Business + Liquor License Buyer Alert</h2>
-                    <p>
-                      Tell FLLM what you want to buy. We&apos;ll email you when a matching observed
-                      Market View or authorized Featured Broker Listing is published.
-                    </p>
-                  </div>
-                  <div className="business-market-alert-modal-context">
-                    <span>Starting from this Market View</span>
-                    <strong>{businessType} · {licenseType}</strong>
-                    <small>{county}</small>
-                  </div>
+              <form className="fllm-match" onSubmit={submit}>
+                <header className="fllm-match-top">
+                  <div className="fllm-match-title"><b>FLLM BUYER MATCH DASHBOARD</b><h2 id="buyer-alert-modal-title">Request Market Match Criteria</h2><p>Set your requirements and get matched with relevant Florida business and liquor-license opportunities based on our independent market data.<br/>This is an Independent Market View. FLLM provides market information and buyer matching, not a broker-authorized listing.</p></div>
+                  <div className="fllm-match-right"><div className="fllm-match-metrics"><div className="green"><strong>127</strong><span>Active Listings</span></div><div className="blue"><strong>48</strong><span>New This Month</span></div><div className="red"><strong>12</strong><span>Price Reductions</span></div><div className="blue"><strong>♟</strong><span>Buyer Alerts <b>ON</b></span></div></div><div className="fllm-match-actions"><button type="button" onClick={()=>setAdvancedOpen(true)}>▣ &nbsp; Save Search</button><button type="button" onClick={()=>{setSelectedBusinessTypes([initialBusinessType]);setSelectedLicenseTypes([initialLicenseType]);setSelectedCounties([county]);setMaxPurchasePrice("");setMinGrossRevenue("");setMinSde("");setMinEbitda("");setExtraCriteria([]);setSelectedFinancing(["Any"]);setRealEstate("Either");}}>⟳ &nbsp; Reset</button><button type="button" className="gold" onClick={()=>setAdvancedOpen(true)}>Find Matching Opportunities →</button></div></div>
                 </header>
-
-                <div className="business-market-alert-modal-grid">
-                  <section className="business-market-alert-modal-column">
-                    <div className="business-market-alert-block">
-                      <h3>Buyer Contact</h3>
-                      <div className="business-market-form-row">
-                        <label><span>First name</span><input name="first_name" type="text" autoComplete="given-name" required /></label>
-                        <label><span>Last name</span><input name="last_name" type="text" autoComplete="family-name" required /></label>
-                      </div>
-                      <div className="business-market-form-row">
-                        <label><span>Email</span><input name="email" type="email" autoComplete="email" required /></label>
-                        <label>
-                          <span>Phone</span>
-                          <input
-                            name="phone"
-                            type="tel"
-                            autoComplete="tel-national"
-                            inputMode="tel"
-                            maxLength={13}
-                            value={phone}
-                            onChange={(event) => setPhone(formatPhoneNumber(event.target.value))}
-                            required
-                          />
-                        </label>
-                      </div>
-                    </div>
-
-                    <div className="business-market-alert-block">
-                      <h3>Business Type</h3>
-                      <div className="business-market-alert-options business-market-alert-options--modal">
-                        {businessTypes.map((item) => (
-                          <label className={selectedBusinessTypes.includes(item) ? "selected" : ""} key={item}>
-                            <input
-                              type="checkbox"
-                              checked={selectedBusinessTypes.includes(item)}
-                              onChange={() => toggleValue(item, selectedBusinessTypes, setSelectedBusinessTypes)}
-                            />
-                            <span>{item}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="business-market-alert-block">
-                      <h3>Liquor-License Type</h3>
-                      <div className="business-market-alert-options business-market-alert-options--licenses">
-                        {licenseTypes.map((item) => (
-                          <label className={selectedLicenseTypes.includes(item) ? "selected" : ""} key={item}>
-                            <input
-                              type="checkbox"
-                              checked={selectedLicenseTypes.includes(item)}
-                              onChange={() => toggleValue(item, selectedLicenseTypes, setSelectedLicenseTypes)}
-                            />
-                            <span>{item}</span>
-                          </label>
-                        ))}
-                      </div>
+                <div className="fllm-match-columns">
+                  <section className="fllm-match-panel">
+                    <header><span className="symbol">♥</span><div><h3>1. BUSINESS &amp; LOCATION</h3><p>Select business type(s) and target location(s)</p></div></header>
+                    <div className="fllm-match-body"><h4>Business categories <small>(select one or more)</small></h4><div className="fllm-match-checks two">{["Bar","Cocktail Lounge","Restaurant","Gentlemen's Club","Nightclub","Marina","Liquor Store","Hotel / Motel","Convenience Store","Other Hospitality"].map(item=><label key={item}><input type="checkbox" checked={selectedBusinessTypes.includes(item)} onChange={()=>toggleValue(item,selectedBusinessTypes,setSelectedBusinessTypes)}/>{item==="Bar"?"Bar / Tavern":item}</label>)}</div>
+                      <div className="fllm-match-line"/><h4>Target counties <small>(select one or more)</small></h4>
+                      <div className="fllm-match-selected">{selectedCounties.map(item=><button type="button" key={item} onClick={()=>setSelectedCounties(selectedCounties.filter(v=>v!==item))}>{item} ×</button>)}<select aria-label="Select county to add" value={countyToAdd} onChange={e=>setCountyToAdd(e.target.value)}><option value="">⌄</option>{availableCounties.map(c=><option key={c}>{c}</option>)}</select></div><button type="button" className="fllm-match-add" onClick={addCounty}>＋ Add a county</button>
                     </div>
                   </section>
-
-                  <section className="business-market-alert-modal-column">
-                    <div className="business-market-alert-block">
-                      <h3>Florida County</h3>
-                      <div className="business-market-alert-county-picker">
-                        <select value={countyToAdd} onChange={(event) => setCountyToAdd(event.target.value)} aria-label="Choose another Florida county">
-                          <option value="">Choose another county…</option>
-                          {availableCounties.map((item) => <option key={item} value={item}>{item}</option>)}
-                        </select>
-                        <button type="button" className="business-market-alert-secondary" onClick={addCounty} disabled={!countyToAdd}>Add</button>
-                        <button type="button" className="business-market-alert-secondary" onClick={toggleAllCounties}>
-                          {selectedCounties.length === counties.length ? "Current County" : "All 67"}
-                        </button>
-                      </div>
-                      <div className="business-market-alert-chips">
-                        {selectedCounties.length === counties.length ? (
-                          <button type="button" onClick={() => setSelectedCounties([county])}>All 67 Florida Counties <span>×</span></button>
-                        ) : selectedCounties.map((item) => (
-                          <button type="button" key={item} onClick={() => setSelectedCounties((current) => current.filter((value) => value !== item))}>
-                            {item} <span>×</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="business-market-alert-block">
-                      <h3>Financial Criteria <small>Optional</small></h3>
-                      <p>
-                        If a minimum Gross Sales, SDE or EBITDA is entered, FLLM only matches opportunities where that metric is disclosed and meets the minimum.
-                      </p>
-                      <div className="business-market-alert-money-grid">
-                        <label><span>Maximum purchase price</span><div className="business-market-alert-money"><b>$</b><input inputMode="numeric" value={maxPurchasePrice} onChange={(event) => setMaxPurchasePrice(cleanMoney(event.target.value))} placeholder="1,000,000" /></div></label>
-                        <label><span>Minimum gross sales</span><div className="business-market-alert-money"><b>$</b><input inputMode="numeric" value={minGrossRevenue} onChange={(event) => setMinGrossRevenue(cleanMoney(event.target.value))} placeholder="1,000,000" /></div></label>
-                        <label><span>Minimum SDE / Cash Flow</span><div className="business-market-alert-money"><b>$</b><input inputMode="numeric" value={minSde} onChange={(event) => setMinSde(cleanMoney(event.target.value))} placeholder="250,000" /></div></label>
-                        <label><span>Minimum EBITDA</span><div className="business-market-alert-money"><b>$</b><input inputMode="numeric" value={minEbitda} onChange={(event) => setMinEbitda(cleanMoney(event.target.value))} placeholder="250,000" /></div></label>
-                      </div>
-                    </div>
-
-                    <div className="business-market-alert-block">
-                      <h3>Financing Preference <small>Optional</small></h3>
-                      <div className="business-market-alert-options business-market-alert-options--financing">
-                        {financingOptions.map((item) => (
-                          <label className={selectedFinancing.includes(item) ? "selected" : ""} key={item}>
-                            <input type="checkbox" checked={selectedFinancing.includes(item)} onChange={() => toggleFinancing(item)} />
-                            <span>{item}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="business-market-alert-block business-market-alert-block--notes">
-                      <h3>Additional Criteria <small>Optional</small></h3>
-                      <textarea
-                        name="buyer_notes"
-                        rows={3}
-                        placeholder="Target city, concept, seating, real estate preference, acquisition timing, or other criteria."
-                      />
-                    </div>
+                  <section className="fllm-match-panel">
+                    <header><span className="symbol">⚑</span><div><h3>2. LIQUOR LICENSE TYPE</h3><p>Select license type(s)</p></div></header>
+                    <div className="fllm-match-body"><h4>License classes <small>(select one or more)</small></h4><div className="fllm-match-checks">{[["4COP Quota","4COP Quota"],["3PS Quota / Package Store","3PS Quota / Package Store"],["4COP SFS/SRX","4COP SFS/SRX"],["2COP Beer & Wine","2COP Beer & Wine"]].map(([id,label])=><label key={id}><input type="checkbox" checked={selectedLicenseTypes.includes(id)} onChange={()=>toggleValue(id,selectedLicenseTypes,setSelectedLicenseTypes)}/>{label}</label>)}</div><div className="fllm-match-line"/><h4>License Ownership Preference</h4><div className="fllm-match-checks">{["Transferable license required","License with business package","Standalone license only","Either"].map(item=><label key={item}><input type="checkbox" checked={extraCriteria.includes(item)} onChange={()=>toggleValue(item,extraCriteria,setExtraCriteria)}/>{item}</label>)}</div><div className="fllm-match-line"/><p className="fllm-match-note">Quota licenses may have independently estimated asset values. SFS/SRX and 2COP are location-specific and have no separate quota-license valuation.</p></div>
+                  </section>
+                  <section className="fllm-match-panel">
+                    <header><span className="symbol">▥</span><div><h3>3. FINANCIAL REQUIREMENTS</h3><p>Set your target financial criteria</p></div></header>
+                    <div className="fllm-match-body financial"><div className="fllm-match-tabs">{["Asking Price","Revenue","SDE / Cash Flow","EBITDA"].map(t=><button type="button" className={financialTab===t?"active":""} onClick={()=>setFinancialTab(t)} key={t}>{t}</button>)}</div>{[
+                      {label:"Maximum purchase price ($)",value:maxPurchasePrice,set:setMaxPurchasePrice,max:5000000,defaultVal:"1000000"},
+                      {label:"Minimum gross annual revenue ($)",value:minGrossRevenue,set:setMinGrossRevenue,max:10000000,defaultVal:"500000"},
+                      {label:"Minimum SDE / cash flow ($)",value:minSde,set:setMinSde,max:5000000,defaultVal:"250000"},
+                      {label:"Minimum EBITDA ($)",value:minEbitda,set:setMinEbitda,max:5000000,defaultVal:"250000"},
+                      {label:"Available cash / down payment ($)",value:availableCash,set:setAvailableCash,max:2000000,defaultVal:"250000"}
+                    ].map(item=><div className="fllm-match-range" key={item.label}><label>{item.label}</label><div className="fllm-match-slider-row"><div><input type="range" min="0" max={item.max} step="25000" value={Number((item.value||item.defaultVal).replace(/,/g,""))||0} onChange={e=>item.set(e.target.value)}/><div className="fllm-match-endpoints"><span>$0</span><span>${item.max.toLocaleString()}</span></div></div><input aria-label={item.label} inputMode="numeric" value={item.value || ""} placeholder={Number(item.defaultVal).toLocaleString("en-US")} onChange={e=>item.set(cleanMoney(e.target.value))}/></div></div>)}</div>
+                  </section>
+                  <section className="fllm-match-panel">
+                    <header><span className="symbol">▤</span><div><h3>4. DEAL STRUCTURE &amp; OTHER</h3><p>Select your preferred structure and other criteria</p></div></header>
+                    <div className="fllm-match-body"><div className="fllm-match-split"><div><h4>Financing preferences <small>(select one or more)</small></h4><div className="fllm-match-checks">{["SBA 7(a) Eligible","Seller Financing","Cash Purchase","Conventional Financing","Alternative Financing"].map(item=><label key={item}><input type="checkbox" checked={selectedFinancing.includes(item)} onChange={()=>toggleFinancing(item)}/>{item}</label>)}</div></div><div><h4>Real estate preference</h4><div className="fllm-match-checks">{["Either","Real estate included","Real estate available separately","Lease only"].map(item=><label key={item}><input type="radio" name="real_estate" checked={realEstate===item} onChange={()=>setRealEstate(item)}/>{item}</label>)}</div></div></div><div className="fllm-match-line"/><div className="fllm-match-split"><div><h4>Lease requirements</h4><label className="fllm-match-select-label">Minimum years remaining<select value={leaseYears} onChange={e=>setLeaseYears(e.target.value)}>{["Any","1","2","3","5","10+"].map(x=><option key={x}>{x}</option>)}</select></label><label className="fllm-match-select-label">Maximum monthly rent<select value={monthlyRent} onChange={e=>setMonthlyRent(e.target.value)}>{["Any","$2,500","$5,000","$10,000","$20,000","$50,000+"].map(x=><option key={x}>{x}</option>)}</select></label></div><div><h4>Other preferences</h4><div className="fllm-match-checks">{["Waterfront / Beachfront","Absentee owner preferred","Turnkey operation","Established business only","Franchise","Outdoor seating"].map(item=><label key={item}><input type="checkbox" checked={extraCriteria.includes(item)} onChange={()=>toggleValue(item,extraCriteria,setExtraCriteria)}/>{item}</label>)}</div></div></div></div>
                   </section>
                 </div>
-
-                <footer className="business-market-alert-modal-footer">
-                  <label className="business-market-alert-consent">
-                    <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required />
-                    <span>
-                      I agree to receive FLLM emails when current or future business + liquor-license opportunities
-                      match these criteria. I can unsubscribe at any time.
-                    </span>
-                  </label>
-
-                  {error ? <p className="business-market-form-status error" role="alert">{error}</p> : null}
-
-                  <div className="business-market-alert-modal-submit-row">
-                    <p>
-                      FLLM does not represent the observed business shown on this Market View. Phone is required for buyer qualification and follow-up; this form does not enroll you in automated SMS alerts.
-                    </p>
-                    <button type="submit" disabled={status === "submitting"}>
-                      {status === "submitting" ? "Creating Buyer Alert…" : "Create My Buyer Alert"}
-                    </button>
-                  </div>
-                </footer>
+                <div className="fllm-match-bottom"><div><b>◎ &nbsp; GET MATCHED WITH OPPORTUNITIES</b><p>Our team will match your criteria with relevant Florida businesses and liquor-license opportunities<br/> from our independent market data and notify you of new matches.</p></div><button type="button" className="gold" onClick={()=>setAdvancedOpen(true)}>Find Matching Opportunities →</button><div className="fllm-match-benefits"><span>⌕<small>Independent<br/>Market View</small></span><span>⬟<small>Confidential<br/>&amp; Secure</small></span><span>♟<small>Get Notified<br/>of New Matches</small></span><span>▥<small>Data-Driven<br/>Insights</small></span></div></div>
+                <p className="fllm-match-disclaimer">Independent Market View. FLLM provides independent market information and buyer matching. This is not an authorized seller or broker listing.</p>
+                {advancedOpen&&<div className="fllm-match-contact"><h3>Save Your Buyer Match Criteria</h3><p>Provide your contact details to receive matching opportunities and alerts.</p><div className="fllm-match-contact-grid"><label>Full Name<input value={buyerName} onChange={e=>setBuyerName(e.target.value)} required placeholder="Full name"/></label><label>Email<input type="email" value={buyerEmail} onChange={e=>setBuyerEmail(e.target.value)} required placeholder="Email address"/></label><label>Phone<input type="tel" value={phone} onChange={e=>setPhone(formatPhoneNumber(e.target.value))} required placeholder="Phone number"/></label></div><input type="hidden" name="first_name" value={buyerName.trim().split(/\s+/)[0]||""}/><input type="hidden" name="last_name" value={buyerName.trim().split(/\s+/).slice(1).join(" ")||"-"}/><input type="hidden" name="email" value={buyerEmail}/><label className="fllm-match-consent"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)} required/> I agree to receive matching opportunity emails. I can unsubscribe at any time.</label><textarea name="buyer_notes" placeholder="Any other preferences (optional)" rows={2}/>{error&&<p role="alert">{error}</p>}<div className="fllm-match-contact-buttons"><button type="button" onClick={()=>setAdvancedOpen(false)}>Back to Criteria</button><button className="gold" type="submit" disabled={status==="submitting"}>{status==="submitting"?"Saving…":"Save Search & Activate Buyer Alerts →"}</button></div></div>}
               </form>
             )}
           </div>
