@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getApprovedMarketFinancials } from "@/lib/market-intelligence-store";
 import { businessQuotaListingRecords, businessMarketRecordHref, passesBusinessMarketSourcePolicy } from "@/lib/business-quota-listings";
 export const dynamic = "force-dynamic";
 export async function GET() {
@@ -18,12 +19,20 @@ export async function POST(request: Request) {
       && (counties.length===0||counties.includes(x.county))
       && (maxPrice===null||(x.packagePriceNumber>0&&x.packagePriceNumber<=maxPrice))
       && (!selected(body.financingPreferences).includes("Seller Financing")||x.sellerFinancingAvailable===true));
+    let approved = new Map<string, { gross: number | null; sde: number | null }>();
+    try {
+      approved = await getApprovedMarketFinancials(eligible.map(x => x.listingReference));
+    } catch (error) {
+      console.error("Financial lookup unavailable", error);
+    }
     const thresholds=[{minimum:minRevenue,field:"grossRevenueNumber"},{minimum:minSde,field:"sdeNumber"},{minimum:minEbitda,field:"ebitdaNumber"}] as const;
     const tested=eligible.map(x=>{
+      const enriched=approved.get(x.listingReference);
+      const values={grossRevenueNumber:enriched?.gross ?? x.grossRevenueNumber,sdeNumber:enriched?.sde ?? x.sdeNumber,ebitdaNumber:x.ebitdaNumber};
       const active=thresholds.filter(t=>t.minimum!==null);
-      const disclosed=active.filter(t=>typeof x[t.field]==="number");
-      const fails=disclosed.some(t=>(x[t.field] as number)<(t.minimum as number));
-      const unknown=active.some(t=>typeof x[t.field]!=="number");
+      const disclosed=active.filter(t=>typeof values[t.field]==="number");
+      const fails=disclosed.some(t=>(values[t.field] as number)<(t.minimum as number));
+      const unknown=active.some(t=>typeof values[t.field]!=="number");
       return {x,matchStatus:fails?"excluded":unknown?"financials_unverified":"verified"};
     }).filter(v=>v.matchStatus!=="excluded");
     const verified=tested.filter(v=>v.matchStatus==="verified");
