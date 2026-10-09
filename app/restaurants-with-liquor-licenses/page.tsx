@@ -1083,6 +1083,31 @@ export default async function RestaurantsWithLiquorLicensesPage() {
         </section>
       ) : null}
 
+      <section className="fllm-template-section" id="find-restaurant-with-full-liquor">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Restaurant Buyer Search"
+            title="Find Florida restaurants for sale with a full liquor license"
+            copy={<p>Compare restaurant opportunities using the actual license class rather than the phrase “full liquor” alone. A transferable 4COP quota license can have a separately estimated market value; a qualifying SFS / SRX license is not an equivalent transferable quota asset. Review asking prices and earnings only where disclosed.</p>}
+          />
+          <FllmCardGrid columns={3}>
+            <FllmCard eyebrow="Buyer navigation" title="Find a restaurant" variant="gold">
+              <p>Explore Florida restaurant opportunities and narrow the search by location, restaurant type, and liquor-license structure.</p>
+              <FllmButton href="/buy-florida-restaurant" variant="outline">Restaurant Buyer Page</FllmButton>
+            </FllmCard>
+            <FllmCard eyebrow="License value" title="Understand 4COP vs. SFS / SRX" variant="gold">
+              <p>Compare transferable 4COP quota license value with restaurant-based full liquor privileges before assessing the business package.</p>
+              <FllmButton href="/license-types/4cop-quota" variant="outline">4COP Quota Guide</FllmButton>
+            </FllmCard>
+            <FllmCard eyebrow="County alerts" title="Watch new license opportunities" variant="gold">
+              <p>Register for alerts by Florida county and license type as relevant liquor-license opportunities become available.</p>
+              <FllmButton href="/license-alerts" variant="outline">Set Up License Alerts</FllmButton>
+            </FllmCard>
+          </FllmCardGrid>
+          <p style={{ marginTop: "1rem" }}>FLLM does not broker operating restaurant businesses. Market Views provide third-party market observations and do not imply seller representation; any reported earnings have not been independently verified by FLLM.</p>
+        </div>
+      </section>
+
       <section className="fllm-template-section" id="full-liquor-restaurants">
         <div className="fllm-template-shell">
           <FllmSectionHeading
