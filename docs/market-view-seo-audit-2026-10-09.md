@@ -23,3 +23,7 @@ Scope: static `lib/business-quota-listings.ts` registry and individual public `a
 - Existing canonical paths and market source-policy filters remain unchanged.
 
 This document reports a **static code audit only**. It does not certify deployed production state, live Supabase completeness, or Google AI Overview inclusion.
+
+## Live database reconciliation — October 9, 2026
+
+The static registry contains 117 Market View references. All 117 match entries in the private intelligence database, which contains 126 records total. The 9 additional private records are not Market View entries. The observation table contains 87 matching records, leaving 30 Market Views without an observation-table entry. Twenty-five matching observations have financial information and pass the active/HTTPS provenance conditions used by the public page. Thirty-four Market View records have gross revenue or earnings recorded in the private intelligence database. These counts do not establish public deployment or indexing. The historical 127-record figure is not supported by the current count of 126 private records. Reconcile source evidence before any backfill; do not manufacture missing observations or release private business identities.
