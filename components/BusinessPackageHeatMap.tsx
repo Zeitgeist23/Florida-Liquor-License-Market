@@ -479,7 +479,7 @@ export default function BusinessPackageHeatMap({
                             {activeRow.businessCategories.map((category) => (
                               <span
                                 key={category}
-                                className={`business-package-category-badge${category === "Bar" ? " business-package-category-badge--bar" : ""}`}
+                                className={`business-package-category-badge business-package-category-badge--${category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
                               >
                                 {category}
                               </span>
