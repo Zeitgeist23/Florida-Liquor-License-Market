@@ -82,3 +82,5 @@
 /* Center cyan heading and white description below the gold eyebrow only; preserve stats and columns. */
 .fllm-match-title h2{display:block!important;width:100%!important;text-align:center!important;margin:8px auto!important}
 .fllm-match-title p{display:block!important;width:100%!important;max-width:100%!important;text-align:center!important;margin:0 auto!important}
+
+.fllm-match-result-grid a .fllm-match-unverified{color:#ffd069;background:#49371455;border:1px solid #bd942b;border-radius:5px;padding:6px 8px;line-height:1.3}
