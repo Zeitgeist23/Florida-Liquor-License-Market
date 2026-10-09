@@ -53,11 +53,14 @@ function countyFor(listing: BusinessQuotaListing) {
 }
 
 function marketViewTitle(listing: BusinessQuotaListing) {
-  return `${listing.county} ${listing.businessCategory} Market`;
+  return `${listing.county} ${listing.businessCategory} + ${listing.licenseType} | ${listing.listingReference}`;
 }
 
 function marketViewDescription(listing: BusinessQuotaListing) {
-  return `FLLM Market View of observed ${listing.businessCategory.toLowerCase()} and liquor-license market activity in ${listing.county}. Advertised asking price: ${listing.packagePrice}. Liquor-license type: ${listing.licenseType}. Request FLLM information about this license type and county market.`;
+  const askingPrice = listing.packagePriceNumber > 0
+    ? `Observed asking price: ${listing.packagePrice}.`
+    : "Asking price not disclosed.";
+  return `FLLM Market View ${listing.listingReference}: ${listing.businessCategory.toLowerCase()} business-market observation in ${listing.county} involving ${listing.licenseType}. ${askingPrice} Compare county license-market context and disclosed financial information. FLLM does not broker this operating business.`;
 }
 
 function moneyValue(value?: string) {
@@ -434,7 +437,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
           <div className="business-market-hero-grid">
             <div className="business-market-hero-copy-block">
               <span className="business-market-eyebrow">FLLM MARKET VIEW</span>
-              <h1>{listing.county} {listing.businessCategory}</h1>
+              <h1>{listing.county} {listing.businessCategory} + {listing.licenseType}</h1>
               <p className="business-market-hero-copy">
                 Review this {listing.county} {listing.businessCategory.toLowerCase()} opportunity with a {listing.licenseType} liquor license, including the advertised business + license package price and FLLM&apos;s independent license-market intelligence.
               </p>
