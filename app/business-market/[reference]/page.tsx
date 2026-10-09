@@ -588,7 +588,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               <span>LIQUOR LICENSE APPRAISAL</span>
               <h3>Independent Liquor License Valuation</h3>
               <p>Explore FLLM appraisal services for the liquor-license component of a business acquisition, financing, or transfer.</p>
-              <Link href="/florida-liquor-license-appraisal">Explore Appraisal Service →</Link>
+              <Link href="/florida-liquor-license-appraisal" className="fllm-ui-official-gold-button">Explore Appraisal Service →</Link>
             </article>
             <article className="business-market-service-card">
               <div className="business-market-service-media business-market-service-media--sba">
@@ -597,7 +597,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               <span>BUSINESS ACQUISITION FINANCING</span>
               <h3>Financing for Business + License Packages</h3>
               <p>Explore SBA 7(a) and other financing considerations for purchasing a Florida business involving a liquor license.</p>
-              <Link href="/sba-7a-liquor-license-business-financing">Explore SBA Financing →</Link>
+              <Link href="/sba-7a-liquor-license-business-financing" className="fllm-ui-official-gold-button">Explore SBA Financing →</Link>
             </article>
             <article className="business-market-service-card">
               <div className="business-market-service-media business-market-service-media--ira">
@@ -611,7 +611,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               <span>RETIREMENT ACCOUNT SERVICES</span>
               <h3>FLLM IRA Rollover Assistance</h3>
               <p>Learn about self-directed IRA account setup and rollover coordination, subject to custodian requirements and independent professional advice.</p>
-              <Link href="/self-directed-ira-liquor-license-lending#ira-setup-assistance">Explore IRA Assistance →</Link>
+              <Link href="/self-directed-ira-liquor-license-lending#ira-setup-assistance" className="fllm-ui-official-gold-button">Explore IRA Assistance →</Link>
             </article>
           </div>
         </div>
