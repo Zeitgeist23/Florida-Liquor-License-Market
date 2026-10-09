@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import featuredFinancialManifest from "@/data/featured-listing-financials.generated.json";
 
 const featuredFinancials = featuredFinancialManifest as Record<string, {gross?:number;sde?:number;ebitda?:number}>;
-import { getApprovedMarketFinancials } from "@/lib/market-intelligence-store";
+import { getApprovedMarketFinancials, getSourcedObservedFinancials } from "@/lib/market-intelligence-store";
 import { businessQuotaListingRecords, businessMarketRecordHref, passesBusinessMarketSourcePolicy } from "@/lib/business-quota-listings";
 export const dynamic = "force-dynamic";
 export async function GET() {
@@ -30,11 +30,18 @@ export async function POST(request: Request) {
       console.error("Financial lookup unavailable", error);
     }
     const diagnostics={eligibleBeforeEarnings:eligible.length,missingEarnings:0,belowEarningsMinimum:0};
+    let observed = new Map<string,{gross:number|null;sde:number|null}>();
+    try {
+      observed = await getSourcedObservedFinancials(eligible.filter(x=>x.listingTier==="market").map(x=>x.listingReference));
+    } catch(error) {
+      console.error("Sourced market observation financial lookup unavailable",error);
+    }
     const matching=eligible.filter(x=>{
       const enriched=approved.get(x.listingReference);
       const displayed=x.featured ? featuredFinancials[x.listingReference] : undefined;
-      const gross=displayed?.gross ?? x.grossRevenueNumber ?? enriched?.gross;
-      const sde=displayed?.sde ?? x.sdeNumber ?? enriched?.sde;
+      const sourced=observed.get(x.listingReference);
+      const gross=displayed?.gross ?? x.grossRevenueNumber ?? enriched?.gross ?? sourced?.gross;
+      const sde=displayed?.sde ?? x.sdeNumber ?? enriched?.sde ?? sourced?.sde;
       const ebitda=displayed?.ebitda ?? x.ebitdaNumber;
       const earnings = [sde, ebitda].filter((v): v is number => typeof v === "number" && Number.isFinite(v));
       if(earningsMinimum>0 && earnings.length===0) diagnostics.missingEarnings++;
