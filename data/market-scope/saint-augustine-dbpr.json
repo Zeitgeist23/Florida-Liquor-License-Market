@@ -1,9 +1,9 @@
 {
   "source": "Florida DBPR / ABT retail license extract + City of St. Augustine fee-distribution code 795",
-  "generatedAt": "2026-10-08T16:35:05.338Z",
+  "generatedAt": "2026-10-09T16:18:12.252Z",
   "county": "St. Johns County",
   "city": "Saint Augustine",
-  "countyTotalRetailLicenses": 826,
+  "countyTotalRetailLicenses": 827,
   "cityTotalRetailLicenses": 392,
   "county4copInEffect": 44,
   "county4copInUse": 41,
@@ -6019,21 +6019,6 @@
       "category": "Liquor Store"
     },
     {
-      "licenseNumber": "BEV6502811",
-      "licensee": "AREPA 58 LLC",
-      "dba": "AREPA 58",
-      "series": "2COP",
-      "modifier": "",
-      "city": "PONTE VEDRA BEACH",
-      "address": "10580 US-1 STE 402",
-      "zip": "32081",
-      "primaryStatus": "21",
-      "secondaryStatus": "37",
-      "active": false,
-      "quotaClass": null,
-      "category": "Other Hospitality"
-    },
-    {
       "licenseNumber": "BEV6502731",
       "licensee": "DUJOUR MARKET LLC",
       "dba": "BEA'S FINE FOODS",
@@ -6167,6 +6152,21 @@
       "active": false,
       "quotaClass": "3PS Quota",
       "category": "Liquor Store"
+    },
+    {
+      "licenseNumber": "BEV6502817",
+      "licensee": "ROCABADO GROUP LLC",
+      "dba": "LA ROSETA CAFE",
+      "series": "2COP",
+      "modifier": "",
+      "city": "ST. AUGUSTINE",
+      "address": "210 ST. GEORGE ST C3",
+      "zip": "32084",
+      "primaryStatus": "21",
+      "secondaryStatus": "37",
+      "active": false,
+      "quotaClass": null,
+      "category": "Restaurant"
     },
     {
       "licenseNumber": "BEV6501631",
