@@ -208,9 +208,11 @@ export default function BusinessPackageHeatMap({
       countyCenter < stateCenter
         ? stateLeft - tooltipWidth - gap
         : stateRight + gap;
+    // Keep the tooltip beside Florida, not clamped over the map itself.
+    // The tooltip height is still constrained to the stage independently.
     const viewportLeft = Math.min(
-      Math.max(stageBounds.left + 12, desiredLeft),
-      Math.max(stageBounds.left + 12, stageBounds.right - tooltipWidth - 12),
+      Math.max(12, desiredLeft),
+      Math.max(12, window.innerWidth - tooltipWidth - 12),
     );
     const top = Math.min(
       Math.max(10, clientY - stageBounds.top - tooltipHeight / 2),
