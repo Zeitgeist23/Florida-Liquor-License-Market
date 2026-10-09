@@ -2084,7 +2084,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     brokerage: "",
     featured: false,
     listingTier: "market",
-    publicationStatus: "published",
+    publicationStatus: "preview",
     classification: "business_package",
   },
   {
