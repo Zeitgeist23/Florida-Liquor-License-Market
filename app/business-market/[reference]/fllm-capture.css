@@ -69,3 +69,6 @@
 .fllm-match-actions{justify-content:flex-end!important}
 @media(max-width:1200px){.fllm-match-top{grid-template-columns:1fr!important}.fllm-match-title,.fllm-match-title>b,.fllm-match-title h2,.fllm-match-title p{text-align:center!important}.fllm-match-right{max-width:700px;margin:auto}}
 @media(max-width:690px){.fllm-match-top{display:flex!important;flex-direction:column!important}.fllm-match-right{max-width:100%}}
+
+/* Precisely center only the gold eyebrow relative to the cyan heading's text width. */
+.fllm-match-title > b{display:block!important;width:fit-content!important;max-width:100%!important;margin:0 auto 8px!important;text-align:center!important}
