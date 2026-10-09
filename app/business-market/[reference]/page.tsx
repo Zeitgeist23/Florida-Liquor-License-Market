@@ -450,7 +450,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 </div>
                 <div>
                   <span>Business + License Price</span>
-                  <strong>{listing.packagePrice}</strong>
+                  <strong className="business-market-price-gold">{listing.packagePrice}</strong>
                 </div>
                 <div className="business-market-bottom-stat">
                   <span>Liquor License Type</span>
@@ -464,7 +464,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 <div className="business-market-bottom-stat business-market-tooltip-card" tabIndex={0} aria-describedby="market-earnings-help">
                   <span>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? "SDE / Cash Flow" : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? "EBITDA" : "SDE / Cash Flow"}</span>
                   <span id="market-earnings-help" className="business-market-card-tooltip" role="tooltip">SDE, Cash Flow, or EBITDA as stated in the advertisement. The original financial label is retained; buyer due diligence is recommended.</span>
-                  <strong>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.sdeNumber) : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.ebitdaNumber) : "Not Disclosed"}</strong>
+                  <strong className="business-market-earnings-cyan">{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.sdeNumber) : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.ebitdaNumber) : "Not Disclosed"}</strong>
                 </div>
               </div>
               <p className="business-market-financial-disclosure">Financial information is taken from publicly advertised listings and has not been independently audited by FLLM. Buyers should conduct their own due diligence.</p>
