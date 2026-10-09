@@ -2052,3 +2052,12 @@
 .business-market-service-media--sba img{width:115px;height:110px;max-height:110px;object-fit:contain;flex-shrink:0}
 .business-market-service-sba-agency{font-size:clamp(15px,1.2vw,21px);font-weight:800;line-height:1.15;color:#fff;text-align:left}
 @media(max-width:400px){.business-market-service-media--sba img{width:84px}.business-market-service-sba-agency{font-size:15px}}
+
+/* Refined compact service-card proportions and self-contained IRA illustration. */
+.business-market-service-card{min-height:395px;padding-top:18px;padding-bottom:20px}
+.business-market-service-media{height:136px;margin-bottom:12px}
+.business-market-service-media--appraisal img{height:132px}
+.business-market-service-media--ira svg{width:220px;max-width:100%;height:120px}
+.business-market-service-card h3{margin-top:7px;margin-bottom:10px}
+.business-market-service-card p{margin-bottom:16px}
+@media(max-width:620px){.business-market-service-card{min-height:365px}}
