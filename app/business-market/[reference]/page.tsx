@@ -335,9 +335,6 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
       candidate.county === listing.county &&
       candidate.listingReference !== listing.listingReference,
   ).length;
-  const quotaLicenseFinancingAmount =
-    listing.licenseClass === "quota" ? moneyValue(listing.allocatedLicenseValue) : 0;
-
   const mapListings = marketRecords.filter(
     (candidate) =>
       candidate.licenseType === listing.licenseType &&
