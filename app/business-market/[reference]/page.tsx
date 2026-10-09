@@ -586,7 +586,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 <Image src="/assets/fllm-formal-appraisal-preview-v1.webp" alt="Blue FLLM liquor license appraisal report binder" width={390} height={200} />
               </div>
               <span>LIQUOR LICENSE APPRAISAL</span>
-              <h3>Independent Liquor License Valuation</h3>
+              <h3>Liquor License Appraisal</h3>
               <p>Explore FLLM appraisal services for the liquor-license component of a business acquisition, financing, or transfer.</p>
               <Link href="/florida-liquor-license-appraisal" className="fllm-ui-official-gold-button">Explore Appraisal Service →</Link>
             </article>
@@ -596,21 +596,27 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 <strong className="business-market-service-sba-agency">U.S. Small Business<br/>Administration</strong>
               </div>
               <span>BUSINESS ACQUISITION FINANCING</span>
-              <h3>Financing for Business + License Packages</h3>
+              <h3>Business Acquisition Financing</h3>
               <p>Explore SBA 7(a) and other financing considerations for purchasing a Florida business involving a liquor license.</p>
               <Link href="/sba-7a-liquor-license-business-financing" className="fllm-ui-official-gold-button">Explore SBA Financing →</Link>
             </article>
             <article className="business-market-service-card">
               <div className="business-market-service-media business-market-service-media--ira">
-                <svg viewBox="0 0 180 112" role="img" aria-label="Retirement account rollover assistance illustration">
-                  <circle cx="90" cy="54" r="43" fill="#113a52" stroke="#e6aa19" strokeWidth="2"/>
-                  <path d="M62 75V42l28-16 28 16v33M55 43l35-21 35 21M75 74V48h30v26" fill="none" stroke="#61d8ff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M82 62l7 7 13-18" fill="none" stroke="#4ade80" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg viewBox="0 0 220 124" role="img" aria-label="Retirement account portfolio and transfer illustration">
+                  <defs><linearGradient id="iraCardGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#ffdd78"/><stop offset="100%" stopColor="#d99203"/></linearGradient></defs>
+                  <rect x="32" y="23" width="104" height="78" rx="8" fill="#102e47" stroke="url(#iraCardGold)" strokeWidth="2.5"/>
+                  <path d="M45 42h78M48 54h47M48 65h34" fill="none" stroke="#78dfff" strokeWidth="3" strokeLinecap="round"/>
+                  <circle cx="84" cy="83" r="10" fill="#103f4b" stroke="#59e5a0" strokeWidth="2"/>
+                  <path d="m79 83 4 4 7-9" fill="none" stroke="#59e5a0" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M145 47a28 28 0 0 1 26 25" fill="none" stroke="#ffbf24" strokeWidth="4" strokeLinecap="round"/>
+                  <path d="m164 64 8 9 5-12" fill="none" stroke="#ffbf24" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M177 87a28 28 0 0 1-27 24" fill="none" stroke="#68d9ff" strokeWidth="4" strokeLinecap="round"/>
+                  <path d="m157 101-8 11-5-12" fill="none" stroke="#68d9ff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                  <text x="105" y="16" fill="#ffcf60" fontSize="13" fontWeight="800" textAnchor="middle">RETIREMENT ACCOUNT</text>
                 </svg>
-                <strong>IRA</strong>
               </div>
               <span>RETIREMENT ACCOUNT SERVICES</span>
-              <h3>FLLM IRA Rollover Assistance</h3>
+              <h3>IRA Rollover Assistance</h3>
               <p>Learn about self-directed IRA account setup and rollover coordination, subject to custodian requirements and independent professional advice.</p>
               <Link href="/self-directed-ira-liquor-license-lending#ira-setup-assistance" className="fllm-ui-official-gold-button">Explore IRA Assistance →</Link>
             </article>
