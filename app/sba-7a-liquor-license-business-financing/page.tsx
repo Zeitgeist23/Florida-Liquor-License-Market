@@ -110,7 +110,19 @@ export default function SbaSevenALiquorLicenseBusinessFinancingPage() {
         .sba-finance-page .seo-market-intro h2{max-width:1030px;font-size:clamp(30px,3.2vw,44px);line-height:1.14}
         @media(max-width:850px){.sba-finance-page .seo-market-hero-grid{grid-template-columns:1fr;gap:25px}.sba-finance-page .seo-market-hero h1{font-size:clamp(36px,6vw,52px)}}
         @media(max-width:520px){.sba-finance-page .seo-market-shell{width:calc(100% - 28px)}}
-        .sba-finance-page{background:#f7f7f5;color:#111820}
+        /* Restore FLLM navy/gold throughout the SBA page; no beige surfaces. */
+        .sba-finance-page{background:#061b2e;color:#ecf3f8}
+        .sba-finance-page :is(.seo-market-intro,.seo-market-counties,.seo-market-faq,.seo-market-cta){background:#0b2944;color:#e7f0f7}
+        .sba-finance-page .seo-market-counties{background:#09223a}
+        .sba-finance-page :is(.seo-market-intro,.seo-market-counties,.seo-market-faq) :is(h2,h3,p,li){color:#e7f0f7}
+        .sba-finance-page .seo-market-section-kicker{color:#ffbf24}
+        .sba-finance-page .sba-distinction article:first-child,
+        .sba-finance-page .sba-checklist li{background:#0b2944;border-color:#315871;color:#e7f0f7}
+        .sba-finance-page .sba-note{background:#102f49;border-color:#f6a700;color:#e7f0f7}
+        .sba-finance-page .sba-source-links a{background:#0b2944;color:#75dfff;border-color:#a07823}
+        .sba-finance-page .seo-market-faq details{background:#0a2841;color:#f1f6f9;border-color:#315871}
+        .sba-finance-page .seo-market-faq summary{color:#f1f6f9}
+
         .sba-finance-page .seo-market-hero{background:radial-gradient(circle at 84% 16%,rgba(246,167,0,.18),transparent 30%),linear-gradient(135deg,#020b12 0%,#061728 55%,#0a2237 100%);border-top:1px solid rgba(246,167,0,.38);border-bottom:1px solid rgba(246,167,0,.46)}
         .sba-finance-page .seo-market-breadcrumbs,.sba-finance-page .seo-market-hero p{color:#dce5ec}
         .sba-finance-page .seo-market-breadcrumbs a,.sba-finance-page .seo-market-kicker,.sba-finance-page .seo-market-section-kicker{color:#f6a700}
