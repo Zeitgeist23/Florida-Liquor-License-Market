@@ -2002,3 +2002,15 @@
   max-width:900px;
   margin:14px auto 0;
 }
+
+/* Shared Market View license explainer: centered and comfortably legible. */
+.business-market-license-panel .business-market-section-heading{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.business-market-license-panel .business-market-section-heading > span,
+.business-market-license-panel .business-market-section-heading > h2{text-align:center;max-width:100%;margin-left:auto;margin-right:auto}
+.business-market-license-panel > p{text-align:center;max-width:1050px;margin:18px auto 26px;font-size:clamp(16px,1.12vw,18px);line-height:1.7;color:#e1edf6}
+.business-market-license-panel .business-market-license-detail-card{align-items:center;text-align:center;min-height:132px;padding:19px 16px;gap:8px}
+.business-market-license-panel .business-market-license-detail-card > span:first-child{font-size:clamp(12px,.86vw,14px);line-height:1.35;color:#d4e5f0;text-align:center}
+.business-market-license-panel .business-market-license-detail-card > strong{font-size:clamp(17px,1.12vw,20px);line-height:1.35;color:#fff;text-align:center}
+.business-market-license-panel .business-market-license-highlight-card strong{font-size:clamp(15px,1vw,18px);line-height:1.4;text-align:center}
+.business-market-license-panel .business-market-license-links{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;text-align:center}
+.business-market-license-panel .business-market-license-card-tooltip{text-align:left}
