@@ -2019,3 +2019,10 @@
 .business-market-compact-resources{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin:12px auto 22px;padding:0;text-align:center}
 .business-market-compact-resources a{display:inline-flex;align-items:center;justify-content:center;min-height:39px;padding:9px 13px;border:1px solid rgba(95,208,247,.42);border-radius:6px;background:#09283f;color:#7ae3ff;font-size:13px;font-weight:750;line-height:1.4;text-align:center;text-decoration:none;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
 .business-market-compact-resources a:hover,.business-market-compact-resources a:focus-visible{transform:scale(1.03);border-color:#69d6ff;box-shadow:0 0 14px rgba(105,214,255,.16)}
+
+/* Compact acquisition-financing invitation replaces full sidebar calculator. */
+.business-market-acquisition-financing{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;margin:18px 0;padding:21px 24px;border:1px solid rgba(66,168,212,.55);border-radius:10px;background:linear-gradient(145deg,#102f48,#082238);text-align:center}
+.business-market-acquisition-financing>span{color:#ffbf24;font-size:16px;font-weight:850;letter-spacing:.035em;text-transform:uppercase;text-align:center}
+.business-market-acquisition-financing>p{max-width:720px;margin:0;color:#e1edf5;font-size:15px;line-height:1.6;text-align:center}
+.business-market-acquisition-financing>a{display:inline-flex;align-items:center;justify-content:center;margin-top:2px;padding:12px 24px;border:1px solid #d99a08;border-radius:7px;background:#f1ab13;color:#071725;font-size:14px;font-weight:850;text-decoration:none;transition:transform .18s ease,box-shadow .18s ease}
+.business-market-acquisition-financing>a:hover,.business-market-acquisition-financing>a:focus-visible{transform:scale(1.04);box-shadow:0 0 18px rgba(255,191,36,.25)}
