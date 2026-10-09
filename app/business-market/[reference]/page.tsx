@@ -562,38 +562,12 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 </div>
               </section>
 
-              <section className="business-market-panel">
-                <div className="business-market-section-heading">
-                  <span>Buyer Due Diligence</span>
-                  <h2>What buyers should verify before relying on this market opportunity</h2>
-                </div>
-                <div className="business-market-checklist">
-                  {licenseGuide.buyerPoints.map((point) => (
-                    <div key={point}><span>✓</span><p>{point}</p></div>
-                  ))}
-                </div>
-                <div className="business-market-license-links">
-                  <Link href="/transaction-services">FLLM transaction resources ›</Link>
-                  <Link href="/florida-liquor-license-appraisal">Liquor-license appraisal ›</Link>
-                  <Link href="/resources/application-center">DBPR / ABT application center ›</Link>
-                </div>
-              </section>
-
-              <section className="business-market-panel">
-                <div className="business-market-section-heading">
-                  <span>Seller & Broker Considerations</span>
-                  <h2>How to present the liquor-license component clearly</h2>
-                </div>
-                <div className="business-market-checklist">
-                  {licenseGuide.sellerPoints.map((point) => (
-                    <div key={point}><span>✓</span><p>{point}</p></div>
-                  ))}
-                </div>
-                <div className="business-market-license-links">
-                  <Link href="/brokers/list-your-license">List with FLLM ›</Link>
-                  <Link href="/florida-liquor-license-value">Review FLLM license-value data ›</Link>
-                </div>
-              </section>
+              <nav className="business-market-compact-resources" aria-label="Additional liquor license resources">
+                <Link href="/transaction-services">Transaction resources ›</Link>
+                <Link href="/florida-liquor-license-appraisal">Liquor-license appraisal ›</Link>
+                <Link href="/resources/application-center">DBPR / ABT application center ›</Link>
+                <Link href="/florida-liquor-license-value">License-value data ›</Link>
+              </nav>
             </div>
 
             <aside className="business-market-sidebar" id="buyer-alert">
