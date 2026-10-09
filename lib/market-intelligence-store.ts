@@ -238,20 +238,21 @@ export async function getApprovedMarketFinancials(references: string[]) {
  */
 export async function getSourcedObservedFinancials(references: string[]) {
   const allowed=Array.from(new Set(references)).filter(ref=>/^FLLM-MKT-[A-Z0-9-]+$/.test(ref)).slice(0,250);
-  const output=new Map<string,{gross:number|null;sde:number|null}>();
+  const output=new Map<string,{gross:number|null;sde:number|null;ebitda:number|null}>();
   if(!allowed.length)return output;
   const filter=allowed.map(ref=>encodeURIComponent(ref)).join(",");
   const rows=await rest<Array<{
-    listing_key:string;gross_revenue:number|null;sde_cash_flow:number|null;
+    listing_key:string;gross_revenue:number|null;sde_cash_flow:number|null;ebitda:number|null;
     evidence_confidence:number|null;source_url:string|null;listing_status:string|null;
-  }>>("business_quota_market_observations?select=listing_key,gross_revenue,sde_cash_flow,evidence_confidence,source_url,listing_status&listing_key=in.("+filter+")&limit=250");
+  }>>("business_quota_market_observations?select=listing_key,gross_revenue,sde_cash_flow,ebitda,evidence_confidence,source_url,listing_status&listing_key=in.("+filter+")&limit=250");
   for(const row of rows){
     if(!allowed.includes(row.listing_key)||row.listing_status!=="active"||
        typeof row.evidence_confidence!=="number"||row.evidence_confidence<90||
        !row.source_url?.startsWith("https://"))continue;
     const gross=typeof row.gross_revenue==="number"&&row.gross_revenue>0?row.gross_revenue:null;
     const sde=typeof row.sde_cash_flow==="number"&&row.sde_cash_flow>0?row.sde_cash_flow:null;
-    if(gross!==null||sde!==null)output.set(row.listing_key,{gross,sde});
+    const ebitda=typeof row.ebitda==="number"&&row.ebitda>0?row.ebitda:null;
+    if(gross!==null||sde!==null||ebitda!==null)output.set(row.listing_key,{gross,sde,ebitda});
   }
   return output;
 }
