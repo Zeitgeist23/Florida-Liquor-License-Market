@@ -540,42 +540,6 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
         <div className="business-market-shell">
           <div className="business-market-grid business-market-grid--martin-horizontal">
             <div className="business-market-main">
-              <section className={`business-market-panel business-market-county-intelligence${listing.listingReference === "FLLM-MKT-Q-001" ? " business-market-county-panel--refined" : ""}`}>
-                <div className="business-market-section-heading business-market-section-heading--center">
-                  <span>County License Market Data</span>
-                  <h2>{listing.county} · {listing.licenseType}</h2>
-                </div>
-                <p>
-                  Explore county liquor-license market data and comparable business opportunities.
-                </p>
-
-                <div className="business-market-fact-grid">
-                  <div>
-                    <span>{listing.listingReference === "FLLM-MKT-Q-001" ? "FLLM Median License Asking Price" : "Median Disclosed License Ask"}</span>
-                    <strong>{money(countyLicenseMedianAsk)}</strong>
-                  </div>
-                  <div>
-                    <span>Standalone Licenses on Market</span>
-                    <strong>{countyLicenseListings.length}</strong>
-                  </div>
-                  <div>
-                    <span>Business + {listing.licenseType} Packages</span>
-                    <strong>{countyBusinessPackages.length}</strong>
-                  </div>
-                  <div>
-                    <span>Primary County Markets</span>
-                    <strong>{countySummary.cities}</strong>
-                  </div>
-                </div>
-
-                <div className="business-market-license-links">
-                  <Link href={marketHub.href}>{marketHub.label} ›</Link>
-                  <Link href={listing.countyHref}>Open {listing.county} license market data ›</Link>
-                  <Link href="/counties">Compare all Florida counties ›</Link>
-                </div>
-                <p className="business-market-county-disclosure">Market information reflects observed public listings. FLLM does not represent the seller or broker of this opportunity.</p>
-              </section>
-
               <section className="business-market-panel business-market-license-panel">
                 <div className="business-market-section-heading">
                   <span>License Type Explained</span>
@@ -594,6 +558,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                     <Link href="/license-types/2cop-beer-wine">2COP Beer & Wine guide ›</Link>
                   )}
                   <Link href="/resources/florida-liquor-license-types">Compare Florida license types ›</Link>
+                  {listing.licenseClass === "quota" ? <Link href={listing.countyHref}>Explore standalone {listing.licenseType} licenses in {listing.county} ›</Link> : null}
                 </div>
               </section>
 
