@@ -460,14 +460,15 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 </div>
                 <div className="business-market-bottom-stat business-market-tooltip-card" tabIndex={0} aria-describedby="market-revenue-help">
                   <span>Gross Annual Revenue</span>
-                  <span id="market-revenue-help" className="business-market-card-tooltip" role="tooltip">Advertised annual gross revenue, when publicly disclosed. FLLM has not independently verified these figures. Not Disclosed means no supported figure is available in this market record.</span>
+                  <span id="market-revenue-help" className="business-market-card-tooltip" role="tooltip">Gross revenue as stated in the source advertisement, where available. Buyer due diligence is recommended.</span>
                   <strong>{typeof listing.grossRevenueNumber === "number" && listing.grossRevenueNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.grossRevenueNumber) : "Not Disclosed"}</strong>
                 </div>
                 <div className="business-market-bottom-stat business-market-tooltip-card" tabIndex={0} aria-describedby="market-earnings-help">
                   <span>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? "SDE / Cash Flow" : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? "EBITDA" : "SDE / Cash Flow"}</span>
-                  <span id="market-earnings-help" className="business-market-card-tooltip" role="tooltip">Advertised SDE, cash flow, or EBITDA as identified in the market record. These financial metrics are not interchangeable. FLLM has not independently verified the figures.</span>
+                  <span id="market-earnings-help" className="business-market-card-tooltip" role="tooltip">SDE, Cash Flow, or EBITDA as stated in the advertisement. The original financial label is retained; buyer due diligence is recommended.</span>
                   <strong>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.sdeNumber) : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.ebitdaNumber) : "Not Disclosed"}</strong>
                 </div>
+                <p className="business-market-financial-disclosure">Financial figures are as advertised and are not independently audited by FLLM. Buyers should conduct their own due diligence.</p>
               </div>
 
               <section className="business-market-valuation-strip business-market-tooltip-card" tabIndex={0} aria-label="FLLM estimated license value" aria-describedby="market-valuation-help">
