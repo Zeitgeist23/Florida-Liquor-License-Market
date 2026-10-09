@@ -453,11 +453,11 @@ export default function BusinessPackageHeatMap({
                               <dt>Business + License Price</dt>
                               <dd>{selectedPackagePrice ?? "—"}</dd>
                             </div>
-                            <div className="business-package-market-metric">
+                            <div className="business-package-market-metric business-package-market-metric--license-type">
                               <dt>License Type</dt>
                               <dd>{licenseType}</dd>
                             </div>
-                            <div className="business-package-market-metric">
+                            <div className="business-package-market-metric business-package-market-metric--license-value">
                               <dt>FLLM Est. License Value</dt>
                               <dd>{selectedLicenseValue || "Market data unavailable"}</dd>
                             </div>
