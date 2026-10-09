@@ -193,6 +193,17 @@ export default async function GentlemensClubsForSaleWithLiquorLicensesPage() {
         </div>
       </section>
 
+      <section className="fllm-template-section" id="market-intelligence-method">
+        <div className="fllm-template-shell">
+          <div className="fllm-ui-panel">
+            <h2>How to compare Florida gentlemen's clubs and adult-entertainment venues for sale with liquor licenses</h2>
+            <p>FLLM organizes gentlemen's clubs and adult-entertainment venues by business category, Florida county, and the disclosed alcoholic-beverage license class. When published, a business-package asking price is not the same as the value of its liquor license. A transferable 4COP quota license may have a separate FLLM estimated license value based on county market information. A 4COP SFS / SRX qualification or 2COP beer-and-wine license must not be valued as an interchangeable quota asset.</p>
+            <p>Market Views reflect publicly observed sale information rather than an offer by FLLM to broker the operating business. Asking price and SDE, cash flow, or EBITDA appear only when disclosed; these figures are not independently verified by FLLM. Estimated license values are market estimates, not appraisals. Availability and license-transfer eligibility require independent confirmation.</p>
+            <p>Explore related Florida business categories: <Link href="/restaurants-with-liquor-licenses">restaurants with liquor licenses</Link>, <Link href="/bars-for-sale-with-liquor-licenses">bars with liquor licenses</Link>, <Link href="/nightclubs-for-sale-with-liquor-licenses">nightclubs with liquor licenses</Link>, <Link href="/gentlemens-clubs-for-sale-with-liquor-licenses">gentlemen&apos;s clubs</Link>, and <Link href="/businesses-with-quota-licenses/marinas">marina business packages</Link>.</p>
+          </div>
+        </div>
+      </section>
+
       <section className="fllm-template-section" id="license-paths">
         <div className="fllm-template-shell">
           <FllmSectionHeading
