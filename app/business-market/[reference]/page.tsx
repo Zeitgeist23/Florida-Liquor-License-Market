@@ -519,7 +519,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
 
       <section className="business-market-content">
         <div className="business-market-shell">
-          <div className={`business-market-grid${listing.listingReference === "FLLM-MKT-Q-001" ? " business-market-grid--martin-horizontal" : ""}`}>
+          <div className="business-market-grid business-market-grid--martin-horizontal">
             <div className="business-market-main">
               <section className={`business-market-panel${listing.listingReference === "FLLM-MKT-Q-001" ? " business-market-county-panel--refined" : ""}`}>
                 <div className="business-market-section-heading business-market-section-heading--center">
@@ -627,28 +627,16 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
             </div>
 
             <aside className="business-market-sidebar" id="buyer-alert">
-              {listing.listingReference !== "FLLM-MKT-Q-001" ? (
-                <MarketBuyerLeadForm
-                  listingReference={listing.listingReference}
-                  listingTitle={title}
-                  county={listing.county}
-                  businessType={listing.businessCategory}
-                  licenseType={listing.licenseType}
-                  askingPrice={listing.packagePrice}
-                  listingUrl={canonicalPath}
-                />
-              ) : (
-                <MarketBuyerLeadForm
-                  listingReference={listing.listingReference}
-                  listingTitle={title}
-                  county={listing.county}
-                  businessType={listing.businessCategory}
-                  licenseType={listing.licenseType}
-                  askingPrice={listing.packagePrice}
-                  listingUrl={canonicalPath}
-                  horizontalMarketView
-                />
-              )}
+              <MarketBuyerLeadForm
+                listingReference={listing.listingReference}
+                listingTitle={title}
+                county={listing.county}
+                businessType={listing.businessCategory}
+                licenseType={listing.licenseType}
+                askingPrice={listing.packagePrice}
+                listingUrl={canonicalPath}
+                horizontalMarketView
+              />
 
               {listing.licenseClass === "quota" ? (
                 <>
