@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "npm run check:fllm-design && node scripts/sync-featured-financials.mjs && next build",
+    "build": "npm run check:fllm-design && node scripts/sync-featured-financials.mjs && node scripts/check-buyer-match-antezza.mjs && next build",
     "start": "next start",
     "lint": "eslint .",
     "check:fllm-design": "node scripts/check-fllm-design-system.mjs",
