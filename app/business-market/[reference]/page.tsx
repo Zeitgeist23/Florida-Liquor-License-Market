@@ -318,6 +318,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
         ...baseListing,
         grossRevenueNumber: observed.gross ?? baseListing.grossRevenueNumber,
         sdeNumber: observed.sde ?? baseListing.sdeNumber,
+        ebitdaNumber: observed.ebitda ?? baseListing.ebitdaNumber,
       };
     }
   } catch (error) {
