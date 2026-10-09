@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import BusinessPackageHeatMap, { type BusinessPackageHeatMapRow } from "@/components/BusinessPackageHeatMap";
 import BusinessMarketHeroMap from "@/components/BusinessMarketHeroMap";
 import BusinessMarketLicenseFeatureCards from "@/components/BusinessMarketLicenseFeatureCards";
-import BusinessMarketplaceRoleDisclosure from "@/components/BusinessMarketplaceRoleDisclosure";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
 import ObservedDaysOnMarket from "@/components/ObservedDaysOnMarket";
@@ -547,8 +546,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   <h2>{listing.county} · {listing.licenseType}</h2>
                 </div>
                 <p>
-                  FLLM separates the transferable liquor-license market from operating-business package
-                  advertisements so buyers and sellers can evaluate the license component on its own.
+                  Explore county liquor-license market data and comparable business opportunities.
                 </p>
 
                 <div className="business-market-fact-grid">
@@ -570,25 +568,12 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   </div>
                 </div>
 
-                {listing.listingReference !== "FLLM-MKT-Q-001" ? <BusinessMarketplaceRoleDisclosure /> : null}
-
-                {listing.listingReference === "FLLM-MKT-Q-001" ? (
-                  <div className="business-market-disclosure">
-                    <strong>Independent Market View</strong>
-                    <p>FLLM provides independent liquor-license market intelligence. Observed business opportunities are not seller-authorized FLLM listings unless expressly identified as such. FLLM does not broker the business or guarantee access to its seller.</p>
-                  </div>
-                ) : (
-                  <div className="business-market-disclosure">
-                    <strong>Market-data disclosure</strong>
-                    <p>The business-package counts shown on FLLM Market View pages may include opportunities observed on third-party public marketplaces. Those businesses are not FLLM-listed businesses unless a page expressly identifies an authorized FLLM listing. FLLM does not participate in, share, or receive real-estate or business-broker commissions. FLLM provides liquor-license market information, advertising, valuation, financing, and transaction-support resources.</p>
-                  </div>
-                )}
-
                 <div className="business-market-license-links">
                   <Link href={marketHub.href}>{marketHub.label} ›</Link>
                   <Link href={listing.countyHref}>Open {listing.county} license market data ›</Link>
                   <Link href="/counties">Compare all Florida counties ›</Link>
                 </div>
+                <p className="business-market-county-disclosure">Market information reflects observed public listings. FLLM does not represent the seller or broker of this opportunity.</p>
               </section>
 
               <section className="business-market-panel business-market-license-panel">
