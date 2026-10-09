@@ -1163,3 +1163,29 @@
   font-size:16.5px;
   line-height:1.72;
 }
+
+/*
+ * FLLM universal statistic-card standard:
+ * centered labels and figures, equal card height and balanced padding.
+ * Excludes prose panels, detailed explanations, and tabular data.
+ */
+.fllm-ui-stat-card,
+.fllm-official-page .business-market-fact-grid > div,
+.fllm-official-page .business-market-hero-stats > div {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.fllm-ui-stat-card > :is(span,strong,h3,p),
+.fllm-official-page .business-market-fact-grid > div > :is(span,strong),
+.fllm-official-page .business-market-hero-stats > div > :is(span,strong) {
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+.fllm-official-page .business-market-fact-grid > div {
+  min-height:76px;
+  padding:14px 16px;
+}
