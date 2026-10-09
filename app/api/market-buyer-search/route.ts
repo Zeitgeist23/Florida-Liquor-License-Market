@@ -12,7 +12,33 @@ export async function POST(request: Request) {
     const types=selected(body.businessTypes), licenses=selected(body.licenseTypes), counties=selected(body.counties);
     const amount=(value:unknown)=>{if(!value)return null;const n=Number(String(value).replace(/[^\d.]/g,""));return Number.isFinite(n)&&n>0?n:null;};
     const maxPrice=amount(body.maxPurchasePrice),minRevenue=amount(body.minGrossRevenue),minSde=amount(body.minSde),minEbitda=amount(body.minEbitda);
-    const matches=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x) && (types.length===0||types.includes(x.businessCategory)) && (licenses.length===0||licenses.includes(x.licenseType)) && (counties.length===0||counties.includes(x.county)) && (maxPrice===null||(x.packagePriceNumber>0&&x.packagePriceNumber<=maxPrice)) && (minRevenue===null||(typeof x.grossRevenueNumber==="number"&&x.grossRevenueNumber>=minRevenue)) && (minSde===null||(typeof x.sdeNumber==="number"&&x.sdeNumber>=minSde)) && (minEbitda===null||(typeof x.ebitdaNumber==="number"&&x.ebitdaNumber>=minEbitda)) && (!selected(body.financingPreferences).includes("Seller Financing")||x.sellerFinancingAvailable===true));
-    return NextResponse.json({total:matches.length,results:matches.slice(0,30).map(x=>({reference:x.listingReference,county:x.county,businessType:x.businessCategory,licenseType:x.licenseType,price:x.packagePrice,href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,source:x.listingTier==="market"?"Independent Market View":"Featured Listing"}))},{headers:{"Cache-Control":"no-store"}});
+    const eligible=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x)
+      && (types.length===0||types.includes(x.businessCategory))
+      && (licenses.length===0||licenses.includes(x.licenseType))
+      && (counties.length===0||counties.includes(x.county))
+      && (maxPrice===null||(x.packagePriceNumber>0&&x.packagePriceNumber<=maxPrice))
+      && (!selected(body.financingPreferences).includes("Seller Financing")||x.sellerFinancingAvailable===true));
+    const thresholds=[{minimum:minRevenue,field:"grossRevenueNumber"},{minimum:minSde,field:"sdeNumber"},{minimum:minEbitda,field:"ebitdaNumber"}] as const;
+    const tested=eligible.map(x=>{
+      const active=thresholds.filter(t=>t.minimum!==null);
+      const disclosed=active.filter(t=>typeof x[t.field]==="number");
+      const fails=disclosed.some(t=>(x[t.field] as number)<(t.minimum as number));
+      const unknown=active.some(t=>typeof x[t.field]!=="number");
+      return {x,matchStatus:fails?"excluded":unknown?"financials_unverified":"verified"};
+    }).filter(v=>v.matchStatus!=="excluded");
+    const verified=tested.filter(v=>v.matchStatus==="verified");
+    const potential=tested.filter(v=>v.matchStatus==="financials_unverified");
+    const ordered=[...verified,...potential];
+    return NextResponse.json({
+      total:verified.length,potentialCount:potential.length,shown:ordered.length,
+      results:ordered.slice(0,30).map(({x,matchStatus})=>({
+        reference:x.listingReference,county:x.county,businessType:x.businessCategory,
+        licenseType:x.licenseType,price:x.packagePrice,
+        href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,
+        source:x.listingTier==="market"?"Independent Market View":"Featured Listing",
+        matchStatus,financialNote:matchStatus==="financials_unverified"?"Financial criteria not verified — revenue, SDE or EBITDA not disclosed":"All available financial criteria verified"
+      }))
+    },{headers:{"Cache-Control":"no-store"}});
+
   } catch {return NextResponse.json({error:"Unable to search listings."},{status:400});}
 }
