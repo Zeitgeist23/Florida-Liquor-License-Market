@@ -468,8 +468,8 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                   <span id="market-earnings-help" className="business-market-card-tooltip" role="tooltip">SDE, Cash Flow, or EBITDA as stated in the advertisement. The original financial label is retained; buyer due diligence is recommended.</span>
                   <strong>{typeof listing.sdeNumber === "number" && listing.sdeNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.sdeNumber) : typeof listing.ebitdaNumber === "number" && listing.ebitdaNumber > 0 ? new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(listing.ebitdaNumber) : "Not Disclosed"}</strong>
                 </div>
-                <p className="business-market-financial-disclosure">Financial figures are as advertised and are not independently audited by FLLM. Buyers should conduct their own due diligence.</p>
               </div>
+              <p className="business-market-financial-disclosure">Financial information is taken from publicly advertised listings and has not been independently audited by FLLM. Buyers should conduct their own due diligence.</p>
 
               <section className="business-market-valuation-strip business-market-tooltip-card" tabIndex={0} aria-label="FLLM estimated license value" aria-describedby="market-valuation-help">
                 {listing.licenseClass === "quota" ? (
