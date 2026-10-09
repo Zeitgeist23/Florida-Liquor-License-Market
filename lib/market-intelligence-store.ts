@@ -247,7 +247,6 @@ export async function getSourcedObservedFinancials(references: string[]) {
   }>>("business_quota_market_observations?select=listing_key,gross_revenue,sde_cash_flow,ebitda,evidence_confidence,source_url,listing_status&listing_key=in.("+filter+")&limit=250");
   for(const row of rows){
     if(!allowed.includes(row.listing_key)||row.listing_status!=="active"||
-       typeof row.evidence_confidence!=="number"||row.evidence_confidence<90||
        !row.source_url?.startsWith("https://"))continue;
     const gross=typeof row.gross_revenue==="number"&&row.gross_revenue>0?row.gross_revenue:null;
     const sde=typeof row.sde_cash_flow==="number"&&row.sde_cash_flow>0?row.sde_cash_flow:null;
