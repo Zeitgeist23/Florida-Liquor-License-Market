@@ -450,7 +450,7 @@ export default function BusinessPackageHeatMap({
                           <strong>{selectedListingTitle}</strong>
                           <dl>
                             <div className="business-package-listing-price">
-                              <dt>Listing Price</dt>
+                              <dt>Business + License Price</dt>
                               <dd>{selectedPackagePrice ?? "—"}</dd>
                             </div>
                             <div className="business-package-market-metric">
