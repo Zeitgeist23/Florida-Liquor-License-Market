@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     const maxPrice=amount(body.maxPurchasePrice),minRevenue=amount(body.minGrossRevenue),minSde=amount(body.minSde),minEbitda=amount(body.minEbitda);
     const earningsMinimum = Math.max(minSde ?? 0, minEbitda ?? 0);
     const eligible=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x)
-      && (types.length===0||types.includes(x.businessCategory))
+      && (types.length===0||types.includes(x.businessCategory)||(types.includes("Bar")&&x.businessCategory==="Cocktail Lounge"))
       && (licenses.length===0||licenses.includes(x.licenseType))
       && (counties.length===0||counties.includes(x.county))
       && (maxPrice===null||(x.packagePriceNumber>0&&x.packagePriceNumber<=maxPrice))
