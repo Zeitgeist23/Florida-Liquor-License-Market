@@ -2077,3 +2077,7 @@
 .business-market-service-card h3{margin:6px 0 9px}
 .business-market-service-card p{margin-bottom:12px}
 @media(max-width:620px){.business-market-service-card{min-height:0}}
+
+/* Market View hero financial value colors only. */
+.business-market-hero-stats .business-market-price-gold,.business-market-price-gold{color:#ffbf24}
+.business-market-hero-stats .business-market-earnings-cyan,.business-market-earnings-cyan{color:#64d9ff}
