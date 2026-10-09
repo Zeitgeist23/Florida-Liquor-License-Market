@@ -9,7 +9,6 @@ import BusinessMarketLicenseFeatureCards from "@/components/BusinessMarketLicens
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
 import ObservedDaysOnMarket from "@/components/ObservedDaysOnMarket";
-import { ListingSidebarLoanCalculator } from "@/components/ListingBrokerInquiryForm";
 import { countySlug, floridaCounties } from "@/data/florida-counties";
 import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
 import { getMarketplaceListings } from "@/lib/listing-store";
@@ -582,33 +581,11 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 horizontalMarketView
               />
 
-              {listing.licenseClass === "quota" ? (
-                <>
-                  <div className="business-market-side-card">
-                    <span>License Financing</span>
-                    <strong>Finance the License Component</strong>
-                    <p>
-                      Request FLLM information about financing a transferable quota liquor
-                      license. Financing is separate from the advertised business asking price
-                      and is subject to lender underwriting, collateral review, transaction
-                      structure, and approval.
-                    </p>
-                    <Link className="business-market-primary" href="/financing#request-financing">
-                      Request License Financing
-                    </Link>
-                  </div>
-
-                  <ListingSidebarLoanCalculator
-                    initialPurchasePrice={quotaLicenseFinancingAmount}
-                    initialDownPayment={
-                      quotaLicenseFinancingAmount > 0
-                        ? Math.round(quotaLicenseFinancingAmount * 0.2)
-                        : 0
-                    }
-                    mode="license"
-                  />
-                </>
-              ) : null}
+              <div className="business-market-acquisition-financing">
+                <span>Business Acquisition Financing</span>
+                <p>Explore financing for a Florida business acquisition involving a liquor license. Availability and terms depend on lender approval and transaction structure.</p>
+                <Link href="/financing#request-financing">Explore Financing →</Link>
+              </div>
 
               <div className="business-market-side-card">
                 <span>Market View Notice</span>
