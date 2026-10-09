@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server";
+import featuredFinancialManifest from "@/data/featured-listing-financials.generated.json";
+
+const featuredFinancials = featuredFinancialManifest as Record<string, {gross?:number;sde?:number;ebitda?:number}>;
 import { getApprovedMarketFinancials } from "@/lib/market-intelligence-store";
 import { businessQuotaListingRecords, businessMarketRecordHref, passesBusinessMarketSourcePolicy } from "@/lib/business-quota-listings";
 export const dynamic = "force-dynamic";
@@ -27,9 +30,10 @@ export async function POST(request: Request) {
     }
     const matching=eligible.filter(x=>{
       const enriched=approved.get(x.listingReference);
-      const gross=enriched?.gross ?? x.grossRevenueNumber;
-      const sde=enriched?.sde ?? x.sdeNumber;
-      const ebitda=x.ebitdaNumber;
+      const displayed=x.featured ? featuredFinancials[x.listingReference] : undefined;
+      const gross=displayed?.gross ?? x.grossRevenueNumber ?? enriched?.gross;
+      const sde=displayed?.sde ?? x.sdeNumber ?? enriched?.sde;
+      const ebitda=displayed?.ebitda ?? x.ebitdaNumber;
       return (minRevenue===null || (typeof gross==="number" && gross>=minRevenue))
         && (minSde===null || (typeof sde==="number" && sde>=minSde))
         && (minEbitda===null || (typeof ebitda==="number" && ebitda>=minEbitda));
@@ -41,7 +45,7 @@ export async function POST(request: Request) {
         licenseType:x.licenseType,price:x.packagePrice,
         href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,
         source:x.listingTier==="market"?"Independent Market View":"Featured Listing",
-        matchStatus:"verified",financialNote:"All selected financial thresholds satisfied"
+        matchStatus:"verified",financialNote:"Published financial figures meet the selected thresholds; not independently audited"
       }))
     },{headers:{"Cache-Control":"no-store"}});
 
