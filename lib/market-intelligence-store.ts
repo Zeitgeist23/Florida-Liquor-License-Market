@@ -206,3 +206,28 @@ export async function saveMarketIntelligence(input: Partial<DbRow> & { listing_r
   );
   return response[0];
 }
+
+/** Server-only financial fields for matching published FLLM references.
+ * No names, contacts, research notes, or identity hypotheses are selected.
+ */
+export async function getApprovedMarketFinancials(references: string[]) {
+  const allowed = Array.from(new Set(references)).filter(ref => /^FLLM-[A-Z0-9-]+$/.test(ref)).slice(0,250);
+  const result = new Map<string, { gross: number | null; sde: number | null }>();
+  if (!allowed.length) return result;
+  const filter = allowed.map(ref => encodeURIComponent(ref)).join(",");
+  const rows = await rest<Array<{
+    listing_reference: string;
+    gross_revenue: number | null;
+    sde_cash_flow: number | null;
+    verification_status: string | null;
+    market_status: string | null;
+  }>>("market_intelligence_businesses?select=listing_reference,gross_revenue,sde_cash_flow,verification_status,market_status&listing_reference=in.(" + filter + ")&limit=250");
+  for (const row of rows) {
+    if (!allowed.includes(row.listing_reference) || row.verification_status !== "verified" || row.market_status !== "active") continue;
+    result.set(row.listing_reference, {
+      gross: typeof row.gross_revenue === "number" && row.gross_revenue > 0 ? row.gross_revenue : null,
+      sde: typeof row.sde_cash_flow === "number" && row.sde_cash_flow > 0 ? row.sde_cash_flow : null,
+    });
+  }
+  return result;
+}
