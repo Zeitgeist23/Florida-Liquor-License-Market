@@ -115,6 +115,12 @@ export default function MarketBuyerLeadForm({
     fetch("/api/market-buyer-search",{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(data=>setInventoryCount(typeof data.activeListings==="number"?data.activeListings:null)).catch(()=>setInventoryCount(null));
   }, [open]);
 
+  // A search result snapshot must never outlive changes to its search criteria.
+  useEffect(() => {
+    setSearchResults(null);
+    setSearchError("");
+  }, [selectedBusinessTypes, selectedLicenseTypes, selectedCounties, maxPurchasePrice, minGrossRevenue, minSde, minEbitda, selectedFinancing]);
+
   useEffect(() => {
     if (!open) return;
     const controller = new AbortController();
