@@ -554,3 +554,6 @@
 .business-package-county-map .business-package-tooltip-link .business-package-listing-price dd{color:#ffbf24;text-shadow:0 0 8px rgba(255,191,36,.15)}
 .business-package-county-map .business-package-tooltip-link .business-package-market-metric--license-type dd,
 .business-package-county-map .business-package-tooltip-link .business-package-market-metric--license-value dd{color:#4ade80;text-shadow:0 0 8px rgba(74,222,128,.13)}
+
+/* Keep the short package-price heading aligned with the license-type heading. */
+.business-package-county-map .business-package-tooltip-link .business-package-listing-price dt{white-space:nowrap;font-size:10px;letter-spacing:0;}
