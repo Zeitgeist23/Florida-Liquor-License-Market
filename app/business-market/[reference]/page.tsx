@@ -592,7 +592,8 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
             </article>
             <article className="business-market-service-card">
               <div className="business-market-service-media business-market-service-media--sba">
-                <Image src="/assets/sba-logo-horizontal-blue.svg" alt="U.S. Small Business Administration logo" width={390} height={160} />
+                <Image src="/assets/sba-mark-red-accent.svg" alt="SBA red-accent logo" width={150} height={112} />
+                <strong className="business-market-service-sba-agency">U.S. Small Business<br/>Administration</strong>
               </div>
               <span>BUSINESS ACQUISITION FINANCING</span>
               <h3>Financing for Business + License Packages</h3>
