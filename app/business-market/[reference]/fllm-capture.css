@@ -72,3 +72,9 @@
 
 /* Precisely center only the gold eyebrow relative to the cyan heading's text width. */
 .fllm-match-title > b{display:block!important;width:fit-content!important;max-width:100%!important;margin:0 auto 8px!important;text-align:center!important}
+
+/* Result pills use the same exact category CSS tokens as FLLM market-listing cards. */
+.fllm-match-result-grid a .fllm-match-result-pills{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 10px}
+.fllm-match-result-grid a .business-market-category-badge{display:inline-flex;align-items:center;justify-content:center;align-self:auto;width:max-content;max-width:100%;min-height:28px;margin:0;padding:6px 11px;border:1px solid var(--market-category-color,#7d91a0);border-radius:999px;background:var(--market-category-surface,rgba(125,145,160,.14));color:var(--market-category-color,#7d91a0);font:900 12px/1.1 Arial,Helvetica,sans-serif;letter-spacing:.04em;text-transform:uppercase;text-align:center}
+.fllm-match-result-grid a .fllm-match-license-pill{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:6px 11px;border-radius:999px;border:1px solid #2ec1ec;background:rgba(46,193,236,.14);color:#7fdcff;font:800 12px/1.1 Arial,Helvetica,sans-serif;white-space:normal;text-transform:uppercase}
+.fllm-match-result-grid a .fllm-match-license-pill--quota{border-color:#00cb73;background:rgba(0,203,115,.17);color:#57efa1}
