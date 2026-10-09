@@ -578,21 +578,41 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
                 horizontalMarketView
               />
 
-              <div className="business-market-acquisition-financing">
-                <span>Business Acquisition Financing</span>
-                <p>Explore financing for a Florida business acquisition involving a liquor license. Availability and terms depend on lender approval and transaction structure.</p>
-                <Link href="/financing#request-financing">Explore Financing →</Link>
-              </div>
-
-              <div className="business-market-side-card">
-                <span>Market View Notice</span>
-                <strong>FLLM provides liquor-license market information.</strong>
-                <p>
-                  This page does not imply that FLLM represents the business, seller, broker,
-                  or any third-party advertisement.
-                </p>
-              </div>
             </aside>
+          </div>
+          <div className="business-market-service-grid" aria-label="FLLM acquisition support services">
+            <article className="business-market-service-card">
+              <div className="business-market-service-media business-market-service-media--appraisal">
+                <Image src="/assets/fllm-formal-appraisal-preview-v1.webp" alt="Blue FLLM liquor license appraisal report binder" width={390} height={200} />
+              </div>
+              <span>LIQUOR LICENSE APPRAISAL</span>
+              <h3>Independent Liquor License Valuation</h3>
+              <p>Explore FLLM appraisal services for the liquor-license component of a business acquisition, financing, or transfer.</p>
+              <Link href="/florida-liquor-license-appraisal">Explore Appraisal Service →</Link>
+            </article>
+            <article className="business-market-service-card">
+              <div className="business-market-service-media business-market-service-media--sba">
+                <Image src="/assets/sba-logo-horizontal-blue.svg" alt="U.S. Small Business Administration logo" width={390} height={160} />
+              </div>
+              <span>BUSINESS ACQUISITION FINANCING</span>
+              <h3>Financing for Business + License Packages</h3>
+              <p>Explore SBA 7(a) and other financing considerations for purchasing a Florida business involving a liquor license.</p>
+              <Link href="/sba-7a-liquor-license-business-financing">Explore SBA Financing →</Link>
+            </article>
+            <article className="business-market-service-card">
+              <div className="business-market-service-media business-market-service-media--ira">
+                <svg viewBox="0 0 180 112" role="img" aria-label="Retirement account rollover assistance illustration">
+                  <circle cx="90" cy="54" r="43" fill="#113a52" stroke="#e6aa19" strokeWidth="2"/>
+                  <path d="M62 75V42l28-16 28 16v33M55 43l35-21 35 21M75 74V48h30v26" fill="none" stroke="#61d8ff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M82 62l7 7 13-18" fill="none" stroke="#4ade80" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <strong>IRA</strong>
+              </div>
+              <span>RETIREMENT ACCOUNT SERVICES</span>
+              <h3>FLLM IRA Rollover Assistance</h3>
+              <p>Learn about self-directed IRA account setup and rollover coordination, subject to custodian requirements and independent professional advice.</p>
+              <Link href="/self-directed-ira-liquor-license-lending#ira-setup-assistance">Explore IRA Assistance →</Link>
+            </article>
           </div>
         </div>
       </section>
