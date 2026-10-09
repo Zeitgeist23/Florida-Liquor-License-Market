@@ -540,7 +540,7 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
         <div className="business-market-shell">
           <div className="business-market-grid business-market-grid--martin-horizontal">
             <div className="business-market-main">
-              <section className={`business-market-panel${listing.listingReference === "FLLM-MKT-Q-001" ? " business-market-county-panel--refined" : ""}`}>
+              <section className={`business-market-panel business-market-county-intelligence${listing.listingReference === "FLLM-MKT-Q-001" ? " business-market-county-panel--refined" : ""}`}>
                 <div className="business-market-section-heading business-market-section-heading--center">
                   <span>County License Market Data</span>
                   <h2>{listing.county} · {listing.licenseType}</h2>
