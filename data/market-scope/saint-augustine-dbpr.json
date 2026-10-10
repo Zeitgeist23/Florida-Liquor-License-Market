@@ -1,6 +1,6 @@
 {
   "source": "Florida DBPR / ABT retail license extract + City of St. Augustine fee-distribution code 795",
-  "generatedAt": "2026-10-09T16:18:12.252Z",
+  "generatedAt": "2026-10-10T15:26:14.603Z",
   "county": "St. Johns County",
   "city": "Saint Augustine",
   "countyTotalRetailLicenses": 827,
@@ -3461,7 +3461,7 @@
       "address": "700 A1A BEACH BLVD",
       "zip": "32080",
       "primaryStatus": "21",
-      "secondaryStatus": "34",
+      "secondaryStatus": "37",
       "active": false,
       "quotaClass": null,
       "category": "Other Hospitality"
@@ -6079,21 +6079,6 @@
       "category": "Restaurant"
     },
     {
-      "licenseNumber": "BEV6502813",
-      "licensee": "FIRST COAST ENERGY LLP",
-      "dba": "DAILY'S 1127 SHELL",
-      "series": "2APS",
-      "modifier": "",
-      "city": "PONTE VEDRA BEACH",
-      "address": "35 VILLAGE FRONT RD",
-      "zip": "32081",
-      "primaryStatus": "21",
-      "secondaryStatus": "37",
-      "active": false,
-      "quotaClass": null,
-      "category": "Other Hospitality"
-    },
-    {
       "licenseNumber": "BEV6502662",
       "licensee": "DERPY LLC",
       "dba": "DERPY LLC",
@@ -6178,7 +6163,7 @@
       "address": "700 A1A BEACH BLVD",
       "zip": "32080",
       "primaryStatus": "21",
-      "secondaryStatus": "34",
+      "secondaryStatus": "37",
       "active": false,
       "quotaClass": null,
       "category": "Other Hospitality"
@@ -6272,21 +6257,6 @@
       "active": false,
       "quotaClass": null,
       "category": "Restaurant"
-    },
-    {
-      "licenseNumber": "BEV6502809",
-      "licensee": "TONYNJ INC",
-      "dba": "TONYNJ INC",
-      "series": "2COP",
-      "modifier": "",
-      "city": "PONTE VEDRA BEACH",
-      "address": "302 SOLANA RD STE 103",
-      "zip": "32082",
-      "primaryStatus": "21",
-      "secondaryStatus": "37",
-      "active": false,
-      "quotaClass": null,
-      "category": "Other Hospitality"
     },
     {
       "licenseNumber": "BEV6500184",
