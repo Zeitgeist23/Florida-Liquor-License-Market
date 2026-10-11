@@ -338,7 +338,7 @@ export default function MarketBuyerLeadForm({
         <section id="specific-market-inquiry" className="fllm-capture" aria-labelledby="fllm-capture-title">
           <div className="fllm-capture-kicker">FLORIDA LIQUOR LICENSE MARKET</div>
           <h2 id="fllm-capture-title">REQUEST INFORMATION ABOUT THIS BUSINESS</h2>
-          <p className="fllm-capture-description">Ask FLLM about this {county} {businessType.toLowerCase()} + {licenseType} opportunity (ref. {listingReference}). We provide independent market information and can discuss relevant options; we do not represent the seller or broker.</p>
+          <p className="fllm-capture-description">Ask FLLM about this {county} {businessType.toLowerCase()} + {licenseType} business (ref. {listingReference}). We provide independent market information and can discuss relevant options; we do not represent the seller or broker.</p>
           <div className="fllm-capture-feature fllm-capture-feature--lt"><span className="fllm-capture-feature-icon">▤</span><strong>EXPERT GUIDANCE</strong><span>Get matched with<br/>relevant businesses</span></div>
           <div className="fllm-capture-feature fllm-capture-feature--lb"><span className="fllm-capture-feature-icon">◎</span><strong>SAVE TIME</strong><span>Let us find the best<br/>matches for you</span></div>
           <div className="fllm-capture-feature fllm-capture-feature--rt"><span className="fllm-capture-feature-icon">♧</span><strong>RELEVANT MATCHES</strong><span>Businesses based<br/>on your criteria</span></div>
