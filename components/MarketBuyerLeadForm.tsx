@@ -113,7 +113,8 @@ export default function MarketBuyerLeadForm({
   const formatResultMoney = (value?: number|null) => typeof value==="number"&&Number.isFinite(value) ? "$"+value.toLocaleString("en-US",{maximumFractionDigits:0}) : "—";
   const sortedResults = useMemo(() => [...(searchResults?.results ?? [])].sort((a,b) => {
     const priceNumber = (value: string) => Number(value.replace(/[^\d.]/g, "")) || 0;
-    const comparison = (a.matchStatus==="verified"?0:1)-(b.matchStatus==="verified"?0:1);\n    if (comparison !== 0) return comparison;\n    const secondary = resultSort === "price" ? priceNumber(a.price)-priceNumber(b.price) : a[resultSort].localeCompare(b[resultSort]);
+    const comparison = (a.matchStatus==="verified"?0:1)-(b.matchStatus==="verified"?0:1);
+    if (comparison !== 0) return comparison;\n    const secondary = resultSort === "price" ? priceNumber(a.price)-priceNumber(b.price) : a[resultSort].localeCompare(b[resultSort]);
     return resultSortDescending ? -secondary : secondary;
   }), [searchResults, resultSort, resultSortDescending]);
   const sortResults = (field: "businessType"|"licenseType"|"county"|"price") => {
