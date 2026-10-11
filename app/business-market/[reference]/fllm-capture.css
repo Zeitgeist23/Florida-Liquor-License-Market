@@ -114,3 +114,17 @@
  .business-market-alert-modal .fllm-match-title h2{font-size:29px!important}
  .business-market-alert-modal .fllm-match-actions button{font-size:12px!important;padding:8px 9px!important}
 }
+
+/* Use compact side-by-side header at common scaled desktop viewport widths. */
+@media(min-width:800px){
+ .business-market-alert-modal .fllm-match-top{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)!important;align-items:center!important;gap:12px!important;margin:4px 8px 9px!important}
+ .business-market-alert-modal .fllm-match-title h2{font-size:clamp(24px,2.5vw,37px)!important}
+ .business-market-alert-modal .fllm-match-right{display:flex!important;flex-direction:column!important;gap:8px!important;max-width:none!important;width:100%!important;margin:0!important}
+ .business-market-alert-modal .fllm-match-metrics{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important}
+ .business-market-alert-modal .fllm-match-actions{justify-content:flex-end!important;gap:5px!important}
+ .business-market-alert-modal .fllm-match-actions button{font-size:clamp(10px,1vw,13px)!important;padding:8px 7px!important}
+}
+@media(min-width:800px) and (max-width:1049px){
+ .business-market-alert-modal .fllm-match-title h2{font-size:25px!important}
+ .business-market-alert-modal .fllm-match-metrics span{font-size:10px!important}
+}
