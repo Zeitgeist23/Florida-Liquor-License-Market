@@ -351,7 +351,7 @@ export default function MarketBuyerLeadForm({
                 <label>Phone<input name="phone" type="tel" placeholder="(xxx)xxx-xxxx" autoComplete="tel" maxLength={60}/></label>
               </div>
               <label className="fllm-capture-county">County<select name="county" defaultValue={county}>{counties.map((item)=><option key={item} value={item}>{item}</option>)}</select></label>
-              <label className="fllm-capture-message">Message<textarea name="message" rows={4} maxLength={5000} placeholder={`What would you like to know about this ${businessType.toLowerCase()} with a ${licenseType}?`} required /></label>
+              <label className="fllm-capture-message">Message<textarea name="message" rows={4} maxLength={5000} placeholder={`Inquire about this ${businessType.toLowerCase()} with a ${licenseType} license.`} required /></label>
               <button className="fllm-capture-submit" type="submit" disabled={inquiryStatus==="submitting"}>➤ &nbsp; {inquiryStatus==="submitting"?"Sending inquiry…":"Submit Buyer Inquiry"} &nbsp; →</button>
               {inquiryStatus==="error"&&<p className="fllm-capture-error" role="alert">{inquiryError}</p>}
             </form>
