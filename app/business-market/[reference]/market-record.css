@@ -2133,3 +2133,9 @@
  }
  .business-market-alert-modal .fllm-match-table-scroll{max-height:calc(100dvh - 240px)}
 }
+
+/* Compact, keyboard-accessible financial criteria help. */
+.fllm-financial-help{display:inline-flex;position:relative;align-items:center;justify-content:center;margin-left:5px;width:19px;height:19px;border:1px solid #20d6f4;border-radius:50%;color:#4bdfff;font:800 13px/1 Arial,sans-serif;vertical-align:middle;cursor:help}
+.fllm-financial-help:focus-visible{outline:2px solid #ffc23a;outline-offset:3px}
+.fllm-financial-help-tip{display:none;position:absolute;z-index:50;top:calc(100% + 10px);left:50%;transform:translateX(-50%);width:min(310px,75vw);padding:12px 14px;border:1px solid #2edaf2;border-radius:8px;background:#061d33;color:#edfaff;font:500 13px/1.5 Arial,sans-serif;text-align:left;white-space:normal;box-shadow:0 12px 30px #0009}
+.fllm-financial-help:hover .fllm-financial-help-tip,.fllm-financial-help:focus .fllm-financial-help-tip,.fllm-financial-help:focus-within .fllm-financial-help-tip{display:block}
