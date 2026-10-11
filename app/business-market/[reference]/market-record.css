@@ -2448,3 +2448,6 @@
 
 /* Keep menu touching its trigger so moving upward does not cause a mouse-leave gap. */
 .business-market-alert-modal .fllm-county-hover-options{bottom:100%!important}
+
+/* Buyer alert contact section heading only. */
+.business-market-alert-modal .fllm-match-contact h3{color:#39e7a1!important}
