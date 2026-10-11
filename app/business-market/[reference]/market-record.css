@@ -2269,3 +2269,25 @@
  padding:0 1px!important;
  line-height:1.2!important;
 }
+
+/* Gold matching-business CTAs: visible internal glow and lift on hover/focus. */
+.business-market-alert-modal .fllm-match-actions button.gold,
+.business-market-alert-modal .fllm-match-bottom button.gold{
+ cursor:pointer!important;
+ transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease,filter .18s ease!important;
+}
+.business-market-alert-modal .fllm-match-actions button.gold:hover:not(:disabled),
+.business-market-alert-modal .fllm-match-actions button.gold:focus-visible,
+.business-market-alert-modal .fllm-match-bottom button.gold:hover:not(:disabled),
+.business-market-alert-modal .fllm-match-bottom button.gold:focus-visible{
+ background:#ffe46d!important;
+ filter:brightness(1.08)!important;
+ box-shadow:0 0 0 2px rgba(255,220,95,.45),0 0 24px rgba(255,190,24,.7),inset 0 0 18px rgba(255,255,218,.55)!important;
+ transform:translateY(-2px) scale(1.025)!important;
+}
+@media(prefers-reduced-motion:reduce){
+ .business-market-alert-modal .fllm-match-actions button.gold,
+ .business-market-alert-modal .fllm-match-bottom button.gold{transition:none!important}
+ .business-market-alert-modal .fllm-match-actions button.gold:hover,
+ .business-market-alert-modal .fllm-match-bottom button.gold:hover{transform:none!important}
+}
