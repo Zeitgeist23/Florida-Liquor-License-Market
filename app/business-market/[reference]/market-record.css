@@ -2197,3 +2197,23 @@
 .fllm-match-results-header h3{flex:1;text-align:center!important;margin:0!important}
 .fllm-match-results-header>button{position:absolute;right:0;top:50%;transform:translateY(-50%)}
 @media(max-width:650px){.fllm-match-results-header{padding-bottom:50px!important}.fllm-match-results-header>button{top:auto;bottom:0;transform:none}}
+
+/* Buyer-alert CTA below matching-results table: breathing room and interactive glow. */
+.business-market-alert-modal .fllm-match-save-results{
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ margin-top:18px!important;
+ margin-bottom:12px!important;
+ transition:background-color .18s ease,box-shadow .18s ease,transform .18s ease,border-color .18s ease!important;
+ cursor:pointer;
+}
+.business-market-alert-modal .fllm-match-save-results:hover,
+.business-market-alert-modal .fllm-match-save-results:focus-visible{
+ background:#087ca5!important;
+ border-color:#68eaff!important;
+ color:#fff!important;
+ box-shadow:0 0 0 1px rgba(68,221,255,.42),0 0 21px rgba(0,204,255,.38),inset 0 0 12px rgba(81,226,255,.14)!important;
+ transform:translateY(-2px);
+}
+@media(prefers-reduced-motion:reduce){.business-market-alert-modal .fllm-match-save-results{transition:none!important}.business-market-alert-modal .fllm-match-save-results:hover{transform:none}}
