@@ -62,6 +62,7 @@ export async function POST(request: Request) {
     const resultItem=(x:(typeof eligible)[number],status:"verified"|"financials_unverified")=>({
       reference:x.listingReference,county:x.county,businessType:x.businessCategory,
       licenseType:x.licenseType,price:x.packagePrice,
+      estimatedLicenseValue:x.licenseClass==="quota" ? (()=>{ const raw=x.marketMedianLicenseValue||x.allocatedLicenseValue||""; const amount=Number(String(raw).replace(/[^0-9.]/g,"")); return Number.isFinite(amount)&&amount>0?amount:null; })() : null,
       grossRevenue:financialByRef.get(x.listingReference)?.gross??null,
       sdeCashFlow:financialByRef.get(x.listingReference)?.sde??null,
       ebitda:financialByRef.get(x.listingReference)?.ebitda??null,
