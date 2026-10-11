@@ -2361,3 +2361,12 @@
 .business-market-alert-modal .fllm-match-table .fllm-match-est-license{color:#38e7a1!important;font-weight:400;white-space:nowrap}
 .business-market-alert-modal .fllm-match-table thead th button[aria-label="Sort by FLLM Est. License Value"]{color:#5ddfff!important;white-space:normal;line-height:1.25}
 .business-market-alert-modal .fllm-match-table{min-width:1250px}
+
+/* Custom county chooser: native selects cannot reliably open on hover. */
+.business-market-alert-modal .fllm-county-hover-picker{position:relative;flex:1;min-width:120px;z-index:15}
+.business-market-alert-modal .fllm-county-hover-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:32px;padding:5px 10px;border:1px solid #0799c9;border-radius:5px;background:#04233a;color:#e1f8ff;font:inherit;text-align:left;cursor:pointer}
+.business-market-alert-modal .fllm-county-hover-trigger:hover,.business-market-alert-modal .fllm-county-hover-trigger:focus-visible{background:#0a4263;border-color:#58e2ff;box-shadow:inset 0 0 9px rgba(79,214,246,.18)}
+.business-market-alert-modal .fllm-county-hover-options{position:absolute;top:100%;left:0;z-index:150;min-width:260px;width:max(100%,260px);max-width:min(370px,86vw);max-height:290px;overflow-y:auto;border:1px solid #15b9e2;border-radius:5px;background:#052a43;box-shadow:0 12px 22px #000a}
+.business-market-alert-modal .fllm-county-hover-options button{display:block;width:100%;padding:8px 11px;border:0;border-bottom:1px solid rgba(58,169,203,.2);background:transparent;color:#e7f9ff;font:inherit;text-align:left;cursor:pointer}
+.business-market-alert-modal .fllm-county-hover-options button:hover,.business-market-alert-modal .fllm-county-hover-options button:focus-visible{background:#126da0;color:#fff;outline:none}
+.business-market-alert-modal .fllm-county-hover-options button[aria-selected="true"]{color:#61e2fa}
