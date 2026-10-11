@@ -94,3 +94,23 @@
 .fllm-match-county-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.fllm-match-county-actions .fllm-match-add{margin-top:9px;font-size:13px!important}.fllm-match-county-actions .fllm-match-add:hover{text-decoration:underline;color:#7feaff!important}
 
 .fllm-match-coverage{margin:8px 0 15px!important;color:#bdd9e9!important;font-size:13px!important;line-height:1.5!important;text-align:left!important;max-width:100%}
+
+/* Desktop Business Match header: keep title centered in left zone and metrics/actions compact at right. */
+@media(min-width:1050px){
+ .business-market-alert-modal .fllm-match-top{display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)!important;align-items:center!important;gap:14px!important;margin:4px 8px 10px!important;padding:0 0 8px!important}
+ .business-market-alert-modal .fllm-match-title{width:100%!important;min-width:0!important;text-align:center!important}
+ .business-market-alert-modal .fllm-match-title>b{margin:0 auto 5px!important;text-align:center!important}
+ .business-market-alert-modal .fllm-match-title h2{font-size:clamp(27px,2.6vw,38px)!important;line-height:1.12!important;margin:3px auto 7px!important}
+ .business-market-alert-modal .fllm-match-title p{margin:2px auto!important;line-height:1.35!important}
+ .business-market-alert-modal .fllm-match-right{display:flex!important;flex-direction:column!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;gap:8px!important}
+ .business-market-alert-modal .fllm-match-metrics{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:7px!important;margin:0!important}
+ .business-market-alert-modal .fllm-match-metrics>div{min-width:0!important;padding:8px 4px!important}
+ .business-market-alert-modal .fllm-match-metrics span{font-size:11px!important;line-height:1.25!important}
+ .business-market-alert-modal .fllm-match-actions{display:flex!important;justify-content:flex-end!important;gap:7px!important;margin:0!important}
+ .business-market-alert-modal .fllm-match-actions button{white-space:nowrap!important;padding:9px 10px!important}
+}
+@media(min-width:1050px) and (max-width:1350px){
+ .business-market-alert-modal .fllm-match-top{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important}
+ .business-market-alert-modal .fllm-match-title h2{font-size:29px!important}
+ .business-market-alert-modal .fllm-match-actions button{font-size:12px!important;padding:8px 9px!important}
+}
