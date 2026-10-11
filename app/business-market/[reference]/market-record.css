@@ -2358,6 +2358,6 @@
 @media(prefers-reduced-motion:reduce){.business-market-alert-modal .fllm-match-actions .fllm-control-button{transition:none!important}.business-market-alert-modal .fllm-match-actions .fllm-control-button:hover{transform:none!important}}
 
 /* Estimated quota-license component beside full package asking price. */
-.business-market-alert-modal .fllm-match-table .fllm-match-est-license{color:#38e7a1!important;font-weight:800;white-space:nowrap}
-.business-market-alert-modal .fllm-match-table thead th button[aria-label="Sort by FLLM Est. License Value"]{color:#49e7a7!important;white-space:normal;line-height:1.25}
+.business-market-alert-modal .fllm-match-table .fllm-match-est-license{color:#38e7a1!important;font-weight:400;white-space:nowrap}
+.business-market-alert-modal .fllm-match-table thead th button[aria-label="Sort by FLLM Est. License Value"]{color:#5ddfff!important;white-space:normal;line-height:1.25}
 .business-market-alert-modal .fllm-match-table{min-width:1250px}
