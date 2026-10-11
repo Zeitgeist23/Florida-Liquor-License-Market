@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
 type SubmitState = "idle" | "submitting" | "sent" | "error";
 
@@ -103,6 +103,8 @@ export default function MarketBuyerLeadForm({
   const [potentialCount, setPotentialCount] = useState(0);
   const [liveCountLoading, setLiveCountLoading] = useState(false);
   const [searching, setSearching] = useState(false);
+  const searchSequence = useRef(0);
+  const searchController = useRef<AbortController | null>(null);
   const [searchError, setSearchError] = useState("");
   const [searchResults, setSearchResults] = useState<{total:number;potentialCount?:number;diagnostics?:{eligibleBeforeEarnings:number;missingEarnings:number;belowEarningsMinimum:number};results:{reference:string;county:string;businessType:string;licenseType:string;price:string;href:string;source:string;matchStatus?:string;financialNote?:string}[]} | null>(null);
 
@@ -118,6 +120,9 @@ export default function MarketBuyerLeadForm({
 
   // A search result snapshot must never outlive changes to its search criteria.
   useEffect(() => {
+    searchSequence.current += 1;
+    searchController.current?.abort();
+    setSearching(false);
     setSearchResults(null);
     setSearchError("");
   }, [selectedBusinessTypes, selectedLicenseTypes, selectedCounties, maxPurchasePrice, minGrossRevenue, minSde, minEbitda, selectedFinancing, realEstate, leaseYears, monthlyRent, availableCash, extraCriteria]);
@@ -198,16 +203,34 @@ export default function MarketBuyerLeadForm({
   }
 
   async function findMatches() {
-    if (!selectedBusinessTypes.length || !selectedLicenseTypes.length || !selectedCounties.length) { setSearchError("Select at least one business category, license class and county."); setSearchResults(null); return; }
+    if (!selectedBusinessTypes.length || !selectedLicenseTypes.length || !selectedCounties.length) {
+      setSearchError("Select at least one business category, license class and county.");
+      setSearchResults(null);
+      return;
+    }
+    searchController.current?.abort();
+    const controller = new AbortController();
+    searchController.current = controller;
+    const sequence = ++searchSequence.current;
     setSearching(true); setSearchError(""); setSearchResults(null); setAdvancedOpen(false);
     try {
-      const response = await fetch("/api/market-buyer-search",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({businessTypes:selectedBusinessTypes,licenseTypes:selectedLicenseTypes,counties:selectedCounties,maxPurchasePrice,minGrossRevenue,minSde,minEbitda,financingPreferences:selectedFinancing})});
+      const response = await fetch("/api/market-buyer-search",{
+        method:"POST",headers:{"Content-Type":"application/json"},signal:controller.signal,
+        body:JSON.stringify({businessTypes:selectedBusinessTypes,licenseTypes:selectedLicenseTypes,counties:selectedCounties,maxPurchasePrice,minGrossRevenue,minSde,minEbitda,financingPreferences:selectedFinancing})
+      });
       const data = await response.json();
-      if(!response.ok) throw new Error(data.error||"Search unavailable.");
+      if (!response.ok) throw new Error(data.error||"Search unavailable.");
+      if (controller.signal.aborted || sequence !== searchSequence.current) return;
       setSearchResults(data);
-      window.requestAnimationFrame(() => document.getElementById("fllm-live-search-results")?.scrollIntoView({behavior:"smooth",block:"start"}));
-    } catch(e) {setSearchError(e instanceof Error?e.message:"Search unavailable.");}
-    finally {setSearching(false);}
+      window.requestAnimationFrame(() => {
+        if (sequence === searchSequence.current) document.getElementById("fllm-live-search-results")?.scrollIntoView({behavior:"smooth",block:"start"});
+      });
+    } catch(e) {
+      if (!controller.signal.aborted && sequence === searchSequence.current)
+        setSearchError(e instanceof Error?e.message:"Search unavailable.");
+    } finally {
+      if (sequence === searchSequence.current) { setSearching(false); searchController.current = null; }
+    }
   }
 
   async function submitSpecificInquiry(event: FormEvent<HTMLFormElement>) {
