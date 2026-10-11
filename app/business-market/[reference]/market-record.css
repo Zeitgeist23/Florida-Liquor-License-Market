@@ -2170,3 +2170,24 @@
 /* Distinguish confirmed and potential match counts in the results heading. */
 .fllm-match-results-header h3 .fllm-match-count-confirmed{color:#39e7a1!important}
 .fllm-match-results-header h3 .fllm-match-count-potential{color:#ff5866!important}
+
+/* Explicitly restore category-color pills within the Business Match results table. */
+.business-market-alert-modal .fllm-match-table tbody td .business-market-category-badge{
+ display:inline-flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ width:max-content!important;
+ max-width:100%!important;
+ min-height:30px!important;
+ margin:0 auto!important;
+ padding:6px 12px!important;
+ border:1px solid var(--market-category-color,#54dbc8)!important;
+ border-radius:999px!important;
+ background:var(--market-category-surface,rgba(40,168,150,.18))!important;
+ color:var(--market-category-color,#54dbc8)!important;
+ font:800 12px/1.2 Arial,Helvetica,sans-serif!important;
+ letter-spacing:.035em!important;
+ text-transform:uppercase!important;
+ text-align:center!important;
+ white-space:normal!important;
+}
