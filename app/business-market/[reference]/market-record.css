@@ -2217,3 +2217,55 @@
  transform:translateY(-2px);
 }
 @media(prefers-reduced-motion:reduce){.business-market-alert-modal .fllm-match-save-results{transition:none!important}.business-market-alert-modal .fllm-match-save-results:hover{transform:none}}
+
+/* Refined buyer financial sliders: slimmer tracks, inset handles, clear endpoint labels. */
+.business-market-alert-modal .fllm-match-range .fllm-match-slider-row>div:first-child{min-width:0}
+.business-market-alert-modal .fllm-match-range .fllm-match-slider-row input[type="range"]{
+ display:block;
+ width:calc(100% - 24px)!important;
+ margin:0 12px!important;
+ height:18px!important;
+ padding:0!important;
+ appearance:none!important;
+ -webkit-appearance:none!important;
+ background:transparent!important;
+ cursor:pointer;
+}
+.business-market-alert-modal .fllm-match-range .fllm-match-slider-row input[type="range"]::-webkit-slider-runnable-track{
+ height:5px!important;
+ border:0!important;
+ border-radius:999px!important;
+ background:#078cbb!important;
+}
+.business-market-alert-modal .fllm-match-range .fllm-match-slider-row input[type="range"]::-moz-range-track{
+ height:5px!important;
+ border:0!important;
+ border-radius:999px!important;
+ background:#078cbb!important;
+}
+.business-market-alert-modal .fllm-match-range .fllm-match-slider-row input[type="range"]::-webkit-slider-thumb{
+ appearance:none!important;
+ -webkit-appearance:none!important;
+ width:18px!important;
+ height:18px!important;
+ margin-top:-6.5px!important;
+ border:0!important;
+ border-radius:50%!important;
+ background:#12c9e9!important;
+ box-shadow:0 0 8px rgba(17,204,243,.35)!important;
+}
+.business-market-alert-modal .fllm-match-range .fllm-match-slider-row input[type="range"]::-moz-range-thumb{
+ width:18px!important;
+ height:18px!important;
+ border:0!important;
+ border-radius:50%!important;
+ background:#12c9e9!important;
+ box-shadow:0 0 8px rgba(17,204,243,.35)!important;
+}
+.business-market-alert-modal .fllm-match-range .fllm-match-endpoints{
+ display:flex!important;
+ justify-content:space-between!important;
+ margin-top:7px!important;
+ padding:0 1px!important;
+ line-height:1.2!important;
+}
