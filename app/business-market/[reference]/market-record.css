@@ -2473,3 +2473,26 @@
 .business-market-alert-modal .fllm-match-contact-grid input::placeholder{
  text-align:center!important;
 }
+
+
+/* Center the Business Match title across the dashboard; keep metrics and actions below. */
+.business-market-alert-modal .fllm-match-top{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr)!important;
+ gap:18px!important;
+ align-items:center!important;
+}
+.business-market-alert-modal .fllm-match-title{
+ grid-column:1/-1!important;
+ width:100%!important;
+ text-align:center!important;
+}
+.business-market-alert-modal .fllm-match-right{
+ grid-column:1/-1!important;
+ width:100%!important;
+}
+.business-market-alert-modal .fllm-match-title>b,
+.business-market-alert-modal .fllm-match-title>h2,
+.business-market-alert-modal .fllm-match-title>p{
+ text-align:center!important;
+}
