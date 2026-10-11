@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import featuredFinancialManifest from "@/data/featured-listing-financials.generated.json";
+import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
+import { getMarketplaceListings } from "@/lib/listing-store";
+import { getVisibleAvailableMarketplaceListings } from "@/lib/visible-marketplace-listings";
 
 const featuredFinancials = featuredFinancialManifest as Record<string, {gross?:number;sde?:number;ebitda?:number}>;
 import { getApprovedMarketFinancials, getSourcedObservedFinancials } from "@/lib/market-intelligence-store";
@@ -59,10 +62,16 @@ export async function POST(request: Request) {
       if(belowRevenue||belowEarnings) continue;
       (missingRevenue||missingEarnings?potential:confirmed).push(x);
     }
+    let valuesByReference = new Map<string, number>();
+    try {
+      const standalone = getVisibleAvailableMarketplaceListings(await getMarketplaceListings());
+      const valued = withMarketLicenseValues([...confirmed,...potential],standalone);
+      valuesByReference = new Map(valued.map(x => {const raw=x.marketMedianLicenseValue||x.allocatedLicenseValue||"";const amount=Number(String(raw).replace(/[^0-9.]/g,""));return [x.listingReference,Number.isFinite(amount)&&amount>0?amount:0] as const;}));
+    } catch(error){console.error("County license valuation lookup unavailable",error);}
     const resultItem=(x:(typeof eligible)[number],status:"verified"|"financials_unverified")=>({
       reference:x.listingReference,county:x.county,businessType:x.businessCategory,
       licenseType:x.licenseType,price:x.packagePrice,
-      estimatedLicenseValue:x.licenseClass==="quota" ? (()=>{ const raw=x.marketMedianLicenseValue||x.allocatedLicenseValue||""; const amount=Number(String(raw).replace(/[^0-9.]/g,"")); return Number.isFinite(amount)&&amount>0?amount:null; })() : null,
+      estimatedLicenseValue:x.licenseClass==="quota" ? (valuesByReference.get(x.listingReference)||null) : null,
       grossRevenue:financialByRef.get(x.listingReference)?.gross??null,
       sdeCashFlow:financialByRef.get(x.listingReference)?.sde??null,
       ebitda:financialByRef.get(x.listingReference)?.ebitda??null,
