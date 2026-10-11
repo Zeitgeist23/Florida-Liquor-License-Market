@@ -2309,3 +2309,26 @@
 .business-market-alert-modal .fllm-match-range--active .fllm-match-slider-row input[type="range"]::-moz-range-thumb{
  box-shadow:0 0 13px 3px rgba(168,85,247,.62)!important;
 }
+
+/* Financial quick-select tabs: glow on hover, highlight focused corresponding filter. */
+.business-market-alert-modal .fllm-match-tabs button{
+ cursor:pointer;
+ transition:background-color .18s ease,box-shadow .18s ease,color .18s ease,transform .18s ease!important;
+}
+.business-market-alert-modal .fllm-match-tabs button:hover,
+.business-market-alert-modal .fllm-match-tabs button:focus-visible{
+ background:#12658f!important;
+ color:#fff!important;
+ box-shadow:inset 0 0 14px rgba(73,220,255,.4),0 0 12px rgba(30,199,245,.34)!important;
+ transform:translateY(-1px);
+}
+.business-market-alert-modal .fllm-match-tabs button[aria-pressed="true"]{
+ box-shadow:inset 0 0 10px rgba(71,204,254,.22);
+}
+.business-market-alert-modal .fllm-match-body.financial .fllm-match-range:focus-within{
+ border-radius:7px;
+ outline:1px solid rgba(66,216,246,.75);
+ outline-offset:5px;
+ background:rgba(34,168,212,.075);
+}
+@media(prefers-reduced-motion:reduce){.business-market-alert-modal .fllm-match-tabs button{transition:none!important}.business-market-alert-modal .fllm-match-tabs button:hover{transform:none}}
