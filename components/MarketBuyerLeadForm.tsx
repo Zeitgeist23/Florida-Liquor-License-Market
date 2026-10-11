@@ -100,7 +100,6 @@ export default function MarketBuyerLeadForm({
   const [buyerName, setBuyerName] = useState("");
   const [buyerEmail, setBuyerEmail] = useState("");
   const [inventoryCount, setInventoryCount] = useState<number | null>(null);
-  const [activeInventoryCount, setActiveInventoryCount] = useState<number | null>(null);
   const [potentialCount, setPotentialCount] = useState(0);
   const [liveCountLoading, setLiveCountLoading] = useState(false);
   const [searching, setSearching] = useState(false);
@@ -114,7 +113,7 @@ export default function MarketBuyerLeadForm({
 
   useEffect(() => {
     if (!open) return;
-    fetch("/api/market-buyer-search",{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(data=>setInventoryCount(typeof data.activeListings==="number"?data.activeListings:null)).then(value=>setActiveInventoryCount(value)).catch(()=>setActiveInventoryCount(null));
+    fetch("/api/market-buyer-search",{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(data=>setInventoryCount(typeof data.activeListings==="number"?data.activeListings:null)).catch(()=>setInventoryCount(null));
   }, [open]);
 
   // A search result snapshot must never outlive changes to its search criteria.
