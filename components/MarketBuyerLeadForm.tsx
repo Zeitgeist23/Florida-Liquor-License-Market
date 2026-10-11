@@ -124,11 +124,6 @@ export default function MarketBuyerLeadForm({
     [selectedCounties],
   );
 
-  useEffect(() => {
-    if (!open) return;
-    fetch("/api/market-buyer-search",{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(data=>setInventoryCount(typeof data.activeListings==="number"?data.activeListings:null)).catch(()=>setInventoryCount(null));
-  }, [open]);
-
   // A search result snapshot must never outlive changes to its search criteria.
   useEffect(() => {
     searchSequence.current += 1;
