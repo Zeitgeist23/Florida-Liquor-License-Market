@@ -2445,3 +2445,6 @@
  box-shadow:inset 0 3px 12px rgba(0,0,0,.4)!important;
 }
 @media(prefers-reduced-motion:reduce){.business-market-alert-modal .fllm-match-contact-buttons>button{transition:none!important}.business-market-alert-modal .fllm-match-contact-buttons>button:hover{transform:none!important}}
+
+/* Keep menu touching its trigger so moving upward does not cause a mouse-leave gap. */
+.business-market-alert-modal .fllm-county-hover-options{bottom:100%!important}
