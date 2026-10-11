@@ -2291,3 +2291,21 @@
  .business-market-alert-modal .fllm-match-actions button.gold:hover,
  .business-market-alert-modal .fllm-match-bottom button.gold:hover{transform:none!important}
 }
+
+/* Purple slider handles; preserve cyan tracks across all five financial controls. */
+.business-market-alert-modal .fllm-match-range .fllm-match-slider-row input[type="range"]::-webkit-slider-thumb{
+ background:#a855f7!important;
+ box-shadow:0 0 7px rgba(168,85,247,.4)!important;
+}
+.business-market-alert-modal .fllm-match-range .fllm-match-slider-row input[type="range"]::-moz-range-thumb{
+ background:#a855f7!important;
+ box-shadow:0 0 7px rgba(168,85,247,.4)!important;
+}
+.business-market-alert-modal .fllm-match-range .fllm-match-slider-row input[type="range"]:hover::-webkit-slider-thumb,
+.business-market-alert-modal .fllm-match-range--active .fllm-match-slider-row input[type="range"]::-webkit-slider-thumb{
+ box-shadow:0 0 13px 3px rgba(168,85,247,.62)!important;
+}
+.business-market-alert-modal .fllm-match-range .fllm-match-slider-row input[type="range"]:hover::-moz-range-thumb,
+.business-market-alert-modal .fllm-match-range--active .fllm-match-slider-row input[type="range"]::-moz-range-thumb{
+ box-shadow:0 0 13px 3px rgba(168,85,247,.62)!important;
+}
