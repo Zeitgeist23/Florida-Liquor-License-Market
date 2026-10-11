@@ -110,6 +110,8 @@ export type BusinessQuotaListing = {
     | "county_3ps_median"
     | "county_4cop_median"
     | "county_4cop_series_proxy"
+    | "statewide_4cop_median"
+    | "statewide_4cop_proxy"
     | "unavailable";
   licenseAvailableSeparately?: boolean;
   sellerFinancingAvailable?: boolean;
