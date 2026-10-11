@@ -62,16 +62,17 @@ export async function POST(request: Request) {
       if(belowRevenue||belowEarnings) continue;
       (missingRevenue||missingEarnings?potential:confirmed).push(x);
     }
-    let valuesByReference = new Map<string, number>();
+    let valuesByReference = new Map<string, {value:number; basis:string}>();
     try {
       const standalone = getVisibleAvailableMarketplaceListings(await getMarketplaceListings());
       const valued = withMarketLicenseValues([...confirmed,...potential],standalone);
-      valuesByReference = new Map(valued.map(x => {const raw=x.marketMedianLicenseValue||x.allocatedLicenseValue||"";const amount=Number(String(raw).replace(/[^0-9.]/g,""));return [x.listingReference,Number.isFinite(amount)&&amount>0?amount:0] as const;}));
+      valuesByReference = new Map(valued.map(x => {const raw=x.marketMedianLicenseValue||x.allocatedLicenseValue||"";const amount=Number(String(raw).replace(/[^0-9.]/g,""));return [x.listingReference,{value:Number.isFinite(amount)&&amount>0?amount:0,basis:x.licenseValueBasis||"unavailable"}] as const;}));
     } catch(error){console.error("County license valuation lookup unavailable",error);}
     const resultItem=(x:(typeof eligible)[number],status:"verified"|"financials_unverified")=>({
       reference:x.listingReference,county:x.county,businessType:x.businessCategory,
       licenseType:x.licenseType,price:x.packagePrice,
-      estimatedLicenseValue:x.licenseClass==="quota" ? (valuesByReference.get(x.listingReference)||null) : null,
+      estimatedLicenseValue:x.licenseClass==="quota" ? (valuesByReference.get(x.listingReference)?.value||null) : null,
+      licenseValueBasis:x.licenseClass==="quota" ? (valuesByReference.get(x.listingReference)?.basis||"unavailable") : "unavailable",
       grossRevenue:financialByRef.get(x.listingReference)?.gross??null,
       sdeCashFlow:financialByRef.get(x.listingReference)?.sde??null,
       ebitda:financialByRef.get(x.listingReference)?.ebitda??null,
