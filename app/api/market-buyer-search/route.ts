@@ -29,35 +29,45 @@ export async function POST(request: Request) {
     } catch (error) {
       console.error("Financial lookup unavailable", error);
     }
-    const diagnostics={eligibleBeforeEarnings:eligible.length,missingEarnings:0,belowEarningsMinimum:0};
+    const diagnostics={eligibleBeforeEarnings:eligible.length,missingRevenue:0,missingEarnings:0,belowRevenueMinimum:0,belowEarningsMinimum:0};
     let observed = new Map<string,{gross:number|null;sde:number|null;ebitda:number|null}>();
     try {
       observed = await getSourcedObservedFinancials(eligible.filter(x=>x.listingTier==="market").map(x=>x.listingReference));
     } catch(error) {
       console.error("Sourced market observation financial lookup unavailable",error);
     }
-    const matching=eligible.filter(x=>{
+    const confirmed:typeof eligible=[];
+    const potential:typeof eligible=[];
+    for (const x of eligible) {
       const enriched=approved.get(x.listingReference);
       const displayed=x.featured ? featuredFinancials[x.listingReference] : undefined;
       const sourced=observed.get(x.listingReference);
       const gross=displayed?.gross ?? x.grossRevenueNumber ?? enriched?.gross ?? sourced?.gross;
       const sde=displayed?.sde ?? x.sdeNumber ?? enriched?.sde ?? sourced?.sde;
       const ebitda=displayed?.ebitda ?? x.ebitdaNumber ?? sourced?.ebitda;
-      const earnings = [sde, ebitda].filter((v): v is number => typeof v === "number" && Number.isFinite(v));
-      if(earningsMinimum>0 && earnings.length===0) diagnostics.missingEarnings++;
-      else if(earningsMinimum>0 && !earnings.some(value=>value>=earningsMinimum)) diagnostics.belowEarningsMinimum++;
-      return (minRevenue===null || (typeof gross==="number" && gross>=minRevenue))
-        && (earningsMinimum===0 || earnings.some(value=>value>=earningsMinimum));
+      const earnings=[sde,ebitda].filter((v):v is number=>typeof v==="number"&&Number.isFinite(v));
+      const missingRevenue=minRevenue!==null&&(typeof gross!=="number"||!Number.isFinite(gross));
+      const missingEarnings=earningsMinimum>0&&earnings.length===0;
+      const belowRevenue=minRevenue!==null&&!missingRevenue&&(gross as number)<minRevenue;
+      const belowEarnings=earningsMinimum>0&&!missingEarnings&&!earnings.some(v=>v>=earningsMinimum);
+      if(missingRevenue) diagnostics.missingRevenue++;
+      if(missingEarnings) diagnostics.missingEarnings++;
+      if(belowRevenue) diagnostics.belowRevenueMinimum++;
+      if(belowEarnings) diagnostics.belowEarningsMinimum++;
+      if(belowRevenue||belowEarnings) continue;
+      (missingRevenue||missingEarnings?potential:confirmed).push(x);
+    }
+    const resultItem=(x:(typeof eligible)[number],status:"verified"|"financials_unverified")=>({
+      reference:x.listingReference,county:x.county,businessType:x.businessCategory,
+      licenseType:x.licenseType,price:x.packagePrice,
+      href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,
+      source:x.listingTier==="market"?"Independent Market View":"Featured Listing",
+      matchStatus:status,
+      financialNote:status==="financials_unverified"?"Potential match — required financial figures are not disclosed":"Disclosed financial figures meet the selected minimums; SDE and EBITDA are not accounting equivalents"
     });
     return NextResponse.json({
-      total:matching.length,potentialCount:0,shown:matching.length,diagnostics,
-      results:matching.slice(0,30).map(x=>({
-        reference:x.listingReference,county:x.county,businessType:x.businessCategory,
-        licenseType:x.licenseType,price:x.packagePrice,
-        href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,
-        source:x.listingTier==="market"?"Independent Market View":"Featured Listing",
-        matchStatus:"verified",financialNote:"A disclosed SDE, cash-flow, or EBITDA figure meets the earnings-search minimum; these metrics are not accounting equivalents"
-      }))
+      total:confirmed.length,potentialCount:potential.length,shown:Math.min(30,confirmed.length+potential.length),diagnostics,
+      results:[...confirmed.map(x=>resultItem(x,"verified")),...potential.map(x=>resultItem(x,"financials_unverified"))].slice(0,30)
     },{headers:{"Cache-Control":"no-store"}});
 
   } catch {return NextResponse.json({error:"Unable to search listings."},{status:400});}
