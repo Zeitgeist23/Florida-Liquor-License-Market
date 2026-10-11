@@ -484,7 +484,7 @@ export default function MarketBuyerLeadForm({
                     </div>
                   </section>
                   <section className="fllm-match-panel">
-                    <header><span className="symbol" aria-hidden="true">🍸</span><div><h3>2. LIQUOR LICENSE TYPE</h3><p>Select license type(s)</p></div></header>
+                    <header><span className="symbol" aria-hidden="true">🍸</span><div><h3>2. LIQUOR LICENSE</h3><p>Select license type(s)</p></div></header>
                     <div className="fllm-match-body"><h4>License classes <small>(select one or more)</small></h4><div className="fllm-match-checks">{[["4COP Quota","4COP Quota"],["3PS Quota / Package Store","3PS Quota / Package Store"],["4COP SFS/SRX","4COP SFS/SRX"],["2COP Beer & Wine","2COP Beer & Wine"]].map(([id,label])=><label key={id}><input type="checkbox" checked={selectedLicenseTypes.includes(id)} onChange={()=>toggleValue(id,selectedLicenseTypes,setSelectedLicenseTypes)}/>{label}</label>)}</div><div className="fllm-match-line"/><h4>License Ownership Preference</h4><div className="fllm-match-checks">{["Transferable license required","License with business package","Standalone license only","Either"].map(item=><label key={item}><input type="checkbox" checked={extraCriteria.includes(item)} onChange={()=>toggleValue(item,extraCriteria,setExtraCriteria)}/>{item}</label>)}</div><div className="fllm-match-line"/><p className="fllm-match-note">Quota licenses may have independently estimated asset values. SFS/SRX and 2COP are location-specific and have no separate quota-license valuation.</p></div>
                   </section>
                   <section className="fllm-match-panel">
