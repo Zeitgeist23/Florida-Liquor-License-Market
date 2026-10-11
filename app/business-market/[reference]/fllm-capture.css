@@ -128,3 +128,15 @@
  .business-market-alert-modal .fllm-match-title h2{font-size:25px!important}
  .business-market-alert-modal .fllm-match-metrics span{font-size:10px!important}
 }
+
+/* Explicitly override older full-width grid spans in market-record.css. */
+@media(min-width:800px){
+ .business-market-alert-modal .fllm-match-top>.fllm-match-title{
+  grid-column:1 / 2!important;
+  grid-row:1!important;
+ }
+ .business-market-alert-modal .fllm-match-top>.fllm-match-right{
+  grid-column:2 / 3!important;
+  grid-row:1!important;
+ }
+}
