@@ -29,7 +29,10 @@ export function withMarketLicenseValues(
   standaloneListings: Listing[],
 ): BusinessQuotaListing[] {
   return listings.map((listing): BusinessQuotaListing => {
-    if (listing.listingTier !== "market") return listing;
+    if (listing.listingTier !== "market" && listing.licenseClass !== "quota") return listing;
+    // Preserve already assigned positive broker-authorized estimates.
+    const existing = Number(String(listing.marketMedianLicenseValue || listing.allocatedLicenseValue || "").replace(/[^0-9.]/g, ""));
+    if (listing.listingTier !== "market" && Number.isFinite(existing) && existing > 0) return listing;
 
     if (listing.licenseClass === "sfs" || listing.licenseClass === "2cop") {
       // Location-specific licenses must never carry an inherited quota valuation.
@@ -94,6 +97,26 @@ export function withMarketLicenseValues(
           licenseValueBasis: "county_4cop_series_proxy",
         };
       }
+    }
+
+    // Supplemental estimate only when no priced same-county quota comparables exist.
+    // Do not present a statewide benchmark as a county-observed market median.
+    const statewide4cop = medianPrice(standaloneListings
+      .filter((item) => item.type === "4COP Quota" && typeof item.price === "number" && Number.isFinite(item.price) && item.price > 0)
+      .map((item) => item.price as number));
+    const statewide3ps = medianPrice(standaloneListings
+      .filter((item) => item.type === "3PS Quota / Package Store" && typeof item.price === "number" && Number.isFinite(item.price) && item.price > 0)
+      .map((item) => item.price as number));
+    const fallback = is3ps
+      ? (statewide4cop !== null ? roundToNearestFiveThousand(statewide4cop * FLLM_3PS_TO_4COP_MATCHED_MARKET_FACTOR) : statewide3ps)
+      : statewide4cop;
+    if (fallback !== null) {
+      return {
+        ...listing,
+        allocatedLicenseValue: formatMoney(fallback),
+        marketMedianLicenseValue: formatMoney(fallback),
+        licenseValueBasis: is3ps ? "statewide_4cop_proxy" : "statewide_4cop_median",
+      };
     }
 
     return {
