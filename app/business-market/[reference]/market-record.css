@@ -2100,3 +2100,36 @@
 .fllm-match-row-link:hover,.fllm-match-row-link:focus-visible{color:#061d30;background:#ffbf24}
 .fllm-match-row-ref{display:block;margin-top:5px;font-size:10px;color:#a9c9d8}
 @media(max-width:720px){.fllm-match-table{font-size:12px;min-width:970px}.fllm-match-table tbody td{padding:10px 7px}}
+
+/* Expand Buyer Match search results to the usable viewport, rather than the narrow dashboard panel. */
+@media(min-width:900px){
+ .business-market-alert-modal .fllm-match-results{
+   position:fixed!important;
+   inset:clamp(12px,2vh,24px) clamp(12px,2vw,32px)!important;
+   width:auto!important;
+   height:auto!important;
+   max-width:none!important;
+   max-height:none!important;
+   margin:0!important;
+   transform:none!important;
+   overflow:auto!important;
+   z-index:100;
+   box-sizing:border-box;
+ }
+ .business-market-alert-modal .fllm-match-table-scroll{
+   width:100%;
+   max-height:calc(100vh - 235px);
+   overflow:auto;
+ }
+ .business-market-alert-modal .fllm-match-table{
+   min-width:1120px;
+   table-layout:auto;
+ }
+}
+@media(max-width:899px){
+ .business-market-alert-modal .fllm-match-results{
+   max-width:calc(100vw - 18px);
+   box-sizing:border-box;
+ }
+ .business-market-alert-modal .fllm-match-table-scroll{max-height:calc(100dvh - 240px)}
+}
