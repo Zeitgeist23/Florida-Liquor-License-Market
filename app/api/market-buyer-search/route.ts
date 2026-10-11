@@ -22,7 +22,7 @@ export async function POST(request: Request) {
       && (licenses.length===0||licenses.includes(x.licenseType))
       && (counties.length===0||counties.includes(x.county))
       && (maxPrice===null||(x.packagePriceNumber>0&&x.packagePriceNumber<=maxPrice))
-      && (!selected(body.financingPreferences).includes("Seller Financing")||x.sellerFinancingAvailable===true));
+      && (!(selected(body.financingPreferences).length===1 && selected(body.financingPreferences)[0]==="Seller Financing")||x.sellerFinancingAvailable===true));
     let approved = new Map<string, { gross: number | null; sde: number | null }>();
     try {
       approved = await getApprovedMarketFinancials(eligible.map(x => x.listingReference));
