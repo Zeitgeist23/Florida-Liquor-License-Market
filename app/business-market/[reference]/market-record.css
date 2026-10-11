@@ -2451,3 +2451,25 @@
 
 /* Buyer alert contact section heading only. */
 .business-market-alert-modal .fllm-match-contact h3{color:#39e7a1!important}
+
+/* Buyer alert capture: FLLM centered-text standard, scoped to contact form only. */
+.business-market-alert-modal .fllm-match-contact h3,
+.business-market-alert-modal .fllm-match-contact>p,
+.business-market-alert-modal .fllm-match-contact-grid label,
+.business-market-alert-modal .fllm-match-contact .fllm-match-consent{
+ text-align:center!important;
+}
+.business-market-alert-modal .fllm-match-contact-grid input,
+.business-market-alert-modal .fllm-match-contact textarea{
+ text-align:center!important;
+}
+.business-market-alert-modal .fllm-match-contact .fllm-match-consent{
+ display:flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ gap:10px!important;
+}
+.business-market-alert-modal .fllm-match-contact textarea::placeholder,
+.business-market-alert-modal .fllm-match-contact-grid input::placeholder{
+ text-align:center!important;
+}
