@@ -337,11 +337,11 @@ export default function MarketBuyerLeadForm({
       {horizontalMarketView ? (
         <section id="specific-market-inquiry" className="fllm-capture" aria-labelledby="fllm-capture-title">
           <div className="fllm-capture-kicker">FLORIDA LIQUOR LICENSE MARKET</div>
-          <h2 id="fllm-capture-title">REQUEST INFORMATION ABOUT THIS OPPORTUNITY</h2>
+          <h2 id="fllm-capture-title">REQUEST INFORMATION ABOUT THIS BUSINESS</h2>
           <p className="fllm-capture-description">Ask FLLM about this {county} {businessType.toLowerCase()} + {licenseType} opportunity (ref. {listingReference}). We provide independent market information and can discuss relevant options; we do not represent the seller or broker.</p>
-          <div className="fllm-capture-feature fllm-capture-feature--lt"><span className="fllm-capture-feature-icon">▤</span><strong>EXPERT GUIDANCE</strong><span>Get matched with<br/>relevant opportunities</span></div>
+          <div className="fllm-capture-feature fllm-capture-feature--lt"><span className="fllm-capture-feature-icon">▤</span><strong>EXPERT GUIDANCE</strong><span>Get matched with<br/>relevant businesses</span></div>
           <div className="fllm-capture-feature fllm-capture-feature--lb"><span className="fllm-capture-feature-icon">◎</span><strong>SAVE TIME</strong><span>Let us find the best<br/>matches for you</span></div>
-          <div className="fllm-capture-feature fllm-capture-feature--rt"><span className="fllm-capture-feature-icon">♧</span><strong>RELEVANT MATCHES</strong><span>Opportunities based<br/>on your criteria</span></div>
+          <div className="fllm-capture-feature fllm-capture-feature--rt"><span className="fllm-capture-feature-icon">♧</span><strong>RELEVANT MATCHES</strong><span>Businesses based<br/>on your criteria</span></div>
           <div className="fllm-capture-feature fllm-capture-feature--rb"><span className="fllm-capture-feature-icon">▥</span><strong>CONFIDENTIAL<br/>&amp; SECURE</strong><span>Your information<br/>stays private</span></div>
           {inquiryStatus === "sent" ? <div className="fllm-capture-success" role="status">Thank you. FLLM received your inquiry and will follow up about relevant market information.</div> : (
             <form className="fllm-capture-form" onSubmit={submitSpecificInquiry}>
@@ -351,16 +351,16 @@ export default function MarketBuyerLeadForm({
                 <label>Phone<input name="phone" type="tel" placeholder="☎   (555) 123-4567" autoComplete="tel" maxLength={60}/></label>
               </div>
               <label className="fllm-capture-county">County<select name="county" defaultValue={county}>{counties.map((item)=><option key={item} value={item}>{item}</option>)}</select></label>
-              <label className="fllm-capture-message">Message<textarea name="message" rows={4} maxLength={5000} placeholder={`What would you like to know about opportunity ${listingReference}?`} required /></label>
+              <label className="fllm-capture-message">Message<textarea name="message" rows={4} maxLength={5000} placeholder={`What would you like to know about business ${listingReference}?`} required /></label>
               <button className="fllm-capture-submit" type="submit" disabled={inquiryStatus==="submitting"}>➤ &nbsp; {inquiryStatus==="submitting"?"Sending inquiry…":"Submit Buyer Inquiry"} &nbsp; →</button>
               {inquiryStatus==="error"&&<p className="fllm-capture-error" role="alert">{inquiryError}</p>}
             </form>
           )}
           <div className="fllm-capture-or"><span>OR</span></div>
           <button className="fllm-capture-advanced" type="button" onClick={()=>{setStatus("idle");setError("");setOpen(true);}}>⌕ &nbsp; Advanced Search Options</button>
-          <p className="fllm-capture-advanced-note">Open the full Buyer Match Dashboard for more filters and options.</p>
-          <div className="fllm-capture-preview" aria-hidden="true"><strong>Buyer Match Dashboard</strong><div className="fllm-capture-preview-body"><span>▥<br/>☑<br/>☑<br/>☑</span><span>━━━━━━<br/>━━━━<br/>━━━━━━<br/>━━━━</span><span>FL</span></div></div>
-          <div className="fllm-capture-preview-callout">More filters<br/>More opportunities<br/>Same powerful data</div>
+          <p className="fllm-capture-advanced-note">Open the full Business Match Dashboard for more filters and options.</p>
+          <div className="fllm-capture-preview" aria-hidden="true"><strong>Business Match Dashboard</strong><div className="fllm-capture-preview-body"><span>▥<br/>☑<br/>☑<br/>☑</span><span>━━━━━━<br/>━━━━<br/>━━━━━━<br/>━━━━</span><span>FL</span></div></div>
+          <div className="fllm-capture-preview-callout">More filters<br/>More businesses<br/>Same powerful data</div>
           <div className="fllm-capture-foot"><span>◆ &nbsp; Independent Market View</span><span>✓ &nbsp; No Broker-Authorized Listing Required</span><span>♟ &nbsp; Real Opportunities. Real Businesses.</span></div>
         </section>
       ) : (
