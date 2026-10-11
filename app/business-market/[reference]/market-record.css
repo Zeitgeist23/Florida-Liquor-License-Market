@@ -2191,3 +2191,9 @@
  text-align:center!important;
  white-space:normal!important;
 }
+
+/* Center confirmed/potential totals while retaining the close control on the right. */
+.fllm-match-results-header{position:relative;justify-content:center!important;text-align:center!important}
+.fllm-match-results-header h3{flex:1;text-align:center!important;margin:0!important}
+.fllm-match-results-header>button{position:absolute;right:0;top:50%;transform:translateY(-50%)}
+@media(max-width:650px){.fllm-match-results-header{padding-bottom:50px!important}.fllm-match-results-header>button{top:auto;bottom:0;transform:none}}
