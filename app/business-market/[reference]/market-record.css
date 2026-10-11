@@ -2375,3 +2375,6 @@
 .business-market-alert-modal .fllm-county-hover-picker{z-index:80!important}
 .business-market-alert-modal .fllm-county-hover-options{bottom:calc(100% + 5px)!important;top:auto!important;left:auto!important;right:0!important;box-sizing:border-box!important}
 .business-market-alert-modal .fllm-county-hover-options button{font-size:13px!important;line-height:1.35!important;white-space:nowrap!important;overflow:hidden;text-overflow:ellipsis}
+
+/* Compact second line beneath the Business Match heading. */
+.business-market-alert-modal .fllm-match-title .fllm-match-subline{margin:3px 0 0!important;font-size:13px!important;line-height:1.3!important;color:#56d8f5!important;text-align:center!important;letter-spacing:.015em}
