@@ -348,7 +348,7 @@ export default function MarketBuyerLeadForm({
               <div className="fllm-capture-row">
                 <label>Name<input name="name" placeholder="♟   Your full name" autoComplete="name" maxLength={160} required /></label>
                 <label>Email<input name="email" type="email" placeholder="✉   you@example.com" autoComplete="email" maxLength={254} required /></label>
-                <label>Phone<input name="phone" type="tel" placeholder="☎   (555) 123-4567" autoComplete="tel" maxLength={60}/></label>
+                <label>Phone<input name="phone" type="tel" placeholder="(xxx)xxx-xxxx" autoComplete="tel" maxLength={60}/></label>
               </div>
               <label className="fllm-capture-county">County<select name="county" defaultValue={county}>{counties.map((item)=><option key={item} value={item}>{item}</option>)}</select></label>
               <label className="fllm-capture-message">Message<textarea name="message" rows={4} maxLength={5000} placeholder={`What would you like to know about business ${listingReference}?`} required /></label>
