@@ -36,6 +36,7 @@ export async function POST(request: Request) {
     } catch(error) {
       console.error("Sourced market observation financial lookup unavailable",error);
     }
+    const financialByRef=new Map<string,{gross:number|null;sde:number|null;ebitda:number|null}>();
     const confirmed:typeof eligible=[];
     const potential:typeof eligible=[];
     for (const x of eligible) {
@@ -45,6 +46,7 @@ export async function POST(request: Request) {
       const gross=displayed?.gross ?? x.grossRevenueNumber ?? enriched?.gross ?? sourced?.gross;
       const sde=displayed?.sde ?? x.sdeNumber ?? enriched?.sde ?? sourced?.sde;
       const ebitda=displayed?.ebitda ?? x.ebitdaNumber ?? sourced?.ebitda;
+      financialByRef.set(x.listingReference,{gross:typeof gross==="number"&&Number.isFinite(gross)?gross:null,sde:typeof sde==="number"&&Number.isFinite(sde)?sde:null,ebitda:typeof ebitda==="number"&&Number.isFinite(ebitda)?ebitda:null});
       const earnings=[sde,ebitda].filter((v):v is number=>typeof v==="number"&&Number.isFinite(v));
       const missingRevenue=minRevenue!==null&&(typeof gross!=="number"||!Number.isFinite(gross));
       const missingEarnings=earningsMinimum>0&&earnings.length===0;
@@ -60,6 +62,9 @@ export async function POST(request: Request) {
     const resultItem=(x:(typeof eligible)[number],status:"verified"|"financials_unverified")=>({
       reference:x.listingReference,county:x.county,businessType:x.businessCategory,
       licenseType:x.licenseType,price:x.packagePrice,
+      grossRevenue:financialByRef.get(x.listingReference)?.gross??null,
+      sdeCashFlow:financialByRef.get(x.listingReference)?.sde??null,
+      ebitda:financialByRef.get(x.listingReference)?.ebitda??null,
       href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,
       source:x.listingTier==="market"?"Independent Market View":"Featured Listing",
       matchStatus:status,
