@@ -2166,3 +2166,7 @@
 .fllm-match-table .fllm-match-verified{display:block;color:#37e7a1!important;font-weight:400;line-height:1.3;margin-top:4px}
 .fllm-match-table tbody tr[role="link"]{cursor:pointer}
 .fllm-match-table tbody tr[role="link"]:focus-visible{outline:2px solid #53eaff;outline-offset:-3px;background:#0c4969}
+
+/* Distinguish confirmed and potential match counts in the results heading. */
+.fllm-match-results-header h3 .fllm-match-count-confirmed{color:#39e7a1!important}
+.fllm-match-results-header h3 .fllm-match-count-potential{color:#ff5866!important}
