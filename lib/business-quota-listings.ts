@@ -473,6 +473,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-003",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/128-seat-orlando-restaurant-with-4cop-sfs-and-24-foot-hood-near-ucf/BW2430703/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Orange County",
@@ -486,6 +487,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$250,000",
     packagePriceNumber: 250_000,
+    grossRevenueNumber: 1_028_372,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
@@ -616,6 +618,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-005",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/downtown-miami-prime-corner-restaurant-for-sale-turnkey-opportunity/2469123/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Miami-Dade County",
@@ -629,6 +632,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$195,000",
     packagePriceNumber: 195_000,
+    grossRevenueNumber: 600_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
