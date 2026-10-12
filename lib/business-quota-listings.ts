@@ -123,6 +123,8 @@ export type BusinessQuotaListing = {
   leaseExpirationDate?: string;
   /** When only month and year are disclosed, do not fabricate a calendar day. */
   leaseExpirationMonth?: string;
+  /** Source specifies only the calendar year. */
+  leaseExpirationYear?: number;
   /** Renewal options are not guaranteed occupancy and must not extend the expiry date. */
   leaseRenewalOptionsText?: string;
   /** Documented property price/value; does not imply a separate real-estate offering. */
@@ -1721,6 +1723,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-017",
+    duplicateOf: "FLLM-MKT-2COP-032",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/profitable-italian-restaurant-and-pizzeria-long-lease-rent-under-3/BW2511883/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Hernando County",
@@ -1732,6 +1736,10 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 2160,
+    leaseExpirationMonth: "2029-11",
+    realEstateEvidenceUrl: "https://www.bizquest.com/business-for-sale/profitable-italian-restaurant-and-pizzeria-long-lease-rent-under-3/BW2511883/",
     packagePrice: "$599,000",
     packagePriceNumber: 599_000,
     sdeNumber: 123_735,
@@ -3194,6 +3202,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-041",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/liquor-store-near-the-villages-scalable-to-1m-rev-high-traffic/BW2494573/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Marion County",
@@ -3205,6 +3214,10 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Liquor Store",
     summaryBusinessType: "Liquor Store",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 4346,
+    leaseExpirationYear: 2028,
+    realEstateEvidenceUrl: "https://www.bizquest.com/business-for-sale/liquor-store-near-the-villages-scalable-to-1m-rev-high-traffic/BW2494573/",
     packagePrice: "$700,000",
     packagePriceNumber: 700_000,
     allocatedLicenseValue: "",
