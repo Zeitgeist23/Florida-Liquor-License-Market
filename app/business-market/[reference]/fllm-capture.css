@@ -145,3 +145,13 @@
 @media(min-width:791px){
  .business-market-alert-modal .fllm-match-columns{grid-template-columns:minmax(0,1.11fr) minmax(0,.97fr) minmax(0,1.18fr) minmax(0,1.23fr)!important;gap:9px!important}
 }
+
+/* Lease-only hover dropdowns: keep other dashboard menus untouched. */
+.fllm-match-panel:last-child{overflow:visible}
+.fllm-lease-hover-field{position:relative;min-width:0}
+.fllm-lease-hover-picker{position:relative;min-width:0}
+.fllm-match .fllm-lease-hover-trigger{width:100%;min-height:44px;display:flex;justify-content:space-between;align-items:center;text-align:left;padding:11px 10px;border:1px solid #00b7e8;border-radius:7px;background:#00243e;color:#e9f6ff;font:inherit}
+.fllm-match .fllm-lease-hover-trigger:hover,.fllm-match .fllm-lease-hover-trigger[aria-expanded="true"]{border-color:#5addff}
+.fllm-lease-hover-options{position:absolute;bottom:calc(100% + 2px);left:0;right:0;z-index:45;padding:4px;border:1px solid #00b7e8;border-radius:7px;background:#00243e;box-shadow:0 12px 24px #00101bcc;max-height:260px;overflow-y:auto}
+.fllm-match .fllm-lease-hover-options button{display:block;width:100%;padding:9px 8px;text-align:left;border:0;border-radius:4px;background:transparent;color:#e9f6ff;font:inherit}
+.fllm-match .fllm-lease-hover-options button:hover,.fllm-match .fllm-lease-hover-options button:focus-visible,.fllm-match .fllm-lease-hover-options button[aria-selected="true"]{background:#075c86;color:#fff}
