@@ -1358,6 +1358,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-014",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/boynton-beach-bbq-netted-108-000-in-2025-motivated-seller/2495367/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -1614,6 +1615,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-018",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/beachside-restaurant-and-nightclub-with-liquor-license-and-steady-revenue/BW2397061/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -1816,6 +1818,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-021",
+    sourceListingUrls: ["https://us.businessesforsale.com/us/pub-style-restaurant-with-4-cop-quota-liquor-license.aspx"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Okaloosa County",
@@ -2342,6 +2345,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-029",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/freestanding-sports-bar-and-grill-w-full-liquor-n-palm-beach-county/2519933/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -2353,6 +2357,10 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Bar",
     summaryBusinessType: "Bar",
     transactionType: "Asset Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 17000,
+    leaseRenewalOptionsText: "Broker describes nine years remaining without exact expiration date",
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/freestanding-sports-bar-and-grill-w-full-liquor-n-palm-beach-county/2519933/",
     packagePrice: "$395,000",
     packagePriceNumber: 395_000,
     allocatedLicenseValue: "",
@@ -2849,6 +2857,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-039",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-asset/restaurant-for-sale-full-liquor-license-great-location/2490439/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Pinellas County",
