@@ -14,7 +14,7 @@ export async function GET() {
 }
 export async function POST(request: Request) {
   try {
-    const body = await request.json() as {businessTypes?:string[];licenseTypes?:string[];counties?:string[];maxPurchasePrice?:string;minGrossRevenue?:string;minSde?:string;minEbitda?:string;financingPreferences?:string[];realEstate?:string};
+    const body = await request.json() as {businessTypes?:string[];licenseTypes?:string[];counties?:string[];maxPurchasePrice?:string;minGrossRevenue?:string;minSde?:string;minEbitda?:string;financingPreferences?:string[];realEstate?:string;leaseYears?:string;monthlyRent?:string};
     const selected = (value: unknown): string[] => Array.isArray(value) ? value.filter((v):v is string => typeof v==="string").slice(0,100) : [];
     const types=selected(body.businessTypes), licenses=selected(body.licenseTypes), counties=selected(body.counties);
     const amount=(value:unknown)=>{if(!value)return null;const n=Number(String(value).replace(/[^\d.]/g,""));return Number.isFinite(n)&&n>0?n:null;};
@@ -26,12 +26,31 @@ export async function POST(request: Request) {
       listing.realEstateStatus==="lease_only" ? "Lease only" :
       listing.realEstateStatus==="available_separately" ? "Real estate available separately" :
       listing.realEstateStatus==="included" || listing.transactionType==="Business + Real Estate Sale" ? "Real estate included" : null;
+    const leaseMinYears = body.leaseYears && body.leaseYears !== "Any" ? amount(body.leaseYears) : null;
+    const rentMaximum = body.monthlyRent && body.monthlyRent !== "Any" ? amount(body.monthlyRent) : null;
+    const today = new Date();
+    const remainingYears = (date?: string): number | null => {
+      if (!date || !/^\\d{4}-\\d{2}-\\d{2}$/.test(date)) return null;
+      const expiration = new Date(date + "T23:59:59Z");
+      return Number.isFinite(expiration.getTime()) ? Math.max(0,(expiration.getTime()-today.getTime())/(365.2425*86400000)) : null;
+    };
+    const leaseMatch = (x:(typeof businessQuotaListingRecords)[number]) => {
+      if (leaseMinYears === null && rentMaximum === null) return "match";
+      if (x.realEstateStatus === "included" || x.realEstateStatus === "available_separately") return "not_applicable";
+      const remaining = remainingYears(x.leaseExpirationDate);
+      if ((leaseMinYears !== null && remaining !== null && remaining < leaseMinYears) ||
+          (rentMaximum !== null && x.monthlyRentNumber !== undefined && x.monthlyRentNumber > rentMaximum)) return "fail";
+      if ((leaseMinYears !== null && remaining === null) ||
+          (rentMaximum !== null && x.monthlyRentNumber === undefined)) return "unknown";
+      return "match";
+    };
     const eligible=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x)
       && (types.length===0||types.includes(x.businessCategory)||(types.includes("Bar")&&x.businessCategory==="Cocktail Lounge"))
       && (licenses.length===0||licenses.includes(x.licenseType))
       && (counties.length===0||counties.includes(x.county))
       && (maxPrice===null||(x.packagePriceNumber>0&&x.packagePriceNumber<=maxPrice))
       && (propertyPreference==="Either" || propertyStatus(x)===propertyPreference)
+      && leaseMatch(x)!=="fail"
       && (!(selected(body.financingPreferences).length===1 && selected(body.financingPreferences)[0]==="Seller Financing")||x.sellerFinancingAvailable===true));
     let approved = new Map<string, { gross: number | null; sde: number | null }>();
     try {
@@ -39,7 +58,7 @@ export async function POST(request: Request) {
     } catch (error) {
       console.error("Financial lookup unavailable", error);
     }
-    const diagnostics={eligibleBeforeEarnings:eligible.length,missingRevenue:0,missingEarnings:0,belowRevenueMinimum:0,belowEarningsMinimum:0};
+    const diagnostics={leaseCriteriaUnverified:eligible.filter(x=>leaseMatch(x)==="unknown").length,eligibleBeforeEarnings:eligible.length,missingRevenue:0,missingEarnings:0,belowRevenueMinimum:0,belowEarningsMinimum:0};
     let observed = new Map<string,{gross:number|null;sde:number|null;ebitda:number|null}>();
     try {
       observed = await getSourcedObservedFinancials(eligible.filter(x=>x.listingTier==="market").map(x=>x.listingReference));
@@ -67,7 +86,7 @@ export async function POST(request: Request) {
       if(belowRevenue) diagnostics.belowRevenueMinimum++;
       if(belowEarnings) diagnostics.belowEarningsMinimum++;
       if(belowRevenue||belowEarnings) continue;
-      (missingRevenue||missingEarnings?potential:confirmed).push(x);
+      (missingRevenue||missingEarnings||leaseMatch(x)==="unknown"?potential:confirmed).push(x);
     }
     let valuesByReference = new Map<string, {value:number; basis:string}>();
     try {
@@ -83,6 +102,11 @@ export async function POST(request: Request) {
       grossRevenue:financialByRef.get(x.listingReference)?.gross??null,
       sdeCashFlow:financialByRef.get(x.listingReference)?.sde??null,
       ebitda:financialByRef.get(x.listingReference)?.ebitda??null,
+      realEstateStatus:propertyStatus(x),
+      monthlyRent:x.monthlyRentNumber??null,
+      leaseExpirationDate:x.leaseExpirationDate??null,
+      leaseYearsRemaining:remainingYears(x.leaseExpirationDate),
+      leaseCriteriaStatus:leaseMatch(x),
       href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,
       source:x.listingTier==="market"?"Independent Market View":"Featured Listing",
       matchStatus:status,
