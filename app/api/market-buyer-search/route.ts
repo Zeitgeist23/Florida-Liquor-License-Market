@@ -30,13 +30,16 @@ export async function POST(request: Request) {
       lease_expiration_year: number | null;
       real_estate_also_separately_offered: boolean;
       duplicate_of: string | null;
+      seller_financing_offered: boolean | null;
+      seller_financing_evidence_url: string | null;
+      seller_financing_terms: string | null;
     };
     const termsByRef = new Map<string, PropertyTerms>();
     let propertyDatabaseAvailable = false;
     try {
       const { url, key } = supabaseServiceSettings("Buyer property terms unavailable.");
       const response = await fetch(
-        `${url}/rest/v1/business_property_terms?select=listing_reference,property_status,monthly_rent,lease_expiration_date,lease_expiration_month,lease_expiration_year,real_estate_also_separately_offered,duplicate_of&limit=1000`,
+        `${url}/rest/v1/business_property_terms?select=listing_reference,property_status,monthly_rent,lease_expiration_date,lease_expiration_month,lease_expiration_year,real_estate_also_separately_offered,duplicate_of,seller_financing_offered,seller_financing_evidence_url,seller_financing_terms&limit=1000`,
         { cache: "no-store", headers: { apikey: key, Authorization: `Bearer ${key}` } }
       );
       if (!response.ok) throw new Error(`Property terms HTTP ${response.status}`);
@@ -87,6 +90,10 @@ export async function POST(request: Request) {
           (rentMaximum !== null && monthlyRentValue(x) === null)) return "unknown";
       return "match";
     };
+    const wantsSellerFinancing = selected(body.financingPreferences).includes("Seller Financing");
+    const sellerFinancingStatus = (x:(typeof businessQuotaListingRecords)[number]) =>
+      terms(x)?.seller_financing_offered === true && !!terms(x)?.seller_financing_evidence_url
+        ? "advertised" : terms(x)?.seller_financing_offered === false ? "not_offered" : "undisclosed";
     const eligible=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x)
       && (types.length===0||types.includes(x.businessCategory)||(types.includes("Bar")&&x.businessCategory==="Cocktail Lounge"))
       && (licenses.length===0||licenses.includes(x.licenseType))
@@ -95,14 +102,14 @@ export async function POST(request: Request) {
       && (propertyPreference==="Either" || propertyStatus(x)===propertyPreference || (propertyPreference==="Real estate available separately" && separateProperty(x)))
       && !(propertyDatabaseAvailable && terms(x)?.duplicate_of)
       && leaseMatch(x)!=="fail"
-      && (!(selected(body.financingPreferences).length===1 && selected(body.financingPreferences)[0]==="Seller Financing")||x.sellerFinancingAvailable===true));
+      && (!wantsSellerFinancing || sellerFinancingStatus(x)!=="not_offered"));
     let approved = new Map<string, { gross: number | null; sde: number | null }>();
     try {
       approved = await getApprovedMarketFinancials(eligible.map(x => x.listingReference));
     } catch (error) {
       console.error("Financial lookup unavailable", error);
     }
-    const diagnostics={propertyDatabaseAvailable,leaseCriteriaUnverified:eligible.filter(x=>leaseMatch(x)==="unknown").length,eligibleBeforeEarnings:eligible.length,missingRevenue:0,missingEarnings:0,belowRevenueMinimum:0,belowEarningsMinimum:0};
+    const diagnostics={sellerFinancingUndisclosed:eligible.filter(x=>wantsSellerFinancing&&sellerFinancingStatus(x)==="undisclosed").length,propertyDatabaseAvailable,leaseCriteriaUnverified:eligible.filter(x=>leaseMatch(x)==="unknown").length,eligibleBeforeEarnings:eligible.length,missingRevenue:0,missingEarnings:0,belowRevenueMinimum:0,belowEarningsMinimum:0};
     let observed = new Map<string,{gross:number|null;sde:number|null;ebitda:number|null}>();
     try {
       observed = await getSourcedObservedFinancials(eligible.filter(x=>x.listingTier==="market").map(x=>x.listingReference));
@@ -130,7 +137,7 @@ export async function POST(request: Request) {
       if(belowRevenue) diagnostics.belowRevenueMinimum++;
       if(belowEarnings) diagnostics.belowEarningsMinimum++;
       if(belowRevenue||belowEarnings) continue;
-      (missingRevenue||missingEarnings||leaseMatch(x)==="unknown"?potential:confirmed).push(x);
+      (missingRevenue||missingEarnings||leaseMatch(x)==="unknown"||(wantsSellerFinancing&&sellerFinancingStatus(x)!=="advertised")?potential:confirmed).push(x);
     }
     let valuesByReference = new Map<string, {value:number; basis:string}>();
     try {
@@ -146,6 +153,9 @@ export async function POST(request: Request) {
       grossRevenue:financialByRef.get(x.listingReference)?.gross??null,
       sdeCashFlow:financialByRef.get(x.listingReference)?.sde??null,
       ebitda:financialByRef.get(x.listingReference)?.ebitda??null,
+      sellerFinancingStatus:sellerFinancingStatus(x),
+      sellerFinancingEvidenceUrl:terms(x)?.seller_financing_evidence_url??null,
+      sellerFinancingTerms:terms(x)?.seller_financing_terms??null,
       realEstateStatus:propertyStatus(x),
       monthlyRent:monthlyRentValue(x),
       leaseExpirationDate:exactExpiry(x),
@@ -154,7 +164,7 @@ export async function POST(request: Request) {
       href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,
       source:x.listingTier==="market"?"Independent Market View":"Featured Listing",
       matchStatus:status,
-      financialNote:leaseMatch(x)==="unknown"?"Potential match — one or more selected lease terms are undisclosed":status==="financials_unverified"?"Potential match — required financial figures are not disclosed":"Disclosed financial figures meet the selected minimums; SDE and EBITDA are not accounting equivalents"
+      financialNote:wantsSellerFinancing&&sellerFinancingStatus(x)==="undisclosed"?"Potential match — seller financing is not disclosed in the source advertisement":leaseMatch(x)==="unknown"?"Potential match — one or more selected lease terms are undisclosed":status==="financials_unverified"?"Potential match — required financial figures are not disclosed":"Disclosed financial figures meet the selected minimums; SDE and EBITDA are not accounting equivalents"
     });
     return NextResponse.json({
       total:confirmed.length,potentialCount:potential.length,shown:Math.min(30,confirmed.length+potential.length),diagnostics,
