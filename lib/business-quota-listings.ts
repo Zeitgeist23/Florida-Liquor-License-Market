@@ -119,6 +119,8 @@ export type BusinessQuotaListing = {
   monthlyRentNumber?: number;
   /** YYYY-MM-DD; only when the source explicitly states the current lease expiry. */
   leaseExpirationDate?: string;
+  /** When only month and year are disclosed, do not fabricate a calendar day. */
+  leaseExpirationMonth?: string;
   /** Renewal options are not guaranteed occupancy and must not extend the expiry date. */
   leaseRenewalOptionsText?: string;
   /** Documented property price/value; does not imply a separate real-estate offering. */
@@ -572,6 +574,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     realEstateStatus: "lease_only",
     monthlyRentNumber: 14371,
+    leaseExpirationMonth: "2030-09",
+    leaseRenewalOptionsText: "Renewal options disclosed; duration not specified",
     realEstateEvidenceUrl: "https://www.wesellrestaurants.com/restaurant-for-sale/profitable-orlando-franchise-restaurant-133m-sales-2cop-license/43411",
     packagePrice: "$275,000",
     packagePriceNumber: 275_000,
