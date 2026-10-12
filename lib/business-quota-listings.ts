@@ -1691,6 +1691,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-021",
+    sourceListingUrls: ["https://bizmls.com/cgi-bin/a-bus2ff.asp?folder=bbf-409034&src=bus-restandliq"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Polk County",
@@ -1704,6 +1705,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$850,000",
     packagePriceNumber: 850_000,
+    grossRevenueNumber: 2_117_365,
+    sdeNumber: 311_301,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
@@ -1815,6 +1818,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-022",
+    sourceListingUrls: ["https://bizmls.com/cgi-bin/a-bus2.asp?folder=bbf-1282011&src=bus-rest"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Hillsborough County",
@@ -1828,6 +1832,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$179,000",
     packagePriceNumber: 179_000,
+    grossRevenueNumber: 250_000,
+    sdeNumber: 60_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
