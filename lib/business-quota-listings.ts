@@ -1075,7 +1075,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-010",
-    sourceListingUrls: ["https://www.bizbuysell.com/florida/fort-lauderdale/american-restaurants-established-businesses-for-sale/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
