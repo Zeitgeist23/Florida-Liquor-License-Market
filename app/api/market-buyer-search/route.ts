@@ -19,7 +19,6 @@ export async function POST(request: Request) {
     const types=selected(body.businessTypes), licenses=selected(body.licenseTypes), counties=selected(body.counties);
     const amount=(value:unknown)=>{if(!value)return null;const n=Number(String(value).replace(/[^\d.]/g,""));return Number.isFinite(n)&&n>0?n:null;};
     const maxPrice=amount(body.maxPurchasePrice),minRevenue=amount(body.minGrossRevenue),minSde=amount(body.minSde),minEbitda=amount(body.minEbitda);
-    const earningsMinimum = Math.max(minSde ?? 0, minEbitda ?? 0);
     const eligible=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x)
       && (types.length===0||types.includes(x.businessCategory)||(types.includes("Bar")&&x.businessCategory==="Cocktail Lounge"))
       && (licenses.length===0||licenses.includes(x.licenseType))
@@ -50,15 +49,22 @@ export async function POST(request: Request) {
       const sde=displayed?.sde ?? x.sdeNumber ?? enriched?.sde ?? sourced?.sde;
       const ebitda=displayed?.ebitda ?? x.ebitdaNumber ?? sourced?.ebitda;
       financialByRef.set(x.listingReference,{gross:typeof gross==="number"&&Number.isFinite(gross)?gross:null,sde:typeof sde==="number"&&Number.isFinite(sde)?sde:null,ebitda:typeof ebitda==="number"&&Number.isFinite(ebitda)?ebitda:null});
-      const earnings=[sde,ebitda].filter((v):v is number=>typeof v==="number"&&Number.isFinite(v));
-      const missingRevenue=minRevenue!==null&&(typeof gross!=="number"||!Number.isFinite(gross));
-      const missingEarnings=earningsMinimum>0&&earnings.length===0;
-      const belowRevenue=minRevenue!==null&&!missingRevenue&&(gross as number)<minRevenue;
-      const belowEarnings=earningsMinimum>0&&!missingEarnings&&!earnings.some(v=>v>=earningsMinimum);
+      const hasGross=typeof gross==="number"&&Number.isFinite(gross);
+      const hasSde=typeof sde==="number"&&Number.isFinite(sde);
+      const hasEbitda=typeof ebitda==="number"&&Number.isFinite(ebitda);
+      const missingRevenue=minRevenue!==null&&!hasGross;
+      const missingSde=minSde!==null&&!hasSde;
+      const missingEbitda=minEbitda!==null&&!hasEbitda;
+      const missingEarnings=missingSde||missingEbitda;
+      const belowRevenue=minRevenue!==null&&hasGross&&(gross as number)<minRevenue;
+      const belowSde=minSde!==null&&hasSde&&(sde as number)<minSde;
+      const belowEbitda=minEbitda!==null&&hasEbitda&&(ebitda as number)<minEbitda;
+      const belowEarnings=belowSde||belowEbitda;
       if(missingRevenue) diagnostics.missingRevenue++;
       if(missingEarnings) diagnostics.missingEarnings++;
       if(belowRevenue) diagnostics.belowRevenueMinimum++;
       if(belowEarnings) diagnostics.belowEarningsMinimum++;
+      // Each independently selected threshold must pass. Unknown figures are potential, not confirmed.
       if(belowRevenue||belowEarnings) continue;
       (missingRevenue||missingEarnings?potential:confirmed).push(x);
     }
