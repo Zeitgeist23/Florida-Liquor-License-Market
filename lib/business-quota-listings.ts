@@ -1763,6 +1763,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-024",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/neighborhood-bar-and-grill/2474905/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Pinellas County",
@@ -1776,6 +1777,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$190,000",
     packagePriceNumber: 190_000,
+    grossRevenueNumber: 382_227,
+    sdeNumber: 95_546,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
