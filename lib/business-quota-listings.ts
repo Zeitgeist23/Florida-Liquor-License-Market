@@ -881,6 +881,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-006",
+    sourceListingUrls: ["https://www.sunbeltnetwork.com/west-palm-beach-fl/buy-a-business/listings/listing-details/palm-beach-breakfast-lunch-58707/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -894,6 +895,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$220,000",
     packagePriceNumber: 220_000,
+    grossRevenueNumber: 777_043,
+    sdeNumber: 88_277,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
