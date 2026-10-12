@@ -896,6 +896,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-007",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/high-volume-absentee-owned-franchise-restaurant-and-bar-opportunity/2506249/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Pinellas County",
@@ -1074,6 +1075,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-010",
+    sourceListingUrls: ["https://www.bizbuysell.com/florida/fort-lauderdale/american-restaurants-established-businesses-for-sale/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -1296,6 +1298,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-012",
+    sourceListingUrls: ["https://www.wesellrestaurants.com/restaurant-for-sale/broward-county-florida-restaurant-can-convert-to-any-concept/44528"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -1307,6 +1310,10 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 9523,
+    leaseRenewalOptionsText: "Five-year renewal option disclosed",
+    realEstateEvidenceUrl: "https://www.wesellrestaurants.com/restaurant-for-sale/broward-county-florida-restaurant-can-convert-to-any-concept/44528",
     packagePrice: "$99,000",
     packagePriceNumber: 99_000,
     allocatedLicenseValue: "",
