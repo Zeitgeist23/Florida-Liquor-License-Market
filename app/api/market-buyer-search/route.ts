@@ -110,7 +110,7 @@ export async function POST(request: Request) {
       href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,
       source:x.listingTier==="market"?"Independent Market View":"Featured Listing",
       matchStatus:status,
-      financialNote:status==="financials_unverified"?"Potential match — required financial figures are not disclosed":"Disclosed financial figures meet the selected minimums; SDE and EBITDA are not accounting equivalents"
+      financialNote:leaseMatch(x)==="unknown"?"Potential match — one or more selected lease terms are undisclosed":status==="financials_unverified"?"Potential match — required financial figures are not disclosed":"Disclosed financial figures meet the selected minimums; SDE and EBITDA are not accounting equivalents"
     });
     return NextResponse.json({
       total:confirmed.length,potentialCount:potential.length,shown:Math.min(30,confirmed.length+potential.length),diagnostics,
