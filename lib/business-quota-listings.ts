@@ -908,6 +908,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-008",
+    sourceListingUrls: ["https://www.bizquest.com/asset-sales/asset-opportunity-downtown-sarasota-restaurant-with-4cop-sfs-license/BW2462353/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Sarasota County",
@@ -919,6 +920,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Asset Sale",
+    realEstateStatus: "lease_only",
+    realEstateEvidenceUrl: "https://www.bizquest.com/asset-sales/asset-opportunity-downtown-sarasota-restaurant-with-4cop-sfs-license/BW2462353/",
     packagePrice: "$215,000",
     packagePriceNumber: 215_000,
     allocatedLicenseValue: "",
@@ -989,6 +992,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-007",
+    sourceListingUrls: ["https://www.wesellrestaurants.com/restaurant-for-sale/restaurant-bar-in-greater-orlando-florida-ready-for-your-concept/35078"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Osceola County",
@@ -1035,6 +1039,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-010",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/exciting-opportunity-downtown-bar-for-sale-in-pinellas-county-florida/BW2223696/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Pinellas County",
@@ -1081,6 +1086,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-011",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/exceptional-established-italian-restaurant/BW2543585/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Pasco County",
