@@ -361,6 +361,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-001",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/owner-retiring-for-sale-martin-county-pub-4cop/2540627/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Martin County",
@@ -372,6 +373,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Bar",
     summaryBusinessType: "Bar",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    licenseAvailableSeparately: true,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/owner-retiring-for-sale-martin-county-pub-4cop/2540627/",
     packagePrice: "$795,000",
     packagePriceNumber: 795_000,
     allocatedLicenseValue: "",
@@ -384,6 +388,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-002",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/sarasota-bar-with-4cop-quota-license/BW2463925/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Sarasota County",
@@ -407,6 +412,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-003",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/turnkey-absentee-bar-4cop-long-lease/BW2199972/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "St. Lucie County",
@@ -418,6 +424,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Bar",
     summaryBusinessType: "Bar",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    leaseRenewalOptionsText: "Advertised 14+ years remaining as of source observation, exact expiry undisclosed",
+    realEstateEvidenceUrl: "https://www.bizquest.com/business-for-sale/turnkey-absentee-bar-4cop-long-lease/BW2199972/",
     packagePrice: "$420,000",
     packagePriceNumber: 420_000,
     allocatedLicenseValue: "",
