@@ -1660,6 +1660,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-020",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/steps-from-the-beach-restaurant-and-bar-with-seasoned-staff/2521053/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "St. Johns County",
@@ -1673,6 +1674,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$1,495,000",
     packagePriceNumber: 1_495_000,
+    grossRevenueNumber: 7_254_595,
+    sdeNumber: 684_709,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
