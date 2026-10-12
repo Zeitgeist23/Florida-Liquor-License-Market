@@ -1149,6 +1149,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-013",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/turnkey-italian-restaurant-with-4cop-sfs-liquor-license/2496570/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -2322,6 +2323,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-032",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/well-established-high-volume-sports-bar-and-grill/2464728/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Duval County",
@@ -2625,6 +2627,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-027",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/popular-breakfast-restaurant-for-sale-in-tampa-florida/2503412/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Hillsborough County",
@@ -2636,6 +2639,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 6500,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/popular-breakfast-restaurant-for-sale-in-tampa-florida/2503412/",
     packagePrice: "$260,000",
     packagePriceNumber: 260_000,
     allocatedLicenseValue: "",
@@ -2757,6 +2763,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-028",
+    sourceListingUrls: ["https://www.bizbuysell.com/florida/sanford/miscellaneous-restaurant-and-bars-established-businesses-for-sale/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Seminole County",
