@@ -117,6 +117,8 @@ export type BusinessQuotaListing = {
   sellerFinancingAvailable?: boolean;
   realEstateStatus?: "included" | "available_separately" | "lease_only";
   monthlyRentNumber?: number;
+  /** Base rent excluding CAM and pass-through expenses when total occupancy rent not disclosed. */
+  monthlyBaseRentNumber?: number;
   /** YYYY-MM-DD; only when the source explicitly states the current lease expiry. */
   leaseExpirationDate?: string;
   /** When only month and year are disclosed, do not fabricate a calendar day. */
@@ -1454,6 +1456,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-013",
+    sourceListingUrls: ["https://www.bizquest.com/asset-sales/turnkey-cigar-bar-lounge-w-4cop-liquor-license-in-tampa-fl/BW2488403/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Hillsborough County",
@@ -1465,6 +1468,10 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Cocktail Lounge",
     summaryBusinessType: "Cocktail Lounge",
     transactionType: "Asset Sale",
+    realEstateStatus: "lease_only",
+    monthlyBaseRentNumber: 2934.45,
+    leaseRenewalOptionsText: "Current listing states third year of five-year primary lease, with five-year renewal option; current base rent approximately $2,934.45, CAM undisclosed",
+    realEstateEvidenceUrl: "https://www.bizquest.com/asset-sales/turnkey-cigar-bar-lounge-w-4cop-liquor-license-in-tampa-fl/BW2488403/",
     packagePrice: "$310,000",
     packagePriceNumber: 310_000,
     allocatedLicenseValue: "",
@@ -1503,6 +1510,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-015",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/turnkey-downtown-hollywood-nightclub-1-1m-gross-revenue-4cop-lice/2494332/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -1579,6 +1587,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-016",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-asset/downtown-mount-dora-cafe-and-eatery-stairway-2-donnelly/2523496/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Lake County",
