@@ -438,6 +438,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-004",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/st-augustine-bar-restaurant-with-quota-4cop-liquor-license/2414188/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "St. Johns County",
@@ -449,6 +450,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Bar",
     summaryBusinessType: "Bar",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 6500,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/st-augustine-bar-restaurant-with-quota-4cop-liquor-license/2414188/",
     packagePrice: "$999,000",
     packagePriceNumber: 999_000,
     allocatedLicenseValue: "",
@@ -599,6 +603,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-002",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/restaurant-for-sale-prime-lakewood-ranch-location/2466006/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Manatee County",
@@ -610,6 +615,10 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 3400,
+    leaseExpirationDate: "2033-02-28",
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/restaurant-for-sale-prime-lakewood-ranch-location/2466006/",
     packagePrice: "$135,000",
     packagePriceNumber: 135_000,
     allocatedLicenseValue: "",
@@ -700,6 +709,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
 
   {
     listingReference: "FLLM-MKT-Q-005",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/jacksonville-fl-bar-for-sale-4-500-sf-4cop-quota-license-in-duval/2530605/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Duval County",
