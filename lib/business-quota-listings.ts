@@ -2160,6 +2160,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-026",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/premier-restaurant-bar-in-tampa-corridor-celebrity-chef-kitchen/BW2436463/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Hillsborough County",
@@ -2212,6 +2213,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-027",
+    sourceListingUrls: ["https://www.tworld.com/agents/jayminter/listings/Established-Italian-Restaurant-with-dual-4COP-license"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -2223,6 +2225,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 9300,
+    realEstateEvidenceUrl: "https://www.tworld.com/agents/jayminter/listings/Established-Italian-Restaurant-with-dual-4COP-license",
     packagePrice: "$1,299,000",
     packagePriceNumber: 1_299_000,
     allocatedLicenseValue: "",
@@ -2235,6 +2240,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-028",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-asset/1-tripadvisor-restaurant-12-years-4cop-turnkey-west-palm-beach/2549435/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -2246,6 +2252,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Asset Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 5000,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-asset/1-tripadvisor-restaurant-12-years-4cop-turnkey-west-palm-beach/2549435/",
     packagePrice: "$199,000",
     packagePriceNumber: 199_000,
     allocatedLicenseValue: "",
@@ -2258,6 +2267,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-029",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/busy-north-miami-liquor-store-with-real-estate/BW2034916/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Miami-Dade County",
@@ -2919,6 +2929,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-038",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/busy-north-miami-liquor-store-with-real-estate/BW2034916/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Miami-Dade County",
