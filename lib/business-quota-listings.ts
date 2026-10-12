@@ -2114,6 +2114,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-030",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/franchised-restaurant-opportunity-peruvian-cuisine/2514680/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Seminole County",
@@ -2127,6 +2128,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$350,000",
     packagePriceNumber: 350_000,
+    grossRevenueNumber: 2_055_952,
+    sdeNumber: 262_609,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
@@ -2666,6 +2669,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-039",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/profitable-liquor-store-prime-downtown-location/BW2389743/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Martin County",
@@ -2679,6 +2683,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Asset Sale",
     packagePrice: "$675,000",
     packagePriceNumber: 675_000,
+    grossRevenueNumber: 1_302_811,
+    sdeNumber: 216_592,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
