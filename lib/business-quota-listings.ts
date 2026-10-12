@@ -1801,6 +1801,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-021",
+    sourceListingUrls: ["https://www.tworld.com/agents/billkelly/listings/premiere-hookah-lounge"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Hillsborough County",
@@ -1814,6 +1815,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$79,000",
     packagePriceNumber: 79_000,
+    grossRevenueNumber: 165_000,
+    sdeNumber: 80_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
