@@ -1737,6 +1737,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-018",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-asset/fully-built-out-restaurant-busy-jacksonville-center/2377375/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Duval County",
@@ -1748,6 +1749,10 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Asset Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 2700,
+    leaseExpirationDate: "2027-04-30",
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-asset/fully-built-out-restaurant-busy-jacksonville-center/2377375/",
     packagePrice: "$79,000",
     packagePriceNumber: 79_000,
     allocatedLicenseValue: "",
@@ -1760,6 +1765,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-019",
+    sourceListingUrls: ["https://www.bizquest.com/asset-sales/2nd-gen-restaurant-available-with-speakeasy/BW2421961/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Miami-Dade County",
@@ -1783,6 +1789,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-020",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/family-friendly-sports-pub-strong-sales-low-rent-turnkey/2463973/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Charlotte County",
@@ -1794,6 +1801,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Bar",
     summaryBusinessType: "Bar",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 3091,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/family-friendly-sports-pub-strong-sales-low-rent-turnkey/2463973/",
     packagePrice: "$399,000",
     packagePriceNumber: 399_000,
     allocatedLicenseValue: "",
@@ -2028,6 +2038,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-023",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/look-at-this-family-owned-jamaican-restaurant-for-sale/2516038/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Hillsborough County",
@@ -2051,6 +2062,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-023",
+    sourceListingUrls: ["https://images.bizquest.com/business-for-sale/nightclub-bar-with-full-convertible-liquor-license-in-brickell-miami/BW2465356/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Miami-Dade County",
@@ -2062,6 +2074,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Nightclub",
     summaryBusinessType: "Nightclub",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 13200,
+    realEstateEvidenceUrl: "https://images.bizquest.com/business-for-sale/nightclub-bar-with-full-convertible-liquor-license-in-brickell-miami/BW2465356/",
     packagePrice: "$800,000",
     packagePriceNumber: 800_000,
     allocatedLicenseValue: "",
@@ -2074,6 +2089,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-025",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/moonshine-saloon-and-4cop-liquor-license-for-sale/2408100/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Escambia County",
@@ -2097,6 +2113,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-026",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/full-4cop-liquor-license-sports-bar-for-sale-ormond-beach-fl/2501973/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Volusia County",
