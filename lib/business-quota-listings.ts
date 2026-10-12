@@ -1030,6 +1030,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-008",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/50-year-cafe-bakery/BW2458879/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Miami-Dade County",
@@ -1333,6 +1334,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-013",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/semi-absentee-breakfast-and-lunch-cafe/BW2474536/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "St. Lucie County",
@@ -1534,6 +1536,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-017",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/orange-county-liquor-business-with-a-3ps-license/2442883/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Orange County",
@@ -1686,6 +1689,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-019",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/iconic-award-winning-restaurant-28-years-of-success-with-liquor/2515443/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Pinellas County",
@@ -2851,6 +2855,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-036",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/orange-county-liquor-business-with-a-3ps-license/2442883/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Orange County",
