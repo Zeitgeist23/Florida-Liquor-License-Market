@@ -1080,6 +1080,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-010",
+    sourceListingUrls: ["https://www.crexi.com/properties/2584284/florida-1025-n-federal-highway"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
