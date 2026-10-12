@@ -1121,6 +1121,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-012",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/restaurant-for-sale-in-pompano-beach-4cop-sfs-license/BW2543469/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -1168,6 +1169,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-014",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/tavern-for-sale-in-lake-worth-recently-remodeled-4cop-sfs/BW2485843/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -1179,6 +1181,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Bar",
     summaryBusinessType: "Bar",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    realEstateEvidenceUrl: "https://www.bizquest.com/business-for-sale/tavern-for-sale-in-lake-worth-recently-remodeled-4cop-sfs/BW2485843/",
     packagePrice: "$199,000",
     packagePriceNumber: 199_000,
     allocatedLicenseValue: "",
@@ -1240,6 +1244,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-010",
+    sourceListingUrls: ["https://www.bizquest.com/asset-sales/sushi-bar-and-japanese-cuisine/BW2316750/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Charlotte County",
@@ -1252,6 +1257,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     cuisines: ["Sushi"],
     summaryBusinessType: "Restaurant",
     transactionType: "Asset Sale",
+    realEstateStatus: "lease_only",
+    leaseRenewalOptionsText: "Five-year lease with renewal option; lease commencement and expiration not disclosed",
+    realEstateEvidenceUrl: "https://www.bizquest.com/asset-sales/sushi-bar-and-japanese-cuisine/BW2316750/",
     packagePrice: "$110,000",
     packagePriceNumber: 110_000,
     allocatedLicenseValue: "",
@@ -1264,6 +1272,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-011",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/profitable-wine-store-and-tastings-and-charcuterie/BW2553008/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Manatee County",
