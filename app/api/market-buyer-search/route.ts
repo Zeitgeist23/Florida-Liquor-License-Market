@@ -33,13 +33,16 @@ export async function POST(request: Request) {
       seller_financing_offered: boolean | null;
       seller_financing_evidence_url: string | null;
       seller_financing_terms: string | null;
+      sba_advertised_status: "eligible" | "not_eligible" | null;
+      sba_evidence_url: string | null;
+      sba_advertisement_note: string | null;
     };
     const termsByRef = new Map<string, PropertyTerms>();
     let propertyDatabaseAvailable = false;
     try {
       const { url, key } = supabaseServiceSettings("Buyer property terms unavailable.");
       const response = await fetch(
-        `${url}/rest/v1/business_property_terms?select=listing_reference,property_status,monthly_rent,lease_expiration_date,lease_expiration_month,lease_expiration_year,real_estate_also_separately_offered,duplicate_of,seller_financing_offered,seller_financing_evidence_url,seller_financing_terms&limit=1000`,
+        `${url}/rest/v1/business_property_terms?select=listing_reference,property_status,monthly_rent,lease_expiration_date,lease_expiration_month,lease_expiration_year,real_estate_also_separately_offered,duplicate_of,seller_financing_offered,seller_financing_evidence_url,seller_financing_terms,sba_advertised_status,sba_evidence_url,sba_advertisement_note&limit=1000`,
         { cache: "no-store", headers: { apikey: key, Authorization: `Bearer ${key}` } }
       );
       if (!response.ok) throw new Error(`Property terms HTTP ${response.status}`);
@@ -90,6 +93,25 @@ export async function POST(request: Request) {
           (rentMaximum !== null && monthlyRentValue(x) === null)) return "unknown";
       return "match";
     };
+
+    // Indicative initial-acquisition test; broker claims require source evidence.
+    // Historical earnings may require significant lender adjustments.
+    const SBA = { equity:0.10, rate:0.11, months:120, floor:1.25, maxLoan:5_000_000 } as const;
+    type SbaScreen = {status:"advertised"|"potential"|"advertised_not_eligible"|"unverified";dscr:number|null;earningsBasis:string|null;annualDebtService:number|null};
+    const sbaByRef=new Map<string,SbaScreen>();
+    const wantsSba=selected(body.financingPreferences).some(v=>v==="SBA 7(a) Eligible"||v==="SBA");
+    const screenSba=(x:(typeof businessQuotaListingRecords)[number],sde:number|null,ebitda:number|null):SbaScreen=>{
+      const fact=terms(x);
+      if(fact?.sba_advertised_status==="not_eligible"&&fact.sba_evidence_url)return {status:"advertised_not_eligible",dscr:null,earningsBasis:null,annualDebtService:null};
+      if(fact?.sba_advertised_status==="eligible"&&fact.sba_evidence_url)return {status:"advertised",dscr:null,earningsBasis:null,annualDebtService:null};
+      const loan=x.packagePriceNumber*(1-SBA.equity);
+      const income=ebitda!==null&&ebitda>0?ebitda:sde!==null&&sde>0?sde:null;
+      const basis=ebitda!==null&&ebitda>0?"Reported EBITDA":sde!==null&&sde>0?"Reported SDE (unadjusted proxy)":null;
+      if(income===null||!Number.isFinite(loan)||loan<=0||loan>SBA.maxLoan)return {status:"unverified",dscr:null,earningsBasis:null,annualDebtService:null};
+      const m=SBA.rate/12, annual=12*loan*m/(1-Math.pow(1+m,-SBA.months));
+      const dscr=income/annual;
+      return {status:dscr>=SBA.floor?"potential":"unverified",dscr:Math.round(dscr*100)/100,earningsBasis:basis,annualDebtService:Math.round(annual)};
+    };
     const wantsSellerFinancing = selected(body.financingPreferences).includes("Seller Financing");
     const sellerFinancingStatus = (x:(typeof businessQuotaListingRecords)[number]) =>
       terms(x)?.seller_financing_offered === true && !!terms(x)?.seller_financing_evidence_url
@@ -137,6 +159,9 @@ export async function POST(request: Request) {
       if(belowRevenue) diagnostics.belowRevenueMinimum++;
       if(belowEarnings) diagnostics.belowEarningsMinimum++;
       if(belowRevenue||belowEarnings) continue;
+      const sba=screenSba(x,typeof sde==="number"&&Number.isFinite(sde)?sde:null,typeof ebitda==="number"&&Number.isFinite(ebitda)?ebitda:null);
+      sbaByRef.set(x.listingReference,sba);
+      if(wantsSba && !["advertised","potential"].includes(sba.status)) continue;
       (missingRevenue||missingEarnings||leaseMatch(x)==="unknown"?potential:confirmed).push(x);
     }
     let valuesByReference = new Map<string, {value:number; basis:string}>();
@@ -153,6 +178,12 @@ export async function POST(request: Request) {
       grossRevenue:financialByRef.get(x.listingReference)?.gross??null,
       sdeCashFlow:financialByRef.get(x.listingReference)?.sde??null,
       ebitda:financialByRef.get(x.listingReference)?.ebitda??null,
+      sbaStatus:sbaByRef.get(x.listingReference)?.status??"unverified",
+      sbaModeledDscr:sbaByRef.get(x.listingReference)?.dscr??null,
+      sbaEarningsBasis:sbaByRef.get(x.listingReference)?.earningsBasis??null,
+      sbaAnnualDebtService:sbaByRef.get(x.listingReference)?.annualDebtService??null,
+      sbaEvidenceUrl:terms(x)?.sba_evidence_url??null,
+      sbaNote:sbaByRef.get(x.listingReference)?.status==="potential"?"FLLM preliminary model; not lender approval. SDE may overstate underwriting cash flow.":terms(x)?.sba_advertisement_note??null,
       sellerFinancingStatus:sellerFinancingStatus(x),
       sellerFinancingEvidenceUrl:terms(x)?.seller_financing_evidence_url??null,
       sellerFinancingTerms:terms(x)?.seller_financing_terms??null,
@@ -168,7 +199,8 @@ export async function POST(request: Request) {
     });
     return NextResponse.json({
       total:confirmed.length,potentialCount:potential.length,shown:Math.min(30,confirmed.length+potential.length),diagnostics,
-      results:[...confirmed.map(x=>resultItem(x,"verified")),...potential.map(x=>resultItem(x,"financials_unverified"))].slice(0,30)
+      results:[...confirmed.map(x=>resultItem(x,"verified")),...potential.map(x=>resultItem(x,"financials_unverified"))].sort((a,b)=>wantsSba?(a.sbaStatus==="advertised"?-1:b.sbaStatus==="advertised"?1:0):0).slice(0,30),
+      sbaModel:wantsSba?SBA:null
     },{headers:{"Cache-Control":"no-store"}});
 
   } catch {return NextResponse.json({error:"Unable to search listings."},{status:400});}
