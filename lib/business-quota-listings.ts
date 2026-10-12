@@ -1499,6 +1499,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-017",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/turnkey-latin-fusion-restaurant-4cop-included/2540163/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -1512,6 +1513,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$495,000",
     packagePriceNumber: 495_000,
+    grossRevenueNumber: 900_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
@@ -1709,6 +1711,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-022",
+    sourceListingUrls: ["https://www.tworld.com/agents/billkratsas/listings/St-Johns-County-Sports-Bar-and-Restaurant-with-SRX-Liq-Lic"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "St. Johns County",
@@ -1722,6 +1725,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$399,999",
     packagePriceNumber: 399_999,
+    grossRevenueNumber: 1_113_115,
+    sdeNumber: 119_346,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
@@ -2250,6 +2255,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-035",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/lowest-rent-on-atlantic-ave-4cop-license-120-seats/2543472/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -2263,6 +2269,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$615,000",
     packagePriceNumber: 615_000,
+    grossRevenueNumber: 1_500_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
