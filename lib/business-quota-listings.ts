@@ -374,7 +374,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     summaryBusinessType: "Bar",
     transactionType: "Business Sale",
     realEstateStatus: "lease_only",
-    licenseAvailableSeparately: true,
     realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/owner-retiring-for-sale-martin-county-pub-4cop/2540627/",
     packagePrice: "$795,000",
     packagePriceNumber: 795_000,
