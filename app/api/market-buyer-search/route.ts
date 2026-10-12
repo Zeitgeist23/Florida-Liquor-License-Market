@@ -100,7 +100,21 @@ export async function POST(request: Request) {
     // For a loan greater than $350,000, SBA's variable-rate ceiling is prime + 3.00%.
     // Smaller loan tiers have different caps; calculate the spread using the modeled loan amount.
     // This is a dated ceiling-based scenario, NOT a lender quote or a live automatic rate feed.
-    const SBA = { equity:0.10, prime:0.07, primeAsOf:"2026-10-08", source:"https://fred.stlouisfed.org/series/DPRIME", ruleSource:"https://www.sba.gov/sba-lenders/", rateBasis:"SBA variable-rate maximum using prime rate", months:120, floor:1.25, maxLoan:5_000_000 } as const;
+    const fallbackPrime={rate:0.07,asOf:"2026-10-08"};
+    let prime=fallbackPrime.rate,primeAsOf=fallbackPrime.asOf,rateSourceStatus:"current"|"stale"|"fallback"="fallback";
+    try {
+      const {url,key}=supabaseServiceSettings("SBA rate cache unavailable");
+      const response=await fetch(`${url}/rest/v1/sba_prime_rate_cache?series_id=eq.DPRIME&select=annual_rate,observation_date&limit=1`,{cache:"no-store",headers:{apikey:key,Authorization:`Bearer ${key}`}});
+      if (!response.ok) throw new Error(`SBA reference rate HTTP ${response.status}`);
+      const [row]=await response.json() as Array<{annual_rate:number|string;observation_date:string}>;
+      const candidate=Number(row?.annual_rate);
+      if (candidate>=0.01&&candidate<=0.25&&/^\d{4}-\d{2}-\d{2}$/.test(row.observation_date)) {
+        prime=candidate;primeAsOf=row.observation_date;
+        const days=(Date.now()-new Date(primeAsOf+"T00:00:00Z").getTime())/86400000;
+        rateSourceStatus=days>=0&&days<=14?"current":"stale";
+      }
+    }catch(error){console.error("SBA cached prime unavailable; using documented fallback",error);}
+    const SBA = { equity:0.10, prime, primeAsOf, rateSourceStatus, source:"https://fred.stlouisfed.org/series/DPRIME", ruleSource:"https://www.sba.gov/sba-lenders/", rateBasis:"SBA variable-rate maximum using prime rate", months:120, floor:1.25, maxLoan:5_000_000 } as const;
     const sbaSpread=(loan:number)=>loan<=50_000?0.065:loan<=250_000?0.06:loan<=350_000?0.045:0.03;
     const sbaRate=(loan:number)=>SBA.prime+sbaSpread(loan);
     const annualPayment=(loan:number,rate:number)=>{const m=rate/12;return 12*loan*m/(1-Math.pow(1+m,-SBA.months));};
