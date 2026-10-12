@@ -775,8 +775,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Bar",
     summaryBusinessType: "Bar",
     transactionType: "Business Sale",
-    realEstateStatus: "lease_only",
-    realEstateEvidenceUrl: "https://www.bizquest.com/business-for-sale/profitable-turnkey-tampa-bay-sports-bar-and-grill-w-4cop-liquor-license/BW2503385/",
     packagePrice: "$549,900",
     packagePriceNumber: 549_900,
     allocatedLicenseValue: "",
