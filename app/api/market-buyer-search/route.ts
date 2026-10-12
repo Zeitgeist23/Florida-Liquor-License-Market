@@ -49,7 +49,7 @@ export async function POST(request: Request) {
       && (licenses.length===0||licenses.includes(x.licenseType))
       && (counties.length===0||counties.includes(x.county))
       && (maxPrice===null||(x.packagePriceNumber>0&&x.packagePriceNumber<=maxPrice))
-      && (propertyPreference==="Either" || propertyStatus(x)===propertyPreference)
+      && (propertyPreference==="Either" || propertyStatus(x)===propertyPreference || (propertyPreference==="Real estate available separately" && x.realEstateAlsoOfferedSeparately===true))
       && leaseMatch(x)!=="fail"
       && (!(selected(body.financingPreferences).length===1 && selected(body.financingPreferences)[0]==="Seller Financing")||x.sellerFinancingAvailable===true));
     let approved = new Map<string, { gross: number | null; sde: number | null }>();
