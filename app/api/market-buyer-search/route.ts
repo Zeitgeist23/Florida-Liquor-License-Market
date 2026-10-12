@@ -14,17 +14,22 @@ export async function GET() {
 }
 export async function POST(request: Request) {
   try {
-    const body = await request.json() as {businessTypes?:string[];licenseTypes?:string[];counties?:string[];maxPurchasePrice?:string;minGrossRevenue?:string;minSde?:string;minEbitda?:string;financingPreferences?:string[]};
+    const body = await request.json() as {businessTypes?:string[];licenseTypes?:string[];counties?:string[];maxPurchasePrice?:string;minGrossRevenue?:string;minSde?:string;minEbitda?:string;financingPreferences?:string[];realEstate?:string};
     const selected = (value: unknown): string[] => Array.isArray(value) ? value.filter((v):v is string => typeof v==="string").slice(0,100) : [];
     const types=selected(body.businessTypes), licenses=selected(body.licenseTypes), counties=selected(body.counties);
     const amount=(value:unknown)=>{if(!value)return null;const n=Number(String(value).replace(/[^\d.]/g,""));return Number.isFinite(n)&&n>0?n:null;};
     const maxPrice=amount(body.maxPurchasePrice),minRevenue=amount(body.minGrossRevenue),minSde=amount(body.minSde),minEbitda=amount(body.minEbitda);
     const earningsMinimum = Math.max(minSde ?? 0, minEbitda ?? 0);
+    // Undisclosed property arrangements must not be inferred from a business sale.
+    const propertyPreference = ["Real estate included","Real estate available separately","Lease only"].includes(body.realEstate ?? "") ? body.realEstate : "Either";
+    const propertyStatus = (listing:(typeof businessQuotaListingRecords)[number]) =>
+      listing.transactionType==="Business + Real Estate Sale" ? "Real estate included" : null;
     const eligible=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x)
       && (types.length===0||types.includes(x.businessCategory)||(types.includes("Bar")&&x.businessCategory==="Cocktail Lounge"))
       && (licenses.length===0||licenses.includes(x.licenseType))
       && (counties.length===0||counties.includes(x.county))
       && (maxPrice===null||(x.packagePriceNumber>0&&x.packagePriceNumber<=maxPrice))
+      && (propertyPreference==="Either" || propertyStatus(x)===propertyPreference)
       && (!(selected(body.financingPreferences).length===1 && selected(body.financingPreferences)[0]==="Seller Financing")||x.sellerFinancingAvailable===true));
     let approved = new Map<string, { gross: number | null; sde: number | null }>();
     try {
