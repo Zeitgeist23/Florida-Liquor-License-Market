@@ -1,3 +1,4 @@
+import { supabaseServiceSettings } from "@/lib/supabase-settings";
 import { NextResponse } from "next/server";
 import featuredFinancialManifest from "@/data/featured-listing-financials.generated.json";
 import { withMarketLicenseValues } from "@/lib/business-quota-market-values";
@@ -20,12 +21,54 @@ export async function POST(request: Request) {
     const amount=(value:unknown)=>{if(!value)return null;const n=Number(String(value).replace(/[^\d.]/g,""));return Number.isFinite(n)&&n>0?n:null;};
     const maxPrice=amount(body.maxPurchasePrice),minRevenue=amount(body.minGrossRevenue),minSde=amount(body.minSde),minEbitda=amount(body.minEbitda);
     const earningsMinimum = Math.max(minSde ?? 0, minEbitda ?? 0);
+    type PropertyTerms = {
+      listing_reference: string;
+      property_status: "included" | "available_separately" | "lease_only" | null;
+      monthly_rent: number | null;
+      lease_expiration_date: string | null;
+      lease_expiration_month: string | null;
+      lease_expiration_year: number | null;
+      real_estate_also_separately_offered: boolean;
+      duplicate_of: string | null;
+    };
+    const termsByRef = new Map<string, PropertyTerms>();
+    let propertyDatabaseAvailable = false;
+    try {
+      const { url, key } = supabaseServiceSettings("Buyer property terms unavailable.");
+      const response = await fetch(
+        `${url}/rest/v1/business_property_terms?select=listing_reference,property_status,monthly_rent,lease_expiration_date,lease_expiration_month,lease_expiration_year,real_estate_also_separately_offered,duplicate_of&limit=1000`,
+        { cache: "no-store", headers: { apikey: key, Authorization: `Bearer ${key}` } }
+      );
+      if (!response.ok) throw new Error(`Property terms HTTP ${response.status}`);
+      const rows = await response.json() as PropertyTerms[];
+      for (const row of rows) termsByRef.set(row.listing_reference, row);
+      propertyDatabaseAvailable = true;
+    } catch (error) {
+      console.error("Buyer property search using registry fallback:", error);
+    }
+    const terms = (x:(typeof businessQuotaListingRecords)[number]) => termsByRef.get(x.listingReference);
+    const propertyCode = (x:(typeof businessQuotaListingRecords)[number]) =>
+      propertyDatabaseAvailable && terms(x) ? terms(x)!.property_status : (x.realEstateStatus ?? null);
+    const monthlyRentValue = (x:(typeof businessQuotaListingRecords)[number]) => {
+      const n = terms(x)?.monthly_rent;
+      return propertyDatabaseAvailable && terms(x)
+        ? (n === null || n === undefined ? null : Number(n))
+        : (x.monthlyRentNumber ?? null);
+    };
+    const exactExpiry = (x:(typeof businessQuotaListingRecords)[number]) =>
+      propertyDatabaseAvailable && terms(x)
+        ? terms(x)!.lease_expiration_date
+        : (x.leaseExpirationDate ?? null);
+    const separateProperty = (x:(typeof businessQuotaListingRecords)[number]) =>
+      propertyDatabaseAvailable && terms(x)
+        ? terms(x)!.real_estate_also_separately_offered === true
+        : x.realEstateAlsoOfferedSeparately === true;
     // Undisclosed property arrangements must not be inferred from a business sale.
     const propertyPreference = ["Real estate included","Real estate available separately","Lease only"].includes(body.realEstate ?? "") ? body.realEstate : "Either";
     const propertyStatus = (listing:(typeof businessQuotaListingRecords)[number]) =>
-      listing.realEstateStatus==="lease_only" ? "Lease only" :
-      listing.realEstateStatus==="available_separately" ? "Real estate available separately" :
-      listing.realEstateStatus==="included" || listing.transactionType==="Business + Real Estate Sale" ? "Real estate included" : null;
+      propertyCode(listing)==="lease_only" ? "Lease only" :
+      propertyCode(listing)==="available_separately" ? "Real estate available separately" :
+      propertyCode(listing)==="included" || (!terms(listing) && listing.transactionType==="Business + Real Estate Sale") ? "Real estate included" : null;
     const leaseMinYears = body.leaseYears && body.leaseYears !== "Any" ? amount(body.leaseYears) : null;
     const rentMaximum = body.monthlyRent && body.monthlyRent !== "Any" ? amount(body.monthlyRent) : null;
     const today = new Date();
@@ -36,12 +79,12 @@ export async function POST(request: Request) {
     };
     const leaseMatch = (x:(typeof businessQuotaListingRecords)[number]) => {
       if (leaseMinYears === null && rentMaximum === null) return "match";
-      if (x.realEstateStatus === "included" || x.realEstateStatus === "available_separately") return "not_applicable";
-      const remaining = remainingYears(x.leaseExpirationDate);
+      if (propertyCode(x) === "included" || propertyCode(x) === "available_separately") return "not_applicable";
+      const remaining = remainingYears(exactExpiry(x) ?? undefined);
       if ((leaseMinYears !== null && remaining !== null && remaining < leaseMinYears) ||
-          (rentMaximum !== null && x.monthlyRentNumber !== undefined && x.monthlyRentNumber > rentMaximum)) return "fail";
+          (rentMaximum !== null && monthlyRentValue(x) !== null && monthlyRentValue(x)! > rentMaximum)) return "fail";
       if ((leaseMinYears !== null && remaining === null) ||
-          (rentMaximum !== null && x.monthlyRentNumber === undefined)) return "unknown";
+          (rentMaximum !== null && monthlyRentValue(x) === null)) return "unknown";
       return "match";
     };
     const eligible=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x)
@@ -49,7 +92,8 @@ export async function POST(request: Request) {
       && (licenses.length===0||licenses.includes(x.licenseType))
       && (counties.length===0||counties.includes(x.county))
       && (maxPrice===null||(x.packagePriceNumber>0&&x.packagePriceNumber<=maxPrice))
-      && (propertyPreference==="Either" || propertyStatus(x)===propertyPreference || (propertyPreference==="Real estate available separately" && x.realEstateAlsoOfferedSeparately===true))
+      && (propertyPreference==="Either" || propertyStatus(x)===propertyPreference || (propertyPreference==="Real estate available separately" && separateProperty(x)))
+      && !(propertyDatabaseAvailable && terms(x)?.duplicate_of)
       && leaseMatch(x)!=="fail"
       && (!(selected(body.financingPreferences).length===1 && selected(body.financingPreferences)[0]==="Seller Financing")||x.sellerFinancingAvailable===true));
     let approved = new Map<string, { gross: number | null; sde: number | null }>();
@@ -58,7 +102,7 @@ export async function POST(request: Request) {
     } catch (error) {
       console.error("Financial lookup unavailable", error);
     }
-    const diagnostics={leaseCriteriaUnverified:eligible.filter(x=>leaseMatch(x)==="unknown").length,eligibleBeforeEarnings:eligible.length,missingRevenue:0,missingEarnings:0,belowRevenueMinimum:0,belowEarningsMinimum:0};
+    const diagnostics={propertyDatabaseAvailable,leaseCriteriaUnverified:eligible.filter(x=>leaseMatch(x)==="unknown").length,eligibleBeforeEarnings:eligible.length,missingRevenue:0,missingEarnings:0,belowRevenueMinimum:0,belowEarningsMinimum:0};
     let observed = new Map<string,{gross:number|null;sde:number|null;ebitda:number|null}>();
     try {
       observed = await getSourcedObservedFinancials(eligible.filter(x=>x.listingTier==="market").map(x=>x.listingReference));
@@ -103,9 +147,9 @@ export async function POST(request: Request) {
       sdeCashFlow:financialByRef.get(x.listingReference)?.sde??null,
       ebitda:financialByRef.get(x.listingReference)?.ebitda??null,
       realEstateStatus:propertyStatus(x),
-      monthlyRent:x.monthlyRentNumber??null,
-      leaseExpirationDate:x.leaseExpirationDate??null,
-      leaseYearsRemaining:remainingYears(x.leaseExpirationDate),
+      monthlyRent:monthlyRentValue(x),
+      leaseExpirationDate:exactExpiry(x),
+      leaseYearsRemaining:remainingYears(exactExpiry(x) ?? undefined),
       leaseCriteriaStatus:leaseMatch(x),
       href:x.listingTier==="market"?businessMarketRecordHref(x):x.href,
       source:x.listingTier==="market"?"Independent Market View":"Featured Listing",
