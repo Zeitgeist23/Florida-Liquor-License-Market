@@ -96,7 +96,14 @@ export async function POST(request: Request) {
 
     // Indicative initial-acquisition test; broker claims require source evidence.
     // Historical earnings may require significant lender adjustments.
-    const SBA = { equity:0.10, rate:0.11, months:120, floor:1.25, maxLoan:5_000_000 } as const;
+    // Federal Reserve H.15 Bank Prime Loan Rate: 7.00% on 2026-10-08 (latest verified observation).
+    // For a loan greater than $350,000, SBA's variable-rate ceiling is prime + 3.00%.
+    // Smaller loan tiers have different caps; calculate the spread using the modeled loan amount.
+    // This is a dated ceiling-based scenario, NOT a lender quote or a live automatic rate feed.
+    const SBA = { equity:0.10, prime:0.07, primeAsOf:"2026-10-08", source:"https://fred.stlouisfed.org/series/DPRIME", ruleSource:"https://www.sba.gov/sba-lenders/", rateBasis:"SBA variable-rate maximum using prime rate", months:120, floor:1.25, maxLoan:5_000_000 } as const;
+    const sbaSpread=(loan:number)=>loan<=50_000?0.065:loan<=250_000?0.06:loan<=350_000?0.045:0.03;
+    const sbaRate=(loan:number)=>SBA.prime+sbaSpread(loan);
+    const annualPayment=(loan:number,rate:number)=>{const m=rate/12;return 12*loan*m/(1-Math.pow(1+m,-SBA.months));};
     type SbaScreen = {status:"advertised"|"potential"|"advertised_not_eligible"|"unverified";dscr:number|null;earningsBasis:string|null;annualDebtService:number|null};
     const sbaByRef=new Map<string,SbaScreen>();
     const wantsSba=selected(body.financingPreferences).some(v=>v==="SBA 7(a) Eligible"||v==="SBA");
@@ -108,7 +115,7 @@ export async function POST(request: Request) {
       const income=ebitda!==null&&ebitda>0?ebitda:sde!==null&&sde>0?sde:null;
       const basis=ebitda!==null&&ebitda>0?"Reported EBITDA":sde!==null&&sde>0?"Reported SDE (unadjusted proxy)":null;
       if(income===null||!Number.isFinite(loan)||loan<=0||loan>SBA.maxLoan)return {status:"unverified",dscr:null,earningsBasis:null,annualDebtService:null};
-      const m=SBA.rate/12, annual=12*loan*m/(1-Math.pow(1+m,-SBA.months));
+      const annual=annualPayment(loan,sbaRate(loan));
       const dscr=income/annual;
       return {status:dscr>=SBA.floor?"potential":"unverified",dscr:Math.round(dscr*100)/100,earningsBasis:basis,annualDebtService:Math.round(annual)};
     };
@@ -182,6 +189,8 @@ export async function POST(request: Request) {
       sbaModeledDscr:sbaByRef.get(x.listingReference)?.dscr??null,
       sbaEarningsBasis:sbaByRef.get(x.listingReference)?.earningsBasis??null,
       sbaAnnualDebtService:sbaByRef.get(x.listingReference)?.annualDebtService??null,
+      sbaModeledInterestRate:sbaRate(x.packagePriceNumber*(1-SBA.equity)),
+      sbaRateSensitivity:{low:sbaRate(x.packagePriceNumber*(1-SBA.equity))-0.01,high:sbaRate(x.packagePriceNumber*(1-SBA.equity))+0.01},
       sbaEvidenceUrl:terms(x)?.sba_evidence_url??null,
       sbaNote:sbaByRef.get(x.listingReference)?.status==="potential"?"FLLM preliminary model; not lender approval. SDE may overstate underwriting cash flow.":terms(x)?.sba_advertisement_note??null,
       sellerFinancingStatus:sellerFinancingStatus(x),
@@ -200,7 +209,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       total:confirmed.length,potentialCount:potential.length,shown:Math.min(30,confirmed.length+potential.length),diagnostics,
       results:[...confirmed.map(x=>resultItem(x,"verified")),...potential.map(x=>resultItem(x,"financials_unverified"))].sort((a,b)=>wantsSba?(a.sbaStatus==="advertised"?-1:b.sbaStatus==="advertised"?1:0):0).slice(0,30),
-      sbaModel:wantsSba?SBA:null
+      sbaModel:wantsSba?{...SBA,maximumVariableRateOver350k:SBA.prime+0.03,rateSensitivityPlusMinus:0.01,rateVerifiedAsOf:SBA.primeAsOf}:null
     },{headers:{"Cache-Control":"no-store"}});
 
   } catch {return NextResponse.json({error:"Unable to search listings."},{status:400});}
