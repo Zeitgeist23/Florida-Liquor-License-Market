@@ -117,6 +117,12 @@ export type BusinessQuotaListing = {
   sellerFinancingAvailable?: boolean;
   realEstateStatus?: "included" | "available_separately" | "lease_only";
   monthlyRentNumber?: number;
+  /** YYYY-MM-DD; only when the source explicitly states the current lease expiry. */
+  leaseExpirationDate?: string;
+  /** Renewal options are not guaranteed occupancy and must not extend the expiry date. */
+  leaseRenewalOptionsText?: string;
+  /** Documented property price/value; does not imply a separate real-estate offering. */
+  realEstateValueNumber?: number;
   realEstateEvidenceUrl?: string;
   brokerName: string;
   brokerage: string;
@@ -440,9 +446,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Asset Sale",
-    realEstateStatus: "lease_only",
-    monthlyRentNumber: 16008,
-    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-asset/turnkey-full-service-restaurant-4cop-sfs-license/2458880/",
     realEstateStatus: "lease_only",
     monthlyRentNumber: 16008,
     realEstateEvidenceUrl: "https://www.bizbuysell.com/business-asset/turnkey-full-service-restaurant-4cop-sfs-license/2458880/",
@@ -895,6 +898,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     realEstateStatus: "lease_only",
     monthlyRentNumber: 6500,
+    leaseExpirationDate: "2028-09-30",
+    leaseRenewalOptionsText: "Two two-year renewal options; exercise subject to lease terms",
     realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/miramar-florida-entertainment-venue-and-restaurant-with-4cop/2514654/",
     packagePrice: "$75,000",
     packagePriceNumber: 75_000,
@@ -1556,9 +1561,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
-    realEstateStatus: "lease_only",
-    monthlyRentNumber: 9000,
-    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/turnkey-latin-fusion-restaurant-4cop-included/2540163/",
     realEstateStatus: "lease_only",
     monthlyRentNumber: 9000,
     realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/turnkey-latin-fusion-restaurant-4cop-included/2540163/",
@@ -2228,9 +2230,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     realEstateStatus: "lease_only",
     monthlyRentNumber: 3900,
     realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/franchised-restaurant-opportunity-peruvian-cuisine/2514680/",
-    realEstateStatus: "lease_only",
-    monthlyRentNumber: 3900,
-    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/franchised-restaurant-opportunity-peruvian-cuisine/2514680/",
     packagePrice: "$350,000",
     packagePriceNumber: 350_000,
     grossRevenueNumber: 2_055_952,
@@ -2280,6 +2279,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business + Real Estate Sale",
+    realEstateStatus: "included",
+    realEstateValueNumber: 1920000,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/gulf-beach-real-estate-w-cash-flowing-restaurant/2542309/",
     packagePrice: "$1,945,000",
     packagePriceNumber: 1_945_000,
     grossRevenueNumber: 1_500_000,
@@ -2359,6 +2361,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     realEstateStatus: "lease_only",
     monthlyRentNumber: 13068,
+    leaseExpirationDate: "2031-04-30",
+    leaseRenewalOptionsText: "Two five-year options; exercise subject to lease terms",
     realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/lowest-rent-on-atlantic-ave-4cop-license-120-seats/2543472/",
     packagePrice: "$615,000",
     packagePriceNumber: 615_000,
@@ -3121,9 +3125,6 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Gentlemen's Club",
     summaryBusinessType: "Gentlemen's Club",
     transactionType: "Business Package",
-    realEstateStatus: "lease_only",
-    monthlyRentNumber: 15250,
-    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/premium-miami-adult-nightclub/2506980/",
     realEstateStatus: "lease_only",
     monthlyRentNumber: 15250,
     realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/premium-miami-adult-nightclub/2506980/",
