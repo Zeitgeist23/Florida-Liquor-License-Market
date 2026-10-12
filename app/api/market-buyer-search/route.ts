@@ -23,7 +23,9 @@ export async function POST(request: Request) {
     // Undisclosed property arrangements must not be inferred from a business sale.
     const propertyPreference = ["Real estate included","Real estate available separately","Lease only"].includes(body.realEstate ?? "") ? body.realEstate : "Either";
     const propertyStatus = (listing:(typeof businessQuotaListingRecords)[number]) =>
-      listing.transactionType==="Business + Real Estate Sale" ? "Real estate included" : null;
+      listing.realEstateStatus==="lease_only" ? "Lease only" :
+      listing.realEstateStatus==="available_separately" ? "Real estate available separately" :
+      listing.realEstateStatus==="included" || listing.transactionType==="Business + Real Estate Sale" ? "Real estate included" : null;
     const eligible=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x)
       && (types.length===0||types.includes(x.businessCategory)||(types.includes("Bar")&&x.businessCategory==="Cocktail Lounge"))
       && (licenses.length===0||licenses.includes(x.licenseType))
