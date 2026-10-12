@@ -2669,6 +2669,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-034",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/italian-restaurant-15-years-established-and-4cop-liquor-license/2497261/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -2680,6 +2681,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/italian-restaurant-15-years-established-and-4cop-liquor-license/2497261/",
     packagePrice: "$449,999",
     packagePriceNumber: 449_999,
     allocatedLicenseValue: "",
@@ -2692,6 +2695,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-035",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/european-american-fully-equipped-restaurant-lounge-with-real-estate/2500544/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -2703,6 +2707,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business + Real Estate Sale",
+    realEstateStatus: "included",
+    realEstateValueNumber: 1250000,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/european-american-fully-equipped-restaurant-lounge-with-real-estate/2500544/",
     packagePrice: "$1,975,000",
     packagePriceNumber: 1_975_000,
     allocatedLicenseValue: "",
@@ -2715,6 +2722,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-036",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/popular-downtown-orlando-restaurant-and-bar-with-strong-cash-flow/BW2395814/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Orange County",
@@ -2726,6 +2734,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 12796,
+    realEstateEvidenceUrl: "https://www.bizquest.com/business-for-sale/popular-downtown-orlando-restaurant-and-bar-with-strong-cash-flow/BW2395814/",
     packagePrice: "$750,000",
     packagePriceNumber: 750_000,
     allocatedLicenseValue: "",
@@ -2761,6 +2772,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-029",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/567k-owner-benefit-upscale-location/2524328/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -2784,6 +2796,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-037",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/loved-neighborhood-sports-bar-remodeled-fully-operational-low-price/2426862/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Pinellas County",
@@ -2859,6 +2872,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-030",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/prime-location-flexible-concept-opportunity-high-traffic-parking/2510662/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Hillsborough County",
