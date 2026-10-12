@@ -2735,6 +2735,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-040",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/popular-downtown-orlando-restaurant-and-bar-with-strong-cash-flow/BW2395814/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Orange County",
@@ -2748,6 +2749,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$750,000",
     packagePriceNumber: 750_000,
+    grossRevenueNumber: 1_425_056,
+    sdeNumber: 293_050,
+    ebitdaNumber: 318_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
