@@ -2233,6 +2233,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-033",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/turnkeyopportunity-hollywood-ready-to-operate-liquor-license-andpermits/BW2536087/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -2246,6 +2247,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$150,000",
     packagePriceNumber: 150_000,
+    grossRevenueNumber: 360_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
