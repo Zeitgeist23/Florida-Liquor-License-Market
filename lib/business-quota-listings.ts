@@ -1503,6 +1503,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$750,000",
     packagePriceNumber: 750_000,
+    sdeNumber: 300_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
