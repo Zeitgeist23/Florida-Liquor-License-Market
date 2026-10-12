@@ -2141,6 +2141,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-025",
+    sourceListingUrls: ["https://dealstream.com/pubs-for-sale"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Pinellas County",
@@ -2916,6 +2917,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-031",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/very-profitable-breakfast-and-lunch-restaurant-broward-county/BW2407947/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
@@ -2963,6 +2965,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-037",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/liquor-store/2046288/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -2974,6 +2977,10 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Liquor Store",
     summaryBusinessType: "Liquor Store",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 6127,
+    leaseExpirationDate: "2028-03-01",
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/liquor-store/2046288/",
     packagePrice: "$699,000",
     packagePriceNumber: 699_000,
     allocatedLicenseValue: "",
@@ -3092,6 +3099,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-042",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/lowest-rent-on-atlantic-ave-4cop-license-120-seats/2543472/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Palm Beach County",
@@ -3103,6 +3111,10 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 13068,
+    leaseExpirationDate: "2031-04-30",
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/lowest-rent-on-atlantic-ave-4cop-license-120-seats/2543472/",
     packagePrice: "$615,000",
     packagePriceNumber: 615_000,
     allocatedLicenseValue: "",
@@ -3138,6 +3150,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-040",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/pour-yourself-into-opportunity-liquor-store-for-sale/2382900/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Broward County",
