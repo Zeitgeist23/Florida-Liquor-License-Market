@@ -498,6 +498,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-004",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/turnkey-orlando-restaurant-for-sale-with-4cop-and-strong-lease/BW2473682/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Seminole County",
@@ -511,6 +512,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$150,000",
     packagePriceNumber: 150_000,
+    grossRevenueNumber: 437_000,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
@@ -2342,6 +2344,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-026",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/established-sushi-restaurant-long-term-lease-liquor-license/2519606/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Duval County",
