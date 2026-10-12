@@ -185,7 +185,7 @@ export default function MarketBuyerLeadForm({
       body: JSON.stringify({
         businessTypes: selectedBusinessTypes, licenseTypes: selectedLicenseTypes,
         counties: selectedCounties, maxPurchasePrice, minGrossRevenue,
-        minSde, minEbitda, financingPreferences: selectedFinancing
+        minSde, minEbitda, financingPreferences: selectedFinancing, realEstate
       })
     }).then(async response => {
       if (!response.ok) throw new Error("Matching inventory unavailable");
@@ -199,7 +199,7 @@ export default function MarketBuyerLeadForm({
       if (!controller.signal.aborted) setLiveCountLoading(false);
     });
     return () => controller.abort();
-  }, [open, selectedBusinessTypes, selectedLicenseTypes, selectedCounties, maxPurchasePrice, minGrossRevenue, minSde, minEbitda, selectedFinancing]);
+  }, [open, selectedBusinessTypes, selectedLicenseTypes, selectedCounties, maxPurchasePrice, minGrossRevenue, minSde, minEbitda, selectedFinancing, realEstate]);
 
   useEffect(() => {
     if (!open) return;
@@ -262,7 +262,7 @@ export default function MarketBuyerLeadForm({
     try {
       const response = await fetch("/api/market-buyer-search",{
         method:"POST",headers:{"Content-Type":"application/json"},signal:controller.signal,
-        body:JSON.stringify({businessTypes:selectedBusinessTypes,licenseTypes:selectedLicenseTypes,counties:selectedCounties,maxPurchasePrice,minGrossRevenue,minSde,minEbitda,financingPreferences:selectedFinancing})
+        body:JSON.stringify({businessTypes:selectedBusinessTypes,licenseTypes:selectedLicenseTypes,counties:selectedCounties,maxPurchasePrice,minGrossRevenue,minSde,minEbitda,financingPreferences:selectedFinancing,realEstate})
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error||"Search unavailable.");
