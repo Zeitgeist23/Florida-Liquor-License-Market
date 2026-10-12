@@ -115,6 +115,9 @@ export type BusinessQuotaListing = {
     | "unavailable";
   licenseAvailableSeparately?: boolean;
   sellerFinancingAvailable?: boolean;
+  realEstateStatus?: "included" | "available_separately" | "lease_only";
+  monthlyRentNumber?: number;
+  realEstateEvidenceUrl?: string;
   brokerName: string;
   brokerage: string;
   featured: boolean;
@@ -510,6 +513,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 3813,
+    realEstateEvidenceUrl: "https://www.bizquest.com/business-for-sale/turnkey-orlando-restaurant-for-sale-with-4cop-and-strong-lease/BW2473682/",
     packagePrice: "$150,000",
     packagePriceNumber: 150_000,
     grossRevenueNumber: 437_000,
@@ -799,6 +805,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Asset Sale",
+    realEstateStatus: "lease_only",
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-asset/brand-new-restaurant-and-bar-full-liquor-long-lease-oakland-park/2525191/?tab=Listings",
     packagePrice: "$450,000",
     packagePriceNumber: 450_000,
     allocatedLicenseValue: "",
@@ -1430,6 +1438,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 13500,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/premier-st-pete-beach-waterfront-restaurant-and-bar-long-lease/2506255/",
     packagePrice: "$1,200,000",
     packagePriceNumber: 1_200_000,
     grossRevenueNumber: 2_531_249,
@@ -1768,6 +1779,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Bar",
     summaryBusinessType: "Bar",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 15000,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/prime-location-sports-bar-w-5-docks-semi-absentee/2487511/",
     packagePrice: "$1,195,000",
     packagePriceNumber: 1_195_000,
     grossRevenueNumber: 2_700_000,
@@ -1794,6 +1808,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Bar",
     summaryBusinessType: "Bar",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 3000,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/neighborhood-bar-and-grill/2474905/",
     packagePrice: "$190,000",
     packagePriceNumber: 190_000,
     grossRevenueNumber: 382_227,
@@ -2297,6 +2314,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 13068,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/lowest-rent-on-atlantic-ave-4cop-license-120-seats/2543472/",
     packagePrice: "$615,000",
     packagePriceNumber: 615_000,
     grossRevenueNumber: 1_500_000,
@@ -2368,6 +2388,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/established-sushi-restaurant-long-term-lease-liquor-license/2519606/",
     packagePrice: "$160,000",
     packagePriceNumber: 160_000,
     allocatedLicenseValue: "",
@@ -2415,6 +2437,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 16000,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/popular-mexican-restaurant-and-lounge-in-downtown-sanford-area/2535289/",
     packagePrice: "$350,000",
     packagePriceNumber: 350_000,
     grossRevenueNumber: 1_425_056,
@@ -2579,6 +2604,9 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    monthlyRentNumber: 13652,
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/a-opportunity-prime-location-w-4cop-manager-run-full-staff/2463681/",
     packagePrice: "$749,000",
     packagePriceNumber: 749_000,
     grossRevenueNumber: 1_600_000,
