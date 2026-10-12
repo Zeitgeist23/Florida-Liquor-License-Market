@@ -129,6 +129,8 @@ export type BusinessQuotaListing = {
   realEstateValueNumber?: number;
   /** Real estate separately advertised in addition to a combined business-and-property offer. */
   realEstateAlsoOfferedSeparately?: boolean;
+  /** Same observed source offering as an earlier reference; retain for audit, omit from buyer results. */
+  duplicateOf?: string;
   realEstateEvidenceUrl?: string;
   brokerName: string;
   brokerage: string;
@@ -1149,6 +1151,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-013",
+    duplicateOf: "FLLM-MKT-SFS-002",
     sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/turnkey-italian-restaurant-with-4cop-sfs-liquor-license/2496570/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
@@ -2941,6 +2944,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-036",
+    duplicateOf: "FLLM-MKT-Q-017",
     sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/orange-county-liquor-business-with-a-3ps-license/2442883/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
@@ -2993,6 +2997,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-038",
+    duplicateOf: "FLLM-MKT-Q-029",
     sourceListingUrls: ["https://www.bizquest.com/business-for-sale/busy-north-miami-liquor-store-with-real-estate/BW2034916/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
@@ -3099,6 +3104,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-042",
+    duplicateOf: "FLLM-MKT-SFS-035",
     sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/lowest-rent-on-atlantic-ave-4cop-license-120-seats/2543472/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
@@ -3150,6 +3156,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-040",
+    duplicateOf: "FLLM-MKT-Q-008",
     sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/pour-yourself-into-opportunity-liquor-store-for-sale/2382900/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
@@ -3464,7 +3471,7 @@ function isLegacyPrePolicyMarketReference(reference: string) {
 
 export function passesBusinessMarketSourcePolicy(listing: BusinessQuotaListing) {
   if (listing.listingTier !== "market") return true;
-  if (listing.publicationStatus !== "published") return false;
+  if (listing.publicationStatus !== "published" || listing.duplicateOf) return false;
   if (isLegacyPrePolicyMarketReference(listing.listingReference)) return true;
   if (listing.sourceVerification === "broker_authorized") return true;
   return (
