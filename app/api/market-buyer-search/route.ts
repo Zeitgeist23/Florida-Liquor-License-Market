@@ -73,7 +73,7 @@ export async function POST(request: Request) {
     const rentMaximum = body.monthlyRent && body.monthlyRent !== "Any" ? amount(body.monthlyRent) : null;
     const today = new Date();
     const remainingYears = (date?: string): number | null => {
-      if (!date || !/^\\d{4}-\\d{2}-\\d{2}$/.test(date)) return null;
+      if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
       const expiration = new Date(date + "T23:59:59Z");
       return Number.isFinite(expiration.getTime()) ? Math.max(0,(expiration.getTime()-today.getTime())/(365.2425*86400000)) : null;
     };
