@@ -519,6 +519,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-2COP-001",
+    sourceListingUrls: ["https://www.wesellrestaurants.com/restaurant-for-sale/profitable-orlando-franchise-restaurant-133m-sales-2cop-license/43411"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Orange County",
@@ -532,6 +533,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$275,000",
     packagePriceNumber: 275_000,
+    grossRevenueNumber: 1_335_786,
+    sdeNumber: 94_343,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
