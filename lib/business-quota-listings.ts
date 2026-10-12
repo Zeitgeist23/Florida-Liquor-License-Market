@@ -125,6 +125,8 @@ export type BusinessQuotaListing = {
   leaseRenewalOptionsText?: string;
   /** Documented property price/value; does not imply a separate real-estate offering. */
   realEstateValueNumber?: number;
+  /** Real estate separately advertised in addition to a combined business-and-property offer. */
+  realEstateAlsoOfferedSeparately?: boolean;
   realEstateEvidenceUrl?: string;
   brokerName: string;
   brokerage: string;
@@ -733,6 +735,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-006",
+    sourceListingUrls: ["https://www.businessbroker.net/business-for-sale/profitable-bar-atlantic-beach-florida/1011438.aspx"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Duval County",
@@ -744,6 +747,10 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Bar",
     summaryBusinessType: "Bar",
     transactionType: "Business + Real Estate Sale",
+    realEstateStatus: "included",
+    realEstateValueNumber: 1700000,
+    realEstateAlsoOfferedSeparately: true,
+    realEstateEvidenceUrl: "https://www.loopnet.com/Listing/160-Mayport-Rd-Atlantic-Beach-FL/42104296/",
     packagePrice: "$2,650,000",
     packagePriceNumber: 2_650_000,
     allocatedLicenseValue: "",
@@ -756,6 +763,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-007",
+    sourceListingUrls: ["https://www.bizquest.com/business-for-sale/profitable-turnkey-tampa-bay-sports-bar-and-grill-w-4cop-liquor-license/BW2503385/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Hillsborough County",
@@ -767,6 +775,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Bar",
     summaryBusinessType: "Bar",
     transactionType: "Business Sale",
+    realEstateStatus: "lease_only",
+    realEstateEvidenceUrl: "https://www.bizquest.com/business-for-sale/profitable-turnkey-tampa-bay-sports-bar-and-grill-w-4cop-liquor-license/BW2503385/",
     packagePrice: "$549,900",
     packagePriceNumber: 549_900,
     allocatedLicenseValue: "",
@@ -1166,6 +1176,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-SFS-015",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/sarasota-iconic-restaurant-with-real-estate/2362745/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Sarasota County",
@@ -1177,6 +1188,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     businessCategory: "Restaurant",
     summaryBusinessType: "Restaurant",
     transactionType: "Business + Real Estate Sale",
+    realEstateStatus: "included",
+    realEstateEvidenceUrl: "https://www.bizbuysell.com/business-opportunity/sarasota-iconic-restaurant-with-real-estate/2362745/",
     packagePrice: "$1,549,000",
     packagePriceNumber: 1_549_000,
     allocatedLicenseValue: "",
