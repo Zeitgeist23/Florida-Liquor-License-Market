@@ -2403,6 +2403,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-033",
+    sourceListingUrls: ["https://www.bizbuysell.com/business-opportunity/popular-mexican-restaurant-and-lounge-in-downtown-sanford-area/2535289/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
     county: "Seminole County",
@@ -2416,6 +2417,8 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
     transactionType: "Business Sale",
     packagePrice: "$350,000",
     packagePriceNumber: 350_000,
+    grossRevenueNumber: 1_425_056,
+    sdeNumber: 293_050,
     allocatedLicenseValue: "",
     brokerName: "",
     brokerage: "",
