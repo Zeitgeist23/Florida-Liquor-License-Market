@@ -102,7 +102,7 @@ export async function POST(request: Request) {
       && (propertyPreference==="Either" || propertyStatus(x)===propertyPreference || (propertyPreference==="Real estate available separately" && separateProperty(x)))
       && !(propertyDatabaseAvailable && terms(x)?.duplicate_of)
       && leaseMatch(x)!=="fail"
-      && (!wantsSellerFinancing || sellerFinancingStatus(x)!=="not_offered"));
+      && (!wantsSellerFinancing || sellerFinancingStatus(x)==="advertised"));
     let approved = new Map<string, { gross: number | null; sde: number | null }>();
     try {
       approved = await getApprovedMarketFinancials(eligible.map(x => x.listingReference));
@@ -137,7 +137,7 @@ export async function POST(request: Request) {
       if(belowRevenue) diagnostics.belowRevenueMinimum++;
       if(belowEarnings) diagnostics.belowEarningsMinimum++;
       if(belowRevenue||belowEarnings) continue;
-      (missingRevenue||missingEarnings||leaseMatch(x)==="unknown"||(wantsSellerFinancing&&sellerFinancingStatus(x)!=="advertised")?potential:confirmed).push(x);
+      (missingRevenue||missingEarnings||leaseMatch(x)==="unknown"?potential:confirmed).push(x);
     }
     let valuesByReference = new Map<string, {value:number; basis:string}>();
     try {
