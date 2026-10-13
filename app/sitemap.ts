@@ -14,6 +14,10 @@ import {
 
 const siteUrl = "https://www.floridaliquorlicensemarket.com";
 
+// Recompute the sitemap against approved live inventory on every crawl.
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
   const corePages: MetadataRoute.Sitemap = [
