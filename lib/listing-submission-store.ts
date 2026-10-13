@@ -475,6 +475,29 @@ export async function createBuyerLead(input: CreateBuyerLeadInput) {
   return toSubmission(rows[0]);
 }
 
+/** Record provider acceptance, not inbox delivery, on the saved Market View inquiry. */
+export async function recordMarketInquiryNotification(
+  submissionRef: string,
+  originalMessage: string | null,
+  outcome: { status: "provider_accepted" | "failed"; providerMessageId?: string; error?: string },
+) {
+  requireDatabase();
+  let details: Record<string, unknown> = {};
+  try { details = JSON.parse(originalMessage || "{}"); } catch { details = { buyerMessage: originalMessage }; }
+  details.notification = {
+    ...outcome,
+    recordedAt: new Date().toISOString(),
+    note: "Provider acceptance does not confirm inbox delivery",
+  };
+  const response = await fetch(endpoint(`listing_submissions?submission_ref=eq.${encodeURIComponent(submissionRef)}`), {
+    method: "PATCH",
+    headers: supabaseHeaders({ Prefer: "return=representation" }),
+    body: JSON.stringify({ message: JSON.stringify(details), updated_at: new Date().toISOString() }),
+    cache: "no-store",
+  });
+  if (!response.ok) throw new Error(`Could not record notification outcome: ${response.status} ${await response.text()}`);
+}
+
 export async function createBuyerInquiryLead(input: CreateBuyerInquiryLeadInput) {
   requireDatabase();
 
