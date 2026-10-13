@@ -9,7 +9,8 @@ export async function GET(request: Request) {
     return NextResponse.json({error:"Unauthorized"},{status:401});
   }
   try {
-    const response=await fetch(CSV_URL,{cache:"no-store",signal:AbortSignal.timeout(15000)});
+    const start=new Date(Date.now()-35*86400000).toISOString().slice(0,10);
+    const response=await fetch(`${CSV_URL}&cosd=${start}`,{cache:"no-store",signal:AbortSignal.timeout(15000)});
     if (!response.ok) throw new Error(`Prime-rate feed HTTP ${response.status}`);
     const lines=(await response.text()).trim().split(/\r?\n/);
     const rows=lines.slice(1).map(line=>line.split(",")).filter(parts=>parts.length===2 && /^\d{4}-\d{2}-\d{2}$/.test(parts[0]) && /^\d+(?:\.\d+)?$/.test(parts[1]));
@@ -26,6 +27,7 @@ export async function GET(request: Request) {
       cache:"no-store"
     });
     if(!saved.ok) throw new Error(`Prime rate cache write HTTP ${saved.status}`);
+    console.info("SBA prime-rate refresh verified", {series:"DPRIME",observationDate,annualRate:rate});
     return NextResponse.json({ok:true,observationDate,annualRate:rate});
   } catch(error) {
     console.error("SBA prime-rate refresh failed",error);
