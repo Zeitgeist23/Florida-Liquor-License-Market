@@ -14,10 +14,10 @@ import {
 } from "@/lib/business-buyer-alert-store";
 import { sendFllmEmail } from "@/lib/fllm-email";
 
-type AlertPropertyRow = {listing_reference:string;property_status:string|null;monthly_rent:number|null;lease_expiration_date:string|null;real_estate_also_separately_offered:boolean;duplicate_of:string|null;seller_financing_offered:boolean|null;seller_financing_evidence_url:string|null;seller_down_payment:number|null;verified_attributes:Record<string,boolean>|null};
+type AlertPropertyRow = {listing_reference:string;property_status:string|null;monthly_rent:number|null;lease_expiration_date:string|null;real_estate_also_separately_offered:boolean;duplicate_of:string|null;seller_financing_offered:boolean|null;seller_financing_evidence_url:string|null;seller_down_payment:number|null;verified_attributes:Record<string,boolean>|null;sba_advertised_status:string|null;sba_evidence_url:string|null};
 async function propertyFacts(){
   const {url,key}=supabaseServiceSettings("Buyer matching property database unavailable");
-  const res=await fetch(`${url}/rest/v1/business_property_terms?select=listing_reference,property_status,monthly_rent,lease_expiration_date,real_estate_also_separately_offered,duplicate_of,seller_financing_offered,seller_financing_evidence_url,seller_down_payment,verified_attributes&limit=1000`,{headers:{apikey:key,Authorization:`Bearer ${key}`},cache:"no-store"});
+  const res=await fetch(`${url}/rest/v1/business_property_terms?select=listing_reference,property_status,monthly_rent,lease_expiration_date,real_estate_also_separately_offered,duplicate_of,seller_financing_offered,seller_financing_evidence_url,seller_down_payment,verified_attributes,sba_advertised_status,sba_evidence_url&limit=1000`,{headers:{apikey:key,Authorization:`Bearer ${key}`},cache:"no-store"});
   if(!res.ok)throw new Error(`Buyer-alert property lookup failed: ${res.status}`);
   return new Map((await res.json() as AlertPropertyRow[]).map(x=>[x.listing_reference,x]));
 }
@@ -38,6 +38,17 @@ function advancedMatches(alert:BusinessBuyerAlert, listing:BusinessQuotaListing,
     if(!fact?.lease_expiration_date)return false;
     const expire=new Date(fact.lease_expiration_date+"T23:59:59Z").getTime();
     if(!Number.isFinite(expire)||(expire-Date.now())/31556952000<years)return false;
+  }
+  if(alert.financing_preferences.includes("SBA")){
+    if(fact?.sba_advertised_status==="not_eligible"&&fact.sba_evidence_url)return false;
+    if(!(fact?.sba_advertised_status==="eligible"&&fact.sba_evidence_url)){
+      const income=listing.ebitdaNumber&&listing.ebitdaNumber>0?listing.ebitdaNumber:listing.sdeNumber;
+      const loan=listing.packagePriceNumber*.90;
+      if(!income||loan<=0||loan>5_000_000)return false;
+      const spread=loan<=50000?.065:loan<=250000?.06:loan<=350000?.045:.03;
+      const rate=(.07+spread)/12,annual=12*loan*rate/(1-Math.pow(1+rate,-120));
+      if(income/annual<1.25)return false;
+    }
   }
   if(alert.financing_preferences.includes("Seller Financing")&&!(fact?.seller_financing_offered&&fact.seller_financing_evidence_url))return false;
   if(alert.available_cash!==undefined&&alert.available_cash!==null){
