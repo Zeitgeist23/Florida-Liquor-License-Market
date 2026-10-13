@@ -15,13 +15,22 @@ import {
 import { sendFllmEmail } from "@/lib/fllm-email";
 
 type AlertPropertyRow = {listing_reference:string;property_status:string|null;monthly_rent:number|null;lease_expiration_date:string|null;real_estate_also_separately_offered:boolean;duplicate_of:string|null;seller_financing_offered:boolean|null;seller_financing_evidence_url:string|null;seller_down_payment:number|null;verified_attributes:Record<string,boolean>|null;sba_advertised_status:string|null;sba_evidence_url:string|null};
+async function primeRate(){
+  const {url,key}=supabaseServiceSettings("SBA rate unavailable");
+  const response=await fetch(`${url}/rest/v1/sba_prime_rate_cache?series_id=eq.DPRIME&select=annual_rate,observation_date&limit=1`,{headers:{apikey:key,Authorization:`Bearer ${key}`},cache:"no-store"});
+  if(!response.ok)throw new Error("SBA reference rate unavailable");
+  const rows=await response.json() as Array<{annual_rate:number|string;observation_date:string}>;
+  const n=Number(rows[0]?.annual_rate);
+  if(!Number.isFinite(n)||n<.01||n>.25)throw new Error("SBA reference rate invalid");
+  return n;
+}
 async function propertyFacts(){
   const {url,key}=supabaseServiceSettings("Buyer matching property database unavailable");
   const res=await fetch(`${url}/rest/v1/business_property_terms?select=listing_reference,property_status,monthly_rent,lease_expiration_date,real_estate_also_separately_offered,duplicate_of,seller_financing_offered,seller_financing_evidence_url,seller_down_payment,verified_attributes,sba_advertised_status,sba_evidence_url&limit=1000`,{headers:{apikey:key,Authorization:`Bearer ${key}`},cache:"no-store"});
   if(!res.ok)throw new Error(`Buyer-alert property lookup failed: ${res.status}`);
   return new Map((await res.json() as AlertPropertyRow[]).map(x=>[x.listing_reference,x]));
 }
-function advancedMatches(alert:BusinessBuyerAlert, listing:BusinessQuotaListing, fact:AlertPropertyRow|undefined){
+function advancedMatches(alert:BusinessBuyerAlert, listing:BusinessQuotaListing, fact:AlertPropertyRow|undefined, prime:number){
   if(fact?.duplicate_of)return false;
   const e=alert.extra_criteria||[];
   if(e.includes("Standalone license only"))return false;
@@ -46,7 +55,7 @@ function advancedMatches(alert:BusinessBuyerAlert, listing:BusinessQuotaListing,
       const loan=listing.packagePriceNumber*.90;
       if(!income||loan<=0||loan>5_000_000)return false;
       const spread=loan<=50000?.065:loan<=250000?.06:loan<=350000?.045:.03;
-      const rate=(.07+spread)/12,annual=12*loan*rate/(1-Math.pow(1+rate,-120));
+      const rate=(prime+spread)/12,annual=12*loan*rate/(1-Math.pow(1+rate,-120));
       if(income/annual<1.25)return false;
     }
   }
@@ -116,9 +125,9 @@ function absoluteListingUrl(listing: BusinessQuotaListing) {
 }
 
 export async function currentBusinessAlertMatches(alert: BusinessBuyerAlert) {
-  const facts=await propertyFacts();
+  const [facts,prime]=await Promise.all([propertyFacts(),primeRate()]);
   return publishedBusinessAlertInventory()
-    .filter((listing) => businessListingMatchesAlert(alert, listing) && advancedMatches(alert, listing, facts.get(listing.listingReference)))
+    .filter((listing) => businessListingMatchesAlert(alert, listing) && advancedMatches(alert, listing, facts.get(listing.listingReference),prime))
     .map((listing) => ({ listing, url: absoluteListingUrl(listing) }));
 }
 
