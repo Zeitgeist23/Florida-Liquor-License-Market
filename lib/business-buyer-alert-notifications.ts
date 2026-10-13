@@ -18,10 +18,10 @@ type AlertPropertyRow = {listing_reference:string;property_status:string|null;mo
 async function primeRate(){
   const {url,key}=supabaseServiceSettings("SBA rate unavailable");
   const response=await fetch(`${url}/rest/v1/sba_prime_rate_cache?series_id=eq.DPRIME&select=annual_rate,observation_date&limit=1`,{headers:{apikey:key,Authorization:`Bearer ${key}`},cache:"no-store"});
-  if(!response.ok)throw new Error("SBA reference rate unavailable");
+  if(!response.ok){console.error("SBA rate cache unavailable; using dated fallback");return .07;}
   const rows=await response.json() as Array<{annual_rate:number|string;observation_date:string}>;
   const n=Number(rows[0]?.annual_rate);
-  if(!Number.isFinite(n)||n<.01||n>.25)throw new Error("SBA reference rate invalid");
+  if(!Number.isFinite(n)||n<.01||n>.25){console.error("SBA rate cache missing/invalid; using dated fallback");return .07;}
   return n;
 }
 async function propertyFacts(){
