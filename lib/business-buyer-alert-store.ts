@@ -34,6 +34,7 @@ export type BusinessBuyerAlert = {
   min_ebitda: number | null;
   financing_preferences: BusinessBuyerAlertFinancingPreference[];
   notes: string;
+  franchise?: "Either"|"Yes"|"No";
   real_estate?: string;
   lease_years?: string;
   monthly_rent?: string;
@@ -153,6 +154,7 @@ export async function createBusinessBuyerAlert(input: {
   minEbitda?: number | null;
   financingPreferences?: BusinessBuyerAlertFinancingPreference[];
   notes?: string;
+  franchise?: "Either"|"Yes"|"No";
   realEstate?: string;leaseYears?: string;monthlyRent?: string;availableCash?: number|null;extraCriteria?: string[];
   sourceMarketViewRef?: string;
   sourceMarketViewUrl?: string;
@@ -175,6 +177,7 @@ export async function createBusinessBuyerAlert(input: {
     min_ebitda: input.minEbitda ?? null,
     financing_preferences: Array.from(new Set(input.financingPreferences ?? ["Any"])),
     notes: clean(input.notes, 3000),
+    franchise:input.franchise==="Yes"||input.franchise==="No"?input.franchise:"Either",
     real_estate:clean(input.realEstate,80),lease_years:clean(input.leaseYears,30),monthly_rent:clean(input.monthlyRent,30),available_cash:input.availableCash??null,extra_criteria:Array.from(new Set(input.extraCriteria||[])).slice(0,30),
     source_market_view_ref: clean(input.sourceMarketViewRef, 100),
     source_market_view_url: clean(input.sourceMarketViewUrl, 500),
