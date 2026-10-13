@@ -184,6 +184,7 @@ export async function sendFllmEmail(input: {
     contentType: string;
     content: Uint8Array;
   }>;
+  preferGmail?: boolean;
 }) {
   const googleCredentialsConfigured = Boolean(
     process.env.GOOGLE_CLIENT_ID &&
@@ -191,7 +192,9 @@ export async function sendFllmEmail(input: {
       process.env.GOOGLE_REFRESH_TOKEN,
   );
 
-  if (process.env.RESEND_API_KEY) {
+  // For internal Market View alerts, try Google Workspace first when configured;
+  // Resend remains the fallback for missing Google credentials or Gmail errors.
+  if (process.env.RESEND_API_KEY && !(input.preferGmail && googleCredentialsConfigured)) {
     try {
       const { sendViaResend } = await import("@/lib/resend-email-transport");
       return await sendViaResend(input);
@@ -281,7 +284,17 @@ export async function sendFllmEmail(input: {
     `--${mixedBoundary}--`,
   ].join("\r\n");
 
-  const token = await accessToken();
+  let token: string;
+  try {
+    token = await accessToken();
+  } catch (gmailTokenError) {
+    if (input.preferGmail && process.env.RESEND_API_KEY) {
+      console.error("Gmail notification authentication failed; falling back to Resend", gmailTokenError);
+      const { sendViaResend } = await import("@/lib/resend-email-transport");
+      return sendViaResend(input);
+    }
+    throw gmailTokenError;
+  }
   const response = await fetch(
     "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
     {
@@ -296,9 +309,13 @@ export async function sendFllmEmail(input: {
   );
 
   if (!response.ok) {
-    throw new Error(
-      `Gmail API send failed: ${response.status} ${await response.text()}`,
-    );
+    const errorText = await response.text();
+    if (input.preferGmail && process.env.RESEND_API_KEY) {
+      console.error("Gmail API notification failed; falling back to Resend", response.status, errorText);
+      const { sendViaResend } = await import("@/lib/resend-email-transport");
+      return sendViaResend(input);
+    }
+    throw new Error(`Gmail API send failed: ${response.status} ${errorText}`);
   }
   return response.json() as Promise<{ id: string; threadId: string }>;
 }
