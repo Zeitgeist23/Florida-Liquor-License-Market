@@ -84,6 +84,7 @@ export async function POST(request: Request) {
       monthlyRent?: string;
       availableCash?: string;
       extraCriteria?: string[];
+      franchise?: "Either"|"Yes"|"No";
       notes?: string;
       consent?: boolean;
       sourceMarketViewRef?: string;
@@ -144,6 +145,7 @@ export async function POST(request: Request) {
       minSde: optionalMoney(body.minSde),
       minEbitda: optionalMoney(body.minEbitda),
       financingPreferences: financingPreferences.length ? financingPreferences : ["Any"],
+      franchise:body.franchise==="Yes"||body.franchise==="No"?body.franchise:"Either",
       realEstate:clean(body.realEstate,80),leaseYears:clean(body.leaseYears,30),monthlyRent:clean(body.monthlyRent,30),availableCash:optionalMoney(body.availableCash),extraCriteria:(body.extraCriteria||[]).filter(x=>typeof x==="string").slice(0,30),
       notes: clean(body.notes, 3000),
       sourceMarketViewRef: clean(body.sourceMarketViewRef, 100),
