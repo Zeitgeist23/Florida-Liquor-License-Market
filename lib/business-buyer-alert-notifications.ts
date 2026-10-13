@@ -33,6 +33,8 @@ async function propertyFacts(){
 function advancedMatches(alert:BusinessBuyerAlert, listing:BusinessQuotaListing, fact:AlertPropertyRow|undefined, prime:number){
   if(fact?.duplicate_of)return false;
   const e=alert.extra_criteria||[];
+  if(alert.franchise==="Yes"&&fact?.verified_attributes?.["Franchise"]!==true)return false;
+  if(alert.franchise==="No"&&fact?.verified_attributes?.["Franchise"]!==false)return false;
   if(e.includes("Standalone license only"))return false;
   if(e.includes("Transferable license required")&&listing.licenseClass!=="quota")return false;
   if(e.some(x=>["Waterfront / Beachfront","Absentee owner preferred","Turnkey operation","Established business only","Franchise","Outdoor seating"].includes(x)&&fact?.verified_attributes?.[x]!==true))return false;
@@ -140,6 +142,7 @@ function criteriaHtml(alert: BusinessBuyerAlert) {
     <strong>Minimum gross sales:</strong> ${escapeHtml(money(alert.min_gross_revenue))}<br>
     <strong>Minimum SDE / Cash Flow:</strong> ${escapeHtml(money(alert.min_sde))}<br>
     <strong>Minimum EBITDA:</strong> ${escapeHtml(money(alert.min_ebitda))}<br>
+    <strong>Franchise:</strong> ${escapeHtml(alert.franchise||"Either")}<br>
     <strong>Financing preference:</strong> ${escapeHtml(alert.financing_preferences.join(", "))}
   </div>`;
 }
