@@ -166,6 +166,30 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     </div>
   </body></html>`;
 
+  // Market View inquiries must be persisted before attempting notification.
+  // Email-provider acceptance is not a substitute for durable lead capture.
+  if (isBusinessMarketBuyerMatch) {
+    if (!resolvedListingReference) {
+      return NextResponse.json({ error: "Missing Market View reference; inquiry was not saved." }, { status: 400 });
+    }
+    try {
+      await createBuyerInquiryLead({
+        fullName, email, phone,
+        listingReference: resolvedListingReference,
+        listingRequested,
+        county: listingCounty || preferredCounty || "Florida",
+        licenseType: licenseType || "4COP Quota",
+        askingPriceText: askingPrice || null,
+        listingUrl: resolvedListingUrl || null,
+        inquiryType, message,
+        source: "business_market_record",
+      });
+    } catch (leadError) {
+      console.error("Market View inquiry persistence failed", leadError);
+      return NextResponse.json({ error: "Your inquiry could not be saved. Please try again." }, { status: 503 });
+    }
+  }
+
   let fllmNotificationFailed = false;
   let brokerDeliveryFailed = false;
   let sellerDeliveryFailed = false;
@@ -173,7 +197,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
 
   try {
     await sendFllmEmail({
-      to: contactRecipient(),
+      to: isBusinessMarketBuyerMatch ? "listings@floridaliquorlicensemarket.com" : contactRecipient(),
       replyTo: email,
       subject,
       text,
@@ -235,6 +259,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
 
   if (
     resolvedListingReference &&
+    !isBusinessMarketBuyerMatch &&
     !approvedSellerSubmission &&
     !featuredBrokerRecipient
   ) {
@@ -312,8 +337,8 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     // The contact-page client still has its own browser-side FormSubmit fallback
     // as a final administrative copy if both server delivery paths fail.
     return NextResponse.json(
-      { error: "Primary FLLM notification service is unavailable.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
-      { status: 429 },
+      { error: isBusinessMarketBuyerMatch ? "Your inquiry was saved, but the email notification could not be sent. FLLM will review the saved inquiry." : "Primary FLLM notification service is unavailable.", leadSaved: isBusinessMarketBuyerMatch, fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
+      { status: 503 },
     );
   }
 
@@ -323,6 +348,8 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     sellerNotified: Boolean(approvedSellerSubmission && !featuredBrokerRecipient),
     sellerContactDelivered: Boolean(approvedSellerSubmission && !featuredBrokerRecipient),
     fllmCopied: true,
+    leadSaved: isBusinessMarketBuyerMatch,
+    notificationAccepted: true,
     deliveryMode: "primary",
   });
 }
