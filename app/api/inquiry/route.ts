@@ -198,6 +198,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   try {
     await sendFllmEmail({
       to: isBusinessMarketBuyerMatch ? "listings@floridaliquorlicensemarket.com" : contactRecipient(),
+      preferGmail: isBusinessMarketBuyerMatch,
       replyTo: email,
       subject,
       text,
