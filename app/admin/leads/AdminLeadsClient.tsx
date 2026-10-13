@@ -65,6 +65,8 @@ type BuyerDetails = {
   offerExpiration?: string | null;
   contingencies?: string | null;
   notes?: string | null;
+  buyerMessage?: string | null;
+  notification?: { status?: string; providerMessageId?: string; error?: string; recordedAt?: string };
 };
 
 type ValuationDetails = {
@@ -203,6 +205,15 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
         <div><strong>License Type</strong><span>{buyerAlert ? buyerAlert.license_types?.join(", ") || lead.licenseType : lead.licenseType}</span></div>
         <div><strong>{buyerAlert ? "Source Market View" : buyer ? "Listing Reference" : "Timing"}</strong><span>{buyerAlert ? buyerAlert.source_market_view_ref || lead.liveListingRef || "Not provided" : buyer ? lead.liveListingRef || "Not provided" : lead.preferredTiming || "Not provided"}</span></div>
       </div>
+
+      {buyer && lead.liveListingRef?.startsWith("FLLM-MKT-") && (
+        <div className="lead-secondary-grid">
+          <div><strong>Notification status</strong><span>{details.notification?.status === "provider_accepted" ? "Accepted by provider — delivery unverified" : details.notification?.status === "failed" ? "Sending failed" : "No delivery record — investigate"}</span></div>
+          <div><strong>Provider message ID</strong><span>{details.notification?.providerMessageId || "Not recorded"}</span></div>
+          {details.notification?.error && <div><strong>Mail error</strong><span>{details.notification.error}</span></div>}
+          {details.buyerMessage && <div><strong>Buyer inquiry</strong><span>{details.buyerMessage}</span></div>}
+        </div>
+      )}
 
       {buyerAlert ? (
         <div className="lead-secondary-grid">
