@@ -66,6 +66,8 @@ type BuyerDetails = {
   contingencies?: string | null;
   notes?: string | null;
   buyerMessage?: string | null;
+  followUp?: { status?: string; date?: string; summary?: string; channel?: string };
+  reconciliation?: { status?: string; attempts?: number; lastAttemptAt?: string };
   notification?: { status?: string; providerMessageId?: string; error?: string; recordedAt?: string };
 };
 
@@ -188,7 +190,7 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
         <div>
           <div className="lead-tags">
             <span className={`lead-type ${buyer ? "buyer" : valuation ? "valuation" : "seller"}`}>{buyer ? "Buyer lead" : valuation ? "Valuation lead" : "Seller lead"}</span>
-            <span className="lead-stage">{buyerAlert ? "Active buyer alert" : buyer && details.kind === "buyer_inquiry" ? "Buyer Inquiry — Follow-Up Required" : buyer ? "Verification pending" : sellerStage(lead)}</span>
+            <span className="lead-stage">{buyerAlert ? "Active buyer alert" : buyer && details.kind === "buyer_inquiry" ? details.followUp?.status || "Buyer Inquiry — Follow-Up Required" : buyer ? "Verification pending" : sellerStage(lead)}</span>
             {contactCount > 1 && <span className="lead-repeat">{contactCount} submissions from this contact</span>}
           </div>
           <h2>{lead.fullName}</h2>
@@ -211,6 +213,8 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
           <div><strong>Notification status</strong><span>{details.notification?.status === "provider_accepted" ? "Accepted by provider — delivery unverified" : details.notification?.status === "failed" ? "Sending failed" : "No historical notification audit recorded"}</span></div>
           <div><strong>Provider message ID</strong><span>{details.notification?.providerMessageId || "Not recorded"}</span></div>
           {details.notification?.error && <div><strong>Mail error</strong><span>{details.notification.error}</span></div>}
+          {details.reconciliation && <div><strong>Reconciliation</strong><span>{details.reconciliation.status || "Pending"} · {details.reconciliation.attempts || 0} attempt(s)</span></div>}
+          {details.followUp?.summary && <div><strong>Follow-up notes</strong><span>{details.followUp.summary}</span></div>}
           {details.buyerMessage && <div><strong>Buyer inquiry</strong><span>{details.buyerMessage}</span></div>}
         </div>
       )}
@@ -249,6 +253,7 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
         </div>
       )}
 
+      {buyer && details.kind === "buyer_inquiry" && details.followUp?.summary && !lead.liveListingRef?.startsWith("FLLM-MKT-") && <div className="lead-notes"><p><strong>Follow-up</strong>{details.followUp.summary}</p></div>}
       {buyer && details.kind === "buyer_inquiry" && details.buyerMessage && !lead.liveListingRef?.startsWith("FLLM-MKT-") && (
         <div className="lead-notes"><p><strong>Buyer's original inquiry</strong>{details.buyerMessage}</p></div>
       )}
