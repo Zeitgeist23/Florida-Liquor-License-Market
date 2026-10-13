@@ -15,7 +15,7 @@ export async function GET() {
 }
 export async function POST(request: Request) {
   try {
-    const body = await request.json() as {businessTypes?:string[];licenseTypes?:string[];counties?:string[];maxPurchasePrice?:string;minGrossRevenue?:string;minSde?:string;minEbitda?:string;financingPreferences?:string[];realEstate?:string;leaseYears?:string;monthlyRent?:string;availableCash?:string;extraCriteria?:string[]};
+    const body = await request.json() as {businessTypes?:string[];licenseTypes?:string[];counties?:string[];maxPurchasePrice?:string;minGrossRevenue?:string;minSde?:string;minEbitda?:string;financingPreferences?:string[];realEstate?:string;leaseYears?:string;monthlyRent?:string;availableCash?:string;extraCriteria?:string[];franchise?:"Yes"|"No"|"Either"};
     const selected = (value: unknown): string[] => Array.isArray(value) ? value.filter((v):v is string => typeof v==="string").slice(0,100) : [];
     const types=selected(body.businessTypes), licenses=selected(body.licenseTypes), counties=selected(body.counties);
     const amount=(value:unknown)=>{if(!value)return null;const n=Number(String(value).replace(/[^\d.]/g,""));return Number.isFinite(n)&&n>0?n:null;};
@@ -143,6 +143,8 @@ export async function POST(request: Request) {
     const cashAvailable=amount(body.availableCash);
     const ownershipRequired=extra.includes("Transferable license required");
     const standaloneOnly=extra.includes("Standalone license only");
+    const franchiseFilter=body.franchise==="Yes"?true:body.franchise==="No"?false:null;
+    const franchiseMatch=(x:(typeof businessQuotaListingRecords)[number])=>franchiseFilter===null||terms(x)?.verified_attributes?.["Franchise"]===franchiseFilter;
     const attributeFilters=extra.filter(v=>["Waterfront / Beachfront","Absentee owner preferred","Turnkey operation","Established business only","Franchise","Outdoor seating"].includes(v));
     const attributes=(x:(typeof businessQuotaListingRecords)[number])=>terms(x)?.verified_attributes||{};
     const attributesFail=(x:(typeof businessQuotaListingRecords)[number])=>attributeFilters.some(v=>attributes(x)[v]===false);
@@ -166,6 +168,7 @@ export async function POST(request: Request) {
       && !(propertyDatabaseAvailable && terms(x)?.duplicate_of)
       && leaseMatch(x)!=="fail"
       && !standaloneOnly
+      && franchiseMatch(x)
       && (!ownershipRequired || x.licenseClass==="quota")
       && !attributesFail(x)
       && cashStatus(x)!=="fail"
