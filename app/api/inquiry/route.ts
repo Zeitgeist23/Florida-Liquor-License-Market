@@ -109,10 +109,12 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     ? approvedSellerSubmission.licenseStatus
     : submittedListingStatus;
   const resolvedListingUrl = approvedSellerSubmission?.liveListingUrl || listingUrl;
-  const featuredBrokerRecipient = resolveFeaturedBrokerRecipient(
-    resolvedListingReference || listingReference,
-    approvedSellerSubmission,
-  );
+  // Inquiries are retained by FLLM. Never automatically distribute buyer contact
+  // information to sellers, brokers, listing sources, or buyers through this route.
+  const externalLeadDeliveryEnabled = false;
+  const featuredBrokerRecipient = externalLeadDeliveryEnabled
+    ? resolveFeaturedBrokerRecipient(resolvedListingReference || listingReference, approvedSellerSubmission)
+    : null;
   const isBusinessMarketBuyerMatch =
     inquiryType === "Business Market Buyer Match" ||
     inquiryType === "Business Market Opportunity Inquiry";
@@ -231,7 +233,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     }
   }
 
-  if (featuredBrokerRecipient) {
+  if (externalLeadDeliveryEnabled && featuredBrokerRecipient) {
     try {
       await sendFeaturedBrokerInquiry({
         recipient: featuredBrokerRecipient,
@@ -253,7 +255,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
       brokerDeliveryFailed = true;
       console.error("Buyer inquiry delivery to featured listing broker failed", brokerDeliveryError);
     }
-  } else if (approvedSellerSubmission) {
+  } else if (externalLeadDeliveryEnabled && approvedSellerSubmission) {
     try {
       await sendBuyerInquiryToApprovedSeller({
         buyerName: fullName,
@@ -283,7 +285,6 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   if (
     resolvedListingReference &&
     !isBusinessMarketBuyerMatch &&
-    !approvedSellerSubmission &&
     !featuredBrokerRecipient
   ) {
     try {
@@ -367,9 +368,9 @@ async function submitContactInquiry(request: Request, formData: FormData) {
 
   return NextResponse.json({
     ok: true,
-    brokerNotified: Boolean(featuredBrokerRecipient),
-    sellerNotified: Boolean(approvedSellerSubmission && !featuredBrokerRecipient),
-    sellerContactDelivered: Boolean(approvedSellerSubmission && !featuredBrokerRecipient),
+    brokerNotified: false,
+    sellerNotified: false,
+    sellerContactDelivered: false,
     fllmCopied: true,
     leadSaved: isBusinessMarketBuyerMatch,
     notificationAccepted: true,
