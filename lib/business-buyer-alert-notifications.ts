@@ -1,4 +1,5 @@
 import "server-only";
+import { supabaseServiceSettings } from "@/lib/supabase-settings";
 
 import {
   businessMarketRecordHref,
@@ -12,6 +13,40 @@ import {
   type BusinessBuyerAlert,
 } from "@/lib/business-buyer-alert-store";
 import { sendFllmEmail } from "@/lib/fllm-email";
+
+type AlertPropertyRow = {listing_reference:string;property_status:string|null;monthly_rent:number|null;lease_expiration_date:string|null;real_estate_also_separately_offered:boolean;duplicate_of:string|null;seller_financing_offered:boolean|null;seller_financing_evidence_url:string|null;seller_down_payment:number|null;verified_attributes:Record<string,boolean>|null};
+async function propertyFacts(){
+  const {url,key}=supabaseServiceSettings("Buyer matching property database unavailable");
+  const res=await fetch(`${url}/rest/v1/business_property_terms?select=listing_reference,property_status,monthly_rent,lease_expiration_date,real_estate_also_separately_offered,duplicate_of,seller_financing_offered,seller_financing_evidence_url,seller_down_payment,verified_attributes&limit=1000`,{headers:{apikey:key,Authorization:`Bearer ${key}`},cache:"no-store"});
+  if(!res.ok)throw new Error(`Buyer-alert property lookup failed: ${res.status}`);
+  return new Map((await res.json() as AlertPropertyRow[]).map(x=>[x.listing_reference,x]));
+}
+function advancedMatches(alert:BusinessBuyerAlert, listing:BusinessQuotaListing, fact:AlertPropertyRow|undefined){
+  if(fact?.duplicate_of)return false;
+  const e=alert.extra_criteria||[];
+  if(e.includes("Standalone license only"))return false;
+  if(e.includes("Transferable license required")&&listing.licenseClass!=="quota")return false;
+  if(e.some(x=>["Waterfront / Beachfront","Absentee owner preferred","Turnkey operation","Established business only","Franchise","Outdoor seating"].includes(x)&&fact?.verified_attributes?.[x]!==true))return false;
+  const prop=alert.real_estate;
+  if(prop==="Lease only"&&fact?.property_status!=="lease_only")return false;
+  if(prop==="Real estate included"&&fact?.property_status!=="included")return false;
+  if(prop==="Real estate available separately"&&fact?.property_status!=="available_separately"&&!fact?.real_estate_also_separately_offered)return false;
+  const rent=Number((alert.monthly_rent||"").replace(/[^0-9.]/g,""));
+  if(alert.monthly_rent&&alert.monthly_rent!=="Any"&&(!fact?.monthly_rent||Number(fact.monthly_rent)>rent))return false;
+  const years=Number((alert.lease_years||"").replace(/[^0-9.]/g,""));
+  if(alert.lease_years&&alert.lease_years!=="Any"){
+    if(!fact?.lease_expiration_date)return false;
+    const expire=new Date(fact.lease_expiration_date+"T23:59:59Z").getTime();
+    if(!Number.isFinite(expire)||(expire-Date.now())/31556952000<years)return false;
+  }
+  if(alert.financing_preferences.includes("Seller Financing")&&!(fact?.seller_financing_offered&&fact.seller_financing_evidence_url))return false;
+  if(alert.available_cash!==undefined&&alert.available_cash!==null){
+    if(alert.financing_preferences.includes("Cash")&&alert.available_cash<listing.packagePriceNumber)return false;
+    if(alert.financing_preferences.includes("Seller Financing")&&(!fact?.seller_down_payment||alert.available_cash<fact.seller_down_payment))return false;
+    if(alert.financing_preferences.includes("SBA")&&alert.available_cash<listing.packagePriceNumber*.10)return false;
+  }
+  return true;
+}
 
 function siteUrl() {
   return (
@@ -69,9 +104,10 @@ function absoluteListingUrl(listing: BusinessQuotaListing) {
   return `${siteUrl()}${businessMarketRecordHref(listing)}`;
 }
 
-export function currentBusinessAlertMatches(alert: BusinessBuyerAlert) {
+export async function currentBusinessAlertMatches(alert: BusinessBuyerAlert) {
+  const facts=await propertyFacts();
   return publishedBusinessAlertInventory()
-    .filter((listing) => businessListingMatchesAlert(alert, listing))
+    .filter((listing) => businessListingMatchesAlert(alert, listing) && advancedMatches(alert, listing, facts.get(listing.listingReference)))
     .map((listing) => ({ listing, url: absoluteListingUrl(listing) }));
 }
 
@@ -181,7 +217,7 @@ Current matches: ${matchCount}`;
 }
 
 export async function activateBusinessBuyerAlert(alert: BusinessBuyerAlert) {
-  const matches = currentBusinessAlertMatches(alert);
+  const matches = await currentBusinessAlertMatches(alert);
   await sendBusinessBuyerAlertConfirmation(alert, matches);
   if (matches.length) {
     await markBusinessBuyerAlertNotified(
@@ -205,7 +241,7 @@ export async function notifyMatchingBusinessBuyerAlerts() {
   let failed = 0;
 
   for (const alert of alerts) {
-    const matches = currentBusinessAlertMatches(alert).filter(
+    const matches = (await currentBusinessAlertMatches(alert)).filter(
       ({ listing }) => !alert.notified_listing_refs.includes(listing.listingReference),
     );
     if (!matches.length) continue;
