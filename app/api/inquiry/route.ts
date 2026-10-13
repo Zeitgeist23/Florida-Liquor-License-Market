@@ -12,6 +12,7 @@ import {
 } from "@/lib/fllm-email";
 import {
   createBuyerInquiryLead,
+  recordMarketInquiryNotification,
   createBuyerLead,
   getApprovedSubmissionByPublicRef,
 } from "@/lib/listing-submission-store";
@@ -168,12 +169,13 @@ async function submitContactInquiry(request: Request, formData: FormData) {
 
   // Market View inquiries must be persisted before attempting notification.
   // Email-provider acceptance is not a substitute for durable lead capture.
+  let savedMarketLead: Awaited<ReturnType<typeof createBuyerInquiryLead>> | null = null;
   if (isBusinessMarketBuyerMatch) {
     if (!resolvedListingReference) {
       return NextResponse.json({ error: "Missing Market View reference; inquiry was not saved." }, { status: 400 });
     }
     try {
-      await createBuyerInquiryLead({
+      savedMarketLead = await createBuyerInquiryLead({
         fullName, email, phone,
         listingReference: resolvedListingReference,
         listingRequested,
@@ -196,7 +198,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   let buyerDeliveryFailed = false;
 
   try {
-    await sendFllmEmail({
+    const providerResult = await sendFllmEmail({
       to: isBusinessMarketBuyerMatch ? "listings@floridaliquorlicensemarket.com" : contactRecipient(),
       preferGmail: isBusinessMarketBuyerMatch,
       replyTo: email,
@@ -204,9 +206,29 @@ async function submitContactInquiry(request: Request, formData: FormData) {
       text,
       html,
     });
+    if (savedMarketLead) {
+      try {
+        await recordMarketInquiryNotification(savedMarketLead.submissionRef, savedMarketLead.message, {
+          status: "provider_accepted",
+          providerMessageId: typeof providerResult?.id === "string" ? providerResult.id : undefined,
+        });
+      } catch (auditError) {
+        console.error("Market View notification audit update failed", auditError);
+      }
+    }
   } catch (notificationError) {
     fllmNotificationFailed = true;
     console.error("Contact inquiry notification failed", notificationError);
+    if (savedMarketLead) {
+      try {
+        await recordMarketInquiryNotification(savedMarketLead.submissionRef, savedMarketLead.message, {
+          status: "failed",
+          error: notificationError instanceof Error ? notificationError.message.slice(0, 500) : "Unknown provider error",
+        });
+      } catch (auditError) {
+        console.error("Market View failed notification audit update failed", auditError);
+      }
+    }
   }
 
   if (featuredBrokerRecipient) {
