@@ -15,7 +15,7 @@ export async function GET() {
 }
 export async function POST(request: Request) {
   try {
-    const body = await request.json() as {businessTypes?:string[];licenseTypes?:string[];counties?:string[];maxPurchasePrice?:string;minGrossRevenue?:string;minSde?:string;minEbitda?:string;financingPreferences?:string[];realEstate?:string;leaseYears?:string;monthlyRent?:string};
+    const body = await request.json() as {businessTypes?:string[];licenseTypes?:string[];counties?:string[];maxPurchasePrice?:string;minGrossRevenue?:string;minSde?:string;minEbitda?:string;financingPreferences?:string[];realEstate?:string;leaseYears?:string;monthlyRent?:string;availableCash?:string;extraCriteria?:string[]};
     const selected = (value: unknown): string[] => Array.isArray(value) ? value.filter((v):v is string => typeof v==="string").slice(0,100) : [];
     const types=selected(body.businessTypes), licenses=selected(body.licenseTypes), counties=selected(body.counties);
     const amount=(value:unknown)=>{if(!value)return null;const n=Number(String(value).replace(/[^\d.]/g,""));return Number.isFinite(n)&&n>0?n:null;};
@@ -36,13 +36,15 @@ export async function POST(request: Request) {
       sba_advertised_status: "eligible" | "not_eligible" | null;
       sba_evidence_url: string | null;
       sba_advertisement_note: string | null;
+      seller_down_payment: number | null;
+      verified_attributes: Record<string,boolean> | null;
     };
     const termsByRef = new Map<string, PropertyTerms>();
     let propertyDatabaseAvailable = false;
     try {
       const { url, key } = supabaseServiceSettings("Buyer property terms unavailable.");
       const response = await fetch(
-        `${url}/rest/v1/business_property_terms?select=listing_reference,property_status,monthly_rent,lease_expiration_date,lease_expiration_month,lease_expiration_year,real_estate_also_separately_offered,duplicate_of,seller_financing_offered,seller_financing_evidence_url,seller_financing_terms,sba_advertised_status,sba_evidence_url,sba_advertisement_note&limit=1000`,
+        `${url}/rest/v1/business_property_terms?select=listing_reference,property_status,monthly_rent,lease_expiration_date,lease_expiration_month,lease_expiration_year,real_estate_also_separately_offered,duplicate_of,seller_financing_offered,seller_financing_evidence_url,seller_financing_terms,sba_advertised_status,sba_evidence_url,sba_advertisement_note,seller_down_payment,verified_attributes&limit=1000`,
         { cache: "no-store", headers: { apikey: key, Authorization: `Bearer ${key}` } }
       );
       if (!response.ok) throw new Error(`Property terms HTTP ${response.status}`);
@@ -137,6 +139,24 @@ export async function POST(request: Request) {
     const sellerFinancingStatus = (x:(typeof businessQuotaListingRecords)[number]) =>
       terms(x)?.seller_financing_offered === true && !!terms(x)?.seller_financing_evidence_url
         ? "advertised" : terms(x)?.seller_financing_offered === false ? "not_offered" : "undisclosed";
+    const extra=selected(body.extraCriteria);
+    const cashAvailable=amount(body.availableCash);
+    const ownershipRequired=extra.includes("Transferable license required");
+    const standaloneOnly=extra.includes("Standalone license only");
+    const attributeFilters=extra.filter(v=>["Waterfront / Beachfront","Absentee owner preferred","Turnkey operation","Established business only","Franchise","Outdoor seating"].includes(v));
+    const attributes=(x:(typeof businessQuotaListingRecords)[number])=>terms(x)?.verified_attributes||{};
+    const attributesFail=(x:(typeof businessQuotaListingRecords)[number])=>attributeFilters.some(v=>attributes(x)[v]===false);
+    const attributesUnknown=(x:(typeof businessQuotaListingRecords)[number])=>attributeFilters.some(v=>attributes(x)[v]!==true);
+    const cashStatus=(x:(typeof businessQuotaListingRecords)[number])=>{
+      if(cashAvailable===null)return "match";
+      if(selected(body.financingPreferences).includes("Seller Financing")&&sellerFinancingStatus(x)==="advertised"){
+        const down=terms(x)?.seller_down_payment;
+        return down===null||down===undefined?"unknown":cashAvailable>=Number(down)?"match":"fail";
+      }
+      if(wantsSba)return cashAvailable>=x.packagePriceNumber*0.1?"potential":"fail";
+      if(selected(body.financingPreferences).includes("Cash Purchase"))return cashAvailable>=x.packagePriceNumber?"match":"fail";
+      return "unknown";
+    };
     const eligible=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x)
       && (types.length===0||types.includes(x.businessCategory)||(types.includes("Bar")&&x.businessCategory==="Cocktail Lounge"))
       && (licenses.length===0||licenses.includes(x.licenseType))
@@ -145,6 +165,10 @@ export async function POST(request: Request) {
       && (propertyPreference==="Either" || propertyStatus(x)===propertyPreference || (propertyPreference==="Real estate available separately" && separateProperty(x)))
       && !(propertyDatabaseAvailable && terms(x)?.duplicate_of)
       && leaseMatch(x)!=="fail"
+      && !standaloneOnly
+      && (!ownershipRequired || x.licenseClass==="quota")
+      && !attributesFail(x)
+      && cashStatus(x)!=="fail"
       && (!wantsSellerFinancing || sellerFinancingStatus(x)==="advertised"));
     let approved = new Map<string, { gross: number | null; sde: number | null }>();
     try {
@@ -183,7 +207,7 @@ export async function POST(request: Request) {
       const sba=screenSba(x,typeof sde==="number"&&Number.isFinite(sde)?sde:null,typeof ebitda==="number"&&Number.isFinite(ebitda)?ebitda:null);
       sbaByRef.set(x.listingReference,sba);
       if(wantsSba && !["advertised","potential"].includes(sba.status)) continue;
-      (missingRevenue||missingEarnings||leaseMatch(x)==="unknown"?potential:confirmed).push(x);
+      (missingRevenue||missingEarnings||leaseMatch(x)==="unknown"||attributesUnknown(x)||cashStatus(x)!=="match"?potential:confirmed).push(x);
     }
     let valuesByReference = new Map<string, {value:number; basis:string}>();
     try {
@@ -199,6 +223,8 @@ export async function POST(request: Request) {
       grossRevenue:financialByRef.get(x.listingReference)?.gross??null,
       sdeCashFlow:financialByRef.get(x.listingReference)?.sde??null,
       ebitda:financialByRef.get(x.listingReference)?.ebitda??null,
+      cashMatchStatus:cashStatus(x),
+      businessAttributeStatus:attributesUnknown(x)?"unverified":"verified",
       sbaStatus:sbaByRef.get(x.listingReference)?.status??"unverified",
       sbaModeledDscr:sbaByRef.get(x.listingReference)?.dscr??null,
       sbaEarningsBasis:sbaByRef.get(x.listingReference)?.earningsBasis??null,
