@@ -199,6 +199,7 @@ export default async function BusinessesWithQuotaLicensesPage() {
           <div className="business-quota-hero-actions">
             <Link className="business-quota-primary fllm-ui-official-gold-button" href="#business-inventory">View Business Market</Link>
             <Link className="business-quota-secondary" href="/businesses-with-quota-licenses/bars">Bars + 4COP Packages</Link>
+            <Link className="business-quota-secondary" href="/florida-business-buyer-match">Advanced Buyer Match Dashboard</Link>
             <Link className="business-quota-secondary" href="/listings">View Standalone Quota Licenses</Link>
             <Link className="fllm-ui-link-card" href="/businesses-with-quota-licenses/gentlemens-clubs">
               <strong>Gentlemen's Clubs for Sale in Florida</strong>
