@@ -53,6 +53,7 @@ type Props = {
   askingPrice: string;
   listingUrl: string;
   horizontalMarketView?: boolean;
+  dashboardOnly?: boolean;
 };
 
 function LeaseHoverSelect({label,value,options,onChange}:{label:string;value:string;options:string[];onChange:(v:string)=>void}) {
@@ -75,6 +76,7 @@ export default function MarketBuyerLeadForm({
   askingPrice,
   listingUrl,
   horizontalMarketView = false,
+  dashboardOnly = false,
 }: Props) {
   const initialBusinessType = businessTypes.includes(businessType as (typeof businessTypes)[number])
     ? businessType
@@ -83,7 +85,7 @@ export default function MarketBuyerLeadForm({
     ? licenseType
     : "4COP Quota";
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(dashboardOnly);
   const [inquiryStatus, setInquiryStatus] = useState<SubmitState>("idle");
   const [inquiryError, setInquiryError] = useState("");
   const [status, setStatus] = useState<SubmitState>("idle");
@@ -376,7 +378,7 @@ export default function MarketBuyerLeadForm({
 
   return (
     <>
-      {horizontalMarketView ? (
+      {!dashboardOnly && (horizontalMarketView ? (
         <section id="specific-market-inquiry" className="fllm-capture" aria-labelledby="fllm-capture-title">
           <div className="fllm-capture-kicker">FLORIDA LIQUOR LICENSE MARKET</div>
           <h2 id="fllm-capture-title">REQUEST INFORMATION ABOUT THIS BUSINESS</h2>
@@ -439,8 +441,8 @@ export default function MarketBuyerLeadForm({
         )}
         <small>FLLM provides independent market information and buyer matching. This is not an authorized seller or broker listing; FLLM cannot guarantee that the business is available or arrange contact with its seller.</small>
       </section>
-      )}
-      {!horizontalMarketView && <section className="business-market-alert-card" aria-labelledby="buyer-alert-title">
+      ))}
+      {!dashboardOnly && !horizontalMarketView && <section className="business-market-alert-card" aria-labelledby="buyer-alert-title">
         <span className="business-market-form-eyebrow">FLLM Buyer Alerts</span>
         <h2 id="buyer-alert-title">Get New Opportunities Like This</h2>
         <p>
@@ -462,11 +464,11 @@ export default function MarketBuyerLeadForm({
       </section>}
 
       {open ? (
-        <div className="business-market-alert-modal-backdrop" role="presentation" onMouseDown={(event) => {
+        <div className={`business-market-alert-modal-backdrop${dashboardOnly ? " business-market-alert-modal-backdrop--inline" : ""}`} role={dashboardOnly ? undefined : "presentation"} onMouseDown={(event) => {
           if (event.currentTarget === event.target) setOpen(false);
         }}>
-          <div className="business-market-alert-modal" role="dialog" aria-modal="true" aria-labelledby="buyer-alert-modal-title">
-            <button className="business-market-alert-modal-close" type="button" onClick={() => setOpen(false)} aria-label="Close buyer alert form">×</button>
+          <div className={`business-market-alert-modal${dashboardOnly ? " business-market-alert-modal--inline" : ""}`} role={dashboardOnly ? "region" : "dialog"} aria-modal={dashboardOnly ? undefined : true} aria-labelledby="buyer-alert-modal-title">
+            {!dashboardOnly && <button className="business-market-alert-modal-close" type="button" onClick={() => setOpen(false)} aria-label="Close buyer alert form">×</button>}
 
             {status === "sent" ? (
               <div className="business-market-alert-modal-success" role="status">
