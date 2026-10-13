@@ -81,11 +81,13 @@ function formatMoney(value: number | null) {
   }).format(value);
 }
 
-function isPaidSelfDirectedListing(submission: ListingSubmission) {
+function isPaidListingAwaitingReview(submission: ListingSubmission) {
+  const message = submission.message || "";
+  const isListing = /Submission type:\s*(?:Self-Directed Listing|Independent Broker Marketplace Listing)/i.test(message);
   return (
     submission.status === "paid" &&
     submission.submissionRef.startsWith("FLLM-PAID-") &&
-    /Self-Directed Listing/i.test(submission.message || "")
+    isListing
   );
 }
 
@@ -224,10 +226,10 @@ async function finishNotification(
 async function sendReviewEmail(submission: ListingSubmission) {
   const payment = listingPaymentDetails(submission.message);
   const adminUrl = `${siteUrl()}/admin/listing-submissions`;
-  const subject = `Paid Self-Directed Listing Awaiting Approval — ${countyLabel(submission.county)} ${submission.licenseType}`;
+  const subject = `Paid Marketplace Listing Awaiting Approval — ${countyLabel(submission.county)} ${submission.licenseType}`;
 
   const content = `
-    <p style="margin:0 0 18px;"><strong>A paid self-directed listing is waiting for FLLM approval.</strong></p>
+    <p style="margin:0 0 18px;"><strong>A paid marketplace listing is waiting for FLLM approval.</strong></p>
     <p style="margin:0 0 18px;">
       <strong>Submission Reference:</strong> ${escapeHtml(submission.submissionRef)}<br>
       <strong>Listing Tier:</strong> ${escapeHtml(payment.tierLabel)} (${escapeHtml(payment.amountLabel)})<br>
@@ -242,7 +244,7 @@ async function sendReviewEmail(submission: ListingSubmission) {
     <p style="margin:0 0 18px;">The submission is paid and pending administrative review before publication.</p>
     <p style="margin:0;"><a href="${escapeHtml(adminUrl)}" style="display:inline-block;background:#071a3a;color:#ffffff;text-decoration:none;font-weight:bold;padding:12px 18px;border-radius:4px;">Review Listing Submission</a></p>`;
 
-  const text = `A paid self-directed listing is waiting for FLLM approval.\n\nSubmission Reference: ${submission.submissionRef}\nListing Tier: ${payment.tierLabel} (${payment.amountLabel})\nPayment Status: Paid\nCounty: ${countyLabel(submission.county)}\nLicense Type: ${submission.licenseType}\nAsking Price: ${formatMoney(submission.askingPrice)}\nSeller: ${submission.fullName}\nEmail: ${submission.email}\nPhone: ${submission.phone}\n\nThe submission is paid and pending administrative review before publication.\n\nReview Listing Submission: ${adminUrl}`;
+  const text = `A paid marketplace listing is waiting for FLLM approval.\n\nSubmission Reference: ${submission.submissionRef}\nListing Tier: ${payment.tierLabel} (${payment.amountLabel})\nPayment Status: Paid\nCounty: ${countyLabel(submission.county)}\nLicense Type: ${submission.licenseType}\nAsking Price: ${formatMoney(submission.askingPrice)}\nSeller: ${submission.fullName}\nEmail: ${submission.email}\nPhone: ${submission.phone}\n\nThe submission is paid and pending administrative review before publication.\n\nReview Listing Submission: ${adminUrl}`;
 
   return sendFllmEmail({
     to: reviewEmail(),
@@ -255,7 +257,7 @@ async function sendReviewEmail(submission: ListingSubmission) {
 export async function notifyAdminOfPaidSelfDirectedListing(
   submission: ListingSubmission,
 ) {
-  if (!isPaidSelfDirectedListing(submission)) return false;
+  if (!isPaidListingAwaitingReview(submission)) return false;
 
   const claim = await claimNotification(submission);
   if (!claim) return false;
