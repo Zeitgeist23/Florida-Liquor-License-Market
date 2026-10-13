@@ -67,7 +67,7 @@ export function listingPageSlug(
   // canonical route. Keep that URL stable rather than creating a second page.
   if (
     listing.inventoryClass === "direct_seller" ||
-    /^FLLM-\\d+$/i.test(normalizedReference) ||
+    /^FLLM-\d+$/i.test(normalizedReference) ||
     isDirectSellerReference(listing.sourceRef)
   ) {
     return normalizedReference;
