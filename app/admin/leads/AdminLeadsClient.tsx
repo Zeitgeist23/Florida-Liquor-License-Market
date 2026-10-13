@@ -188,7 +188,7 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
         <div>
           <div className="lead-tags">
             <span className={`lead-type ${buyer ? "buyer" : valuation ? "valuation" : "seller"}`}>{buyer ? "Buyer lead" : valuation ? "Valuation lead" : "Seller lead"}</span>
-            <span className="lead-stage">{buyerAlert ? "Active buyer alert" : buyer && lead.liveListingRef?.startsWith("FLLM-MKT-") ? "Buyer Inquiry — Follow-Up Required" : buyer ? "Verification pending" : sellerStage(lead)}</span>
+            <span className="lead-stage">{buyerAlert ? "Active buyer alert" : buyer && details.kind === "buyer_inquiry" ? "Buyer Inquiry — Follow-Up Required" : buyer ? "Verification pending" : sellerStage(lead)}</span>
             {contactCount > 1 && <span className="lead-repeat">{contactCount} submissions from this contact</span>}
           </div>
           <h2>{lead.fullName}</h2>
@@ -206,7 +206,7 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
         <div><strong>{buyerAlert ? "Source Market View" : buyer ? "Listing Reference" : "Timing"}</strong><span>{buyerAlert ? buyerAlert.source_market_view_ref || lead.liveListingRef || "Not provided" : buyer ? lead.liveListingRef || "Not provided" : lead.preferredTiming || "Not provided"}</span></div>
       </div>
 
-      {buyer && lead.liveListingRef?.startsWith("FLLM-MKT-") && (
+      {buyer && details.kind === "buyer_inquiry" && (
         <div className="lead-secondary-grid">
           <div><strong>Notification status</strong><span>{details.notification?.status === "provider_accepted" ? "Accepted by provider — delivery unverified" : details.notification?.status === "failed" ? "Sending failed" : "No historical notification audit recorded"}</span></div>
           <div><strong>Provider message ID</strong><span>{details.notification?.providerMessageId || "Not recorded"}</span></div>
@@ -247,6 +247,10 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
           <div><strong>License Status</strong><span>{lead.licenseStatus}</span></div>
           <div><strong>Payment</strong><span>{lead.paidAt ? `Paid ${new Date(lead.paidAt).toLocaleDateString()}` : lead.submissionRef.startsWith("FLLM-CONSULT-") ? "No charge" : "Not confirmed"}</span></div>
         </div>
+      )}
+
+      {buyer && details.kind === "buyer_inquiry" && details.buyerMessage && !lead.liveListingRef?.startsWith("FLLM-MKT-") && (
+        <div className="lead-notes"><p><strong>Buyer's original inquiry</strong>{details.buyerMessage}</p></div>
       )}
 
       {(details.contingencies || details.notes || buyerAlert?.notes || (!buyer && !valuation && lead.message)) && (
