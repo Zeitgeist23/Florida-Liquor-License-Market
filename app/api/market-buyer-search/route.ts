@@ -226,6 +226,7 @@ export async function POST(request: Request) {
       grossRevenue:financialByRef.get(x.listingReference)?.gross??null,
       sdeCashFlow:financialByRef.get(x.listingReference)?.sde??null,
       ebitda:financialByRef.get(x.listingReference)?.ebitda??null,
+      franchiseStatus:terms(x)?.verified_attributes?.["Franchise"]===true?"Yes":terms(x)?.verified_attributes?.["Franchise"]===false?"No":"Unknown",
       cashMatchStatus:cashStatus(x),
       businessAttributeStatus:attributesUnknown(x)?"unverified":"verified",
       sbaStatus:sbaByRef.get(x.listingReference)?.status??"unverified",
