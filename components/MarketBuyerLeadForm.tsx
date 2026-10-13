@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
-type SubmitState = "idle" | "submitting" | "sent" | "error";
+type SubmitState = "idle" | "submitting" | "sent" | "saved" | "error";
 
 const counties = `Alachua County,Baker County,Bay County,Bradford County,Brevard County,Broward County,Calhoun County,Charlotte County,Citrus County,Clay County,Collier County,Columbia County,DeSoto County,Dixie County,Duval County,Escambia County,Flagler County,Franklin County,Gadsden County,Gilchrist County,Glades County,Gulf County,Hamilton County,Hardee County,Hendry County,Hernando County,Highlands County,Holmes County,Indian River County,Jackson County,Jefferson County,Lafayette County,Lake County,Lee County,Leon County,Levy County,Liberty County,Madison County,Manatee County,Marion County,Martin County,Miami-Dade County,Monroe County,Nassau County,Okaloosa County,Okeechobee County,Orange County,Osceola County,Palm Beach County,Pasco County,Pinellas County,Polk County,Putnam County,Santa Rosa County,Sarasota County,Seminole County,St. Johns County,St. Lucie County,Sumter County,Suwannee County,Taylor County,Union County,Volusia County,Wakulla County,Walton County,Washington County`.split(",");
 
@@ -298,6 +298,10 @@ export default function MarketBuyerLeadForm({
       const response = await fetch("/api/inquiry", { method: "POST", body: form });
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
+        if (data.leadSaved) {
+          setInquiryStatus("saved");
+          return;
+        }
         throw new Error(data.error || "Unable to submit inquiry.");
       }
       setInquiryStatus("sent");
@@ -380,7 +384,7 @@ export default function MarketBuyerLeadForm({
           <div className="fllm-capture-feature fllm-capture-feature--lb"><span className="fllm-capture-feature-icon">◎</span><strong>SAVE TIME</strong><span>Let us find the best<br/>matches for you</span></div>
           <div className="fllm-capture-feature fllm-capture-feature--rt"><span className="fllm-capture-feature-icon">♧</span><strong>RELEVANT MATCHES</strong><span>Businesses based<br/>on your criteria</span></div>
           <div className="fllm-capture-feature fllm-capture-feature--rb"><span className="fllm-capture-feature-icon">▥</span><strong>CONFIDENTIAL<br/>&amp; SECURE</strong><span>Your information<br/>stays private</span></div>
-          {inquiryStatus === "sent" ? <div className="fllm-capture-success" role="status">Thank you. FLLM received your inquiry and will follow up about relevant market information.</div> : (
+          {inquiryStatus === "sent" || inquiryStatus === "saved" ? <div className="fllm-capture-success" role="status">{inquiryStatus === "saved" ? "Your inquiry was saved securely, but email notification is delayed. FLLM can review your saved inquiry." : "Thank you. FLLM received your inquiry and will follow up about relevant market information."}</div> : (
             <form className="fllm-capture-form" onSubmit={submitSpecificInquiry}>
               <div className="fllm-capture-row">
                 <label>Name<input name="name" placeholder="♟   Your full name" autoComplete="name" maxLength={160} required /></label>
@@ -408,8 +412,8 @@ export default function MarketBuyerLeadForm({
         <div className="business-market-specific-inquiry-context">
           <span>{county}</span><span>{licenseType}</span>{!horizontalMarketView && <span>{askingPrice}</span>}
         </div>
-        {inquiryStatus === "sent" ? (
-          <div role="status" className="business-market-specific-inquiry-result">Thank you. FLLM received your inquiry and will follow up regarding available market information and next steps.</div>
+        {inquiryStatus === "sent" || inquiryStatus === "saved" ? (
+          <div role="status" className="business-market-specific-inquiry-result">{inquiryStatus === "saved" ? "Your inquiry was saved securely, but the email notification is delayed. FLLM can review the saved inquiry." : "Thank you. FLLM received your inquiry and will follow up regarding available market information and next steps."}</div>
         ) : (
           <form onSubmit={submitSpecificInquiry} className={`business-market-specific-inquiry-form${horizontalMarketView ? " business-market-specific-inquiry-form--horizontal" : ""}`}>
             <div className="business-market-inquiry-field">
