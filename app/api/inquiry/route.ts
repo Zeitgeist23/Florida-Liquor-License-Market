@@ -1,13 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { sendBuyerInquiryToApprovedSeller } from "@/lib/buyer-inquiry-email";
-import {
-  resolveFeaturedBrokerRecipient,
-  sendFeaturedBrokerInquiry,
-} from "@/lib/featured-broker-inquiry";
 import {
   notifyFllmOfBuyerOffer,
-  sendApprovedSellerContactToBuyer,
   sendFllmEmail,
 } from "@/lib/fllm-email";
 import {
@@ -109,12 +103,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     ? approvedSellerSubmission.licenseStatus
     : submittedListingStatus;
   const resolvedListingUrl = approvedSellerSubmission?.liveListingUrl || listingUrl;
-  // Inquiries are retained by FLLM. Never automatically distribute buyer contact
-  // information to sellers, brokers, listing sources, or buyers through this route.
-  const externalLeadDeliveryEnabled = false;
-  const featuredBrokerRecipient = externalLeadDeliveryEnabled
-    ? resolveFeaturedBrokerRecipient(resolvedListingReference || listingReference, approvedSellerSubmission)
-    : null;
+  // FLLM retains all incoming buyer relationships; no external lead forwarding.
   const isBusinessMarketBuyerMatch =
     inquiryType === "Business Market Buyer Match" ||
     inquiryType === "Business Market Opportunity Inquiry";
@@ -195,9 +184,6 @@ async function submitContactInquiry(request: Request, formData: FormData) {
   }
 
   let fllmNotificationFailed = false;
-  let brokerDeliveryFailed = false;
-  let sellerDeliveryFailed = false;
-  let buyerDeliveryFailed = false;
 
   try {
     const providerResult = await sendFllmEmail({
@@ -233,59 +219,9 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     }
   }
 
-  if (externalLeadDeliveryEnabled && featuredBrokerRecipient) {
-    try {
-      await sendFeaturedBrokerInquiry({
-        recipient: featuredBrokerRecipient,
-        submission: approvedSellerSubmission,
-        inquiry: {
-          buyerName: fullName,
-          buyerEmail: email,
-          buyerPhone: phone,
-          inquiryType,
-          message,
-          listingRequested,
-          listingCounty,
-          licenseType,
-          askingPrice,
-          listingUrl: resolvedListingUrl,
-        },
-      });
-    } catch (brokerDeliveryError) {
-      brokerDeliveryFailed = true;
-      console.error("Buyer inquiry delivery to featured listing broker failed", brokerDeliveryError);
-    }
-  } else if (externalLeadDeliveryEnabled && approvedSellerSubmission) {
-    try {
-      await sendBuyerInquiryToApprovedSeller({
-        buyerName: fullName,
-        buyerEmail: email,
-        buyerPhone: phone,
-        inquiryType,
-        message,
-        submission: approvedSellerSubmission,
-      });
-    } catch (sellerDeliveryError) {
-      sellerDeliveryFailed = true;
-      console.error("Buyer inquiry delivery to approved seller failed", sellerDeliveryError);
-    }
-
-    try {
-      await sendApprovedSellerContactToBuyer({
-        buyerName: fullName,
-        buyerEmail: email,
-        submission: approvedSellerSubmission,
-      });
-    } catch (buyerDeliveryError) {
-      buyerDeliveryFailed = true;
-      console.error("Approved seller contact delivery failed", buyerDeliveryError);
-    }
-  }
-
   if (
     resolvedListingReference &&
     !isBusinessMarketBuyerMatch &&
-    !featuredBrokerRecipient
   ) {
     try {
       await createBuyerInquiryLead({
@@ -313,55 +249,11 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     }
   }
 
-  const browserFallbackCc = Array.from(new Set([
-    ...(brokerDeliveryFailed && featuredBrokerRecipient?.email
-      ? [featuredBrokerRecipient.email]
-      : []),
-    ...(sellerDeliveryFailed && approvedSellerSubmission?.email
-      ? [approvedSellerSubmission.email]
-      : []),
-    ...(buyerDeliveryFailed ? [email] : []),
-  ]));
-  const browserFallbackSellerContact = featuredBrokerRecipient
-    ? {
-        name: featuredBrokerRecipient.brokerName,
-        email: featuredBrokerRecipient.email,
-        phone: featuredBrokerRecipient.phone || "",
-      }
-    : approvedSellerSubmission
-      ? {
-          name: approvedSellerSubmission.fullName,
-          email: approvedSellerSubmission.email,
-          phone: approvedSellerSubmission.phone,
-        }
-      : null;
-
-  if (brokerDeliveryFailed) {
-    return NextResponse.json(
-      { error: "Your inquiry was received by FLLM, but the listing broker notification could not be delivered. Please try again.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
-      { status: 502 },
-    );
-  }
-
-  if (sellerDeliveryFailed) {
-    return NextResponse.json(
-      { error: "Your inquiry was received, but the seller notification email could not be delivered. Please try again.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
-      { status: 502 },
-    );
-  }
-
-  if (buyerDeliveryFailed) {
-    return NextResponse.json(
-      { error: "Your inquiry was received, but the seller contact email could not be delivered. Please try again.", fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
-      { status: 502 },
-    );
-  }
-
   if (fllmNotificationFailed) {
     // The contact-page client still has its own browser-side FormSubmit fallback
     // as a final administrative copy if both server delivery paths fail.
     return NextResponse.json(
-      { error: isBusinessMarketBuyerMatch ? "Your inquiry was saved, but the email notification could not be sent. FLLM will review the saved inquiry." : "Primary FLLM notification service is unavailable.", leadSaved: isBusinessMarketBuyerMatch, fallbackCc: browserFallbackCc, fallbackSellerContact: browserFallbackSellerContact },
+      { error: isBusinessMarketBuyerMatch ? "Your inquiry was saved, but the email notification could not be sent. FLLM will review the saved inquiry." : "Primary FLLM notification service is unavailable.", leadSaved: isBusinessMarketBuyerMatch },
       { status: 503 },
     );
   }
