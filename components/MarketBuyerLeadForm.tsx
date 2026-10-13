@@ -185,7 +185,7 @@ export default function MarketBuyerLeadForm({
       body: JSON.stringify({
         businessTypes: selectedBusinessTypes, licenseTypes: selectedLicenseTypes,
         counties: selectedCounties, maxPurchasePrice, minGrossRevenue,
-        minSde, minEbitda, financingPreferences: selectedFinancing, realEstate, leaseYears, monthlyRent
+        minSde, minEbitda, financingPreferences: selectedFinancing, realEstate, leaseYears, monthlyRent, availableCash, extraCriteria
       })
     }).then(async response => {
       if (!response.ok) throw new Error("Matching inventory unavailable");
@@ -262,7 +262,7 @@ export default function MarketBuyerLeadForm({
     try {
       const response = await fetch("/api/market-buyer-search",{
         method:"POST",headers:{"Content-Type":"application/json"},signal:controller.signal,
-        body:JSON.stringify({businessTypes:selectedBusinessTypes,licenseTypes:selectedLicenseTypes,counties:selectedCounties,maxPurchasePrice,minGrossRevenue,minSde,minEbitda,financingPreferences:selectedFinancing,realEstate,leaseYears,monthlyRent})
+        body:JSON.stringify({businessTypes:selectedBusinessTypes,licenseTypes:selectedLicenseTypes,counties:selectedCounties,maxPurchasePrice,minGrossRevenue,minSde,minEbitda,financingPreferences:selectedFinancing,realEstate,leaseYears,monthlyRent,availableCash,extraCriteria})
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error||"Search unavailable.");
@@ -348,6 +348,7 @@ export default function MarketBuyerLeadForm({
           minSde,
           minEbitda,
           financingPreferences: selectedFinancing.includes("Any") ? ["Any"] : [...new Set(selectedFinancing.map(v=>v==="SBA 7(a) Eligible"?"SBA":v==="Cash Purchase"?"Cash":v==="Seller Financing"?"Seller Financing":"Other"))],
+          realEstate,leaseYears,monthlyRent,availableCash,extraCriteria,
           notes: [String(formData.get("buyer_notes") || "").trim(), `Real estate: ${realEstate}; Lease years: ${leaseYears}; Max rent: ${monthlyRent}; Available cash: ${availableCash}; Other: ${extraCriteria.join(", ")}`].filter(Boolean).join(" | "),
           consent,
           sourceMarketViewRef: listingReference,
