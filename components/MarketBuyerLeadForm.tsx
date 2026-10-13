@@ -249,6 +249,7 @@ export default function MarketBuyerLeadForm({
   }
 
   async function findMatches() {
+    if(extraCriteria.includes("Standalone license only")) { window.location.href="/florida-4cop-liquor-license-for-sale"; return; }
     if (!selectedBusinessTypes.length || !selectedLicenseTypes.length || !selectedCounties.length) {
       setSearchError("Select at least one business category, license class and county.");
       setSearchResults(null);
