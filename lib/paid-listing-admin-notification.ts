@@ -33,7 +33,6 @@ function siteUrl() {
 function reviewEmail() {
   return (
     process.env.LISTING_APPROVAL_REVIEW_EMAIL ||
-    process.env.GOOGLE_SENDER_EMAIL ||
     "listings@floridaliquorlicensemarket.com"
   );
 }
