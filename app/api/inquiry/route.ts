@@ -221,7 +221,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
 
   if (
     resolvedListingReference &&
-    !isBusinessMarketBuyerMatch &&
+    !isBusinessMarketBuyerMatch
   ) {
     try {
       await createBuyerInquiryLead({
