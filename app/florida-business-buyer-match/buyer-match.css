@@ -270,12 +270,6 @@
   position:relative;z-index:1;transform-origin:center;
   transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important;
 }
-.fllm-buyer-match-page .fllm-buyer-match-pills button.business-market-category-badge[aria-pressed="true"]::after,
-.fllm-buyer-match-page .fllm-buyer-match-license-pills button[aria-pressed="true"]::after{
-  content:"✓";font-weight:900;color:inherit;
-  position:absolute;right:3px;top:50%;transform:translateY(-50%);
-  margin:0!important;font-size:10px;line-height:1;
-}
 .fllm-buyer-match-page .fllm-buyer-match-pills button.business-market-category-badge:is(:hover,:focus-visible){
   transform:scale(1.055)!important;filter:brightness(1.15)!important;
   outline:none!important;z-index:3!important;
@@ -299,3 +293,21 @@
 /* Reserve checkmark space within existing pill dimensions instead of widening selected pills. */
 .fllm-buyer-match-page .fllm-buyer-match-pills button.business-market-category-badge[aria-pressed="true"]{padding-right:12px!important}
 .fllm-buyer-match-page .fllm-buyer-match-choice-row>.fllm-buyer-match-pills{column-gap:6px!important}
+
+/* Selected filter pills stay illuminated until the synchronized filter is toggled off. */
+.fllm-buyer-match-page .fllm-buyer-match-pills button.business-market-category-badge[aria-pressed="true"]{
+  background:color-mix(in srgb,var(--market-category-color) 23%,#06243b)!important;
+  border-color:var(--market-category-color)!important;
+  filter:brightness(1.2)!important;
+  transform:scale(1.035)!important;
+  box-shadow:0 0 0 1px var(--market-category-color),0 0 12px var(--market-category-color),inset 0 0 8px var(--market-category-surface)!important;
+  z-index:2!important;
+}
+.fllm-buyer-match-page .fllm-buyer-match-license-pills button.fllm-match-license-pill[aria-pressed="true"]{
+  background:color-mix(in srgb,var(--license-neon) 20%,#06243b)!important;
+  border-color:var(--license-neon)!important;
+  filter:brightness(1.2)!important;
+  transform:scale(1.035)!important;
+  box-shadow:0 0 0 1px var(--license-neon),0 0 12px var(--license-neon),inset 0 0 8px color-mix(in srgb,var(--license-neon) 22%,transparent)!important;
+  z-index:2!important;
+}
