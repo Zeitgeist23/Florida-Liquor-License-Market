@@ -306,6 +306,10 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [filter, setFilter] = useState<"all" | "buyers" | "valuations" | "sellers">("all");
   const [search, setSearch] = useState("");
+  useEffect(() => {
+    const ref = new URLSearchParams(window.location.search).get("buyer_ref");
+    if (ref && /^FLLM-BUYER-[A-Z0-9-]{8,80}$/i.test(ref)) setSearch(ref);
+  }, []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [matchQuery, setMatchQuery] = useState("");
