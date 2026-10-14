@@ -82,3 +82,15 @@
 .fllm-buyer-match-page .fllm-match-metrics{display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%!important}
 .fllm-buyer-match-page .fllm-match-metrics>.green{min-height:66px!important}
 .fllm-buyer-match-page .fllm-match-right{width:100%!important}
+
+/* Unified buyer-search toolbar replaces split title/oversized metrics layout. */
+.fllm-buyer-match-page .business-market-alert-modal--inline .fllm-match-top{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:11px!important;margin:5px 10px 15px!important}
+.fllm-buyer-match-page .business-market-alert-modal--inline .fllm-match-title{text-align:center!important}
+.fllm-buyer-match-page .business-market-alert-modal--inline .fllm-match-title h2,
+.fllm-buyer-match-page .business-market-alert-modal--inline .fllm-match-title p{text-align:center!important}
+.fllm-buyer-match-page .business-market-alert-modal--inline .fllm-match-right{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;border-top:1px solid rgba(0,173,232,.3);padding-top:12px}
+.fllm-buyer-match-page .business-market-alert-modal--inline .fllm-match-metrics{display:flex!important;width:auto!important;flex:0 0 auto!important}
+.fllm-buyer-match-page .business-market-alert-modal--inline .fllm-match-metrics>.green{min-height:43px!important;min-width:180px!important;padding:6px 16px!important;flex-direction:row!important;gap:10px}
+.fllm-buyer-match-page .business-market-alert-modal--inline .fllm-match-metrics>.green strong{font-size:22px!important}
+.fllm-buyer-match-page .business-market-alert-modal--inline .fllm-match-actions{margin-left:auto!important;flex-wrap:wrap}
+@media(max-width:850px){.fllm-buyer-match-page .business-market-alert-modal--inline .fllm-match-right{flex-direction:column!important}.fllm-buyer-match-page .business-market-alert-modal--inline .fllm-match-actions{margin:0 auto!important;justify-content:center!important}}
