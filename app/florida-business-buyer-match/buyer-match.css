@@ -69,3 +69,11 @@
 .fllm-buyer-match-page .fllm-buyer-match-choices{gap:16px!important}
 .fllm-buyer-match-page .fllm-buyer-match-choice-row{row-gap:10px!important}
 .fllm-buyer-match-page .fllm-buyer-match-bottom{margin-top:18px!important}
+
+/* Buyer search eyebrow hierarchy adjustment. */
+.fllm-buyer-match-page .fllm-buyer-match-kicker{
+  font-size:14px!important;
+  font-weight:800!important;
+  letter-spacing:.12em!important;
+  margin-bottom:16px!important;
+}
