@@ -108,3 +108,20 @@
     padding-right:8px!important;
   }
 }
+
+/* Buyer Match desktop refinements: balanced columns and legible wrapped controls. */
+@media (min-width:1201px){
+  .fllm-buyer-match-page .fllm-match-columns{
+    grid-template-columns:minmax(0,1.13fr) minmax(0,1fr) minmax(0,1.12fr) minmax(0,1.24fr)!important;
+    gap:10px!important;
+  }
+  .fllm-buyer-match-page .fllm-match-split{column-gap:13px!important}
+  .fllm-buyer-match-page .fllm-match-split>div+div{padding-left:13px!important}
+}
+.fllm-buyer-match-page .fllm-match-checks label{
+  line-height:1.45!important;
+  gap:9px!important;
+  overflow-wrap:normal;
+}
+.fllm-buyer-match-page .fllm-match-checks input[type=checkbox],
+.fllm-buyer-match-page .fllm-match-checks input[type=radio]{flex-shrink:0!important}
