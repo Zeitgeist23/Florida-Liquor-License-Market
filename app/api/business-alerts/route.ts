@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import type { BusinessQuotaCategory } from "@/lib/business-quota-listings";
+import { floridaCounties } from "@/data/florida-counties";
 import {
   createBusinessBuyerAlert,
   type BusinessBuyerAlertFinancingPreference,
@@ -116,9 +117,10 @@ export async function POST(request: Request) {
       .filter((item): item is BusinessQuotaCategory => validBusinessTypes.has(item as BusinessQuotaCategory));
     const licenseTypes = Array.from(new Set(body.licenseTypes ?? []))
       .filter((item): item is BusinessBuyerAlertLicenseType => validLicenseTypes.has(item as BusinessBuyerAlertLicenseType));
-    const counties = Array.from(
-      new Set((body.counties ?? []).map((item) => normalizeCounty(clean(item, 100))).filter((item) => item.length > 7)),
-    );
+    const rawCounties = (body.counties ?? []).map(item => clean(item, 100));
+    const counties = rawCounties.some(item => item.toLowerCase() === "florida")
+      ? floridaCounties.map(item => item.name)
+      : Array.from(new Set(rawCounties.map(normalizeCounty).filter(item => item.length > 7)));
     const financingPreferences = Array.from(new Set(body.financingPreferences ?? []))
       .filter((item): item is BusinessBuyerAlertFinancingPreference => validFinancing.has(item as BusinessBuyerAlertFinancingPreference));
 
