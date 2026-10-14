@@ -85,7 +85,6 @@
 
 
 /* Embedded dashboard: criteria first, actions after all four filters. */
-.fllm-buyer-match-page .fllm-match-inline-heading{text-align:center;color:#ffcf40;font:800 16px/1.3 Arial,sans-serif;letter-spacing:.09em;margin:3px 0 13px}
 .fllm-buyer-match-page .fllm-match-bottom-actions{margin-top:15px;padding:12px 10px 4px;border-top:1px solid #116a89}
 .fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-right{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:14px!important}
 .fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-metrics{width:auto!important;display:flex!important;flex:0 0 auto}
