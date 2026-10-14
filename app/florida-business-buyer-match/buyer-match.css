@@ -30,3 +30,23 @@
 /* Hero conversion CTA: compact and subordinate to the dashboard. */
 .fllm-buyer-match-bottom{margin-top:9px!important;gap:0!important}
 .fllm-buyer-match-bottom .fllm-buyer-match-jump{padding:8px 16px!important;font-size:13px!important;min-height:34px!important;box-shadow:none!important}
+
+/* FLLM canonical market classification pills: preserve the exact category palette. */
+.fllm-buyer-match-page .fllm-buyer-match-pills a.business-market-category-badge{
+  display:inline-flex!important;position:relative!important;width:auto!important;max-width:100%!important;
+  margin:0!important;padding:7px 12px!important;min-height:30px!important;
+  border:1px solid var(--market-category-color)!important;
+  background:var(--market-category-surface)!important;
+  color:var(--market-category-color)!important;
+  font:800 12px/1.2 Arial,Helvetica,sans-serif!important;
+  letter-spacing:.03em!important;text-transform:uppercase!important;
+  border-radius:999px!important;text-align:center!important;text-decoration:none!important;
+}
+.fllm-buyer-match-page .fllm-buyer-match-license-pills .fllm-match-license-pill{
+  display:inline-flex!important;width:auto!important;margin:0!important;
+  border:1px solid #32cdea!important;background:rgba(18,126,160,.18)!important;
+  color:#8be6fa!important;min-height:30px!important;
+}
+.fllm-buyer-match-page .fllm-buyer-match-license-pills .fllm-match-license-pill--quota{
+  border-color:#27d895!important;background:rgba(12,112,73,.22)!important;color:#70f2b7!important;
+}
