@@ -51,7 +51,7 @@ export default function FloridaBusinessBuyerMatchPage() {
         <p className="fllm-buyer-match-kicker">FLLM ADVANCED BUSINESS BUYER SEARCH</p>
         <h1>Find Florida Businesses <em>With Liquor Licenses</em></h1>
         <div className="fllm-buyer-match-choices" aria-label="Businesses and liquor license categories">
-          <div className="fllm-buyer-match-choice-row"><strong>BUSINESSES</strong><div className="fllm-buyer-match-pills">
+          <div className="fllm-buyer-match-choice-row"><div className="fllm-buyer-match-pills">
             {categories.map(category => <Link key={category.label} href={category.href} className={`business-market-category-badge business-market-category-badge--${category.style}`}>{category.label}</Link>)}
           </div></div>
           <div className="fllm-buyer-match-choice-row"><strong>LICENSE TYPES</strong><div className="fllm-buyer-match-pills fllm-buyer-match-license-pills">
