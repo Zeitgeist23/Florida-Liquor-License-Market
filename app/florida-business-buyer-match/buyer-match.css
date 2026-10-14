@@ -272,7 +272,9 @@
 }
 .fllm-buyer-match-page .fllm-buyer-match-pills button.business-market-category-badge[aria-pressed="true"]::after,
 .fllm-buyer-match-page .fllm-buyer-match-license-pills button[aria-pressed="true"]::after{
-  content:"✓";font-weight:900;margin-left:6px;color:inherit;
+  content:"✓";font-weight:900;color:inherit;
+  position:absolute;right:3px;top:50%;transform:translateY(-50%);
+  margin:0!important;font-size:10px;line-height:1;
 }
 .fllm-buyer-match-page .fllm-buyer-match-pills button.business-market-category-badge:is(:hover,:focus-visible){
   transform:scale(1.055)!important;filter:brightness(1.15)!important;
@@ -293,3 +295,7 @@
   .fllm-buyer-match-page .fllm-buyer-match-pills button,
   .fllm-buyer-match-page .fllm-buyer-match-license-pills button{transition:none!important}
 }
+
+/* Reserve checkmark space within existing pill dimensions instead of widening selected pills. */
+.fllm-buyer-match-page .fllm-buyer-match-pills button.business-market-category-badge[aria-pressed="true"]{padding-right:12px!important}
+.fllm-buyer-match-page .fllm-buyer-match-choice-row>.fllm-buyer-match-pills{column-gap:6px!important}
