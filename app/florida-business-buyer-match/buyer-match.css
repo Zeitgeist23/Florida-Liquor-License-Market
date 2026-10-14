@@ -22,3 +22,7 @@
 .fllm-buyer-match-pills a.business-market-category-badge{text-decoration:none!important;cursor:pointer;transition:transform .15s ease,filter .15s ease}
 .fllm-buyer-match-pills a.business-market-category-badge:hover,.fllm-buyer-match-pills a.business-market-category-badge:focus-visible{transform:translateY(-2px);filter:brightness(1.16);outline:2px solid #f4bf53;outline-offset:2px}
 .fllm-buyer-match-dashboard{scroll-margin-top:85px}
+
+/* Match the approved /listings header band, not a page-specific header variant. */
+.fllm-buyer-match-page>.fllm-buyer-match-official-header{position:sticky!important;top:0!important;z-index:1200!important;width:100%!important;border-bottom:1px solid #765613!important;background:linear-gradient(90deg,#010810 0%,#020c14 48%,#061522 100%)!important;box-shadow:0 5px 15px rgba(0,0,0,.22)!important}
+.fllm-buyer-match-page>.fllm-buyer-match-official-header .forms-site-header{margin:0 auto!important}
