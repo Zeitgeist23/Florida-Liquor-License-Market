@@ -50,3 +50,10 @@
 .fllm-buyer-match-page .fllm-buyer-match-license-pills .fllm-match-license-pill--quota{
   border-color:#27d895!important;background:rgba(12,112,73,.22)!important;color:#70f2b7!important;
 }
+
+/* Final compact hero refinements — do not modify dashboard or pill styling. */
+.fllm-buyer-match-page .fllm-buyer-match-hero{padding-bottom:13px!important}
+.fllm-buyer-match-page .fllm-buyer-match-hero h1{font-size:clamp(28px,2.82vw,39px)!important;margin-bottom:9px!important}
+.fllm-buyer-match-page .fllm-buyer-match-choices{gap:7px!important}
+.fllm-buyer-match-page .fllm-buyer-match-bottom{margin-top:7px!important}
+.fllm-buyer-match-page .fllm-buyer-match-dashboard{padding-top:19px!important}
