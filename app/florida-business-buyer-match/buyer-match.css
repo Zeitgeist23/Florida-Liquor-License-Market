@@ -173,3 +173,8 @@
 .fllm-buyer-match-page .fllm-match-panel:last-child>header .symbol{
   transform:translateX(13px)!important;
 }
+
+/* Compact franchise selector — only on the dedicated Buyer Match page. */
+.fllm-buyer-match-page .fllm-match-franchise-horizontal{display:flex!important;flex-direction:row!important;align-items:center!important;gap:clamp(12px,2vw,25px)!important;flex-wrap:wrap!important;margin-bottom:6px!important}
+.fllm-buyer-match-page .fllm-match-franchise-horizontal label{display:inline-flex!important;align-items:center!important;white-space:nowrap!important;width:auto!important;gap:7px!important}
+.fllm-buyer-match-page .fllm-match-franchise-note{font-size:11px!important;line-height:1.35!important;margin:4px 0 7px!important;color:#b7cede!important}
