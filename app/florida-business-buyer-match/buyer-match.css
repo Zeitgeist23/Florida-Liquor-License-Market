@@ -152,3 +152,15 @@
 .fllm-buyer-match-page .fllm-match-panel>header .symbol{
   flex-shrink:0!important;
 }
+
+/* Final four-panel header refinement: tighter icon grouping and 80px height. */
+.fllm-buyer-match-page .fllm-match-panel>header{
+  min-height:80px!important;
+  height:80px!important;
+  gap:5px!important;
+}
+.fllm-buyer-match-page .fllm-match-panel>header .symbol{
+  width:31px!important;
+  font-size:30px!important;
+  margin:0!important;
+}
