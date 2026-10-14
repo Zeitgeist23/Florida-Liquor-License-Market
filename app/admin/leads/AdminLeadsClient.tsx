@@ -45,7 +45,7 @@ function normalizedSourceUrl(raw?: string): string {
   if (!raw) return "";
   try {
     const url = new URL(raw);
-    return url.origin.toLowerCase() + url.pathname.replace(/\\/+$/, "").toLowerCase();
+    return url.origin.toLowerCase() + url.pathname.replace(/\/+$/, "").toLowerCase();
   } catch { return ""; }
 }
 function genericSourceUrl(raw?: string): boolean {
@@ -53,10 +53,10 @@ function genericSourceUrl(raw?: string): boolean {
   try {
     const url = new URL(raw);
     const path = url.pathname.toLowerCase();
-    if (/bizbuysell\\.com$/.test(url.hostname) && path.startsWith("/florida/")) return true;
-    if (/bizquest\\.com$/.test(url.hostname) && (path === "/" || path.startsWith("/florida/"))) return true;
+    if (/bizbuysell\.com$/.test(url.hostname) && path.startsWith("/florida/")) return true;
+    if (/bizquest\.com$/.test(url.hostname) && (path === "/" || path.startsWith("/florida/"))) return true;
     // County/type pages are discovery directories, not evidence of an individual offering.
-    if (/liquorlicense(auctioneers)?\\.com$/.test(url.hostname) && /\\/counties\\/[^/]+\\/types\\//.test(path)) return true;
+    if (/liquorlicense(auctioneers)?\.com$/.test(url.hostname) && /\/counties\/[^/]+\/types\//.test(path)) return true;
     return path === "/" || path === "";
   } catch { return false; }
 }
