@@ -77,3 +77,8 @@
   letter-spacing:.12em!important;
   margin-bottom:16px!important;
 }
+
+/* One actionable search metric, without unsupported placeholder statistics. */
+.fllm-buyer-match-page .fllm-match-metrics{display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%!important}
+.fllm-buyer-match-page .fllm-match-metrics>.green{min-height:66px!important}
+.fllm-buyer-match-page .fllm-match-right{width:100%!important}
