@@ -49,11 +49,30 @@ export default function FloridaBusinessBuyerMatchPage() {
     <section className="fllm-buyer-match-hero">
       <div className="fllm-buyer-match-shell">
         <nav aria-label="Breadcrumb"><Link href="/">Home</Link><span>›</span><Link href="/businesses-with-quota-licenses">Business Market</Link><span>›</span>Buyer Match</nav>
-        <p className="fllm-buyer-match-kicker">FLORIDA LIQUOR LICENSE MARKET · BUYER INTELLIGENCE</p>
-        <h1>Find Florida Businesses for Sale <em>With Liquor Licenses</em></h1>
-        <p className="fllm-buyer-match-intro">Search Florida restaurants, bars, nightclubs, liquor stores and other hospitality opportunities using the FLLM Advanced Business Buyer Match Dashboard. Compare business categories, counties, license classes, advertised prices, disclosed financials and financing preferences without confusing independent Market Views with authorized broker listings.</p>
-        <div className="fllm-buyer-match-facts"><span><strong>{published.length}</strong> Published market records</span><span><strong>{counties}</strong> Counties represented</span><span><strong>4COP · 3PS · SFS/SRX · 2COP</strong> License filters</span></div>
-        <a className="fllm-buyer-match-jump" href="#advanced-buyer-match">Start Buyer Search ↓</a>
+        <p className="fllm-buyer-match-kicker">FLLM ADVANCED BUSINESS BUYER SEARCH</p>
+        <h1>Find Florida Businesses <em>With Liquor Licenses</em></h1>
+        <div className="fllm-buyer-match-choices" aria-label="Businesses and liquor license categories">
+          <div className="fllm-buyer-match-choice-row"><strong>BUSINESSES</strong><div className="fllm-buyer-match-pills">
+            <span className="business-market-category-badge business-market-category-badge--restaurant">Restaurants</span>
+            <span className="business-market-category-badge business-market-category-badge--bar">Bars &amp; Taverns</span>
+            <span className="business-market-category-badge business-market-category-badge--cocktail-lounge">Cocktail Lounges</span>
+            <span className="business-market-category-badge business-market-category-badge--nightclub">Nightclubs</span>
+            <span className="business-market-category-badge business-market-category-badge--liquor-store">Liquor Stores</span>
+            <span className="business-market-category-badge business-market-category-badge--gentlemen-s-club">Gentlemen's Clubs</span>
+            <span className="business-market-category-badge business-market-category-badge--marina">Marinas</span>
+            <span className="business-market-category-badge business-market-category-badge--hotel-motel">Hotels &amp; More</span>
+          </div></div>
+          <div className="fllm-buyer-match-choice-row"><strong>LICENSE TYPES</strong><div className="fllm-buyer-match-pills fllm-buyer-match-license-pills">
+            <span className="fllm-match-license-pill fllm-match-license-pill--quota">4COP Quota</span>
+            <span className="fllm-match-license-pill fllm-match-license-pill--quota">3PS Quota</span>
+            <span className="fllm-match-license-pill">4COP SFS / SRX</span>
+            <span className="fllm-match-license-pill">2COP Beer &amp; Wine</span>
+          </div></div>
+        </div>
+        <div className="fllm-buyer-match-bottom">
+          <div className="fllm-buyer-match-facts"><span><strong>{published.length}</strong> Published market records</span><span><strong>{counties}</strong> Counties represented</span></div>
+          <a className="fllm-buyer-match-jump" href="#advanced-buyer-match">Start Buyer Search ↓</a>
+        </div>
       </div>
     </section>
     <section id="advanced-buyer-match" className="fllm-buyer-match-dashboard fllm-buyer-match-shell" aria-label="Advanced business buyer matching dashboard">
