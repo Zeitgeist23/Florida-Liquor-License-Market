@@ -28,6 +28,10 @@ type Details = {
 const DESTINATION = "listings@floridaliquorlicensemarket.com";
 const MAX_RETRIES = 3;
 const MAX_PER_RUN = 30;
+const SUPPRESSED_EMAILS = new Set(["tindesanctis1@gmail.com"]);
+const CLOSED_STATUSES = new Set(["completed", "complete", "handled", "contacted", "resolved", "closed", "do not contact", "do_not_contact", "opted out", "opted_out", "referred", "duplicate", "no follow-up"]);
+function normalizedEmail(email: string) { return email.trim().toLowerCase(); }
+
 
 function headers(extra: Record<string, string> = {}) {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
@@ -68,14 +72,26 @@ export async function GET(request: Request) {
     const response = await fetch(url, { headers: headers(), cache: "no-store" });
     if (!response.ok) throw new Error(`Could not load buyer leads: ${response.status}`);
     const rows = (await response.json()) as LeadRow[];
-    const actionable = rows.filter(row => {
+    // Retry explicitly failed original notifications only. Missing legacy audit data
+    // is not proof of failed delivery and must not trigger bulk re-emailing.
+    const candidates = rows.filter(row => {
       const d = parse(row.message);
       if (d.kind !== "buyer_inquiry") return false;
-      if (row.email.trim().toLowerCase() === "jwigg023@gmail.com") return false;
+      const email = normalizedEmail(row.email);
+      if (!email || email === "jwigg023@gmail.com" || SUPPRESSED_EMAILS.has(email)) return false;
+      if (CLOSED_STATUSES.has(String(d.followUp?.status || "").trim().toLowerCase())) return false;
       if (d.notification?.status === "provider_accepted" || d.reconciliation?.status === "provider_accepted") return false;
       if ((d.reconciliation?.attempts || 0) >= MAX_RETRIES) return false;
-      // Only retry if genuinely unrecorded or failed; do not resend accepted mail.
-      return !d.notification?.status || d.notification.status === "failed";
+      return d.notification?.status === "failed" || d.reconciliation?.status === "failed";
+    });
+    // Preserve both submissions in storage, but send only one notice per buyer
+    // and listing per run.
+    const seen = new Set<string>();
+    const actionable = candidates.filter(row => {
+      const key = normalizedEmail(row.email) + "|" + (row.live_listing_ref || row.listing_title || row.county).trim().toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
     }).slice(0, MAX_PER_RUN);
     let accepted = 0, failed = 0;
     for (const row of actionable) {
