@@ -655,7 +655,7 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
                           <td>{(() => {
                             const audit = sourceAudit(listing, sourceCounts);
                             const status = saved?.verification_status;
-                            const label = status === "verified_active" ? "Verified active — " + new Date(saved.verified_at||"").toLocaleDateString() :
+                            const label = status === "verified_active" ? "Verified active — " + new Date(saved?.verified_at || "").toLocaleDateString() :
                               status === "source_unavailable" ? "Source unavailable" :
                               status === "generic_source" ? "Generic source — review required" :
                               status === "duplicate_source" ? "Potential duplicate — reconcile" :
