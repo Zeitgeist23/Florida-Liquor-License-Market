@@ -93,8 +93,8 @@ export default function MarketBuyerLeadForm({
   const [currentMatches, setCurrentMatches] = useState(0);
   const [submittedEmail, setSubmittedEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [selectedBusinessTypes, setSelectedBusinessTypes] = useState<string[]>([initialBusinessType]);
-  const [selectedLicenseTypes, setSelectedLicenseTypes] = useState<string[]>([initialLicenseType]);
+  const [selectedBusinessTypes, setSelectedBusinessTypes] = useState<string[]>(dashboardOnly ? [] : [initialBusinessType]);
+  const [selectedLicenseTypes, setSelectedLicenseTypes] = useState<string[]>(dashboardOnly ? [] : [initialLicenseType]);
   const [selectedCounties, setSelectedCounties] = useState<string[]>([county]);
   const [countyToAdd, setCountyToAdd] = useState("");
   const [countyMenuOpen, setCountyMenuOpen] = useState(false);
