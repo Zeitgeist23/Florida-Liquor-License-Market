@@ -23,7 +23,11 @@ export async function GET() {
     const rate=(await response.json() as Array<{observation_date:string;annual_rate:number|string}>)[0];
     const ageDays=rate?Math.floor((Date.now()-Date.parse(rate.observation_date+"T00:00:00Z"))/86400000):null;
     const syntheticMatch=matches.some(x=>x.listing.listingReference===target.listingReference);
-    return NextResponse.json({ok:syntheticMatch && ageDays!==null && ageDays>=0 && ageDays<=14,syntheticMatch,rateCacheAvailable:!!rate,rateObservationAgeDays:ageDays,emailsSent:0,recordsCreated:0},{headers:{"Cache-Control":"no-store"}});
+    const pendingFirstRun=matches.filter(x=>!sample.notified_listing_refs.includes(x.listing.listingReference));
+    const alreadyNotified={...sample,notified_listing_refs:pendingFirstRun.map(x=>x.listing.listingReference)};
+    const pendingSecondRun=matches.filter(x=>!alreadyNotified.notified_listing_refs.includes(x.listing.listingReference));
+    const duplicatePreventionPass=pendingFirstRun.length>0&&pendingSecondRun.length===0;
+    return NextResponse.json({ok:syntheticMatch && duplicatePreventionPass && ageDays!==null && ageDays>=0 && ageDays<=14,syntheticMatch,duplicatePreventionPass,firstRunPending:pendingFirstRun.length,secondRunPending:pendingSecondRun.length,rateCacheAvailable:!!rate,rateObservationAgeDays:ageDays,emailsSent:0,recordsCreated:0},{headers:{"Cache-Control":"no-store"}});
   } catch (error) {
     console.error("Buyer matching synthetic smoke check failed",error);
     return NextResponse.json({ok:false,syntheticMatch:false,emailsSent:0,recordsCreated:0},{status:503,headers:{"Cache-Control":"no-store"}});
