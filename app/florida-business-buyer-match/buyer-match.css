@@ -311,3 +311,20 @@
   box-shadow:0 0 0 1px var(--license-neon),0 0 12px var(--license-neon),inset 0 0 8px color-mix(in srgb,var(--license-neon) 22%,transparent)!important;
   z-index:2!important;
 }
+
+/* Matches counter: neon cyan search-data styling, not green success styling. */
+.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-metrics>.green{
+  background:#052a42!important;
+  border-color:#00cfff!important;
+  box-shadow:0 0 10px rgba(0,207,255,.24)!important;
+}
+.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-inline-label{
+  color:#fff!important;
+}
+.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-metrics .green strong{
+  color:#00cfff!important;
+  border-left-color:#158eb4!important;
+}
+.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-inline-status{
+  color:#e6f5ff!important;
+}
