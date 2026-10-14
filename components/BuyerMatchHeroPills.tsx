@@ -25,8 +25,8 @@ type Toggle = { kind: "business" | "license"; value: string };
 
 export default function BuyerMatchHeroPills() {
   const [selected, setSelected] = useState<State>({
-    businessTypes: ["Restaurant"],
-    licenseTypes: ["4COP Quota"],
+    businessTypes: [],
+    licenseTypes: [],
   });
   useEffect(() => {
     const sync = (event: Event) => {
