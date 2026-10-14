@@ -143,6 +143,7 @@ export async function POST(request: Request) {
     const cashAvailable=amount(body.availableCash);
     const ownershipRequired=extra.includes("Transferable license required");
     const standaloneOnly=extra.includes("Standalone license only");
+    const businessPackageOnly=extra.includes("License with business package");
     const franchiseFilter=body.franchise==="Yes"?true:body.franchise==="No"?false:null;
     const franchiseMatch=(x:(typeof businessQuotaListingRecords)[number])=>franchiseFilter===null||terms(x)?.verified_attributes?.["Franchise"]===franchiseFilter;
     const attributeFilters=extra.filter(v=>["Waterfront / Beachfront","Absentee owner preferred","Turnkey operation","Established business only","Franchise","Outdoor seating"].includes(v));
@@ -168,6 +169,7 @@ export async function POST(request: Request) {
       && !(propertyDatabaseAvailable && terms(x)?.duplicate_of)
       && leaseMatch(x)!=="fail"
       && !standaloneOnly
+      && (!businessPackageOnly || x.classification.startsWith("business"))
       && franchiseMatch(x)
       && (!ownershipRequired || x.licenseClass==="quota")
       && !attributesFail(x)
