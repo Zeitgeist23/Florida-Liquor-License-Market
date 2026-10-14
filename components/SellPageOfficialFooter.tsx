@@ -27,6 +27,7 @@ const officialFooterPaths = new Set([
   "/restaurants-with-liquor-licenses",
   "/florida-liquor-license-market-platform",
   "/florida-business-buyer-match",
+  "/list-your-business",
   "/are-florida-quota-liquor-licenses-worth-it",
   "/florida-liquor-license-value-expert-witness",
   "/florida-liquor-license-sba-appraisal",
