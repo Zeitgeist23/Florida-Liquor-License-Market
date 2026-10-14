@@ -139,6 +139,35 @@ export default function MarketBuyerLeadForm({
   const [searchError, setSearchError] = useState("");
   const [searchResults, setSearchResults] = useState<{total:number;potentialCount?:number;inventoryMode?:"standalone";diagnostics?:{leaseCriteriaUnverified?:number;eligibleBeforeEarnings:number;missingRevenue?:number;missingEarnings:number;belowRevenueMinimum?:number;belowEarningsMinimum:number};sbaModel?:{prime:number;primeAsOf:string;rateSourceStatus:"current"|"stale"|"fallback";rateBasis:string;source:string;rateSensitivityPlusMinus:number;maximumVariableRateOver350k:number};results:{reference:string;county:string;businessType:string;licenseType:string;price:string;href:string;source:string;matchStatus?:string;financialNote?:string;grossRevenue?:number|null;sdeCashFlow?:number|null;ebitda?:number|null;estimatedLicenseValue?:number|null;licenseValueBasis?:string;sbaStatus?:string;sbaModeledDscr?:number|null;sbaEarningsBasis?:string|null;sbaNote?:string|null;sbaModeledInterestRate?:number|null;franchiseStatus?:"Yes"|"No"|"Unknown";cashMatchStatus?:string;estimatedBuyerLiquidityRequired?:number|null;businessAttributeStatus?:string}[]} | null>(null);
 
+  // Hero pill toggles and dashboard checkboxes use the same React filter state.
+  useEffect(() => {
+    if (!dashboardOnly) return;
+    const onToggle = (event: Event) => {
+      const detail = (event as CustomEvent<{ kind?: string; value?: string }>).detail;
+      if (!detail || typeof detail.value !== "string") return;
+      const toggle = (current: string[]) => current.includes(detail.value!)
+        ? current.filter(item => item !== detail.value)
+        : [...current, detail.value!];
+      if (detail.kind === "business") setSelectedBusinessTypes(toggle);
+      else if (detail.kind === "license") setSelectedLicenseTypes(toggle);
+      else return;
+      searchSequence.current += 1;
+      searchController.current?.abort();
+      setSearching(false);
+      setSearchResults(null);
+      setSearchError("");
+    };
+    window.addEventListener("fllm:buyer-filter-toggle", onToggle);
+    return () => window.removeEventListener("fllm:buyer-filter-toggle", onToggle);
+  }, [dashboardOnly]);
+
+  useEffect(() => {
+    if (!dashboardOnly) return;
+    window.dispatchEvent(new CustomEvent("fllm:buyer-filter-state", {
+      detail: { businessTypes: selectedBusinessTypes, licenseTypes: selectedLicenseTypes }
+    }));
+  }, [dashboardOnly, selectedBusinessTypes, selectedLicenseTypes]);
+
   const formatResultMoney = (value?: number|null) => typeof value==="number"&&Number.isFinite(value) ? "$"+value.toLocaleString("en-US",{maximumFractionDigits:0}) : "—";
   const sortedResults = useMemo(() => [...(searchResults?.results ?? [])].sort((a,b) => {
     const priceNumber = (value: string) => Number(value.replace(/[^\d.]/g, "")) || 0;
