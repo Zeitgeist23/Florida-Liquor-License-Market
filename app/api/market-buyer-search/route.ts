@@ -178,7 +178,12 @@ export async function POST(request: Request) {
         const down=terms(x)?.seller_down_payment;
         return down===null||down===undefined?"unknown":cashAvailable>=Number(down)?"match":"fail";
       }
-      if(wantsSba)return cashAvailable>=x.packagePriceNumber*0.1?"potential":"fail";
+      if(wantsSba){
+        // Indicative buyer liquidity: 10% acquisition equity + 5% price allowance for transaction costs
+        // + three months of disclosed rent for working-capital cushion. Not lender underwriting.
+        const required=x.packagePriceNumber*0.15+(monthlyRentValue(x)??0)*3;
+        return cashAvailable>=required?"potential":"fail";
+      }
       if(selected(body.financingPreferences).includes("Cash Purchase"))return cashAvailable>=x.packagePriceNumber?"match":"fail";
       return "unknown";
     };
@@ -251,6 +256,7 @@ export async function POST(request: Request) {
       sdeCashFlow:financialByRef.get(x.listingReference)?.sde??null,
       ebitda:financialByRef.get(x.listingReference)?.ebitda??null,
       franchiseStatus:terms(x)?.verified_attributes?.["Franchise"]===true?"Yes":terms(x)?.verified_attributes?.["Franchise"]===false?"No":"Unknown",
+      estimatedBuyerLiquidityRequired: selected(body.financingPreferences).some(v=>v==="SBA 7(a) Eligible"||v==="SBA")?Math.round(x.packagePriceNumber*.15+(monthlyRentValue(x)??0)*3):null,
       cashMatchStatus:cashStatus(x),
       businessAttributeStatus:attributesUnknown(x)?"unverified":"verified",
       sbaStatus:sbaByRef.get(x.listingReference)?.status??"unverified",
