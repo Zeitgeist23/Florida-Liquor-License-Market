@@ -113,7 +113,7 @@ export default function MarketBuyerLeadForm({
     const panel = buyerContactRef.current;
     if (!panel) return;
     const scrollHost = panel.closest(".business-market-alert-modal");
-    if (scrollHost) {
+    if (scrollHost && !dashboardOnly) {
       scrollHost.scrollTo({top: panel.getBoundingClientRect().top - scrollHost.getBoundingClientRect().top + scrollHost.scrollTop - 18, behavior:"smooth"});
     } else panel.scrollIntoView({behavior:"smooth",block:"start"});
     buyerNameRef.current?.focus({preventScroll:true});
@@ -271,7 +271,7 @@ export default function MarketBuyerLeadForm({
   function addCounty() {
     if (countyToAdd === "__ALL__") { setSelectedCounties([...counties]); setCountyToAdd(""); return; }
     if (!countyToAdd || selectedCounties.includes(countyToAdd)) return;
-    setSelectedCounties((current) => [...current, countyToAdd]);
+    setSelectedCounties((current) => [...current.filter(item => item !== "Florida"), countyToAdd]);
     setCountyToAdd("");
   }
 
