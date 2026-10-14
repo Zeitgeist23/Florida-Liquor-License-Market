@@ -215,10 +215,11 @@
 .fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-actions button{min-height:47px!important}
 @media(max-width:1080px){.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-right{flex-wrap:wrap!important}.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-metrics>.green{min-width:220px!important}}
 
-/* Buyer Match header only: widen List Your Business CTA by 12%. */
+/* Fit the business listing CTA inside the official header without clipping. */
 .fllm-buyer-match-page .fllm-buyer-match-official-header .fllm-header-list-cta{
-  width:112%!important;
-  min-width:112%!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
   box-sizing:border-box!important;
   white-space:nowrap!important;
 }
