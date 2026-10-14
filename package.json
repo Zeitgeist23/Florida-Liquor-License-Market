@@ -7,11 +7,12 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "npm run check:fllm-design && node scripts/sync-featured-financials.mjs && node scripts/check-buyer-match-antezza.mjs && next build",
+    "build": "npm run check:fllm-design && npm run check:match-desk && node scripts/sync-featured-financials.mjs && node scripts/check-buyer-match-antezza.mjs && next build",
     "start": "next start",
     "lint": "eslint .",
     "check:fllm-design": "node scripts/check-fllm-design-system.mjs",
-    "archive:market-data": "node scripts/archive-market-intelligence.mjs"
+    "archive:market-data": "node scripts/archive-market-intelligence.mjs",
+    "check:match-desk": "node scripts/check-match-desk-verification.mjs"
   },
   "dependencies": {
     "next": "15.5.21",
