@@ -21,6 +21,28 @@ export async function POST(request: Request) {
     const amount=(value:unknown)=>{if(!value)return null;const n=Number(String(value).replace(/[^\d.]/g,""));return Number.isFinite(n)&&n>0?n:null;};
     const maxPrice=amount(body.maxPurchasePrice),minRevenue=amount(body.minGrossRevenue),minSde=amount(body.minSde),minEbitda=amount(body.minEbitda);
     const earningsMinimum = Math.max(minSde ?? 0, minEbitda ?? 0);
+
+    // Standalone quota licenses are a separate, real inventory, not operating-business packages.
+    if(selected(body.extraCriteria).includes("Standalone license only")){
+      const cash=amount(body.availableCash);
+      const listings=getVisibleAvailableMarketplaceListings(await getMarketplaceListings())
+        .filter(x=>(licenses.length===0||licenses.includes(x.type))
+          && (counties.length===0||counties.includes(x.county))
+          && (maxPrice===null||(typeof x.price==="number"&&x.price<=maxPrice))
+          && (cash===null||typeof x.price==="number"&&x.price<=cash));
+      const results=listings.slice(0,30).map(x=>({
+        reference:x.sourceRef||"",county:x.county,businessType:"Standalone License",
+        licenseType:x.type,price:x.priceLabel,href:"/florida-liquor-licenses-for-sale",
+        source:"Standalone Quota License Inventory",matchStatus:"verified",
+        grossRevenue:null,sdeCashFlow:null,ebitda:null,estimatedLicenseValue:null,
+        licenseValueBasis:"unavailable",franchiseStatus:"Unknown" as const,sbaStatus:"unverified",
+        financialNote:"Standalone license, not an operating business; business financial and franchise criteria do not apply"
+      }));
+      return NextResponse.json({total:listings.length,potentialCount:0,shown:results.length,
+        diagnostics:{eligibleBeforeEarnings:listings.length,missingRevenue:0,missingEarnings:0,belowEarningsMinimum:0,leaseCriteriaUnverified:0},
+        results,inventoryMode:"standalone",sbaModel:null},{headers:{"Cache-Control":"no-store"}});
+    }
+
     type PropertyTerms = {
       listing_reference: string;
       property_status: "included" | "available_separately" | "lease_only" | null;
