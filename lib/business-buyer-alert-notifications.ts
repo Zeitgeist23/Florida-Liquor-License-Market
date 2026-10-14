@@ -118,8 +118,10 @@ export function businessListingMatchesAlert(
   if (!alert.counties.includes(listing.county)) return false;
   if (alert.max_purchase_price !== null && listing.packagePriceNumber > alert.max_purchase_price) return false;
   if (!minimumMatches(alert.min_gross_revenue, listing.grossRevenueNumber)) return false;
-  if (!minimumMatches(alert.min_sde, listing.sdeNumber)) return false;
-  if (!minimumMatches(alert.min_ebitda, listing.ebitdaNumber)) return false;
+  // Buyer dashboard treats SDE / cash flow and EBITDA as alternative earnings observations.
+  // If both thresholds are provided, the higher minimum applies to either disclosed measure.
+  const earningsMinimum = Math.max(alert.min_sde ?? 0, alert.min_ebitda ?? 0);
+  if (earningsMinimum > 0 && ![listing.sdeNumber, listing.ebitdaNumber].some(value => typeof value === "number" && Number.isFinite(value) && value >= earningsMinimum)) return false;
   return true;
 }
 
