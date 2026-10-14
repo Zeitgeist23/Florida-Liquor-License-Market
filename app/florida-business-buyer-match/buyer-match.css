@@ -61,3 +61,11 @@
 /* Final dashboard-to-footer spacing; leave sitewide footer styling unchanged. */
 .fllm-buyer-match-page .fllm-buyer-match-dashboard{padding-bottom:60px!important}
 .fllm-buyer-match-page .business-market-alert-modal--inline{padding-bottom:22px!important}
+
+/* Rebalance hero rhythm without restoring the oversized introductory block. */
+.fllm-buyer-match-page .fllm-buyer-match-hero{padding-top:25px!important;padding-bottom:27px!important}
+.fllm-buyer-match-page .fllm-buyer-match-kicker{margin-bottom:12px!important}
+.fllm-buyer-match-page .fllm-buyer-match-hero h1{margin-top:8px!important;margin-bottom:23px!important;line-height:1.18!important}
+.fllm-buyer-match-page .fllm-buyer-match-choices{gap:16px!important}
+.fllm-buyer-match-page .fllm-buyer-match-choice-row{row-gap:10px!important}
+.fllm-buyer-match-page .fllm-buyer-match-bottom{margin-top:18px!important}
