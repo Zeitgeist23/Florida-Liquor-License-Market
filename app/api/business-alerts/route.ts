@@ -155,16 +155,23 @@ export async function POST(request: Request) {
     });
 
     let currentMatches = 0;
+    let confirmationSent = false;
+    let adminNotified = false;
     try {
-      currentMatches = (await activateBusinessBuyerAlert(alert)).currentMatches;
+      const notification = await activateBusinessBuyerAlert(alert);
+      currentMatches = notification.currentMatches;
+      confirmationSent = notification.confirmationSent;
+      adminNotified = notification.adminNotified;
     } catch (emailError) {
-      console.error("Business buyer alert activation email failed", emailError);
+      console.error("Business buyer alert notification process failed; saved lead retained", emailError);
     }
 
     return NextResponse.json({
       ok: true,
       leadReference: alert.submission_ref,
       currentMatches,
+      confirmationSent,
+      adminNotified,
     });
   } catch (error) {
     console.error("Business buyer alert signup failed", error);
