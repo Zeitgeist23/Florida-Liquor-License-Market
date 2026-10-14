@@ -202,3 +202,15 @@
 .fllm-buyer-match-page .fllm-license-search-notes{margin-top:17px!important}
 .fllm-buyer-match-page .fllm-license-search-notes>strong{display:block!important;text-align:center!important;color:#46dbfb!important;margin-bottom:6px!important}
 .fllm-buyer-match-page .fllm-license-search-notes ul,.fllm-buyer-match-page .fllm-license-search-notes li{text-align:left!important}
+
+/* Buyer dashboard bottom action row: horizontal status and aligned CTA controls. */
+.fllm-buyer-match-page .fllm-match-bottom-actions{padding:14px 12px 8px!important}
+.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-right{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;gap:clamp(10px,1.5vw,24px)!important}
+.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-metrics{display:flex!important;flex:0 1 auto!important;width:auto!important;min-width:0!important}
+.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-metrics>.green{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;gap:12px!important;min-height:47px!important;min-width:270px!important;padding:8px 16px!important;border-radius:8px!important;background:#003d38!important;border:1px solid #00bf89!important}
+.fllm-buyer-match-page .fllm-match-inline-label{font-size:15px!important;font-weight:800!important;color:#e0fff4!important;white-space:nowrap!important}
+.fllm-buyer-match-page .fllm-match-metrics .green strong{font-size:22px!important;color:#42f0bc!important;line-height:1!important;border-left:1px solid #1aa588;padding-left:12px}
+.fllm-buyer-match-page .fllm-match-inline-status{font-size:12px!important;color:#b4d9d1!important;white-space:nowrap!important}
+.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-actions{margin:0!important;justify-content:center!important;flex-wrap:wrap!important;gap:8px!important}
+.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-actions button{min-height:47px!important}
+@media(max-width:1080px){.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-right{flex-wrap:wrap!important}.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-metrics>.green{min-width:220px!important}}
