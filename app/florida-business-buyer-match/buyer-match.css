@@ -20,7 +20,7 @@
 
 /* Business category pills are navigation links, not decorative chips. */
 .fllm-buyer-match-pills a.business-market-category-badge{text-decoration:none!important;cursor:pointer;transition:transform .15s ease,filter .15s ease}
-.fllm-buyer-match-pills a.business-market-category-badge:hover,.fllm-buyer-match-pills a.business-market-category-badge:focus-visible{transform:translateY(-2px);filter:brightness(1.16);outline:2px solid #f4bf53;outline-offset:2px}
+.fllm-buyer-match-pills a.business-market-category-badge:hover,.fllm-buyer-match-pills a.business-market-category-badge:focus-visible{transform:scale(1.055);filter:brightness(1.15);outline:none!important;border-color:var(--market-category-color)!important;box-shadow:0 0 0 1px var(--market-category-color),0 0 10px var(--market-category-color),0 0 19px var(--market-category-surface)!important}
 .fllm-buyer-match-dashboard{scroll-margin-top:85px}
 
 /* Match the approved /listings header band, not a page-specific header variant. */
@@ -187,3 +187,8 @@
 .fllm-buyer-match-page .fllm-license-search-notes li>span:first-child{color:#5be1bc;flex:0 0 13px;font-weight:800}
 .fllm-buyer-match-page .fllm-license-search-notes li:last-child>span:first-child{color:#65dafa}
 .fllm-buyer-match-page .fllm-license-search-notes li b{color:#eff7fc}
+
+/* Color-matched neon hover for business category navigation pills. */
+.fllm-buyer-match-page .fllm-buyer-match-pills a.business-market-category-badge{transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important;transform-origin:center;position:relative;z-index:1}
+.fllm-buyer-match-page .fllm-buyer-match-pills a.business-market-category-badge:is(:hover,:focus-visible){transform:scale(1.055)!important;outline:none!important;border-color:var(--market-category-color)!important;box-shadow:0 0 0 1px var(--market-category-color),0 0 10px var(--market-category-color),0 0 19px var(--market-category-surface)!important;z-index:2}
+@media(prefers-reduced-motion:reduce){.fllm-buyer-match-page .fllm-buyer-match-pills a.business-market-category-badge{transition:none!important}}
