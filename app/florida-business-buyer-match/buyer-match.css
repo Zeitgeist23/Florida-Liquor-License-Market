@@ -17,3 +17,8 @@
 .fllm-buyer-match-bottom .fllm-buyer-match-facts strong{font-size:17px!important}
 .fllm-buyer-match-bottom .fllm-buyer-match-jump{margin:0!important;padding:11px 17px!important;font-size:15px}
 @media(max-width:750px){.fllm-buyer-match-choice-row{flex-direction:column;gap:5px}.fllm-buyer-match-choice-row>strong{text-align:center}.fllm-buyer-match-bottom .fllm-buyer-match-facts span{width:auto}.fllm-buyer-match-hero h1{margin-bottom:12px!important}}
+
+/* Business category pills are navigation links, not decorative chips. */
+.fllm-buyer-match-pills a.business-market-category-badge{text-decoration:none!important;cursor:pointer;transition:transform .15s ease,filter .15s ease}
+.fllm-buyer-match-pills a.business-market-category-badge:hover,.fllm-buyer-match-pills a.business-market-category-badge:focus-visible{transform:translateY(-2px);filter:brightness(1.16);outline:2px solid #f4bf53;outline-offset:2px}
+.fllm-buyer-match-dashboard{scroll-margin-top:85px}
