@@ -122,7 +122,18 @@ export default function FormsSiteHeader({
               </a>
             </div>
           </div>
-          <a className="btn btn-gold fllm-header-list-cta" href={effectivePrimaryActionHref}>{effectivePrimaryActionLabel}</a>
+          {effectivePrimaryActionLabel === "List a Business" ? (
+            <div className="fllm-business-list-menu-wrap">
+              <a className="btn btn-gold fllm-header-list-cta" href={effectivePrimaryActionHref} aria-haspopup="true">List a Business</a>
+              <nav className="fllm-business-list-menu" aria-label="Business listing options">
+                <a href="/list-your-business">List Your Business</a>
+                <a href="/brokers/list-your-license">Broker Business Listing</a>
+                <a href="/brokers/list-your-license#featured-listing-option">Featured Business Listing</a>
+              </nav>
+            </div>
+          ) : (
+            <a className="btn btn-gold fllm-header-list-cta" href={effectivePrimaryActionHref}>{effectivePrimaryActionLabel}</a>
+          )}
         </div>
       </header>
       <BusinessPackageLegendCountyListEnhancer routeKey={pathname} />
