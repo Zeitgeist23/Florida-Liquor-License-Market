@@ -178,3 +178,12 @@
 .fllm-buyer-match-page .fllm-match-franchise-horizontal{display:flex!important;flex-direction:row!important;align-items:center!important;gap:clamp(12px,2vw,25px)!important;flex-wrap:wrap!important;margin-bottom:6px!important}
 .fllm-buyer-match-page .fllm-match-franchise-horizontal label{display:inline-flex!important;align-items:center!important;white-space:nowrap!important;width:auto!important;gap:7px!important}
 .fllm-buyer-match-page .fllm-match-franchise-note{font-size:11px!important;line-height:1.35!important;margin:4px 0 7px!important;color:#b7cede!important}
+
+/* Compact license guidance; no additional divider or disclosure-style card. */
+.fllm-buyer-match-page .fllm-license-search-notes{margin-top:13px;padding:10px 11px;background:rgba(6,67,99,.32);border:1px solid rgba(19,144,188,.42);border-radius:7px}
+.fllm-buyer-match-page .fllm-license-search-notes>strong{display:block;margin-bottom:7px;color:#46dbfb;font-size:12px;font-weight:800}
+.fllm-buyer-match-page .fllm-license-search-notes ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.fllm-buyer-match-page .fllm-license-search-notes li{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.4;color:#d6e6f1}
+.fllm-buyer-match-page .fllm-license-search-notes li>span:first-child{color:#5be1bc;flex:0 0 13px;font-weight:800}
+.fllm-buyer-match-page .fllm-license-search-notes li:last-child>span:first-child{color:#65dafa}
+.fllm-buyer-match-page .fllm-license-search-notes li b{color:#eff7fc}
