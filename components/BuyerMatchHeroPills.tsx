@@ -40,7 +40,6 @@ export default function BuyerMatchHeroPills() {
   }, []);
   const toggle = (kind: Toggle["kind"], value: string) => {
     window.dispatchEvent(new CustomEvent<Toggle>("fllm:buyer-filter-toggle", { detail: { kind, value } }));
-    document.getElementById("advanced-buyer-match")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   return <div className="fllm-buyer-match-choices" aria-label="Business and liquor license filters">
     <div className="fllm-buyer-match-choice-row"><div className="fllm-buyer-match-pills">
