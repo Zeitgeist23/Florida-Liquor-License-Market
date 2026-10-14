@@ -113,7 +113,7 @@ export function businessListingMatchesAlert(
   alert: BusinessBuyerAlert,
   listing: BusinessQuotaListing,
 ) {
-  if (!alert.business_types.includes(listing.businessCategory)) return false;
+  if (!alert.business_types.includes(listing.businessCategory) && !(alert.business_types.includes("Bar") && listing.businessCategory === "Cocktail Lounge")) return false;
   if (!alert.license_types.includes(listing.licenseType)) return false;
   if (!alert.counties.includes(listing.county)) return false;
   if (alert.max_purchase_price !== null && listing.packagePriceNumber > alert.max_purchase_price) return false;
@@ -126,7 +126,7 @@ export function businessListingMatchesAlert(
 }
 
 function absoluteListingUrl(listing: BusinessQuotaListing) {
-  return `${siteUrl()}${businessMarketRecordHref(listing)}`;
+  return `${siteUrl()}${listing.listingTier === "market" ? businessMarketRecordHref(listing) : listing.href}`;
 }
 
 export async function currentBusinessAlertMatches(alert: BusinessBuyerAlert) {
