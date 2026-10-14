@@ -92,3 +92,19 @@
 .fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-metrics strong{font-size:21px!important}
 .fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:8px}
 @media(max-width:850px){.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-right{flex-direction:column!important}.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-actions{justify-content:center}}
+
+/* Widen only the four-panel buyer dashboard; keep hero and footer widths unchanged. */
+.fllm-buyer-match-page .fllm-buyer-match-dashboard{
+  max-width:1580px!important;
+  width:calc(100% - 32px)!important;
+  box-sizing:border-box!important;
+  padding-left:16px!important;
+  padding-right:16px!important;
+}
+@media(max-width:700px){
+  .fllm-buyer-match-page .fllm-buyer-match-dashboard{
+    width:calc(100% - 16px)!important;
+    padding-left:8px!important;
+    padding-right:8px!important;
+  }
+}
