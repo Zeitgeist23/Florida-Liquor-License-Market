@@ -26,3 +26,7 @@
 /* Match the approved /listings header band, not a page-specific header variant. */
 .fllm-buyer-match-page>.fllm-buyer-match-official-header{position:sticky!important;top:0!important;z-index:1200!important;width:100%!important;border-bottom:1px solid #765613!important;background:linear-gradient(90deg,#010810 0%,#020c14 48%,#061522 100%)!important;box-shadow:0 5px 15px rgba(0,0,0,.22)!important}
 .fllm-buyer-match-page>.fllm-buyer-match-official-header .forms-site-header{margin:0 auto!important}
+
+/* Hero conversion CTA: compact and subordinate to the dashboard. */
+.fllm-buyer-match-bottom{margin-top:9px!important;gap:0!important}
+.fllm-buyer-match-bottom .fllm-buyer-match-jump{padding:8px 16px!important;font-size:13px!important;min-height:34px!important;box-shadow:none!important}
