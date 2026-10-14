@@ -36,6 +36,7 @@ function advancedMatches(alert:BusinessBuyerAlert, listing:BusinessQuotaListing,
   if(alert.franchise==="Yes"&&fact?.verified_attributes?.["Franchise"]!==true)return false;
   if(alert.franchise==="No"&&fact?.verified_attributes?.["Franchise"]!==false)return false;
   if(e.includes("Standalone license only"))return false;
+  if(e.includes("License with business package")&&!listing.classification.startsWith("business"))return false;
   if(e.includes("Transferable license required")&&listing.licenseClass!=="quota")return false;
   if(e.some(x=>["Waterfront / Beachfront","Absentee owner preferred","Turnkey operation","Established business only","Franchise","Outdoor seating"].includes(x)&&fact?.verified_attributes?.[x]!==true))return false;
   const prop=alert.real_estate;
