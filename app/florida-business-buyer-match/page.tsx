@@ -25,11 +25,14 @@ export const metadata: Metadata = {
 };
 
 const categories = [
-  { label: "Restaurants", href: "/restaurants-with-liquor-licenses", text: "Restaurant acquisitions involving 4COP quota, SFS/SRX and 2COP licenses" },
-  { label: "Bars & lounges", href: "/bars-for-sale-with-liquor-licenses", text: "Florida bar and cocktail-lounge market opportunities" },
-  { label: "Nightclubs", href: "/nightclubs-for-sale-with-liquor-licenses", text: "Nightclubs with relevant full-liquor license structures" },
-  { label: "Liquor stores", href: "/businesses-with-quota-licenses/liquor-stores", text: "Package-store businesses and 3PS quota license opportunities" },
-  { label: "Marinas", href: "/businesses-with-quota-licenses/marinas", text: "Marina business packages and associated license types" },
+  { label: "Restaurants", href: "/restaurants-with-liquor-licenses", style: "restaurant" },
+  { label: "Bars & Taverns", href: "/bars-for-sale-with-liquor-licenses", style: "bar" },
+  { label: "Cocktail Lounges", href: "/bars-for-sale-with-liquor-licenses", style: "cocktail-lounge" },
+  { label: "Nightclubs", href: "/nightclubs-for-sale-with-liquor-licenses", style: "nightclub" },
+  { label: "Liquor Stores", href: "/businesses-with-quota-licenses/liquor-stores", style: "liquor-store" },
+  { label: "Gentlemen's Clubs", href: "/gentlemens-clubs-for-sale-with-liquor-licenses", style: "gentlemen-s-club" },
+  { label: "Marinas", href: "/businesses-with-quota-licenses/marinas", style: "marina" },
+  { label: "Hotels & More", href: "/businesses-with-quota-licenses", style: "hotel-motel" },
 ] as const;
 
 export default function FloridaBusinessBuyerMatchPage() {
@@ -53,14 +56,7 @@ export default function FloridaBusinessBuyerMatchPage() {
         <h1>Find Florida Businesses <em>With Liquor Licenses</em></h1>
         <div className="fllm-buyer-match-choices" aria-label="Businesses and liquor license categories">
           <div className="fllm-buyer-match-choice-row"><strong>BUSINESSES</strong><div className="fllm-buyer-match-pills">
-            <span className="business-market-category-badge business-market-category-badge--restaurant">Restaurants</span>
-            <span className="business-market-category-badge business-market-category-badge--bar">Bars &amp; Taverns</span>
-            <span className="business-market-category-badge business-market-category-badge--cocktail-lounge">Cocktail Lounges</span>
-            <span className="business-market-category-badge business-market-category-badge--nightclub">Nightclubs</span>
-            <span className="business-market-category-badge business-market-category-badge--liquor-store">Liquor Stores</span>
-            <span className="business-market-category-badge business-market-category-badge--gentlemen-s-club">Gentlemen's Clubs</span>
-            <span className="business-market-category-badge business-market-category-badge--marina">Marinas</span>
-            <span className="business-market-category-badge business-market-category-badge--hotel-motel">Hotels &amp; More</span>
+            {categories.map(category => <Link key={category.label} href={category.href} className={`business-market-category-badge business-market-category-badge--${category.style}`}>{category.label}</Link>)}
           </div></div>
           <div className="fllm-buyer-match-choice-row"><strong>LICENSE TYPES</strong><div className="fllm-buyer-match-pills fllm-buyer-match-license-pills">
             <span className="fllm-match-license-pill fllm-match-license-pill--quota">4COP Quota</span>
@@ -88,11 +84,6 @@ export default function FloridaBusinessBuyerMatchPage() {
       />
     </section>
     <section className="fllm-buyer-match-info fllm-buyer-match-shell">
-      <h2>Search by Florida Business Category</h2>
-      <p>Browse FLLM's separate market hubs or refine your acquisition criteria in the dashboard. Results are based on currently published records and may include independent market observations and authorized Featured Broker Listings.</p>
-      <div className="fllm-buyer-match-categories">{categories.map(category =>
-        <Link key={category.href} href={category.href}><strong>{category.label}</strong><span>{category.text}</span><b>Explore market →</b></Link>
-      )}</div>
       <h2>How Florida business-and-license matching works</h2>
       <p>Choose a business category and county, then filter by liquor-license type, business-plus-license asking price, disclosed revenue, earnings, potential SBA qualification, seller financing and property or lease preferences. FLLM distinguishes disclosed matches from potential matches when source information is incomplete.</p>
       <p>Save your search to receive alerts for newly published matches. Buyer information stays with FLLM; inquiries are not automatically forwarded to sellers or third-party brokers. Market Views are independent market observations, not seller-authorized FLLM offerings. Availability and deal terms require verification.</p>
