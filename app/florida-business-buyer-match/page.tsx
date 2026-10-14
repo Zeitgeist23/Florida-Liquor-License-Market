@@ -61,9 +61,6 @@ export default function FloridaBusinessBuyerMatchPage() {
             <span className="fllm-match-license-pill">2COP Beer &amp; Wine</span>
           </div></div>
         </div>
-        <div className="fllm-buyer-match-bottom">
-          <a className="fllm-buyer-match-jump" href="#advanced-buyer-match">Start Buyer Search ↓</a>
-        </div>
       </div>
     </section>
     <section id="advanced-buyer-match" className="fllm-buyer-match-dashboard fllm-buyer-match-shell" aria-label="Advanced business buyer matching dashboard">
