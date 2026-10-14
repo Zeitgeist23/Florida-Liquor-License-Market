@@ -375,3 +375,11 @@
 .fllm-buyer-match-page .fllm-business-list-menu a:is(:hover,:focus-visible){
   background:#103d5a;color:#ffd16e;outline:1px solid #bc912d;outline-offset:-1px;
 }
+
+/* Approved official header order: Contact Us first, List a Business second. */
+.fllm-buyer-match-page .fllm-buyer-match-official-header .header-actions .fllm-contact-us-wrap{
+  order:1!important;
+}
+.fllm-buyer-match-page .fllm-buyer-match-official-header .header-actions .fllm-business-list-menu-wrap{
+  order:2!important;
+}
