@@ -66,7 +66,7 @@ function advancedMatches(alert:BusinessBuyerAlert, listing:BusinessQuotaListing,
   if(alert.available_cash!==undefined&&alert.available_cash!==null){
     if(alert.financing_preferences.includes("Cash")&&alert.available_cash<listing.packagePriceNumber)return false;
     if(alert.financing_preferences.includes("Seller Financing")&&(!fact?.seller_down_payment||alert.available_cash<fact.seller_down_payment))return false;
-    if(alert.financing_preferences.includes("SBA")&&alert.available_cash<listing.packagePriceNumber*.10)return false;
+    if(alert.financing_preferences.includes("SBA")&&alert.available_cash<listing.packagePriceNumber*.15+(Number(fact?.monthly_rent)||0)*3)return false;
   }
   return true;
 }
