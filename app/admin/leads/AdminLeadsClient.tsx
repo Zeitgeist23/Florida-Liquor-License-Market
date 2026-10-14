@@ -38,6 +38,37 @@ type ListingMatch = {
   sourceUrl?: string;
 };
 
+
+type SourceAuditStatus = "broken" | "generic" | "duplicate" | "unverified" | "missing";
+const BROKEN_SOURCE_REFS = new Set(["FLLM-133"]);
+function normalizedSourceUrl(raw?: string): string {
+  if (!raw) return "";
+  try {
+    const url = new URL(raw);
+    return url.origin.toLowerCase() + url.pathname.replace(/\\/+$/, "").toLowerCase();
+  } catch { return ""; }
+}
+function genericSourceUrl(raw?: string): boolean {
+  if (!raw) return false;
+  try {
+    const url = new URL(raw);
+    const path = url.pathname.toLowerCase();
+    if (/bizbuysell\\.com$/.test(url.hostname) && path.startsWith("/florida/")) return true;
+    if (/bizquest\\.com$/.test(url.hostname) && (path === "/" || path.startsWith("/florida/"))) return true;
+    // County/type pages are discovery directories, not evidence of an individual offering.
+    if (/liquorlicense(auctioneers)?\\.com$/.test(url.hostname) && /\\/counties\\/[^/]+\\/types\\//.test(path)) return true;
+    return path === "/" || path === "";
+  } catch { return false; }
+}
+function sourceAudit(listing: ListingMatch, counts: Map<string, number>): { status: SourceAuditStatus; label: string } {
+  if (BROKEN_SOURCE_REFS.has(listing.sourceRef.toUpperCase())) return { status: "broken", label: "Broken source — verification required" };
+  const url = normalizedSourceUrl(listing.sourceUrl);
+  if (!url) return { status: "missing", label: "Source not recorded" };
+  if (genericSourceUrl(listing.sourceUrl)) return { status: "generic", label: "Category/directory page — verification required" };
+  if ((counts.get(url) || 0) > 1) return { status: "duplicate", label: "Shared source — reconcile records" };
+  return { status: "unverified", label: "Individual source — availability not verified" };
+}
+
 type MatchMode = "all" | "buyer_name" | "county" | "listing_ref" | "buyer_ref";
 
 type BuyerAlertDetails = {
@@ -422,6 +453,11 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
       };
     }
 
+    const urlCounts = new Map<string, number>();
+    inventory.forEach((listing) => {
+      const url = normalizedSourceUrl(listing.sourceUrl);
+      if (url) urlCounts.set(url, (urlCounts.get(url) || 0) + 1);
+    });
     const matches = inventory
       .filter((listing) => {
         if (!county) return false;
@@ -432,20 +468,24 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
         if (a.type !== b.type) return a.type.localeCompare(b.type);
         return (a.price ?? Number.MAX_SAFE_INTEGER) - (b.price ?? Number.MAX_SAFE_INTEGER);
       });
+    // A working individual URL does not establish that a license remains for sale.
+    // Until an independently confirmed source-status field is available, never
+    // put an unverified offering in an outbound buyer-ready comparison.
+    const verifiedMatches: ListingMatch[] = [];
 
     const buyer = primaryBuyer;
-    const disclosed = matches.filter((listing) => listing.price !== null);
+    const disclosed = verifiedMatches.filter((listing) => listing.price !== null);
     const prices = disclosed.map((listing) => listing.price as number);
     const low = prices.length ? Math.min(...prices) : null;
     const high = prices.length ? Math.max(...prices) : null;
     const firstName = buyer?.fullName.split(/\s+/)[0] || "there";
-    const inventoryLines = matches.map((listing) =>
+    const inventoryLines = verifiedMatches.map((listing) =>
       `• ${listing.sourceRef} — ${listing.type} — ${listing.priceLabel} — availability and terms subject to confirmation`,
     ).join("\n");
     const range = low === null ? "with prices available upon confirmation" : `from ${money(low)} to ${money(high)}`;
     const marketLabel = countyWide ? county : `${county} ${licenseType}`;
-    const draft = buyer && matches.length
-      ? `Hello ${firstName},\n\nThank you for your inquiry. FLLM currently tracks ${matches.length} ${marketLabel} opportunit${matches.length === 1 ? "y" : "ies"} ${range}.\n\n${inventoryLines}\n\nThese are market opportunities identified by FLLM. Availability, pricing, license status, transferability, liens, and transaction terms remain subject to seller or broker confirmation and independent due diligence.\n\nPlease let me know which references you would like us to investigate further.\n\nFlorida Liquor License Market`
+    const draft = buyer && verifiedMatches.length
+      ? `Hello ${firstName},\n\nThank you for your inquiry. FLLM currently tracks ${verifiedMatches.length} verified ${marketLabel} opportunit${verifiedMatches.length === 1 ? "y" : "ies"} ${range}.\n\n${inventoryLines}\n\nThese are market opportunities identified by FLLM. Availability, pricing, license status, transferability, liens, and transaction terms remain subject to seller or broker confirmation and independent due diligence.\n\nPlease let me know which references you would like us to investigate further.\n\nFlorida Liquor License Market`
       : "";
 
     return { buyer, buyers, requested, matches, draft, county, licenseType, countyWide };
@@ -471,6 +511,11 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
     );
   }
 
+  const sourceCounts = new Map<string, number>();
+  inventory.forEach((listing) => {
+    const url = normalizedSourceUrl(listing.sourceUrl);
+    if (url) sourceCounts.set(url, (sourceCounts.get(url) || 0) + 1);
+  });
   const buyers = leads.filter(isBuyer).length;
   const valuations = leads.filter(isValuation).length;
   const sellers = leads.length - buyers - valuations;
@@ -494,7 +539,7 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
           <div>
             <span>Private inventory intelligence</span>
             <h2 id="lead-match-title">Lead Match Desk</h2>
-            <p>Search by buyer name, county, buyer inquiry code, or FLLM listing reference. FLLM will connect matching buyer leads with current license inventory in the same market.</p>
+            <p>Search by buyer name, county, buyer inquiry code, or FLLM listing reference. FLLM displays observed inventory for internal research. Source links and current availability require independent verification before buyer outreach.</p>
           </div>
           <div className="lead-match-search">
             <div className="lead-match-mode" role="group" aria-label="Lead Match Desk search type">
@@ -564,7 +609,10 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
                           <td>{listing.priceLabel}</td>
                           <td>{listing.sourceName || "Source not recorded"}</td>
                           <td><strong>{contact.name}</strong>{contact.phone ? <><br /><a href={`tel:${contact.phone}`}>{contact.phone}</a></> : contact.note ? <><br /><small>{contact.note}</small></> : null}</td>
-                          <td>{listing.sourceUrl ? <a href={listing.sourceUrl} target="_blank" rel="noopener noreferrer">Review source ↗</a> : "Not recorded"}</td>
+                          <td>{(() => {
+                            const audit = sourceAudit(listing, sourceCounts);
+                            return <><strong>{audit.label}</strong>{listing.sourceUrl && audit.status === "unverified" ? <><br /><a href={listing.sourceUrl} target="_blank" rel="noopener noreferrer">Inspect original advertisement ↗</a></> : null}</>;
+                          })()}</td>
                         </tr>
                       );
                     })}</tbody>
@@ -577,7 +625,7 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
                     <small>Source identities stay inside the private admin view; the buyer receives FLLM references, prices, and confirmation language.</small>
                   </div>
                 ) : (
-                  <p className="lead-match-empty">This is a market-level search. Select or search a specific buyer to generate a buyer-ready comparison message.</p>
+                  <p className="lead-match-empty">No verified inventory is available for an outbound buyer-ready comparison. These are private research candidates; confirm each original advertisement, license status and availability first.</p>
                 )}
               </>
             ) : <p className="lead-match-empty">The lead was found, but no same-county inventory matches are currently recorded.</p>}
