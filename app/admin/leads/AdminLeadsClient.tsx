@@ -493,6 +493,13 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
       return true;
     });
 
+    // Distinct candidate opportunities: a shared advertisement URL represents
+    // one source observation, while the original records remain accessible.
+    const distinctMatches = matches.filter((listing, index) => {
+      const url = normalizedSourceUrl(listing.sourceUrl);
+      if (!url || genericSourceUrl(listing.sourceUrl)) return true;
+      return matches.findIndex((other) => normalizedSourceUrl(other.sourceUrl) === url) === index;
+    });
     const buyer = primaryBuyer;
     const disclosed = verifiedMatches.filter((listing) => listing.price !== null);
     const prices = disclosed.map((listing) => listing.price as number);
@@ -508,7 +515,7 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
       ? `Hello ${firstName},\n\nThank you for your inquiry. FLLM currently tracks ${verifiedMatches.length} verified ${marketLabel} opportunit${verifiedMatches.length === 1 ? "y" : "ies"} ${range}.\n\n${inventoryLines}\n\nThese are market opportunities identified by FLLM. Availability, pricing, license status, transferability, liens, and transaction terms remain subject to seller or broker confirmation and independent due diligence.\n\nPlease let me know which references you would like us to investigate further.\n\nFlorida Liquor License Market`
       : "";
 
-    return { buyer, buyers, requested, matches, draft, county, licenseType, countyWide };
+    return { buyer, buyers, requested, matches: distinctMatches, draft, county, licenseType, countyWide };
   }, [inventory, leads, matchMode, matchQuery, verification]);
 
   async function saveSourceVerification(listing:ListingMatch, status:"verified_active"|"review_required"|"source_unavailable") {
