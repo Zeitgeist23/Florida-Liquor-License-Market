@@ -78,11 +78,6 @@ export default function FloridaBusinessBuyerMatchPage() {
         listingUrl="/florida-business-buyer-match"
       />
     </section>
-    <section className="fllm-buyer-match-info fllm-buyer-match-shell">
-      <h2>How Florida business-and-license matching works</h2>
-      <p>Choose a business category and county, then filter by liquor-license type, business-plus-license asking price, disclosed revenue, earnings, potential SBA qualification, seller financing and property or lease preferences. FLLM distinguishes disclosed matches from potential matches when source information is incomplete.</p>
-      <p>Save your search to receive alerts for newly published matches. Buyer information stays with FLLM; inquiries are not automatically forwarded to sellers or third-party brokers. Market Views are independent market observations, not seller-authorized FLLM offerings. Availability and deal terms require verification.</p>
-      <p>Buying only a transferable quota license? Visit <Link href="/listings">FLLM standalone 4COP and 3PS license inventory</Link>. To browse operating-business observations without advanced filtering, see the <Link href="/businesses-with-quota-licenses">Florida business-and-license marketplace</Link>.</p>
-    </section>
+
   </main>;
 }
