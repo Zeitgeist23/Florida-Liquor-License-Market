@@ -186,7 +186,7 @@ export async function POST(request: Request) {
         const required=x.packagePriceNumber*0.15+(monthlyRentValue(x)??0)*3;
         return cashAvailable>=required?"potential":"fail";
       }
-      if(selected(body.financingPreferences).includes("Cash Purchase"))return cashAvailable>=x.packagePriceNumber?"match":"fail";
+      if(selected(body.financingPreferences).some(v=>v==="Cash"||v==="Cash Purchase"))return cashAvailable>=x.packagePriceNumber?"match":"fail";
       return "unknown";
     };
     const eligible=businessQuotaListingRecords.filter(x=>x.publicationStatus==="published" && passesBusinessMarketSourcePolicy(x)
