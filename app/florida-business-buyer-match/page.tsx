@@ -29,7 +29,7 @@ const categories = [
   { label: "Cocktail Lounges", href: "/bars-for-sale-with-liquor-licenses", style: "cocktail-lounge" },
   { label: "Nightclubs", href: "/nightclubs-for-sale-with-liquor-licenses", style: "nightclub" },
   { label: "Liquor Stores", href: "/businesses-with-quota-licenses/liquor-stores", style: "liquor-store" },
-  { label: "Gentlemen's Clubs", href: "/gentlemens-clubs-for-sale-with-liquor-licenses", style: "gentlemen-s-club" },
+  { label: "Gentlemen's Clubs", href: "/gentlemens-clubs-for-sale-with-liquor-licenses", style: "gentlemens-club" },
   { label: "Marinas", href: "/businesses-with-quota-licenses/marinas", style: "marina" },
   { label: "Hotels & More", href: "/businesses-with-quota-licenses", style: "hotel-motel" },
 ] as const;
