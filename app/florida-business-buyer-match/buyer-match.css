@@ -57,3 +57,7 @@
 .fllm-buyer-match-page .fllm-buyer-match-choices{gap:7px!important}
 .fllm-buyer-match-page .fllm-buyer-match-bottom{margin-top:7px!important}
 .fllm-buyer-match-page .fllm-buyer-match-dashboard{padding-top:19px!important}
+
+/* Final dashboard-to-footer spacing; leave sitewide footer styling unchanged. */
+.fllm-buyer-match-page .fllm-buyer-match-dashboard{padding-bottom:60px!important}
+.fllm-buyer-match-page .business-market-alert-modal--inline{padding-bottom:22px!important}
