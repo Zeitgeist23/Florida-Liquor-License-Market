@@ -40,6 +40,7 @@ type ListingMatch = {
 
 
 type SourceAuditStatus = "broken" | "generic" | "duplicate" | "unverified" | "missing";
+type VerificationRecord = {source_ref:string; source_url:string|null; verification_status:string; evidence_note:string|null; verified_at:string|null; canonical_ref:string|null};
 const BROKEN_SOURCE_REFS = new Set(["FLLM-133"]);
 function normalizedSourceUrl(raw?: string): string {
   if (!raw) return "";
@@ -301,6 +302,7 @@ function LeadCard({ lead, contactCount }: { lead: Lead; contactCount: number }) 
 
 export default function AdminLeadsClient({ inventory }: { inventory: ListingMatch[] }) {
   const [leads, setLeads] = useState<Lead[]>([]);
+  const [verification, setVerification] = useState<VerificationRecord[]>([]);
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [filter, setFilter] = useState<"all" | "buyers" | "valuations" | "sellers">("all");
   const [search, setSearch] = useState("");
@@ -323,6 +325,11 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
       const payload = (await response.json()) as { leads?: Lead[]; error?: string };
       if (!response.ok) throw new Error(payload.error || "Could not load leads.");
       setAuthenticated(true);
+      const verificationResponse = await fetch("/api/admin/leads/source-verification", {cache:"no-store"});
+      if (verificationResponse.ok) {
+        const verificationPayload = await verificationResponse.json() as {records:VerificationRecord[]};
+        setVerification(verificationPayload.records || []);
+      }
       // Keep Market View test inquiries visible for delivery diagnostics.
       setLeads((payload.leads || []).filter((lead: Lead) => !isOwnerInquiry(lead) || (lead.liveListingRef || "").startsWith("FLLM-MKT-")));
     } catch (cause) {
@@ -458,6 +465,7 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
       const url = normalizedSourceUrl(listing.sourceUrl);
       if (url) urlCounts.set(url, (urlCounts.get(url) || 0) + 1);
     });
+    const verificationByRef = new Map(verification.map((record) => [record.source_ref, record]));
     const matches = inventory
       .filter((listing) => {
         if (!county) return false;
@@ -471,7 +479,19 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
     // A working individual URL does not establish that a license remains for sale.
     // Until an independently confirmed source-status field is available, never
     // put an unverified offering in an outbound buyer-ready comparison.
-    const verifiedMatches: ListingMatch[] = [];
+    const seenVerified = new Set<string>();
+    const verifiedMatches = matches.filter((listing) => {
+      const evidence = verificationByRef.get(listing.sourceRef);
+      if (evidence?.verification_status !== "verified_active") return false;
+      if (!evidence.verified_at || !evidence.evidence_note || evidence.evidence_note.length < 12) return false;
+      // A verified source must still correspond to the source that was audited.
+      if (evidence.source_url && evidence.source_url !== listing.sourceUrl) return false;
+      const url = normalizedSourceUrl(listing.sourceUrl);
+      if (!url || genericSourceUrl(listing.sourceUrl) || BROKEN_SOURCE_REFS.has(listing.sourceRef)) return false;
+      if (seenVerified.has(url)) return false;
+      seenVerified.add(url);
+      return true;
+    });
 
     const buyer = primaryBuyer;
     const disclosed = verifiedMatches.filter((listing) => listing.price !== null);
@@ -489,8 +509,23 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
       : "";
 
     return { buyer, buyers, requested, matches, draft, county, licenseType, countyWide };
-  }, [inventory, leads, matchMode, matchQuery]);
+  }, [inventory, leads, matchMode, matchQuery, verification]);
 
+  async function saveSourceVerification(listing:ListingMatch, status:"verified_active"|"review_required"|"source_unavailable") {
+    const evidence = window.prompt(status === "verified_active"
+      ? "Enter who confirmed the exact advertisement and CURRENT availability, with the confirmation date:"
+      : "Enter source verification notes (optional):", "") ?? "";
+    if (status === "verified_active" && evidence.trim().length < 12) {
+      window.alert("Verification requires a dated evidence note; nothing was saved."); return;
+    }
+    const response = await fetch("/api/admin/leads/source-verification",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({source_ref:listing.sourceRef,source_url:listing.sourceUrl||null,verification_status:status,evidence_note:evidence})
+    });
+    if (!response.ok) { const data=await response.json(); window.alert(data.error||"Could not save verification"); return; }
+    const data=await response.json() as {record:VerificationRecord};
+    setVerification((current)=>[...current.filter((row)=>row.source_ref!==listing.sourceRef),data.record]);
+  }
   async function copyBuyerDraft() {
     if (!matchResult?.draft) return;
     await navigator.clipboard.writeText(matchResult.draft);
@@ -603,6 +638,7 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
                     <thead><tr><th>FLLM reference</th><th>Asking price</th><th>Potential source</th><th>Source contact</th><th>Source listing</th></tr></thead>
                     <tbody>{matchResult.matches.map((listing) => {
                       const contact = sourceContact(listing);
+                      const saved = verification.find((record) => record.source_ref === listing.sourceRef);
                       return (
                         <tr key={listing.sourceRef}>
                           <td><strong>{listing.sourceRef}</strong></td>
@@ -611,7 +647,20 @@ export default function AdminLeadsClient({ inventory }: { inventory: ListingMatc
                           <td><strong>{contact.name}</strong>{contact.phone ? <><br /><a href={`tel:${contact.phone}`}>{contact.phone}</a></> : contact.note ? <><br /><small>{contact.note}</small></> : null}</td>
                           <td>{(() => {
                             const audit = sourceAudit(listing, sourceCounts);
-                            return <><strong>{audit.label}</strong>{listing.sourceUrl && audit.status === "unverified" ? <><br /><a href={listing.sourceUrl} target="_blank" rel="noopener noreferrer">Inspect original advertisement ↗</a></> : null}</>;
+                            const status = saved?.verification_status;
+                            const label = status === "verified_active" ? "Verified active — " + new Date(saved.verified_at||"").toLocaleDateString() :
+                              status === "source_unavailable" ? "Source unavailable" :
+                              status === "generic_source" ? "Generic source — review required" :
+                              status === "duplicate_source" ? "Potential duplicate — reconcile" :
+                              status === "withdrawn" ? "Withdrawn" :
+                              status === "review_required" ? "Review required" : audit.label;
+                            return <><strong>{label}</strong>
+                              {saved?.evidence_note ? <><br/><small>{saved.evidence_note}</small></> : null}
+                              {listing.sourceUrl && audit.status === "unverified" ? <><br/><a href={listing.sourceUrl} target="_blank" rel="noopener noreferrer">Inspect source ↗</a></> : null}
+                              <div><button type="button" onClick={()=>void saveSourceVerification(listing,"verified_active")}>Confirm available</button>{" "}
+                              <button type="button" onClick={()=>void saveSourceVerification(listing,"source_unavailable")}>Mark unavailable</button>{" "}
+                              <button type="button" onClick={()=>void saveSourceVerification(listing,"review_required")}>Needs review</button></div>
+                            </>;
                           })()}</td>
                         </tr>
                       );
