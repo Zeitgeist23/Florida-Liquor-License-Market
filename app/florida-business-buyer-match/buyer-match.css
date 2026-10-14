@@ -255,3 +255,41 @@
 @media(prefers-reduced-motion:reduce){
   .fllm-buyer-match-page .fllm-buyer-match-license-pills .fllm-match-license-pill{transition:none!important}
 }
+
+/* Hero classification pills act as real checkboxes for the embedded Buyer Match. */
+.fllm-buyer-match-page .fllm-buyer-match-pills button.business-market-category-badge{
+  --category-color:var(--market-category-color);
+  appearance:none;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:auto!important;max-width:100%!important;margin:0!important;min-height:30px!important;
+  padding:7px 12px!important;border:1px solid var(--market-category-color)!important;
+  border-radius:999px!important;background:var(--market-category-surface)!important;
+  color:var(--market-category-color)!important;
+  font:800 12px/1.2 Arial,Helvetica,sans-serif!important;letter-spacing:.03em!important;
+  text-transform:uppercase!important;white-space:nowrap;cursor:pointer;
+  position:relative;z-index:1;transform-origin:center;
+  transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important;
+}
+.fllm-buyer-match-page .fllm-buyer-match-pills button.business-market-category-badge[aria-pressed="true"]::after,
+.fllm-buyer-match-page .fllm-buyer-match-license-pills button[aria-pressed="true"]::after{
+  content:"✓";font-weight:900;margin-left:6px;color:inherit;
+}
+.fllm-buyer-match-page .fllm-buyer-match-pills button.business-market-category-badge:is(:hover,:focus-visible){
+  transform:scale(1.055)!important;filter:brightness(1.15)!important;
+  outline:none!important;z-index:3!important;
+  box-shadow:0 0 0 1px var(--market-category-color),0 0 10px var(--market-category-color),0 0 19px var(--market-category-surface)!important;
+}
+.fllm-buyer-match-page .fllm-buyer-match-license-pills button.fllm-match-license-pill{
+  appearance:none;cursor:pointer;font:inherit;position:relative;z-index:1;
+  padding:5px 11px!important;border-radius:999px!important;
+  transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important;
+}
+.fllm-buyer-match-page .fllm-buyer-match-license-pills button.fllm-match-license-pill:is(:hover,:focus-visible){
+  transform:scale(1.055)!important;filter:brightness(1.15)!important;
+  outline:none!important;z-index:3!important;
+  box-shadow:0 0 0 1px var(--license-neon),0 0 10px var(--license-neon),0 0 19px color-mix(in srgb,var(--license-neon) 35%,transparent)!important;
+}
+@media(prefers-reduced-motion:reduce){
+  .fllm-buyer-match-page .fllm-buyer-match-pills button,
+  .fllm-buyer-match-page .fllm-buyer-match-license-pills button{transition:none!important}
+}
