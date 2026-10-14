@@ -205,21 +205,21 @@ export default function MarketBuyerLeadForm({
   }, [open, selectedBusinessTypes, selectedLicenseTypes, selectedCounties, maxPurchasePrice, minGrossRevenue, minSde, minEbitda, selectedFinancing, realEstate, leaseYears, monthlyRent,availableCash,extraCriteria,franchise]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || dashboardOnly) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = original;
     };
-  }, [open]);
+  }, [open, dashboardOnly]);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape" && !dashboardOnly) setOpen(false);
     }
-    if (open) window.addEventListener("keydown", onKeyDown);
+    if (open && !dashboardOnly) window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+  }, [open, dashboardOnly]);
 
   function toggleValue(value: string, values: string[], setValues: (next: string[]) => void) {
     setValues(values.includes(value) ? values.filter((item) => item !== value) : [...values, value]);
