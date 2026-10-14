@@ -244,19 +244,27 @@ Current matches: ${matchCount}`;
 
 export async function activateBusinessBuyerAlert(alert: BusinessBuyerAlert) {
   const matches = await currentBusinessAlertMatches(alert);
-  await sendBusinessBuyerAlertConfirmation(alert, matches);
-  if (matches.length) {
-    await markBusinessBuyerAlertNotified(
-      alert,
-      matches.map(({ listing }) => listing.listingReference),
-    );
+  let confirmationSent = false;
+  let adminNotified = false;
+  try {
+    await sendBusinessBuyerAlertConfirmation(alert, matches);
+    confirmationSent = true;
+    if (matches.length) {
+      await markBusinessBuyerAlertNotified(
+        alert,
+        matches.map(({ listing }) => listing.listingReference),
+      );
+    }
+  } catch (error) {
+    console.error("Business buyer alert confirmation failed; saved lead retained", error);
   }
   try {
     await notifyFllmOfBusinessBuyerAlert(alert, matches.length);
+    adminNotified = true;
   } catch (error) {
     console.error("Business buyer alert admin notification failed", error);
   }
-  return { currentMatches: matches.length };
+  return { currentMatches: matches.length, confirmationSent, adminNotified };
 }
 
 export async function notifyMatchingBusinessBuyerAlerts() {
