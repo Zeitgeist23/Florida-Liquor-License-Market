@@ -92,6 +92,7 @@ export default function MarketBuyerLeadForm({
   const [error, setError] = useState("");
   const [currentMatches, setCurrentMatches] = useState(0);
   const [submittedEmail, setSubmittedEmail] = useState("");
+  const [buyerConfirmationSent, setBuyerConfirmationSent] = useState(false);
   const [phone, setPhone] = useState("");
   const [selectedBusinessTypes, setSelectedBusinessTypes] = useState<string[]>(dashboardOnly ? [] : [initialBusinessType]);
   const [selectedLicenseTypes, setSelectedLicenseTypes] = useState<string[]>(dashboardOnly ? [] : [initialLicenseType]);
@@ -392,11 +393,12 @@ export default function MarketBuyerLeadForm({
         }),
       });
 
-      const payload = (await response.json()) as { error?: string; currentMatches?: number };
+      const payload = (await response.json()) as { error?: string; currentMatches?: number; confirmationSent?: boolean };
       if (!response.ok) throw new Error(payload.error || "Unable to create buyer alert.");
 
       setSubmittedEmail(email);
       setCurrentMatches(payload.currentMatches ?? 0);
+      setBuyerConfirmationSent(payload.confirmationSent === true);
       setStatus("sent");
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Unable to create buyer alert.");
@@ -503,7 +505,7 @@ export default function MarketBuyerLeadForm({
                 <span className="business-market-form-eyebrow">Buyer Alert Active</span>
                 <h2 id="buyer-alert-modal-title">Your Business + Liquor License Buyer Alert is active.</h2>
                 <p>
-                  Confirmation was emailed to <strong>{submittedEmail}</strong>.
+                  {buyerConfirmationSent ? <>Confirmation was emailed to <strong>{submittedEmail}</strong>.</> : <>Your criteria were saved for <strong>{submittedEmail}</strong>, but the confirmation email could not be verified as sent. FLLM retains your saved alert.</>}
                   {currentMatches > 0
                     ? ` FLLM found ${currentMatches} current published match${currentMatches === 1 ? "" : "es"} under your saved criteria.`
                     : " FLLM will email you when a new published opportunity matches your criteria."}
