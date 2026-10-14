@@ -125,3 +125,30 @@
 }
 .fllm-buyer-match-page .fllm-match-checks input[type=checkbox],
 .fllm-buyer-match-page .fllm-match-checks input[type=radio]{flex-shrink:0!important}
+
+/* Center header content uniformly; leave filter input bodies left aligned. */
+.fllm-buyer-match-page .fllm-match-panel>header{
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
+  min-height:86px!important;
+  height:86px!important;
+  box-sizing:border-box!important;
+  gap:10px!important;
+}
+.fllm-buyer-match-page .fllm-match-panel>header>div{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:0!important;
+  text-align:center!important;
+}
+.fllm-buyer-match-page .fllm-match-panel>header h3,
+.fllm-buyer-match-page .fllm-match-panel>header p{
+  text-align:center!important;
+  white-space:normal!important;
+}
+.fllm-buyer-match-page .fllm-match-panel>header .symbol{
+  flex-shrink:0!important;
+}
