@@ -223,16 +223,18 @@ export async function notifyFllmOfBusinessBuyerAlert(
     process.env.GOOGLE_SENDER_EMAIL ||
     "listings@floridaliquorlicensemarket.com";
   const name = `${alert.first_name} ${alert.last_name}`.trim();
+  const leadUrl = `${siteUrl()}/admin/leads?buyer_ref=${encodeURIComponent(alert.submission_ref)}`;
   const html = `<h1>New Business + Liquor License Buyer Alert</h1>
     <p><strong>${escapeHtml(name)}</strong><br>${escapeHtml(alert.email)}<br>${escapeHtml(alert.phone)}<br>${escapeHtml(alert.submission_ref)}</p>
     ${criteriaHtml(alert)}
-    <p><strong>Current matches:</strong> ${matchCount}</p>`;
+    <p><strong>Current matches:</strong> ${matchCount}</p>
+    <p><a href="${escapeHtml(leadUrl)}" style="display:inline-block;padding:12px 19px;border-radius:7px;background:#092444;color:#ffffff;font-weight:700;text-decoration:none">View Buyer Lead →</a></p>`;
   const text = `New Business + Liquor License Buyer Alert
 ${name}
 ${alert.email}
 ${alert.phone}
 ${alert.submission_ref}
-Current matches: ${matchCount}`;
+Current matches: ${matchCount}\nView Buyer Lead: ${leadUrl}`;
   return sendFllmEmail({
     to,
     replyTo: alert.email,
