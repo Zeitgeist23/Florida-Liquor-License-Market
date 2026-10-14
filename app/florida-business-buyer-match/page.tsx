@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FormsSiteHeader from "@/components/FormsSiteHeader";
 import MarketBuyerLeadForm from "@/components/MarketBuyerLeadForm";
-import { businessQuotaListingRecords, passesBusinessMarketSourcePolicy } from "@/lib/business-quota-listings";
 import "@/app/fllm-official-template.css";
 import "@/app/fllm-design-system.css";
 import "@/app/business-market/[reference]/market-record.css";
@@ -36,9 +35,6 @@ const categories = [
 ] as const;
 
 export default function FloridaBusinessBuyerMatchPage() {
-  const published = businessQuotaListingRecords.filter(item =>
-    item.publicationStatus === "published" && passesBusinessMarketSourcePolicy(item));
-  const counties = new Set(published.map(item => item.county)).size;
   const jsonLd = {
     "@context": "https://schema.org", "@type": "WebPage",
     name: "Florida Business Buyer Match Dashboard",
@@ -66,7 +62,6 @@ export default function FloridaBusinessBuyerMatchPage() {
           </div></div>
         </div>
         <div className="fllm-buyer-match-bottom">
-          <div className="fllm-buyer-match-facts"><span><strong>{published.length}</strong> Published market records</span><span><strong>{counties}</strong> Counties represented</span></div>
           <a className="fllm-buyer-match-jump" href="#advanced-buyer-match">Start Buyer Search ↓</a>
         </div>
       </div>
