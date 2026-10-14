@@ -17,7 +17,9 @@ export async function POST(request: Request) {
   try {
     const body = await request.json() as {businessTypes?:string[];licenseTypes?:string[];counties?:string[];maxPurchasePrice?:string;minGrossRevenue?:string;minSde?:string;minEbitda?:string;financingPreferences?:string[];realEstate?:string;leaseYears?:string;monthlyRent?:string;availableCash?:string;extraCriteria?:string[];franchise?:"Yes"|"No"|"Either"};
     const selected = (value: unknown): string[] => Array.isArray(value) ? value.filter((v):v is string => typeof v==="string").slice(0,100) : [];
-    const types=selected(body.businessTypes), licenses=selected(body.licenseTypes), counties=selected(body.counties);
+    const types=selected(body.businessTypes), licenses=selected(body.licenseTypes), requestedCounties=selected(body.counties);
+    // "Florida" is a statewide search on the dedicated buyer dashboard, not a county.
+    const counties=requestedCounties.some(item=>item.trim().toLowerCase()==="florida") ? [] : requestedCounties;
     const amount=(value:unknown)=>{if(!value)return null;const n=Number(String(value).replace(/[^\d.]/g,""));return Number.isFinite(n)&&n>0?n:null;};
     const maxPrice=amount(body.maxPurchasePrice),minRevenue=amount(body.minGrossRevenue),minSde=amount(body.minSde),minEbitda=amount(body.minEbitda);
     const earningsMinimum = Math.max(minSde ?? 0, minEbitda ?? 0);
