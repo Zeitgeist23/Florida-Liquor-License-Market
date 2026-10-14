@@ -180,7 +180,7 @@
 .fllm-buyer-match-page .fllm-match-franchise-note{font-size:11px!important;line-height:1.35!important;margin:4px 0 7px!important;color:#b7cede!important}
 
 /* Compact license guidance; no additional divider or disclosure-style card. */
-.fllm-buyer-match-page .fllm-license-search-notes{margin-top:13px;padding:10px 11px;background:rgba(6,67,99,.32);border:1px solid rgba(19,144,188,.42);border-radius:7px}
+.fllm-buyer-match-page .fllm-license-search-notes{margin-top:9px;padding:0;background:none;border:0;border-radius:0}
 .fllm-buyer-match-page .fllm-license-search-notes>strong{display:block;margin-bottom:7px;color:#46dbfb;font-size:12px;font-weight:800}
 .fllm-buyer-match-page .fllm-license-search-notes ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
 .fllm-buyer-match-page .fllm-license-search-notes li{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.4;color:#d6e6f1}
@@ -192,3 +192,8 @@
 .fllm-buyer-match-page .fllm-buyer-match-pills a.business-market-category-badge{transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important;transform-origin:center;position:relative;z-index:1}
 .fllm-buyer-match-page .fllm-buyer-match-pills a.business-market-category-badge:is(:hover,:focus-visible){transform:scale(1.055)!important;outline:none!important;border-color:var(--market-category-color)!important;box-shadow:0 0 0 1px var(--market-category-color),0 0 10px var(--market-category-color),0 0 19px var(--market-category-surface)!important;z-index:2}
 @media(prefers-reduced-motion:reduce){.fllm-buyer-match-page .fllm-buyer-match-pills a.business-market-category-badge{transition:none!important}}
+
+/* Unboxed, compact license notes under ownership preferences. */
+.fllm-buyer-match-page .fllm-license-search-notes>strong{margin-bottom:5px!important}
+.fllm-buyer-match-page .fllm-license-search-notes ul{gap:5px!important}
+.fllm-buyer-match-page .fllm-license-search-notes li{line-height:1.3!important}
