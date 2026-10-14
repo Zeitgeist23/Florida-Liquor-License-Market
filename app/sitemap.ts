@@ -31,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/listings`, lastModified, changeFrequency: "daily", priority: 1 },
     { url: `${siteUrl}/businesses-with-quota-licenses`, lastModified, changeFrequency: "daily", priority: 0.88 },
     { url: `${siteUrl}/florida-business-buyer-match`, lastModified, changeFrequency: "daily", priority: 0.91 },
+    { url: `${siteUrl}/list-your-business`, lastModified, changeFrequency: "weekly", priority: 0.75 },
     { url: `${siteUrl}/florida-liquor-license-market-platform`, lastModified, changeFrequency: "weekly", priority: 0.91 },
     { url: `${siteUrl}/businesses-with-quota-licenses/bars`, lastModified, changeFrequency: "weekly", priority: 0.86 },
     { url: `${siteUrl}/bars-for-sale-with-liquor-licenses`, lastModified, changeFrequency: "daily", priority: 0.93 },
