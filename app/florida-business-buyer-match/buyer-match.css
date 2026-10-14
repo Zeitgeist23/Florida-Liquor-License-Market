@@ -197,3 +197,8 @@
 .fllm-buyer-match-page .fllm-license-search-notes>strong{margin-bottom:5px!important}
 .fllm-buyer-match-page .fllm-license-search-notes ul{gap:5px!important}
 .fllm-buyer-match-page .fllm-license-search-notes li{line-height:1.3!important}
+
+/* Center only the license notes heading; keep notes left-aligned. */
+.fllm-buyer-match-page .fllm-license-search-notes{margin-top:17px!important}
+.fllm-buyer-match-page .fllm-license-search-notes>strong{display:block!important;text-align:center!important;color:#46dbfb!important;margin-bottom:6px!important}
+.fllm-buyer-match-page .fllm-license-search-notes ul,.fllm-buyer-match-page .fllm-license-search-notes li{text-align:left!important}
