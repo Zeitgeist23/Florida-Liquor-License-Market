@@ -353,3 +353,8 @@
   padding-top:10px!important;
   padding-bottom:3px!important;
 }
+
+/* Slightly softer Matches counter glow; text and result color stay unchanged. */
+.fllm-buyer-match-page .fllm-match-bottom-actions .fllm-match-metrics>.green{
+  box-shadow:inset 0 1px 0 rgba(165,245,255,.26),inset 0 0 0 1px rgba(39,215,255,.12),0 0 12px rgba(39,215,255,.22),0 5px 14px rgba(0,0,0,.27)!important;
+}
