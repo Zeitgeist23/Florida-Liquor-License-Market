@@ -233,3 +233,25 @@
     gap:9px!important;
   }
 }
+
+/* License classification pills: matching neon expansion without implying a click action. */
+.fllm-buyer-match-page .fllm-buyer-match-license-pills .fllm-match-license-pill{
+  --license-neon:#32cdea;
+  transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important;
+  transform-origin:center;
+  position:relative;
+  z-index:1;
+}
+.fllm-buyer-match-page .fllm-buyer-match-license-pills .fllm-match-license-pill--quota{
+  --license-neon:#27d895;
+}
+.fllm-buyer-match-page .fllm-buyer-match-license-pills .fllm-match-license-pill:hover{
+  transform:scale(1.055)!important;
+  filter:brightness(1.15)!important;
+  border-color:var(--license-neon)!important;
+  box-shadow:0 0 0 1px var(--license-neon),0 0 10px var(--license-neon),0 0 19px color-mix(in srgb,var(--license-neon) 35%,transparent)!important;
+  z-index:2;
+}
+@media(prefers-reduced-motion:reduce){
+  .fllm-buyer-match-page .fllm-buyer-match-license-pills .fllm-match-license-pill{transition:none!important}
+}
