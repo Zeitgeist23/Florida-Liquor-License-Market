@@ -246,8 +246,8 @@ export default async function Page({ params }: PageProps) {
     preferredTiming: selected.preferredTiming,
   });
   const statusLabel = selected.licenseStatus
-    ? `${sellerReportedStatusLabel(selected.licenseStatus)} / Available`
-    : "Available / Status to confirm";
+    ? `${sellerReportedStatusLabel(selected.licenseStatus)} / ${selected.featuredUntil ? "Available" : "Advertised"}`
+    : selected.featuredUntil ? "Available / Status to confirm" : "Advertised / Availability subject to confirmation";
   const inquiryParams = new URLSearchParams({
     source: "specific-license",
     listing: `${selectedReference} — ${selected.county} — ${selected.type} — ${selected.priceLabel}`,
@@ -413,7 +413,7 @@ export default async function Page({ params }: PageProps) {
             <div className="marketplace-listing-availability">
               <span className="availability-pill" title={statusLabel}>
                 <span className="availability-dot" aria-hidden="true" />
-                Available
+                {selected.featuredUntil ? "Available" : "Advertised"}
               </span>
               <span className="marketplace-listing-hero-reference">Listing {selectedReference}</span>
               <ListingViewCount listingRef={selectedReference} />
@@ -421,6 +421,9 @@ export default async function Page({ params }: PageProps) {
                 <span className="marketplace-listing-broker-badge">Featured · Third-Party Broker</span>
               )}
             </div>
+            {!selected.featuredUntil && (
+              <p className="marketplace-listing-summary">Availability subject to confirmation. Listings reflect advertised inventory and may change or be withdrawn without notice.</p>
+            )}
             <p className="marketplace-listing-summary">{descriptionParts.license}</p>
             <div className="marketplace-listing-actions">
               <Link className="marketplace-listing-primary" href={inquiryHref}>Inquire About This License</Link>
