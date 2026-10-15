@@ -156,7 +156,7 @@ export default function MarketplaceListingCard({
           {available ? (
             <span className="availability-pill" title={statusTitle}>
               <span className="availability-dot" aria-hidden="true" />
-              Available
+              {normalizedListing.featuredUntil ? "Available" : "Advertised"}
             </span>
           ) : (
             <span className="sold-status-inline">Sold</span>
