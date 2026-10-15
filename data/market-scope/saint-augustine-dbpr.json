@@ -1,6 +1,6 @@
 {
   "source": "Florida DBPR / ABT retail license extract + City of St. Augustine fee-distribution code 795",
-  "generatedAt": "2026-10-14T14:33:32.037Z",
+  "generatedAt": "2026-10-15T14:13:14.111Z",
   "county": "St. Johns County",
   "city": "Saint Augustine",
   "countyTotalRetailLicenses": 825,
@@ -5972,6 +5972,21 @@
       "active": false,
       "quotaClass": "3PS Quota",
       "category": "Liquor Store"
+    },
+    {
+      "licenseNumber": "BEV6502501",
+      "licensee": "FOOD MAFIA LLC",
+      "dba": "AMICI ITALIAN RESTAURANT",
+      "series": "4COP",
+      "modifier": "SFS",
+      "city": "SAINT AUGUSTINE",
+      "address": "1915 A1A SOUTH",
+      "zip": "32080",
+      "primaryStatus": "20",
+      "secondaryStatus": "21",
+      "active": false,
+      "quotaClass": null,
+      "category": "Restaurant"
     },
     {
       "licenseNumber": "BEV6502662",
