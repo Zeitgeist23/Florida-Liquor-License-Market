@@ -517,7 +517,7 @@ export default function ListingsPage({
               </>
             ) : (
               <>
-                Listings are for liquor-license interests only unless expressly
+                Availability subject to confirmation. Listings reflect advertised inventory and may change or be withdrawn without notice. Listings are for liquor-license interests only unless expressly
                 stated otherwise. Businesses and real estate are not included.{" "}
                 <Link href="/florida-4cop-liquor-license-for-sale">
                   Florida 4COP licenses for sale
