@@ -1,6 +1,6 @@
 {
   "source": "Florida DBPR / ABT retail license extract + City of St. Augustine fee-distribution code 795",
-  "generatedAt": "2026-10-15T14:13:14.111Z",
+  "generatedAt": "2026-10-16T14:00:36.022Z",
   "county": "St. Johns County",
   "city": "Saint Augustine",
   "countyTotalRetailLicenses": 825,
@@ -6137,21 +6137,6 @@
       "active": false,
       "quotaClass": "4COP Quota",
       "category": "Liquor Store"
-    },
-    {
-      "licenseNumber": "BEV6502810",
-      "licensee": "SPANISH BAKERY LLC",
-      "dba": "SPANISH BAKERY AND CAFE",
-      "series": "2COP",
-      "modifier": "",
-      "city": "SAINT AUGUSTINE",
-      "address": "42 1/2 ST GEORGE ST",
-      "zip": "32084",
-      "primaryStatus": "21",
-      "secondaryStatus": "37",
-      "active": false,
-      "quotaClass": null,
-      "category": "Restaurant"
     },
     {
       "licenseNumber": "BEV6500184",
