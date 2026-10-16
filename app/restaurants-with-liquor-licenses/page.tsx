@@ -1137,6 +1137,18 @@ export default async function RestaurantsWithLiquorLicensesPage() {
         </div>
       </section>
 
+      <section className="fllm-template-section" aria-labelledby="delray-featured-full-liquor">
+        <div className="fllm-template-shell">
+          <h2 id="delray-featured-full-liquor">Featured Delray Beach full-liquor restaurant opportunity</h2>
+          <p>
+            Buyers looking for a Delray Beach restaurant for sale with a full liquor license can review
+            <Link href="/listings/fllm-mello"> this Delray Beach restaurant for sale with a transferable 4COP quota liquor license</Link>.
+            This is a broker-represented Featured Listing; its availability, liquor-license transfer,
+            and transaction terms should be confirmed directly with the representing broker.
+          </p>
+        </div>
+      </section>
+
       <section className="fllm-ui-final-cta">
         <div className="fllm-template-shell">
           <div>
