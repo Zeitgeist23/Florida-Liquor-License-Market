@@ -33,15 +33,15 @@ const socialImageUrl = "https://www.floridaliquorlicensemarket.com/assets/broker
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Delray Beach Restaurant with Full Liquor License for Sale | 4COP Quota",
+  title: "Delray Beach Restaurant for Sale with Full Liquor License | 4COP Quota",
   description:
-    "Delray Beach restaurant with full liquor license for sale: turnkey restaurant and bar with a transferable Palm Beach County 4COP Quota full-liquor license. $359,000 total package.",
+    "Delray Beach restaurant for sale with full liquor license and transferable 4COP quota privileges in Palm Beach County. $359,000 restaurant-and-license package.",
   alternates: { canonical: canonicalUrl },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: canonicalUrl,
-    title: "Delray Beach Restaurant with Full Liquor License | 4COP Quota",
+    title: "Delray Beach Restaurant for Sale with Full Liquor License | 4COP Quota",
     description:
       "Turnkey Delray Beach restaurant and bar for sale with a transferable Palm Beach County 4COP Quota full-liquor license. $359,000 total package.",
     siteName: "Florida Liquor License Market",
@@ -96,7 +96,7 @@ async function buildConfig(): Promise<FeaturedThirdPartyBusinessListingConfig> {
   packagePrice: "$359,000",
   packagePriceNumber: 359000,
   licenseType: "4COP Quota",
-  businessLabel: "Delray Beach Restaurant with Full Liquor License",
+  businessLabel: "Delray Beach Restaurant for Sale with 4COP Full Liquor License",
   businessLabelLinkUrl:
     "https://www.bizbuysell.com/business-opportunity/delray-beach-restaurant-for-sale-steps-from-atlantic-ave/2543468/",
   heroSummary:
