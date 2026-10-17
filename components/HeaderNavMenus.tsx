@@ -34,6 +34,7 @@ const navMenus: NavMenu[] = [
       { href: "/buy-florida-liquor-license", label: "Buy a Florida Liquor License" },
       { href: "/listings", label: "Available Stand-alone Licenses" },
       { href: "/businesses-with-quota-licenses", label: "Businesses for Sale With Liquor Licenses" },
+      { href: "/florida-business-buyer-match", label: "Find a Business — Buyer Match Dashboard" },
       { href: "/listings?status=sold", label: "Sold Licenses" },
       { href: "/how-to-buy-florida-liquor-license", label: "How to Buy a Florida Liquor License" },
       { href: "/counties", label: "Florida County Markets" },
