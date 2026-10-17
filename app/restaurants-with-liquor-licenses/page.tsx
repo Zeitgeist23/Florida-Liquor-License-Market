@@ -443,6 +443,7 @@ export default async function RestaurantsWithLiquorLicensesPage() {
             Browse Florida restaurants and restaurant/bar businesses for sale by city, county, cuisine and asking-price signal. FLLM adds liquor-license intelligence to the broader restaurant-for-sale market by identifying transferable 4COP quota licenses, location-specific 4COP SFS / SRX privileges and 2COP beer-and-wine licenses separately.
           </p>
           <div className="fllm-ui-actions">
+            <Link className="btn btn-gold fllm-ui-official-gold-button" href="/florida-business-buyer-match">Find Your Ideal Restaurant — Search by License, County &amp; Price</Link>
             <Link className="btn btn-gold fllm-ui-official-gold-button" href="#restaurant-inventory">View Restaurant Market</Link>
             <FllmButton href="#license-paths" variant="outline">Compare License Paths</FllmButton>
           </div>
