@@ -436,6 +436,9 @@ export default async function BusinessMarketRecordPage({ params }: PageProps) {
               <p className="business-market-hero-copy">
                 Review this {listing.county} {listing.businessCategory.toLowerCase()} opportunity with a {listing.licenseType} liquor license, including the advertised business + license package price and FLLM&apos;s independent license-market intelligence.
               </p>
+              <div style={{ margin: "18px 0" }}>
+                <Link className="btn btn-gold fllm-ui-official-gold-button" href="/florida-business-buyer-match">Find Similar Businesses — Buyer Match Dashboard →</Link>
+              </div>
 
               <div className="business-market-hero-stats">
                 <div className="business-market-category-stat">
