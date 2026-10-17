@@ -204,6 +204,7 @@ export default function HeaderNavMenus({
   return (
     <>
       <nav ref={navRef} className={className} aria-label="Primary navigation">
+        <a className="native-nav-direct-link native-nav-buyer-match" href="/florida-business-buyer-match" onClick={closeImmediately}>Find a Business</a>
         {navMenus.map((menu) => {
           const isOpen = openMenu === menu.id;
           return (
@@ -294,6 +295,10 @@ export default function HeaderNavMenus({
 
       <style>{`
         .results-page{overflow-x:clip}
+        .primary-nav a.native-nav-buyer-match{color:var(--gold,#f6a700);font-weight:800!important}
+        .primary-nav a.native-nav-buyer-match:focus-visible{outline:2px solid var(--gold,#f6a700);outline-offset:5px}
+        @media(min-width:821px){.fllm-official-shared-header .primary-nav:has(.native-nav-buyer-match){gap:clamp(10px,1.5vw,26px)!important}}
+        @media(max-width:820px){.primary-nav.is-open .native-nav-buyer-match{min-height:44px;padding:12px}}
         .primary-nav .native-nav-dropdown{position:relative;display:inline-flex;align-items:center;flex:0 0 auto;padding-bottom:12px;margin-bottom:-12px}
         .primary-nav .native-nav-trigger{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;gap:5px;padding:0;border:0;background:transparent;color:#fff;cursor:pointer;font:600 10px/1 Arial,Helvetica,sans-serif;text-transform:uppercase;white-space:nowrap;transform-origin:center;transition:transform .16s ease,color .16s ease}
         .primary-nav .native-nav-trigger:hover,.primary-nav .native-nav-trigger:focus-visible,.primary-nav .native-nav-dropdown.is-open>.native-nav-trigger{color:var(--gold,#f6a700);outline:none;transform:scale(1.03)}

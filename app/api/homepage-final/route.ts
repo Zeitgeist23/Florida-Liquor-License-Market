@@ -1,6 +1,9 @@
 export const dynamic = "force-dynamic";
 
 const menuStyles = `<style id="home-list-license-menu-styles">
+.primary-nav .home-buyer-match-link{color:#f6a700!important;font-weight:800!important;white-space:nowrap}
+.primary-nav .home-buyer-match-link:focus-visible{outline:2px solid #f6a700;outline-offset:5px}
+@media(min-width:821px){.site-header .primary-nav:has(.home-buyer-match-link){gap:clamp(10px,1.5vw,26px)!important}}
 .site-header,.site-header .header-actions{overflow:visible!important}
 .header-actions .home-contact-wrap{position:relative;display:inline-flex;align-items:center;flex:0 0 auto;padding-bottom:9px;margin-bottom:-9px}
 .header-actions .home-contact-wrap::after{content:"";position:absolute;top:100%;left:0;width:100%;height:10px}
@@ -43,6 +46,14 @@ const installerScript = `<script id="home-list-license-menu-installer">
   }
 
   function install(){
+    var nav=document.querySelector('.site-header .primary-nav');
+    if(nav&&!nav.querySelector('.home-buyer-match-link')){
+      var buyerLink=document.createElement('a');
+      buyerLink.className='home-buyer-match-link';
+      buyerLink.href='/florida-business-buyer-match';
+      buyerLink.textContent='Find a Business';
+      nav.prepend(buyerLink);
+    }
     var actions=document.querySelector('.site-header .header-actions');
     if(!actions)return;
 
@@ -198,6 +209,10 @@ const calculatorLinkFixScript = `<script id="home-finance-calculator-link-fix">
 
 function injectEnhancement(html: string) {
   let updated = html;
+  if (!updated.includes('class="home-buyer-match-link"')) {
+    updated = updated.replace(/(<nav\b[^>]*class="[^"]*\bprimary-nav\b[^"]*"[^>]*>)/i,
+      '$1<a class="home-buyer-match-link" href="/florida-business-buyer-match">Find a Business</a>');
+  }
   if (!updated.includes('data-fllm-footer-phone="true"')) {
     const phoneMarkup = '<a class="fllm-footer-phone" data-fllm-footer-phone="true" href="tel:+14075895522" aria-label="Call Florida Liquor License Market at 407 589 5522">(407) 589-5522</a>';
     updated = updated.replace(

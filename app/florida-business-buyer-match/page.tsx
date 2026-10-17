@@ -12,7 +12,7 @@ import "./buyer-match.css";
 const canonical = "https://www.floridaliquorlicensemarket.com/florida-business-buyer-match";
 
 export const metadata: Metadata = {
-  title: "Florida Business Buyer Match | Search Businesses With Liquor Licenses | FLLM",
+  title: "Find a Business | Florida Buyer Match Dashboard | FLLM",
   description: "Search Florida business-and-liquor-license opportunities by county, category, license class, asking price, cash flow, financing and lease preferences. Save your criteria for FLLM buyer alerts.",
   alternates: { canonical },
   robots: { index: true, follow: true },
@@ -39,7 +39,8 @@ export default function FloridaBusinessBuyerMatchPage() {
       <div className="fllm-buyer-match-shell">
         <nav aria-label="Breadcrumb"><Link href="/">Home</Link><span>›</span><Link href="/businesses-with-quota-licenses">Business Market</Link><span>›</span>Buyer Match</nav>
         <p className="fllm-buyer-match-kicker">FLLM ADVANCED BUSINESS BUYER SEARCH</p>
-        <h1>Florida Businesses for Sale <em>With Liquor Licenses</em></h1>
+        <h1>Florida Business <em>Buyer Match Dashboard</em></h1>
+        <p>Find Florida businesses for sale with liquor licenses. Choose business categories, counties and license types, then refine your budget and preferences to see matching opportunities.</p>
         <BuyerMatchHeroPills />
       </div>
     </section>

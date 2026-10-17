@@ -97,6 +97,19 @@ export default function MarketBuyerLeadForm({
   const [selectedBusinessTypes, setSelectedBusinessTypes] = useState<string[]>(dashboardOnly ? [] : [initialBusinessType]);
   const [selectedLicenseTypes, setSelectedLicenseTypes] = useState<string[]>(dashboardOnly ? [] : [initialLicenseType]);
   const [selectedCounties, setSelectedCounties] = useState<string[]>([county]);
+  // Deep links reuse this dashboard; accept only supported filter values.
+  useEffect(() => {
+    if (!dashboardOnly) return;
+    const params = new URLSearchParams(window.location.search);
+    const validValues = (key: string, allowed: readonly string[]) =>
+      [...new Set(params.getAll(key).filter(value => allowed.includes(value)))];
+    const types = validValues("businessType", businessTypes);
+    const licenses = validValues("licenseType", licenseTypes);
+    const locations = validValues("county", counties);
+    if (types.length) setSelectedBusinessTypes(types);
+    if (licenses.length) setSelectedLicenseTypes(licenses);
+    if (locations.length) setSelectedCounties(locations);
+  }, [dashboardOnly]);
   const [countyToAdd, setCountyToAdd] = useState("");
   const [countyMenuOpen, setCountyMenuOpen] = useState(false);
   const [selectedFinancing, setSelectedFinancing] = useState<string[]>(["Any"]);
@@ -525,7 +538,7 @@ export default function MarketBuyerLeadForm({
                 <div className="fllm-match-columns">
                   <section className="fllm-match-panel">
                     <header><span className="symbol" aria-hidden="true">📍</span><div><h3>1. BUSINESS &amp; LOCATION</h3><p>Select business types &amp; counties</p></div></header>
-                    <div className="fllm-match-body"><h4>Business categories <small>(select one or more)</small></h4><div className="fllm-match-checks two">{["Bar","Cocktail Lounge","Restaurant","Gentlemen's Club","Nightclub","Marina","Liquor Store","Hotel / Motel","Convenience Store","Other Hospitality"].map(item=><label key={item}><input type="checkbox" checked={selectedBusinessTypes.includes(item)} onChange={()=>toggleValue(item,selectedBusinessTypes,setSelectedBusinessTypes)}/>{item==="Bar"?"Bar / Tavern":item}</label>)}</div>
+                    <div className="fllm-match-body"><h4>Business categories <small>(select one or more)</small></h4><div className="fllm-match-checks two">{["Bar","Cocktail Lounge","Restaurant","Gentlemen's Club","Nightclub","Marina","Liquor Store","Hotel / Motel","Convenience Store","Other Hospitality","Restaurant / Bar","Country Club","Bowling Alley"].map(item=><label key={item}><input type="checkbox" checked={selectedBusinessTypes.includes(item)} onChange={()=>toggleValue(item,selectedBusinessTypes,setSelectedBusinessTypes)}/>{item==="Bar"?"Bar / Tavern":item}</label>)}</div>
                       <div className="fllm-match-line"/><h4>Franchise</h4><div className="fllm-match-checks fllm-match-franchise-horizontal">{(["Either","Yes","No"] as const).map(choice=><label key={choice}><input type="radio" name="fllm_franchise" checked={franchise===choice} onChange={()=>setFranchise(choice)}/>{choice}</label>)}</div><p className="fllm-match-note fllm-match-franchise-note">Yes = confirmed franchise · No = confirmed independent · Either = includes unknown</p><div className="fllm-match-line"/><h4>Target counties <small>(select one or more)</small></h4>
                       <div className="fllm-match-selected">{selectedCounties.length===counties.length?<button type="button" onClick={()=>setSelectedCounties([county])}>All 67 Florida Counties ×</button>:selectedCounties.map(item=><button type="button" key={item} onClick={()=>setSelectedCounties(selectedCounties.filter(v=>v!==item))}>{item} ×</button>)}<div className="fllm-county-hover-picker" onMouseEnter={()=>setCountyMenuOpen(true)} onMouseLeave={()=>setCountyMenuOpen(false)} onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node))setCountyMenuOpen(false);}} onKeyDown={e=>{if(e.key==="Escape")setCountyMenuOpen(false);}}>
 <button type="button" className="fllm-county-hover-trigger" aria-label="Choose county" aria-haspopup="listbox" aria-expanded={countyMenuOpen} onClick={()=>setCountyMenuOpen(v=>!v)} onFocus={()=>setCountyMenuOpen(true)}>Choose county… <span aria-hidden="true">⌄</span></button>
