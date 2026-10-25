@@ -7,5 +7,5 @@ export async function GET(request: Request) {
   if (!reference) return NextResponse.json({ eligible: false }, { headers: { "Cache-Control": "no-store" } });
   const listings = await getMarketplaceListings();
   const listing = listings.find((item) => item.sourceRef?.toUpperCase() === reference);
-  return NextResponse.json({ eligible: Boolean(listing && resolveListingInventoryClass(listing) !== "market") }, { headers: { "Cache-Control": "no-store" } });
+  return NextResponse.json({ eligible: Boolean(listing), conditionalInterest: Boolean(listing && resolveListingInventoryClass(listing) === "market") }, { headers: { "Cache-Control": "no-store" } });
 }
