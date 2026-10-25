@@ -19,6 +19,7 @@ export default function SubmitOfferPage() {
   const [status, setStatus] = useState<SubmitState>("idle");
   const [offerAmount, setOfferAmount] = useState("");
   const [offerEligible, setOfferEligible] = useState(false);
+  const [conditionalInterest, setConditionalInterest] = useState(false);
   const [eligibilityChecked, setEligibilityChecked] = useState(false);
   const [listingContext, setListingContext] = useState<ListingContext>({
     listing: "Selected Florida liquor license",
@@ -35,7 +36,7 @@ export default function SubmitOfferPage() {
     if (!reference) { setEligibilityChecked(true); return; }
     fetch(`/api/listing-offer-eligibility?ref=${encodeURIComponent(reference)}`)
       .then((response) => response.ok ? response.json() : { eligible: false })
-      .then((result) => setOfferEligible(Boolean(result.eligible)))
+      .then((result) => { setOfferEligible(Boolean(result.eligible)); setConditionalInterest(Boolean(result.conditionalInterest)); })
       .catch(() => setOfferEligible(false))
       .finally(() => setEligibilityChecked(true));
   }, []);
@@ -69,7 +70,8 @@ export default function SubmitOfferPage() {
 
       if (response?.status === 409) { throw new Error("Offer not eligible"); }
       if (!response?.ok) {
-        formData.set("_subject", `Florida Liquor License Market — Offer for ${listingContext.listing}`);
+        throw new Error("Unable to save offer in FLLM");
+        /* formData.set("_subject", `Florida Liquor License Market — Offer for ${listingContext.listing}`);
         formData.set("_template", "table");
         formData.set("_captcha", "false");
 
@@ -77,7 +79,7 @@ export default function SubmitOfferPage() {
           method: "POST",
           headers: { Accept: "application/json" },
           body: formData,
-        });
+        }); */
       }
 
       if (!response.ok) throw new Error("Unable to submit offer");
@@ -122,7 +124,7 @@ export default function SubmitOfferPage() {
               </div>
               <div className="offer-status-line">
                 <i aria-hidden="true" />
-                <span>{offerEligible ? "Offer submission available" : "Availability verification required"}</span>
+                <span>{offerEligible ? conditionalInterest ? "Conditional buyer interest — seller unverified" : "Offer submission available" : "Listing not found"}</span>
               </div>
             </div>
 
@@ -140,7 +142,8 @@ export default function SubmitOfferPage() {
             </div>
           </aside>
 
-          {!offerEligible && eligibilityChecked ? <p role="status">This listing cannot receive a formal offer until seller access and availability are confirmed. <Link href="/contact">Request availability verification</Link>.</p> : null}
+          {conditionalInterest && eligibilityChecked ? <p role="status">This is a market observation, not confirmed seller inventory. Your proposed terms will be recorded as conditional buyer interest for FLLM to investigate. No seller will receive an offer automatically, and availability is not guaranteed.</p> : null}
+          {!offerEligible && eligibilityChecked ? <p role="status">This reference is not in active inventory. <Link href="/contact">Contact FLLM</Link> for assistance.</p> : null}
           <form className="offer-form" onSubmit={submitOffer}>
             <div className="offer-form-heading">
               <span>Offer Details</span>
@@ -244,7 +247,7 @@ export default function SubmitOfferPage() {
             </button>
 
             <p className={`offer-form-status ${status}`} role="status" aria-live="polite">
-              {status === "sent" && "Your confidential offer has been submitted. A marketplace representative will follow up directly."}
+              {status === "sent" && (conditionalInterest ? "Your conditional buyer interest has been saved. This is not a seller-delivered offer; FLLM will investigate availability." : "Your confidential proposed terms have been received by FLLM. No seller delivery is implied.")}
               {status === "error" && "Your offer could not be sent. Please refresh the page and try again."}
             </p>
           </form>
