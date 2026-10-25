@@ -18,6 +18,8 @@ function formatOfferAmount(value: string) {
 export default function SubmitOfferPage() {
   const [status, setStatus] = useState<SubmitState>("idle");
   const [offerAmount, setOfferAmount] = useState("");
+  const [offerEligible, setOfferEligible] = useState(false);
+  const [eligibilityChecked, setEligibilityChecked] = useState(false);
   const [listingContext, setListingContext] = useState<ListingContext>({
     listing: "Selected Florida liquor license",
     reference: "Marketplace listing",
@@ -29,10 +31,18 @@ export default function SubmitOfferPage() {
       listing: params.get("listing") || "Selected Florida liquor license",
       reference: params.get("ref") || "Marketplace listing",
     });
+    const reference = params.get("ref");
+    if (!reference) { setEligibilityChecked(true); return; }
+    fetch(`/api/listing-offer-eligibility?ref=${encodeURIComponent(reference)}`)
+      .then((response) => response.ok ? response.json() : { eligible: false })
+      .then((result) => setOfferEligible(Boolean(result.eligible)))
+      .catch(() => setOfferEligible(false))
+      .finally(() => setEligibilityChecked(true));
   }, []);
 
   async function submitOffer(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!offerEligible) { setStatus("error"); return; }
     const form = event.currentTarget;
     const formData = new FormData(form);
 
@@ -57,6 +67,7 @@ export default function SubmitOfferPage() {
         response = null;
       }
 
+      if (response?.status === 409) { throw new Error("Offer not eligible"); }
       if (!response?.ok) {
         formData.set("_subject", `Florida Liquor License Market — Offer for ${listingContext.listing}`);
         formData.set("_template", "table");
@@ -111,7 +122,7 @@ export default function SubmitOfferPage() {
               </div>
               <div className="offer-status-line">
                 <i aria-hidden="true" />
-                <span>Offer submission available</span>
+                <span>{offerEligible ? "Offer submission available" : "Availability verification required"}</span>
               </div>
             </div>
 
@@ -129,6 +140,7 @@ export default function SubmitOfferPage() {
             </div>
           </aside>
 
+          {!offerEligible && eligibilityChecked ? <p role="status">This listing cannot receive a formal offer until seller access and availability are confirmed. <Link href="/contact">Request availability verification</Link>.</p> : null}
           <form className="offer-form" onSubmit={submitOffer}>
             <div className="offer-form-heading">
               <span>Offer Details</span>
@@ -227,7 +239,7 @@ export default function SubmitOfferPage() {
               </span>
             </label>
 
-            <button className="offer-submit" type="submit" disabled={status === "submitting"}>
+            <button className="offer-submit" type="submit" disabled={status === "submitting" || !offerEligible}>
               {status === "submitting" ? "Submitting Offer…" : "Submit Confidential Offer"}
             </button>
 
