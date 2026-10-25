@@ -245,7 +245,9 @@ export default async function Page({ params }: PageProps) {
     licenseStatus: selected.licenseStatus,
     preferredTiming: selected.preferredTiming,
   });
-  const statusLabel = selected.licenseStatus
+  const statusLabel = marketObservation
+    ? "Market observation / Availability unverified"
+    : selected.licenseStatus
     ? `${sellerReportedStatusLabel(selected.licenseStatus)} / ${selected.featuredUntil ? "Available" : "Advertised"}`
     : selected.featuredUntil ? "Available / Status to confirm" : "Advertised / Availability subject to confirmation";
   const inquiryParams = new URLSearchParams({
@@ -337,7 +339,7 @@ export default async function Page({ params }: PageProps) {
         { "@type": "PropertyValue", name: "License type", value: selected.type },
         { "@type": "PropertyValue", name: "Marketplace status", value: statusLabel },
       ],
-      offers: selected.price === null ? undefined : {
+      offers: selected.price === null || marketObservation ? undefined : {
         "@type": "Offer",
         price: selected.price,
         priceCurrency: "USD",
@@ -414,7 +416,7 @@ export default async function Page({ params }: PageProps) {
             <div className="marketplace-listing-availability">
               <span className="availability-pill" title={statusLabel}>
                 <span className="availability-dot" aria-hidden="true" />
-                {selected.featuredUntil ? "Available" : "Advertised"}
+                {marketObservation ? "Market observation · Unverified" : selected.featuredUntil ? "Seller-listed" : "Advertised"}
               </span>
               <span className="marketplace-listing-hero-reference">Listing {selectedReference}</span>
               <ListingViewCount listingRef={selectedReference} />
