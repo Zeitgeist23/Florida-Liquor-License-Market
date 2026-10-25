@@ -22,7 +22,7 @@ import {
   sellerReportedStatusLabel,
 } from "@/lib/county-listing-descriptions";
 import { prepareListingsForDisplay } from "@/lib/listing-display";
-import type { ListingWithInventoryClass } from "@/lib/listing-inventory-class";
+import { resolveListingInventoryClass, type ListingWithInventoryClass } from "@/lib/listing-inventory-class";
 import { indexableListingPages, listingPageHref } from "@/lib/listing-page-urls";
 import {
   getMarketplaceListings,
@@ -245,7 +245,10 @@ export default async function Page({ params }: PageProps) {
     licenseStatus: selected.licenseStatus,
     preferredTiming: selected.preferredTiming,
   });
-  const statusLabel = selected.licenseStatus
+  const marketObservation = resolveListingInventoryClass(selected) === "market";
+  const statusLabel = marketObservation
+    ? "Market observation / Availability unverified"
+    : selected.licenseStatus
     ? `${sellerReportedStatusLabel(selected.licenseStatus)} / ${selected.featuredUntil ? "Available" : "Advertised"}`
     : selected.featuredUntil ? "Available / Status to confirm" : "Advertised / Availability subject to confirmation";
   const inquiryParams = new URLSearchParams({
@@ -336,7 +339,7 @@ export default async function Page({ params }: PageProps) {
         { "@type": "PropertyValue", name: "License type", value: selected.type },
         { "@type": "PropertyValue", name: "Marketplace status", value: statusLabel },
       ],
-      offers: selected.price === null ? undefined : {
+      offers: selected.price === null || marketObservation ? undefined : {
         "@type": "Offer",
         price: selected.price,
         priceCurrency: "USD",
@@ -413,7 +416,7 @@ export default async function Page({ params }: PageProps) {
             <div className="marketplace-listing-availability">
               <span className="availability-pill" title={statusLabel}>
                 <span className="availability-dot" aria-hidden="true" />
-                {selected.featuredUntil ? "Available" : "Advertised"}
+                {marketObservation ? "Market observation · Unverified" : selected.featuredUntil ? "Seller-listed" : "Advertised"}
               </span>
               <span className="marketplace-listing-hero-reference">Listing {selectedReference}</span>
               <ListingViewCount listingRef={selectedReference} />
@@ -426,8 +429,8 @@ export default async function Page({ params }: PageProps) {
             )}
             <p className="marketplace-listing-summary">{descriptionParts.license}</p>
             <div className="marketplace-listing-actions">
-              <Link className="marketplace-listing-primary" href={inquiryHref}>Inquire About This License</Link>
-              <Link className="marketplace-listing-secondary" href={offerHref}>Submit an Offer</Link>
+              <Link className="marketplace-listing-primary" href={inquiryHref}>{marketObservation ? "Request Availability Verification" : "Inquire About This License"}</Link>
+              <Link className="marketplace-listing-secondary" href={offerHref}>{marketObservation ? "Submit Conditional Interest" : "Submit an Offer"}</Link>
             </div>
           </div>
 
@@ -589,7 +592,7 @@ export default async function Page({ params }: PageProps) {
                 {isThirdPartyBrokerListing && verifiedBroker ? (
                   <a className="marketplace-listing-text-link" href={verifiedBroker.profileUrl} target="_blank" rel="noopener noreferrer">Visit Listing Broker Website →</a>
                 ) : (
-                  <Link className="marketplace-listing-text-link" href={offerHref}>Submit an offer for this license →</Link>
+                  <Link className="marketplace-listing-text-link" href={offerHref}>{marketObservation ? "Submit conditional buyer interest →" : "Submit an offer for this license →"}</Link>
                 )}
                 {isThirdPartyBrokerListing && (
                   <ListingBrokerInquiryForm

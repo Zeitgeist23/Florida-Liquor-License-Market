@@ -1,3 +1,5 @@
+import { getMarketplaceListings } from "@/lib/listing-store";
+import { resolveListingInventoryClass } from "@/lib/listing-inventory-class";
 import { NextResponse } from "next/server";
 
 import {
@@ -281,6 +283,12 @@ export async function POST(request: Request) {
       return submitContactInquiry(request, formData);
     }
 
+    const reference = value(formData, "listing_reference", 100).toUpperCase();
+    const matchingListing = (await getMarketplaceListings()).find((listing) => listing.sourceRef?.toUpperCase() === reference);
+    if (!reference || !matchingListing) {
+      return NextResponse.json({ error: "This listing cannot be found in active inventory. Please contact FLLM for assistance." }, { status: 409 });
+    }
+    const conditionalInterest = resolveListingInventoryClass(matchingListing) === "market";
     if (!formData.get("non_binding_acknowledgment")) {
       return NextResponse.json({ error: "Please accept the offer acknowledgment." }, { status: 400 });
     }
@@ -297,7 +305,9 @@ export async function POST(request: Request) {
       proofOfFunds: value(formData, "proof_of_funds", 160),
       offerExpiration: value(formData, "offer_expiration", 40),
       contingencies: value(formData, "contingencies", 5000),
-      message: value(formData, "message", 5000),
+      message: conditionalInterest
+        ? `[CONDITIONAL BUYER INTEREST — seller and availability not verified; do not represent as presented to seller] ${value(formData, "message", 4800)}`
+        : value(formData, "message", 5000),
     });
 
     try {
@@ -306,7 +316,7 @@ export async function POST(request: Request) {
       console.error("Buyer lead notification failed", notificationError);
     }
 
-    return NextResponse.json({ ok: true, leadReference: lead.submissionRef });
+    return NextResponse.json({ ok: true, conditionalInterest, sellerNotified: false, leadReference: lead.submissionRef });
   } catch (error) {
     console.error("Inquiry capture failed", error);
     return NextResponse.json(

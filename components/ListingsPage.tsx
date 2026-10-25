@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { Listing } from "@/data/listings";
+import { resolveListingInventoryClass } from "@/lib/listing-inventory-class";
 import {
   BUSINESS_LISTING_DISPLAY_LIMIT,
   type BusinessQuotaCategory,
@@ -45,7 +46,7 @@ const priceOptions: readonly ListingsHoverSelectOption[] = [
 ];
 
 const availabilityOptions: readonly ListingsHoverSelectOption[] = [
-  { value: "available", label: "Available" },
+  { value: "available", label: "Advertised / Observed" },
   { value: "sold", label: "Sold" },
   { value: "all", label: "All" },
 ];
@@ -256,10 +257,12 @@ export default function ListingsPage({
     return [...selected, ...remaining];
   }, [focusIdentity, marketplaceListings]);
 
-  const availableCount = useMemo(
-    () =>
-      marketplaceListings.filter((listing) => Boolean(listing.sourceRef))
-        .length,
+  const observedCount = useMemo(
+    () => marketplaceListings.filter((listing) => Boolean(listing.sourceRef)).length,
+    [marketplaceListings],
+  );
+  const sellerSourcedCount = useMemo(
+    () => marketplaceListings.filter((listing) => Boolean(listing.sourceRef) && resolveListingInventoryClass(listing) !== "market").length,
     [marketplaceListings],
   );
 
@@ -412,7 +415,7 @@ export default function ListingsPage({
                   <span>for Sale</span>
                 </h1>
                 <p className="listings-seo-intro">
-                  Browse {availableCount} current Florida liquor licenses for sale
+                  Explore {observedCount} Florida quota-license marketplace records ({sellerSourcedCount} direct-seller or exclusive-classified records; third-party market observations are not confirmed inventory)
                   across the statewide marketplace. Compare transferable{" "}
                   <Link href="/florida-4cop-liquor-license-for-sale">
                     4COP quota liquor licenses
@@ -421,7 +424,7 @@ export default function ListingsPage({
                   <Link href="/florida-3ps-liquor-license-for-sale">
                     3PS package-store licenses
                   </Link>
-                  , then filter current inventory by county, license type, asking
+                  , then filter observed listings by county, license type, asking
                   price, and availability. Buyers can also use the{" "}
                   <Link href="/counties">Florida county market directory</Link> to
                   review county-specific inventory and pricing before opening an
@@ -552,7 +555,7 @@ export default function ListingsPage({
                   Showing <strong>{Math.min(LISTINGS_PAGE_SIZE, filtered.length)}</strong> of{" "}
                   <strong>{filtered.length}</strong>{" "}
                   {status === "available"
-                    ? "available license"
+                    ? "advertised license"
                     : status === "sold"
                       ? "sold license"
                       : "license"}
