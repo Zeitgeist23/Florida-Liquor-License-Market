@@ -1,4 +1,5 @@
 import "server-only";
+import { isQuarantinedStandaloneRef } from "@/lib/quarantined-standalone-listings";
 
 import { listings, type Listing } from "@/data/listings";
 import { additionalListings } from "@/data/additional-listings";
@@ -430,7 +431,7 @@ async function readListingRows(): Promise<ListingRow[]> {
 }
 
 export async function getMarketplaceListings(): Promise<ClassifiedListing[]> {
-  const fallback = dedupeListings(staticListings);
+  const fallback = dedupeListings(staticListings).filter((listing) => !isQuarantinedStandaloneRef(listing.sourceRef));
   if (!databaseConfigured()) return standaloneQuotaListings(fallback);
 
   try {
@@ -488,7 +489,7 @@ export async function getMarketplaceListings(): Promise<ClassifiedListing[]> {
     // The statewide quota-license inventory contains only licenses that may be
     // purchased separately. Operating-business packages that include a quota
     // license are published through the dedicated business inventory instead.
-    return standaloneQuotaListings(mergedListings);
+    return standaloneQuotaListings(mergedListings.filter((listing) => !isQuarantinedStandaloneRef(listing.sourceRef)));
   } catch (error) {
     console.error(error);
     return standaloneQuotaListings(fallback);
