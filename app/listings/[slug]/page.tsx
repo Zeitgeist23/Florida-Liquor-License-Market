@@ -22,7 +22,7 @@ import {
   sellerReportedStatusLabel,
 } from "@/lib/county-listing-descriptions";
 import { prepareListingsForDisplay } from "@/lib/listing-display";
-import type { ListingWithInventoryClass } from "@/lib/listing-inventory-class";
+import { resolveListingInventoryClass, type ListingWithInventoryClass } from "@/lib/listing-inventory-class";
 import { indexableListingPages, listingPageHref } from "@/lib/listing-page-urls";
 import {
   getMarketplaceListings,
@@ -260,6 +260,7 @@ export default async function Page({ params }: PageProps) {
   });
   const inquiryHref = `/contact?${inquiryParams.toString()}`;
   const offerHref = `/submit-offer?listing=${encodeURIComponent(`${selected.county} ${selected.type}`)}&ref=${encodeURIComponent(selectedReference)}`;
+  const marketObservation = resolveListingInventoryClass(selected) === "market";
   const exchangeSubmission = await loadPaidListing(selectedReference);
   const verifiedBroker = verifiedBrokerProfiles[selectedReference.trim().toUpperCase()] ?? null;
   const exchangeAskingPrice = exchangeSubmission
@@ -426,8 +427,8 @@ export default async function Page({ params }: PageProps) {
             )}
             <p className="marketplace-listing-summary">{descriptionParts.license}</p>
             <div className="marketplace-listing-actions">
-              <Link className="marketplace-listing-primary" href={inquiryHref}>Inquire About This License</Link>
-              <Link className="marketplace-listing-secondary" href={offerHref}>Submit an Offer</Link>
+              <Link className="marketplace-listing-primary" href={inquiryHref}>{marketObservation ? "Request Availability Verification" : "Inquire About This License"}</Link>
+              {!marketObservation && <Link className="marketplace-listing-secondary" href={offerHref}>Submit an Offer</Link>}
             </div>
           </div>
 
@@ -589,7 +590,7 @@ export default async function Page({ params }: PageProps) {
                 {isThirdPartyBrokerListing && verifiedBroker ? (
                   <a className="marketplace-listing-text-link" href={verifiedBroker.profileUrl} target="_blank" rel="noopener noreferrer">Visit Listing Broker Website →</a>
                 ) : (
-                  <Link className="marketplace-listing-text-link" href={offerHref}>Submit an offer for this license →</Link>
+                  {!marketObservation && <Link className="marketplace-listing-text-link" href={offerHref}>Submit an offer for this license →</Link>}
                 )}
                 {isThirdPartyBrokerListing && (
                   <ListingBrokerInquiryForm
