@@ -46,7 +46,7 @@ const priceOptions: readonly ListingsHoverSelectOption[] = [
 ];
 
 const availabilityOptions: readonly ListingsHoverSelectOption[] = [
-  { value: "available", label: "Available" },
+  { value: "available", label: "Advertised / Observed" },
   { value: "sold", label: "Sold" },
   { value: "all", label: "All" },
 ];
@@ -555,7 +555,7 @@ export default function ListingsPage({
                   Showing <strong>{Math.min(LISTINGS_PAGE_SIZE, filtered.length)}</strong> of{" "}
                   <strong>{filtered.length}</strong>{" "}
                   {status === "available"
-                    ? "available license"
+                    ? "advertised license"
                     : status === "sold"
                       ? "sold license"
                       : "license"}
