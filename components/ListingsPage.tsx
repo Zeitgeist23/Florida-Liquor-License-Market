@@ -261,7 +261,7 @@ export default function ListingsPage({
     () => marketplaceListings.filter((listing) => Boolean(listing.sourceRef)).length,
     [marketplaceListings],
   );
-  const verifiedCount = useMemo(
+  const sellerSourcedCount = useMemo(
     () => marketplaceListings.filter((listing) => Boolean(listing.sourceRef) && resolveListingInventoryClass(listing) !== "market").length,
     [marketplaceListings],
   );
@@ -415,7 +415,7 @@ export default function ListingsPage({
                   <span>for Sale</span>
                 </h1>
                 <p className="listings-seo-intro">
-                  Explore {observedCount} Florida quota-license marketplace records ({verifiedCount} direct-seller or exclusive records; third-party market observations are not confirmed inventory)
+                  Explore {observedCount} Florida quota-license marketplace records ({sellerSourcedCount} direct-seller or exclusive-classified records; third-party market observations are not confirmed inventory)
                   across the statewide marketplace. Compare transferable{" "}
                   <Link href="/florida-4cop-liquor-license-for-sale">
                     4COP quota liquor licenses
