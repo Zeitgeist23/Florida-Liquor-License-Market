@@ -430,7 +430,7 @@ export default async function Page({ params }: PageProps) {
             <p className="marketplace-listing-summary">{descriptionParts.license}</p>
             <div className="marketplace-listing-actions">
               <Link className="marketplace-listing-primary" href={inquiryHref}>{marketObservation ? "Request Availability Verification" : "Inquire About This License"}</Link>
-              {!marketObservation && <Link className="marketplace-listing-secondary" href={offerHref}>Submit an Offer</Link>}
+              <Link className="marketplace-listing-secondary" href={offerHref}>{marketObservation ? "Submit Conditional Interest" : "Submit an Offer"}</Link>
             </div>
           </div>
 
@@ -592,7 +592,7 @@ export default async function Page({ params }: PageProps) {
                 {isThirdPartyBrokerListing && verifiedBroker ? (
                   <a className="marketplace-listing-text-link" href={verifiedBroker.profileUrl} target="_blank" rel="noopener noreferrer">Visit Listing Broker Website →</a>
                 ) : (
-                  {!marketObservation && <Link className="marketplace-listing-text-link" href={offerHref}>Submit an offer for this license →</Link>}
+                  <Link className="marketplace-listing-text-link" href={offerHref}>{marketObservation ? "Submit conditional buyer interest →" : "Submit an offer for this license →"}</Link>
                 )}
                 {isThirdPartyBrokerListing && (
                   <ListingBrokerInquiryForm
