@@ -68,21 +68,7 @@ export default function SubmitOfferPage() {
         response = null;
       }
 
-      if (response?.status === 409) { throw new Error("Offer not eligible"); }
-      if (!response?.ok) {
-        throw new Error("Unable to save offer in FLLM");
-        /* formData.set("_subject", `Florida Liquor License Market — Offer for ${listingContext.listing}`);
-        formData.set("_template", "table");
-        formData.set("_captcha", "false");
-
-        response = await fetch("https://formsubmit.co/ajax/listings@floridaliquorlicensemarket.com", {
-          method: "POST",
-          headers: { Accept: "application/json" },
-          body: formData,
-        }); */
-      }
-
-      if (!response.ok) throw new Error("Unable to submit offer");
+      if (!response?.ok) throw new Error("Unable to save buyer interest in FLLM");
 
       setStatus("sent");
       form.reset();
