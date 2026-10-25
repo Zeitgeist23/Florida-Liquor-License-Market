@@ -9,6 +9,7 @@ import {
   sellerReportedStatusLabel,
 } from "@/lib/county-listing-descriptions";
 import { listingPageHref } from "@/lib/listing-page-urls";
+import { resolveListingInventoryClass } from "@/lib/listing-inventory-class";
 
 function compactCardDescription(description: string) {
   const clean = description.trim();
@@ -70,6 +71,7 @@ export default function MarketplaceListingCard({
   const normalizedListing =
     county === listing.county ? listing : { ...listing, county };
   const available = Boolean(normalizedListing.sourceRef);
+  const marketObservation = resolveListingInventoryClass(normalizedListing) === "market";
   const href = available ? listingPageHref(normalizedListing) : null;
   const dedicatedCountySalePages: Record<string, string> = {
     "Brevard County": "/brevard-county-liquor-license-for-sale",
@@ -156,7 +158,7 @@ export default function MarketplaceListingCard({
           {available ? (
             <span className="availability-pill" title={statusTitle}>
               <span className="availability-dot" aria-hidden="true" />
-              {normalizedListing.featuredUntil ? "Available" : "Advertised"}
+              {marketObservation ? "Market observation · Unverified" : "Seller-listed · Confirm availability"}
             </span>
           ) : (
             <span className="sold-status-inline">Sold</span>
