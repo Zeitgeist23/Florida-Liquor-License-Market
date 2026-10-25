@@ -1,3 +1,5 @@
+import { getMarketplaceListings } from "@/lib/listing-store";
+import { resolveListingInventoryClass } from "@/lib/listing-inventory-class";
 import { NextResponse } from "next/server";
 
 import {
@@ -281,6 +283,11 @@ export async function POST(request: Request) {
       return submitContactInquiry(request, formData);
     }
 
+    const reference = value(formData, "listing_reference", 100).toUpperCase();
+    const matchingListing = (await getMarketplaceListings()).find((listing) => listing.sourceRef?.toUpperCase() === reference);
+    if (!reference || !matchingListing || resolveListingInventoryClass(matchingListing) === "market") {
+      return NextResponse.json({ error: "This reference is a market observation or is not verified for formal offers. Please request availability verification instead." }, { status: 409 });
+    }
     if (!formData.get("non_binding_acknowledgment")) {
       return NextResponse.json({ error: "Please accept the offer acknowledgment." }, { status: 400 });
     }
