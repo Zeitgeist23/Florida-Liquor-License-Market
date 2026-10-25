@@ -245,6 +245,7 @@ export default async function Page({ params }: PageProps) {
     licenseStatus: selected.licenseStatus,
     preferredTiming: selected.preferredTiming,
   });
+  const marketObservation = resolveListingInventoryClass(selected) === "market";
   const statusLabel = marketObservation
     ? "Market observation / Availability unverified"
     : selected.licenseStatus
@@ -262,7 +263,6 @@ export default async function Page({ params }: PageProps) {
   });
   const inquiryHref = `/contact?${inquiryParams.toString()}`;
   const offerHref = `/submit-offer?listing=${encodeURIComponent(`${selected.county} ${selected.type}`)}&ref=${encodeURIComponent(selectedReference)}`;
-  const marketObservation = resolveListingInventoryClass(selected) === "market";
   const exchangeSubmission = await loadPaidListing(selectedReference);
   const verifiedBroker = verifiedBrokerProfiles[selectedReference.trim().toUpperCase()] ?? null;
   const exchangeAskingPrice = exchangeSubmission
