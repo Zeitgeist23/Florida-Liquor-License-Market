@@ -1,3 +1,4 @@
+import { isQuarantinedStandaloneRef } from "@/lib/quarantined-standalone-listings";
 export type Listing = {
   county: string;
   type: "4COP Quota" | "3PS Quota / Package Store";
@@ -622,6 +623,6 @@ export const listings: Listing[] = [
 ];
 
 export const availableListings = listings.filter((listing) =>
-  Boolean(listing.sourceRef),
+  Boolean(listing.sourceRef) && !isQuarantinedStandaloneRef(listing.sourceRef),
 );
 export const soldListings = listings.filter((listing) => !listing.sourceRef);
