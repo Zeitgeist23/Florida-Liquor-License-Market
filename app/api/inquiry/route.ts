@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 
 import {
@@ -158,29 +159,40 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     </div>
   </body></html>`;
 
-  // Market View inquiries must be persisted before attempting notification.
-  // Email-provider acceptance is not a substitute for durable lead capture.
+  // Persist before notifying. The database's unique submission_ref is our
+  // cross-instance idempotency gate (an in-memory lock is not sufficient).
+  // Identical submissions within one 30-minute interval are treated as retries.
+  const interval = Math.floor(Date.now() / (30 * 60 * 1000));
+  const fingerprint = createHash("sha256")
+    .update(JSON.stringify([email, fullName.toLowerCase(), phone, inquiryType,
+      resolvedListingReference.toUpperCase(), message, interval]))
+    .digest("hex").slice(0, 32).toUpperCase();
+  const idempotencyRef = `FLLM-BUYER-DEDUP-${fingerprint}`;
   let savedMarketLead: Awaited<ReturnType<typeof createBuyerInquiryLead>> | null = null;
-  if (isBusinessMarketBuyerMatch) {
-    if (!resolvedListingReference) {
-      return NextResponse.json({ error: "Missing Market View reference; inquiry was not saved." }, { status: 400 });
+  try {
+    savedMarketLead = await createBuyerInquiryLead({
+      fullName, email, phone,
+      listingReference: resolvedListingReference || "GENERAL-CONTACT",
+      listingRequested: listingRequested || "General contact inquiry",
+      county: listingCounty || preferredCounty || "Florida",
+      licenseType: licenseType || "Not specified",
+      askingPriceText: askingPrice || null,
+      listingUrl: resolvedListingUrl || null,
+      inquiryType, message,
+      source: isBusinessMarketBuyerMatch ? "business_market_record"
+        : isBusinessPackageInquiry ? (isFeaturedBusinessPackageInquiry
+          ? "featured_business_package_inquiry" : "standard_business_package_inquiry")
+        : resolvedListingReference ? "specific_listing_contact_inquiry" : "general_contact_inquiry",
+      idempotencyRef,
+    });
+    if (!savedMarketLead) {
+      return NextResponse.json({ ok: true, duplicate: true, notificationAccepted: true });
     }
-    try {
-      savedMarketLead = await createBuyerInquiryLead({
-        fullName, email, phone,
-        listingReference: resolvedListingReference,
-        listingRequested,
-        county: listingCounty || preferredCounty || "Florida",
-        licenseType: licenseType || "4COP Quota",
-        askingPriceText: askingPrice || null,
-        listingUrl: resolvedListingUrl || null,
-        inquiryType, message,
-        source: "business_market_record",
-      });
-    } catch (leadError) {
-      console.error("Market View inquiry persistence failed", leadError);
-      return NextResponse.json({ error: "Your inquiry could not be saved. Please try again." }, { status: 503 });
-    }
+  } catch (leadError) {
+    console.error("Inquiry persistence failed", leadError);
+    return NextResponse.json(
+      { error: "Your inquiry could not be saved. Please try again." }, { status: 503 },
+    );
   }
 
   let fllmNotificationFailed = false;
@@ -219,36 +231,6 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     }
   }
 
-  if (
-    resolvedListingReference &&
-    !isBusinessMarketBuyerMatch
-  ) {
-    try {
-      await createBuyerInquiryLead({
-        fullName,
-        email,
-        phone,
-        listingReference: resolvedListingReference,
-        listingRequested,
-        county: listingCounty || preferredCounty || "Florida",
-        licenseType: licenseType || "4COP Quota",
-        askingPriceText: askingPrice || null,
-        listingUrl: resolvedListingUrl || null,
-        inquiryType,
-        message,
-        source: isBusinessMarketBuyerMatch
-          ? "business_market_record"
-          : isBusinessPackageInquiry
-            ? isFeaturedBusinessPackageInquiry
-              ? "featured_business_package_inquiry"
-              : "standard_business_package_inquiry"
-            : "specific_listing_contact_inquiry",
-      });
-    } catch (trackingError) {
-      console.error("Specific listing buyer inquiry tracking failed", trackingError);
-    }
-  }
-
   if (fllmNotificationFailed) {
     // The contact-page client still has its own browser-side FormSubmit fallback
     // as a final administrative copy if both server delivery paths fail.
@@ -264,7 +246,7 @@ async function submitContactInquiry(request: Request, formData: FormData) {
     sellerNotified: false,
     sellerContactDelivered: false,
     fllmCopied: true,
-    leadSaved: isBusinessMarketBuyerMatch,
+    leadSaved: true,
     notificationAccepted: true,
     deliveryMode: "primary",
   });
