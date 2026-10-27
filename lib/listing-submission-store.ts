@@ -138,6 +138,7 @@ export type CreateBuyerInquiryLeadInput = {
   inquiryType?: string | null;
   message?: string | null;
   source?: string | null;
+  idempotencyRef?: string | null;
 };
 
 export type CreateValuationLeadInput = {
@@ -435,7 +436,9 @@ export async function createBuyerLead(input: CreateBuyerLeadInput) {
   };
   const now = new Date().toISOString();
   const row = {
-    submission_ref: makeBuyerLeadRef(),
+    submission_ref: input.idempotencyRef && /^FLLM-BUYER-[A-Z0-9-]{8,90}$/.test(input.idempotencyRef)
+      ? input.idempotencyRef
+      : makeBuyerLeadRef(),
     full_name: fullName,
     first_name: fullName.split(/\s+/)[0] || "there",
     email,
@@ -563,6 +566,7 @@ export async function createBuyerInquiryLead(input: CreateBuyerInquiryLeadInput)
     body: JSON.stringify(row),
     cache: "no-store",
   });
+  if (response.status === 409 && input.idempotencyRef) return null;
   if (!response.ok) {
     throw new Error(
       `Could not save the buyer inquiry: ${response.status} ${await response.text()}`,
