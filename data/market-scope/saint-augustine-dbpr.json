@@ -1,6 +1,6 @@
 {
   "source": "Florida DBPR / ABT retail license extract + City of St. Augustine fee-distribution code 795",
-  "generatedAt": "2026-10-28T16:08:12.163Z",
+  "generatedAt": "2026-10-29T16:13:45.920Z",
   "county": "St. Johns County",
   "city": "Saint Augustine",
   "countyTotalRetailLicenses": 825,
@@ -3565,7 +3565,7 @@
       "city": "SAINT AUGUSTINE",
       "address": "85 AVA WAY #107",
       "zip": "32084",
-      "primaryStatus": "45",
+      "primaryStatus": "20",
       "secondaryStatus": "20",
       "active": true,
       "quotaClass": null,
