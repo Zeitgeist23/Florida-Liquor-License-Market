@@ -1,6 +1,6 @@
 {
   "source": "Florida DBPR / ABT retail license extract + City of St. Augustine fee-distribution code 795",
-  "generatedAt": "2026-11-02T19:34:05.263Z",
+  "generatedAt": "2026-11-03T17:08:17.304Z",
   "county": "St. Johns County",
   "city": "Saint Augustine",
   "countyTotalRetailLicenses": 826,
@@ -5998,7 +5998,7 @@
       "address": "8410 COUNTY RD 13 N STE 300",
       "zip": "32092",
       "primaryStatus": "21",
-      "secondaryStatus": "34",
+      "secondaryStatus": "37",
       "active": false,
       "quotaClass": "4COP Quota",
       "category": "Liquor Store"
