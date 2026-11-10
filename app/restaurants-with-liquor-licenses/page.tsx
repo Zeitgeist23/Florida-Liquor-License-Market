@@ -450,6 +450,30 @@ export default async function RestaurantsWithLiquorLicensesPage() {
         </div>
       </section>
 
+      <section className="fllm-template-section fllm-template-section--deep" id="restaurant-inventory">
+        <div className="fllm-template-shell">
+          <FllmSectionHeading
+            eyebrow="Current Restaurant Inventory"
+            title="Florida restaurant businesses currently published on FLLM"
+          />
+          {/* Restaurant inventory explanatory copy intentionally omitted. */}
+          <BusinessPackageLocalMarkets listings={allRestaurantListings} />
+
+
+          {restaurantListings.length ? (
+            <div className="business-quota-grid">
+              {restaurantListings.map((listing) => (
+                <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
+              ))}
+            </div>
+          ) : (
+            <FllmCard title="No published restaurant packages are available right now." variant="gold">
+              <p>Use the listing categories above to monitor new restaurant opportunities as they are published.</p>
+            </FllmCard>
+          )}
+        </div>
+      </section>
+
       <section className="fllm-template-section fllm-template-section--deep" id="florida-restaurant-market-intelligence">
         <div className="fllm-template-shell">
           <FllmSectionHeading
@@ -879,30 +903,6 @@ export default async function RestaurantsWithLiquorLicensesPage() {
               View All 2COP Business Listings
             </Link>
           </div>
-        </div>
-      </section>
-
-      <section className="fllm-template-section fllm-template-section--deep" id="restaurant-inventory">
-        <div className="fllm-template-shell">
-          <FllmSectionHeading
-            eyebrow="Current Restaurant Inventory"
-            title="Florida restaurant businesses currently published on FLLM"
-          />
-          {/* Restaurant inventory explanatory copy intentionally omitted. */}
-          <BusinessPackageLocalMarkets listings={allRestaurantListings} />
-
-
-          {restaurantListings.length ? (
-            <div className="business-quota-grid">
-              {restaurantListings.map((listing) => (
-                <BusinessQuotaListingCard key={listing.listingReference} listing={listing} />
-              ))}
-            </div>
-          ) : (
-            <FllmCard title="No published restaurant packages are available right now." variant="gold">
-              <p>Use the listing categories above to monitor new restaurant opportunities as they are published.</p>
-            </FllmCard>
-          )}
         </div>
       </section>
 
