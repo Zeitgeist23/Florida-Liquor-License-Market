@@ -1,6 +1,6 @@
 {
   "source": "Florida DBPR / ABT retail license extract + City of St. Augustine fee-distribution code 795",
-  "generatedAt": "2026-11-19T18:21:56.719Z",
+  "generatedAt": "2026-11-20T17:53:36.724Z",
   "county": "St. Johns County",
   "city": "Saint Augustine",
   "countyTotalRetailLicenses": 830,
@@ -6073,7 +6073,7 @@
       "address": "INACTIVE - ST JOHNS COUNTY",
       "zip": "99999",
       "primaryStatus": "41",
-      "secondaryStatus": "10",
+      "secondaryStatus": "60",
       "active": false,
       "quotaClass": "3PS Quota",
       "category": "Liquor Store"
