@@ -84,6 +84,7 @@ export type RestaurantCuisine =
 
 export type BusinessQuotaListing = {
   listingReference: string;
+  availabilityStatus?: "under_contract";
   inventoryReferences?: readonly string[];
   href: string;
   sourceListingUrls?: readonly string[];
@@ -846,6 +847,7 @@ export const businessQuotaListingRecords: BusinessQuotaListing[] = [
   },
   {
     listingReference: "FLLM-MKT-Q-009",
+    availabilityStatus: "under_contract",
     sourceListingUrls: ["https://www.bizquest.com/business-for-sale/established-miami-liquor-store-license/BW2535831/"],
     href: "/market-data/heat-map",
     marketViewHref: "/market-data/heat-map",
