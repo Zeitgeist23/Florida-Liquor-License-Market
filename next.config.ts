@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/listings/st-johns-4cop-quota-fllm-184-pfxfru",
+        destination: "/listings/FLLM-184",
+        permanent: true,
+      },
+      {
         source: "/florida-liquor-licenses-for-sale",
         destination: "/listings",
         permanent: true,
